@@ -92,13 +92,13 @@ face[0] = {
       this.batt=set.ondc;
 	  if (notify.nCall)  {
         this.colf=col("white");this.colb=col("red");this.str=notify.nCall;this.bs="nCall";
-        this.img = image("calls")
+        this.img = image("calls");
 	  }else if (notify.nIm)  {
 		this.colf=col("white");this.colb=col("raf");this.str=notify.nIm;this.bs="nIm";
-        this.img = image("messages")
+        this.img = image("messages");
 	  }else if (notify.nInfo)  {
 		this.colf=col("white");this.colb=col("olive");this.str=notify.nInfo;this.bs="nInfo";
-        this.img = image("infos")
+        this.img = image("infos");
 	  }else { this.batt=-1; this.bs=0;}
 	  this.g.setColor(0,this.colb);
 	  this.g.fillRect(162,0,239,50);//batt
