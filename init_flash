@@ -1,6 +1,7 @@
 //watchdog
 E.kickWatchdog();
 function P8KickWd(){
+	"ram";
   if(!D17.read())E.kickWatchdog();
 }
 var wdint=setInterval(P8KickWd,15000);
@@ -29,6 +30,7 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
 	print("Welcome!\n*** DevMode ***\nShort press the side button\nto restart in WorkingMode");
   }
   setWatch(function(){
+    "ram";
     require("Storage").erase("devmode");
     NRF.setServices({},{uart:false});
     NRF.setServices({},{uart:true}); 
@@ -96,8 +98,6 @@ var SPI2 = (function(){
 // however it seems the gain is very small so is not worth it
 //    shrink:function(){return `var bin=E.toString(require("heatshrink").decompress(atob("${btoa(require("heatshrink").compress(bin))}")))`;}
 //*/
-E.kickWatchdog();
-
 //P8 pins
 CS=D25;DC=D18;RST=D26;BL=D14;
 SCK=D2;MOSI=D3;

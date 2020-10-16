@@ -1,4 +1,5 @@
 //m_gb
+//parts of code from bangle.js**put link 
 //E.setConsole(Serial1,{force:true});
 function gbSend(message) {
     Bluetooth.println("");
@@ -11,7 +12,7 @@ function handleNotificationEvent(event) {
 	if (event.t === "notify-") return;
 	let d=(Date()).toString().split(' ');
     let ti=(""+d[4]+" "+d[0]+" "+d[2]);
-	if (event.src==="Phone"&&event.title.startsWith('Missed')){
+	if ((event.src==="Phone"||event.src.startsWith('Manage'))&&event.title.startsWith('Missed')){
 	  notify.nCall++;
   	  notify.New++;	
 	  notify.call.unshift("{\"src\":\""+event.src+"\",\"title\":\""+event.title+"\",\"body\":\""+event.body+"\",\"time\":\""+ti+"\"}");
@@ -24,7 +25,12 @@ function handleNotificationEvent(event) {
 
     }
 	if (set.dnd) digitalPulse(D16,1,[80,50,80]);
-
+    if (set.woe) {
+     if (Boolean(require("Storage").read("notify"))&&face.appCurr!=notify&&face.pageCurr!=5) {
+       face.go("notify",5,"im");
+       face.appPrev="main";face.pagePrev=0;
+     }
+    }
 } 
 function handleWeatherEvent(event) {
 	  notify.nInfo++;
@@ -38,10 +44,10 @@ function handleWeatherEvent(event) {
 	  notify.weather=event;
 } 
 function handleCallEvent(event) {
-	if (event.cmd==="accept"&&event.name){
+	if (event.cmd==="incoming"&&event.name){
 		notify.in=event;notify.ring=1;
 		digitalPulse(D16,1,[80,50,80,50,200,50,80,50,80]);
-	}else if (event.cmd!=="accept") {
+	}else if (event.cmd=="end") {
 		  notify.ring=0;notify.in=0;
 	}
 } 

@@ -6,7 +6,7 @@ face[0] = {
 	txt1:col("lblue"),
     txt2:col("black"),
 	hdr:col("dgray+3"),
-    hdrTxt:col("lgray").
+    hdrTxt:col("lgray"),
 	bck:col("raf1"),
 	bck1:col("lgray"),
 	bck2:col("raf"),

@@ -20,15 +20,16 @@ function handleInfoEvent(event) {
 }
 //settings - run set.upd() after changing settings to take effect.
 var set={
-  name:"p8-tfk", //Set the name to be broadcasted by the Bluetooth module. 
+  name:"p8-EUCWatch", //Set the name to be broadcasted by the Bluetooth module. 
   zone:3, //Timezone
+  woe:1, //wake Screen on event.0=disable|1=enable
   rfTX:4, //BT radio tx power, -4=low|0=normal|4=high
   cli:1, //Nordic serial bluetooth access. Enables/disables Espruino Web IDE.
   hid:0, //enable/disable Bluetooth music controll Service.
   gb:1,  //Notifications service. Enables/disables support for "GadgetBridge" playstore app.
   atc:0, //Notifications service. Enables/disables support for "d6 notification" playstore app from ATC1441.
   acc:1, //enables/disables wake-screen on wrist-turn. 
-  dnd:0, //Do not disturb mode, if ebabled vibrations are off.
+  dnd:1, //Do not disturb mode, if ebabled vibrations are on.
   bt:0, //Incommint BT service status indicator- Not user settable.0=not_connected|1=unknown|2=webide|3=gadgetbridge|4=atc|5=esp32
   tor:0, //Enables/disables torch- Not user settable.
   ondc:0, //charging indicator-not user settable.
@@ -282,6 +283,7 @@ digitalPulse(D13,1,[5,50]);
 var c;
 if (touchtype=="816"){
 setWatch(function(s){
+  "ram";
   var tp=i2c.readFrom(0x15,7);
   if (face.pageCurr>=0) touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);
   else if (tp[1]==5) {
@@ -293,6 +295,7 @@ setWatch(function(s){
 var lt,xt,yt,tt,tf;
 //var ct=0;
 setWatch(function(s){
+  "ram";
 var tp=i2c.readFrom(0x15,7);
 //console.log(tp);
 if (face.pageCurr>=0) {
@@ -353,6 +356,7 @@ do:0,
 st:1,
 loop:5,
 init:function(){
+    "ram";
 	var tp=i2c.readFrom(0x15,7);
 //	print(tp);
 	if (tp[3]==128) {
@@ -405,7 +409,7 @@ if (acctype==="BMA421"){
     i2c.writeTo(0x18,0x20,0x47); 
     i2c.writeTo(0x18,0x23,0x80); 
 }
-var acc={
+acc={
   loop:200,
   tid:-1,
   run:-1,
@@ -417,6 +421,7 @@ var acc={
 	this.run=1;this.init();},
   off:function(){if (acctype==="BMA421")i2c.writeTo(0x18,0x7d,0x04);this.run=-1;},
   init:function(){
+    "ram";
 	if(this.run===-1) return;
     var data;
 	if (acctype=="BMA421") data=i2c.readFrom(0x18,6);

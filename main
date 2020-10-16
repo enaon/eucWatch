@@ -3,23 +3,15 @@ face[0] = {
   offms: 3000,
   g:w.gfx,
   init: function(){
+    this.startTime=getTime();
     this.v=w.battVoltage(1);
     //top
     pal[0]=col("black");
     this.g.setColor(1,col("lgray"));
     this.g.fillRect(0,0,158,50); //date
     this.g.fillRect(162,0,239,50);//batt
-//	this.g.fillRect(0,55,100,150);
-//    this.g.fillRect(105,55,210,150);
-//	this.g.fillRect(210,55,240,150);
     if (face.pagePrev!=2){this.g.fillRect(0,55,100,150);}
-
     this.g.setColor(0,col("black"));
-/*	
-    if (this.v<0) {this.g.setFont("Vector",22);this.g.drawString("EMPTY",242-(this.g.stringWidth("EMPTY")),15); } 
-    else if (this.v<100) {this.g.setFont("Vector",35);this.g.drawString(this.v+"%",239-(this.g.stringWidth(this.v+"%")),8);} 
-    else  {this.g.setFont("Vector",29);this.g.drawString("FULL",242-(this.g.stringWidth("FULL")),10); } 
-*/
     this.g.flip();
     this.wupd=1;
     this.bt=-1;
@@ -30,21 +22,28 @@ face[0] = {
     this.min=-1;
     this.sec=-1;
     this.mem=-1;
- //   this.batt=set.ondc;
 	this.ring=-1;
     this.run=true;
 	this.batt=-1;
+    print("exit init",getTime()-this.startTime);
+
   },
   show : function(){
     if (!this.run) return;
+    print("enter show",getTime()-this.startTime);
+
 	//time
+    print("enter  time",getTime()-this.startTime);
  	this.time();
+    print(" exit time",getTime()-this.startTime);
+
 	//bt status on date
     if (notify.ring){
    	  if (this.ring!=notify.ring){
 	  this.bt=-1;
-	  this.g.setColor(0,col("raf3"));
-	  this.g.fillRect(0,0,158,50); //date
+//	  this.g.setColor(0,col("raf3"));
+      this.g.setColor(0,2220);
+        this.g.fillRect(0,0,158,50); //date
       this.g.setColor(1,col("white"));
 	  this.g.setFont("Vector",22);
 	  this.g.drawString("MUTE",68,15);
@@ -57,7 +56,8 @@ face[0] = {
 	  this.ring=0;
       var colbt=colo.bck1;
       if (this.bt==3)  colbt=colo.bck3;
-      else if (this.bt==4)  colbt=col("blue");
+//      else if (this.bt==4)  colbt=col("blue");
+      else if (this.bt==4)  colbt=143;
       else if (this.bt==2)  colbt=colo.btnSt;
       this.g.setColor(0,colbt);
 	  this.g.fillRect(0,0,158,50); //date
@@ -72,12 +72,16 @@ face[0] = {
 		this.g.flip();
 	    this.g.setColor(0,colbt);
 		this.g.fillRect(0,0,15,50); //date
-		var colbtf=col("white");
-		if (set.bt==0) colbtf=col("black");
-		this.g.setColor(1,colbtf);
-		this.g.drawImage(image("btSmall"),3,13);
+//		var colbtf=col("white");
+        var colbtf=4095;
+//        if (set.bt==0) colbtf=col("black");
+        if (set.bt==0) colbtf=0;
+        this.g.setColor(1,colbtf);
+		this.g.drawImage(E.toArrayBuffer(atob("CxQBBgDgFgJgR4jZMawfAcA4D4NYybEYIwTAsBwDAA==")),3,13);
 		this.g.flip();
 	  }  
+     print("exit bt",getTime()-this.startTime);
+
     }
     //batt status
     if (notify.ring){
@@ -125,9 +129,11 @@ face[0] = {
       this.g.setColor(1,colo.txt1);
       if (this.v<0) {this.g.setFont("Vector",21);this.g.drawString("EMPTY",240-(this.g.stringWidth("EMPTY")),14); 
 	  }else if (this.v<100) {this.g.setFont("Vector",32);this.g.drawString(this.v,210-(this.g.stringWidth(this.v)),10);
-		this.g.drawImage(image("batteryMed"),212,12);
+		this.g.drawImage(require("heatshrink").decompress(atob("jEYwIEBngCDg//4EGgFgggCZgv/ASUEAQQaBHYPgJYQ=")),212,12);
+        //this.g.drawImage(this.image("batteryMed"),212,12);
 	  }else  {this.g.setFont("Vector",28);this.g.drawString("FULL",238-(this.g.stringWidth("FULL")),12); } 
       this.g.flip();
+      print("end",getTime()-this.startTime);
     }
     this.widg();
     //loop
@@ -186,9 +192,13 @@ face[0] = {
   },
   time:function(){
   //minutes
+        print("pre time get ",getTime()-this.startTime);
+
   this.d=(Date()).toString().split(' ');
   this.t=(this.d[4]).toString().split(':');
   this.s=(this.t[2]).toString().split('');
+            print("post time get ",getTime()-this.startTime);
+
   if (this.t[1]!=this.min ){
     this.min=this.t[1];
     this.g.setFont("Vector",66);
