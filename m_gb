@@ -15,7 +15,7 @@ function handleNotificationEvent(event) {
 	if ((event.src==="Phone"||event.src.startsWith('Manage'))&&event.title.startsWith('Missed')){
 	  notify.nCall++;
   	  notify.New++;	
-  	  notify.im.unshift(JSON.stringify({src:event.src,title:event.title,body:event.body,time:ti}));
+  	  notify.im.unshift(JSON.stringify({src:event.src,title:event.title.substr(0,20),body:event.body.substr(0.60),time:ti}));
       if (notify.call.length>10) notify.call.pop();
       if (set.woe&&!notify.ring) {
 		if (face.appCurr!=main&&face.pageCurr!=0) {
@@ -25,7 +25,7 @@ function handleNotificationEvent(event) {
     }else if (event.t === "notify") {
 	  notify.nIm++;
   	  notify.New++;
-  	  notify.im.unshift(JSON.stringify({src:event.src,title:event.title,body:event.body,time:ti}));
+  	  notify.im.unshift(JSON.stringify({src:event.src,title:event.title.substr(0,20),body:event.body.substr(0,60),time:ti}));
       if (notify.im.length>10) notify.im.pop();
 	  if (set.woe&&!notify.ring&&Boolean(require("Storage").read("notify"))) {
         if (face.appCurr!=notify&&face.pageCurr!=5) {
