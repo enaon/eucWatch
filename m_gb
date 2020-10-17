@@ -18,7 +18,7 @@ function handleNotificationEvent(event) {
   	  notify.call.unshift(JSON.stringify({src:event.src,title:event.title.substr(0,20),body:event.body.substr(0,90),time:ti}));
       if (notify.call.length>10) notify.call.pop();
       if (set.woe&&!notify.ring) {
-		if (face.appCurr!=main&&face.pageCurr!=0) {
+		if (face.appCurr!="main"||face.pageCurr!=0) {
           face.go("main",0);
           face.appPrev="main";face.pagePrev=-1;}
       }
@@ -28,7 +28,7 @@ function handleNotificationEvent(event) {
   	  notify.im.unshift(JSON.stringify({src:event.src,title:event.title.substr(0,20),body:event.body.substr(0,90),time:ti}));
       if (notify.im.length>10) notify.im.pop();
 	  if (set.woe&&!notify.ring&&Boolean(require("Storage").read("notify"))) {
-        if (face.appCurr!=notify&&face.pageCurr!=5) {
+        if (face.appCurr!="notify"||face.pageCurr!=5) {
           face.go("notify",5,"im");
           face.appPrev="main";face.pagePrev=0;}
       }
@@ -52,7 +52,7 @@ function handleCallEvent(event) {
 		notify.in=event;notify.ring=1;
 		digitalPulse(D16,1,[80,50,80,50,200,50,80,50,80]);
 		if (set.woe) {
-		  if (face.appCurr!=main&&face.pageCurr!=0) {
+		  if (face.appCurr!="main"||face.pageCurr!=0) {
           face.go("main",0);
           face.appPrev="main";face.pagePrev=-1;
           }
