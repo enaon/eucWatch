@@ -33,6 +33,7 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
   setWatch(function(){
     "ram";
     require("Storage").erase("devmode");
+	require("Storage").erase("devmode.info");
     NRF.setServices({},{uart:false});
     NRF.setServices({},{uart:true}); 
     NRF.disconnect();
