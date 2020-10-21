@@ -165,7 +165,7 @@ const Comms = {
       let timeout = 5;
       function handleResult(result,err) {
         console.log("<COMMS> removeAllApps: received "+JSON.stringify(result));
-        if ((result==""||result=="Erasing...\r\n")&& (timeout--)) {
+        if ((result==""||result.trim()=="Erasing...")&& (timeout--)) {
           console.log("<COMMS> removeAllApps: no result - waiting some more ("+timeout+").");
           // send space and delete - so it's something, but it should just cancel out
           Puck.write(" \u0008", handleResult, true /* wait for newline */);
