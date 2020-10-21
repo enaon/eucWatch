@@ -6,9 +6,6 @@
     "description": "Install Basic Apps",
     "dependencies": { "notify":"type","alarm":"type" },
     "tags": "core",
-    "storage": [
-      {"name":"devmode","url":"devmode"}
-    ]
   },
   { "id": "devmode",
     "name": "Devmode",
