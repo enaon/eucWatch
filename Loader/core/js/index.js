@@ -739,6 +739,32 @@ if (btn) btn.addEventListener("click",event=>{
     showToast("App removal failed, "+err,"error");
   });
 });
+btn = document.getElementById("installfull");
+if (btn) btn.addEventListener("click",event=>{
+  showPrompt("Install Full functionality","Press button to start").then(() => {
+   //return Comms.removeAllApps();
+   return true;
+  }).then(()=>{ 
+   httpGet("fullapps.json").then(json=>{
+    return installMultipleApps(JSON.parse(json), "default");});
+  }).catch(err=>{
+    Progress.hide({sticky:true});
+    showToast("App Install failed, "+err,"error");
+    });
+});
+btn = document.getElementById("installbasic");
+if (btn) btn.addEventListener("click",event=>{
+  showPrompt("Install Basic functionality","Press button to start").then(() => {
+   //return Comms.removeAllApps();
+   return true;
+  }).then(()=>{ 
+   httpGet("basicapps.json").then(json=>{
+    return installMultipleApps(JSON.parse(json), "default");});
+  }).catch(err=>{
+    Progress.hide({sticky:true});
+    showToast("App Install failed, "+err,"error");
+    });
+});
 // Install all default apps in one go
 btn = document.getElementById("installdefault");
 if (btn) btn.addEventListener("click",event=>{
