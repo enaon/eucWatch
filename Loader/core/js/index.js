@@ -266,7 +266,7 @@ function refreshLibrary() {
     <div class="tile-content">
       <p class="tile-title text-bold"><a name="${appurl}"></a>${escapeHtml(app.name)} ${versionInfo}</p>
       <p class="tile-subtitle">${getAppDescription(app)}${app.readme?`<br/>${readme}`:""}</p>
-      <a href="${githubURL}" target="_blank" class="link-github"><img src="core/img/github-icon-sml.png" alt="See the code on GitHub"/></a>
+      <a href="${githubURL}" target="_blank" class="link-github"><img src="Loader/core/img/github-icon-sml.png" alt="See the code on GitHub"/></a>
     </div>
     <div class="tile-action">
       <button class="btn btn-link btn-action btn-lg ${!app.custom?"text-error":"d-hide"}" appid="${app.id}" title="Favorite"><i class="icon"></i>${favourite?"&#x2665;":"&#x2661;"}</button>
@@ -507,7 +507,7 @@ function refreshMyApps() {
     <div class="tile-content">
       <p class="tile-title text-bold">${escapeHtml(app.name)} <small>(${version.text})</small></p>
       <p class="tile-subtitle">${getAppDescription(app)}</p>
-      <a href="${githubURL}" target="_blank" class="link-github"><img src="core/img/github-icon-sml.png" alt="See the code on GitHub"/></a>
+      <a href="${githubURL}" target="_blank" class="link-github"><img src="Loader/core/img/github-icon-sml.png" alt="See the code on GitHub"/></a>
     </div>
     <div class="tile-action">
       <button class="btn btn-link btn-action btn-lg ${(appInstalled&&app.interface)?"":"d-hide"}" appid="${app.id}" title="Download data from app"><i class="icon icon-download"></i></button>
