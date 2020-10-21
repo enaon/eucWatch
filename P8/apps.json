@@ -1,4 +1,15 @@
 [
+  { "id": "devmode",
+    "name": "Devmode",
+    "icon": "icon.png",
+    "version":"0.01",
+    "description": "Special file that gets the p8 to developer mode. Upload this to enter developer mode, single click on side button when finished uploading all files, to boot into working mode.",
+    "needsFeatures":["P8"],
+    "tags": "core",
+    "storage": [
+      {"name":"devmode","url":"devmode"}
+    ]
+  },
   { "id": "init",
     "name": "P8 core-flash version(preferred)",
     "icon": "icon.png",
