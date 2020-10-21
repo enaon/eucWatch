@@ -756,10 +756,10 @@ if (btn) btn.addEventListener("click",event=>{
 btn = document.getElementById("installbasic");
 if (btn) btn.addEventListener("click",event=>{
   httpGet(`${APP_SOURCECODE_DEV}/basicapps.json`).then(json=>{
-    return installMultipleApps(JSON.parse(json), "default");
+    return installMultipleApps(JSON.parse(json), "basic");
   }).catch(err=>{
     Progress.hide({sticky:true});
-    showToast("App Install failed, "+err,"error");
+    showToast("Basic Install failed, "+err,"error");
   });
 });
 
