@@ -757,7 +757,7 @@ if (btn) btn.addEventListener("click",event=>{
     return installMultipleApps(JSON.parse(json), "EUC");
   }).catch(err=>{
     Progress.hide({sticky:true});
-    showToast("Basic Install failed, "+err,"error");
+    showToast("EUC Install failed, "+err,"error");
   });
 });
 // Install all apps in one go
@@ -767,7 +767,7 @@ if (btn) btn.addEventListener("click",event=>{
     return installMultipleApps(JSON.parse(json), "All");
   }).catch(err=>{
     Progress.hide({sticky:true});
-    showToast("Basic Install failed, "+err,"error");
+    showToast("Full Install failed, "+err,"error");
   });
 });
 
