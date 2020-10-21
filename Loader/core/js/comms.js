@@ -40,7 +40,7 @@ const Comms = {
         function doUploadFiles() {
         // No files left - print 'reboot' message
           if (fileContents.length==0) {
-            Puck.write(`\x10E.showMessage('Hold BTN3\\nto reload')\n`,(result) => {
+            Puck.write(`\x10console.log('Hold BTN3\\nto reload')\n`,(result) => {
               Progress.hide({sticky:true});
               if (result===null) return reject("");
               resolve(appInfo);
@@ -71,7 +71,7 @@ const Comms = {
         }
         // Start the upload
         function doUpload() {
-          Puck.write(`\x10E.showMessage('Uploading\\n${app.id}...')\n`,(result) => {
+          Puck.write(`\x10console.log('Uploading\\n${app.id}...')\n`,(result) => {
             if (result===null) {
               Progress.hide({sticky:true});
               return reject("");
@@ -148,7 +148,7 @@ const Comms = {
     }).join("");
     console.log("<COMMS> removeApp", cmds);
     return Comms.reset().then(() => new Promise((resolve,reject) => {
-      Puck.write(`\x03\x10E.showMessage('Erasing\\n${app.id}...')${cmds}\x10E.showMessage('Hold BTN3\\nto reload')\n`,(result) => {
+      Puck.write(`\x03\x10console.log('Erasing\\n${app.id}...')${cmds}\x10console.log('Hold BTN3\\nto reload')\n`,(result) => {
         Progress.hide({sticky:true});
         if (result===null) return reject("");
         resolve();
@@ -179,7 +179,7 @@ const Comms = {
         }
       }
       // Use write with newline here so we wait for it to finish
-      let cmd = '\x10E.showMessage("Erasing...");require("Storage").eraseAll();Bluetooth.println("OK");reset()\n';
+      let cmd = '\x10console.log("Erasing...");require("Storage").eraseAll();Bluetooth.println("OK");reset()\n';
       Puck.write(cmd, handleResult, true /* wait for newline */);
     });
   },
