@@ -752,19 +752,17 @@ if (btn) btn.addEventListener("click",event=>{
     showToast("App Install failed, "+err,"error");
     });
 });
+// Install all basic apps in one go
 btn = document.getElementById("installbasic");
 if (btn) btn.addEventListener("click",event=>{
-  showPrompt("Install Basic functionality","Press button to start").then(() => {
-   //return Comms.removeAllApps();
-   return true;
-  }).then(()=>{ 
-   httpGet(`${APP_SOURCECODE_DEV}/basicapps.json`).then(json=>{
-    return installMultipleApps(JSON.parse(json), "default");});
+  httpGet(`${APP_SOURCECODE_DEV}/basicapps.json`).then(json=>{
+    return installMultipleApps(JSON.parse(json), "default");
   }).catch(err=>{
     Progress.hide({sticky:true});
     showToast("App Install failed, "+err,"error");
-    });
+  });
 });
+
 // Install all default apps in one go
 btn = document.getElementById("installdefault");
 if (btn) btn.addEventListener("click",event=>{
