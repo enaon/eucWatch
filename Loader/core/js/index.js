@@ -745,7 +745,7 @@ if (btn) btn.addEventListener("click",event=>{
    //return Comms.removeAllApps();
    return true;
   }).then(()=>{ 
-   httpGet("fullapps.json").then(json=>{
+   httpGet(`${APP_SOURCECODE_DEV}/fullapps.json`).then(json=>{
     return installMultipleApps(JSON.parse(json), "default");});
   }).catch(err=>{
     Progress.hide({sticky:true});
@@ -758,7 +758,7 @@ if (btn) btn.addEventListener("click",event=>{
    //return Comms.removeAllApps();
    return true;
   }).then(()=>{ 
-   httpGet("basicapps.json").then(json=>{
+   httpGet(`${APP_SOURCECODE_DEV}/basicapps.json`).then(json=>{
     return installMultipleApps(JSON.parse(json), "default");});
   }).catch(err=>{
     Progress.hide({sticky:true});
@@ -768,7 +768,7 @@ if (btn) btn.addEventListener("click",event=>{
 // Install all default apps in one go
 btn = document.getElementById("installdefault");
 if (btn) btn.addEventListener("click",event=>{
-  httpGet("defaultapps.json").then(json=>{
+  httpGet(`${APP_SOURCECODE_DEV}/defaultapps.json`).then(json=>{
     return installMultipleApps(JSON.parse(json), "default");
   }).catch(err=>{
     Progress.hide({sticky:true});
