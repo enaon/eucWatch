@@ -173,7 +173,7 @@ const Comms = {
           Progress.hide({sticky:true});
           if (!result || result.trim()!="OK") {
             if (!result) result = "No response";
-            else result = "Got "+JSON.stringify(result.trim());
+            else result = "Got: "+JSON.stringify(result.trim());
             return reject(err || result);
           } else resolve();
         }
