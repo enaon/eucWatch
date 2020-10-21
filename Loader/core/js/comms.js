@@ -33,8 +33,11 @@ const Comms = {
 
         let appInfoFileName = AppInfo.getAppInfoFilename(app);
         let appInfoFile = fileContents.find(f=>f.name==appInfoFileName);
-        if (!appInfoFile) reject(`${appInfoFileName} not found`);
-        let appInfo = JSON.parse(appInfoFile.content);
+        let appInfo = undefined;
+        if (appInfoFile)
+          appInfo = JSON.parse(appInfoFile.content);
+        else if (app.type!="RAM")
+          reject(`${appInfoFileName} not found`);
 
         // Upload each file one at a time
         function doUploadFiles() {
