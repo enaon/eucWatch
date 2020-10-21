@@ -72,7 +72,7 @@ const AppInfo = {
         if (storageFile.content!==undefined)
           return Promise.resolve(storageFile).then(storageFile => parseJS(storageFile,options));
         else if (storageFile.url)
-          return options.fileGetter(`apps/${app.id}/${storageFile.url}`).then(content => {
+          return options.fileGetter(`${APP_SOURCECODE_DEV}/${app.id}/${storageFile.url}`).then(content => {
             return {
               name : storageFile.name,
               content : content,
