@@ -182,7 +182,7 @@ const Comms = {
         }
       }
       // Use write with newline here so we wait for it to finish
-      let cmd = '\x10print("Erasing...");require("Storage").eraseAll();Bluetooth.println("OK");reset()\n';
+      let cmd = '\x10print("Erasig...");require("Storage").eraseAll();Bluetooth.println("OK");reset()\n';
       Puck.write(cmd, handleResult, true /* wait for newline */);
     });
   },
