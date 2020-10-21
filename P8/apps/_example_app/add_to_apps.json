@@ -1,0 +1,13 @@
+// Create an entry in apps.json as follows:
+{ "id": "7chname",
+  "name": "My app's human readable name",
+  "icon": "icon.png",
+  "version":"0.01",
+  "description": "A detailed description of my app",
+  "tags": "",
+  "readme": "README.md",
+  "needsFeatures":["BLE","BLEHID"],
+  "storage": [
+    {"name":".bootcde","url":"app.js"}
+  ]
+}
