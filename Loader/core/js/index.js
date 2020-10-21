@@ -458,7 +458,6 @@ function updateApp(app) {
 }
 
 
-
 function appNameToApp(appName) {
   let app = appJSON.find(app=>app.id==appName);
   if (app) return app;
@@ -586,6 +585,7 @@ function installMultipleApps(appIds, promptName) {
             Progress.hide({sticky:true});
             if (appJSON) appsInstalled.push(appJSON);
             showToast(`(${appCount-apps.length}/${appCount}) ${app.name} Uploaded`);
+			if (app=="init"||app=="init_noflash") Comms.reset();
             upload();
           }).catch(function() {
             Progress.hide({sticky:true});

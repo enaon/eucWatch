@@ -43,7 +43,7 @@ const Comms = {
         function doUploadFiles() {
         // No files left - print 'reboot' message
           if (fileContents.length==0) {
-            Puck.write(`\x10print('Hold BTN3\\nto reload')\n`,(result) => {
+            Puck.write(`\x10print('Tap BTN1\\nto boot')\n`,(result) => {
               Progress.hide({sticky:true});
               if (result===null) return reject("");
               resolve(appInfo);
