@@ -38,12 +38,12 @@ function showChangeLog(appid) {
   function show(contents) {
     showPrompt(app.name+" Change Log",contents,{ok:true}).catch(()=>{});
   }
-  httpGet(`apps/${appid}/ChangeLog`).
+  httpGet(`${APP_SOURCECODE_DEV}/${appid}/ChangeLog`).
     then(show).catch(()=>show("No Change Log available"));
 }
 function showReadme(appid) {
   let app = appNameToApp(appid);
-  let appPath = `apps/${appid}/`;
+  let appPath = `${APP_SOURCECODE_DEV}/${appid}/`;
   let markedOptions = { baseUrl : appPath };
   function show(contents) {
     if (!contents) return;
@@ -52,7 +52,7 @@ function showReadme(appid) {
   httpGet(appPath+app.readme).then(show).catch(()=>show("Failed to load README."));
 }
 function getAppDescription(app) {
-  let appPath = `apps/${app.id}/`;
+  let appPath = `${APP_SOURCECODE_DEV}/${app.id}/`;
   let markedOptions = { baseUrl : appPath };
   return marked(app.description, markedOptions);
 }
@@ -69,7 +69,7 @@ function handleCustomApp(appTemplate) {
         </div>
         <div class="modal-body" style="height:100%">
           <div class="content" style="height:100%">
-            <iframe src="apps/${appTemplate.id}/${appTemplate.custom}" style="width:100%;height:100%;border:0px;">
+            <iframe src="${APP_SOURCECODE_DEV}/${appTemplate.id}/${appTemplate.custom}" style="width:100%;height:100%;border:0px;">
           </div>
         </div>
       </div>
@@ -169,7 +169,7 @@ function handleAppInterface(app) {
       }, false);
       iwin.postMessage({type:"init"});
     };
-    iframe.src = `apps/${app.id}/${app.interface}`;
+    iframe.src = `${APP_SOURCECODE_DEV}/${app.id}/${app.interface}`;
   });
 }
 
@@ -261,7 +261,7 @@ function refreshLibrary() {
 
     return `<div class="tile column col-6 col-sm-12 col-xs-12">
     <div class="tile-icon">
-      <figure class="avatar"><img src="apps/${app.icon?`${app.id}/${app.icon}`:"unknown.png"}" alt="${escapeHtml(app.name)}"></figure><br/>
+      <figure class="avatar"><img src="${APP_SOURCECODE_DEV}/${app.icon?`${app.id}/${app.icon}`:"unknown.png"}" alt="${escapeHtml(app.name)}"></figure><br/>
     </div>
     <div class="tile-content">
       <p class="tile-title text-bold"><a name="${appurl}"></a>${escapeHtml(app.name)} ${versionInfo}</p>
@@ -300,7 +300,7 @@ function refreshLibrary() {
         }
         let baseurl = window.location.href;
         baseurl = baseurl.substr(0,baseurl.lastIndexOf("/"));
-        let url = baseurl+"/apps/"+app.id+"/"+file.url;
+        let url = baseurl+"/${APP_SOURCECODE_DEV}/"+app.id+"/"+file.url;
         window.open(`https://espruino.com/ide/emulator.html?codeurl=${url}&upload`);
       } else if (icon.classList.contains("icon-upload")) {
         // upload
@@ -502,7 +502,7 @@ function refreshMyApps() {
     let githubURL = `${APP_SOURCECODE_URL}/${app.id}`;
     return `<div class="tile column col-6 col-sm-12 col-xs-12">
     <div class="tile-icon">
-      <figure class="avatar"><img src="apps/${app.icon?`${app.id}/${app.icon}`:"unknown.png"}" alt="${escapeHtml(app.name)}"></figure>
+      <figure class="avatar"><img src="${APP_SOURCECODE_DEV}/${app.icon?`${app.id}/${app.icon}`:"unknown.png"}" alt="${escapeHtml(app.name)}"></figure>
     </div>
     <div class="tile-content">
       <p class="tile-title text-bold">${escapeHtml(app.name)} <small>(${version.text})</small></p>
