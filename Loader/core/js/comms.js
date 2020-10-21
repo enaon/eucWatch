@@ -43,7 +43,7 @@ const Comms = {
         function doUploadFiles() {
         // No files left - print 'reboot' message
           if (fileContents.length==0) {
-            Puck.write(`\x10console.log('Hold BTN3\\nto reload')\n`,(result) => {
+            Puck.write(`\x10print('Hold BTN3\\nto reload')\n`,(result) => {
               Progress.hide({sticky:true});
               if (result===null) return reject("");
               resolve(appInfo);
@@ -74,7 +74,7 @@ const Comms = {
         }
         // Start the upload
         function doUpload() {
-          Puck.write(`\x10console.log('Uploading\\n${app.id}...')\n`,(result) => {
+          Puck.write(`\x10print('Uploading\\n${app.id}...')\n`,(result) => {
             if (result===null) {
               Progress.hide({sticky:true});
               return reject("");
@@ -151,7 +151,7 @@ const Comms = {
     }).join("");
     console.log("<COMMS> removeApp", cmds);
     return Comms.reset().then(() => new Promise((resolve,reject) => {
-      Puck.write(`\x03\x10console.log('Erasing\\n${app.id}...')${cmds}\x10console.log('Hold BTN3\\nto reload')\n`,(result) => {
+      Puck.write(`\x03\x10print('Erasing\\n${app.id}...')${cmds}\x10print('Tap Button\\nto reload')\n`,(result) => {
         Progress.hide({sticky:true});
         if (result===null) return reject("");
         resolve();
@@ -168,7 +168,7 @@ const Comms = {
       let timeout = 5;
       function handleResult(result,err) {
         console.log("<COMMS> removeAllApps: received "+JSON.stringify(result));
-        if ((result==""||result=="Erasing...")&& (timeout--)) {
+        if (result==""&& (timeout--)) {
           console.log("<COMMS> removeAllApps: no result - waiting some more ("+timeout+").");
           // send space and delete - so it's something, but it should just cancel out
           Puck.write(" \u0008", handleResult, true /* wait for newline */);
@@ -182,7 +182,7 @@ const Comms = {
         }
       }
       // Use write with newline here so we wait for it to finish
-      let cmd = '\x10console.log("Erasing...");require("Storage").eraseAll();Bluetooth.println("OK");reset()\n';
+      let cmd = '\x10print("Erasing...");require("Storage").eraseAll();Bluetooth.println("OK");reset()\n';
       Puck.write(cmd, handleResult, true /* wait for newline */);
     });
   },
