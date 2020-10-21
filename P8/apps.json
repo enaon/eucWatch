@@ -5,7 +5,7 @@
     "version":"0.01",
     "description": "Install Basic Apps",
     "dependencies": { "notify":"type","alarm":"type" },
-    "tags": "core",
+    "tags": "core"
   },
   { "id": "devmode",
     "name": "Devmode",
