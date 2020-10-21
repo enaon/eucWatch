@@ -740,24 +740,31 @@ if (btn) btn.addEventListener("click",event=>{
     showToast("App removal failed, "+err,"error");
   });
 });
-btn = document.getElementById("installfull");
-if (btn) btn.addEventListener("click",event=>{
-  showPrompt("Install Full functionality","Press button to start").then(() => {
-   //return Comms.removeAllApps();
-   return true;
-  }).then(()=>{ 
-   httpGet(`${APP_SOURCECODE_DEV}/fullapps.json`).then(json=>{
-    return installMultipleApps(JSON.parse(json), "default");});
-  }).catch(err=>{
-    Progress.hide({sticky:true});
-    showToast("App Install failed, "+err,"error");
-    });
-});
-// Install all basic apps in one go
+// Install basic apps in one go
 btn = document.getElementById("installbasic");
 if (btn) btn.addEventListener("click",event=>{
   httpGet(`${APP_SOURCECODE_DEV}/basicapps.json`).then(json=>{
     return installMultipleApps(JSON.parse(json), "basic");
+  }).catch(err=>{
+    Progress.hide({sticky:true});
+    showToast("Basic Install failed, "+err,"error");
+  });
+});
+// Install basic and EUC apps in one go
+btn = document.getElementById("installeuc");
+if (btn) btn.addEventListener("click",event=>{
+  httpGet(`${APP_SOURCECODE_DEV}/eucapps.json`).then(json=>{
+    return installMultipleApps(JSON.parse(json), "EUC");
+  }).catch(err=>{
+    Progress.hide({sticky:true});
+    showToast("Basic Install failed, "+err,"error");
+  });
+});
+// Install all apps in one go
+btn = document.getElementById("installall");
+if (btn) btn.addEventListener("click",event=>{
+  httpGet(`${APP_SOURCECODE_DEV}/allapps.json`).then(json=>{
+    return installMultipleApps(JSON.parse(json), "All");
   }).catch(err=>{
     Progress.hide({sticky:true});
     showToast("Basic Install failed, "+err,"error");
