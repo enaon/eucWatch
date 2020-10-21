@@ -8,7 +8,7 @@ let DEFAULTSETTINGS = {
 };
 let SETTINGS = JSON.parse(JSON.stringify(DEFAULTSETTINGS)); // clone
 
-httpGet("apps.json").then(apps=>{
+httpGet(`${APP_SOURCECODE_DEV}/apps.json`).then(apps=>{
   try {
     appJSON = JSON.parse(apps);
   } catch(e) {
