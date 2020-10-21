@@ -1,0 +1,32 @@
+//quick apps for settings menu (swipe up to access settings, swipe up again for apps)
+//custom part
+this.appImgNone=E.toArrayBuffer(atob("AQGBAAA="));//empty
+//App actions
+this.appDo1="face.go('calc',0)";
+this.appDo2="face.go('repellent',0)";
+this.appDo3="face.go('euc',0)";
+this.appDo4="face.go('w_scan',0,'ffe0')";
+
+//this.appDo3="face.go('main',0)";
+//this.appDo4="face.go('main',0)";
+//this.appDo5="face.go('main',0)";
+//this.appDo6="face.go('main',0)";
+//face part
+var g=w.gfx;
+//this.img=require("heatshrink").decompress(atob("mEwwIVSh///Ef//wAQP8n4ID/1/Ar8cgEOApwpUuEAnAFOC4RrB/gFCg5uBAoR6CApARCEYQdCF5PjI4gFcRKQ1dTYzpDeor/DABoA=="));
+this.img = E.toArrayBuffer(atob("MDCBAAAAAAAAAAAAAAAAAAAAAAAAAA//+B//8B///D//+B///n//+B///n//+B///n//+B///n//+B///n//+B///n//+BwADn//+BwADn//+BwADn//+B///n//+B///n//+B///n//+B///nAAOB///nAAOB///nAAOB///n//+A///H//+Af/8H//+AAAAH//+AAAAH//+Af/8HAAOA///HAAOB///nAAOB/j/n//+B/j/n//+B/j/n//+B/j/n//+B/j/n//+B/j/n//+BwADn//+BwADn//+BwADn//+B/j/n//+B/j/n//+B/j/n//+B/j/n//+B/j/n//+B///n//+B///D//+A//+B//8AAAAAAAAAAAAAAAAAAAAAAAAA=="));
+g.setColor(1,col("raf2"));g.fillRect(0,0,75,75);g.setColor(0,col("white")); g.drawImage(img,13,15);g.flip();
+g.setColor(0,0);g.clearRect(76,0,79,75);g.flip();
+//this.img=require("heatshrink").decompress(atob("mEwwIKHgP//AFCg///4FCo4FB4EAgfPAoPwAogYBg+OAQP8AQOAEoP+AoUOgF/AoIvB8E/wEMh///kfFQM///+h4FBv4pBg/ggH/8P/4fwEwU/AoMDGQMP8IFBIgMH+P4DIN/wfwAoPBDwP4/EP4ZYB/H8h+HLAP4vgFB+YFCj4+BAomAApMfwYFEgYFEgIvBAoWBHYIdDwIMBAoRWBAoXALIUfw/gMoJTBw/4OIRZC/+D8BlCRIQBBSoYmBn4hBAoJ5B4F/wCVCTwICCwEHBAV//i6BAoK5BcYSlBd4bqBfYgeBdwIAMA=="));
+this.img = E.toArrayBuffer(atob("MDCBAAAAAAAAAAAB//gAAAAH//8AAABH///AAAPP///wAAPP///4AAeOAAf8AAeAAAH+AAeADgB/AAcB/+A/gAwP//wfwAA///4PwAB///8H4AD/4f/D8AH+AD/D8AP8AA/h8APwAAfx+Afgf4Pw+AfB/+H4+A/D//D4/A+H//j4fA+H8/j4fB8PwPj4fB8PgPj4fB8PgPj4fB8fg/j4fB8fA/j4fB8fAfD4fB8fgeH4fB8PgIHw+B8PgAPw+B8PwAfx+B+H4A/h+A+H+D/D8A/D//+D4AfB//8H4Afg//4PwAPwP/gfwAP4B8B/gAH+AAD/AAD/gAf+AAB//P/8AAA////wAAAP///AAAAD//8AAAAA//gAAAAAAAAAAAAAAAAAAA=="));
+g.setColor(1,col("raf2"));g.fillRect(80,0,155,75);g.setColor(0,col("white"));g.drawImage(img,94,15);g.flip();
+//this.img=require("heatshrink").decompress(atob("mEwwIGDj/gAgUD//+AoUPAok+gEcAoX/Cwv/AoUHAoPADgf/+AtCAoP8AoN/AoIpCAgIeCgP8AgO/wED/AFBj/AgfwAoMP8EH8AFBAYMP4AFBwfwAo2AAoOB/EfwIFHwAFBgIFC/gFLn4FFKgQFFgAXBToYFBwAFHNIIFBjAFBHYPAn/8AoJZBv/+OoJtBNYXwAIJ3CAoQRBZgMDHoP4n/AJgN//l/wBSCJwSnFWYYFCn65EYorRFboTqCPoZoCIIJ0Dj4FEAAY="));  
+this.img = E.toArrayBuffer(atob("MDCBAAAAAB/gAAAAA//+AAAAD//+AAAAPgAcAAAA/+AAAAAD//8AAAAH///AAAAP///wAAAf///8AAB////+AAD/////AAH8//+/gAP4//8fwAPw//8P4Afg//8H4A/A//+D8A/A//+D8A+A//+B+B+B//+B+B+B//+A+B8B//+A/B8B//+A/B8B//+A/D8B//+A/D8A//+A/D8A//8A/B8AAAAA/B+AAAAA/B+AAAAB/B+AGAAB+B/AP/wB+A/Af/4D+A/g//8H8Afw//8P8Afwf/4f4AP8P/g/wAH/f/x/gAH/////gAD/////AAB/////AAA////+AAAf///8AAAP///wAAAH///gAAAB//+AAAAAf/4AAAAAH/4AAAAAAAAAAA=="));
+g.setColor(1,col("raf2"));g.fillRect(160,0,239,75);g.setColor(0,col("white"));g.drawImage(img,176,15);g.flip();
+img=this.appImgNone;
+g.setColor(1,col("raf2"));g.fillRect(0,80,75,155);g.setColor(0,col("white"));g.drawImage(img,13,94);g.flip();
+this.img=this.appImgNone;
+g.setColor(1,col("raf2"));g.fillRect(80,80,155,155);g.setColor(0,col("white"));g.drawImage(img,94,94);g.flip();
+this.img=this.appImgNone;
+g.setColor(1,col("raf2"));g.fillRect(160,80,239,155);g.setColor(0,col("white"));g.drawImage(img,176,94);g.flip();
+this.img=-1;

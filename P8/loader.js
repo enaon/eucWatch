@@ -23,7 +23,7 @@ var APP_SOURCECODE_URL;
   let username = "espruino";
   let githubMatch = window.location.href.match(/\/(\w+)\.github\.io/);
   if (githubMatch) username = githubMatch[1];
-  APP_SOURCECODE_URL = `https://github.com/${username}/eucWatch/tree/main/P8/apps`;
+  APP_SOURCECODE_URL = `https://github.com/${username}/eucWatch/tree/main/P8/`;
 })();
 
 const DEVICEINFO = {
