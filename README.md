@@ -1,6 +1,6 @@
 ### Manual install:
 
-Files for P8 watch are [here](https://github.com/enaon/eucWatch/tree/main/P8/apps).  Only for use with the [flash enabled](https://github.com/fanoush/ds-d6/blob/master/espruino/DFU/P8/espruino_2v07.60_p8_SDK11_SD20_SPIFLASH.zip
+Files for P8 watch are [here](https://github.com/enaon/eucWatch/tree/main/P8).  Only for use with the [flash enabled](https://github.com/fanoush/ds-d6/blob/master/espruino/DFU/P8/espruino_2v07.60_p8_SDK11_SD20_SPIFLASH.zip
 ) firmware by fanoush. 
 
 **Enter this in left hand side (webide) to enable flash(one time only) before uploading.** 
