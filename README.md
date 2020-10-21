@@ -9,4 +9,4 @@ var spi=new SPI();spi.setup({sck:D2,mosi:D3,miso:D4,mode:0}); spi.send([0xab],D5
 
 ### Loader version:
 
-Try the [**Loader version**](https://enaon.github.io/eucWatch/P8.html)
+Try the [**Loader version**](https://enaon.github.io/eucWatch/p8.html)
