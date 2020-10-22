@@ -46,7 +46,7 @@
     "name": "Clock-fast",
     "icon": "icon.png",
     "version":"0.01",
-    "description": "Clock/Main face, supports widgets-infile images",
+    "description": "Main Clock/notifications face",
     "tags": "apps",
 	"type":"main",
     "dependencies": { "core":"type"},
@@ -55,10 +55,10 @@
     ]
   },  
   { "id": "settings",
-    "name": "Settings-fast",
+    "name": "Settings",
     "icon": "icon.png",
     "version":"0.01",
-    "description": "global Settings face-images infile",
+    "description": "global Settings face",
     "tags": "apps",
 	"type":"main",
     "dependencies": { "core":"type"},
@@ -104,7 +104,7 @@
     "icon": "icon.png",
     "version":"0.01",
     "description": "Gadgetbridge support for notifications, calls, weather and gps navigation",
-    "tags": "system,euc",
+    "tags": "system",
 	"dependencies": { "core":"type","notify":"type" },
     "type": "notify",
     "storage": [
@@ -154,7 +154,7 @@
     ]
   },
   { "id": "hid",
-    "name": "HID Music controls",
+    "name": "Music controls",
     "icon": "icon.png",
     "version":"0.01",
     "description": "Music controls over BLEHID face",
@@ -179,7 +179,7 @@
     "icon": "icon.png",
     "version":"0.01",
     "description": "Shared scan face addon",
-    "tags": "system,euc",
+    "tags": "system",
     "type": "system",
     "storage": [
       {"name":"w_scan","url":"w_scan"}
