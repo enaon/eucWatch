@@ -14,7 +14,7 @@
     <link rel="manifest" href="Loader/site.webmanifest">
     <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#5755d9">
     <meta name="apple-mobile-web-app-title" content="eucWatch">
-    <meta name="application-name" content="eicWatch">
+    <meta name="application-name" content="eucWatch">
     <meta name="msapplication-TileColor" content="#5755d9">
     <meta name="theme-color" content="#5755d9">
     <title>eucWatch Loader</title>
@@ -51,7 +51,7 @@
         <a href="javascript:showTab('myappscontainer')">My Apps</a>
       </li>
       <li class="tab-item" id="tab-watchcontainer">
-        <a href="javascript:showTab('watchcontainer')">Watch</a>
+        <a href="javascript:showTab('watchcontainer')">Installer</a>
       </li>      <li class="tab-item" id="tab-aboutcontainer">
         <a href="javascript:showTab('aboutcontainer')">About</a>
       </li>
@@ -103,58 +103,35 @@
     <div class="container apploader-tab" id="watchcontainer" style="display:none">
       <div class="hero bg-gray">
         <div class="hero-body">
-          <h4>App Loader</h4>
-
+          <h4>Installer</h4>
+			<h6>This proccess will erase the Watch</h6>
+		    <h7>Tap on the side button after last file is done uploading to start using the Watch.</h7>
         </div>
       </div>
       <div class="container" style="padding-top: 8px;">
-        <h5>Installer</h5>
+        <h5>Features set</h5><h7>Select Basic or EUC if not using the flash enabled Image.</h7>
         <p><button class="btn" id="installbasic">Basic</button>
            <button class="btn" id="installeuc">EUC</button>
-           <button class="btn" id="installall">Full</button>
+           <button class="btn" id="installall">All</button>
         </p>
         <h5>Utilities</h5>
         <p><button class="btn" id="settime">Set Time</button>
 			<button class="btn" id="restart">Restart Watch</button>
            <button class="btn" id="removeall">Remove all Apps</button>
         </p>
-        <h5>Settings</h5>
-        <div class="form-group">
-          <label class="form-switch">
-            <input type="checkbox" id="settings-pretokenise">
-            <i class="form-icon"></i> Pretokenise apps before upload (smaller, faster apps)
-          </label>
-          <button class="btn" id="defaultsettings">Default settings</button>
-        </div>
-		<p>A tool for uploading apps to <a href="https://espruino.com" target="_blank">Espruino Devices</a></p>
-        <p id="apploaderlinks"></p> <p>Check out <a href="https://github.com/espruino/EspruinoApps" target="_blank">the Source on GitHub.</a>
-		 Using <a href="https://espruino.com/" target="_blank">Espruino.</a></p>
       </div>
     </div>
-
-
-
-
-
 
     <div class="container apploader-tab" id="aboutcontainer" style="display:none">
       <div class="hero bg-gray">
         <div class="hero-body">
           <h4>App Loader</h4>
-
+		<p>A tool for uploading apps to <a href="https://espruino.com" target="_blank">Espruino Devices</a></p>
+        <p id="apploaderlinks"></p> <p>Check out <a href="https://github.com/espruino/EspruinoApps" target="_blank">the Source on GitHub.</a>
+		 Using <a href="https://espruino.com/" target="_blank">Espruino.</a></p>
         </div>
       </div>
       <div class="container" style="padding-top: 8px;">
-        <h5>Installer</h5>
-        <p><button class="btn" id="installbasic">Basic</button>
-           <button class="btn" id="installeuc">EUC</button>
-           <button class="btn" id="installall">Full</button>
-        </p>
-        <h5>Utilities</h5>
-        <p><button class="btn" id="settime">Set Time</button>
-			<button class="btn" id="restart">Restart Watch</button>
-           <button class="btn" id="removeall">Remove all Apps</button>
-        </p>
         <h5>Settings</h5>
         <div class="form-group">
           <label class="form-switch">
@@ -163,9 +140,7 @@
           </label>
           <button class="btn" id="defaultsettings">Default settings</button>
         </div>
-		<p>A tool for uploading apps to <a href="https://espruino.com" target="_blank">Espruino Devices</a></p>
-        <p id="apploaderlinks"></p> <p>Check out <a href="https://github.com/espruino/EspruinoApps" target="_blank">the Source on GitHub.</a>
-		 Using <a href="https://espruino.com/" target="_blank">Espruino.</a></p>
+		
       </div>
     </div>
 
