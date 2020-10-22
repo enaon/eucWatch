@@ -1,7 +1,6 @@
 [
   { "id": "basic",
     "name": "Install Basic Apps",
-//    "icon": "icon.png",
     "version":"0.01",
     "description": "Install Basic Apps",
 	"type":"core",
