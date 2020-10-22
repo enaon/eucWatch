@@ -161,7 +161,7 @@
   { "id": "w_scan",
     "name": "BLE scanner widget",
     "icon": "icon.png",
-    "version":"0.01",
+    "version":"0.02",
     "description": "Shared scan face addon",
     "tags": "system",
     "type": "system",
