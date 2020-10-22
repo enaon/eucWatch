@@ -581,9 +581,9 @@ function installMultipleApps(appIds, promptName) {
         let app = apps.shift();
         if (app===undefined) return resolve();
         Progress.show({title:`${app.name} (${appCount-apps.length}/${appCount})`,sticky:true});
-        checkDependencies(app,(app.name=="handler")?"":"skip_reset")
+        checkDependencies(app,"skip_reset")
           //.then(()=>Comms.uploadApp(app,"skip_reset"))
-		  .then(()=>Comms.uploadApp(app,"skip_reset"))
+		  .then(()=>Comms.uploadApp(app,(app.name=="handler"||app.name=="Handler")?"0":"skip_reset"))
           .then((appJSON) => {
             Progress.hide({sticky:true});
             if (appJSON) appsInstalled.push(appJSON);
