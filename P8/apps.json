@@ -16,6 +16,7 @@
     "description": "P8 Screen driver and init functions. For use with the [flash enabled](https://github.com/fanoush/ds-d6/blob/master/espruino/DFU/P8/espruino_2v07.60_p8_SDK11_SD20_SPIFLASH.zip) or the  the [not flash enabled](https://github.com/fanoush/ds-d6/blob/master/espruino/DFU/P8/espruino_2v07.60_p8_SDK11_SD20.zip) Espruino image  build by fanoush. ",
     "tags": "core",
 	"type":"core",
+	"readme": "README.md",
     "storage": [
       {"name":".bootrst","url":"init"}
     ]
@@ -28,6 +29,7 @@
     "tags": "core",
 	"custom": "custom.html",
 	"type":"core",
+	"readme": "README.md",
     "storage": [
       {"name":"handler","url":"handler"}
     ]
@@ -39,6 +41,7 @@
     "description": "Main Clock/notifications face",
     "tags": "apps",
 	"type":"main",
+	"readme": "README.md",
     "storage": [
       {"name":"main","url":"main"}
     ]
@@ -50,6 +53,7 @@
     "description": "global Settings face",
     "tags": "apps",
 	"type":"main",
+	"readme": "README.md",
     "storage": [
       {"name":"settings","url":"settings"}
     ]
@@ -61,6 +65,7 @@
     "description": "Three user settable Alarms/Timers face",
     "tags": "apps",
     "storage": [
+	"readme": "README.md",
       {"name":"alarm","url":"alarm"}
     ]
   },
@@ -70,6 +75,7 @@
     "version":"0.02",
     "description": "Simple Calculator face with history",
     "tags": "apps",
+	"readme": "README.md",
     "storage": [
       {"name":"calc","url":"calc"}
     ]
@@ -81,6 +87,7 @@
     "description": "Notifications face for system, atc and gadgetbridge",
     "tags": "apps",
     "type": "notify",
+	"readme": "README.md",
     "storage": [
       {"name":"notify","url":"notify"}
     ]
@@ -92,6 +99,7 @@
     "description": "Gadgetbridge support for notifications, calls, weather and gps navigation",
     "tags": "system",
     "type": "notify",
+	"readme": "README.md",
     "storage": [
       {"name":"m_gb","url":"m_gb"}
     ]
@@ -102,6 +110,7 @@
     "version":"0.01",
     "description": "Simple EUC dashboard, depends on a euc module",
     "tags": "euc",
+	"readme": "README.md",
     "storage": [
       {"name":"euc","url":"euc"}
     ]
@@ -113,6 +122,7 @@
     "description": "module for ninebot's e+ EUC model",
     "tags": "euc",
     "type": "euc",
+	"readme": "README.md",
     "storage": [
       {"name":"m_euc","url":"m_euc"}
     ]
@@ -123,6 +133,7 @@
     "version":"0.01",
     "description": "Xiaomi insect repellent face",
     "tags": "apps",
+	"readme": "README.md",
     "storage": [
       {"name":"repellent","url":"repellent"}
     ]
@@ -133,6 +144,7 @@
     "version":"0.01",
     "description": "Support for playstore app D6 Notification from atc1441",
     "tags": "system",
+	"readme": "README.md",
     "storage": [
       {"name":"atc","url":"atc"}
     ]
@@ -143,6 +155,7 @@
     "version":"0.01",
     "description": "Music controls over BLEHID face",
     "tags": "apps",
+	"readme": "README.md",
     "storage": [
       {"name":"hid","url":"hid"}
     ]
@@ -154,6 +167,7 @@
     "description": "Extends settings face with an app drawer.",
     "tags": "system",
     "type": "system",
+	"readme": "README.md",
     "storage": [
       {"name":"w_apps","url":"w_apps"}
     ]
@@ -165,6 +179,7 @@
     "description": "Shared scan face addon",
     "tags": "system",
     "type": "system",
+	"readme": "README.md",
     "storage": [
       {"name":"w_scan","url":"w_scan"}
     ]
@@ -176,6 +191,7 @@
     "description": "Font7x11Numeric7Seg font",
     "tags": "core",
     "type": "core",
+	"readme": "README.md",
     "storage": [
       {"name":"Font7x11Numeric7Seg","url":"Font7x11Numeric7Seg"}
     ]
