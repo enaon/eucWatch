@@ -48,7 +48,7 @@ face[0] = {
 	  this.g.setFont("Vector",22);
 	  this.g.drawString("MUTE",68,15);
 	  //mute
-	  this.g.drawImage(return require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8FwAbvh+HnjHh8HjAYPABYNhAYVxAY0wIYU4H4U4EYUcnkP/0Oj0f/8Ph///8Hw/4g8D4IDBgIfBg8AD4IDBvgDCj+AAYIbCgEB//+FoM//gA==")),15,9);
+	  this.g.drawImage(image("phoneMute"),15,9);
 	  this.g.flip();
 	  }
     }else if (set.bt != this.bt){
@@ -89,20 +89,20 @@ face[0] = {
 	    this.g.setColor(0,col("olive"));
 	    this.g.fillRect(162,0,239,50);//batt
         this.g.setColor(1,col("white"));
-		this.g.drawImage(return require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8FwAbvh+HnjHh8HjAYPABYNhAYVxAY0wIYU4H4U4EYUcnkP/0Oj0f/8Ph///8Hw/4g8D4IDBgIfBg8AD4IDBvgDCj+AAYIbCgEB//+FoM//gA==")),183,9);
+		this.g.drawImage(image("phoneMute"),183,9);
 	    this.g.flip();
 	  }
     }else if (notify.New&&(this.nCall!=notify.nCall||this.nInfo!=notify.nInfo||this.nIm!=notify.nIm)){
       this.batt=set.ondc;
 	  if (notify.nCall)  {
         this.colf=col("white");this.colb=col("red");this.str=notify.nCall;this.bs="nCall";
-        this.img =  require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8FwAbvh+HnjHh8HjAYPABYNhAYVxAY0wIYU4H4U4EYUcnkP/0Oj0f/8Ph///8Hw/4g8D4IDBgIfBg8AD4IDBvgDCj+AAYIbCgEB//+FoM//gA=="));
+        this.img = image("calls");
 	  }else if (notify.nIm)  {
 		this.colf=col("white");this.colb=col("raf");this.str=notify.nIm;this.bs="nIm";
-        this.img = require("heatshrink").decompress(atob("jEYwIPMv///wCFj///EP//w4f/4fw/8P/F+j/+jATBwP/BoICBAA4mIHZAA="));
+        this.img = image("messages");
 	  }else if (notify.nInfo)  {
 		this.colf=col("white");this.colb=col("olive");this.str=notify.nInfo;this.bs="nInfo";
-        this.img = require("heatshrink").decompress(atob("jEYwIHEv0AgP/wEH//gh//+Ef8/4j/D/E/4/8n///l///+v/nAQPDARM/4YXBAQIgCEwQsCGQQ4CHwQACA=="));
+        this.img = image("infos");
 	  }else { this.batt=-1; this.bs=0;}
 	  this.g.setColor(0,this.colb);
 	  this.g.fillRect(162,0,239,50);//batt
@@ -175,10 +175,10 @@ face[0] = {
 		this.g.setFont("Vector",25);
 		this.g.drawString(notify.weather.txt,119-(this.g.stringWidth(notify.weather.txt))/2,165); //info
 		//temp
-		this.g.drawImage(E.toArrayBuffer(atob("EyCBAADgAH8AH/AH3wDg4BwcA4GAcDAOBgHAwDuYB3MA7mAdzAO5gHcwHucHnPHjjzj45j+Pz/n5/z8/5+f8/H8dx8c8AOPAeD9+Af+AD4A=")),20,200);
+		this.g.drawImage(image("weatherTemp"),20,200);
 		this.g.drawString(notify.weather.temp/10,60,205); //info
 		//hum   
-		this.g.drawImage(E.toArrayBuffer(atob("HSCBAAAAAAAAEAAAAcAAAB8AAAD4AAAP4AAA94AABxwAAHjwAAODgAA4DgADwHgAHAHAAcAHAB4APADgAOAOGAOAYQQMBwhAcDhUA4HAIBwOAoDgcCCHAYAgMA4AA4BwABwBwAHAB4AcAB4DwAB//AAA/4AAAEAA")),145,200);
+		this.g.drawImage(image("weatherHum"),145,200);
 		this.g.drawString(notify.weather.hum,190,205); //info
 		this.g.flip();
 		this.img=-1;
