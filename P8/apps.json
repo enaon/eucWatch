@@ -3,7 +3,7 @@
     "name": "Devmode",
     "icon": "icon.png",
     "version":"0.01",
-    "description": "Empty file that gets the p8 to developer mode. Upload this to force developer mode on following uploads, single click on side button when finished uploading all files, to boot into working mode.",
+    "description": "Empty file that gets the p8 to developer mode. Upload this to force developer mode on followin${app.name}g uploads, single click on side button when finished uploading all files, to boot into working mode.",
     "tags": "core",
     "storage": [
       {"name":"devmode","url":"devmode"}
@@ -28,7 +28,6 @@
     "tags": "core",
 	"custom": "custom.html",
 	"type":"core",
-    "dependencies": { "core":"type" },
     "storage": [
       {"name":"handler","url":"handler"}
     ]
@@ -40,7 +39,6 @@
     "description": "Main Clock/notifications face",
     "tags": "apps",
 	"type":"main",
-    "dependencies": { "core":"type"},
     "storage": [
       {"name":"main","url":"main"}
     ]
@@ -52,7 +50,6 @@
     "description": "global Settings face",
     "tags": "apps",
 	"type":"main",
-    "dependencies": { "core":"type"},
     "storage": [
       {"name":"settings","url":"settings"}
     ]
@@ -63,7 +60,6 @@
     "version":"0.01",
     "description": "Three user settable Alarms/Timers face",
     "tags": "apps",
-    "dependencies": { "core":"type" },
     "storage": [
       {"name":"alarm","url":"alarm"}
     ]
@@ -85,7 +81,6 @@
     "description": "Notifications face for system, atc and gadgetbridge",
     "tags": "apps",
     "type": "notify",
-	"dependencies": { "core":"type","notify":"type" },
     "storage": [
       {"name":"notify","url":"notify"}
     ]
@@ -96,7 +91,6 @@
     "version":"0.01",
     "description": "Gadgetbridge support for notifications, calls, weather and gps navigation",
     "tags": "system",
-	"dependencies": { "core":"type","notify":"type" },
     "type": "notify",
     "storage": [
       {"name":"m_gb","url":"m_gb"}
@@ -108,7 +102,6 @@
     "version":"0.01",
     "description": "Simple EUC dashboard, depends on a euc module",
     "tags": "euc",
-	"dependencies": { "core":"type","euc":"type" },
     "storage": [
       {"name":"euc","url":"euc"}
     ]
