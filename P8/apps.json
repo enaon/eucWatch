@@ -1,12 +1,4 @@
 [
-  { "id": "basic",
-    "name": "Install Basic Apps",
-    "version":"0.01",
-    "description": "Install Basic Apps",
-	"type":"core",
-    "dependencies": { "notify":"type","alarm":"type" },
-    "tags": "core"
-  },
   { "id": "devmode",
     "name": "Devmode",
     "icon": "icon.png",
