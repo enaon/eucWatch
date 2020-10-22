@@ -89,7 +89,7 @@ function handleCustomApp(appTemplate) {
       let app = JSON.parse(JSON.stringify(appTemplate)); // clone template
       // copy extra keys from appFiles
       Object.keys(appFiles).forEach(k => {
-        if (k!="storage") app[k] = appFiles[k]
+        if (k!="storage") app[k] = appFiles[k];
       });
       appFiles.storage.forEach(f => {
         app.storage = app.storage.filter(s=>s.name!=f.name); // remove existing item
@@ -431,14 +431,14 @@ function updateApp(app) {
       .filter(f => f !== app.id + '.info')
       .filter(f => !app.storage.some(s => s.name === f))
       .join(',');
-    let data = AppInfo.parseDataString(remove.data)
+    let data = AppInfo.parseDataString(remove.data);
     if ('data' in app) {
       // only remove data files which are no longer declared in new app version
-      const removeData = (f) => !app.data.some(d => (d.name || d.wildcard)===f)
-      data.dataFiles = data.dataFiles.filter(removeData)
-      data.storageFiles = data.storageFiles.filter(removeData)
+      const removeData = (f) => !app.data.some(d => (d.name || d.wildcard)===f);
+      data.dataFiles = data.dataFiles.filter(removeData);
+      data.storageFiles = data.storageFiles.filter(removeData);
     }
-    remove.data = AppInfo.makeDataString(data)
+    remove.data = AppInfo.makeDataString(data);
     return Comms.removeApp(remove);
   }).then(()=>{
     showToast(`Updating ${app.name}...`);
@@ -585,8 +585,7 @@ function installMultipleApps(appIds, promptName) {
             Progress.hide({sticky:true});
             if (appJSON) appsInstalled.push(appJSON);
             showToast(`(${appCount-apps.length}/${appCount}) ${app.name} Uploaded`);
-			if (app.name=="P8 core") Comms.reset();
-            upload();
+    		if (app.name=="P8 core") Comms.reset().then(upload()); else upload();
           }).catch(function() {
             Progress.hide({sticky:true});
             reject();
