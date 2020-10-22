@@ -121,7 +121,7 @@
     "name": "Repellent",
     "icon": "icon.png",
     "version":"0.01",
-    "description": "Xiaomi's insect repellent support",
+    "description": "Xiaomi insect repellent face",
     "tags": "apps",
     "storage": [
       {"name":"repellent","url":"repellent"}
