@@ -4,6 +4,7 @@
     "icon": "icon.png",
     "version":"0.01",
     "description": "Install Basic Apps",
+	"type":"core",
     "dependencies": { "notify":"type","alarm":"type" },
     "tags": "core"
   },
@@ -12,7 +13,6 @@
     "icon": "icon.png",
     "version":"0.01",
     "description": "Empty file that gets the p8 to developer mode. Upload this to force developer mode on following uploads, single click on side button when finished uploading all files, to boot into working mode.",
-    "needsFeatures":["P8"],
     "tags": "core",
     "storage": [
       {"name":"devmode","url":"devmode"}
@@ -22,22 +22,11 @@
     "name": "P8 core-flash version(preferred)",
     "icon": "icon.png",
     "version":"0.01",
-    "description": "Upload this first, P8 Screen driver and init functions. For use with the [flash enabled image](https://github.com/fanoush/ds-d6/blob/master/espruino/DFU/P8/espruino_2v07.60_p8_SDK11_SD20_SPIFLASH.zip) build by fanoush. ",
-    "needsFeatures":["P8"],
+    "description": "P8 Screen driver and init functions. For use with the [flash enabled image](https://github.com/fanoush/ds-d6/blob/master/espruino/DFU/P8/espruino_2v07.60_p8_SDK11_SD20_SPIFLASH.zip) or the  the [not flash enabled image](https://github.com/fanoush/ds-d6/blob/master/espruino/DFU/P8/espruino_2v07.60_p8_SDK11_SD20.zip)   build by fanoush. ",
     "tags": "core",
+	"type":"core",
     "storage": [
       {"name":".bootrst","url":"init"}
-    ]
-  },
-  { "id": "init_noflash",
-    "name": "P8 core-No flash version",
-    "icon": "icon.png",
-    "version":"0.01",
-    "description": "Upload this first, P8 Screen driver and init functions. For use with the [not flash enabled image](https://github.com/fanoush/ds-d6/blob/master/espruino/DFU/P8/espruino_2v07.60_p8_SDK11_SD20.zip) build by fanoush. ",
-    "needsFeatures":["P8"],
-    "tags": "core",
-    "storage": [
-      {"name":".bootrst","url":"init_noflash"}
     ]
   },
   { "id": "handler",
@@ -47,53 +36,34 @@
     "description": "P8 functions handler",
     "tags": "core",
 	"custom": "custom.html",
-    "needsFeatures":["P8"],
+	"type":"core",
+    "dependencies": { "core":"type" },
     "storage": [
       {"name":"handler","url":"handler"}
     ]
   },  
   { "id": "main",
-    "name": "Clock",
-    "icon": "icon.png",
-    "version":"0.01",
-    "description": "Clock/Main face, supports widgets",
-    "tags": "apps",
-    "needsFeatures":["P8"],
-    "storage": [
-      {"name":"main","url":"main"}
-    ]
-  },
-  { "id": "main-fast",
     "name": "Clock-fast",
     "icon": "icon.png",
     "version":"0.01",
     "description": "Clock/Main face, supports widgets-infile images",
     "tags": "apps",
-    "needsFeatures":["P8"],
+	"type":"main",
+    "dependencies": { "core":"type"},
     "storage": [
-      {"name":"main","url":"main-fast"}
+      {"name":"main","url":"main"}
     ]
   },  
   { "id": "settings",
-    "name": "Settings",
-    "icon": "icon.png",
-    "version":"0.01",
-    "description": "global Settings face",
-    "tags": "apps",
-    "needsFeatures":["P8"],
-    "storage": [
-      {"name":"settings","url":"settings"}
-    ]
-  },
-  { "id": "settings-fast",
     "name": "Settings-fast",
     "icon": "icon.png",
     "version":"0.01",
     "description": "global Settings face-images infile",
     "tags": "apps",
-    "needsFeatures":["P8"],
+	"type":"main",
+    "dependencies": { "core":"type"},
     "storage": [
-      {"name":"settings","url":"settings-fast"}
+      {"name":"settings","url":"settings"}
     ]
   },
   { "id": "alarm",
@@ -102,7 +72,7 @@
     "version":"0.01",
     "description": "Three user settable Alarms/Timers face",
     "tags": "apps",
-    "needsFeatures":["P8"],
+    "dependencies": { "core":"type" },
     "storage": [
       {"name":"alarm","url":"alarm"}
     ]
@@ -113,7 +83,6 @@
     "version":"0.02",
     "description": "Simple Calculator face with history",
     "tags": "apps",
-    "needsFeatures":["P8"],
     "storage": [
       {"name":"calc","url":"calc"}
     ]
@@ -124,7 +93,8 @@
     "version":"0.01",
     "description": "Notifications face for system, atc and gadgetbridge",
     "tags": "apps",
-    "needsFeatures":["P8"],
+    "type": "notify",
+	"dependencies": { "core":"type","notify":"type" },
     "storage": [
       {"name":"notify","url":"notify"}
     ]
@@ -135,29 +105,50 @@
     "version":"0.01",
     "description": "Gadgetbridge support for notifications, calls, weather and gps navigation",
     "tags": "system,euc",
-    "needsFeatures":["P8"],
+	"dependencies": { "core":"type","notify":"type" },
+    "type": "notify",
     "storage": [
       {"name":"m_gb","url":"m_gb"}
     ]
   },
-  { "id": "m_image",
+/*  { "id": "m_image",
     "name": "Images",
     "icon": "icon.png",
     "version":"0.01",
     "description": "Images function. Only for use with faces that do not have their images infile",
     "tags": "system",
-    "needsFeatures":["P8"],
     "storage": [
       {"name":"m_image","url":"m_image"}
     ]
   },
+  { "id": "main-images",
+    "name": "Clock",
+    "icon": "icon.png",
+    "version":"0.01",
+    "description": "Clock/Main face, supports widgets",
+    "tags": "apps",
+    "storage": [
+      {"name":"main","url":"main-images"}
+    ]
+  },
+  { "id": "settings-images",
+    "name": "Settings",
+    "icon": "icon.png",
+    "version":"0.01",
+    "description": "global Settings face",
+    "tags": "apps",
+    "storage": [
+      {"name":"settings","url":"settings-images"}
+    ]
+  },
+*/  
   { "id": "euc",
     "name": "EUC Dashboard",
     "icon": "icon.png",
     "version":"0.01",
     "description": "Simple EUC dashboard, depends on a euc module",
     "tags": "euc",
-    "needsFeatures":["P8"],
+	"dependencies": { "core":"type","euc":"type" },
     "storage": [
       {"name":"euc","url":"euc"}
     ]
@@ -168,7 +159,7 @@
     "version":"0.01",
     "description": "module for ninebot's e+ EUC model",
     "tags": "euc",
-    "needsFeatures":["P8"],
+    "type": "euc",
     "storage": [
       {"name":"m_euc","url":"m_euc"}
     ]
@@ -179,7 +170,6 @@
     "version":"0.01",
     "description": "Xiaomi's insect repellent support",
     "tags": "apps",
-    "needsFeatures":["P8"],
     "storage": [
       {"name":"repellent","url":"repellent"}
     ]
@@ -190,7 +180,6 @@
     "version":"0.01",
     "description": "Support for playstore app D6 Notification from atc1441",
     "tags": "system",
-    "needsFeatures":["P8"],
     "storage": [
       {"name":"atc","url":"atc"}
     ]
@@ -201,7 +190,6 @@
     "version":"0.01",
     "description": "Music controls over BLEHID face",
     "tags": "apps",
-    "needsFeatures":["P8"],
     "storage": [
       {"name":"hid","url":"hid"}
     ]
@@ -212,7 +200,7 @@
     "version":"0.01",
     "description": "Extends settings face with an app drawer.",
     "tags": "system",
-    "needsFeatures":["P8"],
+    "type": "system",
     "storage": [
       {"name":"w_apps","url":"w_apps"}
     ]
@@ -223,7 +211,7 @@
     "version":"0.01",
     "description": "Shared scan face addon",
     "tags": "system,euc",
-    "needsFeatures":["P8"],
+    "type": "system",
     "storage": [
       {"name":"w_scan","url":"w_scan"}
     ]
@@ -234,6 +222,7 @@
     "version":"0.01",
     "description": "Digits Font named Font7x11Numeric7Seg",
     "tags": "core",
+    "type": "core",
     "storage": [
       {"name":"Font7x11Numeric7Seg","url":"Font7x11Numeric7Seg"}
     ]
