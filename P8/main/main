@@ -25,17 +25,17 @@ face[0] = {
 	this.ring=-1;
     this.run=true;
 	this.batt=-1;
-    print("exit init",getTime()-this.startTime);
+    //print("exit init",getTime()-this.startTime);
 
   },
   show : function(){
     if (!this.run) return;
-    print("enter show",getTime()-this.startTime);
+    //print("enter show",getTime()-this.startTime);
 
 	//time
-    print("enter  time",getTime()-this.startTime);
+    //print("enter  time",getTime()-this.startTime);
  	this.time();
-    print(" exit time",getTime()-this.startTime);
+    //print(" exit time",getTime()-this.startTime);
 
 	//bt status on date
     if (notify.ring){
@@ -80,7 +80,7 @@ face[0] = {
 		this.g.drawImage(E.toArrayBuffer(atob("CxQBBgDgFgJgR4jZMawfAcA4D4NYybEYIwTAsBwDAA==")),3,13);
 		this.g.flip();
 	  }  
-     print("exit bt",getTime()-this.startTime);
+     //print("exit bt",getTime()-this.startTime);
 
     }
     //batt status
@@ -133,7 +133,7 @@ face[0] = {
         //this.g.drawImage(this.image("batteryMed"),212,12);
 	  }else  {this.g.setFont("Vector",28);this.g.drawString("FULL",238-(this.g.stringWidth("FULL")),12); } 
       this.g.flip();
-      print("end",getTime()-this.startTime);
+      //print("end",getTime()-this.startTime);
     }
     this.widg();
     //loop
@@ -192,12 +192,12 @@ face[0] = {
   },
   time:function(){
   //minutes
-        print("pre time get ",getTime()-this.startTime);
+        //print("pre time get ",getTime()-this.startTime);
 
   this.d=(Date()).toString().split(' ');
   this.t=(this.d[4]).toString().split(':');
   this.s=(this.t[2]).toString().split('');
-            print("post time get ",getTime()-this.startTime);
+            //print("post time get ",getTime()-this.startTime);
 
   if (this.t[1]!=this.min ){
     this.min=this.t[1];

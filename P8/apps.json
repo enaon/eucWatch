@@ -35,7 +35,7 @@
   { "id": "main",
     "name": "Clock",
     "icon": "icon.png",
-    "version":"0.01",
+    "version":"0.02",
     "description": "Main Clock/notifications face",
     "tags": "apps",
 	"type":"main",
