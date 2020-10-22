@@ -43,7 +43,7 @@
     ]
   },  
   { "id": "main",
-    "name": "Clock-fast",
+    "name": "Clock",
     "icon": "icon.png",
     "version":"0.01",
     "description": "Main Clock/notifications face",
