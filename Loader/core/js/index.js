@@ -448,6 +448,7 @@ function updateApp(app) {
   ).then((appJSON) => {
     if (appJSON) appsInstalled.push(appJSON);
     showToast(app.name+" Updated!", "success");
+	Comms.reset();
     refreshMyApps();
     refreshLibrary();
   }, err=>{
