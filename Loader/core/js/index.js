@@ -585,7 +585,7 @@ function installMultipleApps(appIds, promptName) {
             Progress.hide({sticky:true});
             if (appJSON) appsInstalled.push(appJSON);
             showToast(`(${appCount-apps.length}/${appCount}) ${app.name} Uploaded`);
-			if (app=="P8 core") Comms.reset();
+			if (app.name=="P8 core") Comms.reset();
             upload();
           }).catch(function() {
             Progress.hide({sticky:true});
