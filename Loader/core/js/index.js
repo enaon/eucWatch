@@ -726,6 +726,14 @@ if (btn) btn.addEventListener("click",event=>{
     showToast("Error setting time, "+err,"error");
   });
 });
+btn = document.getElementById("restart");
+if (btn) btn.addEventListener("click",event=>{
+  Comms.reset().then(()=>{
+    showToast("Restart successfully","success");
+  }, err=>{
+    showToast("Error, "+err,"error");
+  });
+});
 btn = document.getElementById("removeall");
 if (btn) btn.addEventListener("click",event=>{
   showPrompt("Remove All","Really remove all apps?").then(() => {

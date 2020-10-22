@@ -15,7 +15,7 @@ if (window.location.host=="espruino.com") {
 } else {
   document.title += " [Unofficial]";
   document.getElementById("apploaderlinks").innerHTML =
-    'This is not the official Espruino App Loader - you can try the <a href="https://espruino.com/apps/">Official Version</a> here.';
+    'This is not the <a href="https://espruino.com/apps/">official Espruino App Loader</a>.';
 }
 
 var APP_SOURCECODE_URL;
