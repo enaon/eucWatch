@@ -111,6 +111,37 @@
       {"name":"m_gb","url":"m_gb"}
     ]
   },
+/*  { "id": "m_image",
+    "name": "Images",
+    "icon": "icon.png",
+    "version":"0.01",
+    "description": "Images function. Only for use with faces that do not have their images infile",
+    "tags": "system",
+    "storage": [
+      {"name":"m_image","url":"m_image"}
+    ]
+  },
+  { "id": "main-images",
+    "name": "Clock",
+    "icon": "icon.png",
+    "version":"0.01",
+    "description": "Clock/Main face, supports widgets",
+    "tags": "apps",
+    "storage": [
+      {"name":"main","url":"main-images"}
+    ]
+  },
+  { "id": "settings-images",
+    "name": "Settings",
+    "icon": "icon.png",
+    "version":"0.01",
+    "description": "global Settings face",
+    "tags": "apps",
+    "storage": [
+      {"name":"settings","url":"settings-images"}
+    ]
+  },
+*/  
   { "id": "euc",
     "name": "EUC Dashboard",
     "icon": "icon.png",
