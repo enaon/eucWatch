@@ -50,7 +50,9 @@
       <li class="tab-item" id="tab-myappscontainer">
         <a href="javascript:showTab('myappscontainer')">My Apps</a>
       </li>
-      <li class="tab-item" id="tab-aboutcontainer">
+      <li class="tab-item" id="tab-watchcontainer">
+        <a href="javascript:showTab('watchcontainer')">Watch</a>
+      </li>      <li class="tab-item" id="tab-aboutcontainer">
         <a href="javascript:showTab('aboutcontainer')">About</a>
       </li>
     </ul>
@@ -61,8 +63,8 @@
     <div class="container apploader-tab" id="librarycontainer">
       <div>
         <div class="filter-nav">
-          <label class="chip" filterid="">ALL</label>
-          <label class="chip active" filterid="apps">Apps</label>
+          <label class="chip active" filterid="">ALL</label>
+          <label class="chip" filterid="apps">Apps</label>
           <label class="chip" filterid="euc">EUC</label>
           <label class="chip" filterid="system">System</label>
           <label class="chip" filterid="core">Core</label>
@@ -96,6 +98,44 @@
         <div class="panel-body columns"><!-- apps go here --></div>
       </div>
     </div>
+
+
+    <div class="container apploader-tab" id="watchcontainer" style="display:none">
+      <div class="hero bg-gray">
+        <div class="hero-body">
+          <h4>App Loader</h4>
+
+        </div>
+      </div>
+      <div class="container" style="padding-top: 8px;">
+        <h5>Installer</h5>
+        <p><button class="btn" id="installbasic">Basic</button>
+           <button class="btn" id="installeuc">EUC</button>
+           <button class="btn" id="installall">Full</button>
+        </p>
+        <h5>Utilities</h5>
+        <p><button class="btn" id="settime">Set Time</button>
+			<button class="btn" id="restart">Restart Watch</button>
+           <button class="btn" id="removeall">Remove all Apps</button>
+        </p>
+        <h5>Settings</h5>
+        <div class="form-group">
+          <label class="form-switch">
+            <input type="checkbox" id="settings-pretokenise">
+            <i class="form-icon"></i> Pretokenise apps before upload (smaller, faster apps)
+          </label>
+          <button class="btn" id="defaultsettings">Default settings</button>
+        </div>
+		<p>A tool for uploading apps to <a href="https://espruino.com" target="_blank">Espruino Devices</a></p>
+        <p id="apploaderlinks"></p> <p>Check out <a href="https://github.com/espruino/EspruinoApps" target="_blank">the Source on GitHub.</a>
+		 Using <a href="https://espruino.com/" target="_blank">Espruino.</a></p>
+      </div>
+    </div>
+
+
+
+
+
 
     <div class="container apploader-tab" id="aboutcontainer" style="display:none">
       <div class="hero bg-gray">
