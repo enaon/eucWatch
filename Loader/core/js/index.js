@@ -350,6 +350,7 @@ function uploadApp(app) {
           appsInstalled.push(appJSON);
         }
         showToast(app.name + ' Uploaded!', 'success');
+		Comms.reset();
       }).catch(err => {
         Progress.hide({ sticky: true });
         showToast('Upload failed, ' + err, 'error');
