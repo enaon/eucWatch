@@ -50,6 +50,7 @@
     "description": "global Settings face",
     "tags": "apps",
 	"type":"main",
+	"readme": "README.md",
     "storage": [
       {"name":"settings","url":"settings"}
     ]
