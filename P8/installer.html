@@ -33,12 +33,7 @@
 		set.name=${JSON.stringify(name)};
 `;
         // send finished app
-  httpGet(`${APP_SOURCECODE_DEV}/eucapps.json`).then(json=>{
-    return installMultipleApps(JSON.parse(json), "EUC");
-  }).catch(err=>{
-    Progress.hide({sticky:true});
-    showToast("EUC Install failed, "+err,"error");
-  });
+ 
       });
 
     </script>

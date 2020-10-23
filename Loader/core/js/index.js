@@ -678,9 +678,9 @@ sortContainer.addEventListener('click', ({ target }) => {
 // Install basic apps in one go
 btn = document.getElementById("installbasic");
 if (btn) btn.addEventListener("click",event=>{ 
-//    installerOptions("basic").then(() => {
-    httpGet(`${APP_SOURCECODE_DEV}/basicapps.json`).then(json=>{
-    return installMultipleApps(JSON.parse(json), "basic");//});  
+    installerOptions("basic").then(() => {
+//    httpGet(`${APP_SOURCECODE_DEV}/basicapps.json`).then(json=>{
+//    return installMultipleApps(JSON.parse(json), "basic");//});  
     }).catch(err=>{
     Progress.hide({sticky:true});
     showToast("Basic Install failed, "+err,"error");
@@ -765,13 +765,18 @@ function installerOptions(installtype) {
         reject("Window closed");
       });
     });
-  //window.postMessage(app);
 
     let iframe = modal.getElementsByTagName("iframe")[0];
     iframe.contentWindow.addEventListener("message", function(event) {
       let appFiles = event.data;
       console.log("Received custom Setting");
-      modal.remove();
+       modal.remove();
+	   httpGet(`${APP_SOURCECODE_DEV}/eucapps.json`).then(json=>{
+    return installMultipleApps(JSON.parse(json), "EUC");
+  }).catch(err=>{
+    Progress.hide({sticky:true});
+    showToast("EUC Install failed, "+err,"error");
+  });
     }, false);
   });
 }
