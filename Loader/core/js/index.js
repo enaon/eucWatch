@@ -708,6 +708,36 @@ if (btn) btn.addEventListener("click",event=>{
   });
 });
 
+btn = document.getElementById("settime");
+if (btn) btn.addEventListener("click",event=>{
+  Comms.setTime().then(()=>{
+    showToast("Time set successfully","success");
+  }, err=>{
+    showToast("Error setting time, "+err,"error");
+  });
+});
+btn = document.getElementById("restart");
+if (btn) btn.addEventListener("click",event=>{
+  Comms.reset().then(()=>{
+    showToast("Restart successfully","success");
+  }, err=>{
+    showToast("Error, "+err,"error");
+  });
+});
+btn = document.getElementById("removeall");
+if (btn) btn.addEventListener("click",event=>{
+  showPrompt("Remove All","Really remove all apps?").then(() => {
+    return Comms.removeAllApps();
+  }).then(()=>{
+    Progress.hide({sticky:true});
+    appsInstalled = [];
+    showToast("All apps removed","success");
+    return getInstalledApps(true);
+  }).catch(err=>{
+    Progress.hide({sticky:true});
+    showToast("App removal failed, "+err,"error");
+  });
+});
 
 
 function installerOptions(installtype) {
@@ -798,36 +828,6 @@ if (btn) btn.addEventListener("click",event=>{
   refreshLibrary(); // favourites were in settings
 });
 
-btn = document.getElementById("settime");
-if (btn) btn.addEventListener("click",event=>{
-  Comms.setTime().then(()=>{
-    showToast("Time set successfully","success");
-  }, err=>{
-    showToast("Error setting time, "+err,"error");
-  });
-});
-btn = document.getElementById("restart");
-if (btn) btn.addEventListener("click",event=>{
-  Comms.reset().then(()=>{
-    showToast("Restart successfully","success");
-  }, err=>{
-    showToast("Error, "+err,"error");
-  });
-});
-btn = document.getElementById("removeall");
-if (btn) btn.addEventListener("click",event=>{
-  showPrompt("Remove All","Really remove all apps?").then(() => {
-    return Comms.removeAllApps();
-  }).then(()=>{
-    Progress.hide({sticky:true});
-    appsInstalled = [];
-    showToast("All apps removed","success");
-    return getInstalledApps(true);
-  }).catch(err=>{
-    Progress.hide({sticky:true});
-    showToast("App removal failed, "+err,"error");
-  });
-});
 
 // Install all default apps in one go
 btn = document.getElementById("installdefault");
