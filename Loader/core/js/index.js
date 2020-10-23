@@ -678,9 +678,9 @@ sortContainer.addEventListener('click', ({ target }) => {
 // Install basic apps in one go
 btn = document.getElementById("installbasic");
 if (btn) btn.addEventListener("click",event=>{ 
-    installerOptions("basic").then(() => {
+//    installerOptions("basic").then(() => {
     httpGet(`${APP_SOURCECODE_DEV}/basicapps.json`).then(json=>{
-    return installMultipleApps(JSON.parse(json), "basic"); });  
+    return installMultipleApps(JSON.parse(json), "basic");//});  
     }).catch(err=>{
     Progress.hide({sticky:true});
     showToast("Basic Install failed, "+err,"error");
