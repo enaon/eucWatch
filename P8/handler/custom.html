@@ -33,7 +33,13 @@
 		acctype=${JSON.stringify(acc)};
 		set.name=${JSON.stringify(name)};
 `;
-
+        // send finished app
+        sendCustomizedApp({
+          storage:[
+            {name:"handler.set", url:"handler", content:app},
+          ]
+        });
+      });
 
     </script>
   </body>
