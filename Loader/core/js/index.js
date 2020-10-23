@@ -770,8 +770,8 @@ function installerOptions(installtype) {
     let iframe = modal.getElementsByTagName("iframe")[0];
     iframe.contentWindow.addEventListener("message", function(event) {
       let appFiles = event.data;
-      console.log("Received custom Settings");
-      modal.remove();
+      console.log("Received custom Setting");
+      //modal.remove();
     }, false);
   });
 }
