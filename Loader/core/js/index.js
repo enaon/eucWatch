@@ -771,7 +771,8 @@ function installerOptions(installtype) {
     iframe.contentWindow.addEventListener("message", function(event) {
       let appFiles = event.data;
       console.log("Received custom Setting");
-      //modal.remove();
+      modal.remove();
+	  return true;
     }, false);
   });
 }
