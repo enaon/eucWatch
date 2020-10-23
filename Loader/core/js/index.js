@@ -753,7 +753,7 @@ function installerOptions(installtype) {
         </div>
         <div class="modal-body" style="height:100%">
           <div class="content" style="height:100%">
-            <iframe src="${APP_SOURCECODE_DEV}/installer.custom" style="width:100%;height:100%;border:0px;">
+            <iframe src="${APP_SOURCECODE_DEV}/installer.html" style="width:100%;height:100%;border:0px;">
           </div>
         </div>
       </div>
