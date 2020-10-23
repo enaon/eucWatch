@@ -673,6 +673,83 @@ sortContainer.addEventListener('click', ({ target }) => {
   window.location.hash = activeFilter;
 });
 
+// =========================================== Watch
+
+// Install basic apps in one go
+btn = document.getElementById("installbasic");
+if (btn) btn.addEventListener("click",event=>{ 
+  installerOptions("basic");
+    return installerOptions("basic").then(() => {   
+//  httpGet(`${APP_SOURCECODE_DEV}/basicapps.json`).then(json=>{
+//    return installMultipleApps(JSON.parse(json), "basic");
+  }).catch(err=>{
+    Progress.hide({sticky:true});
+    showToast("Basic Install failed, "+err,"error");
+  });
+});
+// Install basic and EUC apps in one go
+btn = document.getElementById("installeuc");
+if (btn) btn.addEventListener("click",event=>{
+  httpGet(`${APP_SOURCECODE_DEV}/eucapps.json`).then(json=>{
+    return installMultipleApps(JSON.parse(json), "EUC");
+  }).catch(err=>{
+    Progress.hide({sticky:true});
+    showToast("EUC Install failed, "+err,"error");
+  });
+});
+// Install all apps in one go
+btn = document.getElementById("installall");
+if (btn) btn.addEventListener("click",event=>{
+  httpGet(`${APP_SOURCECODE_DEV}/allapps.json`).then(json=>{
+    return installMultipleApps(JSON.parse(json), "All");
+  }).catch(err=>{
+    Progress.hide({sticky:true});
+    showToast("Full Install failed, "+err,"error");
+  });
+});
+
+
+
+function installerOptions(installtype) {
+  // Pops up an IFRAME that allows an app to be customised
+  if (!installtype) throw new Error("No installer HTML");
+  return new Promise((resolve,reject) => {
+    let modal = htmlElement(`<div class="modal active">
+      <a href="#close" class="modal-overlay " aria-label="Close"></a>
+      <div class="modal-container" style="height:100%">
+        <div class="modal-header">
+          <a href="#close" class="btn btn-clear float-right" aria-label="Close"></a>
+          <div class="modal-title h5">"Install Options"</div>
+        </div>
+        <div class="modal-body" style="height:100%">
+          <div class="content" style="height:100%">
+            <iframe src="${APP_SOURCECODE_DEV}/installer.custom" style="width:100%;height:100%;border:0px;">
+          </div>
+        </div>
+      </div>
+    </div>`);
+    document.body.append(modal);
+    htmlToArray(modal.getElementsByTagName("a")).forEach(button => {
+      button.addEventListener("click",event => {
+        event.preventDefault();
+        modal.remove();
+        reject("Window closed");
+      });
+    });
+
+    let iframe = modal.getElementsByTagName("iframe")[0];
+    iframe.contentWindow.addEventListener("message", function(event) {
+      let appFiles = event.data;
+      console.log("Received custom app", app);
+      modal.remove();
+    }, false);
+  });
+}
+
+
+
+
+
 // =========================================== About
 
 // Settings
@@ -749,36 +826,6 @@ if (btn) btn.addEventListener("click",event=>{
   }).catch(err=>{
     Progress.hide({sticky:true});
     showToast("App removal failed, "+err,"error");
-  });
-});
-// Install basic apps in one go
-btn = document.getElementById("installbasic");
-if (btn) btn.addEventListener("click",event=>{
-  httpGet(`${APP_SOURCECODE_DEV}/basicapps.json`).then(json=>{
-    return installMultipleApps(JSON.parse(json), "basic");
-  }).catch(err=>{
-    Progress.hide({sticky:true});
-    showToast("Basic Install failed, "+err,"error");
-  });
-});
-// Install basic and EUC apps in one go
-btn = document.getElementById("installeuc");
-if (btn) btn.addEventListener("click",event=>{
-  httpGet(`${APP_SOURCECODE_DEV}/eucapps.json`).then(json=>{
-    return installMultipleApps(JSON.parse(json), "EUC");
-  }).catch(err=>{
-    Progress.hide({sticky:true});
-    showToast("EUC Install failed, "+err,"error");
-  });
-});
-// Install all apps in one go
-btn = document.getElementById("installall");
-if (btn) btn.addEventListener("click",event=>{
-  httpGet(`${APP_SOURCECODE_DEV}/allapps.json`).then(json=>{
-    return installMultipleApps(JSON.parse(json), "All");
-  }).catch(err=>{
-    Progress.hide({sticky:true});
-    showToast("Full Install failed, "+err,"error");
   });
 });
 
