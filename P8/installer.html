@@ -27,7 +27,17 @@
           return;
         }
         // build the app's text using a templated String
-		//require("handler").advertise(${JSON.stringify(acc)});
+        var app = ` 
+		touchtype=${JSON.stringify(touch)};
+		acctype=${JSON.stringify(acc)};
+		set.name=${JSON.stringify(name)};
+`;
+        // send finished app
+        sendCustomizedApp({
+          storage:[
+            {name:"handler.set", url:"handler", content:app},
+          ]
+        });
       });
 
     </script>
