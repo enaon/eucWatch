@@ -772,7 +772,6 @@ function installerOptions(installtype) {
       let appFiles = event.data;
       console.log("Received custom Setting");
       modal.remove();
-	  return true;
     }, false);
   });
 }
