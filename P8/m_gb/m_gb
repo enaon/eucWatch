@@ -12,7 +12,7 @@ function handleNotificationEvent(event) {
 	if (event.t === "notify-") return; //todo
 	let d=(Date()).toString().split(' ');
     let ti=(""+d[4]+" "+d[0]+" "+d[2]);
-	if (event.src){
+	if (event.src){d
 		if (event.src.startsWith('Phone')||event.src.startsWith('Manage')){
 			if (!event.body||!event.title) return;
 			if (event.title.startsWith('Missed')||event.body.includes('Missed')){
@@ -36,7 +36,7 @@ function handleNotificationEvent(event) {
 			if (set.def.woe&&!notify.ring&&Boolean(require("Storage").read("notify"))) {
 				if (face.appCurr!="notify"||face.pageCurr!=5) {
 				face.go("notify",5,"im");
-				face.appPrev="main";face.pagePrev=-1;}
+				face.appPrev="off";face.pagePrev=-1;}
 			}
 		}
 		if (set.def.dnd) digitalPulse(D16,1,[80,50,80]);

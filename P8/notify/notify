@@ -286,7 +286,8 @@ touchHandler[5]=function(e,x,y){
     }else if  (e==4){
 	  notify["n"+face[5].type.substr(0,1).toUpperCase()+face[5].type.substr(1)]=0;
       if (!notify.nInfo&&!notify.nCall&&!notify.nIm) {notify.New=0;}
-      face.go(face.appPrev,face.pagePrev,face.pageArg);return;
+      if (face.appPrev=="main") face.go("main",-1);return;
+		else  face.go(face.appPrev,face.pagePrev,face.pageArg);return;
     }else if  (e==12){
       digitalPulse(D16,1,40);
     }
