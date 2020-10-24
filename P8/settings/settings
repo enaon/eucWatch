@@ -272,7 +272,7 @@ touchHandler[0]=function(e,x,y){
       }else if(77<x&&x<157&&77<y&&y<159){//btn5
         if (face.mode) {if (face[0].appDo5) {digitalPulse(D16,1,[30,50,30]);eval(face[0].appDo5);return;} else digitalPulse(D16,1,40);
         }else if (face[0].btSet) {
-          set.def.atc=1-set.def.atc;set.def.upd();digitalPulse(D16,1,[30,50,30]);
+          set.def.atc=1-set.def.atc;set.upd();digitalPulse(D16,1,[30,50,30]);
         }else {set.def.acc=1-set.def.acc;set.accR();digitalPulse(D16,1,[30,50,30]);}
       }else if(158<x&&x<239&&77<y&&y<159) {//btn6
         if (face.mode) {if (face[0].appDo6) {digitalPulse(D16,1,[30,50,30]);eval(face[0].appDo6);return;} else digitalPulse(D16,1,40);
