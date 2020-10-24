@@ -37,7 +37,7 @@ if (!global.rep.read)
     rep.con=1;
     face[0].btscan=1;
   }).catch(function(err)  {
-    if (set.cli) console.log("repellent:", err);
+    if (set.def.cli) console.log("repellent:", err);
     set.gIsB=0;rep.gatt=0;rep.device=0;rep.characteristic=0;rep.service=0;
     face[0].btscan=2;
   });

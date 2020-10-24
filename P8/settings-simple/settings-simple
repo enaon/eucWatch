@@ -50,32 +50,32 @@ face[0] = {
         this.g.setColor(0,col("white"));
         //bt
         this.g.drawImage(image("bt"),54,15);
-		this.g.drawImage((set.rfTX==-4)?image("rfTX1"):(set.rfTX==0)?image("rfTX2"):image("rfTX3"),125,32);
+		this.g.drawImage((set.def.rfTX==-4)?image("rfTX1"):(set.def.rfTX==0)?image("rfTX2"):image("rfTX3"),125,32);
         this.g.flip();
       }
-      if (set.cli!=this.cli) {
-        this.cli=set.cli;
+      if (set.def.cli!=this.cli) {
+        this.cli=set.def.cli;
         this.btn(this.cli,160,0,239,75,image("cli"),176,15,col("lblue"));//btn3
       }
-      if (set.gb!=this.gb) {
-        this.gb=set.gb;
+      if (set.def.gb!=this.gb) {
+        this.gb=set.def.gb;
         this.btn(this.gb,0,80,75,155,image("gb"),13,94,col("lblue"));//btn4
       }
-      if (set.atc!=this.atc) {
-        this.atc=set.atc;
+      if (set.def.atc!=this.atc) {
+        this.atc=set.def.atc;
         this.btn(this.atc,80,80,155,155,image("atc"),94,94,col("lblue"));//btn5
       }
-      if (set.hid!=this.hid) {
-        this.hid=set.hid;
+      if (set.def.hid!=this.hid) {
+        this.hid=set.def.hid;
         this.btn(this.hid,160,80,239,155,image("hid"),176,94,col("lblue"));//btn6
       }
 //settings
     }else{
      this.appImgNone=0;
     //bluetooth settings
-      if (set.bt!=this.bt) {
-        this.bt=set.bt;
-        var state=(set.cli||set.gb||set.atc||set.hid)?1:0;
+      if (set.def.bt!=this.bt) {
+        this.bt=set.def.bt;
+        var state=(set.def.cli||set.def.gb||set.def.atc||set.def.hid)?1:0;
         this.btn(state,0,0,75,75,image("bt"),13,15);
       }
     //themes 
@@ -91,8 +91,8 @@ face[0] = {
         this.g.flip();
     }
     //dnd on/off
-    if (set.dnd!=this.dnd) {
-      this.dnd=set.dnd;
+    if (set.def.dnd!=this.dnd) {
+      this.dnd=set.def.dnd;
     this.btn(this.dnd,160,0,239,75,(this.dnd)?image("dndOn"):image("dndOff"),176,15);//btn3
 
     }
@@ -102,8 +102,8 @@ face[0] = {
 	  this.btn(this.fmp,0,80,75,155,image("findPhone"),13,94,col("dyellow"),col("gray"));//btn3
       }
     //acc on/off
-    if (set.acc!=this.acc) {
-      this.acc=set.acc;
+    if (set.def.acc!=this.acc) {
+      this.acc=set.def.acc;
       this.btn(this.acc,80,80,155,155,image("wakeScreen"),94,94);
     }
 	//brightness level
@@ -197,7 +197,7 @@ face[5] = {
     this.g.drawString("UPTIME: "+d+"D-"+h+"H-"+m+"M",120-(this.g.stringWidth("UPTIME: "+d+"D-"+h+"H-"+m+"M")/2),100);  
 	this.g.drawString("FLASH FREE: "+require("Storage").getFree(),120-(this.g.stringWidth("FLASH FREE: "+require("Storage").getFree())/2),125); 
 	this.g.drawString("TEMPERATURE: "+E.getTemperature(),120-(this.g.stringWidth("TEMPERATURE: "+E.getTemperature())/2),150);  
-	this.g.drawString("NAME: "+set.name,120-(this.g.stringWidth("NAME: "+set.name)/2),175);  
+	this.g.drawString("NAME: "+set.def.name,120-(this.g.stringWidth("NAME: "+set.def.name)/2),175);  
     this.g.flip();
     this.g.setFont("Vector",18);
 	this.g.setColor(0,col("raf"));
@@ -256,13 +256,13 @@ touchHandler[0]=function(e,x,y){
       }else if(158<x&&x<239&&y<75){//btn3
         if (face.mode) {if (face[0].appDo3) {digitalPulse(D16,1,[30,50,30]);eval(face[0].appDo3);return;} else digitalPulse(D16,1,40);
         }else if (face[0].btSet) {
-          set.cli=1-set.cli;set.upd();digitalPulse(D16,1,[30,50,30]);
-        }else {set.dnd=1-set.dnd;digitalPulse(D16,1,[30,50,30]);}
+          set.def.cli=1-set.def.cli;set.upd();digitalPulse(D16,1,[30,50,30]);
+        }else {set.def.dnd=1-set.def.dnd;digitalPulse(D16,1,[30,50,30]);}
       }else if(77>x&&77<y&&y<159){//btn4
         if (face.mode) {if (face[0].appDo4) {digitalPulse(D16,1,[30,50,30]);eval(face[0].appDo4);return;} else digitalPulse(D16,1,40);
         }else if (face[0].btSet) {
-          set.gb=1-set.gb;set.upd();digitalPulse(D16,1,[30,50,30]);
-        }else if (set.bt==3){
+          set.def.gb=1-set.def.gb;set.upd();digitalPulse(D16,1,[30,50,30]);
+        }else if (set.def.bt==3){
 			digitalPulse(D16,1,[30,50,30]);
 			set.fmp=1-set.fmp;
 			if (set.fmp) set.gbSend({ "t": "findPhone", "n": true });else set.gbSend({ "t": "findPhone", "n": false });
@@ -271,12 +271,12 @@ touchHandler[0]=function(e,x,y){
       }else if(77<x&&x<157&&77<y&&y<159){//btn5
         if (face.mode) {if (face[0].appDo5) {digitalPulse(D16,1,[30,50,30]);eval(face[0].appDo5);return;} else digitalPulse(D16,1,40);
         }else if (face[0].btSet) {
-          set.atc=1-set.atc;set.upd();digitalPulse(D16,1,[30,50,30]);
-        }else {set.acc=1-set.acc;set.accR();digitalPulse(D16,1,[30,50,30]);}
+          set.def.atc=1-set.def.atc;set.upd();digitalPulse(D16,1,[30,50,30]);
+        }else {set.def.acc=1-set.def.acc;set.accR();digitalPulse(D16,1,[30,50,30]);}
       }else if(158<x&&x<239&&77<y&&y<159) {//btn6
         if (face.mode) {if (face[0].appDo6) {digitalPulse(D16,1,[30,50,30]);eval(face[0].appDo6);return;} else digitalPulse(D16,1,40);
         }else if (face[0].btSet) {
-          set.hid=1-set.hid;set.upd();digitalPulse(D16,1,[30,50,30]);
+          set.def.hid=1-set.def.hid;set.upd();digitalPulse(D16,1,[30,50,30]);
         }else {
         face[0].cbri=w.gfx.bri.lv+1;
         if (face[0].cbri>7) face[0].cbri=1;
@@ -352,14 +352,14 @@ touchHandler[0]=function(e,x,y){
 	  if (face[0].btSet) {
 		if(x<160&&y<77){//bt toggle tx
 	   		digitalPulse(D16,1,[30,50,30]);
-			if (set.rfTX===-4) set.rfTX=0;
-			else if (set.rfTX===0) set.rfTX=4;
-			else if (set.rfTX===4) set.rfTX=-4;
-			NRF.setTxPower(set.rfTX);
+			if (set.def.rfTX===-4) set.def.rfTX=0;
+			else if (set.def.rfTX===0) set.def.rfTX=4;
+			else if (set.def.rfTX===4) set.def.rfTX=-4;
+			NRF.setTxPower(set.def.rfTX);
 			face[0].btSetOn=1;
 		} else digitalPulse(D16,1,40);
 	  }else if(158<x&&x<239&&y<75){
-        set.hid=1-set.hid;
+        set.def.hid=1-set.def.hid;
 		set.upd();
         digitalPulse(D16,1,[30,50,30]);
       } else digitalPulse(D16,1,40);

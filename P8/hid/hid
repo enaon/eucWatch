@@ -18,7 +18,7 @@ face[0] = {
   },
   init: function(){	  
     var g=w.gfx;
-	if (set.hid!=1){
+	if (set.def.hid!=1){
 		g.setColor(0,col("black"));
 //		g.clearRect(1,0,239,239);
 		g.setColor(1,col("white"));
@@ -109,7 +109,7 @@ face[1] = {
 };		
 touchHandler[0]=function(e,x,y){
     var g=w.gfx;
-    if (set.hid==1){
+    if (set.def.hid==1){
     if (e==5){
       if(x<77&&y<75){
 		set.hidM.playpause();

@@ -52,8 +52,8 @@ face[0] = {
 	  this.g.drawImage( require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8FwAbvh+HnjHh8HjAYPABYNhAYVxAY0wIYU4H4U4EYUcnkP/0Oj0f/8Ph///8Hw/4g8D4IDBgIfBg8AD4IDBvgDCj+AAYIbCgEB//+FoM//gA==")),15,9);
 	  this.g.flip();
 	  }
-    }else if (set.bt != this.bt){
-	  this.bt=set.bt;
+    }else if (set.def.bt != this.bt){
+	  this.bt=set.def.bt;
 	  this.ring=0;
       var colbt=colo.bck1;
       if (this.bt==3)  colbt=colo.bck3;
@@ -64,7 +64,7 @@ face[0] = {
 	  this.g.fillRect(0,0,158,50); //date
       this.g.setColor(1,colo.txt1);
       this.g.setFont("Vector",35);
-	  if (this.bt==0&&!set.cli&&!set.atc&&!set.hid&&!set.gb) {
+	  if (this.bt==0&&!set.def.cli&&!set.def.atc&&!set.def.hid&&!set.def.gb) {
 	    this.g.drawString(this.d[2]+" "+this.d[0].toUpperCase(), (81-(this.g.stringWidth(this.d[2]+" "+this.d[0].toUpperCase()))/2) ,9); //date
 	    this.g.flip();
 	  }else {
@@ -75,8 +75,8 @@ face[0] = {
 		this.g.fillRect(0,0,15,50); //date
 //		var colbtf=col("white");
         var colbtf=4095;
-//        if (set.bt==0) colbtf=col("black");
-        if (set.bt==0) colbtf=0;
+//        if (set.def.bt==0) colbtf=col("black");
+        if (set.def.bt==0) colbtf=0;
         this.g.setColor(1,colbtf);
 		this.g.drawImage(E.toArrayBuffer(atob("CxQBBgDgFgJgR4jZMawfAcA4D4NYybEYIwTAsBwDAA==")),3,13);
 		this.g.flip();
@@ -368,7 +368,6 @@ touchHandler[0]=function(e,x,y){
     }else if  (e==12){
 	if (150<y&&y<200){ 	
 		digitalPulse(D16,1,180);
-//		set.push=undefined;
 		notify.New=0;notify.nInfo=0;notify.nCall=0;notify.nIm=0;notify.nMail=0;
 	}else if (x>162 && y>200){ 
       digitalPulse(D16,1,40);

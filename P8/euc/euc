@@ -145,7 +145,7 @@ face[0] = {
   	this.g.drawString(euc.time,192-(this.g.stringWidth(euc.time)/2),90); 
     this.g.flip();
 	if (euc.conn=="OFF" && euc.lock==1){
-    this.clear(); //if (set.cli) console.log("faceEUCexited");
+    this.clear(); //if (set.def.cli) console.log("faceEUCexited");
     }
     }
 //rest
@@ -366,7 +366,7 @@ touchHandler[5]=function(e,x,y){
         euc.trpL="0.0";
 	  //toggle EUC auto lock
 	  }else if (x<115 && (80<y&&y<145)) {
-        //if (set.cli) console.log("toggle alock");
+        //if (set.def.cli) console.log("toggle alock");
         digitalPulse(D16,1,300);  
         euc.alck=1-euc.alck;
       }else digitalPulse(D16,1,40);
