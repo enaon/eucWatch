@@ -197,7 +197,7 @@ face[5] = {
     this.g.drawString("UPTIME: "+d+"D-"+h+"H-"+m+"M",120-(this.g.stringWidth("UPTIME: "+d+"D-"+h+"H-"+m+"M")/2),100);  
 	this.g.drawString("FLASH FREE: "+require("Storage").getFree(),120-(this.g.stringWidth("FLASH FREE: "+require("Storage").getFree())/2),125); 
 	this.g.drawString("TEMPERATURE: "+E.getTemperature(),120-(this.g.stringWidth("TEMPERATURE: "+E.getTemperature())/2),150);  
-	this.g.drawString("NAME: "+set.name,120-(this.g.stringWidth("NAME: "+set.def.name)/2),175);  
+	this.g.drawString("NAME: "+set.def.name,120-(this.g.stringWidth("NAME: "+set.def.name)/2),175);  
     this.g.flip();
     this.g.setFont("Vector",18);
 	this.g.setColor(0,col("raf"));
