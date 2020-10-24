@@ -102,7 +102,7 @@ var set={
   }
 };
 
-set.def = storage.readJSON('setting.json', 1);
+set.def = require('Storage').readJSON('setting.json', 1);
 if (!set.def) set.resetSettings();
 //
 //eval(require('Storage').read('handler.set')); //get defaults
