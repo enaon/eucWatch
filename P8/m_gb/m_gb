@@ -36,7 +36,7 @@ function handleNotificationEvent(event) {
 			if (set.def.woe&&!notify.ring&&Boolean(require("Storage").read("notify"))) {
 				if (face.appCurr!="notify"||face.pageCurr!=5) {
 				face.go("notify",5,"im");
-				face.appPrev="off";face.pagePrev=-1;}
+				face.appPrev="off";face.pagePrev=0;}
 			}
 		}
 		if (set.def.dnd) digitalPulse(D16,1,[80,50,80]);
