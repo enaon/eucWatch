@@ -106,7 +106,7 @@ function resetSettings() {
 }
 set.def =0;
 
-//set.def = storage.readJSON('setting.json', 1);
+set.def = storage.readJSON('setting.json', 1);
 if (!set.def) resetSettings();
 //
 //eval(require('Storage').read('handler.set')); //get defaults
