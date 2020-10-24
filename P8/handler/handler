@@ -178,7 +178,6 @@ var face={
 	  },this.offms,this.pageCurr);
   },
   go:function(app,page,arg){
-	//var root=this.appPrev;
     this.appPrev=this.appCurr;
 	this.pagePrev=this.pageCurr;
     this.appCurr=app;
@@ -192,9 +191,10 @@ var face={
 		acc.go=0;
         face[this.pagePrev].off();
       if (this.offid>=0) {clearTimeout(this.offid); this.offid=-1;}
+	  if (this.appCurr!=this.appPrev) eval(require('Storage').read(app));
 		return;
 	}
-	if (app!=this.appPrev) {
+	if (this.appCurr!=this.appPrev) {
       face[1]=0;face[2]=0;face[5]=0;
 	  this.appRoot=[this.appPrev,this.pagePrev,this.pageArg];
       eval(require('Storage').read(app));
