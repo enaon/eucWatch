@@ -36,7 +36,7 @@ function handleNotificationEvent(event) {
 			if (set.def.woe&&!notify.ring&&Boolean(require("Storage").read("notify"))) {
 				if (face.appCurr!="notify"||face.pageCurr!=5) {
 				face.go("notify",5,"im");
-//				face.appPrev="main";face.pagePrev=-1;
+				face.appPrev="off";
                 }
 			}
 		}
