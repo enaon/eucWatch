@@ -178,7 +178,7 @@ function changeAppFavourite(favourite, app) {
   if (favourite) {
     SETTINGS.favourites = SETTINGS.favourites.concat([app.id]);
   } else {
-    if ([ "boot","setting"].includes(app.id)) {
+    if ([ "P8 core","handler"].includes(app.id)) {
       showToast(app.name + ' is required, can\'t remove it' , 'warning');
     }else {
       SETTINGS.favourites = SETTINGS.favourites.filter(e => e != app.id);
@@ -738,7 +738,7 @@ if (btn) btn.addEventListener("click",event=>{
   });
 });
 
-
+//write options to setting.json on Watch
 function installerOptions(installtype) {
   // Pops up an IFRAME that allows an app to be customised
   if (!installtype) throw new Error("No installer HTML");
@@ -768,22 +768,20 @@ function installerOptions(installtype) {
 
     let iframe = modal.getElementsByTagName("iframe")[0];
     iframe.contentWindow.addEventListener("message", function(event) {
-      let appFiles = event.data;
       console.log("Received custom Setting");
        modal.remove();
-	   httpGet(`${APP_SOURCECODE_DEV}/eucapps.json`).then(json=>{
+	writeSettings(event)
+
+
+   httpGet(`${APP_SOURCECODE_DEV}/eucapps.json`).then(json=>{
     return installMultipleApps(JSON.parse(json), "EUC");
   }).catch(err=>{
     Progress.hide({sticky:true});
-    showToast("EUC Install failed, "+err,"error");
+    showToast("Install failed, "+err,"error");
   });
     }, false);
   });
 }
-
-
-
-
 
 // =========================================== About
 

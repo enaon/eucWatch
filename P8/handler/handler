@@ -94,6 +94,29 @@ var set={
     else if (this.btsl==1) {NRF.restart();this.btsl=0;}
   }
 };
+function updateSettings() {
+  storage.write('setting.json', settings);
+}
+function resetSettings() {
+ set.def = {
+	name:"p8-EUCWatch", //Set the name to be broadcasted by the Bluetooth module. 
+	zone:3, //Timezone
+	woe:1, //wake Screen on event.0=disable|1=enable
+	wob:1, //wake Screen on Button press.0=disable|1=enable
+	rfTX:4, //BT radio tx power, -4=low|0=normal|4=high
+	cli:1, //Nordic serial bluetooth access. Enables/disables Espruino Web IDE.
+	hid:0, //enable/disable Bluetooth music controll Service.
+	gb:1,  //Notifications service. Enables/disables support for "GadgetBridge" playstore app.
+	atc:0, //Notifications service. Enables/disables support for "d6 notification" playstore app from ATC1441.
+	acc:1, //enables/disables wake-screen on wrist-turn. 
+	dnd:1, //Do not disturb mode, if ebabled vibrations are on.
+	hidT:"media", //joy/kb/media
+  };
+  updateSettings();
+}
+settings = storage.readJSON('setting.json', 1);
+if (!settings) resetSettings();
+//
 eval(require('Storage').read('handler.set')); //get defaults
 E.setTimeZone(set.zone);
 function bdis() {
@@ -472,35 +495,7 @@ function col(no){
 	  case "olive":return 170;
 	}
 }
-/*
-col={
-	black:0,
-	white:4095,
-	lblue:1535,
-	blue:143,
-	dblue:1375,
-	blue1:1708,
-	raf:1453,
-	raf1:1708,
-	raf2:1963,
-	raf3:2220,
-	raf4:2474,
-	raf5:3005,
-	olive:170,
-	gray:2730,
-	lgray:3003,
-	dgray:1365,
-	dgray1:1351,
-	lgreen:1525,
-	red:3840,
-	dred:3925,
-	dred1:3888,
-	purple:3935,
-	lyellow:4085,
-	dyellow:4064,
-	yellow:4080
-};
-*/
+
 var colo={ txt: 4095, txt1: 1535, txt2: 1365, txt3: 0,
   hdr: 1368, hTxt: 3003, bck: 1708, bck0: 0, bck1: 3003,
   bck2: 2730, bck3: 1963, btnEn: 1453, btnEn1: 1535, btnEn2: 3935,
