@@ -105,10 +105,10 @@ function resetSettings() {
   };
   updateSettings();
 }
-settings = storage.readJSON('setting.json', 1);
-if (!settings) resetSettings();
+set.def = storage.readJSON('setting.json', 1);
+if (!set.def) resetSettings();
 //
-eval(require('Storage').read('handler.set')); //get defaults
+//eval(require('Storage').read('handler.set')); //get defaults
 E.setTimeZone(set.def.timezone);
 function bdis() {
     Bluetooth.removeListener('data',ccon);
