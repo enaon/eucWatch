@@ -94,6 +94,8 @@ var set={
     else if (this.btsl==1) {NRF.restart();this.btsl=0;}
   }
 };
+const storage = require('Storage');
+let settings;
 function updateSettings() {
   storage.write('setting.json', settings);
 }
