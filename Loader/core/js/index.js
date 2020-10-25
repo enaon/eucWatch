@@ -772,8 +772,7 @@ function installerOptions(installtype) {
        modal.remove();
 	//Comms.writeSettings(event.data);
     httpGet(`${APP_SOURCECODE_DEV}/testapps.json`).then(json=>{
-    installMultipleApps(JSON.parse(json), installtype);
-	Comms.writeSettings(event.data);
+    return installMultipleApps(JSON.parse(json), installtype,event.data);
   }).catch(err=>{
     Progress.hide({sticky:true});
     showToast("Install failed, "+err,"error");
