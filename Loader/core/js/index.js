@@ -768,7 +768,7 @@ function installerOptions(installtype) {
 
     let iframe = modal.getElementsByTagName("iframe")[0];
     iframe.contentWindow.addEventListener("message", function(event) {
-      console.log("Received custom Setting");
+      console.log("Received customm Setting");
        modal.remove();
 	//Comms.writeSettings(event.data);
     httpGet(`${APP_SOURCECODE_DEV}/testapps.json`).then(json=>{
