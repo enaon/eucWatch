@@ -51,8 +51,8 @@ face[0] = {
 	  this.g.drawImage(image("phoneMute"),15,9);
 	  this.g.flip();
 	  }
-    }else if (set.def.bt != this.bt){
-	  this.bt=set.def.bt;
+    }else if (set.bt != this.bt){
+	  this.bt=set.bt;
 	  this.ring=0;
       var colbt=colo.bck1;
       if (this.bt==3)  colbt=colo.bck3;
@@ -74,8 +74,8 @@ face[0] = {
 		this.g.fillRect(0,0,15,50); //date
 //		var colbtf=col("white");
         var colbtf=4095;
-//        if (set.def.bt==0) colbtf=col("black");
-        if (set.def.bt==0) colbtf=0;
+//        if (set.bt==0) colbtf=col("black");
+        if (set.bt==0) colbtf=0;
         this.g.setColor(1,colbtf);
 		this.g.drawImage(E.toArrayBuffer(atob("CxQBBgDgFgJgR4jZMawfAcA4D4NYybEYIwTAsBwDAA==")),3,13);
 		this.g.flip();

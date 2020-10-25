@@ -73,8 +73,8 @@ face[0] = {
     }else{
      this.appImgNone=0;
     //bluetooth settings
-      if (set.def.bt!=this.bt) {
-        this.bt=set.def.bt;
+      if (set.bt!=this.bt) {
+        this.bt=set.bt;
         var state=(set.def.cli||set.def.gb||set.def.atc||set.def.hid)?1:0;
         this.btn(state,0,0,75,75,require("heatshrink").decompress(atob("mEwwIXUgYFFwAFE4AFE8AFE/AFE/gFE/wFE/4FE74qCgUD54qCg8D44qCh+D4fwAoXDAocD8YRDgPzDocA/YpDgF/Gok/IIkfJokPLIkHFwQFHCIodFFIo1FIIhNFLIplFOIp9FRIqVFUI6tFXIrFFaIrdFdIr/IABY=")),13,15);
       }
@@ -263,7 +263,7 @@ touchHandler[0]=function(e,x,y){
         if (face.mode) {if (face[0].appDo4) {digitalPulse(D16,1,[30,50,30]);eval(face[0].appDo4);return;} else digitalPulse(D16,1,40);
         }else if (face[0].btSet) {
           set.def.gb=1-set.def.gb;set.upd();digitalPulse(D16,1,[30,50,30]);
-        }else if (set.def.bt==3){
+        }else if (set.bt==3){
 			digitalPulse(D16,1,[30,50,30]);
 			set.fmp=1-set.fmp;
 			if (set.fmp) set.gbSend({ "t": "findPhone", "n": true });else set.gbSend({ "t": "findPhone", "n": false });

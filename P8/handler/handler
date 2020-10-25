@@ -112,18 +112,18 @@ function bdis() {
 	E.setConsole(null,{force:true});
     if (!set.def.cli&&!set.def.gb&&!set.def.atc&&!set.def.hid){
       NRF.sleep();
-      set.def.btsl=1;
+      set.btsl=1;
     }	
-	if (set.def.bt==1) handleInfoEvent({"src":"BT","title":"BT","body":"Disconnected"});
-	else if (set.def.bt==2) handleInfoEvent({"src":"BT","title":"IDE","body":"Disconnected"});
-	else if (set.def.bt==3) handleInfoEvent({"src":"BT","title":"GB","body":"Disconnected"});
-	else if (set.def.bt==4) handleInfoEvent({"src":"BT","title":"ATC","body":"Disconnected"});
-	else if (set.def.bt==5) handleInfoEvent({"src":"BT","title":"ESP","body":"Disconnected"});
-  	set.def.bt=0; 
+	if (set.bt==1) handleInfoEvent({"src":"BT","title":"BT","body":"Disconnected"});
+	else if (set.bt==2) handleInfoEvent({"src":"BT","title":"IDE","body":"Disconnected"});
+	else if (set.bt==3) handleInfoEvent({"src":"BT","title":"GB","body":"Disconnected"});
+	else if (set.bt==4) handleInfoEvent({"src":"BT","title":"ATC","body":"Disconnected"});
+	else if (set.bt==5) handleInfoEvent({"src":"BT","title":"ESP","body":"Disconnected"});
+  	set.bt=0; 
 	digitalPulse(D16,1,[100,50,50,50,100]); 
 }
 function bcon() {
-	set.def.bt=1; 
+	set.bt=1; 
     digitalPulse(D16,1,100);
 	if (set.def.cli==1||set.def.gb==1)  Bluetooth.on('data',ccon);
 	}
@@ -131,13 +131,13 @@ function ccon(l){
     var cli="\x03";
     var gb="\x20\x03";
 	if (set.def.cli) {
-		if (l.startsWith(cli)) {set.def.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
+		if (l.startsWith(cli)) {set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
 		print("Welcome.\n** Working mode **\nUse devmode (Settings-Info-long press on Restart) for uploading files."); 
 		handleInfoEvent({"src":"BT","title":"IDE","body":"Connected"});
 		}
     }
     if (set.def.gb) if (l.startsWith(gb)){
-		set.def.bt=3;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
+		set.bt=3;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
 		handleInfoEvent({"src":"BT","title":"GB","body":"Connected"});
 		}
     if (l.length>5)  NRF.disconnect();

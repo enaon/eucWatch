@@ -92,7 +92,7 @@ var atcR= function(evt){
       set.atcW("AT+VER:"+process.version);
       digitalPulse(D16,1,[80]);
 	  handleInfoEvent({"src":"BT","title":"ATC","body":"Connected"});
-	  set.def.bt=4;
+	  set.bt=4;
     } else if (srt == "AT+SN") {
       set.atcW("AT+SN:Espruino");
     } else if (srt.substring(0, 12) == "AT+CONTRAST=") {
