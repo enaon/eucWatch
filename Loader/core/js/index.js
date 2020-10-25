@@ -573,9 +573,7 @@ function installMultipleApps(appIds, promptName, defaults) {
   return showPrompt("Install Defaults",`Remove everything and install ${promptName} apps?`).then(() => {
     return Comms.removeAllApps();
   }).then(()=>{
-	Progress.hide({sticky:true});
-    showToast(`Existing apps removed. Installing Default settings`);
-	return Comms.writeSettings(defaults)();
+	return Comms.writeSettings(defaults);
   }).then(()=>{
     Progress.hide({sticky:true});
     appsInstalled = [];
