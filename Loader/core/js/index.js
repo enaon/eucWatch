@@ -565,7 +565,7 @@ function getInstalledApps(refresh) {
 }
 
 /// Removes everything and install the given apps, eg: installMultipleApps(["boot","mclock"], "minimal")
-function installMultipleApps(appIds, promptName) {
+function installMultipleApps(appIds, promptName, defaults) {
   let apps = appIds.map( appid => appJSON.find(app=>app.id==appid) );
   if (apps.some(x=>x===undefined))
     return Promise.reject("Not all apps found");
@@ -573,9 +573,13 @@ function installMultipleApps(appIds, promptName) {
   return showPrompt("Install Defaults",`Remove everything and install ${promptName} apps?`).then(() => {
     return Comms.removeAllApps();
   }).then(()=>{
+	Progress.hide({sticky:true});
+    showToast(`Existing apps removed. Installing Default settings`);
+	return Comms.writeSettings(defaults)();
+  }).then(()=>{
     Progress.hide({sticky:true});
     appsInstalled = [];
-    showToast(`Existing apps removed. Installing  ${appCount} apps...`);
+    showToast(`Installing  ${appCount} apps...`);
     return new Promise((resolve,reject) => {
       function upload() {
         let app = apps.shift();
