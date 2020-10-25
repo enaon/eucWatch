@@ -770,9 +770,9 @@ function installerOptions(installtype) {
     iframe.contentWindow.addEventListener("message", function(event) {
       console.log("Received custom Setting");
        modal.remove();
-	Comms.writeSettings(event.data);
+	//Comms.writeSettings(event.data);
     httpGet(`${APP_SOURCECODE_DEV}/testapps.json`).then(json=>{
-    return installMultipleApps(JSON.parse(json), installtype);
+    return installMultipleApps(JSON.parse(json), installtype).then(Comms.writeSettings(event.data));
   }).catch(err=>{
     Progress.hide({sticky:true});
     showToast("Install failed, "+err,"error");
