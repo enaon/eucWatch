@@ -21,5 +21,5 @@ var spi=new SPI();spi.setup({sck:D2,mosi:D3,miso:D4,mode:0}); spi.send([0xab],D5
 #### More info on the P8 watch and Espruino [here](https://github.com/fanoush/ds-d6/tree/master/espruino/DFU/P8)
 
 
-@gfwilliams, who is the man behind Espruino. This project uses the Espruino [app loader](https://github.com/espruino/EspruinoApps) and many code snippets from bangle.js source code.
+@gfwilliams, who is the man behind Espruino. This project uses the Espruino [app loader](https://github.com/espruino/EspruinoApps) and many code snippets from [bangle.js](https://github.com/espruino/BangleApps) source code.
 #### More info on Espruino [here](https://www.espruino.com/)
