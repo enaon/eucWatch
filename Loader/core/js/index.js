@@ -573,6 +573,8 @@ function installMultipleApps(appIds, promptName, defaults) {
   return showPrompt("Install Defaults",`Remove everything and install ${promptName} apps?`).then(() => {
     return Comms.removeAllApps();
   }).then(()=>{
+	Progress.hide({sticky:true});
+    showToast(`Erase Complete, writing default settings`);  
 	return Comms.writeSettings(defaults);
   }).then(()=>{
     Progress.hide({sticky:true});
@@ -680,9 +682,7 @@ sortContainer.addEventListener('click', ({ target }) => {
 // Install basic apps in one go
 btn = document.getElementById("installbasic");
 if (btn) btn.addEventListener("click",event=>{ 
-    installerOptions("basic").then(() => {
-//    httpGet(`${APP_SOURCECODE_DEV}/basicapps.json`).then(json=>{
-//    return installMultipleApps(JSON.parse(json), "basic");//});  
+    installerOptions("basicapps").then(() => {
     }).catch(err=>{
     Progress.hide({sticky:true});
     showToast("Basic Install failed, "+err,"error");
@@ -690,22 +690,20 @@ if (btn) btn.addEventListener("click",event=>{
 });
 // Install basic and EUC apps in one go
 btn = document.getElementById("installeuc");
-if (btn) btn.addEventListener("click",event=>{
-  httpGet(`${APP_SOURCECODE_DEV}/eucapps.json`).then(json=>{
-    return installMultipleApps(JSON.parse(json), "EUC");
-  }).catch(err=>{
+if (btn) btn.addEventListener("click",event=>{ 
+    installerOptions("euccapps").then(() => {
+    }).catch(err=>{
     Progress.hide({sticky:true});
-    showToast("EUC Install failed, "+err,"error");
+    showToast("Basic Install failed, "+err,"error");
   });
 });
 // Install all apps in one go
 btn = document.getElementById("installall");
-if (btn) btn.addEventListener("click",event=>{
-  httpGet(`${APP_SOURCECODE_DEV}/allapps.json`).then(json=>{
-    return installMultipleApps(JSON.parse(json), "All");
-  }).catch(err=>{
+if (btn) btn.addEventListener("click",event=>{ 
+    installerOptions("allapps").then(() => {
+    }).catch(err=>{
     Progress.hide({sticky:true});
-    showToast("Full Install failed, "+err,"error");
+    showToast("Basic Install failed, "+err,"error");
   });
 });
 
@@ -743,7 +741,6 @@ if (btn) btn.addEventListener("click",event=>{
 //write options to setting.json on Watch
 function installerOptions(installtype) {
   // Pops up an IFRAME that allows an app to be customised
-  if (!installtype) throw new Error("No installer HTML");
   return new Promise((resolve,reject) => {
     let modal = htmlElement(`<div class="modal active">
       <a href="#close" class="modal-overlay " aria-label="Close"></a>
@@ -773,7 +770,7 @@ function installerOptions(installtype) {
       console.log("Received customm Setting");
        modal.remove();
 	//Comms.writeSettings(event.data);
-    httpGet(`${APP_SOURCECODE_DEV}/testapps.json`).then(json=>{
+    httpGet(`${APP_SOURCECODE_DEV}/${installtype}.json`).then(json=>{
     return installMultipleApps(JSON.parse(json), installtype,event.data);
   }).catch(err=>{
     Progress.hide({sticky:true});
