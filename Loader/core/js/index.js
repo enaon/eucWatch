@@ -682,7 +682,7 @@ sortContainer.addEventListener('click', ({ target }) => {
 // Install basic apps in one go
 btn = document.getElementById("installbasic");
 if (btn) btn.addEventListener("click",event=>{ 
-    installerOptions("basicapps").then(() => {
+    installerOptions("Basic").then(() => {
     }).catch(err=>{
     Progress.hide({sticky:true});
     showToast("Basic Install failed, "+err,"error");
@@ -691,7 +691,7 @@ if (btn) btn.addEventListener("click",event=>{
 // Install basic and EUC apps in one go
 btn = document.getElementById("installeuc");
 if (btn) btn.addEventListener("click",event=>{ 
-    installerOptions("euccapps").then(() => {
+    installerOptions("Euc").then(() => {
     }).catch(err=>{
     Progress.hide({sticky:true});
     showToast("EUC Install failed, "+err,"error");
@@ -700,7 +700,7 @@ if (btn) btn.addEventListener("click",event=>{
 // Install all apps in one go
 btn = document.getElementById("installall");
 if (btn) btn.addEventListener("click",event=>{ 
-    installerOptions("allapps").then(() => {
+    installerOptions("All").then(() => {
     }).catch(err=>{
     Progress.hide({sticky:true});
     showToast("FULL Install failed, "+err,"error");
