@@ -22,7 +22,7 @@ function handleInfoEvent(event) {
 }
 //settings - run set.upd() after changing BT settings to take effect.
 var set={
-  bt:0, //Incommint BT service status indicator- Not user settable.0=not_connected|1=unknown|2=webide|3=gadgetbridge|4=atc|5=esp32
+  bt:0, //Incomming BT service status indicator- Not user settable.0=not_connected|1=unknown|2=webide|3=gadgetbridge|4=atc|5=esp32
   tor:0, //Enables/disables torch- Not user settable.
   ondc:0, //charging indicator-not user settable.
   btsl:0, //bt sleep status-not user settable.
