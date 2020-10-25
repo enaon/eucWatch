@@ -772,7 +772,7 @@ function installerOptions(installtype) {
        modal.remove();
 	//Comms.writeSettings(event.data);
     httpGet(`${APP_SOURCECODE_DEV}/testapps.json`).then(json=>{
-    return installMultipleApps(JSON.parse(json), installtype);
+    installMultipleApps(JSON.parse(json), installtype);
 	Comms.writeSettings(event.data);
   }).catch(err=>{
     Progress.hide({sticky:true});
