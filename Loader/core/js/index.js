@@ -770,10 +770,8 @@ function installerOptions(installtype) {
     iframe.contentWindow.addEventListener("message", function(event) {
       console.log("Received custom Setting");
        modal.remove();
-	writeSettings(event)
-
-
-   httpGet(`${APP_SOURCECODE_DEV}/eucapps.json`).then(json=>{
+	Comms.writeSettings(event)
+    httpGet(`${APP_SOURCECODE_DEV}/eucapps.json`).then(json=>{
     return installMultipleApps(JSON.parse(json), "EUC");
   }).catch(err=>{
     Progress.hide({sticky:true});

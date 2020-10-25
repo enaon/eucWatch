@@ -200,7 +200,17 @@ const Comms = {
       });
     });
   },
-  writeSettings : (id,value) => {
+  writeSettings : (val) => {
+    return new Promise((resolve,reject) => {
+      let cmd = '\x03\x10';
+	cmd += "require('Storage').write('setting.json', ${val});";
+      Puck.write(cmd, (result) => {
+        if (result===null) return reject("");
+        resolve();
+      });
+    });
+  },
+  changeSettings : (id,value) => {
     return new Promise((resolve,reject) => {
       let cmd = '\x03\x10';
       cmd += "(s=>{s&&(s[id]="+value+")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1))\n";
