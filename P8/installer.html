@@ -35,12 +35,15 @@
         var app = ` 
 		{"name":${JSON.stringify(name)},"touchtype":${JSON.stringify(touch)},"acctype":${JSON.stringify(acc)},"timezone":${JSON.stringify(zone)},"woe":1,"wob":1,"rfTX":4,"cli":1,"hid":0,"gb":1,"atc":0,"acc":1,"dnd":1,"hidT":"media"}
 `;
+
+  window.postMessage(app);
+
         // send finished app
-        sendCustomizedApp({
-          storage:[
-            {name:"setting.json", url:"devmode", content:app},
-          ]
-        });
+ //       sendCustomizedApp({
+ //         storage:[
+ //           {name:"setting.json", url:"devmode", content:app},
+ //         ]
+ //       });
       });
 
     </script>
