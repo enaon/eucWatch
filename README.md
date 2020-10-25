@@ -18,7 +18,7 @@ var spi=new SPI();spi.setup({sck:D2,mosi:D3,miso:D4,mode:0}); spi.send([0xab],D5
 
 
 @Fanoush, who makes the Espruino builds/bootloader and shares his knowledge. Among other things, he wrote the inline c screen/spi-flash shared bus driver used in this project, and made an sdk12 bootloader to support secure BLE connections. 
-**More info on the P8 watch and Espruino [here](https://github.com/fanoush/ds-d6/tree/master/espruino/DFU/P8)**
+**More info on the P8 watch [here](https://github.com/fanoush/ds-d6/tree/master/espruino/DFU/P8)**
 
 
 @gfwilliams, who is the man behind Espruino. This project uses the Espruino [app loader](https://github.com/espruino/EspruinoApps) and many code snippets from [bangle.js](https://github.com/espruino/BangleApps) source code.
