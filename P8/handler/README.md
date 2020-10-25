@@ -3,4 +3,4 @@ This is a core file that handles the accelerometer( two types), the touch screen
 It loads/saves(on restart) custom settings from/to setting.json file. 
 
 
-Use the Settings app face to chenge settings, Bt configuration and themes. 
+Use the Settings app face to change settings, Bt configuration and themes. 
