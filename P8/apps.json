@@ -3,7 +3,7 @@
     "name": "Devmode",
     "icon": "icon.png",
     "version":"0.02",
-    "description": "Empty file that gets the p8 to developer mode. Upload this to force developer mode on followin${app.name}g uploads, single click on side button when finished uploading all files, to boot into working mode.",
+    "description": "Empty file that gets the p8 to developer mode. Upload this to force developer mode on following uploads, single click on side button when finished uploading all files, to boot into working mode.",
     "tags": "core",
     "storage": [
       {"name":"devmode","url":"devmode"}
