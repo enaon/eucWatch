@@ -110,10 +110,10 @@
     ]
   },  
   { "id": "m_euc",
-    "name": "Euc Ninebot e+",
+    "name": "Ninebot c/e/p",
     "icon": "icon.png",
     "version":"0.02",
-    "description": "module for ninebot's c/e/p models",
+    "description": "EUC module for ninebot's c/e/p models",
     "tags": "euc",
     "type": "euc",
     "storage": [
