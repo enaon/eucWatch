@@ -694,7 +694,7 @@ if (btn) btn.addEventListener("click",event=>{
     installerOptions("euccapps").then(() => {
     }).catch(err=>{
     Progress.hide({sticky:true});
-    showToast("Basic Install failed, "+err,"error");
+    showToast("EUC Install failed, "+err,"error");
   });
 });
 // Install all apps in one go
@@ -703,7 +703,7 @@ if (btn) btn.addEventListener("click",event=>{
     installerOptions("allapps").then(() => {
     }).catch(err=>{
     Progress.hide({sticky:true});
-    showToast("Basic Install failed, "+err,"error");
+    showToast("FULL Install failed, "+err,"error");
   });
 });
 
