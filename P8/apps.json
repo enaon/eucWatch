@@ -113,7 +113,7 @@
     "name": "Euc Ninebot e+",
     "icon": "icon.png",
     "version":"0.02",
-    "description": "module for ninebot's e+ EUC model",
+    "description": "module for ninebot's c/e/p models",
     "tags": "euc",
     "type": "euc",
     "storage": [
