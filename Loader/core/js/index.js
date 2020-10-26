@@ -571,6 +571,12 @@ function installMultipleApps(appIds, promptName, defaults) {
     return Promise.reject("Not all apps found");
   let appCount = apps.length;
   return showPrompt("Install Defaults",`Remove everything and install ${promptName} apps?`).then(() => {
+	Progress.hide({sticky:true});
+    showToast(`Enabling flash.`);  
+	return Comms.enableFlash();    
+  }).then(()=>{
+	Progress.hide({sticky:true});
+    showToast(`Erasing.`); 
     return Comms.removeAllApps();
   }).then(()=>{
 	Progress.hide({sticky:true});
@@ -769,7 +775,6 @@ function installerOptions(installtype) {
     iframe.contentWindow.addEventListener("message", function(event) {
       console.log("Received customm Setting");
        modal.remove();
-	//Comms.writeSettings(event.data);
     httpGet(`${APP_SOURCECODE_DEV}/${installtype}.json`).then(json=>{
     return installMultipleApps(JSON.parse(json), installtype,event.data);
   }).catch(err=>{
