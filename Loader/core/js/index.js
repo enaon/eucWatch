@@ -747,7 +747,7 @@ function installerOptions(installtype) {
       <div class="modal-container" style="height:100%">
         <div class="modal-header">
           <a href="#close" class="btn btn-clear float-right" aria-label="Close"></a>
-          <div class="modal-title h5">"Install Options"</div>
+          <div class="modal-title h5">Install Options</div>
         </div>
         <div class="modal-body" style="height:100%">
           <div class="content" style="height:100%">
