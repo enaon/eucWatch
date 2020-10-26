@@ -213,7 +213,7 @@ const Comms = {
   enableFlash : () => {
     return new Promise((resolve,reject) => {
       let cmd = '\x03\x10';
-	cmd += `var spi=new SPI();spi.setup({sck:D2,mosi:D3,miso:D4,mode:0}); spi.send([0xab],D5);print("ok");`;
+	cmd += `var spi=new SPI();spi.setup({sck:D2,mosi:D3,miso:D4,mode:0}); spi.send([0xab],D5);`;
       Puck.write(cmd, (result) => {
         if (result===null) return reject("");
         resolve();
