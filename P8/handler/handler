@@ -12,13 +12,19 @@ notify.im=(Boolean(require('Storage').read('im.log')))?require('Storage').readJS
 notify.info=(Boolean(require('Storage').read('info.log')))?require('Storage').readJSON('info.log'):[];
 notify.call=(Boolean(require('Storage').read('call.log')))?require('Storage').readJSON('call.log'):[];
 function handleInfoEvent(event) {
-	  notify.nInfo++;
-	  notify.New++;
+	notify.nInfo++;
+	notify.New++;
 //      print("Info event in: ",event);
-	  let d=(Date()).toString().split(' ');
-      let ti=(""+d[4]+" "+d[0]+" "+d[2]);
-	  notify.info.unshift("{\"src\":\""+event.src+"\",\"title\":\""+event.title+"\",\"body\":\""+event.body+"\",\"time\":\""+ti+"\"}");
-      if (notify.info.length>10) notify.info.pop();
+	let d=(Date()).toString().split(' ');
+    let ti=(""+d[4]+" "+d[0]+" "+d[2]);
+	notify.info.unshift("{\"src\":\""+event.src+"\",\"title\":\""+event.title+"\",\"body\":\""+event.body+"\",\"time\":\""+ti+"\"}");
+	if (notify.info.length>10) notify.info.pop();
+	if (set.def.woe) {
+		if (face.appCurr!="main"||face.pageCurr!=0) {
+		face.go("main",0);
+		face.appPrev="main";face.pagePrev=-1;}
+        }
+	}
 }
 //settings - run set.upd() after changing BT settings to take effect.
 var set={
