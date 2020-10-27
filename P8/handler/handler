@@ -22,7 +22,7 @@ function handleInfoEvent(event) {
 	if (set.def.woe) {
 		if (face.appCurr!="main"||face.pageCurr!=0) {
 		face.go("main",0);
-		face.appPrev="main";face.pagePrev=-1;}
+		face.appPrev="main";face.pagePrev=-1;
         }
 	}
 }
