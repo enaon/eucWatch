@@ -432,9 +432,10 @@ acc={
   run:-1,
   go:1,
   up:0,
+  edge:245,
   on:function(){
-	if (set.def.acctype==="BMA421"){i2c.writeTo(0x18,0x7d,0x04);i2c.writeTo(0x18,0x12);
-	}else i2c.writeTo(0x18,0x01);
+	if (set.def.acctype==="BMA421"){i2c.writeTo(0x18,0x7d,0x04);i2c.writeTo(0x18,0x12);this.edge=250;
+	}else {i2c.writeTo(0x18,0x01);this.edge=240;}
 	this.run=1;this.init();},
   off:function(){if (set.def.acctype==="BMA421")i2c.writeTo(0x18,0x7d,0x04);this.run=-1;},
   init:function(){
@@ -444,7 +445,7 @@ acc={
 	if (set.def.acctype=="BMA421") data=i2c.readFrom(0x18,6);
     else {data={}; data[3]=i2c.readFrom(0x18,1)+"";} 
 	//print(data);
-	if (200<data[3]&&data[3]<((set.def.acctype=="BMA421")?250:240)) {
+	if (200<data[3]&&data[3]<this.edge) {
 		if (set.def.acctype!="BMA421"){
 		    i2c.writeTo(0x18,3);
 			data[1]=i2c.readFrom(0x18,1)+"";
