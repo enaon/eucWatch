@@ -182,7 +182,7 @@ var face={
 			if (face[c].off) {
 				if (set.def.touchtype!="816") i2c.writeTo(0x15,0xa5,3); 
 				if (set.def.touchtype=="716") tfk.exit();	
-				face[c].off();this.pageCurr=-1;face.pagePrev=c;
+				face.go("main",-1);face.pagePrev=c;
 			}
 		}else if (c>1) face.go(this.appCurr,0);
 	  },this.offms,this.pageCurr);
