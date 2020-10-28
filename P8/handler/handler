@@ -446,7 +446,7 @@ acc={
 	if (set.def.acctype=="BMA421") data=i2c.readFrom(0x18,6);
     else {data={}; data[3]=i2c.readFrom(0x18,1)+"";} 
 	//print(data);
-	if (200<data[3]&&data[3]<this.edge) {
+	if (200<data[3]&&data[3]<this.yedge) {
 		if (set.def.acctype!="BMA421"){
 		    i2c.writeTo(0x18,3);
 			data[1]=i2c.readFrom(0x18,1)+"";
