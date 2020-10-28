@@ -383,6 +383,7 @@ function customApp(app) {
   return handleCustomApp(app).then((appJSON) => {
     if (appJSON) appsInstalled.push(appJSON);
     showToast(app.name+" Uploaded!", "success");
+	Comms.reset();
     refreshMyApps();
     refreshLibrary();
   }).catch(err => {
