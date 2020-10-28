@@ -436,7 +436,7 @@ acc={
   xedge:25,
   on:function(){
 	if (set.def.acctype==="BMA421"){i2c.writeTo(0x18,0x7d,0x04);i2c.writeTo(0x18,0x12);this.yedge=250;this.xedge=20;
-	}else {i2c.writeTo(0x18,0x01);this.yedge=235;this.xedge=50;}
+	}else {i2c.writeTo(0x18,0x01);this.yedge=235;this.xedge=25;}
 	this.run=1;this.init();},
   off:function(){if (set.def.acctype==="BMA421")i2c.writeTo(0x18,0x7d,0x04);this.run=-1;},
   init:function(){
@@ -445,7 +445,7 @@ acc={
     var data;
 	if (set.def.acctype=="BMA421") data=i2c.readFrom(0x18,6);
     else {data={}; data[3]=i2c.readFrom(0x18,1)+"";} 
-	print(data);
+	//print(data);
 	if (200<data[3]&&data[3]<this.edge) {
 		if (set.def.acctype!="BMA421"){
 		    i2c.writeTo(0x18,3);
@@ -453,7 +453,7 @@ acc={
 		    i2c.writeTo(0x18,1);
 		}
 		if (data[1]<this.xedge||data[1]>=220) {
-          print(data);
+          //print(data);
           this.up=1;
           if (this.go){ 
             if (!w.gfx.isOn&&face.appCurr!=""){  
