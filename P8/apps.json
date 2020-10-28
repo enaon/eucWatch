@@ -24,7 +24,7 @@
   { "id": "handler",
     "name": "Handler",
     "icon": "icon.png",
-    "version":"0.06",
+    "version":"0.08",
     "description": "P8 functions handler",
     "tags": "core",
 	"custom": "custom.html",
