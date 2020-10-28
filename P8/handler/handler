@@ -443,7 +443,7 @@ acc={
     var data;
 	if (set.def.acctype=="BMA421") data=i2c.readFrom(0x18,6);
     else {data={}; data[3]=i2c.readFrom(0x18,1)+"";} 
-	print(data);
+	//print(data);
 	if (200<data[3]&&data[3]<240) {
 		if (set.def.acctype!="BMA421"){
 		    i2c.writeTo(0x18,3);
@@ -451,7 +451,7 @@ acc={
 		    i2c.writeTo(0x18,1);
 		}
 		if (data[1]<20||data[1]>=220) {
-          print(data);
+          //print(data);
           this.up=1;
           if (this.go){ 
             if (!w.gfx.isOn&&face.appCurr!=""){  
