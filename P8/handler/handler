@@ -435,7 +435,7 @@ acc={
   edge:245,
   on:function(){
 	if (set.def.acctype==="BMA421"){i2c.writeTo(0x18,0x7d,0x04);i2c.writeTo(0x18,0x12);this.edge=250;
-	}else {i2c.writeTo(0x18,0x01);this.edge=240;}
+	}else {i2c.writeTo(0x18,0x01);this.edge=235;}
 	this.run=1;this.init();},
   off:function(){if (set.def.acctype==="BMA421")i2c.writeTo(0x18,0x7d,0x04);this.run=-1;},
   init:function(){
