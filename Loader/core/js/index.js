@@ -18,7 +18,7 @@ httpGet(`${APP_SOURCECODE_DEV}/apps.json`).then(apps=>{
   refreshLibrary();
   refreshFilter();
 });
-
+/*
 httpGet("appdates.csv").then(csv=>{
   document.querySelector(".sort-nav").classList.remove("hidden");
   csv.split("\n").forEach(line=>{
@@ -31,7 +31,7 @@ httpGet("appdates.csv").then(csv=>{
 }).catch(err=>{
   console.log("No recent.csv - app sort disabled");
 });
-
+*/
 // ===========================================  Top Navigation
 function showChangeLog(appid) {
   let app = appNameToApp(appid);
