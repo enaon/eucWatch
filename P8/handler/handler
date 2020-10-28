@@ -459,7 +459,7 @@ acc={
               if (euc.conn!="OFF") face.go("euc",0);
               else{if (face.appCurr=="main") face.go("main",2);else face.go(face.appCurr,0);}
             }else{ 
-				if (face.appCurr=="main") face.go("main",2);
+				if (face.appCurr=="main") face.go("main",0);
 				else face.go(face.appCurr,0);
 			}
 			this.loop=500;
