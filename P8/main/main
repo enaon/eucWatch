@@ -269,56 +269,7 @@ face[1] = {
     this.g.off();
   }
 };	
-//
-face[2] = {
-  offms:2000,
-  g:w.gfx,
-  init: function(){ 
-    face[0].hour=-1;
-    face[0].min=-1;
-    this.run=true; 
-	this.g.setColor(0,col("black"));
-    this.g.fillRect(0,0,239,239);
-    this.g.flip();
-	//push-(wip)    
-  if (notify.New) {
-	if (notify.nCall)  {this.msg=JSON.parse(notify.call[0]);this.cf=col("red");}
-	else if (notify.nIm)  {this.msg=JSON.parse(notify.im[0]);this.cf=col("lblue");}
-	else if (notify.nInfo)  {this.msg=JSON.parse(notify.info[0]);this.cf=col("raf2");}
-   	this.g.setColor(0,col("black"));
-	this.g.setColor(1,this.cf);//
-	this.g.setFont("Vector",27);
-	if (this.msg.title.length>16) this.msg.title=this.msg.title.substr(0,13)+"...";
-	this.g.drawString(this.msg.title,122-(this.g.stringWidth(this.msg.title))/2,168); //info	
-	this.msg=-1;
-	this.g.flip();
-	this.g.flip();
-	this.g.flip();
-  }
-  },
-  show : function(){
-  if (!this.run) return;
-  face[0].time();  
-  //loop
-  this.tid=setTimeout(function(t){
-      t.tid=-1;
-      t.show();
-  },1000,this);
-  },
-  tid:-1,
-  run:false,
-  clear : function(){
-    pal[0]=colo.bck0;
-    this.run=false;
-    if (this.tid>=0) clearTimeout(this.tid);
-    this.tid=-1;
-    return true;
-  },
-  off: function(){
-    this.g.off();
-    this.clear();
-  }
-};	
+
 //touch
 touchHandler[0]=function(e,x,y){
     var p=D16;
