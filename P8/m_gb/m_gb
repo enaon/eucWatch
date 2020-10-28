@@ -20,10 +20,12 @@ function handleNotificationEvent(event) {
 				notify.New++;	
 				notify.call.unshift(JSON.stringify({src:event.src,title:event.title.substr(0,20),body:event.body.substr(0,90),time:ti}));
 				if (notify.call.length>10) notify.call.pop();
-				if (set.def.woe&&!notify.ring) {
+				if (set.def.dnd&&!notify.ring) {
+					digitalPulse(D16,1,[80,50,80]);
 					if (face.appCurr!="main"||face.pageCurr!=0) {
-					face.go("main",0);
-					face.appPrev="main";face.pagePrev=-1;}
+						face.go("main",0);
+						face.appPrev="main";face.pagePrev=-1;
+					}
 				}
 			}
 		}else if (event.src.startsWith('OsmAnd')){
@@ -33,24 +35,26 @@ function handleNotificationEvent(event) {
 			notify.New++;
 			notify.im.unshift(JSON.stringify({src:event.src,title:(event.title)?event.title.substr(0,20):"-",body:(event.body)?event.body.substr(0,90):"-",time:ti}));
 			if (notify.im.length>10) notify.im.pop();
-			if (set.def.woe&&!notify.ring&&Boolean(require("Storage").read("notify"))) {
+			if (set.def.dnd&&!notify.ring&&Boolean(require("Storage").read("notify"))) {
+				digitalPulse(D16,1,[80,50,80]);
 				if (face.appCurr!="notify"||face.pageCurr!=5) {
-				face.go("notify",5,"im");
-				face.appPrev="off";
+					face.go("notify",5,"im");
+					face.appPrev="off";
                 }
 			}
 		}
-		if (set.def.dnd) digitalPulse(D16,1,[80,50,80]);
     }else if (event.sender) {
 		notify.im.unshift(JSON.stringify({src:"SMS",title:event.sender.substr(0,20),body:(event.body)?event.body.substr(0,90):"-",time:ti}));
 		if (notify.im.length>10) notify.im.pop();
-		if (set.def.woe&&!notify.ring&&Boolean(require("Storage").read("notify"))) {
+		if (set.def.dnd&&!notify.ring&&Boolean(require("Storage").read("notify"))) {
+			digitalPulse(D16,1,[80,50,80]);
 			if (face.appCurr!="notify"||face.pageCurr!=5) {
-			face.go("notify",5,"im");
-			face.appPrev="main";face.pagePrev=-1;}
+				face.go("notify",5,"im");
+				face.appPrev="main";face.pagePrev=-1;
+			}
 		}
-		if (set.def.dnd) digitalPulse(D16,1,[80,50,80]);
 	}else if(event.title=="Voice"){
+		print(1);
 //line:  GB({"t":"notify","id":1603025690,"title":"Voice","body":"in 30 meters, turn right onto  M***n "})
 	//	notify.
 //   	  notify.im.unshift(JSON.stringify({src:(event.src)?event.src:"SMS",title:(event.title)?event.title.substr(0,20):(event.sender)?event.sender:"UNKNOWN",body:event.body.substr(0,90),time:ti}));
@@ -64,18 +68,22 @@ function handleWeatherEvent(event) {
       let ti=(""+d[4]+" "+d[0]+" "+d[2]);
 	  notify.info.unshift("{\"src\":\"Weather\",\"title\":\"Weather Updated\",\"body\":\""+event.loc+"\",\"time\":\""+ti+"\"}");
       if (notify.info.length>10) notify.info.pop();
-	  if (set.def.dnd) digitalPulse(D16,1,[80,50,80]);
 	  notify.weather=event;
+	  if (set.def.dnd&&!notify.ring) {
+		digitalPulse(D16,1,[80,50,80]);
+		if (face.appCurr!="main"||face.pageCurr!=0) {
+			face.go("main",0);
+			face.appPrev="main";face.pagePrev=-1;
+		}
+	  }
 } 
 function handleCallEvent(event) {
 	if (event.cmd==="incoming"&&event.name){
 		notify.in=event;notify.ring=1;
 		digitalPulse(D16,1,[80,50,80,50,200,50,80,50,80]);
-		if (set.def.woe) {
-		  if (face.appCurr!="main"||face.pageCurr!=0) {
-          face.go("main",0);
-          face.appPrev="main";face.pagePrev=-1;
-          }
+		if (face.appCurr!="main"||face.pageCurr!=0) {
+			face.go("main",0);
+			face.appPrev="main";face.pagePrev=-1;
         }
 	}else if (event.cmd=="end") {
 		  notify.ring=0;notify.in=0;

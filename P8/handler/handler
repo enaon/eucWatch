@@ -1,7 +1,7 @@
 //handler
 //set p8 type-obsolete-done from loader
 //const touchtype="816"; //716|816|816s
-//onst acctype="BMA421"; //BMA421|SC7A20
+//Const acctype="BMA421"; //BMA421|SC7A20
 //fonts
 require('Font7x11Numeric7Seg').add(Graphics);
 //notifications
@@ -14,15 +14,15 @@ notify.call=(Boolean(require('Storage').read('call.log')))?require('Storage').re
 function handleInfoEvent(event) {
 	notify.nInfo++;
 	notify.New++;
-//      print("Info event in: ",event);
 	let d=(Date()).toString().split(' ');
     let ti=(""+d[4]+" "+d[0]+" "+d[2]);
 	notify.info.unshift("{\"src\":\""+event.src+"\",\"title\":\""+event.title+"\",\"body\":\""+event.body+"\",\"time\":\""+ti+"\"}");
 	if (notify.info.length>10) notify.info.pop();
-	if (set.def.woe) {
+	if (set.def.dnd&&!notify.ring) {
+		digitalPulse(D16,1,[80,50,80]);
 		if (face.appCurr!="main"||face.pageCurr!=0) {
-		face.go("main",0);
-		face.appPrev="main";face.pagePrev=-1;
+			face.go("main",0);
+			face.appPrev="main";face.pagePrev=-1;
         }
 	}
 }
@@ -37,14 +37,12 @@ var set={
   boot:getTime(), 
   gDis:function(){
 	if (this.gIsB) {
-		//if (this.gIsb==2) return;
 		this.gIsb=2;
 		if (global["\xFF"].BLE_GATTS) {
           if (global["\xFF"].BLE_GATTS.connected)
           global["\xFF"].BLE_GATTS.disconnect().then(function (c){this.gIsB=0;});
         }else gIsB=0;
      }
-	//}
   },
   updateSettings:function(){require('Storage').write('setting.json', set.def);},
   resetSettings:function() {
@@ -126,13 +124,13 @@ function bdis() {
 	else if (set.bt==4) handleInfoEvent({"src":"BT","title":"ATC","body":"Disconnected"});
 	else if (set.bt==5) handleInfoEvent({"src":"BT","title":"ESP","body":"Disconnected"});
   	set.bt=0; 
-	digitalPulse(D16,1,[100,50,50,50,100]); 
+//	digitalPulse(D16,1,[100,50,50,50,100]); 
 }
 function bcon() {
 	set.bt=1; 
-    digitalPulse(D16,1,100);
+//    digitalPulse(D16,1,100);
 	if (set.def.cli==1||set.def.gb==1)  Bluetooth.on('data',ccon);
-	}
+}
 function ccon(l){ 
     var cli="\x03";
     var gb="\x20\x03";
