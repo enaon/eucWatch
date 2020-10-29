@@ -1,6 +1,6 @@
 ### How to use:
 
-Access the alarms face by touching the minutes field on main clock face. When no alarms are set, the minutes field color will be raf, when one or more alarms are enabled, the color will me blue, and when one is active, it will be yellow until acknowledged.
+Access the alarms face by touching the minutes field on main clock face. When no alarms are enabled, the minutes field color will be raf, when one or more alarms are enabled, the color will me blue, and when one is active, it will be yellow until acknowledged.
 
 The main alarms face shows the tree alarms, their set time and their status. Gray is disabled, blue is enabled. 
 **Status can be switched by taping on the alarm field.** 
