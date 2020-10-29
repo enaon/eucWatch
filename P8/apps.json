@@ -63,6 +63,7 @@
     "version":"0.02",
     "description": "Three user settable Alarms/Timers face",
     "tags": "apps",
+	"readme": "README.md",
     "storage": [
       {"name":"alarm","url":"alarm"}
     ]
