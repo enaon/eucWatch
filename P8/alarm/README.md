@@ -10,7 +10,7 @@ The main alarms face shows the tree alarms, their set time and their status. Gra
 This will get you to set alarm face, where you can swipe up/down on hours, 10nths of minutes or minutes. You can also set the alarm to auto repeat.
 
 The alarms can duplicate as timers. 
-While on set face, long hold anywhere on the screen. The current time will be set. It the time is 10:50, two swipes up on the tenths of minutes will get the time to 11:10, 20 minutes from now. 
+While on set face, long hold anywhere on the screen. The current time will be set. If the current time is 10:50, two swipes up on the tenths of minutes will get the time to 11:10, 20 minutes from now. 
 
 **Alarms are acknowledged by a long press on the minutes field on the clock face, or by a swipe left on the active alarm on the alarms face, when the alarm in active(buzzing).**
 
