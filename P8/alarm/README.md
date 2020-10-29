@@ -1,4 +1,4 @@
-### How to use:
+#### How to use:
 
 Access the alarms face by touching the minutes field on main clock face. When no alarms are enabled, the minutes field color will be raf, when one or more alarms are enabled, the color will me blue, and when one is active, it will be yellow until acknowledged.
 
@@ -17,7 +17,7 @@ While on set face, long hold anywhere on the screen. The current time will be se
 To return to the clock face, do a swipe right. 
 
 
-### todo
+#### todo
 
 make alarms survive reboots
 
