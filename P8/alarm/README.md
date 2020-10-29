@@ -25,3 +25,4 @@ enable snoozing
 
 enable days selection on repeat
 
+Synchronize alarms with Gadgetbridge
