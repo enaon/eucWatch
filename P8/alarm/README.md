@@ -17,7 +17,7 @@ While on set face, long hold anywhere on the screen. The current time will be se
 To return to the clock face, do a swipe right. 
 
 
-##### todo
+##### todo:
 
 make alarms survive reboots
 
