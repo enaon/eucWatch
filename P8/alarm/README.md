@@ -20,6 +20,8 @@ To return to the clock face, do a swipe right.
 ## todo
 
 make alarms survive reboots
+
 enable snoozing
+
 enable days selection on repeat
 
