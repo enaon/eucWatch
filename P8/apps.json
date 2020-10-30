@@ -34,7 +34,7 @@
       {"name":"handler","url":"handler"}
     ]
   },  
-  { "id": "hello",
+  { "id": "_example_app",
 	"name": "Hello example",
 	"icon": "icon.png",
 	"version":"0.01",
