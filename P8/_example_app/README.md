@@ -1,7 +1,3 @@
-# App Name
+##### This is a simple Hello app to be used as a starting template.
 
-Describe the app...
-
-## Usage
-
-Describe how to use it
+See the comments inside hello.js file for more info.
