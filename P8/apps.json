@@ -34,7 +34,7 @@
       {"name":"handler","url":"handler"}
     ]
   },  
-	{ "id": "hello",
+  { "id": "hello",
 	"name": "Hello example",
 	"icon": "icon.png",
 	"version":"0.01",
@@ -42,9 +42,9 @@
     "tags": "apps",
 	"readme": "README.md",
 	"storage": [
-	{"name":"hello","url":"hello.js"}
+	  {"name":"hello","url":"hello.js"}
 	]
-	}
+  },
   { "id": "main",
     "name": "Clock",
     "icon": "icon.png",
