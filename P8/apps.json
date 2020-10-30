@@ -34,17 +34,6 @@
       {"name":"handler","url":"handler"}
     ]
   },  
-  { "id": "_example_app",
-	"name": "Hello example",
-	"icon": "icon.png",
-	"version":"0.01",
-	"description": "A face/app with just the minimum, to be used as a starting point. ",
-    "tags": "apps",
-	"readme": "README.md",
-	"storage": [
-	  {"name":"hello","url":"hello.js"}
-	]
-  },
   { "id": "main",
     "name": "Clock",
     "icon": "icon.png",
@@ -194,5 +183,16 @@
     "storage": [
       {"name":"Font7x11Numeric7Seg","url":"Font7x11Numeric7Seg"}
     ]
+  },
+  { "id": "_example_app",
+	"name": "Hello example",
+	"icon": "icon.png",
+	"version":"0.01",
+	"description": "A face/app with just the minimum, to be used as a starting point. ",
+    "tags": "apps",
+	"readme": "README.md",
+	"storage": [
+	  {"name":"hello","url":"hello.js"}
+	]
   }
 ]
