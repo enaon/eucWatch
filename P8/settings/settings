@@ -376,9 +376,8 @@ touchHandler[5]=function(e,x,y){
       if (x<120 && y>190) {
 		set.updateSettings();
 		NRF.removeListener('disconnect',bdis);  
-        NRF.disconnect(); 
-		w.gfx.clear();
-		w.gfx.flip();
+        NRF.disconnect();
+        w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
 		reset();
 	  } else  digitalPulse(D16,1,40);
     }else if  (e==1){
@@ -400,11 +399,13 @@ touchHandler[5]=function(e,x,y){
 	 if (x<120 && y>190) {
 	   set.updateSettings();
 	   require("Storage").write("devmode","dev");
+       w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
        E.reboot();}
 	 else if (x>120 && y>190) {
  	   set.updateSettings();
        NRF.disconnect();
        require("Storage").write("devmode","off");
+       w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
        E.reboot();}
      else digitalPulse(D16,1,40);
     }
