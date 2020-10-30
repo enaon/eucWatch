@@ -34,6 +34,17 @@
       {"name":"handler","url":"handler"}
     ]
   },  
+	{ "id": "hello",
+	"name": "Hello example",
+	"icon": "icon.png",
+	"version":"0.01",
+	"description": "A face/app with just the minimum, to be used as a starting point. ",
+    "tags": "apps",
+	"readme": "README.md",
+	"storage": [
+	{"name":"hello","url":"hello.js"}
+	]
+	}
   { "id": "main",
     "name": "Clock",
     "icon": "icon.png",
