@@ -377,6 +377,8 @@ touchHandler[5]=function(e,x,y){
 		set.updateSettings();
 		NRF.removeListener('disconnect',bdis);  
         NRF.disconnect(); 
+		w.gfx.clear();
+		w.gfx.flip();
 		reset();
 	  } else  digitalPulse(D16,1,40);
     }else if  (e==1){
