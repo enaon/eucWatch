@@ -14,8 +14,8 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#5755d9",
-    "background_color": "#5755d9",
+    "theme_color": "#332F2E",
+    "background_color": "#332F2E",
     "display": "standalone",
     "start_url": "https://enaon.github.io/p8Watch",
     "scope": "https://enaon.github.io/p8Watch"
