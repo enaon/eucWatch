@@ -1,0 +1,36 @@
+[
+  { "id": "devmode",
+    "name": "Devmode",
+    "icon": "icon.png",
+    "version":"0.02",
+    "description": "Empty file that gets the dsd6 to developer mode. Upload this to force developer mode on following uploads, tap on the button when finished uploading all files, to boot into working mode.",
+    "tags": "core",
+    "storage": [
+      {"name":"devmode","url":"devmode"}
+    ]
+  },
+  { "id": "init",
+    "name": "P8 core",
+    "icon": "icon.png",
+    "version":"0.03",
+    "description": "init file ",
+    "tags": "core",
+	"type":"core",
+	"readme": "README.md",
+    "storage": [
+      {"name":".bootrst","url":"init.js"}
+    ]
+  },
+  { "id": "m_gb_console",
+    "name": "Gadgetbridge cli",
+    "icon": "icon.png",
+    "version":"0.03",
+    "description":"Gadgetbridge serial console output for degug",
+    "tags": "core",
+	"type":"core",
+	"readme": "README.md",
+    "storage": [
+      {"name":"m_gb","url":"m_gb.js"}
+    ]
+  }
+]
