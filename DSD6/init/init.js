@@ -3,8 +3,6 @@ E.kickWatchdog();
 function kickWd(){
   if(!BTN.read())E.kickWatchdog();
 }
-// apploader suprort
-E.showMessage=print; 
 var wdint=setInterval(kickWd,1000);
 E.enableWatchdog(7, false);
 global.save = function() { throw new Error("You don't need to use save() on DSD6!"); };
