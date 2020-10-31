@@ -1,6 +1,6 @@
 ### Loader version:
 
-Try the [**Loader version**](https://enaon.github.io/eucWatch/p8.html)
+Try the [**Loader version**](https://enaon.github.io/eucWatch/p8)
 
 ### Manual install:
 
