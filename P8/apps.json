@@ -86,7 +86,7 @@
     "tags": "apps",
     "type": "notify",
     "storage": [
-      {"name":"notify","url":"notify.js"}
+      {"name":"notify","url":"notify"}
     ]
   },
   { "id": "m_gb",
@@ -118,7 +118,7 @@
     "tags": "euc",
     "type": "euc",
     "storage": [
-      {"name":"m_euc","url":"m_euc.js"}
+      {"name":"m_euc","url":"m_euc"}
     ]
   },
   { "id": "repellent",
