@@ -12,7 +12,7 @@
   { "id": "init",
     "name": "P8 core",
     "icon": "icon.png",
-    "version":"0.03",
+    "version":"0.04",
     "description": "P8 Screen driver and init functions. For use with the [flash enabled](https://github.com/fanoush/ds-d6/blob/master/espruino/DFU/P8/espruino_2v07.60_p8_SDK11_SD20_SPIFLASH.zip) or the  the [not flash enabled](https://github.com/fanoush/ds-d6/blob/master/espruino/DFU/P8/espruino_2v07.60_p8_SDK11_SD20.zip) Espruino image  build by fanoush. ",
     "tags": "core",
 	"type":"core",
