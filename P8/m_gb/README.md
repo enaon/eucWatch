@@ -1,7 +1,15 @@
-# App Name
+This file provides support for the [Gardetbridge](https://f-droid.org/en/packages/nodomain.freeyourgadget.gadgetbridge/) android app. 
+It also uses the weather [companion app](https://codeberg.org/Freeyourgadget/Gadgetbridge/wiki/Weather) to display current weather information.
 
-Describe the app...
+this file depends on notifications and main clock face apps. 
 
-## Usage
+###### What works
 
-Describe how to use it
+Notifications, call handling(answer/ignore), weather.
+
+###### todo
+
+synchronize notififation on dismiss. 
+
+add support for OsmAnd gps instructions. 
+
