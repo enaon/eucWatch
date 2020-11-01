@@ -118,7 +118,7 @@
     "tags": "euc",
     "type": "euc",
     "storage": [
-      {"name":"m_euc","url":"m_euc"}
+      {"name":"m_euc","url":"m_euc.js"}
     ]
   },
   { "id": "repellent",
