@@ -1,9 +1,7 @@
 This file provides support for the [Gardetbridge](https://f-droid.org/en/packages/nodomain.freeyourgadget.gadgetbridge/) android app. 
 It also uses the weather [companion app](https://codeberg.org/Freeyourgadget/Gadgetbridge/wiki/Weather) to display current weather information.
 
-This file depends on notifications and main clock face apps. 
-
-It also uses the settings face(swipe up-BT) to enable/disable the service. 
+It  uses the settings face(swipe up-BT) to enable/disable the service. 
 
 ###### What works
 
