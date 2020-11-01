@@ -334,9 +334,3 @@ touchHandler[0]=function(e,x,y){
     }
    this.timeout();
 };
-
-touchHandler[2]=function(e,x,y){
-    digitalPulse(D16,1,[30,50,30]);
-    face.go("main",0);return;
-};
-
