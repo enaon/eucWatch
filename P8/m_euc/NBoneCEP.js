@@ -82,7 +82,7 @@ euc.cmd=function(no){
 	case 1:case 4:case 7:case 10:case 13:case 16:case 19:
 	  return [85,170,3,9,1,38,2,202,255]; //Current Speed in Km/h*1000d
 	case 2:
-	  return [85,170,3,9,1,62,2,178,255]; //Temperature numeric positive ยบC * 10
+	  return [85,170,3,9,1,62,2,178,255]; //Temperature numeric positive C * 10
 	case 5:
 	  return [85,170,3,9,1,71,2,169,255]; //Voltage numeric positive V * 100
 	case 8:
