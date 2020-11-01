@@ -96,6 +96,7 @@
     "description": "Gadgetbridge support for notifications, calls, weather and gps navigation",
     "tags": "system",
     "type": "notify",
+	"readme": "README.md",
     "storage": [
       {"name":"m_gb","url":"m_gb.js"}
     ]
