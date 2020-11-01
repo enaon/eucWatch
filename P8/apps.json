@@ -107,7 +107,7 @@
     "description": "Simple EUC dashboard, depends on a euc module",
     "tags": "euc",
     "storage": [
-      {"name":"euc","url":"euc.js"}
+      {"name":"euc","url":"euc_dash.js"}
     ]
   },  
   { "id": "m_euc",
@@ -118,7 +118,7 @@
     "tags": "euc",
     "type": "euc",
     "storage": [
-      {"name":"m_euc","url":"NBoneCEP.js"}
+      {"name":"m_euc","url":"euc_NBoneCEP.js"}
     ]
   },
   { "id": "repellent",
@@ -138,7 +138,7 @@
     "description": "Support for playstore app D6 Notification from atc1441",
     "tags": "system",
     "storage": [
-      {"name":"atc","url":"atcnotify.js"}
+      {"name":"atc","url":"D6Notification.js"}
     ]
   },
   { "id": "hid",
