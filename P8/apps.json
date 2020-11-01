@@ -86,7 +86,7 @@
     "tags": "apps",
     "type": "notify",
     "storage": [
-      {"name":"notify","url":"notify"}
+      {"name":"notify","url":"notify.js"}
     ]
   },
   { "id": "m_gb",
@@ -138,7 +138,7 @@
     "description": "Support for playstore app D6 Notification from atc1441",
     "tags": "system",
     "storage": [
-      {"name":"atc","url":"atc.js"}
+      {"name":"atc","url":"atc"}
     ]
   },
   { "id": "hid",
