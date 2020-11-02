@@ -38,7 +38,7 @@ var face={
 	this.pagePrev=this.pageCurr;
     this.appCurr=app;
     this.pageCurr=page;
-	if (this.pagePrev==-1&&w.gfx.isOn) {w.gfx.clear();w.gfx.off();}
+	if (this.pagePrev==-1&&P8.awake) {g.clear();P8.sleep();}
     if (this.pagePrev!=-1) {
         face[this.pagePrev].clear();
     }
@@ -57,7 +57,7 @@ var face={
     } 
 	this.off(page);
 	face[page].init(arg);	
-	if(!w.gfx.isOn) {w.gfx.on();
+	if(!P8.awake) {P8.wake();
 		//if (set.def.touchtype!="816") digitalPulse(D13,1,[10,50]);
 		//if (set.def.touchtype=="716"){tfk.loop=5;if( tfk.tid==-1) tfk.init();}
 	}
