@@ -36,6 +36,7 @@
   	  {"name":"events.js","url":"events.js"},
   	  {"name":"faces.js","url":"faces.js"},
   	  {"name":"setter.js","url":"setter.js"}
+  	  {"name":"themes.js","url":"themes.js"}
     ]
   },  
   { "id": "main",
