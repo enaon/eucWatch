@@ -1,5 +1,11 @@
 // touch driver
 
+var touchHandler = {
+  timeout: function(){
+	face.off(face.pagePrev);
+  }
+};
+
 I2C1.setup({scl:D7,sda:D6,bitrate:200000});
 
 const TOUCH_PIN = D28;
@@ -30,7 +36,8 @@ var TC = {
         var p = TC.getXY();
         if (p.gest==TC.CLICK) TC.emit("touch",p);
         else if (p.gest>=1 && p.gest<=4) TC.emit("swipe",p.gest); 
-        else if (p.gest==TC.LONG) TC.emit("longtouch",p); 
+        else if (p.gest==TC.LONG) TC.emit("longtouch",p);
+		touchHandler[face.pageCurr](p.gest,p.x,p.y);
     },
     start:()=>{
         digitalPulse(RESET_PIN,0,5);
