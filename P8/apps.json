@@ -185,6 +185,16 @@
       {"name":"Font7x11Numeric7Seg","url":"Font7x11Numeric7Seg.js"}
     ]
   },
+  { "id": "life",
+    "name": "Life",
+    "icon": "icon.png",
+    "version":"0.01",
+    "description": "Conway's Game of Life cellular automata",
+    "tags": "apps",
+    "storage": [
+      {"name":"life","url":"life.js"}
+    ]
+  },
   { "id": "example_app",
 	"name": "Hello example",
 	"icon": "icon.png",
