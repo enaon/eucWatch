@@ -19,10 +19,12 @@
 	"readme": "README.md",
     "storage": [
       {"name":".boot0","url":"boot0.js"},
-      {"name":"lcd.js","url":"lcd.js"}
-	  {"name":"lcd.js","url":"lcd.js"}
-  	  {"name":"touch.js","url":"touch_716.js"}
-
+      {"name":"lcd.js","url":"lcd.js"},
+	  {"name":"lcd.js","url":"lcd.js"},
+  	  {"name":"touch.js","url":"touch_716.js"},
+  	  {"name":"events.js","url":"events.js"},
+  	  {"name":"faces.js","url":"faces.js"},
+  	  {"name":"setter.js","url":"setter.js"}
 	]
   },
   { "id": "handler",
