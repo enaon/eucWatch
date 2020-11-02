@@ -4,7 +4,7 @@ face[0] = {
   offms: 5000,
   init: function(){
     this.startTime=getTime();
-    this.v=w.battVoltage(1);
+    this.v=P8.batV(1);
     //top
     g.setColor(0,col("black"));
     g.setColor(1,col("lgray"));
@@ -121,7 +121,7 @@ g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8FwAbvh+
       g.flip();
     }else if (this.batt!=set.ondc ){
       this.batt=set.ondc;
-      this.v=w.battVoltage(1);
+      this.v=P8.batV(1);
       if (this.batt==1) g.setColor(0,colo.btnSt);
       else if (this.v<=20) g.setColor(0,col("red"));
       else g.setColor(0,col("olive"));
