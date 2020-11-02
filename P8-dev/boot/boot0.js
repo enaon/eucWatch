@@ -87,7 +87,7 @@ const P8 = {
     tick:()=>{
         P8.time_left--;
         if (P8.time_left<=0){
-           if (ACCEL) if (ACCEL.faceup) {P8.time_left = P8.ON_TIME; return;}
+           if (global.ACCEL) if (ACCEL.faceup) {P8.time_left = P8.ON_TIME; return;}
            if (P8.ticker) P8.ticker=clearInterval(P8.ticker);
            P8.emit("sleep",true);
            P8.sleep();
@@ -123,3 +123,4 @@ setWatch(() =>{
 	if ((Date.now()-P8.pressedtime)>5000) E.reboot();
 	if (!P8.awake) P8.wake();
 },D17,{repeat:true,edge:"falling"});
+}
