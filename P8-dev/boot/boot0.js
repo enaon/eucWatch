@@ -36,7 +36,7 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
   },BTN1,{repeat:false, edge:"rising"}); 
 }else{ //load in working mode
 if (!Boolean(require('Storage').read('setting.json'))) require('Storage').write('setting.json',{"watchtype":"eucwatch"});
-
+NRF.setAdvertising({}, { name:"Espruino-jeff",connectable:true });
 const P8 = {
     ON_TIME: 10,
     BRIGHT : 3,
