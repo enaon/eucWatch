@@ -304,8 +304,8 @@ touchHandler[0]=function(e,x,y){
 		face.go("main",-1);return;
     }else if  (e==2){
 		if (y>160&&x<50) {
-        if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
-        else w.gfx.bri.set(this.bri);
+        if (g.bri.lv!==7) {this.bri=g.bri.lv;g.bri.set(7);}
+        else g.bri.set(this.bri);
 		digitalPulse(D16,1,[30,50,30]);
      }else if (y>190) {
 		if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}

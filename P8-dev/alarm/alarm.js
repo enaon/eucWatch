@@ -251,8 +251,8 @@ touchHandler[0]=function(e,x,y){
 	  face.go("alarm",-1);return;
     }else if  (e==2){
 	  if (y>200&&x<50) {
-        if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
-        else w.gfx.bri.set(this.bri);
+        if (g.bri.lv!==7) {this.bri=g.bri.lv;g.bri.set(7);}
+        else g.bri.set(this.bri);
 		digitalPulse(D16,1,[30,50,30]);
       }else if (y>200) {  
 		face.go("settings",0);return;
@@ -298,8 +298,8 @@ touchHandler[5]=function(e,x,y){
         }else	digitalPulse(D16,1,40);	
     }else if (e==2){
 	  if (y>200&&x<80) {
-        if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
-        else w.gfx.bri.set(this.bri);
+        if (g.bri.lv!==7) {this.bri=g.bri.lv;g.bri.set(7);}
+        else g.bri.set(this.bri);
 		digitalPulse(D16,1,[30,50,30]);
       }else if(x<30&&y<200) { 
    		alrm[a].hour=alrm[a].hour+3;

@@ -2,23 +2,22 @@
 //code is based on a structure fanoush had on dsd6 scripts. 
 face[0] = { //the first face of the hello app, called by using `face.go("hello",0)` from the cli.
   offms: 10000, //face timeout, will fall to face[1] after it, face[1] is a redirection face, not actually visible.
-  g:w.gfx, //set graphics as this.g variable
   init: function(o){ //put here the elements of the page that will not need refreshing and initializations.
     this.msg=(global.hello)?hello:"Hello"; //check if global.hello var exists and get val or set to "hello". 
     //the way g.setColor is used on this project is not the espruino default. You can see changes on it at the init file. The screen driver is set at two colors mode to save on ram, and a flip is used when more colors are needed. The first argument is the color space, 0 or 1, the second argument is the actual color in 12-bit Color code. https://rangevoting.org/ColorCode.html#
-    this.g.setColor(1,col("lblue"));
-    this.g.fillRect(30,10,210,100);
-    this.g.drawRect(30,130,115,200);
-    this.g.drawRect(125,130,210,200);
-    this.g.setColor(0,col("black"));
-    this.g.setFont("Vector",50);
-    this.g.drawString(this.msg,120-(this.g.stringWidth(this.msg)/2),35);
-    this.g.flip();
-    this.g.setColor(1,col("white"));
-    this.g.setFont("Vector",22);
-    this.g.drawString("Hello\nWorld",45,140);
-    this.g.drawString("ALRM",137,154);
-    this.g.flip();
+    g.setColor(1,col("lblue"));
+    g.fillRect(30,10,210,100);
+    g.drawRect(30,130,115,200);
+    g.drawRect(125,130,210,200);
+    g.setColor(0,col("black"));
+    g.setFont("Vector",50);
+    g.drawString(this.msg,120-(g.stringWidth(this.msg)/2),35);
+    g.flip();
+    g.setColor(1,col("white"));
+    g.setFont("Vector",22);
+    g.drawString("Hello\nWorld",45,140);
+    g.drawString("ALRM",137,154);
+    g.flip();
     this.btn=0;
     this.last_btn=this.btn;
 	this.run=true;
@@ -29,12 +28,12 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
       this.last_btn=this.btn;
       this.msg=(this.btn)?"Hello":"World";
       hello=this.msg;
-      this.g.setColor(0,col("dgray"));
-      this.g.fillRect(30,10,210,100);
-      this.g.setColor(1,col("lblue"));
-      this.g.setFont("Vector",50);
-      this.g.drawString(this.msg,120-(this.g.stringWidth(this.msg)/2),35);    
-      this.g.flip();
+      g.setColor(0,col("dgray"));
+      g.fillRect(30,10,210,100);
+      g.setColor(1,col("lblue"));
+      g.setFont("Vector",50);
+      g.drawString(this.msg,120-(g.stringWidth(this.msg)/2),35);    
+      g.flip();
     }
     this.tid=setTimeout(function(t){ //the face's screen refresh rate. 
       t.tid=-1;
@@ -45,14 +44,14 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
   run:false,
   clear : function(){ //enter here everything needed to clear all app running function on face exit. 
     pal[0]=col("black"); //this is for cleaner face transitions but adds delay, maybe will change in the future
-    this.g.clear(); //as above
+    g.clear(); //as above
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid); //clears main face[0] timeout loop.
     this.tid=-1;
     return true;
   },
   off: function(){
-    this.g.off();
+    g.off();
     this.clear();
   }
 };
@@ -94,8 +93,8 @@ touchHandler[0]=function(e,x,y){
     //break;
   case 2: //slide up event
     if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
-      if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
-      else w.gfx.bri.set(this.bri);
+      if (g.bri.lv!==7) {this.bri=g.bri.lv;g.bri.set(7);}
+      else g.bri.set(this.bri);
       digitalPulse(D16,1,[30,50,30]);
     } else digitalPulse(D16,1,40);
     break;

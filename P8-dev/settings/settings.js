@@ -127,7 +127,7 @@ face[0] = {
   clear : function(o){
     //g.clear();
     if (set.tor==1){
-      w.gfx.bri.set(this.cbri);
+      g.bri.set(this.cbri);
       face.faceSave=-1;
       set.tor=-1;
     }
@@ -224,7 +224,7 @@ face[5] = {
 //touch-settings  
 touchHandler[0]=function(e,x,y){
     if (set.tor==1){
-        w.gfx.bri.set(face[0].cbri);
+        g.bri.set(face[0].cbri);
         set.tor=-1;
         face[0].tor=0;
         face.go("settings",0);
@@ -271,21 +271,21 @@ touchHandler[0]=function(e,x,y){
         }else if (face[0].btSet) {
           set.def.hid=1-set.def.hid;set.upd();digitalPulse(D16,1,[30,50,30]);
         }else {
-        face[0].cbri=w.gfx.bri.lv+1;
+        face[0].cbri=g.bri.lv+1;
         if (face[0].cbri>7) face[0].cbri=1;
-        w.gfx.bri.set(face[0].cbri);   
+        g.bri.set(face[0].cbri);   
    		digitalPulse(D16,1,[30,50,30]);
         }
       }else if(0<x&&x<75&&158<y&&y<239){//btn7
         set.tor=1;
-        face[0].cbri=w.gfx.bri.lv;
-        w.gfx.bri.set(7);
+        face[0].cbri=g.bri.lv;
+        g.bri.set(7);
         face[0].tor=1;
         if (face.offid>=0) {clearTimeout(face.offid); face.offid=-1;}
         face.offid=setTimeout((f)=>{
 		  face[0].tor=0;
           set.tor=-1;
-          w.gfx.bri.set(face[0].cbri);
+          g.bri.set(face[0].cbri);
 		  if (f>=0 && face[f].off) face[f].off();
           face.offid=-1;face.pageCurr=-1;face.appPrev="main";
         },25000,face.pageCurr);
@@ -303,9 +303,9 @@ touchHandler[0]=function(e,x,y){
 	  if (face[0].btSet) {
 	        face[0].btSet=0;
       }else if(158<x&&x<239&&77<y&&y<160&&!face.mode) {
-        face[0].cbri=w.gfx.bri.lv-1;
+        face[0].cbri=g.bri.lv-1;
         if (face[0].cbri<1) face[0].cbri=1;
-        w.gfx.bri.set(face[0].cbri);
+        g.bri.set(face[0].cbri);
    		digitalPulse(D16,1,[30,50,30]);
       }else { 
 		//set.updateSettings();
@@ -320,9 +320,9 @@ touchHandler[0]=function(e,x,y){
 	  if (face[0].btSet) {
 	        face[0].btSet=0;
       }else if(158<x&&x<239&&77<y&&y<160&&!face.mode) {
-        face[0].cbri=w.gfx.bri.lv+1;
+        face[0].cbri=g.bri.lv+1;
         if (face[0].cbri>7) face[0].cbri=7;
-        w.gfx.bri.set(face[0].cbri);
+        g.bri.set(face[0].cbri);
    		digitalPulse(D16,1,[30,50,30]);
       }else if (Boolean(require('Storage').read('w_apps'))){
         face.mode=1-face.mode;
@@ -377,8 +377,8 @@ touchHandler[5]=function(e,x,y){
 	  face.go("settings",0);return;
     }else if  (e==2){
 	  if (y>160&&x<50) {
-        if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
-        else w.gfx.bri.set(this.bri);
+        if (g.bri.lv!==7) {this.bri=g.bri.lv;g.bri.set(7);}
+        else g.bri.set(this.bri);
 		digitalPulse(D16,1,[30,50,30]);
 	  } else digitalPulse(D16,1,40);
     }else if  (e==3){
