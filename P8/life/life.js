@@ -50,21 +50,11 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
       this.generation++;
       this.currentY=1;
     } else this.currentY++;
-
-    //if (!this.run) return;
-    this.tid=setTimeout(function(t){ //the face's screen refresh rate. 
-      t.tid=-1;
-      t.next();
-    },500,this);
-  },
-  stopdraw: function() {
-    this.run=false;
   },
   startdraw: function(init) {
     this.run=true;
   },
   regen: function(){
-    this.stopdraw();
     this.g.setColor(0,col("black"));
     this.g.setColor(1,col("white"));
     this.initDraw(this.genA);
@@ -73,9 +63,9 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
     this.gentime=0;
   },
   init: function(o) { //put here the elements of the page that will not need refreshing and initializations.
-    this.buf=Graphics.createArrayBuffer(160,160,1,{msb:true}),
-    this.genA=new Uint8Array(324),
-    this.genB=new Uint8Array(324),
+    this.buf=Graphics.createArrayBuffer(160,160,1,{msb:true});
+    this.genA=new Uint8Array(324);
+    this.genB=new Uint8Array(324);
     this.btn=0;
     this.last_btn=this.btn;
     this.g.clear();
@@ -89,6 +79,10 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
       this.last_btn=this.btn;
     }
     this.next();
+    this.tid=setTimeout(function(t){ //the face's screen refresh rate. 
+      t.tid=-1;
+      t.show();
+    },5,this);
   },
   tid:-1,
   run:false,
@@ -132,7 +126,7 @@ face[1] = {
 touchHandler[0]=function(e,x,y){
   switch (e) {
     case 5: //tap event
-    if (face[0].tid==-1) face[0].next(); else face[0].stopdraw()
+    if (face[0].tid==-1) {face[0].run=true;face[0].show();} else face[0].clear();
     digitalPulse(D16,1,[30,50,30]);
     break;
     case 1: //slide down event-on directional swipes the x,y indicate the point of starting the swipe, so one can swipe up/dn on buttons like on the brightenss button at the main settings face. 
