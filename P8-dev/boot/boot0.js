@@ -87,7 +87,7 @@ const P8 = {
     tick:()=>{
         P8.time_left--;
         if (P8.time_left<=0){
-           if (ACCEL && ACCEL.faceup) {P8.time_left = P8.ON_TIME; return;}
+           if (ACCEL) if (ACCEL.faceup) {P8.time_left = P8.ON_TIME; return;}
            if (P8.ticker) P8.ticker=clearInterval(P8.ticker);
            P8.emit("sleep",true);
            P8.sleep();
@@ -123,49 +123,3 @@ setWatch(() =>{
 	if ((Date.now()-P8.pressedtime)>5000) E.reboot();
 	if (!P8.awake) P8.wake();
 },D17,{repeat:true,edge:"falling"});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//battery
-const battVoltage=function(s){
-	let v=7.1*analogRead(D31);
-	if (s) { v=(v*100-345)*1.43|0; //if (v>=100) v=100;
-	}
-    let hexString = ("0x"+(0x50000700+(D31*4)).toString(16));
-	poke32(hexString,2); // disconnect pin for power saving, otherwise it draws 70uA more 
-	return v;
-};
-
-g.bri={
-  	lv:((require("Storage").readJSON("setting.json",1)||{}).bri)?(require("Storage").readJSON("setting.json",1)||{}).bri:3,
-	set:function(o){	
-//      print(o);
-	if (o) this.lv=o; else { this.lv++; if (this.lv>7) this.lv=1; o=this.lv; }
-	digitalWrite([D23,D22,D14],7-o);
-    set.def.bri=o;
-	return o;
-	}
-};
-
-}
