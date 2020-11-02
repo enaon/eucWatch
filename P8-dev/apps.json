@@ -20,7 +20,7 @@
     "storage": [
       {"name":".boot0","url":"boot.js"},
       {"name":"lcd.js","url":"lcd.js"}
-	 ]
+	]
   },
   { "id": "handler",
     "name": "Handler",
