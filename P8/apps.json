@@ -189,8 +189,9 @@
     "name": "Life",
     "icon": "icon.png",
     "version":"0.01",
-    "description": "Conway's Game of Life cellular automata",
+    "description": "Conway's Game of Life cellular automata (MightyWither port)",
     "tags": "apps",
+	"readme": "README.md",
     "storage": [
       {"name":"life","url":"life.js"}
     ]
