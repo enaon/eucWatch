@@ -136,4 +136,7 @@ setWatch(() =>{
 eval(STOR.read("events.js"));
 eval(STOR.read("setter.js"));
 eval(STOR.read("faces.js"));
+eval(STOR.read("themes.js"));
 eval(STOR.read("main"));
+//P8.wake();g.setColor(col15("red"));g.fillRect(0,0,240,240);
+//face.go("main",0);
