@@ -155,7 +155,7 @@
   { "id": "w_apps",
     "name": "App Loader widget",
     "icon": "icon.png",
-    "version":"0.03",
+    "version":"0.04",
     "description": "Extends settings face with an app drawer.",
     "tags": "system",
     "type": "system",
