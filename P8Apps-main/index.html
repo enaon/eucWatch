@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/spectre.min.css">
+    <link rel="stylesheet" href="css/spectre-exp.min.css">
+    <link rel="stylesheet" href="css/spectre-icons.min.css">
+    <link rel="stylesheet" href="css/pwa.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#5755d9">
+    <meta name="apple-mobile-web-app-title" content="BangleApps">
+    <meta name="application-name" content="BangleApps">
+    <meta name="msapplication-TileColor" content="#5755d9">
+    <meta name="theme-color" content="#5755d9">
+    <title>Espruino P8 App Loader</title>
+    <style>
+		.navbar { background-color: #5755d9; padding: 0.5em 1em 0.5em 1em; }
+		.navbar .navbar-brand {
+			color: #fff;
+      font-weight: bold;
+		}
+    .avatar img {
+      border-radius: 5px 5px 5px 5px;
+      background: #ddd;
+    }
+    #toastcontainer {
+      position:fixed;
+      bottom:8px;left:0px;right:0px;
+      z-index: 100;
+    }
+    .hero {
+      padding-bottom: 1rem;
+      padding-top: 1rem;
+      text-align:center;
+    }
+    .chip {
+      cursor: pointer;
+    }
+    .tile-content { position: relative; }
+    .link-github {
+      position:absolute;
+      top: 36px;
+      left: -24px;
+    }
+	</style>
+  </head>
+  <body>
+    <header class="navbar-primary navbar">
+      <section class="navbar-section">
+        <a href="https://banglejs.com" target="_blank" class="navbar-brand mr-2"><img src="img/banglejs-logo-sml.png" alt="Bangle.js">&nbsp;&nbsp;App Loader</a>
+        <!-- <a href="#" class="btn btn-link">...</a> -->
+      </section>
+      <section class="navbar-section">
+        <button class="btn" id="connectmydevice">Connect</button>
+      </section>
+      <!--<section class="navbar-section">
+        <div class="input-group input-inline">
+          <input class="form-input" type="text" placeholder="search">
+          <button class="btn btn-primary input-group-btn">Search</button>
+        </div>
+      </section>-->
+    </header>
+
+    <div class="container" style="padding-top:4px">
+      <p id="requireHTTPS" class="hidden">
+        <b>STOP!</b> This page <b>must</b> be served over HTTPS. Please <a>reload this page via HTTPS</a>.
+      </p>
+    </div>
+
+
+    <ul class="tab tab-block" id="tab-navigate">
+      <li class="tab-item active" id="tab-librarycontainer">
+        <a href="javascript:showTab('librarycontainer')">Library</a>
+      </li>
+      <li class="tab-item" id="tab-myappscontainer">
+        <a href="javascript:showTab('myappscontainer')">My Apps</a>
+      </li>
+      <li class="tab-item" id="tab-aboutcontainer">
+        <a href="javascript:showTab('aboutcontainer')">About</a>
+      </li>
+    </ul>
+
+    <div class="container"  id="toastcontainer">
+    </div>
+
+    <div class="container bangle-tab" id="librarycontainer">
+      <div class="filter-nav">
+        <label class="chip active" filterid="">All</label>
+        <label class="chip" filterid="clock">Clocks</label>
+        <label class="chip" filterid="game">Games</label>
+        <label class="chip" filterid="tool">Tools</label>
+        <label class="chip" filterid="widget">Widgets</label>
+        <label class="chip" filterid="bluetooth">Bluetooth</label>
+        <label class="chip" filterid="outdoors">Outdoors</label>
+        <label class="chip" filterid="favourites">Favourites</label>
+      </div>
+      <div class="panel">
+        <div class="panel-header">
+        <div class="input-group" id="searchform">
+            <input class="form-input" type="text" placeholder="Keywords...">
+            <button class="btn btn-primary input-group-btn">Search</button>
+        </div>
+        </div>
+        <div class="panel-body columns"><!-- apps go here --></div>
+      </div>
+    </div>
+
+    <div class="container bangle-tab" id="myappscontainer" style="display:none">
+      <div class="panel">
+        <div class="panel-header" style="text-align:right">
+          <button class="btn refresh">Refresh...</button>
+          <button class="btn btn-primary updateapps hidden">Update X apps</button>
+        </div>
+        <div class="panel-body columns"><!-- apps go here --></div>
+      </div>
+    </div>
+
+    <div class="container bangle-tab" id="aboutcontainer" style="display:none">
+      <div class="hero bg-gray">
+        <div class="hero-body">
+          <h2>App Loader</h2>
+          <p>This is an experimental version of the Bangle.js App Loader for P8 Smart Watches with Espruino</a></p>
+        </div>
+      </div>
+      <div class="container" style="padding-top: 8px;">
+        <p id="apploaderlinks"></p>
+        <p>Check out <a href="https://github.com/jeffmer/P8Apps" target="_blank">the Source on GitHub</a>, or
+          find out <a href="https://www.espruino.com/Bangle.js+App+Loader" target="_blank">how to add your own app</a></p>
+        <p>Using <a href="https://espruino.com/" target="_blank">Espruino</a>, Icons from <a href="https://icons8.com/" target="_blank">icons8.com</a></p>
+
+        <h3>Utilities</h3>
+        <p><button class="btn" id="settime">Set Watch Time</button>
+           <button class="btn" id="removeall">Remove all Apps</button>
+           <button class="btn" id="installdefault">Install default apps</button>
+           <button class="btn" id="installfavourite">Install favourite apps</button></p>
+        <h3>Settings</h3>
+        <div class="form-group">
+          <label class="form-switch">
+            <input type="checkbox" id="settings-pretokenise">
+            <i class="form-icon"></i> Pretokenise apps before upload (smaller, faster apps)
+          </label>
+          <button class="btn" id="defaultsettings">Default settings</button>
+        </div>
+      </div>
+    </div>
+
+    <footer class="floating hidden">
+      <!-- Install button, hidden by default -->
+      <div id="installContainer" class="hidden">
+        <button id="butInstall" type="button">
+          Install
+        </button>
+      </div>
+    </footer>
+
+    <script src="https://www.puck-js.com/puck.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/comms.js"></script>
+    <script src="js/appinfo.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/espruinotools.js"></script>
+    <script src="lib/heatshrink.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="js/pwa.js" defer></script>
+  </body>
+</html>
