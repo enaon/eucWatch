@@ -12,8 +12,6 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
   intervalRef:null,
   myflip: function() {
     this.g.drawImage({width:160,height:160,bpp:1,buffer:this.buf.buffer},40,40);
-   	//this.g.drawString((this.gentime|0)+'ms  ',200,220,true);
-   	//this.gentime=0;
     this.g.flip();
     this.buf.clear();
   },
@@ -34,13 +32,13 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
   howlong: function(){
     this.generation++;
 	this.g.setFont("6x8",2);
-	//this.gentime = Math.floor(this.gentime);
-	this.g.drawString('Gen:'+this.generation+'  '+(this.gentime|0)+'ms  ',20,220,true);
+	this.gentime = Math.floor(this.gentime);
+	this.g.drawString('Gen:'+this.generation+'  '+this.gentime+'ms  ',20,220,true);
 	this.gentime=0;
   },
   next: function(){
     "ram";
-    this.start = Date.now();
+    this.start = getTime();
     var cur=this.genA, fut=this.genB, y=this.currentY;
     var count=(p)=>{return cur[p-19]+cur[p-18]+cur[p-17]+cur[p-1]+cur[p+1]+cur[p+17]+cur[p+18]+cur[p+19];};
     for (let x = 1; x<17; ++x){
@@ -54,21 +52,21 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
         this.buf.fillRect(Xr,Yr, Xr+7,Yr+7);
       }
     }
-    this.gentime+=(Date.now()-this.start);
+    this.gentime+=(getTime()-this.start);
     if (y==16) {
-      this.howlong();
       this.myflip();
       var tmp = this.genA; this.genA=this.genB; this.genB=tmp;
+      this.howlong();
       this.currentY=1;
     } else this.currentY++;
   },
   stopdraw: function() {
-    if(this.intervalRef) {clearInterval(this.intervalRef);this.intervalRef=0;}
+    if(this.intervalRef) {clearInterval(this.intervalRef);}
   },
   startdraw: function(init) {
     if (init===undefined) init=false;
     //if(!init) this.g.clear();
-    if(!init) this.intervalRef = setInterval(function(t){t.next();},65,this);
+    if(!init) intervalRef = setInterval(function(t){t.next();},65,this);
   },
   regen: function(){
 	this.stopdraw();
@@ -76,7 +74,7 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
     this.currentY=1;
     this.generation = 0;
     this.gentime=0;
-    this.intervalRef = setInterval(function(t){t.next();},65,this);
+    if(!init) intervalRef = setInterval(function(t){t.next();},65,this);
   },
   init: function(o) { //put here the elements of the page that will not need refreshing and initializations.
     this.buf=Graphics.createArrayBuffer(160,160,1,{msb:true});
@@ -93,7 +91,7 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
     this.g.drawString("Conway's",75,10);
     this.g.drawString('(Touch Start)',45,180);
     this.g.flip();
-    //this.startdraw(true);
+    this.startdraw(true);
   },
   show : function(o){
     return true;
