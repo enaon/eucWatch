@@ -18,8 +18,8 @@
 	"type":"core",
 	"readme": "README.md",
     "storage": [
-      {"name":".boot0","url":"boot.js"}
-      {"name":"lcd.js","url":"lcd.js"},
+      {"name":".boot0","url":"boot.js"},
+      {"name":"lcd.js","url":"lcd.js"}
 	  
   },
   { "id": "handler",
