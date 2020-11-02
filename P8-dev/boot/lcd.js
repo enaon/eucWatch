@@ -75,7 +75,9 @@ function ST7789() {
         });
         g.lcd_sleep = function(){cmd(0x10);};
         g.lcd_wake = function(){cmd(0x11);};
-        dispinit(rst, ()=>{g.clear().setFont("6x8",2).drawString("P8 Expruino",50,100);});
+        //dispinit(rst, ()=>{g.clear().setFont("6x8",2).drawString("P8 Expruino",50,100);});
+		dispinit(rst, ()=>{face.go("main",0);});
+		//face.go("main",0);
         return g;
     }
 
