@@ -56,6 +56,7 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
   },
   regen: function(){
     this.g.setColor(0,col("black"));
+	this.g.clearRect(0,240,0,240);
     this.g.setColor(1,col("white"));
     this.initDraw(this.genA);
     this.currentY=1;
@@ -68,7 +69,7 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
     this.genB=new Uint8Array(324);
     this.btn=0;
     this.last_btn=this.btn;
-    this.g.clear();
+//    this.g.clear();
     this.regen();
     this.run=true;
 
@@ -99,19 +100,13 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
     this.clear();
   }
 };
-
-//Redirection face, is used when time expires or the side button is pressed on page[0].
 face[1] = {
   offms:1000,
   init: function(){
     return true;
   },//only use this part of the face to set redirection.
   show : function(){
-   	face.go(face.appRoot[0],face.appRoot[1]); //go to the previous face on screen of the previous app.  
-    //face.go(face.appPrev,face.pagePrev); //go to the previous face on screen, even if it was on the same app. 
-  	//face.go("hello",-1); //sleep and set this face as the on_wake face. 
-    //face.go("main",-1);//sleep and set this face as the on_wake face. 
-    //face.go("main",0);//go to main Clock face. 
+   	face.go(face.appRoot[0],face.appRoot[1]);  
     return true;
   },
   clear: function(){
@@ -121,7 +116,6 @@ face[1] = {
     this.clear();
   }
 };
-
 //touch actions are set here, e is the event, x,y are the coordinates on screen.
 touchHandler[0]=function(e,x,y){
   switch (e) {
@@ -129,9 +123,9 @@ touchHandler[0]=function(e,x,y){
     if (face[0].tid==-1) {face[0].run=true;face[0].show();} else face[0].clear();
     digitalPulse(D16,1,[30,50,30]);
     break;
-    case 1: //slide down event-on directional swipes the x,y indicate the point of starting the swipe, so one can swipe up/dn on buttons like on the brightenss button at the main settings face. 
+    case 1: //slide down event 
     face.go(face.appPrev, face.pagePrev);
-    return; //return when changing faces, so that this action will not reset this face timeout. 
+    return; //return when changing faces. 
     case 2: //slide up event
     digitalPulse(D16,1,40);
     break;
@@ -145,7 +139,7 @@ touchHandler[0]=function(e,x,y){
     face[0].btn=1-face[0].btn;
     digitalPulse(D16,1,[30,50,30]);
     break;
-    default: //reset face timeout on every touch action, this function is in the handler file. 
+    default: //reset face timeout. 
     this.timeout();
   }
 };
