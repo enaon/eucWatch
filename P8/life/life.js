@@ -31,6 +31,7 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
   },
   next: function(){
     "ram";
+    this.start = getTime();
     var cur=this.genA, fut=this.genB, y=this.currentY;
     var count=(p)=>{return cur[p-19]+cur[p-18]+cur[p-17]+cur[p-1]+cur[p+1]+cur[p+17]+cur[p+18]+cur[p+19];};
     for (let x = 1; x<17; ++x){
@@ -44,10 +45,12 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
         this.buf.fillRect(Xr,Yr, Xr+7,Yr+7);
       }
     }
+    this.gentime+=(getTime()-this.start);
     if (y==16) {
       this.myflip();
       var tmp = this.genA; this.genA=this.genB; this.genB=tmp;
       this.generation++;
+      this.howlong();
       this.currentY=1;
     } else this.currentY++;
   },
@@ -55,29 +58,40 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
     this.run=true;
   },
   regen: function(){
-    this.g.setColor(0,col("black"));
-	this.g.clearRect(0,240,0,240);
-    this.g.setColor(1,col("white"));
     this.initDraw(this.genA);
     this.currentY=1;
     this.generation = 0;
     this.gentime=0;
+  },
+  howlong: function(){
+	this.g.setFont("6x8",2);
+	this.gentime = Math.floor(this.gentime);
+	this.g.drawString('Gen:'+this.generation+'  '+this.gentime+'ms  ',20,220,true);
+	this.gentime=0;
   },
   init: function(o) { //put here the elements of the page that will not need refreshing and initializations.
     this.buf=Graphics.createArrayBuffer(160,160,1,{msb:true});
     this.genA=new Uint8Array(324);
     this.genB=new Uint8Array(324);
     this.btn=0;
-    this.last_btn=this.btn;
-//    this.g.clear();
-    this.regen();
-    this.run=true;
-
+    this.last_btn=1;
+//  this.regen();
+//  this.run=true;
+    this.g.setColor(0,col("black"));
+	this.g.clearRect(0,240,0,240);
+    this.g.setColor(1,col("white"));
+    this.g.setFont('Vector',40);
+    this.g.drawString('LIFE',80,85);
+    this.g.setFont('6x8',2);
+    this.g.drawString("Conway's",75,10);
+    this.g.drawString('(Touch Start)',45,180);
+    this.g.flip();
   },
   show : function(o){
     if (!this.run) return;
     if (this.btn!==this.last_btn){
       this.last_btn=this.btn;
+      this.regen();
     }
     this.next();
     this.tid=setTimeout(function(t){ //the face's screen refresh rate. 
@@ -120,8 +134,8 @@ face[1] = {
 touchHandler[0]=function(e,x,y){
   switch (e) {
     case 5: //tap event
-    if (face[0].tid==-1) {face[0].run=true;face[0].show();} else face[0].clear();
     digitalPulse(D16,1,[30,50,30]);
+    if (face[0].tid==-1) {face[0].run=true;face[0].show();} else face[0].clear();
     break;
     case 1: //slide down event 
     face.go(face.appPrev, face.pagePrev);
