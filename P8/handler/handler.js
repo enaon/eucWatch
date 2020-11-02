@@ -380,7 +380,7 @@ do:0,
 st:1,
 loop:5,
 init:function(){
-    "ram";
+   	"ram";
 	var tp=i2c.readFrom(0x15,7);
 //	print(tp);
 	if (tp[3]==128) {
