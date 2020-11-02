@@ -55,7 +55,7 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
     this.tid=setTimeout(function(t){ //the face's screen refresh rate. 
       t.tid=-1;
       t.next();
-    },50,this);
+    },500,this);
   },
   stopdraw: function() {
     this.run=false;
@@ -78,9 +78,10 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
     this.genB=new Uint8Array(324),
     this.btn=0;
     this.last_btn=this.btn;
-    this.run=true;
     this.g.clear();
     this.regen();
+    this.run=true;
+
   },
   show : function(o){
     if (!this.run) return;
@@ -131,8 +132,8 @@ face[1] = {
 touchHandler[0]=function(e,x,y){
   switch (e) {
     case 5: //tap event
-    face[0].next();
-    digitalPulse(D16,1,40);
+    if (face[0].tid==-1) face[0].next(); else face[0].stopdraw()
+    digitalPulse(D16,1,[30,50,30]);
     break;
     case 1: //slide down event-on directional swipes the x,y indicate the point of starting the swipe, so one can swipe up/dn on buttons like on the brightenss button at the main settings face. 
     face.go(face.appPrev, face.pagePrev);
