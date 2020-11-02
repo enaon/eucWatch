@@ -107,4 +107,5 @@ E.showMessage = function(msg,title) {
     lines.forEach((line,y)=>g.drawString(line,W/2,offset + y*16));
     g.flip();
   };
-  
+w={}
+w.gfx=g 

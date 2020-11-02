@@ -51,11 +51,19 @@ const P8 = {
         D16.set();
         setTimeout(()=>{D16.reset();},v);
     },
-    batV: () => {
-        pinMode(D16,"analog",true);
-        var v = 7.1 * analogRead(D31);
-        pinMode(D16,"input",true); //power saving?
-        return v;
+//    batV: () => {
+//        pinMode(D31,"analog",true);
+//        var v = 7.1 * analogRead(D31);
+//        pinMode(D31,"input",true); //power saving?
+//        return v;
+//    },
+	batV: (s) => {
+        let v=7.1*analogRead(D31);
+		if (s) { v=(v*100-345)*1.43|0; //if (v>=100) v=100;
+		}
+		let hexString = ("0x"+(0x50000700+(D31*4)).toString(16));
+		poke32(hexString,2); // disconnect pin for power saving, otherwise it draws 70uA more 
+		return v;
     },
     isPower:()=>{return D19.read();},
     setLCDTimeout:(v)=>{P8.ON_TIME=v<5?5:v;},
@@ -124,3 +132,8 @@ setWatch(() =>{
 	if (!P8.awake) P8.wake();
 },D17,{repeat:true,edge:"falling"});
 }
+
+eval(STOR.read("events.js"));
+eval(STOR.read("setter.js"));
+eval(STOR.read("faces.js"));
+eval(STOR.read("main"));

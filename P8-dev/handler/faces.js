@@ -19,15 +19,15 @@ var face={
 		if (c===0||c===2) {
 			if (this.appCurr==="main") {
 				if (face[c].off) {
-					if (set.def.touchtype!="816") i2c.writeTo(0x15,0xa5,3); 
-					if (set.def.touchtype=="716") tfk.exit();	
+					//if (set.def.touchtype!="816") i2c.writeTo(0x15,0xa5,3); 
+					//if (set.def.touchtype=="716") tfk.exit();	
 					face[c].off();this.pageCurr=-1;face.pagePrev=c;
 				}
 			}else face.go(this.appCurr,1);
 		}else if (face.appPrev=="off") {
 			if (face[c].off) {
-				if (set.def.touchtype!="816") i2c.writeTo(0x15,0xa5,3); 
-				if (set.def.touchtype=="716") tfk.exit();	
+				//if (set.def.touchtype!="816") i2c.writeTo(0x15,0xa5,3); 
+				//if (set.def.touchtype=="716") tfk.exit();	
 				face.go("main",-1);face.pagePrev=c;
 			}
 		}else if (c>1) face.go(this.appCurr,0);
@@ -43,7 +43,7 @@ var face={
         face[this.pagePrev].clear();
     }
   	if (this.pageCurr==-1 && this.pagePrev!=-1) {
-		if (set.def.touchtype=="716")tfk.loop=100;
+		//if (set.def.touchtype=="716")tfk.loop=100;
 		acc.go=0;
         face[this.pagePrev].off();
       if (this.offid>=0) {clearTimeout(this.offid); this.offid=-1;}
@@ -58,8 +58,8 @@ var face={
 	this.off(page);
 	face[page].init(arg);	
 	if(!w.gfx.isOn) {w.gfx.on();
-		if (set.def.touchtype!="816") digitalPulse(D13,1,[10,50]);
-		if (set.def.touchtype=="716"){tfk.loop=5;if( tfk.tid==-1) tfk.init();}
+		//if (set.def.touchtype!="816") digitalPulse(D13,1,[10,50]);
+		//if (set.def.touchtype=="716"){tfk.loop=5;if( tfk.tid==-1) tfk.init();}
 	}
 	face[page].show(arg);
 	if(arg) this.pageArg=arg;
