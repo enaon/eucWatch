@@ -57,9 +57,9 @@ face[0]= {
   init: function(){
     var d=(Date()).toString().split(' ');
     var t=(d[4]).toString().split(':');
-    g.setColor(0,col("dgray1"));//header bck
+    g.setColor(col("dgray1"));//header bck
     g.fillRect(0,0,239,35); 
-    g.setColor(1,col("lblue"));//header txt
+    g.setColor(col("lblue"));//header txt
     g.setFont("Vector",25);
 	g.drawString("ALARMS",4,6); 
     g.setFont("Vector",32);
@@ -75,31 +75,31 @@ face[0]= {
     if (alrm[1].tmr!=this.al1) {
       this.al1=alrm[1].tmr;
       this.c=colo.btnTxt1;
-      if (this.al1!==-1) g.setColor(1,colo.btnEn);
-      else { g.setColor(1,colo.btnDs1); this.c=colo.btnTxt;}
+      if (this.al1!==-1) g.setColor(colo.btnEn);
+      else { g.setColor(colo.btnDs1); this.c=colo.btnTxt;}
       if (alrm[1].on===1)  this.c=colo.btnAl;
       g.fillRect(0,39,239,103); //1
-      g.setColor(0,this.c);
+      g.setColor(this.c);
       g.drawString(this.pad(alrm[1].hour)+":"+this.pad(alrm[1].min),120-(g.stringWidth(this.pad(alrm[1].hour)+":"+this.pad(alrm[1].min)))/2,50); 
     }
     if (alrm[2].tmr!=this.al2) {
       this.al2=alrm[2].tmr;
 	  this.c=colo.btnTxt1;
-      if (this.al2!==-1) g.setColor(1,colo.btnEn);
-      else { g.setColor(1,colo.btnDs); this.c=colo.btnTxt;}
+      if (this.al2!==-1) g.setColor(colo.btnEn);
+      else { g.setColor(colo.btnDs); this.c=colo.btnTxt;}
       if (alrm[2].on===1)  this.c=colo.btnAl;
       g.fillRect(0,107,239,171); //2
-      g.setColor(0,this.c);
+      g.setColor(this.c);
      g.drawString(this.pad(alrm[2].hour)+":"+this.pad(alrm[2].min),120-(g.stringWidth(this.pad(alrm[2].hour)+":"+this.pad(alrm[2].min)))/2,118); 
     } 
     if (alrm[3].tmr!=this.al3) {
       this.al3=alrm[3].tmr;
       this.c=colo.btnTxt1;
-      if (this.al3!==-1) g.setColor(1,colo.btnEn);
-      else { g.setColor(1,colo.btnDs1); this.c=colo.btnTxt;}
+      if (this.al3!==-1) g.setColor(colo.btnEn);
+      else { g.setColor(colo.btnDs1); this.c=colo.btnTxt;}
       if (alrm[3].on===1)  this.c=colo.btnAl;
       g.fillRect(0,175,239,239); //3
-      g.setColor(0,this.c);
+      g.setColor(this.c);
       g.drawString(this.pad(alrm[3].hour)+":"+this.pad(alrm[3].min),120-(g.stringWidth(this.pad(alrm[3].hour)+":"+this.pad(alrm[3].min)))/2,186); 
     }
     this.tid=setTimeout(function(t){
@@ -156,9 +156,9 @@ face[5] = {
     this.al.curr=o;
     var d=(Date()).toString().split(' ');
     var t=(d[4]).toString().split(':');
-    g.setColor(0,col("dgray1")); //header
+    g.setColor(col("dgray1")); //header
     g.fillRect(0,0,239,35); 
-    g.setColor(1,col("lblue"));
+    g.setColor(col("lblue"));
     g.setFont("Vector",25);
 	g.drawString("SET AL"+this.al.curr,4,6); 
     g.setFont("Vector",32);
@@ -169,22 +169,22 @@ face[5] = {
     if (!this.run) return;
     if (alrm[o].hour!=this.al[o].hour) {
       this.al[o].hour=alrm[o].hour;
-      g.setColor(0,colo.bck1);
+      g.setColor(colo.bck1);
       g.fillRect(0,39,121,181);//hour
-      if (alrm[o].tmr!=-1) g.setColor(1,colo.txt);else g.setColor(1,colo.txt3);
+      if (alrm[o].tmr!=-1) g.setColor(colo.txt);else g.setColor(colo.txt3);
       g.setFont("Vector",75);  
       g.drawString(this.pad(this.al[o].hour),66-(g.stringWidth(this.pad(this.al[o].hour)))/2,70); 
     }
     if (alrm[o].min!=this.al[o].min) {
       this.al[o].min=alrm[o].min;
       if (alrm[o].tmr!=-1){
-        g.setColor(0,colo.bck3);
+        g.setColor(colo.bck3);
         g.fillRect(122,39,239,181);//min
-        g.setColor(1,colo.txt1);
+        g.setColor(colo.txt1);
       }else {
-        g.setColor(0,colo.bck2);
+        g.setColor(colo.bck2);
         g.fillRect(122,39,239,181);//min
-        g.setColor(1,colo.txt3);
+        g.setColor(colo.txt3);
       }
       g.setFont("Vector",75);  
       g.drawString(this.pad(this.al[o].min),190-(g.stringWidth(this.pad(this.al[o].min)))/2,70); 
@@ -192,20 +192,20 @@ face[5] = {
     if (alrm[o].snz!=this.al[o].snz) {
       this.al[o].snz=alrm[o].snz;
       this.c=colo.btnTxt;
-      if (this.al[o].snz===1)  { g.setColor(0,colo.btnEn);this.c=colo.btnTxt1;}
-      else g.setColor(0,colo.btnDs); 
+      if (this.al[o].snz===1)  { g.setColor(colo.btnEn);this.c=colo.btnTxt1;}
+      else g.setColor(colo.btnDs); 
       g.fillRect(0,185,120,239);//snooze
-      g.setColor(1,this.c);
+      g.setColor(this.c);
       g.setFont("Vector",25);  
       g.drawString("SNOOZE",4,202); 
     }
     if (alrm[o].rep!=this.al[o].rep) {
       this.al[o].rep=alrm[o].rep;
       this.c=colo.btnTxt;
-      if (this.al[o].rep===1) { g.setColor(0,colo.btnEn);this.c=colo.btnTxt1;}
-      else g.setColor(0,colo.btnDs); 
+      if (this.al[o].rep===1) { g.setColor(colo.btnEn);this.c=colo.btnTxt1;}
+      else g.setColor(colo.btnDs); 
       g.fillRect(123,185,239,239);//repeat
-      g.setColor(1,this.c);
+      g.setColor(this.c);
       g.setFont("Vector",25);  
       g.drawString("REPEAT",130,202); 
     }
