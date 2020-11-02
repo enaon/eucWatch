@@ -125,7 +125,7 @@ face[0] = {
   tid:-1,
   run:false,
   clear : function(o){
-    g.clear();
+    //g.clear();
     if (set.tor==1){
       w.gfx.bri.set(this.cbri);
       face.faceSave=-1;
