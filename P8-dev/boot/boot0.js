@@ -34,7 +34,8 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
 	 reset();
     }, 500);
   },BTN1,{repeat:false, edge:"rising"}); 
-}else{ //load in working mode
+}else{ 
+//load in working mode
 if (!Boolean(require('Storage').read('setting.json'))) require('Storage').write('setting.json',{"watchtype":"eucwatch"});
 NRF.setAdvertising({}, { name:"Espruino-jeff",connectable:true });
 const STOR = require("Storage");
@@ -48,8 +49,7 @@ const P8 = {
     pressedtime:0,
     buzz: (v)=>{
         v = v? v : 100;
-        D16.set();
-        setTimeout(()=>{D16.reset();},v);
+		digitalPulse(D16,1,v);
     },
 //    batV: () => {
 //        pinMode(D31,"analog",true);
