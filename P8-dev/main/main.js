@@ -6,12 +6,10 @@ face[0] = {
     this.startTime=getTime();
     this.v=P8.batV(1);
     //top
-    g.setColor(col("black"));
     g.setColor(col("lgray"));
     g.fillRect(0,0,158,50); //date
     g.fillRect(162,0,239,50);//batt
     if (face.pagePrev!=2){g.fillRect(0,55,100,150);}
-    g.setColor(col("black"));
     
     this.wupd=1;
     this.bt=-1;
@@ -30,20 +28,13 @@ face[0] = {
   },
   show : function(){
     if (!this.run) return;
-    //print("enter show",getTime()-this.startTime);
-
-	//time
-    //print("enter  time",getTime()-this.startTime);
  	this.time();
-    //print(" exit time",getTime()-this.startTime);
-
 	//bt status on date
     if (notify.ring){
    	  if (this.ring!=notify.ring){
 	  this.bt=-1;
-//	  g.setColor(col("raf3"));
-      g.setColor(2220);
-        g.fillRect(0,0,158,50); //date
+	  g.setColor(col("raf3"));
+      g.fillRect(0,0,158,50); //date
       g.setColor(col("white"));
 	  g.setFont("Vector",22);
 	  g.drawString("MUTE",68,15);
@@ -72,12 +63,11 @@ face[0] = {
 		
 	    g.setColor(colbt);
 		g.fillRect(0,0,15,50); //date
-//		var colbtf=col("white");
-        var colbtf=4095;
+		var colbtf=col("white");
 //        if (set.bt==0) colbtf=col("black");
         if (set.bt==0) colbtf=0;
         g.setColor(colbtf);
-		g.drawImage(E.toArrayBuffer(atob("CxQBBgDgFgJgR4jZMawfAcA4D4NYybEYIwTAsBwDAA==")),3,13);
+		g.setColor(0);g.drawImage(E.toArrayBuffer(atob("CxQBBgDgFgJgR4jZMawfAcA4D4NYybEYIwTAsBwDAA==")),3,13);
 		
 	  }  
      //print("exit bt",getTime()-this.startTime);

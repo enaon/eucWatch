@@ -3,7 +3,6 @@
 
 face[0] = { //the first face of the hello app, called by using `face.go("hello",0)` from the cli.
   offms: 90000, //face timeout, will fall to face[1] after it, face[1] is a redirection face, not actually visible.
-  g:g. //set graphics as this.g variable
   buf:Graphics.createArrayBuffer(160,160,1,{msb:true}),
   genA:null,
   genB:null,
@@ -11,8 +10,8 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
   currentY:1,
   intervalRef:null,
   myflip: function() {
-    this.g.drawImage({width:160,height:160,bpp:1,buffer:this.buf.buffer},40,40);
-    this.g.flip();
+    g.drawImage({width:160,height:160,bpp:1,buffer:this.buf.buffer},40,40);
+    g.flip();
     this.buf.clear();
   },
   initDraw: function(gen) {
@@ -31,9 +30,9 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
   },
   howlong: function(){
     this.generation++;
-	this.g.setFont("6x8",2);
+	g.setFont("6x8",2);
 	this.gentime = Math.floor(this.gentime);
-	this.g.drawString('Gen:'+this.generation+'  '+this.gentime+'ms  ',20,220,true);
+	g.drawString('Gen:'+this.generation+'  '+this.gentime+'ms  ',20,220,true);
 	this.gentime=0;
   },
   next: function(){
@@ -65,7 +64,7 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
   },
   startdraw: function(init) {
     if (init===undefined) init=false;
-    //if(!init) this.g.clear();
+    //if(!init) g.clear();
     if(!init) intervalRef = setInterval(function(t){t.next();},65,this);
   },
   regen: function(){
@@ -74,7 +73,7 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
     this.currentY=1;
     this.generation = 0;
     this.gentime=0;
-    if(!init) intervalRef = setInterval(function(t){t.next();},65,this);
+    this.intervalRef = setInterval(function(t){t.next();},65,this);
   },
   init: function(o) { //put here the elements of the page that will not need refreshing and initializations.
     this.buf=Graphics.createArrayBuffer(160,160,1,{msb:true});
@@ -82,15 +81,15 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
     this.genB=new Uint8Array(324);
     this.btn=0;
     this.last_btn=1;
-    this.g.setColor(col("black"));
-	this.g.clearRect(0,240,0,240);
-    this.g.setColor(col("white"));
-    this.g.setFont('Vector',40);
-    this.g.drawString('LIFE',80,85);
-    this.g.setFont('6x8',2);
-    this.g.drawString("Conway's",75,10);
-    this.g.drawString('(Touch Start)',45,180);
-    this.g.flip();
+    g.setColor(col("black"));
+	g.clearRect(0,240,0,240);
+    g.setColor(col("white"));
+    g.setFont('Vector',40);
+    g.drawString('LIFE',80,85);
+    g.setFont('6x8',2);
+    g.drawString("Conway's",75,10);
+    g.drawString('(Touch Start)',45,180);
+    g.flip();
     this.startdraw(true);
   },
   show : function(o){
@@ -99,7 +98,7 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
   tid:-1,
   run:false,
   clear : function(){ //enter here everything needed to clear all app running function on face exit. 
-    this.g.clear(); //as above
+    g.clear(); //as above
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid); //clears main face[0] timeout loop.
 	this.stopdraw();
@@ -107,7 +106,7 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
     return true;
   },
   off: function() {
-    this.g.off();
+    g.off();
     this.clear();
   }
 };

@@ -107,7 +107,7 @@ face[0] = {
       this.bri=g.bri.lv;
       this.c=colo.btnTxt1;
       g.setColor(col("gray"));
-      g.clearRect(160,80,239,155);//brightness
+      g.fillRect(160,80,239,155);//brightness
       g.setColor(this.c);
       g.setFont("Vector",30);
       g.drawImage(require("heatshrink").decompress(atob("jEXwIHEhAKCAQcEAgMGAQMCuADB+EAgICEgYCBnYFEBwoXCDoUGiEAhw9DAQ4ABA")),170,107);
@@ -125,7 +125,7 @@ face[0] = {
   tid:-1,
   run:false,
   clear : function(o){
-    //g.clear();
+    g.clear();
     if (set.tor==1){
       g.bri.set(this.cbri);
       face.faceSave=-1;
