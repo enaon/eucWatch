@@ -31,9 +31,9 @@ var TC = {
           this.x=tp[4];this.y=tp[6];
         }
         if (this.do===1&&getTime()-this.time>1){ 
-			TC.emit("longtouch",{"gest":12,"x":this.x,"y":this.y});
-            touchHandler[face.pageCurr](12,this.x,this.y);
             this.do=0;
+            TC.emit("longtouch",{"gest":12,"x":this.x,"y":this.y});
+            touchHandler[face.pageCurr](12,this.x,this.y);
         }else if (this.do===1&&tp[1]==0) {
             var a=0;
             if (tp[6]>=this.y+20) a=1;
@@ -47,14 +47,16 @@ var TC = {
             }
         }else if (this.do===1){
             if (tp[1]==5||tp[1]==12){
+              this.do=0;
 			  if (tp[1]===5) TC.emit("touch",{"gest":5,"x":this.x,"y":this.y}); else TC.emit("longtouch",{"gest":5,"x":this.x,"y":this.y});
-              touchHandler[face.pageCurr](tp[1],this.x,this.y);this.do=0;
+              touchHandler[face.pageCurr](tp[1],this.x,this.y);
             }
         }
 	}else if (tp[3]==255) {
 		if (this.do===1){
+            this.do=0;        
 			TC.emit("touch",{"gest":5,"x":this.x,"y":this.y});
-			touchHandler[face.pageCurr](5,this.x,this.y);this.do=0;        
+			touchHandler[face.pageCurr](5,this.x,this.y);
 		}
 		this.st=1;this.time=-1;
     }
