@@ -31,8 +31,8 @@ var TC = {
           this.x=tp[4];this.y=tp[6];
         }
         if (this.do===1&&getTime()-this.time>1){ 
-            touchHandler[face.pageCurr](12,this.x,this.y);
 			TC.emit("longtouch",{"gest":12,"x":this.x,"y":this.y});
+            touchHandler[face.pageCurr](12,this.x,this.y);
             this.do=0;
         }else if (this.do===1&&tp[1]==0) {
             var a=0;
@@ -42,19 +42,19 @@ var TC = {
 	        else if (tp[4]>=this.x+20) a=4;
             if (a!=0) {
               this.do=0;
+  			  TC.emit("swipe",{"gest":a,"x":this.x,"y":this.y});
               touchHandler[face.pageCurr](a,this.x,this.y);
-			  TC.emit("swipe",{"gest":a,"x":this.x,"y":this.y});
             }
         }else if (this.do===1){
             if (tp[1]==5||tp[1]==12){
-              touchHandler[face.pageCurr](tp[1],this.x,this.y);this.do=0;
 			  if (tp[1]===5) TC.emit("touch",{"gest":5,"x":this.x,"y":this.y}); else TC.emit("longtouch",{"gest":5,"x":this.x,"y":this.y});
+              touchHandler[face.pageCurr](tp[1],this.x,this.y);this.do=0;
             }
         }
 	}else if (tp[3]==255) {
 		if (this.do===1){
-			touchHandler[face.pageCurr](5,this.x,this.y);this.do=0;        
 			TC.emit("touch",{"gest":5,"x":this.x,"y":this.y});
+			touchHandler[face.pageCurr](5,this.x,this.y);this.do=0;        
 		}
 		this.st=1;this.time=-1;
     }
