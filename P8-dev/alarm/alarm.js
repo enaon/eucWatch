@@ -110,7 +110,6 @@ face[0]= {
   tid:-1,
   run:false,
   clear : function(){
-    //pal[0]=col("black");
     g.clear();
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
@@ -218,7 +217,6 @@ face[5] = {
   run:false,
 
   clear : function(){
-    //pal[0]=col("black");
     g.clear();
     this.exit();
     return true;

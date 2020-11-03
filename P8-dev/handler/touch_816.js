@@ -19,7 +19,7 @@ var TC = {
         i2c.writeTo(0x15,a,d);
     }, 
     readBytes:(a,n) => {
-        I2C1.writeTo(0x15, a);
+        i2c.writeTo(0x15, a);
         return i2c.readFrom(0x15,n); 
     },
     getXY:()=>{
