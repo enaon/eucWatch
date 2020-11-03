@@ -1,21 +1,20 @@
 //notify	
 face[0] = {
   offms: 4000,
-  g:w.gfx,
   init: function(){
-    this.g.setColor(1,col("black"));
-	this.g.fillRect(0,0,239,239);this.g.setColor(0,col("dgray"));this.g.fillRect(0,0,170,77);this.g.fillRect(175,0,239,77);this.g.fillRect(0,83,170,157);this.g.fillRect(175,83,239,157);this.g.fillRect(0,163,170,249);this.g.fillRect(175,163,239,249);
-	this.g.flip();
-	this.g.setColor(1,col("lblue"));	
+    g.setColor(col("black"));
+	g.fillRect(0,0,239,239);g.setColor(col("dgray"));g.fillRect(0,0,170,77);g.fillRect(175,0,239,77);g.fillRect(0,83,170,157);g.fillRect(175,83,239,157);g.fillRect(0,163,170,249);g.fillRect(175,163,239,249);
+	g.flip();
+	g.setColor(col("lblue"));	
 	this.img = require("heatshrink").decompress(atob("lMwwMAv/GBAQEEn/Oh////YhwEC/kOgYEB+12CYUDj9gAgMBw8wj/wgHBnF//0AsEcn//gE4hwZCj4HBAAIrBwBfbn4wBFAxQBw5RB/0B4YEBBoPgKIWAuAUC4E4AgRREmEOEoOAjEHKI8H//AEYQEDACkfKwYoG4JQB/cA8JWCKIN/MAJRGAgRRBEARRBAgPAhkDwf/8EHgJMCagJ6D/7KBAAI="));
-	this.g.drawImage(this.img,185,17);
-    this.g.flip();	
+	g.drawImage(this.img,185,17);
+    g.flip();	
 	this.img = require("heatshrink").decompress(atob("mEwwIJGj//AAUAn4FKAAcHAqAAHn4FKAAcGAokPJYuADYnAAod58AjD+HwAoUB8F4BQUD4E8JgfgAocP+AFDj14C4c8ngjDvEfF4fwh/AjwuCg5HCFwJTDBIIPBLoYuEEgJ3CBIPwAoV4EgJtBgFwEgIXCuEHwYFDh6nDuEeAok8AoIjBuF4Aod/+AFBFIN/KYIXCv/Aa6IdCfZQLFAAoA=="));
-	this.g.drawImage(this.img,185,98);
-    this.g.flip();	
+	g.drawImage(this.img,185,98);
+    g.flip();	
 	this.img = require("heatshrink").decompress(atob("mEwwIROh/wAoc//wFD///wAEBgIFB4AFBgf4h/gAoMH8EDDwUP4EBAoYbB/AFBj4CBvACBjwCBvgFEngCBnwFEAS4dFFIo1FIIpNFLIplBAIJxDj4FCPoqJFgYLEg4FBEYUf+EPF4U/F4P8AoN/AQN+AQIICn4CBIgeATwsBWAfAgZKDWwLCDKwIFCCoMHagfwAocAIgIFFdgYFMAgYAHA=="));
-	this.g.drawImage(this.img,182,177);
-    this.g.flip();
+	g.drawImage(this.img,182,177);
+    g.flip();
 	this.img=-1;
 	this.nCall=-1;
 	this.nIm=-1;
@@ -26,39 +25,39 @@ face[0] = {
 	if (!this.run) return;
 	if (this.nCall!=notify.nCall){
 		this.nCall=notify.nCall;
-		this.g.setColor(1,(this.nCall)?col("red"):col("dgray"));
-		this.g.fillRect(0,0,170,77);
-		this.g.setColor(0,col("white"));
-		this.g.setFont("Vector",25);
-		this.g.drawString((notify.nCall)?notify.nCall+" / "+notify.call.length:(notify.call.length)?notify.call.length+" OLD":"-",100-(this.g.stringWidth((notify.nCall)?notify.nCall+" / "+notify.call.length:(notify.call.length)?notify.call.length+" OLD":"-")/2),30);
+		g.setColor((this.nCall)?col("red"):col("dgray"));
+		g.fillRect(0,0,170,77);
+		g.setColor(col("white"));
+		g.setFont("Vector",25);
+		g.drawString((notify.nCall)?notify.nCall+" / "+notify.call.length:(notify.call.length)?notify.call.length+" OLD":"-",100-(g.stringWidth((notify.nCall)?notify.nCall+" / "+notify.call.length:(notify.call.length)?notify.call.length+" OLD":"-")/2),30);
 		this.img = require("heatshrink").decompress(atob("jEYwIGDg4CBh4CBj+AAQPAgE/AQoLBn4RBnwCEj4CEh4RBh4XBg/g8ED+P4gP//kAAQV/AQM/AQMf/EAgfgIgQA="));
-		this.g.drawImage(this.img,10,27);
+		g.drawImage(this.img,10,27);
 		this.img=-1;
-		this.g.flip();
+		g.flip();
 	}
 	if (this.nIm!=notify.nIm){
 		this.nIm=notify.nIm;
-		this.g.setColor(1,(this.nIm)?col("raf"):col("dgray"));
-		this.g.fillRect(0,83,170,157);
-		this.g.setColor(0,col("white"));
-		this.g.setFont("Vector",25);
-		this.g.drawString((notify.nIm)?notify.nIm+" / "+notify.im.length:(notify.im.length)?notify.im.length+" OLD":"-",100-(this.g.stringWidth((notify.nIm)?notify.nIm+" / "+notify.im.length:(notify.im.length)?notify.im.length+" OLD":"-")/2),110);
+		g.setColor((this.nIm)?col("raf"):col("dgray"));
+		g.fillRect(0,83,170,157);
+		g.setColor(col("white"));
+		g.setFont("Vector",25);
+		g.drawString((notify.nIm)?notify.nIm+" / "+notify.im.length:(notify.im.length)?notify.im.length+" OLD":"-",100-(g.stringWidth((notify.nIm)?notify.nIm+" / "+notify.im.length:(notify.im.length)?notify.im.length+" OLD":"-")/2),110);
 		this.img = require("heatshrink").decompress(atob("jEYwIPMv///wCFj///EP//w4f/4fw/8P/F+j/+jATBwP/BoICBAA4mIHZAA="));
-		this.g.drawImage(this.img,10,107);
+		g.drawImage(this.img,10,107);
 		this.img=-1;
-		this.g.flip();
+		g.flip();
 	}
 	if (this.nInfo!=notify.nInfo){
 		this.nInfo=notify.nInfo;
-		this.g.setColor(1,(this.nInfo)?col("olive"):col("dgray"));
-		this.g.fillRect(0,163,170,249);
-		this.g.setColor(0,col("white"));
-		this.g.setFont("Vector",25);		
-		this.g.drawString((notify.nInfo)?notify.nInfo+" / "+notify.info.length:(notify.info.length)?notify.info.length+" OLD":"-",100-(this.g.stringWidth((notify.nInfo)?notify.nInfo+" / "+notify.info.length:(notify.info.length)?notify.info.length+" OLD":"-")/2),190);
+		g.setColor((this.nInfo)?col("olive"):col("dgray"));
+		g.fillRect(0,163,170,249);
+		g.setColor(col("white"));
+		g.setFont("Vector",25);		
+		g.drawString((notify.nInfo)?notify.nInfo+" / "+notify.info.length:(notify.info.length)?notify.info.length+" OLD":"-",100-(g.stringWidth((notify.nInfo)?notify.nInfo+" / "+notify.info.length:(notify.info.length)?notify.info.length+" OLD":"-")/2),190);
 		this.img = require("heatshrink").decompress(atob("jEYwIHEv0AgP/wEH//gh//+Ef8/4j/D/E/4/8n///l///+v/nAQPDARM/4YXBAQIgCEwQsCGQQ4CHwQACA=="));
-		this.g.drawImage(this.img,10,187);
+		g.drawImage(this.img,10,187);
 		this.img=-1;
-		this.g.flip();
+		g.flip();
 	}
 	     //loop
     this.tid=setTimeout(function(t,o){
@@ -70,7 +69,7 @@ face[0] = {
   run:false,
   clear : function(o){
     pal[0]=colo.bck0;
-    this.g.clear();
+    g.clear();
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
     this.tid=-1;
@@ -78,7 +77,7 @@ face[0] = {
   },
   off: function(o){
     this.clear(o);
-    this.g.off();
+    g.off();
     return true;
   }
 };
@@ -99,7 +98,6 @@ face[1] = {
 //info face
 face[5] = {
   offms: 10000,
-  g:w.gfx,
   wrap:function(str,size){
     str=str.split(' ');
     var line="";
@@ -125,39 +123,38 @@ face[5] = {
     return line;
   },
   init: function(type){
-    this.g=w.gfx;
 	this.dowrap=16;
     this.list=notify[type];
     this.type=type;
     this.go=0;
 	this.at=-1;
     this.del=0;
-    this.g.setColor(0,col("dgray"));
+    g.setColor(col("dgray"));
     if (this.list.length==0){
-      this.g.fillRect(0,0,239,239);
-      this.g.setColor(1,colo.txt1);
-      this.g.setFont("Vector",24);		
-      this.g.drawString("NO ENTRIES",120-(this.g.stringWidth("NO ENTRIES")/2),100); 
+      g.fillRect(0,0,239,239);
+      g.setColor(colo.txt1);
+      g.setFont("Vector",24);		
+      g.drawString("NO ENTRIES",120-(g.stringWidth("NO ENTRIES")/2),100); 
       this.at=this.go;
 	} else  this.run=true;
-    this.g.flip();
+    g.flip();
 	this.nCall=notify.nCall;this.nIm=notify.Im;this.nInfo=notify.nInfo;
   },
   show : function(){
     if (!this.run||this.list.length==0) return;
     if (this.del===1) {
       this.del=2;
-      this.g.setColor(1,col("red"));
-      this.g.fillRect(0,31,239,120);
-      this.g.setColor(0,col("white"));
+      g.setColor(col("red"));
+      g.fillRect(0,31,239,120);
+      g.setColor(col("white"));
 	  //swipe-left
 	  this.img = require("heatshrink").decompress(atob("mEwwJC/AAk4Aon+AgcgAolh/4FD//vAonHCIgFEkIFEgHGAolEAolFwAFDo3ACIl8AolnCQdEoVAAolgAoVAoEgAocCAoUPFAIFCiBoCApsOAokBHIIpDEYgvBAoxHDBIIFJGAJfDhEBNYcGgwFDgP4bbIA="));	  
-	  this.g.drawImage(this.img,40,35,{scale:1.5});
+	  g.drawImage(this.img,40,35,{scale:1.5});
 	  //thrashbin
 	  this.img = require("heatshrink").decompress(atob("mEwwI1yg/4AocP/gFDhkMApE//4ABAo4PCAUIACAv4FQATkGAQMYXwSgBYAUBAoPgdsg"));
-	  this.g.drawImage(this.img,130,35,{scale:1.5});
+	  g.drawImage(this.img,130,35,{scale:1.5});
 	  this.img=-1;
-      this.g.flip();
+      g.flip();
     }else if (this.go!=this.at||notify["n"+this.type.substr(0,1).toUpperCase()+this.type.substr(1)]!=this["n"+this.type.substr(0,1).toUpperCase()+this.type.substr(1)]){
 		this["n"+this.type.substr(0,1).toUpperCase()+this.type.substr(1)]=notify["n"+this.type.substr(0,1).toUpperCase()+this.type.substr(1)];
       this.list=notify[this.type];
@@ -167,30 +164,30 @@ face[5] = {
       this.msg=JSON.parse(this.list[this.go]);
       //let this.msg=require("Storage").read(this.type+this.list[this.go].substr(4)).split("|");
       if (this.dowrap>0) this.msg.body=this.wrap(this.msg.body,this.dowrap);
-      this.g.setFont("Vector",24);
-	  if (this.type==="call") this.g.setColor(1,col("red"));
-	  else if (this.type==="im") this.g.setColor(1,col("raf"));
-	  else if (this.type==="info") this.g.setColor(1,col("olive"));
-      this.g.fillRect(0,0,239,30);
-      this.g.setColor(0,col("white"));
-      this.g.drawString(this.msg.src,3,5);
-      this.g.drawString(this.go+1+"/"+this.list.length,239-(this.g.stringWidth(this.go+1+"/"+this.list.length)),5);
-	  this.g.flip();
-      this.g.setFont("Vector",22);
-      this.g.setColor(0,col("dgray"));
-      this.g.fillRect(0,30,239,210);
-      this.g.setColor(1,col("lblue"));
+      g.setFont("Vector",24);
+	  if (this.type==="call") g.setColor(col("red"));
+	  else if (this.type==="im") g.setColor(col("raf"));
+	  else if (this.type==="info") g.setColor(col("olive"));
+      g.fillRect(0,0,239,30);
+      g.setColor(col("white"));
+      g.drawString(this.msg.src,3,5);
+      g.drawString(this.go+1+"/"+this.list.length,239-(g.stringWidth(this.go+1+"/"+this.list.length)),5);
+	  g.flip();
+      g.setFont("Vector",22);
+      g.setColor(col("dgray"));
+      g.fillRect(0,30,239,210);
+      g.setColor(col("lblue"));
    	  if (this.msg.title.length>15) this.msg.title=this.msg.title.substr(0,12)+"...";
-      this.g.drawString(this.msg.title+" :",3,35);
-	  this.g.setFont("Vector",24);
-      this.g.drawString(this.msg.body,122-(this.g.stringWidth(this.msg.body)/2),65);
-      this.g.flip();
-      this.g.setFont("Vector",24);
-      this.g.setColor(0,col("dgray"));
-      this.g.fillRect(0,210,239,239);
-      this.g.setColor(1,col("lgray"));
-   	  this.g.drawString(this.msg.time,120-(this.g.stringWidth(this.msg.time)/2),218);
-      this.g.flip();
+      g.drawString(this.msg.title+" :",3,35);
+	  g.setFont("Vector",24);
+      g.drawString(this.msg.body,122-(g.stringWidth(this.msg.body)/2),65);
+      g.flip();
+      g.setFont("Vector",24);
+      g.setColor(col("dgray"));
+      g.fillRect(0,210,239,239);
+      g.setColor(col("lgray"));
+   	  g.drawString(this.msg.time,120-(g.stringWidth(this.msg.time)/2),218);
+      g.flip();
       this.msg=undefined;
     }
      //loop
@@ -203,7 +200,7 @@ face[5] = {
   run:false,
   clear : function(o){
     pal[0]=colo.bck0;
-    this.g.clear();
+    g.clear();
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
     this.tid=-1;
@@ -211,7 +208,7 @@ face[5] = {
   },
   off: function(o){
     this.clear(o);
-    this.g.off();
+    g.off();
     return true;
     }
 };
@@ -235,8 +232,8 @@ touchHandler[0]=function(e,x,y){
 		face.go("notify",-1);return;
     }else if  (e==2){
 	  if (y>160&&x<50) {
-        if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
-        else w.gfx.bri.set(this.bri);
+        if (g.bri.lv!==7) {this.bri=g.bri.lv;g.bri.set(7);}
+        else g.bri.set(this.bri);
 		digitalPulse(D16,1,[30,50,30]);
       }else if (y>190) {
 		face.go("settings",0);return;
