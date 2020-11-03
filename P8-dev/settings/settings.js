@@ -13,14 +13,14 @@ face[0] = {
       g.fillRect(0,80,75,155); //4
       g.fillRect(80,80,155,155); //5
       g.fillRect(160,80,239,155);//6
-      g.flip();
+      
     //bottom
     g.setColor(col("lblue"));
     g.drawImage(E.toArrayBuffer(atob("MDCBAAAAAAAAAAAAAAAAAAAAAAAAAA//+B//8B///D//+B///n//+B///n//+B///n//+B///n//+B///n//+B///n//+BwADn//+BwADn//+BwADn//+B///n//+B///n//+B///n//+B///nAAOB///nAAOB///nAAOB///n//+A///H//+Af/8H//+AAAAH//+AAAAH//+Af/8HAAOA///HAAOB///nAAOB/j/n//+B/j/n//+B/j/n//+B/j/n//+B/j/n//+B/j/n//+BwADn//+BwADn//+BwADn//+B/j/n//+B/j/n//+B/j/n//+B/j/n//+B/j/n//+B///n//+B///D//+A//+B//8AAAAAAAAAAAAAAAAAAAAAAAAA==")),177,175);
 	g.drawImage(require("heatshrink").decompress(atob("mEwwILIgOAAp0EAoMQAoMMAoMwAoMGAoNgAoMDAQPADgcBAooqEADcP///+AFNABcHCIPgKYQFHKYYFHLIYFHFQd/Aol8nwFDngFdvwFDn/+AvX8ApIADA==")),11,173);
    	g.drawImage(require("heatshrink").decompress(atob("mE3wIcZn////+AoIEBAAOAgIFD4ED4AOBgfgg+ADYXwh4hDvEOAoc4AoscgEBD4McAoIhBgEYAoMHAoIMBAoPwAoYRCAoQdChAFBAAQjCApcBJ4I1FAoQ1CAoY1BAvBHFAoU8SoRZBTYytFXIqNDM4LRB/EPaILdB/kf/4OBj/+n/4DQUPvAmDh6zCEIQFEFYYABXIQAkA==")),94,175);
     //info
-    g.flip();
+    
     this.run=true;
   },
 //main loop
@@ -32,7 +32,7 @@ face[0] = {
       g.fillRect(0,0,239,239); 
       g.setColor(col("lblue"));
       g.drawImage(require("heatshrink").decompress(atob("mEwwILIgOAAp0EAoMQAoMMAoMwAoMGAoNgAoMDAQPADgcBAooqEADcP///+AFNABcHCIPgKYQFHKYYFHLIYFHFQd/Aol8nwFDngFdvwFDn/+AvX8ApIADA==")),50,30,{scale:3});
-      g.flip();
+      
       this.appImgNone=0;
       this.btSetOn=1;
       return;
@@ -47,7 +47,7 @@ face[0] = {
         //bt
         g.drawImage(require("heatshrink").decompress(atob("mEwwIXUgYFFwAFE4AFE8AFE/AFE/gFE/wFE/4FE74qCgUD54qCg8D44qCh+D4fwAoXDAocD8YRDgPzDocA/YpDgF/Gok/IIkfJokPLIkHFwQFHCIodFFIo1FIIhNFLIplFOIp9FRIqVFUI6tFXIrFFaIrdFdIr/IABY=")),54,15);
 		g.drawImage((set.def.rfTX==-4)?E.toArrayBuffer(atob("EyCBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfAAPgAEQACIABEAAiAARAAIgAHz74=")):(set.def.rfTX==0)?E.toArrayBuffer(atob("EyCBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4ADEABiAAxAfYgPsQEWICLEBFiAixARYgIsQHz74=")):E.toArrayBuffer(atob("EyCBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+AARAAIgAEQD6IDFEBiiAxRfYovsUUWKKLFFFiiixRRYoosUXz74=")),125,32);
-        g.flip();
+        
       }
       if (set.def.cli!=this.cli) {
         this.cli=set.def.cli;
@@ -79,12 +79,12 @@ face[0] = {
         this.btn2=0;
         g.setColor(0);
         g.clearRect(76,0,79,75);
-        g.flip();
+        
         g.setColor(col("gray"));
         g.fillRect(80,0,155,75); //2
         g.setColor(col("black"));
         g.drawImage(require("heatshrink").decompress(atob("mEwwIHEgfwAocH/AFDh/8Aocf/wFDn//Aod/Aon//8PAQPBAomDAQMfAQMH//+AoP+BwIFC/gCE+AuB/Ef4AuC+EfwAuC8AFBgIFB4AFBgYFBwAFBFwJGBAoIuCAoQuCAoQuCAonwoAFBGgPgFIQLB4IFBQIJgB4EeRoJgB4Ecg+D/wFBjE/8P8h5XC+H4AoQzB+AFD/lAAoJdBIoIFDKIIFfQIIpDApB+BAoZsBAoX4PAPANIPwAoR1B+CtDcQaHCYAL3CTwIAC")),94,15);
-        g.flip();
+        
     }
     //dnd on/off
     if (set.def.dnd!=this.dnd) {
@@ -113,7 +113,7 @@ face[0] = {
       g.drawImage(require("heatshrink").decompress(atob("jEXwIHEhAKCAQcEAgMGAQMCuADB+EAgICEgYCBnYFEBwoXCDoUGiEAhw9DAQ4ABA")),170,107);
       g.setFont("Vector",45);
       g.drawString(g.bri.lv,194,99);   
-      g.flip();
+      
     }
     }
   //loop
@@ -149,7 +149,7 @@ face[0] = {
       g.setColor(this.colf);
       g.drawImage(Img,ImgX,ImgY);
 	  Img=-1;
-      g.flip();
+      
   },
 };
 //
@@ -180,10 +180,14 @@ face[5] = {
 	while (s>86400) {s=s-86400;d++;}
 	while (s>3600) {s=s-3600;h++;}
 	while (s>60) {s=s-60;m++;}
-    g.setColor(col("black"));
-    g.fillRect(0,0,239,239); //all
-    g.setColor(colo.txt1);
     g.setFont("Vector",18);
+	g.setColor(col("raf"));
+	g.fillRect(0,200,115,239);
+	g.fillRect(125,200,239,239);
+	g.setColor(col("white"));
+	g.drawString("RESTART",15,213);
+ 	g.drawString("SHUTDOWN",132,213);
+    g.setColor(colo.txt1);
 	g.drawString("MEM FREE: "+mem.free+"/"+mem.total,120-(g.stringWidth("MEM FREE: "+mem.free+"/"+mem.total)/2),0);  
 	g.drawString("VERSION: "+process.version,120-(g.stringWidth("VERSION: "+process.version)/2),25);  
 	g.drawString("ACC TYPE: "+set.def.acctype,120-(g.stringWidth("ACC TYPE: "+set.def.acctype)/2),50);  
@@ -192,18 +196,6 @@ face[5] = {
 	g.drawString("FLASH FREE: "+require("Storage").getFree(),120-(g.stringWidth("FLASH FREE: "+require("Storage").getFree())/2),125); 
 	g.drawString("TEMPERATURE: "+E.getTemperature(),120-(g.stringWidth("TEMPERATURE: "+E.getTemperature())/2),150);  
 	g.drawString("NAME: "+set.def.name,120-(g.stringWidth("NAME: "+set.def.name)/2),175);  
-    g.flip();
-    g.setFont("Vector",18);
-	g.setColor(col("raf"));
-	g.fillRect(0,200,115,239);
-	g.setColor(col("white"));
-	g.drawString("RESTART",15,213);
-    g.flip();	
-	g.setColor(col("raf"));
-	g.fillRect(125,200,239,239);
-	g.setColor(col("white"));
-	g.drawString("SHUTDOWN",132,213);
-	g.flip();
     face[0].appImgNone=0;
   },
   show : function(){

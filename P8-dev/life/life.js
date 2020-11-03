@@ -11,7 +11,7 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
   intervalRef:null,
   myflip: function() {
     g.drawImage({width:160,height:160,bpp:1,buffer:this.buf.buffer},40,40);
-    g.flip();
+    
     this.buf.clear();
   },
   initDraw: function(gen) {
@@ -89,7 +89,7 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
     g.setFont('6x8',2);
     g.drawString("Conway's",75,10);
     g.drawString('(Touch Start)',45,180);
-    g.flip();
+    
     this.startdraw(true);
   },
   show : function(o){

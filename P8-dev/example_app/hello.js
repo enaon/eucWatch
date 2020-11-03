@@ -12,12 +12,12 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
     g.setColor(col("black"));
     g.setFont("Vector",50);
     g.drawString(this.msg,120-(g.stringWidth(this.msg)/2),35);
-    g.flip();
+    
     g.setColor(col("white"));
     g.setFont("Vector",22);
     g.drawString("Hello\nWorld",45,140);
     g.drawString("ALRM",137,154);
-    g.flip();
+    
     this.btn=0;
     this.last_btn=this.btn;
 	this.run=true;
@@ -33,7 +33,7 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
       g.setColor(col("lblue"));
       g.setFont("Vector",50);
       g.drawString(this.msg,120-(g.stringWidth(this.msg)/2),35);    
-      g.flip();
+      
     }
     this.tid=setTimeout(function(t){ //the face's screen refresh rate. 
       t.tid=-1;
