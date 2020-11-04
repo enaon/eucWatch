@@ -188,14 +188,16 @@ face[5] = {
 	g.drawString("RESTART",15,213);
  	g.drawString("SHUTDOWN",132,213);
     g.setColor(colo.txt1);
-	g.drawString("MEM FREE: "+mem.free+"/"+mem.total,120-(g.stringWidth("MEM FREE: "+mem.free+"/"+mem.total)/2),0);  
-	g.drawString("VERSION: "+process.version,120-(g.stringWidth("VERSION: "+process.version)/2),25);  
-	g.drawString("ACC TYPE: "+set.def.acctype,120-(g.stringWidth("ACC TYPE: "+set.def.acctype)/2),50);  
-    g.drawString("TOUCH TYPE: "+set.def.touchtype,120-(g.stringWidth("TOUCH TYPE: "+set.def.touchtype)/2),75);  
-    g.drawString("UPTIME: "+d+"D-"+h+"H-"+m+"M",120-(g.stringWidth("UPTIME: "+d+"D-"+h+"H-"+m+"M")/2),100);  
-	g.drawString("FLASH FREE: "+require("Storage").getFree(),120-(g.stringWidth("FLASH FREE: "+require("Storage").getFree())/2),125); 
-	g.drawString("TEMPERATURE: "+E.getTemperature(),120-(g.stringWidth("TEMPERATURE: "+E.getTemperature())/2),150);  
-	g.drawString("NAME: "+set.def.name,120-(g.stringWidth("NAME: "+set.def.name)/2),175);  
+//	g.drawString("MEM FREE: "+mem.free+"/"+mem.total,120-(g.stringWidth("MEM FREE: "+mem.free+"/"+mem.total)/2),0);  
+//	g.drawString("VERSION: "+process.version,120-(g.stringWidth("VERSION: "+process.version)/2),25);  
+//	g.drawString("ACC TYPE: "+set.def.acctype,120-(g.stringWidth("ACC TYPE: "+set.def.acctype)/2),50);  
+ //   g.drawString("TOUCH TYPE: "+set.def.touchtype,120-(g.stringWidth("TOUCH TYPE: "+set.def.touchtype)/2),75);  
+//    g.drawString("UPTIME: "+d+"D-"+h+"H-"+m+"M",120-(g.stringWidth("UPTIME: "+d+"D-"+h+"H-"+m+"M")/2),100);  
+//	g.drawString("FLASH FREE: "+require("Storage").getFree(),120-(g.stringWidth("FLASH FREE: "+require("Storage").getFree())/2),125); 
+//	g.drawString("TEMPERATURE: "+E.getTemperature(),120-(g.stringWidth("TEMPERATURE: "+E.getTemperature())/2),150);  
+//	g.drawString("NAME: "+set.def.name,120-(g.stringWidth("NAME: "+set.def.name)/2),175);  
+	this.buf=("MEM FREE: "+mem.free+"/"+mem.total+"\nVERSION: "+process.version+"\nACC TYPE: "+set.def.acctype+"\nTOUCH TYPE: "+set.def.touchtype+"\nUPTIME: "+d+"D-"+h+"H-"+m+"M"+"\nFLASH FREE: "+require("Storage").getFree()+"\nTEMPERATURE: "+E.getTemperature()+"\nNAME: "+set.def.name);
+	g.drawString(this.buf,120-(g.stringWidth(this.buf)/2),0);  
     face[0].appImgNone=0;
   },
   show : function(){

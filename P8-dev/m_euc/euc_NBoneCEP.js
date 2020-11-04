@@ -24,10 +24,7 @@ global.euc= {
   alck: 0,
   far: 83,
   near: 65,
-  mac: 0, //enaon
-//  mac: "88:C2:55:32:F6:5B public", //manowar
-//  mac: "20:91:48:AB:2A:AD public", //megadeath
-//  mac: "20:91:48:BC:91:3B public", //poet
+  mac: 0, 
 };
 //alerts
 euc.alert = {

@@ -177,12 +177,10 @@ face[5] = {
     if (alrm[o].min!=this.al[o].min) {
       this.al[o].min=alrm[o].min;
       if (alrm[o].tmr!=-1){
-        g.setColor(colo.bck3);
-        g.fillRect(122,39,239,181);//min
+        g.setColor(colo.bck3).fillRect(122,39,239,181);//min
         g.setColor(colo.txt1);
       }else {
-        g.setColor(colo.bck2);
-        g.fillRect(122,39,239,181);//min
+        g.setColor(colo.bck2).fillRect(122,39,239,181);//min
         g.setColor(colo.txt3);
       }
       g.setFont("Vector",75);  

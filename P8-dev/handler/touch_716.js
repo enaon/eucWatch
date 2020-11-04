@@ -17,12 +17,10 @@ pinMode(TOUCH_PIN,'input');
 var TC = {
     DOWN:1, UP:2, LEFT:3, RIGHT:4, CLICK:5, LONG:12,
 	x:0, y:0, do:0, st:0, loop:10, tid:-1,
-    _wid:undefined,
 	init: function(){
-  	"ram";
-	var tp=i2c.readFrom(0x15,7);
-//	print(tp);
-	if (tp[3]==128) {
+      "ram";
+      var tp=i2c.readFrom(0x15,7);
+      if (tp[3]==128) {
         if (this.time==-1) this.time=getTime();
         if (this.st) {
           if (face.pageCurr==-1){this.loop=5;face.go(face.appCurr,0);return;}
@@ -52,18 +50,18 @@ var TC = {
               touchHandler[face.pageCurr](tp[1],this.x,this.y);
             }
         }
-	}else if (tp[3]==255) {
+	  }else if (tp[3]==255) {
 		if (this.do===1){
             this.do=0;        
 			TC.emit("touch",{"gest":5,"x":this.x,"y":this.y});
 			touchHandler[face.pageCurr](5,this.x,this.y);
 		}
 		this.st=1;this.time=-1;
-    }
-	this.tid=setTimeout(function(t){
+      }
+	  this.tid=setTimeout(function(t){
 		t.tid=-1;
 		t.init();
-	},this.loop,this);
+	  },this.loop,this);
 	},
     enable:()=>{i2c.writeTo(0x15,0xED,0xC8);},
     sleepMode:()=>{i2c.writeTo(0x15,0xa5,3);},
@@ -86,7 +84,7 @@ var TC = {
     }
 };
 
-
+/*
 TC.on("touch", (p)=>{
     console.log("touch x: "+p.x+" y:"+p.y);
 });
@@ -98,6 +96,5 @@ TC.on("swipe", (d)=>{
 TC.on("longtouch", (p)=>{
     console.log("long touch");
 });
-
-
+*/
 

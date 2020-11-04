@@ -44,7 +44,7 @@ var face={
     }
   	if (this.pageCurr==-1 && this.pagePrev!=-1) {
 		//if (set.def.touchtype=="716")tfk.loop=100;
-		acc.go=0;
+		//acc.go=0;
         face[this.pagePrev].off();
       if (this.offid>=0) {clearTimeout(this.offid); this.offid=-1;}
 	  if (this.appCurr!=this.appPrev) eval(require('Storage').read(app));

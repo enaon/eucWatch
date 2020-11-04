@@ -113,13 +113,19 @@ setWatch(() =>{P8.pressedtime = Date.now();},D17,{repeat:true,edge:"rising"});
 //require('Font7x11Numeric7Seg').add(Graphics);
 P8.init();
 eval(STOR.read("lcd.js"));
+eval(STOR.read("events.js"));
+eval(STOR.read("setter.js"));
+eval(STOR.read("faces.js"));
+eval(STOR.read("themes.js"));
+eval(STOR.read("main"));
+
 var g = ST7789();
 brightness(P8.BRIGHT);
 eval(STOR.read("touch.js"));
 TC.start();
 TC.on('touch',(p)=>{P8.time_left=P8.ON_TIME;});
 TC.on('swipe',(d)=>{P8.time_left=P8.ON_TIME;});
-TC.on("longtouch", (p)=> {P8.time_left=P8.ON_TIME;if (D17.read()) reset(); else load("launch.js");});
+TC.on("longtouch", (p)=> {P8.time_left=P8.ON_TIME;if (D17.read()) reset(); else face.go("main",0); }); //load("launch.js");
 if (P8.FACEUP && Boolean(STOR.read("accel.js"))){ 
 	eval(STOR.read("accel.js"));
     ACCEL.init();
@@ -133,10 +139,6 @@ setWatch(() =>{
 },D17,{repeat:true,edge:"falling"});
 }
 
-eval(STOR.read("events.js"));
-eval(STOR.read("setter.js"));
-eval(STOR.read("faces.js"));
-eval(STOR.read("themes.js"));
-eval(STOR.read("main"));
+
 //P8.wake();g.setColor(1535);g.fillRect(0,0,240,240);
 //face.go("main",0);
