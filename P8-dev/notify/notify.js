@@ -73,7 +73,7 @@ face[0] = {
   },
   off: function(o){
     this.clear(o);
-    g.off();
+    P8.sleep();
     return true;
   }
 };
@@ -203,7 +203,7 @@ face[5] = {
   },
   off: function(o){
     this.clear(o);
-    g.off();
+    P8.sleep();
     return true;
     }
 };

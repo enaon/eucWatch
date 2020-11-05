@@ -137,7 +137,7 @@ face[0] = {
     return true;
   },
   off: function(o){
-    g.off();
+    P8.sleep();
     this.clear(o);
   },
    btn:function(state,rectx0,recty0,rectx1,recty1,Img,ImgX,ImgY,fCol,bCol){
@@ -211,7 +211,7 @@ face[5] = {
     return true;
   },
   off: function(o){
-    g.off();
+    P8.sleep();
     this.clear(o);
   }
 };

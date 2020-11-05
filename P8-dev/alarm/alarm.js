@@ -117,7 +117,7 @@ face[0]= {
     return true;
   },
   off: function(){
-    g.off();
+    P8.sleep();
     this.clear();
   }
 };
@@ -226,7 +226,7 @@ face[5] = {
     return true;
   },
   off: function(){
-    g.off();
+    P8.sleep();
     this.clear();
   }
 };

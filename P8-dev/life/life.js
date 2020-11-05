@@ -106,7 +106,7 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
     return true;
   },
   off: function() {
-    g.off();
+    P8.sleep();
     this.clear();
   }
 };

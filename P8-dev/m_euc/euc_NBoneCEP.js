@@ -177,7 +177,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
             g.setFontVector(30);
 			g.drawString("!",9, 30);
 			g.flip();g.on();
-			face.offid=setTimeout(() => {g.off();face.offid=-1}, 2000);
+			face.offid=setTimeout(() => {P8.sleep();face.offid=-1}, 2000);
 		}
 	    setTimeout(() => { euc_alarm=0; }, 100);
       }
