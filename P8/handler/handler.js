@@ -332,10 +332,10 @@ if (face.pageCurr>=0) {
     //ct++;
     //if (ct>2){
     a=5;
-	if (tp[6]>=yt+20) a=1;
-	else if (tp[6]<=yt-20) a=2;
-	else if (tp[4]<=xt-20) a=3;
-	else if (tp[4]>=xt+20) a=4;
+	if (tp[6]>=yt+35) a=1;
+	else if (tp[6]<=yt-35) a=2;
+	else if (tp[4]<=xt-35) a=3;
+	else if (tp[4]>=xt+35) a=4;
 //    console.log(tp[4],xt,tp[6],yt,a,ct);
    	if (tt) {clearTimeout(tt);tt=0;}
     if (a!=5){
