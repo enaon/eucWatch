@@ -8,6 +8,9 @@ function gbSend(message) {
 function sendBattery() {
     gbSend({ t: "status", bat: w.battVoltage() });
 }
+function dismissNotification(id) {
+	gbSend({ "t":"notify", "id":id, "n":"DISMISS" });
+}	
 function handleNotificationEvent(event) {
 	if (event.t === "notify-") return; //todo
 	let d=(Date()).toString().split(' ');
@@ -18,7 +21,7 @@ function handleNotificationEvent(event) {
 			if (event.title.startsWith('Missed')||event.body.includes('Missed')){
 				notify.nCall++;
 				notify.New++;	
-				notify.call.unshift(JSON.stringify({src:event.src,title:event.title.substr(0,20),body:event.body.substr(0,90),time:ti}));
+				notify.call.unshift(JSON.stringify({src:event.src.substr(0,15),title:event.title.substr(0,20),body:event.body.substr(0,90),time:ti,id:event.id,idUnread:true}));
 				if (notify.call.length>10) notify.call.pop();
 				if (set.def.dnd&&!notify.ring) {
 					digitalPulse(D16,1,[80,50,80]);
@@ -33,7 +36,7 @@ function handleNotificationEvent(event) {
 		}else{
 			notify.nIm++;
 			notify.New++;
-			notify.im.unshift(JSON.stringify({src:event.src,title:(event.title)?event.title.substr(0,20):"-",body:(event.body)?event.body.substr(0,90):"-",time:ti}));
+			notify.im.unshift(JSON.stringify({src:event.src.substr(0,15),title:(event.title)?event.title.substr(0,20):"-",body:(event.body)?event.body.substr(0,90):"-",time:ti,id:event.id,idUnread:true}));
 			if (notify.im.length>10) notify.im.pop();
 			if (set.def.dnd&&!notify.ring&&Boolean(require("Storage").read("notify"))) {
 				digitalPulse(D16,1,[80,50,80]);
@@ -44,7 +47,9 @@ function handleNotificationEvent(event) {
 			}
 		}
     }else if (event.sender) {
-		notify.im.unshift(JSON.stringify({src:"SMS",title:event.sender.substr(0,20),body:(event.body)?event.body.substr(0,90):"-",time:ti}));
+		notify.nIm++;
+		notify.New++;
+		notify.im.unshift(JSON.stringify({src:"SMS",title:event.sender.substr(0,20),body:(event.body)?event.body.substr(0,90):"-",time:ti,id:event.id,idUnread:true}));
 		if (notify.im.length>10) notify.im.pop();
 		if (set.def.dnd&&!notify.ring&&Boolean(require("Storage").read("notify"))) {
 			digitalPulse(D16,1,[80,50,80]);
