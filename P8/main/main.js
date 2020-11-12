@@ -282,7 +282,7 @@ touchHandler[0]=function(e,x,y){
 	  }else if (x>105 && (55<y&&y<150)){ 
 	     digitalPulse(D16,1,[30,50,30]);
 		if (Boolean(require("Storage").read("alarm"))) {face.go("alarm",0);return;}
-	//hid music controls
+	//batt notifications dismiss
       }else if (x>158 && y<50){//batt
 		if (notify.ring){
 			digitalPulse(D16,1,[30,50,30]);

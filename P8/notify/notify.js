@@ -170,7 +170,7 @@ face[5] = {
 	  else if (this.type==="info") this.g.setColor(1,col("olive"));
       this.g.fillRect(0,0,239,30);
       //if (this.msg.idUnread) {this.g.setColor(0,col("white"));set.gbSend({t:"notify", id:this.msg.id, n:"dismiss"});} else this.g.setColor(0,col("lgray"));
-	  if (this.msg.id) set.gbSend({t:"notify", id:this.msg.id, n:"dismiss"});     
+//	  if (this.msg.id) set.gbSend({t:"notify", id:this.msg.id, n:"dismiss"});     
 	  this.g.setColor(0,col("white"));
 	  this.g.drawString(this.msg.src,3,5);
       this.g.drawString(this.go+1+"/"+this.list.length,239-(this.g.stringWidth(this.go+1+"/"+this.list.length)),5);
@@ -190,7 +190,7 @@ face[5] = {
       this.g.setColor(1,col("lgray"));
    	  this.g.drawString(this.msg.time,120-(this.g.stringWidth(this.msg.time)/2),218);
       this.g.flip();
-      this.msg=undefined;
+      //this.msg=undefined;
     }
      //loop
     this.tid=setTimeout(function(t,o){
@@ -273,16 +273,19 @@ touchHandler[5]=function(e,x,y){
       return;
     }else if (e==5){
 	  digitalPulse(D16,1,40);
-    }else if  (e==1){
+    }else if  (e==1){//slide down
+	  if (face[5].msg.id) set.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
       face[5].go--;
       digitalPulse(D16,1,30,50,30);
     }else if  (e==2){
+	  if (face[5].msg.id) set.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
 	  face[5].go++;
       digitalPulse(D16,1,30,50,30);
     }else if  (e==3){
       if  (face[5].list.length>0) face[5].del=1;
       else {face.go("notify",0); return;}
-    }else if  (e==4){
+    }else if  (e==4){//slide right event (back action)
+	  if (face[5].msg.id) set.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
 	  notify["n"+face[5].type.substr(0,1).toUpperCase()+face[5].type.substr(1)]=0;
       if (!notify.nInfo&&!notify.nCall&&!notify.nIm) {notify.New=0;}
       if (face.appPrev=="off") {face.go("main",-1);return;}
@@ -292,3 +295,4 @@ touchHandler[5]=function(e,x,y){
     }
    this.timeout();
 };
+
