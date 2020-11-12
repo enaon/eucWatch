@@ -169,7 +169,7 @@ face[5] = {
 	  else if (this.type==="im") this.g.setColor(1,col("raf"));
 	  else if (this.type==="info") this.g.setColor(1,col("olive"));
       this.g.fillRect(0,0,239,30);
-      if (this_msg.idUnread) {this.g.setColor(0,col("white"));set.gbSend({t:"notify", id:this.msg.id, n:"dismiss"});} else this.g.setColor(0,col("lgray"));
+      if (this.msg.idUnread) {this.g.setColor(0,col("white"));set.gbSend({t:"notify", id:this.msg.id, n:"dismiss"});} else this.g.setColor(0,col("lgray"));
       this.g.drawString(this.msg.src,3,5);
       this.g.drawString(this.go+1+"/"+this.list.length,239-(this.g.stringWidth(this.go+1+"/"+this.list.length)),5);
 	  this.g.flip();
