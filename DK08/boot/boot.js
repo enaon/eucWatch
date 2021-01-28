@@ -35,8 +35,9 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
 	if (!Boolean(require('Storage').read('setting.json'))) require('Storage').write('setting.json',{"watchtype":"DK08"});
 	if (Boolean(require('Storage').read('lcd'))) eval(require('Storage').read('lcd'));
 	if (Boolean(require('Storage').read('handler'))) eval(require('Storage').read('handler'));
-	if (Boolean(require('Storage').read('handler'))) eval(require('Storage').read('main'));	
+	if (Boolean(require('Storage').read('main'))) eval(require('Storage').read('main'));	
 	if (Boolean(require('Storage').read('init'))) eval(require('Storage').read('init'));
+	if (Boolean(require('Storage').read('m_euc'))) eval(require('Storage').read('m_euc'));
 	print("Welcome!\n*** WorkingMode ***\nLong hold the button\nto restart in DevMode");
     digitalPulse(D6,1,[100,50,100]);
 }
