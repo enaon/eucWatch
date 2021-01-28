@@ -101,6 +101,17 @@
       {"name":"w_scan","url":"w_scan.js"}
     ]
   },
+  { "id": "Font8x16",
+    "name": "Fonts-Font8x16",
+    "icon": "icon.png",
+    "version":"0.01",
+    "description": "Font8x16 font",
+    "tags": "core",
+    "type": "core",
+    "storage": [
+      {"name":"Font8x16","url":"Font8x16.js"}
+    ]
+  },
   { "id": "Font7x11Numeric7Seg",
     "name": "Fonts-Font7x11Numeric7Seg",
     "icon": "icon.png",
