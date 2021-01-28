@@ -1,1 +1,1 @@
-["boot","lcd","Font8x16","init","handler","main"]
+["boot","lcd","Font8x16","Font7x11Numeric7Seg","init","handler","main","euc","m_euc","w_scan"]
