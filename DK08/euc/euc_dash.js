@@ -2,14 +2,13 @@
 //faces-main face
 face[0] = {
   offms: 5000, //15 sec timeout
-  g:w.gfx,
   spd:[],
   init: function(){
-    g.setColor(1,col("gray"));
+    g.setColor(col("gray"));
     g.fillRect(0,0,135,50); //temp
     g.fillRect(139,0,239,50); //batt      
     g.fillRect(0,158,239,193); //mileage
-    g.setColor(0,col("black"));
+    g.setColor(col("black"));
     g.setFont("7x11Numeric7Seg",4);
     g.drawString(euc.temp, 10,3); //temp
     g.drawString(euc.batt,240-(g.stringWidth(euc.batt)+10),3); //fixed bat
@@ -17,11 +16,11 @@ face[0] = {
     g.drawString("TRIP",1,167); 
     g.drawString("TOT",90,167); 
     g.drawString("LEFT",171,167); 
-    g.flip();
+//    g.flip();
     //mileage
     g.fillRect(0,194,239,239);
-    g.setColor(1,col("gray"));
-    if (euc.conn=="READY") g.setColor(1,col("lblue"));
+    g.setColor(col("gray"));
+    if (euc.conn=="READY") g.setColor(col("lblue"));
     g.setFont("7x11Numeric7Seg",3);
     g.drawString(euc.trpN,0,205); 
     g.drawString(euc.trpT,(240-(g.stringWidth(euc.trpT)))/2,205); 
@@ -45,13 +44,13 @@ face[0] = {
     if (euc.spd[0]!=this.spd[0]){
       this.spd[0]=euc.spd[0];
         if (euc.spdC!=col("black")) {
-		  g.setColor(1,euc.spdC);
+		  g.setColor(euc.spdC);
           g.fillRect(0,54,135,154);
-          g.setColor(0,col("black"));
+          g.setColor(col("black"));
         }else { 
-		  g.setColor(0,col("back"));
+		  g.setColor(col("back"));
           g.fillRect(0,54,135,154);
-          g.setColor(1,col("white"));
+          g.setColor(col("white"));
         }
         if (euc.spd[0]==0) {   
 	      g.setFontVector(18);
@@ -70,13 +69,13 @@ face[0] = {
     if ((euc.amp|0)!=this.amp) {
         this.amp=(euc.amp|0);
         if  (euc.ampC!=col("black") ) {
-		  g.setColor(1,euc.ampC);
+		  g.setColor(euc.ampC);
           g.fillRect(139,54,239,154); 
-          g.setColor(0,col("black"));
+          g.setColor(col("black"));
         }else { 
-		  g.setColor(0,col("back"));
+		  g.setColor(col("back"));
           g.fillRect(139,54,239,154); 
-          g.setColor(1,col("white"));
+          g.setColor(col("white"));
         }
         
         if (((euc.amp|0)==0 && euc.spd[0]==0) ||  euc.lock==1) {  
@@ -94,9 +93,9 @@ face[0] = {
 	//Temp
     if (euc.temp!=this.temp) {
       this.temp=euc.temp;
-	  g.setColor(1,euc.tmpC);
+	  g.setColor(euc.tmpC);
       g.fillRect(0,0,135,50);       
-      g.setColor(0,col("black"));
+      g.setColor(col("black"));
       g.setFont("7x11Numeric7Seg",4);
       g.drawString(euc.temp, 10,3); //temp
       g.flip();
@@ -104,9 +103,9 @@ face[0] = {
 	//Battery
     if (euc.batt!=this.batt) {
    	  this.batt=euc.batt;
-	  g.setColor(1,euc.batC);
+	  g.setColor(euc.batC);
       g.fillRect(139,0,239,50);
-      g.setColor(0,col("black"));
+      g.setColor(col("black"));
       g.setFont("7x11Numeric7Seg",4);
       g.drawString(euc.batt,240-(g.stringWidth(euc.batt)+10),3); //fixed bat
       g.flip();
@@ -114,9 +113,9 @@ face[0] = {
 	//Mileage
 	if (euc.trpN!=this.trpN) {
 	  euc.tmp.trpN=euc.trpN;
-	  g.setColor(0,col("black"));
+	  g.setColor(col("black"));
 	  g.fillRect(0,194,239,239);
-      g.setColor(1,col("lblue"));
+      g.setColor(col("lblue"));
 	  g.setFont("7x11Numeric7Seg",3);
    	  g.drawString(euc.trpN,0,205); 
 	  g.drawString(euc.trpT,(240-(g.stringWidth(euc.trpT)))/2,205); 
@@ -127,18 +126,18 @@ face[0] = {
   } else if (euc.conn=="OFF")  {
     if (euc.lock!=this.lock){
     this.lock=euc.lock;
-    g.setColor(1,col("gray"));
+    g.setColor(col("gray"));
     g.fillRect(0,54,135,154);
-    g.setColor(0,col("black"));
+    g.setColor(col("black"));
     g.setFontVector(18);
     g.drawString("AV.SPEED",12,60);
     g.setFont("7x11Numeric7Seg",5);
     g.drawString(euc.aver,(139-(g.stringWidth(euc.aver)))/2,90); 
     g.flip();
-    if (euc.lock==1) g.setColor(1,col("yellow"));
-    else  g.setColor(1,col("gray"));
+    if (euc.lock==1) g.setColor(col("yellow"));
+    else  g.setColor(col("gray"));
     g.fillRect(139,54,239,154); 
-    g.setColor(0,col("black")); 
+    g.setColor(col("black")); 
 	g.setFontVector(18);
 	g.drawString("RunTIME",140,60);
 	g.setFont("7x11Numeric7Seg",5);
@@ -152,23 +151,23 @@ face[0] = {
   } else  {
     if (euc.conn!=this.conn) {
     this.conn=euc.conn;
-    g.setColor(1,col("gray"));
+    g.setColor(col("gray"));
 	g.fillRect(0,54,135,154);
-	g.setColor(0,col("black"));
+	g.setColor(col("black"));
 	g.setFontVector(18);
     g.drawString("AV.SPEED",12,60);
 	g.setFont("7x11Numeric7Seg",5);
 	g.drawString(euc.aver,(139-(g.stringWidth(euc.aver)))/2,90); 
-    g.flip();
+//    g.flip();
     g.fillRect(139,54,239,154); 
-    g.setColor(1,col("white"));     
+    g.setColor(col("white"));     
     g.setFont("Vector",27);
     g.drawString(euc.conn,(142+(100-g.stringWidth(euc.conn))/2),85);
-    g.flip();
-    g.setColor(1,col("gray"));
+//    g.flip();
+    g.setColor(col("gray"));
     g.fillRect(0,0,135,50);
     g.fillRect(139,0,239,50);
-    g.setColor(0,col("black"));
+    g.setColor(col("black"));
     g.setFont("7x11Numeric7Seg",4);
     g.drawString(euc.temp, 10,3); //temp
     g.drawString(euc.batt,240-(g.stringWidth(euc.batt)+10),3);
@@ -213,14 +212,13 @@ face[1] = {
 //settings face
 face[5] = {
   offms: 5000,
-  g:w.gfx,
   init: function(){
-    g.setColor(1,col("gray"));
+    g.setColor(col("gray"));
     g.fillRect(0,0,115,75); //left up
     g.fillRect(0,80,115,155); //left mid
     g.fillRect(0,160,115,239); //left dn
     g.fillRect(120,0,239,239); //right-riding mode      
-    g.setColor(0,col("black"));
+    g.setColor(col("black"));
     g.setFont("Vector",24);
 	g.drawString("RING",58-(g.stringWidth("RING")/2),9); 
 	g.drawString("LIGHT",58-(g.stringWidth("LIGHT")/2),41); 
@@ -245,10 +243,10 @@ face[5] = {
 //autolock
     if (euc.alck != this.alck) {
 	  this.alck=euc.alck;
-      if (this.alck==1) g.setColor(1,col("blue"));
-      else g.setColor(1,col("gray"));
+      if (this.alck==1) g.setColor(col("blue"));
+      else g.setColor(col("gray"));
       g.fillRect(0,80,115,155); //left mid
-      g.setColor(0,col("black"));
+      g.setColor(col("black"));
  	  g.setFont("Vector",24);
       g.drawString("AUTO",58-(g.stringWidth("AUTO")/2),90);
       g.drawString("LOCK",58-(g.stringWidth("LOCK")/2),122);
@@ -258,9 +256,9 @@ face[5] = {
     if (euc.conn=="READY") {  
 	if (euc.rdmd != this.rdmd) {
 	  this.rdmd=euc.rdmd;	
-      g.setColor(1,col("lblue"));
+      g.setColor(col("lblue"));
       g.fillRect(120,0,239,239); //right-riding mode     
-      g.setColor(0,col("black"));
+      g.setColor(col("black"));
       g.setFont("Vector",88);
       g.drawString(euc.rdmd,180-(g.stringWidth(euc.rdmd)/2),73);  
       g.setFont("Vector",35);
@@ -300,76 +298,4 @@ face[5] = {
     this.clear();
   }
 };
-//touch-main
-touchHandler[0]=function(e,x,y){
-    if (e==5){ 
-	  digitalPulse(D16,1,40);
-    }else if  (e==1){
-	  if (euc.conn!="OFF") {face.go("euc",-1);return;}
-	  else {face.go("main",0);return; }
-    }else if  (e==2){
-	  if (y>160&&x<50) {
-        if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
-        else w.gfx.bri.set(this.bri);
-		digitalPulse(D16,1,[30,50,30]);
-     }else if (y>190) {
-	  if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
-	  } else digitalPulse(D16,1,40);
-    }else if  (e==3){
-	  face.go("main",0);
-    }else if  (e==4){		
-	  face.go("main",0);
-//	  face.go(face.appRoot[0],(face.appRoot[1])>2?face.appRoot[1]:0,face.appRoot[2]);return;
-    }else if  (e==12){
-//euc on/off
-	  if  (y<158) {
-  	    euc.tgl();
-//		face.go("euc",0);return;
-//euc settings
-	  }else if(euc.conn!=="WAIT"){
-        digitalPulse(D16,1,140);
- 	    euc.tmp.count=23;
-		face.go("euc",5);return;
-      }else digitalPulse(D16,1,80);
-    }
-    this.timeout();
-};
-//settings
-touchHandler[5]=function(e,x,y){    
-    if (e==5){ 
-	  digitalPulse(D16,1,40);
-    }else if  (e==1){
-      if  (x>=120) {
-        euc.rdmd++;
-        if (euc.rdmd >9) {euc.rdmd=9; digitalPulse(D16,1,40);}
-      }else digitalPulse(D16,1,40);
-    }else if  (e==2){
-      if  (x>=120) {
-        euc.rdmd--;
-        if (euc.rdmd <0) {euc.rdmd=0; digitalPulse(D16,1,40);}
-      }else digitalPulse(D16,1,40);
-    }else if  (e==3){
-      digitalPulse(D16,1,40);
-    }else if  (e==4){
-	  face.go("euc",0);return;
-    }else if  (e==12){
-	  if (x<120&&y<80){
-	 	digitalPulse(D16,1,[30,50,30]);
-		face.go('w_scan',0,'ffe0');
-		return;
-      //ride mode
-	  }else if  (x>120) { 
-        euc.tmp.count=euc.rdmd+24;
-      //reset mileage
-      }else if (x<115 && y>145) {
-        digitalPulse(D16,1,300);  
-        euc.trpL="0.0";
-	  //toggle EUC auto lock
-	  }else if (x<115 && (80<y&&y<145)) {
-        //if (set.def.cli) console.log("toggle alock");
-        digitalPulse(D16,1,300);  
-        euc.alck=1-euc.alck;
-      }else digitalPulse(D16,1,40);
-    }
-    this.timeout();
-};
+
