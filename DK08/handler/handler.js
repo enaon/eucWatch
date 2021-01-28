@@ -1,11 +1,19 @@
 //handler
+function col(no){
+	switch (no) {
+      case "black":return 0;case "dblue":return 1;case "green":return 2;case "teal":return 3;case "red":return 4;case "pink":return 5;
+	  case "yellow":return 6;case "lgray":return 7;case "gray":return 8;case "blue":return 9;case "lgreen":return 10;case "lblue":return 11;
+  	  case "yellow1":return 12;case "lping":return 13;case "yellow2":return 14;case "white":return 15;
+	}
+}
+
 //button;
 function buttonHandler(s){
   if (this.l1) {clearTimeout(this.l1); this.l1=-1;}
   if (s.state==true) { 
     this.press=true;
 	if (!initdone) return;
-	this,blon=isDark();
+	this.blon=isDark();
 	if (this.blt) { clearTimeout(this.blt);this.blt=0;} else if (this.blon) g.bl(0.2); // backlight on 20%
 	//toggle EUC on long press
     this.l1=setTimeout(() => {
@@ -16,15 +24,14 @@ function buttonHandler(s){
     }, 1000);
    }else if (this.press&&s.state==false)  { 
 	this.press=false;
-	currscr++;if (currscr>=screens.length) currscr=0;
-	if (currint>0) clearInterval(currint);
-    currint=screens[currscr]();
+	//currscr++;if (currscr>=screens.length) currscr=0;
+	//if (currint>0) clearInterval(currint);
+    //currint=screens[currscr]();
 	if (this.blon)
     this.blt=setTimeout(function(){
       g.bl(0);
       this.blt=0;
     },5000); //backlight off after 5 seconds
-	
 	
 	/*
 	if (face.pageCurr==-1) {
@@ -53,3 +60,4 @@ function buttonHandler(s){
   }
 }
 btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
+
