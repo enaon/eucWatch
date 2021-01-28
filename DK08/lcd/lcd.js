@@ -42,7 +42,7 @@ function LCD_Init(){
   RST.set();
   PWR.reset();
 }
-E.kickWatchdog();
+//E.kickWatchdog();
 LCD_Init_Off();
 //SPI2.save();
 SPI2.setpins(CLK,MOSI,CS,DC);
@@ -169,7 +169,7 @@ function LCD_AllDown(){
   LCD_Init_Off();
 }
 */
-E.kickWatchdog();
+//E.kickWatchdog();
 LCD_Init();
 SPI2.enable(0x80,0); //8MBit, mode 0
 //digitalPulse(RST,0,10);

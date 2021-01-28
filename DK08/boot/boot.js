@@ -1,10 +1,10 @@
 //watchdog
 E.kickWatchdog();
 function kickWd(){
-  if(!BTN.read())E.kickWatchdog();
+  if(!BTN1.read())E.kickWatchdog();
 }
 var wdint=setInterval(kickWd,1000);
-E.enableWatchdog(20, false);
+E.enableWatchdog(10, false);
 global.save = function() { throw new Error("You don't need to use save() on DK08!"); };
 //errata 108 fix // poke32(0x40000EE4,0x4f)
 //load in devmode
