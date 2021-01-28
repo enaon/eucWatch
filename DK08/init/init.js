@@ -39,7 +39,11 @@ function isDark(){
   var h=Date().getHours();
   return h<dayhours[0] || h>dayhours[1];
 }
-
+rese=reset;
+function reset(){
+  LCD_FastMode(true);
+  rese();
+}
 setTimeout(()=>{
   ST7301_INIT();
   setTimeout(()=>{
@@ -50,9 +54,10 @@ setTimeout(()=>{
     lcd_cmd(0x39);
     //LCD_FastMode(true);
     //LCD_Clear();
-    g.clear();g.flip();
+    //g.clear();g.flip();
 	initdone=1;
 	LCD_FastMode(false);
+	face.go("main",0);
   },200);//200
 },220);//220
 

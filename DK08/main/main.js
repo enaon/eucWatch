@@ -1,6 +1,4 @@
 //clock
-face=[];
-touchHandler=[];
 face[0] = {
   offms: 5000,
   init: function(){
@@ -56,15 +54,14 @@ face[0] = {
   tid:-1,
   run:false,
   clear : function(){
-    g.setColor(col("black"));
-    g.clear();
+    //g.setColor(col("black"));
+    //g.clear();
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
     this.tid=-1;
     return true;
   },
   off: function(){
-    P8.sleep();
     this.clear();
   }
 };
@@ -83,72 +80,12 @@ face[1] = {
   return true;
   },
   off: function(){
-    P8.sleep();
+    //P8.sleep();
   }
 };	
 
 //touch
 //touch
-touchHandler[0]=function(e,x,y){
+tapHandler[0]=function(a){
     var p=d6;
-    if (e==5){
-	  if (x<158 && y<50){//date
-		if (notify.ring){
-			digitalPulse(p,1,[30,50,30]);
-			set.gbSend({t:"call",n:"ignore"});notify.ring=0;
-		}else  digitalPulse(p,1,40);
-	  }else if (x>105 && (55<y&&y<150)){ 
-	     digitalPulse(d6,1,[30,50,30]);
-		if (Boolean(require("Storage").read("alarm"))) {face.go("alarm",0);return;}
-	//hid music controls
-      }else if (x>158 && y<50){//batt
-		if (notify.ring){
-			digitalPulse(d6,1,[30,50,30]);
-			set.gbSend({t:"call",n:"accept"});notify.ring=0;
-		}else if (face[0].bs){
-			notify[face[0].bs]=0;
-			if (!notify.nInfo&&!notify.nCall&&!notify.nIm) {face[0].batt=-1;face[0].bs=0;notify.New=0;}
-			digitalPulse(d6,1,[30,50,30]);
-		}else if (set.hidM){
-			digitalPulse(d6,1,[30,50,30]);
-			if (Boolean(require("Storage").read("hid"))) {face.go("hid",0);return;}
-		}else digitalPulse(d6,1,40);
-	  }else if (y>151&&face[0].bs){ 
-		if (Boolean(require("Storage").read("notify"))) {
-          digitalPulse(d6,1,[30,50,30]);	
-          face.go("notify",5,face[0].bs.substr(1).toLowerCase());return;
-		}else digitalPulse(d6,1,40);
-	  }else digitalPulse(d6,1,40);
-    }else if  (e==1){
-		face.go("main",-1);return;
-    }else if  (e==2){
-		if (y>160&&x<50) {
-        if (g.bri.lv!==7) {this.bri=g.bri.lv;g.bri.set(7);}
-        else g.bri.set(this.bri);
-		digitalPulse(d6,1,[30,50,30]);
-     }else if (y>190) {
-		if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
-	  } else digitalPulse(d6,1,40);
-    }else if  (e==3){
-		if (Boolean(require("Storage").read("euc"))) {face.go("euc",0);return;}
-		else if (Boolean(require("Storage").read("alarm"))) {face.go("alarm",0);return;}
-    }else if  (e==4){
-		if (Boolean(require("Storage").read("notify"))) {face.go("notify",0);return;}
-    }else if  (e==12){
-	if (150<y&&y<200){ 	
-		digitalPulse(d6,1,180);
-		notify.New=0;notify.nInfo=0;notify.nCall=0;notify.nIm=0;notify.nMail=0;
-	}else if (x>162 && y>200){ 
-      digitalPulse(d6,1,40);
-	//alarms
-     }else if (x>105 && (55<y&&y<150)&&global.alrm){ 
-	   if (alrm.buzz!=-1) {
-		alrm.stop(alrm.now); digitalPulse(d6,1,[80,40,80]);
-	   }else {
-        digitalPulse(d6,1,[30,50,30]);
-		if (global.alrm){face.go("alarm",0);return;}
-	   }	  
-     }else digitalPulse(d6,1,40);
-    }
-   this.timeout();
 };
