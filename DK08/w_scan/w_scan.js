@@ -139,7 +139,7 @@ face[1] = {
   }
 };	
 //
-touchHandler[0]=function(e,x,y){
+tapHandler[0]=function(e,x,y){
     if (e==5){
 	   if (y<=50||face[0].start==3) face[0].find(face.pageArg);
        else if(36<y&&y<=85) {
