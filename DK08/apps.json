@@ -1,0 +1,115 @@
+[
+  { "id": "devmode",
+    "name": "Devmode",
+    "icon": "icon.png",
+    "version":"0.01",
+    "description": "Empty file that gets the DK08 to developer mode. Upload this to force developer mode on following uploads, single click on side button when finished uploading all files, to boot into working mode.",
+    "tags": "core",
+    "storage": [
+      {"name":"devmode","url":"devmode"}
+    ]
+  },
+  { "id": "boot",
+    "name": "DK08 boot",
+    "icon": "icon.png",
+    "version":"0.01",
+    "description": "DK08 .bootrst file.  ",
+    "tags": "core",
+	"type":"core",
+	"readme": "README.md",
+    "storage": [
+      {"name":".bootrst","url":"boot.js"}
+	]
+  },
+  { "id": "lcd",
+    "name": "DK08 lcd",
+    "icon": "icon.png",
+    "version":"0.01",
+    "description": "DK08 Screen driverby fanoush. ",
+    "tags": "core",
+	"type":"core",
+	"readme": "README.md",
+    "storage": [
+      {"name":"lcd","url":"lcd.js"}
+    ]
+  },
+  { "id": "init",
+    "name": "DK08 core",
+    "icon": "icon.png",
+    "version":"0.01",
+    "description": "DK08 init functions. ",
+    "tags": "core",
+	"type":"core",
+	"readme": "README.md",
+    "storage": [
+      {"name":"init","url":"init.js"}
+    ]
+  },
+  { "id": "handler",
+    "name": "Handler",
+    "icon": "icon.png",
+    "version":"0.01",
+    "description": "DK08 handler",
+    "tags": "core",
+	"custom": "custom.html",
+	"type":"core",
+	"readme": "README.md",
+    "storage": [
+      {"name":"handler","url":"handler.js"}
+    ]
+  },  
+  { "id": "main",
+    "name": "Clock",
+    "icon": "icon.png",
+    "version":"0.01",
+    "description": "Main Clock/notifications face",
+    "tags": "apps",
+	"type":"main",
+    "storage": [
+      {"name":"main","url":"main.js"}
+    ]
+  },  
+  { "id": "euc",
+    "name": "EUC Dashboard",
+    "icon": "icon.png",
+    "version":"0.01",
+    "description": "Simple EUC dashboard, depends on a euc module",
+    "tags": "euc",
+    "storage": [
+      {"name":"euc","url":"euc_dash.js"}
+    ]
+  },  
+  { "id": "m_euc",
+    "name": "Ninebot c/e/p",
+    "icon": "icon.png",
+    "version":"0.01",
+    "description": "EUC module for ninebot's c/e/p models",
+    "tags": "euc",
+    "type": "euc",
+    "storage": [
+      {"name":"m_euc","url":"euc_NBoneCEP.js"}
+    ]
+  },
+  { "id": "w_scan",
+    "name": "BLE scanner widget",
+    "icon": "icon.png",
+    "version":"0.03",
+    "description": "Shared scan face addon",
+    "tags": "system",
+    "type": "system",
+    "storage": [
+      {"name":"w_scan","url":"w_scan.js"}
+    ]
+  },
+  { "id": "Font7x11Numeric7Seg",
+    "name": "Fonts-Font7x11Numeric7Seg",
+    "icon": "icon.png",
+    "version":"0.01",
+    "description": "Font7x11Numeric7Seg font",
+    "tags": "core",
+    "type": "core",
+    "storage": [
+      {"name":"Font7x11Numeric7Seg","url":"Font7x11Numeric7Seg.js"}
+    ]
+  }
+]
