@@ -1,5 +1,5 @@
 //fonts
-//require('Font7x11Numeric7Seg').add(Graphics);
+require('Font7x11Numeric7Seg').add(Graphics);
 require("Font8x16").add(Graphics);
 var VIB=D6;
 function vibon(vib){
