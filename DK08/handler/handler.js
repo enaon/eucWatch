@@ -6,7 +6,7 @@ function buttonHandler(s){
     this.press=true;
 	if (!initdone) return;
 	this,blon=isDark();
-	if (this.blt) { clearTimeout(this.blt);this.blt=0;} else if this.(blon) g.bl(0.2); // backlight on 20%
+	if (this.blt) { clearTimeout(this.blt);this.blt=0;} else if (this.blon) g.bl(0.2); // backlight on 20%
 	//toggle EUC on long press
     this.l1=setTimeout(() => {
       this.l1=-1;
