@@ -7,7 +7,6 @@ function col(no){
 	}
 }
 //settings 
-
 var set={
   bt:0, //Incomming BT service status indicator- Not user settable.0=not_connected|1=unknown|2=webide|3=gadgetbridge|4=atc|5=esp32
   tor:0, //Enables/disables torch- Not user settable.
@@ -48,32 +47,7 @@ var set={
   hidM:undefined, //not user settable.
   clin:0,//not settable
   upd:function(){ //run this for settings changes to take effect.
-	if (this.def.hid==1&&this.hidM==undefined) {
-		Modules.addCached("ble_hid_controls",function(){
-		function b(a,b){NRF.sendHIDReport(a,function(){NRF.sendHIDReport(0,b);});}
-		exports.report=new Uint8Array([5,12,9,1,161,1,21,0,37,1,117,1,149,5,9,181,9,182,9,183,9,205,9,226,129,6,149,2,9,233,9,234,129,2,149,1,129,1,192]);
-		exports.next=function(a){b(1,a);};
-		exports.prev=function(a){b(2,a);};
-		exports.stop=function(a){b(4,a);};
-		exports.playpause=function(a){b(8,a);};
-		exports.mute=function(a){b(16,a);};
-		exports.volumeUp=function(a){b(32,a);};
-		exports.volumeDown=function(a){b(64,a);};});
-		this.hidM=require("ble_hid_controls");
-/*		if (this.def.hidT=="joy") this.hidM = E.toUint8Array(atob("BQEJBKEBCQGhAAUJGQEpBRUAJQGVBXUBgQKVA3UBgQMFAQkwCTEVgSV/dQiVAoECwMA="));
-		else if (this.def.hidT=="kb") this.hidM = E.toUint8Array(atob("BQEJBqEBBQcZ4CnnFQAlAXUBlQiBApUBdQiBAZUFdQEFCBkBKQWRApUBdQORAZUGdQgVACVzBQcZAClzgQAJBRUAJv8AdQiVArECwA=="));
-		else this.def.hidM = E.toUint8Array(atob("BQEJBqEBhQIFBxngKecVACUBdQGVCIEClQF1CIEBlQV1AQUIGQEpBZEClQF1A5EBlQZ1CBUAJXMFBxkAKXOBAAkFFQAm/wB1CJUCsQLABQwJAaEBhQEVACUBdQGVAQm1gQIJtoECCbeBAgm4gQIJzYECCeKBAgnpgQIJ6oECwA=="));
-*/
-  	}else if (this.def.hid==0 &&this.hidM!=undefined) {
-		this.hidM=undefined;
-		if (global["\xFF"].modules.ble_hid_controls) Modules.removeCached("ble_hid_controls");
-    }
-	if (!Boolean(require('Storage').read('atc'))) this.def.atc=0;
-	if (this.def.atc) eval(require('Storage').read('atc'));
-	else {
-		NRF.setServices(undefined,{uart:(this.def.cli||this.def.gb)?true:false,hid:(this.def.hid&&this.hidM)?this.hidM.report:undefined });
-		if (this.atcW) {this.atcW=undefined;this.atcR=undefined;} 
-	}
+	NRF.setServices(undefined,{uart:(this.def.cli||this.def.gb)?true:false});
 	if (this.def.gb) eval(require('Storage').read('m_gb'));
 	else {
 		this.handleNotificationEvent=undefined;
@@ -87,7 +61,6 @@ var set={
     else if (this.btsl==1) {NRF.restart();this.btsl=0;}
   }
 };
-
 set.def = require('Storage').readJSON('setting.json', 1);
 if (!set.def) set.resetSettings();
 //set.upd();
@@ -114,7 +87,7 @@ var face={
 				if (face[c].off) {
 					//if (set.def.touchtype!="816") i2c.writeTo(0x15,0xa5,3); 
 					//if (set.def.touchtype=="716") tfk.exit();	
-					face[c].off();this.pageCurr=-1;face.pagePrev=c;
+					//face[c].off();this.pageCurr=-1;face.pagePrev=c;
 				}
 			}else face.go(this.appCurr,1);
 		}else if (face.appPrev=="off") {
@@ -165,9 +138,15 @@ function buttonHandler(s){
   if (s.state==true) { 
     this.press=true;
 	if (!initdone) return;
+	//manage light
 	//this.blon=isDark();
 	this.blon=true;
 	if (this.blt) { clearTimeout(this.blt);this.blt=0;} else if (this.blon) g.bl(0.2); // backlight on 20%
+	if (this.blon)
+    this.blt=setTimeout(function(){
+      g.bl(0);
+      this.blt=0;
+    },5000); //backlight off after 5 seconds
 	//toggle EUC on long press
     this.l1=setTimeout(() => {
       this.l1=-1;
@@ -177,23 +156,13 @@ function buttonHandler(s){
     }, 1000);
    }else if (this.press&&s.state==false)  { 
 	this.press=false;
-	//currscr++;if (currscr>=screens.length) currscr=0;
-	//if (currint>0) clearInterval(currint);
-    //currint=screens[currscr]();
-	if (this.blon)
-    this.blt=setTimeout(function(){
-      g.bl(0);
-      this.blt=0;
-    },5000); //backlight off after 5 seconds
-	
-	
 	if (face.pageCurr==-1) {
 		digitalPulse(D6,1,[60,40,60]);
 		if (global.euc){
 			if (euc.conn!="OFF") face.go("euc",0);else face.go(face.appCurr,0);
 		}else face.go(face.appCurr,0);
 	}else { 
-	  if (face.appCurr=="main"&&face.pagePrev!=-1&&face.pagePrev!=2) {
+	  //if (face.appCurr=="main"&&face.pagePrev!=-1&&face.pagePrev!=2) {
         //if (set.def.acc==1) {
         //acc.off();
         //acc.go=0;
@@ -201,13 +170,13 @@ function buttonHandler(s){
 		//  acc.on();
         //},2000);
         //}
-        face.go("main",-1);
-        digitalPulse(D6,1,100);
-      }else{
+      //  face.go("main",-1);
+      //  digitalPulse(D6,1,100);
+      //}else{
       var to=face.pageCurr+1;
       if (to>=2) to=0;
       face.go(face.appCurr,to);
-	  }
+	 // }
     }
 	
   }
