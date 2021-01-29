@@ -1,14 +1,4 @@
 [
-  { "id": "devmode",
-    "name": "Devmode",
-    "icon": "icon.png",
-    "version":"0.01",
-    "description": "Empty file that gets the DK08 to developer mode. Upload this to force developer mode on following uploads, single click on side button when finished uploading all files, to boot into working mode.",
-    "tags": "core",
-    "storage": [
-      {"name":"devmode","url":"devmode"}
-    ]
-  },
   { "id": "boot",
     "name": "DK08 boot",
     "icon": "icon.png",
