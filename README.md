@@ -1,6 +1,6 @@
 ### Loader version:
 
-Try the [**Loader version**](https://ysfsvm.github.io/eucWatch/p8)
+Try the [**Loader version**](https://enaon.github.io/eucWatch/p8)
 
 ### Manual install:
 
