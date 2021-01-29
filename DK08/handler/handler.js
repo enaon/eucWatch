@@ -77,18 +77,6 @@ var face={
   offms:-1,
   off:function(page){ 
       if (this.pageCurr===-1) {print("face-1");return;}
-      if (this.offid>=0) {clearTimeout(this.offid); this.offid=-1;}
-      if (face[this.pageCurr]!=-1) this.offms=face[this.pageCurr].offms;
-      this.offid=setTimeout((c)=>{
-        this.offid=-1;
-			//if (this.appCurr==="main") {
-				//if (face[c].off) {
-					//if (set.def.touchtype!="816") i2c.writeTo(0x15,0xa5,3); 
-					//if (set.def.touchtype=="716") tfk.exit();	
-					//face[c].off();this.pageCurr=-1;face.pagePrev=c;
-				//}
-			//}else 
-	  },this.offms,this.pageCurr);
   },
   go:function(app,page,arg){
     this.appPrev=this.appCurr;
@@ -97,15 +85,13 @@ var face={
     this.pageCurr=page;
 	//if (this.pagePrev==-1&&w.gfx.isOn) {w.gfx.clear();w.gfx.off();}
     if (this.pagePrev!=-1) {
-        face[this.pagePrev].clear();
+      face[this.pagePrev].clear();
     }
   	if (this.pageCurr==-1 && this.pagePrev!=-1) {
-		//if (set.def.touchtype=="716")tfk.loop=100;
-		//acc.go=0;
-        face[this.pagePrev].off();
+      face[this.pagePrev].off();
       if (this.offid>=0) {clearTimeout(this.offid); this.offid=-1;}
 	  if (this.appCurr!=this.appPrev) eval(require('Storage').read(app));
-		return;
+	  return;
 	}
 	if (this.appCurr!=this.appPrev) {
       face[1]=0;face[2]=0;face[5]=0;
@@ -114,10 +100,6 @@ var face={
     } 
 	this.off(page);
 	face[page].init(arg);	
-	//if(!w.gfx.isOn) {w.gfx.on();
-	//	if (set.def.touchtype!="816") digitalPulse(D13,1,[10,50]);
-	//	if (set.def.touchtype=="716"){tfk.loop=5;if( tfk.tid==-1) tfk.init();}
-	//}
 	face[page].show(arg);
 	if(arg) this.pageArg=arg;
   }
@@ -153,21 +135,9 @@ function buttonHandler(s){
 			if (euc.conn!="OFF") face.go("euc",0);else face.go(face.appCurr,0);
 		}else face.go(face.appCurr,0);
 	}else { 
-	  //if (face.appCurr=="main"&&face.pagePrev!=-1&&face.pagePrev!=2) {
-        //if (set.def.acc==1) {
-        //acc.off();
-        //acc.go=0;
-        //setTimeout(function(t){
-		//  acc.on();
-        //},2000);
-        //}
-      //  face.go("main",-1);
-      //  digitalPulse(D6,1,100);
-      //}else{
       var to=face.pageCurr+1;
       if (to>=2) to=0;
       face.go(face.appCurr,to);
-	 // }
     }
 	
   }

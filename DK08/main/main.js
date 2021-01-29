@@ -55,7 +55,7 @@ face[0] = {
   run:false,
   clear : function(){
     //g.setColor(col("black"));
-    //g.clear();
+    g.clear();
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
     this.tid=-1;
