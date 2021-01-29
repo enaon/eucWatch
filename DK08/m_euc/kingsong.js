@@ -27,7 +27,6 @@ global.euc= {
   alck: 0,
   far: 83,
   near: 65,
-  type: "14s",
   mac:{0:"64:69:4e:75:89:4d public"},
   go:0,
   busy:0
@@ -103,7 +102,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
         if (this.curr > 32767) this.cur = this.cur - 65536;
         euc.amp=this.cur/100;
         euc.volt=((decode2byte(this.KSdata[2],this.KSdata[3])/100)+"");
-        euc.batt=((euc.volt/20)*100-340)*1.43;
+        euc.batt=(((euc.volt/20)*100-340)*1.43)|0;
         euc.temp=((decode2byte(this.KSdata[12],this.KSdata[13])/100)+"");
         euc.trpT=((decode4byte(this.KSdata[6],this.KSdata[7],this.KSdata[8],this.KSdata[9])/1000.0));
         euc.rmode=this.KSdata[14];
@@ -194,8 +193,6 @@ euc.wri= function(ch,n) {
 //euc.con(euc.mac[euc.go]);
 //euc.wri(euc.ch,"lightsOn")
 //euc.ch.writeValue([0xAA,0x55,0x01,0xE0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x87,0x14,0x5A,0x5A]) 
-//euc.ch.writeValue([0xAA,0x55,0x02,0xE0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x87,0x14,0x5A,0x5A]) 
-//euc.ch.writeValue([65, 84, 43, 85, 76, 75, 84, 69, 0]) 
 
 decode2byte=function(byte1, byte2){//converts big endian 2 byte value to int
     this.val = (byte1 & 0xFF) + (byte2 << 8);
@@ -228,5 +225,4 @@ euc.tgl=function(){
 	face.go("euc",0);
 	}
   } 
-
 };
