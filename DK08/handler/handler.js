@@ -81,22 +81,13 @@ var face={
       if (face[this.pageCurr]!=-1) this.offms=face[this.pageCurr].offms;
       this.offid=setTimeout((c)=>{
         this.offid=-1;
-		//if (set.def.acc&&acc.tid==-1) acc.on();
-		if (c===0||c===2) {
-			if (this.appCurr==="main") {
-				if (face[c].off) {
+			//if (this.appCurr==="main") {
+				//if (face[c].off) {
 					//if (set.def.touchtype!="816") i2c.writeTo(0x15,0xa5,3); 
 					//if (set.def.touchtype=="716") tfk.exit();	
 					//face[c].off();this.pageCurr=-1;face.pagePrev=c;
-				}
-			}else face.go(this.appCurr,1);
-		}else if (face.appPrev=="off") {
-			if (face[c].off) {
-				//if (set.def.touchtype!="816") i2c.writeTo(0x15,0xa5,3); 
-				//if (set.def.touchtype=="716") tfk.exit();	
-				face.go("main",-1);face.pagePrev=c;
-			}
-		}else if (c>1) face.go(this.appCurr,0);
+				//}
+			//}else 
 	  },this.offms,this.pageCurr);
   },
   go:function(app,page,arg){

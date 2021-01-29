@@ -158,12 +158,10 @@ face[0] = {
     g.drawString("AV.SPEED",12,60);
 	g.setFont("7x11Numeric7Seg",5);
 	g.drawString(euc.aver,(139-(g.stringWidth(euc.aver)))/2,90); 
-//    g.flip();
     g.fillRect(139,54,239,154); 
     g.setColor(col("white"));     
     g.setFont("Vector",27);
     g.drawString(euc.conn,(142+(100-g.stringWidth(euc.conn))/2),85);
-//    g.flip();
     g.setColor(col("gray"));
     g.fillRect(0,0,135,50);
     g.fillRect(139,0,239,50);
@@ -191,7 +189,6 @@ face[0] = {
     return true;
   },
   off: function(){
-    g.off();
     this.clear();
   } 
 };
@@ -294,7 +291,6 @@ face[5] = {
     return true;
   },
   off: function(){
-    g.off();
     this.clear();
   }
 };
