@@ -30,7 +30,7 @@ global.euc= {
 //  mac: "20:91:48:BC:91:3B public", //poet
 };
 //alerts
-euc.alert1 = {
+euc.alert = {
   spd: 23,
   temp: 60,
   batt: 20,
