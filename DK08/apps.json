@@ -76,7 +76,7 @@
     "tags": "euc",
     "type": "euc",
     "storage": [
-      {"name":"m_euc","url":"euc_NBoneCEP.js"}
+      {"name":"m_euc","url":"kingsong.js"}
     ]
   },
   { "id": "w_scan",
