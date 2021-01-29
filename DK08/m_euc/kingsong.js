@@ -49,7 +49,6 @@ euc.tmp = {
   batt: "0", 
   trpN: "0",
   cmd: false,
-  loop:-1,
   reconnect:-1,
   rssi:"",
 };euc.def={};
@@ -115,16 +114,15 @@ var euc_al_b;
 
 if ( global["\xFF"].BLE_GATTS!="undefined") {
 	if (set.def.cli) print("ble allready connected"); 
-	if (global["\xFF"].BLE_GATTS.connected) global["\xFF"].BLE_GATTS.disconnect();
-	return;
+	if (global["\xFF"].BLE_GATTS.connected) {global["\xFF"].BLE_GATTS.disconnect();return;}
 }
+  
 NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 .then(function(g) {
    return g.getPrimaryService(0xffe0);
 }).then(function(s) {
   return s.getCharacteristic(0xffe1);
 }).then(function(c) {
-  euc.tmp.characteristic=c;
   c.on('characteristicvaluechanged', function(event) {
     this.KSdata = event.target.value.buffer;
     if (euc.busy) return;
@@ -144,38 +142,26 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
     }else if (euc.conn=="OFF"){
       euc.busy=1;
 	  if (set.def.cli) console.log("EUCstartOff");
-	  clearInterval(euc.tmp.loop);
-	  euc.tmp.loop=-1;
 	  euc.lock=1;
       digitalPulse(D6,1,120);
 	  c.writeValue(euc.cmd("lock")).then(function() {
 	  global["\xFF"].BLE_GATTS.disconnect();
-      //euc.busy=0;
-      return;
 	  });
+    return;
 	}
   });
-c.startNotifications(); 
 return  c;
 }).then(function(c) {
-//connected ****************************
-  console.log("EUC connected"); 
-  euc.conn="READY"; //connected
-  digitalPulse(D6,1,[90,40,150,40,90]);
-  euc.ch=c;
-  euc.busy=1;
-  setTimeout(function(){euc.wri(c,"unlock");},200);
-  setTimeout(function(){euc.wri(c,"init");euc.busy=0;},400);
 //on disconnect
   global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
     if (set.def.cli) console.log("EUC Disconnected :",reason);
     if (euc.conn!="OFF") {  
 	 if (set.def.cli) console.log("EUC restarting");
      euc.conn="WAIT"; 
-     setTimeout(() => {  euc.con(euc.mac[euc.go]); }, 1500);
+     setTimeout(() => {  euc.con(euc.mac[euc.go]); }, 500);
+      return;
     }else {
 	  if (set.def.cli) console.log("Destroy euc (reason):",reason);
-      if (euc.tmp.loop!==-1) clearInterval(euc.tmp.loop);
 	  global["\xFF"].bleHdl=[];
 	  global.BluetoothDevice=undefined;
 	  global.BluetoothRemoteGATTServer=undefined;
@@ -185,11 +171,17 @@ return  c;
 	  global.Error=undefined;
     }
   });
+//connected ****************************
+  console.log("EUC connected"); 
+  digitalPulse(D6,1,[90,40,150,40,90]);
+  euc.busy=1;
+  setTimeout(function(){c.writeValue(euc.cmd("unlock"));},100);
+  setTimeout(function(){c.writeValue(euc.cmd("init"));euc.busy=0;euc.conn="READY";},300);
+  setTimeout(function(){c.startNotifications();},1500);
 //reconect
 }).catch(function(err)  {
-  if (set.def.cli) console.log("EUC", err);
+  if (set.def.cli) console.log("EUC error", err);
 //  global.error.push("EUC :"+err);
-  clearInterval(euc.tmp.loop);euc.tmp.loop=-1;
   if (euc.conn!="OFF") {
     if (set.def.cli) console.log("not off");
     if ( err==="Connection Timeout"  )  {
@@ -212,11 +204,6 @@ return  c;
       }, 5000);
     }
   } else {
-	  if (euc.tmp.loop!=-1) {
-		clearInterval(euc.tmp.loop);
-		euc.tmp.loop=-1;
-	  }
-      if (euc.tmp.loop!==-1) clearInterval(euc.tmp.loop);
 	  global["\xFF"].bleHdl=[];
       global.BluetoothDevice=undefined;
 	  global.BluetoothRemoteGATTServer=undefined;
@@ -270,6 +257,7 @@ euc.tgl=function(){
 	if (euc.tmp.reconnect>=0 ||  euc.conn=="WAIT" || euc.conn=="ON") {
     clearTimeout(euc.tmp.reconnect); euc.tmp.reconnect=-1;
     }
+    NRF.setTxPower(0);
   	euc.conn="OFF";
 	face.go("euc",0);
   }else {
@@ -280,6 +268,7 @@ euc.tgl=function(){
 	else {
 	if (euc.conn == "OFF") euc.tmp.count=22; else euc.tmp.count=0;  //unlock
 	euc.conn="ON";
+    NRF.setTxPower(4);
 	euc.con(euc.mac[euc.go]); 
 	face.go("euc",0);
 	}
