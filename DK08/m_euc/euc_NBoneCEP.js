@@ -41,14 +41,14 @@ euc.alert = {
 //toggle on/off
 euc.tgl=function(){ 
   if (euc.conn!="OFF" ) {
-    digitalPulse(D16,1,[90,60,90]);  
+    digitalPulse(d6,1,[90,60,90]);  
 	if (euc.tmp.reconnect>=0 ||  euc.conn=="WAIT" || euc.conn=="ON") {
     clearTimeout(euc.tmp.reconnect); euc.tmp.reconnect=-1;
     }
   	euc.conn="OFF";
 	face.go("euc",0);
   }else {
-    digitalPulse(D16,1,100);   
+    digitalPulse(d6,1,100);   
 	euc.mac=(require("Storage").readJSON("setting.json",1)||{}).euc_mac;
 	euc.go=(require("Storage").readJSON("setting.json",1)||{}).euc_go;
 	if(!euc.mac) {face.appCurr="euc";face.go('w_scan',0,'ffe0');}
@@ -165,7 +165,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
   // if off button is pressed on euc
   if (euc_var==0) {
 	  euc.conn="WAIT";
-	  digitalPulse(D16,1,200);
+	  digitalPulse(d6,1,200);
       //return;
   //alarm
   }else if (euc_var==178) {
@@ -174,7 +174,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 /*     if (Number(euc_val).toString(2)[1]==1 &&  euc_alarm==0) {
         euc_alarm=1; 
         //if (set.def.cli) console.log("EUC_alarm :",euc_val);
-        digitalPulse(D16,1,[250,50,250,50,250]);
+        digitalPulse(d6,1,[250,50,250,50,250]);
 		if (face.pageCurr==-1) {
 			g.clear();	
             g.setFontVector(30);
@@ -268,7 +268,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
       tm=euc.tmp[euc_var];
 	}//riding Mode
 	else if (euc_var==210 ) {
-	  if (euc.tmp[euc_var] >=10)  digitalPulse(D16,1,[100,80,100]);  
+	  if (euc.tmp[euc_var] >=10)  digitalPulse(d6,1,[100,80,100]);  
 	  else euc.rdmd=euc.tmp[euc_var];
     } //lock
     else if (euc_var==112 && euc.tmp[euc_var]!=euc.lock) {
@@ -303,7 +303,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 		for (i = 1; i < euc_al ; i++) {
 			a.push(150,100);
 		}
-        digitalPulse(D16,1,a);  
+        digitalPulse(d6,1,a);  
         setTimeout(() => {euc.alert.on=false; }, 2000);
       }
     }
@@ -314,7 +314,7 @@ return  c;
 //connected 
   if (set.def.cli) console.log("EUC connected"); 
   euc.conn="READY"; //connected
-  digitalPulse(D16,1,[90,40,150,40,90]);
+  digitalPulse(d6,1,[90,40,150,40,90]);
   setTimeout(function(){  euc.wri(c); },100); 
 //on disconnect
   global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
@@ -352,8 +352,8 @@ return  c;
 	  if (typeof global["\xFF"].timers[euc.tmp.reconnect] !== "undefined") clearTimeout(euc.tmp.reconnect); 
 	  if (set.def.cli) console.log("retrying :timeout");
 	  euc.conn="LOST";
-	  if (euc.lock==1) digitalPulse(D16,1,250);
-	  else digitalPulse(D16,1,[250,200,250,200,250]);
+	  if (euc.lock==1) digitalPulse(d6,1,250);
+	  else digitalPulse(d6,1,[250,200,250,200,250]);
 	  euc.tmp.reconnect=setTimeout(() => {
 	    euc.con(euc.mac[euc.go]); 
 	  }, 10000);
@@ -361,8 +361,8 @@ return  c;
 	  if (typeof global["\xFF"].timers[euc.tmp.reconnect]  !== "undefined") clearTimeout(euc.tmp.reconnect); 
       if (set.def.cli) console.log("retrying :",err);
       euc.conn="FAR";
-	  if (euc.lock==1) digitalPulse(D16,1,100);
-	  else digitalPulse(D16,1,[100,150,100]);
+	  if (euc.lock==1) digitalPulse(d6,1,100);
+	  else digitalPulse(d6,1,[100,150,100]);
       euc.tmp.reconnect=setTimeout(() => {
 	    euc.con(euc.mac[euc.go]); 
       }, 5000);
@@ -433,7 +433,7 @@ euc.wri= function(ch) {
 				euc.tmp.temp="-1";
 				euc.tmp.batt="-1";
 				euc.tmp.trpN="-1";
-				digitalPulse(D16,1,[90,60,90]);
+				digitalPulse(d6,1,[90,60,90]);
 			});
       }
 	}else if  (euc.tmp.rssi> -(euc.near) && euc.spd[0]<=5 && euc.lock==1 ) {
@@ -454,7 +454,7 @@ euc.wri= function(ch) {
 				euc.tmp.treseeseseseemp="-1";
 				euc.tmp.batt="-1";
 				euc.tmp.trpN="-1";
-			    digitalPulse(D16,1,100);
+			    digitalPulse(d6,1,100);
 				if (set.def.cli) console.log("unlock");
             });
 	} else  { euc_far=0; euc_near=0; }
@@ -480,7 +480,7 @@ euc.wri= function(ch) {
 			clearInterval(euc.tmp.loop);
 			euc.tmp.loop=-1;
 			euc.lock=1;
-			digitalPulse(D16,1,120);
+			digitalPulse(d6,1,120);
 			euc.tmp.count=21;
 			ch.writeValue(euc.cmd(euc.tmp.count)).then(function() {
 			global["\xFF"].BLE_GATTS.disconnect();
