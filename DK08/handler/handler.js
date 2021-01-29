@@ -186,7 +186,7 @@ function buttonHandler(s){
       this.blt=0;
     },5000); //backlight off after 5 seconds
 	
-	/*
+	
 	if (face.pageCurr==-1) {
 		digitalPulse(D6,1,[60,40,60]);
 		if (global.euc){
@@ -194,13 +194,13 @@ function buttonHandler(s){
 		}else face.go(face.appCurr,0);
 	}else { 
 	  if (face.appCurr=="main"&&face.pagePrev!=-1&&face.pagePrev!=2) {
-        if (set.def.acc==1) {
-        acc.off();
-        acc.go=0;
-        setTimeout(function(t){
-		  acc.on();
-        },2000);
-        }
+        //if (set.def.acc==1) {
+        //acc.off();
+        //acc.go=0;
+        //setTimeout(function(t){
+		//  acc.on();
+        //},2000);
+        //}
         face.go("main",-1);
         digitalPulse(D6,1,100);
       }else{
@@ -209,7 +209,7 @@ function buttonHandler(s){
       face.go(face.appCurr,to);
 	  }
     }
-	*/
+	
   }
 }
 btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
