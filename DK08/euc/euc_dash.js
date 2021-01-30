@@ -59,8 +59,10 @@ face[0] = {
 	  //    g.drawString(euc.aver,(149-(g.stringWidth(euc.aver)))/2,80); 
       //    g.flip();
       //  }else{
-          g.setFontVector(130);
-          g.drawString(euc.spd[0],(97-(g.stringWidth(euc.spd[0]))/2),55); 
+          //g.setFontVector(130);
+		  g.setFontVector(40);
+		  g.drawString(euc.amp,(97-(g.stringWidth(euc.amp))/2),55); 
+          //g.drawString(euc.spd[0],(97-(g.stringWidth(euc.spd[0]))/2),55); 
           this.spd[0]=euc.spd[0];
           g.flip();
       //  }
