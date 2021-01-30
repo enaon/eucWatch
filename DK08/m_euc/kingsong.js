@@ -98,13 +98,34 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
     if (euc.busy) return;
     if (this.KSdata[16]==169) {
         euc.spd=((decode2byte(this.KSdata[4],this.KSdata[5])/100)+"").split("."); 
-        this.cur=decode2byte(this.KSdata[10], this.KSdata[11]);
-        //if (this.cur > 32767) this.cur = this.cur - 65536;
-		if (this.cur > 32767) this.cur=65536-this.cur; //ks s18
-        euc.amp=this.cur;
+        //amp
+		this.cur=decode2byte(this.KSdata[10], this.KSdata[11]);
+        if (this.cur > 32767) this.cur = this.cur - 65536;
+        euc.amp=(this.cur/100)|0;
+		if (euc.amp>30)  {
+			euc.ampC=col("red");
+			euc.spdC=col("red");		
+		}else if (euc.amp>23) {
+			euc.ampC=col("yellow");
+			if (euc.spdC!="red") euc.ampC=col("yellow");
+		}else if (euc.amp>15)  {
+			euc.ampC=col("yellow");
+			if (euc.spdC=="black") euc.spdC=col("white");
+		}else if (euc.amp<-10)  {
+			euc.ampC=col("red");
+			euc.spdC=col("red");
+		}else if (euc.amp<-5)  {
+			euc.ampC=col("yellow");
+			if (euc.spdC!="red")euc.spdC=col("yellow");
+		}else if (euc.amp<0)  {
+			euc.ampC=col("white");
+			if (euc.spdC=="black") euc.spdC=col("white");
+		}
+		//volt
         euc.volt=((decode2byte(this.KSdata[2],this.KSdata[3])/100)+"");
         euc.batt=(((euc.volt/20)*100-340)*1.43)|0;
-        euc.temp=((decode2byte(this.KSdata[12],this.KSdata[13])/100)+"");
+        //temp
+		euc.temp=((decode2byte(this.KSdata[12],this.KSdata[13])/100)+"");
         euc.trpT=((decode4byte(this.KSdata[6],this.KSdata[7],this.KSdata[8],this.KSdata[9])/1000.0));
         euc.rmode=this.KSdata[14];
     }else if  (this.KSdata[16]==185){
