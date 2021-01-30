@@ -5,8 +5,8 @@ face[0] = {
   spd:[],
   init: function(){
     g.setColor(col("lgray"));
-    g.fillRect(0,0,95,40); //temp
-    g.fillRect(105,0,175,40); //batt      
+    g.fillRect(0,0,85,40); //temp
+    g.fillRect(90,0,175,40); //batt      
     //g.fillRect(0,158,175,193); //mileage
     g.setColor(col("black"));
     g.setFont("7x11Numeric7Seg",3);
@@ -45,11 +45,11 @@ face[0] = {
       this.spd[0]=euc.spd[0];
         if (euc.spdC!=col("black")) {
 		  g.setColor(euc.spdC);
-          g.fillRect(0,45,175,140);
+          g.fillRect(0,45,150,175);
           g.setColor(col("black"));
         }else { 
 		  g.setColor(col("back"));
-          g.fillRect(0,45,175,140);
+          g.fillRect(0,45,150,175);
           g.setColor(col("white"));
         }
       //  if (euc.spd[0]==0) {   
@@ -59,8 +59,8 @@ face[0] = {
 	  //    g.drawString(euc.aver,(149-(g.stringWidth(euc.aver)))/2,80); 
       //    g.flip();
       //  }else{
-          g.setFontVector(84);
-          g.drawString(euc.spd[0],(170-(g.stringWidth(euc.spd[0])))/2,55); 
+          g.setFontVector(90);
+          g.drawString(euc.spd[0],(150-(g.stringWidth(euc.spd[0])))/2,55); 
           this.spd[0]=euc.spd[0];
           g.flip();
       //  }
@@ -70,11 +70,11 @@ face[0] = {
         this.amp=(euc.amp|0);
         if  (euc.ampC!=col("black") ) {
 		  g.setColor(euc.ampC);
-          g.fillRect(0,142,175,175); 
+          g.fillRect(152,45,175,175); 
           g.setColor(col("white"));
         }else { 
 		  g.setColor(col("white"));
-          g.fillRect(0,142,175,175); 
+          g.fillRect(152,45,175,175); 
           g.setColor(col("black"));
         }
         
@@ -94,7 +94,7 @@ face[0] = {
     if (euc.temp!=this.temp) {
       this.temp=euc.temp;
 	  g.setColor(euc.tmpC);
-      g.fillRect(0,0,95,40);       
+      g.fillRect(0,0,85,40);       
       g.setColor(col("black"));
       g.setFont("7x11Numeric7Seg",3);
       g.drawString(euc.temp, 10,3); //temp
@@ -104,9 +104,9 @@ face[0] = {
     if (euc.batt!=this.batt) {
    	  this.batt=euc.batt;
 	  g.setColor(euc.batC);
-      g.fillRect(100,0,175,40);
+      g.fillRect(90,0,175,40);
       g.setColor(col("black"));
-      g.setFont("7x11Numeric7Seg",2);
+      g.setFont("7x11Numeric7Seg",3);
       g.drawString(euc.batt,175-(g.stringWidth(euc.batt)+10),3); //fixed bat
       g.flip();
     }
@@ -128,7 +128,7 @@ face[0] = {
     if (euc.lock!=this.lock){
     this.lock=euc.lock;
     g.setColor(col("lgray"));
-    g.fillRect(0,45,175,140);
+    g.fillRect(0,45,150,175);
     g.setColor(col("black"));
     g.setFontVector(18);
     g.drawString("TOP.SPEED",32,60);
@@ -153,10 +153,10 @@ face[0] = {
     if (euc.conn!=this.conn) {
     this.conn=euc.conn;
     g.setColor(col("lgray"));
-    g.fillRect(0,45,175,140);
-    g.fillRect(0,0,95,40);
-    g.fillRect(100,0,175,40);	
-    g.fillRect(139,54,175,154); 
+    g.fillRect(0,45,150,175);
+    g.fillRect(0,0,85,40);
+    g.fillRect(90,0,175,40);	
+    //g.fillRect(139,54,175,154); 
 	g.setColor(col("black"));
 	g.setFontVector(18);
     g.drawString("TOP.SPEED",32,60);
