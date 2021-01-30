@@ -73,9 +73,9 @@ face[0] = {
 		  g.fillRect(60,0,119,40); //amp   
           g.setColor(col("white"));
         }else { 
-		  g.setColor(col("white"));
+		  g.setColor(col("gray"));
 		  g.fillRect(60,0,119,40); //amp   
-          g.setColor(col("black"));
+          g.setColor(col("white"));
         }
         
      //   if (((euc.amp|0)==0 && euc.spd[0]==0) ||  euc.lock==1) {  
@@ -85,8 +85,9 @@ face[0] = {
   	 //     g.drawString(euc.time,192-(g.stringWidth(euc.time)/2),90); 
      //     g.flip();
      //   }else{
-          g.setFont("7x11Numeric7Seg",3);
-          g.drawString(euc.amp,(97-(g.stringWidth(euc.amp|0)+3/2)),3); 
+          g.setFontVector(16);
+         // g.setFont("7x11Numeric7Seg",3);
+          g.drawString(euc.amp,(103-(g.stringWidth(euc.amp|0)+3/2)),3); 
           g.flip();
      //   }    
     }
