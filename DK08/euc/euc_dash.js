@@ -85,9 +85,9 @@ face[0] = {
   	 //     g.drawString(euc.time,192-(g.stringWidth(euc.time)/2),90); 
      //     g.flip();
      //   }else{
-          g.setFontVector(40);
+          g.setFontVector(45);
          // g.setFont("7x11Numeric7Seg",3);
-          g.drawString(euc.amp,(103-(g.stringWidth(euc.amp|0)+3/2)),3); 
+          g.drawString(euc.amp,(105-(g.stringWidth(euc.amp|0)+3/2)),3); 
           g.flip();
      //   }    
     }
