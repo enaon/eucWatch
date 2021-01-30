@@ -100,7 +100,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
         euc.spd=((decode2byte(this.KSdata[4],this.KSdata[5])/100)+"").split("."); 
         this.cur=decode2byte(this.KSdata[10], this.KSdata[11]);
         if (this.curr > 32767) this.cur = this.cur - 65536;
-        euc.amp=this.cur/100;
+        euc.amp=(this.cur/100)|0;
         euc.volt=((decode2byte(this.KSdata[2],this.KSdata[3])/100)+"");
         euc.batt=(((euc.volt/20)*100-340)*1.43)|0;
         euc.temp=((decode2byte(this.KSdata[12],this.KSdata[13])/100)+"");

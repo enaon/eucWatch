@@ -17,7 +17,6 @@ face[0] = {
    // g.drawString("TRIP",1,167); 
    // g.drawString("TOT",90,167); 
    // g.drawString("LEFT",171,167); 
-//    g.flip();
     //mileage
     //g.fillRect(0,194,175,175);
     //g.setColor(col("gray"));
@@ -26,7 +25,7 @@ face[0] = {
     //g.drawString(euc.trpN,0,205); 
     //g.drawString(euc.trpT,(240-(g.stringWidth(euc.trpT)))/2,205); 
     //g.drawString(euc.trpR,240-(g.stringWidth(euc.trpR)+1),205); 
-    g.flip();
+//    g.flip();
     this.spd[0]=-1;
     this.spd[1]=-1;
     this.amp=-1;
@@ -46,11 +45,11 @@ face[0] = {
       this.spd[0]=euc.spd[0];
         if (euc.spdC!=col("black")) {
 		  g.setColor(euc.spdC);
-          g.fillRect(0,45,175,175);
+          g.fillRect(0,43,175,175);
           g.setColor(col("black"));
         }else { 
 		  g.setColor(col("back"));
-          g.fillRect(0,45,175,175);
+          g.fillRect(0,43,175,175);
           g.setColor(col("white"));
         }
       //  if (euc.spd[0]==0) {   
@@ -129,8 +128,8 @@ face[0] = {
   } else if (euc.conn=="OFF")  {
     if (euc.lock!=this.lock){
     this.lock=euc.lock;
-    g.setColor(col("lgray"));
-    g.fillRect(0,45,175,175);
+    g.setColor(col("gray"));
+    g.fillRect(0,43,175,175);
     g.setColor(col("black"));
     g.setFontVector(18);
     g.drawString("TOP.SPEED",42,60);
@@ -155,7 +154,7 @@ face[0] = {
     if (euc.conn!=this.conn) {
     this.conn=euc.conn;
     g.setColor(col("gray"));
-    g.fillRect(0,45,175,175);
+    g.fillRect(0,43,175,175);
     g.fillRect(0,0,58,40); //temp
     g.fillRect(60,0,119,40); //amp   
 	g.fillRect(121,0,175,40); //batt	
