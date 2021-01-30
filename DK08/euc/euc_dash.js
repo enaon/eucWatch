@@ -45,11 +45,11 @@ face[0] = {
       this.spd[0]=euc.spd[0];
         if (euc.spdC!=col("black")) {
 		  g.setColor(euc.spdC);
-          g.fillRect(0,45,150,175);
+          g.fillRect(0,45,175,175);
           g.setColor(col("black"));
         }else { 
 		  g.setColor(col("back"));
-          g.fillRect(0,45,150,175);
+          g.fillRect(0,45,175,175);
           g.setColor(col("white"));
         }
       //  if (euc.spd[0]==0) {   
@@ -60,7 +60,7 @@ face[0] = {
       //    g.flip();
       //  }else{
           g.setFontVector(130);
-          g.drawString(euc.spd[0],(95-(g.stringWidth(euc.spd[0]))/2),55); 
+          g.drawString(euc.spd[0],(97-(g.stringWidth(euc.spd[0]))/2),55); 
           this.spd[0]=euc.spd[0];
           g.flip();
       //  }
