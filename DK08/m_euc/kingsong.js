@@ -97,6 +97,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
     this.KSdata = event.target.value.buffer;
     if (euc.busy) return;
     if (this.KSdata[16]==169) {
+		this.alert=1;
         euc.spd=((decode2byte(this.KSdata[4],this.KSdata[5])/100)+"").split("."); 
         //amp
 		this.cur=decode2byte(this.KSdata[10], this.KSdata[11]);
@@ -120,7 +121,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 		}else if (euc.amp<0)  {
 			euc.ampC=col("white");
 			if (euc.spdC==col("black")) euc.spdC=col("white");
-		}else euc.ampC=col("black");
+		}else {euc.ampC=col("black");this.alert=0;}
 		//volt
         euc.volt=((decode2byte(this.KSdata[2],this.KSdata[3])/100)+"");
         euc.batt=(((euc.volt/20)*100-340)*1.43)|0;
@@ -128,6 +129,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 		euc.temp=((decode2byte(this.KSdata[12],this.KSdata[13])/100)+"");
         euc.trpT=((decode4byte(this.KSdata[6],this.KSdata[7],this.KSdata[8],this.KSdata[9])/1000.0));
         euc.rmode=this.KSdata[14];
+		if (this.alert==0)  euc.spdC=col("black");
     }else if  (this.KSdata[16]==185){
         euc.trpL=(decode4byte(this.KSdata[2], this.KSdata[3], this.KSdata[4], this.KSdata[5]) / 1000.0);
         euc.time=(decode2byte(this.KSdata[6], this.KSdata[7]) / 100.0);
