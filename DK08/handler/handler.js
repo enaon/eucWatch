@@ -77,6 +77,7 @@ var face={
   offms:-1,
   off:function(page){ 
       if (this.pageCurr===-1) {print("face-1");return;}
+	  LCD_FastMode(false);
   },
   go:function(app,page,arg){
     this.appPrev=this.appCurr;
@@ -111,7 +112,8 @@ function buttonHandler(s){
   if (s.state==true) { 
     this.press=true;
 	if (!initdone) return;
-	//manage light
+    LCD_FastMode(true);
+ 	//manage light
 	//this.blon=isDark();
 	this.blon=true;
 	if (this.blt) { clearTimeout(this.blt);this.blt=0;} else if (this.blon) g.bl(0.2); // backlight on 20%

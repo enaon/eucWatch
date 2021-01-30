@@ -60,7 +60,7 @@ face[0] = {
       //    g.flip();
       //  }else{
           g.setFontVector(130);
-          g.drawString(euc.spd[0],(97-(g.stringWidth(euc.spd[0]))/2),55); 
+          g.drawString(euc.spd[0],(100-(g.stringWidth(euc.spd[0]))/2),55); 
           this.spd[0]=euc.spd[0];
           g.flip();
       //  }

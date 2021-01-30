@@ -3,6 +3,8 @@
 
 if (!global.euc){
 //vars
+NRF.setTxPower(4);
+
 global.euc= {
   spd: ["0","0"], 
   spdC:col("black"),
@@ -233,7 +235,7 @@ euc.tgl=function(){
 	if (euc.tmp.reconnect>=0 ||  euc.conn=="WAIT" || euc.conn=="ON") {
     clearTimeout(euc.tmp.reconnect); euc.tmp.reconnect=-1;
     }
-    NRF.setTxPower(0);
+    //NRF.setTxPower(0);
   	euc.conn="OFF";
 	face.go("euc",0);
   }else {
@@ -244,7 +246,7 @@ euc.tgl=function(){
 	else {
 	if (euc.conn == "OFF") euc.tmp.count=22; else euc.tmp.count=0;  //unlock
 	euc.conn="ON";
-    NRF.setTxPower(4);
+    //NRF.setTxPower(4);
 	euc.con(euc.mac[euc.go]); 
 	face.go("euc",0);
 	}
