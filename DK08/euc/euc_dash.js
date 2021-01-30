@@ -60,7 +60,7 @@ face[0] = {
       //    g.flip();
       //  }else{
           g.setFontVector(100);
-          g.drawString(euc.spd[0],(150-(g.stringWidth(euc.spd[0])))/2,60); 
+          g.drawString(euc.spd[0],(100-(g.stringWidth(euc.spd[0]))/2),60); 
           this.spd[0]=euc.spd[0];
           g.flip();
       //  }
@@ -164,8 +164,8 @@ face[0] = {
 //	g.setFont("7x11Numeric7Seg",5);
 //    g.drawString(euc.spdTop,(100-(g.stringWidth(euc.sptTop)))/2,90); 
       g.setColor(col("white"));     
-    g.setFont("Vector",27);
-    g.drawString(euc.conn,(120+(100-g.stringWidth(euc.conn))/2),85);
+    g.setFont("Vector",40);
+    g.drawString(euc.conn,(40+(100-g.stringWidth(euc.conn))/2),85);
     g.setFont("7x11Numeric7Seg",3);
     g.drawString(euc.temp, 10,3); //temp
     g.drawString(euc.batt,175-(g.stringWidth(euc.batt)+10),3);
