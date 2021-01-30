@@ -77,7 +77,10 @@ var face={
   offms:-1,
   off:function(page){ 
       if (this.pageCurr===-1) {print("face-1");return;}
-	  LCD_FastMode(false);
+	  this.offid=setTimeout((c)=>{
+        this.offid=-1;
+		LCD_FastMode(false);
+	  },this.offms,this.pageCurr);
   },
   go:function(app,page,arg){
     this.appPrev=this.appCurr;
@@ -112,7 +115,7 @@ function buttonHandler(s){
   if (s.state==true) { 
     this.press=true;
 	if (!initdone) return;
-    LCD_FastMode(true);
+    //LCD_FastMode(true);
  	//manage light
 	//this.blon=isDark();
 	this.blon=true;
