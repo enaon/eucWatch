@@ -73,9 +73,9 @@ face[0] = {
         if  (euc.ampC!=col("black") ) {
 		  g.setColor(euc.ampC);
 		  g.fillRect(60,0,119,40); //amp   
-          g.setColor(col("white"));
+          g.setColor(col("black"));
         }else { 
-		  g.setColor(col("gray"));
+		  g.setColor(col("black"));
 		  g.fillRect(60,0,119,40); //amp   
           g.setColor(col("white"));
         }

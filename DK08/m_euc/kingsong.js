@@ -107,20 +107,20 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 			euc.spdC=col("red");		
 		}else if (euc.amp>23) {
 			euc.ampC=col("yellow");
-			if (euc.spdC!="red") euc.ampC=col("yellow");
+			if (euc.spdC!=col("red")) euc.ampC=col("yellow");
 		}else if (euc.amp>15)  {
-			euc.ampC=col("yellow");
-			if (euc.spdC=="black") euc.spdC=col("white");
+			euc.ampC=col("white");
+			if (euc.spdC==col("black")) euc.spdC=col("white");
 		}else if (euc.amp<-10)  {
 			euc.ampC=col("red");
 			euc.spdC=col("red");
 		}else if (euc.amp<-5)  {
 			euc.ampC=col("yellow");
-			if (euc.spdC!="red")euc.spdC=col("yellow");
+			if (euc.spdC!=col("red")) euc.spdC=col("yellow");
 		}else if (euc.amp<0)  {
 			euc.ampC=col("white");
-			if (euc.spdC=="black") euc.spdC=col("white");
-		}
+			if (euc.spdC==col("black")) euc.spdC=col("white");
+		}else euc.ampC=col("black");
 		//volt
         euc.volt=((decode2byte(this.KSdata[2],this.KSdata[3])/100)+"");
         euc.batt=(((euc.volt/20)*100-340)*1.43)|0;
