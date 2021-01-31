@@ -32,7 +32,7 @@ face[0] = {
         g.setColor(col("white"));
       }
 	  g.setFontVector(130);
-      g.drawString(euc.spd[0],(98-(g.stringWidth(euc.spd[0]))/2),55); 
+      g.drawString(euc.spd[0],(99-(g.stringWidth(euc.spd[0]))/2),55); 
       this.spd[0]=euc.spd[0];
       g.flip();
 	}
@@ -49,7 +49,7 @@ face[0] = {
 		g.setColor(col("white"));
       }
       g.setFont("7x11Numeric7Seg",3);
-      g.drawString(euc.amp,(90-(g.stringWidth(euc.amp|0)/2)),3); 
+      g.drawString(euc.amp,(93-(g.stringWidth(euc.amp|0)/2)),3); 
       g.flip();
     }
 	//Temp
