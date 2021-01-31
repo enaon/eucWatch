@@ -115,7 +115,7 @@ function buttonHandler(s){
   if (s.state==true) { 
     this.press=true;
 	if (!initdone) return;
-    //LCD_FastMode(true);
+    LCD_FastMode(true);
  	//manage light
 	//this.blon=isDark();
 	this.blon=true;
