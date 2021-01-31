@@ -80,10 +80,12 @@ face[0] = {
       g.drawString(euc.batt,175-(g.stringWidth(euc.batt)+3),3); //fixed bat
       g.flip();
     }
+//off	
   } else if (euc.conn=="OFF")  {
     if (euc.lock!=this.lock){
       this.lock=euc.lock;
       g.setColor(col("gray"));
+	  g.fillRect(60,0,119,40); //amp
       g.fillRect(0,43,175,175);
       g.setColor(col("black"));
       g.setFontVector(18);
