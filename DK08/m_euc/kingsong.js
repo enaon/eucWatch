@@ -183,7 +183,7 @@ return  c;
   euc.busy=1;
 //  setTimeout(function(){c.writeValue(euc.cmd("unlock"));},100);
 //	setTimeout(function(){c.writeValue(euc.cmd("model"));},100);
-  setTimeout(function(){c.writeValue(euc.cmd("model"));euc.busy=0;euc.conn="READY";},300);
+  setTimeout(function(){c.writeValue(euc.cmd("serial"));euc.busy=0;euc.conn="READY";},300);
   setTimeout(function(){c.startNotifications();},1500);
 //reconect
 }).catch(function(err)  {
