@@ -13,7 +13,7 @@ global.euc= {
   ampC: col("black"), 
   batt: "0", 
   batC: col("lgreen"), 
-  temp: "0.0", 
+  temp: "0", 
   tmpC: col("lgreen"), 
   trpC: col("black"), 
   trpN: "0.0", 
