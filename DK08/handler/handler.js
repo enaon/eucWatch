@@ -77,9 +77,12 @@ var face={
   offms:-1,
   off:function(page){ 
       if (this.pageCurr===-1) {print("face-1");return;}
+	  if (face[this.pageCurr]!=-1) this.offms=face[this.pageCurr].offms;
+	  if (this.offid>=0) {clearTimeout(this.offid); this.offid=-1;}
 	  this.offid=setTimeout((c)=>{
         this.offid=-1;
 		LCD_FastMode(false);
+		face[0].refRate=500;
 	  },this.offms,this.pageCurr);
   },
   go:function(app,page,arg){
@@ -119,7 +122,7 @@ function buttonHandler(s){
  	//manage light
 	//this.blon=isDark();
 	this.blon=true;
-	if (this.blt) { clearTimeout(this.blt);this.blt=0;} else if (this.blon) g.bl(0.2); // backlight on 20%
+	if (this.blt) { clearTimeout(this.blt);this.blt=0;} else if (this.blon) g.bl(0.1); // backlight on 20%
 	if (this.blon)
     this.blt=setTimeout(function(){
       g.bl(0);

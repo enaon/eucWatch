@@ -3,6 +3,7 @@ face[0] = {
   offms: 5000,
   init: function(){
     this.run=true;
+	this.refRate=500;
   },
   show : function(){
     if (!this.run) return;
@@ -49,7 +50,7 @@ face[0] = {
     this.tid=setTimeout(function(t){
     t.tid=-1;
     t.show();
-    },1000,this);
+    },this.refRate,this);
   },
   tid:-1,
   run:false,
