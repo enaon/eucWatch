@@ -225,8 +225,9 @@ return  c;
 });
 };
 
-euc.wri= function(ch,n) {
-  ch.writeValue(euc.cmd(n));
+euc.wri= function(n) {
+  euc.ch.writeValue(euc.cmd(n));
+  return;
 };
 //euc.con(euc.mac[euc.go]);
 //euc.wri(euc.ch,"lightsOn")
