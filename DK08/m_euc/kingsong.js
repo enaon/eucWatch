@@ -121,7 +121,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 		}else {euc.ampC=col("black");this.alert=0;}
 		//volt
         euc.volt=((decode2byte(this.KSdata[2],this.KSdata[3])/100)+"");
-        euc.batt=(((euc.volt/20)*100-330)*1,42857)|0;
+        euc.batt=(((euc.volt/20)*100-330)*1.1111)|0;
         //temp
 		euc.temp=((decode2byte(this.KSdata[12],this.KSdata[13])/100)+"");
         euc.trpT=((decode4byte(this.KSdata[6],this.KSdata[7],this.KSdata[8],this.KSdata[9])/1000.0));
