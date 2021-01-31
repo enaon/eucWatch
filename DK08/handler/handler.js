@@ -135,6 +135,7 @@ if (this.l1) {clearTimeout(this.l1); this.l1=-1;}
     this.l1=setTimeout(() => {
       this.l1=-1;
       if (typeof euc !== 'undefined' ) {
+		if (!set.ltOn)set.ltOn=1;g.bl(0.1);
 		euc.tgl();this.press=false;
       }
     }, 1000);
