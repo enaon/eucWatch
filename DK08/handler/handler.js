@@ -111,10 +111,9 @@ var face={
 	if(arg) this.pageArg=arg;
   }
 };
-
 //button;
 function buttonHandler(s){
-  if (this.l1) {clearTimeout(this.l1); this.l1=-1;}
+if (this.l1) {clearTimeout(this.l1); this.l1=-1;}
   if (s.state==true) { 
     this.press=true;
 	if (!initdone) return;
@@ -122,12 +121,15 @@ function buttonHandler(s){
  	//manage light
 	//this.blon=isDark();
 	this.blon=true;
-	if (this.blt) { clearTimeout(this.blt);this.blt=0;} else if (this.blon) g.bl(0.1); // backlight on 20%
-	if (this.blon)
-    this.blt=setTimeout(function(){
-      g.bl(0);
-      this.blt=0;
-    },5000); //backlight off after 5 seconds
+	if (this.blt) { clearTimeout(this.blt);this.blt=0;} else if (this.blon) {g.bl(0.1);set.ltOn=1;} // backlight on 10%
+	if (this.blon){
+	  this.blt=setTimeout(function(){
+		g.bl(0);
+		this.blt=0;
+		set.ltOn=0;
+	  },5000); //backlight off after 5 seconds
+	this.press=false;
+	}
 	//toggle EUC on long press
     this.l1=setTimeout(() => {
       this.l1=-1;
@@ -135,7 +137,7 @@ function buttonHandler(s){
 		euc.tgl();this.press=false;
       }
     }, 1000);
-   }else if (this.press&&s.state==false)  { 
+  }else if (this.press&&s.state==false)  { 
 	this.press=false;
 	if (face.pageCurr==-1) {
 		digitalPulse(D6,1,[60,40,60]);
@@ -147,8 +149,7 @@ function buttonHandler(s){
       if (to>=2) to=0;
       face.go(face.appCurr,to);
     }
-	
-  }
+  } else this.press=true;
 }
 btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
 
