@@ -150,10 +150,10 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 	  if (set.def.cli) console.log("EUCstartOff");
 	  euc.lock=1;
       digitalPulse(D6,1,120);
-	  //c.writeValue(euc.cmd("lock")).then(function() {
-	  //global["\xFF"].BLE_GATTS.disconnect();
-	  //});
+	  c.writeValue(euc.cmd("lock")).then(function() {
 	  global["\xFF"].BLE_GATTS.disconnect();
+	  });
+	  //global["\xFF"].BLE_GATTS.disconnect();
 	  
     return;
 	}
@@ -185,7 +185,7 @@ return  c;
   digitalPulse(D6,1,[90,40,150,40,90]);
   euc.busy=1;
  setTimeout(function(){c.writeValue(euc.cmd("serial"));},100);
-//	setTimeout(function(){c.writeValue(euc.cmd("pass"));},300);
+	setTimeout(function(){c.writeValue(euc.cmd("pass"));},300);
   setTimeout(function(){c.writeValue(euc.cmd("unlock"));euc.busy=0;euc.conn="READY";},500);
   setTimeout(function(){c.startNotifications();},1500);
 //reconect
