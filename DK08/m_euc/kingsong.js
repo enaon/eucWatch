@@ -3,7 +3,7 @@
 
 if (!global.euc){
 //vars
-NRF.setTxPower(-4);
+NRF.setTxPower(0);
 
 global.euc= {
   spd: ["0","0"], 
@@ -202,16 +202,16 @@ return  c;
 	  else digitalPulse(D6,1,[250,200,250,200,250]);
 	  euc.tmp.reconnect=setTimeout(() => {
 	    euc.con(euc.mac[euc.go]); 
-	  }, 10000);
+	  }, 5000);
 	}else if ( err==="Disconnected"|| err==="Not connected")  {
 	  if (typeof global["\xFF"].timers[euc.tmp.reconnect]  !== "undefined") clearTimeout(euc.tmp.reconnect); 
       if (set.def.cli) console.log("retrying :",err);
       euc.conn="FAR";
-	  if (euc.lock==1) digitalPulse(D6,1,100);
+	  if (euc.lock==1) digitalPulse(D6,1,40);
 	  else digitalPulse(D6,1,[100,150,100]);
       euc.tmp.reconnect=setTimeout(() => {
 	    euc.con(euc.mac[euc.go]); 
-      }, 5000);
+      }, 500);
     }
   } else {
 	  global["\xFF"].bleHdl=[];
