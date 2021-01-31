@@ -1,6 +1,6 @@
 //clock
 face[0] = {
-  offms: 5000,
+  offms: 3000,
   init: function(){
     this.run=true;
 	this.refRate=999;

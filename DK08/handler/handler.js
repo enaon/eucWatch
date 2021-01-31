@@ -73,14 +73,16 @@ var face={
   pageArg:"",
   faceSave:-1,
   mode:0,
-  offid:-1,
-  offms:-1,
+  offid:0,
+  offms:5000,
   off:function(page){ 
       if (this.pageCurr===-1) {print("face-1");return;}
 	  if (face[this.pageCurr]!=-1) this.offms=face[this.pageCurr].offms;
-	  if (this.offid>=0) {clearTimeout(this.offid); this.offid=-1;}
+	  if (this.offid) {clearTimeout(this.offid); this.offid=0;}
 	  this.offid=setTimeout((c)=>{
-        this.offid=-1;
+        this.offid=0;
+		set.ltOn=0;
+		g.bl(0);
 		LCD_FastMode(false);
 		if (this.appCurr=="euc") face[0].refRate=333; else face[0].refRate=999
 	  },this.offms,this.pageCurr);
@@ -115,20 +117,19 @@ var face={
 function buttonHandler(s){
 if (this.l1) {clearTimeout(this.l1); this.l1=-1;}
   if (s.state==true) { 
+    if (!initdone) return;
     this.press=true;
-	if (!initdone) return;
     LCD_FastMode(true);
  	//manage light
-	//this.blon=isDark();
-	this.blon=true;
-	if (this.blt) { clearTimeout(this.blt);this.blt=0;} else if (this.blon) {g.bl(0.1);set.ltOn=1;} // backlight on 10%
-	if (this.blon){
-	  this.blt=setTimeout(function(){
-		g.bl(0);
-		this.blt=0;
+	//if (face.offid) {clearTimeout(face.offid); face.offid=0;} else  {g.bl(0.1);this.press=false;} // backlight on 10%
+	if (!set.ltOn) {
+	  set.ltOn=1;g.bl(0.1);this.press=false;
+	  if (this.offid) {clearTimeout(this.offid); this.offid=0;}
+	  this.offid=setTimeout(()=>{
+        this.offid=0;
 		set.ltOn=0;
-	  },5000); //backlight off after 5 seconds
-	this.press=false;
+		g.bl(0);
+	  },face.offms);	
 	}
 	//toggle EUC on long press
     this.l1=setTimeout(() => {
@@ -138,6 +139,7 @@ if (this.l1) {clearTimeout(this.l1); this.l1=-1;}
       }
     }, 1000);
   }else if (this.press&&s.state==false)  { 
+	if (this.offid) {clearTimeout(this.offid); this.offid=0;}
 	this.press=false;
 	if (face.pageCurr==-1) {
 		digitalPulse(D6,1,[60,40,60]);
@@ -149,7 +151,7 @@ if (this.l1) {clearTimeout(this.l1); this.l1=-1;}
       if (to>=2) to=0;
       face.go(face.appCurr,to);
     }
-  } else this.press=true;
+  }
 }
 btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
 

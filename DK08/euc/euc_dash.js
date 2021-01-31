@@ -1,7 +1,7 @@
 //euc
 //faces-main face
 face[0] = {
-  offms: 5000, //5 sec timeout
+  offms: 10000, //5 sec timeout
   spd:[],
   init: function(){
     g.setColor(col("gray"));
