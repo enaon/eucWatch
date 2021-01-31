@@ -3,7 +3,7 @@ face[0] = {
   offms: 5000,
   init: function(){
     this.run=true;
-	this.refRate=500;
+	this.refRate=999;
   },
   show : function(){
     if (!this.run) return;

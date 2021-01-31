@@ -82,7 +82,7 @@ var face={
 	  this.offid=setTimeout((c)=>{
         this.offid=-1;
 		LCD_FastMode(false);
-		face[0].refRate=500;
+		if (this.appCurr=="euc") face[0].refRate=333; else face[0].refRate=999
 	  },this.offms,this.pageCurr);
   },
   go:function(app,page,arg){

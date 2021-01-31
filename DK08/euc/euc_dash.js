@@ -21,7 +21,7 @@ face[0] = {
     this.conn="OFF";
     this.lock=2;
     this.run=true;
-	this.refRate=50;
+	this.refRate=100;
   },
   show : function(o){
   if (!this.run) return;
