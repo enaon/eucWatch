@@ -64,7 +64,6 @@ face[0] = {
     }
 //off	
   } else if (euc.conn=="OFF")  {
-    if (euc.lock!=this.lock){
       this.lock=euc.lock;
       g.setColor(col("gray"));
       g.fillRect(0,0,58,40); //temp
@@ -93,13 +92,13 @@ face[0] = {
 	  if (euc.conn=="OFF" && euc.lock==1){
         g.setColor(col("red"));
 		g.fillRect(60,0,119,40); //amp   
-        g.drawImage(require("heatshrink").decompress(atob("j0gwIIFnwCBgf/AYMf/wDB8E8gEHgFwgEcgHAgFggcAgOAhkAg0AmEAjAOJDoM4gF///4F4P/8EPAYPAn/jHAP/g/8gf8j/wh/wv4OFx4OB/0/BwP4Do3/BwIDBBwIDBwE//5hBAYPwOQYA=")),70,5);	 
+        g.setColor(col("white"));
+        g.drawImage(require("heatshrink").decompress(atob("j0gwIIFnwCBgf/AYMf/wDB8E8gEHgFwgEcgHAgFggcAgOAhkAg0AmEAjAOJDoM4gF///4F4P/8EPAYPAn/jHAP/g/8gf8j/wh/wv4OFx4OB/0/BwP4Do3/BwIDBBwIDBwE//5hBAYPwOQYA=")),75,3);	 
 		this.clear(); //if (set.def.cli) console.log("faceEUCexited");
       }else{
-      g.drawImage(	  require("heatshrink").decompress(atob("kUgwIOLn/AAYX4AYMeg4DBAQPggEDwEYBAPAgwDBmEBwEAhkAsAQBgAQKh0AkP///AjADBGIM/AgMAh/9BgMD/0f+EA/8H/hJCCAX4v4QCn4QCx4QC8YQDEIX/CAf/CAQyDH4UBAYJoBBgIUBA==")),70,5);	 
+      g.drawImage(require("heatshrink").decompress(atob("kUgwIOLn/AAYX4AYMeg4DBAQPggEDwEYBAPAgwDBmEBwEAhkAsAQBgAQKh0AkP///AjADBGIM/AgMAh/9BgMD/0f+EA/8H/hJCCAX4v4QCn4QCx4QC8YQDEIX/CAf/CAQyDH4UBAYJoBBgIUBA==")),75,3);	 
 	  }
 	  g.flip();
-    }
 //rest
   } else  {
     if (euc.conn!=this.conn) {
