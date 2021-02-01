@@ -8,7 +8,7 @@ NRF.setTxPower(0);
 global.euc= {
   spd: ["0","0"], 
   spdC:col("black"),
-  spdT:["0","0"],
+  spdT:0,
   amp: "0", 
   ampC: col("black"), 
   batt: "0", 

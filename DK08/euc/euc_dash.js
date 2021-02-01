@@ -80,8 +80,8 @@ face[0] = {
       g.drawString("LAST",5,120);
       g.drawString("TOTAL",5,150);
       g.drawString("Km",140,150);
-
-      g.drawString(Number(euc.spdT).toFixed(1),115-g.stringWidth(Number(euc.spdT).toFixed(1)),60);
+//      g.drawString(Number(euc.spdT).toFixed(1),115-g.stringWidth(Number(euc.spdT).toFixed(1)),60);
+      g.drawString(euc.spdT.toFixed(1),115-g.stringWidth(euc.spdT.toFixed(1)),60);
       g.drawString(euc.trpT|0,135-g.stringWidth(euc.trpT|0),150); 
 	  g.setFont("7x11Numeric7Seg",3);
       g.drawString(euc.temp,6,3); //temp
