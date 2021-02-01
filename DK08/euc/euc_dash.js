@@ -74,9 +74,14 @@ face[0] = {
       g.fillRect(0,43,175,175);
       g.setColor(col("white"));
       g.setFontVector(18);
-      g.drawString("TOP.SPEED",42,60);
-      g.setFont("7x11Numeric7Seg",5);
-      g.drawString(euc.spdTop,(120-(g.stringWidth(euc.sptTop)))/2,90); 
+      g.drawString("TOP.SPEED",5,60);
+      g.drawString("LAST TRIP",5,90);
+      g.drawString("TOTAL KH",5,120);
+      g.drawString("TOTAL",5,150);
+      g.drawString("Km",170,130);
+
+      g.drawString(euc.spdTop,120-(g.stringWidth(euc.sptTop)/2),60);
+      g.drawString(euc.trpT|0,130-g.stringWidth(euc.trpT|0),150); 
 	  g.setFont("7x11Numeric7Seg",3);
       g.drawString(euc.temp,6,3); //temp
       g.drawString(euc.batt,175-(g.stringWidth(euc.batt)+3),3);
