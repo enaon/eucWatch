@@ -14,8 +14,6 @@ face[0] = {
     this.lock=2;
     this.run=true;
 	this.refRate=250;
-	g.setColor(col("gray"));
-	g.drawLine(59,41,120,41);
   },
   show : function(o){
   if (!this.run) return;
@@ -40,6 +38,8 @@ face[0] = {
       g.setColor((euc.ampC!=col("yellow")&&euc.ampC!=col("white"))?15:0);
       g.setFont("7x11Numeric7Seg",3);
       g.drawString(euc.amp,(93-(g.stringWidth(euc.amp|0)/2)),3); 
+	  g.setColor(col("gray"));
+	  g.drawLine(59,40,120,40);
       g.flip();
     }
 	//Temp
