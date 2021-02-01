@@ -142,7 +142,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 			euc.spdC=col("red");
 		}else if (euc.temp>55) {
 			euc.tmpC=col("yellow");
-		} else euc.tmpC=col("lgreen");
+		} else euc.tmpC=col("lblue");
 		//trip
         euc.trpT=((decode4byte(this.KSdata[6],this.KSdata[7],this.KSdata[8],this.KSdata[9])/1000.0));
 		//mode
