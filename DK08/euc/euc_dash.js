@@ -24,7 +24,7 @@ face[0] = {
       this.spd[0]=euc.spd[0];
  	  g.setColor(euc.spdC);
 	  g.fillRect(0,43,175,175);
-      g.setColor((euc.spdC!=col("yellow")&&euc.spdC!=col("white"))?0:15);
+      g.setColor((euc.spdC!=col("yellow")&&euc.spdC!=col("white"))?15:0);
 	  g.setFontVector(130);
       g.drawString(euc.spd[0],(99-(g.stringWidth(euc.spd[0]))/2),55); 
       this.spd[0]=euc.spd[0];
@@ -35,7 +35,7 @@ face[0] = {
       this.amp=(euc.amp|0);
 	  g.setColor(euc.ampC);
 	  g.fillRect(60,0,119,40); //amp   
-      g.setColor((euc.ampC!=col("yellow")&&euc.ampC!=col("white"))?0:15);
+      g.setColor((euc.ampC!=col("yellow")&&euc.ampC!=col("white"))?15:0);
       g.setFont("7x11Numeric7Seg",3);
       g.drawString(euc.amp,(93-(g.stringWidth(euc.amp|0)/2)),3); 
       g.flip();
@@ -45,7 +45,7 @@ face[0] = {
       this.temp=euc.temp;
 	  g.setColor(euc.tmpC);
 	  g.fillRect(0,0,58,40); //temp
-      g.setColor((euc.tmpC!=col("yellow")&&euc.tmpC!=col("white"))?0:15);
+      g.setColor((euc.tmpC!=col("yellow")&&euc.tmpC!=col("white"))?15:0);
       g.setFont("7x11Numeric7Seg",3);
       g.drawString(euc.temp,5,3); //temp
       g.flip();
@@ -55,7 +55,7 @@ face[0] = {
    	  this.batt=euc.batt;
 	  g.setColor(euc.batC);
 	  g.fillRect(121,0,175,40); //batt	
-      g.setColor((euc.batC!=col("yellow")&&euc.batC!=col("white"))?0:15);
+      g.setColor((euc.batC!=col("yellow")&&euc.batC!=col("white"))?15:0);
       g.setFont("7x11Numeric7Seg",3);
       g.drawString(euc.batt,175-(g.stringWidth(euc.batt)+3),3); //fixed bat
       g.flip();

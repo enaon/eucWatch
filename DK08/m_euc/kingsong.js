@@ -118,7 +118,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 		}else if (euc.amp<0)  {
 			euc.ampC=col("white");
 			if (euc.spdC==col("black")) euc.spdC=col("white");
-		}else {euc.ampC=col("black");this.alert=0;}
+		}else {euc.ampC=col("dblue");this.alert=0;}
 		//volt
         euc.volt=((decode2byte(this.KSdata[2],this.KSdata[3])/100)+"");
         euc.batt=(((euc.volt/20)*100-330)*1.1111)|0;
