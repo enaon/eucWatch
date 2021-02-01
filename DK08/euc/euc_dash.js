@@ -49,7 +49,7 @@ face[0] = {
 	  g.fillRect(0,0,58,40); //temp
       g.setColor((euc.tmpC!=col("yellow")&&euc.tmpC!=col("lblue"))?15:0);
       g.setFont("7x11Numeric7Seg",3);
-      g.drawString(euc.temp,5,3); //temp
+      g.drawString(euc.temp,6,3); //temp
       g.flip();
     }
 	//Battery
@@ -78,7 +78,7 @@ face[0] = {
       g.setFont("7x11Numeric7Seg",5);
       g.drawString(euc.spdTop,(120-(g.stringWidth(euc.sptTop)))/2,90); 
 	  g.setFont("7x11Numeric7Seg",3);
-      g.drawString(euc.temp,5,3); //temp
+      g.drawString(euc.temp,6,3); //temp
       g.drawString(euc.batt,175-(g.stringWidth(euc.batt)+3),3);
       g.flip();
 	  if (euc.conn=="OFF" && euc.lock==1){
@@ -89,22 +89,19 @@ face[0] = {
   } else  {
     if (euc.conn!=this.conn) {
       this.conn=euc.conn;
-      g.setColor(col("gray"));
+      g.setColor(col("dblue"));
       g.fillRect(0,0,58,40); //temp
-      g.fillRect(60,0,119,40); //amp   
+      g.setColor(col("red"));
+      g.fillRect(60,0,119,40); //amp  
+      g.setColor(col("dblue"));
 	  g.fillRect(121,0,175,40); //batt	
 	  g.setColor(col("black"));
-//	  g.drawImage(require("heatshrink").decompress(atob("jEYwIEBngCDg//4EGgFgggCZgv/ASUEAQQaBHYPgJYQ=")),140,10);
-//      g.drawImage(E.toArrayBuffer(atob("EyCBAADgAH8AH/AH3wDg4BwcA4GAcDAOBgHAwDuYB3MA7mAdzAO5gHcwHucHnPHjjzj45j+Pz/n5/z8/5+f8/H8dx8c8AOPAeD9+Af+AD4A=")),20,6);	 
-	  g.drawImage(require("heatshrink").decompress(atob("kEgwIIFgfAAYMEkADGiADNgwPaguQAasJAYUT5ADBi/oAYMn+gDBl4DCk/kB4oXDhg7Cg/gPQgA=")),140,8);
-      g.drawImage(require("heatshrink").decompress(atob("lUgwIFCjwKDv/4AgV+j+AAgN4gHwAgM4gEOAgMcgEB4AHDBgMDAgMHBgOAhkAB4NgBAMYgEwDAMGgANB7AGBDIM2BoWAhHABoNgg0wgcD/EB/kA//+gHhwE/4OAmFgCgUIhAiBhkCAYIpCAANwIAQ+CAIMAHwIBBKwYPBMYRgBgHgMAQeCPYQMCh8AngEBgP/JIIABj4EDMIICBA")),75,8);	 
-      g.drawImage(require("heatshrink").decompress(atob("kEgwIIFg/gAYv//4DBwEBAaVBAYXBAYuBBYWDAYWCAYWEqIDCmIDBxERAYOekIXCAYQfDwQnCwRbCwY7CAYeCKaRrDAAQA==")),20,8);	 
-// bat require("heatshrink").decompress(atob("kEgwIIFg/gAYv//4DBwEBAaVBAYXBAYuBBYWDAYWCAYWEqIDCmIDBxERAYOekIXCAYQfDwQnCwRbCwY7CAYeCKaRrDAAQA=="));
-// tmp require("heatshrink").decompress(atob("kEgwIIFgfAAYMEkADGiADNgwPaguQAasJAYUT5ADBi/oAYMn+gDBl4DCk/kB4oXDhg7Cg/gPQgA="));
-// amp require("heatshrink").decompress(atob("lUgwIFCjwKDv/4AgV+j+AAgN4gHwAgM4gEOAgMcgEB4AHDBgMDAgMHBgOAhkAB4NgBAMYgEwDAMGgANB7AGBDIM2BoWAhHABoNgg0wgcD/EB/kA//+gHhwE/4OAmFgCgUIhAiBhkCAYIpCAANwIAQ+CAIMAHwIBBKwYPBMYRgBgHgMAQeCPYQMCh8AngEBgP/JIIABj4EDMIICBA"));
       g.fillRect(0,43,175,175);
 	  g.setColor(col("white"));
       g.setFont("Vector",40);
+	  g.drawImage(require("heatshrink").decompress(atob("kEgwIIFgfAAYMEkADGiADNgwPaguQAasJAYUT5ADBi/oAYMn+gDBl4DCk/kB4oXDhg7Cg/gPQgA=")),16,5);
+      g.drawImage(require("heatshrink").decompress(atob("lUgwIFCjwKDv/4AgV+j+AAgN4gHwAgM4gEOAgMcgEB4AHDBgMDAgMHBgOAhkAB4NgBAMYgEwDAMGgANB7AGBDIM2BoWAhHABoNgg0wgcD/EB/kA//+gHhwE/4OAmFgCgUIhAiBhkCAYIpCAANwIAQ+CAIMAHwIBBKwYPBMYRgBgHgMAQeCPYQMCh8AngEBgP/JIIABj4EDMIICBA")),70,5);	 
+      g.drawImage(require("heatshrink").decompress(atob("kEgwIIFg/gAYv//4DBwEBAaVBAYXBAYuBBYWDAYWCAYWEqIDCmIDBxERAYOekIXCAYQfDwQnCwRbCwY7CAYeCKaRrDAAQA==")),132,5);	 
       g.drawString(euc.conn,(40+(100-g.stringWidth(euc.conn))/2),85);
       g.flip();
 	  if (euc.conn=="WAIT"){this.spd[0]=-1;this.spd[1]=-1;this.amp=-1;this.temp=-1;this.batt=-1;this.trpN=-1;this.conn="OFF";this.lock=2;this.run=true;}
