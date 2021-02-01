@@ -90,12 +90,15 @@ face[0] = {
 	  g.setFont("7x11Numeric7Seg",3);
       g.drawString(euc.temp,6,3); //temp
       g.drawString(euc.batt,175-(g.stringWidth(euc.batt)+3),3);
-      g.flip();
 	  if (euc.conn=="OFF" && euc.lock==1){
         g.setColor(col("red"));
 		g.fillRect(60,0,119,40); //amp   
-        this.clear(); //if (set.def.cli) console.log("faceEUCexited");
-      }
+        g.drawImage(require("heatshrink").decompress(atob("j0gwIIFnwCBgf/AYMf/wDB8E8gEHgFwgEcgHAgFggcAgOAhkAg0AmEAjAOJDoM4gF///4F4P/8EPAYPAn/jHAP/g/8gf8j/wh/wv4OFx4OB/0/BwP4Do3/BwIDBBwIDBwE//5hBAYPwOQYA=")),70,5);	 
+		this.clear(); //if (set.def.cli) console.log("faceEUCexited");
+      }else{
+      g.drawImage(	  require("heatshrink").decompress(atob("kUgwIOLn/AAYX4AYMeg4DBAQPggEDwEYBAPAgwDBmEBwEAhkAsAQBgAQKh0AkP///AjADBGIM/AgMAh/9BgMD/0f+EA/8H/hJCCAX4v4QCn4QCx4QC8YQDEIX/CAf/CAQyDH4UBAYJoBBgIUBA==")),70,5);	 
+	  }
+	  g.flip();
     }
 //rest
   } else  {
