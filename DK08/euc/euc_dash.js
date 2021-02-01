@@ -86,6 +86,7 @@ face[0] = {
       g.drawString(euc.spdT.toFixed(1),115-g.stringWidth(euc.spdT.toFixed(1)),60);
       g.drawString(euc.time|0,135-g.stringWidth(euc.time|0),90); 
       g.drawString(euc.trpL|0,135-g.stringWidth(euc.trpL|0),120); 
+	  euc.trpT=1235;
       g.drawString(euc.trpT|0,135-g.stringWidth(euc.trpT|0),150); 
 	  g.setFont("7x11Numeric7Seg",3);
       g.drawString(euc.temp,6,3); //temp
