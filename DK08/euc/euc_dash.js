@@ -14,6 +14,7 @@ face[0] = {
     this.lock=2;
     this.run=true;
 	this.refRate=250;
+	g.setColor(col("gray"));
 	g.drawLine(0,41,175,41);
 	g.drawLine(59,0,59,41);
 	g.drawLine(120,0,120,41);
@@ -89,17 +90,18 @@ face[0] = {
   } else  {
     if (euc.conn!=this.conn) {
       this.conn=euc.conn;
-      g.setColor(col("blue"));
-      g.fillRect(0,43,175,175);
+      g.setColor(col("gray"));
       g.fillRect(0,0,58,40); //temp
       g.fillRect(60,0,119,40); //amp   
 	  g.fillRect(121,0,175,40); //batt	
 	  g.setColor(col("black"));
-      g.setFont("Vector",40);
-      g.drawString(euc.conn,(40+(100-g.stringWidth(euc.conn))/2),85);
-      g.setFont("7x11Numeric7Seg",3);
+	  g.setFont("7x11Numeric7Seg",3);
       g.drawString(euc.temp,5,3); //temp
       g.drawString(euc.batt,175-(g.stringWidth(euc.batt)+3),3);
+      g.fillRect(0,43,175,175);
+	  g.setColor(col("white"));
+      g.setFont("Vector",40);
+      g.drawString(euc.conn,(40+(100-g.stringWidth(euc.conn))/2),85);
       g.flip();
 	  if (euc.conn=="WAIT"){this.spd[0]=-1;this.spd[1]=-1;this.amp=-1;this.temp=-1;this.batt=-1;this.trpN=-1;this.conn="OFF";this.lock=2;this.run=true;}
     }
