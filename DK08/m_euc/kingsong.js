@@ -94,60 +94,60 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
     this.KSdata = event.target.value.buffer;
     if (euc.busy) return;
     if (this.KSdata[16]==169) {
-		this.alert=1;
+		this.alert=0;
         euc.spd=((decode2byte(this.KSdata[4],this.KSdata[5])/100)+"").split("."); 
 		if (euc.spd[0]>45)  {
-			euc.spdC=col("red");
+			euc.spdC=col("red");this.alert=1;
 		}else if (euc.spd[0]>35) {
-			euc.spdC=col("yellow");
+			euc.spdC=col("yellow");this.alert=1;
 		}else if (euc.spd[0]>25) {
-			euc.spdC=col("white");			
-		} else euc.spdC=col("black");
+			euc.spdC=col("white");this.alert=1;			
+		}
         //amp
 		this.cur=decode2byte(this.KSdata[10], this.KSdata[11]);
         if (this.cur > 32767) this.cur = this.cur - 65536;
         euc.amp=(this.cur/100)|0;
 		if (euc.amp>30)  {
-			euc.ampC=col("red");
+			euc.ampC=col("red");this.alert=1;
 			euc.spdC=col("red");		
 		}else if (euc.amp>23) {
-			euc.ampC=col("yellow");
+			euc.ampC=col("yellow");this.alert=1;
 			if (euc.spdC!=col("red")) euc.ampC=col("yellow");
 		}else if (euc.amp>15)  {
 			euc.ampC=col("white");
 			if (euc.spdC==col("black")) euc.spdC=col("white");
 		}else if (euc.amp<-10)  {
-			euc.ampC=col("red");
+			euc.ampC=col("red");this.alert=1;
 			euc.spdC=col("red");
 		}else if (euc.amp<-5)  {
-			euc.ampC=col("yellow");
+			euc.ampC=col("yellow");this.alert=1;
 			if (euc.spdC!=col("red")) euc.spdC=col("yellow");
 		}else if (euc.amp<0)  {
-			euc.ampC=col("white");
+			euc.ampC=col("white");this.alert=1;
 			if (euc.spdC==col("black")) euc.spdC=col("white");
-		}else {euc.ampC=col("black");this.alert=0;}
+		}else {euc.ampC=col("black");}
 		//volt
         euc.volt=((decode2byte(this.KSdata[2],this.KSdata[3])/100)+"");
         euc.batt=(((euc.volt/20)*100-330)*1.1111)|0;
 		if (euc.batt<20)  {
-			euc.batC=col("red");
+			euc.batC=col("red");this.alert=1;
 			euc.spdC=col("red");
 		}else if (euc.batt<60) {
-			euc.batC=col("yellow");
+			euc.batC=col("yellow");this.alert=1;
 		} else euc.batC=col("lgreen");
         //temp
 		euc.temp=((decode2byte(this.KSdata[12],this.KSdata[13])/100)+"");
 		if (euc.temp>65)  {
-			euc.tmpC=col("red");
+			euc.tmpC=col("red");this.alert=1;
 			euc.spdC=col("red");
 		}else if (euc.temp>55) {
-			euc.tmpC=col("yellow");
+			euc.tmpC=col("yellow");this.alert=1;
 		} else euc.tmpC=col("lblue");
 		//trip
         euc.trpT=((decode4byte(this.KSdata[6],this.KSdata[7],this.KSdata[8],this.KSdata[9])/1000.0));
 		//mode
         euc.rmode=this.KSdata[14];
-		if (this.alert==0)  euc.spdC=col("white");
+		if (!this.alert)  euc.spdC=col("black");
     }else if  (this.KSdata[16]==185){
         euc.trpL=(decode4byte(this.KSdata[2], this.KSdata[3], this.KSdata[4], this.KSdata[5]) / 1000.0);
         euc.time=(decode2byte(this.KSdata[6], this.KSdata[7]) / 100.0);
