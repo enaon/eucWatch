@@ -214,8 +214,8 @@ return  c;
 	  if (typeof global["\xFF"].timers[euc.tmp.reconnect]  !== "undefined") clearTimeout(euc.tmp.reconnect); 
       if (set.def.cli) console.log("retrying :",err);
       euc.conn="FAR";
-	  if (euc.lock==1) digitalPulse(D6,1,40);
-	  else digitalPulse(D6,1,[100,150,100]);
+	  //if (euc.lock==1) digitalPulse(D6,1,40);
+	  //else digitalPulse(D6,1,[100,150,100]);
       euc.tmp.reconnect=setTimeout(() => {
 	    euc.con(euc.mac[euc.go]); 
       }, 500);
