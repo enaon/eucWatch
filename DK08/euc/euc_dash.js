@@ -14,6 +14,11 @@ face[0] = {
     this.lock=2;
     this.run=true;
 	this.refRate=250;
+	g.drawLine(0,41,175,41);
+	g.drawLine(59,0,59,41);
+	g.drawLine(120,0,120,41);
+
+
   },
   show : function(o){
   if (!this.run) return;
