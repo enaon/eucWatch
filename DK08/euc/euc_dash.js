@@ -77,7 +77,7 @@ face[0] = {
       g.drawString("TOP",5,60);
       g.drawString("km/h",120,60);
       g.drawString("UPTIME",5,90);
-      g.drawString("Min",139,90);
+      g.drawString("Min",140,90);
       g.drawString("LAST",5,120);
       g.drawString("Km",140,120);
       g.drawString("TOTAL",5,150);
