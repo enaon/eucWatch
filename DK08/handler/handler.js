@@ -1,9 +1,9 @@
 //handler
 function col(no){
 	switch (no) {
-      case "black":return 0;case "dblue":return 1;case "green":return 2;case "teal":return 3;case "red":return 4;case "pink":return 5;
-	  case "yellow":return 6;case "lgray":return 7;case "gray":return 8;case "blue":return 9;case "lgreen":return 10;case "lblue":return 11;
-  	  case "yellow1":return 12;case "lping":return 13;case "yellow2":return 14;case "white":return 15;
+      case "black":return 0;case "dblue":return 1;case "green":return 2;case "teal":return 3;case "red":return 4;case "purple":return 5;
+	  case "orange":return 6;case "lgray":return 7;case "gray":return 8;case "blue":return 9;case "lgreen":return 10;case "lblue":return 11;
+  	  case "yellow":return 12;case "pink":return 13;case "yellow1":return 14;case "white":return 15;
 	}
 }
 //settings 
