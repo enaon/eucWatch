@@ -15,11 +15,7 @@ face[0] = {
     this.run=true;
 	this.refRate=250;
 	g.setColor(col("gray"));
-	g.drawLine(0,41,175,41);
-	g.drawLine(59,0,59,41);
-	g.drawLine(120,0,120,41);
-
-
+	g.drawLine(59,41,120,41);
   },
   show : function(o){
   if (!this.run) return;
@@ -51,7 +47,7 @@ face[0] = {
       this.temp=euc.temp;
 	  g.setColor(euc.tmpC);
 	  g.fillRect(0,0,58,40); //temp
-      g.setColor((euc.tmpC!=col("yellow")&&euc.tmpC!=col("white"))?15:0);
+      g.setColor((euc.tmpC!=col("yellow")&&euc.tmpC!=col("lblue"))?15:0);
       g.setFont("7x11Numeric7Seg",3);
       g.drawString(euc.temp,5,3); //temp
       g.flip();
@@ -61,7 +57,7 @@ face[0] = {
    	  this.batt=euc.batt;
 	  g.setColor(euc.batC);
 	  g.fillRect(121,0,175,40); //batt	
-      g.setColor((euc.batC!=col("yellow")&&euc.batC!=col("white"))?15:0);
+      g.setColor((euc.batC!=col("yellow")&&euc.batC!=col("lgreen"))?15:0);
       g.setFont("7x11Numeric7Seg",3);
       g.drawString(euc.batt,175-(g.stringWidth(euc.batt)+3),3); //fixed bat
       g.flip();
