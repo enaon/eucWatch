@@ -8,7 +8,7 @@ NRF.setTxPower(0);
 global.euc= {
   spd: ["0","0"], 
   spdC:col("black"),
-  spdTop:["0","0"],
+  spdT:["0","0"],
   amp: "0", 
   ampC: col("black"), 
   batt: "0", 
@@ -151,7 +151,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
     }else if  (this.KSdata[16]==185){
         euc.trpL=(decode4byte(this.KSdata[2], this.KSdata[3], this.KSdata[4], this.KSdata[5]) / 1000.0);
         euc.time=(decode2byte(this.KSdata[6], this.KSdata[7]) / 100.0);
-        euc.spdTop=(decode2byte(this.KSdata[8], this.KSdata[9]) / 100.0);
+        euc.spdT=(decode2byte(this.KSdata[8], this.KSdata[9]) / 100.0);
     }else if (euc.conn=="OFF"){
       euc.busy=1;
 	  if (set.def.cli) console.log("EUCstartOff");
