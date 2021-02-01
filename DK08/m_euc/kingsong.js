@@ -191,9 +191,9 @@ return  c;
   console.log("EUC connected"); 
   digitalPulse(D6,1,[90,40,150,40,90]);
   euc.busy=1;
-  setTimeout(function(){c.writeValue(euc.cmd("serial"));},200);
+  setTimeout(function(){c.writeValue(euc.cmd("serial"));euc.conn="READY";},200);
   setTimeout(function(){c.writeValue(euc.cmd("pass"));},500);
-  setTimeout(function(){c.writeValue(euc.cmd("unlock"));euc.busy=0;euc.conn="READY";},800);
+  setTimeout(function(){c.writeValue(euc.cmd("unlock"));euc.lock=0;euc.busy=0;},800);
   setTimeout(function(){c.startNotifications();},1500);
 //reconect
 }).catch(function(err)  {

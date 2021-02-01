@@ -92,6 +92,8 @@ face[0] = {
       g.drawString(euc.batt,175-(g.stringWidth(euc.batt)+3),3);
       g.flip();
 	  if (euc.conn=="OFF" && euc.lock==1){
+        g.setColor(col("red"));
+		g.fillRect(60,0,119,40); //amp   
         this.clear(); //if (set.def.cli) console.log("faceEUCexited");
       }
     }
