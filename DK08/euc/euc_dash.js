@@ -99,8 +99,8 @@ face[0] = {
 		this.clear(); //if (set.def.cli) console.log("faceEUCexited");
       }else{
       g.drawImage(require("heatshrink").decompress(atob("kUgwIOLn/AAYX4AYMeg4DBAQPggEDwEYBAPAgwDBmEBwEAhkAsAQBgAQKh0AkP///AjADBGIM/AgMAh/9BgMD/0f+EA/8H/hJCCAX4v4QCn4QCx4QC8YQDEIX/CAf/CAQyDH4UBAYJoBBgIUBA==")),75,5);	 
-	  }
 	  g.flip();
+	  }
     }
 //rest
   } else  {
