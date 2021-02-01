@@ -77,6 +77,9 @@ face[0] = {
       g.drawString("TOP.SPEED",42,60);
       g.setFont("7x11Numeric7Seg",5);
       g.drawString(euc.spdTop,(120-(g.stringWidth(euc.sptTop)))/2,90); 
+	  g.setFont("7x11Numeric7Seg",3);
+      g.drawString(euc.temp,5,3); //temp
+      g.drawString(euc.batt,175-(g.stringWidth(euc.batt)+3),3);
       g.flip();
 	  if (euc.conn=="OFF" && euc.lock==1){
         this.clear(); //if (set.def.cli) console.log("faceEUCexited");
@@ -91,9 +94,14 @@ face[0] = {
       g.fillRect(60,0,119,40); //amp   
 	  g.fillRect(121,0,175,40); //batt	
 	  g.setColor(col("black"));
-	  g.setFont("7x11Numeric7Seg",3);
-      g.drawString(euc.temp,5,3); //temp
-      g.drawString(euc.batt,175-(g.stringWidth(euc.batt)+3),3);
+//	  g.drawImage(require("heatshrink").decompress(atob("jEYwIEBngCDg//4EGgFgggCZgv/ASUEAQQaBHYPgJYQ=")),140,10);
+//      g.drawImage(E.toArrayBuffer(atob("EyCBAADgAH8AH/AH3wDg4BwcA4GAcDAOBgHAwDuYB3MA7mAdzAO5gHcwHucHnPHjjzj45j+Pz/n5/z8/5+f8/H8dx8c8AOPAeD9+Af+AD4A=")),20,6);	 
+	  g.drawImage(require("heatshrink").decompress(atob("kEgwIIFgfAAYMEkADGiADNgwPaguQAasJAYUT5ADBi/oAYMn+gDBl4DCk/kB4oXDhg7Cg/gPQgA=")),140,8);
+      g.drawImage(require("heatshrink").decompress(atob("lUgwIFCjwKDv/4AgV+j+AAgN4gHwAgM4gEOAgMcgEB4AHDBgMDAgMHBgOAhkAB4NgBAMYgEwDAMGgANB7AGBDIM2BoWAhHABoNgg0wgcD/EB/kA//+gHhwE/4OAmFgCgUIhAiBhkCAYIpCAANwIAQ+CAIMAHwIBBKwYPBMYRgBgHgMAQeCPYQMCh8AngEBgP/JIIABj4EDMIICBA")),75,8);	 
+      g.drawImage(require("heatshrink").decompress(atob("kEgwIIFg/gAYv//4DBwEBAaVBAYXBAYuBBYWDAYWCAYWEqIDCmIDBxERAYOekIXCAYQfDwQnCwRbCwY7CAYeCKaRrDAAQA==")),20,8);	 
+// bat require("heatshrink").decompress(atob("kEgwIIFg/gAYv//4DBwEBAaVBAYXBAYuBBYWDAYWCAYWEqIDCmIDBxERAYOekIXCAYQfDwQnCwRbCwY7CAYeCKaRrDAAQA=="));
+// tmp require("heatshrink").decompress(atob("kEgwIIFgfAAYMEkADGiADNgwPaguQAasJAYUT5ADBi/oAYMn+gDBl4DCk/kB4oXDhg7Cg/gPQgA="));
+// amp require("heatshrink").decompress(atob("lUgwIFCjwKDv/4AgV+j+AAgN4gHwAgM4gEOAgMcgEB4AHDBgMDAgMHBgOAhkAB4NgBAMYgEwDAMGgANB7AGBDIM2BoWAhHABoNgg0wgcD/EB/kA//+gHhwE/4OAmFgCgUIhAiBhkCAYIpCAANwIAQ+CAIMAHwIBBKwYPBMYRgBgHgMAQeCPYQMCh8AngEBgP/JIIABj4EDMIICBA"));
       g.fillRect(0,43,175,175);
 	  g.setColor(col("white"));
       g.setFont("Vector",40);
