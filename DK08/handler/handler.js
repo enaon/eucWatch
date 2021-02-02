@@ -84,7 +84,7 @@ var face={
 		set.ltOn=0;
 		g.bl(0);
 		LCD_FastMode(false);
-		if (this.appCurr=="euc") face[0].refRate=333; else face[0].refRate=999
+		if (this.appCurr=="euc") face[0].refRate=333; else face[0].refRate=59999
 	  },this.offms,this.pageCurr);
   },
   go:function(app,page,arg){
@@ -130,7 +130,7 @@ if (this.l1) {clearTimeout(this.l1); this.l1=-1;}
 		set.ltOn=0;
 		g.bl(0);
 	  },face.offms);	
-	}
+	} else if (face.offid) {clearTimeout(face.offid); face.offid=0;}
 	//toggle EUC on long press
     this.l1=setTimeout(() => {
       this.l1=-1;

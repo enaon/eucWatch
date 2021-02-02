@@ -111,7 +111,7 @@
       {"name":"euc","url":"euc_dash.js"}
     ]
   },  
-  { "id": "m_euc",
+  { "id": "m_euc_nb",
     "name": "Ninebot c/e/p",
     "icon": "icon.png",
     "version":"0.02",
@@ -119,7 +119,18 @@
     "tags": "euc",
     "type": "euc",
     "storage": [
-      {"name":"m_euc","url":"euc_NBoneCEP.js"}
+      {"name":"m_euc","url":"ninebot_cep.js"}
+    ]
+  },
+  { "id": "m_euc_ks",
+    "name": "Kingsong",
+    "icon": "icon.png",
+    "version":"0.01",
+    "description": "EUC module for Kingsong models",
+    "tags": "euc",
+    "type": "euc",
+    "storage": [
+      {"name":"m_euc","url":"kingsong.js"}
     ]
   },
   { "id": "repellent",
