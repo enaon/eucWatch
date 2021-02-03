@@ -24,7 +24,10 @@ global.euc= {
   alck: 0,
   far: 83,
   near: 65,
-  mac: 0, 
+  mac: 0, //enaon
+//  mac: "88:C2:55:32:F6:5B public", //manowar
+//  mac: "20:91:48:AB:2A:AD public", //megadeath
+//  mac: "20:91:48:BC:91:3B public", //poet
 };
 //alerts
 euc.alert = {
@@ -177,7 +180,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
             g.setFontVector(30);
 			g.drawString("!",9, 30);
 			g.flip();g.on();
-			face.offid=setTimeout(() => {P8.sleep();face.offid=-1}, 2000);
+			face.offid=setTimeout(() => {g.off();face.offid=-1}, 2000);
 		}
 	    setTimeout(() => { euc_alarm=0; }, 100);
       }

@@ -107,7 +107,7 @@
     ]
   },
   { "id": "euc",
-    "name": "EUC Dashboard",
+    "name": "EUC old Dashboard",
     "icon": "icon.png",
     "version":"0.02",
     "description": "Simple EUC dashboard, depends on a euc module",
@@ -116,7 +116,17 @@
       {"name":"euc","url":"euc_dash.js"}
     ]
   },  
-  { "id": "m_euc",
+  { "id": "euc_simple",
+    "name": "EUC simple  Dashboard",
+    "icon": "icon.png",
+    "version":"0.01",
+    "description": "Simple EUC dashboard, depends on a euc module",
+    "tags": "euc",
+    "storage": [
+      {"name":"euc","url":"euc_dash.js"}
+    ]
+  },
+  { "id": "m_euc_nb",
     "name": "Ninebot c/e/p",
     "icon": "icon.png",
     "version":"0.02",
@@ -124,7 +134,18 @@
     "tags": "euc",
     "type": "euc",
     "storage": [
-      {"name":"m_euc","url":"euc_NBoneCEP.js"}
+      {"name":"m_euc","url":"ninebot_cep.js"}
+    ]
+  },
+  { "id": "m_euc_ks",
+    "name": "Ninebot c/e/p",
+    "icon": "icon.png",
+    "version":"0.01",
+    "description": "EUC module for Kingsong models",
+    "tags": "euc",
+    "type": "euc",
+    "storage": [
+      {"name":"m_euc","url":"kingsong.js"}
     ]
   },
   { "id": "repellent",
