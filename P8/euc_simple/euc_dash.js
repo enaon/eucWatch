@@ -1,7 +1,7 @@
 //euc
 //faces-main face
 face[0] = {
-  offms: 5000, //15 sec timeout
+  offms: 10000, //15 sec timeout
   g:w.gfx,
   spd:[],
   init: function(){
@@ -44,9 +44,10 @@ face[0] = {
 	//speed 1
     if (euc.spd[0]!=this.spd[0]){
       this.spd[0]=euc.spd[0];
-		this.g.setColor(1,euc.spdC);
+		this.g.setColor(0,euc.spdC);
         this.g.fillRect(0,54,135,154);
-        this.g.setColor((0,euc.spdC!=col("yellow")&&euc.spdC!=col("white"))?15:0);
+        this.g.flip();
+        this.g.setColor(1,(euc.spdC!=col("yellow")&&euc.spdC!=col("white"))?col("white"):col("black"));
         this.spd[0]=euc.spd[0];
         this.g.flip();
         if (euc.spd[0]==0) {   
@@ -65,9 +66,10 @@ face[0] = {
 	//Amp
     if ((euc.amp|0)!=this.amp) {
         this.amp=(euc.amp|0);
-		this.g.setColor(1,euc.ampC);
+		this.g.setColor(0,euc.ampC);
         this.g.fillRect(139,54,239,154); 
-        this.g.setColor(0,(euc.ampC!=col("yellow")&&euc.ampC!=col("white"))?15:0);
+        this.g.flip();
+        this.g.setColor(1,(euc.ampC!=col("yellow")&&euc.ampC!=col("white"))?col("white"):col("black"));
         if (((euc.amp|0)==0 && euc.spd[0]==0) ||  euc.lock==1) {  
 	      this.g.setFontVector(18);
 	      this.g.drawString("RunTIME",140,60);
@@ -213,8 +215,6 @@ face[5] = {
     this.g.setFont("Vector",24);
 	this.g.drawString("RING",58-(this.g.stringWidth("RING")/2),9); 
 	this.g.drawString("LIGHT",58-(this.g.stringWidth("LIGHT")/2),41); 
-//    this.g.drawString("AUTO",58-(this.g.stringWidth("AUTO")/2),90);
-//    this.g.drawString("LOCK",58-(this.g.stringWidth("LOCK")/2),122);
 	this.g.drawString("TRIP",58-(this.g.stringWidth("TRIP")/2),170); 
 	this.g.drawString("RESET",58-(this.g.stringWidth("RESET")/2),202); 
 	//rdmd
@@ -222,8 +222,6 @@ face[5] = {
     this.g.setFont("Vector",35);
     this.g.drawString("EUC",180-(this.g.stringWidth("EUC")/2),60); 
 	this.g.drawString("OFF",180-(this.g.stringWidth("OFF")/2),140);
-	//this.g.setFont("Vector",80);
-    //this.g.drawString(euc.rdmd,180-(this.g.stringWidth(euc.rdmd)/2),80); //fixed bat
 	this.g.flip();
     this.rdmd=-1;
     this.alck=-1;

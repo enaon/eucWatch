@@ -1,10 +1,11 @@
 //kingsong euc module 
 //m_euc
+//euc.con(euc.mac[euc.go]);
+//euc.wri("lightsOn")
+//euc.ch.writeValue([0xAA,0x55,0x01,0xE0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x87,0x14,0x5A,0x5A]) 
 
 if (!global.euc){
 //vars
-NRF.setTxPower(0);
-
 global.euc= {
   spd: ["0","0"], 
   spdC:col("black"),
@@ -31,7 +32,8 @@ global.euc= {
   near: 65,
   //mac:{0:"64:69:4e:75:89:4d public"},
   //go:0,
-  busy:0
+  busy:0,
+  make:ks
 };
 //alerts
 euc.alert = {
@@ -238,9 +240,6 @@ euc.wri= function(n) {
   euc.ch.writeValue(euc.cmd(n));
   return;
 };
-//euc.con(euc.mac[euc.go]);
-//euc.wri("lightsOn")
-//euc.ch.writeValue([0xAA,0x55,0x01,0xE0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x87,0x14,0x5A,0x5A]) 
 
 decode2byte=function(byte1, byte2){//converts big endian 2 byte value to int
     this.val = (byte1 & 0xFF) + (byte2 << 8);
@@ -257,8 +256,9 @@ euc.tgl=function(){
 	if (euc.tmp.reconnect ||  euc.conn=="WAIT" || euc.conn=="ON") {
     clearTimeout(euc.tmp.reconnect); euc.tmp.reconnect=0;
     }
-    NRF.setTxPower(0);
-  	euc.conn="OFF";
+    NRF.setTxPower(set.def.rfX);
+	if (this.def.acc)acc.on(); else acc.off();
+    euc.conn="OFF";
 	face.go("euc",0);
   }else {
     digitalPulse(D16,1,100);   
@@ -269,6 +269,7 @@ euc.tgl=function(){
 	if (euc.conn == "OFF") euc.tmp.count=22; else euc.tmp.count=0;  //unlock
 	euc.conn="ON";
     NRF.setTxPower(4);
+	if (!this.def.acc) acc.on();
 	euc.con(euc.mac[euc.go]); 
 	face.go("euc",0);
 	}
