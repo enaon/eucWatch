@@ -5,16 +5,16 @@ face[0] = {
   g:w.gfx,
   spd:[],
   init: function(){
-    this.g.setColor(1,col("gray"));
-    this.g.fillRect(0,0,79,55); //temp
-    this.g.fillRect(80,0,160,55); //amp 
-    this.g.fillRect(161,0,239,55); //batt  	
-    this.g.setColor(0,col("black"));
-    this.g.setFont("7x11Numeric7Seg",4.5);
-    this.g.drawString(euc.temp, 3,5); //temp
-    this.g.drawString(euc.batt,240-(this.g.stringWidth(euc.batt)+3),5); //fixed bat
-    this.g.setFontVector(20); //mileage
-    this.g.flip();
+ //   this.g.setColor(1,col("gray"));
+ //   this.g.fillRect(0,0,79,55); //temp
+//    this.g.fillRect(80,0,160,55); //amp 
+//    this.g.fillRect(161,0,239,55); //batt  	
+//    this.g.setColor(0,col("black"));
+//    this.g.setFont("7x11Numeric7Seg",4.5);
+//    this.g.drawString(euc.temp, 3,5); //temp
+//    this.g.drawString(euc.batt,240-(this.g.stringWidth(euc.batt)+3),5); //fixed bat
+//    this.g.setFontVector(20); //mileage
+//    this.g.flip();
     this.spd[0]=-1;
     this.spd[1]=-1;
     this.amp=-1;
@@ -90,35 +90,39 @@ face[0] = {
   } else if (euc.conn=="OFF")  {
     if (euc.lock!=this.lock){
     this.lock=euc.lock;
-    this.g.setColor(0,col("dgray"));
-    this.g.fillRect(0,0,239,55); //temp
-//    this.g.fillRect(80,0,160,55); //amp   
-//	this.g.fillRect(161,0,239,55); //batt	
+    this.g.setColor(0,col("black"));
+    this.g.fillRect(0,0,239,55); //top
     this.g.setColor(1,col("white"));
+    this.g.drawImage(require("heatshrink").decompress(atob("kUgwIOLn/AAYX4AYMeg4DBAQPggEDwEYBAPAgwDBmEBwEAhkAsAQBgAQKh0AkP///AjADBGIM/AgMAh/9BgMD/0f+EA/8H/hJCCAX4v4QCn4QCx4QC8YQDEIX/CAf/CAQyDH4UBAYJoBBgIUBA==")),106,10);	 
 	this.g.setFont("7x11Numeric7Seg",4.5);
-    this.g.drawString(euc.temp,6,3); //temp
-    this.g.drawString(euc.batt,240-(this.g.stringWidth(euc.batt)+3),5);	
+    this.g.drawString(euc.temp,3,5); //temp
+    this.g.drawString(euc.batt,240-(this.g.stringWidth(euc.batt)+3),5);
 	this.g.flip();
     this.g.setColor(0,col("black"));
-	this.g.fillRect(56,239,239,239); //rest	
-    this.g.setColor(1,col("lgray"));
-    this.g.setFontVector(24);
-    this.g.drawString("TOP",5,93);
-    this.g.drawString("kph",205,93);
-    this.g.drawString("RUN",5,136);
-    this.g.drawString("Min",205,136);
-    this.g.drawString("TRP",5,178);
-    this.g.drawString("Km",205,178);
-    this.g.drawString("TOT",5,220);
-    this.g.drawString("Km",205,220);
-	this.g.flip();
-    this.g.setColor(0,col("black"));
+	this.g.fillRect(65,56,199,239); //middle	
     this.g.setColor(1,col("white"));
     this.g.setFontVector(28);
     this.g.drawString(euc.spdT,190-this.g.stringWidth(euc.spdT),90);
     this.g.drawString(euc.time|0,190-this.g.stringWidth(euc.time|0),133); 
     this.g.drawString(euc.trpL|0,190-this.g.stringWidth(euc.trpL|0),175); 
     this.g.drawString(euc.trpT|0,190-this.g.stringWidth(euc.trpT|0),217); 
+	this.g.flip();	
+    this.g.setColor(0,col("black"));
+	this.g.fillRect(0,56,74,239); //left	
+    this.g.setColor(1,col("lgray"));
+    this.g.setFontVector(24);
+    this.g.drawString("TOP",5,93);
+    this.g.drawString("RUN",5,136);
+    this.g.drawString("TRP",5,178);
+    this.g.drawString("TOT",5,220);
+	this.g.flip();
+    this.g.setColor(0,col("black"));
+	this.g.fillRect(200,56,239,239); //right	
+    this.g.setColor(1,col("lgray"));
+    this.g.drawString("kph",205,93);
+    this.g.drawString("Min",205,136);
+    this.g.drawString("Km",205,178);
+    this.g.drawString("Km",205,220);
 	this.g.flip();
 	if (euc.conn=="OFF" && euc.lock==1){
       this.g.setColor(0,col("red"));
@@ -129,7 +133,7 @@ face[0] = {
 	  this.clear(); //if (set.def.cli) console.log("faceEUCexited");
       }else{
       this.g.setColor(0,col("dgray"));
-//      this.g.fillRect(80,0,160,55); //amp   
+      this.g.fillRect(80,0,160,55); //amp   
       this.g.setColor(1,col("white"));
       this.g.drawImage(require("heatshrink").decompress(atob("kUgwIOLn/AAYX4AYMeg4DBAQPggEDwEYBAPAgwDBmEBwEAhkAsAQBgAQKh0AkP///AjADBGIM/AgMAh/9BgMD/0f+EA/8H/hJCCAX4v4QCn4QCx4QC8YQDEIX/CAf/CAQyDH4UBAYJoBBgIUBA==")),106,10);	 
 	  this.g.flip();
@@ -139,15 +143,20 @@ face[0] = {
   } else  {
     if (euc.conn!=this.conn) {
       this.conn=euc.conn;
-      this.g.setColor(0,col("dblue"));
-    this.g.fillRect(0,0,239,55); //temp
-      this.g.fillRect(0,43,175,175);
-      this.g.setColor(1,col("white"));
-      this.g.setFont("Vector",40);
+//  	  this.g.setColor(0,col("black"));
+      this.g.setColor(1,col("dblue"));
+      this.g.fillRect(0,0,239,55); //temp
+	  this.g.setColor(0,col("black"));
 	  this.g.drawImage(require("heatshrink").decompress(atob("kEgwIIFgfAAYMEkADGiADNgwPaguQAasJAYUT5ADBi/oAYMn+gDBl4DCk/kB4oXDhg7Cg/gPQgA=")),25,10);
       this.g.drawImage(require("heatshrink").decompress(atob("lUgwIFCjwKDv/4AgV+j+AAgN4gHwAgM4gEOAgMcgEB4AHDBgMDAgMHBgOAhkAB4NgBAMYgEwDAMGgANB7AGBDIM2BoWAhHABoNgg0wgcD/EB/kA//+gHhwE/4OAmFgCgUIhAiBhkCAYIpCAANwIAQ+CAIMAHwIBBKwYPBMYRgBgHgMAQeCPYQMCh8AngEBgP/JIIABj4EDMIICBA")),106,10);	 
       this.g.drawImage(require("heatshrink").decompress(atob("kEgwIIFg/gAYv//4DBwEBAaVBAYXBAYuBBYWDAYWCAYWEqIDCmIDBxERAYOekIXCAYQfDwQnCwRbCwY7CAYeCKaRrDAAQA==")),215,10);	 
-      this.g.drawString(euc.conn,(120-this.g.stringWidth(euc.conn)/2),85);
+      this.g.flip();
+      //this.g.fillRect(0,43,239,175);
+  	  this.g.setColor(0,col("black"));
+	  this.g.fillRect(0,56,239,239);
+      this.g.setColor(1,col("white"));
+      this.g.setFont("Vector",40);
+      this.g.drawString(euc.conn,(120-this.g.stringWidth(euc.conn)/2),120);
       this.g.flip();
 	  if (euc.conn=="WAIT"){this.spd[0]=-1;this.spd[1]=-1;this.amp=-1;this.temp=-1;this.batt=-1;this.trpN=-1;this.conn="OFF";this.lock=2;this.run=true;}
     }
