@@ -271,7 +271,7 @@ function buttonHandler(s){
     }, 1500);
    }else if (this.press && !s.state)  { 
 	this.press=false;
-	if (euc.conn!="OFF"&&euc.spd[0]>=5) {
+	if (euc.conn!="OFF"&&euc.spd[0]>=3) {
 		if (euc.make="ks") {
 		  euc.ch.writeValue(euc.cmd("lightsAuto"));
 		  setTimeout(function(){euc.ch.writeValue(euc.cmd("lightsOn"));},300);
