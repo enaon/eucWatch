@@ -13,9 +13,9 @@ global.euc= {
   amp: "0", 
   ampC: col("dgray"), 
   batt: "0", 
-  batC: col("raf3"), 
+  batC: col("dblue"), 
   temp: "0", 
-  tmpC: col("olive"), 
+  tmpC: col("dblue"), 
   trpC: col("black"), 
   trpN: "0.0", 
   trpL: "0.0", 
@@ -136,7 +136,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 			euc.spdC=col("red");
 		}else if (euc.batt<60) {
 			euc.batC=col("yellow");this.alert=1;
-		} else euc.batC=col("dblue");
+		} else euc.batC=col("black");
         //temp
 		euc.temp=((decode2byte(this.KSdata[12],this.KSdata[13])/100)+"");
 		if (euc.temp>65)  {
@@ -144,7 +144,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 			euc.spdC=col("red");
 		}else if (euc.temp>55) {
 			euc.tmpC=col("yellow");this.alert=1;
-		} else euc.tmpC=col("dblue");
+		} else euc.tmpC=col("black");
 		//trip
         euc.trpT=((decode4byte(this.KSdata[6],this.KSdata[7],this.KSdata[8],this.KSdata[9])/1000.0)).toFixed(1);
 		//mode                                    

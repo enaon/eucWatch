@@ -59,7 +59,7 @@ face[0] = {
 		this.g.fillRect(80,0,160,55); //amp 
         this.g.setColor(0,(euc.ampC!=col("yellow")&&euc.ampC!=col("white"))?col("white"):0);
         this.g.setFont("7x11Numeric7Seg",4.5);
-        this.g.drawString(euc.amp|0,(124-(this.g.stringWidth(euc.amp|0)/2)),5); 
+        this.g.drawString(euc.amp|0,(122-(this.g.stringWidth(euc.amp|0)/2)),5); 
         this.g.flip();
     }
 	//Battery
