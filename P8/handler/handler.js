@@ -267,7 +267,7 @@ function buttonHandler(s){
       this.l1=0;
       if (global.euc) {
 		if (euc.conn==="READY"&&euc.spd[0]>=3&&euc.make==="ks") {
-		  euc.ch.writeValue(euc.cmd("lightsOff"));
+		  euc.ch.writeValue(euc.cmd("lightsAuto"));
 		  this.press=false;
 		  return;
 	    } else {euc.tgl();this.press=false;}
