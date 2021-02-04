@@ -278,6 +278,7 @@ function buttonHandler(s){
 		if (euc.make="ks") {
 		  euc.ch.writeValue(euc.cmd("lightsAuto"));
 		  setTimeout(function(){euc.ch.writeValue(euc.cmd("lightsOn"));},200);
+		  face.go("euc",0);
 		  return;
 		}
 	}
