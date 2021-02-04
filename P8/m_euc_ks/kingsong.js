@@ -11,7 +11,7 @@ global.euc= {
   spdC:col("black"),
   spdT:0,
   amp: "0", 
-  ampC: col("black"), 
+  ampC: col("dgray"), 
   batt: "0", 
   batC: col("dblue"), 
   temp: "0", 
@@ -127,7 +127,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 		}else if (euc.amp<0)  {
 			euc.ampC=col("white");this.alert=1;
 			if (euc.spdC==col("black")) euc.spdC=col("white");
-		}else {euc.ampC=col("black");}
+		}else {euc.ampC=col("dgray");}
 		//volt
         euc.volt=((decode2byte(this.KSdata[2],this.KSdata[3])/100)+"");
         euc.batt=(((euc.volt/20)*100-330)*1.1111)|0;
