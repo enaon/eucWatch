@@ -262,11 +262,10 @@ euc.tgl=function(){
 	face.go("euc",0);
   }else {
     digitalPulse(D6,1,100);   
-	//euc.mac=(require("Storage").readJSON("setting.json",1)||{}).euc_mac;
-	//euc.go=(require("Storage").readJSON("setting.json",1)||{}).euc_go;
+	euc.mac=(require("Storage").readJSON("setting.json",1)||{}).euc_mac;
+	euc.go=(require("Storage").readJSON("setting.json",1)||{}).euc_go;
 	if(!euc.mac) {face.appCurr="euc";face.go('w_scan',0,'ffe0');}
 	else {
-	if (euc.conn == "OFF") euc.tmp.count=22; else euc.tmp.count=0;  //unlock
 	euc.conn="ON";
     NRF.setTxPower(4);
 	euc.con(euc.mac[euc.go]); 

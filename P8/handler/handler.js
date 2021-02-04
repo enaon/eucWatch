@@ -274,10 +274,18 @@ function buttonHandler(s){
     }, 1000);
    }else if (press==true && s.state==false)  { 
 	press=false;
+	if (euc.conn!="OFF") {
+		if (euc.make="ks") {
+		  euc.ch.writeValue(euc.cmd("lightsAuto"));
+		  setTimeout(function(){euc.ch.writeValue(euc.cmd("lightsOn"));},200);
+		  return;
+		}
+	}
 	if (face.pageCurr==-1) {
 		digitalPulse(D16,1,[60,40,60]);
 		if (global.euc){
-			if (euc.conn!="OFF") face.go("euc",0);else face.go(face.appCurr,0);
+			if (euc.conn!="OFF") face.go("euc",0);
+			else face.go(face.appCurr,0);
 		}else face.go(face.appCurr,0);
 	}else { 
 	  if (face.appCurr=="main"&&face.pagePrev!=-1&&face.pagePrev!=2) {
