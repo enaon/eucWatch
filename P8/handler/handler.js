@@ -265,19 +265,22 @@ function buttonHandler(s){
 	//toggle EUC on long press
     this.l1=setTimeout(() => {
       this.l1=0;
-      if (typeof euc !== 'undefined' ) {
-		euc.tgl();this.press=false;
+      if (global.euc) {
+		if (euc.conn==="READY"&&euc.spd[0]>=3&&euc.make==="ks") {
+		  euc.ch.writeValue(euc.cmd("lightsOff"));
+		  this.press=false;
+		  return;
+	    } else {euc.tgl();this.press=false;}
       }
     }, 1500);
+      
    }else if (this.press && !s.state)  { 
 	this.press=false;
-	if (euc.conn!="OFF"&&euc.spd[0]>=3) {
-		if (euc.make="ks") {
+	if (euc.conn==="READY"&&euc.spd[0]>=3&&euc.make==="ks") {
 		  euc.ch.writeValue(euc.cmd("lightsAuto"));
 		  setTimeout(function(){euc.ch.writeValue(euc.cmd("lightsOn"));},300);
 		  //face.go("euc",0);
 		  return;
-		}
 	}
 	if (face.pageCurr==-1) {
 		digitalPulse(D16,1,[60,40,60]);
