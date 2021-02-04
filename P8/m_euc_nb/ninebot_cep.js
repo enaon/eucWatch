@@ -4,6 +4,7 @@ if (!global.euc){
 global.euc= {
   spd: ["0","0"], 
   spdC:col("black"),
+  spdT: 0,
   amp: "0", 
   ampC: col("black"), 
   batt: "0", 
@@ -25,6 +26,8 @@ global.euc= {
   far: 83,
   near: 65,
   mac: 0, //enaon
+  time: 0,
+  
 //  mac: "88:C2:55:32:F6:5B public", //manowar
 //  mac: "20:91:48:AB:2A:AD public", //megadeath
 //  mac: "20:91:48:BC:91:3B public", //poet
@@ -45,6 +48,8 @@ euc.tgl=function(){
 	if (euc.tmp.reconnect>=0 ||  euc.conn=="WAIT" || euc.conn=="ON") {
     clearTimeout(euc.tmp.reconnect); euc.tmp.reconnect=-1;
     }
+    NRF.setTxPower(set.def.rfX);
+	if (!set.def.acc) acc.off();	
   	euc.conn="OFF";
 	face.go("euc",0);
   }else {
@@ -55,6 +60,8 @@ euc.tgl=function(){
 	else {
 	if (euc.conn == "OFF") euc.tmp.count=22; else euc.tmp.count=0;  //unlock
 	euc.conn="ON";
+    NRF.setTxPower(4);
+	if (!set.def.acc) acc.on();	
 	euc.con(euc.mac[euc.go]); 
 	face.go("euc",0);
 	}
@@ -250,7 +257,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
       tr=euc.tmp[euc_var];
      //temp
     }else if (euc_var==62 && euc.tmp[euc_var]!=te) {
-      euc.temp=(euc.tmp[euc_var]/10).toFixed(1);
+      euc.temp=(euc.tmp[euc_var]/10).toFixed(0);
       if (euc.temp>=euc.alert.temp ) {
 		if (euc.temp>=65) euc.tmpC=col("red");
 		else euc.tmpC=col("yellow");
