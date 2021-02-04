@@ -44,15 +44,11 @@ face[0] = {
 	//speed 1
     if (euc.spd[0]!=this.spd[0]){
       this.spd[0]=euc.spd[0];
-        if (euc.spdC!=col("black")) {
-		  this.g.setColor(1,euc.spdC);
-          this.g.fillRect(0,54,135,154);
-          this.g.setColor(0,col("black"));
-        }else { 
-		  this.g.setColor(0,col("back"));
-          this.g.fillRect(0,54,135,154);
-          this.g.setColor(1,col("white"));
-        }
+		this.g.setColor(1,euc.spdC);
+        this.g.fillRect(0,54,135,154);
+        this.g.setColor((0,euc.spdC!=col("yellow")&&euc.spdC!=col("white"))?15:0);
+        this.spd[0]=euc.spd[0];
+        this.g.flip();
         if (euc.spd[0]==0) {   
 	      this.g.setFontVector(18);
           this.g.drawString("AV.SPEED",12,60);
@@ -69,16 +65,9 @@ face[0] = {
 	//Amp
     if ((euc.amp|0)!=this.amp) {
         this.amp=(euc.amp|0);
-        if  (euc.ampC!=col("black") ) {
-		  this.g.setColor(1,euc.ampC);
-          this.g.fillRect(139,54,239,154); 
-          this.g.setColor(0,col("black"));
-        }else { 
-		  this.g.setColor(0,col("back"));
-          this.g.fillRect(139,54,239,154); 
-          this.g.setColor(1,col("white"));
-        }
-        
+		this.g.setColor(1,euc.ampC);
+        this.g.fillRect(139,54,239,154); 
+        this.g.setColor(0,(euc.ampC!=col("yellow")&&euc.ampC!=col("white"))?15:0);
         if (((euc.amp|0)==0 && euc.spd[0]==0) ||  euc.lock==1) {  
 	      this.g.setFontVector(18);
 	      this.g.drawString("RunTIME",140,60);
