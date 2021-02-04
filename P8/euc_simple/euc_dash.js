@@ -167,7 +167,7 @@ face[0] = {
   	  this.g.setColor(0,col("black"));
 	  this.g.fillRect(0,56,239,239);
       this.g.setColor(1,col("white"));
-      this.g.setFont("Vector",60);
+      this.g.setFont("Vector",50);
       this.g.drawString(euc.conn,(125-this.g.stringWidth(euc.conn)/2),115);
       this.g.flip();
 	  if (euc.conn=="WAIT"){this.spd[0]=-1;this.spd[1]=-1;this.amp=-1;this.temp=-1;this.batt=-1;this.trpN=-1;this.conn="OFF";this.lock=2;this.run=true;}
