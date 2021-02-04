@@ -82,8 +82,7 @@ face[0] = {
       g.drawString("Km",140,120);
       g.drawString("TOTAL",5,150);
       g.drawString("Km",140,150);
-//      g.drawString(Number(euc.spdT).toFixed(1),115-g.stringWidth(Number(euc.spdT).toFixed(1)),60);
-      g.drawString(euc.spdT.toFixed(1),115-g.stringWidth(euc.spdT.toFixed(1)),60);
+      g.drawString(euc.spdT,115-g.stringWidth(euc.spdT),60);
       g.drawString(euc.time|0,135-g.stringWidth(euc.time|0),90); 
       g.drawString(euc.trpL|0,135-g.stringWidth(euc.trpL|0),120); 
       g.drawString(euc.trpT|0,135-g.stringWidth(euc.trpT|0),150); 
