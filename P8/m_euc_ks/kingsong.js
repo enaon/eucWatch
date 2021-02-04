@@ -256,7 +256,7 @@ euc.tgl=function(){
 	if (euc.tmp.reconnect ||  euc.conn=="WAIT" || euc.conn=="ON") {
     clearTimeout(euc.tmp.reconnect); euc.tmp.reconnect=0;
     }
-    NRF.setTxPower(set.def.rfX);
+    NRF.setTxPower(set.def.rfTX);
 	if (!set.def.acc) acc.off();
     euc.conn="OFF";
 	face.go("euc",0);
