@@ -28,6 +28,7 @@ function image(img){
    	  case "euc":return E.toArrayBuffer(atob("MDCBAAAAAB/gAAAAA//+AAAAD//+AAAAPgAcAAAA/+AAAAAD//8AAAAH///AAAAP///wAAAf///8AAB////+AAD/////AAH8//+/gAP4//8fwAPw//8P4Afg//8H4A/A//+D8A/A//+D8A+A//+B+B+B//+B+B+B//+A+B8B//+A/B8B//+A/B8B//+A/D8B//+A/D8A//+A/D8A//8A/B8AAAAA/B+AAAAA/B+AAAAB/B+AGAAB+B/AP/wB+A/Af/4D+A/g//8H8Afw//8P8Afwf/4f4AP8P/g/wAH/f/x/gAH/////gAD/////AAB/////AAA////+AAAf///8AAAP///wAAAH///gAAAB//+AAAAAf/4AAAAAH/4AAAAAAAAAAA=="));
 	  case "weatherTemp":return E.toArrayBuffer(atob("EyCBAADgAH8AH/AH3wDg4BwcA4GAcDAOBgHAwDuYB3MA7mAdzAO5gHcwHucHnPHjjzj45j+Pz/n5/z8/5+f8/H8dx8c8AOPAeD9+Af+AD4A="));
 	  case "weatherHum":return E.toArrayBuffer(atob("HSCBAAAAAAAAEAAAAcAAAB8AAAD4AAAP4AAA94AABxwAAHjwAAODgAA4DgADwHgAHAHAAcAHAB4APADgAOAOGAOAYQQMBwhAcDhUA4HAIBwOAoDgcCCHAYAgMA4AA4BwABwBwAHAB4AcAB4DwAB//AAA/4AAAEAA"));
+	  case "alarm": return require("heatshrink").decompress(atob("mEwwIKH/ACBh8Agf+AoN/4EH/+AgH/+EP//AgP//EfAoMDAo38n4dDAoIpCj4FB8E//kHAoPA///wIFBwYFB8AFBGAI0BvkeFQIuBnkcn/wDgM4FgOAgIyC/41CAQIICn4OB/kB4EfAoP4AoMPKAPwAo8H8ABBAo8DAoJ2BAo5EBAYIFF8AFE+AFE/gFC8BMBEYQFBh+DAocHw4fCL4IJBAoZTBL4IFE/inCZAJ3EQYzaBR4abBh4aDU4QFEBYU/AoIXCvwFB3wFBvjbBjwFBXYMAAoQAEA="));
 	default:  return E.toArrayBuffer(atob("AQGBAAA="));//empty
 	}
 }

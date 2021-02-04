@@ -33,7 +33,7 @@ global.euc= {
   //mac:{0:"64:69:4e:75:89:4d public"},
   //go:0,
   busy:0,
-  make:ks
+  make:"ks"
 };
 //alerts
 euc.alert = {
@@ -257,7 +257,7 @@ euc.tgl=function(){
     clearTimeout(euc.tmp.reconnect); euc.tmp.reconnect=0;
     }
     NRF.setTxPower(set.def.rfX);
-	if (this.def.acc)acc.on(); else acc.off();
+	if (!set.def.acc) acc.off();
     euc.conn="OFF";
 	face.go("euc",0);
   }else {
@@ -269,7 +269,7 @@ euc.tgl=function(){
 	if (euc.conn == "OFF") euc.tmp.count=22; else euc.tmp.count=0;  //unlock
 	euc.conn="ON";
     NRF.setTxPower(4);
-	if (!this.def.acc) acc.on();
+	if (!set.def.acc) acc.on();
 	euc.con(euc.mac[euc.go]); 
 	face.go("euc",0);
 	}

@@ -6,18 +6,19 @@ face[0] = {
   spd:[],
   init: function(){
     this.g.setColor(1,col("gray"));
-    this.g.fillRect(0,0,135,50); //temp
-    this.g.fillRect(139,0,239,50); //batt      
-    this.g.fillRect(0,158,239,193); //mileage
+    this.g.fillRect(0,0,135,70); //temp
+    this.g.fillRect(139,0,239,70); //batt      
+//    this.g.fillRect(0,158,239,193); //mileage
     this.g.setColor(0,col("black"));
-    this.g.setFont("7x11Numeric7Seg",4);
+    this.g.setFont("7x11Numeric7Seg",5);
     this.g.drawString(euc.temp, 10,3); //temp
     this.g.drawString(euc.batt,240-(this.g.stringWidth(euc.batt)+10),3); //fixed bat
     this.g.setFontVector(20); //mileage
-    this.g.drawString("TRIP",1,167); 
-    this.g.drawString("TOT",90,167); 
-    this.g.drawString("LEFT",171,167); 
+//    this.g.drawString("TRIP",1,167); 
+//    this.g.drawString("TOT",90,167); 
+//    this.g.drawString("LEFT",171,167); 
     this.g.flip();
+/*
     //mileage
     this.g.fillRect(0,194,239,239);
     this.g.setColor(1,col("gray"));
@@ -27,6 +28,7 @@ face[0] = {
     this.g.drawString(euc.trpT,(240-(this.g.stringWidth(euc.trpT)))/2,205); 
     this.g.drawString(euc.trpR,240-(this.g.stringWidth(euc.trpR)+1),205); 
     this.g.flip();
+*/	
     this.spd[0]=-1;
     this.spd[1]=-1;
     this.amp=-1;
@@ -119,10 +121,10 @@ face[0] = {
     if (euc.lock!=this.lock){
     this.lock=euc.lock;
     this.g.setColor(1,col("gray"));
-    this.g.fillRect(0,54,135,154);
+    this.g.fillRect(0,74,135,154);
     this.g.setColor(0,col("black"));
-    this.g.setFontVector(18);
-    this.g.drawString("AV.SPEED",12,60);
+//    this.g.setFontVector(18);
+//    this.g.drawString("AV.SPEED",12,60);
     this.g.setFont("7x11Numeric7Seg",5);
     this.g.drawString(euc.aver,(139-(this.g.stringWidth(euc.aver)))/2,90); 
     this.g.flip();
@@ -130,8 +132,8 @@ face[0] = {
     else  this.g.setColor(1,col("gray"));
     this.g.fillRect(139,54,239,154); 
     this.g.setColor(0,col("black")); 
-	this.g.setFontVector(18);
-	this.g.drawString("RunTIME",140,60);
+//	this.g.setFontVector(18);
+//	this.g.drawString("RunTIME",140,60);
 	this.g.setFont("7x11Numeric7Seg",5);
   	this.g.drawString(euc.time,192-(this.g.stringWidth(euc.time)/2),90); 
     this.g.flip();
@@ -194,10 +196,13 @@ face[1] = {
   return true;
   },
   show : function(){
-    face.go("main",0);
+    if (euc.conn=="OFF") face.go("main",0); else {face.pageCurr=0;face.go("euc",-1)};
     return true;
   },
   clear: function(){
+  return true;
+  },
+  off: function(){
   return true;
   },
 };	
