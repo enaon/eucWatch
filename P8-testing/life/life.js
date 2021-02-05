@@ -138,7 +138,8 @@ touchHandler[0]=function(e,x,y){
     if (face[0].intervalRef) face[0].stopdraw(); else face[0].regen();
     break;
     case 1: //slide down event 
-    face.go(face.appPrev, face.pagePrev);
+    //face.go(face.appPrev, face.pagePrev);
+	face.go("main",0);
     return; //return when changing faces. 
     case 2: //slide up event
     digitalPulse(D16,1,40);
