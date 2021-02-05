@@ -58,7 +58,7 @@ face[0]= {
   init: function(){
     var d=(Date()).toString().split(' ');
     var t=(d[4]).toString().split(':');
-    this.g.setColor(0,col("dgray1"));//header bck
+    this.g.setColor(0,col("black"));//header bck
     this.g.fillRect(0,0,239,35); 
     this.g.setColor(1,col("lblue"));//header txt
     this.g.setFont("Vector",25);
@@ -162,7 +162,7 @@ face[5] = {
     this.al.curr=o;
     var d=(Date()).toString().split(' ');
     var t=(d[4]).toString().split(':');
-    this.g.setColor(0,col("dgray1")); //header
+    this.g.setColor(0,col("black")); //header
     this.g.fillRect(0,0,239,35); 
     this.g.setColor(1,col("lblue"));
     this.g.setFont("Vector",25);

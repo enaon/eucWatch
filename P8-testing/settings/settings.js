@@ -8,7 +8,7 @@ face[0] = {
     var d=(Date()).toString().split(' ');
     var t=(d[4]).toString().split(':');	
       pal[0]=col("black");
-      if(!face.mode) this.g.setColor(1,col("dgray")); else this.g.setColor(1,col("raf2"));
+      if(!face.mode) this.g.setColor(1,col("dgray")); else this.g.setColor(1,col("olive"));
       this.g.fillRect(0,0,75,75);//1
       this.g.fillRect(80,0,155,75); //2
       this.g.fillRect(160,0,239,75); //3
@@ -35,7 +35,7 @@ face[0] = {
     if (this.tor==1) {
       this.g.setColor(0,colo.txt);
       this.g.fillRect(0,0,239,239); 
-      this.g.setColor(1,col("lblue"));
+      this.g.setColor(1,col("lgray"));
       this.g.drawImage(require("heatshrink").decompress(atob("mEwwILIgOAAp0EAoMQAoMMAoMwAoMGAoNgAoMDAQPADgcBAooqEADcP///+AFNABcHCIPgKYQFHKYYFHLIYFHFQd/Aol8nwFDngFdvwFDn/+AvX8ApIADA==")),50,30,{scale:3});
       this.g.flip();
       this.appImgNone=0;
@@ -46,7 +46,8 @@ face[0] = {
 	}else if(this.btSet){
       if(this.btSetOn){
         this.btSetOn=0;
-        this.g.setColor(1,col("blue"));
+        //this.g.setColor(1,(set.def.cli||set.def.gb||set.def.atc||set.def.hid)?col("dblue"):col("dgray"));
+        this.g.setColor(1,col("dgray"));
         this.g.fillRect(0,0,155,75);//title
         this.g.setColor(0,col("white"));
         //bt
@@ -56,28 +57,28 @@ face[0] = {
       }
       if (set.def.cli!=this.cli) {
         this.cli=set.def.cli;
-        this.btn(this.cli,160,0,239,75,require("heatshrink").decompress(atob("mEmwIPMggFEj4FEn+AAonAAongAonwDon4Aon8AocP/wFDg//AocD/4wDgP/GAgFFv42RAokPBZQFFEYovFHYhHBJoZTBL4hlEh5xEFxE///4SoQFDFwIFDFwIFCXIQFCYoUP/5KEAA4")),176,15,col("lblue"));//btn3
+        this.btn(this.cli,160,0,239,75,require("heatshrink").decompress(atob("mEmwIPMggFEj4FEn+AAonAAongAonwDon4Aon8AocP/wFDg//AocD/4wDgP/GAgFFv42RAokPBZQFFEYovFHYhHBJoZTBL4hlEh5xEFxE///4SoQFDFwIFDFwIFCXIQFCYoUP/5KEAA4")),176,15,col("lblue"),col("dblue"),col("black"),col("gray"));//btn3
       }
       if (set.def.gb!=this.gb) {
         this.gb=set.def.gb;
-        this.btn(this.gb,0,80,75,155,require("heatshrink").decompress(atob("mEwwIFCg4LEh/AAocfAok/Aol/zAFEnwREvwoD43+FAfw/ngFAX8/vwAoX+vP4DgX/uYFEs4RCv4FB84FDh/vAoP/h0f5+AAoMBn+fAoWOn8/CIXAv9/DoXg/xOCv5HB/g1C+H5HYfwuf6JoX5gf2AoeD8hlC/P75AFC/v5QgUH/v8mAFC///L4UDAoJ9CAosBAoKoCAopaB/5kBAqQdFgfwg41D8ABBAqgdEJpA1FII4A==")),13,94,col("lblue"));//btn4
+        this.btn(this.gb,0,80,75,155,require("heatshrink").decompress(atob("mEwwIFCg4LEh/AAocfAok/Aol/zAFEnwREvwoD43+FAfw/ngFAX8/vwAoX+vP4DgX/uYFEs4RCv4FB84FDh/vAoP/h0f5+AAoMBn+fAoWOn8/CIXAv9/DoXg/xOCv5HB/g1C+H5HYfwuf6JoX5gf2AoeD8hlC/P75AFC/v5QgUH/v8mAFC///L4UDAoJ9CAosBAoKoCAopaB/5kBAqQdFgfwg41D8ABBAqgdEJpA1FII4A==")),13,94,col("lblue"),col("dblue"),col("black"),col("gray"));//btn4
       }
       if (set.def.atc!=this.atc) {
         this.atc=set.def.atc;
-        this.btn(this.atc,80,80,155,155,require("heatshrink").decompress(atob("mEwwILI///ArUBAoOAArMDAo/AAoMH8ABBAoMP4ED+AFBj4fB/AFBnwCB/gFEvgCEngCBvAOEAoUeAo9wAogyCApARFEZYFFIIoCCBAREFMoMAMoUPwBxDh59Eg/8n6JCR4q5dAoT7bAAYA=")),94,94,col("lblue"));//btn5
+        this.btn(this.atc,80,80,155,155,require("heatshrink").decompress(atob("mEwwILI///ArUBAoOAArMDAo/AAoMH8ABBAoMP4ED+AFBj4fB/AFBnwCB/gFEvgCEngCBvAOEAoUeAo9wAogyCApARFEZYFFIIoCCBAREFMoMAMoUPwBxDh59Eg/8n6JCR4q5dAoT7bAAYA=")),94,94,col("lblue"),col("dblue"),col("black"),col("gray"));//btn5
       }
       if (set.def.hid!=this.hid) {
         this.hid=set.def.hid;
-        this.btn(this.hid,160,80,239,155,require("heatshrink").decompress(atob("mEwwIOLkAEDgPwAocHAok/AocB/4FDh4FEv4FDgf/AocfAogEBAoQhBApnxAomBAof8JoQ/CAohZDgP8AongAuF9AoZ4BAoaJDAoJ+BAoc/ApSbCMgIFCEAQRCEAQFC4AIEwAUEXgRBBP4IFCZAgFF4DlDEAIFEeIcP/wFDgb9EAAoA=")),176,94,col("lblue"));//btn6
+        this.btn(this.hid,160,80,239,155,require("heatshrink").decompress(atob("mEwwIOLkAEDgPwAocHAok/AocB/4FDh4FEv4FDgf/AocfAogEBAoQhBApnxAomBAof8JoQ/CAohZDgP8AongAuF9AoZ4BAoaJDAoJ+BAoc/ApSbCMgIFCEAQRCEAQFC4AIEwAUEXgRBBP4IFCZAgFF4DlDEAIFEeIcP/wFDgb9EAAoA=")),176,94,col("lblue"),col("dblue"),col("black"),col("gray"));//btn6
       }
-//settings
+	//settings
     }else{
      this.appImgNone=0;
     //bluetooth settings
       if (set.bt!=this.bt) {
         this.bt=set.bt;
         var state=(set.def.cli||set.def.gb||set.def.atc||set.def.hid)?1:0;
-        this.btn(state,0,0,75,75,require("heatshrink").decompress(atob("mEwwIXUgYFFwAFE4AFE8AFE/AFE/gFE/wFE/4FE74qCgUD54qCg8D44qCh+D4fwAoXDAocD8YRDgPzDocA/YpDgF/Gok/IIkfJokPLIkHFwQFHCIodFFIo1FIIhNFLIplFOIp9FRIqVFUI6tFXIrFFaIrdFdIr/IABY=")),13,15);
+        this.btn(state,0,0,75,75,require("heatshrink").decompress(atob("mEwwIXUgYFFwAFE4AFE8AFE/AFE/gFE/wFE/4FE74qCgUD54qCg8D44qCh+D4fwAoXDAocD8YRDgPzDocA/YpDgF/Gok/IIkfJokPLIkHFwQFHCIodFFIo1FIIhNFLIplFOIp9FRIqVFUI6tFXIrFFaIrdFdIr/IABY=")),13,15,col("white"),col("dblue"),col("black"),col("dgray"));
       }
     //themes 
     if (this.btn2) {
@@ -94,18 +95,18 @@ face[0] = {
     //dnd on/off
     if (set.def.dnd!=this.dnd) {
       this.dnd=set.def.dnd;
-    this.btn(this.dnd,160,0,239,75,(this.dnd)?require("heatshrink").decompress(atob("mEwwIdag/gApMOuAFDn18Aof4j4ECgPAgeAAoIDBA4IiCAQIkChwCBEgUMKoQCBjACKBwUcAogaFAv4FEsACBgx8BPQQDBQwaMCTAYFH/4ACAozRNjCOCAo8MJITdHJIYAXA")):require("heatshrink").decompress(atob("mEwwIdag/gEAIFEuAFBhwDBA4MAn18gPAAoP4j8DwEABAMDw4KBBAMBxwiCAQMcEQQCBnACBhgCBFwUYEoQFDgPYMgQlBzAFDg4aCAoMOAokcAok4AolwAongAoZUBAoZUBAoZUBAoZUBAoZdBAoZdBAoZdBAoVgRgMGKwPBRgMDQwODRgiDCgAFBQYQFCj//AAIaBn4FERgQACXYQABEoMYS4RdBAoZdCbYQuBboRPCIoL/TAAo")),176,15);//btn3
+    this.btn(this.dnd,160,0,239,75,(this.dnd)?require("heatshrink").decompress(atob("mEwwIdag/gApMOuAFDn18Aof4j4ECgPAgeAAoIDBA4IiCAQIkChwCBEgUMKoQCBjACKBwUcAogaFAv4FEsACBgx8BPQQDBQwaMCTAYFH/4ACAozRNjCOCAo8MJITdHJIYAXA")):require("heatshrink").decompress(atob("mEwwIdag/gEAIFEuAFBhwDBA4MAn18gPAAoP4j8DwEABAMDw4KBBAMBxwiCAQMcEQQCBnACBhgCBFwUYEoQFDgPYMgQlBzAFDg4aCAoMOAokcAok4AolwAongAoZUBAoZUBAoZUBAoZUBAoZdBAoZdBAoZdBAoVgRgMGKwPBRgMDQwODRgiDCgAFBQYQFCj//AAIaBn4FERgQACXYQABEoMYS4RdBAoZdCbYQuBboRPCIoL/TAAo")),176,15,col("white"),col("dblue"),col("black"),col("dgray"));//btn3
 
     }
     //find my phone
     if (set.fmp!=this.fmp) {
       this.fmp=set.fmp;
-	  this.btn(this.fmp,0,80,75,155,require("heatshrink").decompress(atob("mEwwILIv/+AgUD///4AFBg8//HgAoMGj/4sAFCAQIFfgYFD4EPAofghwFDuEcAoc4nAFDjkw4wFBscMuIFDx1hwwFBAYPjAofG8YdD4/HApPjAqIjEAovHsY1D45BFJopZFMopxFPosHAofwSoq/jAo0HAQL1Cgf//40BAAM87wECAAg")),13,94,col("dyellow"),col("dgray"));//btn3
+	  this.btn(this.fmp,0,80,75,155,require("heatshrink").decompress(atob("mEwwILIv/+AgUD///4AFBg8//HgAoMGj/4sAFCAQIFfgYFD4EPAofghwFDuEcAoc4nAFDjkw4wFBscMuIFDx1hwwFBAYPjAofG8YdD4/HApPjAqIjEAovHsY1D45BFJopZFMopxFPosHAofwSoq/jAo0HAQL1Cgf//40BAAM87wECAAg")),13,94,col("yellow"),col("dgray"),col("black"),col("dgray"));//btn3
       }
     //acc on/off
     if (set.def.acc!=this.acc) {
       this.acc=set.def.acc;
-      this.btn(this.acc,80,80,155,155,require("heatshrink").decompress(atob("mEwwJC/AAkPwAECgP//AFCg///4FCj4FBCQU/AoPgAoN/4Ef+AFB/wZBDwMB/gCCgUDBwV+h0HDQU/jkP4AsCvg/Dh/8j5JDAokH/k+Igf4Aoc//E8AoRbBvhhEAoUD//wjAnBwIFBEIRaEn/AgIFDJ4QFIKoQdDAoibDgECbfA=")),94,94);
+      this.btn(this.acc,80,80,155,155,require("heatshrink").decompress(atob("mEwwJC/AAkPwAECgP//AFCg///4FCj4FBCQU/AoPgAoN/4Ef+AFB/wZBDwMB/gCCgUDBwV+h0HDQU/jkP4AsCvg/Dh/8j5JDAokH/k+Igf4Aoc//E8AoRbBvhhEAoUD//wjAnBwIFBEIRaEn/AgIFDJ4QFIKoQdDAoibDgECbfA=")),94,94,col("white"),col("dblue"),col("black"),col("dgray"));
     }
 	//brightness level
     if (this.g.bri.lv!=this.bri) {
@@ -146,10 +147,10 @@ face[0] = {
     this.g.off();
     this.clear(o);
   },
-   btn:function(state,rectx0,recty0,rectx1,recty1,Img,ImgX,ImgY,fCol,bCol){
-      this.colf=(fCol)?fCol:col("white");
-      this.colb=(bCol)?bCol:col("raf3");
-      if (state!==1) {this.colb=col("dgray");this.colf=col("black");}
+   btn:function(state,rectx0,recty0,rectx1,recty1,Img,ImgX,ImgY,efCol,ebCol,dfCol,dbCol){
+	  if (state) {this.colf=(efCol)?efCol:col("white");this.colb=(ebCol)?ebCol:col("dblue");}
+	  else {this.colf=(dfCol)?dfCol:col("black");this.colb=(dbCol)?dbCol:col("dgray");}
+	  
       this.g.setColor(1,this.colb);
       this.g.fillRect(rectx0,recty0,rectx1,recty1);
       this.g.setColor(0,this.colf);
