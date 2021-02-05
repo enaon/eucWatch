@@ -350,7 +350,8 @@ touchHandler[0]=function(e,x,y){
         face[0].math('+');
       } else digitalPulse(D16,1,40);
     }else if  (e==1){ //slide dn
-		face.go("calc",-1);return;
+		//face.go("calc",-1);return;
+		face.go("main",0);return;
     }else if  (e==2){ //slide up
 	  if (y>160&&x<50) {
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}

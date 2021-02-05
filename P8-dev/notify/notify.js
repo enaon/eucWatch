@@ -224,7 +224,8 @@ touchHandler[0]=function(e,x,y){
 		digitalPulse(D16,1,40);
       }else digitalPulse(D16,1,40);
     }else if  (e==1){
-		face.go("notify",-1);return;
+		//face.go("notify",-1);return;
+		face.go("main",0);return;
     }else if  (e==2){
 	  if (y>160&&x<50) {
         if (g.bri.lv!==7) {this.bri=g.bri.lv;g.bri.set(7);}
