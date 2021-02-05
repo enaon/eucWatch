@@ -259,7 +259,8 @@ touchHandler[0]=function(e,x,y){
 	     digitalPulse(D16,1,[30,50,30]);
 	   }else digitalPulse(D16,1,40);
     }else if  (e==1){
-	  face.go("alarm",-1);return;
+//	  face.go("alarm",-1);return;
+  	  face.go("main",0);return;
     }else if  (e==2){
 	  if (y>200&&x<50) {
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
