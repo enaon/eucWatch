@@ -259,12 +259,12 @@ setWatch(function(s){
 },D19,{repeat:true, debounce:500,edge:0});  
 //button 
 function buttonHandler(s){
-  if ( this.l1) {clearTimeout(this.l1); this.l1=0;}
+  if ( this.t1) {clearTimeout(this.t1); this.t1=0;}
   if (s.state==true) { 
     this.press=true;
 	//toggle EUC on long press
-    this.l1=setTimeout(() => {
-      this.l1=0;
+    this.t1=setTimeout(() => {
+      this.t1=0;
       if (global.euc) {
 		if (euc.conn==="READY"&&euc.spd[0]>=3&&euc.make==="ks") {
 		  euc.ch.writeValue(euc.cmd("lightsAuto"));
@@ -272,14 +272,13 @@ function buttonHandler(s){
 		  return;
 	    } else {euc.tgl();this.press=false;}
       }
-    }, 1500);
+    }, 1000);
       
    }else if (this.press && !s.state)  { 
 	this.press=false;
 	if (euc.conn==="READY"&&euc.spd[0]>=3&&euc.make==="ks") {
 		  euc.ch.writeValue(euc.cmd("lightsAuto"));
 		  setTimeout(function(){euc.ch.writeValue(euc.cmd("lightsOn"));},300);
-		  //face.go("euc",0);
 		  return;
 	}
 	if (face.pageCurr==-1) {
@@ -293,8 +292,10 @@ function buttonHandler(s){
         if (set.def.acc==1) {
         acc.off();
         acc.go=0;
-        setTimeout(function(t){
+		if (this.t2) {clearTimeout(this.t2); this.t2=0;}
+        this.t2=setTimeout(function(t){
 		  acc.on();
+		  this.t2=0;
         },2000);
         }
         face.go("main",-1);

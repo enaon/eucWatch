@@ -48,9 +48,9 @@ face[0] = {
 	//Temp
     if (euc.temp!=this.temp) {
       this.temp=euc.temp;
-	  this.g.setColor(1,euc.tmpC);
+	  this.g.setColor(0,euc.tmpC);
       this.g.fillRect(0,0,79,55);       
-      this.g.setColor(0,(euc.tmpC!=col("yellow")&&euc.tmpC!=col("lblue"))?col("white"):0);
+      this.g.setColor(1,(euc.tmpC!=col("yellow")&&euc.tmpC!=col("lblue"))?col("white"):0);
       this.g.setFont("7x11Numeric7Seg",4.5);
       this.g.drawString(euc.temp, 3,5); //temp      
 	  this.g.flip();
@@ -58,9 +58,9 @@ face[0] = {
 	//Amp
     if ((euc.amp|0)!=this.amp) {
         this.amp=(euc.amp|0);
-		this.g.setColor(1,euc.ampC);
+		this.g.setColor(0,euc.ampC);
 		this.g.fillRect(80,0,160,55); //amp 
-        this.g.setColor(0,(euc.ampC!=col("yellow")&&euc.ampC!=col("white"))?col("white"):0);
+        this.g.setColor(1,(euc.ampC!=col("yellow")&&euc.ampC!=col("white"))?col("white"):0);
         this.g.setFont("7x11Numeric7Seg",4.5);
         this.g.drawString(euc.amp|0,(122-(this.g.stringWidth(euc.amp|0)/2)),5); 
         this.g.flip();
@@ -68,9 +68,9 @@ face[0] = {
 	//Battery
     if (euc.batt!=this.batt) {
    	  this.batt=euc.batt;
-	  this.g.setColor(1,euc.batC);
+	  this.g.setColor(0,euc.batC);
       this.g.fillRect(161,0,239,55);
-      this.g.setColor(0,(euc.batC!=col("yellow")&&euc.batC!=col("lgreen"))?col("white"):0);
+      this.g.setColor(1,(euc.batC!=col("yellow")&&euc.batC!=col("lgreen"))?col("white"):0);
       this.g.setFont("7x11Numeric7Seg",4.5);
       this.g.drawString(euc.batt,240-(this.g.stringWidth(euc.batt)+3),5); //fixed bat
       this.g.flip();
@@ -148,22 +148,13 @@ face[0] = {
     if (euc.conn!=this.conn) {
       this.conn=euc.conn;
       this.g.setFontVector(36);
-
-//  	  this.g.setColor(0,col("black"));
-	  this.g.setColor(0,col("black"));
-      this.g.fillRect(0,0,79,55); //temp
-      this.g.fillRect(161,0,239,55); //temp
-	  
+	  this.g.setColor(0,col("dgray"));
+      this.g.fillRect(0,0,239,55); //top
       this.g.setColor(1,col("lblue"));
- 	  this.g.drawImage(require("heatshrink").decompress(atob("kEgwIIFgfAAYMEkADGiADNgwPaguQAasJAYUT5ADBi/oAYMn+gDBl4DCk/kB4oXDhg7Cg/gPQgA=")),25,10);
-      this.g.drawImage(require("heatshrink").decompress(atob("kEgwIIFg/gAYv//4DBwEBAaVBAYXBAYuBBYWDAYWCAYWEqIDCmIDBxERAYOekIXCAYQfDwQnCwRbCwY7CAYeCKaRrDAAQA==")),215,10);	 
+ 	  this.g.drawImage(require("heatshrink").decompress(atob("jkwwIEBj4CBg/8AYP/8EAh//gEB//wgEeh4GB4FwDgMHwAGBnAGBgYGLjvzAwPfAzMDAwV9+fgh/fn8B+Px+E+j8HwfD/F8vl/8fHx//jl5//x98f/+e+P//Hvn//x3zAwQNCuP//Pnz//j14//h4/H/08nk/w+BQwP4j+ASYP+g/gg//SwIpBwCZDgCVBA=")),25,3);
+      this.g.drawImage(require("heatshrink").decompress(atob("mEwwIdah/wAqkB///wAFBgYFB4AFh34FKn4FJ/wFK/gFE/AFK+AFFgYFD8EHApPAh4vEAosfApRHFv4FKPogFF/oFKU6zRFACwA=")),180,3);	 
+      this.g.drawImage(require("heatshrink").decompress(atob("mEwwIMJv/4Aof/+AECjgFE/v/8AEBgf5AocH/f/4AFBj/D/+YAoM/g//3wFBvgFBn4FB/EP/0fwEB+AFBh/Agfgj/8g/gg/Aj/4BIMHwE//AVCFQJGBAoV/AoP4jwFBKYN4AoP/AoN8jkBAoPgvk8AoXAnk8gYFBwAFEgAFBKQP+Aon8AoRyBRwIFCh47BAo0cPwKIBAoaIBnhHBn+AgE4KYSBBnBfBvwFBvAFBGgMAuB3BYYXwg+BXoXggfBFwMBSoPjAoMD4EB+Y0BDYMA+4CBE4MAs4CBnwCBhzCCAQMMEwIxCjKVCAoMRR4QFBkCnBfQR9DAAwA=")),97,3);	 
       this.g.flip();
-      this.g.setColor(0,col("purple"));
-      this.g.fillRect(80,0,160,55); //temp
-	  this.g.setColor(1,col("lblue"));
-      this.g.drawImage(require("heatshrink").decompress(atob("lUgwIFCjwKDv/4AgV+j+AAgN4gHwAgM4gEOAgMcgEB4AHDBgMDAgMHBgOAhkAB4NgBAMYgEwDAMGgANB7AGBDIM2BoWAhHABoNgg0wgcD/EB/kA//+gHhwE/4OAmFgCgUIhAiBhkCAYIpCAANwIAQ+CAIMAHwIBBKwYPBMYRgBgHgMAQeCPYQMCh8AngEBgP/JIIABj4EDMIICBA")),101,12);	 
-      this.g.flip();
-      //this.g.fillRect(0,43,239,175);
   	  this.g.setColor(0,col("black"));
 	  this.g.fillRect(0,56,239,239);
       this.g.setColor(1,col("white"));
