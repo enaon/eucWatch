@@ -8,7 +8,7 @@ face[0] = {
     var d=(Date()).toString().split(' ');
     var t=(d[4]).toString().split(':');	
       pal[0]=col("black");
-      if(!face.mode) this.g.setColor(1,col("gray")); else this.g.setColor(1,col("raf2"));
+      if(!face.mode) this.g.setColor(1,col("dgray")); else this.g.setColor(1,col("raf2"));
       this.g.fillRect(0,0,75,75);//1
       this.g.fillRect(80,0,155,75); //2
       this.g.fillRect(160,0,239,75); //3
@@ -85,7 +85,7 @@ face[0] = {
         this.g.setColor(0,0);
         this.g.clearRect(76,0,79,75);
         this.g.flip();
-        this.g.setColor(1,col("gray"));
+        this.g.setColor(1,col("dgray"));
         this.g.fillRect(80,0,155,75); //2
         this.g.setColor(0,col("black"));
         this.g.drawImage(require("heatshrink").decompress(atob("mEwwIHEgfwAocH/AFDh/8Aocf/wFDn//Aod/Aon//8PAQPBAomDAQMfAQMH//+AoP+BwIFC/gCE+AuB/Ef4AuC+EfwAuC8AFBgIFB4AFBgYFBwAFBFwJGBAoIuCAoQuCAoQuCAonwoAFBGgPgFIQLB4IFBQIJgB4EeRoJgB4Ecg+D/wFBjE/8P8h5XC+H4AoQzB+AFD/lAAoJdBIoIFDKIIFfQIIpDApB+BAoZsBAoX4PAPANIPwAoR1B+CtDcQaHCYAL3CTwIAC")),94,15);
@@ -100,7 +100,7 @@ face[0] = {
     //find my phone
     if (set.fmp!=this.fmp) {
       this.fmp=set.fmp;
-	  this.btn(this.fmp,0,80,75,155,require("heatshrink").decompress(atob("mEwwILIv/+AgUD///4AFBg8//HgAoMGj/4sAFCAQIFfgYFD4EPAofghwFDuEcAoc4nAFDjkw4wFBscMuIFDx1hwwFBAYPjAofG8YdD4/HApPjAqIjEAovHsY1D45BFJopZFMopxFPosHAofwSoq/jAo0HAQL1Cgf//40BAAM87wECAAg")),13,94,col("dyellow"),col("gray"));//btn3
+	  this.btn(this.fmp,0,80,75,155,require("heatshrink").decompress(atob("mEwwILIv/+AgUD///4AFBg8//HgAoMGj/4sAFCAQIFfgYFD4EPAofghwFDuEcAoc4nAFDjkw4wFBscMuIFDx1hwwFBAYPjAofG8YdD4/HApPjAqIjEAovHsY1D45BFJopZFMopxFPosHAofwSoq/jAo0HAQL1Cgf//40BAAM87wECAAg")),13,94,col("dyellow"),col("dgray"));//btn3
       }
     //acc on/off
     if (set.def.acc!=this.acc) {
@@ -111,7 +111,7 @@ face[0] = {
     if (this.g.bri.lv!=this.bri) {
       this.bri=this.g.bri.lv;
       this.c=colo.btnTxt1;
-      this.g.setColor(0,col("gray"));
+      this.g.setColor(0,col("dgray"));
       this.g.clearRect(160,80,239,155);//brightness
       this.g.setColor(1,this.c);
       this.g.setFont("Vector",30);
@@ -149,7 +149,7 @@ face[0] = {
    btn:function(state,rectx0,recty0,rectx1,recty1,Img,ImgX,ImgY,fCol,bCol){
       this.colf=(fCol)?fCol:col("white");
       this.colb=(bCol)?bCol:col("raf3");
-      if (state!==1) {this.colb=col("gray");this.colf=col("black");}
+      if (state!==1) {this.colb=col("dgray");this.colf=col("black");}
       this.g.setColor(1,this.colb);
       this.g.fillRect(rectx0,recty0,rectx1,recty1);
       this.g.setColor(0,this.colf);
