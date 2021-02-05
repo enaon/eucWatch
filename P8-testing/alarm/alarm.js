@@ -281,7 +281,7 @@ touchHandler[0]=function(e,x,y){
 		else {face.go("alarm",5,3);return;}
 	  }else digitalPulse(D16,1,40);    
     }else if  (e==4){
-	  face.go("main",0);return;
+ 	  face.go(face.appPrev, face.pagePrev);return;
     }else if  (e==12){		
 	  if(39<y&&y<105) {
 		if(alrm[1].on===1) {alrm.stop(1);face[0].al1=-2;}
