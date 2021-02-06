@@ -111,7 +111,7 @@
       {"name":"euc","url":"euc_dash.js"}
     ]
   },  
-  { "id": "euc_simple",
+  { "id": "dash",
     "name": "EUC Dashboard",
     "icon": "icon.png",
     "version":"0.01",

@@ -284,7 +284,7 @@ function buttonHandler(s){
 	if (face.pageCurr==-1) {
 		digitalPulse(D16,1,[60,40,60]);
 		if (global.euc){
-			if (euc.conn!="OFF") face.go("euc",0);
+			if (euc.conn!="OFF") face.go("dash",0);
 			else face.go(face.appCurr,0);
 		}else face.go(face.appCurr,0);
 	}else { 
@@ -488,7 +488,7 @@ acc={
           if (this.go){ 
             if (!w.gfx.isOn&&face.appCurr!=""){  
 			if  (global.euc) {
-              if (euc.conn!="OFF") face.go("euc",0);
+              if (euc.conn!="OFF") face.go("dash",0);
               else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
             }else{ 
 				if (face.appCurr=="main") face.go("main",0);
