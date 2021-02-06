@@ -75,22 +75,7 @@ face[0] = {
       this.g.drawString(euc.batt,240-(this.g.stringWidth(euc.batt)+3),5); //fixed bat
       this.g.flip();
     }
-	
-/*	//Mileage
-	if (euc.trpN!=this.trpN) {
-	  euc.tmp.trpN=euc.trpN;
-	  this.g.setColor(0,col("black"));
-	  this.g.fillRect(0,194,239,239);
-      this.g.setColor(1,col("lblue"));
-	  this.g.setFont("7x11Numeric7Seg",3);
-   	  this.g.drawString(euc.trpN,0,205); 
-	  this.g.drawString(euc.trpT,240-(this.g.stringWidth(euc.trpT)+1),205); 
-//	  this.g.drawString(euc.trpT,(240-(this.g.stringWidth(euc.trpT)))/2,205); 
-//	  this.g.drawString(euc.trpR,240-(this.g.stringWidth(euc.trpR)+1),205); 
-	  this.g.flip();
-    }     
-*/
-//off  
+ 
   } else if (euc.conn=="OFF")  {
     if (euc.lock!=this.lock){
     this.lock=euc.lock;
@@ -207,8 +192,9 @@ touchHandler[0]=function(e,x,y){
     if (e==5){ 
 	  digitalPulse(D16,1,40);
     }else if  (e==1){
-	  if (euc.conn!="OFF") {face.go("dash",-1);return;}
-	  else {face.go("main",0);return; }
+	  if (euc.conn!="OFF") face.go("dash",-1);
+	  else face.go("main",0);
+	  return;
     }else if  (e==2){
 	  if (y>160&&x<50) {
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
@@ -218,60 +204,10 @@ touchHandler[0]=function(e,x,y){
 	  if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
 	  } else digitalPulse(D16,1,40);
     }else if  (e==3){
-	  face.go("main",0);
+	  face.go("main",0);return;
     }else if  (e==4){		
-	  face.go("main",0);
-//	  face.go(face.appRoot[0],(face.appRoot[1])>2?face.appRoot[1]:0,face.appRoot[2]);return;
-    }else if  (e==12){
-//euc on/off
-	  if  (y<158) {
-  	    euc.tgl();
-//		face.go("dash",0);return;
-//euc settings
-	  }else if(euc.conn!=="WAIT"){
-        digitalPulse(D16,1,140);
- 	    euc.tmp.count=23;
-		face.go("dash",5);return;
-      }else digitalPulse(D16,1,80);
-    }
-    this.timeout();
-};
-//settings
-touchHandler[5]=function(e,x,y){    
-    if (e==5){ 
-	  digitalPulse(D16,1,40);
-    }else if  (e==1){
-      if  (x>=120) {
-        euc.rdmd++;
-        if (euc.rdmd >9) {euc.rdmd=9; digitalPulse(D16,1,40);}
-      }else digitalPulse(D16,1,40);
-    }else if  (e==2){
-      if  (x>=120) {
-        euc.rdmd--;
-        if (euc.rdmd <0) {euc.rdmd=0; digitalPulse(D16,1,40);}
-      }else digitalPulse(D16,1,40);
-    }else if  (e==3){
-      digitalPulse(D16,1,40);
-    }else if  (e==4){
-	  face.go("dash",0);return;
-    }else if  (e==12){
-	  if (x<120&&y<80){
-	 	digitalPulse(D16,1,[30,50,30]);
-		face.go('w_scan',0,'ffe0');
-		return;
-      //ride mode
-	  }else if  (x>120) { 
-        euc.tmp.count=euc.rdmd+24;
-      //reset mileage
-      }else if (x<115 && y>145) {
-        digitalPulse(D16,1,300);  
-        euc.trpL="0.0";
-	  //toggle EUC auto lock
-	  }else if (x<115 && (80<y&&y<145)) {
-        //if (set.def.cli) console.log("toggle alock");
-        digitalPulse(D16,1,300);  
-        euc.alck=1-euc.alck;
-      }else digitalPulse(D16,1,40);
-    }
+	  face.go("main",0);return;
+    }else if  (e==12) euc.tgl();
+
     this.timeout();
 };
