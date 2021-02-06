@@ -115,7 +115,7 @@
     "name": "EUC Dashboard",
     "icon": "icon.png",
     "version":"0.01",
-    "description": "Simple EUC dashboard, depends on a euc module",
+    "description": "EUC dashboard. Includes sumple/full modes, settings and info page. Depends on EUC module."
     "tags": "euc",
     "storage": [
       {"name":"dash_simple","url":"dash_simple.js"},
