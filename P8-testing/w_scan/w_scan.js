@@ -1,4 +1,4 @@
-//scan face-used by euc/repellent
+//scan face-used by dash/repellent
 if(!global.scan){
 scan={
     mac:[],
@@ -95,7 +95,7 @@ face[0] = {
       this.g.fillRect(0,36,239,239);
       this.g.setColor(1,col("lblue"));
       this.g.setFont("Vector",25);
-      this.g.drawString((face.appPrev=="euc"||face.appPrev=="repellent")?face.appPrev.toUpperCase():"BT DEVICE",120-(this.g.stringWidth((face.appPrev=="euc"||face.appPrev=="repellent")?face.appPrev.toUpperCase():"BT DEVICE")/2),50);
+      this.g.drawString((face.appPrev=="dash"||face.appPrev=="repellent")?face.appPrev.toUpperCase():"BT DEVICE",120-(this.g.stringWidth((face.appPrev=="dash"||face.appPrev=="repellent")?face.appPrev.toUpperCase():"BT DEVICE")/2),50);
       this.g.drawString("NOT FOUND",120-(this.g.stringWidth("NOT FOUND")/2),90);
       this.g.drawString("TOUCH TO SCAN",120-(this.g.stringWidth("TOUCH TO SCAN")/2),150);
 
@@ -132,8 +132,8 @@ face[1] = {
   return true;
   },
   show : function(){
-	face.go(face.appRoot[0],face.appRoot[1]);
-    return true;
+	(face.appPrev=="dash"||face.appPrev=="repellent")?face.go(face.appRoot[0],face.appRoot[1]):face.go("main",0);
+	return true;
   },
    clear: function(){
   return true;
