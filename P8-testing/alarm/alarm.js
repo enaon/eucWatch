@@ -259,7 +259,7 @@ touchHandler[0]=function(e,x,y){
 	     digitalPulse(D16,1,[30,50,30]);
 	   }else digitalPulse(D16,1,40);
     }else if  (e==1){
-//	  face.go("alarm",-1);return;
+//face.go("alarm",-1);return;
   	  face.go("main",0);return;
     }else if  (e==2){
 	  if (y>200&&x<50) {
@@ -281,7 +281,9 @@ touchHandler[0]=function(e,x,y){
 		else {face.go("alarm",5,3);return;}
 	  }else digitalPulse(D16,1,40);    
     }else if  (e==4){
- 	  face.go(face.appPrev, face.pagePrev);return;
+  	  face.go("main",0);return;
+ 	  //face.go(face.appPrev, face.pagePrev);
+	  return;
     }else if  (e==12){		
 	  if(39<y&&y<105) {
 		if(alrm[1].on===1) {alrm.stop(1);face[0].al1=-2;}

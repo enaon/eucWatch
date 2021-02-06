@@ -98,7 +98,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
     if (euc.busy) return;
     if (this.KSdata[16]==169) {
 		this.alert=0;
-        euc.spd=((decode2byte(this.KSdata[4],this.KSdata[5])/100)+"").split("."); 
+        euc.spd=((((this.KSdata[4] & 0xFF) + (this.KSdata[5] << 8))/100)+"").split("."); 
 		if (euc.spd[0]>45)  {
 			euc.spdC=col("red");this.alert=1;
 		}else if (euc.spd[0]>35) {
@@ -107,15 +107,14 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 			euc.spdC=col("white");this.alert=1;			
 		}
         //amp
-		this.cur=decode2byte(this.KSdata[10], this.KSdata[11]);
+		this.cur=((this.KSdata[10] & 0xFF) + (this.KSdata[11] << 8));
         if (this.cur > 32767) this.cur = this.cur - 65536;
-        euc.amp=(this.cur/100).toFixed(2);;
+        euc.amp=(this.cur/100).toFixed(2);
 		//charging
-		if (euc.spd[0]===0&&euc.amp<0&&euc.chrg) {
-		
+		if (euc.spd[0]===0&&euc.amp<0) {
 		}
-		
-		if (euc.amp>30)  {
+		//
+		else if (euc.amp>30)  {
 			euc.ampC=col("red");this.alert=1;
 			euc.spdC=col("red");		
 		}else if (euc.amp>23) {
@@ -136,7 +135,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 		}else {euc.ampC=col("dgray");}
 		
 		//volt
-        euc.volt=((decode2byte(this.KSdata[2],this.KSdata[3])/100)+"");
+        euc.volt=(((this.KSdata[2] & 0xFF) + (this.KSdata[3] << 8))/100)+"";
         euc.batt=(((euc.volt/20)*100-330)*1.1111)|0;
 		if (euc.batt<20)  {
 			euc.batC=col("red");this.alert=1;
@@ -145,7 +144,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 			euc.batC=col("yellow");this.alert=1;
 		} else euc.batC=col("black");
         //temp
-		euc.temp=((decode2byte(this.KSdata[12],this.KSdata[13])/100)+"");
+		euc.temp=(((this.KSdata[12] & 0xFF) + (this.KSdata[13] << 8))/100)+"";
 		if (euc.temp>65)  {
 			euc.tmpC=col("red");this.alert=1;
 			euc.spdC=col("red");
@@ -153,22 +152,23 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 			euc.tmpC=col("yellow");this.alert=1;
 		} else euc.tmpC=col("black");
 		//trip
-        euc.trpT=((decode4byte(this.KSdata[6],this.KSdata[7],this.KSdata[8],this.KSdata[9])/1000.0)).toFixed(1);
+        euc.trpT=((this.KSdata[6] << 16) + (this.KSdata[7] << 24) + this.KSdata[8] + (this.KSdata[9] << 8)).toFixed(1);
 		//mode                                    
         euc.rmode=this.KSdata[14];
 		if (!this.alert)  euc.spdC=col("black");
     }else if  (this.KSdata[16]==185){
-        euc.trpL=(decode4byte(this.KSdata[2], this.KSdata[3], this.KSdata[4], this.KSdata[5]) / 1000.0).toFixed(1);
-        euc.time=(decode2byte(this.KSdata[6], this.KSdata[7]) / 100.0)|0;
-        euc.spdT=(decode2byte(this.KSdata[8], this.KSdata[9]) / 100.0).toFixed(1);
+        euc.trpL=(((this.KSdata[2] << 16) + (this.KSdata[3] << 24) + this.KSdata[4] + (this.KSdata[5] << 8)) / 1000.0).toFixed(1);
+		euc.time=((this.KSdata[6] & 0xFF) + (this.KSdata[7] << 8) / 100.0).toFixed(1);
+        euc.spdT=((this.KSdata[8] & 0xFF) + (this.KSdata[9] << 8) / 100.0).toFixed(1);
     }else if (euc.conn=="OFF"){
       euc.busy=1;
 	  if (set.def.cli) console.log("EUCstartOff");
 	  euc.lock=1;
       digitalPulse(D16,1,120);
-	  c.writeValue(euc.cmd("lock")).then(function() {
-	  global["\xFF"].BLE_GATTS.disconnect();
-	  });
+	  c.writeValue(euc.cmd("lightsAuto"));
+	  setTimeout(() => { ;c.writeValue(euc.cmd("lock")).then(function() {
+		global["\xFF"].BLE_GATTS.disconnect();});
+	  }, 500)
 	  //global["\xFF"].BLE_GATTS.disconnect();
 	  
     return;
@@ -180,10 +180,11 @@ return  c;
   euc.ch=c;
   global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
     if (set.def.cli) console.log("EUC Disconnected :",reason);
+	if (euc.tmp.reconnect) {clearTimeout(euc.tmp.reconnect); euc.tmp.reconnect=0;}
     if (euc.conn!="OFF") {  
 	 if (set.def.cli) console.log("EUC restarting");
-     euc.conn="WAIT"; 
-     setTimeout(() => {  euc.con(euc.mac[euc.go]); }, 500);
+     euc.conn="WAIT";
+     euc.tmp.reconnect=setTimeout(() => {  euc.con(euc.mac[euc.go]); }, 500);
       return;
     }else {
 	  if (set.def.cli) console.log("Destroy euc (reason):",reason);
@@ -194,6 +195,7 @@ return  c;
 	  global.BluetoothRemoteGATTCharacteristic=undefined;
 	  global.Promise=undefined;
 	  global.Error=undefined;
+      NRF.setTxPower(set.def.rfTX);
     }
   });
 //connected ****************************
@@ -207,6 +209,7 @@ return  c;
 //reconect
 }).catch(function(err)  {
   if (set.def.cli) console.log("EUC error", err);
+  if (euc.tmp.reconnect) {clearTimeout(euc.tmp.reconnect); euc.tmp.reconnect=0;}
 //  global.error.push("EUC :"+err);
   if (euc.conn!="OFF") {
     if (set.def.cli) console.log("not off");
@@ -215,7 +218,6 @@ return  c;
 	  euc.conn="LOST";
 	  if (euc.lock==1) digitalPulse(D16,1,250);
 	  else digitalPulse(D16,1,[250,200,250,200,250]);
-  	  if (euc.tmp.reconnect) {clearTimeout(euc.tmp.reconnect); euc.tmp.reconnect=0;}
 	  euc.tmp.reconnect=setTimeout(() => {
 		euc.tmp.reconnect=0;
 	    euc.con(euc.mac[euc.go]); 
@@ -225,13 +227,13 @@ return  c;
       euc.conn="FAR";
 	  //if (euc.lock==1) digitalPulse(D16,1,40);
 	  //else digitalPulse(D16,1,[100,150,100]);
-  	  if (euc.tmp.reconnect) {clearTimeout(euc.tmp.reconnect); euc.tmp.reconnect=0;}
       euc.tmp.reconnect=setTimeout(() => {
 		euc.tmp.reconnect=0;
 	    euc.con(euc.mac[euc.go]); 
       }, 500);
     }
   } else {
+  	  if (set.def.cli) console.log("Destroy euc (reason-1):",reason);
 	  global["\xFF"].bleHdl=[];
       global.BluetoothDevice=undefined;
 	  global.BluetoothRemoteGATTServer=undefined;
@@ -239,6 +241,7 @@ return  c;
 	  global.BluetoothRemoteGATTCharacteristic=undefined;
 	  global.Promise=undefined;
 	  global.Error=undefined;
+      NRF.setTxPower(set.def.rfTX);
   }
 });
 };
@@ -248,26 +251,17 @@ euc.wri= function(n) {
   return;
 };
 
-decode2byte=function(byte1, byte2){//converts big endian 2 byte value to int
-    this.val = (byte1 & 0xFF) + (byte2 << 8);
-    return this.val;
-};
-decode4byte=function(byte1,byte2,byte3,byte4){
-    this.val = (byte1 << 16) + (byte2 << 24) + byte3 + (byte4 << 8);
-    return this.val;
-};
-
 euc.tgl=function(){ 
   if (euc.conn!="OFF" ) {
     digitalPulse(D16,1,[90,60,90]);  
 	if (euc.tmp.reconnect ||  euc.conn=="WAIT" || euc.conn=="ON") {
     clearTimeout(euc.tmp.reconnect); euc.tmp.reconnect=0;
     }
-    NRF.setTxPower(set.def.rfTX);
 	if (!set.def.acc) acc.off();
     euc.conn="OFF";
-	face.go("euc",0);
+	//face.go("euc",0);
   }else {
+    NRF.setTxPower(4);
     digitalPulse(D16,1,100);   
 	euc.mac=(require("Storage").readJSON("setting.json",1)||{}).euc_mac;
 	euc.go=(require("Storage").readJSON("setting.json",1)||{}).euc_go;
@@ -275,7 +269,6 @@ euc.tgl=function(){
 	else {
 	if (euc.conn == "OFF") euc.tmp.count=22; else euc.tmp.count=0;  //unlock
 	euc.conn="ON";
-    NRF.setTxPower(4);
 	if (!set.def.acc) acc.on();
 	euc.con(euc.mac[euc.go]); 
 	face.go("euc",0);
