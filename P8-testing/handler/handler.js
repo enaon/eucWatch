@@ -59,7 +59,8 @@ var set={
 	acc:1, //enables/disables wake-screen on wrist-turn. 
 	dnd:1, //Do not disturb mode, if ebabled vibrations are on.
 	hidT:"media", //joy/kb/media
-	bri:3 //Screen brightness 1..7
+	bri:3, //Screen brightness 1..7
+	dash:"dash_simple" //
 	};
 	set.updateSettings();
   },
