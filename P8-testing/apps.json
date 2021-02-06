@@ -118,9 +118,9 @@
     "description": "Simple EUC dashboard, depends on a euc module",
     "tags": "euc",
     "storage": [
-      {"name":"euc","url":"dash_simple.js"},
-	  {"name":"eucSet","url":"euc_settings.js"},
-	  {"name":"eucInf","url":"euc_info.js"}
+      {"name":"dash","url":"dash_simple.js"},
+	  {"name":"dashSet","url":"dash_settings.js"},
+	  {"name":"dashInf","url":"dash_info.js"}
 	  
     ]
   }, 
