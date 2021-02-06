@@ -60,7 +60,9 @@ var set={
 	dnd:1, //Do not disturb mode, if ebabled vibrations are on.
 	hidT:"media", //joy/kb/media
 	bri:3, //Screen brightness 1..7
-	dash:"dash_simple" //
+	dash:"dash_simple", //
+	acctype:"BMA421",
+	touchtype:"716"
 	};
 	set.updateSettings();
   },

@@ -33,7 +33,7 @@
         // build the app's text using a templated String
 		//require("handler").advertise(${JSON.stringify(acc)});
         var app = ` 
-		{"name":${JSON.stringify(name)},"touchtype":${JSON.stringify(touch)},"acctype":${JSON.stringify(acc)},"timezone":${JSON.stringify(zone)},"woe":1,"wob":1,"rfTX":4,"cli":1,"hid":0,"gb":1,"atc":0,"acc":1,"dnd":1,"hidT":"media","bri":3}
+		{"name":${JSON.stringify(name)},"touchtype":${JSON.stringify(touch)},"acctype":${JSON.stringify(acc)},"timezone":${JSON.stringify(zone)},"woe":1,"wob":1,"rfTX":4,"cli":1,"hid":0,"gb":1,"atc":0,"acc":1,"dnd":1,"hidT":"media","bri":3,"dash":"dash_simple"}
 `;
 
   window.postMessage(app);
