@@ -445,20 +445,33 @@ if (set.def.acctype==="BMA421"){
 }
 acc={
   loop:200,
-  tid:-1,
-  run:-1,
+  tid:0,
+  run:0,
   go:1,
   up:0,
-  yedge:245,
-  xedge:25,
   on:function(){
-	if (set.def.acctype==="BMA421"){i2c.writeTo(0x18,0x7d,0x04);i2c.writeTo(0x18,0x12);this.yedge=250;this.xedge=20;
-	}else {i2c.writeTo(0x18,0x01);this.yedge=235;this.xedge=30;}
-	this.run=1;this.init();},
-  off:function(){if (set.def.acctype==="BMA421")i2c.writeTo(0x18,0x7d,0x04);this.run=-1;},
+	if (this.tid) {clearInterval(this.tid); this.tid=0;}
+	if (set.def.acctype==="BMA421"){
+		i2c.writeTo(0x18,0x7d,0x04);
+		i2c.writeTo(0x18,0x12);
+		this.yedge=250;this.xedge=20;
+	}else {
+		i2c.writeTo(0x18,0x01);
+		this.yedge=235;this.xedge=30;
+	}
+	this.run=1;this.init();
+	this.tid=setInterval(function(t){
+		t.init(); 
+    },this.loop,this);
+  },
+  off:function(){
+	  if (this.tid) {clearInterval(this.tid); this.tid=0;}
+	  if(set.def.acctype==="BMA421")i2c.writeTo(0x18,0x7d,0x04);
+	  this.run=0;
+  },
   init:function(){
     "ram";
-	if(this.run===-1) return;
+	if(!this.run) return;
     var data;
 	if (set.def.acctype=="BMA421") data=i2c.readFrom(0x18,6);
     else {data={}; data[3]=i2c.readFrom(0x18,1)+"";} 
@@ -490,10 +503,6 @@ acc={
          }
 		}
     }else {this.loop=300;this.up=0;this.go=1;if (set.tor==1)w.gfx.bri.set(7); }
-    this.tid=setTimeout(function(t){
-		t.tid=-1;
-		t.init(); 
-    },this.loop,this);
   }
 };
 //themes -todo

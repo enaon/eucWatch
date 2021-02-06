@@ -107,9 +107,9 @@ face[0] = {
     this.g.setColor(1,col("white"));
     this.g.setFontVector(28);
     this.g.drawString(euc.spdT,190-this.g.stringWidth(euc.spdT),90);
-    this.g.drawString(euc.time|0,190-this.g.stringWidth(euc.time|0),133); 
-    this.g.drawString(euc.trpL|0,190-this.g.stringWidth(euc.trpL|0),175); 
-    this.g.drawString(euc.trpT|0,190-this.g.stringWidth(euc.trpT|0),217); 
+    this.g.drawString(euc.time,190-this.g.stringWidth(euc.time),133); 
+    this.g.drawString(euc.trpL,190-this.g.stringWidth(euc.trpL),175); 
+    this.g.drawString(euc.trpT,190-this.g.stringWidth(euc.trpT),217); 
 	this.g.flip();	
     this.g.setColor(0,col("black"));
 	this.g.fillRect(0,56,74,239); //left	

@@ -152,14 +152,14 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 			euc.tmpC=col("yellow");this.alert=1;
 		} else euc.tmpC=col("black");
 		//trip
-        euc.trpT=((this.KSdata[6] << 16) + (this.KSdata[7] << 24) + this.KSdata[8] + (this.KSdata[9] << 8)).toFixed(1);
+        euc.trpT=(((this.KSdata[6] << 16) + (this.KSdata[7] << 24) + this.KSdata[8] + (this.KSdata[9] << 8))/1000).toFixed(1);
 		//mode                                    
         euc.rmode=this.KSdata[14];
 		if (!this.alert)  euc.spdC=col("black");
     }else if  (this.KSdata[16]==185){
         euc.trpL=(((this.KSdata[2] << 16) + (this.KSdata[3] << 24) + this.KSdata[4] + (this.KSdata[5] << 8)) / 1000.0).toFixed(1);
-		euc.time=((this.KSdata[6] & 0xFF) + (this.KSdata[7] << 8) / 100.0).toFixed(1);
-        euc.spdT=((this.KSdata[8] & 0xFF) + (this.KSdata[9] << 8) / 100.0).toFixed(1);
+		euc.time=(((this.KSdata[6] & 0xFF) + (this.KSdata[7] << 8)) / 60.0).toFixed(0);
+        euc.spdT=(((this.KSdata[8] & 0xFF) + (this.KSdata[9] << 8)) / 100.0).toFixed(1);
     }else if (euc.conn=="OFF"){
       euc.busy=1;
 	  if (set.def.cli) console.log("EUCstartOff");
