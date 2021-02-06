@@ -258,7 +258,7 @@ face[1] = {
   return true;
   },
   show : function(){
-	if (Boolean(require("Storage").read("euc"))) {face.go("euc",0);}
+	if (Boolean(require("Storage").read("dash"))) {face.go("dash",0);}
 	else if (Boolean(require("Storage").read("alarm"))) {face.go("alarm",0);}  
 	return true;
   },
@@ -313,7 +313,7 @@ touchHandler[0]=function(e,x,y){
 		if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
 	  } else digitalPulse(D16,1,40);
     }else if  (e==3){
-		if (Boolean(require("Storage").read("euc"))) {face.go("euc",0);return;}
+		if (Boolean(require("Storage").read("dash"))) {face.go("dash",0);return;}
 		else if (Boolean(require("Storage").read("alarm"))) {face.go("alarm",0);return;}
     }else if  (e==4){
 		if (Boolean(require("Storage").read("notify"))) {face.go("notify",0);return;}

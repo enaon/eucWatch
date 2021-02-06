@@ -5,7 +5,7 @@ scan={
 	go:function(app,service){
 	set.gIsB=1;
 	NRF.findDevices(function(devices) {
-	  if (app=="euc") this.filter = [{services:[service]}];
+	  if (app=="dash") this.filter = [{services:[service]}];
 	  else if (app=="repellent") this.filter = [{serviceData:{"fe95":{}}}];
       else  this.filter = [{services:[service]}];
       var found=[];

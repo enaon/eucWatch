@@ -191,7 +191,7 @@ face[1] = {
   return true;
   },
   show : function(){
-    if (euc.conn=="OFF") face.go("main",0); else {face.pageCurr=0;face.go("euc",-1);}
+    if (euc.conn=="OFF") face.go("main",0); else {face.pageCurr=0;face.go("dash",-1);}
     return true;
   },
   clear: function(){
@@ -207,7 +207,7 @@ touchHandler[0]=function(e,x,y){
     if (e==5){ 
 	  digitalPulse(D16,1,40);
     }else if  (e==1){
-	  if (euc.conn!="OFF") {face.go("euc",-1);return;}
+	  if (euc.conn!="OFF") {face.go("dash",-1);return;}
 	  else {face.go("main",0);return; }
     }else if  (e==2){
 	  if (y>160&&x<50) {
@@ -226,12 +226,12 @@ touchHandler[0]=function(e,x,y){
 //euc on/off
 	  if  (y<158) {
   	    euc.tgl();
-//		face.go("euc",0);return;
+//		face.go("dash",0);return;
 //euc settings
 	  }else if(euc.conn!=="WAIT"){
         digitalPulse(D16,1,140);
  	    euc.tmp.count=23;
-		face.go("euc",5);return;
+		face.go("dash",5);return;
       }else digitalPulse(D16,1,80);
     }
     this.timeout();
@@ -253,7 +253,7 @@ touchHandler[5]=function(e,x,y){
     }else if  (e==3){
       digitalPulse(D16,1,40);
     }else if  (e==4){
-	  face.go("euc",0);return;
+	  face.go("dash",0);return;
     }else if  (e==12){
 	  if (x<120&&y<80){
 	 	digitalPulse(D16,1,[30,50,30]);
