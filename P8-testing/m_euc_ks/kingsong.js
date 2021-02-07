@@ -259,20 +259,21 @@ euc.tgl=function(){
     }
 	if (!set.def.acc) acc.off();
     euc.conn="OFF";
-	face.go("dash",0);
+	face.go(set.dash[set.def.dash],0);
   }else {
     NRF.setTxPower(4);
     digitalPulse(D16,1,100);   
 	euc.mac=(require("Storage").readJSON("setting.json",1)||{}).dash_mac;
 	euc.go=(require("Storage").readJSON("setting.json",1)||{}).dash_go;
 	if(!euc.mac) {
-		face.appCurr="dash";face.go('w_scan',0,'fff0');
+		//face.appCurr="dash";
+		face.go('w_scan',0,'fff0');
 	}else {
 		if (euc.conn == "OFF") euc.tmp.count=22; else euc.tmp.count=0;  //unlock
 		euc.conn="ON";
 		if (!set.def.acc) acc.on();
 		euc.con(euc.mac[euc.go]); 
-		face.go("dash",0);
+		face.go(set.dash[set.def.dash],0);
 	}
   } 
 };
