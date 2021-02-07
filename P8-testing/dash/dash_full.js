@@ -305,7 +305,7 @@ touchHandler[0]=function(e,x,y){
     if (e==5){ 
 	  digitalPulse(D16,1,40);
     }else if  (e==1){
-	  if (set.sef.dash+1>=set.dash.lenght) set.def.dash=0 else set.def.dash++;
+	  if (set.sef.dash+1>=set.dash.length) set.def.dash=0 else set.def.dash++;
 	  face.go(set.dash[set.def.dash],0);
 	  //if (euc.conn!="OFF") face.go("dash",-1);
 	  //else face.go("main",0);
