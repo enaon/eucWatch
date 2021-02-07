@@ -5,16 +5,17 @@ scan={
 	go:function(app,service){
 	set.gIsB=1;
 	NRF.findDevices(function(devices) {
-	  if (app=="dash") this.filter = [{services:[service]}];
-	  else if (app=="repellent") this.filter = [{serviceData:{"fe95":{}}}];
-      else  this.filter = [{services:[service]}];
+	  //if (app=="dash") this.filter = [{services:[service]}];
+	  //else 
+      if (app=="repellent") this.filter = [{serviceData:{"fe95":{}}}];
+      else {app="dash"; this.filter = [{services:[service]}];}
       var found=[];
   	  NRF.filterDevices(devices, this.filter).forEach(function(entry) {found.push(entry.id);});
 	  if (found!=""&&found!=undefined){ 
 	  (s=>{s&&(s[app+"_mac"]=found)&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
 	  (s=>{s&&(s[app+"_go"]="0")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
       scan.mac=found;
-	  } else scan.mac=[]
+	  } else scan.mac=[];
    	  set.gIsB=0;
       face[0].start=1;
    	  if (face.appCurr!="w_scan") {delete scan.go;delete scan;}
@@ -95,9 +96,9 @@ face[0] = {
       this.g.fillRect(0,36,239,239);
       this.g.setColor(1,col("lblue"));
       this.g.setFont("Vector",25);
-      this.g.drawString((face.appPrev=="dash"||face.appPrev=="repellent")?face.appPrev.toUpperCase():"BT DEVICE",120-(this.g.stringWidth((face.appPrev=="dash"||face.appPrev=="repellent")?face.appPrev.toUpperCase():"BT DEVICE")/2),50);
+      this.g.drawString((face.appPrev=="repellent")?"REPELLENT":"EUC",120-(this.g.stringWidth((face.appPrev=="repellent")?"REPELLENT":"EUC")/2),50);
       this.g.drawString("NOT FOUND",120-(this.g.stringWidth("NOT FOUND")/2),90);
-      this.g.drawString("TOUCH TO SCAN",120-(this.g.stringWidth("TOUCH TO SCAN")/2),150);
+      this.g.drawString("TOUCH TO RESCAN",120-(this.g.stringWidth("TOUCH TO RESCAN")/2),150);
 
       this.done=0;
       this.g.flip();
@@ -132,7 +133,7 @@ face[1] = {
   return true;
   },
   show : function(){
-	(face.appPrev=="dash"||face.appPrev=="repellent")?face.go(face.appRoot[0],face.appRoot[1]):face.go("main",0);
+	face.go(face.appRoot[0],face.appRoot[1]);
 	return true;
   },
    clear: function(){
