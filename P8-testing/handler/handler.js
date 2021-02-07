@@ -114,7 +114,7 @@ var set={
 set.def = require('Storage').readJSON('setting.json', 1);
 if (!set.def) set.resetSettings();
 //dash
-require('Storage').list(/dash_*/).forEach(dashfile=>{
+require('Storage').list(/dash_/).forEach(dashfile=>{
 	set.dash.push(dashfile);
 });
 //eval(require('Storage').read('handler.set')); //get defaults
