@@ -8,15 +8,15 @@ if (!global.euc){
 //vars
 global.euc= {
   spd: ["0","0"], 
-  spdC:col("black"),
+  spdC:0,
   spdT:0,
   amp: "0", 
-  ampC: col("dgray"), 
+  ampC: 0, 
   batt: "0", 
-  batC: col("dblue"), 
+  batC: 0, 
   temp: "0", 
-  tmpC: col("dblue"), 
-  trpC: col("black"), 
+  tmpC: 0, 
+  trpC: 0, 
   trpN: "0.0", 
   trpL: "0.0", 
   trpT: "0.0", 
@@ -27,13 +27,12 @@ global.euc= {
   lock: -1,
   alrm: 0,
   conn: "OFF",
-  alck: 0,
+  aLck: 0,
   far: 83,
   near: 65,
-  //mac:{0:"64:69:4e:75:89:4d public"},
-  //go:0,
   busy:0,
   make:"ks",
+  model:0,
   chrg:0
 };
 //alerts
@@ -86,7 +85,7 @@ if ( global["\xFF"].BLE_GATTS!="undefined") {
 	if (set.def.cli) print("ble allready connected"); 
 	if (global["\xFF"].BLE_GATTS.connected) {global["\xFF"].BLE_GATTS.disconnect();return;}
 }
-  
+//start connection  
 NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 .then(function(g) {
    return g.getPrimaryService(0xffe0);
@@ -166,11 +165,10 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 	  euc.lock=1;
       digitalPulse(D16,1,120);
 	  c.writeValue(euc.cmd("lightsAuto"));
-	  setTimeout(() => { ;c.writeValue(euc.cmd("lock")).then(function() {
-		global["\xFF"].BLE_GATTS.disconnect();});
-	  }, 500)
-	  //global["\xFF"].BLE_GATTS.disconnect();
-	  
+      if (euc.tmp.reconnect) {clearTimeout(euc.tmp.reconnect); euc.tmp.reconnect=0;}
+	  euc.tmp.reconnect=setTimeout(() => {c.writeValue(euc.cmd("lock")).then(function() {
+		euc.tmp.reconnect=0;global["\xFF"].BLE_GATTS.disconnect();});
+	  }, 200);
     return;
 	}
   });
