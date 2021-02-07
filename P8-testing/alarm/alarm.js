@@ -178,7 +178,7 @@ face[5] = {
       this.al[o].hour=alrm[o].hour;
       this.g.setColor(0,col("lgray"));
       this.g.fillRect(0,39,121,181);//hour
-      if (alrm[o].tmr!=-1) this.g.setColor(1,col("white"));else this.g.setColor(1,col("white")3);
+      if (alrm[o].tmr!=-1) this.g.setColor(1,col("lblue"));else this.g.setColor(1,col("white"));
       this.g.setFont("Vector",75);  
       this.g.drawString(this.pad(this.al[o].hour),66-(this.g.stringWidth(this.pad(this.al[o].hour)))/2,70); 
   	  this.g.flip();
@@ -192,7 +192,7 @@ face[5] = {
       }else {
         this.g.setColor(0,col("gray"));
         this.g.fillRect(122,39,239,181);//min
-        this.g.setColor(1,col("white")3);
+        this.g.setColor(1,col("white"));
       }
       this.g.setFont("Vector",75);  
       this.g.drawString(this.pad(this.al[o].min),190-(this.g.stringWidth(this.pad(this.al[o].min)))/2,70); 
