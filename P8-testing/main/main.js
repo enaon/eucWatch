@@ -258,7 +258,7 @@ face[1] = {
   return true;
   },
   show : function(){
-	if (Boolean(require("Storage").read("dash"))) {face.go("dash",0);}
+	if (Boolean(require("Storage").read(set.dash[set.def.dash]))) {face.go(set.dash[set.def.dash],0);return;}
 	else if (Boolean(require("Storage").read("alarm"))) {face.go("alarm",0);}  
 	return true;
   },
