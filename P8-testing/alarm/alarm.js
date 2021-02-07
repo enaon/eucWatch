@@ -77,7 +77,7 @@ face[0]= {
     if (alrm[1].tmr!=this.al1) {
       this.al1=alrm[1].tmr;
       this.c=col("white");
-      if (this.al1!==-1) this.g.setColor(1,col("raf"));
+      if (this.al1!==-1) this.g.setColor(1,col("dblue"));
       else { this.g.setColor(1,col("lgray")); this.c=col("black");}
       if (alrm[1].on===1)  this.c=col("yellow");
       this.g.fillRect(0,39,239,103); //1
@@ -88,7 +88,7 @@ face[0]= {
     if (alrm[2].tmr!=this.al2) {
       this.al2=alrm[2].tmr;
 	  this.c=col("white");
-      if (this.al2!==-1) this.g.setColor(1,col("raf"));
+      if (this.al2!==-1) this.g.setColor(1,col("dblue"));
       else { this.g.setColor(1,col("gray")); this.c=col("black");}
       if (alrm[2].on===1)  this.c=col("yellow");
       this.g.fillRect(0,107,239,171); //2
@@ -99,7 +99,7 @@ face[0]= {
     if (alrm[3].tmr!=this.al3) {
       this.al3=alrm[3].tmr;
       this.c=col("white");
-      if (this.al3!==-1) this.g.setColor(1,col("raf"));
+      if (this.al3!==-1) this.g.setColor(1,col("dblue"));
       else { this.g.setColor(1,col("lgray")); this.c=col("black");}
       if (alrm[3].on===1)  this.c=col("yellow");
       this.g.fillRect(0,175,239,239); //3
@@ -201,7 +201,7 @@ face[5] = {
     if (alrm[o].snz!=this.al[o].snz) {
       this.al[o].snz=alrm[o].snz;
       this.c=col("black");
-      if (this.al[o].snz===1)  { this.g.setColor(0,col("raf"));this.c=col("white");}
+      if (this.al[o].snz===1)  { this.g.setColor(0,col("dblue"));this.c=col("white");}
       else this.g.setColor(0,col("gray")); 
       this.g.fillRect(0,185,120,239);//snooze
       this.g.setColor(1,this.c);
@@ -212,7 +212,7 @@ face[5] = {
     if (alrm[o].rep!=this.al[o].rep) {
       this.al[o].rep=alrm[o].rep;
       this.c=col("black");
-      if (this.al[o].rep===1) { this.g.setColor(0,col("raf"));this.c=col("white");}
+      if (this.al[o].rep===1) { this.g.setColor(0,col("dblue"));this.c=col("white");}
       else this.g.setColor(0,col("gray")); 
       this.g.fillRect(123,185,239,239);//repeat
       this.g.setColor(1,this.c);
