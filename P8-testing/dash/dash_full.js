@@ -305,8 +305,11 @@ touchHandler[0]=function(e,x,y){
     if (e==5){ 
 	  digitalPulse(D16,1,40);
     }else if  (e==1){
-	  if (euc.conn!="OFF") {face.go("euc",-1);return;}
-	  else {face.go("main",0);return; }
+	  if (set.sef.dash+1>=set.dash.lenght) set.def.dash=0 else set.def.dash++;
+	  face.go(set.dash[set.def.dash],0);
+	  //if (euc.conn!="OFF") face.go("dash",-1);
+	  //else face.go("main",0);
+	  return;
     }else if  (e==2){
 	  if (y>160&&x<50) {
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}

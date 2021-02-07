@@ -35,6 +35,7 @@ var set={
   gIsB:0,//gat status-n.u.s- 0=not busy|1=busy 
   fmp:0, //find my phone-n.u.s.
   boot:getTime(), 
+  dash:[],
   gDis:function(){
 	if (this.gIsB) {
 		this.gIsb=2;
@@ -60,7 +61,7 @@ var set={
 	dnd:1, //Do not disturb mode, if ebabled vibrations are on.
 	hidT:"media", //joy/kb/media
 	bri:3, //Screen brightness 1..7
-	dash:"dash_simple", //
+	dash:0, //
 	acctype:"BMA421",
 	touchtype:"716"
 	};
@@ -112,7 +113,10 @@ var set={
 
 set.def = require('Storage').readJSON('setting.json', 1);
 if (!set.def) set.resetSettings();
-//
+//dash
+require('Storage').list(/dash_*/).forEach(dashfile=>{
+	set.dash.push(dashfile);
+});
 //eval(require('Storage').read('handler.set')); //get defaults
 E.setTimeZone(set.def.timezone);
 function bdis() {
@@ -551,4 +555,6 @@ var colo={
 };
 */
 //end
-if ( Boolean(require("Storage").read("images"))) eval(require('Storage').read('images')); 
+//if ( Boolean(require("Storage").read("images"))) eval(require('Storage').read('images')); 
+
+//dash
