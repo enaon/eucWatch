@@ -69,7 +69,7 @@ face[0] = {
   tid:-1,
   run:false,
   clear : function(o){
-    pal[0]=colo.bck0;
+    pal[0]=col("black");
     this.g.clear();
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
@@ -135,7 +135,7 @@ face[5] = {
     this.g.setColor(0,col("dgray"));
     if (this.list.length==0){
       this.g.fillRect(0,0,239,239);
-      this.g.setColor(1,colo.txt1);
+      this.g.setColor(1,col("lblue"));
       this.g.setFont("Vector",24);		
       this.g.drawString("NO ENTRIES",120-(this.g.stringWidth("NO ENTRIES")/2),100); 
       this.at=this.go;
@@ -201,7 +201,7 @@ face[5] = {
   tid:-1,
   run:false,
   clear : function(o){
-    pal[0]=colo.bck0;
+    pal[0]=col("black");
     this.g.clear();
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);

@@ -33,7 +33,7 @@ face[0] = {
     if (!this.run) return;
     //torch
     if (this.tor==1) {
-      this.g.setColor(0,colo.txt);
+      this.g.setColor(0,col("white"));
       this.g.fillRect(0,0,239,239); 
       this.g.setColor(1,col("lgray"));
       this.g.drawImage(require("heatshrink").decompress(atob("mEwwILIgOAAp0EAoMQAoMMAoMwAoMGAoNgAoMDAQPADgcBAooqEADcP///+AFNABcHCIPgKYQFHKYYFHLIYFHFQd/Aol8nwFDngFdvwFDn/+AvX8ApIADA==")),50,30,{scale:3});
@@ -111,7 +111,7 @@ face[0] = {
 	//brightness level
     if (this.g.bri.lv!=this.bri) {
       this.bri=this.g.bri.lv;
-      this.c=colo.btnTxt1;
+      this.c=col("white");
       this.g.setColor(0,col("dgray"));
       this.g.clearRect(160,80,239,155);//brightness
       this.g.setColor(1,this.c);
@@ -131,7 +131,7 @@ face[0] = {
   tid:-1,
   run:false,
   clear : function(o){
-    pal[0]=colo.bck0;
+    pal[0]=col("black");
     this.g.clear();
     if (set.tor==1){
       w.gfx.bri.set(this.cbri);
@@ -191,7 +191,7 @@ face[5] = {
 	while (s>60) {s=s-60;m++;}
     this.g.setColor(0,col("black"));
     this.g.fillRect(0,0,239,239); //all
-    this.g.setColor(1,colo.txt1);
+    this.g.setColor(1,col("lblue"));
     this.g.setFont("Vector",18);
 	this.g.drawString("MEM FREE: "+mem.free+"/"+mem.total,120-(this.g.stringWidth("MEM FREE: "+mem.free+"/"+mem.total)/2),0);  
 	this.g.drawString("VERSION: "+process.version,120-(this.g.stringWidth("VERSION: "+process.version)/2),25);  
@@ -219,7 +219,7 @@ face[5] = {
 	return;
   },
   clear : function(o){
-    pal[0]=colo.bck0;
+    pal[0]=col("black");
     this.g.clear();
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);

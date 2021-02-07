@@ -55,14 +55,14 @@ face[0] = {
     }else if (set.bt != this.bt){
 	  this.bt=set.bt;
 	  this.ring=0;
-      var colbt=colo.bck1;
-      if (this.bt==3)  colbt=colo.bck3;
+      var colbt=col("lgray");
+      if (this.bt==3)  colbt=col("raf2");
 //      else if (this.bt==4)  colbt=col("blue");
       else if (this.bt==4)  colbt=143;
-      else if (this.bt==2)  colbt=colo.btnSt;
+      else if (this.bt==2)  colbt=col("purple");
       this.g.setColor(0,colbt);
 	  this.g.fillRect(0,0,158,50); //date
-      this.g.setColor(1,colo.txt1);
+      this.g.setColor(1,col("lblue"));
       this.g.setFont("Vector",35);
 	  if (this.bt==0&&!set.def.cli&&!set.def.atc&&!set.def.hid&&!set.def.gb) {
 	    this.g.drawString(this.d[2]+" "+this.d[0].toUpperCase(), (81-(this.g.stringWidth(this.d[2]+" "+this.d[0].toUpperCase()))/2) ,9); //date
@@ -123,11 +123,11 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
     }else if (this.batt!=set.ondc ){
       this.batt=set.ondc;
       this.v=w.battVoltage(1);
-      if (this.batt==1) this.g.setColor(0,colo.btnSt);
+      if (this.batt==1) this.g.setColor(0,col("purple"));
       else if (this.v<=20) this.g.setColor(0,col("red"));
       else this.g.setColor(0,col("olive"));
       this.g.fillRect(162,0,239,50);//batt
-      this.g.setColor(1,colo.txt1);
+      this.g.setColor(1,col("lblue"));
       if (this.v<0) {this.g.setFont("Vector",21);this.g.drawString("EMPTY",240-(this.g.stringWidth("EMPTY")),14); 
 	  }else if (this.v<100) {this.g.setFont("Vector",32);this.g.drawString(this.v,210-(this.g.stringWidth(this.v)),10);
 		this.g.drawImage(require("heatshrink").decompress(atob("jEYwIEBngCDg//4EGgFgggCZgv/ASUEAQQaBHYPgJYQ=")),212,12);
@@ -203,11 +203,11 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
   if (this.t[1]!=this.min ){
     this.min=this.t[1];
     this.g.setFont("Vector",66);
-	this.fmin=colo.txt1;
+	this.fmin=col("lblue");
     this.fsec=col("black");
 	if (global.alrm) {
     if (alrm.buzz!=-1) {this.bmin=col("gray");this.fmin=col("yellow");this.fsec=col("gray");this.bsec=col("yellow");}
-    else if (alrm[1].tmr!==-1||alrm[2].tmr!==-1||alrm[3].tmr!==-1) {this.bmin=colo.btnEn;this.bsec=colo.btnEn;}
+    else if (alrm[1].tmr!==-1||alrm[2].tmr!==-1||alrm[3].tmr!==-1) {this.bmin=col("raf");this.bsec=col("raf");}
     else  {this.bmin=col("raf2");this.fsec=col("dgray1");this.bsec=col("raf2");}
 	}else {this.bmin=col("raf2");this.fsec=col("dgray1");this.bsec=col("raf2");}
 	this.g.setColor(0,this.bmin);
@@ -227,9 +227,9 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
   //hours
   if (this.t[0]!=this.hour){
     this.hour=this.t[0];
-    this.g.setColor(0,colo.bck1);
+    this.g.setColor(0,col("lgray"));
     this.g.fillRect(0,55,100,150);
-    this.g.setColor(1,colo.txt);
+    this.g.setColor(1,col("white"));
     this.g.setFont("Vector",66);
     this.g.drawString(this.t[0],15,72); //hours
   this.g.flip();
@@ -239,7 +239,7 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
   tid:-1,
   run:false,
   clear : function(){
-    pal[0]=colo.bck0;
+    pal[0]=col("black");
     this.g.clear();
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);

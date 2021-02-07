@@ -291,7 +291,7 @@ function buttonHandler(s){
 	if (face.pageCurr==-1) {
 		digitalPulse(D16,1,[60,40,60]);
 		if (global.euc){
-			if (euc.conn!="OFF") face.go("dash",0);
+		if (euc.conn!="OFF") face.go(set.dash[set.def.dash],0);
 			else face.go(face.appCurr,0);
 		}else face.go(face.appCurr,0);
 	}else { 
@@ -495,7 +495,7 @@ acc={
           if (this.go){ 
             if (!w.gfx.isOn&&face.appCurr!=""){  
 			if  (global.euc) {
-              if (euc.conn!="OFF") face.go("dash",0);
+              if (euc.conn!="OFF") face.go(set.dash[set.def.dash],0);
               else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
             }else{ 
 				if (face.appCurr=="main") face.go("main",0);
@@ -522,38 +522,6 @@ function col(no){
 	  case "olive":return 170;
 	}
 }
-
-var colo={ txt: 4095, txt1: 1535, txt2: 1365, txt3: 0,
-  hdr: 1368, hTxt: 3003, bck: 1708, bck0: 0, bck1: 3003,
-  bck2: 2730, bck3: 1963, btnEn: 1453, btnEn1: 1535, btnEn2: 3935,
-  btnDs: 2730, btnDs1: 3003, btnDs2: 1963, btnAl: 4085, btnAl1: 3840,
-  btnSt: 3935, btnTxt: 0, btnTxt1: 4095 };
-/*
-var colo={
-	txt:col.white,
-	txt1:col.lblue,
-	txt2:col.dgray,
-	txt3:col.black,
-	hdr:col.dgray+3,
-	hTxt:col.lgray,
-	bck:col.raf1,
-	bck0:col.black,
-	bck1:col.lgray,
-	bck2:col.gray,
-	bck3:col.raf2,
-	btnEn:col.raf,
-	btnEn1:col.lblue,
-	btnEn2:col.purple,
-	btnDs:col.gray,
-	btnDs1:col.lgray,
-	btnDs2:col.raf2,
-	btnAl:col.yellow,
-	btnAl1:col.red,
-	btnSt:col.purple,
-	btnTxt:col.black,
-   	btnTxt1:col.white
-};
-*/
 //end
 //if ( Boolean(require("Storage").read("images"))) eval(require('Storage').read('images')); 
 
