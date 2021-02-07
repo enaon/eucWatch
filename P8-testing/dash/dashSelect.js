@@ -4,7 +4,18 @@ face[0] = {
   g:w.gfx, 
   init: function(o){ 
     //this.msg=(global.hello)?hello:"Hello";
-/
+    this.g.setColor(0,col("black"));
+    this.g.fillRect(0,0,239,35); 
+    this.g.setColor(1,col("lblue"));
+    this.g.setFont("Vector",25);
+	this.g.drawString("SELECT WHEEL",4,6); 
+    this.g.flip();	
+    this.g.setColor(0,col("dray"));
+    this.g.fillRect(0,200,239,239); 
+    this.g.setColor(1,col("white"));
+    this.g.setFont("Vector",22);
+	this.g.drawString("SCAN NEW WHEEL",120-(this.g.stringWidth("SCAN NEW WHEEL")/2),200); 
+    this.g.flip();		
 	this.run=true;
   },
   show : function(o){
@@ -67,7 +78,6 @@ touchHandler[0]=function(e,x,y){
     //face.go(face.appPrev,face.pagePrev);return; //return when changing faces, so that this action will not reset this face timeout. 
 	face.go("main",0);
 	return;	 
-	break;
   case 2: //slide up event
     if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
       if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
@@ -81,7 +91,6 @@ touchHandler[0]=function(e,x,y){
   case 4: //slide right event (back action)
     face.go(face.appPrev,face.pagePrev);
 	return;
-    break;
   case 12: //touch and hold(long press) event
     digitalPulse(D16,1,40);  
     break;
