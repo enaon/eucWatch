@@ -176,7 +176,7 @@ face[1] = {
   return true;
   },
   show : function(){
-    if (euc.conn=="OFF") face.go("main",0); else {face.pageCurr=0;face.go("dash",-1);}
+    if (euc.conn=="OFF") face.go("main",0); else {face.pageCurr=0;face.go(set.dash[set.def.dash],-1);}
     return true;
   },
   clear: function(){
