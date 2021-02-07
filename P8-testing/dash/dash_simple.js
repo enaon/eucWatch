@@ -5,6 +5,20 @@ face[0] = {
   g:w.gfx,
   spd:[],
   init: function(){
+	if (euc.conn=="READY") {
+	  this.g.setColor(0,"black");
+      this.g.fillRect(0,56,239,64);
+      this.g.flip();
+      this.spd[0]=euc.spd[0];
+	  this.g.setColor(0,euc.spdC);
+      this.g.fillRect(0,65,239,239);
+      this.g.setColor(1,(euc.spdC!=col("yellow")&&euc.spdC!=col("white"))?col("white"):col("black"));
+      this.spd[0]=euc.spd[0];
+	  this.g.setFontVector(200);
+      this.g.drawString(euc.spd[0],(132-(this.g.stringWidth(euc.spd[0])/2)),65); 
+      this.spd[0]=euc.spd[0];
+      this.g.flip();
+	}
  //   this.g.setColor(1,col("gray"));
  //   this.g.fillRect(0,0,79,55); //temp
 //    this.g.fillRect(80,0,160,55); //amp 
@@ -30,21 +44,6 @@ face[0] = {
   show : function(o){
   if (!this.run) return;
   if (euc.conn=="READY") {
-	//speed 1
-    if (euc.spd[0]!=this.spd[0]){
-	  this.g.setColor(0,"black");
-      this.g.fillRect(0,56,239,64);
-      this.g.flip();
-      this.spd[0]=euc.spd[0];
-	  this.g.setColor(0,euc.spdC);
-      this.g.fillRect(0,65,239,239);
-      this.g.setColor(1,(euc.spdC!=col("yellow")&&euc.spdC!=col("white"))?col("white"):col("black"));
-      this.spd[0]=euc.spd[0];
-	  this.g.setFontVector(200);
-      this.g.drawString(euc.spd[0],(132-(this.g.stringWidth(euc.spd[0])/2)),65); 
-      this.spd[0]=euc.spd[0];
-      this.g.flip();
-    }
 	//Temp
     if (euc.temp!=this.temp) {
       this.temp=euc.temp;
@@ -73,6 +72,21 @@ face[0] = {
       this.g.setColor(1,(euc.batC!=col("yellow")&&euc.batC!=col("lgreen"))?col("white"):0);
       this.g.setFont("7x11Numeric7Seg",4.5);
       this.g.drawString(euc.batt,240-(this.g.stringWidth(euc.batt)+3),5); //fixed bat
+      this.g.flip();
+    }
+		//speed 1
+    if (euc.spd[0]!=this.spd[0]){
+	  this.g.setColor(0,"black");
+      this.g.fillRect(0,56,239,64);
+      this.g.flip();
+      this.spd[0]=euc.spd[0];
+	  this.g.setColor(0,euc.spdC);
+      this.g.fillRect(0,65,239,239);
+      this.g.setColor(1,(euc.spdC!=col("yellow")&&euc.spdC!=col("white"))?col("white"):col("black"));
+      this.spd[0]=euc.spd[0];
+	  this.g.setFontVector(200);
+      this.g.drawString(euc.spd[0],(132-(this.g.stringWidth(euc.spd[0])/2)),65); 
+      this.spd[0]=euc.spd[0];
       this.g.flip();
     }
  
@@ -153,7 +167,7 @@ face[0] = {
   this.tid=setTimeout(function(t){
       t.tid=-1;
       t.show();
-    },100,this);
+    },50,this);
   },
   tid:-1,
   run:false,
