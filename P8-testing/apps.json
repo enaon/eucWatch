@@ -120,9 +120,9 @@
     "storage": [
       {"name":"dash_simple","url":"dash_simple.js"},
 	  {"name":"dash_full","url":"dash_full.js"},
-	  {"name":"dashSet","url":"dash_settings.js"},
-	  {"name":"dashInfo","url":"dash_info.js"}
-	  
+	  {"name":"dashSet","url":"dashSettings.js"},
+	  {"name":"dashInfo","url":"dashInfo.js"},
+	  {"name":"dashSelect","url":"dashSelect.js"}
     ]
   }, 
   { "id": "m_euc_nb",

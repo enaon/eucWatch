@@ -8,7 +8,7 @@ face[0] = {
     var d=(Date()).toString().split(' ');
     var t=(d[4]).toString().split(':');	
       pal[0]=col("black");
-      if(!face.mode) this.g.setColor(1,col("dgray")); else this.g.setColor(1,col("olive"));
+      if(!face.mode) this.g.setColor(1,col("dgray")); else this.g.setColor(1,col("dgray1"));
       this.g.fillRect(0,0,75,75);//1
       this.g.fillRect(80,0,155,75); //2
       this.g.fillRect(160,0,239,75); //3
@@ -78,7 +78,7 @@ face[0] = {
       if (set.bt!=this.bt) {
         this.bt=set.bt;
         var state=(set.def.cli||set.def.gb||set.def.atc||set.def.hid)?1:0;
-        this.btn(state,0,0,75,75,require("heatshrink").decompress(atob("mEwwIXUgYFFwAFE4AFE8AFE/AFE/gFE/wFE/4FE74qCgUD54qCg8D44qCh+D4fwAoXDAocD8YRDgPzDocA/YpDgF/Gok/IIkfJokPLIkHFwQFHCIodFFIo1FIIhNFLIplFOIp9FRIqVFUI6tFXIrFFaIrdFdIr/IABY=")),13,15,col("white"),col("dblue"),col("white"),col("dgray"));
+        this.btn(state,0,0,75,75,require("heatshrink").decompress(atob("mEwwIXUgYFFwAFE4AFE8AFE/AFE/gFE/wFE/4FE74qCgUD54qCg8D44qCh+D4fwAoXDAocD8YRDgPzDocA/YpDgF/Gok/IIkfJokPLIkHFwQFHCIodFFIo1FIIhNFLIplFOIp9FRIqVFUI6tFXIrFFaIrdFdIr/IABY=")),13,15,col("lblue"),col("dgray"),col("white"),col("dgray"));
       }
     //themes 
     if (this.btn2) {
@@ -86,7 +86,7 @@ face[0] = {
         this.g.setColor(0,0);
         this.g.clearRect(76,0,79,75);
         this.g.flip();
-        this.g.setColor(1,col("dgray"));
+        this.g.setColor(1,col("gray"));
         this.g.fillRect(80,0,155,75); //2
         this.g.setColor(0,col("black"));
         this.g.drawImage(require("heatshrink").decompress(atob("mEwwIHEgfwAocH/AFDh/8Aocf/wFDn//Aod/Aon//8PAQPBAomDAQMfAQMH//+AoP+BwIFC/gCE+AuB/Ef4AuC+EfwAuC8AFBgIFB4AFBgYFBwAFBFwJGBAoIuCAoQuCAoQuCAonwoAFBGgPgFIQLB4IFBQIJgB4EeRoJgB4Ecg+D/wFBjE/8P8h5XC+H4AoQzB+AFD/lAAoJdBIoIFDKIIFfQIIpDApB+BAoZsBAoX4PAPANIPwAoR1B+CtDcQaHCYAL3CTwIAC")),94,15);
@@ -95,18 +95,18 @@ face[0] = {
     //dnd on/off
     if (set.def.dnd!=this.dnd) {
       this.dnd=set.def.dnd;
-    this.btn(this.dnd,160,0,239,75,(this.dnd)?require("heatshrink").decompress(atob("mEwwIdag/gApMOuAFDn18Aof4j4ECgPAgeAAoIDBA4IiCAQIkChwCBEgUMKoQCBjACKBwUcAogaFAv4FEsACBgx8BPQQDBQwaMCTAYFH/4ACAozRNjCOCAo8MJITdHJIYAXA")):require("heatshrink").decompress(atob("mEwwIdag/gEAIFEuAFBhwDBA4MAn18gPAAoP4j8DwEABAMDw4KBBAMBxwiCAQMcEQQCBnACBhgCBFwUYEoQFDgPYMgQlBzAFDg4aCAoMOAokcAok4AolwAongAoZUBAoZUBAoZUBAoZUBAoZdBAoZdBAoZdBAoVgRgMGKwPBRgMDQwODRgiDCgAFBQYQFCj//AAIaBn4FERgQACXYQABEoMYS4RdBAoZdCbYQuBboRPCIoL/TAAo")),176,15,col("white"),col("dblue"),col("white"),col("dgray"));//btn3
+    this.btn(this.dnd,160,0,239,75,(this.dnd)?require("heatshrink").decompress(atob("mEwwIdag/gApMOuAFDn18Aof4j4ECgPAgeAAoIDBA4IiCAQIkChwCBEgUMKoQCBjACKBwUcAogaFAv4FEsACBgx8BPQQDBQwaMCTAYFH/4ACAozRNjCOCAo8MJITdHJIYAXA")):require("heatshrink").decompress(atob("mEwwIdag/gEAIFEuAFBhwDBA4MAn18gPAAoP4j8DwEABAMDw4KBBAMBxwiCAQMcEQQCBnACBhgCBFwUYEoQFDgPYMgQlBzAFDg4aCAoMOAokcAok4AolwAongAoZUBAoZUBAoZUBAoZUBAoZdBAoZdBAoZdBAoVgRgMGKwPBRgMDQwODRgiDCgAFBQYQFCj//AAIaBn4FERgQACXYQABEoMYS4RdBAoZdCbYQuBboRPCIoL/TAAo")),176,15,col("lblue"),col("dblue"),col("black"),col("gray"));//btn3
 
     }
     //find my phone
     if (set.fmp!=this.fmp) {
       this.fmp=set.fmp;
-	  this.btn(this.fmp,0,80,75,155,require("heatshrink").decompress(atob("mEwwILIv/+AgUD///4AFBg8//HgAoMGj/4sAFCAQIFfgYFD4EPAofghwFDuEcAoc4nAFDjkw4wFBscMuIFDx1hwwFBAYPjAofG8YdD4/HApPjAqIjEAovHsY1D45BFJopZFMopxFPosHAofwSoq/jAo0HAQL1Cgf//40BAAM87wECAAg")),13,94,col("yellow"),col("dgray"),col("black"),col("dgray"));//btn3
+	  this.btn(this.fmp,0,80,75,155,require("heatshrink").decompress(atob("mEwwILIv/+AgUD///4AFBg8//HgAoMGj/4sAFCAQIFfgYFD4EPAofghwFDuEcAoc4nAFDjkw4wFBscMuIFDx1hwwFBAYPjAofG8YdD4/HApPjAqIjEAovHsY1D45BFJopZFMopxFPosHAofwSoq/jAo0HAQL1Cgf//40BAAM87wECAAg")),13,94,col("yellow"),col("dgray"),col("black"),col("gray"));//btn3
       }
     //acc on/off
     if (set.def.acc!=this.acc) {
       this.acc=set.def.acc;
-      this.btn(this.acc,80,80,155,155,require("heatshrink").decompress(atob("mEwwJC/AAkPwAECgP//AFCg///4FCj4FBCQU/AoPgAoN/4Ef+AFB/wZBDwMB/gCCgUDBwV+h0HDQU/jkP4AsCvg/Dh/8j5JDAokH/k+Igf4Aoc//E8AoRbBvhhEAoUD//wjAnBwIFBEIRaEn/AgIFDJ4QFIKoQdDAoibDgECbfA=")),94,94,col("white"),col("dblue"),col("white"),col("dgray"));
+      this.btn(this.acc,80,80,155,155,require("heatshrink").decompress(atob("mEwwJC/AAkPwAECgP//AFCg///4FCj4FBCQU/AoPgAoN/4Ef+AFB/wZBDwMB/gCCgUDBwV+h0HDQU/jkP4AsCvg/Dh/8j5JDAokH/k+Igf4Aoc//E8AoRbBvhhEAoUD//wjAnBwIFBEIRaEn/AgIFDJ4QFIKoQdDAoibDgECbfA=")),94,94,col("lblue"),col("dblue"),col("black"),col("gray"));
     }
 	//brightness level
     if (this.g.bri.lv!=this.bri) {
@@ -326,23 +326,42 @@ touchHandler[0]=function(e,x,y){
 		  face.go(face.appPrev,face.pagePrev,face.pageArg);return;
         }
       }  
-    }else if  (e==2){
+	}else if  (e==2){
 	  if (face[0].btSet) {
-	        face[0].btSet=0;
+        face[0].btSet=0;
+        face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].atc=-1;face[0].bri=-1;face[0].acc=-1;face[0].dnd=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
       }else if(158<x&&x<239&&77<y&&y<160&&!face.mode) {
         face[0].cbri=w.gfx.bri.lv+1;
         if (face[0].cbri>7) face[0].cbri=7;
         w.gfx.bri.set(face[0].cbri);
    		digitalPulse(D16,1,[30,50,30]);
+	  }else if (face.faceSave!=-1) {
+          face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
+		  //set.updateSettings();
+      }else{
+          if (face.appPrev=="settings") {face.appPrev="main";face.pagePrev=0;}
+		  face.go(face.appPrev,face.pagePrev,face.pageArg);return;
+		  //set.updateSettings();
+      }    
+	}else if  (e==3){
+	  if (face[0].btSet) {
+	        face[0].btSet=0;
       }else if (Boolean(require('Storage').read('w_apps'))){
         face.mode=1-face.mode;
         face[0].btSet=0;
         face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].atc=-1;face[0].bri=-1;face[0].acc=-1;face[0].dnd=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
    		digitalPulse(D16,1,[30,50,30]);
       } else digitalPulse(D16,1,40);
-    }else if  (e==3){
-	  digitalPulse(D16,1,40);
     }else if  (e==4){
+		  if (face[0].btSet) {
+	        face[0].btSet=0;
+      }else if (Boolean(require('Storage').read('w_apps'))){
+        face.mode=1-face.mode;
+        face[0].btSet=0;
+        face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].atc=-1;face[0].bri=-1;face[0].acc=-1;face[0].dnd=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
+   		digitalPulse(D16,1,[30,50,30]);
+      } else digitalPulse(D16,1,40);		
+	/*	
       if (face[0].btSet) {
         face[0].btSet=0;
         face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].atc=-1;face[0].bri=-1;face[0].acc=-1;face[0].dnd=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
@@ -354,6 +373,7 @@ touchHandler[0]=function(e,x,y){
 		  face.go(face.appPrev,face.pagePrev,face.pageArg);return;
 		  //set.updateSettings();
       }
+	  */
     }else if  (e==12){
 	  if (face[0].btSet) {
 		if(x<160&&y<77){//bt toggle tx

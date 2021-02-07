@@ -204,27 +204,33 @@ face[1] = {
 
 //touch-main
 touchHandler[0]=function(e,x,y){
-    if (e==5){ 
-	  digitalPulse(D16,1,40);
-    }else if  (e==1){
-	  if (set.def.dash+1>=set.dash.length) set.def.dash=0; else set.def.dash++;
-	  face.go(set.dash[set.def.dash],0);
-	  //if (euc.conn!="OFF") face.go("dash",-1);
-	  //else face.go("main",0);
-	  return;
-    }else if  (e==2){
-	  if (y>160&&x<50) {
-        if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
-        else w.gfx.bri.set(this.bri);
-		digitalPulse(D16,1,[30,50,30]);
-     }else if (y>190) {
-	  if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
-	  } else digitalPulse(D16,1,40);
-    }else if  (e==3){
-	  face.go("main",0);return;
-    }else if  (e==4){		
-	  face.go("main",0);return;
-    }else if  (e==12) euc.tgl();
-
-    this.timeout();
+	switch (e) {
+	case 5: //tap event
+		digitalPulse(D16,1,40);
+		break;
+    case 1: //slide down event
+		if (set.def.dash+1>=set.dash.length) set.def.dash=0; else set.def.dash++;
+		face.go(set.dash[set.def.dash],0);
+		return;
+    case 2: //slide up event
+		if (y>160&&x<50) {
+			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
+			else w.gfx.bri.set(this.bri);
+			digitalPulse(D16,1,[30,50,30]);
+		}else if (y>190) {
+			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
+		} else digitalPulse(D16,1,40);
+		break;
+    case 3: //slide left event
+		face.go("dashInfo",0);
+		return;
+    case 4: //slide right event (back action)
+		face.go("main",0);
+		return;
+    case 12: //touch and hold(long press) event
+		euc.tgl();
+		return;
+    default: //reset face timeout. 
+		this.timeout();
+    }
 };
