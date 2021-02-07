@@ -228,10 +228,11 @@ touchHandler[0]=function(e,x,y){
 	  if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
 	  } else digitalPulse(D16,1,40);
     }else if  (e==3){
-	  face.go("main",0);
+	  (euc.conn=="READY")?face.go("dashInfo",0):face.go("dashSelect",0);
+	  return;
     }else if  (e==4){		
 	  face.go("main",0);
-//	  face.go(face.appRoot[0],(face.appRoot[1])>2?face.appRoot[1]:0,face.appRoot[2]);return;
+	  return;
     }else if  (e==12){
 //euc on/off
 	  if  (y<158) {

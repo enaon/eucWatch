@@ -222,7 +222,7 @@ touchHandler[0]=function(e,x,y){
 		} else digitalPulse(D16,1,40);
 		break;
     case 3: //slide left event
-		face.go("dashInfo",0);
+		(euc.conn=="READY")?face.go("dashInfo",0):face.go("dashSelect",0);
 		return;
     case 4: //slide right event (back action)
 		face.go("main",0);
