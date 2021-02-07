@@ -5,16 +5,28 @@ face[0] = {
   init: function(o){ 
     //this.msg=(global.hello)?hello:"Hello";
     this.g.setColor(0,col("black"));
-    this.g.fillRect(0,0,239,35); 
-    this.g.setColor(1,col("lblue"));
-    this.g.setFont("Vector",25);
-	this.g.drawString("SELECT WHEEL",4,6); 
-    this.g.flip();	
-    this.g.setColor(0,col("dray"));
-    this.g.fillRect(0,200,239,239); 
+//    this.g.fillRect(0,0,239,35); 
+//    this.g.setColor(1,col("lblue"));
+//    this.g.setFont("Vector",18);
+//	this.g.drawString("SELECT WHEEL",120-(this.g.stringWidth("SELECT WHEEL")/2),6); 
+	this.g.flip();	
+	this.g.setFont("Vector",22);	
+    this.g.setColor(0,col("dgray"));
+    this.g.fillRect(0,0,239,60);
+    this.g.fillRect(0,64,239,124); 
+    this.g.fillRect(0,128,239,188); 
+	this.g.setColor(1,col("white"));
+	this.g.drawString("NO WHEEL SAVED",120-(this.g.stringWidth("NO WHEEL SAVED")/2),55); 
+	this.g.drawString("NO WHEEL SAVED",120-(this.g.stringWidth("NO WHEEL SAVED")/2),115); 
+	this.g.drawString("NO WHEEL SAVED",120-(this.g.stringWidth("NO WHEEL SAVED")/2),175); 
+
+ 
+    this.g.flip();			
+    this.g.setColor(0,col("red"));
+    this.g.fillRect(0,192,239,239); 
     this.g.setColor(1,col("white"));
-    this.g.setFont("Vector",22);
-	this.g.drawString("SCAN NEW WHEEL",120-(this.g.stringWidth("SCAN NEW WHEEL")/2),200); 
+    this.g.setFont("Vector",23);
+	this.g.drawString("SCAN NEW WHEEL",120-(this.g.stringWidth("SCAN NEW WHEEL")/2),206); 
     this.g.flip();		
 	this.run=true;
   },
@@ -83,13 +95,15 @@ touchHandler[0]=function(e,x,y){
       if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
       else w.gfx.bri.set(this.bri);
       digitalPulse(D16,1,[30,50,30]);
+    }else if (y>190) {
+	  if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
     } else digitalPulse(D16,1,40);
     break;
   case 3: //slide left event
     digitalPulse(D16,1,40);    
     break;
   case 4: //slide right event (back action)
-    face.go(face.appPrev,face.pagePrev);
+    face.go(set.dash[set.def.dash],0);
 	return;
   case 12: //touch and hold(long press) event
     digitalPulse(D16,1,40);  
