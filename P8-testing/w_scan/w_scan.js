@@ -8,15 +8,18 @@ scan={
 	  this.slot="";
       if (app=="repellent") this.filter = [{serviceData:{"fe95":{}}}];
       else {
-		this.slot=0;
-		app="dash_slot1";
+		app="dash";
 		this.filter = [{services:[service]}];
 	  }
       var found=[];
   	  NRF.filterDevices(devices, this.filter).forEach(function(entry) {found.push(entry.id);});
 	  if (found!=""&&found!=undefined){ 
-		(s=>{s&&(s[app+"_mac"]=found)&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
-		(s=>{s&&(s[app+"_go"]="0")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+		if (app=="dash"){
+			(s=>{s&&(s["dash_slot"+set.def.dashSlot+"_mac"]=found[0]+"")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+		}else{
+			(s=>{s&&(s[app+"_mac"]=found)&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+			(s=>{s&&(s[app+"_go"]="0")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+		}
 		scan.mac=found;
 	  } else scan.mac=[];
    	  set.gIsB=0;
@@ -147,22 +150,25 @@ face[1] = {
 //
 touchHandler[0]=function(e,x,y){
     if (e==5){
-	   if (y<=50||face[0].start==3) face[0].find(face.pageArg);
-       else if(36<y&&y<=85) {
+       if(36<y&&y<=85) {
          if (scan.mac[0]!=undefined) {
 			digitalPulse(D16,1,[30,50,30]);
-			if (face.appRoot[0]=="dashScan"){
-				(s=>{s&&(s["dash_"+set.def.dashSlot]=scan.mac[0]+"")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
-			else	
-				(s=>{s&&(s[face.appRoot[0]+"_go"]=face[0].line+"")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+			if (face.appRoot[0]!="repellent"){
+				(s=>{s&&(s["dash_slot1_mac"]=scan.mac[0]+"")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+				set.def.dash_slot1_mac=scan.mac[0]+"";
+				//euc.tgl();
+			}
+           //else	
+			//	(s=>{s&&(s[face.appRoot[0]+"_go"]=face[0].line+"")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
 			face.go(face.appRoot[0],face.appRoot[1]);return;
          } else digitalPulse(D16,1,40);
 	   }else if(85<y&&y<=135) {
          if (scan.mac[1]!=undefined) {
 			digitalPulse(D16,1,[30,50,30]);
-			if (face.appRoot[0]=="dashScan"){
-				(s=>{s&&(s["dash_"+set.def.dashSlot]=scan.mac[1]+"")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
-			else	
+			if (face.appRoot[0]!="repellent"){
+				(s=>{s&&(s["dash_slot2_mac"]=scan.mac[1]+"")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+				euc.tgl();
+			}else	
 				(s=>{s&&(s[face.appRoot[0]+"_go"]=face[0].line+1)&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
 			face.go(face.appRoot[0],face.appRoot[1]);return;
          } else digitalPulse(D16,1,40);

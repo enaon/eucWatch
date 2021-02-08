@@ -123,18 +123,22 @@ touchHandler[0]=function(e,x,y){
 	//slot1
     if(0<x&&x<120&&0<y&&y<100) {
 	  digitalPulse(D16,1,[30,50,30]);
+	  set.def.dashSlot=1;
 	  face[0].s1=1;face[0].s2=0;face[0].s3=0;face[0].s4=0;
 	//slot2 
     }else if(120<x&&x<239&&0<y&&y<100) {
 	  digitalPulse(D16,1,[30,50,30]);
+  	  set.def.dashSlot=2;
 	  face[0].s1=0;face[0].s2=1;face[0].s3=0;face[0].s4=0;
    	//slot3 
     }else if(0<x&&x<120&&100<y&&y<200) {
 	  digitalPulse(D16,1,[30,50,30]);
+	  set.def.dashSlot=3;
 	  face[0].s1=0;face[0].s2=0;face[0].s3=1;face[0].s4=0;
 	//slot4 
     }else if(120<x&&x<239&&100<y&&y<200) {
 	  digitalPulse(D16,1,[30,50,30]);
+	  set.def.dashSlot=4;
 	  face[0].s1=0;face[0].s2=0;face[0].s3=0;face[0].s4=1;
     }else digitalPulse(D16,1,40); 
     break;

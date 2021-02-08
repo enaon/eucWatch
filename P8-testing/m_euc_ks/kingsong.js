@@ -218,7 +218,7 @@ return  c;
 	  else digitalPulse(D16,1,[250,200,250,200,250]);
 	  euc.tmp.reconnect=setTimeout(() => {
 		euc.tmp.reconnect=0;
-	    euc.con(euc.mac[euc.go]); 
+	    euc.con(set.def.euc); 
 	  }, 5000);
 	}else if ( err==="Disconnected"|| err==="Not connected")  {
       if (set.def.cli) console.log("retrying :",err);
@@ -227,7 +227,7 @@ return  c;
 	  //else digitalPulse(D16,1,[100,150,100]);
       euc.tmp.reconnect=setTimeout(() => {
 		euc.tmp.reconnect=0;
-	    euc.con(euc.mac[euc.go]); 
+	    euc.con(set.def.euc); 
       }, 500);
     }
   } else {
@@ -260,18 +260,18 @@ euc.tgl=function(){
 	face.go(set.dash[set.def.dash],0);
   }else {
     NRF.setTxPower(4);
-    digitalPulse(D16,1,100);   
-	euc.mac=(require("Storage").readJSON("setting.json",1)||{}).dash_mac;
-	euc.go=(require("Storage").readJSON("setting.json",1)||{}).dash_go;
-	if(!euc.mac) {
-		//face.appCurr=set.dash[set.def.dash];
-		//face.go('w_scan',0,'fff0');
+    digitalPulse(D16,1,100); 
+	if (set.def.dashSlot==1)set.def.euc=(require("Storage").readJSON("setting.json",1)||{}).dash_slot1_mac;
+	else if (set.def.dashSlot==2)euc.mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot2_mac;
+	else if (set.def.dashSlot==3)euc.mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot3_mac;
+	else if (set.def.dashSlot==4)euc.mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot4_mac;
+	if(!set.def.euc) {
 		face.go('dashScan',0);
 	}else {
 		if (euc.conn == "OFF") euc.tmp.count=22; else euc.tmp.count=0;  //unlock
 		euc.conn="ON";
 		if (!set.def.acc) acc.on();
-		euc.con(euc.mac[euc.go]); 
+		euc.mac(euc.con); 
 		face.go(set.dash[set.def.dash],0);
 	}
   } 
