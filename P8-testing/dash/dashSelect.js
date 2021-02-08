@@ -3,14 +3,14 @@ face[0] = {
   offms: 5000, 
   g:w.gfx, 
   init: function(o){ 
-	this.slot1_mac=(require("Storage").readJSON("setting.json",1)||{}).dash.slot1.mac;
-	this.slot2_mac=(require("Storage").readJSON("setting.json",1)||{}).dash.slot2.mac;
-	this.slot3_mac=(require("Storage").readJSON("setting.json",1)||{}).dash.slot3.mac;
-	this.slot4_mac=(require("Storage").readJSON("setting.json",1)||{}).dash.slot4.mac;
-	this.slot1_maker=(require("Storage").readJSON("setting.json",1)||{}).dash.slot1.maker;
-	this.slot2_maker=(require("Storage").readJSON("setting.json",1)||{}).dash.slot2.maker;
-	this.slot3_maker=(require("Storage").readJSON("setting.json",1)||{}).dash.slot3.maker;
-	this.slot4_maker=(require("Storage").readJSON("setting.json",1)||{}).dash.slot4.maker;
+	this.slot1_mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot1_mac;
+	this.slot2_mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot2_mac;
+	this.slot3_mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot3_mac;
+	this.slot4_mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot4_mac;
+	this.slot1_maker=(require("Storage").readJSON("setting.json",1)||{}).dash_slot1_maker;
+	this.slot2_maker=(require("Storage").readJSON("setting.json",1)||{}).dash_slot2_maker;
+	this.slot3_maker=(require("Storage").readJSON("setting.json",1)||{}).dash_slot3_maker;
+	this.slot4_maker=(require("Storage").readJSON("setting.json",1)||{}).dash_slot4_maker;
     this.g.setColor(1,col("dgray"));
 	this.g.setFont("Vector",22);	
     this.g.fillRect(0,0,118,95);
@@ -262,7 +262,7 @@ touchHandler[0]=function(e,x,y){
       this.timeout();
     }else if (y>190) {
 	  if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-  } else {digitalPulse(D16,1,40);this.timeout();}
+    } else {digitalPulse(D16,1,40);this.timeout();}
     break;
   case 3: //slide left event
     digitalPulse(D16,1,40);    
@@ -272,17 +272,40 @@ touchHandler[0]=function(e,x,y){
     face.go(set.dash[set.def.dash],0);
 	return;
   case 12: //long press event
-      
-      
-      
-      
-      
-     
-      
-      (s=>{s&&(delete s["dash.slot2.mac"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
-      
-    digitalPulse(D16,1,40);  
-	this.timeout();
+	//slot1
+    if(0<x&&x<120&&0<y&&y<100) {
+	  digitalPulse(D16,1,[30,50,30]);
+      if (face[0].slot1_mac){
+	    (s=>{s&&(delete s["dash_slot1_mac"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+   	    (s=>{s&&(delete s["dash_slot1_maker"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+	    face[0].s1=1;
+      }else {set.def.dashSlot=1;face.go("dashScan",0);return;}
+	//slot2 
+    }else if(120<x&&x<239&&0<y&&y<100) {
+      digitalPulse(D16,1,[30,50,30]);
+      if (face[0].slot2_mac){
+	    (s=>{s&&(delete s["dash_slot2_mac"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+   	    (s=>{s&&(delete s["dash_slot2_maker"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+	    face[0].s1=2;
+      }else {set.def.dashSlot=2;face.go("dashScan",0);return;}
+   	//slot3 
+    }else if (0<x&&x<120&&100<y&&y<200) {
+	  digitalPulse(D16,1,[30,50,30]);
+      if (face[0].slot3_mac){
+	    (s=>{s&&(delete s["dash_slot3_mac"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+   	    (s=>{s&&(delete s["dash_slot3_maker"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+	    face[0].s3=1;
+      }else {set.def.dashSlot=2;face.go("dashScan",0);return;}
+	//slot4 
+    }else if(120<x&&x<239&&100<y&&y<200) {
+	  digitalPulse(D16,1,[30,50,30]);
+      if (face[0].slot4_mac){
+	    (s=>{s&&(delete s["dash_slot4_mac"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+   	    (s=>{s&&(delete s["dash_slot4_maker"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+	    face[0].s4=1;
+      }else {set.def.dashSlot=4;face.go("dashScan",0);return;}
+    }   
+    this.timeout();
     break;
   }
 };
