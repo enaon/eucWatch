@@ -3,80 +3,47 @@ face[0] = {
   offms: 5000, 
   g:w.gfx, 
   init: function(o){ 
+
+    this.g.setColor(0,col("black"));
     this.g.setColor(1,col("dgray"));
 	this.g.setFont("Vector",22);	
     this.g.fillRect(0,0,118,95);
     this.g.fillRect(122,0,239,95);	
     this.g.fillRect(0,100,118,195);
     this.g.fillRect(122,100,239,195);
+    this.g.flip();	
     this.g.setColor(0,col("black"));
-	this.g.setFont("Vector",25);
-  	this.g.drawString("EMPTY",185-(this.g.stringWidth("EMPTY")/2),40); 
-  	this.g.drawString("EMPTY",60-(this.g.stringWidth("EMPTY")/2),40);
-  	this.g.drawString("EMPTY",185-(this.g.stringWidth("EMPTY")/2),140); 
-  	this.g.drawString("EMPTY",60-(this.g.stringWidth("EMPTY")/2),140);     
-    this.g.flip();
+    this.g.fillRect(0,200,239,239); 
     this.g.setColor(1,col("white"));
     this.g.setFont("Vector",20);
 	this.g.drawString("SELECT WHEEL",120-(this.g.stringWidth("SELECT WHEEL")/2),220); 
-    this.g.flip();
-	this.s1=0;this.s2=0;this.s3=0;this.s4=0;
-	this.sv1=0;this.sv2=0;this.sv3=0;this.sv4=0;
+    this.g.flip();	
+    this.g.setColor(0,col("dblue"));
+    this.g.fillRect(0,0,118,95);
+    
+	this.g.setColor(1,col("white"));
+	this.img=require("heatshrink").decompress(atob("nE4gIMJugFEgf3AwkP+/AAwcf+/gAwnz+AGEAokHv/gmAGCh0/8EyAwnwiAGDv/wJQYGB+fBFAf/+HPwAGD/HvAwn849AAwMcv//84GCkgGB+YiClwGB+IbCngGB8IGJnM/AwIbCAw0zAwJ9DAwcgAwRGBAwcyAwPAsAGBkQNCuAGBsQGGh4UBAwVjAw2P/+IAweH/9cvAGCg/+tgGD4/8tgUCsOH+1uHwUhwfO9xMCkMDz1uAwdFn1/0AGBkGB/0/0IGBmGAeYlwR4QACiFA4EAWoUIowDBAwcn8GPC4cH8MbAwUEgfhm4NDgPzv4rE+fvBgcAn/eBgeDgF8AwdAwH4DYl/+AFDhEPLYkCgJcFEIgAF"));
+    this.g.drawImage(this.img,5,35);
+	this.g.drawString("KINGSONG",7,5); 
+  	this.g.drawString("S18",70,50); 
+
+    this.g.flip();		
+    this.g.setColor(0,col("dgray"));
+	this.g.setColor(1,col("white"));	this.img=require("heatshrink").decompress(atob("pFIgIQNn/gA4sH///CAwIBCQkBA4IIFh//5//4AIDj4OBgQiEv/xB4giD/gIEgYIB/uAIow0Fj//wEf7AIE+Eggf+K4nBDIN9BAf/DYP8nwtCgP+NQUPHof5GoXHCIUH/d/BAOjLYUP/gIChJICj/4BAUF+gICyAICwX6BAMvkAICwf5BAN+oAICwOcBA2Azg/BQQIIDpgRB/qhBBAVOoAIGgxqB3Z1BBAUmkEBIIIIDg4IBvQIEicggXyBAraB+AIEiMQgZuBGoYIEFggIHhoIHhKyBBCEBGoWBBAMBEYJHBAAYIIiIKBMQIADicQgVyBAkSBALICAAcQgF5egIHCkQjBnr0B//4gEkTAN9wEf//8gFEBAM8wE///+gFIDoP+oAIDwDOB/4IC/8BgAIBvsgBAjyBn2QDQUCkIjBn+IHwUEJYUfkkB//ghEOBAMP0SQB4EQjgIC44rB/3xnAIBg/nVQXxMgIIB+4IC/6eCgf8BAwzBjAsBn/gRQX/50+8H/4AIDBoPDZ4IICv57BMgKtDn/fJAQIDh/4//PUQIACg//EQLlEH4IABHoYtCBALbFZwYAFv4ZFAB4="));
+    this.g.drawImage(this.img,146,15);
+    this.g.flip();		
+    this.img=0;	
 	this.run=true;
   },
   show : function(o){
     if (!this.run) return;
-    if (this.s1!=this.sv1){
-		this.sv1=this.s1;
-		this.g.setColor(0,(this.s1)?col("dblue"):col("dgray"));
-		this.g.fillRect(0,0,118,95);
-		this.g.setColor(1,col("white"));
-		this.g.setFont("Vector",21);	
-		this.g.drawString("KINGSONG",60-(this.g.stringWidth("KINGSONG")/2),10); 
-		this.g.setFont("Vector",36);	
-		this.g.drawString("S18",60-(this.g.stringWidth("S18")/2),50); 
-		this.g.flip();
-    }
-    //slot 2    
-    if (this.s2!=this.sv2){
-		this.sv2=this.s2;
-		this.g.setColor(0,(this.s2)?col("dblue"):col("dgray"));
-		this.g.fillRect(122,0,239,95);	
-		this.g.setColor(1,col("white"));
-		this.g.setFont("Vector",21);	
-		this.g.drawString("NINEBOT",185-(this.g.stringWidth("NINEBOT")/2),10); 
-		this.g.setFont("Vector",36);	
-		this.g.drawString("E+",185-(this.g.stringWidth("E+")/2),50);     
-		this.g.flip();
-    }
-      //slot 3
-    if (this.s3!=this.sv3){
-		this.sv3=this.s3;	
-		this.g.setColor(0,(this.s3)?col("dblue"):col("dgray"));
-		this.g.fillRect(0,100,118,195);
-		this.g.setColor(1,col("white"));
-		this.g.setFont("Vector",21);	
-		this.g.drawString("INMOTION",60-(this.g.stringWidth("INMOTION")/2),110); 		
-		this.g.setFont("Vector",36);	
-		this.g.drawString("V10F",60-(this.g.stringWidth("V10F")/2),150);     
-		this.g.flip();
-    }
-      //slot 4
-    if (this.s4!=this.sv4){
-		this.sv4=this.s4;
-		this.g.setColor(0,(this.s4)?col("dblue"):col("dgray"));
-		this.g.fillRect(122,100,239,195);
-		this.g.setColor(1,col("white"));
-		this.g.setFont("Vector",21);	
-		this.g.drawString("BEGODE",185-(this.g.stringWidth("BEGODE")/2),110); 		
-		this.g.setFont("Vector",36);	
-		this.g.drawString("MSP",185-(this.g.stringWidth("MSP")/2),150);     
-		this.g.flip();
-	}
+   
+   
+   
     this.tid=setTimeout(function(t){ //the face's screen refresh rate. 
       t.tid=-1;
       t.show(o);
-    },100,this);
+    },50,this);
   },
   tid:-1,
   run:false,
@@ -116,21 +83,12 @@ face[1] = {
 touchHandler[0]=function(e,x,y){ 
   switch (e) {
   case 5: //tap event
-	this.timeout();
-	//slot1
-    if(0<x&&x<120&&0<y&&y<100) {
+    if(30<x&&x<115&&130<y&&y<200) {
 	  digitalPulse(D16,1,[30,50,30]);//send double buzz pulse to indicate tap was acknowledged.
-	  face[0].s1=1;face[0].s2=0;face[0].s3=0;face[0].s4=0;
-	//slot2 
-    }else if(120<x&&x<239&&0<y&&y<100) {
+      face[0].btn=1-face[0].btn;
+    }else if(125<x&&x<210&&130<y&&y<200) {
 	  digitalPulse(D16,1,[30,50,30]);
-	  face[0].s1=0;face[0].s2=1;face[0].s3=0;face[0].s4=0;
-    }else if(0<x&&x<120&&100<y&&y<200) {
-	  digitalPulse(D16,1,[30,50,30]);
-	  face[0].s1=0;face[0].s2=0;face[0].s3=1;face[0].s4=0;
-    }else if(120<x&&x<239&&100<y&&y<200) {
-	  digitalPulse(D16,1,[30,50,30]);
-	  face[0].s1=0;face[0].s2=0;face[0].s3=0;face[0].s4=1;
+      face.go("alarm",0);return;
     }else digitalPulse(D16,1,40); //send short buzz pulse to indicate tap was not acknowledged.
     break;
   case 1: //slide down event-on directional swipes the x,y indicate the point of starting the swipe, so one can swipe up/dn on buttons like on the brightenss button at the main settings face. 
@@ -142,22 +100,21 @@ touchHandler[0]=function(e,x,y){
       if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
       else w.gfx.bri.set(this.bri);
       digitalPulse(D16,1,[30,50,30]);
-      this.timeout();
     }else if (y>190) {
 	  if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-  } else {digitalPulse(D16,1,40);this.timeout();}
+    } else digitalPulse(D16,1,40);
     break;
   case 3: //slide left event
     digitalPulse(D16,1,40);    
-	this.timeout();
     break;
   case 4: //slide right event (back action)
     face.go(set.dash[set.def.dash],0);
 	return;
   case 12: //touch and hold(long press) event
     digitalPulse(D16,1,40);  
-	this.timeout();
     break;
+  default: 
+    this.timeout();
   }
 };
 

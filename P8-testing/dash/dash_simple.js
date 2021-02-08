@@ -207,6 +207,7 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
 		digitalPulse(D16,1,40);
+		this.timeout();
 		break;
     case 1: //slide down event
 		if (set.def.dash+1>=set.dash.length) set.def.dash=0; else set.def.dash++;
@@ -217,9 +218,10 @@ touchHandler[0]=function(e,x,y){
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 			digitalPulse(D16,1,[30,50,30]);
+			this.timeout();
 		}else if (y>190) {
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
-		} else digitalPulse(D16,1,40);
+	} else {digitalPulse(D16,1,40);this.timeout();}
 		break;
     case 3: //slide left event
 		(euc.conn=="READY")?face.go("dashInfo",0):face.go("dashSelect",0);
@@ -228,9 +230,8 @@ touchHandler[0]=function(e,x,y){
 		face.go("main",0);
 		return;
     case 12: //touch and hold(long press) event
+		this.timeout();
 		euc.tgl();
 		return;
-    default: //reset face timeout. 
-		this.timeout();
     }
 };
