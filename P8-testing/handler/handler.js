@@ -63,6 +63,7 @@ var set={
 	bri:3, //Screen brightness 1..7
 	dash:0, //
 	dashSlot:1, //
+	dashMaker:"kingsong", //
 	acctype:"BMA421",
 	touchtype:"716"
 	};

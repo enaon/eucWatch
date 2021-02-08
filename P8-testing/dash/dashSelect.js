@@ -3,6 +3,14 @@ face[0] = {
   offms: 5000, 
   g:w.gfx, 
   init: function(o){ 
+	this.slot1_mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot1_mac;
+	this.slot3_mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot2_mac;
+	this.slot4_mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot3_mac;
+	this.slot5_mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot4_mac;
+	this.slot1_maker=(require("Storage").readJSON("setting.json",1)||{}).dash_slot1_maker;
+	this.slot3_maker=(require("Storage").readJSON("setting.json",1)||{}).dash_slot2_maker;
+	this.slot4_maker=(require("Storage").readJSON("setting.json",1)||{}).dash_slot3_maker;
+	this.slot5_maker=(require("Storage").readJSON("setting.json",1)||{}).dash_slot4_maker;
     this.g.setColor(1,col("dgray"));
 	this.g.setFont("Vector",22);	
     this.g.fillRect(0,0,118,95);

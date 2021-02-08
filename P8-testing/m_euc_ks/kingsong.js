@@ -218,7 +218,7 @@ return  c;
 	  else digitalPulse(D16,1,[250,200,250,200,250]);
 	  euc.tmp.reconnect=setTimeout(() => {
 		euc.tmp.reconnect=0;
-	    euc.con(set.def.euc); 
+	    euc.con(euc.mac); 
 	  }, 5000);
 	}else if ( err==="Disconnected"|| err==="Not connected")  {
       if (set.def.cli) console.log("retrying :",err);
@@ -227,7 +227,7 @@ return  c;
 	  //else digitalPulse(D16,1,[100,150,100]);
       euc.tmp.reconnect=setTimeout(() => {
 		euc.tmp.reconnect=0;
-	    euc.con(set.def.euc); 
+	    euc.con(euc.mac); 
       }, 500);
     }
   } else {
