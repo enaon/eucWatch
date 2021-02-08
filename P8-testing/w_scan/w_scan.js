@@ -5,16 +5,19 @@ scan={
 	go:function(app,service){
 	set.gIsB=1;
 	NRF.findDevices(function(devices) {
-	  //if (app=="dash") this.filter = [{services:[service]}];
-	  //else 
+	  this.slot="";
       if (app=="repellent") this.filter = [{serviceData:{"fe95":{}}}];
-      else {app="dash"; this.filter = [{services:[service]}];}
+      else {
+		this.slot=0;
+		app="dash_slot1";
+		this.filter = [{services:[service]}];
+	  }
       var found=[];
   	  NRF.filterDevices(devices, this.filter).forEach(function(entry) {found.push(entry.id);});
 	  if (found!=""&&found!=undefined){ 
-	  (s=>{s&&(s[app+"_mac"]=found)&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
-	  (s=>{s&&(s[app+"_go"]="0")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
-      scan.mac=found;
+		(s=>{s&&(s[app+"_mac"]=found)&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+		(s=>{s&&(s[app+"_go"]="0")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+		scan.mac=found;
 	  } else scan.mac=[];
    	  set.gIsB=0;
       face[0].start=1;
@@ -51,7 +54,7 @@ face[0] = {
     this.g.fillRect(0,0,239,35); 
     this.g.setColor(1,col("lblue"));
     this.g.setFont("Vector",24);
-	this.g.drawString(face.appPrev.toUpperCase(),4,6); 
+	this.g.drawString((face.appPrev=="repellent"?"REPELLENT":"EUC",4,6)); 
     this.g.flip();
     this.line=0;
     this.top=50;
@@ -85,7 +88,7 @@ face[0] = {
         print(entry,this.go);
 		this.g.setColor(0,col((this.go==entry)?"raf":(entry % 2)?"dgray":"gray"));
         this.g.fillRect(0,(this.top-14)+((entry-this.line)*this.top),239,(this.top+36)+((entry-this.line)*this.top)); 
-		this.g.setColor(1,col((this.go==entry)?"lblue":"lgray"));
+		this.g.setColor(1,col((this.go==entry)?"lblue":"black"));
 		this.g.drawString(scan.mac[entry].substring(0,17),239-this.g.stringWidth(scan.mac[entry].substring(0,17)),this.top+((entry-this.line)*this.top));
 		this.g.flip();
       }

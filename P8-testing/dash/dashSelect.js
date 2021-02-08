@@ -22,6 +22,9 @@ face[0] = {
     this.g.flip();
 	this.s1=0;this.s2=0;this.s3=0;this.s4=0;
 	this.sv1=0;this.sv2=0;this.sv3=0;this.sv4=0;
+	this.slot=(require("Storage").readJSON("setting.json",1)||{}).dash_slot;
+	if (!this.slot) 
+	euc.go=(require("Storage").readJSON("setting.json",1)||{}).dash_go;
 	this.run=true;
   },
   show : function(o){
@@ -73,18 +76,18 @@ face[0] = {
 		this.g.drawString("MSP",185-(this.g.stringWidth("MSP")/2),150);     
 		this.g.flip();
 	}
-    this.tid=setTimeout(function(t){ //the face's screen refresh rate. 
+    this.tid=setTimeout(function(t){ 
       t.tid=-1;
       t.show(o);
     },100,this);
   },
   tid:-1,
   run:false,
-  clear : function(){ //enter here everything needed to clear all app running function on face exit. 
-    pal[0]=col("black"); //this is for cleaner face transitions but adds delay, maybe will change in the future
-    this.g.clear(); //as above
+  clear : function(){  
+    pal[0]=col("black"); 
+    this.g.clear(); 
     this.run=false;
-    if (this.tid>=0) clearTimeout(this.tid); //clears main face[0] timeout loop.
+    if (this.tid>=0) clearTimeout(this.tid); 
     this.tid=-1;
     return true;
   },
@@ -119,22 +122,23 @@ touchHandler[0]=function(e,x,y){
 	this.timeout();
 	//slot1
     if(0<x&&x<120&&0<y&&y<100) {
-	  digitalPulse(D16,1,[30,50,30]);//send double buzz pulse to indicate tap was acknowledged.
+	  digitalPulse(D16,1,[30,50,30]);
 	  face[0].s1=1;face[0].s2=0;face[0].s3=0;face[0].s4=0;
 	//slot2 
     }else if(120<x&&x<239&&0<y&&y<100) {
 	  digitalPulse(D16,1,[30,50,30]);
 	  face[0].s1=0;face[0].s2=1;face[0].s3=0;face[0].s4=0;
+   	//slot3 
     }else if(0<x&&x<120&&100<y&&y<200) {
 	  digitalPulse(D16,1,[30,50,30]);
 	  face[0].s1=0;face[0].s2=0;face[0].s3=1;face[0].s4=0;
+	//slot4 
     }else if(120<x&&x<239&&100<y&&y<200) {
 	  digitalPulse(D16,1,[30,50,30]);
 	  face[0].s1=0;face[0].s2=0;face[0].s3=0;face[0].s4=1;
-    }else digitalPulse(D16,1,40); //send short buzz pulse to indicate tap was not acknowledged.
+    }else digitalPulse(D16,1,40); 
     break;
-  case 1: //slide down event-on directional swipes the x,y indicate the point of starting the swipe, so one can swipe up/dn on buttons like on the brightenss button at the main settings face. 
-    //face.go(face.appPrev,face.pagePrev);return; //return when changing faces, so that this action will not reset this face timeout. 
+  case 1: //slide down event
 	face.go("main",0);
 	return;	 
   case 2: //slide up event
@@ -154,7 +158,7 @@ touchHandler[0]=function(e,x,y){
   case 4: //slide right event (back action)
     face.go(set.dash[set.def.dash],0);
 	return;
-  case 12: //touch and hold(long press) event
+  case 12: //long press event
     digitalPulse(D16,1,40);  
 	this.timeout();
     break;
