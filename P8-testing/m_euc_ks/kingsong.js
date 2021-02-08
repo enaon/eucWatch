@@ -261,10 +261,10 @@ euc.tgl=function(){
   }else {
     NRF.setTxPower(4);
     digitalPulse(D16,1,100); 
-	if (set.def.dashSlot==1)euc.mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot1_mac;
-	else if (set.def.dashSlot==2)euc.mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot2_mac;
-	else if (set.def.dashSlot==3)euc.mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot3_mac;
-	else if (set.def.dashSlot==4)euc.mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot4_mac;
+	if (set.def.dashSlot==1)euc.mac=(require("Storage").readJSON("setting.json",1)||{}).dash.slot1.mac;
+	else if (set.def.dashSlot==2)euc.mac=(require("Storage").readJSON("setting.json",1)||{}).dash.slot2.mac;
+	else if (set.def.dashSlot==3)euc.mac=(require("Storage").readJSON("setting.json",1)||{}).dash.slot3.mac;
+	else if (set.def.dashSlot==4)euc.mac=(require("Storage").readJSON("setting.json",1)||{}).dash.slot4.mac;
 	if(!euc.mac) {
 		print("euc_mac",euc.mac);
 		face.go('dashScan',0);
