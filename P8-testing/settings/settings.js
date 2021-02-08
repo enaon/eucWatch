@@ -167,7 +167,7 @@ face[1] = {
   return true;
   },
   show : function(){
-  	set.updateSettings();
+  	//set.updateSettings();
     face.go("main",0);
     return true;
   },
@@ -384,10 +384,6 @@ touchHandler[0]=function(e,x,y){
 			NRF.setTxPower(set.def.rfTX);
 			face[0].btSetOn=1;
 		} else digitalPulse(D16,1,40);
-	  }else if(158<x&&x<239&&y<75){
-        set.def.hid=1-set.def.hid;
-		set.upd();
-        digitalPulse(D16,1,[30,50,30]);
       } else digitalPulse(D16,1,40);
     }
    this.timeout();
