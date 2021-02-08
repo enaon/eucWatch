@@ -11,8 +11,8 @@ face[0] = {
 	this.g.flip();
     this.g.setColor(1,col("white"));
 	this.g.setFont("Vector",25);
-  	this.g.drawString("KINGSONG",120-(this.g.stringWidth("EMPTY")/2),40); 
-  	this.g.drawString("NINEBOT",120-(this.g.stringWidth("EMPTY")/2),140);
+  	this.g.drawString("KINGSONG",120-(this.g.stringWidth("KINGSONG")/2),40); 
+  	this.g.drawString("NINEBOT",120-(this.g.stringWidth("NINEBOT")/2),140);
     this.g.flip();
     this.g.setColor(1,col("white"));
     this.g.setFont("Vector",20);
