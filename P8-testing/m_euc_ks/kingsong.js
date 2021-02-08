@@ -266,6 +266,7 @@ euc.tgl=function(){
 	else if (set.def.dashSlot==3)euc.mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot3_mac;
 	else if (set.def.dashSlot==4)euc.mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot4_mac;
 	if(!euc.mac) {
+		print("euc_mac",euc.mac);
 		face.go('dashScan',0);
 	}else {
 		if (euc.conn == "OFF") euc.tmp.count=22; else euc.tmp.count=0;  //unlock

@@ -157,6 +157,7 @@ touchHandler[0]=function(e,x,y){
 				(s=>{s&&(s["dash_slot"+set.def.dashSlot+"_mac"]=scan.mac[0]+"")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
 				(s=>{s&&(s["dash_slot"+set.def.dashSlot+"_maker"]=set.def.dashMaker)&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
 				euc.tgl();
+				return;
 			}
            //else	
 			//	(s=>{s&&(s[face.appRoot[0]+"_go"]=face[0].line+"")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
@@ -169,6 +170,7 @@ touchHandler[0]=function(e,x,y){
 				(s=>{s&&(s["dash_slot"+set.def.dashSlot+"_mac"]=scan.mac[0]+"")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
 				(s=>{s&&(s["dash_slot"+set.def.dashSlot+"_maker"]=set.def.dashMaker)&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
 				euc.tgl();
+				return;
 			}else	
 				(s=>{s&&(s[face.appRoot[0]+"_go"]=face[0].line+1)&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
 			face.go(face.appRoot[0],face.appRoot[1]);return;

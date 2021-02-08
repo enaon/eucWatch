@@ -18,11 +18,10 @@ face[0] = {
     this.g.fillRect(0,100,118,195);
     this.g.fillRect(122,100,239,195);
     this.g.setColor(0,col("black"));
-	this.g.setFont("Vector",25);
-  	this.g.drawString("EMPTY",185-(this.g.stringWidth("EMPTY")/2),40); 
-  	this.g.drawString("EMPTY",60-(this.g.stringWidth("EMPTY")/2),40);
-  	this.g.drawString("EMPTY",185-(this.g.stringWidth("EMPTY")/2),140); 
+	this.g.drawString("EMPTY",60-(this.g.stringWidth("EMPTY")/2),40);
+	this.g.drawString("EMPTY",185-(this.g.stringWidth("EMPTY")/2),40);
   	this.g.drawString("EMPTY",60-(this.g.stringWidth("EMPTY")/2),140);     
+  	this.g.drawString("EMPTY",185-(this.g.stringWidth("EMPTY")/2),140); 
     this.g.flip();
     this.g.setColor(1,col("white"));
     this.g.setFont("Vector",20);
@@ -30,59 +29,108 @@ face[0] = {
     this.g.flip();
 	this.s1=0;this.s2=0;this.s3=0;this.s4=0;
 	this.sv1=0;this.sv2=0;this.sv3=0;this.sv4=0;
-//	this.slot=(require("Storage").readJSON("setting.json",1)||{}).dash_slot;
-//	if (!this.slot) 
-//	euc.go=(require("Storage").readJSON("setting.json",1)||{}).dash_go;
 	this.run=true;
   },
   show : function(o){
     if (!this.run) return;
     if (this.s1!=this.sv1){
 		this.sv1=this.s1;
-		this.g.setColor(0,(this.s1)?col("dblue"):col("dgray"));
-		this.g.fillRect(0,0,118,95);
-		this.g.setColor(1,col("white"));
-		this.g.setFont("Vector",21);	
-		this.g.drawString("KINGSONG",60-(this.g.stringWidth("KINGSONG")/2),10); 
-		this.g.setFont("Vector",36);	
-		this.g.drawString("S18",60-(this.g.stringWidth("S18")/2),50); 
-		this.g.flip();
+		if (this.slot1_mac) {
+			this.g.setColor(0,(this.s1)?col("dblue"):col("dgray"));
+			this.g.fillRect(0,0,118,95);
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",21);	
+			this.g.drawString(this.slot1_maker.toUpperCase(),60-(this.g.stringWidth(this.slot1_maker.toUpperCase())/2),10); 
+			this.g.setFont("Vector",13);	
+			this.g.drawString(this.slot1_mac.substring(0,17),60-(this.g.stringWidth(this.slot1_mac.substring(0,17))/2),78); 
+			this.g.setFont("Vector",30);	
+			this.g.drawString("-",60-(this.g.stringWidth("-")/2),40); 
+			this.g.flip();
+		}else {
+			this.g.setColor(0,col("dgray"));
+			this.g.fillRect(0,0,118,95);
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",22);	
+			this.g.drawString("HOLD",60-(this.g.stringWidth("HOLD")/2),20);
+			this.g.setFont("Vector",18);	
+			this.g.drawString("TO SCAN",60-(this.g.stringWidth("TO SCAN")/2),60);
+			this.g.flip();
+        }
     }
     //slot 2    
     if (this.s2!=this.sv2){
 		this.sv2=this.s2;
-		this.g.setColor(0,(this.s2)?col("dblue"):col("dgray"));
-		this.g.fillRect(122,0,239,95);	
-		this.g.setColor(1,col("white"));
-		this.g.setFont("Vector",21);	
-		this.g.drawString("NINEBOT",185-(this.g.stringWidth("NINEBOT")/2),10); 
-		this.g.setFont("Vector",36);	
-		this.g.drawString("E+",185-(this.g.stringWidth("E+")/2),50);     
-		this.g.flip();
+		if (this.slot2_mac) {
+			this.g.setColor(0,(this.s2)?col("dblue"):col("dgray"));
+            this.g.fillRect(122,0,239,95);	
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",21);	
+			this.g.drawString(this.slot2_maker.toUpperCase(),180-(this.g.stringWidth(this.slot2_maker.toUpperCase())/2),10); 
+			this.g.setFont("Vector",13);	
+			this.g.drawString(this.slot2_mac.substring(0,17),180-(this.g.stringWidth(this.slot2_mac.substring(0,17))/2),78); 
+			this.g.setFont("Vector",30);	
+			this.g.drawString("-",180-(this.g.stringWidth("-")/2),40); 
+			this.g.flip();
+		}else {
+			this.g.setColor(0,col("dgray"));
+            this.g.fillRect(122,0,239,95);	
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",22);	
+			this.g.drawString("HOLD",180-(this.g.stringWidth("HOLD")/2),20);
+			this.g.setFont("Vector",18);	
+			this.g.drawString("TO SCAN",180-(this.g.stringWidth("TO SCAN")/2),60);
+			this.g.flip();
+        }
     }
       //slot 3
     if (this.s3!=this.sv3){
 		this.sv3=this.s3;	
-		this.g.setColor(0,(this.s3)?col("dblue"):col("dgray"));
-		this.g.fillRect(0,100,118,195);
-		this.g.setColor(1,col("white"));
-		this.g.setFont("Vector",21);	
-		this.g.drawString("INMOTION",60-(this.g.stringWidth("INMOTION")/2),110); 		
-		this.g.setFont("Vector",36);	
-		this.g.drawString("V10F",60-(this.g.stringWidth("V10F")/2),150);     
-		this.g.flip();
+	    if (this.slot3_mac) {
+			this.g.setColor(0,(this.s3)?col("dblue"):col("dgray"));
+    this.g.fillRect(0,100,118,195);
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",21);	
+			this.g.drawString(this.slot3_maker.toUpperCase(),60-(this.g.stringWidth(this.slot3_maker.toUpperCase())/2),110); 
+			this.g.setFont("Vector",13);	
+			this.g.drawString(this.slot3_mac.substring(0,17),60-(this.g.stringWidth(this.slot3_mac.substring(0,17))/2),178); 
+			this.g.setFont("Vector",30);	
+			this.g.drawString("-",60-(this.g.stringWidth("-")/2),140); 
+			this.g.flip();
+		}else {
+			this.g.setColor(0,col("dgray"));
+    this.g.fillRect(0,100,118,195);
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",22);	
+			this.g.drawString("HOLD",60-(this.g.stringWidth("HOLD")/2),120);
+			this.g.setFont("Vector",18);	
+			this.g.drawString("TO SCAN",60-(this.g.stringWidth("TO SCAN")/2),160);
+			this.g.flip();
+        }
     }
       //slot 4
     if (this.s4!=this.sv4){
 		this.sv4=this.s4;
-		this.g.setColor(0,(this.s4)?col("dblue"):col("dgray"));
-		this.g.fillRect(122,100,239,195);
-		this.g.setColor(1,col("white"));
-		this.g.setFont("Vector",21);	
-		this.g.drawString("BEGODE",185-(this.g.stringWidth("BEGODE")/2),110); 		
-		this.g.setFont("Vector",36);	
-		this.g.drawString("MSP",185-(this.g.stringWidth("MSP")/2),150);     
-		this.g.flip();
+		if (this.slot4_mac) {
+			this.g.setColor(0,(this.s4)?col("dblue"):col("dgray"));
+    this.g.fillRect(122,100,239,195);
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",21);	
+			this.g.drawString(this.slot4_maker.toUpperCase(),180-(this.g.stringWidth(this.slot4_maker.toUpperCase())/2),110); 
+			this.g.setFont("Vector",13);	
+			this.g.drawString(this.slot4_mac.substring(0,17),180-(this.g.stringWidth(this.slot4_mac.substring(0,17))/2),178); 
+			this.g.setFont("Vector",30);	
+			this.g.drawString("-",180-(this.g.stringWidth("-")/2),140); 
+			this.g.flip();
+		}else {
+			this.g.setColor(0,col("dgray"));
+    this.g.fillRect(122,100,239,195);
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",22);	
+			this.g.drawString("HOLD",180-(this.g.stringWidth("HOLD")/2),120);
+			this.g.setFont("Vector",18);	
+			this.g.drawString("TO SCAN",180-(this.g.stringWidth("TO SCAN")/2),160);
+			this.g.flip();
+        }
 	}
     this.tid=setTimeout(function(t){ 
       t.tid=-1;
@@ -108,13 +156,9 @@ face[1] = {
   offms:1000,
   init: function(){
   return true;
-  },//only use this part of the face to set redirection.
+  },
   show : function(){
-   	face.go(face.appRoot[0],face.appRoot[1]); //go to the previous face on screen of the previous app.  
-	//face.go(face.appPrev,face.pagePrev); //go to the previous face on screen, even if it was on the same app. 
-  	//face.go("hello",-1); //sleep and set this face as the on_wake face. 
-	//face.go("main",-1);//sleep and set this face as the on_wake face. 
-	//face.go("main",0);//go to main Clock face. 
+   	face.go(face.appRoot[0],face.appRoot[1]);
     return true;
   },
    clear: function(){
