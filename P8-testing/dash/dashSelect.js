@@ -28,7 +28,8 @@ face[0] = {
 	this.g.drawString("SELECT WHEEL",120-(this.g.stringWidth("SELECT WHEEL")/2),215); 
     this.g.flip();
 	this.s1=0;this.s2=0;this.s3=0;this.s4=0;
-	this.sv1=0;this.sv2=0;this.sv3=0;this.sv4=0;
+	//this.sv1=0;this.sv2=0;this.sv3=0;this.sv4=0;
+    this['s'+set.def.dashSlot]=1;
 	this.run=true;
   },
   show : function(o){
@@ -274,35 +275,35 @@ touchHandler[0]=function(e,x,y){
   case 12: //long press event
 	//slot1
     if(0<x&&x<120&&0<y&&y<100) {
-	  digitalPulse(D16,1,[30,50,30]);
+	  digitalPulse(D16,1,[100,50,100]);
       if (face[0].slot1_mac){
 	    (s=>{s&&(delete s["dash_slot1_mac"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
    	    (s=>{s&&(delete s["dash_slot1_maker"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
-	    face[0].s1=1;
+	    face[0].slot1_mac=undefined;face[0].slot1_maker=undefined;face[0].sv1=undefined;face[0].s1=1;
       }else {set.def.dashSlot=1;face.go("dashScan",0);return;}
 	//slot2 
     }else if(120<x&&x<239&&0<y&&y<100) {
-      digitalPulse(D16,1,[30,50,30]);
+      digitalPulse(D16,1,[100,50,100]);
       if (face[0].slot2_mac){
 	    (s=>{s&&(delete s["dash_slot2_mac"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
    	    (s=>{s&&(delete s["dash_slot2_maker"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
-	    face[0].s1=2;
+	    face[0].slot2_mac=undefined;face[0].slot2_maker=undefined;face[0].sv2=undefined;face[0].s2=1;
       }else {set.def.dashSlot=2;face.go("dashScan",0);return;}
    	//slot3 
     }else if (0<x&&x<120&&100<y&&y<200) {
-	  digitalPulse(D16,1,[30,50,30]);
+	  digitalPulse(D16,1,[100,50,100]);
       if (face[0].slot3_mac){
 	    (s=>{s&&(delete s["dash_slot3_mac"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
    	    (s=>{s&&(delete s["dash_slot3_maker"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
-	    face[0].s3=1;
-      }else {set.def.dashSlot=2;face.go("dashScan",0);return;}
+	    face[0].slot3_mac=undefined;face[0].slot3_maker=undefined;face[0].sv3=undefined;face[0].s3=1;
+      }else {set.def.dashSlot=3;face.go("dashScan",0);return;}
 	//slot4 
     }else if(120<x&&x<239&&100<y&&y<200) {
-	  digitalPulse(D16,1,[30,50,30]);
+	  digitalPulse(D16,1,[100,50,100]);
       if (face[0].slot4_mac){
 	    (s=>{s&&(delete s["dash_slot4_mac"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
    	    (s=>{s&&(delete s["dash_slot4_maker"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
-	    face[0].s4=1;
+	    face[0].slot4_mac=undefined;face[0].slot4_maker=undefined;face[0].sv4=undefined;face[0].s4=1;
       }else {set.def.dashSlot=4;face.go("dashScan",0);return;}
     }   
     this.timeout();

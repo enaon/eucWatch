@@ -101,8 +101,21 @@ touchHandler[0]=function(e,x,y){
     face.go(set.dash[set.def.dash],0);
 	return;
   case 12: //long press event
-    digitalPulse(D16,1,40);  
 	this.timeout();
+	//kingsong
+    if(0<y&&y<100) {
+	  digitalPulse(D16,1,[30,50,30]);
+	  set.def.dashMaker="kingsong";
+      face.appCurr=set.dash[set.def.dash];
+	  face.go('w_scan',0,'fff0');
+      return;
+	//ninebot
+    }else if(100<y&&y<200) {
+	  digitalPulse(D16,1,[30,50,30]);
+	  set.def.dashMaker="ninebot";	  
+      face.appCurr=set.dash[set.def.dash];
+      face.go('w_scan',0,'ffe0');
+    }else digitalPulse(D16,1,40); 
     break;
   }
 };
