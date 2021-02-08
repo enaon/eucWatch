@@ -264,8 +264,9 @@ euc.tgl=function(){
 	euc.mac=(require("Storage").readJSON("setting.json",1)||{}).dash_mac;
 	euc.go=(require("Storage").readJSON("setting.json",1)||{}).dash_go;
 	if(!euc.mac) {
-		//face.appCurr="dash";
-		face.go('w_scan',0,'fff0');
+		//face.appCurr=set.dash[set.def.dash];
+		//face.go('w_scan',0,'fff0');
+		face.go('dashScan',0);
 	}else {
 		if (euc.conn == "OFF") euc.tmp.count=22; else euc.tmp.count=0;  //unlock
 		euc.conn="ON";

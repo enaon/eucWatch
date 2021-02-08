@@ -122,7 +122,9 @@
 	  {"name":"dash_full","url":"dash_full.js"},
 	  {"name":"dashSet","url":"dashSettings.js"},
 	  {"name":"dashInfo","url":"dashInfo.js"},
-	  {"name":"dashSelect","url":"dashSelect.js"}
+	  {"name":"dashSelect","url":"dashSelect.js"},
+  	  {"name":"dashScan","url":"dashScan.js"}
+
     ]
   }, 
   { "id": "m_euc_nb",

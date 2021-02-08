@@ -54,7 +54,7 @@ face[0] = {
     this.g.fillRect(0,0,239,35); 
     this.g.setColor(1,col("lblue"));
     this.g.setFont("Vector",24);
-	this.g.drawString((face.appPrev=="repellent"?"REPELLENT":"EUC",4,6)); 
+	this.g.drawString((face.appPrev=="repellent")?"REPELLENT":"EUC",4,6); 
     this.g.flip();
     this.line=0;
     this.top=50;
@@ -88,7 +88,7 @@ face[0] = {
         print(entry,this.go);
 		this.g.setColor(0,col((this.go==entry)?"raf":(entry % 2)?"dgray":"gray"));
         this.g.fillRect(0,(this.top-14)+((entry-this.line)*this.top),239,(this.top+36)+((entry-this.line)*this.top)); 
-		this.g.setColor(1,col((this.go==entry)?"lblue":"black"));
+		this.g.setColor(1,col((this.go==entry)?"lblue":"white"));
 		this.g.drawString(scan.mac[entry].substring(0,17),239-this.g.stringWidth(scan.mac[entry].substring(0,17)),this.top+((entry-this.line)*this.top));
 		this.g.flip();
       }
@@ -99,8 +99,9 @@ face[0] = {
       this.g.fillRect(0,36,239,239);
       this.g.setColor(1,col("lblue"));
       this.g.setFont("Vector",25);
-      this.g.drawString((face.appPrev=="repellent")?"REPELLENT":"EUC",120-(this.g.stringWidth((face.appPrev=="repellent")?"REPELLENT":"EUC")/2),50);
-      this.g.drawString("NOT FOUND",120-(this.g.stringWidth("NOT FOUND")/2),90);
+//      this.g.drawString((face.appPrev=="repellent")?"REPELLENT":"EUC",120-(this.g.stringWidth((face.appPrev=="repellent")?"REPELLENT":"EUC")/2),50);
+      this.g.drawString("NOT FOUND",120-(this.g.stringWidth("NOT FOUND")/2),80);
+      this.g.setFont("Vector",20);
       this.g.drawString("TOUCH TO RESCAN",120-(this.g.stringWidth("TOUCH TO RESCAN")/2),150);
 
       this.done=0;
@@ -120,7 +121,7 @@ face[0] = {
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
     if (this.loop>=0) clearInterval(this.loop);
-	if (!set.gIsB) delete global.scan;
+	if (!set.gIsB&&face.appCurr!="w_scan") delete global.scan;
     this.tid=-1;
     return true;
   },
@@ -136,8 +137,8 @@ face[1] = {
   return true;
   },
   show : function(){
-	face.go(face.appRoot[0],face.appRoot[1]);
-	return true;
+	  face.go(face.appRoot[0],face.appRoot[1]);
+	  return true;
   },
    clear: function(){
   return true;
@@ -151,25 +152,25 @@ touchHandler[0]=function(e,x,y){
          if (scan.mac[0]!=undefined) {
 			digitalPulse(D16,1,[30,50,30]);
 		   (s=>{s&&(s[face.appPrev+"_go"]=face[0].line+"")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
-			face.go(face.appPrev,face.pagePrev);return;
+			face.go(face.appRoot[0],face.appRoot[1]);return;
          } else digitalPulse(D16,1,40);
 	   }else if(85<y&&y<=135) {
          if (scan.mac[1]!=undefined) {
 			digitalPulse(D16,1,[30,50,30]);
 		   (s=>{s&&(s[face.appPrev+"_go"]=face[0].line+1)&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
-			face.go(face.appPrev,face.pagePrev);return;
+			face.go(face.appRoot[0],face.appRoot[1]);return;
          } else digitalPulse(D16,1,40);
        }else if(135<y&&y<=185) {
          if (scan.mac[2]!=undefined) {
 			digitalPulse(D16,1,[30,50,30]);
 		   (s=>{s&&(s[face.appPrev+"_go"]=face[0].line+2)&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
-			face.go(face.appPrev,face.pagePrev);return;
+			face.go(face.appRoot[0],face.appRoot[1]);return;
          } else digitalPulse(D16,1,40);
        }else if(185<y) {
          if (scan.mac[3]!=undefined) {
 			digitalPulse(D16,1,[30,50,30]);
 		   (s=>{s&&(s[face.appPrev+"_go"]=face[0].line+3)&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
-			face.go(face.appPrev,face.pagePrev);return;
+			face.go(face.appRoot[0],face.appRoot[1]);return;
          } else digitalPulse(D16,1,40);
        }else digitalPulse(D16,1,40);
     }else if  (e==1){
@@ -183,7 +184,8 @@ touchHandler[0]=function(e,x,y){
     }else if  (e==3){
 	  digitalPulse(D16,1,40);    
     }else if  (e==4){
-	  face.go(face.appPrev,face.pagePrev);return;
+		face.go(face.appRoot[0],face.appRoot[1]);
+	  return;
     }else if  (e==12){		
 	  digitalPulse(D16,1,40);    
     }
