@@ -159,7 +159,7 @@ NRF.setTxPower(set.def.rfTX);
 NRF.setAdvertising({}, { name:set.def.name,connectable:true });
 NRF.on('disconnect',bdis);  
 NRF.on('connect',bcon);
-if (global["\xFF"].modules.ble_hid_controls) Modules.removeCached("ble_hid_controls");
+//if (global["\xFF"].modules.ble_hid_controls) Modules.removeCached("ble_hid_controls");
 set.upd();
 
 //face
