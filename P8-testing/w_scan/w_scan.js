@@ -151,25 +151,32 @@ touchHandler[0]=function(e,x,y){
        else if(36<y&&y<=85) {
          if (scan.mac[0]!=undefined) {
 			digitalPulse(D16,1,[30,50,30]);
-		   (s=>{s&&(s[face.appPrev+"_go"]=face[0].line+"")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+			if (face.appRoot[0]=="dashScan"){
+				(s=>{s&&(s["dash_"+set.def.dashSlot]=scan.mac[0]+"")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+			else	
+				(s=>{s&&(s[face.appRoot[0]+"_go"]=face[0].line+"")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
 			face.go(face.appRoot[0],face.appRoot[1]);return;
          } else digitalPulse(D16,1,40);
 	   }else if(85<y&&y<=135) {
          if (scan.mac[1]!=undefined) {
 			digitalPulse(D16,1,[30,50,30]);
-		   (s=>{s&&(s[face.appPrev+"_go"]=face[0].line+1)&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+			if (face.appRoot[0]=="dashScan"){
+				(s=>{s&&(s["dash_"+set.def.dashSlot]=scan.mac[1]+"")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+			else	
+				(s=>{s&&(s[face.appRoot[0]+"_go"]=face[0].line+1)&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
 			face.go(face.appRoot[0],face.appRoot[1]);return;
          } else digitalPulse(D16,1,40);
        }else if(135<y&&y<=185) {
          if (scan.mac[2]!=undefined) {
 			digitalPulse(D16,1,[30,50,30]);
-		   (s=>{s&&(s[face.appPrev+"_go"]=face[0].line+2)&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+			
+		   (s=>{s&&(s[face.appRoot[0]+"_go"]=face[0].line+2)&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
 			face.go(face.appRoot[0],face.appRoot[1]);return;
          } else digitalPulse(D16,1,40);
        }else if(185<y) {
          if (scan.mac[3]!=undefined) {
 			digitalPulse(D16,1,[30,50,30]);
-		   (s=>{s&&(s[face.appPrev+"_go"]=face[0].line+3)&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+		   (s=>{s&&(s[face.appRoot[0]+"_go"]=face[0].line+3)&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
 			face.go(face.appRoot[0],face.appRoot[1]);return;
          } else digitalPulse(D16,1,40);
        }else digitalPulse(D16,1,40);

@@ -18,13 +18,13 @@ face[0] = {
     this.g.flip();
     this.g.setColor(1,col("white"));
     this.g.setFont("Vector",20);
-	this.g.drawString("SELECT WHEEL",120-(this.g.stringWidth("SELECT WHEEL")/2),220); 
+	this.g.drawString("SELECT WHEEL",120-(this.g.stringWidth("SELECT WHEEL")/2),215); 
     this.g.flip();
 	this.s1=0;this.s2=0;this.s3=0;this.s4=0;
 	this.sv1=0;this.sv2=0;this.sv3=0;this.sv4=0;
-	this.slot=(require("Storage").readJSON("setting.json",1)||{}).dash_slot;
-	if (!this.slot) 
-	euc.go=(require("Storage").readJSON("setting.json",1)||{}).dash_go;
+//	this.slot=(require("Storage").readJSON("setting.json",1)||{}).dash_slot;
+//	if (!this.slot) 
+//	euc.go=(require("Storage").readJSON("setting.json",1)||{}).dash_go;
 	this.run=true;
   },
   show : function(o){

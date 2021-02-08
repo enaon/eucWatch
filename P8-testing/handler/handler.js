@@ -62,6 +62,7 @@ var set={
 	hidT:"media", //joy/kb/media
 	bri:3, //Screen brightness 1..7
 	dash:0, //
+	dashSlot:0, //
 	acctype:"BMA421",
 	touchtype:"716"
 	};

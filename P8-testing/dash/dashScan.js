@@ -3,20 +3,26 @@ face[0] = {
   offms: 5000, 
   g:w.gfx, 
   init: function(o){ 
-    this.g.setColor(1,col("dgray"));
-	this.g.setFont("Vector",22);	
-    this.g.fillRect(0,0,239,95);
-    this.g.fillRect(0,100,239,195);
     this.g.setColor(0,col("black"));
-	this.g.flip();
-    this.g.setColor(1,col("white"));
-	this.g.setFont("Vector",25);
-  	this.g.drawString("KINGSONG",120-(this.g.stringWidth("KINGSONG")/2),40); 
-  	this.g.drawString("NINEBOT",120-(this.g.stringWidth("NINEBOT")/2),140);
+    this.g.setColor(1,col("dgray"));
+    this.g.fillRect(0,0,239,95);
+    this.g.flip();   
+    this.g.setColor(1,col("dgray"));
+    this.g.setColor(0,col("white"));
+	this.g.setFont("Vector",26);
+  	this.g.drawString("KINGSONG",120-(this.g.stringWidth("KINGSONG")/2),38); 
     this.g.flip();
+    this.g.setColor(1,col("dgray"));
+    this.g.fillRect(0,100,239,195);
+    this.g.flip();
+    this.g.setColor(1,col("dgray"));
+    this.g.setColor(0,col("white"));
+    this.g.drawString("NINEBOT",120-(this.g.stringWidth("NINEBOT")/2),136);
+    this.g.flip();
+    this.g.setColor(0,col("black"));
     this.g.setColor(1,col("white"));
     this.g.setFont("Vector",20);
-	this.g.drawString("SELECT MAKER",120-(this.g.stringWidth("SELECT MAKER")/2),220); 
+	this.g.drawString("SCAN FOR",120-(this.g.stringWidth("SCAN FOR")/2),215); 
     this.g.flip();
   },
   show : function(o){
@@ -59,22 +65,17 @@ touchHandler[0]=function(e,x,y){
   switch (e) {
   case 5: //tap event
 	this.timeout();
-	//slot1
-    if(0<x&&x<120&&0<y&&y<100) {
+	//kingsong
+    if(0<y&&y<100) {
 	  digitalPulse(D16,1,[30,50,30]);
-	  face[0].s1=1;face[0].s2=0;face[0].s3=0;face[0].s4=0;
-	//slot2 
-    }else if(120<x&&x<239&&0<y&&y<100) {
+      face.appCurr=set.dash[set.def.dash];
+	  face.go('w_scan',0,'fff0');
+      return;
+	//ninebot
+    }else if(100<y&&y<200) {
 	  digitalPulse(D16,1,[30,50,30]);
-	  face[0].s1=0;face[0].s2=1;face[0].s3=0;face[0].s4=0;
-   	//slot3 
-    }else if(0<x&&x<120&&100<y&&y<200) {
-	  digitalPulse(D16,1,[30,50,30]);
-	  face[0].s1=0;face[0].s2=0;face[0].s3=1;face[0].s4=0;
-	//slot4 
-    }else if(120<x&&x<239&&100<y&&y<200) {
-	  digitalPulse(D16,1,[30,50,30]);
-	  face[0].s1=0;face[0].s2=0;face[0].s3=0;face[0].s4=1;
+      face.appCurr=set.dash[set.def.dash];
+      face.go('w_scan',0,'ffe0');
     }else digitalPulse(D16,1,40); 
     break;
   case 1: //slide down event
