@@ -35,8 +35,8 @@ face[0] = {
     this.temp=-1;
     this.batt=-1;
     this.trpN=-1;
-    this.rest=0;
-	this.off=0;
+    this.connrest=0;
+	this.connoff=0;
     this.lock=2;
     if (euc.make=="ks") euc.aver=euc.spdT;
 	this.run=true;
@@ -92,8 +92,8 @@ face[0] = {
     }
  
   } else if (euc.conn=="OFF")  {
-	if (euc.conn!=this.off) {
-      this.off=euc.conn;
+	if (euc.conn!=this.connoff) {
+      this.connoff=euc.conn;
 	  this.g.setColor(0,col("black"));
 	  this.g.fillRect(0,0,79,55); //temp
 	  this.g.fillRect(161,0,239,55); //batt	  
@@ -145,8 +145,8 @@ face[0] = {
 	}
 //rest
   } else  {
-    if (euc.conn!=this.rest) {
-      this.rest=euc.conn;
+    if (euc.conn!=this.connrest) {
+      this.connrest=euc.conn;
       this.g.setFontVector(36);
 	  this.g.setColor(0,col("dgray"));
       this.g.fillRect(0,0,239,55); //top
