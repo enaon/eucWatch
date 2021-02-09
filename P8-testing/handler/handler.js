@@ -52,18 +52,16 @@ var set={
 	timezone:3, //Timezone
 	woe:1, //wake Screen on event.0=disable|1=enable
 	wob:1, //wake Screen on Button press.0=disable|1=enable
-	rfTX:4, //BT radio tx power, -4=low|0=normal|4=high
+	rfTX:-4, //BT radio tx power, -4=low|0=normal|4=high
 	cli:1, //Nordic serial bluetooth access. Enables/disables Espruino Web IDE.
 	hid:0, //enable/disable Bluetooth music controll Service.
-	gb:1,  //Notifications service. Enables/disables support for "GadgetBridge" playstore app.
+	gb:0,  //Notifications service. Enables/disables support for "GadgetBridge" playstore app.
 	atc:0, //Notifications service. Enables/disables support for "d6 notification" playstore app from ATC1441.
-	acc:1, //enables/disables wake-screen on wrist-turn. 
-	dnd:1, //Do not disturb mode, if ebabled vibrations are on.
+	acc:0, //enables/disables wake-screen on wrist-turn. 
+	dnd:0, //Do not disturb mode, if ebabled vibrations are on.
 	hidT:"media", //joy/kb/media
-	bri:3, //Screen brightness 1..7
+	bri:2, //Screen brightness 1..7
 	dash:0, //
-	dashSlot:1, //
-	dashMaker:"kingsong", //
 	acctype:"BMA421",
 	touchtype:"716"
 	};
