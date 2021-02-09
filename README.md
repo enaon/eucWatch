@@ -17,7 +17,7 @@ var spi=new SPI();spi.setup({sck:D2,mosi:D3,miso:D4,mode:0}); spi.send([0xab],D5
 
 ### Credits
 
-@ATC1441, who reverse engineered the DaFit app and made over the air hacking of the P8 watch possible. He then wrote the [DaFlasher](https://play.google.com/store/apps/details?id=com.atcnetz.paatc.patc&gl=US) playstore app to make the proccess easy for anyone. He also made the adruino based [ATCWatch](https://github.com/atc1441/ATCwatch) custom firmware to run on the P8 watch.
+@ATC1441, who made over the air hacking of the P8 watch possible. He wrote the [DaFlasher](https://play.google.com/store/apps/details?id=com.atcnetz.paatc.patc&gl=US) playstore app to make the proccess easy. He also made the adruino based [ATCWatch](https://github.com/atc1441/ATCwatch) custom firmware to run on the P8 watch.
 **More info on DaFlasher [here](https://github.com/atc1441/DaFlasherFiles)**
 
 
