@@ -1,8 +1,8 @@
 ### Loader version:
 
-[**Loader version**](https://enaon.github.io/eucWatch/p8)  for the P8 watch
+[**Web loader**](https://enaon.github.io/eucWatch/p8)  for the P8 watch
 
-[**Loader version**](https://enaon.github.io/eucWatch/dk08) for the DK08 watch
+[**Web loader**](https://enaon.github.io/eucWatch/dk08) for the DK08 watch
 
 
 ### Manual install:
