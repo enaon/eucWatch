@@ -22,7 +22,7 @@ face[0] = {
     this.g.setColor(0,col("black"));
     this.g.setColor(1,col("white"));
     this.g.setFont("Vector",20);
-	this.g.drawString("SCAN FOR",120-(this.g.stringWidth("SCAN FOR")/2),215); 
+	this.g.drawString("SCAN FOR",120-(this.g.stringWidth("SCAN FOR MAKER")/2),214);
     this.g.flip();
   },
   show : function(o){
