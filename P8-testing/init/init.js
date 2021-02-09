@@ -4,8 +4,8 @@ function P8KickWd(){
 	"ram";
   if(!D17.read())E.kickWatchdog();
 }
-var wdint=setInterval(P8KickWd,4000);
-E.enableWatchdog(20, false);
+var wdint=setInterval(P8KickWd,3000);
+E.enableWatchdog(30, false);
 //d25.write(0)
 E.showMessage=print; //apploader suport
 global.save = function() { throw new Error("You don't need to use save() on P8!"); };
