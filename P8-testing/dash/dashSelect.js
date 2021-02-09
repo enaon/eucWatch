@@ -3,14 +3,15 @@ face[0] = {
   offms: 5000, 
   g:w.gfx, 
   init: function(o){ 
-	this.slot1_mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot1_mac;
-	this.slot2_mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot2_mac;
-	this.slot3_mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot3_mac;
-	this.slot4_mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot4_mac;
-	this.slot1_maker=(require("Storage").readJSON("setting.json",1)||{}).dash_slot1_maker;
-	this.slot2_maker=(require("Storage").readJSON("setting.json",1)||{}).dash_slot2_maker;
-	this.slot3_maker=(require("Storage").readJSON("setting.json",1)||{}).dash_slot3_maker;
-	this.slot4_maker=(require("Storage").readJSON("setting.json",1)||{}).dash_slot4_maker;
+	this.slot1_mac=require("Storage").readJSON("dash.json",1).slot1_mac;
+	this.slot2_mac=require("Storage").readJSON("dash.json",1).slot2_mac;
+	this.slot3_mac=require("Storage").readJSON("dash.json",1).slot3_mac;
+	this.slot4_mac=require("Storage").readJSON("dash.json",1).slot4_mac;
+	this.slot1_maker=require("Storage").readJSON("dash.json",1).slot1_maker;
+	this.slot2_maker=require("Storage").readJSON("dash.json",1).slot2_maker;
+	this.slot3_maker=require("Storage").readJSON("dash.json",1).slot3_maker;
+	this.slot4_maker=require("Storage").readJSON("dash.json",1).slot4_maker;
+	this.slot=require("Storage").readJSON("dash.json",1).slot;
     this.g.setColor(1,col("dgray"));
 	this.g.setFont("Vector",22);	
     this.g.fillRect(0,0,118,95);
@@ -29,7 +30,7 @@ face[0] = {
     this.g.flip();
 	this.s1=0;this.s2=0;this.s3=0;this.s4=0;
 	//this.sv1=0;this.sv2=0;this.sv3=0;this.sv4=0;
-    this['s'+set.def.dashSlot]=1;
+    this['s'+this.slot]=1;
 	this.run=true;
   },
   show : function(o){
@@ -218,96 +219,58 @@ face[1] = {
   }
 };	
 touchHandler[0]=function(e,x,y){ 
-  switch (e) {
-  case 5: //tap event
-	this.timeout();
-	//slot1
-    if(0<x&&x<120&&0<y&&y<100) {
-	  digitalPulse(D16,1,[30,50,30]);
-      if (face[0].slot1_mac){
-	    set.def.dashSlot=1;
-	    face[0].s1=1;face[0].s2=0;face[0].s3=0;face[0].s4=0;
-      }else face[0].s1=1;
-	//slot2 
-    }else if(120<x&&x<239&&0<y&&y<100) {
-      digitalPulse(D16,1,[30,50,30]);
-      if (face[0].slot2_mac){
-  	    set.def.dashSlot=2;
-	    face[0].s1=0;face[0].s2=1;face[0].s3=0;face[0].s4=0;
-      }else face[0].s2=1;
-   	//slot3 
-    }else if(0<x&&x<120&&100<y&&y<200) {
-	  digitalPulse(D16,1,[30,50,30]);
-      if (face[0].slot3_mac){
-        set.def.dashSlot=3;
-	    face[0].s1=0;face[0].s2=0;face[0].s3=1;face[0].s4=0;
-      }else face[0].s3=1;
-	//slot4 
-    }else if(120<x&&x<239&&100<y&&y<200) {
-	  digitalPulse(D16,1,[30,50,30]);
-      if (face[0].slot4_mac){
-  	    set.def.dashSlot=4;
-	    face[0].s1=0;face[0].s2=0;face[0].s3=0;face[0].s4=1;
-      }else face[0].s4=1;
-
-    }else digitalPulse(D16,1,40); 
-    break;
-  case 1: //slide down event
-	face.go("main",0);
-	return;	 
-  case 2: //slide up event
-    if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
-      if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
-      else w.gfx.bri.set(this.bri);
-      digitalPulse(D16,1,[30,50,30]);
-      this.timeout();
-    }else if (y>190) {
-	  if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-    } else {digitalPulse(D16,1,40);this.timeout();}
-    break;
-  case 3: //slide left event
-    digitalPulse(D16,1,40);    
-	this.timeout();
-    break;
-  case 4: //slide right event (back action)
-    face.go(set.dash[set.def.dash],0);
-	return;
-  case 12: //long press event
-	//slot1
-    if(0<x&&x<120&&0<y&&y<100) {
-	  digitalPulse(D16,1,[100,50,100]);
-      if (face[0].slot1_mac){
-	    (s=>{s&&(delete s["dash_slot1_mac"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
-   	    (s=>{s&&(delete s["dash_slot1_maker"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
-	    face[0].slot1_mac=undefined;face[0].slot1_maker=undefined;face[0].sv1=undefined;face[0].s1=1;
-      }else {set.def.dashSlot=1;face.go("dashScan",0);return;}
-	//slot2 
-    }else if(120<x&&x<239&&0<y&&y<100) {
-      digitalPulse(D16,1,[100,50,100]);
-      if (face[0].slot2_mac){
-	    (s=>{s&&(delete s["dash_slot2_mac"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
-   	    (s=>{s&&(delete s["dash_slot2_maker"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
-	    face[0].slot2_mac=undefined;face[0].slot2_maker=undefined;face[0].sv2=undefined;face[0].s2=1;
-      }else {set.def.dashSlot=2;face.go("dashScan",0);return;}
-   	//slot3 
-    }else if (0<x&&x<120&&100<y&&y<200) {
-	  digitalPulse(D16,1,[100,50,100]);
-      if (face[0].slot3_mac){
-	    (s=>{s&&(delete s["dash_slot3_mac"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
-   	    (s=>{s&&(delete s["dash_slot3_maker"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
-	    face[0].slot3_mac=undefined;face[0].slot3_maker=undefined;face[0].sv3=undefined;face[0].s3=1;
-      }else {set.def.dashSlot=3;face.go("dashScan",0);return;}
-	//slot4 
-    }else if(120<x&&x<239&&100<y&&y<200) {
-	  digitalPulse(D16,1,[100,50,100]);
-      if (face[0].slot4_mac){
-	    (s=>{s&&(delete s["dash_slot4_mac"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
-   	    (s=>{s&&(delete s["dash_slot4_maker"])&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
-	    face[0].slot4_mac=undefined;face[0].slot4_maker=undefined;face[0].sv4=undefined;face[0].s4=1;
-      }else {set.def.dashSlot=4;face.go("dashScan",0);return;}
-    }   
-    this.timeout();
-    break;
+	switch (e) {
+	case 5: //tap event
+		this.timeout();
+		digitalPulse(D16,1,[30,50,30]);
+		if(0<x&&x<120&&0<y&&y<100) this.s=1;          //slot1
+		else if(120<x&&x<239&&0<y&&y<100) this.s=2;   //slot2 
+		else if(0<x&&x<120&&100<y&&y<200) this.s=3;   //slot3 
+		else if(120<x&&x<239&&100<y&&y<200) this.s=4; //slot4
+		if (face[0]["slot"+this.s+"_mac"]){
+			(s=>{s&&(s["slot"]=this.s)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
+			face[0].s1=0;face[0].s2=0;face[0].s3=0;face[0].s4=0;
+		}
+		face[0]["s"+this.s]=1
+		this.timeout();
+		break;
+	case 1: //slide down event
+		face.go("main",0);
+		return;	 
+	case 2: //slide up event
+		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
+			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
+			else w.gfx.bri.set(this.bri);
+			digitalPulse(D16,1,[30,50,30]);
+		}else if (y>190) {
+			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
+		} else {digitalPulse(D16,1,40);}
+		this.timeout();
+		break;
+	case 3: //slide left event
+		digitalPulse(D16,1,40);    
+		this.timeout();
+		break;
+	case 4: //slide right event (back action)
+		face.go(set.dash[set.def.dash],0);
+		return;
+	case 12: //long press event
+	    digitalPulse(D16,1,[100,50,100]);
+		if(0<=x&&x<=120&&0<=y&&y<=100)	this.s=1;			//slot1
+		else if(120<=x&&x<=239&&0<=y&&y<=100) this.s=2;		//slot2
+		else if (0<=x&&x<=120&&100<=y&&y<=200) this.s=3;	//slot3
+		else if(120<=x&&x<=239&&100<=y&&y<=200) this.s=4;	//slot4
+		//
+		if (face[0]["slot"+this.s+"_mac"]){
+			(s=>{s&&(delete s["slot"+this.s+"_mac"])&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
+			(s=>{s&&(delete s["slot"+this.s+"_maker"])&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
+			face[0]["slot"+this.s+"_mac"]=undefined;face[0]["slot"+this.s+"_maker"]=undefined;face[0]["sv"+this.s]=undefined;face[0]["s"+this.s]=1;
+		}else {
+			(s=>{s&&(s["slot"]=this.s)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
+			face.go("dashScan",0);return;
+		}
+		this.timeout();
+		break;
   }
 };
 

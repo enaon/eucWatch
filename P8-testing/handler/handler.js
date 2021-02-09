@@ -119,6 +119,14 @@ if (!set.def) set.resetSettings();
 require('Storage').list(/dash_/).forEach(dashfile=>{
 	set.dash.push(dashfile);
 });
+if (!Boolean(require("Storage").read("dash.json"))) { 
+	let dash={
+		slot:1,
+		maker:"kingsong"
+	}
+	require('Storage').write('dash.json', dash);
+}
+//
 E.setTimeZone(set.def.timezone);
 function bdis() {
     Bluetooth.removeListener('data',ccon);

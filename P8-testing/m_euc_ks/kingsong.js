@@ -257,23 +257,19 @@ euc.tgl=function(){
     }
 	if (!set.def.acc) acc.off();
     euc.conn="OFF";
-	face.go(set.dash[set.def.dash],0);
+	face.go(set.dash[set.def.dash],0);return;
   }else {
     NRF.setTxPower(4);
     digitalPulse(D16,1,100); 
-	if (set.def.dashSlot==1)euc.mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot1_mac;
-	else if (set.def.dashSlot==2)euc.mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot2_mac;
-	else if (set.def.dashSlot==3)euc.mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot3_mac;
-	else if (set.def.dashSlot==4)euc.mac=(require("Storage").readJSON("setting.json",1)||{}).dash_slot4_mac;
+	euc.mac=require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"_mac"]
 	if(!euc.mac) {
-		print("euc_mac",euc.mac);
-		face.go('dashScan',0);
+		face.go('dashScan',0);return;
 	}else {
 		if (euc.conn == "OFF") euc.tmp.count=22; else euc.tmp.count=0;  //unlock
 		euc.conn="ON";
 		if (!set.def.acc) acc.on();
 		euc.con(euc.mac); 
-		face.go(set.dash[set.def.dash],0);
+		face.go(set.dash[set.def.dash],0);return;
 	}
   } 
 };

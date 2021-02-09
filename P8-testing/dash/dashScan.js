@@ -63,19 +63,19 @@ face[1] = {
 };	
 touchHandler[0]=function(e,x,y){ 
   switch (e) {
-  case 5: //tap event
+  case 5: case 12: //tap event//long press event
 	this.timeout();
 	//kingsong
     if(0<y&&y<100) {
 	  digitalPulse(D16,1,[30,50,30]);
-	  set.def.dashMaker="kingsong";
+	  (s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"_maker"]="kingsong")&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
       face.appCurr=set.dash[set.def.dash];
 	  face.go('w_scan',0,'fff0');
       return;
 	//ninebot
     }else if(100<y&&y<200) {
 	  digitalPulse(D16,1,[30,50,30]);
-	  set.def.dashMaker="ninebot";	  
+	  (s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"_maker"]="ninebot")&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
       face.appCurr=set.dash[set.def.dash];
       face.go('w_scan',0,'ffe0');
     }else digitalPulse(D16,1,40); 
@@ -100,23 +100,6 @@ touchHandler[0]=function(e,x,y){
   case 4: //slide right event (back action)
     face.go(set.dash[set.def.dash],0);
 	return;
-  case 12: //long press event
-	this.timeout();
-	//kingsong
-    if(0<y&&y<100) {
-	  digitalPulse(D16,1,[30,50,30]);
-	  set.def.dashMaker="kingsong";
-      face.appCurr=set.dash[set.def.dash];
-	  face.go('w_scan',0,'fff0');
-      return;
-	//ninebot
-    }else if(100<y&&y<200) {
-	  digitalPulse(D16,1,[30,50,30]);
-	  set.def.dashMaker="ninebot";	  
-      face.appCurr=set.dash[set.def.dash];
-      face.go('w_scan',0,'ffe0');
-    }else digitalPulse(D16,1,40); 
-    break;
   }
 };
 
