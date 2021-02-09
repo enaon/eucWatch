@@ -255,7 +255,7 @@ touchHandler[0]=function(e,x,y){
 		face.go(set.dash[set.def.dash],0);
 		return;
 	case 12: //long press event
-	    digitalPulse(D16,1,[100,50,100]);
+	    digitalPulse(D16,1,[100]);
 		if(0<=x&&x<=120&&0<=y&&y<=100)	this.s=1;			//slot1
 		else if(120<=x&&x<=239&&0<=y&&y<=100) this.s=2;		//slot2
 		else if (0<=x&&x<=120&&100<=y&&y<=200) this.s=3;	//slot3

@@ -120,10 +120,7 @@ require('Storage').list(/dash_/).forEach(dashfile=>{
 	set.dash.push(dashfile);
 });
 if (!Boolean(require("Storage").read("dash.json"))) { 
-	let dash={
-		slot:1,
-		maker:"kingsong"
-	}
+	let dash={slot:1};
 	require('Storage').write('dash.json', dash);
 }
 //

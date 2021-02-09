@@ -140,7 +140,8 @@ face[1] = {
   return true;
   },
   show : function(){
-	  face.go(face.appRoot[0],face.appRoot[1]);
+	  //face.go(face.appRoot[0],face.appRoot[1]);
+      face.go("main",0);
 	  return true;
   },
    clear: function(){
@@ -149,25 +150,22 @@ face[1] = {
 };	
 //
 touchHandler[0]=function(e,x,y){
-    if (e==5){
+    if (e==5||e==12){
 	   if (face[0].start==3) face[0].find(face.pageArg);
-       if(36<y&&y<=85) {
-			this.mac=scan.mac[0];
-	   }else if(85<y&&y<=135) {
-			this.mac=scan.mac[1];
-       }else if(135<y&&y<=185) {
-			this.mac=scan.mac[2];
-       }else if(185<y) {
-			this.mac=scan.mac[3];
-       }
-       if (scan.mac[1]!=undefined) {
+       if(36<y&&y<=85) 	this.mac=scan.mac[0];
+	   else if(85<y&&y<=135) this.mac=scan.mac[1];
+       else if(135<y&&y<=185) 	this.mac=scan.mac[2];
+       else if(185<y) 	this.mac=scan.mac[3];
+       
+       if (this.mac!=undefined) {
 			digitalPulse(D16,1,[30,50,30]);
 			if (face.appRoot[0]!="repellent"){
-				(s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"_mac"]=this.mac+"")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+				(s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"_mac"]=this.mac)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 				euc.tgl();
 				return;
-			}else	
-				(s=>{s&&(s[face.appRoot[0]+"_go"]=face[0].line+1)&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+			}else	{
+				(s=>{s&&(s[face.appRoot[0]+"_go"]=face[0].line+1)&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('dash.json',1));
+			}
 			face.go(face.appRoot[0],face.appRoot[1]);return;
 		}else digitalPulse(D16,1,40);
     }else if  (e==1){
@@ -183,8 +181,6 @@ touchHandler[0]=function(e,x,y){
     }else if  (e==4){
 		face.go(face.appRoot[0],face.appRoot[1]);
 	  return;
-    }else if  (e==12){		
-	  digitalPulse(D16,1,40);    
     }
     this.timeout();
 };
