@@ -102,7 +102,7 @@ var set={
 		this.handleNotificationEvent=undefined;
 		this.handleFindEvent=undefined;
 		this.sendBattery=undefined;
-		this.gbSend=undefined;
+		this.gbSend=function(){return;};
 		global.GB=undefined;
 	}		
     if (!this.def.cli&&!this.def.gb&&!this.def.atc&&!this.def.hid) { if (this.bt!=0) NRF.disconnect(); else{ NRF.sleep();this.btsl=1;}}

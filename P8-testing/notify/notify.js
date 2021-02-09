@@ -277,18 +277,18 @@ touchHandler[5]=function(e,x,y){
     }else if (e==5){
 	  digitalPulse(D16,1,40);
     }else if  (e==1){//slide down
-	  if (face[5].msg.id) set.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
+	  if (face[5].msg&&face[5].msg.id) set.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
       face[5].go--;
       digitalPulse(D16,1,30,50,30);
     }else if  (e==2){
-	  if (face[5].msg.id) set.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
+	  if (face[5].msg&&face[5].msg.id) set.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
 	  face[5].go++;
       digitalPulse(D16,1,30,50,30);
     }else if  (e==3){
       if  (face[5].list.length>0) face[5].del=1;
       else {face.go("notify",0); return;}
     }else if  (e==4){//slide right event (back action)
-	  if (face[5].msg.id) set.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
+	  if (face[5].msg&&face[5].msg.id) set.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
 	  notify["n"+face[5].type.substr(0,1).toUpperCase()+face[5].type.substr(1)]=0;
       if (!notify.nInfo&&!notify.nCall&&!notify.nIm) {notify.New=0;}
       if (face.appPrev=="off") {face.go("main",-1);return;}
