@@ -23,7 +23,8 @@ global.euc= {
             aLck:0,//auto lock
             pLck:0,far:83,near:65,//proximity lock
             mode:0, // ride mode
-            maker:"kingsong",
+            maker:require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"_maker"],
+			mac:require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"_mac"],
 			model:"S18",
         };
 		this.updateDash(slot);
