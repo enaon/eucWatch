@@ -127,7 +127,7 @@
     "storage": [
 	  {"name":"euc","url":"euc.js"},
       {"name":"euc_kingsong","url":"kingsong.js"},
-      {"name":"euc_ninebotOE","url":"ninebotOE.js"}
+      {"name":"euc_ninebot","url":"ninebot.js"}
 
     ]
   },
