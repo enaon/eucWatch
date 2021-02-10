@@ -1,5 +1,5 @@
 //m_euc ninebot one c/e/p
-euc.tmp={count:0};
+euc.tmp={count:0,loop:0};
 euc.cmd=function(no){
 	switch (no) {
     case 0:case 3:case 6:case 9:case 12:case 15:case 18:
@@ -100,11 +100,11 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 	if (euc_var==38 && euc.tmp[euc_var]!=ts) {
       euc.dash.spd=(euc.tmp[euc_var]/1000).toFixed(1);
 		euc_al_s=false;	  
-	  if (euc.dash.spd>=euc.alert.spd) {
-		if (euc.dash.spd>=euc.alert.spd+5) euc.dash.spdC=col("red");	
-		else if (euc.dash.spd>=euc.alert.spd+2) euc.dash.spdC=col("yellow");
+	  if (euc.dash.spd>=euc.dash.spd1) {
+		if (euc.dash.spd>=euc.dash.spd1+5) euc.dash.spdC=col("red");	
+		else if (euc.dash.spd>=euc.dash.spd1+2) euc.dash.spdC=col("yellow");
 		else euc.dash.spdC=col("white");
-		euc_al=(1+(euc.dash.spd|0)-euc.alert.spd);
+		euc_al=(1+(euc.dash.spd|0)-euc.dash.spd1);
 		euc_al_s=true;
       } else euc.dash.spdC=col("black");
       ts=euc.tmp[euc_var];
@@ -227,7 +227,7 @@ return  c;
     if (euc.state!="OFF") {  
 	 if (set.def.cli) console.log("EUC restarting");
      euc.state="WAIT"; 
-     setTimeout(() => {  euc.conn(euc.mac[euc.go]); }, 1500);
+     setTimeout(() => {  euc.conn(euc.mac); }, 1500);
     }else {
 	  if (set.def.cli) console.log("Destroy euc (reason):",reason);
       if (euc.tmp.loop!==-1) clearInterval(euc.tmp.loop);
@@ -254,22 +254,23 @@ return  c;
   if (euc.state!="OFF") {
     if (set.def.cli) console.log("not off");
     if ( err==="Connection Timeout"  )  {
-	  if (typeof global["\xFF"].timers[euc.tmp.reconnect] !== "undefined") clearTimeout(euc.tmp.reconnect); 
+	  if (euc.reconnect) clearTimeout(euc.reconnect); 
 	  if (set.def.cli) console.log("retrying :timeout");
 	  euc.state="LOST";
 	  if (euc.lock==1) digitalPulse(D16,1,250);
 	  else digitalPulse(D16,1,[250,200,250,200,250]);
-	  euc.tmp.reconnect=setTimeout(() => {
-	    euc.conn(euc.mac[euc.go]); 
+	  euc.reconnect=setTimeout(() => {
+		euc.reconnect=0;
+	    euc.conn(euc.mac); 
 	  }, 10000);
 	}else if ( err==="Disconnected"|| err==="Not connected")  {
-	  if (typeof global["\xFF"].timers[euc.tmp.reconnect]  !== "undefined") clearTimeout(euc.tmp.reconnect); 
+	  if (euc.reconnect) clearTimeout(euc.reconnect)
       if (set.def.cli) console.log("retrying :",err);
       euc.state="FAR";
 	  if (euc.lock==1) digitalPulse(D16,1,100);
 	  else digitalPulse(D16,1,[100,150,100]);
-      euc.tmp.reconnect=setTimeout(() => {
-	    euc.conn(euc.mac[euc.go]); 
+      euc.reconnect=setTimeout(() => {
+	    euc.conn(euc.mac); 
       }, 5000);
     }
   } else {
@@ -356,7 +357,7 @@ euc.wri= function(ch) {
 				euc.tmp.spd="-1";
 				euc.tmp.spd[1]="-1";
 				euc.tmp.amp="-1";
-				euc.tmp.treseeseseseemp="-1";
+				euc.tmp.temp="-1";
 				euc.tmp.batt="-1";
 				euc.tmp.trpN="-1";
 			    digitalPulse(D16,1,100);
