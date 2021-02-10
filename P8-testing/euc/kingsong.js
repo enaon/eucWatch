@@ -45,7 +45,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
     if (euc.busy) return;
     if (this.KSdata[16]==169) {
 		this.alert=0;
-        euc.dash.spd=((((this.KSdata[4] & 0xFF) + (this.KSdata[5] << 8))/100)+"").toFixed(1); 
+        euc.dash.spd=((((this.KSdata[4] & 0xFF) + (this.KSdata[5] << 8))/100)).toFixed(1); 
 		if (euc.dash.spd[0]>45)  {
 			euc.dash.spdC=col("red");this.alert=1;
 		}else if (euc.dash.spd[0]>35) {

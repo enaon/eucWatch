@@ -9,14 +9,13 @@ face[0] = {
 	  this.g.setColor(0,"black");
       this.g.fillRect(0,56,239,64);
       this.g.flip();
-      this.spd[0]=euc.dash.spd[0];
 	  this.g.setColor(0,euc.dash.spdC);
       this.g.fillRect(0,65,239,239);
       this.g.setColor(1,(euc.dash.spdC!=col("yellow")&&euc.dash.spdC!=col("white"))?col("white"):col("black"));
-      this.spd[0]=euc.dash.spd[0];
+      this.spd=euc.dash.spd;
 	  this.g.setFontVector(200);
-      this.g.drawString(euc.dash.spd[0],(132-(this.g.stringWidth(euc.dash.spd[0])/2)),65); 
-      this.spd[0]=euc.dash.spd[0];
+      this.g.drawString(euc.dash.spd.toFixed(0),(132-(this.g.stringWidth(euc.dash.spd.toFixed(0))/2)),65); 
+      this.spd=euc.dash.spd;
       this.g.flip();
 	}
  //   this.g.setColor(1,col("gray"));
@@ -29,8 +28,7 @@ face[0] = {
 //    this.g.drawString(euc.dash.bat,240-(this.g.stringWidth(euc.dash.bat)+3),5); //fixed bat
 //    this.g.setFontVector(20); //mileage
 //    this.g.flip();
-    this.spd[0]=-1;
-    this.spd[1]=-1;
+    this.spd=-1;
     this.amp=-1;
     this.temp=-1;
     this.batt=-1;
@@ -85,7 +83,7 @@ face[0] = {
       this.g.fillRect(0,65,239,239);
       this.g.setColor(1,(euc.dash.spdC!=col("yellow")&&euc.dash.spdC!=col("white"))?col("white"):col("black"));
 	  this.g.setFontVector(200);
-      this.g.drawString(euc.dash.spd[0],(132-(this.g.stringWidth(euc.dash.spd[0])/2)),65); 
+      this.g.drawString(euc.dash.spd.toFixed(0),132-(this.g.stringWidth(euc.dash.spd.toFixed(0))/2),65); 
       this.g.flip();
     }
  
@@ -159,7 +157,7 @@ face[0] = {
       this.g.setFont("Vector",50);
       this.g.drawString(euc.state,(125-this.g.stringWidth(euc.state)/2),115);
       this.g.flip();
-	  if (euc.state=="WAIT"){this.spd[0]=-1;this.spd[1]=-1;this.amp=-1;this.temp=-1;this.batt=-1;this.trpN=-1;this.conn="OFF";this.lock=2;this.run=true;}
+	  if (euc.state=="WAIT"){this.spd=-1;this.amp=-1;this.temp=-1;this.batt=-1;this.trpN=-1;this.conn="OFF";this.lock=2;this.run=true;}
     }
   }
 //refresh 

@@ -281,7 +281,7 @@ function buttonHandler(s){
     this.t1=setTimeout(() => {
       this.t1=0;
       if (global.euc) {
-		if (euc.state==="READY"&&euc.spd[0]>=3&&euc.make==="ks") {
+	if (euc.state==="READY"&&euc.dash.spd>=3&&euc.maker==="kingsong") {
 		  euc.ch.writeValue(euc.cmd("lightsAuto"));
 		  this.press=false;
 		  return;
@@ -291,7 +291,7 @@ function buttonHandler(s){
       
    }else if (this.press && !s.state)  { 
 	this.press=false;
-	if (euc.state==="READY"&&euc.spd[0]>=3&&euc.make==="ks") {
+	if (euc.state==="READY"&&euc.dash.spd>=3&&euc.maker==="kingsong") {
 		  euc.ch.writeValue(euc.cmd("lightsAuto"));
 		  setTimeout(function(){euc.ch.writeValue(euc.cmd("lightsOn"));},300);
 		  return;
