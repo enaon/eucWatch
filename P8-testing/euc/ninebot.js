@@ -142,8 +142,8 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
       euc.dash.bat=(((euc.tmp[euc_var]/100)-51.5)*10|0); 
 	  euc_al_t=false;
 	  if ((euc.dash.bat) >= 70) euc.dash.batC=0;
-      else  if ((euc.dash.bat) >= 40) euc.dash.batC=1;
-      else  if ((euc.dash.bat) >= euc.alert.batt) euc.dash.batC=2;
+      else  if ((euc.dash.bat) >= euc.dash.batM) euc.dash.batC=1;
+      else  if ((euc.dash.bat) >= euc.dash.batL) euc.dash.batC=2;
       else  {
 		euc.dash.batC=3;
 		euc_al++;
@@ -202,15 +202,15 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
       }
     }
 	//alerts
-      if (euc_al!=0 && euc.alert.on!=true) {  
-         euc.alert.on=true;
+      if (euc_al!=0 && !euc.alert) {  
+         euc.alert=1;
 		var a=[200];
 		var i;
 		for (i = 1; i < euc_al ; i++) {
 			a.push(150,100);
 		}
         digitalPulse(D16,1,a);  
-        setTimeout(() => {euc.alert.on=false; }, 2000);
+        setTimeout(() => {euc.alert=0; }, 2000);
       }
     }
   });
