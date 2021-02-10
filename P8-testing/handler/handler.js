@@ -187,15 +187,15 @@ var face={
 		if (c===0||c===2) {
 			if (this.appCurr==="main") {
 				if (face[c].off) {
-					if (set.def.touchtype!="816") i2c.writeTo(0x15,0xa5,3); 
 					if (set.def.touchtype=="716") tfk.exit();	
+					if (set.def.touchtype!="816") i2c.writeTo(0x15,0xa5,3); 
 					face[c].off();this.pageCurr=-1;face.pagePrev=c;
 				}
 			}else face.go(this.appCurr,1);
 		}else if (face.appPrev=="off") {
 			if (face[c].off) {
-				if (set.def.touchtype!="816") i2c.writeTo(0x15,0xa5,3); 
 				if (set.def.touchtype=="716") tfk.exit();	
+				if (set.def.touchtype!="816") i2c.writeTo(0x15,0xa5,3); 
 				face.go("main",-1);face.pagePrev=c;
 			}
 		}else if (c>1) face.go(this.appCurr,0);
@@ -206,28 +206,30 @@ var face={
 	this.pagePrev=this.pageCurr;
     this.appCurr=app;
     this.pageCurr=page;
-	if (this.pagePrev==-1&&w.gfx.isOn) {w.gfx.clear();w.gfx.off();}
+	if (this.pagePrev==-1&&w.gfx.isOn) {w.gfx.clear();w.gfx.off();return;}
     if (this.pagePrev!=-1) {
         face[this.pagePrev].clear();
     }
-  	if (this.pageCurr==-1 && this.pagePrev!=-1) {
-		if (set.def.touchtype=="716")tfk.loop=100;
+	if (this.pageCurr==-1 && this.pagePrev!=-1) {
+		//if (set.def.touchtype=="716")tfk.loop=100;
+		if (set.def.touchtype=="716") tfk.exit();	
 		acc.go=0;
         face[this.pagePrev].off();
-      if (this.offid>=0) {clearTimeout(this.offid); this.offid=-1;}
-	  if (this.appCurr!=this.appPrev) eval(require('Storage').read(app));
+		if (this.offid>=0) {clearTimeout(this.offid); this.offid=-1;}
+		if (this.appCurr!=this.appPrev) eval(require('Storage').read(app));
 		return;
 	}
 	if (this.appCurr!=this.appPrev) {
-      face[1]=0;face[2]=0;face[5]=0;
-	  this.appRoot=[this.appPrev,this.pagePrev,this.pageArg];
-      eval(require('Storage').read(app));
+		face[2]=0;face[5]=0;
+		this.appRoot=[this.appPrev,this.pagePrev,this.pageArg];
+		eval(require('Storage').read(app));
     } 
 	this.off(page);
 	face[page].init(arg);	
-	if(!w.gfx.isOn) {w.gfx.on();
+	if(!w.gfx.isOn) {
 		if (set.def.touchtype!="816") digitalPulse(D13,1,[10,50]);
-		if (set.def.touchtype=="716"){tfk.loop=5;if( tfk.tid==-1) tfk.init();}
+		if (set.def.touchtype=="716"){tfk.loop=1;if( tfk.tid==-1) tfk.init();}
+		w.gfx.on();
 	}
 	face[page].show(arg);
 	if(arg) this.pageArg=arg;
