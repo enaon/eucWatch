@@ -34,6 +34,6 @@ global.euc= {
 };
 if (Boolean(require("Storage").read('euc_slot'+require("Storage").readJSON("dash.json",1).slot+'.json'))) { 
 euc.dash=require("Storage").readJSON('euc_slot'+require("Storage").readJSON("dash.json",1).slot+'.json',1);
-}else this.dash=require("Storage").readJSON("euc_slot.json",1);
+}else euc.dash=require("Storage").readJSON("euc_slot.json",1);
 //if (!Boolean(require("Storage").read('euc_slot'+require("Storage").readJSON("dash.json",1).slot+'.json')))
 //euc.resetDash(require("Storage").readJSON("dash.json",1).slot);
