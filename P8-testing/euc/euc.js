@@ -46,6 +46,7 @@ global.euc= {
 			if(!this.mac) {
 				face.go('dashScan',0);return;
 		    }else {
+				delete euc.conn;delete euc.wri;delete euc.cmd;delete euc.tmp;
 				eval(require('Storage').read('euc_'+require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"_maker"]));
 				this.state="ON";
 				if (!set.def.acc) acc.on();

@@ -228,7 +228,7 @@ var face={
 	face[page].init(arg);	
 	if(!w.gfx.isOn) {
 		if (set.def.touchtype!="816") digitalPulse(D13,1,[10,50]);
-		if (set.def.touchtype=="716"){tfk.loop=1;if( tfk.tid==-1) tfk.init();}
+		if (set.def.touchtype=="716"){tfk.loop=10;if(!tfk.tid) tfk.start();}
 		w.gfx.on();
 	}
 	face[page].show(arg);
@@ -398,7 +398,7 @@ if (face.pageCurr>=0) {
 },D28,{repeat:true, edge:"falling"}); 
 }else if (set.def.touchtype=="716"){
 var tfk={
-tid:-1,
+tid:0,
 x:0,
 y:0,
 do:0,
@@ -438,16 +438,15 @@ init:function(){
 		if (this.do===1){touchHandler[face.pageCurr](5,this.x,this.y);this.do=0;        }
 		this.st=1;this.time=-1;
     }
-	this.tid=setTimeout(function(t){
-		t.tid=-1;
-		t.init();
-	},this.loop,this);
+
 },
-exit:function(){
-    if (this.tid>=0) clearTimeout(this.tid);
-    this.tid=-1;
-    return true;
-}
+start:function(){
+	if (this.tid) clearInterval(this.tid);
+	this.tid=setInterval(function(t){
+		tfk.init();
+	},this.loop);
+},
+exit:function(){if (this.tid) clearInterval(this.tid);this.tid=0;}
 };	
 }
 //accelerometer(wake on look)
