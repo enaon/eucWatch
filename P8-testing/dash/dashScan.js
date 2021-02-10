@@ -75,7 +75,7 @@ touchHandler[0]=function(e,x,y){
 	//ninebot
     }else if(100<y&&y<200) {
 	  digitalPulse(D16,1,[30,50,30]);
-	  (s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"_maker"]="ninebot")&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
+	  (s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"_maker"]="ninebotOE")&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
       face.appCurr=set.dash[set.def.dash];
       face.go('w_scan',0,'ffe0');
     }else digitalPulse(D16,1,40); 
