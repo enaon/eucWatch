@@ -5,30 +5,6 @@ global.euc= {
     chrg:0,
     lock:0,
 	updateDash:function(slot){require('Storage').write('euc_slot'+slot+'.json', euc.dash);},
-	resetDash:function(slot) {
-       // this.dash=require("Storage").readJSON("dash.json",1).defaults;
-		euc.dash = {
-			spd:0,spdA:0,spdR:0,spdT:0,spdC:0,//average/ride/top/color
-			spd1:23,spd2:23,spd3:23,spdS:1,
-			amp:"0",ampC:0, 
-            ampH:18,ampL:-6,ampS:1,
-			bat:"0",batC:0, 
-            batM:40,batL:20,
-     		tmp:"0",tmpC:0, 
-            tmpH: 60,
-			trpU:"0.0",trpL:"0.0",trpT:"0.0",trpR:"0.0",trpC:0, //user/last/total/remaining/color
-			time:"0",
-            buzz:0,
-            aOff:0,//auto off
-            aLck:0,//auto lock
-            pLck:0,far:83,near:65,//proximity lock
-            mode:0, // ride mode
-            maker:require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"_maker"],
-			mac:require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"_mac"],
-			model:"S18",
-        };
-		this.updateDash(slot);
-	},
 	tgl:function(){ 
 		if (this.state!="OFF" ) {
 			digitalPulse(D16,1,[90,60,90]);  
@@ -58,6 +34,6 @@ global.euc= {
 };
 if (Boolean(require("Storage").read('euc_slot'+require("Storage").readJSON("dash.json",1).slot+'.json'))) { 
 euc.dash=require("Storage").readJSON('euc_slot'+require("Storage").readJSON("dash.json",1).slot+'.json',1);
-}else euc.resetDash(require("Storage").readJSON("dash.json",1).slot);
+}else this.dash=require("Storage").readJSON("euc_slot.json",1);
 //if (!Boolean(require("Storage").read('euc_slot'+require("Storage").readJSON("dash.json",1).slot+'.json')))
 //euc.resetDash(require("Storage").readJSON("dash.json",1).slot);
