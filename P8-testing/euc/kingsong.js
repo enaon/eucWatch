@@ -46,11 +46,11 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
     if (this.KSdata[16]==169) {
 		this.alert=0;
         euc.dash.spd=((((this.KSdata[4] & 0xFF) + (this.KSdata[5] << 8))/100)).toFixed(1); 
-		if (euc.dash.spd[0]>45)  {
+		if (euc.dash.spd>euc.dash.spd3)  {
 			euc.dash.spdC=3;this.alert=1;
-		}else if (euc.dash.spd[0]>35) {
+		}else if (euc.dash.spd>euc.dash.spd2) {
 			euc.dash.spdC=2;this.alert=1;
-		}else if (euc.dash.spd[0]>25) {
+		}else if (euc.dash.spd>euc.dash.spd1) {
 			euc.dash.spdC=1;this.alert=1;			
 		}
         //amp
@@ -102,7 +102,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
         euc.dash.trpT=(((this.KSdata[6] << 16) + (this.KSdata[7] << 24) + this.KSdata[8] + (this.KSdata[9] << 8))/1000).toFixed(1);
 		//mode                                    
         euc.rmode=this.KSdata[14];
-		if (!this.alert)  euc.dash.spdC=0;
+		////////////////////////if (!this.alert)  euc.dash.spdC=0;
     }else if  (this.KSdata[16]==185){
         euc.dash.trpL=(((this.KSdata[2] << 16) + (this.KSdata[3] << 24) + this.KSdata[4] + (this.KSdata[5] << 8)) / 1000.0).toFixed(1);
 		euc.dash.time=(((this.KSdata[6] & 0xFF) + (this.KSdata[7] << 8)) / 60.0).toFixed(0);

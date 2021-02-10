@@ -312,7 +312,7 @@ touchHandler[0]=function(e,x,y){
     }else if  (e==1){
 	  if (face[0].btSet) {
 	        face[0].btSet=0;
-      }else if(158<x&&x<239&&77<y&&y<160&&!face.mode) {
+      }else if(158<x&&x<239&&77<y&&y<170&&!face.mode) {
         face[0].cbri=w.gfx.bri.lv-1;
         if (face[0].cbri<1) face[0].cbri=1;
         w.gfx.bri.set(face[0].cbri);
