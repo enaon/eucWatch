@@ -14,7 +14,7 @@ face[0] = {
       this.g.setColor(1,(euc.dash.spdC!=col("yellow")&&euc.dash.spdC!=col("white"))?col("white"):col("black"));
       this.spd=euc.dash.spd;
 	  this.g.setFontVector(200);
-      this.g.drawString(euc.dash.spd.toFixed(0),(132-(this.g.stringWidth(euc.dash.spd.toFixed(0))/2)),65); 
+      this.g.drawString(euc.dash.spd|0,(132-(this.g.stringWidth(euc.dash.spd|0)/2)),65); 
       this.spd=euc.dash.spd;
       this.g.flip();
 	}
@@ -36,7 +36,6 @@ face[0] = {
     this.connrest=0;
 	this.connoff=0;
     this.lock=2;
-    if (euc.make=="ks") euc.aver=euc.dash.spdT;
 	this.run=true;
 	
   },
@@ -74,8 +73,8 @@ face[0] = {
       this.g.flip();
     }
 		//speed 1
-    if (euc.dash.spd.toFixed(0)!=this.spd){
-      this.spd=euc.dash.spd.toFixed(0);
+    if (euc.dash.spd|0!=this.spd){
+      this.spd=euc.dash.spd|0;
 	  this.g.setColor(0,"black");
       this.g.fillRect(0,56,239,64);
       this.g.flip();
@@ -83,7 +82,7 @@ face[0] = {
       this.g.fillRect(0,65,239,239);
       this.g.setColor(1,(euc.dash.spdC!=col("yellow")&&euc.dash.spdC!=col("white"))?col("white"):col("black"));
 	  this.g.setFontVector(200);
-      this.g.drawString(euc.dash.spd.toFixed(0),132-(this.g.stringWidth(euc.dash.spd.toFixed(0))/2),65); 
+      this.g.drawString(euc.dash.spd|0,132-(this.g.stringWidth(euc.dash.spd|0)/2),65); 
       this.g.flip();
     }
  
