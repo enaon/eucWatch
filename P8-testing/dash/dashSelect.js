@@ -41,7 +41,7 @@ face[0] = {
 			this.g.setColor(0,(this.s1)?col("dblue"):col("dgray"));
 			this.g.fillRect(0,0,118,95);
 			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",21);	
+			this.g.setFont("Vector",18);	
 			this.g.drawString(this.slot1_maker.toUpperCase(),60-(this.g.stringWidth(this.slot1_maker.toUpperCase())/2),10); 
 			this.g.setFont("Vector",13);	
 			this.g.drawString(this.slot1_mac.substring(0,17),60-(this.g.stringWidth(this.slot1_mac.substring(0,17))/2),78); 
@@ -77,21 +77,21 @@ face[0] = {
 			this.g.setColor(0,(this.s2)?col("dblue"):col("dgray"));
             this.g.fillRect(122,0,239,95);	
 			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",21);	
-			this.g.drawString(this.slot2_maker.toUpperCase(),180-(this.g.stringWidth(this.slot2_maker.toUpperCase())/2),10); 
+			this.g.setFont("Vector",18);	
+			this.g.drawString(this.slot2_maker.toUpperCase(),185-(this.g.stringWidth(this.slot2_maker.toUpperCase())/2),10); 
 			this.g.setFont("Vector",13);	
-			this.g.drawString(this.slot2_mac.substring(0,17),180-(this.g.stringWidth(this.slot2_mac.substring(0,17))/2),78); 
+			this.g.drawString(this.slot2_mac.substring(0,17),185-(this.g.stringWidth(this.slot2_mac.substring(0,17))/2),78); 
 			this.g.setFont("Vector",30);	
-			this.g.drawString("-",180-(this.g.stringWidth("-")/2),40); 
+			this.g.drawString("-",185-(this.g.stringWidth("-")/2),40); 
 			this.g.flip();
 		}else if (this.s2) {
 			this.g.setColor(0,col("dgray"));
             this.g.fillRect(122,0,239,95);	
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",22);	
-			this.g.drawString("HOLD",180-(this.g.stringWidth("HOLD")/2),20);
+			this.g.drawString("HOLD",185-(this.g.stringWidth("HOLD")/2),20);
 			this.g.setFont("Vector",18);	
-			this.g.drawString("TO SET",180-(this.g.stringWidth("TO SET")/2),60);
+			this.g.drawString("TO SET",185-(this.g.stringWidth("TO SET")/2),60);
 			this.g.flip();
             if (this.s2tid)  clearTimeout(this.s2tid);
             this.s2tid=setTimeout(function(t){
@@ -113,7 +113,7 @@ face[0] = {
 			this.g.setColor(0,(this.s3)?col("dblue"):col("dgray"));
             this.g.fillRect(0,100,118,195);
 			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",21);	
+			this.g.setFont("Vector",18);	
 			this.g.drawString(this.slot3_maker.toUpperCase(),60-(this.g.stringWidth(this.slot3_maker.toUpperCase())/2),110); 
 			this.g.setFont("Vector",13);	
 			this.g.drawString(this.slot3_mac.substring(0,17),60-(this.g.stringWidth(this.slot3_mac.substring(0,17))/2),178); 
@@ -149,21 +149,21 @@ face[0] = {
 			this.g.setColor(0,(this.s4)?col("dblue"):col("dgray"));
     this.g.fillRect(122,100,239,195);
 			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",21);	
-			this.g.drawString(this.slot4_maker.toUpperCase(),180-(this.g.stringWidth(this.slot4_maker.toUpperCase())/2),110); 
+			this.g.setFont("Vector",18);	
+			this.g.drawString(this.slot4_maker.toUpperCase(),185-(this.g.stringWidth(this.slot4_maker.toUpperCase())/2),110); 
 			this.g.setFont("Vector",13);	
-			this.g.drawString(this.slot4_mac.substring(0,17),180-(this.g.stringWidth(this.slot4_mac.substring(0,17))/2),178); 
+			this.g.drawString(this.slot4_mac.substring(0,17),185-(this.g.stringWidth(this.slot4_mac.substring(0,17))/2),178); 
 			this.g.setFont("Vector",30);	
-			this.g.drawString("-",180-(this.g.stringWidth("-")/2),140); 
+			this.g.drawString("-",185-(this.g.stringWidth("-")/2),140); 
 			this.g.flip();
 		}else if (this.s4) {
 			this.g.setColor(0,col("dgray"));
             this.g.fillRect(122,100,239,195);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",22);	
-			this.g.drawString("HOLD",180-(this.g.stringWidth("HOLD")/2),120);
+			this.g.drawString("HOLD",185-(this.g.stringWidth("HOLD")/2),120);
 			this.g.setFont("Vector",18);	
-			this.g.drawString("TO SET",180-(this.g.stringWidth("TO SET")/2),160);
+			this.g.drawString("TO SET",185-(this.g.stringWidth("TO SET")/2),160);
 			this.g.flip();
             if (this.s4tid)  clearTimeout(this.s2tid);
             this.s4tid=setTimeout(function(t){
@@ -229,6 +229,9 @@ touchHandler[0]=function(e,x,y){
 		else if(120<x&&x<239&&100<y&&y<200) this.s=4; //slot4
 		if (face[0]["slot"+this.s+"_mac"]){
 			(s=>{s&&(s["slot"]=this.s)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
+			if (Boolean(require("Storage").read('euc_slot'+this.s,+'.json')))
+				euc.dash=require("Storage").readJSON('euc_slot'+this.s,+'.json',1);
+			else euc.resetDash(this.s);
 			face[0].s1=0;face[0].s2=0;face[0].s3=0;face[0].s4=0;
 		}
 		face[0]["s"+this.s]=1

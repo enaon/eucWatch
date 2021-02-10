@@ -327,7 +327,11 @@ touchHandler[0]=function(e,x,y){
         }
       }  
 	}else if  (e==2){
-	  if (face[0].btSet) {
+	  if (y>160&&x<50) {
+        if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
+        else w.gfx.bri.set(this.bri);
+		digitalPulse(D16,1,[30,50,30]);
+	  }else if (face[0].btSet) {
         face[0].btSet=0;
         face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].atc=-1;face[0].bri=-1;face[0].acc=-1;face[0].dnd=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
       }else if(158<x&&x<239&&77<y&&y<160&&!face.mode) {
