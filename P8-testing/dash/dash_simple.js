@@ -1,4 +1,4 @@
-//euc
+//dash simple 
 //faces-main face
 face[0] = {
   offms: 5000, //5 sec timeout
@@ -8,7 +8,7 @@ face[0] = {
 	this.spdC={0:0,1:4095,2:4080,3:3840};
 	this.ampC={0:1365,1:4095,2:4080,3:3840};
 	this.tmpC={0:0,1:4095,2:4080,3:3840};
-	this.batC={0:0,1:4095,2:4080,3:3840};
+	this.batC={0:0,1:0,2:4080,3:3840};
 	if (euc.state=="READY") {
 	  this.g.setColor(0,"black");
       this.g.fillRect(0,56,239,64);
@@ -22,16 +22,6 @@ face[0] = {
       this.spd=euc.dash.spd;
       this.g.flip();
 	}
- //   this.g.setColor(1,col("gray"));
- //   this.g.fillRect(0,0,79,55); //temp
-//    this.g.fillRect(80,0,160,55); //amp 
-//    this.g.fillRect(161,0,239,55); //batt  	
-//    this.g.setColor(0,col("black"));
-//    this.g.setFont("7x11Numeric7Seg",4.5);
-//    this.g.drawString(euc.dash.tmp, 3,5); //temp
-//    this.g.drawString(euc.dash.bat,240-(this.g.stringWidth(euc.dash.bat)+3),5); //fixed bat
-//    this.g.setFontVector(20); //mileage
-//    this.g.flip();
     this.spd=-1;
     this.amp=-1;
     this.temp=-1;

@@ -128,7 +128,7 @@
 	  {"name":"euc","url":"euc.js"},
 	  {"name":"euc_slot","url":"euc_slot.json"},
       {"name":"euc_kingsong","url":"kingsong.js"},
-      {"name":"euc_NBoneE","url":"NBoneE.js"}
+      {"name":"euc_ninebot","url":"ninebot.js"}
 
     ]
   },
