@@ -231,7 +231,7 @@ touchHandler[0]=function(e,x,y){
 			(s=>{s&&(s["slot"]=this.s)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 			if (Boolean(require("Storage").read('euc_slot'+this.s+'.json')))
 				euc.dash=require("Storage").readJSON('euc_slot'+this.s+'.json',1);
-			else euc.resetDash(this.s);
+			else euc.dash=require("Storage").readJSON("euc_slot.json",1);
 			face[0].s1=0;face[0].s2=0;face[0].s3=0;face[0].s4=0;
 		}
 		face[0]["s"+this.s]=1

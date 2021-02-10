@@ -127,14 +127,16 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 	  }else if (euc.dash.amp<0) euc.dash.ampC=1; else euc.dash.ampC=0;
       ta=euc.tmp[euc_var];
 	//trip
-    }else if (euc_var==185 && euc.tmp[euc_var]!=tt) {
-      if (euc.dash.trpN > (euc.tmp[euc_var]/100).toFixed(1)) {
-        euc.dash.trpL=Number(euc.dash.trpL)+Number(euc.dash.trpN);
-        if (set.def.cli) console.log("EUC_trip new :",euc.dash.trpL);
-      } 
-      euc.dash.trpN=(euc.tmp[euc_var]/100).toFixed(1);
-	  euc.dash.trpT=Number(euc.dash.trpL)+Number(euc.dash.trpN);
-      tt=euc.tmp[euc_var];
+    }else if (euc_var==185) {
+     // if (euc.dash.trpN > (euc.tmp[euc_var]/100).toFixed(1)) {
+     //   euc.dash.trpL=Number(euc.dash.trpL)+Number(euc.dash.trpN);
+     //   if (set.def.cli) console.log("EUC_trip new :",euc.dash.trpL);
+     // } 
+      euc.dash.trpL=(euc.tmp[euc_var]/100).toFixed(1);
+	  euc.dash.trpT=(euc.tmp[euc_var]/100).toFixed(1);
+
+	  //euc.dash.trpT=Number(euc.dash.trpL)+Number(euc.dash.trpN);
+      //tt=euc.tmp[euc_var];
     //battery fixed
     }else  if (euc_var==71 && euc.tmp[euc_var]!=tb) {
       euc.dash.bat=(((euc.tmp[euc_var]/100)-51.5)*10|0); 
