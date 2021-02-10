@@ -56,8 +56,8 @@ global.euc= {
 		}
 	} 
 };
-//if (Boolean(require("Storage").read('euc_slot'+require("Storage").readJSON("dash.json",1).slot,+'.json'))) { 
-//euc.dash=require("Storage").readJSON('euc_slot'+require("Storage").readJSON("dash.json",1).slot,+'.json',1);
-//}else euc.resetDash(require("Storage").readJSON("dash.json",1).slot);
-if (!Boolean(require("Storage").read('euc_slot'+require("Storage").readJSON("dash.json",1).slot,+'.json')))
-euc.resetDash(require("Storage").readJSON("dash.json",1).slot);
+if (Boolean(require("Storage").read('euc_slot'+require("Storage").readJSON("dash.json",1).slot+'.json'))) { 
+euc.dash=require("Storage").readJSON('euc_slot'+require("Storage").readJSON("dash.json",1).slot+'.json',1);
+}else euc.resetDash(require("Storage").readJSON("dash.json",1).slot);
+//if (!Boolean(require("Storage").read('euc_slot'+require("Storage").readJSON("dash.json",1).slot+'.json')))
+//euc.resetDash(require("Storage").readJSON("dash.json",1).slot);
