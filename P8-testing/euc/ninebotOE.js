@@ -1,8 +1,4 @@
-//m_euc
-
-
-
-}
+//m_euc ninebot one c/e/p
 euc.cmd=function(no){
 	switch (no) {
     case 0:case 3:case 6:case 9:case 12:case 15:case 18:
