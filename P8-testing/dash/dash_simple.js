@@ -5,6 +5,10 @@ face[0] = {
   g:w.gfx,
   spd:[],
   init: function(){
+	this.spdC={0:0,1:4095,2:4080,3:3840};
+	this.ampC={0:1365,1:4095,2:4080,3:3840};
+	this.tmpC={0:0,1:4095,2:4080,3:3840};
+	this.batC={0:0,1:4095,2:4080,3:3840};
 	if (euc.state=="READY") {
 	  this.g.setColor(0,"black");
       this.g.fillRect(0,56,239,64);
@@ -36,10 +40,6 @@ face[0] = {
     this.connrest=0;
 	this.connoff=0;
     this.lock=2;
-	this.spdC={0:0,1:4095,2:4080,3:3840};
-	this.ampC={0:0,1:4095,2:4080,3:3840};
-	this.tmpC={0:0,1:4095,2:4080,3:3840};
-	this.batC={0:0,1:4095,2:4080,3:3840};
 	this.run=true;
 	
   },

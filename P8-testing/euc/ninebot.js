@@ -168,12 +168,12 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
       tv=euc.tmp[euc_var];
     }//runtime
     else if (euc_var==58 && euc.tmp[euc_var]!=tm) {
-      euc.time=(euc.tmp[euc_var]/60).toFixed(0);
+      euc.dash.time=(euc.tmp[euc_var]/60).toFixed(0);
       tm=euc.tmp[euc_var];
 	}//riding Mode
 	else if (euc_var==210 ) {
 	  if (euc.tmp[euc_var] >=10)  digitalPulse(D16,1,[100,80,100]);  
-	  else euc.rdmd=euc.tmp[euc_var];
+	  else euc.dash.mode=euc.tmp[euc_var];
     } //lock
     else if (euc_var==112 && euc.tmp[euc_var]!=euc.lock) {
       euc.lock=euc.tmp[euc_var];
@@ -374,7 +374,7 @@ euc.wri= function(ch) {
 //	else if (euc_still==true && euc.tmp.count<19 ) {euc.tmp.count=19;changeInterval(euc.tmp.loop,500);}
     else if (euc_still==true && euc.tmp.count<19 ) {changeInterval(euc.tmp.loop,500);}
     else if  ( euc_still!=true && euc.dash.spd<=2)  {changeInterval(euc.tmp.loop,200);	}
-	else if  (euc.dash.spd>2 && face.appCurr==set.dash[set.def.dash])  {changeInterval(euc.tmp.loop,10);}
+	else if  (euc.dash.spd>2 && face.appCurr==set.dash[set.def.dash])  {changeInterval(euc.tmp.loop,30);}
 //    else if  (euc.dash.spd>2 && face.pageCurr!=-1)  {changeInterval(euc.tmp.loop,100);}
     else changeInterval(euc.tmp.loop,100);
 	busy = true;
