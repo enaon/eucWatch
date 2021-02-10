@@ -187,6 +187,9 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
 //		this.g.setColor(1,col("raf2"));
 		this.g.setColor(0,col("black"));
 		this.g.fillRect(0,151,239,239);
+		this.g.setColor(1,col("white"));//
+		this.g.setFont("Vector",25);
+		this.g.drawString("eucWatch",119-(this.g.stringWidth("eucWatch")/2),185); //info
 		this.g.flip();
 	  }
     }
