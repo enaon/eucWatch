@@ -49,7 +49,7 @@ euc.tmp.amp="-1";
 euc.tmp.temp="-1";
 euc.tmp.batt="-1";
 euc.tmp.trpN="-1";  
-euc.dash.spdC=col("black");
+euc.dash.spdC=0;
 euc.tmp.rssi="-70";
 
 if ( global["\xFF"].BLE_GATTS!="undefined") {
@@ -101,12 +101,12 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
       euc.dash.spd=(euc.tmp[euc_var]/1000).toFixed(1);
 		euc_al_s=false;	  
 	  if (euc.dash.spd>=euc.dash.spd1) {
-		if (euc.dash.spd>=euc.dash.spd1+5) euc.dash.spdC=col("red");	
-		else if (euc.dash.spd>=euc.dash.spd1+2) euc.dash.spdC=col("yellow");
-		else euc.dash.spdC=col("white");
+		if (euc.dash.spd>=euc.dash.spd1+5) euc.dash.spdC=3;	
+		else if (euc.dash.spd>=euc.dash.spd1+2) euc.dash.spdC=2;
+		else euc.dash.spdC=1;
 		euc_al=(1+(euc.dash.spd|0)-euc.dash.spd1);
 		euc_al_s=true;
-      } else euc.dash.spdC=col("black");
+      } else euc.dash.spdC=0;
       ts=euc.tmp[euc_var];
     //amp
     }else  if (euc_var==80 && euc.tmp[euc_var]!=ta) {
@@ -114,17 +114,17 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
       else euc.dash.amp=(euc.tmp[euc_var]/100).toFixed(1);
 	  euc_al_a=false;
 	  if (euc.dash.amp>=euc.dash.ampH) {
-		if  (euc.dash.amp>=euc.dash.ampH+5 ) euc.dash.ampC=col("red");
-		else euc.dash.ampC=col("yellow");
+		if  (euc.dash.amp>=euc.dash.ampH+5 ) euc.dash.ampC=3;
+		else euc.dash.ampC=2;
 		euc_al=(euc_al+1+(euc.dash.amp-euc.dash.ampH))|0;
 		euc_al_a=true;
-	  }else if (euc.dash.amp>=10) { euc.dash.ampC=col("purple");
+	  }else if (euc.dash.amp>=10) { euc.dash.ampC=1;
 	  }else if ( euc.dash.amp<=euc.dash.ampL) {
-		if  (euc.dash.amp<=euc.dash.ampL-5 ) euc.dash.ampC=col("red");
-		else  euc.dash.ampC=col("yellow");
+		if  (euc.dash.amp<=euc.dash.ampL-5 ) euc.dash.ampC=3;
+		else  euc.dash.ampC=2;
 		euc_al=(euc_al+1+(-(euc.dash.amp-euc.dash.ampL)))|0;      
 		euc_al_a=true;
-	  }else if (euc.dash.amp<0) euc.dash.ampC=col("white"); else euc.dash.ampC=col("black");
+	  }else if (euc.dash.amp<0) euc.dash.ampC=1; else euc.dash.ampC=0;
       ta=euc.tmp[euc_var];
 	//trip
     }else if (euc_var==185 && euc.tmp[euc_var]!=tt) {
@@ -139,11 +139,11 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
     }else  if (euc_var==71 && euc.tmp[euc_var]!=tb) {
       euc.dash.bat=(((euc.tmp[euc_var]/100)-51.5)*10|0); 
 	  euc_al_t=false;
-	  if ((euc.dash.bat) >= 70) euc.dash.batC=col("lblue");
-      else  if ((euc.dash.bat) >= 40) euc.dash.batC=col("purple");
-      else  if ((euc.dash.bat) >= euc.alert.batt) euc.dash.batC=col("yellow");
+	  if ((euc.dash.bat) >= 70) euc.dash.batC=0;
+      else  if ((euc.dash.bat) >= 40) euc.dash.batC=1;
+      else  if ((euc.dash.bat) >= euc.alert.batt) euc.dash.batC=2;
       else  {
-		euc.dash.batC=col("red");
+		euc.dash.batC=3;
 		euc_al++;
 		euc_al_b=true;
 	  }
@@ -156,11 +156,11 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
     }else if (euc_var==62 && euc.tmp[euc_var]!=te) {
       euc.dash.tmp=(euc.tmp[euc_var]/10).toFixed(0);
       if (euc.dash.tmp>=euc.dash.tmpH ) {
-		if (euc.dash.tmp>=65) euc.dash.tmpC=col("red");
-		else euc.dash.tmpC=col("yellow");
+		if (euc.dash.tmp>=65) euc.dash.tmpC=3;
+		else euc.dash.tmpC=2;
 		euc_al++;
 		euc_al_t=true;
-	  } else if (euc.dash.tmp>=50 ) euc.dash.tmpC=purple; else euc.dash.tmpC=col("lblue");	  
+	  } else if (euc.dash.tmp>=50 ) euc.dash.tmpC=1; else euc.dash.tmpC=o;	  
       te=euc.tmp[euc_var];
 	 //average
     }else if (euc_var==182 && euc.tmp[euc_var]!=tv) {
@@ -178,20 +178,20 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
     else if (euc_var==112 && euc.tmp[euc_var]!=euc.lock) {
       euc.lock=euc.tmp[euc_var];
 	  if (euc.lock==1) {
-		euc.dash.spdC=col("purple");
-		euc.dash.ampC=col("purple");
-		euc.dash.tmpC=col("purple");
-		euc.dash.batC=col("purple");
+		euc.dash.spdC=0;
+		euc.dash.ampC=0;
+		euc.dash.tmpC=0;
+		euc.dash.batC=0;
         euc.tmp.spd="-1";
 		euc.tmp.amp="-1";
 		euc.tmp.temp="-1";
 		euc.tmp.batt="-1";
 		euc.tmp.trpN="-1";
       }else {
-		 euc.dash.spdC=col("black");
-		euc.dash.ampC=col("black");
-		euc.dash.tmpC=col("lblue");
-		euc.dash.batC=col("lblue");
+		euc.dash.spdC=0;
+		euc.dash.ampC=0;
+		euc.dash.tmpC=0;
+		euc.dash.batC=0;
 		euc.tmp.spd="-1";
 		euc.tmp.amp="-1";
 		euc.tmp.temp="-1";
@@ -262,16 +262,17 @@ return  c;
 	  euc.reconnect=setTimeout(() => {
 		euc.reconnect=0;
 	    euc.conn(euc.mac); 
-	  }, 10000);
+	  }, 5000);
 	}else if ( err==="Disconnected"|| err==="Not connected")  {
-	  if (euc.reconnect) clearTimeout(euc.reconnect)
+	  if (euc.reconnect) clearTimeout(euc.reconnect);
       if (set.def.cli) console.log("retrying :",err);
       euc.state="FAR";
-	  if (euc.lock==1) digitalPulse(D16,1,100);
-	  else digitalPulse(D16,1,[100,150,100]);
+	 // if (euc.lock==1) digitalPulse(D16,1,100);
+	 // else digitalPulse(D16,1,[100,150,100]);
       euc.reconnect=setTimeout(() => {
+        euc.reconnect=0;
 	    euc.conn(euc.mac); 
-      }, 5000);
+      }, 500);
     }
   } else {
 	  if (euc.tmp.loop!=-1) {
@@ -329,10 +330,10 @@ euc.wri= function(ch) {
 			ch.writeValue(euc.cmd(21)).then(function() {
 				euc.lock=1;
 				busy = false;
-		        euc.dash.spdC=col("purple");
-		        euc.dash.ampC=col("purple");
-		        euc.dash.tmpC=col("purple");
-		        euc.dash.batC=col("purple");
+		        euc.dash.spdC=0;
+		        euc.dash.ampC=0;
+		        euc.dash.tmpC=0;
+		        euc.dash.batC=0;
 				euc.tmp.spd="-1";
 				euc.tmp.spd[1]="-1";
 				euc.tmp.amp="-1";
@@ -350,10 +351,10 @@ euc.wri= function(ch) {
 			  busy = false;
 			  euc_near=0;
 			  euc.lock=0;
-		        euc.dash.spdC=col("black");
-		        euc.dash.ampC=col("black");
-		        euc.dash.tmpC=col("lblue");
-		        euc.dash.batC=col("lblue");
+		        euc.dash.spdC=0;
+		        euc.dash.ampC=0;
+		        euc.dash.tmpC=0;
+		        euc.dash.batC=0;
 				euc.tmp.spd="-1";
 				euc.tmp.spd[1]="-1";
 				euc.tmp.amp="-1";
@@ -373,7 +374,7 @@ euc.wri= function(ch) {
 //	else if (euc_still==true && euc.tmp.count<19 ) {euc.tmp.count=19;changeInterval(euc.tmp.loop,500);}
     else if (euc_still==true && euc.tmp.count<19 ) {changeInterval(euc.tmp.loop,500);}
     else if  ( euc_still!=true && euc.dash.spd<=2)  {changeInterval(euc.tmp.loop,200);	}
-	else if  (euc.dash.spd>2 && face.appCurr=="euc")  {changeInterval(euc.tmp.loop,50);}
+	else if  (euc.dash.spd>2 && face.appCurr==set.dash[set.def.dash])  {changeInterval(euc.tmp.loop,10);}
 //    else if  (euc.dash.spd>2 && face.pageCurr!=-1)  {changeInterval(euc.tmp.loop,100);}
     else changeInterval(euc.tmp.loop,100);
 	busy = true;

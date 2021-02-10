@@ -47,11 +47,11 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 		this.alert=0;
         euc.dash.spd=((((this.KSdata[4] & 0xFF) + (this.KSdata[5] << 8))/100)).toFixed(1); 
 		if (euc.dash.spd[0]>45)  {
-			euc.dash.spdC=col("red");this.alert=1;
+			euc.dash.spdC=3;this.alert=1;
 		}else if (euc.dash.spd[0]>35) {
-			euc.dash.spdC=col("yellow");this.alert=1;
+			euc.dash.spdC=2;this.alert=1;
 		}else if (euc.dash.spd[0]>25) {
-			euc.dash.spdC=col("white");this.alert=1;			
+			euc.dash.spdC=1;this.alert=1;			
 		}
         //amp
 		this.cur=((this.KSdata[10] & 0xFF) + (this.KSdata[11] << 8));
@@ -62,47 +62,47 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 		}
 		//
 		else if (euc.dash.amp>30)  {
-			euc.dash.ampC=col("red");this.alert=1;
-			euc.dash.spdC=col("red");		
+			euc.dash.ampC=3;this.alert=1;
+			euc.dash.spdC=3;		
 		}else if (euc.dash.amp>23) {
-			euc.dash.ampC=col("yellow");this.alert=1;
-			if (euc.dash.spdC!=col("red")) euc.dash.ampC=col("yellow");
+			euc.dash.ampC=2;this.alert=1;
+			if (euc.dash.spdC!=3) euc.dash.ampC=2;
 		}else if (euc.dash.amp>15)  {
-			euc.dash.ampC=col("white");
-			if (euc.dash.spdC==col("black")) euc.dash.spdC=col("white");
+			euc.dash.ampC=1;
+			if (euc.dash.spdC==0) euc.dash.spdC=1;
 		}else if (euc.dash.amp<-10)  {
-			euc.dash.ampC=col("red");this.alert=1;
-			euc.dash.spdC=col("red");
+			euc.dash.ampC=3;this.alert=1;
+			euc.dash.spdC=3;
 		}else if (euc.dash.amp<-5)  {
-			euc.dash.ampC=col("yellow");this.alert=1;
-			if (euc.dash.spdC!=col("red")) euc.dash.spdC=col("yellow");
+			euc.dash.ampC=2;this.alert=1;
+			if (euc.dash.spdC!=3) euc.dash.spdC=2;
 		}else if (euc.dash.amp<0)  {
-			euc.dash.ampC=col("white");this.alert=1;
-			if (euc.dash.spdC==col("black")) euc.dash.spdC=col("white");
-		}else {euc.dash.ampC=col("dgray");}
+			euc.dash.ampC=1;this.alert=1;
+			if (euc.dash.spdC==0) euc.dash.spdC=1;
+		}else {euc.dash.ampC=0;}
 		
 		//volt
         euc.volt=(((this.KSdata[2] & 0xFF) + (this.KSdata[3] << 8))/100)+"";
         euc.dash.bat=(((euc.volt/20)*100-330)*1.1111)|0;
 		if (euc.dash.bat<20)  {
-			euc.dash.batC=col("red");this.alert=1;
-			euc.dash.spdC=col("red");
+			euc.dash.batC=3;this.alert=1;
+			euc.dash.spdC=3;
 		}else if (euc.dash.bat<60) {
-			euc.dash.batC=col("yellow");this.alert=1;
-		} else euc.dash.batC=col("black");
+			euc.dash.batC=2;this.alert=1;
+		} else euc.dash.batC=0;
         //temp
 		euc.dash.tmp=(((this.KSdata[12] & 0xFF) + (this.KSdata[13] << 8))/100)+"";
 		if (euc.dash.tmp>65)  {
-			euc.dash.tmpC=col("red");this.alert=1;
-			euc.dash.spdC=col("red");
+			euc.dash.tmpC=3;this.alert=1;
+			euc.dash.spdC=3;
 		}else if (euc.dash.tmp>55) {
-			euc.dash.tmpC=col("yellow");this.alert=1;
-		} else euc.dash.tmpC=col("black");
+			euc.dash.tmpC=2;this.alert=1;
+		} else euc.dash.tmpC=0;
 		//trip
         euc.dash.trpT=(((this.KSdata[6] << 16) + (this.KSdata[7] << 24) + this.KSdata[8] + (this.KSdata[9] << 8))/1000).toFixed(1);
 		//mode                                    
         euc.rmode=this.KSdata[14];
-		if (!this.alert)  euc.dash.spdC=col("black");
+		if (!this.alert)  euc.dash.spdC=0;
     }else if  (this.KSdata[16]==185){
         euc.dash.trpL=(((this.KSdata[2] << 16) + (this.KSdata[3] << 24) + this.KSdata[4] + (this.KSdata[5] << 8)) / 1000.0).toFixed(1);
 		euc.dash.time=(((this.KSdata[6] & 0xFF) + (this.KSdata[7] << 8)) / 60.0).toFixed(0);

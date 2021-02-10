@@ -9,9 +9,9 @@ face[0] = {
 	  this.g.setColor(0,"black");
       this.g.fillRect(0,56,239,64);
       this.g.flip();
-	  this.g.setColor(0,euc.dash.spdC);
+	  this.g.setColor(0,this.spdC[euc.dash.spdC]);
       this.g.fillRect(0,65,239,239);
-      this.g.setColor(1,(euc.dash.spdC!=col("yellow")&&euc.dash.spdC!=col("white"))?col("white"):col("black"));
+      this.g.setColor(1,(this.spdC[euc.dash.spdC]!=col("yellow")&&this.spdC[euc.dash.spdC]!=col("white"))?col("white"):col("black"));
       this.spd=euc.dash.spd;
 	  this.g.setFontVector(200);
       this.g.drawString(euc.dash.spd|0,(132-(this.g.stringWidth(euc.dash.spd|0)/2)),65); 
@@ -36,6 +36,10 @@ face[0] = {
     this.connrest=0;
 	this.connoff=0;
     this.lock=2;
+	this.spdC:{0:0,1:4095,2:4080,3:3840}
+	this.ampC:{0:0,1:4095,2:4080,3:3840}
+	this.tmpC:{0:0,1:4095,2:4080,3:3840}
+	this.batC:{0:0,1:4095,2:4080,3:3840}
 	this.run=true;
 	
   },
@@ -45,9 +49,9 @@ face[0] = {
 	//Temp
     if (euc.dash.tmp!=this.temp) {
       this.temp=euc.dash.tmp;
-	  this.g.setColor(0,euc.dash.tmpC);
+	  this.g.setColor(0,this.tmpC[euc.dash.tmpC]);
       this.g.fillRect(0,0,79,55);       
-      this.g.setColor(1,(euc.dash.tmpC!=col("yellow")&&euc.dash.tmpC!=col("lblue"))?col("white"):0);
+      this.g.setColor(1,(this.tmpC[euc.dash.tmpC]!=col("yellow")&&this.tmpC[euc.dash.tmpC]!=col("lblue"))?col("white"):0);
       this.g.setFont("7x11Numeric7Seg",4.5);
       this.g.drawString(euc.dash.tmp, 3,5); //temp      
 	  this.g.flip();
@@ -55,9 +59,9 @@ face[0] = {
 	//Amp
     if ((euc.dash.amp|0)!=this.amp) {
         this.amp=(euc.dash.amp|0);
-		this.g.setColor(0,euc.dash.ampC);
+		this.g.setColor(0,this.ampC[euc.dash.ampC]);
 		this.g.fillRect(80,0,160,55); //amp 
-        this.g.setColor(1,(euc.dash.ampC!=col("yellow")&&euc.dash.ampC!=col("white"))?col("white"):0);
+        this.g.setColor(1,(this.ampC[euc.dash.ampC]!=col("yellow")&&this.ampC[euc.dash.ampC]!=col("white"))?col("white"):0);
         this.g.setFont("7x11Numeric7Seg",4.5);
         this.g.drawString(euc.dash.amp|0,(122-(this.g.stringWidth(euc.dash.amp|0)/2)),5); 
         this.g.flip();
@@ -65,9 +69,9 @@ face[0] = {
 	//Battery
     if (euc.dash.bat!=this.batt) {
    	  this.batt=euc.dash.bat;
-	  this.g.setColor(0,euc.dash.batC);
+	  this.g.setColor(0,this.batC[euc.dash.batC]);
       this.g.fillRect(161,0,239,55);
-      this.g.setColor(1,(euc.dash.batC!=col("yellow")&&euc.dash.batC!=col("lgreen"))?col("white"):0);
+      this.g.setColor(1,(this.batC[euc.dash.batC]!=col("yellow")&&this.batC[euc.dash.batC]!=col("lgreen"))?col("white"):0);
       this.g.setFont("7x11Numeric7Seg",4.5);
       this.g.drawString(euc.dash.bat,240-(this.g.stringWidth(euc.dash.bat)+3),5); //fixed bat
       this.g.flip();
@@ -78,9 +82,9 @@ face[0] = {
 	  this.g.setColor(0,"black");
       this.g.fillRect(0,56,239,64);
       this.g.flip();
-	  this.g.setColor(0,euc.dash.spdC);
+	  this.g.setColor(0,this.spdC[euc.dash.spdC]);
       this.g.fillRect(0,65,239,239);
-      this.g.setColor(1,(euc.dash.spdC!=col("yellow")&&euc.dash.spdC!=col("white"))?col("white"):col("black"));
+      this.g.setColor(1,(this.spdC[euc.dash.spdC]!=this.spdC[2]&&this.spdC[euc.dash.spdC]!=this.spdC[1])?col("white"):col("black"));
 	  this.g.setFontVector(200);
       this.g.drawString(euc.dash.spd|0,132-(this.g.stringWidth(euc.dash.spd|0)/2),65); 
       this.g.flip();
