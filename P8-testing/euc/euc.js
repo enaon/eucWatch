@@ -47,7 +47,6 @@ global.euc= {
 				face.go('dashScan',0);return;
 		    }else {
 				eval(require('Storage').read('euc_'+require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"_maker"]));
-				//if (this.maker=="ninebot"&&this.state == "OFF") euc.tmp.count=22; else euc.tmp.count=0;  //unlock	
 				this.state="ON";
 				if (!set.def.acc) acc.on();
 				this.conn(this.mac); 

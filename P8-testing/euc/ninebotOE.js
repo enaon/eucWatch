@@ -1,4 +1,5 @@
 //m_euc ninebot one c/e/p
+euc.tmp={count:0};
 euc.cmd=function(no){
 	switch (no) {
     case 0:case 3:case 6:case 9:case 12:case 15:case 18:
@@ -43,8 +44,7 @@ var tb=0;
 var te=0; 
 var tv=0; 
 var tm=0; 
-euc.tmp.spd[0]="-1";
-euc.tmp.spd[1]="-1";
+euc.tmp.spd="-1";
 euc.tmp.amp="-1";
 euc.tmp.temp="-1";
 euc.tmp.batt="-1";
@@ -98,13 +98,13 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
     euc_al=0;
 	//speed
 	if (euc_var==38 && euc.tmp[euc_var]!=ts) {
-      euc.dash.spd=(euc.tmp[euc_var]/1000).toFixed(1).toString().split('.');
+      euc.dash.spd=(euc.tmp[euc_var]/1000).toFixed(1);
 		euc_al_s=false;	  
-	  if (euc.dash.spd[0]>=euc.alert.spd) {
-		if (euc.dash.spd[0]>=euc.alert.spd+5) euc.dash.spdC=col("red");	
-		else if (euc.dash.spd[0]>=euc.alert.spd+2) euc.dash.spdC=col("yellow");
+	  if (euc.dash.spd>=euc.alert.spd) {
+		if (euc.dash.spd>=euc.alert.spd+5) euc.dash.spdC=col("red");	
+		else if (euc.dash.spd>=euc.alert.spd+2) euc.dash.spdC=col("yellow");
 		else euc.dash.spdC=col("white");
-		euc_al=(1+(euc.dash.spd[0]|0)-euc.alert.spd);
+		euc_al=(1+(euc.dash.spd|0)-euc.alert.spd);
 		euc_al_s=true;
       } else euc.dash.spdC=col("black");
       ts=euc.tmp[euc_var];
@@ -113,16 +113,16 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
       if (euc.tmp[80]>32768) euc.dash.amp=((euc.tmp[80]-65536)/100).toFixed(1); 
       else euc.dash.amp=(euc.tmp[euc_var]/100).toFixed(1);
 	  euc_al_a=false;
-	  if (euc.dash.amp>=euc.alert.ampH) {
-		if  (euc.dash.amp>=euc.alert.ampH+5 ) euc.dash.ampC=col("red");
+	  if (euc.dash.amp>=euc.dash.ampH) {
+		if  (euc.dash.amp>=euc.dash.ampH+5 ) euc.dash.ampC=col("red");
 		else euc.dash.ampC=col("yellow");
-		euc_al=(euc_al+1+(euc.dash.amp-euc.alert.ampH))|0;
+		euc_al=(euc_al+1+(euc.dash.amp-euc.dash.ampH))|0;
 		euc_al_a=true;
 	  }else if (euc.dash.amp>=10) { euc.dash.ampC=col("purple");
-	  }else if ( euc.dash.amp<=euc.alert.ampL) {
-		if  (euc.dash.amp<=euc.alert.ampL-5 ) euc.dash.ampC=col("red");
+	  }else if ( euc.dash.amp<=euc.dash.ampL) {
+		if  (euc.dash.amp<=euc.dash.ampL-5 ) euc.dash.ampC=col("red");
 		else  euc.dash.ampC=col("yellow");
-		euc_al=(euc_al+1+(-(euc.dash.amp-euc.alert.ampL)))|0;      
+		euc_al=(euc_al+1+(-(euc.dash.amp-euc.dash.ampL)))|0;      
 		euc_al_a=true;
 	  }else if (euc.dash.amp<0) euc.dash.ampC=col("white"); else euc.dash.ampC=col("black");
       ta=euc.tmp[euc_var];
@@ -154,13 +154,13 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
       tr=euc.tmp[euc_var];
      //temp
     }else if (euc_var==62 && euc.tmp[euc_var]!=te) {
-      euc.temp=(euc.tmp[euc_var]/10).toFixed(0);
-      if (euc.temp>=euc.alert.temp ) {
-		if (euc.temp>=65) euc.tmpC=col("red");
-		else euc.tmpC=col("yellow");
+      euc.dash.tmp=(euc.tmp[euc_var]/10).toFixed(0);
+      if (euc.dash.tmp>=euc.dash.tmpH ) {
+		if (euc.dash.tmp>=65) euc.dash.tmpC=col("red");
+		else euc.dash.tmpC=col("yellow");
 		euc_al++;
 		euc_al_t=true;
-	  } else if (euc.temp>=50 ) euc.tmpC=purple; else euc.tmpC=col("lblue");	  
+	  } else if (euc.dash.tmp>=50 ) euc.dash.tmpC=purple; else euc.dash.tmpC=col("lblue");	  
       te=euc.tmp[euc_var];
 	 //average
     }else if (euc_var==182 && euc.tmp[euc_var]!=tv) {
@@ -180,9 +180,9 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 	  if (euc.lock==1) {
 		euc.dash.spdC=col("purple");
 		euc.dash.ampC=col("purple");
-		euc.tmpC=col("purple");
+		euc.dash.tmpC=col("purple");
 		euc.dash.batC=col("purple");
-        euc.tmp.spd[0]="-1";
+        euc.tmp.spd="-1";
 		euc.tmp.amp="-1";
 		euc.tmp.temp="-1";
 		euc.tmp.batt="-1";
@@ -190,9 +190,9 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
       }else {
 		 euc.dash.spdC=col("black");
 		euc.dash.ampC=col("black");
-		euc.tmpC=col("lblue");
+		euc.dash.tmpC=col("lblue");
 		euc.dash.batC=col("lblue");
-		euc.tmp.spd[0]="-1";
+		euc.tmp.spd="-1";
 		euc.tmp.amp="-1";
 		euc.tmp.temp="-1";
 		euc.tmp.batt="-1";
@@ -219,6 +219,7 @@ return  c;
   if (set.def.cli) console.log("EUC connected"); 
   euc.state="READY"; //connected
   digitalPulse(D16,1,[90,40,150,40,90]);
+  euc.tmp.count=22;// else euc.tmp.count=0;  //unlock	
   setTimeout(function(){  euc.wri(c); },100); 
 //on disconnect
   global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
@@ -302,13 +303,13 @@ euc.wri= function(ch) {
   euc.tmp.loop = setInterval(function() {
     if (busy  ) return;
 	//check if still
-    if (euc.dash.spd[0]==0 && euc_still==false) {
+    if (euc.dash.spd==0 && euc_still==false) {
       euc_still=3;
       //if (typeof euc_still_tmr !== "undefined") {clearTimeout(euc_still_tmr);}
       euc_still_tmr=(setTimeout(() => { 
         euc_still=true;
       },5000));
-    }else if (euc.dash.spd[0]>=1 && euc_still!=false) {
+    }else if (euc.dash.spd>=1 && euc_still!=false) {
       clearTimeout(euc_still_tmr);
       euc_far=0;
       euc_still=false;
@@ -329,9 +330,9 @@ euc.wri= function(ch) {
 				busy = false;
 		        euc.dash.spdC=col("purple");
 		        euc.dash.ampC=col("purple");
-		        euc.tmpC=col("purple");
+		        euc.dash.tmpC=col("purple");
 		        euc.dash.batC=col("purple");
-				euc.tmp.spd[0]="-1";
+				euc.tmp.spd="-1";
 				euc.tmp.spd[1]="-1";
 				euc.tmp.amp="-1";
 				euc.tmp.temp="-1";
@@ -340,7 +341,7 @@ euc.wri= function(ch) {
 				digitalPulse(D16,1,[90,60,90]);
 			});
       }
-	}else if  (euc.tmp.rssi> -(euc.near) && euc.dash.spd[0]<=5 && euc.lock==1 ) {
+	}else if  (euc.tmp.rssi> -(euc.near) && euc.dash.spd<=5 && euc.lock==1 ) {
 		euc_far=0;
 			if (busy ) return;
 			busy = true;
@@ -350,9 +351,9 @@ euc.wri= function(ch) {
 			  euc.lock=0;
 		        euc.dash.spdC=col("black");
 		        euc.dash.ampC=col("black");
-		        euc.tmpC=col("lblue");
+		        euc.dash.tmpC=col("lblue");
 		        euc.dash.batC=col("lblue");
-				euc.tmp.spd[0]="-1";
+				euc.tmp.spd="-1";
 				euc.tmp.spd[1]="-1";
 				euc.tmp.amp="-1";
 				euc.tmp.treseeseseseemp="-1";
@@ -366,13 +367,13 @@ euc.wri= function(ch) {
 	//send command
     if (busy ) return;
 	//only alarms when locked
-    if (euc.lock==1 && euc.tmp.count<=21 && euc.dash.spd[0]==0) {euc.tmp.count=20;changeInterval(euc.tmp.loop,2000);}
+    if (euc.lock==1 && euc.tmp.count<=21 && euc.dash.spd==0) {euc.tmp.count=20;changeInterval(euc.tmp.loop,2000);}
 	//only get alarms-speed when still
 //	else if (euc_still==true && euc.tmp.count<19 ) {euc.tmp.count=19;changeInterval(euc.tmp.loop,500);}
     else if (euc_still==true && euc.tmp.count<19 ) {changeInterval(euc.tmp.loop,500);}
-    else if  ( euc_still!=true && euc.dash.spd[0]<=2)  {changeInterval(euc.tmp.loop,200);	}
-	else if  (euc.dash.spd[0]>2 && face.appCurr=="euc")  {changeInterval(euc.tmp.loop,50);}
-//    else if  (euc.dash.spd[0]>2 && face.pageCurr!=-1)  {changeInterval(euc.tmp.loop,100);}
+    else if  ( euc_still!=true && euc.dash.spd<=2)  {changeInterval(euc.tmp.loop,200);	}
+	else if  (euc.dash.spd>2 && face.appCurr=="euc")  {changeInterval(euc.tmp.loop,50);}
+//    else if  (euc.dash.spd>2 && face.pageCurr!=-1)  {changeInterval(euc.tmp.loop,100);}
     else changeInterval(euc.tmp.loop,100);
 	busy = true;
 //	print("cmd:",euc.tmp.count);
