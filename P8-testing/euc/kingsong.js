@@ -41,13 +41,11 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
     if (this.KSdata[16]==169) {
 		euc.alert=0;
         euc.dash.spd=((((this.KSdata[4] & 0xFF) + (this.KSdata[5] << 8))/100)).toFixed(1); 
-		if (euc.dash.spd>euc.dash.spd3)  {
-			euc.dash.spdC=3;euc.alert++;
-		}else if (euc.dash.spd>euc.dash.spd2) {
-			euc.dash.spdC=2;euc.alert++;
-		}else if (euc.dash.spd>euc.dash.spd1) {
-			euc.dash.spdC=1;euc.alert++;			
-		}
+		if (euc.dash.spd>euc.dash.spd3)	euc.dash.spdC=3;
+		else if (euc.dash.spd>=euc.dash.spd2) euc.dash.spdC=2;
+		else if (euc.dash.spd>=euc.dash.spd1) euc.dash.spdC=1;
+		if (euc.dash.spd>euc.dash.spd2)	euc.alert=(euc.alert+1+((euc.dash.spd-euc.dash.spd2)/euc.dash.spdS))|0;      
+
         //amp
 		this.cur=((this.KSdata[10] & 0xFF) + (this.KSdata[11] << 8));
         if (this.cur > 32767) this.cur = this.cur - 65536;
