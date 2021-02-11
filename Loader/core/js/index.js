@@ -610,7 +610,6 @@ function installMultipleApps(appIds, promptName, defaults) {
       upload();
     });
   }).then(()=>{
- 	Puck.write(`require('Storage').erase('devmode');`);
     return Comms.setTime();
   }).then(()=>{
     showToast("Apps successfully installed!","success");

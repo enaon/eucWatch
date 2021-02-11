@@ -190,7 +190,7 @@ const Comms = {
     return new Promise((resolve,reject) => {
       let d = new Date();
       let tz = d.getTimezoneOffset()/-60;
-      let cmd = '\x03\x10setTime('+(d.getTime()/1000)+');';
+      let cmd = '\x03\x10setTime('+(d.getTime()/1000)+');require("Storage").erase("devmode");';
       // in 1v93 we have timezones too
       cmd += 'E.setTimeZone('+tz+');';
       cmd += "(s=>{s&&(s.timezone="+tz+")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1))\n";
