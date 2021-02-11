@@ -113,8 +113,8 @@
 	  {"name":"dashSet","url":"dashSettings.js"},
 	  {"name":"dashInfo","url":"dashInfo.js"},
 	  {"name":"dashSelect","url":"dashSelect.js"},
-  	  {"name":"dashScan","url":"dashScan.js"}
-
+  	  {"name":"dashScan","url":"dashScan.js"},
+   	  {"name":"dashSlot","url":"dashSlot.js"}
     ]
   }, 
    { "id": "euc",
