@@ -220,26 +220,6 @@ const Comms = {
       });
     });
   },
-   enterDevmode : () => {
-    return new Promise((resolve,reject) => {
-      let cmd = '\x03\x10';
-	cmd += `require("Storage").write("devmode","devmode");`;
-      Puck.write(cmd, (result) => {
-        if (result===null) return reject("");
-        resolve();
-      });
-    });
-  },  
-   exitDevmode : () => {
-    return new Promise((resolve,reject) => {
-      let cmd = '\x03\x10';
-	cmd += `require("Storage").erase("devmode");`;
-      Puck.write(cmd, (result) => {
-        if (result===null) return reject("");
-        resolve();
-      });
-    });
-  },
   changeSettings : (id,value) => {
     return new Promise((resolve,reject) => {
       let cmd = '\x03\x10';
