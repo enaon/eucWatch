@@ -233,7 +233,7 @@ const Comms = {
    exitDevmode : () => {
     return new Promise((resolve,reject) => {
       let cmd = '\x03\x10';
-	cmd += `require("Storage").erase("devmode");require("Storage").erase("devmode.info");`;
+	cmd += `require("Storage").erase("devmode");`;
       Puck.write(cmd, (result) => {
         if (result===null) return reject("");
         resolve();
