@@ -228,15 +228,14 @@ touchHandler[0]=function(e,x,y){
 		else if(120<x&&x<239&&0<y&&y<100) this.s=2;   //slot2 
 		else if(0<x&&x<120&&100<y&&y<200) this.s=3;   //slot3 
 		else if(120<x&&x<239&&100<y&&y<200) this.s=4; //slot4
-		if (face[0]["slot"+this.s+"_mac"]){
+		if (require("Storage").readJSON("dash.json",1)["slot"+this.s+"_mac"]){
 			(s=>{s&&(s["slot"]=this.s)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 			if (Boolean(require("Storage").read('euc_slot'+this.s+'.json')))
 				euc.dash=require("Storage").readJSON('euc_slot'+this.s+'.json',1);
 			else euc.dash=require("Storage").readJSON("euc_slot.json",1);
 			face[0].s1=0;face[0].s2=0;face[0].s3=0;face[0].s4=0;
 		}
-		face[0]["s"+this.s]=1
-		this.timeout();
+		face[0]["s"+this.s]=1;
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
@@ -265,12 +264,7 @@ touchHandler[0]=function(e,x,y){
 		else if(120<=x&&x<=239&&0<=y&&y<=100) this.s=2;		//slot2
 		else if (0<=x&&x<=120&&100<=y&&y<=200) this.s=3;	//slot3
 		else if(120<=x&&x<=239&&100<=y&&y<=200) this.s=4;	//slot4
-		//(s=>{s&&(s["slot"]=this.s)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 		if (require("Storage").readJSON("dash.json",1)["slot"+this.s+"_mac"]){
-			//(s=>{s&&(delete s["slot"+this.s+"_mac"])&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
-			//(s=>{s&&(delete s["slot"+this.s+"_maker"])&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
-			//require("Storage").erase('euc_slot'+this.s+'.json')
-			//face[0]["slot"+this.s+"_mac"]=undefined;face[0]["slot"+this.s+"_maker"]=undefined;face[0]["sv"+this.s]=undefined;face[0]["s"+this.s]=1;
 			(s=>{s&&(s["slot"]=this.s)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 			face.go("dashSlot",0);return;
 		}else {
