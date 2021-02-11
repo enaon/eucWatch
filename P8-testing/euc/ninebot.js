@@ -30,14 +30,6 @@ euc.cmd=function(no){
 };
 //
 euc.conn=function(mac){
-euc.tmp.spd="-1";
-euc.tmp.amp="-1";
-euc.tmp.temp="-1";
-euc.tmp.batt="-1";
-euc.tmp.trpL="-1";  
-euc.dash.spdC=0;
-euc.tmp.rssi="-70";
-
 if ( global["\xFF"].BLE_GATTS!="undefined") {
 	if (set.def.cli) print("ble allready connected"); 
 	if (global["\xFF"].BLE_GATTS.connected) global["\xFF"].BLE_GATTS.disconnect();
@@ -45,152 +37,149 @@ if ( global["\xFF"].BLE_GATTS!="undefined") {
 }
 NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 .then(function(g) {
-   return g.getPrimaryService(0xffe0);
+		return g.getPrimaryService(0xffe0);
 }).then(function(s) {
-  return s.getCharacteristic(0xffe1);
+	return s.getCharacteristic(0xffe1);
 }).then(function(c) {
-//  euc.tmp.characteristic=c;
-  c.on('characteristicvaluechanged', function(event) {
-//  this.var = event.target.value.getUint8(5, true);
-  this.out= event.target.value.buffer(5);
-  this.in16=event.target.value.getUint16(6, true);
-//  this.in=event.target.value.buffer(5);
-/* // if off button is pressed on euc
-  if (event.target.value.buffer[5]==0) {
-	  euc.state="WAIT";
-	  digitalPulse(D16,1,200);
-      //return;
-  //alarm
-  }else if (event.target.value.buffer(5)==178) {
-	  euc.tmp[this.var] = event.target.value.getUint8(6, true);
+	//euc.tmp.characteristic=c;
+	c.on('characteristicvaluechanged', function(event) {
+		//  this.var = event.target.value.getUint8(5, true);
+		this.val= event.target.value.buffer(5);
+		this.in16=event.target.value.getUint16(6, true);
+		//this.in=event.target.value.buffer(5);
+		/* // if off button is pressed on euc
+		if (event.target.value.buffer[5]==0) {
+			euc.state="WAIT";
+			digitalPulse(D16,1,200);
+			//return;
+			//alarm
+		}else if (event.target.value.buffer(5)==178) {
+			euc.tmp[this.var] = event.target.value.getUint8(6, true);
+			if (Number(euc_val).toString(2)[1]==1 &&  euc.alertarm==0) {
+				euc.alertarm=1; 
+				//if (set.def.cli) console.log("euc.alertarm :",euc_val);
+				digitalPulse(D16,1,[250,50,250,50,250]);
+				if (face.pageCurr==-1) {
+					g.clear();	
+					g.setFontVector(30);
+					g.drawString("!",9, 30);
+					g.flip();g.on();
+					face.offid=setTimeout(() => {g.off();face.offid=-1}, 2000);
+				}
+				setTimeout(() => { euc.alertarm=0; }, 100);
+			}
 
-/*     if (Number(euc_val).toString(2)[1]==1 &&  euc.alertarm==0) {
-        euc.alertarm=1; 
-        //if (set.def.cli) console.log("euc.alertarm :",euc_val);
-        digitalPulse(D16,1,[250,50,250,50,250]);
-		if (face.pageCurr==-1) {
-			g.clear();	
-            g.setFontVector(30);
-			g.drawString("!",9, 30);
-			g.flip();g.on();
-			face.offid=setTimeout(() => {g.off();face.offid=-1}, 2000);
+		//}else if (this.var==210) {
+			//euc.tmp[this.var] = event.target.value.getUint8(6, true);
+			//euc.rdmd=euc.tmp[this.var];
+			//rest
+			*/  
+			//}else  {   
+			//    euc.tmp[this.var]=event.target.value.getUint16(6, true);
+			//alerts
+			
+		euc.alert=0;
+		//speed
+		if  (this.type==38) {
+			euc.dash.spd=(this.in16/1000).toFixed(1);
+			if (euc.dash.spd>=euc.dash.spd1) {
+				if (euc.dash.spd>=euc.dash.spd1+5) euc.dash.spdC=3;	
+				else if (euc.dash.spd>=euc.dash.spd1+2) euc.dash.spdC=2;
+				else euc.dash.spdC=1;
+				euc.alert=(1+(euc.dash.spd|0)-euc.dash.spd1);
+			} else euc.dash.spdC=0;
+		//amp
+		}else  if (this.var==80) {
+			if (this.in16>32768) euc.dash.amp=((this.in16-65536)/100).toFixed(1); 
+			else euc.dash.amp=(this.in16/100).toFixed(1);
+			if (euc.dash.amp>=euc.dash.ampH) {
+				if  (euc.dash.amp>=euc.dash.ampH+5 ) euc.dash.ampC=3;
+				else euc.dash.ampC=2;
+				euc.alert=(euc.alert+1+(euc.dash.amp-euc.dash.ampH))|0;
+			}else if (euc.dash.amp>=10) { euc.dash.ampC=1;
+			}else if ( euc.dash.amp<=euc.dash.ampL) {
+				if  (euc.dash.amp<=euc.dash.ampL-5 ) euc.dash.ampC=3;
+				else  euc.dash.ampC=2;
+				euc.alert=(euc.alert+1+(-(euc.dash.amp-euc.dash.ampL)))|0;      
+				euc.alert_a=true;
+			}else if (euc.dash.amp<0) euc.dash.ampC=1; 
+			else euc.dash.ampC=0;
+		//trip
+		}else if (this.var==185) {
+			// if (euc.dash.trpN > (euc.tmp[this.var]/100).toFixed(1)) {
+			//   euc.dash.trpL=Number(euc.dash.trpL)+Number(euc.dash.trpN);
+			//   if (set.def.cli) console.log("EUC_trip new :",euc.dash.trpL);
+			// } 
+			euc.dash.trpL=(this.in16/100).toFixed(1);
+			euc.dash.trpT=(this.in16/100).toFixed(1);
+			//euc.dash.trpT=Number(euc.dash.trpL)+Number(euc.dash.trpN);
+			//tt=euc.tmp[this.var];
+			//battery fixed
+		}else  if (this.var==71) {
+			euc.dash.bat=(((this.in16/100)-51.5)*10|0); 
+			if ((euc.dash.bat) >= euc.dash.batH) euc.dash.batC=0;
+			else  if ((euc.dash.bat) >= euc.dash.batM) euc.dash.batC=1;
+			else  if ((euc.dash.bat) >= euc.dash.batL) euc.dash.batC=2;
+			else  {
+				euc.dash.batC=3;
+				euc.alert++;
+			}
+		//remaining
+		}else if (this.var==37) {
+			euc.dash.trpR=(this.in16/100).toFixed(1);
+		//temp
+		}else if (this.var==62) {
+			euc.dash.tmp=(this.in16/10).toFixed(1);
+			if (euc.dash.tmp>=euc.dash.tmpH ) {
+				if (euc.dash.tmp>=65) euc.dash.tmpC=3;
+				else euc.dash.tmpC=2;
+				euc.alert++;
+			} else if (euc.dash.tmp>=50 ) euc.dash.tmpC=1; 
+			else euc.dash.tmpC=0;	  
+		//average
+		}else if (this.var==182) {
+			euc.dash.spdA=(this.in16/1000).toFixed(1);
+		}//runtime
+		else if (this.var==58) {
+			euc.dash.time=(this.in16/60).toFixed(0);
+		}//riding Mode
+		else if (this.var==210 ) {
+			if (this.in16 >=10)  digitalPulse(D16,1,[100,80,100]);  
+			else euc.dash.mode=this.in16;
+		} //lock
+		else if (this.var==112 && this.in16!=euc.lock) {
+			euc.lock=this.in16;
+			if (euc.lock==1) {
+				euc.dash.spdC=0;
+				euc.dash.ampC=0;
+				euc.dash.tmpC=0;
+				euc.dash.batC=0;
+				euc.tmp.spd="-1";
+				euc.tmp.amp="-1";
+				euc.tmp.temp="-1";
+				euc.tmp.batt="-1";
+				euc.tmp.trpL="-1";
+		}else {
+				euc.dash.spdC=0;
+				euc.dash.ampC=0;
+				euc.dash.tmpC=0;
+				euc.dash.batC=0;
+				euc.tmp.spd="-1";
+				euc.tmp.amp="-1";
+				euc.tmp.temp="-1";
+				euc.tmp.batt="-1";
+				euc.tmp.trpL="-1";
 		}
-	    setTimeout(() => { euc.alertarm=0; }, 100);
-      }
-*/
-//  }else if (this.var==210) {
-//	euc.tmp[this.var] = event.target.value.getUint8(6, true);
-//    euc.rdmd=euc.tmp[this.var];
-  // rest
-*/  
-//  }else  {   
-
-//    euc.tmp[this.var]=event.target.value.getUint16(6, true);
-
-
-    euc.alert=0;
-	//speed
-	if  (this.type==38) {
-      euc.dash.spd=(this.in16/1000).toFixed(1);
-	  if (euc.dash.spd>=euc.dash.spd1) {
-		if (euc.dash.spd>=euc.dash.spd1+5) euc.dash.spdC=3;	
-		else if (euc.dash.spd>=euc.dash.spd1+2) euc.dash.spdC=2;
-		else euc.dash.spdC=1;
-		euc.alert=(1+(euc.dash.spd|0)-euc.dash.spd1);
-      } else euc.dash.spdC=0;
-    //amp
-    }else  if (this.var==80) {
-      if (this.in16>32768) euc.dash.amp=((this.in16-65536)/100).toFixed(1); 
-      else euc.dash.amp=(this.in16/100).toFixed(1);
-	  if (euc.dash.amp>=euc.dash.ampH) {
-		if  (euc.dash.amp>=euc.dash.ampH+5 ) euc.dash.ampC=3;
-		else euc.dash.ampC=2;
-		euc.alert=(euc.alert+1+(euc.dash.amp-euc.dash.ampH))|0;
-	  }else if (euc.dash.amp>=10) { euc.dash.ampC=1;
-	  }else if ( euc.dash.amp<=euc.dash.ampL) {
-		if  (euc.dash.amp<=euc.dash.ampL-5 ) euc.dash.ampC=3;
-		else  euc.dash.ampC=2;
-		euc.alert=(euc.alert+1+(-(euc.dash.amp-euc.dash.ampL)))|0;      
-		euc.alert_a=true;
-	  }else if (euc.dash.amp<0) euc.dash.ampC=1; else euc.dash.ampC=0;
-	//trip
-    }else if (this.var==185) {
-     // if (euc.dash.trpN > (euc.tmp[this.var]/100).toFixed(1)) {
-     //   euc.dash.trpL=Number(euc.dash.trpL)+Number(euc.dash.trpN);
-     //   if (set.def.cli) console.log("EUC_trip new :",euc.dash.trpL);
-     // } 
-      euc.dash.trpL=(this.in16/100).toFixed(1);
-	  euc.dash.trpT=(this.in16/100).toFixed(1);
-
-	  //euc.dash.trpT=Number(euc.dash.trpL)+Number(euc.dash.trpN);
-      //tt=euc.tmp[this.var];
-    //battery fixed
-    }else  if (this.var==71) {
-      euc.dash.bat=(((this.in16/100)-51.5)*10|0); 
-	  if ((euc.dash.bat) >= euc.dash.batH) euc.dash.batC=0;
-      else  if ((euc.dash.bat) >= euc.dash.batM) euc.dash.batC=1;
-      else  if ((euc.dash.bat) >= euc.dash.batL) euc.dash.batC=2;
-      else  {
-		euc.dash.batC=3;
-		euc.alert++;
-	  }
-    //remaining
-    }else if (this.var==37) {
-      euc.dash.trpR=(this.in16/100).toFixed(1);
-     //temp
-    }else if (this.var==62) {
-      euc.dash.tmp=(this.in16/10).toFixed(1);
-      if (euc.dash.tmp>=euc.dash.tmpH ) {
-		if (euc.dash.tmp>=65) euc.dash.tmpC=3;
-		else euc.dash.tmpC=2;
-		euc.alert++;
-	  } else if (euc.dash.tmp>=50 ) euc.dash.tmpC=1; else euc.dash.tmpC=0;	  
-	 //average
-    }else if (this.var==182) {
-      euc.dash.spdA=(this.in16/1000).toFixed(1);
-    }//runtime
-    else if (this.var==58) {
-      euc.dash.time=(this.in16/60).toFixed(0);
-	}//riding Mode
-	else if (this.var==210 ) {
-	  if (this.in16 >=10)  digitalPulse(D16,1,[100,80,100]);  
-	  else euc.dash.mode=this.in16;
-    } //lock
-    else if (this.var==112 && this.in16!=euc.lock) {
-      euc.lock=this.in16;
-	  if (euc.lock==1) {
-		euc.dash.spdC=0;
-		euc.dash.ampC=0;
-		euc.dash.tmpC=0;
-		euc.dash.batC=0;
-        euc.tmp.spd="-1";
-		euc.tmp.amp="-1";
-		euc.tmp.temp="-1";
-		euc.tmp.batt="-1";
-		euc.tmp.trpL="-1";
-      }else {
-		euc.dash.spdC=0;
-		euc.dash.ampC=0;
-		euc.dash.tmpC=0;
-		euc.dash.batC=0;
-		euc.tmp.spd="-1";
-		euc.tmp.amp="-1";
-		euc.tmp.temp="-1";
-		euc.tmp.batt="-1";
-		euc.tmp.trpL="-1";
-      }
-    }
-	//alerts
-	if (euc.alert!=0 && !euc.buzz) {  
-		euc.buzz=1;
-		var a=[200];
-		var i;
-		for (i = 1; i < euc.alert ; i++) {
-			a.push(150,100);
+    	if (euc.alert!=0 && !euc.buzz) {  
+			euc.buzz=1;
+			var a=[200];
+			var i;
+			for (i = 1; i < euc.alert ; i++) {
+				a.push(150,100);
+			}
+			digitalPulse(D16,1,a);  
+			setTimeout(() => {euc.buzz=0; }, 2000);
 		}
-        digitalPulse(D16,1,a);  
-        setTimeout(() => {euc.buzz=0; }, 2000);
-	}
 	}
 	});
   //on disconnect
@@ -215,7 +204,7 @@ return  c;
   digitalPulse(D16,1,[90,40,150,40,90]);
   euc.tmp.count=22;// else euc.tmp.count=0;  //unlock	
   setTimeout(function(){  euc.wri(c); },200); 
-  setTimeout(function(){  c.startNotifications(); },400); 
+  setTimeout(function(){  c.startNotifications(); },1000); 
 
 
 //reconect
@@ -259,78 +248,77 @@ return  c;
 //}
 //main loop
 euc.wri= function(ch) {
- 
-  var euc_still_tmr=0;
-  var euc_still=false;
-  var busy = false;
-  var euc_near=0;
-  var euc_far=0;
-  //gatt.setRSSIHandler();
-  if (euc.tmp.loop >= 0) {clearInterval(euc.tmp.loop); euc.tmp.loop=-1;}
-  euc.tmp.loop = setInterval(function() {
-    if (busy  ) return;
+	var euc_still_tmr=0;
+	var euc_still=false;
+	var busy = false;
+	var euc_near=0;
+	var euc_far=0;
+	//gatt.setRSSIHandler();
+	if (euc.tmp.loop >= 0) {clearInterval(euc.tmp.loop); euc.tmp.loop=-1;}
+	euc.tmp.loop = setInterval(function() {
+    if (busy) return;
 	//check if still
     if (euc.dash.spd==0 && euc_still==false) {
-      euc_still=3;
-      //if (typeof euc_still_tmr !== "undefined") {clearTimeout(euc_still_tmr);}
-      euc_still_tmr=(setTimeout(() => { 
-        euc_still=true;
-      },5000));
+		euc_still=3;
+		//if (typeof euc_still_tmr !== "undefined") {clearTimeout(euc_still_tmr);}
+		euc_still_tmr=(setTimeout(() => { 
+			euc_still=true;
+		},5000));
     }else if (euc.dash.spd>=1 && euc_still!=false) {
-      clearTimeout(euc_still_tmr);
-      euc_far=0;
-      euc_still=false;
-      changeInterval(euc.tmp.loop,100); 
+		clearTimeout(euc_still_tmr);
+		euc_far=0;
+		euc_still=false;
+		changeInterval(euc.tmp.loop,100); 
     }
 	//proximity auto lock 
     if (euc.alck===1) {
-    global["\xFF"].BLE_GATTS.setRSSIHandler(function(rssi) {euc.tmp.rssi=rssi; });
-    if (euc.tmp.rssi< -(euc.far) && euc_still==true && euc.lock==0) {
-//      if (set.def.cli) console.log("far start");
-	  euc_far++;
-	  euc_near=0;
-	  if (euc_far > 8 && euc.lock==0 ) {
-		if (busy ) return;
-     		busy = true;
-			ch.writeValue(euc.cmd(21)).then(function() {
-				euc.lock=1;
-				busy = false;
-		        euc.dash.spdC=0;
-		        euc.dash.ampC=0;
-		        euc.dash.tmpC=0;
-		        euc.dash.batC=0;
-				euc.tmp.spd="-1";
-				euc.tmp.spd[1]="-1";
-				euc.tmp.amp="-1";
-				euc.tmp.temp="-1";
-				euc.tmp.batt="-1";
-				euc.tmp.trpL="-1";
-				digitalPulse(D16,1,[90,60,90]);
-			});
-      }
-	}else if  (euc.tmp.rssi> -(euc.near) && euc.dash.spd<=5 && euc.lock==1 ) {
-		euc_far=0;
+		global["\xFF"].BLE_GATTS.setRSSIHandler(function(rssi) {euc.tmp.rssi=rssi; });
+		if (euc.tmp.rssi< -(euc.far) && euc_still==true && euc.lock==0) {
+//     		if (set.def.cli) console.log("far start");
+			euc_far++;
+			euc_near=0;
+			if (euc_far > 8 && euc.lock==0 ) {
+				if (busy ) return;
+				busy = true;
+				ch.writeValue(euc.cmd(21)).then(function() {
+					euc.lock=1;
+					busy = false;
+					euc.dash.spdC=0;
+					euc.dash.ampC=0;
+					euc.dash.tmpC=0;
+					euc.dash.batC=0;
+					euc.tmp.spd="-1";
+					euc.tmp.spd[1]="-1";
+					euc.tmp.amp="-1";
+					euc.tmp.temp="-1";
+					euc.tmp.batt="-1";
+					euc.tmp.trpL="-1";
+					digitalPulse(D16,1,[90,60,90]);
+				});
+			}
+		}else if  (euc.tmp.rssi> -(euc.near) && euc.dash.spd<=5 && euc.lock==1 ) {
+			euc_far=0;
 			if (busy ) return;
 			busy = true;
 			ch.writeValue(euc.cmd(22)).then(function() {
-			  busy = false;
-			  euc_near=0;
-			  euc.lock=0;
-		        euc.dash.spdC=0;
-		        euc.dash.ampC=0;
-		        euc.dash.tmpC=0;
-		        euc.dash.batC=0;
+				busy = false;
+				euc_near=0;
+				euc.lock=0;
+				euc.dash.spdC=0;
+				euc.dash.ampC=0;
+				euc.dash.tmpC=0;
+				euc.dash.batC=0;
 				euc.tmp.spd="-1";
 				euc.tmp.spd[1]="-1";
 				euc.tmp.amp="-1";
 				euc.tmp.temp="-1";
 				euc.tmp.batt="-1";
 				euc.tmp.trpL="-1";
-			    digitalPulse(D16,1,100);
+				digitalPulse(D16,1,100);
 				if (set.def.cli) console.log("unlock");
-            });
-	} else  { euc_far=0; euc_near=0; }
-    }
+			});
+		} else  { euc_far=0; euc_near=0; }
+	}
 	//send command
     if (busy ) return;
 	//only alarms when locked
@@ -362,6 +350,5 @@ euc.wri= function(ch) {
 		busy = false;
 
     });
-
   }, 100);  
 };  

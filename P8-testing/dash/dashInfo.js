@@ -13,15 +13,6 @@ face[0] = {
 		this.g.setFont("Vector",20);
 		this.g.drawString("EUC SETTINGS",120-(this.g.stringWidth("EUC SETTING")/2),214); 
 		this.g.flip();   
-		
-		this.g.setColor(1,col("black"));
-		this.g.fillRect(239,0,239,239); //left up
-		this.g.setColor(0,col("blue"));
-		this.g.setFont("Vector",32);
-		this.g.drawString("TODO",120-(this.g.stringWidth("TODO")/2),9); 
-		this.g.flip();
-
-		
 		this.run=false;
 	},
 	show : function(){

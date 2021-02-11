@@ -612,6 +612,7 @@ function installMultipleApps(appIds, promptName, defaults) {
     return Comms.setTime();
   }).then(()=>{
     showToast("Apps successfully installed!","success");
+	Comms.exitDevmode();
 	Comms.reset();
     return getInstalledApps(true);
   });
