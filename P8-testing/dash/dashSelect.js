@@ -208,7 +208,7 @@ face[1] = {
   return true;
   },
   show : function(){
-   	face.go(face.appRoot[0],face.appRoot[1]);
+	face.go(set.dash[set.def.dash],0);
     return true;
   },
    clear: function(){
