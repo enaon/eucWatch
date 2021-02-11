@@ -30,25 +30,11 @@ euc.cmd=function(no){
 };
 //
 euc.conn=function(mac){
-var euc_var;
-var euc_al;
-var euc_al_s;
-var euc_al_a;
-var euc_al_t;
-var euc_al_b;
-var tt=0;
-var ts=0;
-var ta=0;
-var tr=0;
-var tb=0;
-var te=0; 
-var tv=0; 
-var tm=0; 
 euc.tmp.spd="-1";
 euc.tmp.amp="-1";
 euc.tmp.temp="-1";
 euc.tmp.batt="-1";
-euc.tmp.trpN="-1";  
+euc.tmp.trpL="-1";  
 euc.dash.spdC=0;
 euc.tmp.rssi="-70";
 
@@ -65,19 +51,19 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 }).then(function(c) {
 //  euc.tmp.characteristic=c;
   c.on('characteristicvaluechanged', function(event) {
-  euc_var = event.target.value.getUint8(5, true);
+  this.var = event.target.value.getUint8(5, true);
   // if off button is pressed on euc
-  if (euc_var==0) {
+  if (this.var==0) {
 	  euc.state="WAIT";
 	  digitalPulse(D16,1,200);
       //return;
   //alarm
-  }else if (euc_var==178) {
-	  euc.tmp[euc_var] = event.target.value.getUint8(6, true);
+  }else if (this.var==178) {
+	  euc.tmp[this.var] = event.target.value.getUint8(6, true);
 
-/*     if (Number(euc_val).toString(2)[1]==1 &&  euc_alarm==0) {
-        euc_alarm=1; 
-        //if (set.def.cli) console.log("EUC_alarm :",euc_val);
+/*     if (Number(euc_val).toString(2)[1]==1 &&  euc.alertarm==0) {
+        euc.alertarm=1; 
+        //if (set.def.cli) console.log("euc.alertarm :",euc_val);
         digitalPulse(D16,1,[250,50,250,50,250]);
 		if (face.pageCurr==-1) {
 			g.clear();	
@@ -86,99 +72,85 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 			g.flip();g.on();
 			face.offid=setTimeout(() => {g.off();face.offid=-1}, 2000);
 		}
-	    setTimeout(() => { euc_alarm=0; }, 100);
+	    setTimeout(() => { euc.alertarm=0; }, 100);
       }
 */
-//  }else if (euc_var==210) {
-//	euc.tmp[euc_var] = event.target.value.getUint8(6, true);
-//    euc.rdmd=euc.tmp[euc_var];
+//  }else if (this.var==210) {
+//	euc.tmp[this.var] = event.target.value.getUint8(6, true);
+//    euc.rdmd=euc.tmp[this.var];
   // rest
   }else  {  
-    euc.tmp[euc_var]=event.target.value.getUint16(6, true);
-    euc_al=0;
+    euc.tmp[this.var]=event.target.value.getUint16(6, true);
+    euc.alert=0;
 	//speed
-	if (euc_var==38 && euc.tmp[euc_var]!=ts) {
-      euc.dash.spd=(euc.tmp[euc_var]/1000).toFixed(1);
-		euc_al_s=false;	  
+	if (this.var==38) {
+      euc.dash.spd=(euc.tmp[this.var]/1000).toFixed(1);
 	  if (euc.dash.spd>=euc.dash.spd1) {
 		if (euc.dash.spd>=euc.dash.spd1+5) euc.dash.spdC=3;	
 		else if (euc.dash.spd>=euc.dash.spd1+2) euc.dash.spdC=2;
 		else euc.dash.spdC=1;
-		euc_al=(1+(euc.dash.spd|0)-euc.dash.spd1);
-		euc_al_s=true;
+		euc.alert=(1+(euc.dash.spd|0)-euc.dash.spd1);
       } else euc.dash.spdC=0;
-      ts=euc.tmp[euc_var];
     //amp
-    }else  if (euc_var==80 && euc.tmp[euc_var]!=ta) {
+    }else  if (this.var==80) {
       if (euc.tmp[80]>32768) euc.dash.amp=((euc.tmp[80]-65536)/100).toFixed(1); 
-      else euc.dash.amp=(euc.tmp[euc_var]/100).toFixed(1);
-	  euc_al_a=false;
+      else euc.dash.amp=(euc.tmp[this.var]/100).toFixed(1);
 	  if (euc.dash.amp>=euc.dash.ampH) {
 		if  (euc.dash.amp>=euc.dash.ampH+5 ) euc.dash.ampC=3;
 		else euc.dash.ampC=2;
-		euc_al=(euc_al+1+(euc.dash.amp-euc.dash.ampH))|0;
-		euc_al_a=true;
+		euc.alert=(euc.alert+1+(euc.dash.amp-euc.dash.ampH))|0;
 	  }else if (euc.dash.amp>=10) { euc.dash.ampC=1;
 	  }else if ( euc.dash.amp<=euc.dash.ampL) {
 		if  (euc.dash.amp<=euc.dash.ampL-5 ) euc.dash.ampC=3;
 		else  euc.dash.ampC=2;
-		euc_al=(euc_al+1+(-(euc.dash.amp-euc.dash.ampL)))|0;      
-		euc_al_a=true;
+		euc.alert=(euc.alert+1+(-(euc.dash.amp-euc.dash.ampL)))|0;      
+		euc.alert_a=true;
 	  }else if (euc.dash.amp<0) euc.dash.ampC=1; else euc.dash.ampC=0;
-      ta=euc.tmp[euc_var];
 	//trip
-    }else if (euc_var==185) {
-     // if (euc.dash.trpN > (euc.tmp[euc_var]/100).toFixed(1)) {
+    }else if (this.var==185) {
+     // if (euc.dash.trpN > (euc.tmp[this.var]/100).toFixed(1)) {
      //   euc.dash.trpL=Number(euc.dash.trpL)+Number(euc.dash.trpN);
      //   if (set.def.cli) console.log("EUC_trip new :",euc.dash.trpL);
      // } 
-      euc.dash.trpL=(euc.tmp[euc_var]/100).toFixed(1);
-	  euc.dash.trpT=(euc.tmp[euc_var]/100).toFixed(1);
+      euc.dash.trpL=(euc.tmp[this.var]/100).toFixed(1);
+	  euc.dash.trpT=(euc.tmp[this.var]/100).toFixed(1);
 
 	  //euc.dash.trpT=Number(euc.dash.trpL)+Number(euc.dash.trpN);
-      //tt=euc.tmp[euc_var];
+      //tt=euc.tmp[this.var];
     //battery fixed
-    }else  if (euc_var==71 && euc.tmp[euc_var]!=tb) {
-      euc.dash.bat=(((euc.tmp[euc_var]/100)-51.5)*10|0); 
-	  euc_al_t=false;
+    }else  if (this.var==71) {
+      euc.dash.bat=(((euc.tmp[this.var]/100)-51.5)*10|0); 
 	  if ((euc.dash.bat) >= 70) euc.dash.batC=0;
       else  if ((euc.dash.bat) >= euc.dash.batM) euc.dash.batC=1;
       else  if ((euc.dash.bat) >= euc.dash.batL) euc.dash.batC=2;
       else  {
 		euc.dash.batC=3;
-		euc_al++;
-		euc_al_b=true;
+		euc.alert++;
 	  }
-      tb=euc.tmp[euc_var];
     //remaining
-    }else if (euc_var==37 && euc.tmp[euc_var]!=tr) {
-      euc.dash.trpR=(euc.tmp[euc_var]/100).toFixed(1);
-      tr=euc.tmp[euc_var];
+    }else if (this.var==37) {
+      euc.dash.trpR=(euc.tmp[this.var]/100).toFixed(1);
      //temp
-    }else if (euc_var==62 && euc.tmp[euc_var]!=te) {
-      euc.dash.tmp=(euc.tmp[euc_var]/10).toFixed(0);
+    }else if (this.var==62) {
+      euc.dash.tmp=(euc.tmp[this.var]/10).toFixed(0);
       if (euc.dash.tmp>=euc.dash.tmpH ) {
 		if (euc.dash.tmp>=65) euc.dash.tmpC=3;
 		else euc.dash.tmpC=2;
-		euc_al++;
-		euc_al_t=true;
+		euc.alert++;
 	  } else if (euc.dash.tmp>=50 ) euc.dash.tmpC=1; else euc.dash.tmpC=0;	  
-      te=euc.tmp[euc_var];
 	 //average
-    }else if (euc_var==182 && euc.tmp[euc_var]!=tv) {
-      euc.dash.spdA=(euc.tmp[euc_var]/1000).toFixed(1);
-      tv=euc.tmp[euc_var];
+    }else if (this.var==182) {
+      euc.dash.spdA=(euc.tmp[this.var]/1000).toFixed(1);
     }//runtime
-    else if (euc_var==58 && euc.tmp[euc_var]!=tm) {
-      euc.dash.time=(euc.tmp[euc_var]/60).toFixed(0);
-      tm=euc.tmp[euc_var];
+    else if (this.var==58) {
+      euc.dash.time=(euc.tmp[this.var]/60).toFixed(0);
 	}//riding Mode
-	else if (euc_var==210 ) {
-	  if (euc.tmp[euc_var] >=10)  digitalPulse(D16,1,[100,80,100]);  
-	  else euc.dash.mode=euc.tmp[euc_var];
+	else if (this.var==210 ) {
+	  if (euc.tmp[this.var] >=10)  digitalPulse(D16,1,[100,80,100]);  
+	  else euc.dash.mode=euc.tmp[this.var];
     } //lock
-    else if (euc_var==112 && euc.tmp[euc_var]!=euc.lock) {
-      euc.lock=euc.tmp[euc_var];
+    else if (this.var==112 && euc.tmp[this.var]!=euc.lock) {
+      euc.lock=euc.tmp[this.var];
 	  if (euc.lock==1) {
 		euc.dash.spdC=0;
 		euc.dash.ampC=0;
@@ -188,7 +160,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 		euc.tmp.amp="-1";
 		euc.tmp.temp="-1";
 		euc.tmp.batt="-1";
-		euc.tmp.trpN="-1";
+		euc.tmp.trpL="-1";
       }else {
 		euc.dash.spdC=0;
 		euc.dash.ampC=0;
@@ -198,19 +170,19 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 		euc.tmp.amp="-1";
 		euc.tmp.temp="-1";
 		euc.tmp.batt="-1";
-		euc.tmp.trpN="-1";
+		euc.tmp.trpL="-1";
       }
     }
 	//alerts
-      if (euc_al!=0 && !euc.alert) {  
-         euc.alert=1;
+      if (euc.alert!=0 && !euc.buzz) {  
+         euc.buzz=1;
 		var a=[200];
 		var i;
-		for (i = 1; i < euc_al ; i++) {
+		for (i = 1; i < euc.alert ; i++) {
 			a.push(150,100);
 		}
         digitalPulse(D16,1,a);  
-        setTimeout(() => {euc.alert=0; }, 2000);
+        setTimeout(() => {euc.buzz=0; }, 2000);
       }
     }
   });
@@ -341,7 +313,7 @@ euc.wri= function(ch) {
 				euc.tmp.amp="-1";
 				euc.tmp.temp="-1";
 				euc.tmp.batt="-1";
-				euc.tmp.trpN="-1";
+				euc.tmp.trpL="-1";
 				digitalPulse(D16,1,[90,60,90]);
 			});
       }
@@ -362,7 +334,7 @@ euc.wri= function(ch) {
 				euc.tmp.amp="-1";
 				euc.tmp.temp="-1";
 				euc.tmp.batt="-1";
-				euc.tmp.trpN="-1";
+				euc.tmp.trpL="-1";
 			    digitalPulse(D16,1,100);
 				if (set.def.cli) console.log("unlock");
             });

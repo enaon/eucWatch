@@ -64,7 +64,7 @@ face[0] = {
           this.g.flip();
         }else{
           this.g.setFontVector(84);
-          this.g.drawString(euc.dash.spd,(150-(this.g.stringWidth(euc.dash.spd)))/2,65); 
+          this.g.drawString(euc.dash.spd|0,(150-(this.g.stringWidth(euc.dash.spd|0)))/2,65); 
           this.spd=euc.dash.spd;
           this.g.flip();
         }
