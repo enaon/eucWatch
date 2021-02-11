@@ -28,7 +28,7 @@ face[0] = {
     if (euc.state=="READY") this.g.setColor(1,col("lblue"));
     this.g.setFont("7x11Numeric7Seg",3);
     this.g.drawString(euc.dash.trpL,0,205); 
-    this.g.drawString(euc.dash.trpT,(240-(this.g.stringWidth(euc.dash.trpT)))/2,205); 
+    this.g.drawString(euc.dash.trpT|0,(240-(this.g.stringWidth(euc.dash.trpT|0)))/2,205); 
     this.g.drawString(euc.dash.trpR,240-(this.g.stringWidth(euc.dash.trpR)+1),205); 
     this.g.flip();
     this.spd=-1;
