@@ -50,7 +50,7 @@ if (!global.alrm) {
 }
 //main face
 face[0]= {
-  offms: 3000,
+  offms: 5000,
   g:w.gfx,
   pad:function pad(n) {
     return (n < 10) ? ("0" + n) : n;
@@ -58,7 +58,7 @@ face[0]= {
   init: function(){
     var d=(Date()).toString().split(' ');
     var t=(d[4]).toString().split(':');
-    this.g.setColor(0,col("dgray1"));//header bck
+    this.g.setColor(0,col("black"));//header bck
     this.g.fillRect(0,0,239,35); 
     this.g.setColor(1,col("lblue"));//header txt
     this.g.setFont("Vector",25);
@@ -76,10 +76,10 @@ face[0]= {
     this.g.setFont("Vector",55);  
     if (alrm[1].tmr!=this.al1) {
       this.al1=alrm[1].tmr;
-      this.c=colo.btnTxt1;
-      if (this.al1!==-1) this.g.setColor(1,colo.btnEn);
-      else { this.g.setColor(1,colo.btnDs1); this.c=colo.btnTxt;}
-      if (alrm[1].on===1)  this.c=colo.btnAl;
+      this.c=col("white");
+      if (this.al1!==-1) this.g.setColor(1,col("dblue"));
+      else { this.g.setColor(1,col("lgray")); this.c=col("black");}
+      if (alrm[1].on===1)  this.c=col("yellow");
       this.g.fillRect(0,39,239,103); //1
       this.g.setColor(0,this.c);
       this.g.drawString(this.pad(alrm[1].hour)+":"+this.pad(alrm[1].min),120-(this.g.stringWidth(this.pad(alrm[1].hour)+":"+this.pad(alrm[1].min)))/2,50); 
@@ -87,10 +87,10 @@ face[0]= {
     }
     if (alrm[2].tmr!=this.al2) {
       this.al2=alrm[2].tmr;
-	  this.c=colo.btnTxt1;
-      if (this.al2!==-1) this.g.setColor(1,colo.btnEn);
-      else { this.g.setColor(1,colo.btnDs); this.c=colo.btnTxt;}
-      if (alrm[2].on===1)  this.c=colo.btnAl;
+	  this.c=col("white");
+      if (this.al2!==-1) this.g.setColor(1,col("dblue"));
+      else { this.g.setColor(1,col("gray")); this.c=col("black");}
+      if (alrm[2].on===1)  this.c=col("yellow");
       this.g.fillRect(0,107,239,171); //2
       this.g.setColor(0,this.c);
      this.g.drawString(this.pad(alrm[2].hour)+":"+this.pad(alrm[2].min),120-(this.g.stringWidth(this.pad(alrm[2].hour)+":"+this.pad(alrm[2].min)))/2,118); 
@@ -98,10 +98,10 @@ face[0]= {
     } 
     if (alrm[3].tmr!=this.al3) {
       this.al3=alrm[3].tmr;
-      this.c=colo.btnTxt1;
-      if (this.al3!==-1) this.g.setColor(1,colo.btnEn);
-      else { this.g.setColor(1,colo.btnDs1); this.c=colo.btnTxt;}
-      if (alrm[3].on===1)  this.c=colo.btnAl;
+      this.c=col("white");
+      if (this.al3!==-1) this.g.setColor(1,col("dblue"));
+      else { this.g.setColor(1,col("lgray")); this.c=col("black");}
+      if (alrm[3].on===1)  this.c=col("yellow");
       this.g.fillRect(0,175,239,239); //3
       this.g.setColor(0,this.c);
       this.g.drawString(this.pad(alrm[3].hour)+":"+this.pad(alrm[3].min),120-(this.g.stringWidth(this.pad(alrm[3].hour)+":"+this.pad(alrm[3].min)))/2,186); 
@@ -162,7 +162,7 @@ face[5] = {
     this.al.curr=o;
     var d=(Date()).toString().split(' ');
     var t=(d[4]).toString().split(':');
-    this.g.setColor(0,col("dgray1")); //header
+    this.g.setColor(0,col("black")); //header
     this.g.fillRect(0,0,239,35); 
     this.g.setColor(1,col("lblue"));
     this.g.setFont("Vector",25);
@@ -176,9 +176,9 @@ face[5] = {
     if (!this.run) return;
     if (alrm[o].hour!=this.al[o].hour) {
       this.al[o].hour=alrm[o].hour;
-      this.g.setColor(0,colo.bck1);
+      this.g.setColor(0,col("lgray"));
       this.g.fillRect(0,39,121,181);//hour
-      if (alrm[o].tmr!=-1) this.g.setColor(1,colo.txt);else this.g.setColor(1,colo.txt3);
+      if (alrm[o].tmr!=-1) this.g.setColor(1,col("lblue"));else this.g.setColor(1,col("white"));
       this.g.setFont("Vector",75);  
       this.g.drawString(this.pad(this.al[o].hour),66-(this.g.stringWidth(this.pad(this.al[o].hour)))/2,70); 
   	  this.g.flip();
@@ -186,13 +186,13 @@ face[5] = {
     if (alrm[o].min!=this.al[o].min) {
       this.al[o].min=alrm[o].min;
       if (alrm[o].tmr!=-1){
-        this.g.setColor(0,colo.bck3);
+        this.g.setColor(0,col("raf2"));
         this.g.fillRect(122,39,239,181);//min
-        this.g.setColor(1,colo.txt1);
+        this.g.setColor(1,col("lblue"));
       }else {
-        this.g.setColor(0,colo.bck2);
+        this.g.setColor(0,col("gray"));
         this.g.fillRect(122,39,239,181);//min
-        this.g.setColor(1,colo.txt3);
+        this.g.setColor(1,col("white"));
       }
       this.g.setFont("Vector",75);  
       this.g.drawString(this.pad(this.al[o].min),190-(this.g.stringWidth(this.pad(this.al[o].min)))/2,70); 
@@ -200,9 +200,9 @@ face[5] = {
     }
     if (alrm[o].snz!=this.al[o].snz) {
       this.al[o].snz=alrm[o].snz;
-      this.c=colo.btnTxt;
-      if (this.al[o].snz===1)  { this.g.setColor(0,colo.btnEn);this.c=colo.btnTxt1;}
-      else this.g.setColor(0,colo.btnDs); 
+      this.c=col("black");
+      if (this.al[o].snz===1)  { this.g.setColor(0,col("dblue"));this.c=col("white");}
+      else this.g.setColor(0,col("gray")); 
       this.g.fillRect(0,185,120,239);//snooze
       this.g.setColor(1,this.c);
       this.g.setFont("Vector",25);  
@@ -211,9 +211,9 @@ face[5] = {
     }
     if (alrm[o].rep!=this.al[o].rep) {
       this.al[o].rep=alrm[o].rep;
-      this.c=colo.btnTxt;
-      if (this.al[o].rep===1) { this.g.setColor(0,colo.btnEn);this.c=colo.btnTxt1;}
-      else this.g.setColor(0,colo.btnDs); 
+      this.c=col("black");
+      if (this.al[o].rep===1) { this.g.setColor(0,col("dblue"));this.c=col("white");}
+      else this.g.setColor(0,col("gray")); 
       this.g.fillRect(123,185,239,239);//repeat
       this.g.setColor(1,this.c);
       this.g.setFont("Vector",25);  
@@ -259,7 +259,8 @@ touchHandler[0]=function(e,x,y){
 	     digitalPulse(D16,1,[30,50,30]);
 	   }else digitalPulse(D16,1,40);
     }else if  (e==1){
-	  face.go("alarm",-1);return;
+//face.go("alarm",-1);return;
+  	  face.go("main",0);return;
     }else if  (e==2){
 	  if (y>200&&x<50) {
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
@@ -280,7 +281,9 @@ touchHandler[0]=function(e,x,y){
 		else {face.go("alarm",5,3);return;}
 	  }else digitalPulse(D16,1,40);    
     }else if  (e==4){
-	  face.go("main",0);return;
+  	  face.go("main",0);return;
+ 	  //face.go(face.appPrev, face.pagePrev);
+	  return;
     }else if  (e==12){		
 	  if(39<y&&y<105) {
 		if(alrm[1].on===1) {alrm.stop(1);face[0].al1=-2;}

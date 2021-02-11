@@ -4,8 +4,8 @@ function P8KickWd(){
 	"ram";
   if(!D17.read())E.kickWatchdog();
 }
-var wdint=setInterval(P8KickWd,4000);
-E.enableWatchdog(20, false);
+var wdint=setInterval(P8KickWd,3000);
+E.enableWatchdog(30, false);
 //d25.write(0)
 E.showMessage=print; //apploader suport
 global.save = function() { throw new Error("You don't need to use save() on P8!"); };
@@ -298,7 +298,7 @@ w=require("P8");
 eval(require('Storage').read('handler'));
 eval(require('Storage').read('main'));
 //require('Storage').list(/m_/).forEach(modfile=>{eval(require('Storage').read(modfile));});
-eval(require('Storage').read('m_euc'));
+eval(require('Storage').read('euc'));
 digitalPulse(D16,1,[100,30,100]);
 setTimeout(function(){
 if (global.face) face.go('main',0);

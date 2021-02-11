@@ -50,7 +50,7 @@ face[0]= {
 	rep.go=(require("Storage").readJSON("setting.json",1)||{}).repellent_go;
     rep.con=0;
     var g=w.gfx;
-    g.setColor(1,colo.bck1);//header bck
+    g.setColor(1,col("lgray"));//header bck
 	g.fillRect(120,0,239,50); //header
     g.fillRect(0,0,117,50); //status
     g.fillRect(0,200,239,239); //mac
@@ -227,7 +227,8 @@ touchHandler[0]=function(e,x,y){
     if (e==5){
 		face.go('w_scan',0,'fe95');	  
     }else if  (e==1){
-	  face.go("repellent",-1);return;
+	  //face.go("repellent",-1);return;
+	  face.go("main",0);return;
     }else if  (e==2){
 	  if (y>200&&x<50) {
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
