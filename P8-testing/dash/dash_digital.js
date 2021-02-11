@@ -1,4 +1,4 @@
-//euc
+//dash digital
 //faces-main face
 face[0] = {
   offms: 5000, //15 sec timeout
@@ -7,8 +7,8 @@ face[0] = {
   init: function(){
 	this.spdC={0:0,1:4095,2:4080,3:3840};
 	this.ampC={0:1365,1:4095,2:4080,3:3840};
-	this.tmpC={0:0,1:4095,2:4080,3:3840};
-	this.batC={0:0,1:0,2:4080,3:3840}; 
+	this.tmpC={0:col("lgreen"),1:4095,2:4080,3:3840};
+	this.batC={0:col("lblue"),1:4095,2:4080,3:3840}; 
     this.g.setColor(1,col("gray"));
     this.g.fillRect(0,0,135,50); //temp
     this.g.fillRect(139,0,239,50); //batt      
@@ -35,7 +35,7 @@ face[0] = {
     this.amp=-1;
     this.temp=-1;
     this.batt=-1;
-    this.trpN=-1;
+    this.trpL=-1;
     this.conn="OFF";
     this.lock=2;
     this.run=true;
