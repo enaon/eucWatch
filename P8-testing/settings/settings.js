@@ -194,7 +194,7 @@ face[5] = {
     this.g.setColor(1,col("lblue"));
     this.g.setFont("Vector",18);
 	this.g.drawString("MEM FREE: "+mem.free+"/"+mem.total,120-(this.g.stringWidth("MEM FREE: "+mem.free+"/"+mem.total)/2),0);  
-	this.g.drawString("VERSION: "+process.version,120-(this.g.stringWidth("VERSION: "+process.version)/2),25);  
+	this.g.drawString("IMAGE: "+process.version,120-(this.g.stringWidth("IMAGE: "+process.version)/2),25);  
 	this.g.drawString("ACC TYPE: "+set.def.acctype,120-(this.g.stringWidth("ACC TYPE: "+set.def.acctype)/2),50);  
     this.g.drawString("TOUCH TYPE: "+set.def.touchtype,120-(this.g.stringWidth("TOUCH TYPE: "+set.def.touchtype)/2),75);  
     this.g.drawString("UPTIME: "+d+"D-"+h+"H-"+m+"M",120-(this.g.stringWidth("UPTIME: "+d+"D-"+h+"H-"+m+"M")/2),100);  
