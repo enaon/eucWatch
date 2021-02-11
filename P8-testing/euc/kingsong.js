@@ -67,8 +67,6 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 			euc.dash.ampC=1;
 		}else {euc.dash.ampC=0;}
 		
-		euc_al=(euc_al+1+(euc.dash.amp-euc.dash.ampH))|0;
-		
 		//volt
         euc.volt=(((this.KSdata[2] & 0xFF) + (this.KSdata[3] << 8))/100)+"";
         euc.dash.bat=(((euc.volt/20)*100-330)*1.1111)|0;
