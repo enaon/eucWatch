@@ -5,36 +5,19 @@ face[0] = {
 	init: function(o){ 
 		this.g.setColor(0,col("black"));
 		this.g.setColor(1,col("dgray"));
-		this.g.fillRect(0,0,239,95);
-		this.g.fillRect(0,100,239,195);
-		this.g.fillRect(0,0,239,95);
-		this.g.fillRect(0,100,239,195);
+		this.g.fillRect(0,0,75,75);//1
+		this.g.fillRect(80,0,155,75); //2
+		this.g.fillRect(160,0,239,75); //3
+		this.g.fillRect(0,80,75,155); //4
+		this.g.fillRect(80,80,155,155); //5
+		this.g.fillRect(160,80,239,155);//6
 		this.g.flip();
 	},
 	show : function(o){
-		this.g.setColor(0,col("black"));
-		this.g.setColor(1,col("dgray"));
-		this.g.fillRect(0,0,239,95);
-		this.g.flip();   
-		this.g.setColor(1,col("dgray"));
-		this.g.setColor(0,col("white"));
-		this.g.setFont("Vector",26);
-		this.g.drawString("tst1",120-(this.g.stringWidth("KINGSONG")/2),38); 
-		this.g.flip();
-		this.g.setColor(1,col("dgray"));
-		this.g.fillRect(0,100,239,195);
-		this.g.flip();
-		this.g.setColor(1,col("dgray"));
-		this.g.setColor(0,col("white"));
-		this.g.drawString("test2",120-(this.g.stringWidth("NINEBOT")/2),130);
-		this.g.setFont("Vector",14);
-		this.g.drawString("ONE C/E/P",120-(this.g.stringWidth("ONE C/E/P")/2),165);
-		this.g.flip();
-		this.g.setColor(0,col("black"));
-		this.g.setColor(1,col("white"));
-		this.g.setFont("Vector",20);
-		this.g.drawString("SCAN FOR",120-(this.g.stringWidth("SCAN FOR")/2),214);
-		this.g.flip();
+	    this.g.setColor(1,col("white"));
+		this.g.setFont("Vector",16);
+		this.g.drawString("SPEED",60-(this.g.stringWidth("SPEED")/2),38); 
+		this.g.flip();	
 	},
 	tid:-1,
 	run:false,
@@ -66,21 +49,16 @@ face[1] = {
 touchHandler[0]=function(e,x,y){ 
 	switch (e) {
 	case 5:  //tap event//long press event
-		this.timeout();
 		//kingsong
 		if(0<y&&y<100) {
 			digitalPulse(D16,1,[30,50,30]);
-			(s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"_maker"]="kingsong")&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
-			face.appCurr=set.dash[set.def.dash];
-			face.go('w_scan',0,'fff0');
-			return;
+			
 		//ninebot
 		}else if(100<y&&y<200) {
 			digitalPulse(D16,1,[30,50,30]);
-			(s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"_maker"]="ninebot")&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
-			face.appCurr=set.dash[set.def.dash];
-			face.go('w_scan',0,'ffe0');
+
 		}else digitalPulse(D16,1,40); 
+		this.timeout();
 		break;
 	case 1: //slide down event
 		face.go(set.dash[set.def.dash],0);
@@ -90,10 +68,10 @@ touchHandler[0]=function(e,x,y){
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 		else w.gfx.bri.set(this.bri);
 			digitalPulse(D16,1,[30,50,30]);
-			this.timeout();
 		}else if (y>190) {
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		} else {digitalPulse(D16,1,40);this.timeout();}
+		this.timeout();
 		break;
 	case 3: //slide left event
 		digitalPulse(D16,1,40);    
@@ -108,7 +86,10 @@ touchHandler[0]=function(e,x,y){
 			(s=>{s&&(delete s["slot"+require("Storage").readJSON("dash.json",1).slot+"_mac"])&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 			(s=>{s&&(delete s["slot"+require("Storage").readJSON("dash.json",1).slot+"_maker"])&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 			require("Storage").erase('euc_slot'+require("Storage").readJSON("dash.json",1).slot+'.json')
+			face.go("dashSelect",0);
+			return;
 		}else digitalPulse(D16,1,40);
+		this.timeout();
 		break;
   }
 };
