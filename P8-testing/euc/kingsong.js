@@ -23,12 +23,7 @@ euc.cmd=function(no){
 };
 //
 euc.conn=function(mac){
-var euc_al;
-var euc_al_s;
-var euc_al_a;
-var euc_al_t;
-var euc_al_b;
-
+//check gatt
 if ( global["\xFF"].BLE_GATTS!="undefined") {
 	if (set.def.cli) print("ble allready connected"); 
 	if (global["\xFF"].BLE_GATTS.connected) {global["\xFF"].BLE_GATTS.disconnect();return;}
@@ -44,65 +39,69 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
     this.KSdata = event.target.value.buffer;
     if (euc.busy) return;
     if (this.KSdata[16]==169) {
-		this.alert=0;
+		euc.alert=0;
         euc.dash.spd=((((this.KSdata[4] & 0xFF) + (this.KSdata[5] << 8))/100)).toFixed(1); 
 		if (euc.dash.spd>euc.dash.spd3)  {
-			euc.dash.spdC=3;this.alert=1;
+			euc.dash.spdC=3;euc.alert++;
 		}else if (euc.dash.spd>euc.dash.spd2) {
-			euc.dash.spdC=2;this.alert=1;
+			euc.dash.spdC=2;euc.alert++;
 		}else if (euc.dash.spd>euc.dash.spd1) {
-			euc.dash.spdC=1;this.alert=1;			
+			euc.dash.spdC=1;euc.alert++;			
 		}
         //amp
 		this.cur=((this.KSdata[10] & 0xFF) + (this.KSdata[11] << 8));
         if (this.cur > 32767) this.cur = this.cur - 65536;
         euc.dash.amp=(this.cur/100).toFixed(2);
 		//charging
-		if (euc.dash.spd[0]===0&&euc.dash.amp<0) {
+		if (euc.dash.spd===0&&euc.dash.amp<0) {
 		}
 		//
-		else if (euc.dash.amp>30)  {
-			euc.dash.ampC=3;this.alert=1;
-			euc.dash.spdC=3;		
-		}else if (euc.dash.amp>23) {
-			euc.dash.ampC=2;this.alert=1;
-			if (euc.dash.spdC!=3) euc.dash.ampC=2;
-		}else if (euc.dash.amp>15)  {
-			euc.dash.ampC=1;
-			if (euc.dash.spdC==0) euc.dash.spdC=1;
-		}else if (euc.dash.amp<-10)  {
-			euc.dash.ampC=3;this.alert=1;
-			euc.dash.spdC=3;
-		}else if (euc.dash.amp<-5)  {
-			euc.dash.ampC=2;this.alert=1;
-			if (euc.dash.spdC!=3) euc.dash.spdC=2;
+		}else if (euc.dash.amp>euc.dash.ampH) {
+			euc.dash.ampC=(euc.dash.amp>euc.dash.ampH+10)?3:2;
+			euc.dash.spdC=(euc.dash.ampC=3)?3:(euc.dash.spdC=3)?3:2);
+			euc.alert=(euc.alert+1+(euc.dash.amp-euc.dash.ampH))|0;
+		}else if (euc.dash.amp<=euc.dash.ampL)  {
+			euc.dash.ampC=(euc.dash.amp<=euc.dash.ampL-5)?3:2;
+			euc.dash.spdC=(euc.dash.ampC=3)?3:(euc.dash.spdC=3)?3:2);
+			euc.alert=(euc.alert+1+(-(euc.dash.amp-euc.dash.ampL)))|0;      
 		}else if (euc.dash.amp<0)  {
-			euc.dash.ampC=1;this.alert=1;
-			if (euc.dash.spdC==0) euc.dash.spdC=1;
+			euc.dash.ampC=1;
 		}else {euc.dash.ampC=0;}
+		
+		euc_al=(euc_al+1+(euc.dash.amp-euc.dash.ampH))|0;
 		
 		//volt
         euc.volt=(((this.KSdata[2] & 0xFF) + (this.KSdata[3] << 8))/100)+"";
         euc.dash.bat=(((euc.volt/20)*100-330)*1.1111)|0;
-		if (euc.dash.bat<20)  {
-			euc.dash.batC=3;this.alert=1;
+		if (euc.dash.bat<euc.dash.batL)  {
+			euc.dash.batC=3;euc.alert=1;
 			euc.dash.spdC=3;
-		}else if (euc.dash.bat<60) {
-			euc.dash.batC=2;this.alert=1;
+		}else if (euc.dash.bat<euc.dash.batM) {
+			euc.dash.batC=2;euc.alert=1;
 		} else euc.dash.batC=0;
         //temp
 		euc.dash.tmp=(((this.KSdata[12] & 0xFF) + (this.KSdata[13] << 8))/100)+"";
-		if (euc.dash.tmp>65)  {
-			euc.dash.tmpC=3;this.alert=1;
+		if (euc.dash.tmp>euc.dash.tmpH)  {
+			euc.dash.tmpC=3;euc.alert=1;
 			euc.dash.spdC=3;
-		}else if (euc.dash.tmp>55) {
-			euc.dash.tmpC=2;this.alert=1;
+		}else if (euc.dash.tmp>euc.dash.tmpM) {
+			euc.dash.tmpC=2;euc.alert=1;
 		} else euc.dash.tmpC=0;
 		//trip
         euc.dash.trpT=(((this.KSdata[6] << 16) + (this.KSdata[7] << 24) + this.KSdata[8] + (this.KSdata[9] << 8))/1000).toFixed(1);
 		//mode                                    
         euc.rmode=this.KSdata[14];
-		////////////////////////if (!this.alert)  euc.dash.spdC=0;
+		if (!euc.alert)  euc.dash.spdC=0;
+		else if (!euc.buzz){ 
+			euc.buzz=1;
+			var a=[200];
+			var i;
+			for (i = 1; i < euc.alert ; i++) {
+				a.push(150,100);
+			}
+			digitalPulse(D16,1,a);  
+			setTimeout(() => {euc.buzz=0; }, 2000);
+		}
     }else if  (this.KSdata[16]==185){
         euc.dash.trpL=(((this.KSdata[2] << 16) + (this.KSdata[3] << 24) + this.KSdata[4] + (this.KSdata[5] << 8)) / 1000.0).toFixed(1);
 		euc.dash.time=(((this.KSdata[6] & 0xFF) + (this.KSdata[7] << 8)) / 60.0).toFixed(0);
@@ -134,13 +133,13 @@ return  c;
       return;
     }else {
 	  if (set.def.cli) console.log("Destroy euc (reason):",reason);
-	  global["\xFF"].bleHdl=[];
-	  global.BluetoothDevice=undefined;
-	  global.BluetoothRemoteGATTServer=undefined;
-	  global.BluetoothRemoteGATTService=undefined;
-	  global.BluetoothRemoteGATTCharacteristic=undefined;
-	  global.Promise=undefined;
-	  global.Error=undefined;
+//	  global["\xFF"].bleHdl=[];
+//	  global.BluetoothDevice=undefined;
+//	  global.BluetoothRemoteGATTServer=undefined;
+//	  global.BluetoothRemoteGATTService=undefined;
+//	  global.BluetoothRemoteGATTCharacteristic=undefined;
+//	  global.Promise=undefined;
+//	  global.Error=undefined;
       NRF.setTxPower(set.def.rfTX);
     }
   });
@@ -150,8 +149,8 @@ return  c;
   euc.busy=1;
   setTimeout(function(){c.writeValue(euc.cmd("serial"));euc.state="READY";},200);
   setTimeout(function(){c.writeValue(euc.cmd("pass"));},500);
-  setTimeout(function(){c.writeValue(euc.cmd("unlock"));euc.lock=0;euc.busy=0;},800);
-  setTimeout(function(){c.startNotifications();},1500);
+  setTimeout(function(){c.writeValue(euc.cmd("unlock"));euc.lock=0;},800);
+  setTimeout(function(){euc.busy=0;c.startNotifications();},1500);
 //reconect
 }).catch(function(err)  {
   if (set.def.cli) console.log("EUC error", err);
@@ -180,13 +179,11 @@ return  c;
     }
   } else {
   	  if (set.def.cli) console.log("Destroy euc (reason-1):",reason);
-	  global["\xFF"].bleHdl=[];
-      global.BluetoothDevice=undefined;
-	  global.BluetoothRemoteGATTServer=undefined;
-	  global.BluetoothRemoteGATTService=undefined;
-	  global.BluetoothRemoteGATTCharacteristic=undefined;
-	  global.Promise=undefined;
-	  global.Error=undefined;
+//	  global["\xFF"].bleHdl=[];
+//    global.BluetoothDevice=undefined;
+//	  global.BluetoothRemoteGATTServer=undefined;
+//	  global.BluetoothRemoteGATTService=undefined;
+//	  global.BluetoothRemoteGATTCharacteristic=undefined;
       NRF.setTxPower(set.def.rfTX);
   }
 });
