@@ -281,7 +281,7 @@ function buttonHandler(s){
     this.t1=setTimeout(() => {
       this.t1=0;
       if (global.euc) {
-	if (euc.state==="READY"&&euc.dash.spd>=3&&euc.maker==="kingsong") {
+	if (global.euc&&euc.state==="READY"&&euc.dash.spd>=3&&euc.maker==="kingsong") {
 		  euc.ch.writeValue(euc.cmd("lightsAuto"));
 		  this.press=false;
 		  return;
@@ -291,7 +291,7 @@ function buttonHandler(s){
       
    }else if (this.press && !s.state)  { 
 	this.press=false;
-	if (euc.state==="READY"&&euc.dash.spd>=3&&euc.maker==="kingsong") {
+	if (global.euc&&euc.state==="READY"&&euc.dash.spd>=3&&euc.maker==="kingsong") {
 		  euc.ch.writeValue(euc.cmd("lightsAuto"));
 		  setTimeout(function(){euc.ch.writeValue(euc.cmd("lightsOn"));},300);
 		  return;
@@ -299,7 +299,7 @@ function buttonHandler(s){
 	if (face.pageCurr==-1) {
 		digitalPulse(D16,1,[60,40,60]);
 		if (global.euc){
-		if (euc.state!="OFF") face.go(set.dash[set.def.dash],0);
+		if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash],0);
 			else face.go(face.appCurr,0);
 		}else face.go(face.appCurr,0);
 	}else { 
@@ -502,7 +502,7 @@ acc={
           if (this.go){ 
             if (!w.gfx.isOn&&face.appCurr!=""){  
 			if  (global.euc) {
-              if (euc.state!="OFF") face.go(set.dash[set.def.dash],0);
+              if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash],0);
               else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
             }else{ 
 				if (face.appCurr=="main") face.go("main",0);

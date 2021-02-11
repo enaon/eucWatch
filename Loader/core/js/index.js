@@ -584,6 +584,10 @@ function installMultipleApps(appIds, promptName, defaults) {
     showToast(`Erase Complete, writing default settings`);  
 	return Comms.writeSettings(defaults);
   }).then(()=>{
+	Progress.hide({sticky:true});
+    showToast(`Enabling devmode`);  
+	return Comms.enterDevmode();
+  }).then(()=>{
     Progress.hide({sticky:true});
     appsInstalled = [];
     showToast(`Installing  ${appCount} apps...`);
