@@ -54,15 +54,14 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
         euc.dash.amp=(this.cur/100).toFixed(2);
 		//charging
 		if (euc.dash.spd===0&&euc.dash.amp<0) {
-		}
 		//
 		}else if (euc.dash.amp>euc.dash.ampH) {
 			euc.dash.ampC=(euc.dash.amp>euc.dash.ampH+10)?3:2;
-			euc.dash.spdC=(euc.dash.ampC=3)?3:(euc.dash.spdC=3)?3:2);
+			euc.dash.spdC=(euc.dash.ampC=3)?3:(euc.dash.spdC=3)?3:2;
 			euc.alert=(euc.alert+1+(euc.dash.amp-euc.dash.ampH))|0;
 		}else if (euc.dash.amp<=euc.dash.ampL)  {
 			euc.dash.ampC=(euc.dash.amp<=euc.dash.ampL-5)?3:2;
-			euc.dash.spdC=(euc.dash.ampC=3)?3:(euc.dash.spdC=3)?3:2);
+			euc.dash.spdC=(euc.dash.ampC=3)?3:(euc.dash.spdC=3)?3:2;
 			euc.alert=(euc.alert+1+(-(euc.dash.amp-euc.dash.ampL)))|0;      
 		}else if (euc.dash.amp<0)  {
 			euc.dash.ampC=1;
