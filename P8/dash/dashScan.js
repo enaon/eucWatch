@@ -35,6 +35,8 @@ face[0] = {
   clear : function(){  
     pal[0]=col("black"); 
     this.g.clear(); 
+    this.run=false;
+    if (this.tid>=0) clearTimeout(this.tid); 
     this.tid=-1;
     return true;
   },

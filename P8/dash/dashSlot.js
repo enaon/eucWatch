@@ -52,7 +52,7 @@ face[0] = {
 		this.g.setFont("Vector",20);
 		this.g.drawString("TEMP",200-(this.g.stringWidth("TEMP")/2),110); 
       	this.g.flip();
-
+		this.run=true;
 	},
 	show : function(o){
 		if (this.delete) {
@@ -71,7 +71,7 @@ face[0] = {
 				t.g.fillRect(0,200,239,249);//6
 				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",20);
-				t.g.drawString("DASH SETTINGS",120-(t.g.stringWidth("SELECT WHEEL")/2),214); 
+				t.g.drawString("DASH SETTINGS",120-(t.g.stringWidth("DASH SETTINGS")/2),214); 
 				t.g.flip();
 		    },1000,this);
         }
@@ -83,9 +83,11 @@ face[0] = {
 	},
 	tid:-1,
 	run:false,
-		clear : function(){  
+	clear : function(){  
 		pal[0]=col("black"); 
 		this.g.clear(); 
+		this.run=false;
+		if (this.tid>=0) clearTimeout(this.tid); 
 		this.tid=-1;
 		return true;
 	},
