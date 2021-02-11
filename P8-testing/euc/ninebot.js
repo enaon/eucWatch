@@ -147,30 +147,9 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 			if (this.in16 >=10)  digitalPulse(D16,1,[100,80,100]);  
 			else euc.dash.mode=this.in16;
 		} //lock
-		else if (this.var==112 && this.in16!=euc.lock) {
-			euc.lock=this.in16;
-			if (euc.lock==1) {
-				euc.dash.spdC=0;
-				euc.dash.ampC=0;
-				euc.dash.tmpC=0;
-				euc.dash.batC=0;
-				euc.tmp.spd="-1";
-				euc.tmp.amp="-1";
-				euc.tmp.temp="-1";
-				euc.tmp.batt="-1";
-				euc.tmp.trpL="-1";
-		}else {
-				euc.dash.spdC=0;
-				euc.dash.ampC=0;
-				euc.dash.tmpC=0;
-				euc.dash.batC=0;
-				euc.tmp.spd="-1";
-				euc.tmp.amp="-1";
-				euc.tmp.temp="-1";
-				euc.tmp.batt="-1";
-				euc.tmp.trpL="-1";
-		}
-    	if (euc.alert!=0 && !euc.buzz) {  
+		else if (this.var==112 && this.in16!=euc.lock) euc.lock=this.in16;
+    	//buzz
+		if (euc.alert!=0 && !euc.buzz) {  
 			euc.buzz=1;
 			var a=[200];
 			var i;
@@ -179,8 +158,8 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 			}
 			digitalPulse(D16,1,a);  
 			setTimeout(() => {euc.buzz=0; }, 2000);
+		
 		}
-	}
 	});
   //on disconnect
 	global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
@@ -194,9 +173,10 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 			if (euc.tmp.loop!==-1) clearInterval(euc.tmp.loop);
 			global["\xFF"].bleHdl=[];
 			delete euc.ch;
-			NRF.setTxPower(set.def.rfTX);    }
+			NRF.setTxPower(set.def.rfTX);   
+		}
 	});
- c.startNotifications();	
+c.startNotifications();	
 return  c;
 }).then(function(c) {
 //connected 
@@ -271,9 +251,9 @@ euc.wri= function(ch) {
 		changeInterval(euc.tmp.loop,100); 
     }
 	//proximity auto lock 
-    if (euc.alck===1) {
+    if (euc.dash.aLck) {
 		global["\xFF"].BLE_GATTS.setRSSIHandler(function(rssi) {euc.tmp.rssi=rssi; });
-		if (euc.tmp.rssi< -(euc.far) && euc_still==true && euc.lock==0) {
+		if (euc.tmp.rssi< -(euc.dash.far) && euc_still==true && euc.lock==0) {
 //     		if (set.def.cli) console.log("far start");
 			euc_far++;
 			euc_near=0;
@@ -282,21 +262,10 @@ euc.wri= function(ch) {
 				busy = true;
 				ch.writeValue(euc.cmd(21)).then(function() {
 					euc.lock=1;
-					busy = false;
-					euc.dash.spdC=0;
-					euc.dash.ampC=0;
-					euc.dash.tmpC=0;
-					euc.dash.batC=0;
-					euc.tmp.spd="-1";
-					euc.tmp.spd[1]="-1";
-					euc.tmp.amp="-1";
-					euc.tmp.temp="-1";
-					euc.tmp.batt="-1";
-					euc.tmp.trpL="-1";
 					digitalPulse(D16,1,[90,60,90]);
 				});
 			}
-		}else if  (euc.tmp.rssi> -(euc.near) && euc.dash.spd<=5 && euc.lock==1 ) {
+		}else if  (euc.tmp.rssi> -(euc.dash.near) && euc.dash.spd<=5 && euc.lock==1 ) {
 			euc_far=0;
 			if (busy ) return;
 			busy = true;
@@ -304,16 +273,6 @@ euc.wri= function(ch) {
 				busy = false;
 				euc_near=0;
 				euc.lock=0;
-				euc.dash.spdC=0;
-				euc.dash.ampC=0;
-				euc.dash.tmpC=0;
-				euc.dash.batC=0;
-				euc.tmp.spd="-1";
-				euc.tmp.spd[1]="-1";
-				euc.tmp.amp="-1";
-				euc.tmp.temp="-1";
-				euc.tmp.batt="-1";
-				euc.tmp.trpL="-1";
 				digitalPulse(D16,1,100);
 				if (set.def.cli) console.log("unlock");
 			});
