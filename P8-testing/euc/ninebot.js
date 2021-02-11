@@ -44,7 +44,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 	//euc.tmp.characteristic=c;
 	c.on('characteristicvaluechanged', function(event) {
 		//  this.var = event.target.value.getUint8(5, true);
-		this.val= event.target.value.buffer(5);
+		this.var= event.target.value.getUint8(5, true);
 		this.in16=event.target.value.getUint16(6, true);
 		//this.in=event.target.value.buffer(5);
 		/* // if off button is pressed on euc
@@ -80,7 +80,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 			
 		euc.alert=0;
 		//speed
-		if  (this.type==38) {
+		if  (this.var==38) {
 			euc.dash.spd=(this.in16/1000).toFixed(1);
 			if (euc.dash.spd>=euc.dash.spd1) {
 				if (euc.dash.spd>=euc.dash.spd1+5) euc.dash.spdC=3;	
@@ -196,6 +196,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 			delete euc.ch;
 			NRF.setTxPower(set.def.rfTX);    }
 	});
+ c.startNotifications();	
 return  c;
 }).then(function(c) {
 //connected 
@@ -204,7 +205,6 @@ return  c;
   digitalPulse(D16,1,[90,40,150,40,90]);
   euc.tmp.count=22;// else euc.tmp.count=0;  //unlock	
   setTimeout(function(){  euc.wri(c); },200); 
-  setTimeout(function(){  c.startNotifications(); },1000); 
 
 
 //reconect
