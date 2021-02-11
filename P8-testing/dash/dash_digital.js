@@ -7,8 +7,8 @@ face[0] = {
   init: function(){
 	this.spdC={0:0,1:4095,2:4080,3:3840};
 	this.ampC={0:1365,1:4095,2:4080,3:3840};
-	this.tmpC={0:col("lgreen"),1:4095,2:4080,3:3840};
-	this.batC={0:col("lblue"),1:4095,2:4080,3:3840}; 
+	this.tmpC={0:col("lblue"),1:4095,2:4080,3:3840};
+	this.batC={0:col("lgreen"),1:4095,2:4080,3:3840}; 
     this.g.setColor(1,col("gray"));
     this.g.fillRect(0,0,135,50); //temp
     this.g.fillRect(139,0,239,50); //batt      
@@ -230,7 +230,7 @@ touchHandler[0]=function(e,x,y){
 	  if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
 	  } else digitalPulse(D16,1,40);
     }else if  (e==3){
-	  (euc.state=="READY")?face.go("dashInfo",0):face.go("dashSelect",0);
+		(euc.state=="READY")?face.go("dashInfo",0):(euc.state=="OFF")?face.go("dashSelect",0):digitalPulse(D16,1,40);
 	  return;
     }else if  (e==4){		
 	  face.go("main",0);

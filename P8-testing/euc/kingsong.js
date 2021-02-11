@@ -97,9 +97,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
     return;
 	}
   });
-return  c;
-}).then(function(c) {
-//on disconnect
+  //on disconnect
   euc.ch=c;
   global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
     if (set.def.cli) console.log("EUC Disconnected :",reason);
@@ -116,6 +114,8 @@ return  c;
       NRF.setTxPower(set.def.rfTX);
     }
   });
+return  c;
+}).then(function(c) {
 //connected ****************************
   console.log("EUC connected"); 
   digitalPulse(D16,1,[90,40,150,40,90]);
