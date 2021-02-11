@@ -1,8 +1,17 @@
-//Dash Scan
+//Dash slot options
 face[0] = { 
   offms: 5000, 
   g:w.gfx, 
   init: function(o){ 
+    this.g.setColor(0,col("black"));
+    this.g.setColor(1,col("dgray"));
+    this.g.fillRect(0,0,239,95);
+    this.g.fillRect(0,100,239,195);
+	this.g.fillRect(0,0,239,95);
+    this.g.fillRect(0,100,239,195);
+    this.g.flip();
+  },
+  show : function(o){
     this.g.setColor(0,col("black"));
     this.g.setColor(1,col("dgray"));
     this.g.fillRect(0,0,239,95);
@@ -26,9 +35,6 @@ face[0] = {
     this.g.setFont("Vector",20);
 	this.g.drawString("SCAN FOR",120-(this.g.stringWidth("SCAN FOR")/2),214);
     this.g.flip();
-  },
-  show : function(o){
-	return;
   },
   tid:-1,
   run:false,

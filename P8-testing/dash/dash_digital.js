@@ -1,7 +1,7 @@
 //dash digital
 //faces-main face
 face[0] = {
-  offms: 5000, //15 sec timeout
+  offms: 10000, //15 sec timeout
   g:w.gfx,
   spd:[],
   init: function(){

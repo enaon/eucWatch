@@ -1,6 +1,6 @@
 //settings	
 face[0] = {
-  offms: 3000,
+  offms: 5000,
   g:w.gfx,
   init: function(){
 	if (face.faceSave==-1) face.faceSave=[face.appPrev,face.pagePrev,face.pageArg];

@@ -1,7 +1,7 @@
 //dash simple 
 //faces-main face
 face[0] = {
-  offms: 5000, //5 sec timeout
+  offms: 10000, //5 sec timeout
   g:w.gfx,
   spd:[],
   init: function(){

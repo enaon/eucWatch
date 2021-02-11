@@ -50,7 +50,7 @@ if (!global.alrm) {
 }
 //main face
 face[0]= {
-  offms: 3000,
+  offms: 5000,
   g:w.gfx,
   pad:function pad(n) {
     return (n < 10) ? ("0" + n) : n;

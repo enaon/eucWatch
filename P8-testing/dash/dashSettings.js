@@ -104,43 +104,63 @@ face[1] = {
   },
 };	
 
-
-//settings face
-touchHandler[0]=function(e,x,y){    
-    if (e==5){ 
-	  digitalPulse(D16,1,40);
-    }else if  (e==1){
-      if  (x>=120) {
-        euc.rdmd++;
-        if (euc.rdmd >9) {euc.rdmd=9; digitalPulse(D16,1,40);}
-      }else digitalPulse(D16,1,40);
-    }else if  (e==2){
-      if  (x>=120) {
-        euc.rdmd--;
-        if (euc.rdmd <0) {euc.rdmd=0; digitalPulse(D16,1,40);}
-      }else digitalPulse(D16,1,40);
-    }else if  (e==3){
-      digitalPulse(D16,1,40);
-    }else if  (e==4){
-	  face.go(set.dash[set.def.dash],0);return;
-    }else if  (e==12){
-	  if (x<120&&y<80){
-	 	digitalPulse(D16,1,[30,50,30]);
-		face.go('w_scan',0,'ffe0');
+touchHandler[0]=function(e,x,y){ 
+	switch (e) {
+	case 5: //tap event
+		this.timeout();
+		digitalPulse(D16,1,[30,50,30]);
+		if(0<x&&x<120&&0<y&&y<100) this.s=1;          //slot1
+		else if(120<x&&x<239&&0<y&&y<100) this.s=2;   //slot2 
+		else if(0<x&&x<120&&100<y&&y<200) this.s=3;   //slot3 
+		else if(120<x&&x<239&&100<y&&y<200) this.s=4; //slot4
+		if (face[0]["slot"+this.s+"_mac"]){
+			(s=>{s&&(s["slot"]=this.s)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
+			if (Boolean(require("Storage").read('euc_slot'+this.s+'.json')))
+				euc.dash=require("Storage").readJSON('euc_slot'+this.s+'.json',1);
+			else euc.dash=require("Storage").readJSON("euc_slot.json",1);
+			face[0].s1=0;face[0].s2=0;face[0].s3=0;face[0].s4=0;
+		}
+		face[0]["s"+this.s]=1
+		this.timeout();
+		break;
+	case 1: //slide down event
+		//face.go("main",0);
+		face.go(set.dash[set.def.dash],0);
+		return;	 
+	case 2: //slide up event
+		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
+			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
+			else w.gfx.bri.set(this.bri);
+			digitalPulse(D16,1,[30,50,30]);
+		}else if (y>190) {
+			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
+		} else {digitalPulse(D16,1,40);}
+		this.timeout();
+		break;
+	case 3: //slide left event
+		digitalPulse(D16,1,40);    
+		this.timeout();
+		break;
+	case 4: //slide right event (back action)
+		face.go(set.dash[set.def.dash],0);
 		return;
-      //ride mode
-	  }else if  (x>120) { 
-        euc.tmp.count=euc.rdmd+24;
-      //reset mileage
-      }else if (x<115 && y>145) {
-        digitalPulse(D16,1,300);  
-        euc.trpL="0.0";
-	  //toggle EUC auto lock
-	  }else if (x<115 && (80<y&&y<145)) {
-        //if (set.def.cli) console.log("toggle alock");
-        digitalPulse(D16,1,300);  
-        euc.alck=1-euc.alck;
-      }else digitalPulse(D16,1,40);
-    }
-    this.timeout();
+	case 12: //long press event
+	    digitalPulse(D16,1,[100]);
+		if(0<=x&&x<=120&&0<=y&&y<=100)	this.s=1;			//slot1
+		else if(120<=x&&x<=239&&0<=y&&y<=100) this.s=2;		//slot2
+		else if (0<=x&&x<=120&&100<=y&&y<=200) this.s=3;	//slot3
+		else if(120<=x&&x<=239&&100<=y&&y<=200) this.s=4;	//slot4
+		//
+		if (face[0]["slot"+this.s+"_mac"]){
+			(s=>{s&&(delete s["slot"+this.s+"_mac"])&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
+			(s=>{s&&(delete s["slot"+this.s+"_maker"])&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
+			require("Storage").erase('euc_slot'+this.s+'.json')
+			face[0]["slot"+this.s+"_mac"]=undefined;face[0]["slot"+this.s+"_maker"]=undefined;face[0]["sv"+this.s]=undefined;face[0]["s"+this.s]=1;
+		}else {
+			(s=>{s&&(s["slot"]=this.s)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
+			face.go("dashScan",0);return;
+		}
+		this.timeout();
+		break;
+  }
 };

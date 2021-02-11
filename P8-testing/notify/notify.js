@@ -1,6 +1,6 @@
 //notify	
 face[0] = {
-  offms: 4000,
+  offms: 5000,
   g:w.gfx,
   init: function(){
     this.g.setColor(1,col("black"));
