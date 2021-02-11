@@ -218,6 +218,7 @@ face[1] = {
    this.clear();
   }
 };	
+
 touchHandler[0]=function(e,x,y){ 
 	switch (e) {
 	case 5: //tap event
@@ -264,12 +265,13 @@ touchHandler[0]=function(e,x,y){
 		else if(120<=x&&x<=239&&0<=y&&y<=100) this.s=2;		//slot2
 		else if (0<=x&&x<=120&&100<=y&&y<=200) this.s=3;	//slot3
 		else if(120<=x&&x<=239&&100<=y&&y<=200) this.s=4;	//slot4
-		//
-		if (face[0]["slot"+this.s+"_mac"]){
+		//(s=>{s&&(s["slot"]=this.s)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
+		if (require("Storage").readJSON("dash.json",1)["slot"+this.s+"_mac"]){
 			//(s=>{s&&(delete s["slot"+this.s+"_mac"])&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 			//(s=>{s&&(delete s["slot"+this.s+"_maker"])&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 			//require("Storage").erase('euc_slot'+this.s+'.json')
 			//face[0]["slot"+this.s+"_mac"]=undefined;face[0]["slot"+this.s+"_maker"]=undefined;face[0]["sv"+this.s]=undefined;face[0]["s"+this.s]=1;
+			(s=>{s&&(s["slot"]=this.s)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 			face.go("dashSlot",0);return;
 		}else {
 			(s=>{s&&(s["slot"]=this.s)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));

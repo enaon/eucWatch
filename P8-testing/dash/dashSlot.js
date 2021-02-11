@@ -19,14 +19,14 @@ face[0] = {
 		this.g.setColor(1,col("dgray"));
 		this.g.setColor(0,col("white"));
 		this.g.setFont("Vector",26);
-		this.g.drawString("KINGSONG",120-(this.g.stringWidth("KINGSONG")/2),38); 
+		this.g.drawString("tst1",120-(this.g.stringWidth("KINGSONG")/2),38); 
 		this.g.flip();
 		this.g.setColor(1,col("dgray"));
 		this.g.fillRect(0,100,239,195);
 		this.g.flip();
 		this.g.setColor(1,col("dgray"));
 		this.g.setColor(0,col("white"));
-		this.g.drawString("NINEBOT",120-(this.g.stringWidth("NINEBOT")/2),130);
+		this.g.drawString("test2",120-(this.g.stringWidth("NINEBOT")/2),130);
 		this.g.setFont("Vector",14);
 		this.g.drawString("ONE C/E/P",120-(this.g.stringWidth("ONE C/E/P")/2),165);
 		this.g.flip();
@@ -83,7 +83,7 @@ touchHandler[0]=function(e,x,y){
 		}else digitalPulse(D16,1,40); 
 		break;
 	case 1: //slide down event
-		face.go("main",0);
+		face.go(set.dash[set.def.dash],0);
 		return;	 
 	case 2: //slide up event
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
@@ -100,10 +100,10 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
 	case 4: //slide right event (back action)
-		face.go(set.dash[set.def.dash],0);
+		face.go("dashSelect",0);
 		return;
 	case 12:
-		if (y>200&&x<50) { //delete wheel
+		if (y>200) { //delete wheel
 			digitalPulse(D16,1,120);
 			(s=>{s&&(delete s["slot"+require("Storage").readJSON("dash.json",1).slot+"_mac"])&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 			(s=>{s&&(delete s["slot"+require("Storage").readJSON("dash.json",1).slot+"_maker"])&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));

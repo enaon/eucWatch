@@ -83,7 +83,7 @@ touchHandler[0]=function(e,x,y){
     }else digitalPulse(D16,1,40); 
     break;
   case 1: //slide down event
-	face.go("main",0);
+    face.go(set.dash[set.def.dash],0);
 	return;	 
   case 2: //slide up event
     if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
@@ -100,7 +100,7 @@ touchHandler[0]=function(e,x,y){
 	this.timeout();
     break;
   case 4: //slide right event (back action)
-    face.go(set.dash[set.def.dash],0);
+    face.go("dashSelect",0);
 	return;
   }
 };
