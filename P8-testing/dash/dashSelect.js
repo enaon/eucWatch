@@ -238,7 +238,8 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
 	case 1: //slide down event
-		face.go("main",0);
+		//face.go("main",0);
+		face.go(set.dash[set.def.dash],0);
 		return;	 
 	case 2: //slide up event
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
