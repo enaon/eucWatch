@@ -138,10 +138,9 @@ face[0] = {
     this.g.setFont("7x11Numeric7Seg",5);
     this.g.drawString(euc.dash.spdA,(139-(this.g.stringWidth(euc.dash.spdA)))/2,90); 
     this.g.flip();
-    if (euc.lock==1) this.g.setColor(1,col("yellow"));
-    else  this.g.setColor(1,col("gray"));
+	this.g.setColor(0,(euc.lock)?col("red"):col("gray"));
     this.g.fillRect(139,54,239,154); 
-    this.g.setColor(0,col("black")); 
+	this.g.setColor(1,(euc.lock)?col("white"):col("black"));
 	this.g.setFontVector(18);
 	this.g.drawString("RunTIME",140,60);
 	this.g.setFont("7x11Numeric7Seg",5);

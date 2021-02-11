@@ -62,7 +62,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 		euc.dash.batC=(euc.dash.bat>=euc.dash.batH)?0:(euc.dash.bat>=euc.dash.batM)?1:(euc.dash.bat>=euc.dash.batL)?2:3;	
 		if (euc.dash.bat<=euc.dash.batL) {euc.alert++; euc.dash.spdC=3;}     
         //temp
-		euc.dash.tmp=(((this.KSdata[12] & 0xFF) + (this.KSdata[13] << 8))/100)+"";
+		euc.dash.tmp=(((this.KSdata[12] & 0xFF) + (this.KSdata[13] << 8))/100).toFixed(1);
 		euc.dash.tmpC=(euc.dash.tmp<=euc.dash.tmpM)?0:(euc.dash.tmp<=euc.dash.tmpH)?2:0;	
 		if (euc.dash.tmp>=euc.dash.tmpH) {euc.alert++; euc.dash.spdC=3;}     
 		//trip

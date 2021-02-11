@@ -120,7 +120,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
     //battery fixed
     }else  if (this.var==71) {
       euc.dash.bat=(((euc.tmp[this.var]/100)-51.5)*10|0); 
-	  if ((euc.dash.bat) >= 70) euc.dash.batC=0;
+	  if ((euc.dash.bat) >= euc.dash.batH) euc.dash.batC=0;
       else  if ((euc.dash.bat) >= euc.dash.batM) euc.dash.batC=1;
       else  if ((euc.dash.bat) >= euc.dash.batL) euc.dash.batC=2;
       else  {
@@ -132,7 +132,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
       euc.dash.trpR=(euc.tmp[this.var]/100).toFixed(1);
      //temp
     }else if (this.var==62) {
-      euc.dash.tmp=(euc.tmp[this.var]/10).toFixed(0);
+      euc.dash.tmp=(euc.tmp[this.var]/10).toFixed(1);
       if (euc.dash.tmp>=euc.dash.tmpH ) {
 		if (euc.dash.tmp>=65) euc.dash.tmpC=3;
 		else euc.dash.tmpC=2;

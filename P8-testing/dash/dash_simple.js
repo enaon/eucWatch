@@ -43,7 +43,7 @@ face[0] = {
       this.g.fillRect(0,0,79,55);       
       this.g.setColor(1,(this.tmpC[euc.dash.tmpC]!=col("yellow")&&this.tmpC[euc.dash.tmpC]!=col("lblue"))?col("white"):0);
       this.g.setFont("7x11Numeric7Seg",4.5);
-      this.g.drawString(euc.dash.tmp, 3,5); //temp      
+      this.g.drawString(euc.dash.tmp|0, 3,5); //temp      
 	  this.g.flip();
     }
 	//Amp
@@ -88,7 +88,7 @@ face[0] = {
 	  this.g.fillRect(161,0,239,55); //batt	  
 	  this.g.setColor(1,col("white"));
 	  this.g.setFont("7x11Numeric7Seg",4.5);
-      this.g.drawString(euc.dash.tmp,3,5); //temp
+      this.g.drawString(euc.dash.tmp|0,3,5); //temp
       this.g.drawString(euc.dash.bat,240-(this.g.stringWidth(euc.dash.bat)+3),5);
 	  this.g.flip();
 	  this.g.setColor(0,col("dgray"));
