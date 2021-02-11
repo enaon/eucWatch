@@ -42,8 +42,8 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 		euc.alert=0;
 		//speed
         euc.dash.spd=((((this.KSdata[4] & 0xFF) + (this.KSdata[5] << 8))/100)).toFixed(1); 
-		euc.dash.spdC=(euc.dash.spd<=euc.dash.spd2)?1:(euc.dash.spdt<=euc.dash.spd3)?2:3;	
-		if (euc.dash.spd>+euc.dash.spd2) euc.alert=(euc.alert+1+((euc.dash.spd-euc.dash.spd2)/euc.dash.spdS))|0;      
+		euc.dash.spdC=(euc.dash.spd<=euc.dash.spd2)?1:(euc.dash.spd<=euc.dash.spd3)?2:3;	
+		if (euc.dash.spd>=euc.dash.spd1) euc.alert=(euc.alert+1+((euc.dash.spd-euc.dash.spd1)/euc.dash.spdS))|0;      
         //amp
 		this.amp=((this.KSdata[10] & 0xFF) + (this.KSdata[11] << 8));
         if (this.amp > 32767) this.amp = this.amp - 65536;
