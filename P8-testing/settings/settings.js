@@ -312,7 +312,7 @@ touchHandler[0]=function(e,x,y){
     }else if  (e==1){
 	  if (face[0].btSet) {
 	        face[0].btSet=0;
-      }else if(158<x&&x<239&&77<y&&y<170&&!face.mode) {
+      }else if(158<x&&x<239&&60<y&&y<180&&!face.mode) {
         face[0].cbri=w.gfx.bri.lv-1;
         if (face[0].cbri<1) face[0].cbri=1;
         w.gfx.bri.set(face[0].cbri);
@@ -334,7 +334,7 @@ touchHandler[0]=function(e,x,y){
 	  }else if (face[0].btSet) {
         face[0].btSet=0;
         face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].atc=-1;face[0].bri=-1;face[0].acc=-1;face[0].dnd=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
-      }else if(158<x&&x<239&&77<y&&y<160&&!face.mode) {
+      }else if(158<x&&x<239&&60<y&&y<180&&!face.mode) {
         face[0].cbri=w.gfx.bri.lv+1;
         if (face[0].cbri>7) face[0].cbri=7;
         w.gfx.bri.set(face[0].cbri);
