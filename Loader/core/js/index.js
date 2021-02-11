@@ -585,7 +585,7 @@ function installMultipleApps(appIds, promptName, defaults) {
 	return Comms.writeSettings(defaults);
   }).then(()=>{
     Progress.hide({sticky:true});
-	Comms.enterDevmode();
+	Puck.write(`require("Storage").write("devmode","devmode");`);
     appsInstalled = [];
     showToast(`Installing  ${appCount} apps...`);
     return new Promise((resolve,reject) => {
@@ -613,7 +613,7 @@ function installMultipleApps(appIds, promptName, defaults) {
     return Comms.setTime();
   }).then(()=>{
     showToast("Apps successfully installed!","success");
-	Comms.exitDevmode();
+	Puck.write(`require("Storage").erase("devmode"");`);
 	Comms.reset();
     return getInstalledApps(true);
   });
