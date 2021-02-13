@@ -277,6 +277,7 @@ setWatch(function(s){
 //button 
 function buttonHandler(s){
   if ( this.t1) {clearTimeout(this.t1); this.t1=0;}
+  face.off();
   if (s.state==true) { 
     this.press=true;
 	//toggle EUC on long press
