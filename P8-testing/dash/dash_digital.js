@@ -82,7 +82,7 @@ face[0] = {
           this.g.setColor(1,col("white"));
         }
         
-        if (((euc.dash.amp|0)==0 && euc.dash.spd==0) ||  euc.lock==1) {  
+        if (((euc.dash.amp|0)==0 && euc.dash.spd==0) ||  euc.dash.lock==1) {  
 	      this.g.setFontVector(18);
 	      this.g.drawString("RunTIME",140,60);
 	      this.g.setFont("7x11Numeric7Seg",5);
@@ -128,8 +128,8 @@ face[0] = {
     }     
 //off
   } else if (euc.state=="OFF")  {
-    if (euc.lock!=this.lock){
-    this.lock=euc.lock;
+    if (euc.dash.lock!=this.lock){
+    this.lock=euc.dash.lock;
     this.g.setColor(1,col("gray"));
     this.g.fillRect(0,54,135,154);
     this.g.setColor(0,col("black"));
@@ -138,15 +138,15 @@ face[0] = {
     this.g.setFont("7x11Numeric7Seg",5);
     this.g.drawString(euc.dash.spdA,(139-(this.g.stringWidth(euc.dash.spdA)))/2,90); 
     this.g.flip();
-	this.g.setColor(0,(euc.lock)?col("red"):col("gray"));
+	this.g.setColor(0,(euc.dash.lock)?col("red"):col("gray"));
     this.g.fillRect(139,54,239,154); 
-	this.g.setColor(1,(euc.lock)?col("white"):col("black"));
+	this.g.setColor(1,(euc.dash.lock)?col("white"):col("black"));
 	this.g.setFontVector(18);
 	this.g.drawString("RunTIME",140,60);
 	this.g.setFont("7x11Numeric7Seg",5);
   	this.g.drawString(euc.dash.time,192-(this.g.stringWidth(euc.dash.time)/2),90); 
     this.g.flip();
-	if (euc.state=="OFF" && euc.lock==1){
+	if (euc.state=="OFF" && euc.dash.lock==1){
     this.clear(); //if (set.def.cli) console.log("faceEUCexited");
     }
     }

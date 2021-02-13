@@ -123,8 +123,8 @@ face[0] = {
       this.g.drawString("Km",205,220);
 	  this.g.flip();
 	}
-	if (euc.lock!=this.lock&&euc.lock==1){
-      this.lock=euc.lock;
+	if (euc.dash.lock!=this.lock&&euc.dash.lock==1){
+      this.lock=euc.dash.lock;
       this.g.setColor(0,col("red"));
 	  this.g.fillRect(80,0,160,55); //amp   
       this.g.setColor(1,col("white"));
