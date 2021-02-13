@@ -434,17 +434,15 @@ if (set.def.touchtype=="816"){ //816
 				else if (tp[4]>=this.x+20) a=4;
 				if (a!=0) {
 					this.do=0;
-					face.off();
 					touchHandler[face.pageCurr](a,this.x,this.y);
 				}
 			}else if (this.do===1){
 				if (tp[1]==5||tp[1]==12){
-					face.off();
 					touchHandler[face.pageCurr](tp[1],this.x,this.y);this.do=0;
 				}
 			}
 		}else if (tp[3]==255) {
-			if (this.do===1){face.off();touchHandler[face.pageCurr](5,this.x,this.y);this.do=0;        }
+			if (this.do===1){touchHandler[face.pageCurr](5,this.x,this.y);this.do=0;        }
 			this.st=1;this.time=-1;
 		}
 	},
