@@ -119,7 +119,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 			if (this.in16 >=10)  digitalPulse(D16,1,[100,80,100]);  
 			else euc.dash.mode=this.in16;
 			break;
-		case 112: //riding Mode
+		case 112: //lock status
 			if ( this.in16!=euc.dash.lock) euc.dash.lock=this.in16;
 			break;
 		}
@@ -159,7 +159,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 			digitalPulse(D16,1,120);
 			euc.tmp.count=21;
 			c.writeValue(euc.cmd(euc.tmp.count)).then(function() {
-				//euc.dash.lock=1;
+				euc.dash.lock=1;
 				global["\xFF"].BLE_GATTS.disconnect().catch(function(err)  {if (set.def.cli) console.log("EUC OUT disconnect failed:", err);});
 				return;
 			}).catch(function(err)  {
