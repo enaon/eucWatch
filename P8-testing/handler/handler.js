@@ -337,7 +337,7 @@ if (set.def.touchtype=="816"){ //816
 	setWatch(function(s){
 		"ram";
 		var tp=i2c.readFrom(0x15,7);
-		if (face.pageCurr>=0) touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);
+		if (face.pageCurr>=0) {face.off();touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);}
 		else if (tp[1]==5) {
 			if (s.time-c<0.25) face.go(face.appCurr,0);
 			c=s.time;
@@ -367,12 +367,14 @@ if (set.def.touchtype=="816"){ //816
 				//    console.log(tp[4],xt,tp[6],yt,a,ct);
 				if (tt) {clearTimeout(tt);tt=0;}
 				if (a!=5){
+					face.off();
 					touchHandler[face.pageCurr](a,xt,yt);
 					ct=0;
 					tf=0;
 					return;
 				} else {  
 					tt=setTimeout(()=>{
+						face.off();
 						touchHandler[face.pageCurr](a,xt,yt);
 						tt=0;ct=0;
 						tf=0;
@@ -381,12 +383,13 @@ if (set.def.touchtype=="816"){ //816
 				return;
 			}else if (tp[1]==5) {
 				if (tt) {clearTimeout(tt);tt=0;}
+				face.off();
 				touchHandler[face.pageCurr](5,tp[4],tp[6]);
 				tf=0;
 				return;
 			}else if (tp[1]==12) {
 				if (tt) {clearTimeout(tt);tt=0;}
-				if (lt) touchHandler[face.pageCurr](12,tp[4],tp[6]);
+				if (lt){face.off();touchHandler[face.pageCurr](12,tp[4],tp[6]);}
 				lt=0;
 				tf=0;
 				return;
@@ -431,15 +434,17 @@ if (set.def.touchtype=="816"){ //816
 				else if (tp[4]>=this.x+20) a=4;
 				if (a!=0) {
 					this.do=0;
+					face.off();
 					touchHandler[face.pageCurr](a,this.x,this.y);
 				}
 			}else if (this.do===1){
 				if (tp[1]==5||tp[1]==12){
+					face.off();
 					touchHandler[face.pageCurr](tp[1],this.x,this.y);this.do=0;
 				}
 			}
 		}else if (tp[3]==255) {
-			if (this.do===1){touchHandler[face.pageCurr](5,this.x,this.y);this.do=0;        }
+			if (this.do===1){face.off();touchHandler[face.pageCurr](5,this.x,this.y);this.do=0;        }
 			this.st=1;this.time=-1;
 		}
 	},
