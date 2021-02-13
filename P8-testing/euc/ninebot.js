@@ -181,7 +181,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 	setTimeout(() => {euc.wri(euc.tmp.count);}, 500);
 //reconnect
 }).catch(function(err)  {
-	euc.off("connfai");
+	euc.off(err);
 });
 };
 

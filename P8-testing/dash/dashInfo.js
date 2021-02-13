@@ -3,25 +3,65 @@ face[0] = {
 	offms: 5000,
 	g:w.gfx,
 	init: function(){
-		this.g.setColor(1,col("gray"));
+/*		this.g.setColor(1,col("gray"));
 		this.g.fillRect(0,0,239,195); //left up
 		this.g.setColor(0,col("black"));
 		this.g.setFont("Vector",32);
 		this.g.drawString("TODO",120-(this.g.stringWidth("TODO")/2),9); 
+	
 		this.g.flip();
+*/
+		this.g.setColor(0,col("black"));
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
 		this.g.drawString("EUC SETTINGS",120-(this.g.stringWidth("EUC SETTING")/2),214); 
-		this.g.flip();   
-		this.run=false;
+		this.g.flip(); 
+		this.b1=0;
+		this.b2=0;
+		this.run=true;
 	},
 	show : function(){
 		if (!this.run) return; 
-
+		if (this.b1!=this.b1s){
+			this.b1s=this.b1;
+			if (this.b1==0) {
+				this.b1t="OFF";this.b1c=col("dgray");
+			}else if (this.b1==1) {
+				this.b1t="ON";this.b1c=col("dblue");
+			}else if (this.b1==2) {
+				this.b1t="AUTO";this.b1c=col("purple");
+			}
+			this.g.setColor(0,this.b1c);
+			this.g.fillRect(0,0,118,95);
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",18);	
+			this.g.drawString("LIGHTS",60-(this.g.stringWidth("LIGHTS")/2),10); 
+			this.g.setFont("Vector",30);	
+			this.g.drawString(this.b1t,60-(this.g.stringWidth(this.b1t)/2),45); 
+			this.g.flip();
+		}
+		if (this.b2!=this.b2s){
+			this.b2s=this.b2;
+			if (this.b2==0) {
+				this.b2t="OFF";this.b2c=col("blue");
+			}else if (this.b2==1) {
+				this.b2t="ON";this.b2c=col("red");
+			}else if (this.b2==2) {
+				this.b2t="AUTO";this.b2c=col("purple");
+			}
+			this.g.setColor(0,this.b2c);
+			this.g.fillRect(121,0,239,95);
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",18);	
+			this.g.drawString("LOCK",185-(this.g.stringWidth("LOCK")/2),10); 
+			this.g.setFont("Vector",30);	
+			this.g.drawString(this.b2t,185-(this.g.stringWidth(this.b2t)/2),45); 
+			this.g.flip();
+		}
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();
-        },100,this);
+        },300,this);
 	},
 	tid:-1,
 	run:false,
@@ -55,7 +95,13 @@ face[1] = {
 touchHandler[0]=function(e,x,y){ 
 	switch (e) {
 	case 5: //tap event
-		digitalPulse(D16,1,[30,50,30]);
+		if (x<=120&&y<100) { //btn1
+			face[0].b1++; if (face[0].b1==3) face[0].b1=0;
+			digitalPulse(D16,1,[30,50,30]);
+		}else if (120<=x<=239&&y<100) { //btn2
+			face[0].b2++; if (face[0].b2==3) face[0].b2=0;
+			digitalPulse(D16,1,[30,50,30]);
+		}else digitalPulse(D16,1,[30,50,30]);
 		this.timeout();
 		break;
 	case 1: //slide down event

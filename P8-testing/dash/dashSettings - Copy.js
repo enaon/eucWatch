@@ -13,34 +13,16 @@ face[0] = {
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
 		this.g.drawString("EUC SETTINGS",120-(this.g.stringWidth("EUC SETTING")/2),214); 
-		this.g.flip(); 
-		this.b1=0;
-		this.run=true;
+		this.g.flip();    
+		this.run=false;
 	},
 	show : function(){
 		if (!this.run) return; 
-		if (this.b1!=this.b1s){
-			this.b1s=this.b1;
-			if (this.b1==0) {
-				this.b1t="OFF";this.b1c=col("dgray");
-			}else if (this.b1==1) {
-				this.b1t="ON";this.b1c=col("dblue");
-			}else if (this.b1==2) {
-				this.b1t="AUTO";this.b1c=col("purple");
-			}
-				this.g.setColor(1,this.b1c);
-				this.g.fillRect(0,0,118,95);
-				this.g.setColor(0,col("white"));
-				this.g.setFont("Vector",18);	
-				this.g.drawString("LIGHTS",60-(this.g.stringWidth("LIGHTS")/2),10); 
-				this.g.setFont("Vector",30);	
-				this.g.drawString(this.b1t,60-(this.g.stringWidth(this.b1t)/2),40); 
-				this.g.flip();
-		  }
+
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();
-        },300,this);
+        },100,this);
 	},
 	tid:-1,
 	run:false,
@@ -74,10 +56,7 @@ face[1] = {
 touchHandler[0]=function(e,x,y){ 
 	switch (e) {
 	case 5: //tap event
-		if (x<=120&&y<100) { //toggles full/current brightness on a left down corner swipe up. 
-			face[0].b1++; if (face[0].b1==3) face[0].b1=0;
-			digitalPulse(D16,1,[30,50,30]);
-		}else digitalPulse(D16,1,[30,50,30]);
+		digitalPulse(D16,1,[30,50,30]);
 		this.timeout();
 		break;
 	case 1: //slide down event
