@@ -175,13 +175,13 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 			},15);
 		}
 	}).catch(function(err)  {
-		euc.off(err);	
+		euc.off("writefail");	
 	});
 	};
 	setTimeout(() => {euc.wri(euc.tmp.count);}, 500);
 //reconnect
 }).catch(function(err)  {
-	euc.off(err);
+	euc.off("connfai");
 });
 };
 
@@ -216,7 +216,7 @@ euc.off=function(err){
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
 				euc.conn(euc.mac); 
-			}, 1000);
+			}, 1500);
 		}
 	} else {
 		if (set.def.cli) console.log("EUC: OUT");
