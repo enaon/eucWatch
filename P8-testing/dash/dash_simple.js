@@ -157,7 +157,7 @@ face[0] = {
   this.tid=setTimeout(function(t){
       t.tid=-1;
       t.show();
-    },250,this);
+    },150,this);
   },
   tid:-1,
   run:false,

@@ -149,6 +149,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 	euc.tmp.count=22;// else euc.tmp.count=0;  //unlock	
 	
 	euc.wri=function(cmd){
+		"ram";
 	//if (euc.busy) {if (set.def.cli)console.log("BT busy");return;}
 	//euc.busy=1;
 	c.writeValue(euc.cmd(cmd)).then(function() {
