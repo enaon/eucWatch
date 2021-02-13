@@ -175,7 +175,7 @@ face[0] = {
     this.g.drawString(euc.dash.tmp, 10,3); //temp
     this.g.drawString(euc.dash.bat,240-(this.g.stringWidth(euc.dash.bat)+10),3);
     this.g.flip();
-	  if (euc.state=="WAIT"||(euc.state=="RETRY"){this.spd=-1;this.amp=-1;this.temp=-1;this.batt=-1;this.trpL=-1;this.conn="OFF";this.lock=2;this.run=true;}
+	  if (euc.state=="WAIT"||euc.state=="RETRY"){this.spd=-1;this.amp=-1;this.temp=-1;this.batt=-1;this.trpL=-1;this.conn="OFF";this.lock=2;this.run=true;}
     }
   }
 //refresh 

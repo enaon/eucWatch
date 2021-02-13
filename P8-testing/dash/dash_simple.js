@@ -150,7 +150,7 @@ face[0] = {
       this.g.setFont("Vector",50);
       this.g.drawString(euc.state,(125-this.g.stringWidth(euc.state)/2),115);
       this.g.flip();
-	  if (euc.state=="WAIT"||(euc.state=="RETRY"){this.spd=-1;this.amp=-1;this.temp=-1;this.batt=-1;this.trpL=-1;this.conn="OFF";this.lock=2;this.run=true;}
+	  if (euc.state=="WAIT"||euc.state=="RETRY"){this.spd=-1;this.amp=-1;this.temp=-1;this.batt=-1;this.trpL=-1;this.conn="OFF";this.lock=2;this.run=true;}
     }
   }
 //refresh 
