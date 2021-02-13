@@ -188,14 +188,16 @@ var face={
 			if (this.appCurr==="main") {
 				if (face[c].off) {
 					if (set.def.touchtype=="716") tfk.exit();	
-					if (set.def.touchtype!="816") i2c.writeTo(0x15,0xa5,3); 
+					//if (set.def.touchtype!="816")	i2c.writeTo(0x15,0xa5,3); 
+					i2c.writeTo(0x15,0xa5,3); 
 					face[c].off();this.pageCurr=-1;face.pagePrev=c;
 				}
 			}else face.go(this.appCurr,1);
 		}else if (face.appPrev=="off") {
 			if (face[c].off) {
 				if (set.def.touchtype=="716") tfk.exit();	
-				if (set.def.touchtype!="816") i2c.writeTo(0x15,0xa5,3); 
+				//if (set.def.touchtype!="816") i2c.writeTo(0x15,0xa5,3);
+				i2c.writeTo(0x15,0xa5,3); 
 				face.go("main",-1);face.pagePrev=c;
 			}
 		}else if (c>1) face.go(this.appCurr,0);
@@ -330,123 +332,127 @@ var i2c=new I2C();
 i2c.setup({scl:D7, sda:D6, bitrate:200000});
 digitalPulse(D13,1,[5,50]);
 var c;
-if (set.def.touchtype=="816"){
-setWatch(function(s){
-  "ram";
-  var tp=i2c.readFrom(0x15,7);
-  if (face.pageCurr>=0) touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);
-  else if (tp[1]==5) {
-    if (s.time-c<0.25) face.go(face.appCurr,0);
-    c=s.time;
-  }else if (/*tp[1]==1||*/tp[1]==1) face.go(face.appCurr,0);
-},D28,{repeat:true, edge:"rising"}); 
-}else if (set.def.touchtype=="816s"){
-var lt,xt,yt,tt,tf;
-//var ct=0;
-setWatch(function(s){
-  "ram";
-var tp=i2c.readFrom(0x15,7);
-//console.log(tp);
-if (face.pageCurr>=0) {
-  if (tp[3]==0) {
-	if (tt) {clearTimeout(tt);tt=0;}
-    xt=tp[4];yt=tp[6];lt=1;st=1;tf=1;
-	return;
-  }else if (tp[1]==0 && tf) {
-    var a;
-    //ct++;
-    //if (ct>2){
-    a=5;
-	if (tp[6]>=yt+35) a=1;
-	else if (tp[6]<=yt-35) a=2;
-	else if (tp[4]<=xt-35) a=3;
-	else if (tp[4]>=xt+35) a=4;
-//    console.log(tp[4],xt,tp[6],yt,a,ct);
-   	if (tt) {clearTimeout(tt);tt=0;}
-    if (a!=5){
-      touchHandler[face.pageCurr](a,xt,yt);
-      ct=0;
-      tf=0;
-	  return;
-    } else {  
-	tt=setTimeout(()=>{
-       touchHandler[face.pageCurr](a,xt,yt);
-		tt=0;ct=0;
-        tf=0;
-    },20);  
-    }
-    return;
-  }else if (tp[1]==5) {
-  if (tt) {clearTimeout(tt);tt=0;}
-    touchHandler[face.pageCurr](5,tp[4],tp[6]);
-    tf=0;
-	return;
-  }else if (tp[1]==12) {
- 	if (tt) {clearTimeout(tt);tt=0;}
-    if (lt) touchHandler[face.pageCurr](12,tp[4],tp[6]);
-    lt=0;
-    tf=0;
-	return;
-  }
-}else {
-  if(tp[3]==0) tf=1;
-  if (tp[1]==5 && tf) {
-    if (s.time-c<0.25) face.go(face.appCurr,0);
-    c=s.time;tf=0;
-  }else if (tp[1]==1 && tf) {face.go(face.appCurr,0);tf=0;}
-}
-},D28,{repeat:true, edge:"falling"}); 
-}else if (set.def.touchtype=="716"){
-var tfk={
-tid:0,
-x:0,
-y:0,
-do:0,
-st:1,
-loop:5,
-init:function(){
-   	"ram";
+if (set.def.touchtype=="816"){ //816
+	setWatch(function(s){
+		"ram";
+		var tp=i2c.readFrom(0x15,7);
+		if (face.pageCurr>=0) touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);
+		else if (tp[1]==5) {
+			if (s.time-c<0.25) face.go(face.appCurr,0);
+			c=s.time;
+		}else if (/*tp[1]==1||*/tp[1]==1) face.go(face.appCurr,0);
+	},D28,{repeat:true, edge:"rising"}); 
+}else if (set.def.touchtype=="816s"){//816s
+	var lt,xt,yt,tt,tf;
+	//var ct=0;
+	setWatch(function(s){
+	"ram";
 	var tp=i2c.readFrom(0x15,7);
-//	print(tp);
-	if (tp[3]==128) {
-        if (this.time==-1) this.time=getTime();
-        if (this.st) {
-          if (face.pageCurr==-1){this.loop=5;face.go(face.appCurr,0);return;}
-          this.st=0;
-          this.do=1;
-          this.x=tp[4];this.y=tp[6];
-        }
-        if (this.do===1&&getTime()-this.time>1){ 
-            touchHandler[face.pageCurr](12,this.x,this.y);
-            this.do=0;
-        }else if (this.do===1&&tp[1]==0) {
-            var a=0;
-            if (tp[6]>=this.y+20) a=1;
-	        else if (tp[6]<=this.y-20) a=2;
-	        else if (tp[4]<=this.x-20) a=3;
-	        else if (tp[4]>=this.x+20) a=4;
-            if (a!=0) {
-              this.do=0;
-              touchHandler[face.pageCurr](a,this.x,this.y);
-            }
-        }else if (this.do===1){
-            if (tp[1]==5||tp[1]==12){
-              touchHandler[face.pageCurr](tp[1],this.x,this.y);this.do=0;
-            }
-        }
-	}else if (tp[3]==255) {
-		if (this.do===1){touchHandler[face.pageCurr](5,this.x,this.y);this.do=0;        }
-		this.st=1;this.time=-1;
-    }
-
-},
-start:function(){
-	if (this.tid) clearInterval(this.tid);
-	this.tid=setInterval(function(t){
-		tfk.init();
-	},this.loop);
-},
-exit:function(){if (this.tid) clearInterval(this.tid);this.tid=0;}
+	//console.log(tp);
+		if (face.pageCurr>=0) {
+			if (tp[3]==0) {
+				if (tt) {clearTimeout(tt);tt=0;}
+				xt=tp[4];yt=tp[6];lt=1;st=1;tf=1;
+				return;
+			}else if (tp[1]==0 && tf) {
+				var a;
+				//ct++;
+				//if (ct>2){
+				a=5;
+				if (tp[6]>=yt+35) a=1;
+				else if (tp[6]<=yt-35) a=2;
+				else if (tp[4]<=xt-35) a=3;
+				else if (tp[4]>=xt+35) a=4;
+				//    console.log(tp[4],xt,tp[6],yt,a,ct);
+				if (tt) {clearTimeout(tt);tt=0;}
+				if (a!=5){
+					touchHandler[face.pageCurr](a,xt,yt);
+					ct=0;
+					tf=0;
+					return;
+				} else {  
+					tt=setTimeout(()=>{
+						touchHandler[face.pageCurr](a,xt,yt);
+						tt=0;ct=0;
+						tf=0;
+					},20);  
+				}
+				return;
+			}else if (tp[1]==5) {
+				if (tt) {clearTimeout(tt);tt=0;}
+				touchHandler[face.pageCurr](5,tp[4],tp[6]);
+				tf=0;
+				return;
+			}else if (tp[1]==12) {
+				if (tt) {clearTimeout(tt);tt=0;}
+				if (lt) touchHandler[face.pageCurr](12,tp[4],tp[6]);
+				lt=0;
+				tf=0;
+				return;
+			}
+		}else {
+			if(tp[3]==0) tf=1;
+			if (tp[1]==5 && tf) {
+				if (s.time-c<0.25) face.go(face.appCurr,0);
+				c=s.time;tf=0;
+			}else if (tp[1]==1 && tf) {face.go(face.appCurr,0);tf=0;}
+		}
+	},D28,{repeat:true, edge:"falling"}); 
+//716
+}else if (set.def.touchtype=="716"){
+	var tfk={
+	tid:0,
+	x:0,
+	y:0,
+	do:0,
+	st:1,
+	loop:5,
+	init:function(){
+		"ram";
+		var tp=i2c.readFrom(0x15,7);
+		//	print(tp);
+		if (tp[3]==128) {
+			if (this.time==-1) this.time=getTime();
+			if (this.st) {
+				if (face.pageCurr==-1){this.loop=5;face.go(face.appCurr,0);return;}
+				this.st=0;
+				this.do=1;
+				this.x=tp[4];this.y=tp[6];
+			}
+			if (this.do===1&&getTime()-this.time>1){ 
+				touchHandler[face.pageCurr](12,this.x,this.y);
+				this.do=0;
+			}else if (this.do===1&&tp[1]==0) {
+				var a=0;
+				if (tp[6]>=this.y+20) a=1;
+				else if (tp[6]<=this.y-20) a=2;
+				else if (tp[4]<=this.x-20) a=3;
+				else if (tp[4]>=this.x+20) a=4;
+				if (a!=0) {
+					this.do=0;
+					touchHandler[face.pageCurr](a,this.x,this.y);
+				}
+			}else if (this.do===1){
+				if (tp[1]==5||tp[1]==12){
+					touchHandler[face.pageCurr](tp[1],this.x,this.y);this.do=0;
+				}
+			}
+		}else if (tp[3]==255) {
+			if (this.do===1){touchHandler[face.pageCurr](5,this.x,this.y);this.do=0;        }
+			this.st=1;this.time=-1;
+		}
+	},
+	start:function(){
+		i2c.writeTo(0x15,0xa5,3); 
+		if (this.tid) clearInterval(this.tid);
+		this.tid=setInterval(function(t){
+			tfk.init();
+		},this.loop);
+	},
+	exit:function(){
+		i2c.writeTo(0x15,0xa5,3); 
+		if (this.tid) clearInterval(this.tid);this.tid=0;
+	}
 };	
 }
 //accelerometer(wake on look)
@@ -458,75 +464,75 @@ if (set.def.acctype==="BMA421"){
     i2c.writeTo(0x18,0x23,0x80); 
 }
 acc={
-  loop:200,
-  tid:0,
-  run:0,
-  go:1,
-  up:0,
-  on:function(){
-	if (this.tid) {clearInterval(this.tid); this.tid=0;}
-	if (set.def.acctype==="BMA421"){
-		i2c.writeTo(0x18,0x7d,0x04);
-		i2c.writeTo(0x18,0x12);
-		this.yedge=250;this.xedge=20;
-	}else {
-		i2c.writeTo(0x18,0x01);
-		this.yedge=235;this.xedge=30;
-	}
-	this.run=1;this.init();
-	this.tid=setInterval(function(t){
-		t.init(); 
-    },this.loop,this);
-  },
-  off:function(){
-	  if (this.tid) {clearInterval(this.tid); this.tid=0;}
-	  if(set.def.acctype==="BMA421")i2c.writeTo(0x18,0x7d,0x04);
-	  this.run=0;
-  },
-  init:function(){
-    "ram";
-	if(!this.run) return;
-    var data;
-	if (set.def.acctype=="BMA421") data=i2c.readFrom(0x18,6);
-    else {data={}; data[3]=i2c.readFrom(0x18,1)+"";} 
-	//print(data);
-	if (200<data[3]&&data[3]<this.yedge) {
-		if (set.def.acctype!="BMA421"){
-		    i2c.writeTo(0x18,3);
-			data[1]=i2c.readFrom(0x18,1)+"";
-		    i2c.writeTo(0x18,1);
+	loop:200,
+	tid:0,
+	run:0,
+	go:1,
+	up:0,
+	on:function(){
+		if (this.tid) {clearInterval(this.tid); this.tid=0;}
+		if (set.def.acctype==="BMA421"){
+			i2c.writeTo(0x18,0x7d,0x04);
+			i2c.writeTo(0x18,0x12);
+			this.yedge=250;this.xedge=20;
+		}else {
+			i2c.writeTo(0x18,0x01);
+			this.yedge=235;this.xedge=30;
 		}
-		if (data[1]<this.xedge||data[1]>=220) {
-          //print(data);
-          this.up=1;
-          if (this.go){ 
-            if (!w.gfx.isOn&&face.appCurr!=""){  
-			if  (global.euc) {
-              if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash],0);
-              else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
-            }else{ 
-				if (face.appCurr=="main") face.go("main",0);
-				else face.go(face.appCurr,0);
+		this.run=1;this.init();
+		this.tid=setInterval(function(t){
+			t.init(); 
+		},this.loop,this);
+	},
+	off:function(){
+		if (this.tid) {clearInterval(this.tid); this.tid=0;}
+		if(set.def.acctype==="BMA421")i2c.writeTo(0x18,0x7d,0x04);
+		this.run=0;
+	},
+	init:function(){
+		"ram";
+		if(!this.run) return;
+		var data;
+		if (set.def.acctype=="BMA421") data=i2c.readFrom(0x18,6);
+		else {data={}; data[3]=i2c.readFrom(0x18,1)+"";} 
+		//print(data);
+		if (200<data[3]&&data[3]<this.yedge) {
+			if (set.def.acctype!="BMA421"){
+				i2c.writeTo(0x18,3);
+				data[1]=i2c.readFrom(0x18,1)+"";
+				i2c.writeTo(0x18,1);
 			}
-			this.loop=500;
-		  }else if (w.gfx.isOn&&face.pageCurr!=-1) {
-			if (face.appCurr=="main" && face.pageCurr==2) face.go("main",0);
-		    else { if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off(); }
-			this.loop=200;
-		  } 
-         }
-		}
-    }else {this.loop=300;this.up=0;this.go=1;if (set.tor==1)w.gfx.bri.set(7); }
-  }
+			if (data[1]<this.xedge||data[1]>=220) {
+			  //print(data);
+			  this.up=1;
+			  if (this.go){ 
+				if (!w.gfx.isOn&&face.appCurr!=""){  
+				if  (global.euc) {
+				  if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash],0);
+				  else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
+				}else{ 
+					if (face.appCurr=="main") face.go("main",0);
+					else face.go(face.appCurr,0);
+				}
+				this.loop=500;
+			  }else if (w.gfx.isOn&&face.pageCurr!=-1) {
+				if (face.appCurr=="main" && face.pageCurr==2) face.go("main",0);
+				else { if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off(); }
+				this.loop=200;
+			  } 
+			 }
+			}
+		}else {this.loop=300;this.up=0;this.go=1;if (set.tor==1)w.gfx.bri.set(7); }
+	}
 };
 //themes -todo
 function col(no){
 	switch (no) {
-      case "black":return 0;case "white":return 4095;case "lblue":return 1535;case "blue":return 143;case "dblue":return 1375;case "blue1":return 1708;
-	  case "raf":return 1453;case "raf1":return 1708;case "raf2":return 1963;case "raf3":return 2220;case "raf4":return 2474;case "raf5":return 3005;
-  	  case "gray":return 2730;case "lgray":return 3003;case "dgray":return 1365;case "dgray1":return 1351;case "lgreen":return 1525;case "red":return 3840;
-   	  case "dred":return 3925;case "dred1":return 3888;case "purple":return 3935;case "lyellow":return 4085;case "dyellow":return 4064;case "yellow":return 4080;
-	  case "olive":return 170;
+		case "black":return 0;case "white":return 4095;case "lblue":return 1535;case "blue":return 143;case "dblue":return 1375;case "blue1":return 1708;
+		case "raf":return 1453;case "raf1":return 1708;case "raf2":return 1963;case "raf3":return 2220;case "raf4":return 2474;case "raf5":return 3005;
+		case "gray":return 2730;case "lgray":return 3003;case "dgray":return 1365;case "dgray1":return 1351;case "lgreen":return 1525;case "red":return 3840;
+		case "dred":return 3925;case "dred1":return 3888;case "purple":return 3935;case "lyellow":return 4085;case "dyellow":return 4064;case "yellow":return 4080;
+		case "olive":return 170;
 	}
 }
 //end
