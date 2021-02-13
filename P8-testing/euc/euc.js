@@ -3,7 +3,6 @@ global.euc= {
 	reconnect:0,
     busy:0,
     chrg:0,
-    lock:0,
 	updateDash:function(slot){require('Storage').write('euc_slot'+slot+'.json', euc.dash);},
 	tgl:function(){ 
 		if (this.state!="OFF" ) {
