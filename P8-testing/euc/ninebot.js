@@ -220,7 +220,6 @@ euc.off=function(err){
 	} else {
 		if (set.def.cli) console.log("EUC: OUT");
 		global["\xFF"].bleHdl=[];
-			delete euc.ch;
             delete euc.off;
 			delete euc.conn;
             delete euc.wri;

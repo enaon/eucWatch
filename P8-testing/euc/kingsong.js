@@ -2,7 +2,6 @@
 //m_euc
 //euc.conn(euc.mac);
 //euc.wri("lightsOn")
-//euc.ch.writeValue([0xAA,0x55,0x01,0xE0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x87,0x14,0x5A,0x5A]) 
 //
 euc.cmd=function(no){
 	switch (no) {
@@ -85,78 +84,79 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 		euc.dash.time=(((this.KSdata[6] & 0xFF) + (this.KSdata[7] << 8)) / 60.0).toFixed(0);
         euc.dash.spdT=(((this.KSdata[8] & 0xFF) + (this.KSdata[9] << 8)) / 100.0).toFixed(1);
     }else if (euc.state=="OFF"){
-      euc.busy=1;
-	  if (set.def.cli) console.log("EUCstartOff");
-	  euc.lock=1;
-      digitalPulse(D16,1,120);
-	  c.writeValue(euc.cmd("lightsAuto"));
-      if (euc.reconnect) {clearTimeout(euc.reconnect); euc.reconnect=0;}
-	  euc.reconnect=setTimeout(() => {c.writeValue(euc.cmd("lock")).then(function() {
-		euc.reconnect=0;global["\xFF"].BLE_GATTS.disconnect();});
-	  }, 200);
+		euc.busy=1;
+		if (set.def.cli) console.log("EUCstartOff");
+		euc.lock=1;
+		digitalPulse(D16,1,120);
+		c.writeValue(euc.cmd("lightsAuto"));
+		if (euc.reconnect) {clearTimeout(euc.reconnect); euc.reconnect=0;}
+		euc.reconnect=setTimeout(() => {c.writeValue(euc.cmd("lock")).then(function() {
+			euc.reconnect=0;global["\xFF"].BLE_GATTS.disconnect();});
+		}, 200);
     return;
 	}
-  });
-  //on disconnect
-  euc.ch=c;
-  global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
-    if (set.def.cli) console.log("EUC Disconnected :",reason);
-	if (euc.reconnect) {clearTimeout(euc.reconnect); euc.reconnect=0;}
-    if (euc.state!="OFF") {  
-	 if (set.def.cli) console.log("EUC restarting");
-     euc.state="WAIT";
-     euc.reconnect=setTimeout(() => {  euc.conn(euc.mac); }, 500);
-      return;
-    }else {
-	  if (set.def.cli) console.log("Destroy euc (reason):",reason);
-	  global["\xFF"].bleHdl=[];
-	  delete euc.ch; 
-      NRF.setTxPower(set.def.rfTX);
-    }
-  });
+	});
+	//on disconnect
+	global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
+		euc.off(reason);
+	});
 return  c;
 }).then(function(c) {
-//connected ****************************
-  console.log("EUC connected"); 
-  digitalPulse(D16,1,[90,40,150,40,90]);
-  euc.busy=1;
-  setTimeout(function(){c.writeValue(euc.cmd("serial"));euc.state="READY";},200);
-  setTimeout(function(){c.writeValue(euc.cmd("pass"));},500);
-  setTimeout(function(){c.writeValue(euc.cmd("unlock"));euc.lock=0;},800);
-  setTimeout(function(){euc.busy=0;c.startNotifications();},1500);
+	//connected ****************************
+	console.log("EUC connected"); 
+	digitalPulse(D16,1,[90,40,150,40,90]);
+	euc.busy=1;
+	euc.wri= function(n) {
+		c.writeValue(euc.cmd(n)).catch(function(err){euc.off(err);});
+		return;
+	};
+	setTimeout(function(){c.writeValue(euc.cmd("serial"));euc.state="READY";},200);
+	setTimeout(function(){c.writeValue(euc.cmd("pass"));},500);
+	setTimeout(function(){c.writeValue(euc.cmd("unlock"));euc.lock=0;},800);
+	setTimeout(function(){euc.busy=0;c.startNotifications();},1500);
 //reconect
 }).catch(function(err)  {
-  if (set.def.cli) console.log("EUC error", err);
-  if (euc.reconnect) {clearTimeout(euc.reconnect); euc.reconnect=0;}
-  if (euc.state!="OFF") {
-    if (set.def.cli) console.log("not off");
-    if ( err==="Connection Timeout"  )  {
-	  if (set.def.cli) console.log("retrying :timeout");
-	  euc.state="LOST";
-	  if (euc.lock==1) digitalPulse(D16,1,250);
-	  else digitalPulse(D16,1,[250,200,250,200,250]);
-	  euc.reconnect=setTimeout(() => {
-		euc.reconnect=0;
-	    euc.conn(euc.mac); 
-	  }, 5000);
-	}else if ( err==="Disconnected"|| err==="Not connected")  {
-      if (set.def.cli) console.log("retrying :",err);
-      euc.state="FAR";
-      euc.reconnect=setTimeout(() => {
-		euc.reconnect=0;
-	    euc.conn(euc.mac); 
-      }, 500);
-    }
-  } else {
-  	  if (set.def.cli) console.log("Destroy euc (reason-1):",reason);
-	  global["\xFF"].bleHdl=[];
-	  delete euc.ch;
-      NRF.setTxPower(set.def.rfTX);
-  }
+	euc.off(err);
 });
 };
 //
-euc.wri= function(n) {
-  euc.ch.writeValue(euc.cmd(n));
-  return;
+
+
+euc.off=function(err){
+	if (euc.reconnect) {clearTimeout(euc.reconnect); euc.reconnect=0;}
+	if (euc.state!="OFF") {
+		if (set.def.cli) console.log("EUC: Restarting");
+		if ( err==="Connection Timeout"  )  {
+			if (set.def.cli) console.log("reason :timeout");
+			euc.state="LOST";
+			if (euc.lock==1) digitalPulse(D16,1,250);
+			else digitalPulse(D16,1,[250,200,250,200,250]);
+			euc.reconnect=setTimeout(() => {
+				euc.reconnect=0;
+				euc.conn(euc.mac); 
+			}, 5000);
+		}else if ( err==="Disconnected"|| err==="Not connected")  {
+			if (set.def.cli) console.log("reason :",err);
+			euc.state="FAR";
+			euc.reconnect=setTimeout(() => {
+				euc.reconnect=0;
+				euc.conn(euc.mac); 
+			}, 500);
+		} else {
+			if (set.def.cli) console.log("reason :",err);
+			euc.state="RETRY";
+			euc.reconnect=setTimeout(() => {
+				euc.reconnect=0;
+				euc.conn(euc.mac); 
+			}, 1000);
+		}
+	} else {
+		if (set.def.cli) console.log("EUC: OUT");
+		global["\xFF"].bleHdl=[];
+            delete euc.off;
+			delete euc.conn;
+            delete euc.wri;
+			delete euc.cmd;
+			NRF.setTxPower(set.def.rfTX);	
+    }
 };
