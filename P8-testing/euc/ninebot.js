@@ -120,7 +120,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 			else euc.dash.mode=this.in16;
 			break;
 		case 112: //riding Mode
-			if ( this.in16!=euc.lock) euc.lock=this.in16;
+			if ( this.in16!=euc.dash.lock) euc.dash.lock=this.in16;
 			break;
 		}
     	//buzz
@@ -156,10 +156,10 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 		if (euc.tmp.count>=21) euc.tmp.count=0;
 		if (euc.state=="OFF"){
 			if (set.def.cli) console.log("EUC: Off");
-			euc.lock=1;
 			digitalPulse(D16,1,120);
 			euc.tmp.count=21;
 			c.writeValue(euc.cmd(euc.tmp.count)).then(function() {
+				//euc.dash.lock=1;
 				global["\xFF"].BLE_GATTS.disconnect().catch(function(err)  {if (set.def.cli) console.log("EUC OUT disconnect failed:", err);});
 				return;
 			}).catch(function(err)  {
@@ -194,7 +194,7 @@ euc.off=function(err){
 		if ( err==="Connection Timeout"  )  {
 			if (set.def.cli) console.log("reason :timeout");
 			euc.state="LOST";
-			if (euc.lock==1) digitalPulse(D16,1,250);
+			if (euc.dash.lock==1) digitalPulse(D16,1,250);
 			else digitalPulse(D16,1,[250,200,250,200,250]);
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
@@ -203,7 +203,7 @@ euc.off=function(err){
 		}else if ( err==="Disconnected"|| err==="Not connected")  {
 			if (set.def.cli) console.log("reason :",err);
 			euc.state="FAR";
-			// if (euc.lock==1) digitalPulse(D16,1,100);
+			// if (euc.dash.lock==1) digitalPulse(D16,1,100);
 			// else digitalPulse(D16,1,[100,150,100]);
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
