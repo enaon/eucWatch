@@ -110,7 +110,7 @@
    { "id": "euc",
     "name": "EUC modules for the dashboard",
     "icon": "icon.png",
-    "version":"0.10",
+    "version":"0.11",
     "description": "EUC module for Kingsong and ninebot's c/e/p wheels",
     "tags": "euc",
     "type": "euc",
