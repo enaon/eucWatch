@@ -167,7 +167,11 @@ touchHandler[0]=function(e,x,y){
 		face.go(set.dash[set.def.dash],0);
 		return;
 	case 12: //long press event
-	    digitalPulse(D16,1,[100]);
+		if (x<=120&&y<100) { //lights
+			face[0].b1=0;
+			euc.wri("lightsOff");
+			digitalPulse(D16,1,[30,50,30]);
+	    }else digitalPulse(D16,1,[100]);
 		this.timeout();
 		break;
   }
