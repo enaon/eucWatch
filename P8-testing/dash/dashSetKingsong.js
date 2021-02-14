@@ -25,7 +25,7 @@ face[0] = {
 	show : function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
 		if (!this.run) return; 
-		if (this.b1!=this.b1s){
+		if (this.b1!=this.b1s){ //lights
 			this.b1s=this.b1;
 			if (this.b1==0) {
 				this.b1t="OFF";this.b1c=col("black");
@@ -43,7 +43,7 @@ face[0] = {
 			this.g.drawString(this.b1t,60-(this.g.stringWidth(this.b1t)/2),50); 
 			this.g.flip();
 		}
-		if (this.b2!=this.b2s){
+		if (this.b2!=this.b2s){ //lock
 			this.b2s=this.b2;
 			if (this.b2==0) {
 				this.b2t="OFF";this.b2c=col("blue");
@@ -59,8 +59,8 @@ face[0] = {
 			this.g.drawString(this.b2t,185-(this.g.stringWidth(this.b2t)/2),50); 
 			this.g.flip();
 		}
-		if (this.b3!=this.b3s){
-			this.b3s=this.b3;
+		if (this.b3!=euc.dash.mode){ //ride mode
+			this.b3=euc.dash.mode;
 			if (this.b3==0) {
 				this.b3t="HARD";this.b3c=col("raf1");
 			}else if (this.b3==1) {
@@ -129,8 +129,15 @@ touchHandler[0]=function(e,x,y){
 		}else if (120<=x<=239&&y<=100) { //btn2
 			face[0].b2++; if (face[0].b2==2) face[0].b2=0;
 			digitalPulse(D16,1,[30,50,30]);
-		}else if (x<=120&&100<=y<=200) { //btn3
+		}else if (x<=120&&100<=y<=200) { //ride mode
 			face[0].b3++; if (face[0].b3==3) face[0].b3=0;
+			if (face[0].b3==0) {
+				euc.wri(euc.cmd("rideHard"));
+			}else if (face[0].b3==1) {
+				euc.wri(euc.cmd("rideMed"));
+			}else if (face[0].b3==2) {
+				euc.wri(euc.cmd("rideSoft"));
+			}
 			digitalPulse(D16,1,[30,50,30]);		
 		}else if (120<=x<=239&&100<=y<=200) { //btn4
 			face[0].b4++; if (face[0].b4==3) face[0].b4=0;

@@ -100,7 +100,6 @@
     "storage": [
       {"name":"dash_simple","url":"dash_simple.js"},
 	  {"name":"dash_digital","url":"dash_digital.js"},
-	  {"name":"dashSet","url":"dashSettings.js"},
 	  {"name":"dashInfo","url":"dashInfo.js"},
 	  {"name":"dashSelect","url":"dashSelect.js"},
   	  {"name":"dashScan","url":"dashScan.js"},
