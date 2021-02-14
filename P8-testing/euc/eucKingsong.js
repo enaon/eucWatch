@@ -36,6 +36,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 }).then(function(c) {
   c.on('characteristicvaluechanged', function(event) {
     this.KSdata = event.target.value.buffer;
+	print (this.KSdata);
     if (euc.busy) return;
     if (this.KSdata[16]==169) {
 		euc.alert=0;
@@ -84,6 +85,8 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
         euc.dash.trpL=(((this.KSdata[2] << 16) + (this.KSdata[3] << 24) + this.KSdata[4] + (this.KSdata[5] << 8)) / 1000.0).toFixed(1);
 		euc.dash.time=(((this.KSdata[6] & 0xFF) + (this.KSdata[7] << 8)) / 60.0).toFixed(0);
         euc.dash.spdT=(((this.KSdata[8] & 0xFF) + (this.KSdata[9] << 8)) / 100.0).toFixed(1);
+	 }else if  (this.KSdata[16]==95){
+        euc.dash.lock=this.KSdata[2]
     }else if (euc.state=="OFF"){
 		euc.busy=1;
 		if (set.def.cli) console.log("EUCstartOff");

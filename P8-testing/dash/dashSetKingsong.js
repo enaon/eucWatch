@@ -16,10 +16,10 @@ face[0] = {
 		this.g.setFont("Vector",20);
 		this.g.drawString("EUC SETTINGS",120-(this.g.stringWidth("EUC SETTING")/2),214); 
 		this.g.flip(); 
-		this.b1=0;
-		this.b2=0;
-		this.b3=0;
-		this.b4=0;
+		this.b1=-0;
+		this.b2=-0;
+		this.b3=-1;
+		this.b4=-0;
 		this.run=true;
 	},
 	show : function(){
@@ -35,7 +35,7 @@ face[0] = {
 				this.b1t="AUTO";this.b1c=col("olive");
 			}
 			this.g.setColor(0,this.b1c);
-			this.g.fillRect(0,0,118,95);
+			this.g.fillRect(0,0,118,97);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",18);	
 			this.g.drawString("LIGHTS",60-(this.g.stringWidth("LIGHTS")/2),15); 
@@ -51,7 +51,7 @@ face[0] = {
 				this.b2t="ON";this.b2c=col("red");
 			}
 			this.g.setColor(0,this.b2c);
-			this.g.fillRect(121,0,239,95);
+			this.g.fillRect(122,0,239,97);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",18);	
 			this.g.drawString("LOCK",185-(this.g.stringWidth("LOCK")/2),15); 
@@ -64,9 +64,9 @@ face[0] = {
 			if (this.b3==0) {
 				this.b3t="HARD";this.b3c=col("raf1");
 			}else if (this.b3==1) {
-				this.b3t="MED";this.b3c=col("raf2");
+				this.b3t="MED";this.b3c=col("olive");
 			}else if (this.b3==2) {
-				this.b3t="SOFT";this.b3c=col("raf3");
+				this.b3t="SOFT";this.b3c=col("raf4");
 			}
 			this.g.setColor(0,this.b3c);
 			this.g.fillRect(0,100,118,195);
@@ -80,7 +80,7 @@ face[0] = {
 		if (this.b4!=this.b4s){
 			this.b4s=this.b4;
 			this.g.setColor(0,col("black"));
-			this.g.fillRect(121,100,239,195);
+			this.g.fillRect(122,100,239,195);
 			this.g.setColor(1,col("lblue"));
 			this.g.setFont("Vector",30);	
 			this.g.drawString("MORE",185-(this.g.stringWidth("MORE")/2),135); 
@@ -123,21 +123,20 @@ face[1] = {
 touchHandler[0]=function(e,x,y){ 
 	switch (e) {
 	case 5: //tap event
-		if (x<=120&&y<100) { //btn1
+		if (x<=120&&y<100) { //lights
 			face[0].b1++; if (face[0].b1==3) face[0].b1=0;
+			if (face[0].b1==0) euc.wri("lightsOff");
+			else if (face[0].b1==1) euc.wri("lightsOn");
+			else if (face[0].b1==2) euc.wri("lightsAuto");
 			digitalPulse(D16,1,[30,50,30]);
-		}else if (120<=x<=239&&y<=100) { //btn2
-			face[0].b2++; if (face[0].b2==2) face[0].b2=0;
+		}else if (120<=x<=239&&y<=100) { //lock
+			if (euc.dash.lock==0) euc.wri("unlock");
+			else if (euc.dash.lock==1) euc.wri("lock");
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (x<=120&&100<=y<=200) { //ride mode
-			face[0].b3++; if (face[0].b3==3) face[0].b3=0;
-			if (face[0].b3==0) {
-				euc.wri(euc.cmd("rideHard"));
-			}else if (face[0].b3==1) {
-				euc.wri(euc.cmd("rideMed"));
-			}else if (face[0].b3==2) {
-				euc.wri(euc.cmd("rideSoft"));
-			}
+			if (euc.dash.mode==0) euc.wri("rideMed");
+			else if (euc.dash.mode==1) euc.wri("rideSoft");
+			else if (euc.dash.mode==2) euc.wri("rideHard");
 			digitalPulse(D16,1,[30,50,30]);		
 		}else if (120<=x<=239&&100<=y<=200) { //btn4
 			face[0].b4++; if (face[0].b4==3) face[0].b4=0;
