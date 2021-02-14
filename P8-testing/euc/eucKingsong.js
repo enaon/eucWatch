@@ -125,40 +125,40 @@ return  c;
 	euc.busy=1;
 	euc.wri= function(n) {
 		if (euc.busy) return;
-		euc.busy=1;
+		euc.busy=1;c.stopNotifications();
 		if (n==="hornOn"||n==="hornOff"){
 			c.writeValue(euc.cmd((n==="hornOn")?"strobeOn":"strobeOff")).then(function() {
                if (n==="hornOn")euc.dash.strb=1; else euc.dash.strb=0;
 				c.writeValue(euc.cmd((n==="hornOn")?"lock":"unlock")).then(function(){
-					if (n==="hornOn") euc.dash.lock=1; else {euc.dash.lock=0;euc.busy=0;return;}
+					if (n==="hornOn") euc.dash.lock=1; else {euc.dash.lock=0;euc.busy=0;c.startNotifications();return;}
 					if (!BTN1.read()){ 
 						c.writeValue(euc.cmd("unlock")).then(function(){
 							euc.dash.lock=0;
 							c.writeValue(euc.cmd("strobeOff")).then(function(){
-								euc.dash.strb=0;euc.busy=0;
+								euc.dash.strb=0;euc.busy=0;c.startNotifications();
 							}).catch(function(err)  {
-								euc.busy=0;
+								euc.busy=0;c.startNotifications();
 								euc.off("err");
 							});
 						}).catch(function(err)  {
-							euc.busy=0;
+							euc.busy=0;c.startNotifications();
 							euc.off("err");
 						});
 						return;
-					}else euc.busy=0;
+					}else euc.busy=0;c.startNotifications();
 				}).catch(function(err)  {
-					euc.busy=0;
+					euc.busy=0;c.startNotifications();
 					euc.off("err");
 				});
 			}).catch(function(err)  {
-				euc.busy=0;
+				euc.busy=0;c.startNotifications();
 				euc.off("err");
 			});	
 		}else{
 			c.writeValue(euc.cmd(n)).then(function() {
-				euc.busy=0;
+				euc.busy=0;c.startNotifications();
 			}).catch(function(err)  {
-				euc.busy=0;
+				euc.busy=0;c.startNotifications();
 				euc.off("err");
 			});
 		}
