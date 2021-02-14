@@ -280,12 +280,14 @@ function buttonHandler(s){
 	face.off();
 	if (s.state==true) { 
 		this.press=true;
+		if (global.euc&&euc.state==="READY"&&euc.dash.spd>=2&&euc.dash.model==="S18") {euc.wri("hornOn");return;}
+		this.press=true;
 		//EUC action on long press
 		this.t1=setTimeout(() => {
 			this.t1=0;
 			if (global.euc) {
-				if (global.euc&&euc.state==="READY"&&euc.dash.spd>=3&&euc.maker==="kingsong") {
-					euc.ch.writeValue(euc.cmd("lightsAuto"));
+				if (global.euc&&euc.state==="READY"&&euc.dash.spd>=0&&euc.dash.maker==="kingsong") {
+					euc.wri("strobeStart");
 					this.press=false;
 					return;
 				} else {euc.tgl();this.press=false;}
@@ -293,12 +295,8 @@ function buttonHandler(s){
 		}, 1000);
    }else if (this.press && !s.state)  { 
 		this.press=false;
-		//EUC action on short press.
-		if (global.euc&&euc.state==="READY"&&euc.dash.spd>=3&&euc.maker==="kingsong") {
-			euc.ch.writeValue(euc.cmd("lightsAuto"));
-			setTimeout(function(){euc.ch.writeValue(euc.cmd("lightsOn"));},300);
-			return;
-		}else if (face.pageCurr==-1) {
+		if (global.euc&&euc.state==="READY"&&euc.dash.spd>=2&&euc.dash.model==="S18") {euc.wri("hornOff");return;}
+		if (face.pageCurr==-1) {
 			digitalPulse(D16,1,[60,40,60]);
 			if (global.euc){
 				if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash],0);

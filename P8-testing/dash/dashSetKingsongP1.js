@@ -19,7 +19,7 @@ face[0] = {
 		this.b1=-1;
 		this.b2=-1;
 		this.b3=-1;
-		this.b4=-1;
+		this.b4=0;
 		this.run=true;
 	},
 	show : function(){
@@ -28,7 +28,7 @@ face[0] = {
 		if (this.b1!=euc.dash.lght){ //lights
 			this.b1=euc.dash.lght;
 			if (this.b1==0) {
-				this.b1t="OFF";this.b1c=col("dgray");
+				this.b1t="OFF";this.b1c=col("black");
 			}else if (this.b1==1) {
 				this.b1t="ON";this.b1c=col("blue");
 			}else if (this.b1==2) {
@@ -43,19 +43,19 @@ face[0] = {
 			this.g.drawString(this.b1t,60-(this.g.stringWidth(this.b1t)/2),50); 
 			this.g.flip();
 		}
-		if (this.b2!=euc.dash.strb){ //strobe
-			this.b2=euc.dash.strb;
+		if (this.b2!=euc.dash.lock){ //lock
+			this.b2=euc.dash.lock;
 			print("b2:",this.b2);
 			if (this.b2==0) {
-				this.b2t="OFF";this.b2c=col("dgray");
-			}else  {
+				this.b2t="OFF";this.b2c=col("blue");
+			}else if (this.b2==1) {
 				this.b2t="ON";this.b2c=col("red");
 			}
 			this.g.setColor(0,this.b2c);
 			this.g.fillRect(122,0,239,97);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",18);	
-			this.g.drawString("STROBE",185-(this.g.stringWidth("STROBE")/2),15); 
+			this.g.drawString("LOCK",185-(this.g.stringWidth("LOCK")/2),15); 
 			this.g.setFont("Vector",30);	
 			this.g.drawString(this.b2t,185-(this.g.stringWidth(this.b2t)/2),50); 
 			this.g.flip();
@@ -78,22 +78,15 @@ face[0] = {
 			this.g.drawString(this.b3t,60-(this.g.stringWidth(this.b3t)/2),150); 
 			this.g.flip();
 		}
-		if (this.b4!=euc.dash.lock){ //lock
-			this.b4=euc.dash.lock;
-			if (this.b4==0) {
-				this.b4t="OFF";this.b4c=col("raf");
-			}else {
-				this.b4t="ON";this.b4c=col("red");
-			}
-			this.g.setColor(0,this.b4c);
+		if (this.b4!=this.b4s){
+			this.b4s=this.b4;
+			this.g.setColor(0,col("black"));
 			this.g.fillRect(122,100,239,195);
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",18);	
-			this.g.drawString("LOCK",185-(this.g.stringWidth("LOCK")/2),115); 
+			this.g.setColor(1,col("lblue"));
 			this.g.setFont("Vector",30);	
-			this.g.drawString(this.b4t,185-(this.g.stringWidth(this.b4t)/2),150); 
+			this.g.drawString("MORE",185-(this.g.stringWidth("MORE")/2),135); 
 			this.g.flip();
-        }
+		}		
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();
@@ -135,20 +128,18 @@ touchHandler[0]=function(e,x,y){
 			if (euc.dash.lght==0) {euc.wri("lightsOn");euc.dash.lght=1;}
 			else if (euc.dash.lght==1) {euc.wri("lightsAuto");euc.dash.lght=2;}
 			else if (euc.dash.lght==2) {euc.wri("lightsOn");euc.dash.lght=1;}
-			else  {euc.wri("lightsOn");euc.dash.lght=1;}
 			digitalPulse(D16,1,[30,50,30]);
-		}else if (120<=x<=239&&y<=100) { //strobe
-			euc.dash.strb=1-euc.dash.strb;
-			euc.wri((euc.dash.strb)?"strobeOn":"strobeOff");
+		}else if (120<=x<=239&&y<=100) { //lock
+			if (euc.dash.lock==0) euc.wri("lock");
+			else if (euc.dash.lock==1) euc.wri("unlock");
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (x<=120&&100<=y<=200) { //ride mode
 			if (euc.dash.mode==0) euc.wri("rideMed");
 			else if (euc.dash.mode==1) euc.wri("rideSoft");
 			else if (euc.dash.mode==2) euc.wri("rideHard");
 			digitalPulse(D16,1,[30,50,30]);		
-		}else if (120<=x<=239&&100<=y<=200) { //lock
-			euc.dash.lock=1-euc.dash.lock;
-			euc.wri((euc.dash.lock)?"lock":"unlock");
+		}else if (120<=x<=239&&100<=y<=200) { //btn4
+			face[0].b4++; if (face[0].b4==3) face[0].b4=0;
 			digitalPulse(D16,1,[30,50,30]);						
 		}else digitalPulse(D16,1,[30,50,30]);
 		this.timeout();
@@ -179,10 +170,6 @@ touchHandler[0]=function(e,x,y){
 			euc.dash.lght=0;
 			euc.wri("lightsOff");
 			digitalPulse(D16,1,[30,50,30]);
-		}else if (120<=x<=239&&100<=y<=200) { //off
-			euc.wri("off");
-			digitalPulse(D16,1,[30,50,30]);	
-			euc.state="OFF";
 	    }else digitalPulse(D16,1,[100]);
 		this.timeout();
 		break;
