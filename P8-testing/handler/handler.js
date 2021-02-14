@@ -276,55 +276,54 @@ setWatch(function(s){
 },D19,{repeat:true, debounce:500,edge:0});  
 //button 
 function buttonHandler(s){
-  if ( this.t1) {clearTimeout(this.t1); this.t1=0;}
-  face.off();
-  if (s.state==true) { 
-    this.press=true;
-	//toggle EUC on long press
-    this.t1=setTimeout(() => {
-      this.t1=0;
-      if (global.euc) {
-	if (global.euc&&euc.state==="READY"&&euc.dash.spd>=3&&euc.maker==="kingsong") {
-		  euc.ch.writeValue(euc.cmd("lightsAuto"));
-		  this.press=false;
-		  return;
-	    } else {euc.tgl();this.press=false;}
-      }
-    }, 1000);
-      
+	if ( this.t1) {clearTimeout(this.t1); this.t1=0;}
+	face.off();
+	if (s.state==true) { 
+		this.press=true;
+		//EUC action on long press
+		this.t1=setTimeout(() => {
+			this.t1=0;
+			if (global.euc) {
+				if (global.euc&&euc.state==="READY"&&euc.dash.spd>=3&&euc.maker==="kingsong") {
+					euc.ch.writeValue(euc.cmd("lightsAuto"));
+					this.press=false;
+					return;
+				} else {euc.tgl();this.press=false;}
+			}
+		}, 1000);
    }else if (this.press && !s.state)  { 
-	this.press=false;
-	if (global.euc&&euc.state==="READY"&&euc.dash.spd>=3&&euc.maker==="kingsong") {
-		  euc.ch.writeValue(euc.cmd("lightsAuto"));
-		  setTimeout(function(){euc.ch.writeValue(euc.cmd("lightsOn"));},300);
-		  return;
-	}
-	if (face.pageCurr==-1) {
-		digitalPulse(D16,1,[60,40,60]);
-		if (global.euc){
-		if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash],0);
-			else face.go(face.appCurr,0);
-		}else face.go(face.appCurr,0);
-	}else { 
-	  if (face.appCurr=="main"&&face.pagePrev!=-1&&face.pagePrev!=2) {
-        if (set.def.acc==1) {
-        acc.off();
-        acc.go=0;
-		if (this.t2) {clearTimeout(this.t2); this.t2=0;}
-        this.t2=setTimeout(function(t){
-		  acc.on();
-		  this.t2=0;
-        },2000);
-        }
-        face.go("main",-1);
-        digitalPulse(D16,1,100);
-      }else{
-      var to=face.pageCurr+1;
-      if (to>=2) to=0;
-      face.go(face.appCurr,to);
-	  }
-    }
-  }
+		this.press=false;
+		//EUC action on short press.
+		if (global.euc&&euc.state==="READY"&&euc.dash.spd>=3&&euc.maker==="kingsong") {
+			euc.ch.writeValue(euc.cmd("lightsAuto"));
+			setTimeout(function(){euc.ch.writeValue(euc.cmd("lightsOn"));},300);
+			return;
+		}else if (face.pageCurr==-1) {
+			digitalPulse(D16,1,[60,40,60]);
+			if (global.euc){
+				if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash],0);
+				else face.go(face.appCurr,0);
+			}else face.go(face.appCurr,0);
+		}else { 
+			if (face.appCurr=="main"&&face.pagePrev!=-1&&face.pagePrev!=2) {
+				if (set.def.acc==1) {
+					acc.off();
+					acc.go=0;
+					if (this.t2) {clearTimeout(this.t2); this.t2=0;}
+					this.t2=setTimeout(function(t){
+						acc.on();
+						this.t2=0;
+					},2000);
+				}
+				face.go("main",-1);
+				digitalPulse(D16,1,100);
+			}else{
+				var to=face.pageCurr+1;
+				if (to>=2) to=0;
+				face.go(face.appCurr,to);
+			}
+		}
+	}	
 }
 btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
 //touch controller

@@ -16,17 +16,17 @@ face[0] = {
 		this.g.setFont("Vector",20);
 		this.g.drawString("EUC SETTINGS",120-(this.g.stringWidth("EUC SETTING")/2),214); 
 		this.g.flip(); 
-		this.b1=-0;
+		this.b1=-1;
 		this.b2=-1;
 		this.b3=-1;
-		this.b4=-0;
+		this.b4=0;
 		this.run=true;
 	},
 	show : function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
 		if (!this.run) return; 
-		if (this.b1!=this.b1s){ //lights
-			this.b1s=this.b1;
+		if (this.b1!=euc.dash.lght){ //lights
+			this.b1=euc.dash.lght;
 			if (this.b1==0) {
 				this.b1t="OFF";this.b1c=col("black");
 			}else if (this.b1==1) {
@@ -125,10 +125,9 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
 		if (x<=120&&y<100) { //lights
-			face[0].b1++; if (face[0].b1==3) face[0].b1=0;
-			if (face[0].b1==0) euc.wri("lightsOff");
-			else if (face[0].b1==1) euc.wri("lightsOn");
-			else if (face[0].b1==2) euc.wri("lightsAuto");
+			if (euc.dash.lght==0) {euc.wri("lightsOn");euc.dash.lght=1;}
+			else if (euc.dash.lght==1) {euc.wri("lightsAuto");euc.dash.lght=2;}
+			else if (euc.dash.lght==2) {euc.wri("lightsOn");euc.dash.lght=1;}
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (120<=x<=239&&y<=100) { //lock
 			if (euc.dash.lock==0) euc.wri("lock");
@@ -168,7 +167,7 @@ touchHandler[0]=function(e,x,y){
 		return;
 	case 12: //long press event
 		if (x<=120&&y<100) { //lights
-			face[0].b1=0;
+			euc.dash.lght=0;
 			euc.wri("lightsOff");
 			digitalPulse(D16,1,[30,50,30]);
 	    }else digitalPulse(D16,1,[100]);
