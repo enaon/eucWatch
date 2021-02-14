@@ -37,7 +37,7 @@ euc.conn=function(mac){
 		this.tgl();
 		return;
     }
-NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
+NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 .then(function(g) {
 	return g.getPrimaryService(0xffe0);
 }).then(function(s) {
@@ -153,8 +153,6 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 	//if (euc.busy) {if (set.def.cli)console.log("BT busy");return;}
 	//euc.busy=1;
 	c.writeValue(euc.cmd(cmd)).then(function() {
-		euc.tmp.count++;
-		if (euc.tmp.count>=21) euc.tmp.count=0;
 		if (euc.state=="OFF"){
 			if (set.def.cli) console.log("EUC: Off");
 			digitalPulse(D16,1,120);
@@ -168,12 +166,14 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 			});
 			return;
 		}else{ 
-				euc.loop=setTimeout(function(t,o){
+			euc.loop=setTimeout(function(t,o){
 				euc.loop=0;
 				//euc.busy=0;
 				euc.wri(euc.tmp.count);
 			},15);
 		}
+		euc.tmp.count++;
+		if (euc.tmp.count>=21) euc.tmp.count=0;
 	}).catch(function(err)  {
 		euc.off("writefail");	
 	});

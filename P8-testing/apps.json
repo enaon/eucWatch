@@ -104,7 +104,9 @@
 	  {"name":"dashInfo","url":"dashInfo.js"},
 	  {"name":"dashSelect","url":"dashSelect.js"},
   	  {"name":"dashScan","url":"dashScan.js"},
-   	  {"name":"dashSlot","url":"dashSlot.js"}
+   	  {"name":"dashSlot","url":"dashSlot.js"},
+  	  {"name":"dashSetNinebot","url":"dashSetoNinebot.js"},
+   	  {"name":"dashSetKingsong","url":"dashSetKingsong.js"}
     ]
   }, 
    { "id": "euc",
@@ -116,9 +118,9 @@
     "type": "euc",
     "storage": [
 	  {"name":"euc","url":"euc.js"},
-	  {"name":"euc_slot.json","url":"euc_slot.json"},
-      {"name":"euc_kingsong","url":"kingsong.js"},
-      {"name":"euc_ninebot","url":"ninebot.js"}
+	  {"name":"eucSlot.json","url":"eucSlot.json"},
+      {"name":"eucKingsong","url":"eucKingsong.js"},
+      {"name":"eucNinebot","url":"eucNinebot.js"}
 
     ]
   },

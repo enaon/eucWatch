@@ -88,6 +88,7 @@ face[0] = {
 		this.g.clear(); 
 		this.run=false;
 		if (this.tid>=0) clearTimeout(this.tid); 
+		if (this.dtid>=0) clearTimeout(this.dtid); 
 		this.tid=-1;
 		return true;
 	},
@@ -142,9 +143,9 @@ touchHandler[0]=function(e,x,y){
 	case 12:
 		if (y>200) { //delete wheel
 			digitalPulse(D16,1,120);
-			(s=>{s&&(delete s["slot"+require("Storage").readJSON("dash.json",1).slot+"_mac"])&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
-			(s=>{s&&(delete s["slot"+require("Storage").readJSON("dash.json",1).slot+"_maker"])&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
-			require("Storage").erase('euc_slot'+require("Storage").readJSON("dash.json",1).slot+'.json')
+			(s=>{s&&(delete s["slot"+require("Storage").readJSON("dash.json",1).slot+"Mac"])&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
+			(s=>{s&&(delete s["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"])&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
+			require("Storage").erase('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json')
 			face.go("dashSelect",0);
 			return;
 		}else digitalPulse(D16,1,40);

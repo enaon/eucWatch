@@ -18,26 +18,29 @@ face[0] = {
 		this.g.flip(); 
 		this.b1=0;
 		this.b2=0;
+		this.b3=0;
+		this.b4=0;
 		this.run=true;
 	},
 	show : function(){
+		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
 		if (!this.run) return; 
 		if (this.b1!=this.b1s){
 			this.b1s=this.b1;
 			if (this.b1==0) {
-				this.b1t="OFF";this.b1c=col("dgray");
+				this.b1t="OFF";this.b1c=col("black");
 			}else if (this.b1==1) {
-				this.b1t="ON";this.b1c=col("dblue");
+				this.b1t="ON";this.b1c=col("blue");
 			}else if (this.b1==2) {
-				this.b1t="AUTO";this.b1c=col("purple");
+				this.b1t="AUTO";this.b1c=col("olive");
 			}
 			this.g.setColor(0,this.b1c);
 			this.g.fillRect(0,0,118,95);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",18);	
-			this.g.drawString("LIGHTS",60-(this.g.stringWidth("LIGHTS")/2),10); 
+			this.g.drawString("LIGHTS",60-(this.g.stringWidth("LIGHTS")/2),15); 
 			this.g.setFont("Vector",30);	
-			this.g.drawString(this.b1t,60-(this.g.stringWidth(this.b1t)/2),45); 
+			this.g.drawString(this.b1t,60-(this.g.stringWidth(this.b1t)/2),50); 
 			this.g.flip();
 		}
 		if (this.b2!=this.b2s){
@@ -46,18 +49,43 @@ face[0] = {
 				this.b2t="OFF";this.b2c=col("blue");
 			}else if (this.b2==1) {
 				this.b2t="ON";this.b2c=col("red");
-			}else if (this.b2==2) {
-				this.b2t="AUTO";this.b2c=col("purple");
 			}
 			this.g.setColor(0,this.b2c);
 			this.g.fillRect(121,0,239,95);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",18);	
-			this.g.drawString("LOCK",185-(this.g.stringWidth("LOCK")/2),10); 
+			this.g.drawString("LOCK",185-(this.g.stringWidth("LOCK")/2),15); 
 			this.g.setFont("Vector",30);	
-			this.g.drawString(this.b2t,185-(this.g.stringWidth(this.b2t)/2),45); 
+			this.g.drawString(this.b2t,185-(this.g.stringWidth(this.b2t)/2),50); 
 			this.g.flip();
 		}
+		if (this.b3!=this.b3s){
+			this.b3s=this.b3;
+			if (this.b3==0) {
+				this.b3t="HARD";this.b3c=col("raf1");
+			}else if (this.b3==1) {
+				this.b3t="MED";this.b3c=col("raf2");
+			}else if (this.b3==2) {
+				this.b3t="SOFT";this.b3c=col("raf3");
+			}
+			this.g.setColor(0,this.b3c);
+			this.g.fillRect(0,100,118,195);
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",18);	
+			this.g.drawString("MODE",60-(this.g.stringWidth("MODE")/2),115); 
+			this.g.setFont("Vector",30);	
+			this.g.drawString(this.b3t,60-(this.g.stringWidth(this.b3t)/2),150); 
+			this.g.flip();
+		}
+		if (this.b4!=this.b4s){
+			this.b4s=this.b4;
+			this.g.setColor(0,col("black"));
+			this.g.fillRect(121,100,239,195);
+			this.g.setColor(1,col("lblue"));
+			this.g.setFont("Vector",30);	
+			this.g.drawString("MORE",185-(this.g.stringWidth("MORE")/2),135); 
+			this.g.flip();
+		}		
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();
@@ -98,9 +126,15 @@ touchHandler[0]=function(e,x,y){
 		if (x<=120&&y<100) { //btn1
 			face[0].b1++; if (face[0].b1==3) face[0].b1=0;
 			digitalPulse(D16,1,[30,50,30]);
-		}else if (120<=x<=239&&y<100) { //btn2
-			face[0].b2++; if (face[0].b2==3) face[0].b2=0;
+		}else if (120<=x<=239&&y<=100) { //btn2
+			face[0].b2++; if (face[0].b2==2) face[0].b2=0;
 			digitalPulse(D16,1,[30,50,30]);
+		}else if (x<=120&&100<=y<=200) { //btn3
+			face[0].b3++; if (face[0].b3==3) face[0].b3=0;
+			digitalPulse(D16,1,[30,50,30]);		
+		}else if (120<=x<=239&&100<=y<=200) { //btn4
+			face[0].b4++; if (face[0].b4==3) face[0].b4=0;
+			digitalPulse(D16,1,[30,50,30]);						
 		}else digitalPulse(D16,1,[30,50,30]);
 		this.timeout();
 		break;

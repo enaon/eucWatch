@@ -1,9 +1,12 @@
+//	//this.maker=require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'];
+//	//this.mac=require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Mac'];
+
 global.euc= {
 	state: "OFF",
 	reconnect:0,
     busy:0,
     chrg:0,
-	updateDash:function(slot){require('Storage').write('euc_slot'+slot+'.json', euc.dash);},
+	updateDash:function(slot){require('Storage').write('eucSlot'+slot+'.json', euc.dash);},
 	tgl:function(){ 
 		if (this.state!="OFF" ) {
 			digitalPulse(D16,1,[90,60,90]);  
@@ -14,11 +17,11 @@ global.euc= {
 		}else {
 			NRF.setTxPower(4);
 			digitalPulse(D16,1,100); 
-			this.mac=require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"_mac"];
+			this.mac=require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Mac"];
 			if(!this.mac) {
 				face.go('dashScan',0);return;
 		    }else {
-				eval(require('Storage').read('euc_'+require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"_maker"]));
+				eval(require('Storage').read('euc'+require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]));
 				this.state="ON";
 				if (!set.def.acc) acc.on();
 				this.conn(this.mac); 
@@ -28,6 +31,6 @@ global.euc= {
 	} 
 };
 //init
-if (Boolean(require("Storage").read('euc_slot'+require("Storage").readJSON("dash.json",1).slot+'.json'))) { 
-euc.dash=require("Storage").readJSON('euc_slot'+require("Storage").readJSON("dash.json",1).slot+'.json',1);
-}else euc.dash=require("Storage").readJSON("euc_slot.json",1);
+if (Boolean(require("Storage").read('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json'))) { 
+euc.dash=require("Storage").readJSON('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json',1);
+}else euc.dash=require("Storage").readJSON("eucSlot.json",1);

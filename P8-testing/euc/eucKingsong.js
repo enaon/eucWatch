@@ -28,7 +28,7 @@ if ( global["\xFF"].BLE_GATTS!="undefined") {
 	if (global["\xFF"].BLE_GATTS.connected) {global["\xFF"].BLE_GATTS.disconnect();return;}
 }
 //start connection  
-NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
+NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 .then(function(g) {
    return g.getPrimaryService(0xffe0);
 }).then(function(s) {
@@ -68,6 +68,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
         euc.dash.trpT=(((this.KSdata[6] << 16) + (this.KSdata[7] << 24) + this.KSdata[8] + (this.KSdata[9] << 8))/1000).toFixed(1);
 		//mode                                    
         euc.dash.mode=this.KSdata[14];
+		//alerts
 		if (!euc.alert)  euc.dash.spdC=0;
 		else if (!euc.buzz){ 
 			euc.buzz=1;
