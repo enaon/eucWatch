@@ -1,4 +1,4 @@
-//info face
+//kingsong set
 face[0] = {
 	offms: 5000,
 	g:w.gfx,
@@ -17,7 +17,7 @@ face[0] = {
 		this.g.drawString("EUC SETTINGS",120-(this.g.stringWidth("EUC SETTING")/2),214); 
 		this.g.flip(); 
 		this.b1=-0;
-		this.b2=-0;
+		this.b2=-1;
 		this.b3=-1;
 		this.b4=-0;
 		this.run=true;
@@ -43,8 +43,9 @@ face[0] = {
 			this.g.drawString(this.b1t,60-(this.g.stringWidth(this.b1t)/2),50); 
 			this.g.flip();
 		}
-		if (this.b2!=this.b2s){ //lock
-			this.b2s=this.b2;
+		if (this.b2!=euc.dash.lock){ //lock
+			this.b2=euc.dash.lock;
+			print("b2:",this.b2);
 			if (this.b2==0) {
 				this.b2t="OFF";this.b2c=col("blue");
 			}else if (this.b2==1) {
@@ -130,8 +131,8 @@ touchHandler[0]=function(e,x,y){
 			else if (face[0].b1==2) euc.wri("lightsAuto");
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (120<=x<=239&&y<=100) { //lock
-			if (euc.dash.lock==0) euc.wri("unlock");
-			else if (euc.dash.lock==1) euc.wri("lock");
+			if (euc.dash.lock==0) euc.wri("lock");
+			else if (euc.dash.lock==1) euc.wri("unlock");
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (x<=120&&100<=y<=200) { //ride mode
 			if (euc.dash.mode==0) euc.wri("rideMed");
