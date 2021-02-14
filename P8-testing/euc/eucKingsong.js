@@ -36,7 +36,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 }).then(function(c) {
   c.on('characteristicvaluechanged', function(event) {
 	this.var= event.target.value.getUint8(16, true);
-	print (this.var);
+	//print (this.var);
     if (euc.busy) return;
     if (this.var==169) {
 		euc.alert=0;
