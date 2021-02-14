@@ -154,6 +154,45 @@ return  c;
 				euc.busy=0;c.startNotifications();
 				euc.off("err");
 			});	
+        }else if (n==="disconnect"||n=="connect"){
+			if (euc.dash.aLck) {
+				c.writeValue(euc.cmd((n==="connect")?"serial":"lock")).then(function() {
+					if (n==="connect") {
+						if (euc.dash.passSend){
+							c.writeValue(euc.cmd("pass")).then(function() {
+								if (euc.dash.aLck){
+									c.writeValue(euc.cmd("unlock")).then(function() {
+										euc.dash.lock=0;
+										if (euc.dash.aLight){
+											c.writeValue(euc.cmd(["light"+euc.dash.light])).then(function() {
+								              
+								
+											}).catch(function(err)  {
+												euc.busy=0;c.startNotifications();
+												euc.off("err");
+											});
+										}
+									}).catch(function(err)  {
+										euc.busy=0;c.startNotifications();
+										euc.off("err");
+									});
+								}
+							}).catch(function(err)  {
+								euc.busy=0;c.startNotifications();
+								euc.off("err");
+							});
+						}	
+					}else{
+					euc.dash.lock=0; 
+					}
+					
+				}).catch(function(err)  {
+					euc.busy=0;c.startNotifications();
+					euc.off("err");
+				});
+			
+			}	
+			
 		}else{
 			c.writeValue(euc.cmd(n)).then(function() {
 				euc.busy=0;c.startNotifications();
