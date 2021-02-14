@@ -15,9 +15,9 @@ scan={
   	  NRF.filterDevices(devices, this.filter).forEach(function(entry) {found.push(entry.id);});
 	  if (found!=""&&found!=undefined){ 
 		if (app=="dash"){
-			(s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"_mac"]=found[0]+"")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+			(s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"Mac"]=found[0]+"")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
 		}else{
-			(s=>{s&&(s[app+"_mac"]=found)&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+			(s=>{s&&(s[app+"Mac"]=found)&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
 			(s=>{s&&(s[app+"_go"]="0")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
 		}
 		scan.mac=found;
@@ -49,7 +49,7 @@ face[0] = {
   },
   init: function(o){
     //this.find(o);
-    scan.mac=(require("Storage").readJSON("setting.json",1)||{})[face.appPrev+"_mac"];
+    scan.mac=(require("Storage").readJSON("setting.json",1)||{})[face.appPrev+"Mac"];
 	this.go=(require("Storage").readJSON("setting.json",1)||{})[face.appPrev+"_go"];
     this.start=1;
 	if(!scan.mac) {scan.mac=[];this.find(o);}
@@ -160,7 +160,7 @@ touchHandler[0]=function(e,x,y){
        if (this.mac!=undefined) {
 			digitalPulse(D16,1,[30,50,30]);
 			if (face.appRoot[0]!="repellent"){
-				(s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"_mac"]=this.mac)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
+				(s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"Mac"]=this.mac)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 				euc.tgl();
 				return;
 			}else	{
