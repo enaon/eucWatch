@@ -35,17 +35,17 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
   return s.getCharacteristic(0xffe1);
 }).then(function(c) {
   c.on('characteristicvaluechanged', function(event) {
-    this.KSdata = event.target.value.buffer;
-	print (this.KSdata);
+	this.var= event.target.value.getUint8(16, true);
+	print (this.var);
     if (euc.busy) return;
-    if (this.KSdata[16]==169) {
+    if (this.var==169) {
 		euc.alert=0;
 		//speed
-        euc.dash.spd=((((this.KSdata[4] & 0xFF) + (this.KSdata[5] << 8))/100)).toFixed(1); 
+        euc.dash.spd=(event.target.value.getUint16(4, true)/100).toFixed(1); 
 		euc.dash.spdC=(euc.dash.spd<=euc.dash.spd2)?1:(euc.dash.spd<=euc.dash.spd3)?2:3;	
 		if (euc.dash.spd>=euc.dash.spd1) euc.alert=(euc.alert+1+((euc.dash.spd-euc.dash.spd1)/euc.dash.spdS))|0;      
         //amp
-		this.amp=((this.KSdata[10] & 0xFF) + (this.KSdata[11] << 8));
+		this.amp=event.target.value.getUint16(10, true);
         if (this.amp > 32767) this.amp = this.amp - 65536;
         euc.dash.amp=(this.amp/100).toFixed(2);
 		euc.dash.ampC=(euc.dash.amp>=euc.dash.ampH+10||euc.dash.amp<=euc.dash.ampL-5)?3:(euc.dash.amp>=euc.dash.ampH||euc.dash.amp<=euc.dash.ampL)?2:(euc.dash.amp<0)?1:0;
@@ -57,18 +57,18 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			euc.alert=(euc.alert+1+(-(euc.dash.amp-euc.dash.ampL)))|0;      
 		}
 		//volt
-        this.volt=(((this.KSdata[2] & 0xFF) + (this.KSdata[3] << 8))/100)+"";
+        this.volt=event.target.value.getUint16(2, true)/100;
         euc.dash.bat=(((this.volt/20)*100-330)*1.1111)|0;
 		euc.dash.batC=(euc.dash.bat>=euc.dash.batH)?0:(euc.dash.bat>=euc.dash.batM)?1:(euc.dash.bat>=euc.dash.batL)?2:3;	
 		if (euc.dash.bat<=euc.dash.batL) {euc.alert++; euc.dash.spdC=3;}     
         //temp
-		euc.dash.tmp=(((this.KSdata[12] & 0xFF) + (this.KSdata[13] << 8))/100).toFixed(1);
+		euc.dash.tmp=(event.target.value.getUint16(12, true)/100).toFixed(1);
 		euc.dash.tmpC=(euc.dash.tmp<=euc.dash.tmpM)?0:(euc.dash.tmp<=euc.dash.tmpH)?2:0;	
 		if (euc.dash.tmp>=euc.dash.tmpH) {euc.alert++; euc.dash.spdC=3;}     
-		//trip
-        euc.dash.trpT=(((this.KSdata[6] << 16) + (this.KSdata[7] << 24) + this.KSdata[8] + (this.KSdata[9] << 8))/1000).toFixed(1);
+		//total mileage
+        euc.dash.trpT=(((event.target.value.buffer[6] << 16) + (event.target.value.buffer[7] << 24) + event.target.value.buffer[8] + (event.target.value.buffer[9] << 8))/100).toFixed(1);
 		//mode                                    
-        euc.dash.mode=this.KSdata[14];
+        euc.dash.mode=event.target.value.getUint8(14, true);
 		//alerts
 		if (!euc.alert)  euc.dash.spdC=0;
 		else if (!euc.buzz){ 
@@ -81,12 +81,12 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			digitalPulse(D16,1,a);  
 			setTimeout(() => {euc.buzz=0; }, 2000);
 		}
-    }else if  (this.KSdata[16]==185){
-        euc.dash.trpL=(((this.KSdata[2] << 16) + (this.KSdata[3] << 24) + this.KSdata[4] + (this.KSdata[5] << 8)) / 1000.0).toFixed(1);
-		euc.dash.time=(((this.KSdata[6] & 0xFF) + (this.KSdata[7] << 8)) / 60.0).toFixed(0);
-        euc.dash.spdT=(((this.KSdata[8] & 0xFF) + (this.KSdata[9] << 8)) / 100.0).toFixed(1);
-	 }else if  (this.KSdata[16]==95){
-        euc.dash.lock=this.KSdata[2]
+    }else if  (this.var==185){
+        euc.dash.trpL=(((event.target.value.buffer[2] << 16) + (event.target.value.buffer[3] << 24) + event.target.value.buffer[4] + (event.target.value.buffer[5] << 8)) / 1000.0).toFixed(1);
+		euc.dash.time=((event.target.value.getUint16(6, true)) / 60.0).toFixed(0);
+        euc.dash.spdT=((event.target.value.getUint16(8, true)) / 100.0).toFixed(1);
+	 }else if  (this.var==95){
+        euc.dash.lock=event.target.value.getUint8(2, true);
     }else if (euc.state=="OFF"){
 		euc.busy=1;
 		if (set.def.cli) console.log("EUCstartOff");
