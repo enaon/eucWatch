@@ -237,7 +237,7 @@ face[0] = {
     this.tid=setTimeout(function(t){ 
       t.tid=-1;
       t.show(o);
-    },100,this);
+    },300,this);
   },
   tid:-1,
   run:false,
@@ -332,5 +332,6 @@ touchHandler[0]=function(e,x,y){
 		break;
   }
 };
+
 
 

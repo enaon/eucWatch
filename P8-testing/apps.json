@@ -106,8 +106,8 @@
    	  {"name":"dashSlot","url":"dashSlot.js"},
   	  {"name":"dashSetNinebot","url":"dashSetNinebot.js"},
    	  {"name":"dashSetKingsong","url":"dashSetKingsong.js"},
-   	  {"name":"dashSetKingsongOptions","url":"dashSetKingsongOptions.js"}
-
+   	  {"name":"dashSetKingsongOptions","url":"dashSetKingsongOptions.js"},
+   	  {"name":"dashSetKingsongAdvanced","url":"dashSetKingsongAdvanced.js"}
     ]
   }, 
    { "id": "euc",
