@@ -44,6 +44,15 @@ face[0] = {
 			this.g.setFont("Vector",30);	
 			this.g.drawString(this.b1t,60-(this.g.stringWidth(this.b1t)/2),50); 
 			this.g.flip();
+          	if (!this.firstrun) {
+			this.g.setColor(0,col("dgray1"));
+			this.g.fillRect(0,200,239,249);//6
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",16);
+			this.g.drawString("HOLD -> LIGHTS OFF",120-(this.g.stringWidth("HOLD -> LIGHTS OFF")/2),214); 
+			this.info=1;
+			this.g.flip();
+			}
 		}
 		if (this.b2!=euc.dash.strb){ //strobe
 			this.b2=euc.dash.strb;
@@ -99,11 +108,13 @@ face[0] = {
 			this.g.fillRect(0,200,239,249);//6
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",16);
-			 this.g.drawString("HOLD TO POWER OFF",120-(this.g.stringWidth("HOLD TO POWER OFF")/2),214); 
+			 this.g.drawString("HOLD -> POWER OFF",120-(this.g.stringWidth("HOLD -> POWER OFF")/2),214); 
 			this.info=1;
 			this.g.flip();
 			}
+        }
 		if (this.info)  {
+          print("tm");
 			this.info=0;
 			if (this.itid)clearTimeout(this.itid);
 			this.itid=setTimeout(function(t){
@@ -114,10 +125,9 @@ face[0] = {
 				t.g.setFont("Vector",20);
 				t.g.drawString("ACTIONS",120-(t.g.stringWidth("ACTIONS")/2),214); 
 				t.g.flip();
-			},1300,this);
+			},1000,this);
 		}
-		this.firstrun=0;	
-        }
+      	this.firstrun=0;	
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();
