@@ -1,4 +1,4 @@
-//kingsong set
+//kingsong quick set
 face[0] = {
 	offms: 5000,
 	g:w.gfx,
@@ -14,7 +14,7 @@ face[0] = {
 		this.g.setColor(0,col("black"));
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
-		this.g.drawString("EUC SETTINGS",120-(this.g.stringWidth("EUC SETTING")/2),214); 
+		this.g.drawString("ACTIONS",120-(this.g.stringWidth("ACTIONS")/2),214); 
 		this.g.flip(); 
 		this.b1=-1;
 		this.b2=-1;
@@ -168,9 +168,8 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
 	case 3: //slide left event
-		digitalPulse(D16,1,40);    
-		this.timeout();
-		break;
+		face.go("dashSetKingsongOptions",0);
+		return;	
 	case 4: //slide right event (back action)
 		face.go(set.dash[set.def.dash],0);
 		return;

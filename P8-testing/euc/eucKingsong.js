@@ -19,7 +19,7 @@ euc.cmd=function(no){
         case "unlock":euc.dash.lock=0;return [0xAA,0x55,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x37,0x37,0x33,0x35,0x32,0x35,0x5d,0x14,0x5A,0x5A];
 		case "strobeOn":return [0xAA,0x55,0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x53,0x14,0x5A,0x5A];
 		case "strobeOff":return [0xAA,0x55,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x53,0x14,0x5A,0x5A];
-		case "off":return [0xAA,0x55,0x00,0xE0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x40,0x14,0x5A,0x5A];
+		case "off":euc.seq=0;return [0xAA,0x55,0x00,0xE0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x40,0x14,0x5A,0x5A];
 		case "pass":return [0xAA,0x55,0x30+Number(euc.dash.pass[0]),0x30+Number(euc.dash.pass[1]),0x30+Number(euc.dash.pass[2]),0x30+Number(euc.dash.pass[3]),0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x44,0x14,0x5A,0x5A]; 
 //		case "passChange": return [0xAA,0x55,0x30+Number(euc.dash.pass[0]),0x30+Number(euc.dash.pass[1]),0x30+Number(euc.dash.pass[2]),0x30+Number(euc.dash.pass[3]),0x30,0x30,0x30,0x30,0x00,0x00,0x00,0x00,0x00,0x00,0x41,0x14,0x5A,0x5A]; 
 //		case "passClear": return [0xAA,0x55,0x30+Number(euc.dash.pass[0]),0x30+Number(euc.dash.pass[1]),0x30+Number(euc.dash.pass[2]),0x30+Number(euc.dash.pass[3]),0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x42,0x14,0x5A,0x5A]; 
@@ -115,72 +115,76 @@ return  c;
 	console.log("EUC connected"); 
 	digitalPulse(D16,1,[90,40,150,40,90]);
 	euc.wri= function(n) {
-		if (euc.busy) return;
-		euc.busy=1;
+		if (euc.busy) { 
+			clearTimeout(euc.busy);
+			euc.busy=setTimeout(()=>{euc.busy=0;},1500);
+			return;
+		}
+		euc.busy=euc.busy=setTimeout(()=>{euc.busy=0;},1500);
 		if (n==="hornOn"||n==="hornOff"){
 			c.writeValue(euc.cmd((n==="hornOn")?"strobeOn":"strobeOff")).then(function() {
                if (n==="hornOn")euc.dash.strb=1; else euc.dash.strb=0;
 				c.writeValue(euc.cmd((n==="hornOn")?"lock":"unlock")).then(function(){
-					if (n==="hornOn") euc.dash.lock=1; else {euc.dash.lock=0;euc.busy=0;c.startNotifications();return;}
+					if (n==="hornOn") euc.dash.lock=1; else {euc.dash.lock=0;clearTimeout(euc.busy);euc.busy=0;c.startNotifications();return;}
 					if (!BTN1.read()){ 
 						c.writeValue(euc.cmd("unlock")).then(function(){
 							euc.dash.lock=0;
 							c.writeValue(euc.cmd("strobeOff")).then(function(){
-								euc.dash.strb=0;euc.busy=0;c.startNotifications();
+								euc.dash.strb=0;clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
 							}).catch(function(err)  {
-								euc.busy=0;c.startNotifications();
+								clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
 								euc.off("err");
 							});
 						}).catch(function(err)  {
-							euc.busy=0;c.startNotifications();
+							clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
 							euc.off("err");
 						});
 						return;
-					}else euc.busy=0;c.startNotifications();
+					}else clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
 				}).catch(function(err)  {
-					euc.busy=0;c.startNotifications();
+					clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
 					euc.off("err");
 				});
 			}).catch(function(err)  {
-				euc.busy=0;c.startNotifications();
+				clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
 				euc.off("err");
 			});	
         }else if (n==="start"||n=="end"){
 			c.writeValue(euc.cmd((n==="start")?"serial":((euc.dash.aLck)?"lock":(euc.dash.aOff)?"off":"lightsOff"))).then(function() {
 					if (euc.seq==0) {
 						if (n==="start") {
-							euc.busy=0;euc.state="READY";c.startNotifications();
+							clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();
 						}else global["\xFF"].BLE_GATTS.disconnect();
 						return;
 					}
-					c.writeValue(euc.cmd((n==="start")?((euc.dash.passSend)?"pass":(euc.dash.aLck)?"unlock":"lightsAuto"):"lightsOff")).then(function() {
+					c.writeValue(euc.cmd((n==="start")?((euc.dash.passSend)?"pass":(euc.dash.aLck)?"unlock":"lightsAuto"):(euc.dash.aOff)?"off":"lightsOff")).then(function() {
 						if (euc.seq==0) {
 							if (n==="start") {
-								euc.busy=0;euc.state="READY";c.startNotifications();
+								clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();
 							}else global["\xFF"].BLE_GATTS.disconnect();
 							return;
 						}	
 						c.writeValue(euc.cmd((euc.dash.aLck&&euc.dash.passSend)?"unlock":"lightsAuto")).then(function() {
-							if (euc.seq==0) {euc.busy=0;euc.state="READY";c.startNotifications();return;}
+							if (euc.seq==0) {clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();return;}
 							c.writeValue(euc.cmd("lightsAuto")).then(function() {
-								euc.busy=0;euc.state="READY";c.startNotifications();return;
+								clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();return;
 							}).catch(function(err)  {
-								euc.busy=0;euc.off("err");
+								clearTimeout(euc.busy);euc.busy=0;euc.off("err");
 							});
 						}).catch(function(err)  {
-							euc.busy=0;euc.off("err");
+							clearTimeout(euc.busy);euc.busy=0;euc.off("err");
 						});
 					}).catch(function(err)  {
-						euc.busy=0;euc.off("err");
+						clearTimeout(euc.busy);euc.busy=0;euc.off("err");
 					});
 			}).catch(function(err)  {
-				euc.busy=0;euc.off("err");
+				clearTimeout(euc.busy);euc.busy=0;euc.off("err");
 			});
 		}else{
 			c.writeValue(euc.cmd(n)).then(function() {
-				euc.busy=0;c.startNotifications();
+				clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
 			}).catch(function(err)  {
-				euc.busy=0;c.startNotifications();
+				clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
 				euc.off("err");
 			});
 		}
@@ -223,7 +227,7 @@ euc.off=function(err){
 	} else {
 		if (set.def.cli) console.log("EUC OUT:",err);
 		global["\xFF"].bleHdl=[];
-			euc.busy=0;
+			clearTimeout(euc.busy);euc.busy=0;
             delete euc.off;
 			delete euc.conn;
             delete euc.wri;
