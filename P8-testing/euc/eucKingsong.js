@@ -99,7 +99,6 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 	 }else if  (this.var==95){
         euc.dash.lock=event.target.value.getUint8(2, true);
     }else if (euc.state=="OFF"){
-		euc.busy=1;
 		if (set.def.cli) console.log("EUCstartOff");
 		//euc.dash.lock=1;
 		digitalPulse(D16,1,120);
@@ -118,10 +117,9 @@ return  c;
 	//connected ****************************
 	console.log("EUC connected"); 
 	digitalPulse(D16,1,[90,40,150,40,90]);
-	euc.busy=1;
 	euc.wri= function(n) {
 		if (euc.busy) return;
-		euc.busy=1;c.stopNotifications();
+		euc.busy=1;
 		if (n==="hornOn"||n==="hornOff"){
 			c.writeValue(euc.cmd((n==="hornOn")?"strobeOn":"strobeOff")).then(function() {
                if (n==="hornOn")euc.dash.strb=1; else euc.dash.strb=0;
@@ -154,14 +152,14 @@ return  c;
 			c.writeValue(euc.cmd((n==="start")?"serial":(euc.dash.aLck)?"lock":(euc.dash.aOff)?"off":"lightOff")).then(function() {
 					if (euc.seq==0) {
 						if (n==="start") {
-							euc.busy=0;c.startNotifications();
+							euc.state="READY";euc.busy=0;c.startNotifications();
 						}else euc.off("end");
 						return;
 					}
 					c.writeValue(euc.cmd((n==="start")?((euc.dash.passSend)?"pass":"lightsAuto"):(euc.dash.aOff)?"off":"lightOff")).then(function() {
 						if (euc.seq==0) {
 							if (n==="start") {
-								euc.busy=0;c.startNotifications();
+								euc.state="READY";euc.busy=0;c.startNotifications();
 							}else global["\xFF"].BLE_GATTS.disconnect();
 							return;
 						}	
