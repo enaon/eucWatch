@@ -45,7 +45,6 @@ face[0] = {
 		}
 		if (this.b2!=euc.dash.strb){ //strobe
 			this.b2=euc.dash.strb;
-			print("b2:",this.b2);
 			if (this.b2==0) {
 				this.b2t="OFF";this.b2c=col("dgray");
 			}else  {
