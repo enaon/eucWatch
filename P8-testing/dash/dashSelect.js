@@ -51,7 +51,7 @@ face[0] = {
 //			this.g.setFont("Vector",13);	
 //			this.g.drawString(this.slot1Mac.substring(0,17),60-(this.g.stringWidth(this.slot1Mac.substring(0,17))/2),78); 
 			this.g.setFont("Vector",30);	
-			this.g.drawString("-",60-(this.g.stringWidth("-")/2),40); 
+			this.g.drawString(euc.dash.model,60-(this.g.stringWidth(euc.dash.model)/2),40); 
 			this.g.flip();
 			if (!this.firstrun) {
 				this.g.setColor(0,col("dgray"));
@@ -96,7 +96,7 @@ face[0] = {
 			this.g.setFont("Vector",18);	
 			this.g.drawString(this.slot2Maker.toUpperCase(),185-(this.g.stringWidth(this.slot2Maker.toUpperCase())/2),10); 
 			this.g.setFont("Vector",30);	
-			this.g.drawString("-",185-(this.g.stringWidth("-")/2),40); 
+			this.g.drawString(euc.dash.model,185-(this.g.stringWidth(euc.dash.model)/2),40); 
 			this.g.flip();
 			if (!this.firstrun) {
 				this.g.setColor(0,col("dgray"));
@@ -141,7 +141,7 @@ face[0] = {
 			this.g.setFont("Vector",18);	
 			this.g.drawString(this.slot3Maker.toUpperCase(),60-(this.g.stringWidth(this.slot3Maker.toUpperCase())/2),110); 
 			this.g.setFont("Vector",30);	
-			this.g.drawString("-",60-(this.g.stringWidth("-")/2),140); 
+			this.g.drawString(euc.dash.model,60-(this.g.stringWidth(euc.dash.model)/2),140); 
 			this.g.flip();
 			if (!this.firstrun) {
 				this.g.setColor(0,col("dgray"));
@@ -186,7 +186,7 @@ face[0] = {
 			this.g.setFont("Vector",18);	
 			this.g.drawString(this.slot4Maker.toUpperCase(),185-(this.g.stringWidth(this.slot4Maker.toUpperCase())/2),110); 
 			this.g.setFont("Vector",30);	
-			this.g.drawString("-",185-(this.g.stringWidth("-")/2),140); 
+			this.g.drawString(euc.dash.model,185-(this.g.stringWidth(euc.dash.model)/2),140); 
 			this.g.flip();
 			if (!this.firstrun) {
 				this.g.setColor(0,col("dgray"));
@@ -229,7 +229,7 @@ face[0] = {
 			t.g.fillRect(0,198,239,249);//6
 			t.g.setColor(1,col("white"));
 			t.g.setFont("Vector",20);
-			t.g.drawString("ACTIONS",120-(t.g.stringWidth("ACTIONS")/2),214); 
+			t.g.drawString("GARAGE",120-(t.g.stringWidth("GARAGE")/2),214); 
 			t.g.flip();
 		},1000,this);
 	}
