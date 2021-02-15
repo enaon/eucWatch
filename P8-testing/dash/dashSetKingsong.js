@@ -45,8 +45,8 @@ face[0] = {
 			this.g.drawString(this.b1t,60-(this.g.stringWidth(this.b1t)/2),50); 
 			this.g.flip();
           	if (!this.firstrun) {
-			this.g.setColor(0,col("dgray1"));
-			this.g.fillRect(0,200,239,249);//6
+			this.g.setColor(0,col("dgray"));
+			this.g.fillRect(0,197,239,249);//6
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",16);
 			this.g.drawString("HOLD -> LIGHTS OFF",120-(this.g.stringWidth("HOLD -> LIGHTS OFF")/2),214); 
@@ -105,7 +105,7 @@ face[0] = {
 			this.g.flip();
 			if (!this.firstrun) {
 			this.g.setColor(0,col("red"));
-			this.g.fillRect(0,200,239,249);//6
+			this.g.fillRect(0,196,239,249);//6
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",16);
 			 this.g.drawString("HOLD -> POWER OFF",120-(this.g.stringWidth("HOLD -> POWER OFF")/2),214); 
@@ -120,7 +120,7 @@ face[0] = {
 			this.itid=setTimeout(function(t){
 				t.itid=0;
 				t.g.setColor(0,col("black"));
-				t.g.fillRect(0,200,239,249);//6
+				t.g.fillRect(0,197,239,249);//6
 				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",20);
 				t.g.drawString("ACTIONS",120-(t.g.stringWidth("ACTIONS")/2),214); 
