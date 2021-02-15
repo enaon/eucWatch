@@ -32,9 +32,11 @@ face[0] = {
 			if (this.b1==0) {
 				this.b1t="OFF";this.b1c=col("dgray");
 			}else if (this.b1==1) {
-				this.b1t="ON";this.b1c=col("blue");
+				this.b1t="ON";this.b1c=col("raf");
 			}else if (this.b1==2) {
 				this.b1t="AUTO";this.b1c=col("olive");
+			}else if (this.b1==3) {
+				this.b1t="CITY";this.b1c=col("blue1");
 			}
 			this.g.setColor(0,this.b1c);
 			this.g.fillRect(0,0,118,97);
@@ -46,7 +48,7 @@ face[0] = {
 			this.g.flip();
           	if (!this.firstrun) {
 			this.g.setColor(0,col("dgray"));
-			this.g.fillRect(0,197,239,249);//6
+			this.g.fillRect(0,198,239,239);//6
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",16);
 			this.g.drawString("HOLD -> LIGHTS OFF",120-(this.g.stringWidth("HOLD -> LIGHTS OFF")/2),214); 
@@ -73,11 +75,11 @@ face[0] = {
 		if (this.b3!=euc.dash.mode){ //ride mode
 			this.b3=euc.dash.mode;
 			if (this.b3==0) {
-				this.b3t="HARD";this.b3c=col("raf1");
+				this.b3t="HARD";this.b3c=col("raf4");
 			}else if (this.b3==1) {
 				this.b3t="MED";this.b3c=col("olive");
 			}else if (this.b3==2) {
-				this.b3t="SOFT";this.b3c=col("raf4");
+				this.b3t="SOFT";this.b3c=col("raf");
 			}
 			this.g.setColor(0,this.b3c);
 			this.g.fillRect(0,100,118,195);
@@ -91,7 +93,7 @@ face[0] = {
 		if (this.b4!=euc.dash.lock){ //lock
 			this.b4=euc.dash.lock;
 			if (this.b4==0) {
-				this.b4t="OFF";this.b4c=col("raf");
+				this.b4t="OFF";this.b4c=col("gray");
 			}else {
 				this.b4t="ON";this.b4c=col("red");
 			}
@@ -105,7 +107,7 @@ face[0] = {
 			this.g.flip();
 			if (!this.firstrun) {
 			this.g.setColor(0,col("red"));
-			this.g.fillRect(0,196,239,249);//6
+			this.g.fillRect(0,198,239,239);//6
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",16);
 			 this.g.drawString("HOLD -> POWER OFF",120-(this.g.stringWidth("HOLD -> POWER OFF")/2),214); 
@@ -114,13 +116,12 @@ face[0] = {
 			}
         }
 		if (this.info)  {
-          print("tm");
 			this.info=0;
 			if (this.itid)clearTimeout(this.itid);
 			this.itid=setTimeout(function(t){
 				t.itid=0;
 				t.g.setColor(0,col("black"));
-				t.g.fillRect(0,197,239,249);//6
+				t.g.fillRect(0,198,239,249);//6
 				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",20);
 				t.g.drawString("ACTIONS",120-(t.g.stringWidth("ACTIONS")/2),214); 
@@ -168,7 +169,8 @@ touchHandler[0]=function(e,x,y){
 		if (x<=120&&y<100) { //lights
 			if (euc.dash.light==0) {euc.wri("lightsOn");euc.dash.light=1;}
 			else if (euc.dash.light==1) {euc.wri("lightsAuto");euc.dash.light=2;}
-			else if (euc.dash.light==2) {euc.wri("lightsOn");euc.dash.light=1;}
+			else if (euc.dash.light==2) {euc.dash.aLight=1;euc.dash.light=3;}
+			else if (euc.dash.light==3) {euc.wri("lightsOn");euc.dash.light=1;}
 			else  {euc.wri("lightsOn");euc.dash.light=1;}
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (120<=x<=239&&y<=100) { //strobe

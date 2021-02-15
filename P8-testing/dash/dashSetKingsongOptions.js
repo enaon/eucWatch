@@ -12,7 +12,7 @@ face[0] = {
 		this.g.flip();
 */
 		this.g.setColor(0,col("black"));
-		this.g.fillRect(0,197,239,239);
+		this.g.fillRect(0,198,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
 		this.g.drawString("OPTIONS",120-(this.g.stringWidth("OPTIONS")/2),214); 
@@ -40,10 +40,10 @@ face[0] = {
 			this.g.flip();
             if (!this.firstrun) {
 			this.g.setColor(0,col("raf3"));
-			this.g.fillRect(0,197,239,249);//6
+			this.g.fillRect(0,198,239,239);//6
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",16);
-			 this.g.drawString((this.b1)?"DISCONNECT->LOCK":"AUTO LOCK DISABLED",120-(this.g.stringWidth((this.b1)?"DISCONNECT->LOCK":"AUTO LOCK DISABLED")/2),214); 
+			 this.g.drawString((this.b1)?"DISCONNECT -> LOCK":"AUTO LOCK DISABLED",120-(this.g.stringWidth((this.b1)?"DISCONNECT -> LOCK":"AUTO LOCK DISABLED")/2),214); 
 			this.info=1;
 			this.g.flip();
 			}
@@ -58,7 +58,7 @@ face[0] = {
 			this.g.flip();
             if (!this.firstrun) {
 			this.g.setColor(0,col("raf3"));
-			this.g.fillRect(0,197,239,249);//6
+			this.g.fillRect(0,198,239,239);//6
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",16);
 			 this.g.drawString((this.b2)?"VIBRATE ON ALERTS":"VIBRATION DISABLED",120-(this.g.stringWidth((this.b2)?"VIBRATE ON ALERTS":"VIBRATION DISABLED")/2),214); 
@@ -78,7 +78,7 @@ face[0] = {
 			this.g.flip();
             if (!this.firstrun) {
 			this.g.setColor(0,col("raf3"));
-			this.g.fillRect(0,197,239,249);//6
+			this.g.fillRect(0,198,239,239);//6
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",16);
 			 this.g.drawString((this.b3)?"DISCONNECT->POWER OFF":"AUTO OFF DISABLED",120-(this.g.stringWidth((this.b3)?"DISCONNECT->POWER OFF":"AUTO OFF DISABLED")/2),214); 
@@ -96,7 +96,7 @@ face[0] = {
 			this.g.flip();
 			if (!this.firstrun) {
 			this.g.setColor(0,col("raf3"));
-			this.g.fillRect(0,197,239,249);//6
+			this.g.fillRect(0,198,239,239);//6
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",16);
 			 this.g.drawString((this.b4)?"BUTTON IS HORN >2KPH":"BUTTON HORN DISABLED",120-(this.g.stringWidth((this.b4)?"BUTTON IS HORN >2KPH":"BUTTON HORN DISABLED")/2),214); 
@@ -110,7 +110,7 @@ face[0] = {
 			this.itid=setTimeout(function(t){
 				t.itid=0;
 				t.g.setColor(0,col("black"));
-				t.g.fillRect(0,197,239,249);//6
+				t.g.fillRect(0,198,239,239);//6
 				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",20);
 				t.g.drawString("OPTIONS",120-(t.g.stringWidth("OPTIONS")/2),214); 
