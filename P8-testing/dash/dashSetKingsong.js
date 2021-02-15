@@ -25,8 +25,8 @@ face[0] = {
 	show : function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
 		if (!this.run) return; 
-		if (this.b1!=euc.dash.lght){ //lights
-			this.b1=euc.dash.lght;
+		if (this.b1!=euc.dash.light){ //lights
+			this.b1=euc.dash.light;
 			if (this.b1==0) {
 				this.b1t="OFF";this.b1c=col("dgray");
 			}else if (this.b1==1) {
@@ -132,10 +132,10 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
 		if (x<=120&&y<100) { //lights
-			if (euc.dash.lght==0) {euc.wri("lightsOn");euc.dash.lght=1;}
-			else if (euc.dash.lght==1) {euc.wri("lightsAuto");euc.dash.lght=2;}
-			else if (euc.dash.lght==2) {euc.wri("lightsOn");euc.dash.lght=1;}
-			else  {euc.wri("lightsOn");euc.dash.lght=1;}
+			if (euc.dash.light==0) {euc.wri("lightsOn");euc.dash.light=1;}
+			else if (euc.dash.light==1) {euc.wri("lightsAuto");euc.dash.light=2;}
+			else if (euc.dash.light==2) {euc.wri("lightsOn");euc.dash.light=1;}
+			else  {euc.wri("lightsOn");euc.dash.light=1;}
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (120<=x<=239&&y<=100) { //strobe
 			euc.dash.strb=1-euc.dash.strb;
@@ -176,7 +176,7 @@ touchHandler[0]=function(e,x,y){
 		return;
 	case 12: //long press event
 		if (x<=120&&y<100) { //lights
-			euc.dash.lght=0;
+			euc.dash.light=0;
 			euc.wri("lightsOff");
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (120<=x<=239&&100<=y<=200) { //off
