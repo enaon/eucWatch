@@ -20,6 +20,8 @@ face[0] = {
 		this.b2=-1;
 		this.b3=-1;
 		this.b4=-1;
+		this.info=0;
+		this.firstrun=1;		
 		this.run=true;
 	},
 	show : function(){
@@ -92,6 +94,29 @@ face[0] = {
 			this.g.setFont("Vector",30);	
 			this.g.drawString(this.b4t,185-(this.g.stringWidth(this.b4t)/2),150); 
 			this.g.flip();
+			if (!this.firstrun) {
+			this.g.setColor(0,col("red"));
+			this.g.fillRect(0,200,239,249);//6
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",16);
+			 this.g.drawString("HOLD TO POWER OFF",120-(this.g.stringWidth("HOLD TO POWER OFF")/2),214); 
+			this.info=1;
+			this.g.flip();
+			}
+		if (this.info)  {
+			this.info=0;
+			if (this.itid)clearTimeout(this.itid);
+			this.itid=setTimeout(function(t){
+				t.itid=0;
+				t.g.setColor(0,col("black"));
+				t.g.fillRect(0,200,239,249);//6
+				t.g.setColor(1,col("white"));
+				t.g.setFont("Vector",20);
+				t.g.drawString("OPTIONS",120-(t.g.stringWidth("OPTIONS")/2),214); 
+				t.g.flip();
+			},1300,this);
+		}
+		this.firstrun=0;	
         }
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
@@ -103,8 +128,8 @@ face[0] = {
 	clear : function(){
 		this.g.clear();
 		this.run=false;
-		if (this.tid>=0) clearTimeout(this.tid);
-		this.tid=-1;
+		if (this.tid>=0) clearTimeout(this.tid);this.tid=-1;
+   		if (this.itid) clearTimeout(this.itid);this.itid=0;
 		return true;
 	},
 	off: function(){
