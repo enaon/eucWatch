@@ -112,7 +112,7 @@ face[0] = {
 				t.g.fillRect(0,200,239,249);//6
 				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",20);
-				t.g.drawString("OPTIONS",120-(t.g.stringWidth("OPTIONS")/2),214); 
+				t.g.drawString("ACTIONS",120-(t.g.stringWidth("ACTIONS")/2),214); 
 				t.g.flip();
 			},1300,this);
 		}

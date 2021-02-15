@@ -115,7 +115,7 @@ face[0] = {
 				t.g.setFont("Vector",20);
 				t.g.drawString("OPTIONS",120-(t.g.stringWidth("OPTIONS")/2),214); 
 				t.g.flip();
-		    },1300,this);
+		    },1000,this);
 		}
 		this.firstrun=0;
         this.tid=setTimeout(function(t,o){
