@@ -106,8 +106,11 @@
    	  {"name":"dashSlot","url":"dashSlot.js"},
   	  {"name":"dashSetNinebot","url":"dashSetNinebot.js"},
    	  {"name":"dashSetKingsong","url":"dashSetKingsong.js"},
-   	  {"name":"dashSetKingsongOptions","url":"dashSetKingsongOptions.js"},
-   	  {"name":"dashSetKingsongAdvanced","url":"dashSetKingsongAdvanced.js"}
+   	  {"name":"dashSetKsOpt","url":"dashSetKsOpt.js"},
+   	  {"name":"dashSetKsAdv","url":"dashSetKsAdv.js"},
+   	  {"name":"dashSetKsAdv","url":"dashSetKsAdvCalibrate.js"},
+   	  {"name":"dashSetKsAdv","url":"dashSetKsAdvLimits.js"}
+
     ]
   }, 
    { "id": "euc",

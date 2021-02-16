@@ -3,7 +3,7 @@ face[0] = {
 	offms: 5000,
 	g:w.gfx,
 	init: function(){
-        if (face.appPrev!=="dashSetKingsongOptions"){
+        if (face.appPrev!=="dashSetKsOpt"){
 			this.g.setColor(0,col("black"));
 			this.g.setColor(1,col("dgray"));
 			this.g.fillRect(0,0,118,97);
@@ -206,7 +206,7 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
 	case 3: //slide left event
-		face.go("dashSetKingsongOptions",0);
+		face.go("dashSetKsOpt",0);
 		return;	
 	case 4: //slide right event (back action)
 		face.go(set.dash[set.def.dash],0);

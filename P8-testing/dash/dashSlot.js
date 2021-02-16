@@ -101,7 +101,7 @@ face[1] = {
 	offms:1000,
 	init: function(){return true;},
 	show : function(){
-        face.go("dashSelect",0);
+        face.go("dashGarage",0);
 		//face.go(face.appRoot[0],face.appRoot[1]); //go to the previous face on screen of the previous app.  
 		//face.go(face.appPrev,face.pagePrev); //go to the previous face on screen, even if it was on the same app. 
 		//face.go("hello",-1); //sleep and set this face as the on_wake face. 
@@ -138,7 +138,7 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
 	case 4: //slide right event (back action)
-		face.go("dashSelect",0);
+		face.go("dashGarage",0);
 		return;
 	case 12:
 		if (y>200) { //delete wheel
@@ -146,7 +146,7 @@ touchHandler[0]=function(e,x,y){
 			(s=>{s&&(delete s["slot"+require("Storage").readJSON("dash.json",1).slot+"Mac"])&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 			(s=>{s&&(delete s["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"])&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 			require("Storage").erase('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json')
-			face.go("dashSelect",0);
+			face.go("dashGarage",0);
 			return;
 		}else digitalPulse(D16,1,40);
 		this.timeout();
