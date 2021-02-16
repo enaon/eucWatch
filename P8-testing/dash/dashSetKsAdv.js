@@ -193,7 +193,7 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
 	case 4: //slide right event (back action)
-		face.go("dashSetKingsongOptions",0);
+		face.go("dashSetKsOpt",0);
 		return;
 	case 12: //long press event
 		digitalPulse(D16,1,[100]);

@@ -185,7 +185,7 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
 	case 3: //slide left event
-		face.go("dashSetKingsongAdvanced",0);
+		face.go("dashSetKsAdv",0);
 		return;
 	case 4: //slide right event (back action)
 		face.go("dashSetKingsong",0);
