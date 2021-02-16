@@ -205,6 +205,7 @@ euc.conn=function(mac){
 euc.off=function(err){
 	if (euc.reconnect) {clearTimeout(euc.reconnect); euc.reconnect=0;}
 	if (euc.state!="OFF") {
+        euc.seq=1;
 		if (set.def.cli) console.log("EUC: Restarting");
 		if ( err==="Connection Timeout"  )  {
 			if (set.def.cli) console.log("reason :timeout");
