@@ -9,7 +9,7 @@ face[0] = {
 		this.g.setFont("Vector",20);
 		this.g.drawString("ACTIONS",120-(this.g.stringWidth("ACTIONS")/2),214); 
 		this.g.flip(); 
-        if (!face.appPrev.startsWith("dashSet"){
+        if (!face.appPrev.startsWith("dashSet")){
 			this.g.setColor(0,col("black"));
 			this.g.setColor(1,col("dgray"));
 			this.g.fillRect(0,0,119,97);
