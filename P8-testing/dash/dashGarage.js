@@ -65,8 +65,8 @@ face[0] = {
 		}else if (this.s1) {
 			this.g.setColor(0,col("dgray"));
 			this.g.fillRect(0,0,118,95);
-			this.g.setColor(1,col("lblue"));
-			this.g.setFont("white",22);	
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",22);	
 			this.g.drawString("HOLD",60-(this.g.stringWidth("HOLD")/2),20);
 			this.g.setFont("Vector",16);	
 			this.g.drawString("TO SET",60-(this.g.stringWidth("TO SET")/2),60);
