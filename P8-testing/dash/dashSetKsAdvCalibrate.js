@@ -16,7 +16,7 @@ face[0] = {
 		this.g.setFont("Vector",80);
 		this.g.drawString(euc.dash.tiltSet,130-(this.g.stringWidth(euc.dash.tiltSet)/2),65); 		
 		this.g.flip(); 
-        this.g.setColor(0,col("blue1"));
+        this.g.setColor(0,col("olive"));
 		this.g.fillRect(0,177,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
@@ -47,7 +47,7 @@ face[0] = {
    		    this.g.setFont("Vector",22);
             this.g.drawString("START",20,200); 	
 		    this.g.flip();
-            this.g.setColor(0,col("dgray1"));
+            this.g.setColor(0,col("olive"));
 		    this.g.fillRect(121,175,239,239);                    
             this.g.setColor(1,col("white"));
    		    this.g.setFont("Vector",22);

@@ -16,9 +16,9 @@ face[0] = {
 		if (this.b3==0) {
 			this.b3t="HARD";this.b3c=col("raf4");
 		}else if (this.b3==1) {
-			this.b3t="MED";this.b3c=col("olive");
+			this.b3t="MED";this.b3c=col("raf2");
 		}else if (this.b3==2) {
-			this.b3t="SOFT";this.b3c=col("raf");
+			this.b3t="SOFT";this.b3c=col("raf3");
 		}
 		this.g.setColor(0,this.b3c);
 		this.g.fillRect(0,0,118,97);
@@ -30,14 +30,14 @@ face[0] = {
 		this.g.flip();
 
 		//calibrate
-		this.g.setColor(0,(this.b2)?col("raf"):col("dgray"));
+		this.g.setColor(0,col("olive"));
 		this.g.fillRect(122,0,239,97);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",18);	
 		this.g.drawString("CALIBRATE",185-(this.g.stringWidth("CALIBRATE")/2),37); 
 		this.g.flip();
 		//limits
-		this.g.setColor(0,(this.b2)?col("raf"):col("dgray"));
+		this.g.setColor(0,col("olive"));
 		this.g.fillRect(0,100,118,195);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",16);	
@@ -48,6 +48,13 @@ face[0] = {
 		this.g.drawString(euc.dash.spd3,80-(this.g.stringWidth(euc.dash.spd3)/2),140); 
 		this.g.drawString(euc.dash.spdT,80-(this.g.stringWidth(euc.dash.spdT)/2),170); 
 		this.g.flip();
+		this.g.setColor(0,col("olive"));
+		this.g.fillRect(122,100,239,195);
+		this.g.setColor(1,col("white"));
+		this.g.setFont("Vector",28);	
+		this.g.drawString("PASS",185-(this.g.stringWidth("PASS")/2),135); 
+		this.g.flip();      
+      
 		this.b1=0;
 		this.b2=0;
 		this.b3=0;
