@@ -18,21 +18,21 @@ face[0] = {
 		this.g.drawString("ADVANCED",120-(this.g.stringWidth("ADVANCED")/2),214); 
 		this.g.flip(); 
 		//ride mode
-		this.b3=euc.dash.mode;
-		if (this.b3==0) {
-			this.b3t="HARD";this.b3c=col("raf4");
-		}else if (this.b3==1) {
-			this.b3t="MED";this.b3c=col("raf2");
-		}else if (this.b3==2) {
-			this.b3t="SOFT";this.b3c=col("raf3");
+		this.b1=euc.dash.mode;
+		if (this.b1==0) {
+			this.b1t="HARD";this.b1c=col("raf4");
+		}else if (this.b1==1) {
+			this.b1t="MED";this.b1c=col("raf2");
+		}else if (this.b1==2) {
+			this.b1t="SOFT";this.b1c=col("raf3");
 		}
-		this.g.setColor(0,this.b3c);
+		this.g.setColor(0,this.b1c);
 		this.g.fillRect(0,0,119,97);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",18);	
 		this.g.drawString("MODE",60-(this.g.stringWidth("MODE")/2),15); 
 		this.g.setFont("Vector",30);	
-		this.g.drawString(this.b3t,60-(this.g.stringWidth(this.b3t)/2),50); 
+		this.g.drawString(this.b1t,60-(this.g.stringWidth(this.b1t)/2),50); 
 		this.g.flip();
 
 		//calibrate
@@ -62,9 +62,6 @@ face[0] = {
 		this.g.flip();      
       
 		this.b1=0;
-		this.b2=0;
-		this.b3=0;
-		this.b4=0;
 		this.info=0;
 		this.firstrun=1;
 		this.run=true;
@@ -72,11 +69,28 @@ face[0] = {
 	show : function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
 		if (!this.run) return; 
-		
+		if (this.b1!=euc.dash.mode){ //ride mode
+			this.b1=euc.dash.mode;
+			if (this.b1==0) {
+				this.b1t="HARD";this.b1c=col("raf4");
+			}else if (this.b1==1) {
+				this.b1t="MED";this.b1c=col("raf2");
+			}else if (this.b1==2) {
+				this.b1t="SOFT";this.b1c=col("raf3");
+			}
+			this.g.setColor(0,this.b1c);
+			this.g.fillRect(0,0,119,97);
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",18);	
+			this.g.drawString("MODE",60-(this.g.stringWidth("MODE")/2),15); 
+			this.g.setFont("Vector",30);	
+			this.g.drawString(this.b1t,60-(this.g.stringWidth(this.b1t)/2),50); 
+			this.g.flip();
+		}
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();
-        },100,this);
+        },200,this);
 	},
 	tid:-1,
 	run:false,
@@ -115,13 +129,14 @@ touchHandler[0]=function(e,x,y){
 			else if (euc.dash.mode==1) euc.wri("rideSoft");
 			else if (euc.dash.mode==2) euc.wri("rideHard");
 			digitalPulse(D16,1,[30,50,30]);		
-		}else if (120<=x<=239&&y<=100) { //buzz
+		}else if (120<=x<=239&&y<=100) { //calibrate
+            digitalPulse(D16,1,[30,50,30]);
 			face.go("dashSetKsAdvCalibrate",0);
 			return;
-		}else if (x<=120&&100<=y<=200) { //auto off
+		}else if (x<=120&&100<=y<=200) {   //limits
 			euc.dash.aOff=1-euc.dash.aOff;
 			digitalPulse(D16,1,[30,50,30]);		
-		}else if (120<=x<=239&&100<=y<=200) { //lock
+		}else if (120<=x<=239&&100<=y<=200) { //pass
 			euc.dash.horn=1-euc.dash.horn;
 			digitalPulse(D16,1,[30,50,30]);						
 		}else digitalPulse(D16,1,[30,50,30]);
