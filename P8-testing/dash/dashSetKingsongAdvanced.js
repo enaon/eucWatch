@@ -84,10 +84,10 @@ face[0] = {
 			this.g.setFont("Vector",16);	
 			this.g.drawString("LIMMITS",60-(this.g.stringWidth("LIMMITS")/2),110); 
 			this.g.setFont("Vector",20);	
-			this.g.drawString("35",60-(this.g.stringWidth("35")/2),140);
-			this.g.drawString("40",60-(this.g.stringWidth("40")/2),155); 
-			this.g.drawString("45",60-(this.g.stringWidth("45")/2),170); 
-			this.g.drawString("45",60-(this.g.stringWidth("45")/2),185); 
+			this.g.drawString(euc.dash.spd1,20-(this.g.stringWidth(euc.dash.spd1)/2),130);
+			this.g.drawString(euc.dash.spd2,20-(this.g.stringWidth(euc.dash.spd2)/2),165); 
+			this.g.drawString(euc.dash.spd3,80-(this.g.stringWidth(euc.dash.spd3)/2),130); 
+			this.g.drawString(euc.dash.spdT,80-(this.g.stringWidth(euc.dash.spdT)/2),165); 
 			
 			this.g.flip();
             if (!this.firstrun) {

@@ -16,7 +16,7 @@ face[0] = {
     this.trpL=-1;
 	if (euc.state=="READY") {
 	  this.g.setColor(0,col("black"));
-      this.g.fillRect(0,0,239,55);
+      this.g.fillRect(0,0,239,64);
 	  this.g.setColor(1,col("white"));
       this.g.setFont("7x11Numeric7Seg",4.5);
       this.g.drawString(euc.dash.tmp|0, 3,5); //temp  

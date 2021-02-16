@@ -101,7 +101,7 @@
       {"name":"dash_simple","url":"dash_simple.js"},
 	  {"name":"dash_digital","url":"dash_digital.js"},
 	  {"name":"dashInfo","url":"dashInfo.js"},
-	  {"name":"dashSelect","url":"dashSelect.js"},
+	  {"name":"dashGarage","url":"dashGarage.js"},
   	  {"name":"dashScan","url":"dashScan.js"},
    	  {"name":"dashSlot","url":"dashSlot.js"},
   	  {"name":"dashSetNinebot","url":"dashSetNinebot.js"},
