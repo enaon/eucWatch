@@ -278,11 +278,10 @@ setWatch(function(s){
 function buttonHandler(s){
 	if ( this.t1) {clearTimeout(this.t1); this.t1=0;}
 	face.off();
-	if (s.state==true) { 
-		this.press=true;
-		if (global.euc&&euc.state==="READY"&&euc.dash.spd>=2&&euc.dash.model==="S18") {euc.wri("hornOn");return;}
-		this.press=true;
+	if (s.state) { 
 		//EUC action on long press
+		if (global.euc&&euc.state==="READY"&&euc.dash.spd>=2&&euc.dash.horn===1) {euc.wri("hornOn");return;}
+		this.press=true;
 		this.t1=setTimeout(() => {
 			this.t1=0;
 			if (global.euc) {
@@ -321,7 +320,7 @@ function buttonHandler(s){
 				face.go(face.appCurr,to);
 			}
 		}
-	}	
+	}else if (global.euc&&euc.state==="READY"&&euc.dash.horn===1) {euc.wri("hornOff");return;}	
 }
 btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
 //touch controller
