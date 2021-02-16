@@ -163,7 +163,7 @@ touchHandler[0]=function(e,x,y){
 			euc.dash.aLck=1-euc.dash.aLck;
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (120<=x<=239&&y<=100) { //buzz
-			face.go("dashSetKsAdvCalibrate");
+			face.go("dashSetKsAdvCalibrate",0);
 			return;
 		}else if (x<=120&&100<=y<=200) { //auto off
 			euc.dash.aOff=1-euc.dash.aOff;

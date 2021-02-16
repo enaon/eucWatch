@@ -108,8 +108,8 @@
    	  {"name":"dashSetKingsong","url":"dashSetKingsong.js"},
    	  {"name":"dashSetKsOpt","url":"dashSetKsOpt.js"},
    	  {"name":"dashSetKsAdv","url":"dashSetKsAdv.js"},
-   	  {"name":"dashSetKsAdv","url":"dashSetKsAdvCalibrate.js"},
-   	  {"name":"dashSetKsAdv","url":"dashSetKsAdvLimits.js"}
+   	  {"name":"dashSetKsAdvCalibrate","url":"dashSetKsAdvCalibrate.js"},
+   	  {"name":"dashSetKsAdvLimits","url":"dashSetKsAdvLimits.js"}
 
     ]
   }, 
