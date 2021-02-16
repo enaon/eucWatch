@@ -35,7 +35,7 @@ face[0] = {
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",18);	
 			this.g.drawString("AUTO",60-(this.g.stringWidth("AUTO")/2),15); 
-			this.g.setFont("Vector",30);	
+			this.g.setFont("Vector",28);	
 			this.g.drawString("LOCK",60-(this.g.stringWidth("LOCK")/2),50); 
 			this.g.flip();
             if (!this.firstrun) {
@@ -185,9 +185,8 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
 	case 3: //slide left event
-		digitalPulse(D16,1,40);    
-		this.timeout();
-		break;
+		face.go("dashSetKingsongAdvanced",0);
+		return;
 	case 4: //slide right event (back action)
 		face.go("dashSetKingsong",0);
 		return;

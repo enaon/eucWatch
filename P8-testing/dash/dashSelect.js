@@ -47,11 +47,11 @@ face[0] = {
 			this.g.fillRect(0,0,118,95);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",18);	
-			this.g.drawString(this.slot1Maker.toUpperCase(),60-(this.g.stringWidth(this.slot1Maker.toUpperCase())/2),10); 
+			this.g.drawString(this.slot1Maker.toUpperCase(),60-(this.g.stringWidth(this.slot1Maker.toUpperCase())/2),15); 
 //			this.g.setFont("Vector",13);	
 //			this.g.drawString(this.slot1Mac.substring(0,17),60-(this.g.stringWidth(this.slot1Mac.substring(0,17))/2),78); 
-			this.g.setFont("Vector",30);	
-			this.g.drawString(euc.dash.model,60-(this.g.stringWidth(euc.dash.model)/2),40); 
+			this.g.setFont("Vector",36);	
+			this.g.drawString(euc.dash.model,60-(this.g.stringWidth(euc.dash.model)/2),45); 
 			this.g.flip();
 			if (!this.firstrun) {
 				this.g.setColor(0,col("dgray"));
@@ -94,9 +94,9 @@ face[0] = {
             this.g.fillRect(122,0,239,95);	
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",18);	
-			this.g.drawString(this.slot2Maker.toUpperCase(),185-(this.g.stringWidth(this.slot2Maker.toUpperCase())/2),10); 
-			this.g.setFont("Vector",30);	
-			this.g.drawString(euc.dash.model,185-(this.g.stringWidth(euc.dash.model)/2),40); 
+			this.g.drawString(this.slot2Maker.toUpperCase(),185-(this.g.stringWidth(this.slot2Maker.toUpperCase())/2),15); 
+			this.g.setFont("Vector",36);	
+			this.g.drawString(euc.dash.model,185-(this.g.stringWidth(euc.dash.model)/2),45); 
 			this.g.flip();
 			if (!this.firstrun) {
 				this.g.setColor(0,col("dgray"));
@@ -139,9 +139,9 @@ face[0] = {
             this.g.fillRect(0,100,118,195);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",18);	
-			this.g.drawString(this.slot3Maker.toUpperCase(),60-(this.g.stringWidth(this.slot3Maker.toUpperCase())/2),110); 
-			this.g.setFont("Vector",30);	
-			this.g.drawString(euc.dash.model,60-(this.g.stringWidth(euc.dash.model)/2),140); 
+			this.g.drawString(this.slot3Maker.toUpperCase(),60-(this.g.stringWidth(this.slot3Maker.toUpperCase())/2),115); 
+			this.g.setFont("Vector",36);	
+			this.g.drawString(euc.dash.model,60-(this.g.stringWidth(euc.dash.model)/2),145); 
 			this.g.flip();
 			if (!this.firstrun) {
 				this.g.setColor(0,col("dgray"));
@@ -184,9 +184,9 @@ face[0] = {
 			this.g.fillRect(122,100,239,195);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",18);	
-			this.g.drawString(this.slot4Maker.toUpperCase(),185-(this.g.stringWidth(this.slot4Maker.toUpperCase())/2),110); 
-			this.g.setFont("Vector",30);	
-			this.g.drawString(euc.dash.model,185-(this.g.stringWidth(euc.dash.model)/2),140); 
+			this.g.drawString(this.slot4Maker.toUpperCase(),185-(this.g.stringWidth(this.slot4Maker.toUpperCase())/2),115); 
+			this.g.setFont("Vector",36);	
+			this.g.drawString(euc.dash.model,185-(this.g.stringWidth(euc.dash.model)/2),145); 
 			this.g.flip();
 			if (!this.firstrun) {
 				this.g.setColor(0,col("dgray"));
