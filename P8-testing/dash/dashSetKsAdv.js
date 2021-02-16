@@ -24,9 +24,11 @@ face[0] = {
 		this.g.fillRect(0,0,118,97);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",18);	
-		this.g.drawString("MODE",60-(this.g.stringWidth("MODE")/2),115); 
+		this.g.drawString("MODE",60-(this.g.stringWidth("MODE")/2),15); 
 		this.g.setFont("Vector",30);	
 		this.g.drawString(this.b3t,60-(this.g.stringWidth(this.b3t)/2),50); 
+		this.g.flip();
+
 		//calibrate
 		this.g.setColor(0,(this.b2)?col("raf"):col("dgray"));
 		this.g.fillRect(122,0,239,97);
