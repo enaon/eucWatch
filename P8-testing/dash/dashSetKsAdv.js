@@ -27,6 +27,14 @@ face[0] = {
 		this.g.setFont("Vector",20);
 		this.g.drawString("ADVANCED",120-(this.g.stringWidth("ADVANCED")/2),214); 
 		this.g.flip(); 
+		//calibrate
+		this.g.setColor(0,(this.b2)?col("raf"):col("dgray"));
+		this.g.fillRect(122,0,239,97);
+		this.g.setColor(1,col("white"));
+		this.g.setFont("Vector",18);	
+		this.g.drawString("CALIBRATE",185-(this.g.stringWidth("CALIBRATE")/2),37); 
+		this.g.flip();
+		
 		this.b1=-1;
 		this.b2=-1;
 		this.b3=-1;
@@ -54,24 +62,6 @@ face[0] = {
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",16);
 			 this.g.drawString((this.b1)?"DISCONNECT -> LOCK":"AUTO LOCK DISABLED",120-(this.g.stringWidth((this.b1)?"DISCONNECT -> LOCK":"AUTO LOCK DISABLED")/2),214); 
-			this.info=1;
-			this.g.flip();
-			}
-		}
-		if (this.b2!=euc.dash.buzz){ //calibrate
-			this.b2=euc.dash.buzz;
-			this.g.setColor(0,(this.b2)?col("raf"):col("dgray"));
-			this.g.fillRect(122,0,239,97);
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",18);	
-			this.g.drawString("CALIBRATE",185-(this.g.stringWidth("CALIBRATE")/2),37); 
-			this.g.flip();
-            if (!this.firstrun) {
-			this.g.setColor(0,col("raf3"));
-			this.g.fillRect(0,198,239,239);//6
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",16);
-			 this.g.drawString((this.b2)?"VIBRATE ON ALERTS":"VIBRATION DISABLED",120-(this.g.stringWidth((this.b2)?"VIBRATE ON ALERTS":"VIBRATION DISABLED")/2),214); 
 			this.info=1;
 			this.g.flip();
 			}
@@ -173,8 +163,8 @@ touchHandler[0]=function(e,x,y){
 			euc.dash.aLck=1-euc.dash.aLck;
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (120<=x<=239&&y<=100) { //buzz
-			euc.dash.buzz=1-euc.dash.buzz;
-			digitalPulse(D16,1,[30,50,30]);
+			face.go("dashSetKsAdvCalibrate");
+			return;
 		}else if (x<=120&&100<=y<=200) { //auto off
 			euc.dash.aOff=1-euc.dash.aOff;
 			digitalPulse(D16,1,[30,50,30]);		
