@@ -3,7 +3,13 @@ face[0] = {
 	offms: 5000,
 	g:w.gfx,
 	init: function(){
-        if (face.appPrev!=="dashSetKsOpt"){
+        this.g.setColor(0,col("black"));
+		this.g.fillRect(0,198,239,239);
+		this.g.setColor(1,col("white"));
+		this.g.setFont("Vector",20);
+		this.g.drawString("ACTIONS",120-(this.g.stringWidth("ACTIONS")/2),214); 
+		this.g.flip(); 
+        if (!face.appPrev.startsWith"dashSet"){
 			this.g.setColor(0,col("black"));
 			this.g.setColor(1,col("dgray"));
 			this.g.fillRect(0,0,118,97);
@@ -12,12 +18,6 @@ face[0] = {
 			this.g.fillRect(121,100,239,195);
 			this.g.flip();
         }
-         this.g.setColor(0,col("black"));
-		this.g.fillRect(0,198,239,239);
-		this.g.setColor(1,col("white"));
-		this.g.setFont("Vector",20);
-		this.g.drawString("ACTIONS",120-(this.g.stringWidth("ACTIONS")/2),214); 
-		this.g.flip(); 
 		this.b1=-1;
 		this.b2=-1;
 		this.b3=-1;

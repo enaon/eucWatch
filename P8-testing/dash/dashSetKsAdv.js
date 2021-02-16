@@ -3,30 +3,30 @@ face[0] = {
 	offms: 5000,
 	g:w.gfx,
 	init: function(){
-/*		this.g.setColor(1,col("gray"));
-		this.g.fillRect(0,0,239,195); //left up
+        //info
+        this.g.flip();
 		this.g.setColor(0,col("black"));
-		this.g.setFont("Vector",32);
-		this.g.drawString("TODO",120-(this.g.stringWidth("TODO")/2),9); 
-	
-		this.g.flip();
-
-
-   this.g.setColor(1,col("dgray"));
-    this.g.fillRect(0,0,118,95);
-    this.g.fillRect(121,0,239,95);	
-    this.g.fillRect(0,98,118,195);
-    this.g.fillRect(121,98,239,195);
-    this.g.setColor(0,col("black"));
-		this.g.setColor(0,col("black"));
-			this.g.flip();
-*/
-		this.g.setColor(0,col("black"));
-		this.g.fillRect(0,198,239,239);
+		this.g.fillRect(0,196,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
 		this.g.drawString("ADVANCED",120-(this.g.stringWidth("ADVANCED")/2),214); 
 		this.g.flip(); 
+		//ride mode
+		this.b3=euc.dash.mode;
+		if (this.b3==0) {
+			this.b3t="HARD";this.b3c=col("raf4");
+		}else if (this.b3==1) {
+			this.b3t="MED";this.b3c=col("olive");
+		}else if (this.b3==2) {
+			this.b3t="SOFT";this.b3c=col("raf");
+		}
+		this.g.setColor(0,this.b3c);
+		this.g.fillRect(0,0,118,97);
+		this.g.setColor(1,col("white"));
+		this.g.setFont("Vector",18);	
+		this.g.drawString("MODE",60-(this.g.stringWidth("MODE")/2),115); 
+		this.g.setFont("Vector",30);	
+		this.g.drawString(this.b3t,60-(this.g.stringWidth(this.b3t)/2),50); 
 		//calibrate
 		this.g.setColor(0,(this.b2)?col("raf"):col("dgray"));
 		this.g.fillRect(122,0,239,97);
@@ -34,11 +34,22 @@ face[0] = {
 		this.g.setFont("Vector",18);	
 		this.g.drawString("CALIBRATE",185-(this.g.stringWidth("CALIBRATE")/2),37); 
 		this.g.flip();
-		
-		this.b1=-1;
-		this.b2=-1;
-		this.b3=-1;
-		this.b4=-1;
+		//limits
+		this.g.setColor(0,(this.b2)?col("raf"):col("dgray"));
+		this.g.fillRect(0,100,118,195);
+		this.g.setColor(1,col("white"));
+		this.g.setFont("Vector",16);	
+		this.g.drawString("LIMMITS",60-(this.g.stringWidth("LIMMITS")/2),110); 
+		this.g.setFont("Vector",20);	
+		this.g.drawString(euc.dash.spd1,40-(this.g.stringWidth(euc.dash.spd1)/2),140);
+		this.g.drawString(euc.dash.spd2,40-(this.g.stringWidth(euc.dash.spd2)/2),170); 
+		this.g.drawString(euc.dash.spd3,80-(this.g.stringWidth(euc.dash.spd3)/2),140); 
+		this.g.drawString(euc.dash.spdT,80-(this.g.stringWidth(euc.dash.spdT)/2),170); 
+		this.g.flip();
+		this.b1=0;
+		this.b2=0;
+		this.b3=0;
+		this.b4=0;
 		this.info=0;
 		this.firstrun=1;
 		this.run=true;
@@ -46,82 +57,7 @@ face[0] = {
 	show : function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
 		if (!this.run) return; 
-		if (this.b1!=euc.dash.aLck){ //tilt
-			this.b1=euc.dash.aLck;
-			this.g.setColor(0,(this.b1)?col("raf"):col("dgray"));
-			this.g.fillRect(0,0,118,97);
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",18);	
-			this.g.drawString("SET",60-(this.g.stringWidth("SET")/2),15); 
-			this.g.setFont("Vector",30);	
-			this.g.drawString("TILT",60-(this.g.stringWidth("TILT")/2),50); 
-			this.g.flip();
-            if (!this.firstrun) {
-			this.g.setColor(0,col("raf3"));
-			this.g.fillRect(0,198,239,239);//6
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",16);
-			 this.g.drawString((this.b1)?"DISCONNECT -> LOCK":"AUTO LOCK DISABLED",120-(this.g.stringWidth((this.b1)?"DISCONNECT -> LOCK":"AUTO LOCK DISABLED")/2),214); 
-			this.info=1;
-			this.g.flip();
-			}
-		}
-		if (this.b3!=euc.dash.aOff){ //limmits
-			this.b3=euc.dash.aOff;
-			this.g.setColor(0,(this.b3)?col("raf"):col("dgray"));
-			this.g.fillRect(0,100,118,195);
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",16);	
-			this.g.drawString("LIMMITS",60-(this.g.stringWidth("LIMMITS")/2),110); 
-			this.g.setFont("Vector",20);	
-			this.g.drawString(euc.dash.spd1,40-(this.g.stringWidth(euc.dash.spd1)/2),140);
-			this.g.drawString(euc.dash.spd2,40-(this.g.stringWidth(euc.dash.spd2)/2),170); 
-			this.g.drawString(euc.dash.spd3,80-(this.g.stringWidth(euc.dash.spd3)/2),140); 
-			this.g.drawString(euc.dash.spdT,80-(this.g.stringWidth(euc.dash.spdT)/2),170); 
-			
-			this.g.flip();
-            if (!this.firstrun) {
-			this.g.setColor(0,col("raf3"));
-			this.g.fillRect(0,198,239,239);//6
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",16);
-			 this.g.drawString((this.b3)?"DISCONNECT->POWER OFF":"AUTO OFF DISABLED",120-(this.g.stringWidth((this.b3)?"DISCONNECT->POWER OFF":"AUTO OFF DISABLED")/2),214); 
-			this.info=1;
-			this.g.flip();
-			}
-		}
-		if (this.b4!=euc.dash.horn){ //pass
-			this.b4=euc.dash.horn;
-			this.g.setColor(0,(this.b4)?col("raf"):col("dgray"));
-			this.g.fillRect(122,100,239,195);
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",28);	
-			this.g.drawString("PASS",185-(this.g.stringWidth("PASS")/2),136); 
-			this.g.flip();
-			if (!this.firstrun) {
-			this.g.setColor(0,col("raf3"));
-			this.g.fillRect(0,198,239,239);//6
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",16);
-			 this.g.drawString((this.b4)?"BUTTON IS HORN >2KPH":"BUTTON HORN DISABLED",120-(this.g.stringWidth((this.b4)?"BUTTON IS HORN >2KPH":"BUTTON HORN DISABLED")/2),214); 
-			this.info=1;
-			this.g.flip();
-			}
-        }
-		if (this.info)  {
-			this.info=0;
-			if (this.itid)clearTimeout(this.itid);
-			this.itid=setTimeout(function(t){
-				t.itid=0;
-				t.g.setColor(0,col("black"));
-				t.g.fillRect(0,198,239,239);//6
-				t.g.setColor(1,col("white"));
-				t.g.setFont("Vector",20);
-				t.g.drawString("ADVANCED",120-(t.g.stringWidth("ADVANCED")/2),214); 
-				t.g.flip();
-		    },1000,this);
-		}
-		this.firstrun=0;
+		
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();
@@ -159,9 +95,11 @@ face[1] = {
 touchHandler[0]=function(e,x,y){ 
 	switch (e) {
 	case 5: //tap event
-		if (x<=120&&y<100) { //auto lock
-			euc.dash.aLck=1-euc.dash.aLck;
-			digitalPulse(D16,1,[30,50,30]);
+		if (x<=120&&y<=100) { //ride mode
+			if (euc.dash.mode==0) euc.wri("rideMed");
+			else if (euc.dash.mode==1) euc.wri("rideSoft");
+			else if (euc.dash.mode==2) euc.wri("rideHard");
+			digitalPulse(D16,1,[30,50,30]);		
 		}else if (120<=x<=239&&y<=100) { //buzz
 			face.go("dashSetKsAdvCalibrate",0);
 			return;

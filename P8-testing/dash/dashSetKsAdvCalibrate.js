@@ -1,6 +1,6 @@
 //kingsong  set adv calibrate
 face[0] = {
-	offms: 5000,
+	offms: 30000,
 	g:w.gfx,
 	init: function(){
 		this.g.setColor(0,col("dgray"));
@@ -45,9 +45,9 @@ face[0] = {
 		    this.g.fillRect(0,175,120,239);                    
             this.g.setColor(1,col("white"));
    		    this.g.setFont("Vector",22);
-            this.g.drawString("START",15,200); 	
+            this.g.drawString("START",20,200); 	
 		    this.g.flip();
-            this.g.setColor(0,col("dgray"));
+            this.g.setColor(0,col("dgray1"));
 		    this.g.fillRect(121,175,239,239);                    
             this.g.setColor(1,col("white"));
    		    this.g.setFont("Vector",22);
@@ -126,7 +126,7 @@ touchHandler[0]=function(e,x,y){
 			digitalPulse(D16,1,[30,50,30]);
 		}else digitalPulse(D16,1,[30,50,30]);
         }else { //calibrate
-          if (175<=y&&120<=x) {face[0].init();face[0].show();
+          if (175<=y&&120<=x) {face.go("dashSetKsAdv",0);return;
           }else if (175<=y&&x<=120) euc.wri("calibrate");
           else digitalPulse(D16,1,40);
         }

@@ -3,20 +3,21 @@ face[0] = {
 	offms: 5000,
 	g:w.gfx,
 	init: function(){
-/*		this.g.setColor(1,col("gray"));
-		this.g.fillRect(0,0,239,195); //left up
-		this.g.setColor(0,col("black"));
-		this.g.setFont("Vector",32);
-		this.g.drawString("TODO",120-(this.g.stringWidth("TODO")/2),9); 
-	
-		this.g.flip();
-*/
-		this.g.setColor(0,col("black"));
+        this.g.setColor(0,col("black"));
 		this.g.fillRect(0,198,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
 		this.g.drawString("OPTIONS",120-(this.g.stringWidth("OPTIONS")/2),214); 
 		this.g.flip(); 
+		if (!face.appPrev.startsWith"dashSet"){
+			this.g.setColor(0,col("black"));
+			this.g.setColor(1,col("dgray"));
+			this.g.fillRect(0,0,118,97);
+			this.g.fillRect(121,0,239,97);	
+			this.g.fillRect(0,100,118,195);
+			this.g.fillRect(121,100,239,195);
+			this.g.flip();
+        }
 		this.b1=-1;
 		this.b2=-1;
 		this.b3=-1;
@@ -30,78 +31,30 @@ face[0] = {
 		if (!this.run) return; 
 		if (this.b1!=euc.dash.aLck){ //auto lock
 			this.b1=euc.dash.aLck;
-			this.g.setColor(0,(this.b1)?col("raf"):col("dgray"));
-			this.g.fillRect(0,0,118,97);
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",18);	
-			this.g.drawString("AUTO",60-(this.g.stringWidth("AUTO")/2),15); 
-			this.g.setFont("Vector",28);	
-			this.g.drawString("LOCK",60-(this.g.stringWidth("LOCK")/2),50); 
-			this.g.flip();
+            this.btn(this.b1,"AUTO",18,60,15,col("raf"),col("dgray"),0,0,118,97,"LOCK",28,60,50);
             if (!this.firstrun) {
-			this.g.setColor(0,col("raf3"));
-			this.g.fillRect(0,198,239,239);//6
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",16);
-			 this.g.drawString((this.b1)?"DISCONNECT -> LOCK":"AUTO LOCK DISABLED",120-(this.g.stringWidth((this.b1)?"DISCONNECT -> LOCK":"AUTO LOCK DISABLED")/2),214); 
-			this.info=1;
-			this.g.flip();
+            this.ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",16,col("raf3"),this.b1);
 			}
 		}
 		if (this.b2!=euc.dash.buzz){ //buzz
 			this.b2=euc.dash.buzz;
-			this.g.setColor(0,(this.b2)?col("raf"):col("dgray"));
-			this.g.fillRect(122,0,239,97);
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",25);	
-			this.g.drawString("HAPTIC",185-(this.g.stringWidth("HAPTIC")/2),37); 
-			this.g.flip();
+            this.btn(this.b2,"HAPTIC",25,185,37,col("raf"),col("dgray"),122,0,239,97);
             if (!this.firstrun) {
-			this.g.setColor(0,col("raf3"));
-			this.g.fillRect(0,198,239,239);//6
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",16);
-			 this.g.drawString((this.b2)?"VIBRATE ON ALERTS":"VIBRATION DISABLED",120-(this.g.stringWidth((this.b2)?"VIBRATE ON ALERTS":"VIBRATION DISABLED")/2),214); 
-			this.info=1;
-			this.g.flip();
+            this.ntfy("VIBRATE ON ALERTS","VIBRATION DISABLED",16,col("raf3"),this.b2);
 			}
 		}
 		if (this.b3!=euc.dash.aOff){ //auto off
 			this.b3=euc.dash.aOff;
-			this.g.setColor(0,(this.b3)?col("raf"):col("dgray"));
-			this.g.fillRect(0,100,118,195);
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",18);	
-			this.g.drawString("AUTO",60-(this.g.stringWidth("AUTO")/2),115); 
-			this.g.setFont("Vector",30);	
-			this.g.drawString("OFF",60-(this.g.stringWidth("OFF")/2),150); 
-			this.g.flip();
+            this.btn(this.b3,"AUTO",18,60,115,col("raf"),col("dgray"),0,100,118,195,"OFF",30,60,150);
             if (!this.firstrun) {
-			this.g.setColor(0,col("raf3"));
-			this.g.fillRect(0,198,239,239);//6
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",16);
-			 this.g.drawString((this.b3)?"DISCONNECT->POWER OFF":"AUTO OFF DISABLED",120-(this.g.stringWidth((this.b3)?"DISCONNECT->POWER OFF":"AUTO OFF DISABLED")/2),214); 
-			this.info=1;
-			this.g.flip();
+            this.ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",16,col("raf3"),this.b3);
 			}
 		}
 		if (this.b4!=euc.dash.horn){ //horn
 			this.b4=euc.dash.horn;
-			this.g.setColor(0,(this.b4)?col("raf"):col("dgray"));
-			this.g.fillRect(122,100,239,195);
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",25);	
-			this.g.drawString("HORN",185-(this.g.stringWidth("HORN")/2),136); 
-			this.g.flip();
+            this.btn(this.b4,"HORN",25,185,136,col("raf"),col("dgray"),122,100,239,195);
 			if (!this.firstrun) {
-			this.g.setColor(0,col("raf3"));
-			this.g.fillRect(0,198,239,239);//6
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",16);
-			 this.g.drawString((this.b4)?"BUTTON IS HORN >2KPH":"HORN DISABLED",120-(this.g.stringWidth((this.b4)?"BUTTON IS HORN >2KPH":"HORN DISABLED")/2),214); 
-			this.info=1;
-			this.g.flip();
+            this.ntfy("BUTTON IS HORN >2KPH","HORN DISABLED",16,col("raf3"),this.b4);
 			}
         }
 		if (this.info)  {
@@ -121,8 +74,27 @@ face[0] = {
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();
-        },100,this);
+        },200,this);
 	},
+    btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
+			this.g.setColor(0,(bt)?clr1:clr0);
+			this.g.fillRect(rx1,ry1,rx2,ry2);
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",size1);	
+          this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1); 
+   			if (txt2){this.g.setFont("Vector",size2);	
+            this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);}
+			this.g.flip();
+    },
+    ntfy: function(txt1,txt0,size,clr,bt){
+            this.g.setColor(0,clr);
+			this.g.fillRect(0,198,239,239);//6
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",size);
+			 this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
+			this.info=1;
+			this.g.flip();
+    },
 	tid:-1,
 	run:false,
 	clear : function(){
