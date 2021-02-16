@@ -12,9 +12,9 @@ face[0] = {
         if (!face.appPrev.startsWith"dashSet"){
 			this.g.setColor(0,col("black"));
 			this.g.setColor(1,col("dgray"));
-			this.g.fillRect(0,0,118,97);
+			this.g.fillRect(0,0,119,97);
 			this.g.fillRect(121,0,239,97);	
-			this.g.fillRect(0,100,118,195);
+			this.g.fillRect(0,100,119,195);
 			this.g.fillRect(121,100,239,195);
 			this.g.flip();
         }
@@ -41,7 +41,7 @@ face[0] = {
 				this.b1t="CITY";this.b1c=col("blue1");
 			}
 			this.g.setColor(0,this.b1c);
-			this.g.fillRect(0,0,118,97);
+			this.g.fillRect(0,0,119,97);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",18);	
 			this.g.drawString("LIGHTS",60-(this.g.stringWidth("LIGHTS")/2),15); 
@@ -84,7 +84,7 @@ face[0] = {
 				this.b3t="SOFT";this.b3c=col("raf");
 			}
 			this.g.setColor(0,this.b3c);
-			this.g.fillRect(0,100,118,195);
+			this.g.fillRect(0,100,119,195);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",18);	
 			this.g.drawString("MODE",60-(this.g.stringWidth("MODE")/2),115); 

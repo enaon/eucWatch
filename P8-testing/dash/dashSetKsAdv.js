@@ -4,8 +4,14 @@ face[0] = {
 	g:w.gfx,
 	init: function(){
         //info
-        this.g.flip();
 		this.g.setColor(0,col("black"));
+		this.g.drawLine (0,98,239,98);
+		this.g.drawLine (0,99,239,99);
+        this.g.flip();
+		this.g.drawLine (120,0,120,195);
+      	this.g.drawLine (121,0,121,195);
+        this.g.flip();
+		//this.g.setColor(0,col("black"));
 		this.g.fillRect(0,196,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
@@ -21,7 +27,7 @@ face[0] = {
 			this.b3t="SOFT";this.b3c=col("raf3");
 		}
 		this.g.setColor(0,this.b3c);
-		this.g.fillRect(0,0,118,97);
+		this.g.fillRect(0,0,119,97);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",18);	
 		this.g.drawString("MODE",60-(this.g.stringWidth("MODE")/2),15); 
@@ -38,7 +44,7 @@ face[0] = {
 		this.g.flip();
 		//limits
 		this.g.setColor(0,col("olive"));
-		this.g.fillRect(0,100,118,195);
+		this.g.fillRect(0,100,119,195);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",16);	
 		this.g.drawString("LIMMITS",60-(this.g.stringWidth("LIMMITS")/2),110); 

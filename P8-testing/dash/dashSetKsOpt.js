@@ -12,9 +12,9 @@ face[0] = {
 		if (!face.appPrev.startsWith"dashSet"){
 			this.g.setColor(0,col("black"));
 			this.g.setColor(1,col("dgray"));
-			this.g.fillRect(0,0,118,97);
+			this.g.fillRect(0,0,119,97);
 			this.g.fillRect(121,0,239,97);	
-			this.g.fillRect(0,100,118,195);
+			this.g.fillRect(0,100,119,195);
 			this.g.fillRect(121,100,239,195);
 			this.g.flip();
         }
@@ -31,7 +31,7 @@ face[0] = {
 		if (!this.run) return; 
 		if (this.b1!=euc.dash.aLck){ //auto lock
 			this.b1=euc.dash.aLck;
-            this.btn(this.b1,"AUTO",18,60,15,col("raf"),col("dgray"),0,0,118,97,"LOCK",28,60,50);
+            this.btn(this.b1,"AUTO",18,60,15,col("raf"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
             if (!this.firstrun) {
             this.ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",16,col("raf3"),this.b1);
 			}
@@ -45,7 +45,7 @@ face[0] = {
 		}
 		if (this.b3!=euc.dash.aOff){ //auto off
 			this.b3=euc.dash.aOff;
-            this.btn(this.b3,"AUTO",18,60,115,col("raf"),col("dgray"),0,100,118,195,"OFF",30,60,150);
+            this.btn(this.b3,"AUTO",18,60,115,col("raf"),col("dgray"),0,100,119,195,"OFF",30,60,150);
             if (!this.firstrun) {
             this.ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",16,col("raf3"),this.b3);
 			}
