@@ -99,7 +99,7 @@ face[0] = {
 			this.g.fillRect(0,198,239,239);//6
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",16);
-			 this.g.drawString((this.b4)?"BUTTON IS HORN >2KPH":"BUTTON HORN DISABLED",120-(this.g.stringWidth((this.b4)?"BUTTON IS HORN >2KPH":"BUTTON HORN DISABLED")/2),214); 
+			 this.g.drawString((this.b4)?"BUTTON IS HORN >2KPH":"HORN DISABLED",120-(this.g.stringWidth((this.b4)?"BUTTON IS HORN >2KPH":"HORN DISABLED")/2),214); 
 			this.info=1;
 			this.g.flip();
 			}
@@ -126,7 +126,7 @@ face[0] = {
 	tid:-1,
 	run:false,
 	clear : function(){
-		this.g.clear();
+		//this.g.clear();
 		this.run=false;
 		if (this.tid>=0) clearTimeout(this.tid);this.tid=-1;
    		if (this.itid) clearTimeout(this.itid);this.itid=0;

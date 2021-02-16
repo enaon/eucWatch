@@ -9,9 +9,22 @@ face[0] = {
 	this.ampC={0:1365,1:4095,2:4080,3:3840};
 	this.tmpC={0:0,1:4095,2:4080,3:3840};
 	this.batC={0:0,1:0,2:4080,3:3840};
+    this.spd=-1;
+    this.amp=-1;
+    this.temp=-1;
+    this.batt=-1;
+    this.trpL=-1;
 	if (euc.state=="READY") {
-	  this.g.setColor(0,"black");
-      this.g.fillRect(0,56,239,64);
+	  this.g.setColor(0,col("black"));
+      this.g.fillRect(0,0,239,55);
+	  this.g.setColor(1,col("white"));
+      this.g.setFont("7x11Numeric7Seg",4.5);
+      this.g.drawString(euc.dash.tmp|0, 3,5); //temp  
+      this.g.drawString(euc.dash.amp|0,(122-(this.g.stringWidth(euc.dash.amp|0)/2)),5); 
+      this.g.drawString(euc.dash.bat,240-(this.g.stringWidth(euc.dash.bat)+3),5); //fixed bat
+      this.temp=euc.dash.tmp;
+      this.amp=euc.dash.amp;
+      this.batt=euc.dash.bat;
       this.g.flip();
 	  this.g.setColor(0,this.spdC[euc.dash.spdC]);
       this.g.fillRect(0,65,239,239);
@@ -22,11 +35,6 @@ face[0] = {
       this.spd=euc.dash.spd;
       this.g.flip();
 	}
-    this.spd=-1;
-    this.amp=-1;
-    this.temp=-1;
-    this.batt=-1;
-    this.trpL=-1;
     this.connrest=0;
 	this.connoff=0;
     this.lock=2;
@@ -100,7 +108,7 @@ face[0] = {
 	  this.g.fillRect(65,56,199,239); //middle	
       this.g.setColor(1,col("white"));
       this.g.setFontVector(28);
-      this.g.drawString(euc.dash.spdT,190-this.g.stringWidth(euc.dash.spdT),90);
+      this.g.drawString(euc.dash.spdM,190-this.g.stringWidth(euc.dash.spdM),90);
       this.g.drawString(euc.dash.time,190-this.g.stringWidth(euc.dash.time),133); 
       this.g.drawString(euc.dash.trpL,190-this.g.stringWidth(euc.dash.trpL),175); 
       this.g.drawString(euc.dash.trpT,190-this.g.stringWidth(euc.dash.trpT),217); 
@@ -162,7 +170,7 @@ face[0] = {
   tid:-1,
   run:false,
   clear : function(){
-	if (face.appPrev!="dash_simple" || face.appCurr!="dash_simple" || face.pageCurr!=0) this.g.clear();
+	if (face.appCurr!="dash_simple" || face.pageCurr!=0) this.g.clear();
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
     this.tid=-1;
@@ -213,8 +221,7 @@ touchHandler[0]=function(e,x,y){
 	} else {digitalPulse(D16,1,40);this.timeout();}
 		break;
     case 3: //slide left event
-//		(euc.state=="READY")?face.go("dashInfo",0):(euc.state=="OFF")?face.go("dashSelect",0):digitalPulse(D16,1,40);
-		(euc.state=="READY")?face.go(['dashSet'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker']],0):(euc.state=="OFF")?face.go("dashSelect",0):digitalPulse(D16,1,40);
+		(euc.state=="READY")?face.go('dashSet'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0):(euc.state=="OFF")?face.go("dashSelect",0):digitalPulse(D16,1,40);
 		return;
     case 4: //slide right event (back action)
 		face.go("main",0);

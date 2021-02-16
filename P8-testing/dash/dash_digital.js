@@ -187,7 +187,7 @@ face[0] = {
   tid:-1,
   run:false,
   clear : function(){
-	if (face.appPrev!="dash_full" || face.appCurr!="dash_full" || face.pageCurr!=0) this.g.clear();
+	if (face.appCurr!="dash_digital" || face.pageCurr!=0) this.g.clear();
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
     this.tid=-1;
@@ -230,8 +230,7 @@ touchHandler[0]=function(e,x,y){
 	  if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
 	  } else digitalPulse(D16,1,40);
     }else if  (e==3){
-		(euc.state=="READY")?face.go(['dashSet'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker']],0):(euc.state=="OFF")?face.go("dashSelect",0):digitalPulse(D16,1,40);
-//		(euc.state=="READY")?face.go("dashInfo",0):(euc.state=="OFF")?face.go("dashSelect",0):digitalPulse(D16,1,40);
+		(euc.state=="READY")?face.go('dashSet'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0):(euc.state=="OFF")?face.go("dashSelect",0):digitalPulse(D16,1,40);
 	  return;
     }else if  (e==4){		
 	  face.go("main",0);

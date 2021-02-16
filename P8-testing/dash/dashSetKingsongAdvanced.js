@@ -10,21 +10,22 @@ face[0] = {
 		this.g.drawString("TODO",120-(this.g.stringWidth("TODO")/2),9); 
 	
 		this.g.flip();
-*/
+
 
    this.g.setColor(1,col("dgray"));
     this.g.fillRect(0,0,118,95);
-    this.g.fillRect(122,0,239,95);	
-    this.g.fillRect(0,100,118,195);
-    this.g.fillRect(122,100,239,195);
+    this.g.fillRect(121,0,239,95);	
+    this.g.fillRect(0,98,118,195);
+    this.g.fillRect(121,98,239,195);
     this.g.setColor(0,col("black"));
 		this.g.setColor(0,col("black"));
 			this.g.flip();
-
+*/
+		this.g.setColor(0,col("black"));
 		this.g.fillRect(0,198,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
-		this.g.drawString("OPTIONS",120-(this.g.stringWidth("OPTIONS")/2),214); 
+		this.g.drawString("ADVANCED",120-(this.g.stringWidth("ADVANCED")/2),214); 
 		this.g.flip(); 
 		this.b1=-1;
 		this.b2=-1;
@@ -62,7 +63,7 @@ face[0] = {
 			this.g.setColor(0,(this.b2)?col("raf"):col("dgray"));
 			this.g.fillRect(122,0,239,97);
 			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",22);	
+			this.g.setFont("Vector",18);	
 			this.g.drawString("CALIBRATE",185-(this.g.stringWidth("CALIBRATE")/2),37); 
 			this.g.flip();
             if (!this.firstrun) {
@@ -80,10 +81,14 @@ face[0] = {
 			this.g.setColor(0,(this.b3)?col("raf"):col("dgray"));
 			this.g.fillRect(0,100,118,195);
 			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",18);	
-			this.g.drawString("SET",60-(this.g.stringWidth("SET")/2),115); 
-			this.g.setFont("Vector",30);	
-			this.g.drawString("LIMMITS",60-(this.g.stringWidth("LIMMITS")/2),150); 
+			this.g.setFont("Vector",16);	
+			this.g.drawString("LIMMITS",60-(this.g.stringWidth("LIMMITS")/2),110); 
+			this.g.setFont("Vector",20);	
+			this.g.drawString("35",60-(this.g.stringWidth("35")/2),140);
+			this.g.drawString("40",60-(this.g.stringWidth("40")/2),155); 
+			this.g.drawString("45",60-(this.g.stringWidth("45")/2),170); 
+			this.g.drawString("45",60-(this.g.stringWidth("45")/2),185); 
+			
 			this.g.flip();
             if (!this.firstrun) {
 			this.g.setColor(0,col("raf3"));
@@ -100,8 +105,8 @@ face[0] = {
 			this.g.setColor(0,(this.b4)?col("raf"):col("dgray"));
 			this.g.fillRect(122,100,239,195);
 			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",25);	
-			this.g.drawString("HORN",185-(this.g.stringWidth("HORN")/2),136); 
+			this.g.setFont("Vector",28);	
+			this.g.drawString("PASS",185-(this.g.stringWidth("PASS")/2),136); 
 			this.g.flip();
 			if (!this.firstrun) {
 			this.g.setColor(0,col("raf3"));
@@ -122,7 +127,7 @@ face[0] = {
 				t.g.fillRect(0,198,239,239);//6
 				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",20);
-				t.g.drawString("OPTIONS",120-(t.g.stringWidth("OPTIONS")/2),214); 
+				t.g.drawString("ADVANCED",120-(t.g.stringWidth("ADVANCED")/2),214); 
 				t.g.flip();
 		    },1000,this);
 		}
@@ -135,7 +140,7 @@ face[0] = {
 	tid:-1,
 	run:false,
 	clear : function(){
-		this.g.clear();
+		//this.g.clear();
 		this.run=false;
 		if (this.tid>=0) clearTimeout(this.tid);this.tid=-1;
    		if (this.itid) clearTimeout(this.itid);this.itid=0;

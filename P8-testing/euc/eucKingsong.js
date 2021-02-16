@@ -89,10 +89,10 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			setTimeout(() => {euc.buzz=0; }, 2000);
 		}
     }else if  (this.var==185){
-		//trip-time-top speed
+		//trip-time-max speed
         euc.dash.trpL=(((event.target.value.buffer[2] << 16) + (event.target.value.buffer[3] << 24) + event.target.value.buffer[4] + (event.target.value.buffer[5] << 8)) / 1000.0).toFixed(1);
 		euc.dash.time=((event.target.value.getUint16(6, true)) / 60.0).toFixed(0);
-        euc.dash.spdT=((event.target.value.getUint16(8, true)) / 100.0).toFixed(1);
+        euc.dash.spdM=((event.target.value.getUint16(8, true)) / 100.0).toFixed(1);
 	 }else if  (this.var==95){
         euc.dash.lock=event.target.value.getUint8(2, true);
     }else if (euc.state=="OFF"){

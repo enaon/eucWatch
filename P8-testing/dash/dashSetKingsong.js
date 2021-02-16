@@ -1,17 +1,19 @@
-//kingsong quick set
+//kingsong set actions
 face[0] = {
 	offms: 5000,
 	g:w.gfx,
 	init: function(){
-/*		this.g.setColor(1,col("gray"));
-		this.g.fillRect(0,0,239,195); //left up
-		this.g.setColor(0,col("black"));
-		this.g.setFont("Vector",32);
-		this.g.drawString("TODO",120-(this.g.stringWidth("TODO")/2),9); 
-	
-		this.g.flip();
-*/
-		this.g.setColor(0,col("black"));
+        if (face.appPrev!=="dashSetKingsongOptions"){
+			this.g.setColor(0,col("black"));
+			this.g.setColor(1,col("dgray"));
+			this.g.fillRect(0,0,118,97);
+			this.g.fillRect(121,0,239,97);	
+			this.g.fillRect(0,100,118,195);
+			this.g.fillRect(121,100,239,195);
+			this.g.flip();
+        }
+         this.g.setColor(0,col("black"));
+		this.g.fillRect(0,198,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
 		this.g.drawString("ACTIONS",120-(this.g.stringWidth("ACTIONS")/2),214); 
@@ -137,7 +139,7 @@ face[0] = {
 	tid:-1,
 	run:false,
 	clear : function(){
-		this.g.clear();
+		if (!face.appCurr.startsWith("dashSet")) this.g.clear();
 		this.run=false;
 		if (this.tid>=0) clearTimeout(this.tid);this.tid=-1;
    		if (this.itid) clearTimeout(this.itid);this.itid=0;
