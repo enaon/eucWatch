@@ -54,6 +54,7 @@ face[0] = {
 		this.g.drawString(euc.dash.spd3,80-(this.g.stringWidth(euc.dash.spd3)/2),140); 
 		this.g.drawString(euc.dash.spdT,80-(this.g.stringWidth(euc.dash.spdT)/2),170); 
 		this.g.flip();
+		//pass
 		this.g.setColor(0,col("olive"));
 		this.g.fillRect(122,100,239,195);
 		this.g.setColor(1,col("white"));
@@ -137,8 +138,8 @@ touchHandler[0]=function(e,x,y){
 			euc.dash.aOff=1-euc.dash.aOff;
 			digitalPulse(D16,1,[30,50,30]);		
 		}else if (120<=x<=239&&100<=y<=200) { //pass
-			euc.dash.horn=1-euc.dash.horn;
-			digitalPulse(D16,1,[30,50,30]);						
+			face.go("dashSetKsPass",5);
+			return;
 		}else digitalPulse(D16,1,[30,50,30]);
 		this.timeout();
 		break;

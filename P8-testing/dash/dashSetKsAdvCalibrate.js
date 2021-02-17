@@ -39,7 +39,7 @@ face[0] = {
             this.g.drawString("3. TURN WHEEL ON",25,64);
             this.g.drawString("4. WHEEL BEEPS->OFF",25,91); 
             this.g.drawString("5. TURN WHEEL ON",25,118);
-            this.g.drawString("5. DONE!",25,145);
+            this.g.drawString("6. DONE!",25,145);
 		    this.g.flip();
             this.g.setColor(0,col("raf"));
 		    this.g.fillRect(0,175,120,239);                    

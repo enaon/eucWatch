@@ -109,8 +109,8 @@
    	  {"name":"dashSetKsOpt","url":"dashSetKsOpt.js"},
    	  {"name":"dashSetKsAdv","url":"dashSetKsAdv.js"},
    	  {"name":"dashSetKsAdvCalibrate","url":"dashSetKsAdvCalibrate.js"},
-   	  {"name":"dashSetKsAdvLimits","url":"dashSetKsAdvLimits.js"}
-
+   	  {"name":"dashSetKsAdvLimits","url":"dashSetKsAdvLimits.js"},
+   	  {"name":"dashSetKsAdvPass","url":"dashSetKsAdvPass.js"}
     ]
   }, 
    { "id": "euc",
