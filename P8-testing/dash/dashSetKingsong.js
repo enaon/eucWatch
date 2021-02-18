@@ -3,10 +3,10 @@ face[0] = {
 	offms: 5000,
 	g:w.gfx,
 	init: function(){
-
+		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
         this.btn("LIGHTS",18,60,15,(euc.dash.light)?col("raf"):col("dgray"),0,0,119,97,(!euc.dash.light)?"OFF":(euc.dash.light==1)?"ON":(euc.dash.light==2)?"AUTO":"CITY",28,60,50); //1
         this.btn("STROBE",18,185,15,(euc.dash.strb)?col("raf"):col("dgray"),122,0,239,97,(!euc.dash.strb)?"OFF":"ON",28,185,50);//2
-        this.btn("MODE",18,60,115,(euc.dash.mode)?col("raf"):col("dgray"),0,100,119,195,(!euc.dash.mode)?"OFF":"ON",30,60,150); //3
+        this.btn("MODE",18,60,115,(euc.dash.mode)?col("raf"):col("dgray"),0,100,119,195,(!euc.dash.mode)?"OFF":(euc.dash.mode==1)?"MED":"SOFT",30,60,150); //3
         this.btn("LOCK",18,185,115,(euc.dash.lock)?col("red"):col("dgray"),122,100,239,195,(!euc.dash.lock)?"OFF":"ON",30,185,150); //4
         if (!face.appPrev.startsWith("dashSet")){
 		this.g.setColor(0,col("black"));
@@ -16,14 +16,14 @@ face[0] = {
 		this.g.drawLine (120,0,120,195);
       	this.g.drawLine (121,0,121,195);
         this.g.flip();
-        this.g.setColor(0,col("black"));
+        }
+		this.g.setColor(0,col("black"));
 		this.g.fillRect(0,196,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
 		this.g.drawString("ACTIONS",120-(this.g.stringWidth("ACTIONS")/2),214); 
 		this.g.flip();
-        }
-		this.run=false;
+		this.run=true;
 	},
 	show : function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
@@ -48,11 +48,10 @@ face[0] = {
     ntfy: function(txt,clr){
 			this.info=1;
             this.g.setColor(0,clr);
-			this.g.fillRect(0,196,239,239);
+			this.g.fillRect(0,198,239,239);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",20);
-			this.g.drawString(txt,122-(this.g.stringWidth(txt)/2),212); 
-			this.info=1;
+			this.g.drawString(txt,122-(this.g.stringWidth(txt)/2),214); 
 			this.g.flip();
 			if (this.ntid) clearTimeout(this.ntid);
 			this.ntid=setTimeout(function(t){
@@ -61,7 +60,7 @@ face[0] = {
 				t.g.fillRect(0,196,239,239);
 				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",20);
-		        t.g.drawString("ACTIONS",120-(t.g.stringWidth("ACTIONS")/2),214); 
+		        t.g.drawString("ACTIONS",122-(t.g.stringWidth("ACTIONS")/2),214); 
 				t.g.flip();
 			},1000,this);
     },
@@ -70,7 +69,7 @@ face[0] = {
 	clear : function(){
 		this.run=false;
 		if (this.tid>=0) clearTimeout(this.tid);this.tid=-1;
-   		if (this.itid) clearTimeout(this.itid);this.itid=0;
+   		if (this.ntid) clearTimeout(this.ntid);this.ntid=0;
 		return true;
 	},
 	off: function(){

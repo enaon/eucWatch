@@ -9,7 +9,7 @@ face[0] = {
 		this.g.fillRect(0,196,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
-		this.g.drawString("ADVANCED",120-(this.g.stringWidth("ADVANCED")/2),214); 
+		this.g.drawString("ADVANCED",122-(this.g.stringWidth("ADVANCED")/2),214); 
 		this.g.flip();
 		//ride mode
 		this.b1=euc.dash.mode;
@@ -63,37 +63,26 @@ face[0] = {
 		this.g.drawLine (120,0,120,195);
       	this.g.drawLine (121,0,121,195);
         this.g.flip();		
-		this.b1=0;
-		this.info=0;
-		this.firstrun=1;
 		this.run=true;
 	},
 	show : function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
 		if (!this.run) return; 
-		if (this.b1!=euc.dash.mode){ //ride mode
-			this.b1=euc.dash.mode;
-			if (this.b1==0) {
-				this.b1t="HARD";this.b1c=col("raf4");
-			}else if (this.b1==1) {
-				this.b1t="MED";this.b1c=col("raf2");
-			}else if (this.b1==2) {
-				this.b1t="SOFT";this.b1c=col("raf3");
-			}
-			this.g.setColor(0,this.b1c);
-			this.g.fillRect(0,0,119,97);
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",18);	
-			this.g.drawString("MODE",60-(this.g.stringWidth("MODE")/2),15); 
-			this.g.setFont("Vector",30);	
-			this.g.drawString(this.b1t,60-(this.g.stringWidth(this.b1t)/2),50); 
-			this.g.flip();
-		}
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();
-        },200,this);
+        },1000,this);
 	},
+    btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
+			this.g.setColor(0,(bt)?clr1:clr0);
+			this.g.fillRect(rx1,ry1,rx2,ry2);
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",size1);	
+          this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1); 
+   			if (txt2){this.g.setFont("Vector",size2);	
+            this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);}
+			this.g.flip();
+    },
 	tid:-1,
 	run:false,
 	clear : function(){
@@ -131,6 +120,8 @@ touchHandler[0]=function(e,x,y){
 			else if (euc.dash.mode==1) euc.wri("rideSoft");
 			else if (euc.dash.mode==2) euc.wri("rideHard");
 			digitalPulse(D16,1,[30,50,30]);		
+					//mode
+			this.btn(this.b1,"AUTO",18,60,15,col("raf"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
 		}else if (120<=x<=239&&y<=100) { //calibrate
             digitalPulse(D16,1,[30,50,30]);
 			face.go("dashSetKsAdvCalibrate",0);
