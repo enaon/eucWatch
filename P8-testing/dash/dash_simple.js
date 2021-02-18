@@ -170,7 +170,7 @@ face[0] = {
   tid:-1,
   run:false,
   clear : function(){
-	if (face.appCurr!="dash_simple" || face.pageCurr!=0) this.g.clear();
+	//if (face.appCurr!="dash_simple" || face.pageCurr!=0) this.g.clear();
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
     this.tid=-1;

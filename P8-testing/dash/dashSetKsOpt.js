@@ -116,7 +116,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		face.go("dashSetKingsong",0);
+		face.go("dashSetKsAct",0);
 		return true;
 	},
 	clear: function(){
@@ -160,7 +160,7 @@ touchHandler[0]=function(e,x,y){
 		face.go("dashSetKsAdv",0);
 		return;
 	case 4: //slide right event (back action)
-		face.go("dashSetKingsong",0);
+		face.go("dashSetKsAct",0);
 		return;
 	case 12: //long press event
 		digitalPulse(D16,1,[100]);

@@ -3,20 +3,14 @@ face[0] = {
 	offms: 5000,
 	g:w.gfx,
 	init: function(){
-        //info
+
+		//info
 		this.g.setColor(0,col("black"));
-		this.g.drawLine (0,98,239,98);
-		this.g.drawLine (0,99,239,99);
-        this.g.flip();
-		this.g.drawLine (120,0,120,195);
-      	this.g.drawLine (121,0,121,195);
-        this.g.flip();
-		//this.g.setColor(0,col("black"));
 		this.g.fillRect(0,196,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
 		this.g.drawString("ADVANCED",120-(this.g.stringWidth("ADVANCED")/2),214); 
-		this.g.flip(); 
+		this.g.flip();
 		//ride mode
 		this.b1=euc.dash.mode;
 		if (this.b1==0) {
@@ -60,8 +54,15 @@ face[0] = {
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",28);	
 		this.g.drawString("PASS",185-(this.g.stringWidth("PASS")/2),135); 
-		this.g.flip();      
-      
+		this.g.flip();
+		 //clear
+		this.g.setColor(0,col("black"));
+		this.g.drawLine (0,98,239,98);
+		this.g.drawLine (0,99,239,99);
+        this.g.flip();
+		this.g.drawLine (120,0,120,195);
+      	this.g.drawLine (121,0,121,195);
+        this.g.flip();		
 		this.b1=0;
 		this.info=0;
 		this.firstrun=1;
@@ -114,7 +115,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		face.go("dashSetKingsong",0);
+		face.go("dashSetKsAct",0);
 		return true;
 	},
 	clear: function(){
@@ -124,7 +125,7 @@ face[1] = {
 //touch
 touchHandler[0]=function(e,x,y){ 
 	switch (e) {
-	case 5: //tap event
+      case 5:case 12: //tap event
 		if (x<=120&&y<=100) { //ride mode
 			if (euc.dash.mode==0) euc.wri("rideMed");
 			else if (euc.dash.mode==1) euc.wri("rideSoft");
@@ -166,9 +167,5 @@ touchHandler[0]=function(e,x,y){
 	case 4: //slide right event (back action)
 		face.go("dashSetKsOpt",0);
 		return;
-	case 12: //long press event
-		digitalPulse(D16,1,[100]);
-		this.timeout();
-		break;
   }
 };

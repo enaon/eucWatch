@@ -103,7 +103,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		face.go("dashSetKingsong",0);
+		face.go("dashSetKsAct",0);
 		return true;
 	},
 	clear: function(){

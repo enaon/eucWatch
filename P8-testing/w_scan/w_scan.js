@@ -121,7 +121,6 @@ face[0] = {
   run:false,
   clear : function(){
     pal[0]=col("black");
-    this.g.clear();
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
     if (this.loop>=0) clearInterval(this.loop);

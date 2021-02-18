@@ -5,14 +5,6 @@ face[0] = {
 	init: function(){
         //clear screen
    		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
-        //clear screen
-      	this.g.setColor(0,col("black"));
-		this.g.drawLine (0,98,239,98);
-		this.g.drawLine (0,99,239,99);
-        this.g.flip();
-		this.g.drawLine (119,100,119,195);
-      	this.g.drawLine (120,100,120,195);
-        this.g.flip();
         //status
         if (euc.dash.pass.length>=4){
 		this.g.setColor(0,col("blue1"));
@@ -36,14 +28,19 @@ face[0] = {
 		this.g.setColor(0,col("olive"));
 		this.g.fillRect(0,0,239,195);
  		this.g.setColor(1,col("white"));
-   		this.g.setFont("Vector",16);
-		this.g.drawString("WHEEL IS",120-(this.g.stringWidth("WHEEL IS")/2),58); 
-   		this.g.setFont("Vector",26);
+   		this.g.setFont("Vector",18);
+		this.g.drawString("WHEEL IS",120-(this.g.stringWidth("WHEEL IS")/2),55); 
+   		this.g.setFont("Vector",30);
         this.g.drawString("PASS FREE",120-(this.g.stringWidth("PASS FREE")/2),90); 
 //        this.g.setFont("Vector",16);
 //		this.g.drawString("HOLD TO SET",120-(this.g.stringWidth("HOLD TO SET")/2),145); 
         this.g.flip();
         }
+		//clear screen
+      	this.g.setColor(0,col("black"));
+		this.g.drawLine (0,98,239,98);
+		this.g.drawLine (0,99,239,99);
+        this.g.flip();
         //info
         this.g.setColor(0,col("black"));
 		this.g.fillRect(0,195,239,239);
@@ -105,7 +102,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		face.go("dashSetKingsong",0);
+		face.go("dashSetKsAct",0);
 		return true;
 	},
 	clear: function(){
@@ -216,13 +213,13 @@ touchHandler[0]=function(e,x,y){
         if (euc.dash.pass.length>=4){
    		digitalPulse(D16,1,[30,50,30]);
 		if (y<=100) { //enable/disable
-          face[0].ntfy("HOLD - DISABLE",20,col("dgray"));
+          face[0].ntfy("HOLD -> CLEAR",20,col("dgray"));
 		}else  { //change
            face[0].ntfy("HOLD -> CHANGE",20,col("dgray"));
 		}
         } else {
           digitalPulse(D16,1,40);
-          face[0].ntfy("HOLD -> ENABLE",20,col("dgray"));
+          face[0].ntfy("HOLD -> SET",20,col("dgray"));
 
         }
         this.timeout();
@@ -251,16 +248,19 @@ touchHandler[0]=function(e,x,y){
 	case 12: //long press event
 		digitalPulse(D16,1,[30,50,30]);
         if (euc.dash.pass.length>=4){ 
-		if (y<=100) { //enable/disable
+		if (y<=100) { //clear
+          euc.wri("passClear");
+          euc.dash.passOld="";
           euc.dash.pass="";
-		  
+          euc.dash.passSend=0;
+		  euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
           face.go("dashSetKsPass",0);
 		}else  { //change
-            face[0].passSet=1;
             face.go("dashSetKsPass",5);
+            face[0].passSet=1;
             return;		
         }
-        }else {
+        }else { //enable
           euc.dash.pass="";
           face.go("dashSetKsPass",5);
           face[0].passSet=1;
@@ -314,7 +314,14 @@ touchHandler[5]=function(e,x,y){
                   euc.dash.passOld=euc.dash.pass;
                   euc.dash.pass=face[5].pass;
                   digitalPulse(D16,1,80);
-                  face[5].ntfy("PASSWORD CHANGED",20,col("blue1"));
+                  face[5].ntfy("SUCCESS!",20,col("blue1"));
+                  if (euc.dash.passOld!=""){
+                  euc.wri("passChange");
+                  euc.dash.passSend=1;
+       			  euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
+                  } else {
+                  euc.wri("passSet");
+                  }
                   setTimeout(()=>{face.go("dashSetKsAdvPass",0);return;},1000);
                 }else{
                   digitalPulse(D16,1,120);
