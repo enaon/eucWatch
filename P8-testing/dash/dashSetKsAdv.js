@@ -138,7 +138,9 @@ touchHandler[0]=function(e,x,y){
 			euc.dash.aOff=1-euc.dash.aOff;
 			digitalPulse(D16,1,[30,50,30]);		
 		}else if (120<=x<=239&&100<=y<=200) { //pass
-			face.go("dashSetKsPass",5);
+			digitalPulse(D16,1,[30,50,30]);		
+			if (euc.dash.pass.length>=4) face.go("dashSetKsPass",5);
+			else face.go("dashSetKsPass",0);
 			return;
 		}else digitalPulse(D16,1,[30,50,30]);
 		this.timeout();

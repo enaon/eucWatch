@@ -3,39 +3,88 @@ face[0] = {
 	offms: 5000,
 	g:w.gfx,
 	init: function(){
-		
+        //clear screen
+   		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
+      	this.g.setColor(0,col("black"));
+		this.g.drawLine (0,98,239,98);
+		this.g.drawLine (0,99,239,99);
+        this.g.flip();
+		this.g.drawLine (119,100,119,195);
+      	this.g.drawLine (120,100,120,195);
+        this.g.flip();
+        //status
+        if (euc.dash.pass.length>=4){
+		this.g.setColor(0,col("blue1"));
+		this.g.fillRect(0,0,239,97);
+ 		this.g.setColor(1,col("white"));
+   		this.g.setFont("Vector",16);
+		this.g.drawString("WHEEL IS",120-(this.g.stringWidth("WHEEL IS")/2),18); 
+   		this.g.setFont("Vector",26);
+        this.g.drawString("PASS LOCKED",120-(this.g.stringWidth("PASS LOCKED")/2),50); 
+        this.g.flip();
+        //change
+		this.g.setColor(0,col("olive"));
+		this.g.fillRect(0,100,239,195);
+ 		this.g.setColor(1,col("white"));
+   		this.g.setFont("Vector",16);
+		this.g.drawString("CHANGE",122-(this.g.stringWidth("CHANGE")/2),118); 
+   		this.g.setFont("Vector",26);
+        this.g.drawString("PASS",122-(this.g.stringWidth("PASS")/2),150); 
+        this.g.flip();
+        }else {
+		this.g.setColor(0,col("olive"));
+		this.g.fillRect(0,0,239,195);
+ 		this.g.setColor(1,col("white"));
+   		this.g.setFont("Vector",16);
+		this.g.drawString("WHEEL IS",120-(this.g.stringWidth("WHEEL IS")/2),18); 
+   		this.g.setFont("Vector",26);
+        this.g.drawString("PASS FREE",120-(this.g.stringWidth("PASS FREE")/2),50); 
+  		this.g.setFont("Vector",16);
+		this.g.drawString("HOLD",122-(this.g.stringWidth("HOLD")/2),118); 
+   		this.g.setFont("Vector",26);
+        this.g.drawString("SET PASS",122-(this.g.stringWidth("SET PASS")/2),150); 
+        this.g.flip();
+        }
+        //info
         this.g.setColor(0,col("black"));
 		this.g.fillRect(0,195,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
 		this.g.drawString("PASS SETTINGS",120-(this.g.stringWidth("PASS SETTINGS")/2),214); 
 		this.g.flip(); 
-		this.calibrate=0;
-		this.run=true;
+
+		this.run=false;
 	},
 	show : function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
 		if (!this.run) return; 
-       
-        if (this.info)  {
-			this.info=0;
-			if (this.itid)clearTimeout(this.itid);
-			this.itid=setTimeout(function(t){
-				t.itid=0;
-				t.g.setColor(0,col("black"));
-				t.g.fillRect(0,198,239,239);//6
-				t.g.setColor(1,col("white"));
-				t.g.setFont("Vector",20);
-				t.g.drawString("PASS SETTINGS",120-(t.g.stringWidth("PASS SETTINGS")/2),214); 
-				t.g.flip();
-		    },1000,this);
-		}
-		this.firstrun=0;
+ 
+      this.firstrun=0;
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();
         },100,this);
 	},
+    ntfy: function(txt,size,clr){
+			this.info=1;
+            this.g.setColor(0,clr);
+			this.g.fillRect(0,196,239,239);
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",size);
+			this.g.drawString(txt,122-(this.g.stringWidth(txt)/2),212); 
+			this.info=1;
+			this.g.flip();
+			if (this.ntid) clearTimeout(this.ntid);
+			this.ntid=setTimeout(function(t){
+                t.ntid=0;
+				t.g.setColor(0,col("black"));
+				t.g.fillRect(0,196,239,239);
+				t.g.setColor(1,col("white"));
+				t.g.setFont("Vector",20);
+		        t.g.drawString("PASS SETTINGS",120-(t.g.stringWidth("PASS SETTINGS")/2),214); 
+				t.g.flip();
+			},1000,this);
+    },
 	tid:-1,
 	run:false,
 	clear : function(){
@@ -65,7 +114,7 @@ face[1] = {
 	},
 };	
 face[5] = {
-	offms: 5000,
+	offms: 30000,
 	g:w.gfx,
 	init: function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
@@ -76,28 +125,18 @@ face[5] = {
 		this.g.drawString(1,34,18);this.g.drawString(2,115,18);this.g.drawString(3,195,18);
 		this.g.drawString(4,34,85);this.g.drawString(5,115,85);this.g.drawString(6,195,85);
 		this.g.drawString(7,34,153);this.g.drawString(8,115,153);this.g.drawString(9,195,153);
-		//this.g.drawString(0,130,65);
 		this.g.flip(); 
         this.g.setColor(0,col("black"));
-        this.g.drawLine(0,63,239,63);
+        this.g.drawLine(0,64,239,64);
         this.g.drawLine(0,65,239,65);
    		this.g.flip(); 
         this.g.drawLine(0,129,239,129);
         this.g.drawLine(0,130,239,130);
    		this.g.flip(); 
-//        this.g.drawLine(59,0,59,195);
         this.g.drawLine(80,0,80,195);
    		this.g.flip();
-//        this.g.drawLine(179,0,179,195);
         this.g.drawLine(160,0,160,195);
    		this.g.flip();
-
-/*		this.g.fillRect(0,196,239,239);
-		this.g.setColor(1,col("white"));
-		this.g.setFont("Vector",20);
-		this.g.drawString("ENTER PASSWORD",120-(this.g.stringWidth("ENTER PASSWORD")/2),214); 
-		this.g.flip(); 
-*/		
         this.pass="";
 		this.run=false;
 		this.ntfy("ENTER PASSWORD",20,0);
@@ -117,7 +156,7 @@ face[5] = {
 			this.g.fillRect(0,196,239,239);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",size);
-			this.g.drawString(txt,120-(this.g.stringWidth(txt)/2),212); 
+			this.g.drawString(txt,122-(this.g.stringWidth(txt)/2),212); 
 			this.info=1;
 			this.g.flip();
 			if (this.ntid) clearTimeout(this.ntid);
@@ -130,10 +169,10 @@ face[5] = {
 				t.g.fillRect(82,198,158,239);
 				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",30);
-				t.g.drawString(0,115,213); 
-				t.info=0;
+				t.g.drawString(0,115,207); 
+				if (t.pass.length >=4) t.pass="";
 				t.g.flip();
-			},1000,this);
+			},1200,this);
     },
     btn: function(x1,y1,x2,y2,bt,xb,yb){
             this.g.setColor(0,col("red"));
@@ -175,19 +214,12 @@ face[5] = {
 touchHandler[0]=function(e,x,y){ 
 	switch (e) {
 	case 5: //tap event
-        if (!face[0].calibrate){
-		if (x<=120&&y<175) { //tilt forward
-			digitalPulse(D16,1,[30,50,30]);
-		}else if (120<=x&&y<=175) { //tilt back
-			digitalPulse(D16,1,[30,50,30]);
-		}else if (175<=y) { //calibrate
-			digitalPulse(D16,1,[30,50,30]);
-		}else digitalPulse(D16,1,[30,50,30]);
-        }else { //calibrate
-          if (175<=y&&120<=x) {face.go("dashSetKsAdv",0);return;
-          }else if (175<=y&&x<=120) euc.wri("calibrate");
-          else digitalPulse(D16,1,40);
-        }
+		digitalPulse(D16,1,[30,50,30]);
+		if (y<=100) { //enable/disable
+          face[0].ntfy((euc.dash.pass.length>=4)?"HOLD - DISABLE":"HOLD - ENABLE",20,col("dgray"));
+		}else  { //change
+           face[0].ntfy("HOLD -> CHANGE",20,col("dgray"));
+		}
 		this.timeout();
 		break;
 	case 1: //slide down event
@@ -212,7 +244,21 @@ touchHandler[0]=function(e,x,y){
 		face.go("dashSetKsAdv",0);
 		return;
 	case 12: //long press event
-		digitalPulse(D16,1,[100]);
+		digitalPulse(D16,1,[30,50,30]);
+        if (euc.dash.pass.length>=4){ 
+		if (y<=100) { //enable/disable
+          euc.dash.pass="";
+          face[0].init();
+		}else  { //change
+            face[0].passSet=1;
+            face[5].init();
+            return;		
+        }
+        }else {
+          euc.dash.pass="";
+          face[5].init();
+          face[0].passSet=1;
+        }  
 		this.timeout();
 		break;
   }
@@ -220,47 +266,74 @@ touchHandler[0]=function(e,x,y){
 touchHandler[5]=function(e,x,y){ 
 	switch (e) {
 	case 5: //tap event
-        digitalPulse(D16,1,40);
-        if (x<=80&&y<=65) { //1
-          face[5].pass=face[5].pass+1;
-          face[5].btn(0,0,79,63,1,34,18);  
-        }else if (80<=x&&x<=160&&y<=65) { //2 
-          face[5].pass=face[5].pass+2;
-          face[5].btn(82,0,158,63,2,115,18);  
-        }else if (160<=x&&y<=65) { //3
-          face[5].btn(162,0,239,63,3,195,18);  
-          face[5].pass=face[5].pass+3;
-        }else if (x<=80&&65<=y&&y<=130) { //4
-          face[5].pass=face[5].pass+4;
-          face[5].btn(0,66,79,129,4,34,85);  
-         }else if (80<=x&&x<=160&&65<=y&&y<=130) { //5 
-          face[5].pass=face[5].pass+5;
-          face[5].btn(82,66,158,129,5,115,85);  
-        }else if (160<=x&&65<=y&&y<=130) { //6 
-          face[5].pass=face[5].pass+6;
-          face[5].btn(162,66,239,129,6,195,85);  
-        }else if (x<=80&&130<=y&&y<=195) { //7
-          face[5].pass=face[5].pass+7;
-          face[5].btn(0,131,79,194,7,34,153);  
-        }else if (80<=x&&x<=160&&130<=y&&y<=195) { //8 
-          face[5].pass=face[5].pass+8;
-          face[5].btn(82,131,158,194,8,115,153);  
-        }else if (160<=x&&130<=y&&y<=195) { //9 
-          face[5].pass=face[5].pass+9;
-          face[5].btn(162,131,239,194,9,195,153);  
-        }else if (195<=y) { //0
-        face[5].pass=face[5].pass+0;
+        if (face[5].pass.length>=4) {digitalPulse(D16,1,40);return;}
+		digitalPulse(D16,1,[30,50,30]);
+        let i;
+        if (x<=80&&y<=65) {i=1;
+          face[5].btn(0,0,79,63,i,34,18); 
+          face[5].pass=face[5].pass+i;
+        }else if (80<=x&&x<=160&&y<=65) {i=2;
+          face[5].pass=face[5].pass+i;
+          face[5].btn(82,0,158,63,i,115,18); 
+        }else if (160<=x&&y<=65) {i=3;
+          face[5].btn(162,0,239,63,i,195,18);  
+          face[5].pass=face[5].pass+i;
+        }else if (x<=80&&65<=y&&y<=130) {i=4;
+          face[5].btn(0,66,79,129,i,34,85);  
+          face[5].pass=face[5].pass+i; 
+         }else if (80<=x&&x<=160&&65<=y&&y<=130) {i=5; 
+          face[5].pass=face[5].pass+i;
+          face[5].btn(82,66,158,129,i,115,85);  
+        }else if (160<=x&&65<=y&&y<=130) {i=6;
+          face[5].pass=face[5].pass+i;
+          i=6;face[5].btn(162,66,239,129,i,195,85);  
+        }else if (x<=80&&130<=y&&y<=195) {i=7;
+          face[5].btn(0,131,79,194,i,34,153);  
+          face[5].pass=face[5].pass+i;
+        }else if (80<=x&&x<=160&&130<=y&&y<=195) {i=8;
+          face[5].btn(82,131,158,194,i,115,153);
+          face[5].pass=face[5].pass+i;
+        }else if (160<=x&&130<=y&&y<=195) {i=9; 
+          face[5].pass=face[5].pass+i;
+          face[5].btn(162,131,239,194,i,195,153);  
+        }else if (195<=y) {i=0;
+          face[5].btn(82,197,158,239,0,115,207);  
+          i=0;face[5].pass=face[5].pass+0;
         }
-
         if (face[5].pass.length>=4){
-          if (face[5].pass==euc.dash.pass) {face.go("dashSetKsAdvPass",0);return;}	 
-          else {
-            digitalPulse(D16,1,120);
-       		face[5].ntfy("WRONG PASSWORD",20,col("red"));
-            face[5].pass="";}
-        }
-            
-            
+          if (face[5].tid0) {clearTimeout(face[5].tid0); face[5].tid0=0;}
+          if (face[0].passSet){
+             if (face[0].passSet>=2){
+                if (face[5].pass==face[5].passTemp){
+                  euc.dash.passOld=euc.dash.pass;
+                  euc.dash.pass=face[5].pass;
+                  digitalPulse(D16,1,80);
+                  face[5].ntfy("PASSWORD CHANGED",20,col("blue1"));
+                  setTimeout(()=>{face.go("dashSetKsAdvPass",0);return;},1000);
+                }else{
+                  digitalPulse(D16,1,120);
+                  face[5].ntfy("NOT THE SAME",20,col("red"));
+                  face[0].passSet=1;
+                  face[5].passTemp="";
+                }
+              }else {
+                 face[5].passTemp=face[5].pass;
+                 digitalPulse(D16,1,80);
+                 face[0].passSet=2;
+                 face[5].ntfy("RE-ENTER->CONFIRM",20,col("blue1"));
+             }
+          }else{
+              if (face[5].pass==euc.dash.pass) {
+                digitalPulse(D16,1,80);
+                face[5].ntfy("PASSWORD ACCEPTED",20,col("blue1"));
+                setTimeout(()=>{face.go("dashSetKsAdvPass",0);return;},1000);
+              } else {
+                
+                digitalPulse(D16,1,120);
+       	  	    face[5].ntfy("WRONG PASSWORD",20,col("red"));
+              }
+          }
+        }       
         this.timeout();
 		break;
 	case 1: //slide down event
