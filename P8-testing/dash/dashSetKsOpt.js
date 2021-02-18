@@ -44,10 +44,10 @@ face[0] = {
     },
     ntfy: function(txt1,txt0,size,clr,bt){
             this.g.setColor(0,clr);
-			this.g.fillRect(0,198,239,239);
+			this.g.fillRect(0,196,239,239);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",size);
-     		this.g.drawString((bt)?txt1:txt0,122-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
+     		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
 			this.g.flip();
 			if (this.ntid) clearTimeout(this.ntid);
 			this.ntid=setTimeout(function(t){
@@ -56,7 +56,7 @@ face[0] = {
 				t.g.fillRect(0,196,239,239);
 				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",20);
-		        t.g.drawString("OPTIONS",122-(t.g.stringWidth("OPTIONS")/2),214); 
+		        t.g.drawString("OPTIONS",120-(t.g.stringWidth("OPTIONS")/2),214); 
 				t.g.flip();
 			},1000,this);
     },
