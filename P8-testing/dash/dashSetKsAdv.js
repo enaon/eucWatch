@@ -120,7 +120,6 @@ touchHandler[0]=function(e,x,y){
 			else if (euc.dash.mode==1) euc.wri("rideSoft");
 			else if (euc.dash.mode==2) euc.wri("rideHard");
 			digitalPulse(D16,1,[30,50,30]);		
-					//mode
 			this.btn(this.b1,"AUTO",18,60,15,col("raf"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
 		}else if (120<=x<=239&&y<=100) { //calibrate
             digitalPulse(D16,1,[30,50,30]);
@@ -129,7 +128,7 @@ touchHandler[0]=function(e,x,y){
 		}else if (x<=120&&100<=y<=200) {   //limits
 			euc.dash.aOff=1-euc.dash.aOff;
 			digitalPulse(D16,1,[30,50,30]);		
-		}else if (120<=x<=239&&100<=y<=200) { //pass
+		}else if (120<=x&&x<=239&&100<=y&&y<=200) { //pass
 			digitalPulse(D16,1,[30,50,30]);		
 			if (euc.dash.pass.length>=4) face.go("dashSetKsPass",5);
 			else face.go("dashSetKsPass",0);
