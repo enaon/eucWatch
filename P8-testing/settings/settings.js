@@ -7,7 +7,8 @@ face[0] = {
     this.cli=-1;this.bt=-1;this.gb=-1;this.hid=-1;this.atc=-1;this.bri=-1;this.acc=-1;this.dnd=-1;this.sys=1;this.btn2=1;this.fmp=-1;
     var d=(Date()).toString().split(' ');
     var t=(d[4]).toString().split(':');	
-/*      this.g.setColor(0,col("black"));
+      this.g.setColor(0,col("black"));
+	  this.g.fillRect(0,0,239,155);
       if(!face.mode) this.g.setColor(1,col("dgray")); else this.g.setColor(1,col("dgray1"));
       this.g.fillRect(0,0,75,75);//1
       this.g.fillRect(80,0,155,75); //2
@@ -16,12 +17,12 @@ face[0] = {
       this.g.fillRect(80,80,155,155); //5
       this.g.fillRect(160,80,239,155);//6
       this.g.flip();
-*/    
+    
 
     
     //bottom
     this.g.setColor(0,col("black"));
-    this.g.clearRect(0,0,239,239);
+    this.g.fillRect(0,0,239,239);
 //    this.g.fillRect(0,156,239,239);
     this.g.setColor(1,col("lblue"));
     this.g.drawImage(require("heatshrink").decompress(atob("mEwwILIgOAAp0EAoMQAoMMAoMwAoMGAoNgAoMDAQPADgcBAooqEADcP///+AFNABcHCIPgKYQFHKYYFHLIYFHFQd/Aol8nwFDngFdvwFDn/+AvX8ApIADA==")),11,173);
