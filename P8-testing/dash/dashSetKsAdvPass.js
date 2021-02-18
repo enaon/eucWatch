@@ -3,7 +3,6 @@ face[0] = {
 	offms: 5000,
 	g:w.gfx,
 	init: function(){
-        //clear screen
    		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
         //status
         if (euc.dash.pass.length>=4){
@@ -14,6 +13,11 @@ face[0] = {
 		this.g.drawString("WHEEL IS",120-(this.g.stringWidth("WHEEL IS")/2),18); 
    		this.g.setFont("Vector",26);
         this.g.drawString("PASS LOCKED",120-(this.g.stringWidth("PASS LOCKED")/2),50); 
+        this.g.flip();
+		//line
+      	this.g.setColor(0,col("black"));
+		this.g.drawLine (0,98,239,98);
+		this.g.drawLine (0,99,239,99);
         this.g.flip();
         //change
 		this.g.setColor(0,col("olive"));
@@ -32,15 +36,8 @@ face[0] = {
 		this.g.drawString("WHEEL IS",120-(this.g.stringWidth("WHEEL IS")/2),55); 
    		this.g.setFont("Vector",30);
         this.g.drawString("PASS FREE",120-(this.g.stringWidth("PASS FREE")/2),90); 
-//        this.g.setFont("Vector",16);
-//		this.g.drawString("HOLD TO SET",120-(this.g.stringWidth("HOLD TO SET")/2),145); 
         this.g.flip();
         }
-		//clear screen
-      	this.g.setColor(0,col("black"));
-		this.g.drawLine (0,98,239,98);
-		this.g.drawLine (0,99,239,99);
-        this.g.flip();
         //info
         this.g.setColor(0,col("black"));
 		this.g.fillRect(0,195,239,239);
@@ -254,15 +251,15 @@ touchHandler[0]=function(e,x,y){
           euc.dash.pass="";
           euc.dash.passSend=0;
 		  euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
-          face.go("dashSetKsPass",0);
+          face.go("dashSetKsAdvPass",0);
 		}else  { //change
-            face.go("dashSetKsPass",5);
+            face.go("dashSetKsAdvPass",5);
             face[0].passSet=1;
             return;		
         }
         }else { //enable
           euc.dash.pass="";
-          face.go("dashSetKsPass",5);
+          face.go("dashSetKsAdvPass",5);
           face[0].passSet=1;
         }  
 		this.timeout();

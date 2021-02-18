@@ -1,4 +1,5 @@
 //watchdog
+setBusyIndicator(D27)
 E.kickWatchdog();
 function P8KickWd(){
 	"ram";

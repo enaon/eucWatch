@@ -3,6 +3,7 @@ face[0] = {
   offms: 5000, 
   g:w.gfx, 
   init: function(o){ 
+	this.g.clear(); 
 	this.slot1Mac=require("Storage").readJSON("dash.json",1).slot1Mac;
 	this.slot2Mac=require("Storage").readJSON("dash.json",1).slot2Mac;
 	this.slot3Mac=require("Storage").readJSON("dash.json",1).slot3Mac;
@@ -248,8 +249,6 @@ face[0] = {
     if (this.s3tid)  clearTimeout(this.s3tid);
     if (this.s4tid)  clearTimeout(this.s4tid);
 	if (this.itid) clearTimeout(this.itid);this.itid=0;
-    pal[0]=col("black"); 
-    this.g.clear(); 
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);this.tid=-1;
     return true;
