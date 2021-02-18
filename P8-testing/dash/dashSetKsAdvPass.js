@@ -5,6 +5,7 @@ face[0] = {
 	init: function(){
         //clear screen
    		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
+        //clear screen
       	this.g.setColor(0,col("black"));
 		this.g.drawLine (0,98,239,98);
 		this.g.drawLine (0,99,239,99);
@@ -36,13 +37,11 @@ face[0] = {
 		this.g.fillRect(0,0,239,195);
  		this.g.setColor(1,col("white"));
    		this.g.setFont("Vector",16);
-		this.g.drawString("WHEEL IS",120-(this.g.stringWidth("WHEEL IS")/2),18); 
+		this.g.drawString("WHEEL IS",120-(this.g.stringWidth("WHEEL IS")/2),58); 
    		this.g.setFont("Vector",26);
-        this.g.drawString("PASS FREE",120-(this.g.stringWidth("PASS FREE")/2),50); 
-  		this.g.setFont("Vector",16);
-		this.g.drawString("HOLD",122-(this.g.stringWidth("HOLD")/2),118); 
-   		this.g.setFont("Vector",26);
-        this.g.drawString("SET PASS",122-(this.g.stringWidth("SET PASS")/2),150); 
+        this.g.drawString("PASS FREE",120-(this.g.stringWidth("PASS FREE")/2),90); 
+//        this.g.setFont("Vector",16);
+//		this.g.drawString("HOLD TO SET",120-(this.g.stringWidth("HOLD TO SET")/2),145); 
         this.g.flip();
         }
         //info
@@ -214,13 +213,19 @@ face[5] = {
 touchHandler[0]=function(e,x,y){ 
 	switch (e) {
 	case 5: //tap event
-		digitalPulse(D16,1,[30,50,30]);
+        if (euc.dash.pass.length>=4){
+   		digitalPulse(D16,1,[30,50,30]);
 		if (y<=100) { //enable/disable
-          face[0].ntfy((euc.dash.pass.length>=4)?"HOLD - DISABLE":"HOLD - ENABLE",20,col("dgray"));
+          face[0].ntfy("HOLD - DISABLE",20,col("dgray"));
 		}else  { //change
            face[0].ntfy("HOLD -> CHANGE",20,col("dgray"));
 		}
-		this.timeout();
+        } else {
+          digitalPulse(D16,1,40);
+          face[0].ntfy("HOLD -> ENABLE",20,col("dgray"));
+
+        }
+        this.timeout();
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
@@ -248,15 +253,16 @@ touchHandler[0]=function(e,x,y){
         if (euc.dash.pass.length>=4){ 
 		if (y<=100) { //enable/disable
           euc.dash.pass="";
-          face[0].init();
+		  
+          face.go("dashSetKsPass",0);
 		}else  { //change
             face[0].passSet=1;
-            face[5].init();
+            face.go("dashSetKsPass",5);
             return;		
         }
         }else {
           euc.dash.pass="";
-          face[5].init();
+          face.go("dashSetKsPass",5);
           face[0].passSet=1;
         }  
 		this.timeout();
