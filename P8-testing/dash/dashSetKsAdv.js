@@ -73,14 +73,16 @@ face[0] = {
 		  t.show();
         },1000,this);
 	},
-    btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
-			this.g.setColor(0,(bt)?clr1:clr0);
+    btn: function(txt,size,x,y,clr,rx1,ry1,rx2,ry2,txt1,size1,x1,y1){
+			this.g.setColor(0,clr);
 			this.g.fillRect(rx1,ry1,rx2,ry2);
 			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",size1);	
-          this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1); 
-   			if (txt2){this.g.setFont("Vector",size2);	
-            this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);}
+			this.g.setFont("Vector",size);	
+            this.g.drawString(txt,x-(this.g.stringWidth(txt)/2),y); 
+   			if (txt1){
+            this.g.setFont("Vector",size1);	
+            this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1);
+            }
 			this.g.flip();
     },
 	tid:-1,
@@ -116,11 +118,10 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
       case 5:case 12: //tap event
 		if (x<=120&&y<=100) { //ride mode
-			if (euc.dash.mode==0) euc.wri("rideMed");
-			else if (euc.dash.mode==1) euc.wri("rideSoft");
-			else if (euc.dash.mode==2) euc.wri("rideHard");
+			if (euc.dash.mode==0) {euc.wri("rideMed");face[0].btn("MODE",18,60,15,col("raf2"),0,0,119,97,"MED",30,60,50);}
+			else if (euc.dash.mode==1) {euc.wri("rideSoft");face[0].btn("MODE",18,60,15,col("raf3"),0,0,119,97,"SOFT",30,60,50);}
+			else if (euc.dash.mode==2) {euc.wri("rideHard");face[0].btn("MODE",18,60,15,col("raf4"),0,0,119,97,"HARD",30,60,50);}
 			digitalPulse(D16,1,[30,50,30]);		
-			this.btn(this.b1,"AUTO",18,60,15,col("raf"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
 		}else if (120<=x<=239&&y<=100) { //calibrate
             digitalPulse(D16,1,[30,50,30]);
 			face.go("dashSetKsAdvCalibrate",0);
