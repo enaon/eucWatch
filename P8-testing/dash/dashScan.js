@@ -5,15 +5,19 @@ face[0] = {
   init: function(o){ 
     this.g.setColor(0,0);
     this.g.setColor(1,col("dgray"));
-    this.g.fillRect(0,0,239,95);
+    this.g.fillRect(0,0,239,96);
     this.g.flip();   
     this.g.setColor(1,col("dgray"));
     this.g.setColor(0,col("white"));
 	this.g.setFont("Vector",26);
   	this.g.drawString("KINGSONG",120-(this.g.stringWidth("KINGSONG")/2),38); 
     this.g.flip();
+	this.g.setColor(0,0);	
+	this.g.drawLine(0,97,239,97);
+	this.g.drawLine(0,98,239,98);
+    this.g.flip();
     this.g.setColor(1,col("dgray"));
-    this.g.fillRect(0,100,239,195);
+    this.g.fillRect(0,99,239,195);
     this.g.flip();
     this.g.setColor(1,col("dgray"));
     this.g.setColor(0,col("white"));
@@ -22,6 +26,7 @@ face[0] = {
     this.g.drawString("ONE C/E/P",120-(this.g.stringWidth("ONE C/E/P")/2),165);
     this.g.flip();
     this.g.setColor(0,0);
+    this.g.fillRect(0,196,239,239);
     this.g.setColor(1,col("white"));
     this.g.setFont("Vector",20);
 	this.g.drawString("SCAN FOR",120-(this.g.stringWidth("SCAN FOR")/2),214);
@@ -33,8 +38,6 @@ face[0] = {
   tid:-1,
   run:false,
   clear : function(){  
-    pal[0]=0; 
-    this.g.clear(); 
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid); 
     this.tid=-1;
@@ -51,11 +54,7 @@ face[1] = {
   return true;
   },//only use this part of the face to set redirection.
   show : function(){
-   	face.go(face.appRoot[0],face.appRoot[1]); //go to the previous face on screen of the previous app.  
-	//face.go(face.appPrev,face.pagePrev); //go to the previous face on screen, even if it was on the same app. 
-  	//face.go("hello",-1); //sleep and set this face as the on_wake face. 
-	//face.go("main",-1);//sleep and set this face as the on_wake face. 
-	//face.go("main",0);//go to main Clock face. 
+    face.go("dashGarage",0);
     return true;
   },
    clear: function(){
@@ -104,7 +103,7 @@ touchHandler[0]=function(e,x,y){
 	this.timeout();
     break;
   case 4: //slide right event (back action)
-    face.go("dashSelect",0);
+    face.go("dashGarage",0);
 	return;
   }
 };

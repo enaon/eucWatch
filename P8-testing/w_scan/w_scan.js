@@ -120,7 +120,6 @@ face[0] = {
   tid:-1,
   run:false,
   clear : function(){
-    pal[0]=0;
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
     if (this.loop>=0) clearInterval(this.loop);
