@@ -91,8 +91,9 @@ var set={
 		this.hidM=undefined;
 		if (global["\xFF"].modules.ble_hid_controls) Modules.removeCached("ble_hid_controls");
     }
-	if (!Boolean(require('Storage').read('atc'))) this.def.atc=0;
-	if (this.def.atc) eval(require('Storage').read('atc'));
+	//if (!Boolean(require('Storage').read('atc'))) this.def.atc=0;
+	if (!Boolean(require('Storage').read('eucWorld'))) this.def.atc=0;
+	if (this.def.atc) eval(require('Storage').read('eucWorld'));
 	else {
 		NRF.setServices(undefined,{uart:(this.def.cli||this.def.gb)?true:false,hid:(this.def.hid&&this.hidM)?this.hidM.report:undefined });
 		if (this.atcW) {this.atcW=undefined;this.atcR=undefined;} 

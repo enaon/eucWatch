@@ -150,99 +150,102 @@ face[1] = {
 };	
 //setup face
 face[5] = {
-  offms: 5000,
-  g:w.gfx,
-  al:{
-  1:{hour:0,min:0,rep:0,snz:0,on:0,set:0},
-  2:{hour:0,min:0,rep:0,snz:0,on:0,set:0},
-  3:{hour:0,min:0,rep:0,snz:0,on:0,set:0},
-  curr:-1
-  },
-  pad:function pad(n) {
-    return (n < 10) ? ("0" + n) : n;
-  }, 
-  init: function(o){
-    this.al[o].hour=-1;
-    this.al[o].min=-1;
-    this.al[o].rep=-1;
-    this.al[o].snz=-1;
-    this.al.curr=o;
-    var d=(Date()).toString().split(' ');
-    var t=(d[4]).toString().split(':');
-    this.g.setColor(0,0); //header
-    this.g.fillRect(0,0,239,35); 
-    this.g.setColor(1,col("lblue"));
-    this.g.setFont("Vector",25);
-	this.g.drawString("SET AL"+this.al.curr,4,6); 
-    this.g.setFont("Vector",32);
-  	this.g.drawString(t[0]+":"+t[1],242-(this.g.stringWidth(t[0]+":"+t[1])),3); 
-    this.g.flip();
-  	this.run=true;
+	offms: 5000,
+	g:w.gfx,
+	al:{
+		1:{hour:0,min:0,rep:0,snz:0,on:0,set:0},
+		2:{hour:0,min:0,rep:0,snz:0,on:0,set:0},
+		3:{hour:0,min:0,rep:0,snz:0,on:0,set:0},
+		curr:-1
+	},
+	pad:function pad(n) {
+		return (n < 10) ? ("0" + n) : n;
+	}, 
+	init: function(o){
+		this.al[o].hour=-1;
+		this.al[o].min=-1;
+		this.al[o].rep=-1;
+		this.al[o].snz=-1;
+		this.al.curr=o;
+		var d=(Date()).toString().split(' ');
+		var t=(d[4]).toString().split(':');
+		this.g.setColor(0,0); //header
+		this.g.fillRect(0,0,239,35); 
+		this.g.setColor(1,col("lblue"));
+		this.g.setFont("Vector",25);
+		this.g.drawString("SET AL"+this.al.curr,4,6); 
+		this.g.setFont("Vector",32);
+		this.g.drawString(t[0]+":"+t[1],242-(this.g.stringWidth(t[0]+":"+t[1])),3); 
+		this.g.flip();
+		this.run=true;
   },
   show : function(o){
     if (!this.run) return;
     if (alrm[o].hour!=this.al[o].hour) {
-      this.al[o].hour=alrm[o].hour;
-      this.g.setColor(0,col("lgray"));
-      this.g.fillRect(0,39,121,181);//hour
-      if (alrm[o].tmr!=-1) this.g.setColor(1,col("lblue"));else this.g.setColor(1,col("white"));
-      this.g.setFont("Vector",75);  
-      this.g.drawString(this.pad(this.al[o].hour),66-(this.g.stringWidth(this.pad(this.al[o].hour)))/2,70); 
-  	  this.g.flip();
+		this.al[o].hour=alrm[o].hour;
+		this.g.setColor(0,col("lgray"));
+		this.g.fillRect(0,39,121,181);//hour
+		if (alrm[o].tmr!=-1) this.g.setColor(1,col("lblue"));else this.g.setColor(1,col("white"));
+		this.g.setFont("Vector",75);  
+		this.g.drawString(this.pad(this.al[o].hour),66-(this.g.stringWidth(this.pad(this.al[o].hour)))/2,70); 
+		this.g.flip();
     }
     if (alrm[o].min!=this.al[o].min) {
-      this.al[o].min=alrm[o].min;
-      if (alrm[o].tmr!=-1){
-        this.g.setColor(0,col("raf2"));
-        this.g.fillRect(122,39,239,181);//min
-        this.g.setColor(1,col("lblue"));
-      }else {
-        this.g.setColor(0,col("gray"));
-        this.g.fillRect(122,39,239,181);//min
-        this.g.setColor(1,col("white"));
-      }
-      this.g.setFont("Vector",75);  
-      this.g.drawString(this.pad(this.al[o].min),190-(this.g.stringWidth(this.pad(this.al[o].min)))/2,70); 
-  	  this.g.flip();
+		this.al[o].min=alrm[o].min;
+		if (alrm[o].tmr!=-1){
+			this.g.setColor(0,col("raf2"));
+			this.g.fillRect(122,39,239,181);//min
+			this.g.setColor(1,col("lblue"));
+		}else {
+			this.g.setColor(0,col("gray"));
+			this.g.fillRect(122,39,239,181);//min
+			this.g.setColor(1,col("white"));
+		}
+	this.g.setFont("Vector",75);  
+	this.g.drawString(this.pad(this.al[o].min),190-(this.g.stringWidth(this.pad(this.al[o].min)))/2,70); 
+	this.g.flip();
     }
     if (alrm[o].snz!=this.al[o].snz) {
-      this.al[o].snz=alrm[o].snz;
-      this.c=0;
-      if (this.al[o].snz===1)  { this.g.setColor(0,col("dblue"));this.c=col("white");}
-      else this.g.setColor(0,col("gray")); 
-      this.g.fillRect(0,185,120,239);//snooze
-      this.g.setColor(1,this.c);
-      this.g.setFont("Vector",25);  
-      this.g.drawString("SNOOZE",4,202); 
-  	  this.g.flip();
+		this.al[o].snz=alrm[o].snz;
+		this.c=0;
+		if (this.al[o].snz===1)  { this.g.setColor(0,col("dblue"));this.c=col("white");}
+		else this.g.setColor(0,col("gray")); 
+		this.g.fillRect(0,185,120,239);//snooze
+		this.g.setColor(1,this.c);
+		this.g.setFont("Vector",25);  
+		this.g.drawString("SNOOZE",4,202); 
+		this.g.flip();
+		this.g.setColor(0,col("gray"));
+		this.g.drawLine (121,185,121,239);
+		this.g.flip();
     }
     if (alrm[o].rep!=this.al[o].rep) {
-      this.al[o].rep=alrm[o].rep;
-      this.c=0;
-      if (this.al[o].rep===1) { this.g.setColor(0,col("dblue"));this.c=col("white");}
-      else this.g.setColor(0,col("gray")); 
-      this.g.fillRect(123,185,239,239);//repeat
-      this.g.setColor(1,this.c);
-      this.g.setFont("Vector",25);  
-      this.g.drawString("REPEAT",130,202); 
-  	  this.g.flip();
+		this.al[o].rep=alrm[o].rep;
+		this.c=0;
+		if (this.al[o].rep===1) { this.g.setColor(0,col("dblue"));this.c=col("white");}
+		else this.g.setColor(0,col("gray")); 
+		this.g.fillRect(122,185,239,239);//repeat
+		this.g.setColor(1,this.c);
+		this.g.setFont("Vector",25);  
+		this.g.drawString("REPEAT",130,202); 
+		this.g.flip();
     }
     this.tid=setTimeout(function(t){
-      t.tid=-1;
-      t.show(o);
+		t.tid=-1;
+		t.show(o);
     },100,this);
-  },
-  tid:-1,
-  run:false,
-  clear : function(){
-    this.run=false;
-    if (this.tid>=0) clearTimeout(this.tid);
-    this.tid=-1;
-    return true;
-  },
-  off: function(){
-    this.g.off();
-    this.clear();
+	},
+	tid:-1,
+	run:false,
+	clear : function(){
+		this.run=false;
+		if (this.tid>=0) clearTimeout(this.tid);
+		this.tid=-1;
+		return true;
+	},
+	off: function(){
+		this.g.off();
+		this.clear();
   }
 };
 //touch main
