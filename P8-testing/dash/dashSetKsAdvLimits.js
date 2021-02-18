@@ -5,13 +5,13 @@ face[0] = {
 	init: function(){
 /*		this.g.setColor(1,col("gray"));
 		this.g.fillRect(0,0,239,195); //left up
-		this.g.setColor(0,col("black"));
+		this.g.setColor(0,0);
 		this.g.setFont("Vector",32);
 		this.g.drawString("TODO",120-(this.g.stringWidth("TODO")/2),9); 
 	
 		this.g.flip();
 */
-		this.g.setColor(0,col("black"));
+		this.g.setColor(0,0);
 		this.g.fillRect(0,198,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
@@ -109,7 +109,7 @@ face[0] = {
 			if (this.itid)clearTimeout(this.itid);
 			this.itid=setTimeout(function(t){
 				t.itid=0;
-				t.g.setColor(0,col("black"));
+				t.g.setColor(0,0);
 				t.g.fillRect(0,198,239,239);//6
 				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",20);

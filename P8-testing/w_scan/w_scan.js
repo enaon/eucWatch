@@ -54,7 +54,7 @@ face[0] = {
 	this.go=(require("Storage").readJSON("setting.json",1)||{})[face.appPrev+"_go"];
     this.start=1;
 	if(!scan.mac) {scan.mac=[];this.find(o);}
-    this.g.setColor(0,col("black")); //header
+    this.g.setColor(0,0); //header
     this.g.fillRect(0,0,239,35); 
     this.g.setColor(1,col("lblue"));
     this.g.setFont("Vector",24);
@@ -67,7 +67,7 @@ face[0] = {
   show : function(o){
     if (!this.run) return;
     if (!this.start){ 
-      this.g.setColor(0,col("black")); //header
+      this.g.setColor(0,0); //header
       this.g.fillRect(160,0,239,35);
       this.g.flip();
       this.g.setColor(1,col("dgray"));
@@ -78,7 +78,7 @@ face[0] = {
       this.g.flip();
     }else if (scan.mac!=""&&this.start==1){
       this.start=2;
-      this.g.setColor(0,col("black")); //header
+      this.g.setColor(0,0); //header
       this.g.fillRect(160,0,239,35);
       this.g.setColor(1,col("lblue"));
       this.g.setFont("Vector",26);
@@ -120,7 +120,7 @@ face[0] = {
   tid:-1,
   run:false,
   clear : function(){
-    pal[0]=col("black");
+    pal[0]=0;
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
     if (this.loop>=0) clearInterval(this.loop);

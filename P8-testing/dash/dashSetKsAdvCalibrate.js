@@ -68,7 +68,7 @@ face[0] = {
 			if (this.itid)clearTimeout(this.itid);
 			this.itid=setTimeout(function(t){
 				t.itid=0;
-				t.g.setColor(0,col("black"));
+				t.g.setColor(0,0);
 				t.g.fillRect(0,198,239,239);//6
 				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",20);

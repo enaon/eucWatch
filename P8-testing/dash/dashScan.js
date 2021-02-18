@@ -3,7 +3,7 @@ face[0] = {
   offms: 5000, 
   g:w.gfx, 
   init: function(o){ 
-    this.g.setColor(0,col("black"));
+    this.g.setColor(0,0);
     this.g.setColor(1,col("dgray"));
     this.g.fillRect(0,0,239,95);
     this.g.flip();   
@@ -21,7 +21,7 @@ face[0] = {
 	this.g.setFont("Vector",14);
     this.g.drawString("ONE C/E/P",120-(this.g.stringWidth("ONE C/E/P")/2),165);
     this.g.flip();
-    this.g.setColor(0,col("black"));
+    this.g.setColor(0,0);
     this.g.setColor(1,col("white"));
     this.g.setFont("Vector",20);
 	this.g.drawString("SCAN FOR",120-(this.g.stringWidth("SCAN FOR")/2),214);
@@ -33,7 +33,7 @@ face[0] = {
   tid:-1,
   run:false,
   clear : function(){  
-    pal[0]=col("black"); 
+    pal[0]=0; 
     this.g.clear(); 
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid); 

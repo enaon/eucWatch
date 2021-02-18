@@ -5,13 +5,13 @@ face[0] = {
 	init: function(){
 /*		this.g.setColor(1,col("gray"));
 		this.g.fillRect(0,0,239,195); //left up
-		this.g.setColor(0,col("black"));
+		this.g.setColor(0,0);
 		this.g.setFont("Vector",32);
 		this.g.drawString("TODO",120-(this.g.stringWidth("TODO")/2),9); 
 	
 		this.g.flip();
 */
-		this.g.setColor(0,col("black"));
+		this.g.setColor(0,0);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
 		this.g.drawString("EUC SETTINGS",120-(this.g.stringWidth("EUC SETTING")/2),214); 
@@ -28,7 +28,7 @@ face[0] = {
 		if (this.b1!=this.b1s){
 			this.b1s=this.b1;
 			if (this.b1==0) {
-				this.b1t="OFF";this.b1c=col("black");
+				this.b1t="OFF";this.b1c=0;
 			}else if (this.b1==1) {
 				this.b1t="ON";this.b1c=col("blue");
 			}else if (this.b1==2) {
@@ -79,7 +79,7 @@ face[0] = {
 		}
 		if (this.b4!=this.b4s){
 			this.b4s=this.b4;
-			this.g.setColor(0,col("black"));
+			this.g.setColor(0,0);
 			this.g.fillRect(121,100,239,195);
 			this.g.setColor(1,col("lblue"));
 			this.g.setFont("Vector",30);	

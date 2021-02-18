@@ -5,7 +5,7 @@ face[0] = {
 	init: function(){
 		this.g.setColor(1,col("gray"));
 		this.g.fillRect(0,0,239,195); //left up
-		this.g.setColor(0,col("black"));
+		this.g.setColor(0,0);
 		this.g.setFont("Vector",32);
 		this.g.drawString("TODO",120-(this.g.stringWidth("TODO")/2),9); 
 	

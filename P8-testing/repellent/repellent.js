@@ -54,7 +54,7 @@ face[0]= {
 	g.fillRect(120,0,239,50); //header
     g.fillRect(0,0,117,50); //status
     g.fillRect(0,200,239,239); //mac
-    g.setColor(0,col("black"));//header txt
+    g.setColor(0,0);//header txt
     g.setFont("Vector",25);
 	g.drawString("INSECT",4,3); 
     g.setFont("Vector",20);
@@ -159,7 +159,7 @@ face[0]= {
     if (rep.sta!=this.sta) {
       this.sta=rep.sta;
       var s;
-      if (this.sta==0) {s="OFF";this.c=col("black");this.b=col("gray");}
+      if (this.sta==0) {s="OFF";this.c=0;this.b=col("gray");}
       else if (this.sta==1) {s="ON";this.c=col("white");this.b=col("raf");}
       else if (this.sta==3) {s="AUTO";this.c=col("yellow");this.b=col("raf");}
       g.setColor(1,this.b);
@@ -173,7 +173,7 @@ face[0]= {
       this.mac=rep.mac[rep.go];
       g.setColor(1,col("lgray"));
       g.fillRect(0,200,239,239); //mac
-      g.setColor(0,col("black"));
+      g.setColor(0,0);
       g.setFont("Vector",28);
       g.drawString(rep.mac[rep.go].substring(0,17),120-(g.stringWidth(rep.mac[rep.go].substring(0,17))/2),210);
       g.flip();
@@ -189,7 +189,7 @@ face[0]= {
   run:false,
   clear : function(){
     var g=w.gfx;
-    pal[0]=col("black");
+    pal[0]=0;
     g.clear();
     this.exit();
     return true;

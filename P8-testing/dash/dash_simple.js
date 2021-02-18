@@ -15,7 +15,7 @@ face[0] = {
     this.batt=-1;
     this.trpL=-1;
 	if (euc.state=="READY") {
-	  this.g.setColor(0,col("black"));
+	  this.g.setColor(0,0);
       this.g.fillRect(0,0,239,64);
 	  this.g.setColor(1,col("white"));
       this.g.setFont("7x11Numeric7Seg",4.5);
@@ -28,7 +28,7 @@ face[0] = {
       this.g.flip();
 	  this.g.setColor(0,this.spdC[euc.dash.spdC]);
       this.g.fillRect(0,65,239,239);
-      this.g.setColor(1,(this.spdC[euc.dash.spdC]!=col("yellow")&&this.spdC[euc.dash.spdC]!=col("white"))?col("white"):col("black"));
+      this.g.setColor(1,(this.spdC[euc.dash.spdC]!=col("yellow")&&this.spdC[euc.dash.spdC]!=col("white"))?col("white"):0);
       this.spd=euc.dash.spd;
 	  this.g.setFontVector(200);
       this.g.drawString(euc.dash.spd|0,(132-(this.g.stringWidth(euc.dash.spd|0)/2)),65); 
@@ -82,7 +82,7 @@ face[0] = {
       this.g.flip();
 	  this.g.setColor(0,this.spdC[euc.dash.spdC]);
       this.g.fillRect(0,65,239,239);
-      this.g.setColor(1,(this.spdC[euc.dash.spdC]!=this.spdC[2]&&this.spdC[euc.dash.spdC]!=this.spdC[1])?col("white"):col("black"));
+      this.g.setColor(1,(this.spdC[euc.dash.spdC]!=this.spdC[2]&&this.spdC[euc.dash.spdC]!=this.spdC[1])?col("white"):0);
 	  this.g.setFontVector(200);
       this.g.drawString(euc.dash.spd|0,132-(this.g.stringWidth(euc.dash.spd|0)/2),65); 
       this.g.flip();
@@ -91,7 +91,7 @@ face[0] = {
   } else if (euc.state=="OFF")  {
 	if (euc.state!=this.connoff) {
       this.connoff=euc.state;
-	  this.g.setColor(0,col("black"));
+	  this.g.setColor(0,0);
 	  this.g.fillRect(0,0,79,55); //temp
 	  this.g.fillRect(161,0,239,55); //batt	  
 	  this.g.setColor(1,col("white"));
@@ -104,7 +104,7 @@ face[0] = {
       this.g.setColor(1,col("white"));
       this.g.drawImage(require("heatshrink").decompress(atob("kUgwIOLn/AAYX4AYMeg4DBAQPggEDwEYBAPAgwDBmEBwEAhkAsAQBgAQKh0AkP///AjADBGIM/AgMAh/9BgMD/0f+EA/8H/hJCCAX4v4QCn4QCx4QC8YQDEIX/CAf/CAQyDH4UBAYJoBBgIUBA==")),106,10);	 
 	  this.g.flip();
-      this.g.setColor(0,col("black"));
+      this.g.setColor(0,0);
 	  this.g.fillRect(65,56,199,239); //middle	
       this.g.setColor(1,col("white"));
       this.g.setFontVector(28);
@@ -113,7 +113,7 @@ face[0] = {
       this.g.drawString(euc.dash.trpL,190-this.g.stringWidth(euc.dash.trpL),175); 
       this.g.drawString(euc.dash.trpT,190-this.g.stringWidth(euc.dash.trpT),217); 
 	  this.g.flip();	
-      this.g.setColor(0,col("black"));
+      this.g.setColor(0,0);
 	  this.g.fillRect(0,56,74,239); //left	
       this.g.setColor(1,col("lgray"));
       this.g.setFontVector(24);
@@ -122,7 +122,7 @@ face[0] = {
       this.g.drawString("TRP",5,178);
       this.g.drawString("TOT",5,220);
 	  this.g.flip();
-      this.g.setColor(0,col("black"));
+      this.g.setColor(0,0);
 	  this.g.fillRect(200,56,239,239); //right	
       this.g.setColor(1,col("lgray"));
       this.g.drawString("kph",205,93);
@@ -152,7 +152,7 @@ face[0] = {
       this.g.drawImage(require("heatshrink").decompress(atob("mEwwIdah/wAqkB///wAFBgYFB4AFh34FKn4FJ/wFK/gFE/AFK+AFFgYFD8EHApPAh4vEAosfApRHFv4FKPogFF/oFKU6zRFACwA=")),180,3);	 
       this.g.drawImage(require("heatshrink").decompress(atob("mEwwIMJv/4Aof/+AECjgFE/v/8AEBgf5AocH/f/4AFBj/D/+YAoM/g//3wFBvgFBn4FB/EP/0fwEB+AFBh/Agfgj/8g/gg/Aj/4BIMHwE//AVCFQJGBAoV/AoP4jwFBKYN4AoP/AoN8jkBAoPgvk8AoXAnk8gYFBwAFEgAFBKQP+Aon8AoRyBRwIFCh47BAo0cPwKIBAoaIBnhHBn+AgE4KYSBBnBfBvwFBvAFBGgMAuB3BYYXwg+BXoXggfBFwMBSoPjAoMD4EB+Y0BDYMA+4CBE4MAs4CBnwCBhzCCAQMMEwIxCjKVCAoMRR4QFBkCnBfQR9DAAwA=")),97,3);	 
       this.g.flip();
-  	  this.g.setColor(0,col("black"));
+  	  this.g.setColor(0,0);
 	  this.g.fillRect(0,56,239,239);
       this.g.setColor(1,col("white"));
       this.g.setFont("Vector",50);

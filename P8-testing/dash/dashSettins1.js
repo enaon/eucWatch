@@ -8,7 +8,7 @@ face[0] = {
     this.g.fillRect(0,80,115,155); //left mid
     this.g.fillRect(0,160,115,239); //left dn
     this.g.fillRect(120,0,239,239); //right-riding mode      
-    this.g.setColor(0,col("black"));
+    this.g.setColor(0,0);
     this.g.setFont("Vector",24);
 	this.g.drawString("RING",58-(this.g.stringWidth("RING")/2),9); 
   },
@@ -20,7 +20,7 @@ face[0] = {
       if (this.alck==1) this.g.setColor(1,col("blue"));
       else this.g.setColor(1,col("gray"));
       this.g.fillRect(0,80,115,155); //left mid
-      this.g.setColor(0,col("black"));
+      this.g.setColor(0,0);
  	  this.g.setFont("Vector",24);
       this.g.drawString("AUTO",58-(this.g.stringWidth("AUTO")/2),90);
       this.g.drawString("LOCK",58-(this.g.stringWidth("LOCK")/2),122);
@@ -32,7 +32,7 @@ face[0] = {
 	  this.rdmd=euc.rdmd;	
       this.g.setColor(1,col("lblue"));
       this.g.fillRect(120,0,239,239); //right-riding mode     
-      this.g.setColor(0,col("black"));
+      this.g.setColor(0,0);
       this.g.setFont("Vector",88);
       this.g.drawString(euc.rdmd,180-(this.g.stringWidth(euc.rdmd)/2),73);  
       this.g.setFont("Vector",35);

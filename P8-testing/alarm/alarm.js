@@ -58,8 +58,8 @@ face[0]= {
   init: function(){
     var d=(Date()).toString().split(' ');
     var t=(d[4]).toString().split(':');
-    this.g.setColor(0,col("black"));//header bck
-    this.g.fillRect(0,0,239,35); 
+    this.g.setColor(0,0);//header bck
+    this.g.fillRect(0,0,239,38); 
     this.g.setColor(1,col("lblue"));//header txt
     this.g.setFont("Vector",25);
 	this.g.drawString("ALARMS",4,6); 
@@ -78,29 +78,38 @@ face[0]= {
       this.al1=alrm[1].tmr;
       this.c=col("white");
       if (this.al1!==-1) this.g.setColor(1,col("dblue"));
-      else { this.g.setColor(1,col("lgray")); this.c=col("black");}
+      else { this.g.setColor(1,col("lgray")); this.c=0;}
       if (alrm[1].on===1)  this.c=col("yellow");
-      this.g.fillRect(0,39,239,103); //1
+      this.g.fillRect(0,39,239,104); //1
       this.g.setColor(0,this.c);
       this.g.drawString(this.pad(alrm[1].hour)+":"+this.pad(alrm[1].min),120-(this.g.stringWidth(this.pad(alrm[1].hour)+":"+this.pad(alrm[1].min)))/2,50); 
   	  this.g.flip();
+      this.g.setColor(0,0);
+      this.g.drawLine(0,105,239,105);
+      this.g.drawLine(0,106,239,106);
+   	  this.g.flip();
     }
     if (alrm[2].tmr!=this.al2) {
       this.al2=alrm[2].tmr;
 	  this.c=col("white");
       if (this.al2!==-1) this.g.setColor(1,col("dblue"));
-      else { this.g.setColor(1,col("gray")); this.c=col("black");}
+      else { this.g.setColor(1,col("gray")); this.c=0;}
       if (alrm[2].on===1)  this.c=col("yellow");
-      this.g.fillRect(0,107,239,171); //2
+      this.g.fillRect(0,107,239,172); //2
       this.g.setColor(0,this.c);
      this.g.drawString(this.pad(alrm[2].hour)+":"+this.pad(alrm[2].min),120-(this.g.stringWidth(this.pad(alrm[2].hour)+":"+this.pad(alrm[2].min)))/2,118); 
   	  this.g.flip();
+      this.g.setColor(0,0);
+      this.g.drawLine(0,173,239,173);
+      this.g.drawLine(0,174,239,174);
+
+   	  this.g.flip();
     } 
     if (alrm[3].tmr!=this.al3) {
       this.al3=alrm[3].tmr;
       this.c=col("white");
       if (this.al3!==-1) this.g.setColor(1,col("dblue"));
-      else { this.g.setColor(1,col("lgray")); this.c=col("black");}
+      else { this.g.setColor(1,col("lgray")); this.c=0;}
       if (alrm[3].on===1)  this.c=col("yellow");
       this.g.fillRect(0,175,239,239); //3
       this.g.setColor(0,this.c);
@@ -115,8 +124,6 @@ face[0]= {
   tid:-1,
   run:false,
   clear : function(){
-    pal[0]=col("black");
-    this.g.clear();
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
     this.tid=-1;
@@ -162,7 +169,7 @@ face[5] = {
     this.al.curr=o;
     var d=(Date()).toString().split(' ');
     var t=(d[4]).toString().split(':');
-    this.g.setColor(0,col("black")); //header
+    this.g.setColor(0,0); //header
     this.g.fillRect(0,0,239,35); 
     this.g.setColor(1,col("lblue"));
     this.g.setFont("Vector",25);
@@ -200,7 +207,7 @@ face[5] = {
     }
     if (alrm[o].snz!=this.al[o].snz) {
       this.al[o].snz=alrm[o].snz;
-      this.c=col("black");
+      this.c=0;
       if (this.al[o].snz===1)  { this.g.setColor(0,col("dblue"));this.c=col("white");}
       else this.g.setColor(0,col("gray")); 
       this.g.fillRect(0,185,120,239);//snooze
@@ -211,7 +218,7 @@ face[5] = {
     }
     if (alrm[o].rep!=this.al[o].rep) {
       this.al[o].rep=alrm[o].rep;
-      this.c=col("black");
+      this.c=0;
       if (this.al[o].rep===1) { this.g.setColor(0,col("dblue"));this.c=col("white");}
       else this.g.setColor(0,col("gray")); 
       this.g.fillRect(123,185,239,239);//repeat
@@ -227,14 +234,7 @@ face[5] = {
   },
   tid:-1,
   run:false,
-
   clear : function(){
-    pal[0]=col("black");
-    this.g.clear();
-    this.exit();
-    return true;
-  },
-  exit: function(){
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
     this.tid=-1;
@@ -283,7 +283,6 @@ touchHandler[0]=function(e,x,y){
     }else if  (e==4){
   	  face.go("main",0);return;
  	  //face.go(face.appPrev, face.pagePrev);
-	  return;
     }else if  (e==12){		
 	  if(39<y&&y<105) {
 		if(alrm[1].on===1) {alrm.stop(1);face[0].al1=-2;}

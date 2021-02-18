@@ -6,14 +6,14 @@ face[0] = {
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
         this.btn("LIGHTS",18,60,15,(euc.dash.light)?col("raf"):col("dgray"),0,0,119,97,(!euc.dash.light)?"OFF":(euc.dash.light==1)?"ON":(euc.dash.light==2)?"AUTO":"CITY",28,60,50); //1
 		if (!face.appPrev.startsWith("dashSet")){
-		this.g.setColor(0,col("black"));
+		this.g.setColor(0,0);
 		this.g.drawLine (120,0,120,99);
       	this.g.drawLine (121,0,121,99);
         this.g.flip();
 		}
         this.btn("STROBE",18,185,15,(euc.dash.strb)?col("raf"):col("dgray"),122,0,239,97,(!euc.dash.strb)?"OFF":"ON",28,185,50);//2
 		if (!face.appPrev.startsWith("dashSet")){
-		this.g.setColor(0,col("black"));
+		this.g.setColor(0,0);
 		this.g.drawLine (0,98,239,98);
 		this.g.drawLine (0,99,239,99);
         this.g.flip();
@@ -23,7 +23,7 @@ face[0] = {
 		}	
         this.btn("MODE",18,60,115,(euc.dash.mode)?col("raf"):col("dgray"),0,100,119,195,(!euc.dash.mode)?"OFF":(euc.dash.mode==1)?"MED":"SOFT",30,60,150); //3
         this.btn("LOCK",18,185,115,(euc.dash.lock)?col("red"):col("dgray"),122,100,239,195,(!euc.dash.lock)?"OFF":"ON",30,185,150); //4
-		this.g.setColor(0,col("black"));
+		this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
@@ -62,7 +62,7 @@ face[0] = {
 			if (this.ntid) clearTimeout(this.ntid);
 			this.ntid=setTimeout(function(t){
                 t.ntid=0;
-				t.g.setColor(0,col("black"));
+				t.g.setColor(0,0);
 				t.g.fillRect(0,196,239,239);
 				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",20);

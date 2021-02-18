@@ -3,7 +3,8 @@ face[0] = {
   offms: 5000, 
   g:w.gfx, 
   init: function(o){ 
-	this.g.clear(); 
+	    this.g.clear(); 
+
 	this.slot1Mac=require("Storage").readJSON("dash.json",1).slot1Mac;
 	this.slot2Mac=require("Storage").readJSON("dash.json",1).slot2Mac;
 	this.slot3Mac=require("Storage").readJSON("dash.json",1).slot3Mac;
@@ -19,14 +20,14 @@ face[0] = {
     this.g.fillRect(122,0,239,95);	
     this.g.fillRect(0,100,118,195);
     this.g.fillRect(122,100,239,195);
-    this.g.setColor(0,col("black"));
+    this.g.setColor(0,0);
 	this.g.setFont("Vector",22);	
 	this.g.drawString("EMPTY",60-(this.g.stringWidth("EMPTY")/2),40);
 	this.g.drawString("EMPTY",185-(this.g.stringWidth("EMPTY")/2),40);
   	this.g.drawString("EMPTY",60-(this.g.stringWidth("EMPTY")/2),140);     
   	this.g.drawString("EMPTY",185-(this.g.stringWidth("EMPTY")/2),140); 
     this.g.flip();
-    this.g.setColor(0,col("black"));
+    this.g.setColor(0,0);
     this.g.fillRect(0,198,239,239);
     this.g.setColor(1,col("white"));
     this.g.setFont("Vector",20);
@@ -79,7 +80,7 @@ face[0] = {
 				t.s1tid=0;
 				t.g.setColor(0,col("dgray"));
 				t.g.fillRect(0,0,118,95);
-				t.g.setColor(1,col("black"));
+				t.g.setColor(1,0);
 				t.g.setFont("Vector",22);	
 				t.g.drawString("EMPTY",60-(t.g.stringWidth("EMPTY")/2),40);
 				t.g.flip();
@@ -125,7 +126,7 @@ face[0] = {
               t.g.setFont("Vector",22);	
               t.g.setColor(0,col("dgray"));
               t.g.fillRect(122,0,239,95);
-              t.g.setColor(1,col("black"));
+              t.g.setColor(1,0);
 	          t.g.drawString("EMPTY",185-(t.g.stringWidth("EMPTY")/2),40);
               t.g.flip();
             },1000,this);
@@ -170,7 +171,7 @@ face[0] = {
               t.g.setFont("Vector",22);	
               t.g.setColor(0,col("dgray"));
               t.g.fillRect(0,100,118,195);
-              t.g.setColor(1,col("black"));
+              t.g.setColor(1,0);
 	          t.g.drawString("EMPTY",60-(t.g.stringWidth("EMPTY")/2),140);
               t.g.flip();
             },1000,this);
@@ -214,7 +215,7 @@ face[0] = {
 				t.g.setFont("Vector",22);	
 				t.g.setColor(0,col("dgray"));
 				t.g.fillRect(122,100,239,195);
-				t.g.setColor(1,col("black"));
+				t.g.setColor(1,0);
 				t.g.drawString("EMPTY",185-(t.g.stringWidth("EMPTY")/2),140);
 				t.g.flip();
             },1000,this);
@@ -226,7 +227,7 @@ face[0] = {
 		if (this.itid)clearTimeout(this.itid);
 		this.itid=setTimeout(function(t){
 			t.itid=0;
-			t.g.setColor(0,col("black"));
+			t.g.setColor(0,0);
 			t.g.fillRect(0,198,239,249);//6
 			t.g.setColor(1,col("white"));
 			t.g.setFont("Vector",20);

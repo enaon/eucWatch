@@ -3,7 +3,7 @@ face[0] = {
 	offms: 5000,
 	g:w.gfx,
 	init: function(){
-        this.g.setColor(0,col("black"));
+        this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
@@ -14,7 +14,7 @@ face[0] = {
         this.btn(euc.dash.aOff,"AUTO",18,60,115,col("raf"),col("dgray"),0,100,119,195,"OFF",30,60,150);
         this.btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("dgray"),122,100,239,195);		
         if (!face.appPrev.startsWith("dashSet")){
-		this.g.setColor(0,col("black"));
+		this.g.setColor(0,0);
 		this.g.drawLine (0,98,239,98);
 		this.g.drawLine (0,99,239,99);
         this.g.flip();
@@ -52,7 +52,7 @@ face[0] = {
 			if (this.ntid) clearTimeout(this.ntid);
 			this.ntid=setTimeout(function(t){
                 t.ntid=0;
-				t.g.setColor(0,col("black"));
+				t.g.setColor(0,0);
 				t.g.fillRect(0,196,239,239);
 				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",20);

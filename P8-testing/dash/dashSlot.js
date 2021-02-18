@@ -3,7 +3,7 @@ face[0] = {
 	offms: 5000, 
 	g:w.gfx, 
 	init: function(o){ 
-		this.g.setColor(0,col("black"));
+		this.g.setColor(0,0);
         this.g.setColor(1,col("dgray"));
         this.g.fillRect(0,0,75,95);//1
         this.g.fillRect(80,0,155,95); //2
@@ -67,7 +67,7 @@ face[0] = {
 			this.dtid=setTimeout(function(t){
 				t.delete=0;
 				t.dtid=0;
-				t.g.setColor(0,col("black"));
+				t.g.setColor(0,0);
 				t.g.fillRect(0,200,239,249);//6
 				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",20);
@@ -84,7 +84,7 @@ face[0] = {
 	tid:-1,
 	run:false,
 	clear : function(){  
-		pal[0]=col("black"); 
+		pal[0]=0; 
 		this.g.clear(); 
 		this.run=false;
 		if (this.tid>=0) clearTimeout(this.tid); 

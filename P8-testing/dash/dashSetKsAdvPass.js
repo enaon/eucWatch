@@ -15,7 +15,7 @@ face[0] = {
         this.g.drawString("PASS LOCKED",120-(this.g.stringWidth("PASS LOCKED")/2),50); 
         this.g.flip();
 		//line
-      	this.g.setColor(0,col("black"));
+      	this.g.setColor(0,0);
 		this.g.drawLine (0,98,239,98);
 		this.g.drawLine (0,99,239,99);
         this.g.flip();
@@ -39,7 +39,7 @@ face[0] = {
         this.g.flip();
         }
         //info
-        this.g.setColor(0,col("black"));
+        this.g.setColor(0,0);
 		this.g.fillRect(0,195,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
@@ -70,7 +70,7 @@ face[0] = {
 			if (this.ntid) clearTimeout(this.ntid);
 			this.ntid=setTimeout(function(t){
                 t.ntid=0;
-				t.g.setColor(0,col("black"));
+				t.g.setColor(0,0);
 				t.g.fillRect(0,196,239,239);
 				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",20);
@@ -119,7 +119,7 @@ face[5] = {
 		this.g.drawString(4,34,85);this.g.drawString(5,115,85);this.g.drawString(6,195,85);
 		this.g.drawString(7,34,153);this.g.drawString(8,115,153);this.g.drawString(9,195,153);
 		this.g.flip(); 
-        this.g.setColor(0,col("black"));
+        this.g.setColor(0,0);
         this.g.drawLine(0,64,239,64);
         this.g.drawLine(0,65,239,65);
    		this.g.flip(); 
@@ -155,7 +155,7 @@ face[5] = {
 			if (this.ntid) clearTimeout(this.ntid);
 			this.ntid=setTimeout(function(t){
                 t.ntid=0;
-				t.g.setColor(0,col("black"));
+				t.g.setColor(0,0);
 				t.g.fillRect(0,196,239,239);
 				t.g.flip();
 				t.g.setColor(0,col("olive"));
