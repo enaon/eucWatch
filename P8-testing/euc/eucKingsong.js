@@ -111,7 +111,7 @@ euc.conn=function(mac){
 			if (euc.reconnect) {clearTimeout(euc.reconnect); euc.reconnect=0;}
 			euc.wri("end");
 			return;
-		} else print(event.target.value.buffer); 
+		} //else print(event.target.value.buffer); 
 
 		});
 		//on disconnect
@@ -195,7 +195,7 @@ euc.conn=function(mac){
 				});
 			}
 		};
-		//euc.wri("start");
+		euc.wri("start");
 	//reconect
 	}).catch(function(err)  {
 		euc.off(err);

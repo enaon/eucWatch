@@ -16,6 +16,7 @@ NRF.setServices({
       value : "1",
       maxLen : 20,
       writable : true,
+       readable:true,
 	  notify:true,
       onWrite : function(evt) {
 		set.eucR(evt);
@@ -29,6 +30,8 @@ NRF.setServices({
       value : "1",
       maxLen : 20,
       writable : true,
+       readable:true,
+       
 	  notify:true,
       onWrite : function(evt) {
 		set.eucR(evt);
@@ -38,7 +41,7 @@ NRF.setServices({
      }
    }
 
-}, { advertise: ['0xfff0'], uart:(set.def.cli||set.def.gb)?true:false,hid:(set.def.hid&&set.def.hidM)?set.def.hidM.report:undefined });
+}, { advertise: ['0xfff0'], uart:false });
 
 var eucwW= function(o) {
     NRF.updateServices({
@@ -52,3 +55,12 @@ var eucwW= function(o) {
 // }
 };
 
+NRF.setAdvertising([
+  [
+0x02,0x01,0x06,
+0x03,0x02,0xf0,0xff,
+0x06,0xff,0x48,0x43,0x2d,0x30,0x38,
+0x04,0x12,0x60,0x00,0x0c,
+0x02,0x0a,0x04,
+0x05,0x09,0x4b,0x53,0x2d,0x53
+]]);

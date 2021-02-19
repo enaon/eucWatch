@@ -17,7 +17,19 @@ require('Storage').write('setting.json',{"watchtype":"eucwatch"});
 		{print("gb cmd in");try { global.GB(JSON.parse(l.slice(3,-1))); } catch(e) {}}
   });
 
+********************
 
+NRF.setServices({}, { uart:false });
+
+
+
+
+
+
+
+
+
+**********
    function gbSend(message) {
     Bluetooth.println("");
     Bluetooth.println(JSON.stringify(message));
