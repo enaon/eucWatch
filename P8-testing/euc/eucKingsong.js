@@ -132,7 +132,7 @@ euc.conn=function(mac){
 				c.writeValue(euc.cmd((n==="hornOn")?"strobeOn":"strobeOff")).then(function() {
 				   if (n==="hornOn")euc.dash.strb=1; else euc.dash.strb=0;
 					c.writeValue(euc.cmd((n==="hornOn")?"lock":"unlock")).then(function(){
-						if (n==="hornOn") euc.dash.lock=1; else {euc.dash.lock=0;clearTimeout(euc.busy);euc.busy=0;/*/c.startNotifications();*/return;}
+						if (n==="hornOn") euc.dash.lock=1; else {euc.dash.lock=0;clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/return;}
 						if (!BTN1.read()){ 
 							c.writeValue(euc.cmd("unlock")).then(function(){
 								euc.dash.lock=0;
@@ -161,21 +161,21 @@ euc.conn=function(mac){
 				c.writeValue(euc.cmd((n==="start")?"serial":((euc.dash.aLck)?"lock":(euc.dash.aOff)?"off":"lightsOff"))).then(function() {
 						if (euc.seq==0) {
 							if (n==="start") {
-								clearTimeout(euc.busy);euc.busy=0;euc.state="READY";/*c.startNotifications();*/
+								clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();
 							}else global["\xFF"].BLE_GATTS.disconnect();
 							return;
 						}
 						c.writeValue(euc.cmd((n==="start")?((euc.dash.passSend)?"passSend":(euc.dash.aLck)?"unlock":"lightsAuto"):(euc.dash.aOff)?"off":"lightsOff")).then(function() {
 							if (euc.seq==0) {
 								if (n==="start") {
-									clearTimeout(euc.busy);euc.busy=0;euc.state="READY";/*c.startNotifications();*/
+									clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();
 								}else global["\xFF"].BLE_GATTS.disconnect();
 								return;
 							}	
 							c.writeValue(euc.cmd((euc.dash.aLck&&euc.dash.passSend)?"unlock":"lightsAuto")).then(function() {
-								if (euc.seq==0) {clearTimeout(euc.busy);euc.busy=0;euc.state="READY";/*c.startNotifications();*/return;}
+								if (euc.seq==0) {clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();return;}
 								c.writeValue(euc.cmd("lightsAuto")).then(function() {
-									clearTimeout(euc.busy);euc.busy=0;euc.state="READY";/*c.startNotifications();*/return;
+									clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();return;
 								}).catch(function(err)  {
 									clearTimeout(euc.busy);euc.busy=0;euc.off("err");
 								});
