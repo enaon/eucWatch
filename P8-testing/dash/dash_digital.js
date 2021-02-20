@@ -5,6 +5,7 @@ face[0] = {
   g:w.gfx,
   spd:[],
   init: function(){
+	this.g.clear();
 	this.spdC={0:0,1:4095,2:4080,3:3840};
 	this.ampC={0:1365,1:4095,2:4080,3:3840};
 	this.tmpC={0:col("lblue"),1:4095,2:4080,3:3840};

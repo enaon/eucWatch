@@ -21,6 +21,7 @@ face[0] = {
   },
   init: function(){
 //rows
+	this.g.clear();
     this.g.setColor(1,col("lgray"));
     this.g.fillRect(0,40,57,90);//1
     this.g.fillRect(60,40,117,90);//2

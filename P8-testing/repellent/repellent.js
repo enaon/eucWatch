@@ -46,6 +46,7 @@ if (!global.rep.read)
 face[0]= {
   offms: 5000,
   init: function(){
+  	this.g.clear();
 	rep.mac=(require("Storage").readJSON("setting.json",1)||{}).repellent_mac;
 	rep.go=(require("Storage").readJSON("setting.json",1)||{}).repellent_go;
     rep.con=0;

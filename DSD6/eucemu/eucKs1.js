@@ -1,3 +1,4 @@
+E.setConsole(Serial1,{force:true}); //dsd6 devmode
 //NRF.setConnectionInterval({minInterval:100, maxInterval:200});
 //atc
 var eucR= function(evt){
@@ -11,47 +12,47 @@ var eucR= function(evt){
 //NRF.setServices(undefined,{uart:false });
 //
 NRF.setServices({
-"0000180A-0000-1000-8000-00805f9b34fb": {
-		"00002a23-0000-1000-8000-00805f9b34fb": {
+0x180A: {
+		0x2a23: {
 			value : [0x4d,0x89,0x75,0x00,0x00,0x4e,0x69,0x64],
 			maxLen : 20,
 			readable:true
-		},"00002a24-0000-1000-8000-00805f9b34fb": {
+		},0x2a24: {
 			value : "Model Number",
 			maxLen : 20,
 		  readable:true
-		},"00002a25-0000-1000-8000-00805f9b34fb": {
+		},0x2a25: {
 			value : "Serial Number",
 			maxLen : 20,
 		  readable:true
-		},"00002a26-0000-1000-8000-00805f9b34fb": {
+		},0x2a26: {
 			value : "Firmware Revision",
 			maxLen : 20,
 			readable:true
-		},"00002a27-0000-1000-8000-00805f9b34fb": {
+		},0x2a27: {
 			value : "Firmware Revision",
 			maxLen : 20,
 			readable:true,
-		},"00002a28-0000-1000-8000-00805f9b34fb": {
+		},0x2a28: {
 			value : "Software Revision",
 			maxLen : 20,
 			readable:true
-		},"00002a29-0000-1000-8000-00805f9b34fb": {
+		},0x2a29: {
 			value : "Manufacturer Name",
 			maxLen : 20,
 			readable:true
-		},"00002a2a-0000-1000-8000-00805f9b34fb": {
+		},0x2a2a: {
 			value : [0xfe,0x00,0x65,0x78,0x70,0x65,0x72,0x69,0x6d,0x65,0x6e,0x74,0x61,0x6c],
 			maxLen : 20,
 			readable:true
-		},"00002a50-0000-1000-8000-00805f9b34fb": {
+		},0x2a50: {
 			value : "000000D",
 			maxLen : 20,
 			readable:true
 		}
 	},
-	"0000fff0-0000-1000-8000-00805f9b34fb": {
-		"0000fff1-0000-1000-8000-00805f9b34fb": {
+	0xfff0: {
+		0xffe1: {
 			value : [0x01],
 			maxLen : 20,
 			writable : true,
@@ -60,7 +61,7 @@ NRF.setServices({
 			  eucR(evt);
 			},
             description:"Characteristic 1"
-		},"0000fff2-0000-1000-8000-00805f9b34fb": {
+		},0xfff2: {
 			value : [0x02],
 			maxLen : 20,
 		    onWrite : function(evt) {
@@ -68,18 +69,18 @@ NRF.setServices({
 			},
 			readable:true,
             description:"Characteristic 2"
-		},"0000fff3-0000-1000-8000-00805f9b34fb": {
+		},0xfff3: {
 			maxLen : 20,
 			writable : true,
 			onWrite : function(evt) {
 				eucR(evt);
 			},
             description:"Characteristic 3"
-		},"0000fff4-0000-1000-8000-00805f9b34fb": {
+		},0xfff4: {
 			maxLen : 20,
 			notify:true,
             description:"Characteristic 4"
-		},"0000fff5-0000-1000-8000-00805f9b34fb": {
+		},0xfff5: {
 			value : [0x01,0x02,0x03,0x04,0x05],
 			maxLen : 20,
             writable:true,
@@ -90,8 +91,8 @@ NRF.setServices({
 			notify:true,
             description:"Characteristic 5"
 		}
-	},"0000ffe0-0000-1000-8000-00805f9b34fb": {
-		"0000ffe1-0000-1000-8000-00805f9b34fb": {
+	},0xffe0: {
+		0xffe1: {
 			value : [0x00],
 			maxLen : 20,
             writable:true,
@@ -100,6 +101,7 @@ NRF.setServices({
 			},
    			readable:true,
   			notify:true,
+            indicate:true,
            description:"Key Press State"
 		}
   }
@@ -107,8 +109,8 @@ NRF.setServices({
 
 var eucwW= function(o) {
 	NRF.updateServices({
-		"0000ffe0-0000-1000-8000-00805f9b34fb" : {
-			"0000ffe1-0000-1000-8000-00805f9b34fb" : {
+		0xffe0 : {
+			0xffe1 : {
 				value : o,
 				notify:true
 			}
@@ -124,6 +126,6 @@ NRF.setAdvertising([[
 0x0b,0x09,0x4b,0x53,0x2d,0x53,0x31,0x38,0x30,0x35,0x33,0x31
 ]],{ name:"KS-S180531",connectable:true });
 
+NRF.on('connect',function(f){print("in:",f);});
+NRF.on('disconnect',function(f){print("out:",f);});
 
-NRF.on('connect',function(f){digitalPulse(D16,1,[90,40,150,40,90]);});
-NRF.on('disconnect',function(f){digitalPulse(D16,1,100);});
