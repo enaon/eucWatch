@@ -124,8 +124,8 @@
 	  {"name":"euc","url":"euc.js"},
 	  {"name":"eucSlot.json","url":"eucSlot.json"},
       {"name":"eucKingsong","url":"eucKingsong.js"},
-      {"name":"eucNinebot","url":"eucNinebot.js"}
-
+      {"name":"eucNinebot","url":"eucNinebot.js"},
+      {"name":"eucEmu","url":"eucEmuKs.js"}
     ]
   },
   { "id": "repellent",

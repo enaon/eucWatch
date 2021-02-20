@@ -28,88 +28,88 @@ function handleInfoEvent(event) {
 }
 //settings - run set.upd() after changing BT settings to take effect.
 var set={
-  bt:0, //Incomming BT service status indicator- Not user settable.0=not_connected|1=unknown|2=webide|3=gadgetbridge|4=atc|5=esp32
-  tor:0, //Enables/disables torch- Not user settable.
-  ondc:0, //charging indicator-not user settable.
-  btsl:0, //bt sleep status-not user settable.
-  gIsB:0,//gat status-n.u.s- 0=not busy|1=busy 
-  fmp:0, //find my phone-n.u.s.
-  boot:getTime(), 
-  dash:[],
-  gDis:function(){
-	if (this.gIsB) {
-		this.gIsb=2;
-		if (global["\xFF"].BLE_GATTS) {
-          if (global["\xFF"].BLE_GATTS.connected)
-          global["\xFF"].BLE_GATTS.disconnect().then(function (c){this.gIsB=0;});
-        }else gIsB=0;
-     }
-  },
-  updateSettings:function(){require('Storage').write('setting.json', set.def);},
-  resetSettings:function() {
-	set.def = {
-	name:"p8-EUCWatch", //Set the name to be broadcasted by the Bluetooth module. 
-	timezone:3, //Timezone
-	woe:1, //wake Screen on event.0=disable|1=enable
-	wob:1, //wake Screen on Button press.0=disable|1=enable
-	rfTX:-4, //BT radio tx power, -4=low|0=normal|4=high
-	cli:1, //Nordic serial bluetooth access. Enables/disables Espruino Web IDE.
-	hid:0, //enable/disable Bluetooth music controll Service.
-	gb:0,  //Notifications service. Enables/disables support for "GadgetBridge" playstore app.
-	atc:0, //Notifications service. Enables/disables support for "d6 notification" playstore app from ATC1441.
-	acc:0, //enables/disables wake-screen on wrist-turn. 
-	dnd:0, //Do not disturb mode, if ebabled vibrations are on.
-	hidT:"media", //joy/kb/media
-	bri:2, //Screen brightness 1..7
-	dash:0, //
-	acctype:"BMA421",
-	touchtype:"716"
-	};
-	set.updateSettings();
-  },
-  accR:function(){if (this.def.acc)acc.on(); else acc.off();},
-  hidM:undefined, //not user settable.
-  clin:0,//not settable
-  upd:function(){ //run this for settings changes to take effect.
-	if (this.def.hid===1&&this.hidM==undefined) {
-		Modules.addCached("ble_hid_controls",function(){
-		function b(a,b){NRF.sendHIDReport(a,function(){NRF.sendHIDReport(0,b);});}
-		exports.report=new Uint8Array([5,12,9,1,161,1,21,0,37,1,117,1,149,5,9,181,9,182,9,183,9,205,9,226,129,6,149,2,9,233,9,234,129,2,149,1,129,1,192]);
-		exports.next=function(a){b(1,a);};
-		exports.prev=function(a){b(2,a);};
-		exports.stop=function(a){b(4,a);};
-		exports.playpause=function(a){b(8,a);};
-		exports.mute=function(a){b(16,a);};
-		exports.volumeUp=function(a){b(32,a);};
-		exports.volumeDown=function(a){b(64,a);};});
-		this.hidM=require("ble_hid_controls");
-/*		if (this.def.hidT=="joy") this.hidM = E.toUint8Array(atob("BQEJBKEBCQGhAAUJGQEpBRUAJQGVBXUBgQKVA3UBgQMFAQkwCTEVgSV/dQiVAoECwMA="));
-		else if (this.def.hidT=="kb") this.hidM = E.toUint8Array(atob("BQEJBqEBBQcZ4CnnFQAlAXUBlQiBApUBdQiBAZUFdQEFCBkBKQWRApUBdQORAZUGdQgVACVzBQcZAClzgQAJBRUAJv8AdQiVArECwA=="));
-		else this.def.hidM = E.toUint8Array(atob("BQEJBqEBhQIFBxngKecVACUBdQGVCIEClQF1CIEBlQV1AQUIGQEpBZEClQF1A5EBlQZ1CBUAJXMFBxkAKXOBAAkFFQAm/wB1CJUCsQLABQwJAaEBhQEVACUBdQGVAQm1gQIJtoECCbeBAgm4gQIJzYECCeKBAgnpgQIJ6oECwA=="));
-*/
-  	}else if (this.def.hid==0 &&this.hidM!=undefined) {
-		this.hidM=undefined;
-		if (global["\xFF"].modules.ble_hid_controls) Modules.removeCached("ble_hid_controls");
-    }
-	//if (!Boolean(require('Storage').read('atc'))) this.def.atc=0;
-	if (!Boolean(require('Storage').read('eucEmu'))) this.def.atc=0;
-	if (this.def.atc) eval(require('Storage').read('eucEmu'));
-	else {
-		NRF.setServices(undefined,{uart:(this.def.cli||this.def.gb)?true:false,hid:(this.def.hid&&this.hidM)?this.hidM.report:undefined });
-		if (this.atcW) {this.atcW=undefined;this.atcR=undefined;} 
+	bt:0, //Incomming BT service status indicator- Not user settable.0=not_connected|1=unknown|2=webide|3=gadgetbridge|4=atc|5=esp32
+	tor:0, //Enables/disables torch- Not user settable.
+	ondc:0, //charging indicator-not user settable.
+	btsl:0, //bt sleep status-not user settable.
+	gIsB:0,//gat status-n.u.s- 0=not busy|1=busy 
+	fmp:0, //find my phone-n.u.s.
+	boot:getTime(), 
+	dash:[],
+	gDis:function(){
+		if (this.gIsB) {
+			this.gIsb=2;
+			if (global["\xFF"].BLE_GATTS) {
+				if (global["\xFF"].BLE_GATTS.connected)
+				global["\xFF"].BLE_GATTS.disconnect().then(function (c){this.gIsB=0;});
+			}else gIsB=0;
+		 }
+	},
+	updateSettings:function(){require('Storage').write('setting.json', set.def);},
+	resetSettings:function() {
+		set.def = {
+		name:"p8-EUCWatch", //Set the name to be broadcasted by the Bluetooth module. 
+		timezone:3, //Timezone
+		woe:1, //wake Screen on event.0=disable|1=enable
+		wob:1, //wake Screen on Button press.0=disable|1=enable
+		rfTX:-4, //BT radio tx power, -4=low|0=normal|4=high
+		cli:1, //Nordic serial bluetooth access. Enables/disables Espruino Web IDE.
+		hid:0, //enable/disable Bluetooth music controll Service.
+		gb:0,  //Notifications service. Enables/disables support for "GadgetBridge" playstore app.
+		atc:0, //Notifications service. Enables/disables support for "d6 notification" playstore app from ATC1441.
+		acc:0, //enables/disables wake-screen on wrist-turn. 
+		dnd:0, //Do not disturb mode, if ebabled vibrations are on.
+		hidT:"media", //joy/kb/media
+		bri:2, //Screen brightness 1..7
+		dash:0, //
+		acctype:"BMA421",
+		touchtype:"716"
+		};
+		set.updateSettings();
+	},
+	accR:function(){if (this.def.acc)acc.on(); else acc.off();},
+		hidM:undefined, //not user settable.
+		clin:0,//not settable
+		upd:function(){ //run this for settings changes to take effect.
+		if (this.def.hid===1&&this.hidM==undefined) {
+			Modules.addCached("ble_hid_controls",function(){
+			function b(a,b){NRF.sendHIDReport(a,function(){NRF.sendHIDReport(0,b);});}
+			exports.report=new Uint8Array([5,12,9,1,161,1,21,0,37,1,117,1,149,5,9,181,9,182,9,183,9,205,9,226,129,6,149,2,9,233,9,234,129,2,149,1,129,1,192]);
+			exports.next=function(a){b(1,a);};
+			exports.prev=function(a){b(2,a);};
+			exports.stop=function(a){b(4,a);};
+			exports.playpause=function(a){b(8,a);};
+			exports.mute=function(a){b(16,a);};
+			exports.volumeUp=function(a){b(32,a);};
+			exports.volumeDown=function(a){b(64,a);};});
+			this.hidM=require("ble_hid_controls");
+			/*		if (this.def.hidT=="joy") this.hidM = E.toUint8Array(atob("BQEJBKEBCQGhAAUJGQEpBRUAJQGVBXUBgQKVA3UBgQMFAQkwCTEVgSV/dQiVAoECwMA="));
+			else if (this.def.hidT=="kb") this.hidM = E.toUint8Array(atob("BQEJBqEBBQcZ4CnnFQAlAXUBlQiBApUBdQiBAZUFdQEFCBkBKQWRApUBdQORAZUGdQgVACVzBQcZAClzgQAJBRUAJv8AdQiVArECwA=="));
+			else this.def.hidM = E.toUint8Array(atob("BQEJBqEBhQIFBxngKecVACUBdQGVCIEClQF1CIEBlQV1AQUIGQEpBZEClQF1A5EBlQZ1CBUAJXMFBxkAKXOBAAkFFQAm/wB1CJUCsQLABQwJAaEBhQEVACUBdQGVAQm1gQIJtoECCbeBAgm4gQIJzYECCeKBAgnpgQIJ6oECwA=="));
+			*/
+		}else if (this.def.hid==0 &&this.hidM!=undefined) {
+			this.hidM=undefined;
+			if (global["\xFF"].modules.ble_hid_controls) Modules.removeCached("ble_hid_controls");
+		}
+		//if (!Boolean(require('Storage').read('atc'))) this.def.atc=0;
+		if (!Boolean(require('Storage').read('eucEmu'))) this.def.atc=0;
+		if (this.def.atc) eval(require('Storage').read('eucEmu'));
+		else {
+			NRF.setServices(undefined,{uart:(this.def.cli||this.def.gb)?true:false,hid:(this.def.hid&&this.hidM)?this.hidM.report:undefined });
+			if (this.atcW) {this.atcW=undefined;this.atcR=undefined;} 
+		}
+		if (this.def.gb) eval(require('Storage').read('m_gb'));
+		else {
+			this.handleNotificationEvent=undefined;
+			this.handleFindEvent=undefined;
+			this.sendBattery=undefined;
+			this.gbSend=function(){return;};
+			global.GB=undefined;
+		}		
+		if (!this.def.cli&&!this.def.gb&&!this.def.atc&&!this.def.hid) { if (this.bt!=0) NRF.disconnect(); else{ NRF.sleep();this.btsl=1;}}
+		else if (this.bt!=0) NRF.disconnect();
+		else if (this.btsl==1) {NRF.restart();this.btsl=0;}
 	}
-	if (this.def.gb) eval(require('Storage').read('m_gb'));
-	else {
-		this.handleNotificationEvent=undefined;
-		this.handleFindEvent=undefined;
-		this.sendBattery=undefined;
-		this.gbSend=function(){return;};
-		global.GB=undefined;
-	}		
-    if (!this.def.cli&&!this.def.gb&&!this.def.atc&&!this.def.hid) { if (this.bt!=0) NRF.disconnect(); else{ NRF.sleep();this.btsl=1;}}
-    else if (this.bt!=0) NRF.disconnect();
-    else if (this.btsl==1) {NRF.restart();this.btsl=0;}
-  }
 };
 
 set.def = require('Storage').readJSON('setting.json', 1);
@@ -128,13 +128,14 @@ function bdis() {
     Bluetooth.removeListener('data',ccon);
 	E.setConsole(null,{force:true});
     if (!set.def.cli&&!set.def.gb&&!set.def.atc&&!set.def.hid){
-      NRF.sleep();
-      set.btsl=1;
+		NRF.sleep();
+		set.btsl=1;
     }	
 	if (set.bt==1) handleInfoEvent({"src":"BT","title":"BT","body":"Disconnected"});
 	else if (set.bt==2) handleInfoEvent({"src":"BT","title":"IDE","body":"Disconnected"});
 	else if (set.bt==3) handleInfoEvent({"src":"BT","title":"GB","body":"Disconnected"});
-	else if (set.bt==4) handleInfoEvent({"src":"BT","title":"ATC","body":"Disconnected"});
+	//else if (set.bt==4) handleInfoEvent({"src":"BT","title":"ATC","body":"Disconnected"});
+	else if (set.bt==4) handleInfoEvent({"src":"BT","title":"EUC","body":"Phone disconnected"});
 	else if (set.bt==5) handleInfoEvent({"src":"BT","title":"ESP","body":"Disconnected"});
   	set.bt=0; 
 //	digitalPulse(D16,1,[100,50,50,50,100]); 
@@ -169,110 +170,110 @@ set.upd();
 
 //face
 var face={
-  appCurr:"main",
-  appPrev:"main",
-  pageCurr:-1,
-  pagePrev:-1,	
-  pageArg:"",
-  faceSave:-1,
-  mode:0,
-  offid:-1,
-  offms:-1,
-  off:function(page){ 
-      if (this.pageCurr===-1) {print("face-1");return;}
-      if (this.offid>=0) {clearTimeout(this.offid); this.offid=-1;}
-      if (face[this.pageCurr]!=-1) this.offms=face[this.pageCurr].offms;
-      this.offid=setTimeout((c)=>{
-        this.offid=-1;
-		//if (set.def.acc&&acc.tid==-1) acc.on();
-		if (c===0||c===2) {
-			if (this.appCurr==="main") {
+	appCurr:"main",
+	appPrev:"main",
+	pageCurr:-1,
+	pagePrev:-1,	
+	pageArg:"",
+	faceSave:-1,
+	mode:0,
+	offid:-1,
+	offms:-1,
+	off:function(page){ 
+		if (this.pageCurr===-1) {print("face-1");return;}
+		if (this.offid>=0) {clearTimeout(this.offid); this.offid=-1;}
+		if (face[this.pageCurr]!=-1) this.offms=face[this.pageCurr].offms;
+		this.offid=setTimeout((c)=>{
+			this.offid=-1;
+			//if (set.def.acc&&acc.tid==-1) acc.on();
+			if (c===0||c===2) {
+				if (this.appCurr==="main") {
+					if (face[c].off) {
+						if (set.def.touchtype=="716") tfk.exit();	
+						//if (set.def.touchtype!="816")	i2c.writeTo(0x15,0xa5,3); 
+						i2c.writeTo(0x15,0xa5,3); 
+						face[c].off();this.pageCurr=-1;face.pagePrev=c;
+					}
+				}else face.go(this.appCurr,1);
+			}else if (face.appPrev=="off") {
 				if (face[c].off) {
 					if (set.def.touchtype=="716") tfk.exit();	
-					//if (set.def.touchtype!="816")	i2c.writeTo(0x15,0xa5,3); 
+					//if (set.def.touchtype!="816") i2c.writeTo(0x15,0xa5,3);
 					i2c.writeTo(0x15,0xa5,3); 
-					face[c].off();this.pageCurr=-1;face.pagePrev=c;
+					face.go("main",-1);face.pagePrev=c;
 				}
-			}else face.go(this.appCurr,1);
-		}else if (face.appPrev=="off") {
-			if (face[c].off) {
-				if (set.def.touchtype=="716") tfk.exit();	
-				//if (set.def.touchtype!="816") i2c.writeTo(0x15,0xa5,3);
-				i2c.writeTo(0x15,0xa5,3); 
-				face.go("main",-1);face.pagePrev=c;
-			}
-		}else if (c>1) face.go(this.appCurr,0);
-	  },this.offms,this.pageCurr);
-  },
-  go:function(app,page,arg){
-    this.appPrev=this.appCurr;
-	this.pagePrev=this.pageCurr;
-    this.appCurr=app;
-    this.pageCurr=page;
-	if (this.pagePrev==-1&&w.gfx.isOn) {w.gfx.clear();w.gfx.off();return;}
-    if (this.pagePrev!=-1) {
-        face[this.pagePrev].clear();
-    }
-	if (this.pageCurr==-1 && this.pagePrev!=-1) {
-		//if (set.def.touchtype=="716")tfk.loop=100;
-		if (set.def.touchtype=="716") tfk.exit();	
-		acc.go=0;
-        face[this.pagePrev].off();
-		if (this.offid>=0) {clearTimeout(this.offid); this.offid=-1;}
-		if (this.appCurr!=this.appPrev) eval(require('Storage').read(app));
-		return;
+			}else if (c>1) face.go(this.appCurr,0);
+		},this.offms,this.pageCurr);
+	},
+	go:function(app,page,arg){
+		this.appPrev=this.appCurr;
+		this.pagePrev=this.pageCurr;
+		this.appCurr=app;
+		this.pageCurr=page;
+		if (this.pagePrev==-1&&w.gfx.isOn) {w.gfx.clear();w.gfx.off();return;}
+		if (this.pagePrev!=-1) {
+			face[this.pagePrev].clear();
+		}
+		if (this.pageCurr==-1 && this.pagePrev!=-1) {
+			//if (set.def.touchtype=="716")tfk.loop=100;
+			if (set.def.touchtype=="716") tfk.exit();	
+			acc.go=0;
+			face[this.pagePrev].off();
+			if (this.offid>=0) {clearTimeout(this.offid); this.offid=-1;}
+			if (this.appCurr!=this.appPrev) eval(require('Storage').read(app));
+			return;
+		}
+		if (this.appCurr!=this.appPrev) {
+			face[2]=0;face[5]=0;
+			this.appRoot=[this.appPrev,this.pagePrev,this.pageArg];
+			eval(require('Storage').read(app));
+		} 
+		this.off(page);
+		face[page].init(arg);	
+		if(!w.gfx.isOn) {
+			if (set.def.touchtype!="816") digitalPulse(D13,1,[10,50]);
+			if (set.def.touchtype=="716"){tfk.loop=10;if(!tfk.tid) tfk.start();}
+			w.gfx.on();
+		}
+		face[page].show(arg);
+		if(arg) this.pageArg=arg;
 	}
-	if (this.appCurr!=this.appPrev) {
-		face[2]=0;face[5]=0;
-		this.appRoot=[this.appPrev,this.pagePrev,this.pageArg];
-		eval(require('Storage').read(app));
-    } 
-	this.off(page);
-	face[page].init(arg);	
-	if(!w.gfx.isOn) {
-		if (set.def.touchtype!="816") digitalPulse(D13,1,[10,50]);
-		if (set.def.touchtype=="716"){tfk.loop=10;if(!tfk.tid) tfk.start();}
-		w.gfx.on();
-	}
-	face[page].show(arg);
-	if(arg) this.pageArg=arg;
-  }
 };
 //touch 
 var touchHandler = {
-  timeout: function(){
-	face.off(face.pagePrev);
-  }
+	timeout: function(){
+		face.off(face.pagePrev);
+	}
 };
 //charging notify
 setWatch(function(s){
-  var co;
-  var g=w.gfx;
-  if (s.state==1) {
-	digitalPulse(D16,1,200); 
-	co=col.raf;
-	set.ondc=1;
-  }else {
-	digitalPulse(D16,1,[100,80,100]);
-  	co=col.black;
-	set.ondc=0;
-  }
-  if (face.pageCurr<0){
+	var co;
+	var g=w.gfx;
+	if (s.state==1) {
+		digitalPulse(D16,1,200); 
+		co=col.raf;
+		set.ondc=1;
+	}else {
+		digitalPulse(D16,1,[100,80,100]);
+		co=col.black;
+		set.ondc=0;
+	}
+	if (face.pageCurr<0){
 	if (global.w&&s.state==1) {
-	  if (face.offid==-1){ g.clear();g.flip();}
-	  g.setColor(0,col("black"));
-	  g.setColor(1,col("lblue"));
-	  let img = require("heatshrink").decompress(atob("wGAwJC/AA0D///4APLh4PB+AP/B/N/BoIAD/gPHBwv//wPO/4PH+F8gEHXwN8h4PIKgwP/B/4P/B/4PbgQPOg4POh+AB7sfB50/H5wPPv4PO/4PdgIPP94PNgfPB5sHB5+PB5sPB50fBgQPLjwPOn0OB5t8jwPNvAPO/APNgPwB53gB5sDB5/AB5sHwAPNh+Aj//4APLYAIPMj4POnwhBB5k8AgJSBB5V8LoQPL/BtDB5TRCKQIPJZwIEBSAIPJXwIEBMQQPJ4AEBKQIPJg4PCvAPKRgP+MQQPNYgYPKMQR/KLoMBMQIPLjxiCB5ccMQQPLnjeBB5reBB5zhDB5TeBB5reBB5s8B5s4bwIPMvDeBB5reBB5oDCB5d5B517bwIPNZwIPMu4PO/7OBB7oGCB5f+B738B7sBZwQPcGQQPMZwQPbgDOCB5gADB/4P/B/4PY/4AGB69/Bwv+B538B44Ar"));
-	  g.drawImage(img,60,30);
-      g.setFont("Vector",35);
-      g.drawString(w.battVoltage(1)+"%",125-(g.stringWidth(w.battVoltage(1)+"%")/2),200);
-	  g.flip();
-	  if (face.offid!==-1) clearTimeout(face.offid);
-	  face.offid=setTimeout(()=>{
-	  	g.clear();g.off();face.offid=-1;
-	  },2000);
-      if(!g.isOn) g.on();
-    }  
+		if (face.offid==-1){ g.clear();g.flip();}
+		g.setColor(0,col("black"));
+		g.setColor(1,col("lblue"));
+		let img = require("heatshrink").decompress(atob("wGAwJC/AA0D///4APLh4PB+AP/B/N/BoIAD/gPHBwv//wPO/4PH+F8gEHXwN8h4PIKgwP/B/4P/B/4PbgQPOg4POh+AB7sfB50/H5wPPv4PO/4PdgIPP94PNgfPB5sHB5+PB5sPB50fBgQPLjwPOn0OB5t8jwPNvAPO/APNgPwB53gB5sDB5/AB5sHwAPNh+Aj//4APLYAIPMj4POnwhBB5k8AgJSBB5V8LoQPL/BtDB5TRCKQIPJZwIEBSAIPJXwIEBMQQPJ4AEBKQIPJg4PCvAPKRgP+MQQPNYgYPKMQR/KLoMBMQIPLjxiCB5ccMQQPLnjeBB5reBB5zhDB5TeBB5reBB5s8B5s4bwIPMvDeBB5reBB5oDCB5d5B517bwIPNZwIPMu4PO/7OBB7oGCB5f+B738B7sBZwQPcGQQPMZwQPbgDOCB5gADB/4P/B/4PY/4AGB69/Bwv+B538B44Ar"));
+		g.drawImage(img,60,30);
+		g.setFont("Vector",35);
+		g.drawString(w.battVoltage(1)+"%",125-(g.stringWidth(w.battVoltage(1)+"%")/2),200);
+		g.flip();
+		if (face.offid!==-1) clearTimeout(face.offid);
+		face.offid=setTimeout(()=>{
+			g.clear();g.off();face.offid=-1;
+		},2000);
+		if(!g.isOn) g.on();
+	}  
   }
 },D19,{repeat:true, debounce:500,edge:0});  
 //button 

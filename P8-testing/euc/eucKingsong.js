@@ -112,6 +112,8 @@ euc.conn=function(mac){
 			euc.wri("end");
 			return;
 		} //else print(event.target.value.buffer); 
+		if (set.bt==4) euc.emuW(event.target.value.buffer);
+
 
 		});
 		//on disconnect
@@ -124,7 +126,7 @@ euc.conn=function(mac){
 		console.log("EUC connected"); 
 		digitalPulse(D16,1,[90,40,150,40,90]);
 		euc.wri= function(n) {
-			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},1500);return;} euc.busy=euc.busy=setTimeout(()=>{euc.busy=0;},1500);
+			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},500);return;} euc.busy=euc.busy=setTimeout(()=>{euc.busy=0;},500);c.stopNotifications();
 			//horn
 			if (n==="hornOn"||n==="hornOff"){
 				c.writeValue(euc.cmd((n==="hornOn")?"strobeOn":"strobeOff")).then(function() {
@@ -186,6 +188,14 @@ euc.conn=function(mac){
 				}).catch(function(err)  {
 					clearTimeout(euc.busy);euc.busy=0;euc.off("err");
 				});
+			//forward if cmd unknown
+            }else if (!euc.cmd(n)) {
+				c.writeValue(n).then(function() {
+					clearTimeout(euc.busy);c.startNotifications();
+				}).catch(function(err)  {
+					clearTimeout(euc.busy);euc.busy=0;euc.off("err");
+				});
+			
 			//rest
 			}else{
 				c.writeValue(euc.cmd(n)).then(function() {
