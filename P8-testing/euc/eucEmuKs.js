@@ -1,6 +1,7 @@
 //NRF.setConnectionInterval({minInterval:100, maxInterval:200});
 //atc
 //if (euc.state!=="READY") return;
+euc.emuF=1;
 euc.emuR=function(evt){
 	//handleInfoEvent({"src":"BT","title":"EUC","body":"Phone write"});
 
@@ -12,9 +13,9 @@ euc.emuR=function(evt){
 			//setTimeout(()=>{euc.emuU();},1000);
         }
     } else if (euc.state=="READY"&&euc.emuF) {
-					  digitalPulse(D16,1,40);    
+	        //digitalPulse(D16,1,40);    
 
-			euc.wri(env.data);
+			euc.wri(evt.data);
 	}
 
   //var ll=0; require("Storage").write("evt"+ll,evt); ll++;

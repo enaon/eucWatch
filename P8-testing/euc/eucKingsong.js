@@ -126,34 +126,34 @@ euc.conn=function(mac){
 		console.log("EUC connected"); 
 		digitalPulse(D16,1,[90,40,150,40,90]);
 		euc.wri= function(n) {
-			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},500);return;} euc.busy=euc.busy=setTimeout(()=>{euc.busy=0;},500);c.stopNotifications();
+			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},500);return;} euc.busy=euc.busy=setTimeout(()=>{euc.busy=0;},500);
 			//horn
 			if (n==="hornOn"||n==="hornOff"){
 				c.writeValue(euc.cmd((n==="hornOn")?"strobeOn":"strobeOff")).then(function() {
 				   if (n==="hornOn")euc.dash.strb=1; else euc.dash.strb=0;
 					c.writeValue(euc.cmd((n==="hornOn")?"lock":"unlock")).then(function(){
-						if (n==="hornOn") euc.dash.lock=1; else {euc.dash.lock=0;clearTimeout(euc.busy);euc.busy=0;c.startNotifications();return;}
+						if (n==="hornOn") euc.dash.lock=1; else {euc.dash.lock=0;clearTimeout(euc.busy);euc.busy=0;/*/c.startNotifications();*/return;}
 						if (!BTN1.read()){ 
 							c.writeValue(euc.cmd("unlock")).then(function(){
 								euc.dash.lock=0;
 								c.writeValue(euc.cmd("strobeOff")).then(function(){
-									euc.dash.strb=0;clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
+									euc.dash.strb=0;clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/
 								}).catch(function(err)  {
-									clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
+									clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/
 									euc.off("err");
 								});
 							}).catch(function(err)  {
-								clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
+								clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/
 								euc.off("err");
 							});
 							return;
-						}else clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
+						}else clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/
 					}).catch(function(err)  {
-						clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
+						clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/
 						euc.off("err");
 					});
 				}).catch(function(err)  {
-					clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
+					clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/
 					euc.off("err");
 				});	
 			//toogle
@@ -161,21 +161,21 @@ euc.conn=function(mac){
 				c.writeValue(euc.cmd((n==="start")?"serial":((euc.dash.aLck)?"lock":(euc.dash.aOff)?"off":"lightsOff"))).then(function() {
 						if (euc.seq==0) {
 							if (n==="start") {
-								clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();
+								clearTimeout(euc.busy);euc.busy=0;euc.state="READY";/*c.startNotifications();*/
 							}else global["\xFF"].BLE_GATTS.disconnect();
 							return;
 						}
 						c.writeValue(euc.cmd((n==="start")?((euc.dash.passSend)?"passSend":(euc.dash.aLck)?"unlock":"lightsAuto"):(euc.dash.aOff)?"off":"lightsOff")).then(function() {
 							if (euc.seq==0) {
 								if (n==="start") {
-									clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();
+									clearTimeout(euc.busy);euc.busy=0;euc.state="READY";/*c.startNotifications();*/
 								}else global["\xFF"].BLE_GATTS.disconnect();
 								return;
 							}	
 							c.writeValue(euc.cmd((euc.dash.aLck&&euc.dash.passSend)?"unlock":"lightsAuto")).then(function() {
-								if (euc.seq==0) {clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();return;}
+								if (euc.seq==0) {clearTimeout(euc.busy);euc.busy=0;euc.state="READY";/*c.startNotifications();*/return;}
 								c.writeValue(euc.cmd("lightsAuto")).then(function() {
-									clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();return;
+									clearTimeout(euc.busy);euc.busy=0;euc.state="READY";/*c.startNotifications();*/return;
 								}).catch(function(err)  {
 									clearTimeout(euc.busy);euc.busy=0;euc.off("err");
 								});
@@ -191,7 +191,7 @@ euc.conn=function(mac){
 			//forward if cmd unknown
             }else if (!euc.cmd(n)) {
 				c.writeValue(n).then(function() {
-					clearTimeout(euc.busy);c.startNotifications();
+					clearTimeout(euc.busy);/*c.startNotifications();*/
 				}).catch(function(err)  {
 					clearTimeout(euc.busy);euc.busy=0;euc.off("err");
 				});
@@ -199,7 +199,7 @@ euc.conn=function(mac){
 			//rest
 			}else{
 				c.writeValue(euc.cmd(n)).then(function() {
-					clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
+					clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/
 				}).catch(function(err)  {
 					clearTimeout(euc.busy);euc.busy=0;euc.off("err");
 				});
