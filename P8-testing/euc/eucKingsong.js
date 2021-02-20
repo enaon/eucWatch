@@ -191,7 +191,7 @@ euc.conn=function(mac){
 			//forward if cmd unknown
             }else if (!euc.cmd(n)) {
 				c.writeValue(n).then(function() {
-					clearTimeout(euc.busy);/*c.startNotifications();*/
+					//clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/
 				}).catch(function(err)  {
 					clearTimeout(euc.busy);euc.busy=0;euc.off("err");
 				});

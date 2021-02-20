@@ -21,47 +21,47 @@ euc.emuR=function(evt){
 //NRF.setServices(undefined,{uart:false });
 //
 NRF.setServices({
-0x180A: {
-		0x2a23: {
+0x180A-0000-1000-8000-00805f9b34fb": {
+		0x2a23-0000-1000-8000-00805f9b34fb": {
 			value : [0x4d,0x89,0x75,0x00,0x00,0x4e,0x69,0x64],
 			maxLen : 20,
 			readable:true
-		},0x2a24: {
+		},0x2a24-0000-1000-8000-00805f9b34fb": {
 			value : "Model Number",
 			maxLen : 20,
 		  readable:true
-		},0x2a25: {
+		},0x2a25-0000-1000-8000-00805f9b34fb": {
 			value : "Serial Number",
 			maxLen : 20,
 		  readable:true
-		},0x2a26: {
+		},0x2a26-0000-1000-8000-00805f9b34fb": {
 			value : "Firmware Revision",
 			maxLen : 20,
 			readable:true
-		},0x2a27: {
+		},0x2a27-0000-1000-8000-00805f9b34fb": {
 			value : "Firmware Revision",
 			maxLen : 20,
 			readable:true,
-		},0x2a28: {
+		},0x2a28-0000-1000-8000-00805f9b34fb": {
 			value : "Software Revision",
 			maxLen : 20,
 			readable:true
-		},0x2a29: {
+		},0x2a29-0000-1000-8000-00805f9b34fb": {
 			value : "Manufacturer Name",
 			maxLen : 20,
 			readable:true
-		},0x2a2a: {
+		},0x2a2a-0000-1000-8000-00805f9b34fb": {
 			value : [0xfe,0x00,0x65,0x78,0x70,0x65,0x72,0x69,0x6d,0x65,0x6e,0x74,0x61,0x6c],
 			maxLen : 20,
 			readable:true
-		},0x2a50: {
+		},0x2a50-0000-1000-8000-00805f9b34fb": {
 			value : 0x00D",
 			maxLen : 20,
 			readable:true
 		}
 	},
-	0xfff0: {
-		0xfff1: {
+	0xfff0-0000-1000-8000-00805f9b34fb": {
+		0xfff1-0000-1000-8000-00805f9b34fb": {
 			value : [0x01],
 			maxLen : 20,
 			writable : true,
@@ -70,7 +70,7 @@ NRF.setServices({
 			  euc.emuR(evt);
 			},
             description:"Characteristic 1"
-		},0xfff2: {
+		},0xfff2-0000-1000-8000-00805f9b34fb": {
 			value : [0x02],
 			maxLen : 20,
 		    onWrite : function(evt) {
@@ -78,16 +78,16 @@ NRF.setServices({
 			},
 			readable:true,
             description:"Characteristic 2"
-		},0xfff3: {
+		},0xfff3-0000-1000-8000-00805f9b34fb": {
 			writable : true,
 			onWrite : function(evt) {
 				euc.emuR(evt);
 			},
             description:"Characteristic 3"
-		},0xfff4: {
+		},0xfff4-0000-1000-8000-00805f9b34fb": {
 			notify:true,
             description:"Characteristic 4"
-		},0xfff5: {
+		},0xfff5-0000-1000-8000-00805f9b34fb": {
 			value : [0x01,0x02,0x03,0x04,0x05],
 			maxLen : 20,
             writable:true,
@@ -98,8 +98,8 @@ NRF.setServices({
 			notify:true,
             description:"Characteristic 5"
 		}
-	},0xffe0: {
-		0xffe1: {
+	},0xffe0-0000-1000-8000-00805f9b34fb": {
+		0xffe1-0000-1000-8000-00805f9b34fb": {
 			value : [0x00],
 			maxLen : 20,
             writable:true,
