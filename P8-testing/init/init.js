@@ -296,9 +296,10 @@ module.exports = {
 w=require("P8");
 //load
 //w.gfx.init();
-eval(require('Storage').read('euc'));
 eval(require('Storage').read('handler'));
 eval(require('Storage').read('main'));
+eval(require('Storage').read('euc'));
+
 //require('Storage').list(/m_/).forEach(modfile=>{eval(require('Storage').read(modfile));});
 digitalPulse(D16,1,[100,30,100]);
 setTimeout(function(){

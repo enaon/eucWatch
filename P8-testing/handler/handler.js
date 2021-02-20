@@ -92,7 +92,7 @@ var set={
 			if (global["\xFF"].modules.ble_hid_controls) Modules.removeCached("ble_hid_controls");
 		}
 		//if (!Boolean(require('Storage').read('atc'))) this.def.atc=0;
-		if (!Boolean(require('Storage').read('eucEmu'))) this.def.atc=0;
+		if (!Boolean(require('Storage').read('eucEmu'))||!global.euc) this.def.atc=0;
 		if (this.def.atc) eval(require('Storage').read('eucEmu'));
 		else {
 			NRF.setServices(undefined,{uart:(this.def.cli||this.def.gb)?true:false,hid:(this.def.hid&&this.hidM)?this.hidM.report:undefined });
