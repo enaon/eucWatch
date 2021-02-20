@@ -104,7 +104,7 @@
 	  {"name":"dashGarage","url":"dashGarage.js"},
   	  {"name":"dashScan","url":"dashScan.js"},
    	  {"name":"dashSlot","url":"dashSlot.js"},
-  	  {"name":"dashSetNbAct","url":"dashSetNinebot.js"},
+  	  {"name":"dashSetNinebot","url":"dashSetNinebot.js"},
    	  {"name":"dashSetKingsong","url":"dashSetKingsong.js"},
    	  {"name":"dashSetKsOpt","url":"dashSetKsOpt.js"},
    	  {"name":"dashSetKsAdv","url":"dashSetKsAdv.js"},
