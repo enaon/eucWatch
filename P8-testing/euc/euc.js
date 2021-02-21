@@ -10,7 +10,8 @@ global.euc= {
 	tgl:function(){ 
 		if (this.state!="OFF" ) {
 			digitalPulse(D16,1,[90,60,90]);  
-			if (!set.def.acc) {set.def.accE=0;acc.off();}
+			set.def.accE=0;
+			if (!set.def.acc) {acc.off();}
 			this.seq=1;
 			this.state="OFF";
 			this.updateDash(require("Storage").readJSON("dash.json",1).slot);
