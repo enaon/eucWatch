@@ -1,135 +1,74 @@
-//kingsong  set options
+//kingsong  set adv limits
+
 face[0] = {
 	offms: 5000,
 	g:w.gfx,
 	init: function(){
-/*		this.g.setColor(1,col("gray"));
-		this.g.fillRect(0,0,239,195); //left up
-		this.g.setColor(0,0);
-		this.g.setFont("Vector",32);
-		this.g.drawString("TODO",120-(this.g.stringWidth("TODO")/2),9); 
-	
-		this.g.flip();
-*/
-		this.g.setColor(0,0);
-		this.g.fillRect(0,198,239,239);
+        this.g.setColor(0,0);
+		this.g.fillRect(0,196,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
-		this.g.drawString("OPTIONS",120-(this.g.stringWidth("OPTIONS")/2),214); 
+		this.g.drawString("SPEED LIMITS",120-(this.g.stringWidth("SPEED LIMITS")/2),214); 
 		this.g.flip(); 
-		this.b1=-1;
-		this.b2=-1;
-		this.b3=-1;
-		this.b4=-1;
-		this.info=0;
-		this.firstrun=1;
-		this.run=true;
+        this.btn(1,"ALARM 1",18,60,15,col("olive"),col("gray"),0,0,119,97,euc.dash.spd1,28,60,50);
+        this.btn(1,"ALARM 2",18,185,15,col("olive"),col("raf2"),122,0,239,97,euc.dash.spd2,28,185,50);		
+        this.btn(1,"ALARM 3",18,60,115,col("olive"),col("raf3"),0,100,119,195,euc.dash.spd3,28,60,150);
+        this.btn(1,"TILTBACK",18,185,115,col("red"),col("red"),122,100,239,195,euc.dash.spdT,28,185,150);		
+        if (!face.appPrev.startsWith("dashSet")){
+		this.g.setColor(0,0);
+		this.g.drawLine (0,98,239,98);
+		this.g.drawLine (0,99,239,99);
+        this.g.flip();
+		this.g.drawLine (120,0,120,195);
+      	this.g.drawLine (121,0,121,195);
+        this.g.flip();
+        this.btn1=0;this.btn2=0;this.btn3=0;this.btn4=0;
+        }      
+        this.run=true;
 	},
 	show : function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
 		if (!this.run) return; 
-		if (this.b1!=euc.dash.aLck){ //auto lock
-			this.b1=euc.dash.aLck;
-			this.g.setColor(0,(this.b1)?col("raf"):col("dgray"));
-			this.g.fillRect(0,0,118,97);
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",18);	
-			this.g.drawString("AUTO",60-(this.g.stringWidth("AUTO")/2),15); 
-			this.g.setFont("Vector",28);	
-			this.g.drawString("LOCK",60-(this.g.stringWidth("LOCK")/2),50); 
-			this.g.flip();
-            if (!this.firstrun) {
-			this.g.setColor(0,col("raf3"));
-			this.g.fillRect(0,198,239,239);//6
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",16);
-			 this.g.drawString((this.b1)?"DISCONNECT -> LOCK":"AUTO LOCK DISABLED",120-(this.g.stringWidth((this.b1)?"DISCONNECT -> LOCK":"AUTO LOCK DISABLED")/2),214); 
-			this.info=1;
-			this.g.flip();
-			}
-		}
-		if (this.b2!=euc.dash.buzz){ //buzz
-			this.b2=euc.dash.buzz;
-			this.g.setColor(0,(this.b2)?col("raf"):col("dgray"));
-			this.g.fillRect(122,0,239,97);
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",25);	
-			this.g.drawString("HAPTIC",185-(this.g.stringWidth("HAPTIC")/2),37); 
-			this.g.flip();
-            if (!this.firstrun) {
-			this.g.setColor(0,col("raf3"));
-			this.g.fillRect(0,198,239,239);//6
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",16);
-			 this.g.drawString((this.b2)?"VIBRATE ON ALERTS":"VIBRATION DISABLED",120-(this.g.stringWidth((this.b2)?"VIBRATE ON ALERTS":"VIBRATION DISABLED")/2),214); 
-			this.info=1;
-			this.g.flip();
-			}
-		}
-		if (this.b3!=euc.dash.aOff){ //auto off
-			this.b3=euc.dash.aOff;
-			this.g.setColor(0,(this.b3)?col("raf"):col("dgray"));
-			this.g.fillRect(0,100,118,195);
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",18);	
-			this.g.drawString("AUTO",60-(this.g.stringWidth("AUTO")/2),115); 
-			this.g.setFont("Vector",30);	
-			this.g.drawString("OFF",60-(this.g.stringWidth("OFF")/2),150); 
-			this.g.flip();
-            if (!this.firstrun) {
-			this.g.setColor(0,col("raf3"));
-			this.g.fillRect(0,198,239,239);//6
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",16);
-			 this.g.drawString((this.b3)?"DISCONNECT->POWER OFF":"AUTO OFF DISABLED",120-(this.g.stringWidth((this.b3)?"DISCONNECT->POWER OFF":"AUTO OFF DISABLED")/2),214); 
-			this.info=1;
-			this.g.flip();
-			}
-		}
-		if (this.b4!=euc.dash.horn){ //horn
-			this.b4=euc.dash.horn;
-			this.g.setColor(0,(this.b4)?col("raf"):col("dgray"));
-			this.g.fillRect(122,100,239,195);
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",25);	
-			this.g.drawString("HORN",185-(this.g.stringWidth("HORN")/2),136); 
-			this.g.flip();
-			if (!this.firstrun) {
-			this.g.setColor(0,col("raf3"));
-			this.g.fillRect(0,198,239,239);//6
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",16);
-			 this.g.drawString((this.b4)?"BUTTON IS HORN >2KPH":"HORN DISABLED",120-(this.g.stringWidth((this.b4)?"BUTTON IS HORN >2KPH":"HORN DISABLED")/2),214); 
-			this.info=1;
-			this.g.flip();
-			}
-        }
-		if (this.info)  {
-			this.info=0;
-			if (this.itid)clearTimeout(this.itid);
-			this.itid=setTimeout(function(t){
-				t.itid=0;
-				t.g.setColor(0,0);
-				t.g.fillRect(0,198,239,239);//6
-				t.g.setColor(1,col("white"));
-				t.g.setFont("Vector",20);
-				t.g.drawString("OPTIONS",120-(t.g.stringWidth("OPTIONS")/2),214); 
-				t.g.flip();
-		    },1000,this);
-		}
-		this.firstrun=0;
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();
-        },100,this);
+        },1000,this);
 	},
+    btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
+			this.g.setColor(0,(bt)?clr1:clr0);
+			this.g.fillRect(rx1,ry1,rx2,ry2);
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",size1);	
+          this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1); 
+   			if (txt2){this.g.setFont("Vector",size2);	
+            this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);}
+			this.g.flip();
+    },
+    ntfy: function(txt1,txt0,size,clr,bt){
+            this.g.setColor(0,clr);
+			this.g.fillRect(0,198,239,239);
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",size);
+     		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
+			this.g.flip();
+			if (this.ntid) clearTimeout(this.ntid);
+			this.ntid=setTimeout(function(t){
+                t.ntid=0;
+				t.g.setColor(0,0);
+				t.g.fillRect(0,198,239,239);
+				t.g.setColor(1,col("white"));
+				t.g.setFont("Vector",20);
+		        t.g.drawString("SPEED LIMITS",120-(t.g.stringWidth("SPEED LIMITS")/2),214); 
+				t.g.flip();
+			},1000,this);
+    },
 	tid:-1,
 	run:false,
 	clear : function(){
 		//this.g.clear();
 		this.run=false;
 		if (this.tid>=0) clearTimeout(this.tid);this.tid=-1;
-   		if (this.itid) clearTimeout(this.itid);this.itid=0;
+   		if (this.ntid) clearTimeout(this.ntid);this.ntid=0;
 		return true;
 	},
 	off: function(){
@@ -152,20 +91,28 @@ face[1] = {
 	},
 };	
 //touch
-touchHandler[0]=function(e,x,y){ 
+touchHandler[0]=function(e,x,y){
 	switch (e) {
-	case 5: //tap event
-		if (x<=120&&y<100) { //auto lock
-			euc.dash.aLck=1-euc.dash.aLck;
+      case 5:case 12: //tap event
+		if (x<=120&&y<100) { //alarm 1
+			face[0].btn1=1-face[0].btn1;
+            face[0].btn(face[0].btn1,"ALARM 1",18,60,15,col("olive"),col("gray"),0,0,119,97,euc.dash.spd1,28,60,50);
+            face[0].ntfy("HOLD -> SET","HOLD -> SET",20,col("dgray"),1);
 			digitalPulse(D16,1,[30,50,30]);
-		}else if (120<=x<=239&&y<=100) { //buzz
-			euc.dash.buzz=1-euc.dash.buzz;
+		}else if (120<=x<=239&&y<=100) { //alarm 2
+			face[0].btn2=2-face[0].btn2;
+            face[0].btn(face[0].btn2,"ALARM 2",18,185,15,col("olive"),col("gray"),122,0,239,97,euc.dash.spd2,28,185,50);
+            face[0].ntfy("HOLD -> SET","HOLD -> SET",20,col("dgray"),1);
 			digitalPulse(D16,1,[30,50,30]);
-		}else if (x<=120&&100<=y<=200) { //auto off
-			euc.dash.aOff=1-euc.dash.aOff;
+		}else if (x<=120&&100<=y<=200) { //alarm 3
+			face[0].btn3=1-face[0].btn3;
+            face[0].btn(face[0].btn3,"ALARM 3",18,60,115,col("olive"),col("gray"),0,100,119,195,euc.dash.spd3,28,60,150);
+            face[0].ntfy("HOLD -> SET","HOLD -> SET",20,col("dgray"),1);
 			digitalPulse(D16,1,[30,50,30]);		
-		}else if (120<=x<=239&&100<=y<=200) { //lock
-			euc.dash.horn=1-euc.dash.horn;
+		}else if (120<=x<=239&&100<=y<=200) { //tiltback
+			face[0].btn4=1-face[0].btn4;
+            face[0].btn(face[0].btn4,"TILTBACK",18,185,115,col("red"),col("red"),122,100,239,195,euc.dash.spdT,28,185,150);	
+            face[0].ntfy("GOLD -> SET","HOLD -> SET",20,col("dgray"),1);
 			digitalPulse(D16,1,[30,50,30]);						
 		}else digitalPulse(D16,1,[30,50,30]);
 		this.timeout();
@@ -185,14 +132,10 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
 	case 3: //slide left event
+		digitalPulse(D16,1,40);
+		break;
+	case 4: //slide right event (back action)
 		face.go("dashSetKsAdv",0);
 		return;
-	case 4: //slide right event (back action)
-		face.go("dashSetKingsong",0);
-		return;
-	case 12: //long press event
-		digitalPulse(D16,1,[100]);
-		this.timeout();
-		break;
   }
 };

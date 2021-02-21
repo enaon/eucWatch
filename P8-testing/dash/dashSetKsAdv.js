@@ -127,8 +127,9 @@ touchHandler[0]=function(e,x,y){
 			face.go("dashSetKsAdvCalibrate",0);
 			return;
 		}else if (x<=120&&100<=y<=200) {   //limits
-			euc.dash.aOff=1-euc.dash.aOff;
 			digitalPulse(D16,1,[30,50,30]);		
+			face.go("dashSetKsAdvLimits",0);
+			return;
 		}else if (120<=x&&x<=239&&100<=y&&y<=200) { //pass
 			digitalPulse(D16,1,[30,50,30]);		
 			if (euc.dash.pass.length>=4) face.go("dashSetKsAdvPass",5);

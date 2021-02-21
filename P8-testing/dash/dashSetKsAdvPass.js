@@ -45,18 +45,15 @@ face[0] = {
 		this.g.setFont("Vector",20);
 		this.g.drawString("PASS SETTINGS",120-(this.g.stringWidth("PASS SETTINGS")/2),214); 
 		this.g.flip(); 
-
 		this.run=false;
 	},
 	show : function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
 		if (!this.run) return; 
- 
-      this.firstrun=0;
-        this.tid=setTimeout(function(t,o){
+         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();
-        },100,this);
+        },1000,this);
 	},
     ntfy: function(txt,size,clr){
 			this.info=1;
@@ -312,13 +309,9 @@ touchHandler[5]=function(e,x,y){
                   euc.dash.pass=face[5].pass;
                   digitalPulse(D16,1,80);
                   face[5].ntfy("SUCCESS!",20,col("blue1"));
-                  if (euc.dash.passOld!=""){
-                  euc.wri("passChange");
-                  euc.dash.passSend=1;
+                  if (euc.dash.passOld!=""){euc.wri("passChange");}else{euc.wri("passSet");}
        			  euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
-                  } else {
-                  euc.wri("passSet");
-                  }
+                  euc.dash.passSend=1;
                   setTimeout(()=>{face.go("dashSetKsAdvPass",0);return;},1000);
                 }else{
                   digitalPulse(D16,1,120);
