@@ -257,8 +257,6 @@ touchHandler[0]=function(e,x,y){
           digitalPulse(D16,1,[30,50,30]);face[0].btSet=0;
           face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].atc=-1;face[0].bri=-1;face[0].acc=-1;face[0].dnd=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
         }else if (face.mode) {if (face[0].appDo2) {digitalPulse(D16,1,[30,50,30]);eval(face[0].appDo2);return;} else digitalPulse(D16,1,40);
-        }else if (face[0].btSet) {
-          digitalPulse(D16,1,40);
         }else digitalPulse(D16,1,40);
       }else if(158<x&&x<239&&y<75){//btn3
         if (face.mode) {if (face[0].appDo3) {digitalPulse(D16,1,[30,50,30]);eval(face[0].appDo3);return;} else digitalPulse(D16,1,40);

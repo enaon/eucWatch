@@ -58,6 +58,7 @@ var set={
 		gb:0,  //Notifications service. Enables/disables support for "GadgetBridge" playstore app.
 		atc:0, //Notifications service. Enables/disables support for "d6 notification" playstore app from ATC1441.
 		acc:0, //enables/disables wake-screen on wrist-turn. 
+		accE:0,//euc acc on/off
 		dnd:0, //Do not disturb mode, if ebabled vibrations are on.
 		hidT:"media", //joy/kb/media
 		bri:2, //Screen brightness 1..7
@@ -67,7 +68,7 @@ var set={
 		};
 		set.updateSettings();
 	},
-	accR:function(){if (this.def.acc)acc.on(); else acc.off();},
+	accR:function(){if(!this.def.accE) { if (this.def.acc)acc.on(); else acc.off();}},
 		hidM:undefined, //not user settable.
 		clin:0,//not settable
 		upd:function(){ //run this for settings changes to take effect.
@@ -457,7 +458,7 @@ if (set.def.touchtype=="816"){ //816
 	}
 };	
 }
-//accelerometer(wake on look)
+//accelerometer(wake on wrist turn)
 if (set.def.acctype==="BMA421"){
 	i2c.writeTo(0x18,0x40,0x17);
 	i2c.writeTo(0x18,0x7c,0x03);
