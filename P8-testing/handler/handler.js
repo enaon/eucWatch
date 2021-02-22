@@ -196,7 +196,6 @@ var face={
 					if (face[c].off) {
 						if (set.def.touchtype=="716") tfk.exit();	
 						else {digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xe5,3);},100);} //touch off
-						//digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},80);
 						face[c].off();this.pageCurr=-1;face.pagePrev=c;
 					}
 				}else face.go(this.appCurr,1);
@@ -204,7 +203,6 @@ var face={
 				if (face[c].off) {
 					if (set.def.touchtype=="716") tfk.exit();	
 					else {digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xe5,3);},100);} //touch off
-					//digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},80);
 					face.go("main",-1);face.pagePrev=c;
 				}
 			}else if (c>1) face.go(this.appCurr,0);
@@ -237,7 +235,7 @@ var face={
 		this.off(page);
 		face[page].init(arg);	
 		if(!w.gfx.isOn) {
-			digitalPulse(D13,1,[10,50]);
+			digitalPulse(D13,1,[10,50]); //touch wake
 			if (set.def.touchtype=="716"){tfk.loop=10;if(!tfk.tid) tfk.start();}
 			w.gfx.on();
 		}
