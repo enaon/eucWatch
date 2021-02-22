@@ -453,8 +453,8 @@ if (set.def.touchtype=="816"){ //816
 				}
 			}else if (this.do===1){
 				if (tp[1]==5||tp[1]==12){
-					touchHandler[face.pageCurr](tp[1],this.x,this.y);this.do=1;
-				}else this.do=0;
+					touchHandler[face.pageCurr](tp[1],this.x,this.y);this.do=0;
+				}
 			}
 		}else if (tp[3]==255) {
 			if (this.do===1){touchHandler[face.pageCurr](5,this.x,this.y);this.do=0;        }
