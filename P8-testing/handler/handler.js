@@ -237,7 +237,7 @@ var face={
 		this.off(page);
 		face[page].init(arg);	
 		if(!w.gfx.isOn) {
-			if (set.def.touchtype!="816") digitalPulse(D13,1,[10,50]);
+			digitalPulse(D13,1,[10,50]);
 			if (set.def.touchtype=="716"){tfk.loop=10;if(!tfk.tid) tfk.start();}
 			w.gfx.on();
 		}
@@ -286,7 +286,6 @@ setWatch(function(s){
 function buttonHandler(s){
 	if (this.t1) {clearTimeout(this.t1); this.t1=0;}
 	if (face.offid) {clearTimeout(face.offid);face.offid=0;}
-    if (set.def.touchtype=="816") digitalPulse(D13,1,[5,50]);
 	if (s.state) { 
 		//EUC action on long press
 		if (global.euc&&euc.state==="READY"&&euc.dash.spd>=2&&euc.dash.horn===1) {euc.wri("hornOn");return;}
