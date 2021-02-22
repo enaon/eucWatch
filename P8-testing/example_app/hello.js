@@ -4,6 +4,7 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
   offms: 10000, //face timeout, will fall to face[1] after it, face[1] is a redirection face, not actually visible.
   g:w.gfx, //set graphics as this.g variable
   init: function(o){ //put here the elements of the page that will not need refreshing and initializations.
+   	this.g.clear();
     this.msg=(global.hello)?hello:"Hello"; //check if global.hello var exists and get val or set to "hello". 
     //the way g.setColor is used on this project is not the espruino default. You can see changes on it at the init file. The screen driver is set at two colors mode to save on ram, and a flip is used when more colors are needed. The first argument is the color space, 0 or 1, the second argument is the actual color in 12-bit Color code. https://rangevoting.org/ColorCode.html#
     this.g.setColor(1,col("lblue"));
