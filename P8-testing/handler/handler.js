@@ -182,14 +182,14 @@ var face={
 	pageArg:"",
 	faceSave:-1,
 	mode:0,
-	offid:-1,
+	offid:0,
 	offms:-1,
 	off:function(page){ 
 		if (this.pageCurr===-1) {print("face-1");return;}
-		if (this.offid>=0) {clearTimeout(this.offid); this.offid=-1;}
+		if (this.offid) {clearTimeout(this.offid); this.offid=0;}
 		if (face[this.pageCurr]!=-1) this.offms=face[this.pageCurr].offms;
 		this.offid=setTimeout((c)=>{
-			this.offid=-1;
+			this.offid=0;
 			//if (set.def.acc&&acc.tid==-1) acc.on();
 			if (c===0||c===2) {
 				if (this.appCurr==="main") {
@@ -224,7 +224,7 @@ var face={
 			if (set.def.touchtype=="716") tfk.exit();	
 			acc.go=0;
 			face[this.pagePrev].off();
-			if (this.offid>=0) {clearTimeout(this.offid); this.offid=-1;}
+			if (this.offid) {clearTimeout(this.offid); this.offid=0;}
 			if (this.appCurr!=this.appPrev) eval(require('Storage').read(app));
 			return;
 		}
@@ -265,7 +265,7 @@ setWatch(function(s){
 	}
 	if (face.pageCurr<0){
 	if (global.w&&s.state==1) {
-		if (face.offid==-1){ g.clear();g.flip();}
+		if (!face.offid){ g.clear();g.flip();}
 		g.setColor(0,col("black"));
 		g.setColor(1,col("lblue"));
 		let img = require("heatshrink").decompress(atob("wGAwJC/AA0D///4APLh4PB+AP/B/N/BoIAD/gPHBwv//wPO/4PH+F8gEHXwN8h4PIKgwP/B/4P/B/4PbgQPOg4POh+AB7sfB50/H5wPPv4PO/4PdgIPP94PNgfPB5sHB5+PB5sPB50fBgQPLjwPOn0OB5t8jwPNvAPO/APNgPwB53gB5sDB5/AB5sHwAPNh+Aj//4APLYAIPMj4POnwhBB5k8AgJSBB5V8LoQPL/BtDB5TRCKQIPJZwIEBSAIPJXwIEBMQQPJ4AEBKQIPJg4PCvAPKRgP+MQQPNYgYPKMQR/KLoMBMQIPLjxiCB5ccMQQPLnjeBB5reBB5zhDB5TeBB5reBB5s8B5s4bwIPMvDeBB5reBB5oDCB5d5B517bwIPNZwIPMu4PO/7OBB7oGCB5f+B738B7sBZwQPcGQQPMZwQPbgDOCB5gADB/4P/B/4PY/4AGB69/Bwv+B538B44Ar"));
@@ -273,9 +273,9 @@ setWatch(function(s){
 		g.setFont("Vector",35);
 		g.drawString(w.battVoltage(1)+"%",125-(g.stringWidth(w.battVoltage(1)+"%")/2),200);
 		g.flip();
-		if (face.offid!==-1) clearTimeout(face.offid);
+		if (face.offid) clearTimeout(face.offid);
 		face.offid=setTimeout(()=>{
-			g.clear();g.off();face.offid=-1;
+			g.clear();g.off();face.offid=0;
 		},2000);
 		if(!g.isOn) g.on();
 	}  
@@ -283,7 +283,8 @@ setWatch(function(s){
 },D19,{repeat:true, debounce:500,edge:0});  
 //button 
 function buttonHandler(s){
-	if ( this.t1) {clearTimeout(this.t1); this.t1=0;}
+	if (this.t1) {clearTimeout(this.t1); this.t1=0;}
+	if (face.offid) {clearTimeout(face.offid);face.offid=0;}
 	if (s.state) { 
 		//EUC action on long press
 		if (global.euc&&euc.state==="READY"&&euc.dash.spd>=2&&euc.dash.horn===1) {euc.wri("hornOn");return;}
@@ -326,7 +327,8 @@ function buttonHandler(s){
 				face.go(face.appCurr,to);
 			}
 		}
-	}else if (global.euc&&euc.state==="READY"&&euc.dash.horn===1) {euc.wri("hornOff");return;}	
+	}else if (global.euc&&euc.state==="READY"&&euc.dash.horn===1) {euc.wri("hornOff");return;
+	}else face.off();
 }
 btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
 //touch controller
