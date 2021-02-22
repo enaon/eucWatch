@@ -51,10 +51,11 @@ euc.conn=function(mac){
 	//read
 	}).then(function(c) {
 	  c.on('characteristicvaluechanged', function(event) {
-		this.var= event.target.value.getUint8(16, true);
 		//print (this.var);
 		if (euc.busy) return;
 		if (this.var==169) {
+		if (set.bt==4) euc.emuW(event.target.value.buffer);
+
 			euc.alert=0;
 			//speed
 			euc.dash.spd=(event.target.value.getUint16(4, true)/100).toFixed(1); 
@@ -113,7 +114,7 @@ euc.conn=function(mac){
 			return;
 		} //else print(event.target.value.buffer); 
 		if (set.bt==4) euc.emuW(event.target.value.buffer);
-
+//
 
 		});
 		//on disconnect

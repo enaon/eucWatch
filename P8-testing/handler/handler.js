@@ -111,8 +111,8 @@ var set={
 			this.gbSend=function(){return;};
 			global.GB=undefined;
 		}		
-		if (!this.def.cli&&!this.def.gb&&!this.def.atc&&!this.def.hid) { if (this.bt!=0) NRF.disconnect(); else{ NRF.sleep();this.btsl=1;}}
-		else if (this.bt!=0) NRF.disconnect();
+		if (!this.def.cli&&!this.def.gb&&!this.def.atc&&!this.def.hid) { if (this.bt) NRF.disconnect(); else{ NRF.sleep();this.btsl=1;}}
+		else if (this.bt) NRF.disconnect();
 		else if (this.btsl==1) {NRF.restart();this.btsl=0;}
 	}
 };
