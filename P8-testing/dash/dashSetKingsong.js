@@ -38,13 +38,10 @@ face[0] = {
 		this.g.setFont("Vector",20);
 		this.g.drawString("ACTIONS",120-(this.g.stringWidth("ACTIONS")/2),218); 
 		this.g.flip();
-		this.g.setFont("Vector",70);
-		this.g.setColor(1,col("lgray"));
-		this.g.drawString(".",117,150); 
-		this.g.drawString(".",133,150); 
-      	this.g.flip(); 
-      	this.g.setColor(1,col("white"));
-		this.g.drawString(".",102,150); 
+		this.g.setColor(0,col("lgray"));
+      	this.g.fillRect(75,198,165,204);
+        this.g.setColor(1,col("white"));
+      	this.g.fillRect(75,198,105,204);
 		this.g.flip(); 		
 		this.run=true;
 	},
@@ -85,14 +82,11 @@ face[0] = {
 				t.g.setFont("Vector",20);
 		        t.g.drawString("ACTIONS",122-(t.g.stringWidth("ACTIONS")/2),218); 
 				t.g.flip();
-				t.g.setFont("Vector",70);
-				t.g.setColor(1,col("lgray"));
-				t.g.drawString(".",102,150); 
-				t.g.drawString(".",133,150); 
-				t.g.flip(); 
+				t.g.setColor(0,col("lgray"));
+				t.g.fillRect(75,198,165,204);
 				t.g.setColor(1,col("white"));
-				t.g.drawString(".",117,150); 
-				t.g.flip(); 
+				t.g.fillRect(75,198,105,204);
+				t.g.flip(); 	
 			},1000,this);
     },
 	tid:-1,

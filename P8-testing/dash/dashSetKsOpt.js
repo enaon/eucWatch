@@ -3,33 +3,23 @@ face[0] = {
 	offms: 5000,
 	g:w.gfx,
 	init: function(){
+		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
+        if (!face.appPrev.startsWith("dashSet"))this.g.clear
         this.g.setColor(0,0);
-		this.g.fillRect(0,196,239,239);
+		this.g.fillRect(0,205,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
 		this.g.drawString("OPTIONS",120-(this.g.stringWidth("OPTIONS")/2),218); 
 		this.g.flip(); 
-		this.g.setFont("Vector",70);
-		this.g.setColor(1,col("lgray"));
-		this.g.drawString(".",102,150); 
-		this.g.drawString(".",133,150); 
-      	this.g.flip(); 
-      	this.g.setColor(1,col("white"));
-		this.g.drawString(".",117,150); 
-		this.g.flip(); 
+        this.g.setColor(0,col("lgray"));
+      	this.g.fillRect(75,198,165,204);
+        this.g.setColor(1,col("white"));
+      	this.g.fillRect(105,198,135,204);
+        this.g.flip(); 
         this.btn(euc.dash.aLck,"AUTO",18,60,15,col("raf"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
         this.btn(euc.dash.buzz,"HAPTIC",25,185,37,col("raf"),col("dgray"),122,0,239,97);		
         this.btn(euc.dash.aOff,"AUTO",18,60,115,col("raf"),col("dgray"),0,100,119,195,"OFF",30,60,150);
         this.btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("dgray"),122,100,239,195);		
-        if (!face.appPrev.startsWith("dashSet")){
-		this.g.setColor(0,0);
-		this.g.drawLine (0,98,239,98);
-		this.g.drawLine (0,99,239,99);
-        this.g.flip();
-		this.g.drawLine (120,0,120,195);
-      	this.g.drawLine (121,0,121,195);
-        this.g.flip();
-        }      
         this.run=true;
 	},
 	show : function(){
@@ -61,18 +51,15 @@ face[0] = {
 			this.ntid=setTimeout(function(t){
                 t.ntid=0;
 				t.g.setColor(0,0);
-				t.g.fillRect(0,198,239,239);
+				t.g.fillRect(0,1205,239,239);
 				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",20);
 		        t.g.drawString("OPTIONS",120-(t.g.stringWidth("OPTIONS")/2),218); 
 				t.g.flip();
-				t.g.setFont("Vector",70);
-				t.g.setColor(1,col("lgray"));
-				t.g.drawString(".",102,150); 
-				t.g.drawString(".",133,150); 
-				t.g.flip(); 
+				t.g.setColor(0,col("lgray"));
+				t.g.fillRect(75,198,165,204);
 				t.g.setColor(1,col("white"));
-				t.g.drawString(".",117,150); 
+				t.g.fillRect(105,198,135,204);
 				t.g.flip(); 
 			},1000,this);
     },

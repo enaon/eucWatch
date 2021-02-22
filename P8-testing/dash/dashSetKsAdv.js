@@ -6,19 +6,16 @@ face[0] = {
 
 		//info
 		this.g.setColor(0,0);
-		this.g.fillRect(0,196,239,239);
+		this.g.fillRect(0,205,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
 		this.g.drawString("ADVANCED",122-(this.g.stringWidth("ADVANCED")/2),218); 
 		this.g.flip();
-		this.g.setFont("Vector",70);
-		this.g.setColor(1,col("lgray"));
-		this.g.drawString(".",102,150); 
-		this.g.drawString(".",117,150); 
-      	this.g.flip(); 
-      	this.g.setColor(1,col("white"));
-		this.g.drawString(".",133,150); 
-		this.g.flip(); 
+        this.g.setColor(0,col("lgray"));
+      	this.g.fillRect(75,198,134,204);
+        this.g.setColor(1,col("white"));
+      	this.g.fillRect(135,198,165,204);
+        this.g.flip(); 
 		//ride mode
 		this.b1=euc.dash.mode;
 		if (this.b1==0) {
