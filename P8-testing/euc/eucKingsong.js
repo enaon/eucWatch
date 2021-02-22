@@ -107,7 +107,7 @@ euc.conn=function(mac){
 			euc.dash.lock=event.target.value.getUint8(2, true);
 		} //else print(event.target.value.buffer); 
 //forward
-		if (set.bt==4&&euc.emuF=1) euc.emuW(event.target.value.buffer);
+		if (set.bt==4&&euc.emuF==1) euc.emuW(event.target.value.buffer);
 		});
 		//on disconnect
 		global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
