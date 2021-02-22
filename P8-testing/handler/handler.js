@@ -195,7 +195,7 @@ var face={
 				if (this.appCurr==="main") {
 					if (face[c].off) {
 						if (set.def.touchtype=="716") tfk.exit();	
-						else if (set.def.touchtype=="816") {digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xe5,3);},100);} //touch off
+						else {digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xe5,3);},100);} //touch off
 						//digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},80);
 						face[c].off();this.pageCurr=-1;face.pagePrev=c;
 					}
@@ -203,7 +203,7 @@ var face={
 			}else if (face.appPrev=="off") {
 				if (face[c].off) {
 					if (set.def.touchtype=="716") tfk.exit();	
-					else if (set.def.touchtype=="816") {digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xe5,3);},100);} //touch off
+					else {digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xe5,3);},100);} //touch off
 					//digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},80);
 					face.go("main",-1);face.pagePrev=c;
 				}
@@ -222,7 +222,7 @@ var face={
 		if (this.pageCurr==-1 && this.pagePrev!=-1) {
 			//if (set.def.touchtype=="716")tfk.loop=100;
 			if (set.def.touchtype=="716") tfk.exit();
-			else if (set.def.touchtype=="816") {digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100);} //touch deep sleep
+			else {digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100);} //touch deep sleep
 			acc.go=0;
 			face[this.pagePrev].off();
 			if (this.offid) {clearTimeout(this.offid); this.offid=0;}
@@ -456,8 +456,8 @@ if (set.def.touchtype=="816"){ //816
 				}
 			}else if (this.do===1){
 				if (tp[1]==5||tp[1]==12){
-					touchHandler[face.pageCurr](tp[1],this.x,this.y);this.do=0;
-				}
+					touchHandler[face.pageCurr](tp[1],this.x,this.y);this.do=1;
+				}else this.do=0;
 			}
 		}else if (tp[3]==255) {
 			if (this.do===1){touchHandler[face.pageCurr](5,this.x,this.y);this.do=0;        }
