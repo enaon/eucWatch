@@ -185,7 +185,7 @@ var face={
 	offid:0,
 	offms:-1,
 	off:function(page){ 
-		if (this.pageCurr===-1) {print("face-1");return;}
+		if (this.pageCurr===-1) return;
 		if (this.offid) {clearTimeout(this.offid); this.offid=0;}
 		if (face[this.pageCurr]!=-1) this.offms=face[this.pageCurr].offms;
 		this.offid=setTimeout((c)=>{
@@ -195,16 +195,16 @@ var face={
 				if (this.appCurr==="main") {
 					if (face[c].off) {
 						if (set.def.touchtype=="716") tfk.exit();	
-						//if (set.def.touchtype!="816")	i2c.writeTo(0x15,0xa5,3); 
-						i2c.writeTo(0x15,0xa5,3); 
+						else if (set.def.touchtype=="816") {digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xe5,3);},100);} //touch off
+						//digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},80);
 						face[c].off();this.pageCurr=-1;face.pagePrev=c;
 					}
 				}else face.go(this.appCurr,1);
 			}else if (face.appPrev=="off") {
 				if (face[c].off) {
 					if (set.def.touchtype=="716") tfk.exit();	
-					//if (set.def.touchtype!="816") i2c.writeTo(0x15,0xa5,3);
-					i2c.writeTo(0x15,0xa5,3); 
+					else if (set.def.touchtype=="816") {digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xe5,3);},100);} //touch off
+					//digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},80);
 					face.go("main",-1);face.pagePrev=c;
 				}
 			}else if (c>1) face.go(this.appCurr,0);
@@ -221,7 +221,8 @@ var face={
 		}
 		if (this.pageCurr==-1 && this.pagePrev!=-1) {
 			//if (set.def.touchtype=="716")tfk.loop=100;
-			if (set.def.touchtype=="716") tfk.exit();	
+			if (set.def.touchtype=="716") tfk.exit();
+			else if (set.def.touchtype=="816") {digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100);} //touch deep sleep
 			acc.go=0;
 			face[this.pagePrev].off();
 			if (this.offid) {clearTimeout(this.offid); this.offid=0;}
@@ -285,6 +286,7 @@ setWatch(function(s){
 function buttonHandler(s){
 	if (this.t1) {clearTimeout(this.t1); this.t1=0;}
 	if (face.offid) {clearTimeout(face.offid);face.offid=0;}
+    if (set.def.touchtype=="816") digitalPulse(D13,1,[5,50]);
 	if (s.state) { 
 		//EUC action on long press
 		if (global.euc&&euc.state==="READY"&&euc.dash.spd>=2&&euc.dash.horn===1) {euc.wri("hornOn");return;}
@@ -334,18 +336,27 @@ btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
 //touch controller
 //var i2c=I2C1;
 var i2c=new I2C();
-i2c.setup({scl:D7, sda:D6, bitrate:200000});
+i2c.setup({scl:D7, sda:D6, bitrate:100000});
 digitalPulse(D13,1,[5,50]);
 var c;
 if (set.def.touchtype=="816"){ //816
+    var tid;
 	setWatch(function(s){
 		"ram";
 		var tp=i2c.readFrom(0x15,7);
-		if (face.pageCurr>=0) {face.off();touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);}
-		else if (tp[1]==5) {
-			if (s.time-c<0.25) face.go(face.appCurr,0);
-			c=s.time;
-		}else if (/*tp[1]==1||*/tp[1]==1) face.go(face.appCurr,0);
+        //print(tp);
+        if (tp[2]==180) {
+            digitalPulse(D13,1,[5,50]); //wake
+          	tid=setTimeout(()=>{
+			  digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100);
+              tid=0;
+              tp=0;
+		    },600);
+        return;
+        } 
+        //print(tp);
+		if (face.pageCurr>=0) {if(face.offid){clearTimeout(face.offid);face.offid=0;} touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);}
+		else if (tid&&tp[1]==1) {face.go(face.appCurr,0); clearTimeout(tid);tid=0;}
 	},D28,{repeat:true, edge:"rising"}); 
 }else if (set.def.touchtype=="816s"){//816s
 	var lt,xt,yt,tt,tf;
@@ -418,7 +429,7 @@ if (set.def.touchtype=="816"){ //816
 	init:function(){
 		"ram";
 		var tp=i2c.readFrom(0x15,7);
-		//	print(tp);
+			//print(tp);
 		if (tp[3]==128) {
 			if (this.time==-1) this.time=getTime();
 			if (this.st) {
@@ -450,15 +461,14 @@ if (set.def.touchtype=="816"){ //816
 			this.st=1;this.time=-1;
 		}
 	},
-	start:function(){
-		i2c.writeTo(0x15,0xa5,3); 
+	start:function(){ 
 		if (this.tid) clearInterval(this.tid);
 		this.tid=setInterval(function(t){
 			tfk.init();
 		},this.loop);
 	},
 	exit:function(){
-		i2c.writeTo(0x15,0xa5,3); 
+	    digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100);
 		if (this.tid) clearInterval(this.tid);this.tid=0;
 	}
 };	
@@ -544,6 +554,4 @@ function col(no){
 	}
 }
 //end
-//if ( Boolean(require("Storage").read("images"))) eval(require('Storage').read('images')); 
 
-//dash

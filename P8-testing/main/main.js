@@ -1,7 +1,7 @@
 
 //main
 face[0] = {
-  offms: 5000,
+  offms: 10000,
   g:w.gfx,
   init: function(){
 	this.g.clear();
