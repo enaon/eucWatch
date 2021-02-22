@@ -18,7 +18,7 @@ global.euc= {
 			this.updateDash(require("Storage").readJSON("dash.json",1).slot);
 			//if (this.kill) clearTimout(this.kill);
 			//this.kill=setTimeout(()=>{
-			if (euc.dash,maker=="Kingsong") euc.wri("end");	
+			if (euc.dash.maker=="Kingsong") euc.wri("end");	
 			face.go(set.dash[set.def.dash],0);return;
 		}else {
 			NRF.setTxPower(4);
