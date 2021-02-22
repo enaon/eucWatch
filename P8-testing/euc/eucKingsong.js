@@ -51,11 +51,11 @@ euc.conn=function(mac){
 	//read
 	}).then(function(c) {
 	  c.on('characteristicvaluechanged', function(event) {
-		//print (this.var);
+		print (event);
 		if (euc.busy) return;
 		if (this.var==169) {
-		if (set.bt==4) euc.emuW(event.target.value.buffer);
-
+		//if (set.bt==4) euc.emuW(event.target.value.buffer);
+		//if (set.bt==4&&euc.emuF==1) euc.emuW(event.target.value.buffer);
 			euc.alert=0;
 			//speed
 			euc.dash.spd=(event.target.value.getUint16(4, true)/100).toFixed(1); 
@@ -107,7 +107,6 @@ euc.conn=function(mac){
 			euc.dash.lock=event.target.value.getUint8(2, true);
 		} //else print(event.target.value.buffer); 
 //forward
-		if (set.bt==4&&euc.emuF==1) euc.emuW(event.target.value.buffer);
 		});
 		//on disconnect
 		global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
@@ -156,7 +155,7 @@ euc.conn=function(mac){
 							if (n==="start") {
 								clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();
 							}else {
-							if (euc.kill) {clearTimout(euc.kill);euc.kill=0};
+							if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
 								global["\xFF"].BLE_GATTS.disconnect();
 							}
 							return;
@@ -165,7 +164,7 @@ euc.conn=function(mac){
 							if (euc.seq==0) {
 								if (n==="start") {
 									clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();
-							}else {if (euc.kill) {clearTimout(euc.kill);euc.kill=0} global["\xFF"].BLE_GATTS.disconnect();}
+							}else {if (euc.kill) {clearTimout(euc.kill);euc.kill=0;} global["\xFF"].BLE_GATTS.disconnect();}
 								return;
 							}	
 							c.writeValue(euc.cmd((euc.dash.aLck&&euc.dash.passSend)?"unlock":"lightsAuto")).then(function() {
