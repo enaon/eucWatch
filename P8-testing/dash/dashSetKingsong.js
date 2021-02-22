@@ -36,8 +36,16 @@ face[0] = {
 		this.g.fillRect(0,196,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
-		this.g.drawString("ACTIONS",120-(this.g.stringWidth("ACTIONS")/2),214); 
+		this.g.drawString("ACTIONS",120-(this.g.stringWidth("ACTIONS")/2),218); 
 		this.g.flip();
+		this.g.setFont("Vector",70);
+		this.g.setColor(1,col("lgray"));
+		this.g.drawString(".",117,150); 
+		this.g.drawString(".",133,150); 
+      	this.g.flip(); 
+      	this.g.setColor(1,col("white"));
+		this.g.drawString(".",102,150); 
+		this.g.flip(); 		
 		this.run=true;
 	},
 	show : function(){
@@ -75,8 +83,16 @@ face[0] = {
 				t.g.fillRect(0,196,239,239);
 				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",20);
-		        t.g.drawString("ACTIONS",122-(t.g.stringWidth("ACTIONS")/2),214); 
+		        t.g.drawString("ACTIONS",122-(t.g.stringWidth("ACTIONS")/2),218); 
 				t.g.flip();
+				t.g.setFont("Vector",70);
+				t.g.setColor(1,col("lgray"));
+				t.g.drawString(".",102,150); 
+				t.g.drawString(".",133,150); 
+				t.g.flip(); 
+				t.g.setColor(1,col("white"));
+				t.g.drawString(".",117,150); 
+				t.g.flip(); 
 			},1000,this);
     },
 	tid:-1,

@@ -10,7 +10,6 @@ face[0] = {
 		this.g.setFont("Vector",20);
 		this.g.drawString("SPEED LIMITS",120-(this.g.stringWidth("SPEED LIMITS")/2),214); 
 		this.g.flip(); 
-
 		this.btn(euc.dash.spd1E,"ALARM 1",18,60,15,col("olive"),col("gray"),0,0,119,97,(euc.dash.spd1E)?euc.dash.spd1:"OFF",28,60,50);
 		this.btn(euc.dash.spd2E,"ALARM 2",18,185,15,col("olive"),col("gray"),122,0,239,97,(euc.dash.spd2E)?euc.dash.spd2:"OFF",28,185,50);
 		this.btn(1,"ALARM 3",18,60,115,col("olive"),col("raf4"),0,100,119,195,euc.dash.spd3,28,60,150);
@@ -61,7 +60,7 @@ face[0] = {
 			t.g.setFont("Vector",20);
 			t.g.drawString("SPEED LIMITS",120-(t.g.stringWidth("SPEED LIMITS")/2),214); 
 			t.g.flip();
-		},1000,this);
+		    },1000,this);
     },
 	set: function(b,txt){
         this.setE=1;
@@ -230,11 +229,12 @@ touchHandler[0]=function(e,x,y){
         }
         break;
    case 12: //hold event
-		if (!face[0].setE){
 			if (x<=120&&y<100) { //alarm 1
+                if (euc.dash.spd2E){
                 if (euc.dash.spd1>=euc.dash.spd2) euc.dash.spd1=euc.dash.spd2-1;
 				face[0].set("1","ALARM 1");
 				digitalPulse(D16,1,[30,50,30]);
+                }else  {face[0].ntfy("ENABLE ALARM 2","",20,col("red"),1);digitalPulse(D16,1,40);}
 			}else if (120<=x<=239&&y<=100) { //alarm 2
                 if (euc.dash.spd2>=euc.dash.spd3) euc.dash.spd2=euc.dash.spd3-1;
 				face[0].set("2","ALARM 2");
@@ -247,9 +247,7 @@ touchHandler[0]=function(e,x,y){
                 face[0].set("T","TITLBACK");
 				digitalPulse(D16,1,[30,50,30]);						
 			}else digitalPulse(D16,1,[30,50,30]);
-		}else {
 			
-		}
 		this.timeout();
 		break;
 	}

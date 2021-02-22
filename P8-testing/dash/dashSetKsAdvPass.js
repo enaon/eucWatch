@@ -45,6 +45,9 @@ face[0] = {
 		this.g.setFont("Vector",20);
 		this.g.drawString("PASS SETTINGS",120-(this.g.stringWidth("PASS SETTINGS")/2),214); 
 		this.g.flip(); 
+		this.g.setColor(0,col("red"));
+	    this.g.fillRect(160,198,239,208);
+		this.g.flip();
 		this.run=false;
 	},
 	show : function(){
@@ -72,6 +75,9 @@ face[0] = {
 				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",20);
 		        t.g.drawString("PASS SETTINGS",120-(t.g.stringWidth("PASS SETTINGS")/2),214); 
+				t.g.flip();
+				t.g.setColor(0,col("red"));
+				t.g.fillRect(160,198,239,208);
 				t.g.flip();
 			},1000,this);
     },
