@@ -340,23 +340,26 @@ i2c.setup({scl:D7, sda:D6, bitrate:100000});
 digitalPulse(D13,1,[5,50]);
 var c;
 if (set.def.touchtype=="816"){ //816
-    var tid;
+    var tid8;
 	setWatch(function(s){
 		"ram";
 		var tp=i2c.readFrom(0x15,7);
-        //print(tp);
         if (tp[2]==180) {
             digitalPulse(D13,1,[5,50]); //wake
-          	tid=setTimeout(()=>{
+          	tid8=setTimeout(()=>{
 			  digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100);
-              tid=0;
+              tid8=0;
               tp=0;
 		    },600);
-        return;
+			return;
         } 
-        //print(tp);
-		if (face.pageCurr>=0) {if(face.offid){clearTimeout(face.offid);face.offid=0;} touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);}
-		else if (tid&&tp[1]==1) {face.go(face.appCurr,0); clearTimeout(tid);tid=0;}
+		if (face.pageCurr>=0) {
+			if(face.offid){clearTimeout(face.offid);face.offid=0;}
+			touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);}
+		else if (tid8&&tp[1]==1) {
+			face.go(face.appCurr,0);
+			clearTimeout(tid8);tid8=0}
+		}
 	},D28,{repeat:true, edge:"rising"}); 
 }else if (set.def.touchtype=="816s"){//816s
 	var lt,xt,yt,tt,tf;
