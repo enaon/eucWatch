@@ -358,7 +358,7 @@ if (set.def.touchtype=="816"){ //816
 			touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);}
 		else if (tid8&&tp[1]==1) {
 			face.go(face.appCurr,0);
-			clearTimeout(tid8);tid8=0}
+			clearTimeout(tid8);tid8=0;
 		}
 	},D28,{repeat:true, edge:"rising"}); 
 }else if (set.def.touchtype=="816s"){//816s
