@@ -73,9 +73,6 @@ face[0] = {
 				t.g.setFont("Vector",20);
 		        t.g.drawString("PASS SETTINGS",120-(t.g.stringWidth("PASS SETTINGS")/2),214); 
 				t.g.flip();
-				t.g.setColor(0,col("red"));
-				t.g.fillRect(160,198,239,208);
-				t.g.flip();
 			},1000,this);
     },
 	tid:-1,
