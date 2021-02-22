@@ -3,6 +3,7 @@ GB=1;
 require('Storage').write('setting.json',{"watchtype":"eucwatch"});
   Bluetooth.line="";
   Bluetooth.on('data',function(d) {
+	 print(d);
     var l = (Bluetooth.line + d).split("\n");
     Bluetooth.line = l.pop();
     l.forEach(n=>Bluetooth.emit("line",n));

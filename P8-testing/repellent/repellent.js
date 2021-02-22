@@ -1,250 +1,191 @@
-//repellent
-if (!global.rep){
-global.rep={
-gatt:0,characteristic:0,service:0,device:0,bat:-1,med:-1,sta:0,
-mac:[],go:0,busy:0
-};
-}
-if (!global.rep.read)
-  global.rep.read=function(){
-//  if (rep.mac==undefined){face.go('w_scan',0,'fe95');return;}
-//  if (rep.go==undefined){face.go('w_scan',0,'fe95');return;}
-  if(set.gIsB) {return;}
-  set.gIsB=1;
-  NRF.connect(rep.mac[rep.go],{minInterval:7.5, maxInterval:10}
-  ).then(function(g) {
-	rep.gatt = g;
-	return rep.gatt.getPrimaryService("0000fe01-0000-1000-8000-00805f9b34fb");
-  }).then(function(s) {
-	rep.service=s;
-	return rep.service.getCharacteristic("00000002-0000-1000-8000-00805f9b34fb");
-  }).then(function (c) {
-	rep.characteristic=c;
-	return rep.characteristic.readValue();
-  }).then(function () {
-    rep.bat=rep.characteristic.value.buffer[0];
-    rep.med=rep.characteristic.value.buffer[1];
-  }).then(function() {
-	return rep.service.getCharacteristic("00000001-0000-1000-8000-00805f9b34fb");
-  }).then(function (c) {
-	rep.characteristic=c;
-	return rep.characteristic.readValue();
-  }).then(function () {
-    rep.sta=rep.characteristic.value.buffer[0];
-	rep.gatt.disconnect().then(function (c){
-    set.gIsB=0;rep.gatt=0;rep.device=0;rep.characteristic=0;rep.service=0;
-    });
-    rep.con=1;
-    face[0].btscan=1;
-  }).catch(function(err)  {
-    if (set.def.cli) console.log("repellent:", err);
-    set.gIsB=0;rep.gatt=0;rep.device=0;rep.characteristic=0;rep.service=0;
-    face[0].btscan=2;
-  });
-};
-//rep face
-face[0]= {
-  offms: 5000,
-  init: function(){
-  	this.g.clear();
-	rep.mac=(require("Storage").readJSON("setting.json",1)||{}).repellent_mac;
-	rep.go=(require("Storage").readJSON("setting.json",1)||{}).repellent_go;
-    rep.con=0;
-    var g=w.gfx;
-    g.setColor(1,col("lgray"));//header bck
-	g.fillRect(120,0,239,50); //header
-    g.fillRect(0,0,117,50); //status
-    g.fillRect(0,200,239,239); //mac
-    g.setColor(0,0);//header txt
-    g.setFont("Vector",25);
-	g.drawString("INSECT",4,3); 
-    g.setFont("Vector",20);
-  	g.drawString("REPELLENT",4,28); 
-    g.flip();
-	this.bat=-1;
-	this.med=-1;
-	this.sta=-1;
-    this.mac=-1;
-    this.con=0;
-    this.btscan=0;
-	if(global["\xFF"].BLE_GATTS==undefined) {
-      this.run=true;
-    }else {
-      g.setFont("Vector",27);
-      g.setColor(1,col("white"));
-      g.drawString("ERROR:",120-(g.stringWidth("ERROR:")/2),85);
-      g.drawString("BT IN USE",120-(g.stringWidth("BT IN USE")/2),125);
-      g.flip();
-    }
-  },
-  show : function(){
-    if (!this.run) return;
-    var g=w.gfx;
-    if (!rep.mac){
-	  if (!rep.go) {
-		g.setColor(1,col("dgray"));
-		g.fillRect(0,55,239,195);//batt
-		g.setColor(0,col("white"));
-		g.setFont("Vector",30);
-        g.drawString("DEVICE",120-(g.stringWidth("DEVICE")/2),70); //batt
-		g.drawString("NOT FOUND",120-(g.stringWidth("NOT FOUND")/2),115); //batt
-		g.setFont("Vector",20);
-		g.drawString("TOUCH TO SCAN",120-(g.stringWidth("TOUCH TO SCAN")/2),170); //batt
-		g.flip();
-	  }else{
-		face.go('w_scan',0,'fe95');	  
-	  } 
-	  return;
-    }else 
-    rep.read();
-    if (this.btscan==0){
-      g.setColor(1,col("dgray"));
-		g.fillRect(0,55,239,195);//batt
-		g.setColor(0,col("white"));
-		g.setFont("Vector",30);
-        g.drawString("READING",120-(g.stringWidth("READING")/2),70); //batt
-		g.drawString("DEVICE",120-(g.stringWidth("DEVICE")/2),115); //batt
-		g.setFont("Vector",20);
-		g.drawString("INFORMATION",120-(g.stringWidth("INFORMATION")/2),170); //batt
-		g.flip();
-    }else if (this.btscan==2){
-      g.setColor(1,col("dgray"));
-		g.fillRect(0,55,239,195);//batt
-		g.setColor(0,col("white"));
-		g.setFont("Vector",30);
-        g.drawString("DEVICE",120-(g.stringWidth("DEVICE")/2),70); //batt
-		g.drawString("OUT OF",120-(g.stringWidth("OUT OF")/2),115); //batt
-		g.setFont("Vector",20);
-		g.drawString("RANGE",120-(g.stringWidth("RANGE")/2),170); //batt
-		g.flip();
-    }else {
-    if(rep.con!=this.con) {
-      this.con=rep.con;
-	  g.setColor(1,col("raf3"));
-      g.fillRect(0,0,117,50);
-	  g.setColor(0,col("lblue"));
-      g.setFont("Vector",18);
-  	  g.drawString("CONNECTED",4,15); 
-      g.flip();
+//kingsong  set adv limits
+
+face[0] = {
+	offms: 5000,
+	g:w.gfx,
+	init: function(){
+        this.g.setColor(0,0);
+		this.g.fillRect(0,196,239,239);
+		this.g.setColor(1,col("white"));
+		this.g.setFont("Vector",20);
+		this.g.drawString("SPEED LIMITS",120-(this.g.stringWidth("SPEED LIMITS")/2),214); 
+		this.g.flip(); 
+        this.btn(euc.dash.spd1E,"ALARM 1",18,60,15,col("olive"),col("gray"),0,0,119,97,euc.dash.spd1,28,60,50);
+        this.btn(euc.dash.spd2E,"ALARM 2",18,185,15,col("olive"),col("gray"),122,0,239,97,euc.dash.spd2,28,185,50);		
+        this.btn(euc.dash.spd3E,"ALARM 3",18,60,115,col("olive"),col("gray"),0,100,119,195,euc.dash.spd3,28,60,150);
+        this.btn(euc.dash.spd4E,"TILTBACK",18,185,115,col("red"),col("red"),122,100,239,195,euc.dash.spdT,28,185,150);		
+        if (!face.appPrev.startsWith("dashSet")){
+		this.g.setColor(0,0);
+		this.g.drawLine (0,98,239,98);
+		this.g.drawLine (0,99,239,99);
+        this.g.flip();
+		this.g.drawLine (120,0,120,195);
+      	this.g.drawLine (121,0,121,195);
+        this.g.flip();
+        }      
+        this.run=true;
+	},
+	show : function(){
+		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
+		if (!this.run) return; 
+        this.tid=setTimeout(function(t,o){
+		  t.tid=-1;
+		  t.show();
+        },1000,this);
+	},
+    btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
+		this.g.setColor(0,(bt)?clr1:clr0);
+		this.g.fillRect(rx1,ry1,rx2,ry2);
+		this.g.setColor(1,col("white"));
+		this.g.setFont("Vector",size1);	
+		this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1); 
+		if (txt2){this.g.setFont("Vector",size2);	
+		this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);}
+		this.g.flip();
+    },
+    ntfy: function(txt1,txt0,size,clr,bt){
+		this.g.setColor(0,clr);
+		this.g.fillRect(0,198,239,239);
+		this.g.setColor(1,col("white"));
+		this.g.setFont("Vector",size);
+		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
+		this.g.flip();
+		if (this.ntid) clearTimeout(this.ntid);
+		this.ntid=setTimeout(function(t){
+			t.ntid=0;
+			t.g.setColor(0,0);
+			t.g.fillRect(0,198,239,239);
+			t.g.setColor(1,col("white"));
+			t.g.setFont("Vector",20);
+			t.g.drawString("SPEED LIMITS",120-(t.g.stringWidth("SPEED LIMITS")/2),214); 
+			t.g.flip();
+		},1000,this);
+    },
+	set: function(b,txt){
+        this.setE=1;
+        this.setEb=b;
+		this.g.setColor(0,col("olive"));
+		this.g.fillRect(0,0,239,195);
+		this.g.setColor(1,col("white"));
+		this.g.setFont("Vector",20);
+		this.g.drawString(txt,120-(this.g.stringWidth(txt)/2),10); 		
+		this.g.drawImage(require("heatshrink").decompress(atob("oFAwJC/AAs8A41+A43/AwsDA40HA40PA40f/wHFn/8Fw34AwkB//wGw3AGw2AGxk/Gw1/Gw4uFGwPgGxguBGwsfGw4uGv5lFGw4HBGwoHJC4wnHG45HHK45nHO444JGAynHW47HHHBKBHNJ44QA4o4BA4owBA41+A408A4wA6A==")),0,75);
+		this.g.drawImage(require("heatshrink").decompress(atob("oFAwJC/AAU8A41+A43/A4/AA43gA43wA4t//AHFn/8A4sfGA0P/+AA4kDHA0BHCAwGn/+GA4HFg44QGA3/NJ44QA5oXHE443HI4xXHM453HGw6XHU44uGY442Hc473HMo9/Voy9Ifw42FA4IGFgF+A408A4wA9A=")),180,75);
+		this.g.flip(); 
+        this.btn(1,euc.dash["spd"+b],100,126,60,col("olive"),col("gray"),60,40,180,160);
+    },
+	tid:-1,
+	run:false,
+	clear : function(){
+		//this.g.clear();
+		this.run=false;
+		if (this.tid>=0) clearTimeout(this.tid);this.tid=-1;
+   		if (this.ntid) clearTimeout(this.ntid);this.ntid=0;
+		return true;
+	},
+	off: function(){
+		this.g.off();
+		this.clear();
 	}
-    if (rep.bat!=this.bat) {
-      this.bat=rep.bat;
-      this.c=col("white");
-      g.setColor(1,col("dgray"));
-      g.fillRect(0,55,117,195);//batt
-      g.setColor(0,this.c);
-      g.setFont("Vector",45);
-      g.drawString(this.bat+"%",60-(g.stringWidth(this.bat+"%")/2),95); //batt
-      g.setFont("Vector",23);
-      g.drawString((this.bat*1.5|0)+" DAYS",60-(g.stringWidth((this.bat*1.5|0)+" DAYS")/2),170);
-      g.setFont("Vector",21);
-      g.drawString("BATTERY",60-(g.stringWidth("BATTERY")/2),60); //batt
-  	  g.flip();
-    }
-    if (rep.med!=this.med) {
-      this.med=rep.med;
-      this.c=col("lblue");
-      //if (this.med>=50) 
-      g.setColor(1,col("raf3"));
-      //else { g.setColor(1,col("purple");}
-	  g.fillRect(120,55,239,195);//med
-      g.setColor(0,this.c);
-      g.setFont("Vector",45);
-      g.drawString(this.med+"%",185-(g.stringWidth(this.med+"%")/2),95); //med
-      g.setFont("Vector",23);
-      g.drawString((this.med*0.9|0)+" DAYS",183-(g.stringWidth((this.med*0.9|0)+" DAYS")/2),170);
-      g.setFont("Vector",21);
-      g.drawString("MEDICINE",183-(g.stringWidth("MEDICINE")/2),60); //med
-  	  g.flip();
-    }
-    if (rep.sta!=this.sta) {
-      this.sta=rep.sta;
-      var s;
-      if (this.sta==0) {s="OFF";this.c=0;this.b=col("gray");}
-      else if (this.sta==1) {s="ON";this.c=col("white");this.b=col("raf");}
-      else if (this.sta==3) {s="AUTO";this.c=col("yellow");this.b=col("raf");}
-      g.setColor(1,this.b);
-	  g.fillRect(120,0,239,50); //status
-      g.setColor(0,this.c);
-      g.setFont("Vector",35);
-      g.drawString(s,183-(g.stringWidth(s)/2),10); //sta
-  	  g.flip();
-    }
-    if (rep.mac[rep.go]!=this.mac) {
-      this.mac=rep.mac[rep.go];
-      g.setColor(1,col("lgray"));
-      g.fillRect(0,200,239,239); //mac
-      g.setColor(0,0);
-      g.setFont("Vector",28);
-      g.drawString(rep.mac[rep.go].substring(0,17),120-(g.stringWidth(rep.mac[rep.go].substring(0,17))/2),210);
-      g.flip();
-    }
-    
-    }
-    this.tid=setTimeout(function(t){
-      t.tid=-1;
-      t.show();
-    },1000,this);
-  },
-  tid:-1,
-  run:false,
-  clear : function(){
-    var g=w.gfx;
-    pal[0]=0;
-    g.clear();
-    this.exit();
-    return true;
-  },
-  exit: function(){
-    this.run=false;
-    if (this.tid>=0) clearTimeout(this.tid);
-    //if (face.appCurr!="repellent") global.rep=undefined;
-    this.tid=-1;
-    return true;
-  },
-  off: function(){
-    var g=w.gfx;
-    g.off();
-    this.clear();
-  }
 };
 //loop face
 face[1] = {
-  offms:1000,
-  init: function(){
-  return true;
-  },
-  show : function(){
-    face.go("main",0);
-    return true;
-  },
-   clear: function(){
-  return true;
-  }
+	offms:1000,
+	init: function(){
+		return true;
+	},
+	show : function(){
+		face.go("dashSetKingsong",0);
+		return true;
+	},
+	clear: function(){
+		return true;
+	},
 };	
-
-//touch main
+//touch
 touchHandler[0]=function(e,x,y){
-    if (e==5){
-		face.go('w_scan',0,'fe95');	  
-    }else if  (e==1){
-	  //face.go("repellent",-1);return;
-	  face.go("main",0);return;
-    }else if  (e==2){
-	  if (y>200&&x<50) {
-        if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
-        else w.gfx.bri.set(this.bri);
-		digitalPulse(D16,1,[30,50,30]);
-      }else if (y>200) {  
-		face.go("settings",0);return;
-	  } else digitalPulse(D16,1,40);
-    }else if  (e==3){
-	  face.go("settings",0);return;
-    }else if  (e==4){
-	   face.go("settings",0);return;
-//	  face.go(face.appRoot[0],face.appRoot[1],face.appRoot[2]);return;
-    }else if  (e==12){		
-	  digitalPulse(D16,1,40);    
-    }
-    this.timeout();
+	switch (e) {
+      case 5://tap event
+        if (!face[0].setE){
+			if (x<=120&&y<100) { //alarm 1
+				euc.dash.spd1E=1-euc.dash.spd1E;
+				face[0].btn(euc.dash.spd1E,"ALARM 1",18,60,15,col("olive"),col("gray"),0,0,119,97,(euc.dash.spd1E)?euc.dash.spd1:(euc.dash.spd2E)?euc.dash.spd2-1:(euc.dash.spd3E)?euc.dash.spd3-2:euc.dash.spdT-3,28,60,50);
+				face[0].ntfy("HOLD -> SET","HOLD -> SET",20,col("dgray"),1);
+				digitalPulse(D16,1,[30,50,30]);
+			}else if (120<=x<=239&&y<=100) { //alarm 2
+				euc.dash.spd2E=1-euc.dash.spd2E;
+				face[0].btn(euc.dash.spd2E,"ALARM 2",18,185,15,col("olive"),col("gray"),122,0,239,97,(euc.dash.spd2E)?euc.dash.spd2:(euc.dash.spd3E)?euc.dash.spd3-1::euc.dash.spdT-2,28,185,50);
+				face[0].ntfy("HOLD -> SET","HOLD -> SET",20,col("dgray"),1);
+				digitalPulse(D16,1,[30,50,30]);
+			}else if (x<=120&&100<=y<=200) { //alarm 3
+				euc.dash.spd3E=1-euc.dash.spd3E;
+				face[0].btn(euc.dash.spd3E,"ALARM 3",18,60,115,col("olive"),col("gray"),0,100,119,195,(euc.dash.spd3E)?euc.dash.spd3:euc.dash.spdT-1,28,60,150);
+				face[0].ntfy("HOLD -> SET","HOLD -> SET",20,col("dgray"),1);
+				digitalPulse(D16,1,[30,50,30]);		
+			}else if (120<=x<=239&&100<=y<=200) { //tiltback
+				//face[0].btn(1,"TILTBACK",18,185,115,col("red"),col("red"),122,100,239,195,euc.dash.spdT,28,185,150);	
+				face[0].ntfy("GOLD -> SET","HOLD -> SET",20,col("dgray"),1);
+				digitalPulse(D16,1,[30,50,30]);						
+			}else digitalPulse(D16,1,[30,50,30]);
+		}else {
+			if (120<=x) { //up
+                euc.dash["spd"+face[0].setEb]++;
+                face[0].btn(1,euc.dash["spd"+face[0].setEb],100,126,60,col("olive"),col("gray"),60,40,180,160);
+
+            }else {  //dn
+                euc.dash["spd"+face[0].setEb]--;
+                face[0].btn(1,euc.dash["spd"+face[0].setEb],100,126,60,col("olive"),col("gray"),60,40,180,160);
+            }
+  
+		}
+		this.timeout();
+		break;
+	case 1: //slide down event
+		//face.go("main",0);
+		face.go(set.dash[set.def.dash],0);
+		return;	 
+	case 2: //slide up event
+		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
+			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
+			else w.gfx.bri.set(this.bri);
+			digitalPulse(D16,1,[30,50,30]);
+		}else if (y>190) {
+			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
+		} else {digitalPulse(D16,1,40);}
+		this.timeout();
+		break;
+	case 3: //slide left event
+		digitalPulse(D16,1,40);
+		break;
+	case 4: //slide right event (back action)
+        if (face[0].setE) {
+          face[0].setE=0; 
+          w.gfx.clear();
+          face[0].init();
+        } else {
+		face.go("dashSetKsAdv",0);
+		return;
+        }
+        break;
+   case 12: //hold event
+		if (!face[0].setE){
+			if (x<=120&&y<100) { //alarm 1
+				face[0].set("1","ALARM 1");
+				digitalPulse(D16,1,[30,50,30]);
+			}else if (120<=x<=239&&y<=100) { //alarm 2
+				face[0].set("2","ALARM 2");
+				digitalPulse(D16,1,[30,50,30]);
+			}else if (x<=120&&100<=y<=200) { //alarm 3
+                face[0].set("3","ALARM 3");
+				digitalPulse(D16,1,[30,50,30]);		
+			}else if (120<=x<=239&&100<=y<=200) { //tiltback
+                face[0].set("T","TITLBACK");
+				digitalPulse(D16,1,[30,50,30]);						
+			}else digitalPulse(D16,1,[30,50,30]);
+		}else {
+			
+		}
+		this.timeout();
+		break;
+  }
 };
