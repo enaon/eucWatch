@@ -101,8 +101,12 @@ var set={
 		}
 		if (this.def.gb) eval(require('Storage').read('m_gb'));
 		else {
-			this.handleNotificationEvent=undefined;
-			this.handleFindEvent=undefined;
+			this.handleNotificationEvent=function(){return;};
+			this.handleFindEvent=function(){return;};
+			this.handleWeatherEvent=function(){return;};
+			this.handleCallEvent=function(){return;};
+			this.handleFindEvent=function(){return;};
+			global.GB=function(){return;};
 			this.sendBattery=undefined;
 			this.gbSend=function(){return;};
 			global.GB=undefined;
@@ -280,7 +284,6 @@ setWatch(function(s){
 //button 
 function buttonHandler(s){
 	if ( this.t1) {clearTimeout(this.t1); this.t1=0;}
-	face.off();
 	if (s.state) { 
 		//EUC action on long press
 		if (global.euc&&euc.state==="READY"&&euc.dash.spd>=2&&euc.dash.horn===1) {euc.wri("hornOn");return;}

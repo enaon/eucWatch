@@ -3,6 +3,7 @@ face[0] = {
 	offms: 5000,
 	g:w.gfx,
 	init: function(){
+		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
 
 		//info
 		this.g.setColor(0,0);
@@ -11,11 +12,14 @@ face[0] = {
 		this.g.setFont("Vector",20);
 		this.g.drawString("ADVANCED",122-(this.g.stringWidth("ADVANCED")/2),218); 
 		this.g.flip();
-        this.g.setColor(0,col("lgray"));
-      	this.g.fillRect(75,198,134,204);
+		this.g.setColor(0,col("black"));
+		this.g.fillRect(0,196,239,204);
+		this.g.setColor(1,col("lgray"));
+      	this.g.fillRect(75,198,135,204);
+		this.g.flip();
         this.g.setColor(1,col("white"));
       	this.g.fillRect(135,198,165,204);
-        this.g.flip(); 
+		this.g.flip(); 
 		//ride mode
 		this.b1=euc.dash.mode;
 		if (this.b1==0) {
@@ -33,7 +37,6 @@ face[0] = {
 		this.g.setFont("Vector",30);	
 		this.g.drawString(this.b1t,60-(this.g.stringWidth(this.b1t)/2),50); 
 		this.g.flip();
-
 		//calibrate
 		this.g.setColor(0,col("olive"));
 		this.g.fillRect(122,0,239,97);
@@ -48,9 +51,6 @@ face[0] = {
 		this.g.setFont("Vector",18);	
 		this.g.drawString("LIMMITS",60-(this.g.stringWidth("LIMMITS")/2),115); 
 		this.g.setFont("Vector",30);	
-		//this.g.drawString(euc.dash.spd1,40-(this.g.stringWidth(euc.dash.spd1)/2),140);
-		//this.g.drawString(euc.dash.spd2,40-(this.g.stringWidth(euc.dash.spd2)/2),170); 
-		//this.g.drawString(euc.dash.spd3,80-(this.g.stringWidth(euc.dash.spd3)/2),140); 
 		this.g.drawString(euc.dash.spdT,60-(this.g.stringWidth(euc.dash.spdT)/2),150); 
 		this.g.flip();
 		//pass

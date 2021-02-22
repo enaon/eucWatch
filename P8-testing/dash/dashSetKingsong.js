@@ -4,45 +4,32 @@ face[0] = {
 	g:w.gfx,
 	init: function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
-        this.btn("LIGHTS",18,60,15,(euc.dash.light)?col("raf"):col("dgray"),0,0,119,97,(!euc.dash.light)?"OFF":(euc.dash.light==1)?"ON":(euc.dash.light==2)?"AUTO":"CITY",28,60,50); //1
-		if (!face.appPrev.startsWith("dashSet")){
-		this.g.setColor(0,0);
-		this.g.drawLine (120,0,120,99);
-      	this.g.drawLine (121,0,121,99);
-        this.g.flip();
-		}
-        this.btn("STROBE",18,185,15,(euc.dash.strb)?col("raf"):col("dgray"),122,0,239,97,(!euc.dash.strb)?"OFF":"ON",28,185,50);//2
-		if (!face.appPrev.startsWith("dashSet")){
-		this.g.setColor(0,0);
-		this.g.drawLine (0,98,239,98);
-		this.g.drawLine (0,99,239,99);
-        this.g.flip();
-        this.g.drawLine (120,100,120,195);
-      	this.g.drawLine (121,100,121,195);
-        this.g.flip();  
-		}	
-        //this.btn("MODE",18,60,115,(euc.dash.mode)?col("raf"):col("dgray"),0,100,119,195,(!euc.dash.mode)?"OFF":(euc.dash.mode==1)?"MED":"SOFT",30,60,150); //3
-		this.g.setColor(0,col("dgray"));
-		this.g.fillRect(0,100,119,195); 
-		this.g.setColor(1,col("white"));
-
-		this.img=require("heatshrink").decompress(atob("oFAgINKv38AwkD/n88AHDj4HB/AHDv+8/k/A4f+jH+h+ADwXoiP+j4gCg/Mg4XB+AHBh8OFAN/FAUf40f/F3IIU/5wPBuf+GwUEA4MB/42CiE//kD/+AgP+ngHBi//4ED/0+A4M///gCQM/GoN/A4MH/9+A4P///wh//AoP8/vGA4vB4d4j///P//3Az4HFMgN8A4PBEoM4OQX/wIHBj0H/wHBgAHB54aBA4U//PnA4N3EgJ/BA4aCBn/6k/9+93wwHB+YmB+9jWQM/++P/3nA4Uf+YxBs9hA4vHsC6BA4eHsFwLgP7B4cYA4JpBA4TZC/CUBA4qkBw9wgeAgYHCg4HB+AHC/wHCZoIHDmADBgLfB/0OnAHI//hDIP8h0YA4P5A4UMjgHE/EcjkB//xA4PwjkOVwOHIIPgnAHCn4HDg6WBv4XB4FwA4MeA4MBwASBwAHCOYPggPAA4YFBgPgh1//EACoMA+EMA4UHA4N4ggHCh4hBngHB/QzBA4MegN/+QMBA4MPwAHCDIIqB4E/+hXBA4MB+Of8kH4AHBgH8z/In4GCFAPgiJYCAAMGuFzeYIADj/HJoIAI"));
-		this.g.drawImage(this.img,30,117);
-		delete this.img;
-		this.g.flip();  
-
-		this.btn("LOCK",18,185,115,(euc.dash.lock)?col("red"):col("dgray"),122,100,239,195,(!euc.dash.lock)?"OFF":"ON",30,185,150); //4
-		this.g.setColor(0,0);
-		this.g.fillRect(0,196,239,239);
+ 		if (!face.appPrev.startsWith("dashSet")) this.g.clear();
+        this.g.setColor(0,0);
+		this.g.fillRect(0,205,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
 		this.g.drawString("ACTIONS",120-(this.g.stringWidth("ACTIONS")/2),218); 
 		this.g.flip();
-		this.g.setColor(0,col("lgray"));
-      	this.g.fillRect(75,198,165,204);
+		this.g.setColor(0,col("black"));
+		this.g.fillRect(0,196,239,204);
+		this.g.setColor(1,col("lgray"));
+      	this.g.fillRect(106,198,165,204);
+		this.g.flip();
         this.g.setColor(1,col("white"));
       	this.g.fillRect(75,198,105,204);
-		this.g.flip(); 		
+		this.g.flip(); 
+      this.btn("LIGHTS",18,60,15,(!euc.dash.light)?col("gray"):(euc.dash.light==1)?col("raf2"):(euc.dash.light==2)?col("raf3"):col("raf4"),0,0,119,97,(!euc.dash.light)?"OFF":(euc.dash.light==1)?"ON":(euc.dash.light==2)?"AUTO":"CITY",28,60,50); //1
+      this.btn("STROBE",18,185,15,(euc.dash.strb)?col("red"):col("dgray"),122,0,239,97,(!euc.dash.strb)?"OFF":"ON",28,185,50);//2
+        //this.btn("MODE",18,60,115,(euc.dash.mode)?col("raf"):col("dgray"),0,100,119,195,(!euc.dash.mode)?"OFF":(euc.dash.mode==1)?"MED":"SOFT",30,60,150); //3
+		this.g.setColor(0,col("dgray"));
+		this.g.fillRect(0,100,119,195); 
+		this.g.setColor(1,col("white"));
+this.img=require("heatshrink").decompress(atob("oFAgINKv38AwkD/n88AHDj4HB/AHDv+8/k/A4f+jH+h+ADwXoiP+j4gCg/Mg4XB+AHBh8OFAN/FAUf40f/F3IIU/5wPBuf+GwUEA4MB/42CiE//kD/+AgP+ngHBi//4ED/0+A4M///gCQM/GoN/A4MH/9+A4P///wh//AoP8/vGA4vB4d4j///P//3Az4HFMgN8A4PBEoM4OQX/wIHBj0H/wHBgAHB54aBA4U//PnA4N3EgJ/BA4aCBn/6k/9+93wwHB+YmB+9jWQM/++P/3nA4Uf+YxBs9hA4vHsC6BA4eHsFwLgP7B4cYA4JpBA4TZC/CUBA4qkBw9wgeAgYHCg4HB+AHC/wHCZoIHDmADBgLfB/0OnAHI//hDIP8h0YA4P5A4UMjgHE/EcjkB//xA4PwjkOVwOHIIPgnAHCn4HDg6WBv4XB4FwA4MeA4MBwASBwAHCOYPggPAA4YFBgPgh1//EACoMA+EMA4UHA4N4ggHCh4hBngHB/QzBA4MegN/+QMBA4MPwAHCDIIqB4E/+hXBA4MB+Of8kH4AHBgH8z/In4GCFAPgiJYCAAMGuFzeYIADj/HJoIAI"));
+		this.g.drawImage(this.img,30,117);
+		delete this.img;
+		this.g.flip();  
+   		this.btn("LOCK",18,185,115,(euc.dash.lock)?col("red"):col("dgray"),122,100,239,195,(!euc.dash.lock)?"OFF":"ON",30,185,150); //4
 		this.run=true;
 	},
 	show : function(){
@@ -77,13 +64,16 @@ face[0] = {
 			this.ntid=setTimeout(function(t){
                 t.ntid=0;
 				t.g.setColor(0,0);
-				t.g.fillRect(0,196,239,239);
+				t.g.fillRect(0,205,239,239);
 				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",20);
 		        t.g.drawString("ACTIONS",122-(t.g.stringWidth("ACTIONS")/2),218); 
 				t.g.flip();
-				t.g.setColor(0,col("lgray"));
+				t.g.setColor(0,col("black"));
+				t.g.fillRect(0,196,239,204);
+				t.g.setColor(1,col("lgray"));
 				t.g.fillRect(75,198,165,204);
+				t.g.flip();
 				t.g.setColor(1,col("white"));
 				t.g.fillRect(75,198,105,204);
 				t.g.flip(); 	
@@ -130,7 +120,7 @@ touchHandler[0]=function(e,x,y){
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (120<=x<=239&&y<=100) { //strobe
 			euc.dash.strb=1-euc.dash.strb;
-            face[0].btn("STROBE",18,185,15,(euc.dash.strb)?col("raf"):col("dgray"),122,0,239,97,(!euc.dash.strb)?"OFF":"ON",28,185,50);//2
+            face[0].btn("STROBE",18,185,15,(euc.dash.strb)?col("red"):col("dgray"),122,0,239,97,(!euc.dash.strb)?"OFF":"ON",28,185,50);//2
 			euc.wri((euc.dash.strb)?"strobeOn":"strobeOff");
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (x<=120&&100<=y<=200) { //ride mode

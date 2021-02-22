@@ -4,22 +4,25 @@ face[0] = {
 	g:w.gfx,
 	init: function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
-        if (!face.appPrev.startsWith("dashSet"))this.g.clear
+        if (!face.appPrev.startsWith("dashSet")) this.g.clear();
         this.g.setColor(0,0);
 		this.g.fillRect(0,205,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
 		this.g.drawString("OPTIONS",120-(this.g.stringWidth("OPTIONS")/2),218); 
 		this.g.flip(); 
-        this.g.setColor(0,col("lgray"));
+		this.g.setColor(0,col("black"));
+		this.g.fillRect(0,196,239,204);
+		this.g.setColor(1,col("lgray"));
       	this.g.fillRect(75,198,165,204);
+		this.g.flip();
         this.g.setColor(1,col("white"));
       	this.g.fillRect(105,198,135,204);
-        this.g.flip(); 
-        this.btn(euc.dash.aLck,"AUTO",18,60,15,col("raf"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
-        this.btn(euc.dash.buzz,"HAPTIC",25,185,37,col("raf"),col("dgray"),122,0,239,97);		
-        this.btn(euc.dash.aOff,"AUTO",18,60,115,col("raf"),col("dgray"),0,100,119,195,"OFF",30,60,150);
-        this.btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("dgray"),122,100,239,195);		
+		this.g.flip(); 
+        this.btn(euc.dash.aLck,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
+        this.btn(euc.dash.buzz,"HAPTIC",25,185,37,col("raf"),col("raf4"),122,0,239,97);		
+        this.btn(euc.dash.aOff,"AUTO",18,60,115,col("red"),col("dgray"),0,100,119,195,"OFF",30,60,150);
+        this.btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("raf4"),122,100,239,195);		
         this.run=true;
 	},
 	show : function(){
@@ -51,13 +54,16 @@ face[0] = {
 			this.ntid=setTimeout(function(t){
                 t.ntid=0;
 				t.g.setColor(0,0);
-				t.g.fillRect(0,1205,239,239);
+				t.g.fillRect(0,205,239,239);
 				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",20);
 		        t.g.drawString("OPTIONS",120-(t.g.stringWidth("OPTIONS")/2),218); 
 				t.g.flip();
-				t.g.setColor(0,col("lgray"));
+				t.g.setColor(0,col("black"));
+				t.g.fillRect(0,196,239,204);
+				t.g.setColor(1,col("lgray"));
 				t.g.fillRect(75,198,165,204);
+				t.g.flip();
 				t.g.setColor(1,col("white"));
 				t.g.fillRect(105,198,135,204);
 				t.g.flip(); 
@@ -97,22 +103,22 @@ touchHandler[0]=function(e,x,y){
       case 5:case 12: //tap event
 		if (x<=120&&y<100) { //auto lock
 			euc.dash.aLck=1-euc.dash.aLck;
-            face[0].btn(euc.dash.aLck,"AUTO",18,60,15,col("raf"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
+            face[0].btn(euc.dash.aLck,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
             face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,col("dgray"),euc.dash.aLck);
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (120<=x<=239&&y<=100) { //buzz
 			euc.dash.buzz=1-euc.dash.buzz;
-            face[0].btn(euc.dash.buzz,"HAPTIC",25,185,37,col("raf"),col("dgray"),122,0,239,97);
+            face[0].btn(euc.dash.buzz,"HAPTIC",25,185,37,col("raf"),col("raf4"),122,0,239,97);
             face[0].ntfy("VIBRATE ON ALERTS","VIBRATION DISABLED",19,col("dgray"),euc.dash.buzz);
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (x<=120&&100<=y<=200) { //auto off
 			euc.dash.aOff=1-euc.dash.aOff;
-            face[0].btn(euc.dash.aOff,"AUTO",18,60,115,col("raf"),col("dgray"),0,100,119,195,"OFF",30,60,150);
+            face[0].btn(euc.dash.aOff,"AUTO",18,60,115,col("red"),col("dgray"),0,100,119,195,"OFF",30,60,150);
             face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",16,col("dgray"),euc.dash.aOff);
 			digitalPulse(D16,1,[30,50,30]);		
 		}else if (120<=x<=239&&100<=y<=200) { //lock
 			euc.dash.horn=1-euc.dash.horn;
-            face[0].btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("dgray"),122,100,239,195);
+            face[0].btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("raf4"),122,100,239,195);
             face[0].ntfy("BUTTON IS HORN >2KPH","HORN DISABLED",18,col("dgray"),euc.dash.horn);
 			digitalPulse(D16,1,[30,50,30]);						
 		}else digitalPulse(D16,1,[30,50,30]);
