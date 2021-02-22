@@ -6,6 +6,7 @@ global.euc= {
 	reconnect:0,
     busy:0,
     chrg:0,
+	kill:0,
 	updateDash:function(slot){require('Storage').write('eucSlot'+slot+'.json', euc.dash);},
 	tgl:function(){ 
 		if (this.state!="OFF" ) {
@@ -15,6 +16,9 @@ global.euc= {
 			this.seq=1;
 			this.state="OFF";
 			this.updateDash(require("Storage").readJSON("dash.json",1).slot);
+			//if (this.kill) clearTimout(this.kill);
+			//this.kill=setTimeout(()=>{
+			if (euc.dash,maker=="Kingsong") euc.wri("end");	
 			face.go(set.dash[set.def.dash],0);return;
 		}else {
 			NRF.setTxPower(4);

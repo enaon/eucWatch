@@ -105,17 +105,9 @@ euc.conn=function(mac){
 			euc.dash.spdM=((event.target.value.getUint16(8, true)) / 100.0).toFixed(1);
 		 }else if  (this.var==95){
 			euc.dash.lock=event.target.value.getUint8(2, true);
-		}else if (euc.state=="OFF"){
-			if (set.def.cli) console.log("EUCstartOff");
-			//euc.dash.lock=1;
-			digitalPulse(D16,1,120);
-			if (euc.reconnect) {clearTimeout(euc.reconnect); euc.reconnect=0;}
-			euc.wri("end");
-			return;
 		} //else print(event.target.value.buffer); 
-		if (set.bt==4) euc.emuW(event.target.value.buffer);
-//
-
+//forward
+		if (set.bt==4&&euc.emuF=1) euc.emuW(event.target.value.buffer);
 		});
 		//on disconnect
 		global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
@@ -163,14 +155,17 @@ euc.conn=function(mac){
 						if (euc.seq==0) {
 							if (n==="start") {
 								clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();
-							}else global["\xFF"].BLE_GATTS.disconnect();
+							}else {
+							if (euc.kill) {clearTimout(euc.kill);euc.kill=0};
+								global["\xFF"].BLE_GATTS.disconnect();
+							}
 							return;
 						}
 						c.writeValue(euc.cmd((n==="start")?((euc.dash.passSend)?"passSend":(euc.dash.aLck)?"unlock":"lightsAuto"):(euc.dash.aOff)?"off":"lightsOff")).then(function() {
 							if (euc.seq==0) {
 								if (n==="start") {
 									clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();
-								}else global["\xFF"].BLE_GATTS.disconnect();
+							}else {if (euc.kill) {clearTimout(euc.kill);euc.kill=0} global["\xFF"].BLE_GATTS.disconnect();}
 								return;
 							}	
 							c.writeValue(euc.cmd((euc.dash.aLck&&euc.dash.passSend)?"unlock":"lightsAuto")).then(function() {
