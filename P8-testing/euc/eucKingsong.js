@@ -97,7 +97,8 @@ euc.conn=function(mac){
 				euc.dash.buzz=0;
 				var a=[200];
 				var i;
-				for (i = 1; i < euc.alert ; i++) {
+				for (i = 1; i < euc.alert|| i < 10 ; i++) {
+			
 					a.push(150,100);
 				}
 				digitalPulse(D16,1,a);  
