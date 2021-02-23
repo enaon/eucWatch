@@ -18,11 +18,13 @@ global.euc= {
 			this.updateDash(require("Storage").readJSON("dash.json",1).slot);
 			//if (this.kill) clearTimout(this.kill);
 			//this.kill=setTimeout(()=>{
+			if (euc.dash.emu) {set.def.atc=0;set.upd();}
 			if (euc.dash.maker=="Kingsong") euc.wri("end");	
 			face.go(set.dash[set.def.dash],0);return;
 		}else {
 			NRF.setTxPower(4);
 			digitalPulse(D16,1,100); 
+			if (euc.dash.emu){set.def.atc=1;set.def.gb=0;set.def.cli=0;set.def.hid=0;set.upd();}
 			this.mac=require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Mac"];
 			if(!this.mac) {
 				face.go('dashScan',0);return;

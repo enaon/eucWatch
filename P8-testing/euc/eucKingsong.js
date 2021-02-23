@@ -2,6 +2,10 @@
 //euc.conn(euc.mac);
 //euc.wri("lightsOn")
 //commands
+
+
+
+
 euc.cmd=function(no){
 	switch (no) {
       case "serial":return [0xAA,0x55,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x9B,0x14,0x5A,0x5A]; 
@@ -51,7 +55,8 @@ euc.conn=function(mac){
 	//read
 	}).then(function(c) {
 	  c.on('characteristicvaluechanged', function(event) {
-		print (event);
+   		this.var= event.target.value.getUint8(16, true);
+		//print (event.target.value.buffer);
 		if (euc.busy) return;
 		if (this.var==169) {
 		//if (set.bt==4) euc.emuW(event.target.value.buffer);

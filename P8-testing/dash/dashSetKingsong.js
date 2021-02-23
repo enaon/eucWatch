@@ -22,8 +22,8 @@ face[0] = {
       this.btn("LIGHTS",18,60,15,(!euc.dash.light)?col("gray"):(euc.dash.light==1)?col("raf2"):(euc.dash.light==2)?col("raf3"):col("raf4"),0,0,119,97,(!euc.dash.light)?"OFF":(euc.dash.light==1)?"ON":(euc.dash.light==2)?"AUTO":"CITY",28,60,50); //1
       this.btn("STROBE",18,185,15,(euc.dash.strb)?col("red"):col("dgray"),122,0,239,97,(!euc.dash.strb)?"OFF":"ON",28,185,50);//2
         //this.btn("MODE",18,60,115,(euc.dash.mode)?col("raf"):col("dgray"),0,100,119,195,(!euc.dash.mode)?"OFF":(euc.dash.mode==1)?"MED":"SOFT",30,60,150); //3
-		this.g.setColor(0,col("dgray"));
-		this.g.fillRect(0,100,119,195); 
+        this.g.setColor(0,(euc.dash.emu)?col("blue1"):col("dgray"));
+        this.g.fillRect(0,100,119,195); 
 		this.g.setColor(1,col("white"));
 this.img=require("heatshrink").decompress(atob("oFAgINKv38AwkD/n88AHDj4HB/AHDv+8/k/A4f+jH+h+ADwXoiP+j4gCg/Mg4XB+AHBh8OFAN/FAUf40f/F3IIU/5wPBuf+GwUEA4MB/42CiE//kD/+AgP+ngHBi//4ED/0+A4M///gCQM/GoN/A4MH/9+A4P///wh//AoP8/vGA4vB4d4j///P//3Az4HFMgN8A4PBEoM4OQX/wIHBj0H/wHBgAHB54aBA4U//PnA4N3EgJ/BA4aCBn/6k/9+93wwHB+YmB+9jWQM/++P/3nA4Uf+YxBs9hA4vHsC6BA4eHsFwLgP7B4cYA4JpBA4TZC/CUBA4qkBw9wgeAgYHCg4HB+AHC/wHCZoIHDmADBgLfB/0OnAHI//hDIP8h0YA4P5A4UMjgHE/EcjkB//xA4PwjkOVwOHIIPgnAHCn4HDg6WBv4XB4FwA4MeA4MBwASBwAHCOYPggPAA4YFBgPgh1//EACoMA+EMA4UHA4N4ggHCh4hBngHB/QzBA4MegN/+QMBA4MPwAHCDIIqB4E/+hXBA4MB+Of8kH4AHBgH8z/In4GCFAPgiJYCAAMGuFzeYIADj/HJoIAI"));
 		this.g.drawImage(this.img,30,117);
@@ -118,17 +118,15 @@ touchHandler[0]=function(e,x,y){
 			else  {euc.wri("lightsOn");euc.dash.light=1;face[0].btn("LIGHTS",18,60,15,col("raf2"),0,0,119,97,"ON",28,60,50);}
             face[0].ntfy("HOLD -> LIGHTS OFF",col("dgray"));
 			digitalPulse(D16,1,[30,50,30]);
-		}else if (120<=x<=239&&y<=100) { //strobe
+		}else if (120<=x&&x<=239&&y<=100) { //strobe
 			euc.dash.strb=1-euc.dash.strb;
             face[0].btn("STROBE",18,185,15,(euc.dash.strb)?col("red"):col("dgray"),122,0,239,97,(!euc.dash.strb)?"OFF":"ON",28,185,50);//2
 			euc.wri((euc.dash.strb)?"strobeOn":"strobeOff");
 			digitalPulse(D16,1,[30,50,30]);
-		}else if (x<=120&&100<=y<=200) { //ride mode
-			if (euc.dash.mode==0){ euc.wri("rideMed");face[0].btn("MODE",18,60,115,col("raf2"),0,100,119,195,"MED",30,60,150); //3
-            }else if (euc.dash.mode==1){ euc.wri("rideSoft");face[0].btn("MODE",18,60,115,col("raf3"),0,100,119,195,"SOFT",30,60,150); //3;
-            }else if (euc.dash.mode==2){ euc.wri("rideHard");face[0].btn("MODE",18,60,115,col("raf4"),0,100,119,195,"HARD",30,60,150); //3;
-            }digitalPulse(D16,1,[30,50,30]);		
-		}else if (120<=x<=239&&100<=y<=200) { //lock
+		}else if (x<=120&&100<=y&&y<=200) { //bridge
+			face[0].ntfy("HOLD -> TOGGLE",col("dgray"));
+			digitalPulse(D16,1,[30,50,30]);		
+		}else if (120<=x&&x<=239&&100<=y&&y<=200) { //lock
 			euc.dash.lock=1-euc.dash.lock;
             face[0].btn("LOCK",18,185,115,(euc.dash.lock)?col("red"):col("dgray"),122,100,239,195,(!euc.dash.lock)?"OFF":"ON",30,185,150); //4
             face[0].ntfy("HOLD -> POWER OFF",col("red"));
@@ -163,7 +161,19 @@ touchHandler[0]=function(e,x,y){
 			face[0].btn("LIGHTS",18,60,15,col("dgray"),0,0,119,97,"OFF",28,60,50);
 			euc.wri("lightsOff");
 			digitalPulse(D16,1,[30,50,30]);
-		}else if (120<=x<=239&&100<=y<=200) { //off
+		}else if (x<=120&&100<=y&&y<=200) { //bridge
+			euc.dash.emu=1-euc.dash.emu;
+			w.gfx.setColor(0,(euc.dash.emu)?col("blue1"):col("dgray"));
+			w.gfx.fillRect(0,100,119,195); 
+			w.gfx.setColor(1,col("white"));
+			img=require("heatshrink").decompress(atob("oFAgINKv38AwkD/n88AHDj4HB/AHDv+8/k/A4f+jH+h+ADwXoiP+j4gCg/Mg4XB+AHBh8OFAN/FAUf40f/F3IIU/5wPBuf+GwUEA4MB/42CiE//kD/+AgP+ngHBi//4ED/0+A4M///gCQM/GoN/A4MH/9+A4P///wh//AoP8/vGA4vB4d4j///P//3Az4HFMgN8A4PBEoM4OQX/wIHBj0H/wHBgAHB54aBA4U//PnA4N3EgJ/BA4aCBn/6k/9+93wwHB+YmB+9jWQM/++P/3nA4Uf+YxBs9hA4vHsC6BA4eHsFwLgP7B4cYA4JpBA4TZC/CUBA4qkBw9wgeAgYHCg4HB+AHC/wHCZoIHDmADBgLfB/0OnAHI//hDIP8h0YA4P5A4UMjgHE/EcjkB//xA4PwjkOVwOHIIPgnAHCn4HDg6WBv4XB4FwA4MeA4MBwASBwAHCOYPggPAA4YFBgPgh1//EACoMA+EMA4UHA4N4ggHCh4hBngHB/QzBA4MegN/+QMBA4MPwAHCDIIqB4E/+hXBA4MB+Of8kH4AHBgH8z/In4GCFAPgiJYCAAMGuFzeYIADj/HJoIAI"));
+			w.gfx.drawImage(img,30,117);
+			delete img;
+			w.gfx.flip();  
+			digitalPulse(D16,1,[30,50,30]);
+			if (euc.dash.emu)face[0].ntfy("BRIDGE ENABLED",col("raf2"));
+			else face[0].ntfy("BRIDGE DISABLED",col("dgray"));
+		}else if (120<=x&&x<=239&&100<=y&&y<=200) { //off
 			euc.wri("off");
 			digitalPulse(D16,1,[30,50,30]);	
 			euc.state="OFF";

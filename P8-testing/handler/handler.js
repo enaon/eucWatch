@@ -69,51 +69,51 @@ var set={
 		set.updateSettings();
 	},
 	accR:function(){if(!this.def.accE) { if (this.def.acc)acc.on(); else acc.off();}},
-		hidM:undefined, //not user settable.
-		clin:0,//not settable
-		upd:function(){ //run this for settings changes to take effect.
-		if (this.def.hid===1&&this.hidM==undefined) {
-			Modules.addCached("ble_hid_controls",function(){
-			function b(a,b){NRF.sendHIDReport(a,function(){NRF.sendHIDReport(0,b);});}
-			exports.report=new Uint8Array([5,12,9,1,161,1,21,0,37,1,117,1,149,5,9,181,9,182,9,183,9,205,9,226,129,6,149,2,9,233,9,234,129,2,149,1,129,1,192]);
-			exports.next=function(a){b(1,a);};
-			exports.prev=function(a){b(2,a);};
-			exports.stop=function(a){b(4,a);};
-			exports.playpause=function(a){b(8,a);};
-			exports.mute=function(a){b(16,a);};
-			exports.volumeUp=function(a){b(32,a);};
-			exports.volumeDown=function(a){b(64,a);};});
-			this.hidM=require("ble_hid_controls");
-			/*		if (this.def.hidT=="joy") this.hidM = E.toUint8Array(atob("BQEJBKEBCQGhAAUJGQEpBRUAJQGVBXUBgQKVA3UBgQMFAQkwCTEVgSV/dQiVAoECwMA="));
-			else if (this.def.hidT=="kb") this.hidM = E.toUint8Array(atob("BQEJBqEBBQcZ4CnnFQAlAXUBlQiBApUBdQiBAZUFdQEFCBkBKQWRApUBdQORAZUGdQgVACVzBQcZAClzgQAJBRUAJv8AdQiVArECwA=="));
-			else this.def.hidM = E.toUint8Array(atob("BQEJBqEBhQIFBxngKecVACUBdQGVCIEClQF1CIEBlQV1AQUIGQEpBZEClQF1A5EBlQZ1CBUAJXMFBxkAKXOBAAkFFQAm/wB1CJUCsQLABQwJAaEBhQEVACUBdQGVAQm1gQIJtoECCbeBAgm4gQIJzYECCeKBAgnpgQIJ6oECwA=="));
-			*/
-		}else if (this.def.hid==0 &&this.hidM!=undefined) {
-			this.hidM=undefined;
-			if (global["\xFF"].modules.ble_hid_controls) Modules.removeCached("ble_hid_controls");
-		}
-		//if (!Boolean(require('Storage').read('atc'))) this.def.atc=0;
-		if (!Boolean(require('Storage').read('eucEmu'))||!global.euc) this.def.atc=0;
-		if (this.def.atc) eval(require('Storage').read('eucEmu'));
-		else {
-			NRF.setServices(undefined,{uart:(this.def.cli||this.def.gb)?true:false,hid:(this.def.hid&&this.hidM)?this.hidM.report:undefined });
-			if (this.atcW) {this.atcW=undefined;this.atcR=undefined;} 
-		}
-		if (this.def.gb) eval(require('Storage').read('m_gb'));
-		else {
-			this.handleNotificationEvent=function(){return;};
-			this.handleFindEvent=function(){return;};
-			this.handleWeatherEvent=function(){return;};
-			this.handleCallEvent=function(){return;};
-			this.handleFindEvent=function(){return;};
-			global.GB=function(){return;};
-			this.sendBattery=undefined;
-			this.gbSend=function(){return;};
-			global.GB=undefined;
-		}		
-		if (!this.def.cli&&!this.def.gb&&!this.def.atc&&!this.def.hid) { if (this.bt) NRF.disconnect(); else{ NRF.sleep();this.btsl=1;}}
-		else if (this.bt) NRF.disconnect();
-		else if (this.btsl==1) {NRF.restart();this.btsl=0;}
+	hidM:undefined, //not user settable.
+	clin:0,//not settable
+	upd:function(){ //run this for settings changes to take effect.
+	if (this.def.hid===1&&this.hidM==undefined) {
+		Modules.addCached("ble_hid_controls",function(){
+		function b(a,b){NRF.sendHIDReport(a,function(){NRF.sendHIDReport(0,b);});}
+		exports.report=new Uint8Array([5,12,9,1,161,1,21,0,37,1,117,1,149,5,9,181,9,182,9,183,9,205,9,226,129,6,149,2,9,233,9,234,129,2,149,1,129,1,192]);
+		exports.next=function(a){b(1,a);};
+		exports.prev=function(a){b(2,a);};
+		exports.stop=function(a){b(4,a);};
+		exports.playpause=function(a){b(8,a);};
+		exports.mute=function(a){b(16,a);};
+		exports.volumeUp=function(a){b(32,a);};
+		exports.volumeDown=function(a){b(64,a);};});
+		this.hidM=require("ble_hid_controls");
+		/*		if (this.def.hidT=="joy") this.hidM = E.toUint8Array(atob("BQEJBKEBCQGhAAUJGQEpBRUAJQGVBXUBgQKVA3UBgQMFAQkwCTEVgSV/dQiVAoECwMA="));
+		else if (this.def.hidT=="kb") this.hidM = E.toUint8Array(atob("BQEJBqEBBQcZ4CnnFQAlAXUBlQiBApUBdQiBAZUFdQEFCBkBKQWRApUBdQORAZUGdQgVACVzBQcZAClzgQAJBRUAJv8AdQiVArECwA=="));
+		else this.def.hidM = E.toUint8Array(atob("BQEJBqEBhQIFBxngKecVACUBdQGVCIEClQF1CIEBlQV1AQUIGQEpBZEClQF1A5EBlQZ1CBUAJXMFBxkAKXOBAAkFFQAm/wB1CJUCsQLABQwJAaEBhQEVACUBdQGVAQm1gQIJtoECCbeBAgm4gQIJzYECCeKBAgnpgQIJ6oECwA=="));
+		*/
+	}else if (this.def.hid==0 &&this.hidM!=undefined) {
+		this.hidM=undefined;
+		if (global["\xFF"].modules.ble_hid_controls) Modules.removeCached("ble_hid_controls");
+	}
+	//if (!Boolean(require('Storage').read('atc'))) this.def.atc=0;
+	if (!Boolean(require('Storage').read('eucEmu'))||!global.euc) this.def.atc=0;
+	if (this.def.atc) eval(require('Storage').read('eucEmu'));
+	else {
+		NRF.setServices(undefined,{uart:(this.def.cli||this.def.gb)?true:false,hid:(this.def.hid&&this.hidM)?this.hidM.report:undefined });
+		if (this.atcW) {this.atcW=undefined;this.atcR=undefined;} 
+	}
+	if (this.def.gb) eval(require('Storage').read('m_gb'));
+	else {
+		this.handleNotificationEvent=function(){return;};
+		this.handleFindEvent=function(){return;};
+		this.handleWeatherEvent=function(){return;};
+		this.handleCallEvent=function(){return;};
+		this.handleFindEvent=function(){return;};
+		global.GB=function(){return;};
+		this.sendBattery=undefined;
+		this.gbSend=function(){return;};
+		global.GB=undefined;
+	}		
+	if (!this.def.cli&&!this.def.gb&&!this.def.atc&&!this.def.hid) { if (this.bt) NRF.disconnect(); else{ NRF.sleep();this.btsl=1;}}
+	else if (this.bt) NRF.disconnect();
+	else if (this.btsl==1) {NRF.restart();this.btsl=0;}
 	}
 };
 
