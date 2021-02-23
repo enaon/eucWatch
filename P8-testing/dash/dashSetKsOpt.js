@@ -9,15 +9,15 @@ face[0] = {
 		this.g.fillRect(0,205,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
-		this.g.drawString("OPTIONS",120-(this.g.stringWidth("OPTIONS")/2),218); 
+		this.g.drawString("OPTIONS",120-(this.g.stringWidth("OPTIONS")/2),217); 
 		this.g.flip(); 
 		this.g.setColor(0,col("black"));
 		this.g.fillRect(0,196,239,204);
 		this.g.setColor(1,col("lgray"));
-      	this.g.fillRect(75,198,165,204);
+      	this.g.fillRect(75,200,165,204);
 		this.g.flip();
         this.g.setColor(1,col("white"));
-      	this.g.fillRect(105,198,135,204);
+      	this.g.fillRect(105,200,135,204);
 		this.g.flip(); 
         this.btn(euc.dash.aLck,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
         this.btn(euc.dash.buzz,"HAPTIC",25,185,37,col("raf"),col("raf4"),122,0,239,97);		
@@ -57,15 +57,15 @@ face[0] = {
 				t.g.fillRect(0,205,239,239);
 				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",20);
-		        t.g.drawString("OPTIONS",120-(t.g.stringWidth("OPTIONS")/2),218); 
+		        t.g.drawString("OPTIONS",120-(t.g.stringWidth("OPTIONS")/2),217); 
 				t.g.flip();
 				t.g.setColor(0,col("black"));
 				t.g.fillRect(0,196,239,204);
 				t.g.setColor(1,col("lgray"));
-				t.g.fillRect(75,198,165,204);
+				t.g.fillRect(75,200,165,204);
 				t.g.flip();
 				t.g.setColor(1,col("white"));
-				t.g.fillRect(105,198,135,204);
+				t.g.fillRect(105,200,135,204);
 				t.g.flip(); 
 			},1000,this);
     },

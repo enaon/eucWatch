@@ -9,15 +9,15 @@ face[0] = {
 		this.g.fillRect(0,205,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
-		this.g.drawString("ACTIONS",120-(this.g.stringWidth("ACTIONS")/2),218); 
+		this.g.drawString("ACTIONS",120-(this.g.stringWidth("ACTIONS")/2),217); 
 		this.g.flip();
 		this.g.setColor(0,col("black"));
 		this.g.fillRect(0,196,239,204);
 		this.g.setColor(1,col("lgray"));
-      	this.g.fillRect(106,198,165,204);
+      	this.g.fillRect(106,200,165,204);
 		this.g.flip();
         this.g.setColor(1,col("white"));
-      	this.g.fillRect(75,198,105,204);
+      	this.g.fillRect(75,200,105,204);
 		this.g.flip(); 
       this.btn("LIGHTS",18,60,15,(!euc.dash.light)?col("gray"):(euc.dash.light==1)?col("raf2"):(euc.dash.light==2)?col("raf3"):col("raf4"),0,0,119,97,(!euc.dash.light)?"OFF":(euc.dash.light==1)?"ON":(euc.dash.light==2)?"AUTO":"CITY",28,60,50); //1
       this.btn("STROBE",18,185,15,(euc.dash.strb)?col("red"):col("dgray"),122,0,239,97,(!euc.dash.strb)?"OFF":"ON",28,185,50);//2
@@ -67,15 +67,15 @@ this.img=require("heatshrink").decompress(atob("oFAgINKv38AwkD/n88AHDj4HB/AHDv+8
 				t.g.fillRect(0,205,239,239);
 				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",20);
-		        t.g.drawString("ACTIONS",122-(t.g.stringWidth("ACTIONS")/2),218); 
+		        t.g.drawString("ACTIONS",122-(t.g.stringWidth("ACTIONS")/2),217); 
 				t.g.flip();
 				t.g.setColor(0,col("black"));
 				t.g.fillRect(0,196,239,204);
 				t.g.setColor(1,col("lgray"));
-				t.g.fillRect(75,198,165,204);
+				t.g.fillRect(75,200,165,204);
 				t.g.flip();
 				t.g.setColor(1,col("white"));
-				t.g.fillRect(75,198,105,204);
+				t.g.fillRect(75,200,105,204);
 				t.g.flip(); 	
 			},1000,this);
     },

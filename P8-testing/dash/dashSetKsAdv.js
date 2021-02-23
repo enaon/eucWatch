@@ -10,15 +10,15 @@ face[0] = {
 		this.g.fillRect(0,205,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
-		this.g.drawString("ADVANCED",122-(this.g.stringWidth("ADVANCED")/2),218); 
+		this.g.drawString("ADVANCED",122-(this.g.stringWidth("ADVANCED")/2),217); 
 		this.g.flip();
 		this.g.setColor(0,col("black"));
 		this.g.fillRect(0,196,239,204);
 		this.g.setColor(1,col("lgray"));
-      	this.g.fillRect(75,198,135,204);
+      	this.g.fillRect(75,200,135,204);
 		this.g.flip();
         this.g.setColor(1,col("white"));
-      	this.g.fillRect(135,198,165,204);
+      	this.g.fillRect(135,200,165,204);
 		this.g.flip(); 
 		//ride mode
 		this.b1=euc.dash.mode;

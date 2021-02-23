@@ -93,15 +93,15 @@ euc.conn=function(mac){
 			euc.dash.mode=event.target.value.getUint8(14, true);
 			//alerts
 			if (!euc.alert)  euc.dash.spdC=0;
-			else if (!euc.buzz){ 
-				euc.buzz=1;
+			else if (euc.dash.buzz){ 
+				euc.dash.buzz=0;
 				var a=[200];
 				var i;
 				for (i = 1; i < euc.alert ; i++) {
 					a.push(150,100);
 				}
 				digitalPulse(D16,1,a);  
-				setTimeout(() => {euc.buzz=0; }, 2000);
+				setTimeout(() => {euc.buzz=1; }, 2000);
 			}
 		}else if  (this.var==185){
 			//trip-time-max speed
