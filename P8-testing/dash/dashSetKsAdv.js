@@ -41,8 +41,12 @@ face[0] = {
 		this.g.setColor(0,col("olive"));
 		this.g.fillRect(122,0,239,97);
 		this.g.setColor(1,col("white"));
+		g.drawImage(E.toArrayBuffer(atob("GAiBADAYDHg8HsxmM8xmM8xmI8xmM3g8HjAYDA==")),195,45);
+
 		this.g.setFont("Vector",18);	
 		this.g.drawString("CALIBRATE",185-(this.g.stringWidth("CALIBRATE")/2),37); 
+		E.toArrayBuffer(atob("GAiBADAYDHg8HsxmM8xmM8xmI8xmM3g8HjAYDA=="))
+
 		this.g.flip();
 		//limits
 		this.g.setColor(0,col("olive"));

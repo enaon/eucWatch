@@ -133,7 +133,7 @@ touchHandler[0]=function(e,x,y){
               if (y<=120){ //
 					if (120<=x&&euc.dash.tmpH<70) euc.dash.tmpH++;
    			  		else if (x<=120&&50<euc.dash.tmpH) euc.dash.tmpH--;
-                    face[0].btn(1,"SET TEMPERATURE:",18,120,8,col("dgray"),0,0,0,239,97,euc.dash.tmpH,32,120,55);
+                    face[0].btn(1,"SET TEMPERATURE:",18,120,8,col("dgray"),0,0,0,239,97,euc.dash.tmpH,50,120,45);
 					face[0].ntfy("HAPTIC STARTS AT:","",18,col("dgray"),1);
 				}else{ //back
                   face[0].set=0;face[0].init();
@@ -142,7 +142,7 @@ touchHandler[0]=function(e,x,y){
               if (y<=120){ //
 					if (120<=x&&euc.dash.batL<30) euc.dash.batL++;
    			  		else if (x<=120&&5<euc.dash.batL) euc.dash.batL--;
-                    face[0].btn(1,"SET BATTERY:",18,120,8,col("dgray"),0,0,0,239,97,euc.dash.batL,32,120,55);
+                    face[0].btn(1,"SET BATTERY:",18,120,8,col("dgray"),0,0,0,239,97,euc.dash.batL,50,120,45);
 					face[0].ntfy("HAPTIC STARTS AT:","",18,col("dgray"),1);
 				}else{ //back
                   face[0].set=0;face[0].init();
@@ -220,13 +220,11 @@ touchHandler[0]=function(e,x,y){
 		}else if (x<=120&&100<=y) { //temp
 			face[0].set="temp";
             digitalPulse(D16,1,[30,50,30]);
-            face[0].btn(1,"SET TEMPERATURE:",18,120,8,col("dgray"),0,0,0,239,97,euc.dash.tmpH,32,120,55);
-			face[0].ntfy("HAPTIC STARTS AT::","",18,col("dgray"),1);                    
-		}else if (x<=120&&100<=y) { //bat
+            face[0].btn(1,"SET TEMPERATURE:",18,120,8,col("dgray"),0,0,0,239,97,euc.dash.tmpH,50,120,45);
+		}else if (120<=x&&100<=y) { //bat
 			face[0].set="bat";
             digitalPulse(D16,1,[30,50,30]);
-            face[0].btn(1,"SET BATTERY:",18,120,8,col("dgray"),0,0,0,239,97,euc.dash.batL,32,120,55);
-			face[0].ntfy("HAPTIC STARTS AT::","",18,col("dgray"),1);                    
+            face[0].btn(1,"SET BATTERY:",18,120,8,col("dgray"),0,0,0,239,97,euc.dash.batL,50,120,45);
 		}else digitalPulse(D16,1,[30,50,30]);		
 		this.timeout();
 		break;
