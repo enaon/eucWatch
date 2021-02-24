@@ -118,16 +118,16 @@ touchHandler[0]=function(e,x,y){
 		if (x<=120&&y<100) { //btn1
 			face[0].b1++; if (face[0].b1==3) face[0].b1=0;
 			digitalPulse(D16,1,[30,50,30]);
-		}else if (120<=x<=239&&y<=100) { //btn2
+		} else if (120<=x<=239&&y<=100) { //btn2
 			face[0].b2++; if (face[0].b2==2) face[0].b2=0;
 			digitalPulse(D16,1,[30,50,30]);
-		}else if (x<=120&&100<=y<=200) { //btn3
+		} else if (x<=120&&100<=y<=200) { //btn3
 			face[0].b3++; if (face[0].b3==3) face[0].b3=0;
 			digitalPulse(D16,1,[30,50,30]);		
-		}else if (120<=x<=239&&100<=y<=200) { //btn4
+		} else if (120<=x<=239&&100<=y<=200) { //btn4
 			face[0].b4++; if (face[0].b4==3) face[0].b4=0;
 			digitalPulse(D16,1,[30,50,30]);						
-		}else digitalPulse(D16,1,[30,50,30]);
+		} else digitalPulse(D16,1,[30,50,30]);
 		this.timeout();
 		break;
 	case 1: //slide down event
@@ -139,9 +139,7 @@ touchHandler[0]=function(e,x,y){
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 			digitalPulse(D16,1,[30,50,30]);
-		}else //if (y>100) {
-			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		//} else {digitalPulse(D16,1,40);}
+		} else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		this.timeout();
 		break;
 	case 3: //slide left event

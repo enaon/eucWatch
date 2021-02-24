@@ -269,9 +269,7 @@ touchHandler[0]=function(e,x,y){
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
         else w.gfx.bri.set(this.bri);
 		digitalPulse(D16,1,[30,50,30]);
-      }else //if (y>200) {  
-		face.go("settings",0);return;
-	  //} else digitalPulse(D16,1,40);
+      }else {face.go("settings",0);return;}
     }else if  (e==3){
 	  if(39<y&&y<105) {
 		if(alrm[1].on===1) {alrm.stop(1);face[0].al1=-2;}
