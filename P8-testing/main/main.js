@@ -311,9 +311,9 @@ touchHandler[0]=function(e,x,y){
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
         else w.gfx.bri.set(this.bri);
 		digitalPulse(D16,1,[30,50,30]);
-     }else if (y>160) {
+     }else //if (y>160) {
 		if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
-	  } else digitalPulse(D16,1,40);
+	  //} else digitalPulse(D16,1,40);
     }else if  (e==3){
 		if (Boolean(require("Storage").read(set.dash[set.def.dash]))) {face.go(set.dash[set.def.dash],0);return;}
 		else if (Boolean(require("Storage").read("alarm"))) {face.go("alarm",0);return;}

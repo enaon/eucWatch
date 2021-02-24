@@ -140,10 +140,10 @@ touchHandler[0] = function(e, x, y) {
                 w.gfx.bri.set(7);
             } else w.gfx.bri.set(this.bri);
             digitalPulse(D16, 1, [30, 50, 30]);
-        } else if (y > 200) {
+        } else {
             face.go("settings", 0);
             return;
-        } else digitalPulse(D16, 1, 40);
+        } 
     } else if (e == 3) {
         digitalPulse(D16, 1, 40);
     } else if (e == 4) {

@@ -94,9 +94,10 @@ touchHandler[0]=function(e,x,y){
       else w.gfx.bri.set(this.bri);
       digitalPulse(D16,1,[30,50,30]);
       this.timeout();
-    }else if (y>100) {
+    }else //if (y>100) {
 	  if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-  } else {digitalPulse(D16,1,40);this.timeout();}
+	//} else {digitalPulse(D16,1,40);
+	this.timeout();}
     break;
   case 3: //slide left event
     digitalPulse(D16,1,40);    

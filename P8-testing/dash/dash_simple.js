@@ -217,9 +217,10 @@ touchHandler[0]=function(e,x,y){
 			else w.gfx.bri.set(this.bri);
 			digitalPulse(D16,1,[30,50,30]);
 			this.timeout();
-		}else if (y>100) {
+		}else //if (y>100) {
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
-	} else {digitalPulse(D16,1,40);this.timeout();}
+		//} else {digitalPulse(D16,1,40);
+		this.timeout();}
 		break;
     case 3: //slide left event
 		(euc.state=="READY")?face.go('dashSet'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0):(euc.state=="OFF")?face.go("dashGarage",0):digitalPulse(D16,1,40);

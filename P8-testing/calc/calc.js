@@ -355,9 +355,9 @@ touchHandler[0]=function(e,x,y){
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
         else w.gfx.bri.set(this.bri);
 		digitalPulse(D16,1,[30,50,30]);
-      }else if (y>200) {  
+      }else //if (y>200) {  
 		face.go("settings",0);return;
-      }else digitalPulse(D16,1,40);
+      //}else digitalPulse(D16,1,40);
     }else if  (e==3){ //slide left
 		face.go("calc",5);return;
     }else if  (e==4){ //slide right
@@ -397,8 +397,8 @@ touchHandler[5]=function(e,x,y){
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
         else w.gfx.bri.set(this.bri);
 		digitalPulse(D16,1,[30,50,30]);
-      }else if (y>200) {  
-		face.go("settings",0);return;
+      //}else if (y>200) {  
+		//face.go("settings",0);return;
       }else digitalPulse(D16,1,40);    
     }else if  (e==3){
       if (face[5].hist<calc.hist.length-1){
