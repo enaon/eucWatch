@@ -238,7 +238,7 @@ touchHandler[0]=function(e,x,y){
 		else if(120<x&&x<239&&0<y&&y<100) this.s=2;   //slot2 
 		else if(0<x&&x<120&&100<y&&y<200) this.s=3;   //slot3 
 		else if(120<x&&x<239&&100<y&&y<200) this.s=4; //slot4
-		if (require("Storage").readJSON("dash.json",1)["slot"+this.s+"Mac"]){
+		if (face[0].dash["slot"+this.s+"Mac"]){
 			(s=>{s&&(s["slot"]=this.s)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
     		//face[0].dash=require("Storage").readJSON("dash.json",1);
 			if (Boolean(require("Storage").read('eucSlot'+this.s+'.json')))
@@ -257,7 +257,7 @@ touchHandler[0]=function(e,x,y){
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 			digitalPulse(D16,1,[30,50,30]);
-		}else if (y>190) {
+		}else if (y>100) {
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		} else {digitalPulse(D16,1,40);}
 		this.timeout();

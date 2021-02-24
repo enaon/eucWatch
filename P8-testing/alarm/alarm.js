@@ -329,8 +329,8 @@ touchHandler[5]=function(e,x,y){
       } else if(x>=210&&y<200){ 
 		alrm[a].min++;
 		if (alrm[a].min>59) {alrm[a].min=alrm[a].min-60; alrm[a].hour=alrm[a].hour+1;}
-      }else if (y>200) {
-		face.go("settings",0);return;
+//      }else if (y>200) {
+//		face.go("settings",0);return;
 	  } else digitalPulse(D16,1,40);
     }else if  (e==1){
 	  if(x<30&&y<185) { 
