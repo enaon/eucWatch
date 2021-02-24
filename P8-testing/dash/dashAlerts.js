@@ -121,7 +121,7 @@ touchHandler[0]=function(e,x,y){
 					if (120<=x&&euc.dash.ampH<35) euc.dash.ampH++;
 					else if (x<=120&&15<euc.dash.ampH) euc.dash.ampH--;
                     face[0].btn(1,"UPHILL:",20,60,23,col("gray"),0,0,0,239,63,euc.dash.ampH+" A",35,180,16);
-					face[0].ntfy("HAPTIC STARTS AT::","",18,col("dgray"),1);
+					face[0].ntfy("HAPTIC STARTS AT:","",18,col("dgray"),1);
 				}else if (65<=y&&y<=133){//braking
 					if (x<=120&&euc.dash.ampL<-5) euc.dash.ampL++;
 					else if (120<=x&&-15<euc.dash.ampL) euc.dash.ampL--;

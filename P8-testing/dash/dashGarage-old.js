@@ -1,28 +1,34 @@
-//Dash Select
+//Dash Garage
 face[0] = { 
   offms: 5000, 
   g:w.gfx, 
   init: function(o){ 
+    this.g.clear(); 
 	this.dash=require("Storage").readJSON("dash.json",1);
+	//this.maker=require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'];
     this.g.setColor(1,col("dgray"));
-	this.g.setFont("Vector",22);	
     this.g.fillRect(0,0,118,95);
     this.g.fillRect(122,0,239,95);	
     this.g.fillRect(0,100,118,195);
     this.g.fillRect(122,100,239,195);
-    this.g.setColor(0,col("black"));
+    this.g.setColor(0,0);
+	this.g.setFont("Vector",22);	
 	this.g.drawString("EMPTY",60-(this.g.stringWidth("EMPTY")/2),40);
 	this.g.drawString("EMPTY",185-(this.g.stringWidth("EMPTY")/2),40);
   	this.g.drawString("EMPTY",60-(this.g.stringWidth("EMPTY")/2),140);     
   	this.g.drawString("EMPTY",185-(this.g.stringWidth("EMPTY")/2),140); 
     this.g.flip();
+    this.g.setColor(0,0);
+    this.g.fillRect(0,198,239,239);
     this.g.setColor(1,col("white"));
     this.g.setFont("Vector",20);
-	this.g.drawString("SELECT WHEEL",120-(this.g.stringWidth("SELECT WHEEL")/2),214); 
+	this.g.drawString("GARAGE",120-(this.g.stringWidth("GARAGE")/2),214); 
     this.g.flip();
 	this.s1=0;this.s2=0;this.s3=0;this.s4=0;
 	//this.sv1=0;this.sv2=0;this.sv3=0;this.sv4=0;
     this['s'+this.dash.slot]=1;
+	this.firstrun=1;
+	this.info=0;
 	this.run=true;
   },
   show : function(o){
@@ -34,32 +40,41 @@ face[0] = {
 			this.g.fillRect(0,0,118,95);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",18);	
-			this.g.drawString(this.dash.slot1Maker.toUpperCase(),60-(this.g.stringWidth(this.dash.slot1Maker.toUpperCase())/2),10); 
-			this.g.setFont("Vector",13);	
-			this.g.drawString(this.dash.slot1Mac.substring(0,17),60-(this.g.stringWidth(this.dash.slot1Mac.substring(0,17))/2),78); 
-			this.g.setFont("Vector",30);	
-			this.g.drawString("-",60-(this.g.stringWidth("-")/2),40); 
+			this.g.drawString(this.dash.slot1Maker.toUpperCase(),60-(this.g.stringWidth(this.dash.slot1Maker.toUpperCase())/2),15); 
+			this.g.setFont("Vector",36);	
+			this.g.drawString(euc.dash.model,60-(this.g.stringWidth(euc.dash.model)/2),45); 
 			this.g.flip();
+			if (!this.firstrun) {
+				this.g.setColor(0,col("dgray"));
+				this.g.fillRect(0,198,239,239);//6
+				this.g.setColor(1,col("white"));
+				this.g.setFont("Vector",16);
+				this.g.drawString("HOLD -> MORE",120-(this.g.stringWidth("HOLD -> MORE")/2),214); 
+				this.g.flip();
+				this.info=1;
+			}
 		}else if (this.s1) {
 			this.g.setColor(0,col("dgray"));
 			this.g.fillRect(0,0,118,95);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",22);	
 			this.g.drawString("HOLD",60-(this.g.stringWidth("HOLD")/2),20);
-			this.g.setFont("Vector",18);	
+			this.g.setFont("Vector",16);	
 			this.g.drawString("TO SET",60-(this.g.stringWidth("TO SET")/2),60);
 			this.g.flip();
-            if (this.s1tid)  clearTimeout(this.s1tid);
+			this.g.flip();
+		    if (this.s1tid)  clearTimeout(this.s1tid);
             this.s1tid=setTimeout(function(t){
-              t.s1=0;
-              t.s1tid=0;
-              t.g.setFont("Vector",22);	
-              t.g.setColor(0,col("dgray"));
-			  t.g.fillRect(0,0,118,95);
-              t.g.setColor(1,col("black"));
-	          t.g.drawString("EMPTY",60-(t.g.stringWidth("EMPTY")/2),40);
-              t.g.flip();
+				t.s1=0;
+				t.s1tid=0;
+				t.g.setColor(0,col("dgray"));
+				t.g.fillRect(0,0,118,95);
+				t.g.setColor(1,0);
+				t.g.setFont("Vector",22);	
+				t.g.drawString("EMPTY",60-(t.g.stringWidth("EMPTY")/2),40);
+				t.g.flip();
              },1000,this);
+			
         }
     }
     //slot 2    
@@ -70,21 +85,29 @@ face[0] = {
             this.g.fillRect(122,0,239,95);	
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",18);	
-			this.g.drawString(this.dash.slot2Maker.toUpperCase(),185-(this.g.stringWidth(this.dash.slot2Maker.toUpperCase())/2),10); 
-			this.g.setFont("Vector",13);	
-			this.g.drawString(this.dash.slot2Mac.substring(0,17),185-(this.g.stringWidth(this.dash.slot2Mac.substring(0,17))/2),78); 
-			this.g.setFont("Vector",30);	
-			this.g.drawString("-",185-(this.g.stringWidth("-")/2),40); 
+			this.g.drawString(this.dash.slot2Maker.toUpperCase(),185-(this.g.stringWidth(this.dash.slot2Maker.toUpperCase())/2),15); 
+			this.g.setFont("Vector",36);	
+			this.g.drawString(euc.dash.model,185-(this.g.stringWidth(euc.dash.model)/2),45); 
 			this.g.flip();
+			if (!this.firstrun) {
+				this.g.setColor(0,col("dgray"));
+				this.g.fillRect(0,198,239,239);//6
+				this.g.setColor(1,col("white"));
+				this.g.setFont("Vector",16);
+				this.g.drawString("HOLD -> MORE",120-(this.g.stringWidth("HOLD -> MORE")/2),214); 
+				this.g.flip();
+				this.info=1;
+			}
 		}else if (this.s2) {
 			this.g.setColor(0,col("dgray"));
             this.g.fillRect(122,0,239,95);	
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",22);	
 			this.g.drawString("HOLD",185-(this.g.stringWidth("HOLD")/2),20);
-			this.g.setFont("Vector",18);	
+			this.g.setFont("Vector",16);	
 			this.g.drawString("TO SET",185-(this.g.stringWidth("TO SET")/2),60);
 			this.g.flip();
+			if (!this.firstrun) {
             if (this.s2tid)  clearTimeout(this.s2tid);
             this.s2tid=setTimeout(function(t){
               t.s2=0;
@@ -92,10 +115,11 @@ face[0] = {
               t.g.setFont("Vector",22);	
               t.g.setColor(0,col("dgray"));
               t.g.fillRect(122,0,239,95);
-              t.g.setColor(1,col("black"));
+              t.g.setColor(1,0);
 	          t.g.drawString("EMPTY",185-(t.g.stringWidth("EMPTY")/2),40);
               t.g.flip();
             },1000,this);
+			}
         }
     }
       //slot 3
@@ -106,21 +130,29 @@ face[0] = {
             this.g.fillRect(0,100,118,195);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",18);	
-			this.g.drawString(this.dash.slot3Maker.toUpperCase(),60-(this.g.stringWidth(this.dash.slot3Maker.toUpperCase())/2),110); 
-			this.g.setFont("Vector",13);	
-			this.g.drawString(this.dash.slot3Mac.substring(0,17),60-(this.g.stringWidth(this.dash.slot3Mac.substring(0,17))/2),178); 
-			this.g.setFont("Vector",30);	
-			this.g.drawString("-",60-(this.g.stringWidth("-")/2),140); 
+			this.g.drawString(this.dash.slot3Maker.toUpperCase(),60-(this.g.stringWidth(this.dash.slot3Maker.toUpperCase())/2),115); 
+			this.g.setFont("Vector",36);	
+			this.g.drawString(euc.dash.model,60-(this.g.stringWidth(euc.dash.model)/2),145); 
 			this.g.flip();
+			if (!this.firstrun) {
+				this.g.setColor(0,col("dgray"));
+				this.g.fillRect(0,198,239,239);//6
+				this.g.setColor(1,col("white"));
+				this.g.setFont("Vector",16);
+				this.g.drawString("HOLD -> MORE",120-(this.g.stringWidth("HOLD -> MORE")/2),214); 
+				this.g.flip();
+				this.info=1;
+			}
         }else if (this.s3) {
 			this.g.setColor(0,col("dgray"));
             this.g.fillRect(0,100,118,195);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",22);	
 			this.g.drawString("HOLD",60-(this.g.stringWidth("HOLD")/2),120);
-			this.g.setFont("Vector",18);	
+			this.g.setFont("Vector",16);	
 			this.g.drawString("TO SET",60-(this.g.stringWidth("TO SET")/2),160);
 			this.g.flip();
+			if (!this.firstrun) {
             if (this.s3tid)  clearTimeout(this.s3tid);
             this.s3tid=setTimeout(function(t){
               t.s3=0;
@@ -128,10 +160,11 @@ face[0] = {
               t.g.setFont("Vector",22);	
               t.g.setColor(0,col("dgray"));
               t.g.fillRect(0,100,118,195);
-              t.g.setColor(1,col("black"));
+              t.g.setColor(1,0);
 	          t.g.drawString("EMPTY",60-(t.g.stringWidth("EMPTY")/2),140);
               t.g.flip();
             },1000,this);
+			}
         }
     }
       //slot 4
@@ -139,72 +172,75 @@ face[0] = {
 		this.sv4=this.s4;
 		if (this.dash.slot4Mac) {
 			this.g.setColor(0,(this.s4)?col("red"):col("dgray"));
-    this.g.fillRect(122,100,239,195);
+			this.g.fillRect(122,100,239,195);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",18);	
-			this.g.drawString(this.dash.slot4Maker.toUpperCase(),185-(this.g.stringWidth(this.dash.slot4Maker.toUpperCase())/2),110); 
-			this.g.setFont("Vector",13);	
-			this.g.drawString(this.dash.slot4Mac.substring(0,17),185-(this.g.stringWidth(this.dash.slot4Mac.substring(0,17))/2),178); 
-			this.g.setFont("Vector",30);	
-			this.g.drawString("-",185-(this.g.stringWidth("-")/2),140); 
+			this.g.drawString(this.dash.slot4Maker.toUpperCase(),185-(this.g.stringWidth(this.dash.slot4Maker.toUpperCase())/2),115); 
+			this.g.setFont("Vector",36);	
+			this.g.drawString(euc.dash.model,185-(this.g.stringWidth(euc.dash.model)/2),145); 
 			this.g.flip();
+			if (!this.firstrun) {
+				this.g.setColor(0,col("dgray"));
+				this.g.fillRect(0,198,239,239);//6
+				this.g.setColor(1,col("white"));
+				this.g.setFont("Vector",16);
+				this.g.drawString("HOLD -> MORE",120-(this.g.stringWidth("HOLD -> MORE")/2),214); 
+				this.g.flip();
+				this.info=1;
+			}
 		}else if (this.s4) {
 			this.g.setColor(0,col("dgray"));
             this.g.fillRect(122,100,239,195);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",22);	
 			this.g.drawString("HOLD",185-(this.g.stringWidth("HOLD")/2),120);
-			this.g.setFont("Vector",18);	
+			this.g.setFont("Vector",16);	
 			this.g.drawString("TO SET",185-(this.g.stringWidth("TO SET")/2),160);
 			this.g.flip();
-            if (this.s4tid)  clearTimeout(this.s2tid);
+			if (this.s4tid)  clearTimeout(this.s2tid);
             this.s4tid=setTimeout(function(t){
-              t.s4=0;
-              t.s4tid=0;
-              t.g.setFont("Vector",22);	
-              t.g.setColor(0,col("dgray"));
-              t.g.fillRect(122,100,239,195);
-              t.g.setColor(1,col("black"));
-	          t.g.drawString("EMPTY",185-(t.g.stringWidth("EMPTY")/2),140);
-              t.g.flip();
+				t.s4=0;
+				t.s4tid=0;
+				t.g.setFont("Vector",22);	
+				t.g.setColor(0,col("dgray"));
+				t.g.fillRect(122,100,239,195);
+				t.g.setColor(1,0);
+				t.g.drawString("EMPTY",185-(t.g.stringWidth("EMPTY")/2),140);
+				t.g.flip();
             },1000,this);
+			
         }
 	}
+	if (this.info)  {
+		this.info=0;
+		if (this.itid)clearTimeout(this.itid);
+		this.itid=setTimeout(function(t){
+			t.itid=0;
+			t.g.setColor(0,0);
+			t.g.fillRect(0,198,239,249);//6
+			t.g.setColor(1,col("white"));
+			t.g.setFont("Vector",20);
+			t.g.drawString("GARAGE",120-(t.g.stringWidth("GARAGE")/2),214); 
+			t.g.flip();
+		},1000,this);
+	}
+	this.firstrun=0
     this.tid=setTimeout(function(t){ 
       t.tid=-1;
       t.show(o);
-    },100,this);
-  },
-  ntfy: function(txt1,txt0,size,clr,bt){
-            this.g.setColor(0,clr);
-			this.g.fillRect(0,198,239,239);
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",size);
-     		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
-			this.g.flip();
-			if (this.ntid) clearTimeout(this.ntid);
-			this.ntid=setTimeout(function(t){
-                t.ntid=0;
-				t.g.setColor(0,0);
-				t.g.fillRect(0,196,239,239);
-				t.g.setColor(1,col("white"));
-				t.g.setFont("Vector",22);
-		        t.g.drawString("GARAGE",120-(t.g.stringWidth("GARAGE")/2),217); 
-				t.g.flip();
-			},1000,this);
+    },300,this);
   },
   tid:-1,
   run:false,
   clear : function(){  
+    if (this.tid>=0) clearTimeout(this.tid);this.tid=-1;
     if (this.s1tid)  clearTimeout(this.s1tid);
     if (this.s2tid)  clearTimeout(this.s2tid);
     if (this.s3tid)  clearTimeout(this.s3tid);
     if (this.s4tid)  clearTimeout(this.s4tid);
-    pal[0]=col("black"); 
-    this.g.clear(); 
+	if (this.itid) clearTimeout(this.itid);this.itid=0;
     this.run=false;
-    if (this.tid>=0) clearTimeout(this.tid); 
-    this.tid=-1;
+    if (this.tid>=0) clearTimeout(this.tid);this.tid=-1;
     return true;
   },
   off: function(){
@@ -240,7 +276,6 @@ touchHandler[0]=function(e,x,y){
 		else if(120<x&&x<239&&100<y&&y<200) this.s=4; //slot4
 		if (require("Storage").readJSON("dash.json",1)["slot"+this.s+"Mac"]){
 			(s=>{s&&(s["slot"]=this.s)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
-    		//face[0].dash=require("Storage").readJSON("dash.json",1);
 			if (Boolean(require("Storage").read('eucSlot'+this.s+'.json')))
 				euc.dash=require("Storage").readJSON('eucSlot'+this.s+'.json',1);
 			else euc.dash=require("Storage").readJSON("eucSlot.json",1);
@@ -275,7 +310,7 @@ touchHandler[0]=function(e,x,y){
 		else if(120<=x&&x<=239&&0<=y&&y<=100) this.s=2;		//slot2
 		else if (0<=x&&x<=120&&100<=y&&y<=200) this.s=3;	//slot3
 		else if(120<=x&&x<=239&&100<=y&&y<=200) this.s=4;	//slot4
-		if (require("Storage").readJSON("dash.json",1)["slot"+this.s+"_mac"]){
+		if (require("Storage").readJSON("dash.json",1)["slot"+this.s+"Mac"]){
 			(s=>{s&&(s["slot"]=this.s)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 			face.go("dashSlot",0);return;
 		}else {
@@ -286,5 +321,6 @@ touchHandler[0]=function(e,x,y){
 		break;
   }
 };
+
 
 

@@ -101,15 +101,16 @@ var set={
 	}
 	if (this.def.gb) eval(require('Storage').read('m_gb'));
 	else {
-		this.handleNotificationEvent=function(){return;};
-		this.handleFindEvent=function(){return;};
-		this.handleWeatherEvent=function(){return;};
-		this.handleCallEvent=function(){return;};
-		this.handleFindEvent=function(){return;};
-		global.GB=function(){return;};
-		this.sendBattery=undefined;
+		//this.handleNotificationEvent=function(){return;};
+		//this.handleFindEvent=function(){return;};
+		//this.handleWeatherEvent=function(){return;};
+		//this.handleCallEvent=function(){return;};
+		//this.handleFindEvent=function(){return;};
+		//global.GB=function(){return;};
+		//this.sendBattery=undefined;
 		this.gbSend=function(){return;};
-		global.GB=undefined;
+		//global.GB=undefined;
+		delete this.handleNotificationEvent;delete this.handleFindEvent;delete handleWeatherEvent;delete handleCallEvent;delete handleFindEvent;delete sendBattery;delete global.GB;
 	}		
 	if (!this.def.cli&&!this.def.gb&&!this.def.atc&&!this.def.hid) { if (this.bt) NRF.disconnect(); else{ NRF.sleep();this.btsl=1;}}
 	else if (this.bt) NRF.disconnect();
