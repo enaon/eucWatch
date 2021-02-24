@@ -21,7 +21,6 @@ face[0] = {
 		this.g.flip(); 
       this.btn("LIGHTS",18,60,15,(!euc.dash.light)?col("gray"):(euc.dash.light==1)?col("raf2"):(euc.dash.light==2)?col("raf3"):col("raf4"),0,0,119,97,(!euc.dash.light)?"OFF":(euc.dash.light==1)?"ON":(euc.dash.light==2)?"AUTO":"CITY",28,60,50); //1
       this.btn("STROBE",25,185,35,(euc.dash.strb)?col("red"):col("dgray"),122,0,239,97);//2
-        //this.btn("MODE",18,60,115,(euc.dash.mode)?col("raf"):col("dgray"),0,100,119,195,(!euc.dash.mode)?"OFF":(euc.dash.mode==1)?"MED":"SOFT",30,60,150); //3
         this.g.setColor(0,(euc.dash.emu)?col("blue1"):col("dgray"));
         this.g.fillRect(0,100,119,195); 
 		this.g.setColor(1,col("white"));
@@ -120,7 +119,6 @@ touchHandler[0]=function(e,x,y){
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (120<=x&&x<=239&&y<=100) { //strobe
 			euc.dash.strb=1-euc.dash.strb;
-//            face[0].btn("STROBE",18,185,15,(euc.dash.strb)?col("red"):col("dgray"),122,0,239,97,(!euc.dash.strb)?"OFF":"ON",28,185,50);//2
             face[0].btn("STROBE",25,185,35,(euc.dash.strb)?col("red"):col("dgray"),122,0,239,97);//2
 			euc.wri((euc.dash.strb)?"strobeOn":"strobeOff");
 			digitalPulse(D16,1,[30,50,30]);
@@ -129,7 +127,6 @@ touchHandler[0]=function(e,x,y){
 			digitalPulse(D16,1,[30,50,30]);		
 		}else if (120<=x&&x<=239&&100<=y&&y<=200) { //lock
 			euc.dash.lock=1-euc.dash.lock;
-//            face[0].btn("LOCK",18,185,115,(euc.dash.lock)?col("red"):col("dgray"),122,100,239,195,(!euc.dash.lock)?"OFF":"ON",30,185,150); //4
             face[0].btn("LOCK",25,185,135,(euc.dash.lock)?col("red"):col("dgray"),122,100,239,195); //4
             face[0].ntfy("HOLD -> POWER OFF",col("red"));
 			euc.wri((euc.dash.lock)?"lock":"unlock");
