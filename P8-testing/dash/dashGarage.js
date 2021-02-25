@@ -6,24 +6,11 @@ face[0] = {
 		this.dash=require("Storage").readJSON("dash.json",1);
 		this.g.setColor(0,col("black"));
 		this.g.fillRect(0,0,239,239);
-//		this.g.setColor(1,col("dgray"));
-//		this.g.setFont("Vector",22);	
-//		this.g.fillRect(0,0,119,97);
-//		this.g.fillRect(122,0,239,97);	
-//		this.g.fillRect(0,100,119,195);
-//		this.g.fillRect(122,100,239,195);
-//		this.g.setColor(0,col("black"));
-//		this.g.drawString("EMPTY",60-(this.g.stringWidth("EMPTY")/2),40);
-//		this.g.drawString("EMPTY",185-(this.g.stringWidth("EMPTY")/2),40);
-//		this.g.drawString("EMPTY",60-(this.g.stringWidth("EMPTY")/2),140);     
-//		this.g.drawString("EMPTY",185-(this.g.stringWidth("EMPTY")/2),140); 
-//		this.g.flip();
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",22);
 		this.g.drawString("GARAGE",120-(this.g.stringWidth("GARAGE")/2),217); 
 		this.g.flip();
 		this.s1=0;this.s2=0;this.s3=0;this.s4=0;
-		//this.sv1=0;this.sv2=0;this.sv3=0;this.sv4=0;
 		this['s'+this.dash.slot]=1;
 		this.set=0;
 		this.run=true;
@@ -235,11 +222,12 @@ touchHandler[0]=function(e,x,y){
 	case 5: //tap event
 		digitalPulse(D16,1,[30,50,30]);
 		if	( !face[0].set )	{
-			if	( 0<x && x<120 &&   0<y && y<100 ) this.s=1;	//slot1
-			else if( 120<x && x<239 &&   0<y && y<100 ) this.s=2;	//slot2 
-			else if(   0<x && x<120 && 100<y && y<200 ) this.s=3;   //slot3 
-			else if( 120<x && x<239 && 100<y && y<200 ) this.s=4;	//slot4
+			if	( x<120 &&  y<100 ) this.s=1;	//slot1
+			else if( 120<x && y<100 ) this.s=2;	//slot2 
+			else if( x<120 && 100<y ) this.s=3;   //slot3 
+			else if( 120<x && 100<y ) this.s=4;	//slot4
 			if (face[0].dash["slot"+this.s+"Mac"]){
+                //require('Storage').write('dashslot.json',this.s);
 				(s=>{s&&(s["slot"]=this.s)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 				//face[0].dash=require("Storage").readJSON("dash.json",1);
 				if (Boolean(require("Storage").read('eucSlot'+this.s+'.json')))
@@ -298,10 +286,10 @@ touchHandler[0]=function(e,x,y){
                 return;
 			}
 		} else { 
-			if		 ( 0<x && x<120 &&   0<y && y<100 ) this.s=1;	//slot1
-			else if( 120<x && x<239 &&   0<y && y<100 ) this.s=2;	//slot2 
-			else if(   0<x && x<120 && 100<y && y<200 ) this.s=3;   //slot3 
-			else if( 120<x && x<239 && 100<y && y<200 ) this.s=4;	//slot4
+			if	( x<120 &&  y<100 ) this.s=1;	//slot1
+			else if( 120<x && y<100 ) this.s=2;	//slot2 
+			else if( x<120 && 100<y ) this.s=3;   //slot3 
+			else if( 120<x && 100<y ) this.s=4;	//slot4
 			if (face[0].dash["slot"+this.s+"Mac"]){
 				(s=>{s&&(s["slot"]=this.s)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 				//face.go("dashSlot",0);return;
