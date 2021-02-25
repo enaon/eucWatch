@@ -200,6 +200,8 @@ touchHandler[0]=function(e,x,y){
   			face[0].set=0;face[0].init();
         }else if (euc.state=="READY"&&euc.dash.maker=="Kingsong")
 			face.go("dashSetKsOpt",0);
+        else if (euc.state=="READY"&&euc.dash.maker=="Ninebot")
+			face.go("dashSetNinebot",0);
 		else
 			face.go("dashGarage",0);
 		return;

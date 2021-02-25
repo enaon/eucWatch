@@ -123,20 +123,20 @@ face[1] = {
 touchHandler[0]=function(e,x,y){ 
 	switch (e) {
       case 5:case 12: //tap event
-		if (x<=120&&y<=100) { //ride mode
+		if ( x<=120 && y<=100 ) { //ride mode
 			if (euc.dash.mode==0) {euc.dash.mode=1;euc.wri("rideMed");face[0].btn("MODE",18,60,15,col("raf2"),0,0,119,97,"MED",30,60,50);}
 			else if (euc.dash.mode==1) {euc.dash.mode=2;euc.wri("rideSoft");face[0].btn("MODE",18,60,15,col("raf3"),0,0,119,97,"SOFT",30,60,50);}
 			else if (euc.dash.mode==2) {euc.dash.mode=0;euc.wri("rideHard");face[0].btn("MODE",18,60,15,col("raf4"),0,0,119,97,"HARD",30,60,50);}
 			digitalPulse(D16,1,[30,50,30]);		
-		}else if (120<=x<=239&&y<=100) { //calibrate
+		}else if ( 120<=x  && y<=100 ) { //calibrate
             digitalPulse(D16,1,[30,50,30]);
 			face.go("dashSetKsAdvCalibrate",0);
 			return;
-		}else if (x<=120&&100<=y<=200) {   //limits
+		}else if ( x<=120 && 100<=y ) {   //limits
 			digitalPulse(D16,1,[30,50,30]);		
 			face.go("dashSetKsAdvLimits",0);
 			return;
-		}else if (120<=x&&x<=239&&100<=y&&y<=200) { //pass
+		}else if ( 120<=x && 100<=y ) { //pass
 			digitalPulse(D16,1,[30,50,30]);		
 			if (euc.dash.pass.length>=4) face.go("dashSetKsAdvPass",5);
 			else face.go("dashSetKsAdvPass",0);
@@ -153,9 +153,7 @@ touchHandler[0]=function(e,x,y){
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 			digitalPulse(D16,1,[30,50,30]);
-		}else //if (y>100) {
-			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		//} else {digitalPulse(D16,1,40);}
+		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		this.timeout();
 		break;
 	case 3: //slide left event

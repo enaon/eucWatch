@@ -109,7 +109,7 @@ face[1] = {
 touchHandler[0]=function(e,x,y){ 
 	switch (e) {
 	case 5: //tap event
-		if (x<=120&&y<100) { //lights
+		if ( x<=120 && y<=100 ) { //lights
 			if (euc.dash.light==0) {euc.wri("lightsOn");euc.dash.light=1;face[0].btn("LIGHTS",18,60,15,col("raf2"),0,0,119,97,"ON",28,60,50);}
 			else if (euc.dash.light==1) {euc.wri("lightsAuto");euc.dash.light=2;face[0].btn("LIGHTS",18,60,15,col("raf3"),0,0,119,97,"AUTO",28,60,50);}
 			else if (euc.dash.light==2) {euc.dash.aLight=1;euc.dash.light=3;face[0].btn("LIGHTS",18,60,15,col("raf4"),0,0,119,97,"CITY",28,60,50);}
@@ -117,15 +117,15 @@ touchHandler[0]=function(e,x,y){
 			else  {euc.wri("lightsOn");euc.dash.light=1;face[0].btn("LIGHTS",18,60,15,col("raf2"),0,0,119,97,"ON",28,60,50);}
             face[0].ntfy("HOLD -> LIGHTS OFF",col("dgray"));
 			digitalPulse(D16,1,[30,50,30]);
-		}else if (120<=x&&x<=239&&y<=100) { //strobe
+		}else if ( 120<=x && y<=100 ) { //strobe
 			euc.dash.strb=1-euc.dash.strb;
             face[0].btn("STROBE",25,185,35,(euc.dash.strb)?col("red"):col("dgray"),122,0,239,97);//2
 			euc.wri((euc.dash.strb)?"strobeOn":"strobeOff");
 			digitalPulse(D16,1,[30,50,30]);
-		}else if (x<=120&&100<=y&&y<=200) { //bridge
+		}else if ( x<=120 && 100<=y ) { //bridge
 			face[0].ntfy("HOLD -> TOGGLE",col("dgray"));
 			digitalPulse(D16,1,[30,50,30]);		
-		}else if (120<=x&&x<=239&&100<=y&&y<=200) { //lock
+		}else if (120<=x && 100<=y ) { //lock
 			euc.dash.lock=1-euc.dash.lock;
             face[0].btn("LOCK",25,185,135,(euc.dash.lock)?col("red"):col("dgray"),122,100,239,195); //4
             face[0].ntfy("HOLD -> POWER OFF",col("red"));
@@ -143,9 +143,7 @@ touchHandler[0]=function(e,x,y){
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 			digitalPulse(D16,1,[30,50,30]);
-		}else //if (y>100) {
-			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		//} else {digitalPulse(D16,1,40);}
+		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		this.timeout();
 		break;
 	case 3: //slide left event
@@ -155,12 +153,12 @@ touchHandler[0]=function(e,x,y){
 		face.go(set.dash[set.def.dash],0);
 		return;
 	case 12: //long press event
-		if (x<=120&&y<100) { //lights
+		if ( x<=120 && y<100 ) { //lights
 			euc.dash.light=0;
 			face[0].btn("LIGHTS",18,60,15,col("gray"),0,0,119,97,"OFF",28,60,50);
 			euc.wri("lightsOff");
 			digitalPulse(D16,1,[30,50,30]);
-		}else if (x<=120&&100<=y&&y<=200) { //bridge
+		}else if  (x<=120 && 100<=y ) { //bridge
 			euc.dash.emu=1-euc.dash.emu;
 			w.gfx.setColor(0,(euc.dash.emu)?col("blue1"):col("dgray"));
 			w.gfx.fillRect(0,100,119,195); 
@@ -172,7 +170,7 @@ touchHandler[0]=function(e,x,y){
 			digitalPulse(D16,1,[30,50,30]);
 			if (euc.dash.emu)face[0].ntfy("BRIDGE ENABLED",col("raf2"));
 			else face[0].ntfy("BRIDGE DISABLED",col("dgray"));
-		}else if (120<=x&&x<=239&&100<=y&&y<=200) { //off
+		}else if ( 120<=x && 100<=y ) { //off
 			euc.wri("off");
 			digitalPulse(D16,1,[30,50,30]);	
 			euc.state="OFF";

@@ -19,7 +19,7 @@ global.euc= {
 			//if (this.kill) clearTimout(this.kill);
 			//this.kill=setTimeout(()=>{
 			if (euc.dash.emu) {set.def.atc=0;set.upd();}
-			if (euc.dash.maker=="Kingsong") euc.wri("end");	
+			if (require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]=="Kingsong") euc.wri("end");	
 			face.go(set.dash[set.def.dash],0);return;
 		}else {
 			NRF.setTxPower(4);

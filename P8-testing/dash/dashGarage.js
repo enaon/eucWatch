@@ -222,10 +222,10 @@ touchHandler[0]=function(e,x,y){
 	case 5: //tap event
 		digitalPulse(D16,1,[30,50,30]);
 		if	( !face[0].set )	{
-			if	( x<120 &&  y<100 ) this.s=1;	//slot1
-			else if( 120<x && y<100 ) this.s=2;	//slot2 
-			else if( x<120 && 100<y ) this.s=3;   //slot3 
-			else if( 120<x && 100<y ) this.s=4;	//slot4
+			if	( x<=120 &&  y<=100 ) this.s=1;	//slot1
+			else if( 120<=x && y<=100 ) this.s=2;	//slot2 
+			else if( x<=120 && 100<=y ) this.s=3;   //slot3 
+			else if( 120<=x && 100<=y ) this.s=4;	//slot4
 			if (face[0].dash["slot"+this.s+"Mac"]){
                 //require('Storage').write('dashslot.json',this.s);
 				(s=>{s&&(s["slot"]=this.s)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
@@ -249,7 +249,7 @@ touchHandler[0]=function(e,x,y){
 		face.go(set.dash[set.def.dash],0);
 		return;	 
 	case 2: //slide up event
-		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
+		if ( 200<=y && x<=50 ) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 			digitalPulse(D16,1,[30,50,30]);
@@ -279,17 +279,17 @@ touchHandler[0]=function(e,x,y){
 				(s=>{s&&(delete s["slot"+require("Storage").readJSON("dash.json",1).slot+"Mac"])&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 				(s=>{s&&(delete s["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"])&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 				require("Storage").erase('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json')	
-              	face[0].s1=1;face[0].sv=0;face[0].s3=0;face[0].s4=0;
+			    face[0].sv1=-1;face[0].sv2=-1;face[0].sv3=-1;face[0].sv4=-1;
                 w.gfx.setColor(0,0);w.gfx.fillRect(0,0,239,195);w.gfx.flip();
               	face[0].dash=require("Storage").readJSON("dash.json",1);
 				face[0].run=true;face[0].set=0;face[0].show();
                 return;
 			}
 		} else { 
-			if	( x<120 &&  y<100 ) this.s=1;	//slot1
-			else if( 120<x && y<100 ) this.s=2;	//slot2 
-			else if( x<120 && 100<y ) this.s=3;   //slot3 
-			else if( 120<x && 100<y ) this.s=4;	//slot4
+			if	( x<=120 &&  y<=100 ) this.s=1;	//slot1
+			else if( 120<=x && y<=100 ) this.s=2;	//slot2 
+			else if( x<=120 && 100<=y ) this.s=3;   //slot3 
+			else if( 120<=x && 100<=y ) this.s=4;	//slot4
 			if (face[0].dash["slot"+this.s+"Mac"]){
 				(s=>{s&&(s["slot"]=this.s)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 				//face.go("dashSlot",0);return;

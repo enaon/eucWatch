@@ -44,10 +44,10 @@ face[0] = {
       print(this.dash);
       for (i = 1; i < 5; i++) {
 			if (this.dash["slot"+i+"Mac"]){
-				if (i==1) this.btn((this.dash.slot==1)?1:0,this.dash.slot1_maker,24,60,20,col("red1"),col("raf4"),0,0,119,97,(euc.dash.hapS)?"HAPTIC ON":"HAPTIC OFF",14,60,70);
-				else if (i==2) this.btn((this.dash.slot==2)?1:0,"AMP",24,185,20,col("red1"),col("raf4"),122,0,239,97,(euc.dash.hapA)?"HAPTIC ON":"HAPTIC OFF",14,185,70);
-				else if (i==3) this.btn((this.dash.slot==3)?1:0,"TEMP",24,60,120,col("red1"),col("raf4"),0,100,119,195,(euc.dash.hapT)?"HAPTIC ON":"HAPTIC OFF",14,60,170);
-				else if (i==4) this.btn((this.dash.slot==4)?1:0,"BATT",24,185,120,col("red1"),col("raf4"),122,100,239,195,(euc.dash.hapB)?"HAPTIC ON":"HAPTIC OFF",14,185,170);
+				if      (i==1) this.btn((this.dash.slot==1)?1:0,this.dash.slot1Maker,24,60,20,col("red1"),col("raf4"),0,0,119,97,(euc.dash.hapS)?"HAPTIC ON":"HAPTIC OFF",14,60,70);
+				else if (i==2) this.btn((this.dash.slot==2)?1:0,this.dash.slot1Maker,24,185,20,col("red1"),col("raf4"),122,0,239,97,(euc.dash.hapA)?"HAPTIC ON":"HAPTIC OFF",14,185,70);
+				else if (i==3) this.btn((this.dash.slot==3)?1:0,this.dash.slot1Maker,24,60,120,col("red1"),col("raf4"),0,100,119,195,(euc.dash.hapT)?"HAPTIC ON":"HAPTIC OFF",14,60,170);
+				else if (i==4) this.btn((this.dash.slot==4)?1:0,this.dash.slot1Maker,24,185,120,col("red1"),col("raf4"),122,100,239,195,(euc.dash.hapB)?"HAPTIC ON":"HAPTIC OFF",14,185,170);
 			}
 		}
     },  
