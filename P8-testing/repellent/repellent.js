@@ -50,7 +50,7 @@ face[0]= {
 	rep.go=(require("Storage").readJSON("setting.json",1)||{}).repellent_go;
     rep.con=0;
     var g=w.gfx;
-  	this.g.clear();
+  	g.clear();
     g.setColor(1,col("lgray"));//header bck
 	g.fillRect(120,0,239,50); //header
     g.fillRect(0,0,117,50); //status

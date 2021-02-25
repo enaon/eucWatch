@@ -3,8 +3,8 @@ face[0] = {
 	offms: 5000,
 	g:w.gfx,
 	init: function(){
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
-        if (!face.appPrev.startsWith("dashSet")) this.g.clear();
+		//if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
+        if (!face.appPrev.startsWith("dash")) this.g.clear();
         this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,239);
 		this.g.setColor(1,col("white"));
@@ -30,7 +30,7 @@ face[0] = {
         this.run=true;
 	},
 	show : function(){
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
+		//if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
 		if (!this.run) return; 
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
@@ -201,7 +201,7 @@ touchHandler[0]=function(e,x,y){
         }else if (euc.state=="READY"&&euc.dash.maker=="Kingsong")
 			face.go("dashSetKsOpt",0);
 		else
-			face.go(set.dash[set.def.dash],0);
+			face.go("dashGarage",0);
 		return;
 	case 12: //hold event
 		if (face[0].set) { 
