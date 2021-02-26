@@ -235,6 +235,13 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
 	case 4: //slide right event (back action)
+		w.gfx.setColor(0,0);
+		w.gfx.drawLine (0,98,239,98);
+		w.gfx.drawLine (0,99,239,99);
+        w.gfx.flip();
+		w.gfx.drawLine (120,0,120,195);
+      	w.gfx.drawLine (121,0,121,195);
+        w.gfx.flip();	
 		face.go("dashSetKsAdv",0);
 		return;
 	case 12: //long press event
@@ -354,6 +361,13 @@ touchHandler[5]=function(e,x,y){
 		this.timeout();
 		break;
 	case 4: //slide right event (back action)
+		w.gfx.setColor(0,0);
+		w.gfx.drawLine (0,98,239,98);
+		w.gfx.drawLine (0,99,239,99);
+        w.gfx.flip();
+		w.gfx.drawLine (120,0,120,195);
+      	w.gfx.drawLine (121,0,121,195);
+        w.gfx.flip();	
 		face.go("dashSetKsAdv",0);
 		return;
 	case 12: //long press event

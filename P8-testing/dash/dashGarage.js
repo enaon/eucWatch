@@ -274,8 +274,16 @@ touchHandler[0]=function(e,x,y){
 	case 12: //long press event
 		digitalPulse(D16,1,[100]);
 		if ( face[0].set ) {
-			if ( y<=120 ) {face.go("dashAlerts",0);return;}
-			else {
+			if ( y<=120 ) {
+				w.gfx.setColor(0,0);
+				w.gfx.drawLine (0,98,239,98);
+				w.gfx.drawLine (0,99,239,99);
+				w.gfx.flip();
+				w.gfx.drawLine (120,0,120,195);
+				w.gfx.drawLine (121,0,121,195);
+				w.gfx.flip();
+				face.go("dashAlerts",0);return;
+			} else {
 				(s=>{s&&(delete s["slot"+require("Storage").readJSON("dash.json",1).slot+"Mac"])&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 				(s=>{s&&(delete s["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"])&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 				require("Storage").erase('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json')	

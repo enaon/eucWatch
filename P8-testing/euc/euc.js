@@ -7,6 +7,8 @@ global.euc= {
     busy:0,
     chrg:0,
 	kill:0,
+	night:1,
+	day:[7,19],
 	updateDash:function(slot){require('Storage').write('eucSlot'+slot+'.json', euc.dash);},
 	tgl:function(){ 
 		if (this.state!="OFF" ) {
@@ -19,7 +21,11 @@ global.euc= {
 			//if (this.kill) clearTimout(this.kill);
 			//this.kill=setTimeout(()=>{
 			if (euc.dash.emu) {set.def.atc=0;set.upd();}
-			if (require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]=="Kingsong") euc.wri("end");	
+			if (require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]=="Kingsong") euc.wri("end");
+			else if (require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]=="Ninebot") {
+              if (euc.busy) {euc.busy=0; euc.wri(0);}
+            }
+			if (euc.busy)euc.busy=0;
 			face.go(set.dash[set.def.dash],0);return;
 		}else {
 			NRF.setTxPower(4);

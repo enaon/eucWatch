@@ -126,9 +126,18 @@ touchHandler[0]=function(e,x,y){
 			digitalPulse(D16,1,[30,50,30]);
 		}else digitalPulse(D16,1,[30,50,30]);
         }else { //calibrate
-          if (175<=y&&120<=x) {face.go("dashSetKsAdv",0);return;
-          }else if (175<=y&&x<=120) euc.wri("calibrate");
-          else digitalPulse(D16,1,40);
+			if (175<=y&&120<=x) {
+				w.gfx.setColor(0,0);
+				w.gfx.drawLine (0,98,239,98);
+				w.gfx.drawLine (0,99,239,99);
+				w.gfx.flip();
+				w.gfx.drawLine (120,0,120,195);
+				w.gfx.drawLine (121,0,121,195);
+				w.gfx.flip();	
+				face.go("dashSetKsAdv",0);return;
+			}else if (175<=y&&x<=120) 
+				euc.wri("calibrate");
+			else digitalPulse(D16,1,40);
         }
 		this.timeout();
 		break;
@@ -149,6 +158,13 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
 	case 4: //slide right event (back action)
+		w.gfx.setColor(0,0);
+		w.gfx.drawLine (0,98,239,98);
+		w.gfx.drawLine (0,99,239,99);
+        w.gfx.flip();
+		w.gfx.drawLine (120,0,120,195);
+      	w.gfx.drawLine (121,0,121,195);
+        w.gfx.flip();	
 		face.go("dashSetKsAdv",0);
 		return;
 	case 12: //long press event

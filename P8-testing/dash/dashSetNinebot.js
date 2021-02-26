@@ -3,8 +3,9 @@ face[0] = {
 	offms: 5000,
 	g:w.gfx,
 	init: function(){
+		euc.busy=1;//stop bt loop-accept commands.
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
- 		if (!this.set&&face.appPrev.startsWith("dash_")) this.g.clear();
+ 		if (!this.set&&(face.appPrev.startsWith("dash_")||face.appPrev==="settings")) this.g.clear();
         this.set=0;
         this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,239);
@@ -16,7 +17,7 @@ face[0] = {
         this.btn(euc.dash.aLck,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
         this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"HAPTIC",25,185,37,col("raf"),col("raf4"),122,0,239,97);	
         this.btn(euc.dash.light,"RING",25,60,136,col("blue1"),col("dgray"),0,100,119,195);
-        this.btn(1,"MODE:"+euc.dash.mode,25,185,136,col("olive"),col("raf4"),122,100,239,195);	
+        this.btn(1,"MODE:"+euc.dash.mode,25,185,136,col("raf4"),col("raf4"),122,100,239,195);	
 		this.run=true;
 	},
 	show : function(){
@@ -75,6 +76,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
+		euc.busy=0;euc.wri(1);
 		face.go(set.dash[set.def.dash],0);
 		return;
 	},
@@ -89,6 +91,7 @@ touchHandler[0]=function(e,x,y){
 		if (face[0].set) { 
 			this.timeout();
 			if ( 100 < y ) {
+			  euc.wri(30+euc.dash.mode);
               w.gfx.setColor(0,0);
               w.gfx.drawLine(120,0,120,97);
               w.gfx.drawLine(121,0,121,97);
@@ -99,7 +102,7 @@ touchHandler[0]=function(e,x,y){
 				if (0<euc.dash.mode) euc.dash.mode--;
 			}else if (euc.dash.mode<9) euc.dash.mode++;
 			digitalPulse(D16,1,[30,50,30]);
-			face[0].btn(1,"SET RIDE MODE",20,120,5,col("olive"),0,0,0,239,97,euc.dash.mode,60,120,37);
+			face[0].btn(1,"SET RIDE MODE",20,120,5,col("raf4"),0,0,0,239,97,euc.dash.mode.toString(),60,120,37);
 		}
 		else {
 			if ( x<=120 && y<100 ) { //auto lock
@@ -115,6 +118,7 @@ touchHandler[0]=function(e,x,y){
 				euc.dash.light=1-euc.dash.light;
 				face[0].btn(euc.dash.light,"RING",25,60,136,col("blue1"),col("dgray"),0,100,119,195);
 				face[0].ntfy("RING ON","RING OFF",20,col("dgray"),euc.dash.light);
+                euc.wri(25+euc.dash.light);
 				digitalPulse(D16,1,[30,50,30]);	
 			}else if ( 120<=x && 100<=y ) { //mode
 	            face[0].ntfy("HOLD -> SET MODE","",20,col("dgray"),1);
@@ -141,12 +145,14 @@ touchHandler[0]=function(e,x,y){
 		break;
 	case 4: //slide right event (back action)
         if (face[0].set) {
+			  euc.wri(30+euc.dash.mode);
               w.gfx.setColor(0,0);
               w.gfx.drawLine(120,0,120,97);
               w.gfx.drawLine(121,0,121,97);
               w.gfx.flip();
               face[0].init();
         } else {
+		  euc.busy=0;euc.wri(1);
           face.go(set.dash[set.def.dash],0);
           return;
         }
@@ -171,11 +177,13 @@ touchHandler[0]=function(e,x,y){
 			euc.dash.light=1-euc.dash.light;
             face[0].btn(euc.dash.light,"RING",25,60,136,col("blue1"),col("dgray"),0,100,119,195);
             face[0].ntfy("RING ON","RING OFF",20,col("dgray"),euc.dash.light);
+            euc.wri(25+euc.dash.light);
 			digitalPulse(D16,1,[30,50,30]);		
 		}else if ( 120<=x && 100<=y ) { //mode
 			face[0].set=1;
-			face[0].btn(1,"SET RIDE MODE",20,120,5,col("olive"),0,0,0,239,97,euc.dash.mode,60,120,37);
-			digitalPulse(D16,1,[30,50,30]);						
+			face[0].btn(1,"SET RIDE MODE",20,120,5,col("raf4"),0,0,0,239,97,euc.dash.mode.toString(),60,120,37);
+			digitalPulse(D16,1,[30,50,30]);	
+			
 		}else digitalPulse(D16,1,[30,50,30]);
 		this.timeout();
 		break;

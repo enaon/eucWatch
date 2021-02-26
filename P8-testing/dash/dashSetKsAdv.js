@@ -61,14 +61,6 @@ face[0] = {
 		this.g.setFont("Vector",28);	
 		this.g.drawString("PASS",185-(this.g.stringWidth("PASS")/2),135); 
 		this.g.flip();
-		 //clear
-		this.g.setColor(0,0);
-		this.g.drawLine (0,98,239,98);
-		this.g.drawLine (0,99,239,99);
-        this.g.flip();
-		this.g.drawLine (120,0,120,195);
-      	this.g.drawLine (121,0,121,195);
-        this.g.flip();		
 		this.run=true;
 	},
 	show : function(){

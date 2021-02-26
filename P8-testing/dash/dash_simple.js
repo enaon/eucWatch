@@ -5,7 +5,8 @@ face[0] = {
   g:w.gfx,
   spd:[],
   init: function(){
- 	this.g.clear();
+	if ( euc.day[0] < Date().getHours() && Date().getHours() < euc.day[1] ) euc.night=0; else euc.night=1;
+	this.g.clear();
 	this.spdC={0:0,1:4095,2:4080,3:3840};
 	this.ampC={0:1365,1:4095,2:4080,3:3840};
 	this.tmpC={0:0,1:4095,2:4080,3:3840};

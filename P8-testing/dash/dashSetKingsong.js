@@ -19,7 +19,7 @@ face[0] = {
         this.g.setColor(1,col("white"));
       	this.g.fillRect(75,200,105,204);
 		this.g.flip(); 
-      this.btn("LIGHTS",18,60,15,(!euc.dash.light)?col("gray"):(euc.dash.light==1)?col("raf2"):(euc.dash.light==2)?col("raf3"):col("raf4"),0,0,119,97,(!euc.dash.light)?"OFF":(euc.dash.light==1)?"ON":(euc.dash.light==2)?"AUTO":"CITY",28,60,50); //1
+      this.btn("LIGHTS",18,60,15,(euc.dash.aLight==="lightsOff")?col("black"):(euc.dash.aLight==="lightsOn")?col("raf2"):(euc.dash.aLight=="lightsAuto")?col("raf3"):col("raf4"),0,0,119,97,(!euc.dash.light)?"OFF":(euc.dash.light==1)?"ON":(euc.dash.light==2)?"AUTO":"CITY",28,60,50); //1
       this.btn("STROBE",25,185,35,(euc.dash.strb)?col("red"):col("dgray"),122,0,239,97);//2
         this.g.setColor(0,(euc.dash.emu)?col("blue1"):col("dgray"));
         this.g.fillRect(0,100,119,195); 
@@ -110,11 +110,11 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
 		if ( x<=120 && y<=100 ) { //lights
-			if (euc.dash.light==0) {euc.wri("lightsOn");euc.dash.light=1;face[0].btn("LIGHTS",18,60,15,col("raf2"),0,0,119,97,"ON",28,60,50);}
-			else if (euc.dash.light==1) {euc.wri("lightsAuto");euc.dash.light=2;face[0].btn("LIGHTS",18,60,15,col("raf3"),0,0,119,97,"AUTO",28,60,50);}
-			else if (euc.dash.light==2) {euc.dash.aLight=1;euc.dash.light=3;face[0].btn("LIGHTS",18,60,15,col("raf4"),0,0,119,97,"CITY",28,60,50);}
-			else if (euc.dash.light==3) {euc.wri("lightsOn");euc.dash.light=1;face[0].btn("LIGHTS",18,60,15,col("raf2"),0,0,119,97,"ON",28,60,50);}
-			else  {euc.wri("lightsOn");euc.dash.light=1;face[0].btn("LIGHTS",18,60,15,col("raf2"),0,0,119,97,"ON",28,60,50);}
+			if (euc.dash.aLight=="lightsOff") { euc.dash.aLight="lightsOn"; euc.wri("lightsOn"); euc.dash.light=1; face[0].btn("LIGHTS",18,60,15,col("raf2"),0,0,119,97,"ON",28,60,50); }
+			else if (euc.dash.aLight=="lightsOn") { euc.dash.aLight="lightsAuto"; euc.wri("lightsAuto"); euc.dash.light=2; face[0].btn("LIGHTS",18,60,15,col("raf3"),0,0,119,97,"AUTO",28,60,50); }
+			else if (euc.dash.aLight=="lightsAuto") { euc.dash.aLight="lightsCity"; euc.dash.light=3; face[0].btn("LIGHTS",18,60,15,col("raf4"),0,0,119,97,"CITY",28,60,50); }
+			else if (euc.dash.aLight=="lightsCity") { euc.dash.aLight="lightsOn"; euc.wri("lightsOn"); euc.dash.light=1; face[0].btn("LIGHTS",18,60,15,col("raf2"),0,0,119,97,"ON",28,60,50); }
+			else  { euc.dash.aLight="lightsOn"; euc.wri("lightsOn"); euc.dash.light=1; face[0].btn("LIGHTS",18,60,15,col("raf2"),0,0,119,97,"ON",28,60,50); }
             face[0].ntfy("HOLD -> LIGHTS OFF",col("dgray"));
 			digitalPulse(D16,1,[30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //strobe
@@ -155,7 +155,8 @@ touchHandler[0]=function(e,x,y){
 	case 12: //long press event
 		if ( x<=120 && y<100 ) { //lights
 			euc.dash.light=0;
-			face[0].btn("LIGHTS",18,60,15,col("gray"),0,0,119,97,"OFF",28,60,50);
+			face[0].btn("LIGHTS",18,60,15,col("black"),0,0,119,97,"OFF",28,60,50);
+			euc.dash.aLight="lightsOff";
 			euc.wri("lightsOff");
 			digitalPulse(D16,1,[30,50,30]);
 		}else if  (x<=120 && 100<=y ) { //bridge
