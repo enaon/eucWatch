@@ -1,3 +1,4 @@
+
 //kingsong  Alerts
 face[0] = {
 	offms: 5000,
@@ -119,12 +120,12 @@ touchHandler[0]=function(e,x,y){
 				}else if (65<=y&&y<=133){//braking
 					if (x<=120&&euc.dash.ampL<-5) euc.dash.ampL++;
 					else if (120<=x&&-15<euc.dash.ampL) euc.dash.ampL--;
-			        face[0].btn(1,"BRAKING:",20,60,90,col("dgray"),0,0,66,239,132,euc.dash.ampL+ " A",35,180,84);
+			        face[0].btn(1,"BRAKING:",20,60,90,col("dgray"),0,0,66,239,132,euc.dash.ampL+ " A",35,182,84);
 					face[0].ntfy("HAPTIC STARTS AT::","",18,col("dgray"),1);                    
 				}else {//RESOLUTION
 					if (120<=x&&euc.dash.ampS<3) euc.dash.ampS++;
 					else if (x<=120&&1<euc.dash.ampS) euc.dash.ampS--;
-			        face[0].btn(1,"RESOLUTION:",20,60,157,col("gray"),0,0,135,239,195,euc.dash.ampS+ " A",35,180,150);
+			        face[0].btn(1,"RESOLUTION:",17,70,157,col("gray"),0,0,135,239,195,euc.dash.ampS+ " A",35,190,150);
 					face[0].ntfy("ONE PULSE PER:","",18,col("dgray"),1);
 				}
             }else if (face[0].set=="temp") { //temp
@@ -134,6 +135,7 @@ touchHandler[0]=function(e,x,y){
                     face[0].btn(1,"SET HI-TEMP:",18,120,8,col("dgray"),0,0,0,239,97,euc.dash.tmpH,50,120,41);
 					face[0].ntfy("HAPTIC STARTS AT:","",18,col("dgray"),1);
 				}else{ //back
+		            w.gfx.setColor(0,0);
 					w.gfx.drawLine (120,0,120,97);
 					w.gfx.drawLine (121,0,121,97);
 					w.gfx.flip();
@@ -146,6 +148,7 @@ touchHandler[0]=function(e,x,y){
                     face[0].btn(1,"SET LOW-BATT:",18,120,8,col("dgray"),0,0,0,239,97,euc.dash.batL,50,120,41);
 					face[0].ntfy("HAPTIC STARTS AT:","",18,col("dgray"),1);
 				}else{ //back
+           		    w.gfx.setColor(0,0);
 					w.gfx.drawLine (120,0,120,97);
 					w.gfx.drawLine (121,0,121,97);
 					w.gfx.flip();
@@ -237,8 +240,8 @@ touchHandler[0]=function(e,x,y){
 	    	w.gfx.fillRect(0,0,239,195);
     		w.gfx.flip();
             face[0].btn(1,"UPHILL:",20,60,23,col("gray"),0,0,0,239,63,euc.dash.ampH+" A",35,180,16);
-			face[0].btn(1,"BRAKING:",20,60,90,col("dgray"),0,0,66,239,132,euc.dash.ampL+ " A",35,180,84);
-			face[0].btn(1,"RESOLUTION:",18,60,157,col("gray"),0,0,135,239,195,euc.dash.ampS+ " A",35,180,150);
+			face[0].btn(1,"BRAKING:",20,60,90,col("dgray"),0,0,66,239,132,euc.dash.ampL+ " A",35,182,84);
+			face[0].btn(1,"RESOLUTION:",17,70,157,col("gray"),0,0,135,239,195,euc.dash.ampS+ " A",35,190,150);
 		}else if (x<=120&&100<=y) { //temp
 			face[0].set="temp";
             digitalPulse(D16,1,[30,50,30]);
