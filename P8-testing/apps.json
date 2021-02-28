@@ -129,6 +129,18 @@
       {"name":"eucEmu","url":"eucEmuKs.js"}
     ]
   },
+   { "id": "eucVeteran",
+    "name": "Veteran support",
+    "icon": "icon.png",
+    "version":"0.11",
+    "description": "EUC module for Veteran Sherman",
+    "tags": "euc",
+    "type": "euc",
+    "storage": [
+	  {"name":"eucVeteran","url":"eucVeteran.js"},
+	  {"name":"dashScan","url":"dashScan.js"}
+    ]
+  },
   { "id": "repellent",
     "name": "Repellent",
     "icon": "icon.png",
