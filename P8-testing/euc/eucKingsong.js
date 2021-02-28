@@ -69,14 +69,17 @@ euc.conn=function(mac){
 				if ( euc.dash.hapS && euc.dash.spd>=euc.dash.spd1) euc.alert=(1+((euc.dash.spd-euc.dash.spd1)/euc.dash.spdS|0));  
 				//City lights 
 				if ( euc.dash.aLight === "lightsCity" ) { 
-					if ( euc.dash.amp < 0 && euc.dash.light )
-				
-					if (euc.night) {
-						if ( 20 < euc.dash.spd && euc.dash.light !== 1  ) {
+					if ( euc.dash.amp < 0 && euc.dash.light ===1  ) {
+						euc.wri("lightsAuto"); 
+                        this.brake=1;
+                    } else if ( euc.dash.amp > 0 && this.brake  ) {
+						euc.wri("lightsCity") ;
+                        this.brake=0;
+                    }else if (euc.night) {
+						if ( 20 < euc.dash.spd && euc.dash.light !== 1  ) 
 							euc.wri("lightsOn") ;
-						} else if ( euc.dash.spd < 10 && euc.dash.light !== 2  ) {
+						else if ( euc.dash.spd < 10 && euc.dash.light !== 2  ) 
 							euc.wri("lightsAuto") ;
-						}
 					} else {
 						if ( 35 < euc.dash.spd && !euc.dash.strobe  ) {
 							euc.dash.strobe=1; 
@@ -84,11 +87,10 @@ euc.conn=function(mac){
 						} else if  ( euc.dash.spd < 30 && euc.dash.strobe  ) {
 							euc.dash.strobe = 0 ;
 							euc.wri("strobeOff") ;
-						} else if  ( 25 < euc.dash.spd && euc.dash.light !== 1  ) {
+						} else if  ( 25 < euc.dash.spd && euc.dash.light !== 1  ) 
 							euc.wri("lightsOn") ;
-						} else if ( euc.dash.spd < 15 && euc.dash.light !== 0  ) {
+						else if ( euc.dash.spd < 15 && euc.dash.light !== 0  ) 
 							euc.wri("lightsOff") ;
-						}
 					}
                 }
 				//amp							 
