@@ -113,7 +113,8 @@ euc.conn=function(mac){
 				});
 			}
 		};
-		euc.wri("start");
+		setTimeout(() => {euc.wri("serial");euc.state="READY";}, 500);
+
 	//reconect
 	}).catch(function(err)  {
 		euc.off(err);
@@ -188,21 +189,21 @@ euc.unpk={
 				break;
 			case 2: //lensearch
 				buff.push(c);
-				len = c & 0xff;
+				len = c;
 				sta = 1;
 				old2 = old1;
 				old1 = c;
 				print(" lensearch, len:", len ) ;
 				break;
 			default:
-				if (c == 0x5C && old1 ==  0x5A && old2 ==  0xDC) {
+				if (c == 92 && old1 ==  165 && old2 ==  220 ) {
 					buff = [];
-					buff.push(0xDC);
-					buff.push(0x5A);
-					buff.push(0x5C);
+					buff.push(220);
+					buff.push(165);
+					buff.push(92);
 					print("start");
 					sta = 2;
-				} else if (c ==  0x5A && old1 ==  0xDC) {
+				} else if (c ==  165 && old1 ==  220) {
 					old2 = old1;
 				} else {
 					old2 = 0;

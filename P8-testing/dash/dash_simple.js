@@ -222,7 +222,7 @@ touchHandler[0]=function(e,x,y){
         this.timeout();
 		break;
     case 3: //slide left event
-		(euc.state=="READY")?face.go('dashSet'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0):(euc.state=="OFF")?face.go("dashGarage",0):digitalPulse(D16,1,40);
+		(euc.state=="READY")?face.go('dash'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0):(euc.state=="OFF")?face.go("dashGarage",0):digitalPulse(D16,1,40);
 		return;
     case 4: //slide right event (back action)
 		face.go("main",0);

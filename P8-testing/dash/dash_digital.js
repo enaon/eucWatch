@@ -230,21 +230,16 @@ touchHandler[0]=function(e,x,y){
 		digitalPulse(D16,1,[30,50,30]);
      }else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
     }else if  (e==3){
-		(euc.state=="READY")?face.go('dashSet'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0):(euc.state=="OFF")?face.go("dashGarage",0):digitalPulse(D16,1,40);
+		(euc.state=="READY")?face.go('dash'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0):(euc.state=="OFF")?face.go("dashGarage",0):digitalPulse(D16,1,40);
 	  return;
     }else if  (e==4){		
 	  face.go("main",0);
 	  return;
     }else if  (e==12){
 //euc on/off
-	  if  (y<158) {
+	  if  ( y < 200 ) {
   	    euc.tgl();
-//euc settings
-	  }else if(euc.state!=="WAIT"){
-        digitalPulse(D16,1,140);
- 	    //euc.tmp.count=23;
-		face.go("dashSet",0);return;
-      }else digitalPulse(D16,1,80);
+	  } else digitalPulse(D16,1,80);
     }
     this.timeout();
 };
