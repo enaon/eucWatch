@@ -108,7 +108,7 @@
 		]
 	}, 
 	{ "id": "dashKingsong",
-		"name": "EUC Dashboard for Kingsong",
+		"name": "EUC Dashboard, Kingsong extra",
 		"icon": "icon.png",
 		"version":"0.10",
 		"description": "EUC dashboard, Kingsong settings gui files.",
@@ -123,7 +123,7 @@
 		]
 	}, 
 	{ "id": "dashNinebot",
-		"name": "EUC Dashboard",
+		"name": "EUC Dashboard, Ninebot extra",
 		"icon": "icon.png",
 		"version":"0.10",
 		"description": "EUC dashboard, Ninebot settings gui files.",
@@ -133,7 +133,7 @@
     ]
 	}, 
 	{ "id": "dashVeteran",
-		"name": "EUC Dashboard",
+		"name": "EUC Dashboard, Veteran extra",
 		"icon": "icon.png",
 		"version":"0.10",
 		"description": "EUC dashboard, Veteran settings gui files.",
@@ -143,22 +143,42 @@
 		]
 	}, 
 	{ "id": "euc",
-		"name": "EUC modules for the dashboard",
+		"name": "EUC modules support",
 		"icon": "icon.png",
 		"version":"0.11",
-		"description": "EUC module for Kingsong and ninebot's c/e/p wheels",
+		"description": "EUC module switcher, depends on wheel module.",
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
 			{"name":"euc","url":"euc.js"},
-			{"name":"eucSlot.json","url":"eucSlot.json"},
+			{"name":"eucSlot.json","url":"eucSlot.json"}
+		]
+		},
+	{ "id": "euc",
+		"name": "Kingsong module",
+		"icon": "icon.png",
+		"version":"0.11",
+		"description": "EUC module Kingsong.",
+		"tags": "euc",
+		"type": "euc",
+		"storage": [
 			{"name":"eucKingsong","url":"eucKingsong.js"},
-			{"name":"eucNinebot","url":"eucNinebot.js"},
 			{"name":"eucEmu","url":"eucEmuKs.js"}
 		]
 		},
+	{ "id": "euc",
+		"name": "Ninebot module",
+		"icon": "icon.png",
+		"version":"0.11",
+		"description": "EUC module for Ninebot C/E/P.",
+		"tags": "euc",
+		"type": "euc",
+		"storage": [
+			{"name":"eucNinebot","url":"eucNinebot.js"}
+		]
+		},
    { "id": "eucVeteran",
-		"name": "Veteran support",
+		"name": "Veteran module",
 		"icon": "icon.png",
 		"version":"0.11",
 		"description": "EUC module for Veteran Sherman",
