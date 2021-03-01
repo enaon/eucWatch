@@ -108,7 +108,7 @@
 		]
 	}, 
 	{ "id": "dashKingsong",
-		"name": "EUC Dashboard, Kingsong extra",
+		"name": "Kingsong Settings",
 		"icon": "icon.png",
 		"version":"0.10",
 		"description": "EUC dashboard, Kingsong settings gui files.",
@@ -123,7 +123,7 @@
 		]
 	}, 
 	{ "id": "dashNinebot",
-		"name": "EUC Dashboard, Ninebot extra",
+		"name": "Ninebot Settings",
 		"icon": "icon.png",
 		"version":"0.10",
 		"description": "EUC dashboard, Ninebot settings gui files.",
@@ -133,7 +133,7 @@
     ]
 	}, 
 	{ "id": "dashVeteran",
-		"name": "EUC Dashboard, Veteran extra",
+		"name": "Veteran Settings",
 		"icon": "icon.png",
 		"version":"0.10",
 		"description": "EUC dashboard, Veteran settings gui files.",
@@ -158,7 +158,7 @@
 		"name": "Kingsong module",
 		"icon": "icon.png",
 		"version":"0.11",
-		"description": "EUC module Kingsong.",
+		"description": "EUC module for Kingsong.",
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
