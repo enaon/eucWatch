@@ -62,121 +62,29 @@ euc.conn=function(mac){
 	
 	//read
 	}).then(function(c) {
-		
 		c.on('characteristicvaluechanged', function(event) {
-			
 			//check
-			
-			
-			
-			
+			for (c in event.target.value.buffer) {
+				if (euc.unpk.addC(c)) {
+				print("got buffer :",euc.unpk.buff);
+				//speed
+				euc.dash.spd=euc.unpk.buff[6]*10;
+				//battery
+				voltage=euc.unpk.buff[8];
+				if (voltage > 10020) {
+                        euc.dash.bat = 100;
+                    } else if (voltage > 8160) {
+                        euc.dash.bat = ((voltage - 8070) / 19.5)|0;
+                    } else if (voltage > 7935) {
+                        euc.dash.bat =  ((voltage - 7935) / 48.75)|0;
+                    } else {
+                        euc.dash.bat = 0;
+                    }
+				}
+			}
 			//end
-			
-			
 			this.var= event.target.value.getUint8(16, true);
 			//print (event.target.value.buffer);
-			if (euc.busy) 
-				return;
-				
-			if (this.var==169) {
-				//forward euc emu
-				if (set.bt==4&&euc.dash.emu==1) euc.emuW(event.target.value.buffer);
-				euc.alert=0;
-				//speed
-				euc.dash.spd=(event.target.value.getUint16(4, true)/100).toFixed(0); 
-				euc.dash.spdC=(euc.dash.spd<=euc.dash.spd2)?1:(euc.dash.spd<=euc.dash.spd3)?2:3;	
-				if ( euc.dash.hapS && euc.dash.spd>=euc.dash.spd1) 
-					euc.alert=(1+((euc.dash.spd-euc.dash.spd1)/euc.dash.spdS|0));  
-				//City lights 
-				if ( euc.dash.aLight === "lightsCity" ) { 
-					if (euc.night) {
-						if ( 20 < euc.dash.spd && euc.dash.light !== 1  ) {
-							euc.dash.light = 1 ;
-							euc.wri("lightsOn") ;
-						} else if ( euc.dash.spd < 10 && euc.dash.light !== 2  ) {
-							euc.dash.light = 2 ;
-							euc.wri("lightsAuto") ;
-						}
-					} 
-					
-					else {
-						if ( 35 < euc.dash.spd && !euc.dash.strobe  ) {
-							euc.dash.strobe=1; 
-							euc.wri("strobeOn") ;
-						} else if  ( euc.dash.spd < 30 && euc.dash.strobe  ) {
-							euc.dash.strobe = 0 ;
-							euc.wri("strobeOff") ;
-						} else if  ( 25 < euc.dash.spd && euc.dash.light !== 1  ) {
-							euc.dash.light = 1 ;
-							euc.wri("lightsOn") ;
-						} else if ( euc.dash.spd < 15 && euc.dash.light !== 0  ) {
-							euc.dash.light = 0 ;
-							euc.wri("lightsOff") ;
-						}
-					}
-                }
-				//amp							 
-				this.amp=event.target.value.getUint16(10, true);
-				if (this.amp > 32767) 
-					this.amp = this.amp - 65536;
-				euc.dash.amp=(this.amp/100).toFixed(0);
-				euc.dash.ampC=(euc.dash.amp>=euc.dash.ampH+10||euc.dash.amp<=euc.dash.ampL-5)?3:(euc.dash.amp>=euc.dash.ampH||euc.dash.amp<=euc.dash.ampL)?2:(euc.dash.amp<0)?1:0;
-				if ( euc.dash.ampH <= euc.dash.amp ){
-					euc.dash.spdC=(euc.dash.ampC=3)?3:(euc.dash.spdC=3)?3:2;
-					if (euc.dash.hapA) 
-						euc.alert=(euc.alert+1+((euc.dash.amp-euc.dash.ampH)/euc.dash.ampS|0));
-				}
-				else if ( euc.dash.amp <= euc.dash.ampL )  {
-					euc.dash.spdC=(euc.dash.ampC=3)?3:(euc.dash.spdC=3)?3:2;
-					if (euc.dash.hapA) 
-						euc.alert=(euc.alert+1+((-(euc.dash.amp-euc.dash.ampL))/euc.dash.ampS|0));  				
-				}
-				//volt
-				this.volt=event.target.value.getUint16(2, true)/100;
-				euc.dash.bat=(((this.volt/20)*100-330)*1.1111)|0;
-				euc.dash.batC=(euc.dash.bat>=euc.dash.batH)?0:(euc.dash.bat>=euc.dash.batM)?1:(euc.dash.bat>=euc.dash.batL)?2:3;	
-				if (euc.dash.bat<=euc.dash.batL) {
-					euc.alert++ ; 
-					euc.dash.spdC = 3 ;
-				}     
-				//temp
-				euc.dash.tmp=(event.target.value.getUint16(12, true)/100).toFixed(1);
-				euc.dash.tmpC=(euc.dash.tmp<=euc.dash.tmpM)?0:(euc.dash.tmp<=euc.dash.tmpH)?2:0;	
-				if (euc.dash.tmp>=euc.dash.tmpH) {euc.alert++; euc.dash.spdC=3;} 
-				//total mileage
-				euc.dash.trpT=(((event.target.value.buffer[6] << 16) + (event.target.value.buffer[7] << 24) + event.target.value.buffer[8] + (event.target.value.buffer[9] << 8))/1000).toFixed(1);
-				//mode                                    
-				euc.dash.mode=event.target.value.getUint8(14, true);
-				//alerts
-				if (!euc.alert)  euc.dash.spdC=0;
-				else if (!euc.buzz) {  
-					euc.buzz=1;
-					if (20<=euc.alert) euc.alert=20;
-					var a=[];
-					while (5 <= euc.alert) {
-						a.push(150,500);
-						euc.alert=euc.alert-5;
-					}
-					var i;
-					for (i = 0; i < euc.alert ; i++) {
-						a.push(150,150);
-					}
-					digitalPulse(D16,0,a);  
-					setTimeout(() => {euc.buzz=0; }, 3000);
-				}
-			}
-			
-			else if  (this.var==185){
-				//trip-time-max speed
-				euc.dash.trpL=(((event.target.value.buffer[2] << 16) + (event.target.value.buffer[3] << 24) + event.target.value.buffer[4] + (event.target.value.buffer[5] << 8)) / 1000.0).toFixed(1);
-				euc.dash.time=((event.target.value.getUint16(6, true)) / 60.0).toFixed(0);
-				euc.dash.spdM=((event.target.value.getUint16(8, true)) / 100.0).toFixed(1);
-			}
-			
-			else if  (this.var==95){
-				euc.dash.lock=event.target.value.getUint8(2, true);
-			} //else print(event.target.value.buffer); 
-			
 		});
 		//on disconnect
 		global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
@@ -213,17 +121,14 @@ euc.conn=function(mac){
 };
 //catch
 euc.off=function(err){
-	
 	if (euc.reconnect) {
 		clearTimeout(euc.reconnect);
 		euc.reconnect=0;
 	}
-	
 	if (euc.state!="OFF") {
         euc.seq=1;
 		if (set.def.cli) 
 			console.log("EUC: Restarting");
-			
 		if ( err==="Connection Timeout"  )  {
 			if (set.def.cli) console.log("reason :timeout");
 			euc.state="LOST";
@@ -234,7 +139,6 @@ euc.off=function(err){
 				euc.conn(euc.mac); 
 			}, 5000);
 		}
-		
 		else if ( err==="Disconnected"|| err==="Not connected")  {
 			if (set.def.cli) console.log("reason :",err);
 			euc.state="FAR";
@@ -242,9 +146,7 @@ euc.off=function(err){
 				euc.reconnect=0;
 				euc.conn(euc.mac); 
 			}, 500);
-			
 		}
-		
 		else {
 			if (set.def.cli) console.log("reason :",err);
 			euc.state="RETRY";
@@ -253,12 +155,9 @@ euc.off=function(err){
 				euc.conn(euc.mac); 
 			}, 1000);
 		}
-		
 	} else {
-		
 		if (set.def.cli) 
 			console.log("EUC OUT:",err);
-			
 		global["\xFF"].bleHdl=[];
 			clearTimeout(euc.busy);euc.busy=0;
 			delete euc.off;
@@ -269,66 +168,53 @@ euc.off=function(err){
 			NRF.setTxPower(set.def.rfTX);	
     }
 };
-
 //wheellog port
 euc.unpk={
-		sta:0, //unknown,collecting,lensearch,done
-		buff:[],
-		old1:0,
-		old2:0,
-        len:0,
+	sta:0, //unknown,collecting,lensearch,done
+	buff:[],
+	old1:0,
+	old2:0,
+	len:0,
+	addC: function(c) {
+		switch (sta) {
+			case 1: //collecting
+				buff.push(c);
+				if (buff.length == len+4) {
+					sta = 3;
+					print("done");
+					reset();
+					return true;
+				}
+				break;
+			case 2: //lensearch
+				buff.push(c);
+				len = c & 0xff;
+				sta = 1;
+				old2 = old1;
+				old1 = c;
+				print(" lensearch, len:", len ) ;
+				break;
+			default:
+				if (c == 0x5C && old1 ==  0x5A && old2 ==  0xDC) {
+					buff = [];
+					buff.push(0xDC);
+					buff.push(0x5A);
+					buff.push(0x5C);
+					print("start");
+					sta = 2;
+				} else if (c ==  0x5A && old1 ==  0xDC) {
+					old2 = old1;
+				} else {
+					old2 = 0;
+				}
+				old1 = c;
+		}
+		return false;
+	},
+	reset: function() {
+		old1 = 0;
+		old2 = 0;
+		sta = 0;
 
-//        byte[] getBuffer() {
-//            return buffer.toByteArray();
-//        }
-
-        addC: function(c) {
-
-            switch (sta) {
-
-                case 1: //collecting
-                    buff.push(c);
-                    bufS = buff.lenght;
-                    if (buff.length == len+4) {
-                        sta = 3;
-						print("done");
-                        reset();
-                        return true;
-                    }
-                    break;
-
-                case 2: //lensearch
-                    buff.push(c);
-                    len = c & 0xff;
-                    sta = 1;
-                    old2 = old1;
-                    old1 = c;
-					print(" lensearch, len:", len ) ;
-                    break;
-
-                default:
-                    if (c == 0x5C && old1 ==  0x5A && old2 ==  0xDC) {
-                        buff = [];
-                        buff.push(0xDC);
-                        buff.push(0x5A);
-                        buff.push(0x5C);
-						print("start");
-                        sta = 2;
-                    } else if (c ==  0x5A && old1 ==  0xDC) {
-                        old2 = old1;
-                    } else {
-                        old2 = 0;
-                    }
-                    old1 = c;
-
-            }
-            return false;
-        },
-
-        reset: function() {
-            old1 = 0;
-            old2 = 0;
-            sta = 0;
-
-        }
-    }
+	}
+};
