@@ -4,7 +4,7 @@ face[0] = {
 	g:w.gfx,
 	init: function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
- 		if (!face.appPrev.startsWith("dash")) this.g.clear();
+ 		if (!face.appPrev.startsWith("dash")||face.appPrev.startsWith("dash_")) this.g.clear();
         this.g.setColor(0,0);
 		this.g.fillRect(0,205,239,239);
 		this.g.setColor(1,col("white"));
