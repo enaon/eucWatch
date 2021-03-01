@@ -21,8 +21,8 @@ euc.cmd=function(no){
 		case "rideHard":return [0xAA,0x55,0x00,0xE0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x87,0x14,0x5A,0x5A];  
 		case "lock":euc.dash.lock=1;return [0xAA,0x55,0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x5d,0x14,0x5A,0x5A]; 
 		case "unlock":euc.dash.lock=0;return [0xAA,0x55,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x37,0x37,0x33,0x35,0x32,0x35,0x5d,0x14,0x5A,0x5A];
-		case "strobeOn":return [0xAA,0x55,0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x53,0x14,0x5A,0x5A];
-		case "strobeOff":return [0xAA,0x55,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x53,0x14,0x5A,0x5A];
+		case "strobeOn":euc.dash.strobe=1;return [0xAA,0x55,0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x53,0x14,0x5A,0x5A];
+		case "strobeOff":euc.dash.strobe=0;return [0xAA,0x55,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x53,0x14,0x5A,0x5A];
 		case "off":euc.seq=0;return [0xAA,0x55,0x00,0xE0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x40,0x14,0x5A,0x5A];
 		case "passSend":return    [0xAA,0x55,0x30+Number(euc.dash.pass[0]),0x30+Number(euc.dash.pass[1]),0x30+Number(euc.dash.pass[2]),0x30+Number(euc.dash.pass[3]),0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x44,0x14,0x5A,0x5A]; 
 		case "passChange": return [0xAA,0x55,0x30+Number(euc.dash.pass[0]),0x30+Number(euc.dash.pass[1]),0x30+Number(euc.dash.pass[2]),0x30+Number(euc.dash.pass[3]),0x30+Number(euc.dash.passOld[0]),0x30+Number(euc.dash.passOld[1]),0x30+Number(euc.dash.passOld[2]),0x30+Number(euc.dash.passOld[3]),0x00,0x00,0x00,0x00,0x00,0x00,0x41,0x14,0x5A,0x5A]; //rf 43
@@ -71,9 +71,9 @@ euc.conn=function(mac){
 				if ( euc.dash.aLight === "lightsCity" ) { 
 					if ( euc.dash.amp < 0 && euc.dash.light ===1  ) {
 						euc.wri("lightsAuto"); 
-                        this.brake=1;
+						this.brake=1;
                     } else if ( euc.dash.amp > 0 && this.brake  ) {
-						euc.wri("lightsCity") ;
+						euc.dash.light=-1;
                         this.brake=0;
                     }else if (euc.night) {
 						if ( 20 < euc.dash.spd && euc.dash.light !== 1  ) 
@@ -81,13 +81,11 @@ euc.conn=function(mac){
 						else if ( euc.dash.spd < 10 && euc.dash.light !== 2  ) 
 							euc.wri("lightsAuto") ;
 					} else {
-						if ( 35 < euc.dash.spd && !euc.dash.strobe  ) {
-							euc.dash.strobe=1; 
+						if ( 35 < euc.dash.spd && !euc.dash.strobe  ) 
 							euc.wri("strobeOn") ;
-						} else if  ( euc.dash.spd < 30 && euc.dash.strobe  ) {
-							euc.dash.strobe = 0 ;
+						 else if  ( euc.dash.spd < 30 && euc.dash.strobe  ) 
 							euc.wri("strobeOff") ;
-						} else if  ( 25 < euc.dash.spd && euc.dash.light !== 1  ) 
+						 else if  ( 25 < euc.dash.spd && euc.dash.light !== 1  ) 
 							euc.wri("lightsOn") ;
 						else if ( euc.dash.spd < 15 && euc.dash.light !== 0  ) 
 							euc.wri("lightsOff") ;
@@ -158,7 +156,6 @@ euc.conn=function(mac){
 			//horn
 			if (n==="hornOn"||n==="hornOff"){
 				c.writeValue(euc.cmd((n==="hornOn")?"strobeOn":"strobeOff")).then(function() {
-				   if (n==="hornOn")euc.dash.strb=1; else euc.dash.strb=0;
 					c.writeValue(euc.cmd((n==="hornOn")?"lock":"unlock")).then(function(){
 						if (n==="hornOn") euc.dash.lock=1; else {euc.dash.lock=0;clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/return;}
 						if (!BTN1.read()){ 
@@ -186,6 +183,7 @@ euc.conn=function(mac){
 				});	
 			//toogle
 			}else if (n==="start"||n=="end"){
+                if ( n === "end" ) { c.stopNotifications(); }
 				c.writeValue(euc.cmd((n==="start")?"serial":((euc.dash.aLck)?"lock":(euc.dash.aOff)?"off":"lightsOff"))).then(function() {
 						if (euc.seq==0) {
 							if (n==="start") {
@@ -276,7 +274,7 @@ euc.off=function(err){
 		if (set.def.cli) console.log("EUC OUT:",err);
 		global["\xFF"].bleHdl=[];
 			clearTimeout(euc.busy);euc.busy=0;
-			delete euc.off;
+			euc.off=function(){if (set.def.cli) console.log("EUC allready killed at:",err);};
 			delete euc.conn;
 			delete euc.wri;
 			delete euc.cmd;

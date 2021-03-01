@@ -81,13 +81,11 @@ euc.conn=function(mac){
 						else if ( euc.dash.spd < 10 && euc.dash.light !== 2  ) 
 							euc.wri("lightsAuto") ;
 					} else {
-						if ( 35 < euc.dash.spd && !euc.dash.strobe  ) {
-							euc.dash.strobe=1; 
+						if ( 35 < euc.dash.spd && !euc.dash.strobe  ) 
 							euc.wri("strobeOn") ;
-						} else if  ( euc.dash.spd < 30 && euc.dash.strobe  ) {
-							euc.dash.strobe = 0 ;
+						else if  ( euc.dash.spd < 30 && euc.dash.strobe  ) 
 							euc.wri("strobeOff") ;
-						} else if  ( 25 < euc.dash.spd && euc.dash.light !== 1  ) 
+						else if  ( 25 < euc.dash.spd && euc.dash.light !== 1  ) 
 							euc.wri("lightsOn") ;
 						else if ( euc.dash.spd < 15 && euc.dash.light !== 0  ) 
 							euc.wri("lightsOff") ;
@@ -220,7 +218,7 @@ euc.conn=function(mac){
 				}).catch(function(err)  {
 					clearTimeout(euc.busy);euc.busy=0;euc.off("4");
 				});
-			//forward if cmd unknown
+			//forward if raw
 			}else if (!euc.cmd(n)) {
 				c.writeValue(n).then(function() {
 					//clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/
