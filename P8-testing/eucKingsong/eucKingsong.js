@@ -5,6 +5,7 @@
 
 
 
+euc.wri-function() {if (set.def.cli) print("not connected yet");}
 
 euc.cmd=function(no){
 	switch (no) {

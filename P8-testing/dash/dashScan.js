@@ -113,7 +113,7 @@ touchHandler[0]=function(e,x,y){
     if(0<y&&y<100) {
 		digitalPulse(D16,1,[30,50,30]);
 		if ( face[0].set === 1 ) {
-			if (!Boolean(require("Storage").read(['dashKingsong",1))) {	face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
+			if (!Boolean(require("Storage").read(['dashKingsong',1]))) {	face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
 			(s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]="Kingsong")&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 			euc.dash.maker="Kingsong";
 			face.go('w_scan',0,'fff0'); return
@@ -134,12 +134,12 @@ touchHandler[0]=function(e,x,y){
 			//euc.dash.maker="Inmotion";
 			face[0].ntfy("NOT YET","",20,col("red"),1);
         }else if ( face[0].set === 2 ) {
-			if (!Boolean(require("Storage").read(['dashVeteran",1))) {	face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
+			if (!Boolean(require("Storage").read(['dashVeteran',1]))) {	face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
 			(s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]="Veteran")&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 			euc.dash.maker="Veteran";
 			face.go('w_scan',0,'ffe0'); return;
         }else if ( face[0].set === 3 ) {
-			if (!Boolean(require("Storage").read(['dashNinebot",1))) {	face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
+			if (!Boolean(require("Storage").read(['dashKingsong',1]))) {	face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
 			(s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]="Ninebot")&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
 			euc.dash.maker="Ninebot";
 			face.go('w_scan',0,'ffe0'); return;
