@@ -14,7 +14,7 @@ Files for P8 watch are [here](https://github.com/enaon/eucWatch/tree/main/P8).  
 
 var spi=new SPI();spi.setup({sck:D2,mosi:D3,miso:D4,mode:0}); spi.send([0xab],D5);  //wake
 
-#### Espruino Installation [how-to](https://github.com/enaon/eucWatch/edit/main/P8/hackme/readme.md)
+#### Espruino Installation [how-to](https://enaon.github.io/eucWatch/P8/hackme/)
 
 ### Credits
 
