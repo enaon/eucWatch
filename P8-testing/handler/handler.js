@@ -367,14 +367,13 @@ if (set.def.touchtype=="816"){ //816
 	var tp=i2c.readFrom(0x15,7);
 	//console.log(tp);
 		if (face.pageCurr>=0) {
-			if (tp[3]==0) {
+            if (tp[3]==255) return;
+			else if (tp[3]==0) {
 				if (tt) {clearTimeout(tt);tt=0;}
 				xt=tp[4];yt=tp[6];lt=1;st=1;tf=1;
 				return;
 			}else if (tp[1]==0 && tf) {
 				var a;
-				//ct++;
-				//if (ct>2){
 				a=5;
 				if (tp[6]>=yt+35) a=1;
 				else if (tp[6]<=yt-35) a=2;
@@ -431,35 +430,51 @@ if (set.def.touchtype=="816"){ //816
 		"ram";
 		var tp=i2c.readFrom(0x15,7);
 			//print(tp);
-		if (tp[3]==128) {
-			if (this.time==-1) this.time=getTime();
-			if (this.st) {
+		if ( tp[3] == 128 || tp[3] === 0) {
+           print("1",tp);
+			if ( !this.time ) this.time=getTime();
+			if ( this.st ) {
+				this.st = 0;
+				this.do = 1;
+				this.x = tp[4];
+                this.y = tp[6];
 				if (face.pageCurr==-1){this.loop=5;face.go(face.appCurr,0);return;}
-				this.st=0;
-				this.do=1;
-				this.x=tp[4];this.y=tp[6];
+
 			}
-			if (this.do===1&&getTime()-this.time>1){ 
+			if ( this.do && getTime() - this.time > 1 ) { 
+				this.do = 0 ;
 				touchHandler[face.pageCurr](12,this.x,this.y);
-				this.do=0;
-			}else if (this.do===1&&tp[1]==0) {
+			}else if ( this.do && !tp[1] ) {
 				var a=0;
-				if (tp[6]>=this.y+20) a=1;
-				else if (tp[6]<=this.y-20) a=2;
-				else if (tp[4]<=this.x-20) a=3;
-				else if (tp[4]>=this.x+20) a=4;
-				if (a!=0) {
+				if (tp[6]>=this.y+20) a = 1;
+				else if (tp[6]<=this.y-20) a = 2;
+				else if (tp[4]<=this.x-20) a = 3;
+				else if (tp[4]>=this.x+20) a = 4;
+				if ( a != 0 && this.aLast != a ) {
+                    this.aLast=a;
+                    this.st = 1;
+                    this.time = 0;                  
 					this.do=0;
 					touchHandler[face.pageCurr](a,this.x,this.y);
 				}
-			}else if (this.do===1){
-				if (tp[1]==5||tp[1]==12){
-					touchHandler[face.pageCurr](tp[1],this.x,this.y);this.do=0;
+			}else if ( this.do ){
+				if ( tp[1] == 5 || tp[1] ==12 ){
+                    this.st = 1;
+                    this.time = 0;
+                    //digitalPulse(D13,1,[5,50]);
+					this.do=0;
+                    touchHandler[face.pageCurr](tp[1],this.x,this.y);
 				}
 			}
-		}else if (tp[3]==255) {
-			if (this.do===1){touchHandler[face.pageCurr](5,this.x,this.y);this.do=0;        }
-			this.st=1;this.time=-1;
+		}else if ( (tp[3] == 255 || tp[3] == 0)  && !this.st ) {
+			if (this.do===1){
+              this.do=0;
+              touchHandler[face.pageCurr](5,this.x,this.y);
+            }
+            this.aLast=0;
+			this.st = 1;
+            this.time = 0;
+            print("2",tp);
 		}
 	},
 	start:function(){ 

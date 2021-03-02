@@ -24,9 +24,9 @@ face[0] = {
       this.g.drawString(euc.dash.tmp|0, 3,5); //temp  
       this.g.drawString(euc.dash.amp|0,(122-(this.g.stringWidth(euc.dash.amp|0)/2)),5); 
       this.g.drawString(euc.dash.bat,240-(this.g.stringWidth(euc.dash.bat)+3),5); //fixed bat
-      this.temp=euc.dash.tmp;
-      this.amp=euc.dash.amp;
-      this.batt=euc.dash.bat;
+      //this.temp=euc.dash.tmp;
+      //this.amp=euc.dash.amp;
+      //this.batt=euc.dash.bat;
       this.g.flip();
 	  this.g.setColor(0,this.spdC[euc.dash.spdC]);
       this.g.fillRect(0,65,239,239);

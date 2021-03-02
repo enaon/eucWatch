@@ -58,27 +58,45 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 		switch (this.var) {
 		case 38://speed
 			euc.dash.spd=(this.in16/1000).toFixed(0);
-			if (euc.dash.spd>=euc.dash.spd1) {
-				if (euc.dash.spd>=euc.dash.spd1+5) euc.dash.spdC=3;	
-				else if (euc.dash.spd>=euc.dash.spd1+2) euc.dash.spdC=2;
-				else euc.dash.spdC=1;
-				if (euc.dash.hapS) euc.alert=(1+((euc.dash.spd-euc.dash.spd1)/euc.dash.ampS|0));
-			} else euc.dash.spdC=0;
+			euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd <= euc.dash.spd+2 )? 1 : ( euc.dash.spd <= euc.dash.spd+5 )? 2 : 3 ;	
+			if ( euc.dash.hapS && euc.dash.spd >= euc.dash.spd1 ) 
+				euc.alert = 1 + ((euc.dash.spd-euc.dash.spd1) / euc.dash.ampS|0) ;
 			break;
 		case 80://amp
-			if (this.in16>32768) euc.dash.amp=((this.in16-65536)/100).toFixed(0); 
-			else euc.dash.amp=(this.in16/100).toFixed(0);
-			if (euc.dash.amp>=euc.dash.ampH) {
-				if  (euc.dash.amp>=euc.dash.ampH+5 ) euc.dash.ampC=3;
-				else euc.dash.ampC=2;
-				if (euc.dash.hapA) euc.alert=(euc.alert+1+((euc.dash.amp-euc.dash.ampH)/euc.dash.ampS|0));
-			}else if (euc.dash.amp>=10) { euc.dash.ampC=1;
-			}else if ( euc.dash.amp<=euc.dash.ampL) {
-				if  (euc.dash.amp<=euc.dash.ampL-5 ) euc.dash.ampC=3;
-				else  euc.dash.ampC=2;
-				if (euc.dash.hapA) euc.alert=(euc.alert+1+((-(euc.dash.amp-euc.dash.ampL))/euc.dash.ampS|0));      
-			}else if (euc.dash.amp<0) euc.dash.ampC=1; 
-			else euc.dash.ampC=0;
+			if ( 32768 < this.in16 ) 
+				euc.dash.amp = ( (this.in16 - 65536) / 100 ).toFixed(0); 
+			else 
+				euc.dash.amp = (this.in16 / 100).toFixed(0);
+			euc.dash.ampC = ( euc.dash.ampH+10 <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL - 5 )? 3 : ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp < 0 )? 1 : 0;
+			if ( euc.dash.ampH <= euc.dash.amp ){
+				euc.dash.spdC = ( euc.dash.ampC = 3 )? 3 : ( euc.dash.spdC = 3 )? 3 : 2;
+				if (euc.dash.hapA) euc.alert = ( euc.alert + 1 + ((euc.dash.amp - euc.dash.ampH) / euc.dash.ampS|0) );
+			}else if ( euc.dash.amp <= euc.dash.ampL )  {
+				euc.dash.spdC = (euc.dash.ampC = 3)? 3 : (euc.dash.spdC = 3)? 3 : 2;
+				if (euc.dash.hapA) euc.alert = (euc.alert + 1 + ((-(euc.dash.amp - euc.dash.ampL)) / euc.dash.ampS|0));  				
+			}
+/*				
+			if ( euc.dash.ampH <= euc.dash.amp ) {
+				if  ( euc.dash.ampH + 5 <= euc.dash.amp ) 
+					euc.dash.ampC = 3;
+				else 
+					euc.dash.ampC = 2;
+				if ( euc.dash.hapA ) 
+					euc.alert = (euc.alert + 1 + ((euc.dash.amp - euc.dash.ampH) / euc.dash.ampS|0));
+			}else if ( 10 <= euc.dash.amp )  
+				euc.dash.ampC=1;
+			else if ( euc.dash.amp <= euc.dash.ampL ) {
+				if  (euc.dash.amp <= euc.dash.ampL - 5 ) 
+					euc.dash.ampC = 3;
+				else  
+					euc.dash.ampC = 2;
+				if (euc.dash.hapA) 
+					euc.alert = (euc.alert + 1 + ((-(euc.dash.amp-euc.dash.ampL)) / euc.dash.ampS|0));      
+			}else if ( euc.dash.amp < 0 ) 
+				euc.dash.ampC = 1; 
+			else 
+				euc.dash.ampC = 0;
+*/				
 			break;
 		case 185://trip
 			// if (euc.dash.trpN > (euc.tmp[this.var]/100).toFixed(1)) {
