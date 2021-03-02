@@ -65,10 +65,14 @@ euc.conn=function(mac){
 		c.on('characteristicvaluechanged', function(event) {
 			//check
 			for (c in event.target.value.buffer) {
-				if (euc.unpk.addC(event.target.value.buffer[c])) {
-				print("got buffer :",euc.unpk.buff);
+				//if (euc.unpk.addC(event.target.value.buffer[c])) {
+				if (unpack(event.target.value.buffer[c])) {
+                print (euc.unpk.buff);
+                process.memory().free;
+
+				//print("got buffer :",euc.unpk.buff);
 				//speed
-				euc.dash.spd=euc.unpk.buff[6]*10;
+/*				euc.dash.spd=euc.unpk.buff[6]*10;
 				//battery
 				voltage=euc.unpk.buff[8];
 				if (voltage > 10020) {
@@ -80,10 +84,11 @@ euc.conn=function(mac){
                     } else {
                         euc.dash.bat = 0;
                     }
+*/
 				}
-			}
+            }
 			//end
-			this.var= event.target.value.getUint8(16, true);
+			//this.var= event.target.value.getUint8(16, true);
 			//print (event.target.value.buffer);
 		});
 		//on disconnect
@@ -98,7 +103,7 @@ euc.conn=function(mac){
 		euc.wri= function(n) {
 			if (euc.busy) {print(1); clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},500);return;} euc.busy=euc.busy=setTimeout(()=>{euc.busy=0;},500);
 			if (!euc.cmd(n)) {
-              print(2);
+              //print(2);
 				c.writeValue(n).then(function() {
 					//clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/
 				}).catch(function(err)  {
@@ -107,7 +112,7 @@ euc.conn=function(mac){
 			
 			//rest
 			}else{
-              print(3);
+              //print(3);
 				c.writeValue(euc.cmd(n)).then(function() {
                                 print(31);
 
@@ -174,6 +179,66 @@ euc.off=function(err){
     }
 };
 //wheellog port
+
+sta=0; //unknown,collecting,lensearch,done
+buff=[];
+old1=0;
+old2=0;
+len=0;
+
+
+
+unpack = function (c){
+  
+  
+  switch (sta) {
+			case 1: //collecting
+				buff.push(c);
+				if (buff.length == len+4) {
+					sta = 3;
+					//print("done");
+					rese();
+					return true;
+				}
+				break;
+			case 2: //lensearch
+				buff.push(c);
+				len = c;
+				sta = 1;
+				old2 = old1;
+				old1 = c;
+				//print(" lensearch, len:", len ) ;
+				break;
+			default:
+				if (c == 92 && old1 ==  90 && old2 ==  220 ) {
+					buff = [];
+					buff.push(220);
+					buff.push(165);
+					buff.push(92);
+					//print("start");
+					sta = 2;
+				} else if (c ==  90 && old1 ==  220) {
+					old2 = old1;
+				} else {
+					old2 = 0;
+				}
+				old1 = c;
+		}
+		return false;
+  
+ 
+};
+
+
+rese =function () {
+  old1 = 0;
+  old2 = 0;
+  sta = 0;
+} ; 
+  
+
+/*
+
 euc.unpk={
 	sta:0, //unknown,collecting,lensearch,done
 	buff:[],
@@ -181,13 +246,13 @@ euc.unpk={
 	old2:0,
 	len:0,
 	addC: function(c) {
-      print(4,c);
+      //print(4,c);
 		switch (this.sta) {
 			case 1: //collecting
 				this.buff.push(c);
-				if (this.buff.length == len+4) {
+				if (this.buff.length == this.len+4) {
 					this.sta = 3;
-					print("done");
+					//print("done");
 					reset();
 					return true;
 				}
@@ -198,7 +263,7 @@ euc.unpk={
 				this.sta = 1;
 				this.old2 = this.old1;
 				this.old1 = c;
-				print(" lensearch, len:", len ) ;
+				//print(" lensearch, len:", this.len ) ;
 				break;
 			default:
 				if (c == 92 && this.old1 ==  90 && this.old2 ==  220 ) {
@@ -206,7 +271,7 @@ euc.unpk={
 					this.buff.push(220);
 					this.buff.push(165);
 					this.buff.push(92);
-					print("start");
+					//print("start");
 					this.sta = 2;
 				} else if (c ==  90 && this.old1 ==  220) {
 					this.old2 = this.old1;
@@ -224,3 +289,5 @@ euc.unpk={
 
 	}
 };
+
+*/
