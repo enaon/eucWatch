@@ -1,3 +1,6 @@
+[[ Link text | page_title#header_title ]]
+
+
 ### Loader version:
 
 [**Web loader**](https://enaon.github.io/eucWatch/p8)  for the P8 watch
