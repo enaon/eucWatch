@@ -75,7 +75,7 @@ This step will take up to 5 minutes, and when done the watch will remain blank.
 
 ### EucWatch Installation:
 
-If all went ok disconnect the phone by turning off the BT radio, so that you will make sure the watch is disconnected, and go to the eucWatch [installer](https://enaon.github.io/eucWatch/p8) , press the **connect** button on the right top corner, connect to the p8 (named p8xxx), then on the installer tab select **feature set/all**. 
+If all went ok disconnect the phone by turning off the BT radio, so that you will make sure the watch is disconnected, and go to the eucWatch [loader](https://enaon.github.io/eucWatch/p8) , press the **connect** button on the right top corner, connect to the p8 (named p8xxx), then on the installer tab select **feature set/all**. 
 
 On the options, select 716 and scl for the touch and accelerometer if not sure, they can be later re-selected by uploading just the handler file. 
 
