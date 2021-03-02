@@ -11,6 +11,7 @@ Using the app, you will upload three files to the P8 watch:
 4. finally the espruino image itself.
 
 > Files are mirrored [here](https://github.com/enaon/eucWatch/tree/main/P8/hackme) 
+> 
 >  **original links:**
 > [daflasher files](https://github.com/atc1441/DaFlasherFiles) (step 1&2)
 > [espruino bootloader & image](https://github.com/fanoush/ds-d6/tree/master/espruino/DFU/P8) (step 3&4)
