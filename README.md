@@ -1,4 +1,3 @@
-[[ Link text | page_title#header_title ]]
 
 
 ### Loader version:
