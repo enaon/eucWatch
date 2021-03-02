@@ -67,7 +67,7 @@ euc.conn=function(mac){
 				//speed
 				euc.dash.spd= ( event.target.value.getUint16(4, true) / 100 ).toFixed(0); 
 				euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd2 )? 1 : ( euc.dash.spd <= euc.dash.spd3 )? 2 : 3 ;	
-				if ( euc.dash.hapS && euc.dash.spd>=euc.dash[euc.dash.haSv]) euc.alert=(1+((euc.dash.spd-euc.dash[euc.dash.haSv])/euc.dash.spdS|0));  
+				if ( euc.dash.hapS && euc.dash[euc.dash.haSv]  <= euc.dash.spd ) euc.alert=( 1 + ((euc.dash.spd-euc.dash[euc.dash.haSv]) / euc.dash.spdS | 0 ) );  
 				//City lights 
 				if ( euc.dash.aLight === "lightsCity" ) { 
 					if ( euc.dash.amp < 0 && euc.dash.light ===1  ) {
