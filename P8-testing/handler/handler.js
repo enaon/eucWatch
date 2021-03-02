@@ -431,7 +431,7 @@ if (set.def.touchtype=="816"){ //816
 		var tp=i2c.readFrom(0x15,7);
 			//print(tp);
 		if ( tp[3] == 128 || tp[3] === 0) {
-           print("1",tp);
+          // print("1",tp);
 			if ( !this.time ) this.time=getTime();
 			if ( this.st ) {
 				this.st = 0;
@@ -474,7 +474,7 @@ if (set.def.touchtype=="816"){ //816
             this.aLast=0;
 			this.st = 1;
             this.time = 0;
-            print("2",tp);
+           // print("2",tp);
 		}
 	},
 	start:function(){ 
