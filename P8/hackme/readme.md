@@ -21,7 +21,7 @@ Using the app, you will upload three files to the P8 watch:
 
 Open daFlasher, search for the P8 and select it. The program will report a DaFit device and offer to hack it:
  
-![alt](https://github.com/enaon/eucWatch/blob/main/P8/hackme/images/2.png?raw=true  =250x400)
+![alt](https://github.com/enaon/eucWatch/blob/main/P8/hackme/images/2.png?raw=true )
 >**Step 1.**
 > 
 Press **Select File** and choose the file named step1-xxx you just downloaded, the app will begin the transfer, this step will needs a couple of minutes, you should see the bar moving within seconds, if not, close(kill) the app and try again:
