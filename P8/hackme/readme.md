@@ -51,21 +51,20 @@ Then press the **Select DFU file** button, and choose the file step2-xxx.
 ![alt](https://github.com/enaon/eucWatch/blob/main/P8/hackme/images/8.png?raw=true)
 
 When finished, the watch will reboot to a one square screen, ready for step3.
->**Step 3.**
-> 
-
-![alt](https://github.com/enaon/eucWatch/blob/main/P8/hackme/images/9.png?raw=true)
-
 Go back or kill/start daFlasher again, look fof ATCdfu device and select it. 
 
+>**Step 3.**
+> 
 As in step 2, select **Toggle Bluetooth** and **Use Nordic Bootloader**.
 Then press the **Select DFU file** button, and choose the file step3-xxx. 
 
->**Step 4.**
-
+![alt](https://github.com/enaon/eucWatch/blob/main/P8/hackme/images/9.png?raw=true)
 
 When step three ends, the watch will reboot to a blank screen, ready for the final step. 
 Go back or kill/start Daflasher. and this time look for a device called dfutarg, this is the p8 now. 
+
+
+>**Step 4.**
 
 Select it, and this time do not chose the **Use Nordic Bootloader** option. Then press the **Select DFU file** button, and choose the file step4-xxx. 
 
