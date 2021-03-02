@@ -7,7 +7,7 @@
 ### Before installation:
 You will need an android smartphone, and the [DaFlasher](https://play.google.com/store/apps/details?id=com.atcnetz.paatc.patc&hl=el&gl=US) app from the playstore, made by atc1441.
 
-Using the app, you will upload three files to the P8 watch:
+Using the app, you will upload four files to the P8 watch:
 
 1. a custom app that will replace the bootloader of the p8.
 2.  a  bootloader.
