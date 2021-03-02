@@ -451,16 +451,16 @@ if (set.def.touchtype=="816"){ //816
 				else if (tp[4]<=this.x-20) a = 3;
 				else if (tp[4]>=this.x+20) a = 4;
 				if ( a != 0 && this.aLast != a ) {
-                    this.aLast=a;
-                    this.st = 1;
-                    this.time = 0;                  
+                    //this.aLast=a;
+                    //this.st = 1;
+                    //this.time = 0;                  
 					this.do=0;
 					touchHandler[face.pageCurr](a,this.x,this.y);
 				}
 			}else if ( this.do ){
 				if ( tp[1] == 5 || tp[1] ==12 ){
-                    this.st = 1;
-                    this.time = 0;
+                   // this.st = 1;
+                    //this.time = 0;
                     //digitalPulse(D13,1,[5,50]);
 					this.do=0;
                     touchHandler[face.pageCurr](tp[1],this.x,this.y);
