@@ -1,4 +1,5 @@
->**NOTICE:** >Do not use this how to if your P8 about screen reports TON as a model number.
+>**NOTICE:** 
+>**Do not** use this how-to if your P8 about screen reports TON as a model number.
 
 ## Install espruino on the P8 smart watch:
 
