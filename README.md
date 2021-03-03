@@ -2,7 +2,7 @@
 >**Notice**:
 >There are two problems one might face when bying a P8 watch to use with this git. 
 >1. The antenna of the p8 might not be good enouph for a solid connection. It will work, but only 3 out of 10 that I got my hand on were good enough to not need an antenna change. That requires opening up the watch, and if done carfully it barelly leaves any  visible marks.
->2. Some watches, version TON5, are mising a crystal, that makes them currently uncompatible with daFlasher. They can still be flashed, but that requires opening up the watch. 
+>2. Some watches, version TON5, are mising a crystal, that makes them currently incompatible with daFlasher. They can still be flashed, but that requires opening up the watch. 
 >
 
 ### Loader version:
