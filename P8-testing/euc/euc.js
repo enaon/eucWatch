@@ -21,11 +21,10 @@ global.euc= {
 			//if (this.kill) clearTimout(this.kill);
 			//this.kill=setTimeout(()=>{
 			if (euc.dash.emu) {set.def.atc=0;set.upd();}
-			if (require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]=="Kingsong") euc.wri("end");
-   			else if (require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]=="Veteran") euc.wri("end");
-			else if (require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]=="Ninebot") {
-              if (euc.busy) {euc.busy=0; euc.wri(0);}
-            }
+			if (require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]!="Ninebot") 
+				euc.wri("end");
+			else  
+               euc.wri(0);
 			if (euc.busy)euc.busy=0;
 			face.go(set.dash[set.def.dash],0);return;
 		}else {

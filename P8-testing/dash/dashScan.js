@@ -47,6 +47,13 @@ face[0] = {
     else if (n===2) this.g.fillRect(105,200,135,204);
     else this.g.fillRect(135,200,165,204);
 	this.g.flip();
+	this.g.setColor(0,0);
+    this.g.fillRect(0,205,239,239);
+    this.g.setColor(1,col("white"));
+    this.g.setFont("Vector",20);
+	this.g.drawString("SCAN FOR",120-(this.g.stringWidth("SCAN FOR")/2),217);
+	this.g.flip();
+
   },
   ntfy: function(txt1,txt0,size,clr,bt){
             this.g.setColor(0,clr);
@@ -158,6 +165,7 @@ touchHandler[0]=function(e,x,y){
     break;
   case 3: //slide left event
 	if ( face[0].set < 3 ) {
+		if (face[0].ntid) clearTimeout(face[0].ntid); face[0].ntid=0;
 		face[0].set ++ ;
 		face[0].page(face[0].set);
     }else digitalPulse(D16,1,40);    
@@ -165,6 +173,7 @@ touchHandler[0]=function(e,x,y){
     break;
   case 4: //slide right event (back action)
     if ( 1 < face[0].set ) {
+		if (face[0].ntid) clearTimeout(face[0].ntid); face[0].ntid=0;
  		face[0].set -- ;
 		face[0].page(face[0].set); 
         this.timeout();

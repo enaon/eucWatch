@@ -27,78 +27,54 @@ euc.conn=function(mac){
 	  return s.getCharacteristic(0xffe1);
 	//read
 	}).then(function(c) {
-		this.decode=0;
-		this.need=0;
+		euc.busy=0;
 		c.on('characteristicvaluechanged', function(event) {
-			this.event=new Uint8Array(event.target.value.buffer);
-			this.last=getTime();
 			//check
-			if (  0.2 < getTime() - this.last ) {
-				print("took too long, reseting");
-				this.need=0;
-			}
-			if (20 < this.need) {
-				euc.buff.set(this.event, 20-this.start);
-				print("got 20 more bytes:",euc.buff);
-				this.need=this.need-20;
-				this.decode=0;
-			} else {
-				this.lastStart=this.start;
-                lala=event;
-                this.start = this.event.indexOf(20);
-				if  ( -1 < this.start && this.event[this.start+1]===21 && this.event[this.start+2]===22 ) {
-					if (0 < this.need) {
-						euc.buff.set(this.event,  (20-this.lastStart)+20);								
-						this.cmd =  new Uint8Array(euc.buff,0);
-						this.need= (this.event[this.start+3]+4) - (20-this.start);
-						this.tBuff= new Uint8Array(this.event, this.start);
-						euc.buff.set(this.tBuff, 0);							
-						this.cmd =  new Uint8Array(euc.buff,0);
-						this.decode=1;
-						print("got cmd and next start bytes, decoding",this.cmd);
-					} else {
-						print("got start bytes");
-						this.need= (this.event[this.start+3]+4) - (20-this.start);	
-						this.tBuff= new Uint8Array(this.event, this.start);
-						euc.buff.set(this.tBuff, 0);							
-						print("total command will be "+ (this.event[this.start+3]+4)+ " bytes long");
-						print("found first",20-this.start, "bytes");
-						print("will need",( this.need < 20  )?1:2," more packet(s)");
-						print("first part: ", print(euc.buff));
-						this.decode=0;
-					}
-				}else if (0 < this.need) {
-					euc.buff.set(this.event, 20-this.lastStart+20);
-					this.cmd =  new Uint8Array(euc.buff,0);
-					print("got cmd but no next start byte, decoding and starting over",this.cmd);
-					this.need=0;
-					this.decode=1;
-				} else {
-					//start over
-					this.need=0;
-					print("start over");
-					this.decode=0;
-					return;
-				}
-			
-			}
-			if (this.decode) {
-                this.decode=0;
-				print("in decode",this.cmd);
-              //speed
-				euc.dash.spd=this.cmd[6]*10;
+			this.time=0;
+			//
+			if ( !euc.busy) {
+				this.start= event.target.value.buffer.indexOf(220);
+				if  (this.start && event.target.value.getint8(this.start+1)==92 && event.target.value.getint8(this.start+2)==90 ) {
+					euc.buff = new Uint8Array(event.target.value.buffer, this.start);
+					//euc.buff.set( event.target.value.buffer, 0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+			for (c in event.target.value.buffer) {
+				//if (euc.unpk.addC(event.target.value.buffer[c])) {
+				if (unpack(event.target.value.buffer[c])) {
+                //print (buff);
+                //process.memory().free;
+				//print("got buffer :",euc.unpk.buff);
+				//speed
+/*				euc.dash.spd=euc.unpk.buff[6]*10;
 				//battery
-				voltage=this.cmd[8];
+				voltage=euc.unpk.buff[8];
 				if (voltage > 10020) {
                         euc.dash.bat = 100;
-                } else if (voltage > 8160) {
-                       euc.dash.bat = ((voltage - 8070) / 19.5)|0;
-                } else if (voltage > 7935) {
+                    } else if (voltage > 8160) {
+                        euc.dash.bat = ((voltage - 8070) / 19.5)|0;
+                    } else if (voltage > 7935) {
                         euc.dash.bat =  ((voltage - 7935) / 48.75)|0;
-                } else {
+                    } else {
                         euc.dash.bat = 0;
-                }
-			}
+                    }
+*/
+				}
+            }
+			//end
+			//this.var= event.target.value.getUint8(16, true);
+			//print (event.target.value.buffer);
 		});
 		//on disconnect
 		global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
@@ -107,32 +83,30 @@ euc.conn=function(mac){
 		return  c;
 	//write
 	}).then(function(c) {
-		console.log("EUC Veteran connected!!"); 
+		console.log("EUC Veteran connected"); 
 		digitalPulse(D16,1,[90,40,150,40,90]);
 		euc.wri= function(n) {
-            print(n);
 			if (euc.busy) {print(1); clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},500);return;} euc.busy=euc.busy=setTimeout(()=>{euc.busy=0;},500);
-            //end
-			if (n=="end") {
-               c.stopNotifications(); 
-				if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
-				global["\xFF"].BLE_GATTS.disconnect();
-			//rest
-            } else if (!euc.cmd(n)) {
+			if (!euc.cmd(n)) {
+              //print(2);
 				c.writeValue(n).then(function() {
 					//clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/
 				}).catch(function(err)  {
 					clearTimeout(euc.busy);euc.busy=0;euc.off("err");
-				});   
-            }else{
+				});
+			//rest
+			}else{
+              //print(3);
 				c.writeValue(euc.cmd(n)).then(function() {
+                                print(31);
+
 					clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
 				}).catch(function(err)  {
 					clearTimeout(euc.busy);euc.busy=0;euc.off("err");
 				});
 			}
 		};
-		setTimeout(() => {euc.wri("serial");euc.state="READY";}, 500);
+		setTimeout(() => {print(0);euc.wri("serial");euc.state="READY";}, 500);
 
 	//reconect
 	}).catch(function(err)  {
@@ -188,4 +162,61 @@ euc.off=function(err){
 			NRF.setTxPower(set.def.rfTX);	
     }
 };
+//wheellog port
+
+sta=0; //unknown,collecting,lensearch,done
+buff=[];
+old1=0;
+old2=0;
+len=0;
+
+
+unpack = function (c){
+  
+  
+  switch (sta) {
+			case 1: //collecting
+				buff.push(c);
+				if (buff.length == len+4) {
+					sta = 3;
+					//print("done");
+					rese();
+					return true;
+				}
+				break;
+			case 2: //lensearch
+				buff.push(c);
+				len = c;
+				sta = 1;
+				old2 = old1;
+				old1 = c;
+				//print(" lensearch, len:", len ) ;
+				break;
+			default:
+				if (c == 92 && old1 ==  90 && old2 ==  220 ) {
+					buff = [];
+					buff.push(220);
+					buff.push(90);
+					buff.push(92);
+					//print("start");
+					sta = 2;
+				} else if (c ==  90 && old1 ==  220) {
+					old2 = old1;
+				} else {
+					old2 = 0;
+				}
+				old1 = c;
+		}
+		return false;
+  
+ 
+};
+
+
+rese =function () {
+  old1 = 0;
+  old2 = 0;
+  sta = 0;
+} ; 
+  
 
