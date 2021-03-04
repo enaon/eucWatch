@@ -7,10 +7,11 @@ face[0] = {
   init: function(){
 	if ( euc.day[0] < Date().getHours() && Date().getHours() < euc.day[1] ) euc.night=0; else euc.night=1;
 	this.g.clear();
-	this.spdC={0:0,1:4095,2:4080,3:3840};
-	this.ampC={0:1365,1:4095,2:4080,3:3840};
-	this.tmpC={0:0,1:4095,2:4080,3:3840};
-	this.batC={0:0,1:0,2:4080,3:3840};
+	euc.buff=new Uint8Array(35);
+	this.spdC=new Uint8Array([0,4095,4080,3840]);
+	this.ampC=new Uint8Array([1365,4095,4080,3840]);
+	this.tmpC=new Uint8Array([0,4095,4080,3840]);
+	this.batC=new Uint8Array([0,0,4080,3840]);
     this.spd=-1;
     this.amp=-1;
     this.temp=-1;
