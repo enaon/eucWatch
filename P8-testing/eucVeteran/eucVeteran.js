@@ -5,7 +5,7 @@
 euc.cmd=function(no){
 	
 	switch (no) {
-		
+		//case "serial":return[85,170,3,9,1,38,2,202,255];
 		case "serial":return [0xAA,0x55,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x9B,0x14,0x5A,0x5A]; 
     }
 	
@@ -31,8 +31,8 @@ euc.conn=function(mac){
 		this.need=0;
 		c.on('characteristicvaluechanged', function(event) {
 			this.event=new Uint8Array(event.target.value.buffer);
-			this.last=getTime();
 			//check
+           print ("time diff",getTime() - this.last );
 			if (  0.2 < getTime() - this.last ) {
 				print("took too long, reseting");
 				this.need=0;
@@ -78,9 +78,10 @@ euc.conn=function(mac){
 					this.need=0;
 					print("start over");
 					this.decode=0;
+                    this.last=getTime();
 					return;
 				}
-			
+                this.last=getTime();
 			}
 			if (this.decode) {
                 this.decode=0;
@@ -98,7 +99,9 @@ euc.conn=function(mac){
                 } else {
                         euc.dash.bat = 0;
                 }
+                this.last=getTime();
 			}
+
 		});
 		//on disconnect
 		global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
