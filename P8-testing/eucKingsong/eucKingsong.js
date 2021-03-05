@@ -185,22 +185,52 @@ euc.conn=function(mac){
 				c.writeValue(euc.cmd((n==="start")?"serial":((euc.dash.aLck)?"lock":(euc.dash.aOff)?"off":"lightsOff"))).then(function() {
 						if (euc.seq==0) {
 							if (n==="start") {
-								clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();
+								c.writeValue(euc.cmd("rideLedOn")).then(function() {
+									clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();
+								}).catch(function(err)  {
+									clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();
+								});
 							}else {
-							if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
-								global["\xFF"].BLE_GATTS.disconnect();
+								c.writeValue(euc.cmd("rideLedOff")).then(function() {
+									if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
+									global["\xFF"].BLE_GATTS.disconnect();
+								}).catch(function(err)  {
+									if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
+									global["\xFF"].BLE_GATTS.disconnect();
+									clearTimeout(euc.busy);euc.busy=0;euc.off("err");
+								});
 							}
 							return;
 						}
 						c.writeValue(euc.cmd((n==="start")?((euc.dash.passSend)?"passSend":(euc.dash.aLck)?"unlock":(euc.dash.aLight)?euc.dash.aLight:"lightsAuto"):(euc.dash.aOff)?"off":"lightsOff")).then(function() {
 							if (euc.seq==0) {
 								if (n==="start") {
-									clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();
-							}else {if (euc.kill) {clearTimout(euc.kill);euc.kill=0;} global["\xFF"].BLE_GATTS.disconnect();}
+									c.writeValue(euc.cmd("rideLedOn")).then(function() {
+										clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();
+									}).catch(function(err)  {
+										clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();
+									});	
+								}else {
+									c.writeValue(euc.cmd("rideLedOff")).then(function() {
+										if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
+										global["\xFF"].BLE_GATTS.disconnect();
+									}).catch(function(err)  {
+										if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
+										global["\xFF"].BLE_GATTS.disconnect();
+										clearTimeout(euc.busy);euc.busy=0;euc.off("err");
+									});
+								}
 								return;
 							}	
 							c.writeValue(euc.cmd((euc.dash.aLck&&euc.dash.passSend)?"unlock":(euc.dash.aLight)?euc.dash.aLight:"lightsAuto")).then(function() {
-								if (euc.seq==0) {clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();return;}
+								if (euc.seq==0) {
+									c.writeValue(euc.cmd("rideLedOn")).then(function() {
+										clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();
+									}).catch(function(err)  {
+										clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();
+									});	                                  
+                                return;
+                                }
 								c.writeValue(euc.cmd((euc.dash.aLight)?euc.dash.aLight:"lightsAuto")).then(function() {
 									clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();return;
 								}).catch(function(err)  {
