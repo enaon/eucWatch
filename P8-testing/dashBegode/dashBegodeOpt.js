@@ -90,7 +90,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		face.go("dashSetKingsong",0);
+		face.go("dashBegode",0);
 		return true;
 	},
 	clear: function(){
@@ -138,10 +138,10 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
 	case 3: //slide left event
-		face.go("dashSetKsAdv",0);
+		face.go("dashBegodeAdv",0);
 		return;
 	case 4: //slide right event (back action)
-		face.go("dashSetKingsong",0);
+		face.go("dashBegode",0);
 		return;
 	case 12: //hold event
 		if ( x<=120 && y<100 ) { //auto lock

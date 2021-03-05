@@ -104,7 +104,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		face.go("dashSetKingsong",0);
+		face.go("dashVeteran",0);
 		return true;
 	},
 	clear: function(){
@@ -122,16 +122,16 @@ touchHandler[0]=function(e,x,y){
 			digitalPulse(D16,1,[30,50,30]);		
 		}else if ( 120<=x  && y<=100 ) { //calibrate
             digitalPulse(D16,1,[30,50,30]);
-			face.go("dashSetKsAdvCalibrate",0);
+			face.go("dashVeteranCalibrate",0);
 			return;
 		}else if ( x<=120 && 100<=y ) {   //limits
 			digitalPulse(D16,1,[30,50,30]);		
-			face.go("dashSetKsAdvLimits",0);
+			face.go("dashVeteranLimits",0);
 			return;
 		}else if ( 120<=x && 100<=y ) { //pass
 			digitalPulse(D16,1,[30,50,30]);		
-			if (euc.dash.pass.length>=4) face.go("dashSetKsAdvPass",5);
-			else face.go("dashSetKsAdvPass",0);
+			if (euc.dash.pass.length>=4) face.go("dashVeteranPass",5);
+			else face.go("dashVeteranPass",0);
 			return;
 		}else digitalPulse(D16,1,[30,50,30]);
 		this.timeout();
@@ -153,7 +153,7 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
 	case 4: //slide right event (back action)
-		face.go("dashSetKsOpt",0);
+		face.go("dashVeteranOpt",0);
 		return;
   }
 };

@@ -103,7 +103,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		face.go("dashSetKingsong",0);
+		face.go("dashVeteran",0);
 		return true;
 	},
 	clear: function(){
@@ -134,7 +134,7 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.drawLine (120,0,120,195);
 				w.gfx.drawLine (121,0,121,195);
 				w.gfx.flip();	
-				face.go("dashSetKsAdv",0);return;
+				face.go("dashVeteran",0);return;
 			}else if (175<=y&&x<=120) 
 				euc.wri("calibrate");
 			else digitalPulse(D16,1,40);
@@ -165,7 +165,7 @@ touchHandler[0]=function(e,x,y){
 		w.gfx.drawLine (120,0,120,195);
       	w.gfx.drawLine (121,0,121,195);
         w.gfx.flip();	
-		face.go("dashSetKsAdv",0);
+		face.go("dashVeteran",0);
 		return;
 	case 12: //long press event
 		digitalPulse(D16,1,[100]);

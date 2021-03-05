@@ -96,7 +96,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		face.go("dashSetKingsong",0);
+		face.go("dashBegode",0);
 		return true;
 	},
 	clear: function(){
@@ -242,7 +242,7 @@ touchHandler[0]=function(e,x,y){
 		w.gfx.drawLine (120,0,120,195);
       	w.gfx.drawLine (121,0,121,195);
         w.gfx.flip();	
-		face.go("dashSetKsAdv",0);
+		face.go("dashBegode",0);
 		return;
 	case 12: //long press event
 		digitalPulse(D16,1,[30,50,30]);
@@ -253,15 +253,15 @@ touchHandler[0]=function(e,x,y){
           euc.dash.pass="";
           euc.dash.passSend=0;
 		  euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
-          face.go("dashSetKsAdvPass",0);
+          face.go("dashBegodePass",0);
 		}else  { //change
-            face.go("dashSetKsAdvPass",5);
+            face.go("dashBegodePass",5);
             face[0].passSet=1;
             return;		
         }
         }else { //enable
           euc.dash.pass="";
-          face.go("dashSetKsAdvPass",5);
+          face.go("dashBegodePass",5);
           face[0].passSet=1;
         }  
 		this.timeout();
@@ -317,7 +317,7 @@ touchHandler[5]=function(e,x,y){
                   if (euc.dash.passOld!=""){euc.wri("passChange");}else{euc.wri("passSet");}
        			  euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
                   euc.dash.passSend=1;
-                  setTimeout(()=>{face.go("dashSetKsAdvPass",0);return;},1000);
+                  setTimeout(()=>{face.go("dashBegodePass",0);return;},1000);
                 }else{
                   digitalPulse(D16,1,120);
                   face[5].ntfy("NOT THE SAME",20,col("red"));
@@ -334,7 +334,7 @@ touchHandler[5]=function(e,x,y){
               if (face[5].pass==euc.dash.pass) {
                 digitalPulse(D16,1,80);
                 face[5].ntfy("PASSWORD ACCEPTED",20,col("blue1"));
-                setTimeout(()=>{face.go("dashSetKsAdvPass",0);return;},1000);
+                setTimeout(()=>{face.go("dashBegodePass",0);return;},1000);
               } else {
                 
                 digitalPulse(D16,1,120);
@@ -368,7 +368,7 @@ touchHandler[5]=function(e,x,y){
 		w.gfx.drawLine (120,0,120,195);
       	w.gfx.drawLine (121,0,121,195);
         w.gfx.flip();	
-		face.go("dashSetKsAdv",0);
+		face.go("dashBegode",0);
 		return;
 	case 12: //long press event
 		digitalPulse(D16,1,[100]);

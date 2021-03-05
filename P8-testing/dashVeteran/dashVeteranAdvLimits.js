@@ -97,7 +97,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		face.go("dashSetKingsong",0);
+		face.go("dashVeteran",0);
 		return true;
 	},
 	clear: function(){
@@ -222,7 +222,7 @@ touchHandler[0]=function(e,x,y){
           face[0].init();
         } else {
         euc.wri("setSpeedLimits");
-		face.go("dashSetKsAdv",0);
+		face.go("dashVeteran",0);
 		return;
         }
         break;
