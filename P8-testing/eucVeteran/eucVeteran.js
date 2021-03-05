@@ -48,6 +48,12 @@ euc.conn=function(mac){
 				euc.dash.tmp=(this.event[18] << 8 | this.event[19]).toFixed(1);	
 			} else {
 				print("secondary packet");
+				euc.dash.off=(this.event[0] << 8 | this.event[1]);
+				euc.dash.chrg=(this.event[2] << 8 | this.event[3]);
+				euc.dash.spd1=((this.event[4] << 8 | this.event[5]) / 10)|0;
+				euc.dash.spdT=((this.event[6] << 8 | this.event[7]) / 10)|0;
+				euc.dash.model=(this.event[8] << 8 | this.event[9]);
+				euc.dash.mode=(this.event[10] << 8 | this.event[11]);
 			}
 		});
 		//on disconnect
