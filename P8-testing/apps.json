@@ -142,6 +142,16 @@
 			{"name":"dashVeteran","url":"dashVeteran.js"}
 		]
 	}, 
+	{ "id": "dashBegode",
+		"name": "Begode Settings",
+		"icon": "icon.png",
+		"version":"0.10",
+		"description": "EUC dashboard, Begode settings gui files.",
+		"tags": "euc",
+		"storage": [
+			{"name":"dashBegode","url":"dashBegode.js"}
+		]
+	},
 	{ "id": "euc",
 		"name": "EUC modules support",
 		"icon": "icon.png",
@@ -185,8 +195,18 @@
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"eucVeteran","url":"eucVeteran.js"},
-			{"name":"dashScan","url":"dashScan.js"}
+			{"name":"eucVeteran","url":"eucVeteran.js"}
+		]
+	},
+   { "id": "eucBegode",
+		"name": "Begode module",
+		"icon": "icon.png",
+		"version":"0.11",
+		"description": "EUC module for Begode (Gotway)",
+		"tags": "euc",
+		"type": "euc",
+		"storage": [
+			{"name":"eucBegode","url":"eucBegode.js"}
 		]
 	},
 	{ "id": "repellent",
