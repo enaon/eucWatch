@@ -10,6 +10,8 @@ euc.cmd=function(no){
     }
 	
 };
+//array
+euc.buff=new Uint8Array(36);
 //start
 euc.conn=function(mac){
 	//check
@@ -28,9 +30,55 @@ euc.conn=function(mac){
 		this.need=0;
 		c.on('characteristicvaluechanged', function(event) {
 			this.event=new Uint8Array(event.target.value.buffer);
-			if  ( this.event[0]===220 && this.event[1]===90 && this.event[2]===92 ) {
-				print("primary packet");
-				this.voltage=(this.event[4]  << 8 | this.event[5] );
+			this.decode=0;
+			//check
+			if (  0.2 < getTime() - this.last ) {
+				//print("took too long, reseting");
+				this.need=0;
+			}
+			if (20 < this.need) {
+				euc.buff.set(this.event.buffer, 20-this.start);
+				print("got 20 more bytes:",euc.buff);
+				this.need=this.need-20;
+			} else {
+				this.lastStart=this.start;
+                this.start = this.event.indexOf(220);
+				print("start=",this.start);
+				if  ( -1 < this.start && this.event[this.start+1]===90 && this.event[this.start+2]===92 ) {
+					if (0 < this.need) {
+						euc.buff.set(this.event.buffer,  (20-this.lastStart)+20);								
+						this.cmd =  new Uint8Array(euc.buff,0);
+						this.need= (this.event[this.start+3]+4) - (20-this.start);
+						euc.buff.set(new Uint8Array(this.event.buffer, this.start), 0);							
+						this.decode=1;
+						print("got cmd and next start bytes, decoding",this.cmd);
+					} else {
+						//print("got start bytes");
+						this.need= (this.event[this.start+3]+4) - (20-this.start);	
+						euc.buff.set(new Uint8Array(this.event.buffer, this.start), 0);							
+						//print("total command will be "+ (this.event[this.start+3]+4)+ " bytes long");
+						//print("found first",20-this.start, "bytes");
+						//print("will need",( this.need < 20  )?1:2," more packet(s)");
+						print("first part: ", print(euc.buff));
+					}
+				}else if (0 < this.need) {
+					euc.buff.set(this.event.buffer, 20-this.lastStart+20);
+					this.cmd =  new Uint8Array(euc.buff,0);
+					//print("got cmd but no next start byte, decoding and starting over",this.cmd);
+					this.need=0;
+					this.decode=1;
+				} else {
+					//print("start over");
+					this.need=0;
+                    this.last=getTime();
+					return;
+				}
+                this.last=getTime();
+			}
+			if (this.decode) {
+                this.decode=0;
+				print("decoding this:",this.cmd);
+				this.voltage=(this.cmd[4]  << 8 | this.cmd[5] );
 				if (this.voltage > 10020) {
                         euc.dash.bat = 100;
                 } else if (this.voltage > 8160) {
@@ -41,14 +89,14 @@ euc.conn=function(mac){
                         euc.dash.bat = 0;
                 }
 				euc.dash.volt=this.voltage/100;
-				euc.dash.spd=((this.event[6] << 8 | this.event[7]) / 10)|0;
-				euc.dash.trpL=(this.event[10] << 24 | this.event[11] << 16 | this.event[8] << 8  | this.event[9]);
-				euc.dash.trpT=(this.event[14] << 24 | this.event[15] << 16 | this.event[12] << 8  | this.event[13]);
-				euc.dash.amp=((this.event[16] << 8 | this.event[17])/10)|0;
-				euc.dash.tmp=(this.event[18] << 8 | this.event[19]).toFixed(1);	
-			} else {
-				print("secondary packet");
+				euc.dash.spd=((this.cmd[6] << 8 | this.cmd[7]) / 10)|0;
+				euc.dash.trpL=(this.cmd[10] << 24 | this.cmd[11] << 16 | this.cmd[8] << 8  | this.cmd[9]);
+				euc.dash.trpT=(this.cmd[14] << 24 | this.cmd[15] << 16 | this.cmd[12] << 8  | this.cmd[13]);
+				euc.dash.amp=((this.cmd[16] << 8 | this.cmd[17])/10)|0;
+				euc.dash.tmp=(this.cmd[18] << 8 | this.cmd[19]).toFixed(1);
+                this.last=getTime();
 			}
+
 		});
 		//on disconnect
 		global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {

@@ -1,0 +1,92 @@
+euc.buff=new Uint8Array(36);
+euc.buff.fill(0);
+//buff=new Uint8Array([220, 90, 92, 32, 37, 220, 1, 202, 193, 123, 0, 2, 202, 140, 0, 2, 0, 15, 15, 71, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+//euc.busy=0;
+//test1
+buff1=new Uint8Array([0,0,0,0,0,0,0,0,0,0, 220, 90, 92, 32, 37, 233, 0, 0, 194, 129,]);
+buff2=new Uint8Array([ 0, 2, 203, 146, 0, 2, 0, 0, 18, 179, 10, 199, 0, 0, 2, 70, 10, 240, 4 ,32]);
+buff3=new Uint8Array([0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+//test2
+buff= new ArrayBuffer(36);
+buff[10]=220;
+buff[11]=90;
+buff[12]=92;
+view = new DataView(buff);
+
+buff10=new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]);
+
+
+
+
+
+
+test=function(event) {
+	this.event=new Uint8Array(event.buffer);
+	this.decode=0;
+	//check
+	//if (  0.2 < getTime() - this.last ) {
+	//	print("took too long, reseting");
+	//	this.need=0;
+	//}
+	if (20 < this.need) {
+		euc.buff.set(this.event, 20-this.start);
+		print("got 20 more bytes:",euc.buff);
+		this.need=this.need-20;
+	} else {
+		this.lastStart=this.start;
+		this.start = this.event.indexOf(220);
+		if  ( -1 < this.start && this.event[this.start+1]===90 && this.event[this.start+2]===92 ) {
+			if (0 < this.need) {
+				euc.buff.set(this.event,  (20-this.lastStart)+20);								
+				this.need= (this.event[this.start+3]+4) - (20-this.start);
+				//euc.buff.set((new Uint8Array(this.event, this.start)), 0);							
+				this.decode=1;
+				print("got cmd and next start bytes, decoding",this.cmd);
+			} else {
+				//print("got start bytes");
+				this.need= (this.event[this.start+3]+4) - (20-this.start);	
+                this.buf=new Uint8Array(this.event.buffer, this.start);
+              print("this.buf=", this.buf);
+                print ("this start,need",this.start,this.need);
+				euc.buff.set(new Uint8Array(this.event.buffer, this.start) , 0);							
+				//print("total command will be "+ (this.event[this.start+3]+4)+ " bytes long");
+				//print("found first",20-this.start, "bytes");
+				//print("will need",( this.need < 20  )?1:2," more packet(s)");
+				print("first part: ", euc.buff);
+			}
+		}else if (0 < this.need) {
+			euc.buff.set(this.event, 20-this.lastStart+20);
+			this.cmd =  new Uint8Array(euc.buff,0);
+			print("got cmd but no next start byte, decoding and starting over",this.cmd);
+			this.need=0;
+			this.decode=1;
+		} else {
+			print("start over");
+			this.need=0;
+			this.last=getTime();
+			return;
+		}
+		this.last=getTime();
+	}
+	if (this.decode) {
+		this.decode=0;
+		print("decoding this:",this.cmd);
+		this.voltage=(this.cmd[4]  << 8 | this.cmd[5] );
+		if (this.voltage > 10020) {
+				euc.dash.bat = 100;
+		} else if (this.voltage > 8160) {
+			   euc.dash.bat = ((this.voltage - 8070) / 19.5)|0;
+		} else if (this.voltage > 7935) {
+				euc.dash.bat =  ((this.voltage - 7935) / 48.75)|0;
+		} else {
+				euc.dash.bat = 0;
+		}
+		euc.dash.volt=this.voltage/100;
+		euc.dash.spd=((this.cmd[6] << 8 | this.cmd[7]) / 10)|0;
+		euc.dash.trpL=(this.cmd[10] << 24 | this.cmd[11] << 16 | this.cmd[8] << 8  | this.cmd[9]);
+		euc.dash.trpT=(this.cmd[14] << 24 | this.cmd[15] << 16 | this.cmd[12] << 8  | this.cmd[13]);
+		euc.dash.amp=((this.cmd[16] << 8 | this.cmd[17])/10)|0;
+		euc.dash.tmp=(this.cmd[18] << 8 | this.cmd[19]).toFixed(1);
+		this.last=getTime();
+	}
+};	

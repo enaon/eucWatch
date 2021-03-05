@@ -1,15 +1,16 @@
-//kingsong euc module 
+//Veteran euc module 
 //euc.conn(euc.mac);
 //euc.wri("lightsOn")
 //commands
 euc.cmd=function(no){
 	
 	switch (no) {
-		//case "serial":return[85,170,3,9,1,38,2,202,255];
+		
 		case "serial":return [0xAA,0x55,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x9B,0x14,0x5A,0x5A]; 
     }
 	
 };
+//array
 //start
 euc.conn=function(mac){
 	//check
@@ -25,30 +26,19 @@ euc.conn=function(mac){
 	  return s.getCharacteristic(0xffe1);
 	//read
 	}).then(function(c) {
-		this.need=0;
+		euc.busy=0;
 		c.on('characteristicvaluechanged', function(event) {
-			this.event=new Uint8Array(event.target.value.buffer);
-			if  ( this.event[0]===220 && this.event[1]===90 && this.event[2]===92 ) {
-				print("primary packet");
-				this.voltage=(this.event[4]  << 8 | this.event[5] );
-				if (this.voltage > 10020) {
-                        euc.dash.bat = 100;
-                } else if (this.voltage > 8160) {
-                       euc.dash.bat = ((this.voltage - 8070) / 19.5)|0;
-                } else if (this.voltage > 7935) {
-                        euc.dash.bat =  ((this.voltage - 7935) / 48.75)|0;
-                } else {
-                        euc.dash.bat = 0;
-                }
-				euc.dash.volt=this.voltage/100;
-				euc.dash.spd=((this.event[6] << 8 | this.event[7]) / 10)|0;
-				euc.dash.trpL=(this.event[10] << 24 | this.event[11] << 16 | this.event[8] << 8  | this.event[9]);
-				euc.dash.trpT=(this.event[14] << 24 | this.event[15] << 16 | this.event[12] << 8  | this.event[13]);
-				euc.dash.amp=((this.event[16] << 8 | this.event[17])/10)|0;
-				euc.dash.tmp=(this.event[18] << 8 | this.event[19]).toFixed(1);	
-			} else {
-				print("secondary packet");
-			}
+			//check
+			this.time=0;
+			for (c in event.target.value.buffer) {
+				//if (euc.unpk.addC(event.target.value.buffer[c])) {
+				if (unpack(event.target.value.buffer[c])) {
+				print("got buffer :",buff);
+				}
+            }
+			//end
+			//this.var= event.target.value.getUint8(16, true);
+			//print (event.target.value.buffer);
 		});
 		//on disconnect
 		global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
@@ -57,32 +47,30 @@ euc.conn=function(mac){
 		return  c;
 	//write
 	}).then(function(c) {
-		console.log("EUC Veteran connected!!"); 
+		console.log("EUC Veteran connected"); 
 		digitalPulse(D16,1,[90,40,150,40,90]);
 		euc.wri= function(n) {
-            print(n);
 			if (euc.busy) {print(1); clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},500);return;} euc.busy=euc.busy=setTimeout(()=>{euc.busy=0;},500);
-            //end
-			if (n=="end") {
-               c.stopNotifications(); 
-				if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
-				global["\xFF"].BLE_GATTS.disconnect();
-			//rest
-            } else if (!euc.cmd(n)) {
+			if (!euc.cmd(n)) {
+              //print(2);
 				c.writeValue(n).then(function() {
 					//clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/
 				}).catch(function(err)  {
 					clearTimeout(euc.busy);euc.busy=0;euc.off("err");
-				});   
-            }else{
+				});
+			//rest
+			}else{
+              //print(3);
 				c.writeValue(euc.cmd(n)).then(function() {
+                                print(31);
+
 					clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
 				}).catch(function(err)  {
 					clearTimeout(euc.busy);euc.busy=0;euc.off("err");
 				});
 			}
 		};
-		setTimeout(() => {euc.wri("serial");euc.state="READY";}, 500);
+		setTimeout(() => {print(0);euc.wri("serial");euc.state="READY";}, 500);
 
 	//reconect
 	}).catch(function(err)  {
@@ -138,4 +126,65 @@ euc.off=function(err){
 			NRF.setTxPower(set.def.rfTX);	
     }
 };
+//wheellog port
+
+sta=0; //unknown,collecting,lensearch,done
+buff=new Uint8Array(35);
+old1=0;
+old2=0;
+len=0;
+cnt=0;
+
+
+unpack = function (c){
+  
+  
+  switch (sta) {
+			case 1: //collecting
+				buff[cnt]=c;
+				cnt++;
+				if (buff.length == len+4) {
+					sta = 3;
+					//print("done");
+					rese();
+					return true;
+				}
+				break;
+			case 2: //lensearch
+				buff[cnt]=c;
+				cnt++;
+				len = c;
+				sta = 1;
+				old2 = old1;
+				old1 = c;
+				//print(" lensearch, len:", len ) ;
+				break;
+			default:
+				if (c == 92 && old1 ==  90 && old2 ==  220 ) {
+					buff[0]=220;
+					buff[1]=90;
+					buff[2]=92;
+					cnt=3;
+					//print("start");
+					sta = 2;
+				} else if (c ==  90 && old1 ==  220) {
+					old2 = old1;
+				} else {
+					old2 = 0;
+				}
+				old1 = c;
+		}
+		return false;
+  
+ 
+};
+
+
+rese =function () {
+  old1 = 0;
+  old2 = 0;
+  sta = 0;
+  cnt=0;
+} ; 
+  
 

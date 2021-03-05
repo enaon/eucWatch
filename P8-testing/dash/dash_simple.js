@@ -8,10 +8,10 @@ face[0] = {
 	if ( euc.day[0] < Date().getHours() && Date().getHours() < euc.day[1] ) euc.night=0; else euc.night=1;
 	this.g.clear();
 	euc.buff=new Uint8Array(35);
-	this.spdC=new Uint8Array([0,4095,4080,3840]);
-	this.ampC=new Uint8Array([1365,4095,4080,3840]);
-	this.tmpC=new Uint8Array([0,4095,4080,3840]);
-	this.batC=new Uint8Array([0,0,4080,3840]);
+	this.spdC=new Uint16Array([0,4095,4080,3840]);
+	this.ampC=new Uint16Array([1365,4095,4080,3840]);
+	this.tmpC=new Uint16Array([0,4095,4080,3840]);
+	this.batC=new Uint16Array([0,0,4080,3840]);
     this.spd=-1;
     this.amp=-1;
     this.temp=-1;

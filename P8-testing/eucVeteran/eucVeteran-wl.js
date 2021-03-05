@@ -1,4 +1,4 @@
-//Veteran euc module 
+//kingsong euc module 
 //euc.conn(euc.mac);
 //euc.wri("lightsOn")
 //commands
@@ -10,8 +10,6 @@ euc.cmd=function(no){
     }
 	
 };
-//array
-euc.buff=new Uint8Array(35);
 //start
 euc.conn=function(mac){
 	//check
@@ -19,42 +17,26 @@ euc.conn=function(mac){
 		if (set.def.cli) print("ble allready connected"); 
 		if (global["\xFF"].BLE_GATTS.connected) {global["\xFF"].BLE_GATTS.disconnect();return;}
 	}
+	
 	//connect 
 	NRF.connect(mac,{minInterval:7.5, maxInterval:15})
+	
 	.then(function(g) {
 	   return g.getPrimaryService(0xffe0);
+	   
 	}).then(function(s) {
 	  return s.getCharacteristic(0xffe1);
+	
 	//read
 	}).then(function(c) {
-		euc.busy=0;
 		c.on('characteristicvaluechanged', function(event) {
 			//check
-			this.time=0;
-			//
-			if ( !euc.busy) {
-				this.start= event.target.value.buffer.indexOf(220);
-				if  (this.start && event.target.value.getint8(this.start+1)==92 && event.target.value.getint8(this.start+2)==90 ) {
-					euc.buff = new Uint8Array(event.target.value.buffer, this.start);
-					//euc.buff.set( event.target.value.buffer, 0)
-
-
-
-
-
-
-
-
-
-
-
-
-
 			for (c in event.target.value.buffer) {
 				//if (euc.unpk.addC(event.target.value.buffer[c])) {
 				if (unpack(event.target.value.buffer[c])) {
                 //print (buff);
                 //process.memory().free;
+
 				//print("got buffer :",euc.unpk.buff);
 				//speed
 /*				euc.dash.spd=euc.unpk.buff[6]*10;
@@ -94,6 +76,7 @@ euc.conn=function(mac){
 				}).catch(function(err)  {
 					clearTimeout(euc.busy);euc.busy=0;euc.off("err");
 				});
+			
 			//rest
 			}else{
               //print(3);
@@ -171,6 +154,7 @@ old2=0;
 len=0;
 
 
+
 unpack = function (c){
   
   
@@ -220,3 +204,57 @@ rese =function () {
 } ; 
   
 
+/*
+
+euc.unpk={
+	sta:0, //unknown,collecting,lensearch,done
+	buff:[],
+	old1:0,
+	old2:0,
+	len:0,
+	addC: function(c) {
+      //print(4,c);
+		switch (this.sta) {
+			case 1: //collecting
+				this.buff.push(c);
+				if (this.buff.length == this.len+4) {
+					this.sta = 3;
+					//print("done");
+					reset();
+					return true;
+				}
+				break;
+			case 2: //lensearch
+				this.buff.push(c);
+				this.len = c;
+				this.sta = 1;
+				this.old2 = this.old1;
+				this.old1 = c;
+				//print(" lensearch, len:", this.len ) ;
+				break;
+			default:
+				if (c == 92 && this.old1 ==  90 && this.old2 ==  220 ) {
+					this.buff = [];
+					this.buff.push(220);
+					this.buff.push(165);
+					this.buff.push(92);
+					//print("start");
+					this.sta = 2;
+				} else if (c ==  90 && this.old1 ==  220) {
+					this.old2 = this.old1;
+				} else {
+					this.old2 = 0;
+				}
+				this.old1 = c;
+		}
+		return false;
+	},
+	reset: function() {
+		this.old1 = 0;
+		this.old2 = 0;
+		this.sta = 0;
+
+	}
+};
+
+*/
