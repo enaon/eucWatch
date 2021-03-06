@@ -181,7 +181,7 @@ euc.conn=function(mac){
 				});	
 			//toogle
 			}else if (n==="start"||n=="end"){
-                if ( n === "end" ) { c.stopNotifications(); }
+				if ( n === "end" ) { c.stopNotifications(); }
 				c.writeValue(euc.cmd((n==="start")?"serial":((euc.dash.aLck)?"lock":(euc.dash.aOff)?"off":"lightsOff"))).then(function() {
 						if (euc.seq==0) {
 							if (n==="start") {
@@ -232,7 +232,11 @@ euc.conn=function(mac){
                                 return;
                                 }
 								c.writeValue(euc.cmd((euc.dash.aLight)?euc.dash.aLight:"lightsAuto")).then(function() {
-									clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();return;
+									c.writeValue(euc.cmd("rideLedOn")).then(function() {
+										clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();
+									}).catch(function(err)  {
+										clearTimeout(euc.busy);euc.busy=0;euc.state="READY";c.startNotifications();
+									});	
 								}).catch(function(err)  {
 									clearTimeout(euc.busy);euc.busy=0;euc.off("err");
 								});
@@ -262,12 +266,12 @@ euc.conn=function(mac){
 				});
 			}
 		};
-        //print(global["\xFF"].bleHdl[54].value.buffer[0]);
 		if (!euc.run) { 
             euc.wri("start");
             euc.run=1;
         } else {
             setTimeout(()=>{ 
+                //print(global["\xFF"].bleHdl[54].value.buffer[0]);
                 if (global["\xFF"].bleHdl[54].value.buffer[0]==65 ||global["\xFF"].bleHdl[54].value.buffer[0]==188){
                     euc.wri("start");
                 }else {
@@ -275,7 +279,6 @@ euc.conn=function(mac){
                     euc.state="READY";
                 }
             },1000);          
-
         }
 	//reconect
 	}).catch(function(err)  {
