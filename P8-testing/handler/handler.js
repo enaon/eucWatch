@@ -429,17 +429,15 @@ if (set.def.touchtype=="816"){ //816
 	init:function(){
 		"ram";
 		var tp=i2c.readFrom(0x15,7);
-			//print(tp);
-		if ( tp[3] == 128 || tp[3] === 0) {
-          // print("1",tp);
+		if ( tp[3] == 128 || (tp[3] === 0 && tp[2] === 1) ) {
 			if ( !this.time ) this.time=getTime();
 			if ( this.st ) {
 				this.st = 0;
 				this.do = 1;
 				this.x = tp[4];
                 this.y = tp[6];
-				if (face.pageCurr==-1){this.loop=5;face.go(face.appCurr,0);return;}
-
+				//if (face.pageCurr==-1){this.loop=5;face.go(face.appCurr,0);return;}
+                return;
 			}
 			if ( this.do && getTime() - this.time > 1 ) { 
 				this.do = 0 ;
@@ -451,7 +449,7 @@ if (set.def.touchtype=="816"){ //816
 				else if (tp[4]<=this.x-20) a = 3;
 				else if (tp[4]>=this.x+20) a = 4;
 				if ( a != 0 && this.aLast != a ) {
-                    //this.aLast=a;
+                    this.aLast=a;
                     //this.st = 1;
                     //this.time = 0;                  
 					this.do=0;
@@ -479,6 +477,7 @@ if (set.def.touchtype=="816"){ //816
 	},
 	start:function(){ 
 		if (this.tid) clearInterval(this.tid);
+        this.st=1;
 		this.tid=setInterval(function(t){
 			tfk.init();
 		},this.loop);
