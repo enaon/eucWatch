@@ -121,6 +121,7 @@ touchHandler[0]=function(e,x,y){
 		if ( face[0].set === 1 ) { //kingsong
 			if (!Boolean(require("Storage").read('eucKingsong'))) {	face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
             set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Kingsong");
+			euc.dash.name=0;
 			euc.dash.maker="Kingsong"; 
 			face.go('w_scan',0,'fff0'); 
             return;
