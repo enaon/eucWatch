@@ -1,4 +1,4 @@
-//Dash Select
+//Dash Garage
 face[0] = { 
 	offms: 5000, 
 	g:w.gfx, 
@@ -27,8 +27,8 @@ face[0] = {
 				this.g.drawString(this.dash.slot1Maker.toUpperCase(),60-(this.g.stringWidth(this.dash.slot1Maker.toUpperCase())/2),10); 
 				//this.g.setFont("Vector",13);	
 				//this.g.drawString(this.dash.slot1Mac.substring(0,17),60-(this.g.stringWidth(this.dash.slot1Mac.substring(0,17))/2),78); 
-				//this.g.setFont("Vector",30);	
-				//this.g.drawString("-",60-(this.g.stringWidth("-")/2),40); 
+				this.g.setFont("Vector",30);	
+				this.g.drawString(this.dash.slot1Name,60-(this.g.stringWidth(this.dash.slot1Name)/2),40); 
 				this.g.flip();
 			}else if (this.s1) {
 				this.g.setColor(0,col("dgray"));
@@ -63,8 +63,8 @@ face[0] = {
 				this.g.drawString(this.dash.slot2Maker.toUpperCase(),185-(this.g.stringWidth(this.dash.slot2Maker.toUpperCase())/2),10); 
 				//this.g.setFont("Vector",13);	
 				//this.g.drawString(this.dash.slot2Mac.substring(0,17),185-(this.g.stringWidth(this.dash.slot2Mac.substring(0,17))/2),78); 
-				//this.g.setFont("Vector",30);	
-				//this.g.drawString("-",185-(this.g.stringWidth("-")/2),40); 
+				this.g.setFont("Vector",30);	
+				this.g.drawString(this.dash.slot1Name,185-(this.g.stringWidth(this.dash.slot1Name)/2),40); 
 				this.g.flip();
 			}else if (this.s2) {
 				this.g.setColor(0,col("dgray"));
@@ -99,8 +99,8 @@ face[0] = {
 				this.g.drawString(this.dash.slot3Maker.toUpperCase(),60-(this.g.stringWidth(this.dash.slot3Maker.toUpperCase())/2),110); 
 				//this.g.setFont("Vector",13);	
 				//this.g.drawString(this.dash.slot3Mac.substring(0,17),60-(this.g.stringWidth(this.dash.slot3Mac.substring(0,17))/2),178); 
-				//this.g.setFont("Vector",30);	
-				//this.g.drawString("-",60-(this.g.stringWidth("-")/2),140); 
+				this.g.setFont("Vector",30);	
+				this.g.drawString(this.dash.slot1Name,60-(this.g.stringWidth(this.dash.slot1Name)/2),140); 
 				this.g.flip();
 			}else if (this.s3) {
 				this.g.setColor(0,col("dgray"));
@@ -135,8 +135,8 @@ face[0] = {
 				this.g.drawString(this.dash.slot4Maker.toUpperCase(),185-(this.g.stringWidth(this.dash.slot4Maker.toUpperCase())/2),110); 
 				//this.g.setFont("Vector",13);	
 				//this.g.drawString(this.dash.slot4Mac.substring(0,17),185-(this.g.stringWidth(this.dash.slot4Mac.substring(0,17))/2),178); 
-				//this.g.setFont("Vector",30);	
-				//this.g.drawString("-",185-(this.g.stringWidth("-")/2),140); 
+				this.g.setFont("Vector",30);	
+				this.g.drawString(this.dash.slot1Name,185-(this.g.stringWidth(this.dash.slot1Name)/2),140); 
 				this.g.flip();
 			}else if (this.s4) {
 				this.g.setColor(0,col("dgray"));
@@ -228,7 +228,7 @@ touchHandler[0]=function(e,x,y){
 			else if( 120<=x && 100<=y ) this.s=4;	//slot4
 			if (face[0].dash["slot"+this.s+"Mac"]){
                 //require('Storage').write('dashslot.json',this.s);
-				(s=>{s&&(s["slot"]=this.s)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
+                set.write("dash","slot",this.s);
 				//face[0].dash=require("Storage").readJSON("dash.json",1);
 				if (Boolean(require("Storage").read('eucSlot'+this.s+'.json')))
 					euc.dash=require("Storage").readJSON('eucSlot'+this.s+'.json',1);
@@ -284,9 +284,10 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.flip();
 				face.go("dashAlerts",0);return;
 			} else {
-				(s=>{s&&(delete s["slot"+require("Storage").readJSON("dash.json",1).slot+"Mac"])&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
-				(s=>{s&&(delete s["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"])&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
-				require("Storage").erase('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json')	
+                set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Mac");
+                set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker");
+                set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name");
+				require("Storage").erase('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json');	
 			    face[0].sv1=-1;face[0].sv2=-1;face[0].sv3=-1;face[0].sv4=-1;
                 w.gfx.setColor(0,0);w.gfx.fillRect(0,0,239,195);w.gfx.flip();
               	face[0].dash=require("Storage").readJSON("dash.json",1);
@@ -298,9 +299,8 @@ touchHandler[0]=function(e,x,y){
 			else if( 120<=x && y<=100 ) this.s=2;	//slot2 
 			else if( x<=120 && 100<=y ) this.s=3;   //slot3 
 			else if( 120<=x && 100<=y ) this.s=4;	//slot4
+            set.write("dash","slot",this.s);
 			if (face[0].dash["slot"+this.s+"Mac"]){
-				(s=>{s&&(s["slot"]=this.s)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
-				//face.go("dashSlot",0);return;
 				face[0].clear();
 				var g=w.gfx;
 				g.setFont("Vector",25);	
@@ -316,9 +316,9 @@ touchHandler[0]=function(e,x,y){
 				g.flip();
 				face[0].set=1;
 			}else {
-				(s=>{s&&(s["slot"]=this.s)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
-				face.go("dashScan",0);return;
-			}
+				face.go("dashScan",0);
+                return;
+            }
 			this.timeout();
 		}
 		this.timeout();

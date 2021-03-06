@@ -36,6 +36,13 @@ var set={
 	fmp:0, //find my phone-n.u.s.
 	boot:getTime(), 
 	dash:[],
+	write:function(file,name,value){
+		let got=require("Storage").readJSON([file+".json"],1);
+		if (!value) delete got[name];
+		else got[name]=value;
+		require("Storage").writeJSON([file+".json"],got);
+		return true;
+	},
 	gDis:function(){
 		if (this.gIsB) {
 			this.gIsb=2;

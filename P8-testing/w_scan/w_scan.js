@@ -8,18 +8,18 @@ scan={
 	  this.slot="";
       if (app=="repellent") this.filter = [{serviceData:{"fe95":{}}}];
       else {
-		app="dash";
-		this.filter = [{services:[service]}];
+		  app="dash";
+		  this.filter = [{services:[service]}];
 	  }
       var found=[];
   	  NRF.filterDevices(devices, this.filter).forEach(function(entry) {found.push(entry.id);});
 	  if (found!=""&&found!=undefined){ 
 		if (app=="dash"){
-			(s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"Mac"]=found[0]+"")&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
-			euc.dash.mac=found[0]+"";
+            set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Mac",found[0]+"");
+		    euc.dash.mac=found[0]+"";
 		}else{
-			(s=>{s&&(s[app+"Mac"]=found)&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
-			(s=>{s&&(s[app+"_go"]="0")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1));
+            set.write("setting",app+"Mac",found);
+            set.write("setting",app+"_go","0");
 		}
 		scan.mac=found;
 	  } else scan.mac=[];
@@ -159,12 +159,12 @@ touchHandler[0]=function(e,x,y){
        if (this.mac!=undefined) {
 			digitalPulse(D16,1,[30,50,30]);
 			if (face.appRoot[0]!="repellent"){
-				(s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"Mac"]=this.mac)&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
+                set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Mac",this.mac);
 				euc.dash.mac=this.mac;
 				euc.tgl();
 				return;
 			}else	{
-				(s=>{s&&(s[face.appRoot[0]+"_go"]=face[0].line+1)&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('dash.json',1));
+                set.write("dash",face.appRoot[0]+"_go",face[0].line+1);
 			}
 			face.go(face.appRoot[0],face.appRoot[1]);return;
 		}else digitalPulse(D16,1,40);

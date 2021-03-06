@@ -120,15 +120,16 @@ touchHandler[0]=function(e,x,y){
 		digitalPulse(D16,1,[30,50,30]);
 		if ( face[0].set === 1 ) { //kingsong
 			if (!Boolean(require("Storage").read('eucKingsong'))) {	face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
-			(s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]="Kingsong")&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
+            set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Kingsong");
 			euc.dash.maker="Kingsong"; 
-			face.go('w_scan',0,'fff0'); return
+			face.go('w_scan',0,'fff0'); 
+            return;
         }else if ( face[0].set === 2 ) { //begode
-			//(s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]="Gegode")&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
+            //set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Begode");
 			//euc.dash.maker="Begode";
 			face[0].ntfy("NOT YET","",20,col("red"),1);
         }else if ( face[0].set === 3 ) { //Ninebot Z
-			//(s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]="NinebotZ")&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
+            //set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","NinebotZ");
 			//euc.dash.maker="NinebotZ";
 			face[0].ntfy("NOT YET","",20,col("red"),1);
 		}
@@ -140,12 +141,12 @@ touchHandler[0]=function(e,x,y){
 			face[0].ntfy("NOT YET","",20,col("red"),1);
         }else if ( face[0].set === 2 ) {
 			if (!Boolean(require("Storage").read('eucVeteran'))) {	face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
-			(s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]="Veteran")&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
+            set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Veteran");
 			euc.dash.maker="Veteran";
 			face.go('w_scan',0,'ffe0'); return;
         }else if ( face[0].set === 3 ) {
 			if (!Boolean(require("Storage").read("eucNinebot"))) {	face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
-			(s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]="Ninebot")&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
+            set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Ninebot");
 			euc.dash.maker="Ninebot";
 			face.go('w_scan',0,'ffe0'); return;
 		}

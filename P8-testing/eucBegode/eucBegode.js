@@ -28,7 +28,7 @@ euc.conn=function(mac){
 		this.need=0;
 		c.on('characteristicvaluechanged', function(event) {
 			this.event=new Uint8Array(event.target.value.buffer);
-			if  ( this.event[0]===220 && this.event[1]===90 && this.event[2]===92 ) {
+			if  ( this.event[0]===85 && this.event[1]===170 && this.event[2]===0 ) {
 				print("primary packet");
 				this.voltage=(this.event[4]  << 8 | this.event[5] );
 				if (this.voltage > 10020) {
@@ -46,14 +46,9 @@ euc.conn=function(mac){
 				euc.dash.trpT=(this.event[14] << 24 | this.event[15] << 16 | this.event[12] << 8  | this.event[13]);
 				euc.dash.amp=((this.event[16] << 8 | this.event[17])/10)|0;
 				euc.dash.tmp=(this.event[18] << 8 | this.event[19]).toFixed(1);	
-			} else {
-				print("secondary packet");
-				euc.dash.off=(this.event[0] << 8 | this.event[1]);
-				euc.dash.chrg=(this.event[2] << 8 | this.event[3]);
-				euc.dash.spd1=((this.event[4] << 8 | this.event[5]) / 10)|0;
-				euc.dash.spdT=((this.event[6] << 8 | this.event[7]) / 10)|0;
-				euc.dash.model=(this.event[8] << 8 | this.event[9]);
-				euc.dash.mode=(this.event[10] << 8 | this.event[11]);
+			} else if ( this.event[0]===90 && this.event[4]===85 && this.event[5]===170 ){
+				print("Begode frame B (total distance and flags");
+				euc.dash.trpT=((this.event[6]&255)<<24) + ((this.event[7]&255)<<16) + ((this.event[8]&255)<<8) + (this.event[9]&255)/100;
 			}
 		});
 		//on disconnect
