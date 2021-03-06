@@ -196,14 +196,14 @@ var face={
 				if (this.appCurr==="main") {
 					if (face[c].off) {
 						if (set.def.touchtype=="716") tfk.exit();	
-						else {digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xe5,3);},100);} //touch off
+						//else {digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xe5,3);},100);} //touch off
 						face[c].off();this.pageCurr=-1;face.pagePrev=c;
 					}
 				}else face.go(this.appCurr,1);
 			}else if (face.appPrev=="off") {
 				if (face[c].off) {
 					if (set.def.touchtype=="716") tfk.exit();	
-					else {digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xe5,3);},100);} //touch off
+					//else {digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xe5,3);},100);} //touch off
 					face.go("main",-1);face.pagePrev=c;
 				}
 			}else if (c>1) face.go(this.appCurr,0);
@@ -221,7 +221,7 @@ var face={
 		if (this.pageCurr==-1 && this.pagePrev!=-1) {
 			//if (set.def.touchtype=="716")tfk.loop=100;
 			if (set.def.touchtype=="716") tfk.exit();
-			else {digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100);} //touch deep sleep
+			//else {digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100);} //touch deep sleep
 			acc.go=0;
 			face[this.pagePrev].off();
 			if (this.offid) {clearTimeout(this.offid); this.offid=0;}
@@ -236,7 +236,7 @@ var face={
 		this.off(page);
 		face[page].init(arg);	
 		if(!w.gfx.isOn) {
-			digitalPulse(D13,1,[10,50]); //touch wake
+			//digitalPulse(D13,1,[10,50]); //touch wake
 			if (set.def.touchtype=="716"){tfk.loop=10;if(!tfk.tid) tfk.start();}
 			w.gfx.on();
 		}
@@ -342,7 +342,7 @@ if (set.def.touchtype=="816"){ //816
 	setWatch(function(s){
 		"ram";
 		var tp=i2c.readFrom(0x15,7);
-        if (tp[2]==180) {
+/*        if (tp[2]==180) {
             digitalPulse(D13,1,[5,50]); //wake
           	tid8=setTimeout(()=>{
 			  digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100);
@@ -351,12 +351,14 @@ if (set.def.touchtype=="816"){ //816
 		    },600);
 			return;
         } 
+*/
 		if (face.pageCurr>=0) {
-			if(face.offid){clearTimeout(face.offid);face.offid=0;}
+			//if(face.offid){clearTimeout(face.offid);face.offid=0;}
 			touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);}
-		else if (tid8&&tp[1]==1) {
+		//else if (tid8&&tp[1]==1) {
+		else if (tp[1]==1) {
 			face.go(face.appCurr,0);
-			clearTimeout(tid8);tid8=0;
+			//clearTimeout(tid8);tid8=0;
 		}
 	},D28,{repeat:true, edge:"rising"}); 
 }else if (set.def.touchtype=="816s"){//816s
@@ -476,6 +478,7 @@ if (set.def.touchtype=="816"){ //816
 		}
 	},
 	start:function(){ 
+		digitalPulse(D13,1,[10,50]); //touch wake
 		if (this.tid) clearInterval(this.tid);
         this.st=1;
 		this.tid=setInterval(function(t){
