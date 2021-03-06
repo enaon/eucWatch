@@ -262,7 +262,13 @@ euc.conn=function(mac){
 				});
 			}
 		};
-		euc.wri("start");
+		if (!euc.run) { 
+            euc.wri("start");
+            euc.run=1;
+        }else {
+            c.startNotifications();
+            euc.state="READY";
+        }
 	//reconect
 	}).catch(function(err)  {
 		euc.off(err);
@@ -306,6 +312,7 @@ euc.off=function(err){
 			delete euc.conn;
 			delete euc.wri;
 			delete euc.cmd;
+            euc.run=0;
 			NRF.setTxPower(set.def.rfTX);	
     }
 };
