@@ -262,12 +262,20 @@ euc.conn=function(mac){
 				});
 			}
 		};
+        //print(global["\xFF"].bleHdl[54].value.buffer[0]);
 		if (!euc.run) { 
             euc.wri("start");
             euc.run=1;
-        }else {
-            c.startNotifications();
-            euc.state="READY";
+        } else {
+            setTimeout(()=>{ 
+                if (global["\xFF"].bleHdl[54].value.buffer[0]==65 ||global["\xFF"].bleHdl[54].value.buffer[0]==188){
+                    euc.wri("start");
+                }else {
+                    c.startNotifications();
+                    euc.state="READY";
+                }
+            },1000);          
+
         }
 	//reconect
 	}).catch(function(err)  {
