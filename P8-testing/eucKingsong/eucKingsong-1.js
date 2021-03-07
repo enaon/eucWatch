@@ -58,8 +58,7 @@ euc.conn=function(mac){
 			this.var= event.target.value.getUint8(16, true);
 			//print (event.target.value.buffer);
 			if (euc.busy) return;
-			switch (this.var){
-				case  169:
+				if (this.var==169) {
 					//forward euc emu
 					if (set.bt==4&&euc.dash.emu==1) euc.emuW(event.target.value.buffer);
 					euc.alert=0;
@@ -130,40 +129,34 @@ euc.conn=function(mac){
 						digitalPulse(D16,0,a);  
 						setTimeout(() => { euc.buzz = 0; }, 3000);
 					}
-					break;
-				case 185://trip-time-max_speed
+				}else if (this.var==185) {  //trip-time-max_speed
 					euc.dash.trpL=(((event.target.value.buffer[2] << 16) + (event.target.value.buffer[3] << 24) + event.target.value.buffer[4] + (event.target.value.buffer[5] << 8)) / 1000.0).toFixed(1);
 					euc.dash.time=((event.target.value.getUint16(6, true)) / 60.0).toFixed(0);
 					euc.dash.spdM=((event.target.value.getUint16(8, true)) / 100.0).toFixed(1);
 					euc.dash.fan=event.target.value.buffer[12];
-					break;
-/*				case 245:
+/*				}else if (this.var==245) {
 					euc.dash.cpu=event.target.value.buffer[14];
 					//euc.dash.out=event.target.value.buffer[15];
-					break;
-				case 246:
+				}else if (this.var==246) {
 					euc.dash.spdL=( event.target.value.getUint16(2, true) / 100 ).toFixed(0); 
-					break;	
-				case 181:
+				}else if (this.var==181) {
 					print(181);
 					euc.dash.spd1=event.target.value.buffer[4];
 					euc.dash.spd2=event.target.value.buffer[6];
 					euc.dash.spd3=event.target.value.buffer[8];
 					euc.dash.spdT=event.target.value.buffer[10];
-					break;
 */
-				case 179://serial
+                } else if (this.var==179) { //serial
 					euc.dash.serial=String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,2,14))+String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,17,3));
-					break;
-				case 187://model
+				}else if (this.var==187) { //model
                     euc.dash.model=String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,2,11));
                     euc.dash.name=String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,5,8));
 					set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",euc.dash.name);
-					break;
+				}
 				//default :
-				    //print ("got: ",this.var,event.target.value.buffer);
+				print ("got: ",this.var,event.target.value.buffer);
 				    //print (this.var); //else print(event.target.value.buffer); 
-			}
+			
 		});
 		//on disconnect
 		global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
