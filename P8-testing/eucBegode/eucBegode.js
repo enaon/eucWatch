@@ -6,7 +6,7 @@ euc.cmd=function(no){
 	
 	switch (no) {
 		//case "serial":return[85,170,3,9,1,38,2,202,255];
-		case "serial":return [0xAA,0x55,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x9B,0x14,0x5A,0x5A]; 
+		case "model":return [0xAA,0x55,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x9B,0x14,0x5A,0x5A]; 
     }
 	
 };
@@ -28,27 +28,22 @@ euc.conn=function(mac){
 		this.need=0;
 		c.on('characteristicvaluechanged', function(event) {
 			this.event=new Uint8Array(event.target.value.buffer);
-			if  ( this.event[0]===85 && this.event[1]===170 && this.event[2]===0 ) {
+			print(this.event);
+			if  ( this.event[18]===0 ) {
 				print("primary packet");
-				this.voltage=(this.event[4]  << 8 | this.event[5] );
-				if (this.voltage > 10020) {
-                        euc.dash.bat = 100;
-                } else if (this.voltage > 8160) {
-                       euc.dash.bat = ((this.voltage - 8070) / 19.5)|0;
-                } else if (this.voltage > 7935) {
-                        euc.dash.bat =  ((this.voltage - 7935) / 48.75)|0;
-                } else {
-                        euc.dash.bat = 0;
-                }
+/*				
 				euc.dash.volt=this.voltage/100;
 				euc.dash.spd=((this.event[6] << 8 | this.event[7]) / 10)|0;
 				euc.dash.trpL=(this.event[10] << 24 | this.event[11] << 16 | this.event[8] << 8  | this.event[9]);
 				euc.dash.trpT=(this.event[14] << 24 | this.event[15] << 16 | this.event[12] << 8  | this.event[13]);
 				euc.dash.amp=((this.event[16] << 8 | this.event[17])/10)|0;
 				euc.dash.tmp=(this.event[18] << 8 | this.event[19]).toFixed(1);	
-			} else if ( this.event[0]===90 && this.event[4]===85 && this.event[5]===170 ){
+*/
+				euc.dash.spd=((this.event[6] << 5 | (this.event[4] & 255) ) * 3.6)|0;
+			} else if ( this.event[18]===4 ){
 				print("Begode frame B (total distance and flags");
-				euc.dash.trpT=((this.event[6]&255)<<24) + ((this.event[7]&255)<<16) + ((this.event[8]&255)<<8) + (this.event[9]&255)/100;
+				print(this.event);
+				//euc.dash.trpT=((this.event[6]&255)<<24) + ((this.event[7]&255)<<16) + ((this.event[8]&255)<<8) + (this.event[9]&255)/100;
 			}
 		});
 		//on disconnect
@@ -83,7 +78,7 @@ euc.conn=function(mac){
 				});
 			}
 		};
-		setTimeout(() => {euc.wri("serial");euc.state="READY";}, 500);
+		setTimeout(() => {euc.wri("model");euc.state="READY";}, 500);
 
 	//reconect
 	}).catch(function(err)  {
