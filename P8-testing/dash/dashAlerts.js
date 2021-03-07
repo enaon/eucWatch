@@ -77,7 +77,9 @@ face[1] = {
 	},
 	show : function(){
 		if (euc.state=="READY"&&euc.dash.maker=="Kingsong")
-			face.go("dashSetKsOpt",0);
+			face.go("dashKingsongOpt",0);
+		else if (euc.state=="READY"&&euc.dash.maker=="Ninebot")
+			face.go("dashNinebot",0);
 		else
 			face.go(set.dash[set.def.dash],0);
 		return;
