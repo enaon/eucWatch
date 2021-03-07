@@ -131,7 +131,7 @@ touchHandler[0]=function(e,x,y){
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","BG-NO NAME");
 			euc.dash.name=0;
 			euc.dash.maker="Begode";
-			face[0].ntfy("NOT YET","",20,col("red"),1);
+			//face[0].ntfy("NOT YET","",20,col("red"),1);
         }else if ( face[0].set === 3 ) { //Ninebot Z
             //set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","NinebotZ");
 			//euc.dash.maker="NinebotZ";
