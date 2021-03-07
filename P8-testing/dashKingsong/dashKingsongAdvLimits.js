@@ -124,7 +124,7 @@ touchHandler[0]=function(e,x,y){
 				}else {
 					if (euc.dash.spd2E){
 						euc.dash.spd1E=1;
-                        if (euc.dash.spd1>=euc.dash.spd2) euc.dash.spd1=euc.dash.spd2-1;
+                        if (euc.dash.spd2<=euc.dash.spd1) euc.dash.spd1=euc.dash.spd2-1;
 						face[0].btn(euc.dash.spd1E,"ALARM 1",18,60,15,col("olive"),col("gray"),0,0,119,97,(euc.dash.spd1E)?euc.dash.spd1:"OFF",28,60,50);
 						face[0].ntfy("ALARM 1-> ENABLED","",20,col("dgray"),1);
 						digitalPulse(D16,1,[30,50,30]);
@@ -141,7 +141,7 @@ touchHandler[0]=function(e,x,y){
 					}
 				}else {
 					euc.dash.spd2E=1;
-                    if (euc.dash.spd2>=euc.dash.spd2) euc.dash.spd2=euc.dash.spd3-1;
+                    if (euc.dash.spd3<=euc.dash.spd2) euc.dash.spd2=euc.dash.spd3-1;
 					digitalPulse(D16,1,[30,50,30]);
 					face[0].btn(euc.dash.spd2E,"ALARM 2",18,185,15,col("olive"),col("gray"),122,0,239,97,(euc.dash.spd2E)?euc.dash.spd2:"OFF",28,185,50);
 					face[0].ntfy("ALARM 2 -> ENABLED","",20,col("dgray"),1);
