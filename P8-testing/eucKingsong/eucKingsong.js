@@ -207,12 +207,12 @@ euc.conn=function(mac){
 			//toogle
 			}else if (n==="start"||n=="end"){
 				if ( n === "end" ) { c.stopNotifications(); }
-				c.writeValue(euc.cmd((n==="start")?"model":((euc.dash.aLck)?"lock":(euc.dash.aOff)?"off":"lightsOff"))).then(function() {
+				c.writeValue(euc.cmd((n==="start")?"rideLedOn":((euc.dash.aLck)?"lock":(euc.dash.aOff)?"off":"lightsOff"))).then(function() {
 						if (euc.seq==0) {
 							if (n==="start") {
 								c.startNotifications().then(function() {
 									clearTimeout(euc.busy);euc.busy=0;euc.state="READY";
-									if (!euc.dash.name) c.writeValue(euc.cmd("rideLedOn"));                                  
+									if (!euc.dash.name) c.writeValue(euc.cmd("model"));                                  
 								});
 							}else {
 								c.writeValue(euc.cmd("rideLedOff")).then(function() {
@@ -231,7 +231,7 @@ euc.conn=function(mac){
 								if (n==="start") {
 									c.startNotifications().then(function() {
 										clearTimeout(euc.busy);euc.busy=0;euc.state="READY";
-										if (!euc.dash.name) c.writeValue(euc.cmd("rideLedOn"));                                  
+										if (!euc.dash.name) c.writeValue(euc.cmd("model"));                                  
 									});
 								}else {
 									c.writeValue(euc.cmd("rideLedOff")).then(function() {
@@ -249,14 +249,14 @@ euc.conn=function(mac){
 								if (euc.seq==0) {
 									c.startNotifications().then(function() {
 										clearTimeout(euc.busy);euc.busy=0;euc.state="READY";
-										if (!euc.dash.name) c.writeValue(euc.cmd("rideLedOn"));                                  
+										if (!euc.dash.name) c.writeValue(euc.cmd("model"));                                  
 									});
                                     return;
                                 }
 								c.writeValue(euc.cmd((euc.dash.aLight)?euc.dash.aLight:"lightsAuto")).then(function() {
 									c.startNotifications().then(function() {
 										clearTimeout(euc.busy);euc.busy=0;euc.state="READY";
-										if (!euc.dash.name) c.writeValue(euc.cmd("rideLedOn"));                                  
+										if (!euc.dash.name) c.writeValue(euc.cmd("model"));                                  
 									});
                                     return;
 								}).catch(function(err)  {
