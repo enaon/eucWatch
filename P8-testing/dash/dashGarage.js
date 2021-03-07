@@ -24,11 +24,9 @@ face[0] = {
 				this.g.fillRect(0,0,119,97);
 				this.g.setColor(1,col("white"));
 				this.g.setFont("Vector",18);	
-				this.g.drawString(this.dash.slot1Maker.toUpperCase(),60-(this.g.stringWidth(this.dash.slot1Maker.toUpperCase())/2),10); 
-				//this.g.setFont("Vector",13);	
-				//this.g.drawString(this.dash.slot1Mac.substring(0,17),60-(this.g.stringWidth(this.dash.slot1Mac.substring(0,17))/2),78); 
-				this.g.setFont("Vector",30);	
-				this.g.drawString(this.dash.slot1Name,60-(this.g.stringWidth(this.dash.slot1Name)/2),40); 
+				this.g.drawString((this.s1)?this.dash.slot1Name.split("-")[1]:this.dash.slot1Maker.toUpperCase(),60-(this.g.stringWidth((this.s1)?this.dash.slot1Name.split("-")[1]:this.dash.slot1Maker.toUpperCase())/2),10); 
+				this.g.setFont("Vector",35);	
+				this.g.drawString(this.dash.slot1Name.split("-")[0],60-(this.g.stringWidth(this.dash.slot1Name.split("-")[0])/2),50); 
 				this.g.flip();
 			}else if (this.s1) {
 				this.g.setColor(0,col("dgray"));
@@ -36,8 +34,6 @@ face[0] = {
 				this.g.setColor(1,col("white"));
 				this.g.setFont("Vector",22);	
 				this.g.drawString("EMPTY",60-(this.g.stringWidth("EMPTY")/2),40);
-				//this.g.setFont("Vector",18);	
-				//this.g.drawString("TO SET",60-(this.g.stringWidth("TO SET")/2),60);
 				this.g.flip();
 				if (this.s1tid)  clearTimeout(this.s1tid);
 				this.s1tid=setTimeout(function(t){
@@ -46,8 +42,6 @@ face[0] = {
 					t.g.setFont("Vector",22);	
 					t.g.setColor(0,col("black"));
 					t.g.fillRect(0,0,119,97);
-					//t.g.setColor(1,col("black"));
-					//t.g.drawString("EMPTY",60-(t.g.stringWidth("EMPTY")/2),40);
 					t.g.flip();
 				 },1000,this);
 			}
@@ -60,11 +54,9 @@ face[0] = {
 				this.g.fillRect(122,0,239,97);	
 				this.g.setColor(1,col("white"));
 				this.g.setFont("Vector",18);	
-				this.g.drawString(this.dash.slot2Maker.toUpperCase(),185-(this.g.stringWidth(this.dash.slot2Maker.toUpperCase())/2),10); 
-				//this.g.setFont("Vector",13);	
-				//this.g.drawString(this.dash.slot2Mac.substring(0,17),185-(this.g.stringWidth(this.dash.slot2Mac.substring(0,17))/2),78); 
-				this.g.setFont("Vector",30);	
-				this.g.drawString(this.dash.slot1Name,185-(this.g.stringWidth(this.dash.slot1Name)/2),40); 
+				this.g.drawString((this.s2)?this.dash.slot2Name.split("-")[1]:this.dash.slot2Maker.toUpperCase(),185-(this.g.stringWidth((this.s2)?this.dash.slot2Name.split("-")[1]:this.dash.slot2Maker.toUpperCase())/2),10); 
+				this.g.setFont("Vector",35);	
+				this.g.drawString(this.dash.slot2Name.split("-")[0],185-(this.g.stringWidth(this.dash.slot2Name.split("-")[0])/2),50); 
 				this.g.flip();
 			}else if (this.s2) {
 				this.g.setColor(0,col("dgray"));
@@ -72,8 +64,6 @@ face[0] = {
 				this.g.setColor(1,col("white"));
 				this.g.setFont("Vector",22);	
 				this.g.drawString("EMPTY",185-(this.g.stringWidth("EMPTY")/2),40);
-				//this.g.setFont("Vector",18);	
-				//this.g.drawString("TO SET",185-(this.g.stringWidth("TO SET")/2),60);
 				this.g.flip();
 				if (this.s2tid)  clearTimeout(this.s2tid);
 				this.s2tid=setTimeout(function(t){
@@ -82,8 +72,6 @@ face[0] = {
 					t.g.setFont("Vector",22);	
 					t.g.setColor(0,col("black"));
 					t.g.fillRect(122,0,239,97);
-					//t.g.setColor(1,col("black"));
-					//t.g.drawString("EMPTY",185-(t.g.stringWidth("EMPTY")/2),40);
 					t.g.flip();
 				},1000,this);
 			}
@@ -96,11 +84,9 @@ face[0] = {
 				this.g.fillRect(0,100,119,195);
 				this.g.setColor(1,col("white"));
 				this.g.setFont("Vector",18);	
-				this.g.drawString(this.dash.slot3Maker.toUpperCase(),60-(this.g.stringWidth(this.dash.slot3Maker.toUpperCase())/2),110); 
-				//this.g.setFont("Vector",13);	
-				//this.g.drawString(this.dash.slot3Mac.substring(0,17),60-(this.g.stringWidth(this.dash.slot3Mac.substring(0,17))/2),178); 
-				this.g.setFont("Vector",30);	
-				this.g.drawString(this.dash.slot1Name,60-(this.g.stringWidth(this.dash.slot1Name)/2),140); 
+				this.g.drawString((this.s3)?this.dash.slot3Name.split("-")[1]:this.dash.slot3Maker.toUpperCase(),60-(this.g.stringWidth((this.s3)?this.dash.slot3Name.split("-")[1]:this.dash.slot3Maker.toUpperCase())/2),110); 
+				this.g.setFont("Vector",35);	
+				this.g.drawString(this.dash.slot3Name.split("-")[0],60-(this.g.stringWidth(this.dash.slot3Name.split("-")[0])/2),150); 
 				this.g.flip();
 			}else if (this.s3) {
 				this.g.setColor(0,col("dgray"));
@@ -108,8 +94,6 @@ face[0] = {
 				this.g.setColor(1,col("white"));
 				this.g.setFont("Vector",22);	
 				this.g.drawString("EMPTY",60-(this.g.stringWidth("EMPTY")/2),140);
-				//this.g.setFont("Vector",18);	
-				//this.g.drawString("TO SET",60-(this.g.stringWidth("TO SET")/2),160);
 				this.g.flip();
 				if (this.s3tid)  clearTimeout(this.s3tid);
 				this.s3tid=setTimeout(function(t){
@@ -118,8 +102,6 @@ face[0] = {
 					t.g.setFont("Vector",22);	
 					t.g.setColor(0,col("black"));
 					t.g.fillRect(0,100,119,195);
-					//t.g.setColor(1,col("black"));
-					//t.g.drawString("EMPTY",60-(t.g.stringWidth("EMPTY")/2),140);
 					t.g.flip();
 				},1000,this);
 			}
@@ -132,11 +114,9 @@ face[0] = {
 		this.g.fillRect(122,100,239,195);
 				this.g.setColor(1,col("white"));
 				this.g.setFont("Vector",18);	
-				this.g.drawString(this.dash.slot4Maker.toUpperCase(),185-(this.g.stringWidth(this.dash.slot4Maker.toUpperCase())/2),110); 
-				//this.g.setFont("Vector",13);	
-				//this.g.drawString(this.dash.slot4Mac.substring(0,17),185-(this.g.stringWidth(this.dash.slot4Mac.substring(0,17))/2),178); 
-				this.g.setFont("Vector",30);	
-				this.g.drawString(this.dash.slot1Name,185-(this.g.stringWidth(this.dash.slot1Name)/2),140); 
+				this.g.drawString((this.s4)?this.dash.slot4Name.split("-")[1]:this.dash.slot4Maker.toUpperCase(),185-(this.g.stringWidth((this.s4)?this.dash.slot4Name.split("-")[1]:this.dash.slot4Maker.toUpperCase())/2),110); 
+				this.g.setFont("Vector",35);	
+				this.g.drawString(this.dash.slot4Name.split("-")[0],185-(this.g.stringWidth(this.dash.slot4Name.split("-")[0])/2),150); 
 				this.g.flip();
 			}else if (this.s4) {
 				this.g.setColor(0,col("dgray"));
@@ -144,8 +124,6 @@ face[0] = {
 				this.g.setColor(1,col("white"));
 				this.g.setFont("Vector",22);	
 				this.g.drawString("EMPTY",185-(this.g.stringWidth("EMPTY")/2),140);
-				//this.g.setFont("Vector",18);	
-				//this.g.drawString("TO SET",185-(this.g.stringWidth("TO SET")/2),160);
 				this.g.flip();
 				if (this.s4tid)  clearTimeout(this.s2tid);
 				this.s4tid=setTimeout(function(t){
@@ -154,8 +132,6 @@ face[0] = {
 					t.g.setFont("Vector",22);	
 					t.g.setColor(0,col("black"));
 					t.g.fillRect(122,100,239,195);
-					//t.g.setColor(1,col("black"));
-					//t.g.drawString("EMPTY",185-(t.g.stringWidth("EMPTY")/2),140);
 					t.g.flip();
 				},1000,this);
 			}
@@ -227,9 +203,7 @@ touchHandler[0]=function(e,x,y){
 			else if( x<=120 && 100<=y ) this.s=3;   //slot3 
 			else if( 120<=x && 100<=y ) this.s=4;	//slot4
 			if (face[0].dash["slot"+this.s+"Mac"]){
-                //require('Storage').write('dashslot.json',this.s);
                 set.write("dash","slot",this.s);
-				//face[0].dash=require("Storage").readJSON("dash.json",1);
 				if (Boolean(require("Storage").read('eucSlot'+this.s+'.json')))
 					euc.dash=require("Storage").readJSON('eucSlot'+this.s+'.json',1);
 				else euc.dash=require("Storage").readJSON("eucSlot.json",1);
