@@ -137,6 +137,13 @@ euc.conn=function(mac){
 					euc.dash.spdM=((event.target.value.getUint16(8, true)) / 100.0).toFixed(1);
 					euc.dash.fan=event.target.value.buffer[12];
 					break;
+				case 245:
+					euc.dash.cpu=event.target.value.buffer[14];
+					//euc.dash.out=event.target.value.buffer[15];
+					break;
+				case 246:
+					euc.dash.spdL=( event.target.value.getUint16(2, true) / 100 ).toFixed(0); 
+					break;	
 				case 181:
 					print(181);
 					euc.dash.spd1=event.target.value.buffer[4];
