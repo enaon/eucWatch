@@ -57,11 +57,13 @@ euc.conn=function(mac){
 		c.on('characteristicvaluechanged', function(event) {
 			this.var= event.target.value.getUint8(16, true);
 			//print (event.target.value.buffer);
-			if (euc.busy) return;
+            if (euc.busy) return;
+            if (set.bt==4&&euc.dash.emu==1) {
+				euc.emuW(event.target.value.buffer);
+			}
 			switch (this.var){
 				case  169:
 					//forward euc emu
-					if (set.bt==4&&euc.dash.emu==1) euc.emuW(event.target.value.buffer);
 					euc.alert=0;
 					//speed
 					euc.dash.spd= ( event.target.value.getUint16(4, true) / 100 ).toFixed(0); 
@@ -132,7 +134,7 @@ euc.conn=function(mac){
 					}
 					if ((1<euc.dash.spdC||1<euc.dash.ampC)&&!w.gfx.isOn ){
 						face.go(set.dash[set.def.dash],0);
-					};
+					}
 					break;
 				case 185://trip-time-max_speed
 					euc.dash.trpL=(((event.target.value.buffer[2] << 16) + (event.target.value.buffer[3] << 24) + event.target.value.buffer[4] + (event.target.value.buffer[5] << 8)) / 1000.0).toFixed(1);
@@ -178,34 +180,34 @@ euc.conn=function(mac){
 		console.log("EUC connected"); 
 		digitalPulse(D16,1,[90,40,150,40,90]);
 		euc.wri= function(n) {
-			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},500);return;} euc.busy=euc.busy=setTimeout(()=>{euc.busy=0;},500);
+			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},100);return;} euc.busy=setTimeout(()=>{euc.busy=0;},1000);
 			//horn
 			if (n==="hornOn"||n==="hornOff"){
 				c.writeValue(euc.cmd((n==="hornOn")?"strobeOn":"strobeOff")).then(function() {
 					c.writeValue(euc.cmd((n==="hornOn")?"lock":"unlock")).then(function(){
-						if (n==="hornOn") euc.dash.lock=1; else {euc.dash.lock=0;clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/return;}
+						if (n==="hornOn") euc.dash.lock=1; else {euc.dash.lock=0;if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;} return;}
 						if (!BTN1.read()){ 
 							c.writeValue(euc.cmd("unlock")).then(function(){
 								euc.dash.lock=0;
 								c.writeValue(euc.cmd("strobeOff")).then(function(){
-									euc.dash.strb=0;clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/
+									euc.dash.strb=0;if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 								}).catch(function(err)  {
-									clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/
+									if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 									euc.off("err");
 								});
 							}).catch(function(err)  {
-								clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/
+								if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 								euc.off("err");
 							});
 							return;
-						}else clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/
+						}else if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 					}).catch(function(err)  {
-						clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/
+						if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 						euc.off("err");
 					});
 				}).catch(function(err)  {
-					clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/
-					euc.off("err");
+                    if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+                    euc.off("err");
 				});	
 			//toogle
 			}else if (n==="start"||n=="end"){
@@ -214,7 +216,8 @@ euc.conn=function(mac){
 						if (euc.seq==0) {
 							if (n==="start") {
 								c.startNotifications().then(function() {
-									clearTimeout(euc.busy);euc.busy=0;euc.state="READY";
+								    if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}	
+                                    euc.state="READY";
 									if (!euc.dash.name) c.writeValue(euc.cmd("model"));                                  
 								});
 							}else {
@@ -224,7 +227,8 @@ euc.conn=function(mac){
 								}).catch(function(err)  {
 									if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
 									global["\xFF"].BLE_GATTS.disconnect();
-									clearTimeout(euc.busy);euc.busy=0;euc.off("err-5");
+									if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+                                    euc.off("err-5");
 								});
 							}
 							return;
@@ -233,7 +237,8 @@ euc.conn=function(mac){
 							if (euc.seq==0) {
 								if (n==="start") {
 									c.startNotifications().then(function() {
-										clearTimeout(euc.busy);euc.busy=0;euc.state="READY";
+										if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+                                        euc.state="READY";
 										if (!euc.dash.name) c.writeValue(euc.cmd("model"));                                  
 									});
 								}else {
@@ -243,7 +248,8 @@ euc.conn=function(mac){
 									}).catch(function(err)  {
 										if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
 										global["\xFF"].BLE_GATTS.disconnect();
-										clearTimeout(euc.busy);euc.busy=0;euc.off("err-4");
+										if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+                                        euc.off("err-4");
 									});
 								}
 								return;
@@ -251,33 +257,39 @@ euc.conn=function(mac){
 							c.writeValue(euc.cmd((euc.dash.aLck&&euc.dash.passSend)?"unlock":(euc.dash.aLight)?euc.dash.aLight:"lightsAuto")).then(function() {
 								if (euc.seq==0) {
 									c.startNotifications().then(function() {
-										clearTimeout(euc.busy);euc.busy=0;euc.state="READY";
+										if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+                                        euc.state="READY";
 										if (!euc.dash.name) c.writeValue(euc.cmd("model"));                                  
 									});
                                     return;
                                 }
 								c.writeValue(euc.cmd((euc.dash.aLight)?euc.dash.aLight:"lightsAuto")).then(function() {
 									c.startNotifications().then(function() {
-										clearTimeout(euc.busy);euc.busy=0;euc.state="READY";
+										if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+                                        euc.state="READY";
 										if (!euc.dash.name) c.writeValue(euc.cmd("model"));                                  
 									});
                                     return;
 								}).catch(function(err)  {
-									clearTimeout(euc.busy);euc.busy=0;euc.off("err-3");
+									if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+                                    euc.off("err-3");
 								});
 							}).catch(function(err)  {
-								clearTimeout(euc.busy);euc.busy=0;euc.off("err-2");
+								if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+                                euc.off("err-2");
 							});
 						}).catch(function(err)  {
-							clearTimeout(euc.busy);euc.busy=0;euc.off("err-1");
+							if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+                            euc.off("err-1");
 						});
 				}).catch(function(err)  {
-					clearTimeout(euc.busy);euc.busy=0;euc.off("err-0");
+				  if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+                  euc.off("err-0");
 				});
 			//forward if cmd unknown
 			}else if (!euc.cmd(n)) {
 				c.writeValue(n).then(function() {
-					//clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/
+                    clearTimeout(euc.busy);euc.busy=0;           
 				}).catch(function(err)  {
 					clearTimeout(euc.busy);euc.busy=0;euc.off("err-fwd");
 				});
@@ -285,9 +297,10 @@ euc.conn=function(mac){
 			//rest
 			}else{
 				c.writeValue(euc.cmd(n)).then(function() {
-					clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/
+					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 				}).catch(function(err)  {
-					clearTimeout(euc.busy);euc.busy=0;euc.off("err-rest");
+					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+                    euc.off("err-rest");
 				});
 			}
 		};
