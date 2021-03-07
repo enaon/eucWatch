@@ -130,6 +130,9 @@ euc.conn=function(mac){
 						digitalPulse(D16,0,a);  
 						setTimeout(() => { euc.buzz = 0; }, 3000);
 					}
+					if ((1<euc.dash.spdC||1<euc.dash.ampC)&&!w.gfx.isOn ){
+						face.go(set.dash[set.def.dash],0);
+					};
 					break;
 				case 185://trip-time-max_speed
 					euc.dash.trpL=(((event.target.value.buffer[2] << 16) + (event.target.value.buffer[3] << 24) + event.target.value.buffer[4] + (event.target.value.buffer[5] << 8)) / 1000.0).toFixed(1);
