@@ -31,19 +31,9 @@ euc.conn=function(mac){
 			print(this.event);
 			if  ( this.event[18]===0 ) {
 				print("primary packet");
-/*				
-				euc.dash.volt=this.voltage/100;
-				euc.dash.spd=((this.event[6] << 8 | this.event[7]) / 10)|0;
-				euc.dash.trpL=(this.event[10] << 24 | this.event[11] << 16 | this.event[8] << 8  | this.event[9]);
-				euc.dash.trpT=(this.event[14] << 24 | this.event[15] << 16 | this.event[12] << 8  | this.event[13]);
-				euc.dash.amp=((this.event[16] << 8 | this.event[17])/10)|0;
-				euc.dash.tmp=(this.event[18] << 8 | this.event[19]).toFixed(1);	
-*/
 				euc.dash.spd=((this.event[5] << 8 | (this.event[4] & 255) ) * 3.6)|0;
 			} else if ( this.event[18]===4 ){
 				print("Begode frame B (total distance and flags");
-				print(this.event);
-				//euc.dash.trpT=((this.event[6]&255)<<24) + ((this.event[7]&255)<<16) + ((this.event[8]&255)<<8) + (this.event[9]&255)/100;
 			}
 		});
 		//on disconnect
