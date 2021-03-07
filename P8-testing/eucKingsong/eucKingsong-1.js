@@ -134,18 +134,6 @@ euc.conn=function(mac){
 					euc.dash.time=((event.target.value.getUint16(6, true)) / 60.0).toFixed(0);
 					euc.dash.spdM=((event.target.value.getUint16(8, true)) / 100.0).toFixed(1);
 					euc.dash.fan=event.target.value.buffer[12];
-/*				}else if (this.var==245) {
-					euc.dash.cpu=event.target.value.buffer[14];
-					//euc.dash.out=event.target.value.buffer[15];
-				}else if (this.var==246) {
-					euc.dash.spdL=( event.target.value.getUint16(2, true) / 100 ).toFixed(0); 
-				}else if (this.var==181) {
-					print(181);
-					euc.dash.spd1=event.target.value.buffer[4];
-					euc.dash.spd2=event.target.value.buffer[6];
-					euc.dash.spd3=event.target.value.buffer[8];
-					euc.dash.spdT=event.target.value.buffer[10];
-*/
                 } else if (this.var==179) { //serial
 					euc.dash.serial=String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,2,14))+String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,17,3));
 				}else if (this.var==187) { //model
@@ -153,10 +141,6 @@ euc.conn=function(mac){
                     euc.dash.name=String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,5,8));
 					set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",euc.dash.name);
 				}
-				//default :
-				print ("got: ",this.var,event.target.value.buffer);
-				    //print (this.var); //else print(event.target.value.buffer); 
-			
 		});
 		//on disconnect
 		global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
@@ -200,12 +184,12 @@ euc.conn=function(mac){
 			//toogle
 			}else if (n==="start"||n=="end"){
 				if ( n === "end" ) { c.stopNotifications(); }
-				c.writeValue(euc.cmd((n==="start")?"rideLedOn":((euc.dash.aLck)?"lock":(euc.dash.aOff)?"off":"lightsOff"))).then(function() {
+				c.writeValue(euc.cmd((n==="start")?"model":((euc.dash.aLck)?"lock":(euc.dash.aOff)?"off":"lightsOff"))).then(function() {
 						if (euc.seq==0) {
 							if (n==="start") {
 								c.startNotifications().then(function() {
 									clearTimeout(euc.busy);euc.busy=0;euc.state="READY";
-									if (!euc.dash.name) c.writeValue(euc.cmd("model"));                                  
+									if (!euc.dash.name) c.writeValue(euc.cmd("rideLedOn"));                                  
 								});
 							}else {
 								c.writeValue(euc.cmd("rideLedOff")).then(function() {
@@ -224,7 +208,7 @@ euc.conn=function(mac){
 								if (n==="start") {
 									c.startNotifications().then(function() {
 										clearTimeout(euc.busy);euc.busy=0;euc.state="READY";
-										if (!euc.dash.name) c.writeValue(euc.cmd("model"));                                  
+										if (!euc.dash.name) c.writeValue(euc.cmd("rideLedOn"));                                  
 									});
 								}else {
 									c.writeValue(euc.cmd("rideLedOff")).then(function() {
@@ -242,14 +226,14 @@ euc.conn=function(mac){
 								if (euc.seq==0) {
 									c.startNotifications().then(function() {
 										clearTimeout(euc.busy);euc.busy=0;euc.state="READY";
-										if (!euc.dash.name) c.writeValue(euc.cmd("model"));                                  
+										if (!euc.dash.name) c.writeValue(euc.cmd("rideLedOn"));                                  
 									});
                                     return;
                                 }
 								c.writeValue(euc.cmd((euc.dash.aLight)?euc.dash.aLight:"lightsAuto")).then(function() {
 									c.startNotifications().then(function() {
 										clearTimeout(euc.busy);euc.busy=0;euc.state="READY";
-										if (!euc.dash.name) c.writeValue(euc.cmd("model"));                                  
+										if (!euc.dash.name) c.writeValue(euc.cmd("rideLedOn"));                                  
 									});
                                     return;
 								}).catch(function(err)  {
