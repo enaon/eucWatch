@@ -171,9 +171,7 @@ touchHandler[0]=function(e,x,y){
 			if (euc.dash.emu)face[0].ntfy("BRIDGE ENABLED",col("raf2"));
 			else face[0].ntfy("BRIDGE DISABLED",col("dgray"));
 		}else if ( 120<=x && 100<=y ) { //off
-			euc.wri("off");
-			digitalPulse(D16,1,[30,50,30]);	
-			euc.state="OFF";
+			euc.tgl();
 	    }else digitalPulse(D16,1,[100]);
 		this.timeout();
 		break;
