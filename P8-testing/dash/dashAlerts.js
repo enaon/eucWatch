@@ -1,5 +1,4 @@
-
-//kingsong  Alerts
+//dash  Alerts
 face[0] = {
 	offms: 5000,
 	g:w.gfx,
