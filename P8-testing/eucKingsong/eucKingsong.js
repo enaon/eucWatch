@@ -218,7 +218,7 @@ euc.conn=function(mac){
 								c.startNotifications().then(function() {
 								    if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}	
                                     euc.state="READY";
-									if (!euc.dash.name) c.writeValue(euc.cmd("model"));                                  
+									c.writeValue(euc.cmd("model");                                  
 								});
 							}else {
 								c.writeValue(euc.cmd("rideLedOff")).then(function() {
@@ -239,7 +239,7 @@ euc.conn=function(mac){
 									c.startNotifications().then(function() {
 										if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
                                         euc.state="READY";
-										if (!euc.dash.name) c.writeValue(euc.cmd("model"));                                  
+										c.writeValue(euc.cmd("model");                                  
 									});
 								}else {
 									c.writeValue(euc.cmd("rideLedOff")).then(function() {
@@ -259,7 +259,7 @@ euc.conn=function(mac){
 									c.startNotifications().then(function() {
 										if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
                                         euc.state="READY";
-										if (!euc.dash.name) c.writeValue(euc.cmd("model"));                                  
+										c.writeValue(euc.cmd("model");                                  
 									});
                                     return;
                                 }
@@ -267,7 +267,7 @@ euc.conn=function(mac){
 									c.startNotifications().then(function() {
 										if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
                                         euc.state="READY";
-										if (!euc.dash.name) c.writeValue(euc.cmd("model"));                                  
+										c.writeValue(euc.cmd("model");                                  
 									});
                                     return;
 								}).catch(function(err)  {
