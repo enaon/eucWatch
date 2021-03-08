@@ -162,8 +162,10 @@ euc.conn=function(mac){
 					break;
 				case 187://model
                     euc.dash.model=String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,2,11));
-                    euc.dash.name=String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,5,8));
-					set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",euc.dash.name);
+					if (!euc.dash.name) {
+						euc.dash.name=String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,5,8));
+						set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",euc.dash.name);
+					}
 					break;
 				//default :
 				    //print ("got: ",this.var,event.target.value.buffer);
