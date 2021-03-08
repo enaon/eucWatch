@@ -161,8 +161,8 @@ euc.conn=function(mac){
 					euc.dash.serial=String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,2,14))+String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,17,3));
 					break;
 				case 187://model
-                    euc.dash.model=String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,2,11));
 					if (!euc.dash.name) {
+						euc.dash.model=String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,2,11));
 						euc.dash.name=String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,5,8));
 						set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",euc.dash.name);
 					}
