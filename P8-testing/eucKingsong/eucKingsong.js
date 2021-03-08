@@ -86,8 +86,8 @@ euc.conn=function(mac){
 								euc.wri("strobeOff") ;
 							else if  ( 25 < euc.dash.spd && euc.dash.light !== 1  ) 
 								euc.wri("lightsOn") ;
-							else if ( euc.dash.spd < 15 && euc.dash.light !== 0  ) 
-								euc.wri("lightsOff") ;
+							else if ( euc.dash.spd < 15 && euc.dash.light !== 2  ) 
+								euc.wri("lightsAuto") ;
 						}
 					}
 					//amp							 
