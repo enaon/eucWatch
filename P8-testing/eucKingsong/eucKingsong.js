@@ -349,7 +349,7 @@ euc.off=function(err){
 		}
 	} else {
 		if (set.def.cli) console.log("EUC OUT:",err);
-		global["\xFF"].bleHdl=[];
+			//global["\xFF"].bleHdl=[];
 			clearTimeout(euc.busy);euc.busy=0;
 			euc.off=function(){if (set.def.cli) console.log("EUC allready killed at:",err);};
 			delete euc.conn;
