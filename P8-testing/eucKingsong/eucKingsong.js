@@ -350,11 +350,13 @@ euc.off=function(err){
 	} else {
 		if (set.def.cli) console.log("EUC OUT:",err);
 			//global["\xFF"].bleHdl=[];
+			euc.dash.aOff=euc.aOff;
 			clearTimeout(euc.busy);euc.busy=0;
 			euc.off=function(){if (set.def.cli) console.log("EUC allready killed at:",err);};
 			delete euc.conn;
 			delete euc.wri;
 			delete euc.cmd;
+			delete euc.aoff;
             euc.run=0;
 			NRF.setTxPower(set.def.rfTX);	
     }
