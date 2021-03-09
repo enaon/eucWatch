@@ -309,7 +309,7 @@ euc.conn=function(mac){
                 //print(global["\xFF"].bleHdl[54].value.buffer[0]);
                 if (global["\xFF"].bleHdl[54].value.buffer[0]==65 ||global["\xFF"].bleHdl[54].value.buffer[0]==188){
                     euc.wri("start");
-				}
+				} else c.startNotifications();
             },1000);
         }
 	//reconect
