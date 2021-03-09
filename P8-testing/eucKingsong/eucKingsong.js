@@ -302,7 +302,7 @@ euc.conn=function(mac){
 			}
 		};
 		if (!euc.run) { 
-        euc.wri("start");
+			euc.wri("start");
         } else {
             euc.state="READY";
             setTimeout(()=>{ 
