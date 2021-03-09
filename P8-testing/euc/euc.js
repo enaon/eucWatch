@@ -17,6 +17,7 @@ global.euc= {
 			if (!set.def.acc) {acc.off();}
 			this.seq=1;
 			this.state="OFF";
+   			face.go(set.dash[set.def.dash],0);
 			this.updateDash(require("Storage").readJSON("dash.json",1).slot);
 			//if (this.kill) clearTimout(this.kill);
 			//this.kill=setTimeout(()=>{
@@ -24,9 +25,9 @@ global.euc= {
 			if (require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]!="Ninebot") 
 				euc.wri("end");
 			else  
-               euc.wri(0);
+				euc.wri(0);
 			if (euc.busy)euc.busy=0;
-			face.go(set.dash[set.def.dash],0);return;
+			return;
 		}else {
 			NRF.setTxPower(4);
 			digitalPulse(D16,1,100); 
