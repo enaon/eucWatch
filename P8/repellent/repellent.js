@@ -50,11 +50,12 @@ face[0]= {
 	rep.go=(require("Storage").readJSON("setting.json",1)||{}).repellent_go;
     rep.con=0;
     var g=w.gfx;
+  	g.clear();
     g.setColor(1,col("lgray"));//header bck
 	g.fillRect(120,0,239,50); //header
     g.fillRect(0,0,117,50); //status
     g.fillRect(0,200,239,239); //mac
-    g.setColor(0,col("black"));//header txt
+    g.setColor(0,0);//header txt
     g.setFont("Vector",25);
 	g.drawString("INSECT",4,3); 
     g.setFont("Vector",20);
@@ -159,7 +160,7 @@ face[0]= {
     if (rep.sta!=this.sta) {
       this.sta=rep.sta;
       var s;
-      if (this.sta==0) {s="OFF";this.c=col("black");this.b=col("gray");}
+      if (this.sta==0) {s="OFF";this.c=0;this.b=col("gray");}
       else if (this.sta==1) {s="ON";this.c=col("white");this.b=col("raf");}
       else if (this.sta==3) {s="AUTO";this.c=col("yellow");this.b=col("raf");}
       g.setColor(1,this.b);
@@ -173,7 +174,7 @@ face[0]= {
       this.mac=rep.mac[rep.go];
       g.setColor(1,col("lgray"));
       g.fillRect(0,200,239,239); //mac
-      g.setColor(0,col("black"));
+      g.setColor(0,0);
       g.setFont("Vector",28);
       g.drawString(rep.mac[rep.go].substring(0,17),120-(g.stringWidth(rep.mac[rep.go].substring(0,17))/2),210);
       g.flip();
@@ -189,7 +190,7 @@ face[0]= {
   run:false,
   clear : function(){
     var g=w.gfx;
-    pal[0]=col("black");
+    pal[0]=0;
     g.clear();
     this.exit();
     return true;
@@ -234,9 +235,9 @@ touchHandler[0]=function(e,x,y){
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
         else w.gfx.bri.set(this.bri);
 		digitalPulse(D16,1,[30,50,30]);
-      }else if (y>200) {  
+      }else  {  
 		face.go("settings",0);return;
-	  } else digitalPulse(D16,1,40);
+	  } 
     }else if  (e==3){
 	  face.go("settings",0);return;
     }else if  (e==4){

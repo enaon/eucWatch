@@ -3,41 +3,92 @@ face[0] = {
   offms: 5000, 
   g:w.gfx, 
   init: function(o){ 
-    this.g.setColor(0,col("black"));
-    this.g.setColor(1,col("dgray"));
-    this.g.fillRect(0,0,239,95);
-    this.g.flip();   
-    this.g.setColor(1,col("dgray"));
-    this.g.setColor(0,col("white"));
-	this.g.setFont("Vector",26);
-  	this.g.drawString("KINGSONG",120-(this.g.stringWidth("KINGSONG")/2),38); 
-    this.g.flip();
-    this.g.setColor(1,col("dgray"));
-    this.g.fillRect(0,100,239,195);
-    this.g.flip();
-    this.g.setColor(1,col("dgray"));
-    this.g.setColor(0,col("white"));
-    this.g.drawString("NINEBOT",120-(this.g.stringWidth("NINEBOT")/2),130);
-	this.g.setFont("Vector",14);
-    this.g.drawString("ONE C/E/P",120-(this.g.stringWidth("ONE C/E/P")/2),165);
-    this.g.flip();
-    this.g.setColor(0,col("black"));
+    this.g.setColor(0,0);
+    this.g.fillRect(0,205,239,239);
     this.g.setColor(1,col("white"));
     this.g.setFont("Vector",20);
-	this.g.drawString("SCAN FOR",120-(this.g.stringWidth("SCAN FOR")/2),214);
+	this.g.drawString("SCAN FOR",120-(this.g.stringWidth("SCAN FOR")/2),217);
     this.g.flip();
+	this.page(1);
+
   },
   show : function(o){
 	return;
   },
+  page : function(n) {
+	this.set=n;
+    this.g.setColor(0,col("dgray"));
+    this.g.fillRect(0,0,239,96);
+    this.g.setColor(1,col("white"));
+	this.g.setFont("Vector",26);
+  	this.g.drawString((n==1)?"KINGSONG":(n==2)?"BEGODE":"NINEBOT",120-(this.g.stringWidth((n==1)?"KINGSONG":(n==2)?"BEGODE":"NINEBOT")/2),38); 
+	this.g.setFont("Vector",14);
+    this.g.drawString((n==1)?"":(n==2)?"":"ONE Z10",120-(this.g.stringWidth((n==1)?"":(n==2)?"":"ONE Z10")/2),73);
+    this.g.flip();
+	this.g.setColor(0,0);	
+	this.g.drawLine(0,97,239,97);
+	this.g.drawLine(0,98,239,98);
+    this.g.flip();
+    this.g.setColor(0,col("dgray"));
+    this.g.fillRect(0,99,239,195);
+    this.g.setColor(1,col("white"));
+	this.g.setFont("Vector",26);
+    this.g.drawString((n==1)?"INMOTION":(n==2)?"VETERAN":"NINEBOT",120-(this.g.stringWidth((n==1)?"INMOTION":(n==2)?"VETERAN":"NINEBOT")/2),130);
+	this.g.setFont("Vector",14);
+    this.g.drawString((n==1)?"":(n==2)?"":"ONE C/E/P",120-(this.g.stringWidth((n==1)?"":(n==2)?"":"ONE C/E/P")/2),165);
+    this.g.flip();
+	this.g.setColor(0,col("black"));
+	this.g.fillRect(0,196,239,204);
+	this.g.setColor(1,col("lgray"));
+    this.g.fillRect(75,200,165,204);
+    this.g.flip();
+    this.g.setColor(1,col("white"));
+    if (n===1) this.g.fillRect(75,200,105,204);
+    else if (n===2) this.g.fillRect(105,200,135,204);
+    else this.g.fillRect(135,200,165,204);
+	this.g.flip();
+	this.g.setColor(0,0);
+    this.g.fillRect(0,205,239,239);
+    this.g.setColor(1,col("white"));
+    this.g.setFont("Vector",20);
+	this.g.drawString("SCAN FOR",120-(this.g.stringWidth("SCAN FOR")/2),217);
+	this.g.flip();
+
+  },
+  ntfy: function(txt1,txt0,size,clr,bt){
+            this.g.setColor(0,clr);
+			this.g.fillRect(0,198,239,239);
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",size);
+     		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
+			this.g.flip();
+			if (this.ntid) clearTimeout(this.ntid);
+			this.ntid=setTimeout(function(t){
+                t.ntid=0;
+				t.g.setColor(0,0);
+				t.g.fillRect(0,205,239,239);
+				t.g.setColor(1,col("white"));
+				t.g.setFont("Vector",20);
+		        t.g.drawString("SCAN FOR",120-(t.g.stringWidth("SCAN FOR")/2),217); 
+				t.g.flip();
+				t.g.setColor(0,col("black"));
+				t.g.fillRect(0,196,239,204);
+				t.g.setColor(1,col("lgray"));
+				t.g.fillRect(75,200,165,204);
+				t.g.flip();
+				t.g.setColor(1,col("white"));
+				if (face[0].set===1) t.g.fillRect(75,200,105,204);
+				else if (face[0].set===2) t.g.fillRect(105,200,135,204);
+				else t.g.fillRect(135,200,165,204);
+				t.g.flip(); 
+			},1000,this);
+  },
   tid:-1,
   run:false,
   clear : function(){  
-    pal[0]=col("black"); 
-    this.g.clear(); 
     this.run=false;
-    if (this.tid>=0) clearTimeout(this.tid); 
-    this.tid=-1;
+	if (this.ntid) clearTimeout(this.ntid); this.ntid=0;
+    if (this.tid>=0) clearTimeout(this.tid); this.tid=-1;
     return true;
   },
   off: function(){
@@ -51,11 +102,7 @@ face[1] = {
   return true;
   },//only use this part of the face to set redirection.
   show : function(){
-   	face.go(face.appRoot[0],face.appRoot[1]); //go to the previous face on screen of the previous app.  
-	//face.go(face.appPrev,face.pagePrev); //go to the previous face on screen, even if it was on the same app. 
-  	//face.go("hello",-1); //sleep and set this face as the on_wake face. 
-	//face.go("main",-1);//sleep and set this face as the on_wake face. 
-	//face.go("main",0);//go to main Clock face. 
+    face.go("dashGarage",0);
     return true;
   },
    clear: function(){
@@ -69,19 +116,49 @@ touchHandler[0]=function(e,x,y){
   switch (e) {
   case 5: case 12: //tap event//long press event
 	this.timeout();
-	//kingsong
     if(0<y&&y<100) {
-	  digitalPulse(D16,1,[30,50,30]);
-	  (s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"_maker"]="kingsong")&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
-      //face.appCurr=set.dash[set.def.dash];
-	  face.go('w_scan',0,'fff0');
-      return;
-	//ninebot
+		digitalPulse(D16,1,[30,50,30]);
+		if ( face[0].set === 1 ) { //kingsong
+			if (!Boolean(require("Storage").read('eucKingsong'))) {	face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
+            set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Kingsong");
+			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","KS-NO NAME");
+			euc.dash.name=0;
+			euc.dash.maker="Kingsong"; 
+			face.go('w_scan',0,'fff0'); 
+            return;
+        }else if ( face[0].set === 2 ) { //begode
+            set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Begode");
+			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","BG-NO NAME");
+			euc.dash.name=0;
+			euc.dash.maker="Begode";
+			face.go('w_scan',0,'ffe0'); 
+			//face[0].ntfy("NOT YET","",20,col("red"),1);
+        }else if ( face[0].set === 3 ) { //Ninebot Z
+            //set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","NinebotZ");
+			//euc.dash.maker="NinebotZ";
+			face[0].ntfy("NOT YET","",20,col("red"),1);
+		}
     }else if(100<y&&y<200) {
-	  digitalPulse(D16,1,[30,50,30]);
-	  (s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"_maker"]="ninebot")&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
-      //face.appCurr=set.dash[set.def.dash];
-      face.go('w_scan',0,'ffe0');
+		digitalPulse(D16,1,[30,50,30]);
+		if ( face[0].set === 1 ) {
+			//(s=>{s&&(s["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]="Inmotion")&&require('Storage').write('dash.json',s);})(require('Storage').readJSON('dash.json',1));
+			//euc.dash.maker="Inmotion";
+			face[0].ntfy("NOT YET","",20,col("red"),1);
+        }else if ( face[0].set === 2 ) {
+			if (!Boolean(require("Storage").read('eucVeteran'))) {	face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
+            set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Veteran");
+			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","SM-NO NAME");
+			euc.dash.name=0;
+			euc.dash.maker="Veteran";
+			face.go('w_scan',0,'ffe0'); return;
+        }else if ( face[0].set === 3 ) {
+			if (!Boolean(require("Storage").read("eucNinebot"))) {	face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
+            set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Ninebot");
+			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","E+-NO NAME");
+			euc.dash.name=0;
+			euc.dash.maker="Ninebot";
+			face.go('w_scan',0,'ffe0'); return;
+		}
     }else digitalPulse(D16,1,40); 
     break;
   case 1: //slide down event
@@ -93,17 +170,28 @@ touchHandler[0]=function(e,x,y){
       else w.gfx.bri.set(this.bri);
       digitalPulse(D16,1,[30,50,30]);
       this.timeout();
-    }else if (y>190) {
-	  if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-  } else {digitalPulse(D16,1,40);this.timeout();}
+    }else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
+	this.timeout();
     break;
   case 3: //slide left event
-    digitalPulse(D16,1,40);    
+	if ( face[0].set < 3 ) {
+		if (face[0].ntid) clearTimeout(face[0].ntid); face[0].ntid=0;
+		face[0].set ++ ;
+		face[0].page(face[0].set);
+    }else digitalPulse(D16,1,40);    
 	this.timeout();
     break;
   case 4: //slide right event (back action)
-    face.go("dashSelect",0);
-	return;
+    if ( 1 < face[0].set ) {
+		if (face[0].ntid) clearTimeout(face[0].ntid); face[0].ntid=0;
+ 		face[0].set -- ;
+		face[0].page(face[0].set); 
+        this.timeout();
+    } else {
+      face.go("dashGarage",0);
+      return;
+    }
+    break;
   }
 };
 

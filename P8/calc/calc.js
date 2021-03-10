@@ -21,6 +21,7 @@ face[0] = {
   },
   init: function(){
 //rows
+	this.g.clear();
     this.g.setColor(1,col("lgray"));
     this.g.fillRect(0,40,57,90);//1
     this.g.fillRect(60,40,117,90);//2
@@ -173,7 +174,6 @@ face[0] = {
   run:false,
   clear : function(o){
     pal[0]=col("black");
-    this.g.clear();
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
     this.tid=-1;
@@ -277,7 +277,6 @@ face[5] = {
   run:false,
   clear : function(o){
     pal[0]=col("black");
-    this.g.clear();
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
     this.tid=-1;
@@ -356,9 +355,9 @@ touchHandler[0]=function(e,x,y){
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
         else w.gfx.bri.set(this.bri);
 		digitalPulse(D16,1,[30,50,30]);
-      }else if (y>200) {  
+      }else //if (y>200) {  
 		face.go("settings",0);return;
-      }else digitalPulse(D16,1,40);
+      //}else digitalPulse(D16,1,40);
     }else if  (e==3){ //slide left
 		face.go("calc",5);return;
     }else if  (e==4){ //slide right
@@ -398,8 +397,6 @@ touchHandler[5]=function(e,x,y){
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
         else w.gfx.bri.set(this.bri);
 		digitalPulse(D16,1,[30,50,30]);
-      }else if (y>200) {  
-		face.go("settings",0);return;
       }else digitalPulse(D16,1,40);    
     }else if  (e==3){
       if (face[5].hist<calc.hist.length-1){

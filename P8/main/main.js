@@ -1,18 +1,19 @@
 
 //main
 face[0] = {
-  offms: 5000,
+  offms: 10000,
   g:w.gfx,
   init: function(){
+	this.g.clear();
     this.startTime=getTime();
     this.v=w.battVoltage(1);
     //top
-    pal[0]=col("black");
+    pal[0]=0;
     this.g.setColor(1,col("lgray"));
     this.g.fillRect(0,0,158,50); //date
     this.g.fillRect(162,0,239,50);//batt
     if (face.pagePrev!=2){this.g.fillRect(0,55,100,150);}
-    this.g.setColor(0,col("black"));
+    this.g.setColor(0,0);
     this.g.flip();
     this.wupd=1;
     this.bt=-1;
@@ -75,7 +76,7 @@ face[0] = {
 		this.g.fillRect(0,0,15,50); //date
 //		var colbtf=col("white");
         var colbtf=4095;
-//        if (set.bt==0) colbtf=col("black");
+//        if (set.bt==0) colbtf=0;
         if (set.bt==0) colbtf=0;
         this.g.setColor(1,colbtf);
 		this.g.drawImage(E.toArrayBuffer(atob("CxQBBgDgFgJgR4jZMawfAcA4D4NYybEYIwTAsBwDAA==")),3,13);
@@ -147,7 +148,7 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
     //push-(wip)   
 	if (notify.ring){
 	if (this.ring!=notify.ring){
-	  this.ring=notify.ring;this.g.setColor(0,col("black"));this.g.clearRect(0,151,239,239);this.g.setColor(1,col("white"));
+	  this.ring=notify.ring;this.g.setColor(0,0);this.g.clearRect(0,151,239,239);this.g.setColor(1,col("white"));
       this.g.setFont("Vector",26);
       this.g.drawString((notify.in.name.length>16)?notify.in.name.substr(0,13)+"...":notify.in.name,122-(this.g.stringWidth((notify.in.name.length>16)?notify.in.name.substr(0,13)+"...":notify.in.name))/2,168); //Name
 	  this.g.drawString((notify.in.number.length>16)?notify.in.number.substr(0,13)+"...":notify.in.number,122-(this.g.stringWidth((notify.in.number.length>16)?notify.in.number.substr(0,13)+"...":notify.in.number))/2,210); //Number
@@ -156,7 +157,7 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
 	}else if (this.nCall!=notify.nCall||this.nInfo!=notify.nInfo||this.nIm!=notify.nIm) {
       this.nInfo=notify.nInfo;this.nCall=notify.nCall;this.nIm=notify.nIm;this.New=notify.New;
       if (notify.nCall||notify.nIm||notify.nInfo){
-		this.g.setColor(0,col("black"));
+		this.g.setColor(0,0);
 		this.g.clearRect(0,151,239,239);		  
         if (this.nCall)  {this.msg=JSON.parse(notify.call[0]);this.cf=col("red");}
 	    else if (this.nIm)  {this.msg=JSON.parse(notify.im[0]);this.cf=col("lblue");}
@@ -170,7 +171,7 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
       }else if (this.wupd&&notify.weather&&!this.New){
 		//this.widp=1;
 		this.wupd=0;  	
-		this.g.setColor(0,col("black"));
+		this.g.setColor(0,0);
 		this.g.clearRect(0,151,239,239);
 		this.g.setColor(1,col("white"));//
 		this.g.setFont("Vector",25);
@@ -185,7 +186,7 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
 		this.img=-1;
 	  }else {
 //		this.g.setColor(1,col("raf2"));
-		this.g.setColor(0,col("black"));
+		this.g.setColor(0,0);
 		this.g.fillRect(0,151,239,239);
 		this.g.setColor(1,col("white"));//
 		this.g.setFont("Vector",25);
@@ -207,7 +208,7 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
     this.min=this.t[1];
     this.g.setFont("Vector",66);
 	this.fmin=col("lblue");
-    this.fsec=col("black");
+    this.fsec=0;
 	if (global.alrm) {
     if (alrm.buzz!=-1) {this.bmin=col("gray");this.fmin=col("yellow");this.fsec=col("gray");this.bsec=col("yellow");}
     else if (alrm[1].tmr!==-1||alrm[2].tmr!==-1||alrm[3].tmr!==-1) {this.bmin=col("raf");this.bsec=col("raf");}
@@ -242,8 +243,6 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
   tid:-1,
   run:false,
   clear : function(){
-    pal[0]=col("black");
-    this.g.clear();
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
     this.tid=-1;
@@ -312,9 +311,9 @@ touchHandler[0]=function(e,x,y){
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
         else w.gfx.bri.set(this.bri);
 		digitalPulse(D16,1,[30,50,30]);
-     }else if (y>190) {
+     }else //if (y>160) {
 		if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
-	  } else digitalPulse(D16,1,40);
+	  //} else digitalPulse(D16,1,40);
     }else if  (e==3){
 		if (Boolean(require("Storage").read(set.dash[set.def.dash]))) {face.go(set.dash[set.def.dash],0);return;}
 		else if (Boolean(require("Storage").read("alarm"))) {face.go("alarm",0);return;}

@@ -58,8 +58,8 @@ face[0]= {
   init: function(){
     var d=(Date()).toString().split(' ');
     var t=(d[4]).toString().split(':');
-    this.g.setColor(0,col("black"));//header bck
-    this.g.fillRect(0,0,239,35); 
+    this.g.setColor(0,0);//header bck
+    this.g.fillRect(0,0,239,38); 
     this.g.setColor(1,col("lblue"));//header txt
     this.g.setFont("Vector",25);
 	this.g.drawString("ALARMS",4,6); 
@@ -78,29 +78,38 @@ face[0]= {
       this.al1=alrm[1].tmr;
       this.c=col("white");
       if (this.al1!==-1) this.g.setColor(1,col("dblue"));
-      else { this.g.setColor(1,col("lgray")); this.c=col("black");}
+      else { this.g.setColor(1,col("lgray")); this.c=0;}
       if (alrm[1].on===1)  this.c=col("yellow");
-      this.g.fillRect(0,39,239,103); //1
+      this.g.fillRect(0,39,239,104); //1
       this.g.setColor(0,this.c);
       this.g.drawString(this.pad(alrm[1].hour)+":"+this.pad(alrm[1].min),120-(this.g.stringWidth(this.pad(alrm[1].hour)+":"+this.pad(alrm[1].min)))/2,50); 
   	  this.g.flip();
+      this.g.setColor(0,0);
+      this.g.drawLine(0,105,239,105);
+      this.g.drawLine(0,106,239,106);
+   	  this.g.flip();
     }
     if (alrm[2].tmr!=this.al2) {
       this.al2=alrm[2].tmr;
 	  this.c=col("white");
       if (this.al2!==-1) this.g.setColor(1,col("dblue"));
-      else { this.g.setColor(1,col("gray")); this.c=col("black");}
+      else { this.g.setColor(1,col("gray")); this.c=0;}
       if (alrm[2].on===1)  this.c=col("yellow");
-      this.g.fillRect(0,107,239,171); //2
+      this.g.fillRect(0,107,239,172); //2
       this.g.setColor(0,this.c);
      this.g.drawString(this.pad(alrm[2].hour)+":"+this.pad(alrm[2].min),120-(this.g.stringWidth(this.pad(alrm[2].hour)+":"+this.pad(alrm[2].min)))/2,118); 
   	  this.g.flip();
+      this.g.setColor(0,0);
+      this.g.drawLine(0,173,239,173);
+      this.g.drawLine(0,174,239,174);
+
+   	  this.g.flip();
     } 
     if (alrm[3].tmr!=this.al3) {
       this.al3=alrm[3].tmr;
       this.c=col("white");
       if (this.al3!==-1) this.g.setColor(1,col("dblue"));
-      else { this.g.setColor(1,col("lgray")); this.c=col("black");}
+      else { this.g.setColor(1,col("lgray")); this.c=0;}
       if (alrm[3].on===1)  this.c=col("yellow");
       this.g.fillRect(0,175,239,239); //3
       this.g.setColor(0,this.c);
@@ -115,8 +124,6 @@ face[0]= {
   tid:-1,
   run:false,
   clear : function(){
-    pal[0]=col("black");
-    this.g.clear();
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
     this.tid=-1;
@@ -143,106 +150,102 @@ face[1] = {
 };	
 //setup face
 face[5] = {
-  offms: 5000,
-  g:w.gfx,
-  al:{
-  1:{hour:0,min:0,rep:0,snz:0,on:0,set:0},
-  2:{hour:0,min:0,rep:0,snz:0,on:0,set:0},
-  3:{hour:0,min:0,rep:0,snz:0,on:0,set:0},
-  curr:-1
-  },
-  pad:function pad(n) {
-    return (n < 10) ? ("0" + n) : n;
-  }, 
-  init: function(o){
-    this.al[o].hour=-1;
-    this.al[o].min=-1;
-    this.al[o].rep=-1;
-    this.al[o].snz=-1;
-    this.al.curr=o;
-    var d=(Date()).toString().split(' ');
-    var t=(d[4]).toString().split(':');
-    this.g.setColor(0,col("black")); //header
-    this.g.fillRect(0,0,239,35); 
-    this.g.setColor(1,col("lblue"));
-    this.g.setFont("Vector",25);
-	this.g.drawString("SET AL"+this.al.curr,4,6); 
-    this.g.setFont("Vector",32);
-  	this.g.drawString(t[0]+":"+t[1],242-(this.g.stringWidth(t[0]+":"+t[1])),3); 
-    this.g.flip();
-  	this.run=true;
+	offms: 5000,
+	g:w.gfx,
+	al:{
+		1:{hour:0,min:0,rep:0,snz:0,on:0,set:0},
+		2:{hour:0,min:0,rep:0,snz:0,on:0,set:0},
+		3:{hour:0,min:0,rep:0,snz:0,on:0,set:0},
+		curr:-1
+	},
+	pad:function pad(n) {
+		return (n < 10) ? ("0" + n) : n;
+	}, 
+	init: function(o){
+		this.al[o].hour=-1;
+		this.al[o].min=-1;
+		this.al[o].rep=-1;
+		this.al[o].snz=-1;
+		this.al.curr=o;
+		var d=(Date()).toString().split(' ');
+		var t=(d[4]).toString().split(':');
+		this.g.setColor(0,0); //header
+		this.g.fillRect(0,0,239,35); 
+		this.g.setColor(1,col("lblue"));
+		this.g.setFont("Vector",25);
+		this.g.drawString("SET AL"+this.al.curr,4,6); 
+		this.g.setFont("Vector",32);
+		this.g.drawString(t[0]+":"+t[1],242-(this.g.stringWidth(t[0]+":"+t[1])),3); 
+		this.g.flip();
+		this.run=true;
   },
   show : function(o){
     if (!this.run) return;
     if (alrm[o].hour!=this.al[o].hour) {
-      this.al[o].hour=alrm[o].hour;
-      this.g.setColor(0,col("lgray"));
-      this.g.fillRect(0,39,121,181);//hour
-      if (alrm[o].tmr!=-1) this.g.setColor(1,col("lblue"));else this.g.setColor(1,col("white"));
-      this.g.setFont("Vector",75);  
-      this.g.drawString(this.pad(this.al[o].hour),66-(this.g.stringWidth(this.pad(this.al[o].hour)))/2,70); 
-  	  this.g.flip();
+		this.al[o].hour=alrm[o].hour;
+		this.g.setColor(0,col("lgray"));
+		this.g.fillRect(0,39,121,181);//hour
+		if (alrm[o].tmr!=-1) this.g.setColor(1,col("lblue"));else this.g.setColor(1,col("white"));
+		this.g.setFont("Vector",75);  
+		this.g.drawString(this.pad(this.al[o].hour),66-(this.g.stringWidth(this.pad(this.al[o].hour)))/2,70); 
+		this.g.flip();
     }
     if (alrm[o].min!=this.al[o].min) {
-      this.al[o].min=alrm[o].min;
-      if (alrm[o].tmr!=-1){
-        this.g.setColor(0,col("raf2"));
-        this.g.fillRect(122,39,239,181);//min
-        this.g.setColor(1,col("lblue"));
-      }else {
-        this.g.setColor(0,col("gray"));
-        this.g.fillRect(122,39,239,181);//min
-        this.g.setColor(1,col("white"));
-      }
-      this.g.setFont("Vector",75);  
-      this.g.drawString(this.pad(this.al[o].min),190-(this.g.stringWidth(this.pad(this.al[o].min)))/2,70); 
-  	  this.g.flip();
+		this.al[o].min=alrm[o].min;
+		if (alrm[o].tmr!=-1){
+			this.g.setColor(0,col("raf2"));
+			this.g.fillRect(122,39,239,181);//min
+			this.g.setColor(1,col("lblue"));
+		}else {
+			this.g.setColor(0,col("gray"));
+			this.g.fillRect(122,39,239,181);//min
+			this.g.setColor(1,col("white"));
+		}
+	this.g.setFont("Vector",75);  
+	this.g.drawString(this.pad(this.al[o].min),190-(this.g.stringWidth(this.pad(this.al[o].min)))/2,70); 
+	this.g.flip();
     }
     if (alrm[o].snz!=this.al[o].snz) {
-      this.al[o].snz=alrm[o].snz;
-      this.c=col("black");
-      if (this.al[o].snz===1)  { this.g.setColor(0,col("dblue"));this.c=col("white");}
-      else this.g.setColor(0,col("gray")); 
-      this.g.fillRect(0,185,120,239);//snooze
-      this.g.setColor(1,this.c);
-      this.g.setFont("Vector",25);  
-      this.g.drawString("SNOOZE",4,202); 
-  	  this.g.flip();
+		this.al[o].snz=alrm[o].snz;
+		this.c=0;
+		if (this.al[o].snz===1)  { this.g.setColor(0,col("dblue"));this.c=col("white");}
+		else this.g.setColor(0,col("gray")); 
+		this.g.fillRect(0,185,120,239);//snooze
+		this.g.setColor(1,this.c);
+		this.g.setFont("Vector",25);  
+		this.g.drawString("SNOOZE",4,202); 
+		this.g.flip();
+		this.g.setColor(0,col("gray"));
+		this.g.drawLine (121,185,121,239);
+		this.g.flip();
     }
     if (alrm[o].rep!=this.al[o].rep) {
-      this.al[o].rep=alrm[o].rep;
-      this.c=col("black");
-      if (this.al[o].rep===1) { this.g.setColor(0,col("dblue"));this.c=col("white");}
-      else this.g.setColor(0,col("gray")); 
-      this.g.fillRect(123,185,239,239);//repeat
-      this.g.setColor(1,this.c);
-      this.g.setFont("Vector",25);  
-      this.g.drawString("REPEAT",130,202); 
-  	  this.g.flip();
+		this.al[o].rep=alrm[o].rep;
+		this.c=0;
+		if (this.al[o].rep===1) { this.g.setColor(0,col("dblue"));this.c=col("white");}
+		else this.g.setColor(0,col("gray")); 
+		this.g.fillRect(122,185,239,239);//repeat
+		this.g.setColor(1,this.c);
+		this.g.setFont("Vector",25);  
+		this.g.drawString("REPEAT",130,202); 
+		this.g.flip();
     }
     this.tid=setTimeout(function(t){
-      t.tid=-1;
-      t.show(o);
+		t.tid=-1;
+		t.show(o);
     },100,this);
-  },
-  tid:-1,
-  run:false,
-
-  clear : function(){
-    pal[0]=col("black");
-    this.g.clear();
-    this.exit();
-    return true;
-  },
-  exit: function(){
-    this.run=false;
-    if (this.tid>=0) clearTimeout(this.tid);
-    this.tid=-1;
-    return true;
-  },
-  off: function(){
-    this.g.off();
-    this.clear();
+	},
+	tid:-1,
+	run:false,
+	clear : function(){
+		this.run=false;
+		if (this.tid>=0) clearTimeout(this.tid);
+		this.tid=-1;
+		return true;
+	},
+	off: function(){
+		this.g.off();
+		this.clear();
   }
 };
 //touch main
@@ -266,9 +269,7 @@ touchHandler[0]=function(e,x,y){
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
         else w.gfx.bri.set(this.bri);
 		digitalPulse(D16,1,[30,50,30]);
-      }else if (y>200) {  
-		face.go("settings",0);return;
-	  } else digitalPulse(D16,1,40);
+      }else {face.go("settings",0);return;}
     }else if  (e==3){
 	  if(39<y&&y<105) {
 		if(alrm[1].on===1) {alrm.stop(1);face[0].al1=-2;}
@@ -283,7 +284,6 @@ touchHandler[0]=function(e,x,y){
     }else if  (e==4){
   	  face.go("main",0);return;
  	  //face.go(face.appPrev, face.pagePrev);
-	  return;
     }else if  (e==12){		
 	  if(39<y&&y<105) {
 		if(alrm[1].on===1) {alrm.stop(1);face[0].al1=-2;}
@@ -327,8 +327,8 @@ touchHandler[5]=function(e,x,y){
       } else if(x>=210&&y<200){ 
 		alrm[a].min++;
 		if (alrm[a].min>59) {alrm[a].min=alrm[a].min-60; alrm[a].hour=alrm[a].hour+1;}
-      }else if (y>200) {
-		face.go("settings",0);return;
+//      }else if (y>200) {
+//		face.go("settings",0);return;
 	  } else digitalPulse(D16,1,40);
     }else if  (e==1){
 	  if(x<30&&y<185) { 

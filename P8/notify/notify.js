@@ -3,7 +3,7 @@ face[0] = {
   offms: 5000,
   g:w.gfx,
   init: function(){
-    this.g.setColor(1,col("black"));
+    this.g.setColor(1,0);
 	this.g.fillRect(0,0,239,239);this.g.setColor(0,col("dgray"));this.g.fillRect(0,0,170,77);this.g.fillRect(175,0,239,77);this.g.fillRect(0,83,170,157);this.g.fillRect(175,83,239,157);this.g.fillRect(0,163,170,249);this.g.fillRect(175,163,239,249);
 	this.g.flip();
 	this.g.setColor(1,col("lblue"));	
@@ -69,8 +69,7 @@ face[0] = {
   tid:-1,
   run:false,
   clear : function(o){
-    pal[0]=col("black");
-    this.g.clear();
+    pal[0]=0;
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
     this.tid=-1;
@@ -201,7 +200,7 @@ face[5] = {
   tid:-1,
   run:false,
   clear : function(o){
-    pal[0]=col("black");
+    pal[0]=0;
     this.g.clear();
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
@@ -238,9 +237,9 @@ touchHandler[0]=function(e,x,y){
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
         else w.gfx.bri.set(this.bri);
 		digitalPulse(D16,1,[30,50,30]);
-      }else if (y>190) {
+      }else {
 		face.go("settings",0);return;
-	  } else digitalPulse(D16,1,40);
+	  } 
     }else if  (e==3){
 		//digitalPulse(D16,1,40);
 		face.go("main",0);return;

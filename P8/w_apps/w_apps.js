@@ -23,7 +23,7 @@ this.img=E.toArrayBuffer(atob("MDCBAAAAAAAAAAAB//gAAAAH//8AAABH///AAAPP///wAAPP/
 g.drawImage(this.img,94,15);
 g.flip();
 //app3
-this.appDo3="face.go('life',0)";
+//this.appDo3="face.go('life',0)";
 g.setColor(1,col("dgray1"));
 g.fillRect(160,0,239,75);
 g.setColor(0,col("white"));

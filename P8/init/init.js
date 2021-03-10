@@ -1,4 +1,5 @@
 //watchdog
+//setBusyIndicator(D27)
 E.kickWatchdog();
 function P8KickWd(){
 	"ram";
@@ -297,8 +298,9 @@ w=require("P8");
 //w.gfx.init();
 eval(require('Storage').read('handler'));
 eval(require('Storage').read('main'));
-//require('Storage').list(/m_/).forEach(modfile=>{eval(require('Storage').read(modfile));});
 eval(require('Storage').read('euc'));
+
+//require('Storage').list(/m_/).forEach(modfile=>{eval(require('Storage').read(modfile));});
 digitalPulse(D16,1,[100,30,100]);
 setTimeout(function(){
 if (global.face) face.go('main',0);
