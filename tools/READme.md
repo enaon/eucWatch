@@ -5,7 +5,7 @@
 - extract openocd.zip 
 - open cmd prompt to bin directory
 - run 
-> openocd.exe -d2 -f interface/stlink-v2.cfg  -f target/nrf52.cfg 
+> .\openocd.exe -d2 -f interface/stlink-v2.cfg  -f target/nrf52.cfg 
 - then telnet to openocd using another cmd window:
 > telnet 127.0.0.1  4444
 - issue the following:
