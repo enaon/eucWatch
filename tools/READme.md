@@ -21,3 +21,7 @@
 
 - done, disconnect stlink and connect from espruno ide
 
+
+
+If telnet client is not nabled, enable it using this on an elevated cmd prompt:
+> dism /online /Enable-Feature /FeatureName:TelnetClient
