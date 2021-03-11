@@ -20,4 +20,4 @@
 
 
 - done, disconnect stlink and connect from espruno ide
-- 
+
