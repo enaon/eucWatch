@@ -10,9 +10,13 @@
 > telnet 4444
 - issue the following:
 > reset halt
+> 
 > nrf51 mass_erase
+> 
 > program espruino_2v08.189_p8_SDK12_SD30.hex
+> 
 > reset run
+> 
 
 
 - done, disconnect stlink and connect from espruno ide
