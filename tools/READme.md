@@ -23,5 +23,5 @@
 
 
 
-If telnet client is not nabled, enable it using this on an elevated cmd prompt:
+If telnet client is not enabled on your windows, use this on an elevated cmd prompt to enable it:
 > dism /online /Enable-Feature /FeatureName:TelnetClient
