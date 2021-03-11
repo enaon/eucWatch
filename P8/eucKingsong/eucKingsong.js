@@ -350,8 +350,8 @@ euc.off=function(err){
 	} else {
 		if (set.def.cli) console.log("EUC OUT:",err);
 			//global["\xFF"].bleHdl=[];
-			if ( euc.aOff) {euc.dash.aOff=euc.aOff;	delete euc.aOff;}
-			if ( euc.aLck) {euc.dash.aLck=euc.aLck;	delete euc.aLck;}
+			if ( euc.aOff==0 || euc.aOff==1 ) {euc.dash.aOff=euc.aOff;	delete euc.aOff;}
+			if ( euc.aLck==0 || euc.aLck==1 )  {euc.dash.aLck=euc.aLck;	delete euc.aLck;}
 			clearTimeout(euc.busy);euc.busy=0;
 			euc.off=function(){if (set.def.cli) console.log("EUC allready killed at:",err);};
 			delete euc.conn;
