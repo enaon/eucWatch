@@ -19,7 +19,7 @@ face[0] = {
         this.g.setColor(1,col("white"));
       	this.g.fillRect(75,200,105,204);
 		this.g.flip(); 
-      this.btn("LIGHTS",18,60,15,(euc.dash.aLight==="lightsOff")?col("black"):(euc.dash.aLight==="lightsOn")?col("raf2"):(euc.dash.aLight=="lightsAuto")?col("raf3"):col("raf4"),0,0,119,97,(euc.dash.aLight==="lightsOff")?"OFF":(euc.dash.aLight==="lightsOn")?"ON":(euc.dash.aLight==="lightsAuto")?"AUTO":"CITY",28,60,50); //1
+      this.btn("LIGHTS",18,60,15,(euc.dash.aLight==="lightsOff")?col("black"):(euc.dash.aLight==="lightsOn")?col("raf2"):(euc.dash.aLight=="lightsAuto"||euc.dash.aLight==0)?col("raf3"):col("raf4"),0,0,119,97,(euc.dash.aLight==="lightsOff")?"OFF":(euc.dash.aLight==="lightsOn")?"ON":(euc.dash.aLight==="lightsAuto"||euc.dash.aLight==0)?"AUTO":"CITY",28,60,50); //1
       this.btn("STROBE",25,185,35,(euc.dash.strb)?col("red"):col("dgray"),122,0,239,97);//2
         this.g.setColor(0,(euc.dash.emu)?col("blue1"):col("dgray"));
         this.g.fillRect(0,100,119,195); 
