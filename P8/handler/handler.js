@@ -489,72 +489,114 @@ if (set.def.touchtype=="816"){ //816
 if (set.def.acctype==="BMA421"){
 	i2c.writeTo(0x18,0x40,0x17);
 	i2c.writeTo(0x18,0x7c,0x03);
-}else if (set.def.acctype==="SC7A20"){
-    i2c.writeTo(0x18,0x20,0x47); 
-    i2c.writeTo(0x18,0x23,0x80); 
-}
-acc={
-	loop:200,
-	tid:0,
-	run:0,
-	go:1,
-	up:0,
-	on:function(){
-		if (this.tid) {clearInterval(this.tid); this.tid=0;}
-		if (set.def.acctype==="BMA421"){
+	acc={
+		loop:200,
+		tid:0,
+		run:0,
+		go:1,
+		up:0,
+		on:function(){
+			if (this.tid) {clearInterval(this.tid); this.tid=0;}
 			i2c.writeTo(0x18,0x7d,0x04);
 			i2c.writeTo(0x18,0x12);
 			this.yedge=250;this.xedge=20;
-		}else {
-			i2c.writeTo(0x18,0x01);
-			this.yedge=235;this.xedge=30;
-		}
-		this.run=1;this.init();
-		this.tid=setInterval(function(t){
-			t.init(); 
-		},this.loop,this);
-	},
-	off:function(){
-		if (this.tid) {clearInterval(this.tid); this.tid=0;}
-		if(set.def.acctype==="BMA421")i2c.writeTo(0x18,0x7d,0x04);
-		this.run=0;
-	},
-	init:function(){
-		"ram";
-		if(!this.run) return;
-		var data;
-		if (set.def.acctype=="BMA421") data=i2c.readFrom(0x18,6);
-		else {data={}; data[3]=i2c.readFrom(0x18,1)+"";} 
-		//print(data);
-		if (200<data[3]&&data[3]<this.yedge) {
-			if (set.def.acctype!="BMA421"){
-				i2c.writeTo(0x18,3);
-				data[1]=i2c.readFrom(0x18,1)+"";
-				i2c.writeTo(0x18,1);
-			}
-			if (data[1]<this.xedge||data[1]>=220) {
-			  //print(data);
-			  this.up=1;
-			  if (this.go){ 
-				if (!w.gfx.isOn&&face.appCurr!=""){  
-				if  (global.euc) {
-				  if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash],0);
-				  else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
-				}else{ 
-					if (face.appCurr=="main") face.go("main",0);
-					else face.go(face.appCurr,0);
+			this.run=1;this.init();
+			this.tid=setInterval(function(t){
+				t.init(); 
+			},this.loop,this);
+		},
+		off:function(){
+			if (this.tid) {clearInterval(this.tid); this.tid=0;}
+			i2c.writeTo(0x18,0x7d,0x04);
+			this.run=0;
+		},
+		init:function(){
+			"ram";
+			if(!this.run) return;
+			var data;
+			data=i2c.readFrom(0x18,6);
+			//print(data);
+			if (200<data[3]&&data[3]<this.yedge) {
+				if (data[1]<this.xedge||data[1]>=220) {
+				  //print(data);
+				  this.up=1;
+				  if (this.go){ 
+					if (!w.gfx.isOn&&face.appCurr!=""){  
+					if  (global.euc) {
+					  if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash],0);
+					  else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
+					}else{ 
+						if (face.appCurr=="main") face.go("main",0);
+						else face.go(face.appCurr,0);
+					}
+					this.loop=500;
+				  }else if (w.gfx.isOn&&face.pageCurr!=-1) {
+					if (face.appCurr=="main" && face.pageCurr==2) face.go("main",0);
+					else { if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off(); }
+					this.loop=200;
+				  } 
+				 }
 				}
-				this.loop=500;
-			  }else if (w.gfx.isOn&&face.pageCurr!=-1) {
-				if (face.appCurr=="main" && face.pageCurr==2) face.go("main",0);
-				else { if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off(); }
-				this.loop=200;
-			  } 
-			 }
+			}else {this.loop=300;this.up=0;this.go=1;if (set.tor==1)w.gfx.bri.set(7); }
+		}
+	};	
+}else if (set.def.acctype==="SC7A20"){
+    i2c.writeTo(0x18,0x20,0x47); 
+    i2c.writeTo(0x18,0x21,0x00); //highpass filter disabled
+    i2c.writeTo(0x18,0x22,0x40); //interrupt to INT1
+    i2c.writeTo(0x18,0x23,0x88); //BDU,MSB at high addr, HR
+    i2c.writeTo(0x18,0x24,0x00); //latched interrupt off
+    i2c.writeTo(0x18,0x32,0x10); //threshold = 250 milli g's
+    i2c.writeTo(0x18,0x33,0x01); //duration = 1 * 20ms
+    i2c.writeTo(0x18,0x30,0x02); //XH interrupt 
+	acc={
+		on:function(){
+			if (!this.tid) {
+				this.tid=setWatch(()=>{
+				"ram";
+				i2c.writeTo(0x18,0x1);
+					//let val=i2c.readFrom(0x18,1)[0];
+					//print (val);
+					if ( 192 < i2c.readFrom(0x18,1)[0] ) {
+						if (!w.gfx.isOn&&face.appCurr!=""){  
+							if  (global.euc) {
+								if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash],0);
+								else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
+							}else{ 
+								if (face.appCurr=="main") face.go("main",0);
+								else face.go(face.appCurr,0);
+							}
+						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
+							if (face.appCurr=="main" && face.pageCurr==2) face.go("main",0);
+							else { if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off(); }
+						} 
+					}
+				},D8,{repeat:true,edge:"rising",debounce:50});
+				return true;
+			} else return false;
+		},
+		off:function(){
+			if (this.tid) {
+				clearWatch(this.tid);
+				this.tid=0;
+				return true;
+			}else return false;
+		},
+		init:function(){
+			
+		},
+		read:function(){
+			function conv(lo,hi) { 
+				var i = (hi<<8)+lo;
+				return ((i & 0x7FFF) - (i & 0x8000))/16;
 			}
-		}else {this.loop=300;this.up=0;this.go=1;if (set.tor==1)w.gfx.bri.set(7); }
-	}
-};
+			i2c.writeTo(0x18,0xA8);
+			var a =i2c.readFrom(0x18,6);
+			return {ax:conv(a[0],a[1]), ay:conv(a[2],a[3]), az:conv(a[4],a[5])};
+		},
+	};	
+
+}
 //themes -todo
 function col(no){
 	switch (no) {
