@@ -553,8 +553,10 @@ if (set.def.acctype==="BMA421"){
 		on:function(){
 			if (!this.tid) {
 				this.tid=setWatch(()=>{
-					//print("up1");
-					i2c.writeTo(0x18,0x1);
+				"ram";
+				i2c.writeTo(0x18,0x1);
+					//let val=i2c.readFrom(0x18,1)[0];
+					//print (val);
 					if ( 192 < i2c.readFrom(0x18,1)[0] ) {
 						if (!w.gfx.isOn&&face.appCurr!=""){  
 							if  (global.euc) {
@@ -592,8 +594,6 @@ if (set.def.acctype==="BMA421"){
 			var a =i2c.readFrom(0x18,6);
 			return {ax:conv(a[0],a[1]), ay:conv(a[2],a[3]), az:conv(a[4],a[5])};
 		},
-			
-	
 	};	
 
 }
