@@ -27,13 +27,23 @@ euc.conn=function(mac){
 	}).then(function(c) {
 		this.need=0;
 		c.on('characteristicvaluechanged', function(event) {
-			this.event=new Uint8Array(event.target.value.buffer);
-			print(this.event);
-			if  ( this.event[18]===0 ) {
+			//print( event.target.value.buffer);
+		
+			if  ( event.target.value.buffer[0]===85 ) {
 				print("primary packet");
-				euc.dash.spd=((this.event[5] << 8 | (this.event[4] & 255) ) * 3.6)|0;
-			} else if ( this.event[18]===4 ){
+				//euc.dash.spd=((this.event[5] << 8 | (this.event[4] & 255) ) * 3.6)|0;
+				euc.dash.volt= event.target.value.getUint16(2, true);
+				euc.dash.spd= event.target.value.getInt16(4, true)*3.6;
+				//euc.dash.trpL= event.target.value.getInt4(6, true);
+				euc.dash.amp= event.target.value.getInt16(10, true);
+				//euc.dash.tmp= ((event.target.value.getInt16(12, true)/340)+36.53)*100;
+				euc.dash.tmp=(((event.value.buffer[0] << 12 | event.value.buffer[13] << 255)/340)+36.53)*100; 
+
+			} else if ( event.target.value.buffer[0]===90 ){
 				print("Begode frame B (total distance and flags");
+			} else {
+				print("Begode frame B cont.");
+			
 			}
 		});
 		//on disconnect
@@ -43,7 +53,7 @@ euc.conn=function(mac){
 		return  c;
 	//write
 	}).then(function(c) {
-		console.log("EUC Veteran connected!!"); 
+		console.log("EUC Begode connected!!"); 
 		digitalPulse(D16,1,[90,40,150,40,90]);
 		euc.wri= function(n) {
             print(n);
