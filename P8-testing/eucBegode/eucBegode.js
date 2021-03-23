@@ -37,7 +37,7 @@ euc.conn=function(mac){
 				//euc.dash.trpL= event.target.value.getInt4(6, true);
 				euc.dash.amp= event.target.value.getInt16(10, true);
 				//euc.dash.tmp= ((event.target.value.getInt16(12, true)/340)+36.53)*100;
-				euc.dash.tmp=(((event.value.buffer[0] << 12 | event.value.buffer[13] << 255)/340)+36.53)*100; 
+				euc.dash.tmp=(((event.target.value.buffer[12] << 8 | event.target.value.buffer[13] << 255)/340)+36.53)*100; 
 
 			} else if ( event.target.value.buffer[0]===90 ){
 				print("Begode frame B (total distance and flags");
