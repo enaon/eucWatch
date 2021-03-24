@@ -19,3 +19,14 @@ function pauseConsole(s){
     ,500);
   }
 }
+
+
+
+
+function setupSerial(s){
+  if (!s) s=Serial1;
+  s.setup(38400,{rx:D23,tx:D22});
+}
+
+Serial1.setup(38400,{rx:D22,tx:D23});
+Serial1.on('data', function (data) { print("<Serial> "+data); });
