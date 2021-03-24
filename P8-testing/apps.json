@@ -147,8 +147,8 @@
 		"description": "EUC dashboard, Begode settings gui files.",
 		"tags": "euc",
 		"storage": [
-			{"name":"dashBegode","url":"dashBegode.js"}
-			{"name":"dashBegodeOpt","url":"dashBegodeOpt.js"}
+			{"name":"dashBegode","url":"dashBegode.js"},
+			{"name":"dashBegodeOpt","url":"dashBegodeOpt.js"},
 			{"name":"dashBegodeAdv","url":"dashBegodeAdv.js"}
 		]
 	},
