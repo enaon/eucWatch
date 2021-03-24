@@ -148,6 +148,8 @@
 		"tags": "euc",
 		"storage": [
 			{"name":"dashBegode","url":"dashBegode.js"}
+			{"name":"dashBegodeOpt","url":"dashBegodeOpt.js"}
+			{"name":"dashBegodeAdv","url":"dashBegodeAdv.js"}
 		]
 	},
 	{ "id": "euc",
