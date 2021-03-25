@@ -45,22 +45,23 @@ face[0] = {
 		this.g.setFont("Vector",18);	
 		this.g.drawString("CALIBRATE",185-(this.g.stringWidth("CALIBRATE")/2),37); 
 		this.g.flip();
-		//limits
-		this.g.setColor(0,col("olive"));
+		//speed
+		this.g.setColor(0,col("red"));
 		this.g.fillRect(0,100,119,195);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",18);	
-		this.g.drawString("LIMMITS",60-(this.g.stringWidth("LIMMITS")/2),115); 
-		this.g.setFont("Vector",30);	
-		this.g.drawString(euc.dash.spdT,60-(this.g.stringWidth(euc.dash.spdT)/2),150); 
+		this.g.drawString("SPEED",60-(this.g.stringWidth("SPEED")/2),115); 
+		this.g.setFont("Vector",40);	
+		this.g.drawString(euc.dash.spdT,60-(this.g.stringWidth(euc.dash.spdT)/2),145); 
 		this.g.flip();
 		//pass
-		this.g.setColor(0,col("olive"));
+		this.g.setColor(0,col("dgray"));
 		this.g.fillRect(122,100,239,195);
-		this.g.setColor(1,col("white"));
-		this.g.setFont("Vector",28);	
-		this.g.drawString("PASS",185-(this.g.stringWidth("PASS")/2),135); 
+//		this.g.setColor(1,col("white"));
+//		this.g.setFont("Vector",28);	
+//		this.g.drawString("PASS",185-(this.g.stringWidth("PASS")/2),135); 
 		this.g.flip();
+
 		this.run=true;
 	},
 	show : function(){
@@ -125,15 +126,17 @@ touchHandler[0]=function(e,x,y){
 			face.go("dashBegodeCalibrate",0);
 			return;
 		}else if ( x<=120 && 100<=y ) {   //limits
+			euc.dash.spd3=euc.dash.spdT;
+			if (75 < euc.dash.spd3 ) euc.dash.spd3=75;
 			digitalPulse(D16,1,[30,50,30]);		
 			face.go("dashBegodeLimits",0);
 			return;
-		}else if ( 120<=x && 100<=y ) { //pass
+/*		}else if ( 120<=x && 100<=y ) { //pass
 			digitalPulse(D16,1,[30,50,30]);		
 			if (euc.dash.pass.length>=4) face.go("dashBegodePass",5);
 			else face.go("dashBegodePass",0);
 			return;
-		}else digitalPulse(D16,1,[30,50,30]);
+*/		}else digitalPulse(D16,1,[30,50,30]);
 		this.timeout();
 		break;
 	case 1: //slide down event

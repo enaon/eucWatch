@@ -127,7 +127,7 @@ touchHandler[0]=function(e,x,y){
             face[0].btn("HORN",25,185,136,(euc.dash.horn)?col("raf"):col("dgray"),122,100,239,195);//2
             face[0].ntfy((euc.dash.horn)?"BUTTON IS HORN >2KPH":"HORN DISABLED",(euc.dash.horn)?col("raf"):col("dgray"),(euc.dash.horn)?18:20);
 			digitalPulse(D16,1,[30,50,30]);						
-		}else digitalPulse(D16,1,[30,50,30]);
+		}else digitalPulse(D16,1,40);
 		this.timeout();
 		break;
 	case 1: //slide down event
@@ -156,11 +156,12 @@ touchHandler[0]=function(e,x,y){
 			digitalPulse(D16,1,[30,50,30]);
 		}else if  (x<=120 && 100<=y ) { //bridge
             face[0].ntfy("NOT AVAILABLE",col("red"));
+			digitalPulse(D16,1,40);
 		}else if ( 120<=x && 100<=y ) { //off
 			euc.wri("off");
 			digitalPulse(D16,1,[30,50,30]);	
 			euc.state="OFF";
-	    }else digitalPulse(D16,1,[100]);
+	    }else digitalPulse(D16,1,40);
 		this.timeout();
 		break;
   }

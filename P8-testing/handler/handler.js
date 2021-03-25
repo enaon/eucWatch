@@ -293,22 +293,17 @@ function buttonHandler(s){
 	if (this.t1) {clearTimeout(this.t1); this.t1=0;}
 	if (face.offid) {clearTimeout(face.offid);face.offid=0;}
 	if (s.state) { 
-		//EUC action on long press
-		if (global.euc&&euc.state==="READY"&&euc.dash.spd>=2&&euc.dash.horn===1) {euc.wri("hornOn");return;}
+		if (global.euc&&euc.state=="READY"&&euc.dash.spd>=2&&euc.dash.horn==1) {euc.wri("hornOn");return;}
 		this.press=true;
 		this.t1=setTimeout(() => {
 			this.t1=0;
 			if (global.euc) {
-				if (global.euc&&euc.state==="READY"&&euc.dash.spd>=0&&euc.dash.maker==="kingsong") {
-					euc.wri("strobeStart");
-					this.press=false;
-					return;
-				} else {euc.tgl();this.press=false;}
+				euc.tgl();this.press=false;
 			}
 		}, 1000);
    }else if (this.press && !s.state)  { 
 		this.press=false;
-		if (global.euc&&euc.state==="READY"&&euc.dash.spd>=2&&euc.dash.model==="S18") {euc.wri("hornOff");return;}
+		if (global.euc&&euc.state=="READY"&&euc.dash.horn==1) {euc.wri("hornOff");return;}
 		if (face.pageCurr==-1) {
 			digitalPulse(D16,1,[60,40,60]);
 			if (global.euc){

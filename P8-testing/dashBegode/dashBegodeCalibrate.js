@@ -1,9 +1,9 @@
-//kingsong  set adv calibrate
+//Begode  set adv calibrate
 face[0] = {
 	offms: 30000,
 	g:w.gfx,
 	init: function(){
-		this.g.setColor(0,col("dgray"));
+/*		this.g.setColor(0,col("dgray"));
 		this.g.fillRect(0,0,239,177);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
@@ -23,7 +23,7 @@ face[0] = {
    		this.g.drawString("START",120-(this.g.stringWidth("START")/2),188); 
 		this.g.drawString("CALIBRATION",120-(this.g.stringWidth("CALIBRATION")/2),216); 
 		this.g.flip(); 
-		this.calibrate=0;
+*/		this.calibrate=1;
 		this.run=true;
 	},
 	show : function(){
@@ -33,13 +33,13 @@ face[0] = {
             this.g.setColor(0,col("dgray"));
 		    this.g.fillRect(0,0,239,174);                    
             this.g.setColor(1,col("white"));
-		    this.g.setFont("Vector",17);
-		    this.g.drawString("1. PRESS START",25,10); 	
-   		    this.g.drawString("2. LEVEL WHEEL",25,37); 		
-            this.g.drawString("3. TURN WHEEL ON",25,64);
-            this.g.drawString("4. WHEEL BEEPS->OFF",25,91); 
-            this.g.drawString("5. TURN WHEEL ON",25,118);
-            this.g.drawString("6. DONE!",25,145);
+		    this.g.setFont("Vector",16);
+		    this.g.drawString("1. PRESS START",0,10); 	
+   		    this.g.drawString("2. WHEEL BEEPS, TURN OFF",0,37); 		
+            this.g.drawString("3. LEVEL WHEEL, TURN ON",0,64);
+            this.g.drawString("4. WHEEL BEEPS, TURN OFF",0,91); 
+            this.g.drawString("5. TURN WHEEL ON",0,118);
+            this.g.drawString("6. DONE!",0,145);
 		    this.g.flip();
             this.g.setColor(0,col("raf"));
 		    this.g.fillRect(0,175,120,239);                    
@@ -103,7 +103,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		face.go("dashBegode",0);
+		face.go("dashBegodeAdv",0);
 		return true;
 	},
 	clear: function(){
@@ -116,10 +116,10 @@ touchHandler[0]=function(e,x,y){
 	case 5: //tap event
         if (!face[0].calibrate){
 		if (x<=120&&y<175) { //tilt forward
-			euc.dash.tiltSet--;euc.wri("tiltSet");
+			//euc.dash.tiltSet--;euc.wri("tiltSet");
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (120<=x&&y<=175) { //tilt back
-			euc.dash.tiltSet++;euc.wri("tiltSet");
+			//euc.dash.tiltSet++;euc.wri("tiltSet");
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (175<=y) { //calibrate
             face[0].calibrate=1;
@@ -165,7 +165,7 @@ touchHandler[0]=function(e,x,y){
 		w.gfx.drawLine (120,0,120,195);
       	w.gfx.drawLine (121,0,121,195);
         w.gfx.flip();	
-		face.go("dashBegode",0);
+		face.go("dashBegodeAdv",0);
 		return;
 	case 12: //long press event
 		digitalPulse(D16,1,[100]);

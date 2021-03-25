@@ -39,7 +39,7 @@ euc.conn=function(mac){
         //speed
 				euc.dash.spd = Math.abs(event.target.value.getInt16(4) * 3.6)/100|0;
 				if ( (euc.dash.spdM < euc.dash.spd)&& euc.dash.spd < 100 ) euc.dash.spdM=euc.dash.spd;
-				euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd <= euc.dash.spd2 )? 1 : ( euc.dash.spd <= euc.dash.spd3 )? 2 : 3 ;	
+				euc.dash.spdC = ( euc.dash.spd <= 25 )? 0 : ( euc.dash.spd <= 30 )? 1 : ( euc.dash.spd <= 35 )? 2 : 3 ;	
 				if ( euc.dash.hapS && euc.dash[euc.dash.haSv]  <= euc.dash.spd ) 
 					euc.alert = ( 1 + ((euc.dash.spd-euc.dash[euc.dash.haSv]) / euc.dash.spdS | 0 ) );  
 				//battery
@@ -73,9 +73,9 @@ euc.conn=function(mac){
 				if (euc.dash.tmpH+5 <= euc.dash.tmp) {euc.alert++; euc.dash.spdC = 3;}   
 			} else if ( event.target.value.buffer[0]===90 ){
 				euc.dash.trpT=event.target.value.getUint32(6)/1000;
-        euc.dash.mode = (event.target.value.getUint8(10) >> 4) & 0x0F;
+				euc.dash.mode = (event.target.value.getUint8(10) >> 4) & 0x0F;
 				euc.dash.alrm = event.target.value.getUint8(10) & 0x0F;
-        euc.dash.spdT = event.target.value.getUint8(15);
+				euc.dash.spdT = event.target.value.getUint8(15);
 				euc.dash.light = event.target.value.getUint8(17);
 			}
 			//haptic
@@ -110,39 +110,70 @@ euc.conn=function(mac){
 		euc.wri= function(n) {
 			print(n);
 			if (euc.busy) {print(1); clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},500);return;} euc.busy=euc.busy=setTimeout(()=>{euc.busy=0;},500);
-				//end
-				if (n=="end") {
-          c.writeValue(euc.cmd("lightsOff")).then(function() {
-            c.writeValue(euc.cmd("beep")).then(function() {
-			      	c.stopNotifications(); 
-			      	if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
-			    	  global["\xFF"].BLE_GATTS.disconnect();         
-            });
-          }).catch(function(err)  {
+			//end
+			if (n=="end") {
+				c.writeValue(euc.cmd("lightsOff")).then(function() {
+					c.writeValue(euc.cmd("beep")).then(function() {
+						c.stopNotifications(); 
+						if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
+						global["\xFF"].BLE_GATTS.disconnect();         
+					});
+				}).catch(function(err)  {
 			    	if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
 			    	global["\xFF"].BLE_GATTS.disconnect();  
-          });  
-        }else if (n=="start") {
-          c.writeValue(euc.cmd("lightsOn")).then(function() {
-            c.writeValue(euc.cmd("beep")).then(function() {
-					    clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
-            });
-          }).catch(function(err)  {
+				});  
+			}else if (n=="start") {
+				c.writeValue(euc.cmd(euc.dash.aLight)).then(function() {
+					if (!euc.run){
+						c.writeValue(euc.cmd("beep")).then(function() {
+							euc.run=1;
+							clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
+						});
+					}else {
+						clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
+					}
+				}).catch(function(err)  {
 			    	if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
 			    	global["\xFF"].BLE_GATTS.disconnect();  
-          });  
-      }else if (n=="horn") {
-          c.writeValue(euc.cmd("lightsStrobe")).then(function() {
-            c.writeValue(euc.cmd("beep"));
+				});  
+			}else if (n=="setAlarms") {
+				c.writeValue(87).then(function() {
+					c.writeValue(89).then(function() {
+						let tilt=euc.dash.spd3.toString().split('');
+						c.writeValue(48+Number(tilt[0])).then(function() {
+							c.writeValue(48+Number(tilt[1])).then(function() {
+								c.writeValue((euc.dash.spd2E)?(euc.dash.spd1E)?111:117:105).then(function() {
+									c.writeValue(98);
+									clearTimeout(euc.busy);euc.busy=0;
+								});	
+							});	
+						});	
+					});
+				}).catch(function(err)  {
+			    	if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
+			    	global["\xFF"].BLE_GATTS.disconnect();  
+				});  
+			}else if (n=="calibrate") {
+				c.writeValue(99);
+				setTimeout(()=>{c.writeValue(121);clearTimeout(euc.busy);euc.busy=0;},500);
+			}else if (n=="hornOn") {
+				c.writeValue(euc.cmd("lightsStrobe")).then(function() {
+					c.writeValue(euc.cmd("beep"));
    					clearTimeout(euc.busy);euc.busy=0;
-          }).catch(function(err)  {
+				}).catch(function(err)  {
 			    	if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
 			    	global["\xFF"].BLE_GATTS.disconnect();  
-          });  
+				});  
+			}else if (n=="hornOff") {
+				c.writeValue(euc.cmd(euc.dash.aLight)).then(function() {
+   					clearTimeout(euc.busy);euc.busy=0;
+				}).catch(function(err)  {
+			    	if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
+			    	global["\xFF"].BLE_GATTS.disconnect();  
+				}); 
 			//rest
 			} else if (!euc.cmd(n)) {
 				c.writeValue(n).then(function() {
-					//clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/
 				}).catch(function(err)  {
 					clearTimeout(euc.busy);euc.busy=0;euc.off("err");
 				});   
@@ -205,7 +236,7 @@ euc.off=function(err){
 			delete euc.conn;
 			delete euc.wri;
 			delete euc.cmd;
-			delete euc.unpk;
+			euc.run=0;
 			NRF.setTxPower(set.def.rfTX);	
     }
 };
