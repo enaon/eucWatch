@@ -95,7 +95,7 @@
 		"name": "EUC Dashboard",
 		"icon": "icon.png",
 		"version":"0.20",
-		"description": "EUC dashboard. Includes two faces, a simple and a digital one. Depends on EUC modulea.",
+		"description": "EUC dashboard. Garage, scan and dash faces. Depends on EUC modules.",
 		"tags": "euc",
 		"storage": [
 			{"name":"dash_simple","url":"dash_simple.js"},
@@ -148,8 +148,9 @@
 		"tags": "euc",
 		"storage": [
 			{"name":"dashBegode","url":"dashBegode.js"},
-			{"name":"dashBegodeOpt","url":"dashBegodeOpt.js"},
-			{"name":"dashBegodeAdv","url":"dashBegodeAdv.js"}
+			{"name":"dashBegodeAdv","url":"dashBegodeAdv.js"},
+			{"name":"dashBegodeLimits","url":"dashBegodeLimits.js"},
+			{"name":"dashBegodeLCalibrate","url":"dashBegodeCalibrate.js"},
 		]
 	},
 	{ "id": "euc",

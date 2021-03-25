@@ -18,15 +18,15 @@ face[0] = {
       	this.g.fillRect(75,200,135,204);
 		this.g.flip();
         this.g.setColor(1,col("white"));
-      	this.g.fillRect(135,200,165,204);
+      	this.g.fillRect(120,200,165,204);
 		this.g.flip(); 
 		//ride mode
 		this.b1=euc.dash.mode;
-		if (this.b1==0) {
+		if (this.b1==4) {
 			this.b1t="HARD";this.b1c=col("raf4");
-		}else if (this.b1==1) {
-			this.b1t="MED";this.b1c=col("raf2");
 		}else if (this.b1==2) {
+			this.b1t="MED";this.b1c=col("raf2");
+		}else if (this.b1==0) {
 			this.b1t="SOFT";this.b1c=col("raf3");
 		}
 		this.g.setColor(0,this.b1c);
@@ -116,9 +116,9 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
       case 5:case 12: //tap event
 		if ( x<=120 && y<=100 ) { //ride mode
-			if (euc.dash.mode==0) {euc.dash.mode=1;euc.wri("rideMed");face[0].btn("MODE",18,60,15,col("raf2"),0,0,119,97,"MED",30,60,50);}
-			else if (euc.dash.mode==1) {euc.dash.mode=2;euc.wri("rideSoft");face[0].btn("MODE",18,60,15,col("raf3"),0,0,119,97,"SOFT",30,60,50);}
-			else if (euc.dash.mode==2) {euc.dash.mode=0;euc.wri("rideHard");face[0].btn("MODE",18,60,15,col("raf4"),0,0,119,97,"HARD",30,60,50);}
+			if (euc.dash.mode==0) {euc.dash.mode=2;euc.wri("rideMed");face[0].btn("MODE",18,60,15,col("raf2"),0,0,119,97,"MED",30,60,50);}
+			else if (euc.dash.mode==2) {euc.dash.mode=4;euc.wri("rideHard");face[0].btn("MODE",18,60,15,col("raf4"),0,0,119,97,"HARD",30,60,50);}
+			else if (euc.dash.mode==4) {euc.dash.mode=0;euc.wri("rideSoft");face[0].btn("MODE",18,60,15,col("raf3"),0,0,119,97,"SOFT",30,60,50);}
 			digitalPulse(D16,1,[30,50,30]);		
 		}else if ( 120<=x  && y<=100 ) { //calibrate
             digitalPulse(D16,1,[30,50,30]);
@@ -153,7 +153,7 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
 	case 4: //slide right event (back action)
-		face.go("dashBegodeOpt",0);
+		face.go("dashBegode",0);
 		return;
   }
 };

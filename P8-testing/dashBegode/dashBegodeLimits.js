@@ -10,9 +10,9 @@ face[0] = {
 		this.g.setFont("Vector",20);
 		this.g.drawString("SPEED LIMITS",120-(this.g.stringWidth("SPEED LIMITS")/2),214); 
 		this.g.flip(); 
-		this.btn(euc.dash.spd1E,"ALARM 1",18,60,15,col("olive"),col("gray"),0,0,119,97,(euc.dash.spd1E)?euc.dash.spd1:"OFF",28,60,50);
-		this.btn(euc.dash.spd2E,"ALARM 2",18,185,15,col("olive"),col("gray"),122,0,239,97,(euc.dash.spd2E)?euc.dash.spd2:"OFF",28,185,50);
-		this.btn(1,"ALARM 3",18,60,115,col("olive"),col("raf4"),0,100,119,195,euc.dash.spd3,28,60,150);
+		this.btn(euc.dash.spd1E,"ALARM 1",18,60,15,col("olive"),col("gray"),0,0,119,97,(euc.dash.spd1E)?"ON":"OFF",28,60,50);
+		this.btn(euc.dash.spd2E,"ALARM 2",18,185,15,col("olive"),col("gray"),122,0,239,97,(euc.dash.spd2E)?"ON":"OFF",28,185,50);
+		this.btn(1,"ALARM 3",18,60,115,col("olive"),col("raf4"),0,100,119,195,"80 %",28,60,150);
         this.btn(1,"TILTBACK",18,185,115,col("raf5"),col("raf5"),122,100,239,195,euc.dash.spdT,28,185,150);		
         if (!face.appPrev.startsWith("dashSet")){
 		this.g.setColor(0,0);
@@ -118,14 +118,13 @@ touchHandler[0]=function(e,x,y){
 			if (x<=120&&y<100) { //alarm 1
                 if (euc.dash.spd1E){
 					euc.dash.spd1E=0;
-					face[0].btn(euc.dash.spd1E,"ALARM 1",18,60,15,col("olive"),col("gray"),0,0,119,97,(euc.dash.spd1E)?euc.dash.spd1:"OFF",28,60,50);
+					face[0].btn(euc.dash.spd1E,"ALARM 1",18,60,15,col("olive"),col("gray"),0,0,119,97,(euc.dash.spd1E)?"ON":"OFF",28,60,50);
 					face[0].ntfy("ALARM 1-> DISABLED","",20,col("dgray"),1);
 					digitalPulse(D16,1,[30,50,30]);
 				}else {
 					if (euc.dash.spd2E){
 						euc.dash.spd1E=1;
-                        if (euc.dash.spd1>=euc.dash.spd2) euc.dash.spd1=euc.dash.spd2-1;
-						face[0].btn(euc.dash.spd1E,"ALARM 1",18,60,15,col("olive"),col("gray"),0,0,119,97,(euc.dash.spd1E)?euc.dash.spd1:"OFF",28,60,50);
+						face[0].btn(euc.dash.spd1E,"ALARM 1",18,60,15,col("olive"),col("gray"),0,0,119,97,(euc.dash.spd1E)?"ON":"OFF",28,60,50);
 						face[0].ntfy("ALARM 1-> ENABLED","",20,col("dgray"),1);
 						digitalPulse(D16,1,[30,50,30]);
                     }else {face[0].ntfy("ENABLE ALARM 2","",20,col("red"),1);digitalPulse(D16,1,40);}
@@ -136,18 +135,17 @@ touchHandler[0]=function(e,x,y){
 					else {
 						euc.dash.spd2E=0;
 						digitalPulse(D16,1,[30,50,30]);
-						face[0].btn(euc.dash.spd2E,"ALARM 2",18,185,15,col("olive"),col("gray"),122,0,239,97,(euc.dash.spd2E)?euc.dash.spd2:"OFF",28,185,50);
+						face[0].btn(euc.dash.spd2E,"ALARM 2",18,185,15,col("olive"),col("gray"),122,0,239,97,(euc.dash.spd2E)?"ON":"OFF",28,185,50);
 						face[0].ntfy("ALARM 2 -> DISABLED","",20,col("dgray"),1);
 					}
 				}else {
 					euc.dash.spd2E=1;
-                    if (euc.dash.spd2>=euc.dash.spd2) euc.dash.spd2=euc.dash.spd3-1;
 					digitalPulse(D16,1,[30,50,30]);
-					face[0].btn(euc.dash.spd2E,"ALARM 2",18,185,15,col("olive"),col("gray"),122,0,239,97,(euc.dash.spd2E)?euc.dash.spd2:"OFF",28,185,50);
+					face[0].btn(euc.dash.spd2E,"ALARM 2",18,185,15,col("olive"),col("gray"),122,0,239,97,(euc.dash.spd2E)?"ON":"OFF",28,185,50);
 					face[0].ntfy("ALARM 2 -> ENABLED","",20,col("dgray"),1);
 				}
 			}else if (x<=120&&100<=y<=200) { //alarm 3
-				face[0].ntfy("HOLD -> SET","HOLD -> SET",20,col("dgray"),1);
+				face[0].ntfy("FIXED ALARM","FIXED ALARM",20,col("dgray"),1);
 				digitalPulse(D16,1,[30,50,30]);		
 			}else if (120<=x<=239&&100<=y<=200) { //tiltback
 				face[0].ntfy("HOLD -> SET","",20,col("dgray"),1);

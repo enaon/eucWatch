@@ -77,6 +77,8 @@ face[1] = {
 	show : function(){
 		if (euc.state=="READY"&&euc.dash.maker=="Kingsong")
 			face.go("dashKingsongOpt",0);
+		else if (euc.state=="READY"&&euc.dash.maker=="Begode")
+			face.go("dashBegode",0);
 		else if (euc.state=="READY"&&euc.dash.maker=="Ninebot")
 			face.go("dashNinebot",0);
 		else
@@ -95,9 +97,9 @@ touchHandler[0]=function(e,x,y){
 			digitalPulse(D16,1,[30,50,30]);
 			if (face[0].set=="spd") { 
 				if (y<=120){ //spd
-					if (require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]=="Ninebot") {
+					if (require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]!="Kingsong") {
 						if (x<=120){ if (15<euc.dash.spd1) euc.dash.spd1--;
-						}else if (euc.dash.spd1<25) euc.dash.spd1++;
+						}else if (euc.dash.spd1<45) euc.dash.spd1++;
                         euc.dash.haSv="spd1";
 					}else {
 						if (euc.dash.haSv=="spd1") euc.dash.haSv="spd2";
@@ -213,6 +215,8 @@ touchHandler[0]=function(e,x,y){
   			face[0].set=0;face[0].init();
         }else if (euc.state=="READY"&&euc.dash.maker=="Kingsong")
 			face.go("dashKingsongOpt",0);
+		else if (euc.state=="READY"&&euc.dash.maker=="Begode")
+			face.go("dashBegode",0);
         else if (euc.state=="READY"&&euc.dash.maker=="Ninebot")
 			face.go("dashNinebot",0);
 		else

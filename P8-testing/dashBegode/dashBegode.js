@@ -1,4 +1,4 @@
-//kingsong set actions
+//Begode set options
 face[0] = {
 	offms: 5000,
 	g:w.gfx,
@@ -9,7 +9,7 @@ face[0] = {
 		this.g.fillRect(0,205,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
-		this.g.drawString("ACTIONS",120-(this.g.stringWidth("ACTIONS")/2),217); 
+		this.g.drawString("OPTIONS",120-(this.g.stringWidth("OPTIONS")/2),217); 
 		this.g.flip();
 		this.g.setColor(0,col("black"));
 		this.g.fillRect(0,196,239,204);
@@ -17,18 +17,18 @@ face[0] = {
       	this.g.fillRect(106,200,165,204);
 		this.g.flip();
         this.g.setColor(1,col("white"));
-      	this.g.fillRect(75,200,105,204);
+      	this.g.fillRect(75,200,120,204);
 		this.g.flip(); 
-      this.btn("LIGHTS",18,60,15,(euc.dash.aLight==="lightsOff")?col("black"):(euc.dash.aLight==="lightsOn")?col("raf2"):col("red"),0,0,119,97,(euc.dash.aLight==="lightsOff")?"OFF":(euc.dash.aLight==="lightsOn")?"ON":"STROBE",28,60,50); //1
-      this.btn("STROBE",25,185,35,(euc.dash.strb)?col("red"):col("dgray"),122,0,239,97);//2
+		this.btn("LIGHTS",18,60,15,(euc.dash.aLight==="lightsOff")?col("black"):(euc.dash.aLight==="lightsOn")?col("raf2"):col("red"),0,0,119,97,(euc.dash.aLight==="lightsOff")?"OFF":(euc.dash.aLight==="lightsOn")?"ON":"STROBE",28,60,50); //1
+		this.btn("HAPTIC",25,185,37,(euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB)?col("raf"):col("gray"),122,0,239,97);//2
         this.g.setColor(0,(euc.dash.emu)?col("blue1"):col("dgray"));
         this.g.fillRect(0,100,119,195); 
 		this.g.setColor(1,col("white"));
-this.img=require("heatshrink").decompress(atob("oFAgINKv38AwkD/n88AHDj4HB/AHDv+8/k/A4f+jH+h+ADwXoiP+j4gCg/Mg4XB+AHBh8OFAN/FAUf40f/F3IIU/5wPBuf+GwUEA4MB/42CiE//kD/+AgP+ngHBi//4ED/0+A4M///gCQM/GoN/A4MH/9+A4P///wh//AoP8/vGA4vB4d4j///P//3Az4HFMgN8A4PBEoM4OQX/wIHBj0H/wHBgAHB54aBA4U//PnA4N3EgJ/BA4aCBn/6k/9+93wwHB+YmB+9jWQM/++P/3nA4Uf+YxBs9hA4vHsC6BA4eHsFwLgP7B4cYA4JpBA4TZC/CUBA4qkBw9wgeAgYHCg4HB+AHC/wHCZoIHDmADBgLfB/0OnAHI//hDIP8h0YA4P5A4UMjgHE/EcjkB//xA4PwjkOVwOHIIPgnAHCn4HDg6WBv4XB4FwA4MeA4MBwASBwAHCOYPggPAA4YFBgPgh1//EACoMA+EMA4UHA4N4ggHCh4hBngHB/QzBA4MegN/+QMBA4MPwAHCDIIqB4E/+hXBA4MB+Of8kH4AHBgH8z/In4GCFAPgiJYCAAMGuFzeYIADj/HJoIAI"));
+		this.img=require("heatshrink").decompress(atob("oFAgINKv38AwkD/n88AHDj4HB/AHDv+8/k/A4f+jH+h+ADwXoiP+j4gCg/Mg4XB+AHBh8OFAN/FAUf40f/F3IIU/5wPBuf+GwUEA4MB/42CiE//kD/+AgP+ngHBi//4ED/0+A4M///gCQM/GoN/A4MH/9+A4P///wh//AoP8/vGA4vB4d4j///P//3Az4HFMgN8A4PBEoM4OQX/wIHBj0H/wHBgAHB54aBA4U//PnA4N3EgJ/BA4aCBn/6k/9+93wwHB+YmB+9jWQM/++P/3nA4Uf+YxBs9hA4vHsC6BA4eHsFwLgP7B4cYA4JpBA4TZC/CUBA4qkBw9wgeAgYHCg4HB+AHC/wHCZoIHDmADBgLfB/0OnAHI//hDIP8h0YA4P5A4UMjgHE/EcjkB//xA4PwjkOVwOHIIPgnAHCn4HDg6WBv4XB4FwA4MeA4MBwASBwAHCOYPggPAA4YFBgPgh1//EACoMA+EMA4UHA4N4ggHCh4hBngHB/QzBA4MegN/+QMBA4MPwAHCDIIqB4E/+hXBA4MB+Of8kH4AHBgH8z/In4GCFAPgiJYCAAMGuFzeYIADj/HJoIAI"));
 		this.g.drawImage(this.img,30,117);
 		delete this.img;
 		this.g.flip();  
-   		this.btn("LOCK",25,185,135,(euc.dash.lock)?col("red"):col("dgray"),122,100,239,195); //4
+   		this.btn("HORN",25,185,137,(euc.dash.horn)?col("raf"):col("dgray"),122,100,239,195); //4
 		this.run=true;
 	},
 	show : function(){
@@ -51,12 +51,12 @@ this.img=require("heatshrink").decompress(atob("oFAgINKv38AwkD/n88AHDj4HB/AHDv+8
             }
 			this.g.flip();
     },
-    ntfy: function(txt,clr){
+    ntfy: function(txt,clr,size){
 			this.info=1;
             this.g.setColor(0,clr);
 			this.g.fillRect(0,198,239,239);
 			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",20);
+			this.g.setFont("Vector",(size)?size:20);
 			this.g.drawString(txt,122-(this.g.stringWidth(txt)/2),214); 
 			this.g.flip();
 			if (this.ntid) clearTimeout(this.ntid);
@@ -66,7 +66,7 @@ this.img=require("heatshrink").decompress(atob("oFAgINKv38AwkD/n88AHDj4HB/AHDv+8
 				t.g.fillRect(0,205,239,239);
 				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",20);
-		        t.g.drawString("ACTIONS",122-(t.g.stringWidth("ACTIONS")/2),217); 
+		        t.g.drawString("OPTIONS",122-(t.g.stringWidth("OPTIONS")/2),217); 
 				t.g.flip();
 				t.g.setColor(0,col("black"));
 				t.g.fillRect(0,196,239,204);
@@ -74,7 +74,7 @@ this.img=require("heatshrink").decompress(atob("oFAgINKv38AwkD/n88AHDj4HB/AHDv+8
 				t.g.fillRect(75,200,165,204);
 				t.g.flip();
 				t.g.setColor(1,col("white"));
-				t.g.fillRect(75,200,105,204);
+				t.g.fillRect(75,200,120,204);
 				t.g.flip(); 	
 			},1000,this);
     },
@@ -115,19 +115,17 @@ touchHandler[0]=function(e,x,y){
 			else  { euc.dash.aLight="lightsOn"; euc.wri("lightsOn"); face[0].btn("LIGHTS",18,60,15,col("raf2"),0,0,119,97,"ON",28,60,50); }
             face[0].ntfy("HOLD -> STROBE",col("dgray"));
 			digitalPulse(D16,1,[30,50,30]);
-		}else if ( 120<=x && y<=100 ) { //strobe
-			euc.dash.strb=1-euc.dash.strb;
-            face[0].btn("STROBE",25,185,35,(euc.dash.strb)?col("red"):col("dgray"),122,0,239,97);//2
-			euc.wri((euc.dash.strb)?"strobeOn":"strobeOff");
-			digitalPulse(D16,1,[30,50,30]);
+		}else if ( 120<=x && y<=100 ) { //haptic
+			digitalPulse(D16,1,[30,50,30]);						
+			face.go("dashAlerts",0);
+			return;	
 		}else if ( x<=120 && 100<=y ) { //bridge
 			face[0].ntfy("HOLD -> TOGGLE",col("dgray"));
 			digitalPulse(D16,1,[30,50,30]);		
-		}else if (120<=x && 100<=y ) { //lock
-			euc.dash.lock=1-euc.dash.lock;
-            face[0].btn("LOCK",25,185,135,(euc.dash.lock)?col("red"):col("dgray"),122,100,239,195); //4
-            face[0].ntfy("HOLD -> POWER OFF",col("red"));
-			euc.wri((euc.dash.lock)?"lock":"unlock");
+		}else if (120<=x && 100<=y ) { //horn
+			euc.dash.horn=1-euc.dash.horn;
+            face[0].btn("HORN",25,185,136,(euc.dash.horn)?col("raf"):col("dgray"),122,100,239,195);//2
+            face[0].ntfy((euc.dash.horn)?"BUTTON IS HORN >2KPH":"HORN DISABLED",(euc.dash.horn)?col("raf"):col("dgray"),(euc.dash.horn)?18:20);
 			digitalPulse(D16,1,[30,50,30]);						
 		}else digitalPulse(D16,1,[30,50,30]);
 		this.timeout();
@@ -145,7 +143,7 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
 	case 3: //slide left event
-		face.go("dashBegodeOpt",0);
+		face.go("dashBegodeAdv",0);
 		return;	
 	case 4: //slide right event (back action)
 		face.go(set.dash[set.def.dash],0);
