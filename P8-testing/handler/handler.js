@@ -303,7 +303,7 @@ function buttonHandler(s){
 		}, 1000);
    }else if (this.press && !s.state)  { 
 		this.press=false;
-		if (global.euc&&euc.state=="READY"&&euc.dash.horn==1) {euc.wri("hornOff");return;}
+		if (global.euc&&euc.state=="READY"&&euc.dash.spd>=2&&euc.dash.horn==1) {euc.wri("hornOff");return;}
 		if (face.pageCurr==-1) {
 			digitalPulse(D16,1,[60,40,60]);
 			if (global.euc){

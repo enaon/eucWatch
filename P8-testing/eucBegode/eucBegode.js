@@ -123,6 +123,7 @@ euc.conn=function(mac){
 			    	global["\xFF"].BLE_GATTS.disconnect();  
 				});  
 			}else if (n=="start") {
+				if (euc.dash.aLight!="lightsOn"||euc.dash.aLight!="lightsOff"||euc.dash.aLight!="lightsStrobe") euc.dash.aLight="lightsOn";
 				c.writeValue(euc.cmd(euc.dash.aLight)).then(function() {
 					if (!euc.run){
 						c.writeValue(euc.cmd("beep")).then(function() {
