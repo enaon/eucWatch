@@ -9,11 +9,15 @@ You will need an android smartphone, and the [DaFlasher](https://play.google.com
 
 Using the app, you will upload four files to the P8 watch:
 
-1. a custom app that will replace the bootloader of the p8.
-2.  a  bootloader.
-3.   yet another  bootloader, this time compatible with the espruino image linked bellow.
-3. 1  (optional) a bootloader patch for time keeping on reboots, same procedure as step 3.
-4. finally the espruino image itself.
+1 a custom app that will replace the bootloader of the p8.
+
+2- a  bootloader.
+
+3 yet another  bootloader, this time compatible with the espruino image linked bellow.
+
+3.1  (optional) a bootloader patch for time keeping on reboots, same procedure as step 3.
+ 
+4 finally the espruino image itself.
 
 > Files are mirrored [here](https://github.com/enaon/eucWatch/tree/main/P8/hackme) 
 > 
