@@ -4,6 +4,7 @@
 >1. The antenna of the p8 might not be good enouph for a solid connection. It will work, but only 3 out of 10 that I got my hand on were good enough to not need an antenna change. That requires opening up the watch, and if done carefully it barelly leaves any visible marks.
 >2. Some watches, version TON5, are mising a crystal, that makes them currently incompatible with daFlasher. They can still be flashed, but that requires opening up the watch. 
 >
+#### Espruino Installation on P8 [how-to](https://enaon.github.io/eucWatch/tools/hackme/)
 
 ### Loader version:
 
@@ -21,7 +22,7 @@ Files for P8 watch are [here](https://github.com/enaon/eucWatch/tree/main/P8).  
 
 var spi=new SPI();spi.setup({sck:D2,mosi:D3,miso:D4,mode:0}); spi.send([0xab],D5);  //wake
 
-#### Espruino Installation [how-to](https://enaon.github.io/eucWatch/tools/hackme/)
+
 
 ### Credits
 
