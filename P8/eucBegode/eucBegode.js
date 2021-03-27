@@ -1,14 +1,21 @@
-//kingsong euc module 
+//Begode euc module 
 //euc.conn(euc.mac);
 //euc.wri("lightsOn")
 //commands
+//tilt speed = 87 - 89 - 3(speed1) - 3(speed2) 
 euc.cmd=function(no){
-	
 	switch (no) {
-		//case "serial":return[85,170,3,9,1,38,2,202,255];
-		case "model":return [0xAA,0x55,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x9B,0x14,0x5A,0x5A]; 
+		case "beep":return [98]; 
+		case "lightsOn":return [81]; 
+		case "lightsOff":return [69]; 
+		case "lightsStrobe":return [84]; 
+		case "alertsOff":return [105]; 
+		case "alertTwo":return [117]; 
+		case "alertOneTwo":return [111]; 		
+		case "rideSoft":return [115]; 
+		case "rideMed":return [102]; 
+		case "rideHard":return [104]; 
     }
-	
 };
 //start
 euc.conn=function(mac){
@@ -25,15 +32,70 @@ euc.conn=function(mac){
 	  return s.getCharacteristic(0xffe1);
 	//read
 	}).then(function(c) {
-		this.need=0;
 		c.on('characteristicvaluechanged', function(event) {
-			this.event=new Uint8Array(event.target.value.buffer);
-			print(this.event);
-			if  ( this.event[18]===0 ) {
-				print("primary packet");
-				euc.dash.spd=((this.event[5] << 8 | (this.event[4] & 255) ) * 3.6)|0;
-			} else if ( this.event[18]===4 ){
-				print("Begode frame B (total distance and flags");
+			if  ( event.target.value.buffer[0]===85 ) {
+				//print( event.target.value.buffer);
+				euc.alert=0;
+        //speed
+				euc.dash.spd = Math.abs(event.target.value.getInt16(4) * 3.6)/100|0;
+				if ( (euc.dash.spdM < euc.dash.spd)&& euc.dash.spd < 100 ) euc.dash.spdM=euc.dash.spd;
+				euc.dash.spdC = ( euc.dash.spd <= 25 )? 0 : ( euc.dash.spd <= 30 )? 1 : ( euc.dash.spd <= 35 )? 2 : 3 ;	
+				if ( euc.dash.hapS && euc.dash[euc.dash.haSv]  <= euc.dash.spd ) 
+					euc.alert = ( 1 + ((euc.dash.spd-euc.dash[euc.dash.haSv]) / euc.dash.spdS | 0 ) );  
+				//battery
+				euc.dash.volt=event.target.value.getInt16(2);
+				if (euc.dash.volt > 6680) {
+				   euc.dash.bat = 100;
+				} else if (euc.dash.volt > 5440) {
+				   euc.dash.bat = ((euc.dash.volt - 5380) / 13)|0;
+				} else if (euc.dash.volt > 5290) {
+				  euc.dash.bat =  ((euc.dash.volt - 5290) / 32.5)|0;
+				} else {
+				  euc.dash.bat = 0;
+				}
+				euc.dash.batC = (euc.dash.batH <= euc.dash.bat)? 0 : (euc.dash.batM <= euc.dash.bat)? 1 : (euc.dash.batL <= euc.dash.bat)? 2 : 3;	
+				if ( euc.dash.hapB && euc.dash.bat <= euc.dash.batL ) { euc.alert ++; euc.dash.spdC = 3; }   
+				//trip
+				euc.dash.trpL=event.target.value.getUint32(6)/1000;
+				//amp
+				euc.dash.amp=event.target.value.getInt16(10)/1000|0;
+				euc.dash.ampC = ( euc.dash.ampH+10 <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL - 5 )? 3 : ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp < 0 )? 1 : 0;
+				if ( euc.dash.ampH <= euc.dash.amp ){
+					euc.dash.spdC = (euc.dash.ampC === 3)? 3 : (euc.dash.spdC === 3)? 3 : 2;
+					if (euc.dash.hapA) euc.alert = ( euc.alert + 1 + ((euc.dash.amp - euc.dash.ampH) / euc.dash.ampS|0) );
+				}else if ( euc.dash.amp <= euc.dash.ampL )  {
+					euc.dash.spdC = (euc.dash.ampC === 3)? 3 : (euc.dash.spdC === 3)? 3 : 2;
+					if (euc.dash.hapA) euc.alert = (euc.alert + 1 + ((-(euc.dash.amp - euc.dash.ampL)) / euc.dash.ampS|0));  				
+				}
+				//temp
+				euc.dash.tmp=Math.round((event.target.value.getUint16(12)/340)+102)/10;
+				euc.dash.tmpC = (euc.dash.tmp <= euc.dash.tmpH)? 0 : (euc.dash.tmp <= euc.dash.tmpH+5)? 2 : 3;	
+				if (euc.dash.tmpH+5 <= euc.dash.tmp) {euc.alert++; euc.dash.spdC = 3;}   
+			} else if ( event.target.value.buffer[0]===90 ){
+				euc.dash.trpT=(event.target.value.getUint32(6)/1000).toFixed(1);
+				euc.dash.mode = (event.target.value.getUint8(10) >> 4) & 0x0F;
+				euc.dash.alrm = event.target.value.getUint8(10) & 0x0F;
+				euc.dash.spdT = event.target.value.getUint8(15);
+				euc.dash.light = event.target.value.getUint8(17);
+			}
+			//haptic
+			if (!euc.buzz && euc.alert) {  
+				euc.buzz=1;
+				if (20 <= euc.alert) euc.alert = 20;
+				var a=[];
+				while (5 <= euc.alert) {
+					a.push(200,500);
+					euc.alert = euc.alert - 5;
+				}
+				let i;
+				for (i = 0; i < euc.alert ; i++) {
+					a.push(200,150);
+				}
+				digitalPulse(D16,0,a);  
+				setTimeout(() => { euc.buzz = 0; }, 3000);
+			}
+			if ((1<euc.dash.spdC||1<euc.dash.ampC)&&!w.gfx.isOn ){
+				face.go(set.dash[set.def.dash],0);
 			}
 		});
 		//on disconnect
@@ -43,33 +105,88 @@ euc.conn=function(mac){
 		return  c;
 	//write
 	}).then(function(c) {
-		console.log("EUC Veteran connected!!"); 
+		console.log("EUC Begode connected!!"); 
 		digitalPulse(D16,1,[90,40,150,40,90]);
 		euc.wri= function(n) {
-            print(n);
+			print(n);
 			if (euc.busy) {print(1); clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},500);return;} euc.busy=euc.busy=setTimeout(()=>{euc.busy=0;},500);
-            //end
+			//end
 			if (n=="end") {
-               c.stopNotifications(); 
-				if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
-				global["\xFF"].BLE_GATTS.disconnect();
+				c.writeValue(euc.cmd("lightsOff")).then(function() {
+					c.writeValue(euc.cmd("beep")).then(function() {
+						c.stopNotifications(); 
+						if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
+						global["\xFF"].BLE_GATTS.disconnect();         
+					});
+				}).catch(function(err)  {
+			    	if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
+			    	global["\xFF"].BLE_GATTS.disconnect();  
+				});  
+			}else if (n=="start") {
+				if (euc.dash.aLight!="lightsOn"||euc.dash.aLight!="lightsOff"||euc.dash.aLight!="lightsStrobe") euc.dash.aLight="lightsOn";
+				c.writeValue(euc.cmd(euc.dash.aLight)).then(function() {
+					if (!euc.run){
+						c.writeValue(euc.cmd("beep")).then(function() {
+							euc.run=1;
+							clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
+						});
+					}else {
+						clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
+					}
+				}).catch(function(err)  {
+			    	if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
+			    	global["\xFF"].BLE_GATTS.disconnect();  
+				});  
+			}else if (n=="setAlarms") {
+				c.writeValue(87).then(function() {
+					c.writeValue(89).then(function() {
+						let tilt=euc.dash.spd3.toString().split('');
+						c.writeValue(48+Number(tilt[0])).then(function() {
+							c.writeValue(48+Number(tilt[1])).then(function() {
+								c.writeValue((euc.dash.spd2E)?(euc.dash.spd1E)?111:117:105).then(function() {
+									c.writeValue(98);
+									clearTimeout(euc.busy);euc.busy=0;
+								});	
+							});	
+						});	
+					});
+				}).catch(function(err)  {
+			    	if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
+			    	global["\xFF"].BLE_GATTS.disconnect();  
+				});  
+			}else if (n=="calibrate") {
+				c.writeValue(99);
+				setTimeout(()=>{c.writeValue(121);clearTimeout(euc.busy);euc.busy=0;},500);
+			}else if (n=="hornOn") {
+				c.writeValue(euc.cmd("lightsStrobe")).then(function() {
+					c.writeValue(euc.cmd("beep"));
+   					clearTimeout(euc.busy);euc.busy=0;
+				}).catch(function(err)  {
+			    	if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
+			    	global["\xFF"].BLE_GATTS.disconnect();  
+				});  
+			}else if (n=="hornOff") {
+				c.writeValue(euc.cmd(euc.dash.aLight)).then(function() {
+   					clearTimeout(euc.busy);euc.busy=0;
+				}).catch(function(err)  {
+			    	if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
+			    	global["\xFF"].BLE_GATTS.disconnect();  
+				}); 
 			//rest
-            } else if (!euc.cmd(n)) {
+			} else if (!euc.cmd(n)) {
 				c.writeValue(n).then(function() {
-					//clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/
 				}).catch(function(err)  {
 					clearTimeout(euc.busy);euc.busy=0;euc.off("err");
 				});   
-            }else{
+			}else{
 				c.writeValue(euc.cmd(n)).then(function() {
-					clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
+					clearTimeout(euc.busy);euc.busy=0;
 				}).catch(function(err)  {
 					clearTimeout(euc.busy);euc.busy=0;euc.off("err");
 				});
 			}
 		};
-		setTimeout(() => {euc.wri("model");euc.state="READY";}, 500);
-
+		setTimeout(() => {euc.wri("start");euc.state="READY";}, 500);
 	//reconect
 	}).catch(function(err)  {
 		euc.off(err);
@@ -114,13 +231,13 @@ euc.off=function(err){
 	} else {
 		if (set.def.cli) 
 			console.log("EUC OUT:",err);
-		global["\xFF"].bleHdl=[];
+	  	global["\xFF"].bleHdl=[];
 			clearTimeout(euc.busy);euc.busy=0;
 			delete euc.off;
 			delete euc.conn;
 			delete euc.wri;
 			delete euc.cmd;
-			delete euc.unpk;
+			euc.run=0;
 			NRF.setTxPower(set.def.rfTX);	
     }
 };

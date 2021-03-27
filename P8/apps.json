@@ -14,7 +14,7 @@
 	{ "id": "handler",
 		"name": "Handler",
 		"icon": "icon.png",
-		"version":"0.21",
+		"version":"0.26",
 		"description": "P8 functions handler",
 		"tags": "core",
 		"custom": "custom.html",
@@ -94,8 +94,8 @@
 	{ "id": "dash",
 		"name": "EUC Dashboard",
 		"icon": "icon.png",
-		"version":"0.20",
-		"description": "EUC dashboard. Includes two faces, a simple and a digital one. Depends on EUC modulea.",
+		"version":"0.25",
+		"description": "EUC dashboard. Garage, scan and dash faces. Depends on EUC modules.",
 		"tags": "euc",
 		"storage": [
 			{"name":"dash_simple","url":"dash_simple.js"},
@@ -143,11 +143,14 @@
 	{ "id": "dashBegode",
 		"name": "Begode Settings",
 		"icon": "icon.png",
-		"version":"0.20",
+		"version":"0.25",
 		"description": "EUC dashboard, Begode settings gui files.",
 		"tags": "euc",
 		"storage": [
-			{"name":"dashBegode","url":"dashBegode.js"}
+			{"name":"dashBegode","url":"dashBegode.js"},
+			{"name":"dashBegodeAdv","url":"dashBegodeAdv.js"},
+			{"name":"dashBegodeLimits","url":"dashBegodeLimits.js"},
+			{"name":"dashBegodeLCalibrate","url":"dashBegodeCalibrate.js"}
 		]
 	},
 	{ "id": "euc",
@@ -199,7 +202,7 @@
    { "id": "eucBegode",
 		"name": "Begode module",
 		"icon": "icon.png",
-		"version":"0.20",
+		"version":"0.25",
 		"description": "EUC module for Begode (Gotway)",
 		"tags": "euc",
 		"type": "euc",

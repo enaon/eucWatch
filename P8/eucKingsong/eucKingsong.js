@@ -109,7 +109,7 @@ euc.conn=function(mac){
 					if ( euc.dash.hapB && euc.dash.bat <= euc.dash.batL ) { euc.alert ++; euc.dash.spdC = 3; }     
 					//temp
 					euc.dash.tmp = (event.target.value.getUint16(12, true) / 100).toFixed(1);
-					euc.dash.tmpC = (euc.dash.tmp <= euc.dash.tmpM)? 0 : (euc.dash.tmp <= euc.dash.tmpH)? 2 : 0;	
+					euc.dash.tmpC = (euc.dash.tmp <= euc.dash.tmpH)? 0 : (euc.dash.tmp <= euc.dash.tmpH+5)? 2 : 3;	
 					if (euc.dash.tmpH <= euc.dash.tmp) {euc.alert++; euc.dash.spdC = 3;}     
 					//total mileage
 					euc.dash.trpT = (((event.target.value.buffer[6] << 16) + (event.target.value.buffer[7] << 24) + event.target.value.buffer[8] + (event.target.value.buffer[9] << 8)) / 1000).toFixed(1);

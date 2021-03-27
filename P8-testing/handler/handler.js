@@ -203,6 +203,18 @@ var face={
 				if (this.appCurr==="main") {
 					if (face[c].off) {
 						if (set.def.touchtype=="716") tfk.exit();	
+						else { //check if not original 816
+							digitalPulse(D13,1,[5,50]);
+							setTimeout(()=>{
+								let type=i2c.writeTo(0x15,0xa5,3);
+								setTimeout(()=>{
+									if (type!=1) {
+										digitalPulse(D13,1,[5,50]);
+										setTimeout(()=>{i2c.writeTo(0x15,0xE5,3);},100); //touch off
+									}
+								},300);	
+							},100);
+						}		
 						//else {digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xe5,3);},100);} //touch off
 						face[c].off();this.pageCurr=-1;face.pagePrev=c;
 					}
@@ -210,6 +222,18 @@ var face={
 			}else if (face.appPrev=="off") {
 				if (face[c].off) {
 					if (set.def.touchtype=="716") tfk.exit();	
+					else { //check if not original 816
+						digitalPulse(D13,1,[5,50]);
+						setTimeout(()=>{
+							let type=i2c.writeTo(0x15,0xa5,3);
+							setTimeout(()=>{
+								if (type!=1) {
+									digitalPulse(D13,1,[5,50]);
+									setTimeout(()=>{i2c.writeTo(0x15,0xE5,3);},100); //touch off
+								}
+							},300);	
+						},100);
+					}					
 					//else {digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xe5,3);},100);} //touch off
 					face.go("main",-1);face.pagePrev=c;
 				}
@@ -227,8 +251,19 @@ var face={
 		}
 		if (this.pageCurr==-1 && this.pagePrev!=-1) {
 			//if (set.def.touchtype=="716")tfk.loop=100;
-			if (set.def.touchtype=="716") tfk.exit();
-			//else {digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100);} //touch deep sleep
+			if (set.def.touchtype=="716") tfk.exit();	
+			else { //check if not original 816
+				digitalPulse(D13,1,[5,50]);
+				setTimeout(()=>{
+					let type=i2c.writeTo(0x15,0xa5,3);
+					setTimeout(()=>{
+						if (type!=1) {
+							digitalPulse(D13,1,[5,50]);
+							setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100); //touch deep sleep
+						}
+					},300);	
+				},100);
+			}	
 			acc.go=0;
 			face[this.pagePrev].off();
 			if (this.offid) {clearTimeout(this.offid); this.offid=0;}
@@ -245,6 +280,7 @@ var face={
 		if(!w.gfx.isOn) {
 			//digitalPulse(D13,1,[10,50]); //touch wake
 			if (set.def.touchtype=="716"){tfk.loop=10;if(!tfk.tid) tfk.start();}
+			else digitalPulse(D13,1,[5,50]);
 			w.gfx.on();
 		}
 		face[page].show(arg);
@@ -343,6 +379,7 @@ if (set.def.touchtype=="816"){ //816
     var tid8;
 	setWatch(function(s){
 		"ram";
+		i2c.writeTo(0x15,0);
 		var tp=i2c.readFrom(0x15,7);
 		if (face.pageCurr>=0) {
 			touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);}
