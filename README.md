@@ -13,9 +13,9 @@
 [**Web loader**](https://enaon.github.io/eucWatch/dk08) for the DK08 watch
 
 
-### Manual install:
+### Manual scripts install:
 
-Files for P8 watch are [here](https://github.com/enaon/eucWatch/tree/main/P8).  Can be used with the [flash enabled](https://github.com/fanoush/ds-d6/blob/master/espruino/DFU/P8/espruino_2v07.60_p8_SDK11_SD20_SPIFLASH.zip) or the  the [not flash enabled](https://github.com/fanoush/ds-d6/blob/master/espruino/DFU/P8/espruino_2v07.60_p8_SDK11_SD20.zip) [Espruino](https://www.espruino.com/) image build by @fanoush. 
+Files for P8 watch are [here](https://github.com/enaon/eucWatch/tree/main/P8).  To be used with the **flash enabled** [Espruino](https://www.espruino.com/) image build by @fanoush. 
 
 **Enter this in left hand side (webide) to enable flash(one time only) before uploading.** 
 (the loader version will do this automatically when an install option from the installer tab is selected)
