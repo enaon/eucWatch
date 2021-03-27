@@ -206,11 +206,12 @@ var face={
 						else { //check if not original 816
 							digitalPulse(D13,1,[5,50]);
 							setTimeout(()=>{
-								let type=i2c.writeTo(0x15,0xa5,3);
+								i2c.writeTo(0x15,0xa5,3);
+								let type=i2c.readFrom(0x15,1);
 								setTimeout(()=>{
 									if (type!=1) {
 										digitalPulse(D13,1,[5,50]);
-										setTimeout(()=>{i2c.writeTo(0x15,0xE5,3);},100); //touch off
+										setTimeout(()=>{i2c.writeTo(0x15,0xA5,3);},100); //touch deep sleep
 									}
 								},300);	
 							},100);
@@ -225,11 +226,12 @@ var face={
 					else { //check if not original 816
 						digitalPulse(D13,1,[5,50]);
 						setTimeout(()=>{
-							let type=i2c.writeTo(0x15,0xa5,3);
+							i2c.writeTo(0x15,0xa5,3);
+							let type=i2c.readFrom(0x15,1);
 							setTimeout(()=>{
 								if (type!=1) {
 									digitalPulse(D13,1,[5,50]);
-									setTimeout(()=>{i2c.writeTo(0x15,0xE5,3);},100); //touch off
+									setTimeout(()=>{i2c.writeTo(0x15,0xA5,3);},100); //touch deep sleep
 								}
 							},300);	
 						},100);
@@ -255,7 +257,8 @@ var face={
 			else { //check if not original 816
 				digitalPulse(D13,1,[5,50]);
 				setTimeout(()=>{
-					let type=i2c.writeTo(0x15,0xa5,3);
+					i2c.writeTo(0x15,0xa5,3);
+					let type=i2c.readFrom(0x15,1);
 					setTimeout(()=>{
 						if (type!=1) {
 							digitalPulse(D13,1,[5,50]);
