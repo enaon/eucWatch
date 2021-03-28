@@ -203,40 +203,14 @@ var face={
 				if (this.appCurr==="main") {
 					if (face[c].off) {
 						if (set.def.touchtype=="716") tfk.exit();	
-						else { //check if not original 816
-							digitalPulse(D13,1,[5,50]);
-							setTimeout(()=>{
-								i2c.writeTo(0x15,0xa5,3);
-								let type=i2c.readFrom(0x15,1);
-								setTimeout(()=>{
-									if (type!=1) {
-										digitalPulse(D13,1,[5,50]);
-										setTimeout(()=>{i2c.writeTo(0x15,0xA5,3);},100); //touch deep sleep
-									}
-								},300);	
-							},100);
-						}		
-						//else {digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xe5,3);},100);} //touch off
+						else digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100); 
 						face[c].off();this.pageCurr=-1;face.pagePrev=c;
 					}
 				}else face.go(this.appCurr,1);
 			}else if (face.appPrev=="off") {
 				if (face[c].off) {
 					if (set.def.touchtype=="716") tfk.exit();	
-					else { //check if not original 816
-						digitalPulse(D13,1,[5,50]);
-						setTimeout(()=>{
-							i2c.writeTo(0x15,0xa5,3);
-							let type=i2c.readFrom(0x15,1);
-							setTimeout(()=>{
-								if (type!=1) {
-									digitalPulse(D13,1,[5,50]);
-									setTimeout(()=>{i2c.writeTo(0x15,0xA5,3);},100); //touch deep sleep
-								}
-							},300);	
-						},100);
-					}					
-					//else {digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xe5,3);},100);} //touch off
+					else digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100); 
 					face.go("main",-1);face.pagePrev=c;
 				}
 			}else if (c>1) face.go(this.appCurr,0);
@@ -254,19 +228,7 @@ var face={
 		if (this.pageCurr==-1 && this.pagePrev!=-1) {
 			//if (set.def.touchtype=="716")tfk.loop=100;
 			if (set.def.touchtype=="716") tfk.exit();	
-			else { //check if not original 816
-				digitalPulse(D13,1,[5,50]);
-				setTimeout(()=>{
-					i2c.writeTo(0x15,0xa5,3);
-					let type=i2c.readFrom(0x15,1);
-					setTimeout(()=>{
-						if (type!=1) {
-							digitalPulse(D13,1,[5,50]);
-							setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100); //touch deep sleep
-						}
-					},300);	
-				},100);
-			}	
+			else digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100); 
 			acc.go=0;
 			face[this.pagePrev].off();
 			if (this.offid) {clearTimeout(this.offid); this.offid=0;}
