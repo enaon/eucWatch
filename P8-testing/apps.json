@@ -188,6 +188,17 @@
 			{"name":"eucNinebot","url":"eucNinebot.js"}
 		]
 		},
+	{ "id": "eucNinebotZ",
+		"name": "Ninebot module",
+		"icon": "icon.png",
+		"version":"0.20",
+		"description": "EUC module for Ninebot Z6/Z10",
+		"tags": "euc",
+		"type": "euc",
+		"storage": [
+			{"name":"eucNinebotZ","url":"eucNinebotZ.js"}
+		]
+		},
    { "id": "eucVeteran",
 		"name": "Veteran module",
 		"icon": "icon.png",
