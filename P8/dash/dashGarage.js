@@ -24,7 +24,7 @@ face[0] = {
 				this.g.fillRect(0,0,119,97);
 				this.g.setColor(1,col("white"));
 				this.g.setFont("Vector",18);	
-				this.g.drawString((this.s1)?this.dash.slot1Name.split("-")[1]:this.dash.slot1Maker.toUpperCase(),60-(this.g.stringWidth((this.s1)?this.dash.slot1Name.split("-")[1]:this.dash.slot1Maker.toUpperCase())/2),10); 
+				this.g.drawString(this.dash.slot1Maker.toUpperCase(),60-(this.g.stringWidth(this.dash.slot1Maker.toUpperCase())/2),10); 
 				this.g.setFont("Vector",35);	
 				this.g.drawString(this.dash.slot1Name.split("-")[0],60-(this.g.stringWidth(this.dash.slot1Name.split("-")[0])/2),50); 
 				this.g.flip();
@@ -54,7 +54,8 @@ face[0] = {
 				this.g.fillRect(122,0,239,97);	
 				this.g.setColor(1,col("white"));
 				this.g.setFont("Vector",18);	
-				this.g.drawString((this.s2)?this.dash.slot2Name.split("-")[1]:this.dash.slot2Maker.toUpperCase(),185-(this.g.stringWidth((this.s2)?this.dash.slot2Name.split("-")[1]:this.dash.slot2Maker.toUpperCase())/2),10); 
+//				this.g.drawString((this.s2)?this.dash.slot2Name.split("-")[1]:this.dash.slot2Maker.toUpperCase(),185-(this.g.stringWidth((this.s2)?this.dash.slot2Name.split("-")[1]:this.dash.slot2Maker.toUpperCase())/2),10); 
+				this.g.drawString(this.dash.slot2Maker.toUpperCase(),185-(this.g.stringWidth(this.dash.slot2Maker.toUpperCase())/2),10); 
 				this.g.setFont("Vector",35);	
 				this.g.drawString(this.dash.slot2Name.split("-")[0],185-(this.g.stringWidth(this.dash.slot2Name.split("-")[0])/2),50); 
 				this.g.flip();
@@ -84,7 +85,7 @@ face[0] = {
 				this.g.fillRect(0,100,119,195);
 				this.g.setColor(1,col("white"));
 				this.g.setFont("Vector",18);	
-				this.g.drawString((this.s3)?this.dash.slot3Name.split("-")[1]:this.dash.slot3Maker.toUpperCase(),60-(this.g.stringWidth((this.s3)?this.dash.slot3Name.split("-")[1]:this.dash.slot3Maker.toUpperCase())/2),110); 
+				this.g.drawString(this.dash.slot3Maker.toUpperCase(),60-(this.g.stringWidth(this.dash.slot3Maker.toUpperCase())/2),110); 
 				this.g.setFont("Vector",35);	
 				this.g.drawString(this.dash.slot3Name.split("-")[0],60-(this.g.stringWidth(this.dash.slot3Name.split("-")[0])/2),150); 
 				this.g.flip();
@@ -114,7 +115,7 @@ face[0] = {
 		this.g.fillRect(122,100,239,195);
 				this.g.setColor(1,col("white"));
 				this.g.setFont("Vector",18);	
-				this.g.drawString((this.s4)?this.dash.slot4Name.split("-")[1]:this.dash.slot4Maker.toUpperCase(),185-(this.g.stringWidth((this.s4)?this.dash.slot4Name.split("-")[1]:this.dash.slot4Maker.toUpperCase())/2),110); 
+				this.g.drawString(this.dash.slot4Maker.toUpperCase(),185-(this.g.stringWidth(this.dash.slot4Maker.toUpperCase())/2),110); 
 				this.g.setFont("Vector",35);	
 				this.g.drawString(this.dash.slot4Name.split("-")[0],185-(this.g.stringWidth(this.dash.slot4Name.split("-")[0])/2),150); 
 				this.g.flip();

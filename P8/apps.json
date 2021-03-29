@@ -130,6 +130,16 @@
 			{"name":"dashNinebot","url":"dashNinebot.js"}
     ]
 	}, 
+	{ "id": "dashNinebotZ",
+		"name": "NinebotZ Settings",
+		"icon": "icon.png",
+		"version":"0.20",
+		"description": "EUC dashboard, NinebotZ settings gui files.",
+		"tags": "euc",
+		"storage": [
+			{"name":"dashNinebotZ","url":"dashNinebotZ.js"}
+    ]
+	}, 
 	{ "id": "dashVeteran",
 		"name": "Veteran Settings",
 		"icon": "icon.png",
@@ -186,6 +196,17 @@
 		"type": "euc",
 		"storage": [
 			{"name":"eucNinebot","url":"eucNinebot.js"}
+		]
+		},
+	{ "id": "eucNinebotZ",
+		"name": "NinebotZ module",
+		"icon": "icon.png",
+		"version":"0.20",
+		"description": "EUC module for Ninebot Z6/Z10",
+		"tags": "euc",
+		"type": "euc",
+		"storage": [
+			{"name":"eucNinebotZ","url":"eucNinebotZ.js"}
 		]
 		},
    { "id": "eucVeteran",

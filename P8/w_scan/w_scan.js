@@ -9,7 +9,9 @@ scan={
       if (app=="repellent") this.filter = [{serviceData:{"fe95":{}}}];
       else {
 		  app="dash";
-		  this.filter = [{services:[service]}];
+		  if (euc.dash.maker=="NinebotZ")  this.filter = [{manufacturer:16974}];  
+		  else if (euc.dash.maker=="InmotionV11")  this.filter = [{ namePrefix: 'V11-' }]
+		  else this.filter = [{services:[service]}];
 	  }
       var found=[];
   	  NRF.filterDevices(devices, this.filter).forEach(function(entry) {found.push(entry.id);});
