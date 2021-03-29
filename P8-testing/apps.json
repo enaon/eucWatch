@@ -130,6 +130,16 @@
 			{"name":"dashNinebot","url":"dashNinebot.js"}
     ]
 	}, 
+	{ "id": "dashNinebotZ",
+		"name": "Ninebot Settings",
+		"icon": "icon.png",
+		"version":"0.20",
+		"description": "EUC dashboard, NinebotZ settings gui files.",
+		"tags": "euc",
+		"storage": [
+			{"name":"dashNinebotZ","url":"dashNinebotZ.js"}
+    ]
+	}, 
 	{ "id": "dashVeteran",
 		"name": "Veteran Settings",
 		"icon": "icon.png",

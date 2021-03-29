@@ -58,7 +58,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 		switch (this.var) {
 		case 38://speed
 			euc.dash.spd=(this.in16/1000).toFixed(0);
-			euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd <= euc.dash.spd+2 )? 1 : ( euc.dash.spd <= euc.dash.spd+5 )? 2 : 3 ;	
+			euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd1+2 <= euc.dash.spd )? 1 : ( euc.dash.spd1+5 <= euc.dash.spd )? 2 : 3 ;	
 			if ( euc.dash.hapS && euc.dash.spd >= euc.dash.spd1 ) 
 				euc.alert = 1 + ((euc.dash.spd-euc.dash.spd1) / euc.dash.ampS|0) ;
 			break;
