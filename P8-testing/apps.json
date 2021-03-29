@@ -131,7 +131,7 @@
     ]
 	}, 
 	{ "id": "dashNinebotZ",
-		"name": "Ninebot Settings",
+		"name": "NinebotZ Settings",
 		"icon": "icon.png",
 		"version":"0.20",
 		"description": "EUC dashboard, NinebotZ settings gui files.",
@@ -199,7 +199,7 @@
 		]
 		},
 	{ "id": "eucNinebotZ",
-		"name": "Ninebot module",
+		"name": "NinebotZ module",
 		"icon": "icon.png",
 		"version":"0.20",
 		"description": "EUC module for Ninebot Z6/Z10",
