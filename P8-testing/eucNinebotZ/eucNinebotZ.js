@@ -81,20 +81,20 @@ euc.conn=function(mac){
 					//euc.dash.spdM=((event.target.value.getUint16(19, true))/100).toFixed(1);
 				}
 				//haptic
-				if (euc.alert && !euc.buzz) {  
-					euc.buzz=1;
-					if (20<=euc.alert) euc.alert=20;
-					var a=[];
-					while (5 <= euc.alert) {
-						a.push(150,500);
-						euc.alert=euc.alert-5;
-					}
-					var i;
-					for (i = 0; i < euc.alert ; i++) {
-						a.push(150,150);
-					}
-					digitalPulse(D16,0,a);  
-					setTimeout(() => {euc.buzz=0; }, 3000);
+				if (!euc.buzz && euc.alert) {  
+						euc.buzz=1;
+						if (20 <= euc.alert) euc.alert = 20;
+						var a=[];
+						while (5 <= euc.alert) {
+							a.push(200,500);
+							euc.alert = euc.alert - 5;
+						}
+						let i;
+						for (i = 0; i < euc.alert ; i++) {
+							a.push(200,150);
+						}
+						digitalPulse(D16,0,a);  
+						setTimeout(() => { euc.buzz = 0; }, 3000);
 				}
 				//screen on
 				if ((1<euc.dash.spdC||1<euc.dash.ampC)&&!w.gfx.isOn ){
@@ -136,7 +136,7 @@ euc.conn=function(mac){
 			setTimeout(() => {euc.wri("live");}, 500);
 		//reconnect
 		}).catch(function(err)  {
-			euc.off("pr",err);
+			euc.off(err);
 	});
 };
 
