@@ -13,7 +13,7 @@
     "name": "P8 core",
     "icon": "icon.png",
     "version":"0.01",
-    "description": "init file ",
+    "description": "init file, watchdog and screen driver. ",
     "tags": "core",
 	"type":"core",
 	"readme": "README.md",
