@@ -72,7 +72,7 @@ euc.conn=function(mac){
 						euc.alert = ( 1 + ((euc.dash.spd-euc.dash[euc.dash.haSv]) / euc.dash.spdS | 0 ) );  
 					//City lights 
 					if ( euc.dash.aLight === "lightsCity" ) { 
-						if ( euc.dash.amp < 0 && euc.dash.light ===1 ) {
+						if ( euc.dash.amp < -1 && euc.dash.light ===1 ) {
 							euc.wri("lightsAuto"); 
 						}else if (euc.night && euc.dash.amp >= 0) {
 							if ( 20 < euc.dash.spd && euc.dash.light !== 1  ) 
