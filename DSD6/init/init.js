@@ -145,17 +145,9 @@ Modules.addCached("DSD6OLED",function(){
 		vibon({i:intensity,c:count,on:onms,off:offms});
 	};
 	exports.initOLED=function(rot,f){
-		//require("Font6x8").add(Graphics);
-		//require("Font6x12").add(Graphics);
-		//require("Font8x12").add(Graphics);
 		require("Font8x16").add(Graphics);
-		//require('FontSinclair').add(Graphics);
 		//require('FontDylex7x13').add(Graphics);	
-		//require('FontTeletext10x18Ascii').add(Graphics);	
 		require('Font7x11Numeric7Seg').add(Graphics);	
-		//require('FontHaxorNarrow7x17').add(Graphics);	
-		//require("FontCopasetic40x58Numeric").add(Graphics);
-		//require("https://github.com/dylex/fonts/blob/master/28x28.bdf").add(Graphics);
 		var spi=SPI1; //new SPI()
 		spi.setup({mosi:D6,sck:D5,baud:8000000});
 		if (f===undefined) f=function(){
@@ -259,6 +251,7 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
 	},BTN1,{repeat:false, edge:"rising"}); 
 }else{ //load in working mode
 	if (!Boolean(require('Storage').read('setting.json'))) require('Storage').write('setting.json',{"watchtype":"dsd6"});
+	//eval(require('Storage').read('main')); //call clock
 	eval(require('Storage').read('handler')); //call handler
 	print("Welcome!\n*** WorkingMode ***\nLong hold the button\nto restart in DevMode");
     digitalPulse(D25,1,[100,50,100]);

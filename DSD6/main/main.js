@@ -1,3 +1,4 @@
+nb_conn=0;
 var g=o.gfx;
 var clockFace = {
   offms: 3000,
@@ -18,7 +19,7 @@ var clockFace = {
     central(this.v,2); 
     g.setFont7x11Numeric7Seg();
     central(d[2],100);
-    g.setFontDylex7x13();
+   // g.setFontDylex7x13();
     central(d[0],118);
 	g.drawRect(0, 0, 29, 17);
     g.drawRect(30, 4, 31, 12);

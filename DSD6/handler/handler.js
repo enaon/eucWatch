@@ -112,7 +112,6 @@ setTimeout(()=>{
   //E.setPassword("1234");
 //  E.lockConsole();
   w.vibrate(0.75,1,200,600);
-  //eval(require('Storage').read('ninebot')); //call ninebot
   //w.setClock("2020-04-19T04:29:02",0); //set time
   E.setTimeZone(3);
   setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:"both"});
