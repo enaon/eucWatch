@@ -57,15 +57,17 @@
       {"name":"m_gb","url":"m_gb.js"}
     ]
   },
-  	{ "id": "Font7x11Numeric7Seg",
-		"name": "Fonts-Font7x11Numeric7Seg",
+  	{ "id": "fonts",
+		"name": "Fonts",
 		"icon": "icon.png",
 		"version":"0.20",
-		"description": "Font7x11Numeric7Seg font",
+		"description": "font files",
 		"tags": "core",
 		"type": "core",
 			"storage": [
-		{"name":"Font7x11Numeric7Seg","url":"Font7x11Numeric7Seg.js"}
+		{"name":"Font7x11Numeric7Seg","url":"Font7x11Numeric7Seg.js"},
+		{"name":"FontDylex7x13","url":"FontDylex7x13.js"}
+
 		]
 	}
 ]

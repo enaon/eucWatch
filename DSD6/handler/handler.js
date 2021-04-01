@@ -18,7 +18,7 @@ var face={
 		face.tid= setTimeout(()=>{
 			face[0].exit();
 			face.tid=-1;
-      o.off();
+			o.off();
 		},face.offms);
 	}
 };
