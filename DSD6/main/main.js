@@ -46,5 +46,7 @@ face[0]= {
 };
 
 button=function(i) {
+	if (i=="short") face.go("main");
+	
 	print("main",i);
 };
