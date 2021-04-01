@@ -160,7 +160,7 @@
 			{"name":"dashBegode","url":"dashBegode.js"},
 			{"name":"dashBegodeAdv","url":"dashBegodeAdv.js"},
 			{"name":"dashBegodeLimits","url":"dashBegodeLimits.js"},
-			{"name":"dashBegodeLCalibrate","url":"dashBegodeCalibrate.js"}
+			{"name":"dashBegodeCalibrate","url":"dashBegodeCalibrate.js"}
 		]
 	},
 	{ "id": "euc",
