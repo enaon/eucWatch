@@ -241,10 +241,12 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
 		NRF.setAdvertising({}, { name:"Espruino-devmode",connectable:true });
 		digitalPulse(D25,1,100);
 		print("Welcome!\n*** DevMode ***\nShort press the button\nto restart in WorkingMode");
-		o.gfx.setFont8x16();
-		o.gfx.clear();
-		o.gfx.drawString("DEV mode",20,12);
-		o.flip();
+		setTimeout(()=>{
+			o.gfx.setFont8x16();
+			o.gfx.clear();
+			o.gfx.drawString("DEV mode",20,12);
+			o.flip();
+		},200);
 	}
 	setWatch(function(){
 		require("Storage").erase("devmode");
