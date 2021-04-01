@@ -146,7 +146,7 @@ Modules.addCached("DSD6OLED",function(){
 	};
 	exports.initOLED=function(rot,f){
 		require("Font8x16").add(Graphics);
-		//require('FontDylex7x13').add(Graphics);	
+		require('FontDylex7x13').add(Graphics);	
 		require('Font7x11Numeric7Seg').add(Graphics);	
 		var spi=SPI1; //new SPI()
 		spi.setup({mosi:D6,sck:D5,baud:8000000});
