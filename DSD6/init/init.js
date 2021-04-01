@@ -150,8 +150,8 @@ Modules.addCached("DSD6OLED",function(){
 		//require("Font8x12").add(Graphics);
 		require("Font8x16").add(Graphics);
 		//require('FontSinclair').add(Graphics);
-		require('FontDylex7x13').add(Graphics);	
-		require('FontTeletext10x18Ascii').add(Graphics);	
+		//require('FontDylex7x13').add(Graphics);	
+		//require('FontTeletext10x18Ascii').add(Graphics);	
 		require('Font7x11Numeric7Seg').add(Graphics);	
 		//require('FontHaxorNarrow7x17').add(Graphics);	
 		//require("FontCopasetic40x58Numeric").add(Graphics);

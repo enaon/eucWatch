@@ -56,5 +56,16 @@
     "storage": [
       {"name":"m_gb","url":"m_gb.js"}
     ]
-  }
+  },
+  	{ "id": "Font7x11Numeric7Seg",
+		"name": "Fonts-Font7x11Numeric7Seg",
+		"icon": "icon.png",
+		"version":"0.20",
+		"description": "Font7x11Numeric7Seg font",
+		"tags": "core",
+		"type": "core",
+			"storage": [
+		{"name":"Font7x11Numeric7Seg","url":"Font7x11Numeric7Seg.js"}
+		]
+	}
 ]
