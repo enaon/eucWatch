@@ -238,6 +238,10 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
 			o.gfx.clear();
 			o.gfx.drawString("DEV mode",20,12);
 			o.flip();
+			setupSerial();// first set to known state
+			// now pause serial console for power saving, it will be enabled when RX goes high
+			// it should be enough to connect to serial adapter
+			pauseConsole(Serial1);
 		},200);
 	}
 	setWatch(function(){
@@ -251,7 +255,6 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
 	},BTN1,{repeat:false, edge:"rising"}); 
 }else{ //load in working mode
 	if (!Boolean(require('Storage').read('setting.json'))) require('Storage').write('setting.json',{"watchtype":"dsd6"});
-	//eval(require('Storage').read('main')); //call clock
 	eval(require('Storage').read('handler')); //call handler
 	print("Welcome!\n*** WorkingMode ***\nLong hold the button\nto restart in DevMode");
     digitalPulse(D25,1,[100,50,100]);
