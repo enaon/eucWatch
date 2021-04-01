@@ -259,6 +259,7 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
 	},BTN1,{repeat:false, edge:"rising"}); 
 }else{ //load in working mode
 	if (!Boolean(require('Storage').read('setting.json'))) require('Storage').write('setting.json',{"watchtype":"dsd6"});
+	eval(require('Storage').read('handler')); //call handler
 	print("Welcome!\n*** WorkingMode ***\nLong hold the button\nto restart in DevMode");
     digitalPulse(D25,1,[100,50,100]);
 }
