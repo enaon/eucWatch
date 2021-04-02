@@ -175,7 +175,7 @@ Modules.addCached("DSD6OLED",function(){
 	var i2c=new I2C();
 	//var i2c=I2C1;
 	exports.initAccel=function(){
-		i2c.setup({scl:13, sda:14, bitrate:400000});
+		i2c.setup({scl:13, sda:14, bitrate:100000});
 	};
 	function accRegDump(reg){
 		val=accRead(reg,1)[0];return val.toString(10)+" 0x"+val.toString(16)+" %"+val.toString(2);
