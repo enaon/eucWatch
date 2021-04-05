@@ -61,7 +61,9 @@ var acc={
 			this.mode=i;
 			w.accWrite(0x18,0x45); //standby mode-high current-int1-2g-tap-tilt
 			w.accWrite(0x22,0x01); //tilt
-			w.accWrite(0x19,0x10);
+			w.accWrite(0x19,0x10); //enable face up
+			w.accWrite(0x32,0x0C); //22 degrees
+			//w.accWrite(0x32,0x03); //6 degrees
 			w.accWrite(0x1f,0x05); //tap-tilt report on int1
 			w.accWrite(0x1c,0x30); //enable int1
 			w.accWrite(0x18,0xC5); //opp mode-high current-int1-2g-tap-tilt-enable
@@ -81,6 +83,8 @@ var acc={
 			w.accWrite(0x18,0x41); //standby mode-high current-int1-2g-tilt
 			w.accWrite(0x22,0x01); //tilt
 			w.accWrite(0x19,0x10);
+			w.accWrite(0x32,0x0C); //22 degrees
+			//w.accWrite(0x32,0x03); //6 degrees
 			w.accWrite(0x1f,0x01); //tilt report on int1
 			w.accWrite(0x1c,0x30); //enable int1
 			w.accWrite(0x18,0xC1); //opp mode-high current-int1-2g-tilt

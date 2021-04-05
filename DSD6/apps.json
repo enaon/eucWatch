@@ -1,14 +1,4 @@
 [
-  { "id": "devmode",
-    "name": "Devmode",
-    "icon": "icon.png",
-    "version":"0.01",
-    "description": "Empty file that gets the dsd6 to developer mode. Upload this to force developer mode on following uploads, tap on the button when finished uploading all files, to boot into working mode.",
-    "tags": "core",
-    "storage": [
-      {"name":"devmode","url":"devmode"}
-    ]
-  },
   { "id": "init",
     "name": "P8 core",
     "icon": "icon.png",
