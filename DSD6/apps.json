@@ -1,6 +1,6 @@
 [
   { "id": "init",
-    "name": "P8 core",
+    "name": "DSD6 core",
     "icon": "icon.png",
     "version":"0.01",
     "description": "init file, watchdog and screen driver. ",
