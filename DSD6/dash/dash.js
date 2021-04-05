@@ -12,18 +12,18 @@ face[0] = {
 		if (euc.state=="READY") {
 			g.setFontVector(23);
 			central(euc.spd, 23); //speed 1
-			if  (euc.amp<=0){
+			if  (euc.dash.amp<=0){
 				g.fillRect(0,70,31,91);
 				g.setColor(0);
 				g.setFontVector(19);
-				central(-euc.amp, 71);
+				central(-euc.dash.amp, 71);
 				g.setColor(1);
-			} else if (euc.amp<10) {
+			} else if (euc.dash.amp<10) {
 				g.setFontVector(19);
-				central(euc.amp, 71);
+				central(euc.dash.amp, 71);
 			} else {
 				g.setFontVector(18);
-				central(euc.amp|0, 71);
+				central(euc.dash.amp|0, 71);
 			}
 			g.setFont7x11Numeric7Seg();
 			central(ninebot_62/10, 55); //temp
@@ -31,12 +31,12 @@ face[0] = {
 		} else if (euc.state=="SCAN") {
 			g.setFontVector(12);
 			central("SCAN", 40); //speed-state
-			if (euc.lock) {central("L", 62);} //speed-state
+			if (euc.dash.lock) {central("L", 62);} //speed-state
 		} else if (euc.state=="LOST") {
 			g.setFontVector(12);
 			g.setFontVector(11);
 			central("LOST", 40); //speed-state
-			if (euc.lock) {central("L", 62);} //speed-state
+			if (euc.dash.lock) {central("L", 62);} //speed-state
 		}  else if (euc.state=="WAIT")  {
 			g.setFontVector(12);
 			central("WAIT", 40); //speed-state      
@@ -44,7 +44,7 @@ face[0] = {
 			g.setFontVector(12);
 			central("OFF", 40); //speed-state 
 			g.setFontVector(16);
-			if (euc.lock) {central("L", 62);} //speed-state	  
+			if (euc.dash.lock) {central("L", 62);} //speed-state	  
 		}   else if (euc.state=="ON")  {
 			g.setFontVector(16);
 			central("ON", 40); //speed-state
@@ -52,11 +52,11 @@ face[0] = {
 		//    g.setFont8x16();
 		g.setFontVector(15);
 		//g.setFont("Teletext10x18Ascii",1);
-		central(euc.bat,0); //fixed bat
+		central(euc.dash.bat,0); //fixed bat
 		g.drawLine(4,18,26,18);
 		g.setFont7x11Numeric7Seg();
-		central(euc.trpL, 97); //mileage
-		central(euc.trpT, 117); //mileage total
+		central(euc.dash.trpL, 97); //mileage
+		central(euc.dash.trpT, 117); //mileage total
 		g.drawLine(0,92,31,92);
 		g.drawLine(0,112,31,112);
 		o.flip();

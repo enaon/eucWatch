@@ -59,7 +59,7 @@
 	"readme": "README.md",
     "storage": [
       {"name":"euc","url":"euc.js"},
-      {"name":"eucSlot","url":"eucSlot.json"}
+      {"name":"eucSlot.json","url":"eucSlot.json"}
 
     ]
   },
