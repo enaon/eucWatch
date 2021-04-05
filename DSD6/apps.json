@@ -1,29 +1,4 @@
 [
-	{ "id": "init",
-		"name": "DSD6 core",
-		"icon": "icon.png",
-		"version":"0.01",
-		"description": "init file, watchdog and screen driver. ",
-		"tags": "core",
-		"type":"core",
-		"readme": "README.md",
-		"storage": [
-			{"name":".bootrst","url":"init.js"}
-		]
-	},
-	{ "id": "handler",
-		"name": "dsd6 handler",
-		"icon": "icon.png",
-		"version":"0.01",
-		"description": "handler file.",
-		"tags": "core",
-		"type":"core",
-		"custom": "custom.html",
-		"readme": "README.md",
-		"storage": [
-			{"name":"handler","url":"handler.js"}
-		]
-	},
 	{ "id": "main",
 		"name": "dsd6 main clock",
 		"icon": "icon.png",
@@ -34,68 +9,6 @@
 		"readme": "README.md",
 		"storage": [
 			{"name":"main","url":"main.js"}
-		]
-	},
-	{ "id": "dash",
-		"name": "dsd6 dash",
-		"icon": "icon.png",
-		"version":"0.01",
-		"description": "dash file.",
-		"tags": "core",
-		"type":"core",
-		"readme": "README.md",
-		"storage": [
-			  {"name":"dash","url":"dash.js"},
-			  {"name":"dashInfo","url":"dashInfo.js"}
-			]
-	},
-	{ "id": "euc",
-		"name": "euc loader",
-		"icon": "icon.png",
-		"version":"0.01",
-		"description": "euc loader",
-		"tags": "euc",
-		"type":"euc",
-		"readme": "README.md",
-		"storage": [
-			  {"name":"euc","url":"euc.js"},
-			  {"name":"eucSlot.json","url":"eucSlot.json"}
-		]
-	},
-	{ "id": "eucKingsong",
-		"name": "Kingsong module",
-		"icon": "icon.png",
-		"version":"0.01",
-		"description": "Kingsong module",
-		"tags": "euc",
-		"type":"euc",
-		"readme": "README.md",
-		"storage": [
-			{"name":"eucKingsong","url":"eucKingsong.js"}
-		]
-	},
-	{ "id": "m_gb_console",
-		"name": "Gadgetbridge cli",
-		"icon": "icon.png",
-		"version":"0.01",
-		"description":"Gadgetbridge serial console output for degug",
-		"tags": "core",
-		"type":"core",
-		"readme": "README.md",
-		"storage": [
-			{"name":"m_gb","url":"m_gb.js"}
-		]
-	},
-  	{ "id": "fonts",
-		"name": "Fonts",
-		"icon": "icon.png",
-		"version":"0.20",
-		"description": "font files",
-		"tags": "core",
-		"type": "core",
-		"storage": [
-			{"name":"Font7x11Numeric7Seg","url":"Font7x11Numeric7Seg.js"},
-			{"name":"FontDylex7x13","url":"FontDylex7x13.js"}
 		]
 	}
 ]
