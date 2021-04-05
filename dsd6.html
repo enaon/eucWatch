@@ -13,16 +13,16 @@
     <link rel="icon" type="image/png" sizes="16x16" href="Loader/img/favicon-16x16.png">
     <link rel="manifest" href="Loader/site.webmanifest">
     <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#332F2E">
-    <meta name="apple-mobile-web-app-title" content="dsd6 band">
-    <meta name="application-name" content="dsd6 band">
+    <meta name="apple-mobile-web-app-title" content="DSD6 eucWatch">
+    <meta name="application-name" content="DSD6 eucWatch">
     <meta name="msapplication-TileColor" content="#332F2E">
     <meta name="theme-color" content="#332F2E">
-    <title>dsd6 band Loader</title>
+    <title>DSD6 eucWatch Loader</title>
   </head>
   <body>
     <header class="navbar-primary navbar">
       <section class="navbar-section">
-        <a href="https://enaon.github.io/eucWatch" target="_blank" class="navbar-brand mr-2"><img src="Loader/img/favicon-32x32.png" alt="dsd6 band">&nbsp;&nbsp; dsd6 band loader</a>
+        <a href="https://enaon.github.io/eucWatch" target="_blank" class="navbar-brand mr-2"><img src="Loader/img/favicon-32x32.png" alt="DSD6 eucWatch">&nbsp;&nbsp; DSD6 eucWatch loader</a>
         <!-- <a href="#" class="btn btn-link">...</a> -->
       </section>
       <section class="navbar-section">
@@ -51,7 +51,7 @@
         <a href="javascript:showTab('myappscontainer')">My Apps</a>
       </li>
       <li class="tab-item" id="tab-watchcontainer">
-        <a href="javascript:showTab('watchcontainer')">Installer</a>
+        <a href="javascript:showTab('watchcontainer')">eucWatch</a>
       </li>      <li class="tab-item" id="tab-aboutcontainer">
         <a href="javascript:showTab('aboutcontainer')">About</a>
       </li>
@@ -101,22 +101,28 @@
 
 
     <div class="container apploader-tab" id="watchcontainer" style="display:none">
-      <div class="hero bg-gray">
+      <!--<div class="hero bg-gray">
         <div class="hero-body">
+		<!--
           <h4>Installer</h4>
-			<h6>The install proccess will erase the Band</h6>
-        </div>
-      </div>
+			
+			<h6>This proccess will erase the Watch</h6>
+		    <h7>Tap on the side button after last file is done uploading to start using the Watch.</h7>
+			
+		</div>
+      </div>-->
       <div class="container" style="padding-top: 8px;">
-        <h5>Features set</h5><h7>Select working mode.</h7>
-        <p><button class="btn" id="installbasic">Basic</button>
-           <button class="btn" id="installeuc">EUC</button>
+        <h5>Installer</h5><h7>Prepare device and upload all scripts in one go.</h7>
+        <p><button class="btn" id="installeuc">Install eucWatch</button>
+			<!--
+		   <button class="btn" id="installbasic">Basic</button>
            <button class="btn" id="installall">All</button>
-        </p>
+			-->
+		</p>
         <h5>Utilities</h5>
-        <p><button class="btn" id="settime">Set Time</button>
-			<button class="btn" id="restart">Restart Watch</button>
-           <button class="btn" id="removeall">Remove all Apps</button>
+        <p><button class="btn" id="settime">Set eucWatch Time</button>
+			<button class="btn" id="restart">Restart eucWatch</button>
+           <button class="btn" id="removeall">Erase eucWatch</button>
         </p>
       </div>
     </div>
