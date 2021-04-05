@@ -1,6 +1,7 @@
 var g=o.gfx;
+if (!global.euc) eval(require('Storage').read('euc'));
 face[0] = {
-	offms: 10000, //10 sec timeout
+	offms: 5000, //10 sec timeout
 	init: function(){
 			return;
 	},
@@ -11,7 +12,7 @@ face[0] = {
 		}
 		if (euc.state=="READY") {
 			g.setFontVector(23);
-			central(euc.spd, 23); //speed 1
+			central(euc.dash.spd, 23); //speed 1
 			if  (euc.dash.amp<=0){
 				g.fillRect(0,70,31,91);
 				g.setColor(0);
@@ -26,11 +27,11 @@ face[0] = {
 				central(euc.dash.amp|0, 71);
 			}
 			g.setFont7x11Numeric7Seg();
-			central(ninebot_62/10, 55); //temp
+			central(euc.dash.tmp, 55); //temp
 			g.drawCircle(29, 55, 2);
-		} else if (euc.state=="SCAN") {
+		} else if (euc.state=="FAR") {
 			g.setFontVector(12);
-			central("SCAN", 40); //speed-state
+			central("FAR", 40); //speed-state
 			if (euc.dash.lock) {central("L", 62);} //speed-state
 		} else if (euc.state=="LOST") {
 			g.setFontVector(12);
@@ -79,5 +80,6 @@ face[0] = {
 
 button=function(i) {
 	if (i=="short") face.go("main");
-	print("main",i);
+	else euc.tgl();
+	print(i);
 };

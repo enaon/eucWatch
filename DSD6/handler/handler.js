@@ -96,7 +96,7 @@ var acc={
 		}		
 		acc.wtc=setWatch(function(s){
 			if (s.state){
-				console.log((w.accRead(17,3)));
+				//console.log((w.accRead(17,3)));
 				let state=w.accRead(17,3);
 				if (state[2]==1) {
 					if (state[0]==32||state[0]==4||state[0]==8) {
