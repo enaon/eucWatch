@@ -777,6 +777,8 @@ function installerOptions(installtype) {
     iframe.contentWindow.addEventListener("message", function(event) {
       console.log("Received customm Setting");
        modal.remove();
+        console.log(`${APP_SOURCECODE_DEV}/${installtype}.json`);
+
     httpGet(`${APP_SOURCECODE_DEV}/${installtype}.json`).then(json=>{
     return installMultipleApps(JSON.parse(json), installtype,event.data);
   }).catch(err=>{
