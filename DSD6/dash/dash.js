@@ -1,11 +1,3 @@
-euc={};
-euc.amp=0;
-euc.spd=0;
-euc.trpL=0;
-euc.trpT=0;
-euc.lock=0;
-euc.bat=0;
-var g=o.gfx;
 var g=o.gfx;
 face[0] = {
 	offms: 10000, //10 sec timeout
