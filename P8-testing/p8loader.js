@@ -21,7 +21,7 @@ if (window.location.host=="espruino.com") {
 var APP_SOURCECODE_URL;
 var APP_SOURCECODE_DEV;
 (function() {
-  let username = "espruino";
+  let username = "enaon";
   let githubMatch = window.location.href.match(/\/(\w+)\.github\.io/);
   if (githubMatch) username = githubMatch[1];
   APP_SOURCECODE_URL = `https://github.com/${username}/eucWatch/tree/main/P8-testing/`;
