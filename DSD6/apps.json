@@ -18,6 +18,7 @@
 		"description": "handler file.",
 		"tags": "core",
 		"type":"core",
+		"custom": "custom.html",
 		"readme": "README.md",
 		"storage": [
 			{"name":"handler","url":"handler.js"}
