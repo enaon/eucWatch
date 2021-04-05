@@ -63,6 +63,18 @@
 
     ]
   },
+   { "id": "eucKingsong",
+    "name": "Kingsong module",
+    "icon": "icon.png",
+    "version":"0.01",
+    "description": "Kingsong module",
+    "tags": "euc",
+	"type":"euc",
+	"readme": "README.md",
+    "storage": [
+      {"name":"eucKingsong","url":"eucKingsong.js"}
+    ]
+  },
   { "id": "m_gb_console",
     "name": "Gadgetbridge cli",
     "icon": "icon.png",
