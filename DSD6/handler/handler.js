@@ -120,6 +120,7 @@ var acc={
 //		w.accWrite(0x1A,0x00); //cntrl3 slow
 	}
 };
+acc.off();
 //charge pin
 setWatch(function(s){
 		if (digitalRead(D2)==1) 

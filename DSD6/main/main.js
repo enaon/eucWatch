@@ -26,7 +26,7 @@ face[0]= {
 		central(d[0],118);
 		g.drawRect(0, 0, 29, 17);
 		g.drawRect(30, 4, 31, 12);
-		o.flip();o.on();
+		o.flip();
 		this.tid=setTimeout(function(t,i){
 			t.tid=-1;
 			t.show(o);
@@ -46,7 +46,6 @@ face[0]= {
 };
 
 button=function(i) {
-	if (i=="short") face.go("main");
-	
+	if (i=="short") face.go("dash");
 	print("main",i);
 };

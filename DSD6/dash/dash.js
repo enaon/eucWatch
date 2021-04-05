@@ -1,52 +1,91 @@
+euc={};
+euc.amp=0;
+euc.spd=0;
+euc.trpL=0;
+euc.trpT=0;
+euc.lock=0;
+euc.bat=0;
 var g=o.gfx;
-face[0]= {
-	offms: 3000,
-		init: function(){
-		this.v=(w.battVoltage()*100-365)*2|0;
-		if (this.v>=100) this.v=100;
-		this.run=true;
+var g=o.gfx;
+face[0] = {
+	offms: 10000, //10 sec timeout
+	init: function(){
+			return;
 	},
 	show : function(i){
-		if (!this.run) return;
 		g.clear();
-		var d=(Date()).toString().split(' ');
-		var t=(d[4]).toString().split(':');
 		function central(text, y) {
-		   g.drawString(text, (g.getWidth() - g.stringWidth(text))/2, y);
+			g.drawString(text, (g.getWidth() - g.stringWidth(text))/2, y);
 		}
-		g.setFontVector(26);
-		central(t[0],26);
-		central(t[1],67);
-		g.setFont8x16();
-		central(".  .",49);
-		central(this.v,2); 
+		if (euc.state=="READY") {
+			g.setFontVector(23);
+			central(euc.spd, 23); //speed 1
+			if  (euc.amp<=0){
+				g.fillRect(0,70,31,91);
+				g.setColor(0);
+				g.setFontVector(19);
+				central(-euc.amp, 71);
+				g.setColor(1);
+			} else if (euc.amp<10) {
+				g.setFontVector(19);
+				central(euc.amp, 71);
+			} else {
+				g.setFontVector(18);
+				central(euc.amp|0, 71);
+			}
+			g.setFont7x11Numeric7Seg();
+			central(ninebot_62/10, 55); //temp
+			g.drawCircle(29, 55, 2);
+		} else if (euc.state=="SCAN") {
+			g.setFontVector(12);
+			central("SCAN", 40); //speed-state
+			if (euc.lock) {central("L", 62);} //speed-state
+		} else if (euc.state=="LOST") {
+			g.setFontVector(12);
+			g.setFontVector(11);
+			central("LOST", 40); //speed-state
+			if (euc.lock) {central("L", 62);} //speed-state
+		}  else if (euc.state=="WAIT")  {
+			g.setFontVector(12);
+			central("WAIT", 40); //speed-state      
+		}  else if (euc.state=="OFF")  {
+			g.setFontVector(12);
+			central("OFF", 40); //speed-state 
+			g.setFontVector(16);
+			if (euc.lock) {central("L", 62);} //speed-state	  
+		}   else if (euc.state=="ON")  {
+			g.setFontVector(16);
+			central("ON", 40); //speed-state
+		}
+		//    g.setFont8x16();
+		g.setFontVector(15);
+		//g.setFont("Teletext10x18Ascii",1);
+		central(euc.bat,0); //fixed bat
+		g.drawLine(4,18,26,18);
 		g.setFont7x11Numeric7Seg();
-		central(d[2],100);
-	    g.setFontDylex7x13();
-		central(d[0],118);
-		g.drawRect(0, 0, 29, 17);
-		g.drawRect(30, 4, 31, 12);
-		o.flip();o.on();
+		central(euc.trpL, 97); //mileage
+		central(euc.trpT, 117); //mileage total
+		g.drawLine(0,92,31,92);
+		g.drawLine(0,112,31,112);
+		o.flip();
+		// schedule refresh 
 		this.tid=setTimeout(function(t,i){
 			t.tid=-1;
-			t.show(o);
-		},1000-Date().getMilliseconds(),this,i);
+			t.show(i);
+		},100,this,i);
 	},
-	tid:-1,
-	run:false,
 	exit: function(i){
-		this.run=false;
-		if (this.tid>=0) clearTimeout(this.tid);
-		this.tid=-1;
-		return true;
+			this.run=false;
+			if (this.tid>=0) clearTimeout(this.tid);
+			this.tid=-1;
+			return true;
 	},
 	off: function(i){
-		this.exit(i);
-	}
+			this.exit(i);
+	} 
 };
 
 button=function(i) {
 	if (i=="short") face.go("main");
-	
 	print("main",i);
 };

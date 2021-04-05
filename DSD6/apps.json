@@ -49,6 +49,20 @@
 
     ]
   },
+   { "id": "euc",
+    "name": "euc loader",
+    "icon": "icon.png",
+    "version":"0.01",
+    "description": "euc loader",
+    "tags": "euc",
+	"type":"euc",
+	"readme": "README.md",
+    "storage": [
+      {"name":"euc","url":"euc.js"},
+      {"name":"eucSlot","url":"eucSlot.json"}
+
+    ]
+  },
   { "id": "m_gb_console",
     "name": "Gadgetbridge cli",
     "icon": "icon.png",
