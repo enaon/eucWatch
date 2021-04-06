@@ -836,8 +836,6 @@ if (btn) btn.addEventListener("click",event=>{
   loadSettings(); // update all settings
   refreshLibrary(); // favourites were in settings
 });
-
-
 // Install all default apps in one go
 btn = document.getElementById("installdefault");
 if (btn) btn.addEventListener("click",event=>{
@@ -848,7 +846,6 @@ if (btn) btn.addEventListener("click",event=>{
     showToast("App Install failed, "+err,"error");
   });
 });
-
 // Install all favourite apps in one go
 btn = document.getElementById("installfavourite");
 if (btn) btn.addEventListener("click",event=>{
