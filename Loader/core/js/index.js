@@ -714,16 +714,6 @@ if (btn) btn.addEventListener("click",event=>{
     showToast("FULL Install failed, "+err,"error");
   });
 });
-// Install all apps in one go
-btn = document.getElementById("install");
-if (btn) btn.addEventListener("click",event=>{ 
-    httpGet(`${APP_SOURCECODE_DEV}/${installtype}.json`).then(json=>{
-    return installMultipleApps(JSON.parse(json), installtype,event.data).then(() => {
-    }).catch(err=>{
-    Progress.hide({sticky:true});
-    showToast("FULL Install failed, "+err,"error");
-  });
-});
 
 btn = document.getElementById("settime");
 if (btn) btn.addEventListener("click",event=>{
