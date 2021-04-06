@@ -90,6 +90,6 @@ button=function(i) {
 };
 
 function tilt(i){
-  if (i=="up") o.on();
-  else o.off();
+  if (i=="up") face.go("dash");
+  else face.go("off");
 }

@@ -24,12 +24,16 @@ var set={
 	def:{
 		dash:0
 	}
-}
+};
 var face={
 	curr:"main",
 	offms:-1,
 	go:function(app,arg){
 		if (face[0] && face[0].exit) face[0].exit();
+		if (app=="off") {
+      if (face.tid>0) {clearTimeout(face.tid); face.tid=-1;}
+      o.off();return;
+    }
 		face.curr=app;
 		eval(require('Storage').read(app));
 		face[0].init();
