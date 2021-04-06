@@ -45,7 +45,7 @@
 		"readme": "README.md",
 		"storage": [
 			  {"name":"dash","url":"dash.js"},
-			  {"name":"dashInfo","url":"dashInfo.js"}
+			  {"name":"dash.json","url":"dash.json"}
 			]
 	},
 	{ "id": "euc",
