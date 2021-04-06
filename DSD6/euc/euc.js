@@ -10,6 +10,7 @@ global.euc= {
 	updateDash:function(slot){require('Storage').write('eucSlot'+slot+'.json', euc.dash);},
 	tgl:function(){ 
 		if (this.state!="OFF" ) {
+			buzzer(1,200);
 			if (!set.def.acc) {acc.off();}
 			this.seq=1;
 			this.state="OFF";
@@ -22,6 +23,7 @@ global.euc= {
 			setTimeout(()=>{euc.updateDash(require("Storage").readJSON("dash.json",1).slot);},500);
 			return;
 		}else {
+			buzzer(1,100);
 			NRF.setTxPower(4);
 			this.mac=require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Mac"];
 			if(!this.mac) {
