@@ -19,7 +19,7 @@
 		// build the app's text using a templated String
 		//require("handler").advertise(${JSON.stringify(acc)});
         var app = ` 
-		{"name":${JSON.stringify(name)},"pass":${JSON.stringify(pass)},"rfTX":-4,"bri":2,"dash":0}
+		{"name":${JSON.stringify(name)},"pass":${JSON.stringify(pass)},"rfTX":-4,"bri":2,"dashSlot":0}
 `;
 		window.postMessage(app);
         // send finished app

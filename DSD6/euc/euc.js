@@ -1,6 +1,4 @@
-//	//this.maker=require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'];
-//	//this.mac=require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Mac'];
-
+//euc module loader
 global.euc= {
 	state: "OFF",
 	reconnect:0,
@@ -12,14 +10,10 @@ global.euc= {
 	updateDash:function(slot){require('Storage').write('eucSlot'+slot+'.json', euc.dash);},
 	tgl:function(){ 
 		if (this.state!="OFF" ) {
-//			set.def.accE=0;
 			if (!set.def.acc) {acc.off();}
 			this.seq=1;
 			this.state="OFF";
    			face.go("dash",0);
-			//if (this.kill) clearTimout(this.kill);
-			//this.kill=setTimeout(()=>{
-			//if (euc.dash.emu) {set.def.atc=0;set.upd();}
 			if (require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]!="Ninebot") 
 				euc.wri("end");
 			else  
@@ -29,7 +23,6 @@ global.euc= {
 			return;
 		}else {
 			NRF.setTxPower(4);
-			//if (euc.dash.emu){set.def.atc=1;set.def.gb=0;set.def.cli=0;set.def.hid=0;set.upd();}
 			this.mac=require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Mac"];
 			if(!this.mac) {
 				print("nomac");
@@ -46,6 +39,6 @@ global.euc= {
 	} 
 };
 //init
-if (Boolean(require("Storage").read('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json'))) { 
-euc.dash=require("Storage").readJSON('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json',1);
+if (Boolean(require("Storage").read('eucSlot'+require("Storage").readJSON("setting.json",1).dashSlot+'.json'))) { 
+euc.dash=require("Storage").readJSON('eucSlot'+require("Storage").readJSON("setting.json",1).dashSlot+'.json',1);
 }else euc.dash=require("Storage").readJSON("eucSlot.json",1);
