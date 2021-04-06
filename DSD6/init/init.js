@@ -216,6 +216,9 @@ function pauseConsole(s){
 		},500);
 	}
 }
+function buzzer (a,b) {
+digitalPulse(D25,a,b);
+}
 // watch KX023 interrupt pin
 //setWatch(function(s){
 //  if (s.state){w.accINSDump();console.log(s,w.accRegDump(0x17));}

@@ -129,7 +129,7 @@ euc.conn=function(mac){
 						for (i = 0; i < euc.alert ; i++) {
 							a.push(200,150);
 						}
-						digitalPulse(D16,0,a);  
+						buzzer(0,a);  
 						setTimeout(() => { euc.buzz = 0; }, 3000);
 					}
 					if ((1<euc.dash.spdC||1<euc.dash.ampC)&&!w.gfx.isOn ){
@@ -180,7 +180,7 @@ euc.conn=function(mac){
 	//write
 	}).then(function(c) {
 		console.log("EUC connected"); 
-          digitalPulse(D16,1,[90,40,150]);
+          buzzer(1,[90,40,150]);
 		euc.wri= function(n) {
 			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},100);return;} euc.busy=setTimeout(()=>{euc.busy=0;},1000);
 			//horn
@@ -326,8 +326,8 @@ euc.off=function(err){
 		if ( err==="Connection Timeout"  )  {
 			if (set.def.cli) console.log("reason :timeout");
 			euc.state="LOST";
-			if (euc.dash.lock==1) digitalPulse(D16,1,250);
-			else digitalPulse(D16,1,[250,200,250,200,250]);
+			if (euc.dash.lock==1) buzzer(1,250);
+			else buzzer(1,[250,200,250,200,250]);
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
 				euc.conn(euc.mac); 
