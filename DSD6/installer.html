@@ -16,13 +16,13 @@
         var app = ` 
 		{"name":${JSON.stringify(name)},"rfTX":-4,"bri":2,"dash":0}
 `;
-//		window.postMessage(app);
+		window.postMessage(app);
         // send finished app
-        sendCustomizedApp({
-          storage:[
-            {name:"dash.json", url:"main", content:app},
-          ]
-        });
+//        sendCustomizedApp({
+//          storage:[
+//            {name:"dash.json", url:"main", content:app},
+//          ]
+//        });
       });
     </script>
   </body>
