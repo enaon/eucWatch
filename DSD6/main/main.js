@@ -46,14 +46,22 @@ face[0]= {
 };
 
 button=function(i) {
-	if (i=="short") 
-			if (o.isOn)face.go("dash");
+	if (i=="short") {
+		if (o.isOn){
+			if (Boolean(require("Storage").read('dash')))
+				face.go("dash");
 			else face.go("main");
-	print("main",i);
+		}else{ 
+      if (global.euc && euc.state=="READY")
+        face.go("dash");
+      else face.go("main");
+    }
+	}else if (global.euc) euc.tgl();
+//	print("main",i);
 };
 function tilt(i){
 	if (i=="up"){
-		if (euc && euc.state!="OFF") face.go("dash");
+		if (global.euc && euc.state!="OFF") face.go("dash");
 		else face.go("main");
 	}else face.go("off");
 }

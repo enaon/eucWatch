@@ -84,8 +84,10 @@ face[0] = {
 };
 
 button=function(i) {
-	if (i=="short") face.go("main");
-	else euc.tgl();
+	if (i=="short") {
+		if (!o.isOn&&euc.state=="READY") face.go("dash");
+		else face.go("main");
+	}else euc.tgl();
 	print(i);
 };
 

@@ -28,6 +28,8 @@ global.euc= {
 			this.mac=require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Mac"];
 			if(!this.mac) {
 				print("nomac");
+				eval(require('Storage').read('eucScan'));
+				scan.go('dash','fff0');
 			//	face.go('dashScan');return;
 		    }else {
 				eval(require('Storage').read('euc'+require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]));
