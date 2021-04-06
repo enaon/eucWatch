@@ -1,7 +1,7 @@
 var g=o.gfx;
 if (!global.euc) eval(require('Storage').read('euc'));
 face[0] = {
-	offms: 5000, //10 sec timeout
+	offms: 10000, //10 sec timeout
 	init: function(){
 			return;
 	},
@@ -83,3 +83,8 @@ button=function(i) {
 	else euc.tgl();
 	print(i);
 };
+
+function tilt(i){
+  if (i=="up") o.on();
+  else o.off();
+}

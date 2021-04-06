@@ -5,7 +5,7 @@
 // https://kionixfs.kionix.com/en/document/TN014%20KX022%2C%20KX023%20Accelerometer%20Power-On%20Procedure.pdf
 var set={
 		def:{
-			dash:1
+			dash:0
 		}
 }
 var face={
