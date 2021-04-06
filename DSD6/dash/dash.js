@@ -1,6 +1,7 @@
 if (!Boolean(require("Storage").read("dash.json"))) { 
 	let dash={slot:1};
 	require('Storage').write('dash.json', dash);
+	set.write("dash","slot1Maker","Kingsong");
 }
 var g=o.gfx;
 if (!global.euc) eval(require('Storage').read('euc'));
