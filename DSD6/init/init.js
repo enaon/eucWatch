@@ -133,17 +133,6 @@ Modules.addCached("DSD6OLED",function(){
 		  poke32(0x50000708,2); // disconnect pin for power saving, otherwise it draws 70uA more
 		  return v;
 	};
-	function vibon(vib){
-		 if(vib.i>=1)D25.set();else analogWrite(D25,vib.i);
-		 setTimeout(viboff,vib.on,vib);
-	}
-	function viboff(vib){
-		 D25.reset();
-		 if (vib.c>1){vib.c=vib.c-1;setTimeout(vibon,vib.off,vib);}
-	}
-	exports.vibrate=function(intensity,count,onms,offms){
-		vibon({i:intensity,c:count,on:onms,off:offms});
-	};
 	exports.initOLED=function(rot,f){
 		require("Font8x16").add(Graphics);
 		require('FontDylex7x13').add(Graphics);	
@@ -230,11 +219,11 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
 		NRF.setAdvertising({},{connectable:false});
 		NRF.disconnect();
 		NRF.sleep();
-		digitalPulse(D25,1,250);
+		buzzer(1,250);
 	} else {
 		require("Storage").write("devmode","done");
 		NRF.setAdvertising({}, { name:"Espruino-devmode",connectable:true });
-		digitalPulse(D25,1,100);
+		buzzer(1,100);
 		print("Welcome!\n*** DevMode ***\nShort press the button\nto restart in WorkingMode");
 		setTimeout(()=>{
 			o.gfx.setFont8x16();
@@ -260,6 +249,6 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
 	if (!Boolean(require('Storage').read('setting.json'))) require('Storage').write('setting.json',{"watchtype":"dsd6"});
 	eval(require('Storage').read('handler')); //call handler
 	print("Welcome!\n*** WorkingMode ***\nLong hold the button\nto restart in DevMode");
-    digitalPulse(D25,1,[100,50,100]);
+    buzzer(1,[100,50,100]);
 }
   
