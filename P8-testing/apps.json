@@ -160,7 +160,7 @@
 			{"name":"dashBegode","url":"dashBegode.js"},
 			{"name":"dashBegodeAdv","url":"dashBegodeAdv.js"},
 			{"name":"dashBegodeLimits","url":"dashBegodeLimits.js"},
-			{"name":"dashBegodeCalibrate","url":"dashBegodeCalibrate.js"}
+			{"name":"dashBegodeLCalibrate","url":"dashBegodeCalibrate.js"}
 		]
 	},
 	{ "id": "euc",
@@ -209,6 +209,17 @@
 			{"name":"eucNinebotZ","url":"eucNinebotZ.js"}
 		]
 		},
+	{ "id": "eucInmotionV11",
+		"name": "Inmotion V11 module",
+		"icon": "icon.jpg",
+		"version":"0.20",
+		"description": "EUC module for Inmotion V11.",
+		"tags": "euc",
+		"type": "euc",
+		"storage": [
+			{"name":"eucInmotionV11","url":"eucInmotionV11.js"}
+		]
+	},
    { "id": "eucVeteran",
 		"name": "Veteran module",
 		"icon": "icon.png",
