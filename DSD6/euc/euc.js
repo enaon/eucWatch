@@ -11,7 +11,7 @@ global.euc= {
 	tgl:function(){ 
 		if (this.state!="OFF" ) {
 			buzzer(1,200);
-			if (!set.def.acc) {acc.off();}
+			acc.on(1);
 			this.seq=1;
 			this.state="OFF";
    			face.go("dash",0);
@@ -34,7 +34,7 @@ global.euc= {
 		    }else {
 				eval(require('Storage').read('euc'+require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]));
 				this.state="ON";
-				if (!set.def.acc) {set.def.accE=1;acc.on();}
+				acc.on(2);
 				this.seq=1;
 				this.conn(this.mac); 
 				face.go("dash");return;

@@ -45,7 +45,7 @@ face[0]= {
 	}
 };
 
-button=function(i) {
+global.button=function(i) {
 	if (i=="short") {
 		if (o.isOn){
 			if (Boolean(require("Storage").read('dash')))
@@ -56,12 +56,12 @@ button=function(i) {
         face.go("dash");
       else face.go("main");
     }
-	}else if (global.euc) euc.tgl();
+	}else if (i=="long" && global.euc) euc.tgl();
 //	print("main",i);
 };
-function tilt(i){
+global.tilt=function(i){
 	if (i=="up"){
 		if (global.euc && euc.state!="OFF") face.go("dash");
 		else face.go("main");
 	}else face.go("off");
-}
+};

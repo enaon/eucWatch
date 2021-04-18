@@ -83,15 +83,24 @@ face[0] = {
 	} 
 };
 
-button=function(i) {
+global.button=function(i) {
 	if (i=="short") {
 		if (!o.isOn&&euc.state=="READY") face.go("dash");
 		else face.go("main");
-	}else euc.tgl();
+	}else if (i=="long")euc.tgl();
 	print(i);
 };
 
-function tilt(i){
+global.tilt=function(i){
   if (i=="up") face.go("dash");
   else face.go("off");
-}
+};
+global.tap=function(i,o){
+	if (global.euc){
+    if (i=="single"&&o==1) button("short");
+    else if (i=="double"&&o==8) euc.tgl();
+
+		//if (euc.state=="READY") if (i=="single"&&o==1) euc.wri("horn");
+		else if (i=="double"&&o==1) euc.tgl();
+	}
+};
