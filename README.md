@@ -1,7 +1,7 @@
 
 >**Notice**:
 >There are two problems one might face when buying a P8 watch to use with this git. 
->1. The antenna of the p8 might not be good enouph for a solid connection. It will work, but only 3 out of 10 that I got my hand on were good enough to not need an antenna change. That requires opening up the watch, and if done carefully it barelly leaves any visible marks.
+>1. The antenna of the p8 might not be good enouph for a solid connection to the EUC. It will work but is a bit random, <del> only 3 out of 10 that I got my hand on were good enough to not need an antenna change.</del>, if not perfect you may need to order another one or change the antenna. That requires opening up the watch, and if done carefully it barelly leaves any visible marks. 
 >2. Some watches, version TON5, are mising a crystal, <del> that makes them currently incompatible with daFlasher. They can still be flashed, but that requires opening up the watch.</del>  @fanoush made an TON5 compatible 1st step bootloader, use the file step1-TON5-xx at the first step. 
 >
 #### Espruino Installation on P8 [how-to](https://enaon.github.io/eucWatch/tools/hackme/)
