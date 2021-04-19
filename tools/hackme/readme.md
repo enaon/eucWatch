@@ -40,6 +40,7 @@ Press **Select File** and choose the file named step1-xxx you just downloaded, t
 When finished the watch will reboot to a three squares screen, ready for step2.
 
 Close DaFlasher or go back, scan again and this time look for an ATCdfu device, this is the P8 now. 
+> **TON5:** in the case of TON5 models, the watch will remain black, and the name will be dfutarg.  
  
 >**Step 2.**
 
@@ -72,7 +73,7 @@ Go back or kill/start Daflasher. and this time look for a device called dfutarg,
 
 >**Step 4.**
 
-Select it, and this time do not chose the **Use Nordic Bootloader** option. Then press the **Select DFU file** button, and choose the file step4-xxx. 
+Select it, and this time **do not** choose the **Use Nordic Bootloader** option. Then press the **Select DFU file** button, and choose the file step4-xxx. 
 
 This step will take up to 5 minutes, and when done the watch will remain blank. 
 
