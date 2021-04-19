@@ -37,6 +37,7 @@ var spi=new SPI();spi.setup({sck:D2,mosi:D3,miso:D4,mode:0}); spi.send([0xab],D5
 
 
 ![image](/tools/assets/images/eucwatch.jpg)
+
 photo from [TheDuke](https://www.espritroue.fr/topic/16585-euc-watch-hackable/?tab=comments#comment-294216&ct=1618804287)
 
 <details>
