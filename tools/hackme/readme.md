@@ -40,6 +40,7 @@ Press **Select File** and choose the file named step1-xxx you just downloaded, t
 When finished the watch will reboot to a three squares screen, ready for step2.
 
 Close DaFlasher or go back, scan again and this time look for an ATCdfu device, this is the P8 now. 
+> **TON5:** in the case of TON5 models, the watch will remain black, and the name will be dfutarg.  
  
 >**Step 2.**
 
@@ -72,14 +73,14 @@ Go back or kill/start Daflasher. and this time look for a device called dfutarg,
 
 >**Step 4.**
 
-Select it, and this time do not chose the **Use Nordic Bootloader** option. Then press the **Select DFU file** button, and choose the file step4-xxx. 
+Select it, and this time **do not** choose the **Use Nordic Bootloader** option. Then press the **Select DFU file** button, and choose the file step4-xxx. 
 
 This step will take up to 5 minutes, and when done the watch will remain blank. 
 
 ### EucWatch Installation:
 
-If all went ok disconnect the phone by turning off the BT radio, so that you will make sure the watch is disconnected, and go to the eucWatch [loader](https://enaon.github.io/eucWatch/p8) , press the **connect** button on the right top corner, connect to the p8 (named p8xxx), then on the installer tab select **feature set/all**. 
+If all went ok disconnect the phone by turning off the BT radio, so that you will make sure the watch is disconnected, and go to the eucWatch [loader](https://enaon.github.io/eucWatch/p8) using a chromium based browser, press the **connect** button on the right top corner, connect to the p8 (named p8xxx), then on the installer tab select **feature set/all**. 
 
-Select 716 and scl for the touch and accelerometer if not sure, they can be later re-selected by uploading just the handler file. 
+Select 816 and sc7a20 for the touch and accelerometer if not sure, they can be later re-selected by re-uploading just the handler file. The timezone is not importand. 
 
 good luck :)
