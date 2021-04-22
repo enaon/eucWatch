@@ -23,8 +23,6 @@ Files for P8 watch are [here](https://github.com/enaon/eucWatch/tree/main/P8).  
 
 var spi=new SPI();spi.setup({sck:D2,mosi:D3,miso:D4,mode:0}); spi.send([0xab],D5);  //wake
 
-![image](/tools/assets/images/eucwatch.jpg)
-
 ### Credits
 
 @ATC1441, who made over the air hacking of the P8 watch possible. He wrote the [DaFlasher](https://play.google.com/store/apps/details?id=com.atcnetz.paatc.patc&gl=US) playstore app to make the proccess easy. He also made the adruino based [ATCWatch](https://github.com/atc1441/ATCwatch) custom firmware to run on the P8 watch.
@@ -38,6 +36,9 @@ var spi=new SPI();spi.setup({sck:D2,mosi:D3,miso:D4,mode:0}); spi.send([0xab],D5
 **More info on Espruino [here](https://www.espruino.com/)**
 
 
+![image](/tools/assets/images/eucwatch.jpg)
+
+photo from [TheDuke](https://www.espritroue.fr/topic/16585-euc-watch-hackable/?tab=comments#comment-294216&ct=1618804287)
 
 <details>
   <summary>Photos</summary>
