@@ -72,7 +72,7 @@ euc.conn=function(mac){
 						euc.alert = ( 1 + ((euc.dash.spd-euc.dash[euc.dash.haSv]) / euc.dash.spdS | 0 ) );  
 					//City lights 
 					if ( euc.dash.aLight === "lightsCity" ) { 
-						if ( euc.dash.amp < 0 && euc.dash.light ===1 ) {
+						if ( euc.dash.amp < -1 && euc.dash.light ===1 ) {
 							euc.wri("lightsAuto"); 
 						}else if (euc.night && euc.dash.amp >= 0) {
 							if ( 20 < euc.dash.spd && euc.dash.light !== 1  ) 
@@ -104,7 +104,10 @@ euc.conn=function(mac){
 					}
 					//volt
 					this.volt = event.target.value.getUint16(2, true)/100;
-					euc.dash.bat = (((this.volt / 20) * 100 - 330 ) * 1.1111)|0;
+					if (euc.dash.name.split("-")[0].includes("18"))
+						euc.dash.bat = (((this.volt / 20) * 100 - 330 ) * 1.1111)|0;
+					else 
+						euc.dash.bat = (((this.volt / 16) * 100 - 315 ) * 0.955)|0;
 					euc.dash.batC = (euc.dash.batH <= euc.dash.bat)? 0 : (euc.dash.batM <= euc.dash.bat)? 1 : (euc.dash.batL <= euc.dash.bat)? 2 : 3;	
 					if ( euc.dash.hapB && euc.dash.bat <= euc.dash.batL ) { euc.alert ++; euc.dash.spdC = 3; }     
 					//temp
