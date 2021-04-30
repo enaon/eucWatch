@@ -225,6 +225,7 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
 		if (160<x&&y<55){
+			if (set.def.dashBat==undefined) set.def.dashBat=0;
 			set.def.dashBat=1-set.def.dashBat;
 			face[0].batt=0;face[0].volt=0;
 			digitalPulse(D16,1,[30,50,30]);
@@ -254,6 +255,7 @@ touchHandler[0]=function(e,x,y){
 		return;
     case 12: //touch and hold(long press) event
 		if (160<x&&y<55){
+			if (set.def.dashBat==undefined) set.def.dashBat=0;
 			set.def.dashBat=1-set.def.dashBat;
 			digitalPulse(D16,1,100);
 			face[0].batt=0;face[0].volt=0;
