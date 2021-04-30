@@ -103,11 +103,12 @@ euc.conn=function(mac){
 						if (euc.dash.hapA) euc.alert = (euc.alert + 1 + ((-(euc.dash.amp - euc.dash.ampL)) / euc.dash.ampS|0));  				
 					}
 					//volt
-					this.volt = event.target.value.getUint16(2, true)/100;
-					if (euc.dash.name.split("-")[0].includes("18"))
-						euc.dash.bat = (((this.volt / 20) * 100 - 330 ) * 1.1111)|0;
+					euc.dash.volt = event.target.value.getUint16(2, true)/100;
+					let model=euc.dash.name.split("-")[0];
+					if (model.includes("S18") || model.includes("18L") ||  model.includes("18XL") || model.includes("16X") )
+						euc.dash.bat = (((euc.dash.volt / 20) * 100 - 330 ) * 1.1111)|0;
 					else 
-						euc.dash.bat = (((this.volt / 16) * 100 - 315 ) * 0.955)|0;
+						euc.dash.bat = (((euc.dash.volt / 16) * 100 - 315 ) * 0.955)|0;
 					euc.dash.batC = (euc.dash.batH <= euc.dash.bat)? 0 : (euc.dash.batM <= euc.dash.bat)? 1 : (euc.dash.batL <= euc.dash.bat)? 2 : 3;	
 					if ( euc.dash.hapB && euc.dash.bat <= euc.dash.batL ) { euc.alert ++; euc.dash.spdC = 3; }     
 					//temp
