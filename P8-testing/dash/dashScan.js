@@ -141,14 +141,15 @@ touchHandler[0]=function(e,x,y){
 			face.go('w_scan',0,'e7fe');
 		}
 	}else if(100<y&&y<200) {
-    digitalPulse(D16,1,[30,50,30]);
-    if ( face[0].set === 1 ) {
-      set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Inmotion");
-      set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","V11");
-      euc.dash.name=0;
-      euc.dash.maker="InmotionV11";
-      face.go('w_scan',0,'ffe0');
-      return;
+		digitalPulse(D16,1,[30,50,30]);
+		if ( face[0].set === 1 ) {
+			if (!Boolean(require("Storage").read('eucInmotionV11'))) {	face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
+			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","InmotionV11");
+			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","V11");
+			euc.dash.name=0;
+			euc.dash.maker="InmotionV11";
+			face.go('w_scan',0,'ffe0');
+			return;
 		}else if ( face[0].set === 2 ) {
 			if (!Boolean(require("Storage").read('eucVeteran'))) {	face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Veteran");
