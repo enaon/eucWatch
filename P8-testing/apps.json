@@ -143,7 +143,7 @@
 	{ "id": "dashInmotion",
 		"name": "Inmotion V11 Settings",
 		"icon": "icon.png",
-		"version":"0.20",
+		"version":"0.30",
 		"description": "EUC dashboard, Inmotion V11 settings gui files.",
 		"tags": "euc",
 		"storage": [
@@ -222,7 +222,7 @@
 	{ "id": "eucInmotion",
 		"name": "Inmotion V11 module",
 		"icon": "icon.jpg",
-		"version":"0.20",
+		"version":"0.30",
 		"description": "EUC module for Inmotion V11.",
 		"tags": "euc",
 		"type": "euc",
