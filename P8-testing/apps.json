@@ -140,6 +140,16 @@
 			{"name":"dashNinebotZ","url":"dashNinebotZ.js"}
     ]
 	}, 
+	{ "id": "dashInmotion",
+		"name": "Inmotion V11 Settings",
+		"icon": "icon.png",
+		"version":"0.20",
+		"description": "EUC dashboard, Inmotion V11 settings gui files.",
+		"tags": "euc",
+		"storage": [
+			{"name":"dashInmotion","url":"dashInmotion.js"}
+    ]
+	}, 
 	{ "id": "dashVeteran",
 		"name": "Veteran Settings",
 		"icon": "icon.png",
@@ -217,7 +227,7 @@
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"eucInmotionV11","url":"eucInmotionV11.js"}
+			{"name":"eucInmotion","url":"eucInmotion.js"}
 		]
 	},
    { "id": "eucVeteran",
