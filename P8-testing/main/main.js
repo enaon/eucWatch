@@ -27,25 +27,17 @@ face[0] = {
 	this.ring=-1;
     this.run=true;
 	this.batt=-1;
-    //print("exit init",getTime()-this.startTime);
-
   },
   show : function(){
     if (!this.run) return;
-    //print("enter show",getTime()-this.startTime);
-
 	//time
-    //print("enter  time",getTime()-this.startTime);
  	this.time();
-    //print(" exit time",getTime()-this.startTime);
-
 	//bt status on date
     if (notify.ring){
    	  if (this.ring!=notify.ring){
 	  this.bt=-1;
-//	  this.g.setColor(0,col("raf3"));
       this.g.setColor(0,2220);
-        this.g.fillRect(0,0,158,50); //date
+      this.g.fillRect(0,0,158,50); //date
       this.g.setColor(1,col("white"));
 	  this.g.setFont("Vector",22);
 	  this.g.drawString("MUTE",68,15);
@@ -58,7 +50,6 @@ face[0] = {
 	  this.ring=0;
       var colbt=col("lgray");
       if (this.bt==3)  colbt=col("raf2");
-//      else if (this.bt==4)  colbt=col("blue");
       else if (this.bt==4)  colbt=143;
       else if (this.bt==2)  colbt=col("purple");
       this.g.setColor(0,colbt);
@@ -74,16 +65,12 @@ face[0] = {
 		this.g.flip();
 	    this.g.setColor(0,colbt);
 		this.g.fillRect(0,0,15,50); //date
-//		var colbtf=col("white");
         var colbtf=4095;
-//        if (set.bt==0) colbtf=0;
         if (set.bt==0) colbtf=0;
         this.g.setColor(1,colbtf);
 		this.g.drawImage(E.toArrayBuffer(atob("CxQBBgDgFgJgR4jZMawfAcA4D4NYybEYIwTAsBwDAA==")),3,13);
 		this.g.flip();
 	  }  
-     //print("exit bt",getTime()-this.startTime);
-
     }
     //batt status
     if (notify.ring){
@@ -135,7 +122,6 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
         //this.g.drawImage(this.image("batteryMed"),212,12);
 	  }else  {this.g.setFont("Vector",28);this.g.drawString("FULL",238-(this.g.stringWidth("FULL")),12); } 
       this.g.flip();
-      //print("end",getTime()-this.startTime);
     }
     this.widg();
     //loop
@@ -197,13 +183,9 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
   },
   time:function(){
   //minutes
-        //print("pre time get ",getTime()-this.startTime);
-
   this.d=(Date()).toString().split(' ');
   this.t=(this.d[4]).toString().split(':');
   this.s=(this.t[2]).toString().split('');
-            //print("post time get ",getTime()-this.startTime);
-
   if (this.t[1]!=this.min ){
     this.min=this.t[1];
     this.g.setFont("Vector",66);
@@ -235,7 +217,7 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
     this.g.fillRect(0,55,100,150);
     this.g.setColor(1,col("white"));
     this.g.setFont("Vector",66);
-    this.g.drawString(this.t[0],15,72); //hours
+    this.g.drawString((set.def.clkH)?this.t[0]:(this.t[0]<13)?this.t[0]:this.t[0]-12,15,72); //hours
   this.g.flip();
   }
 	  
@@ -325,6 +307,11 @@ touchHandler[0]=function(e,x,y){
 		notify.New=0;notify.nInfo=0;notify.nCall=0;notify.nIm=0;notify.nMail=0;
 	}else if (x>162 && y>200){ 
       digitalPulse(D16,1,40);
+	//24 hour
+	}else if (x<100 && 55<y && y<150){ 
+		if (set.def.clkH==undefined) set.def.clkH=0;
+		set.def.clkH=1-set.def.clkH;
+		digitalPulse(D16,1,100);
 	//alarms
      }else if (x>105 && (55<y&&y<150)&&global.alrm){ 
 	   if (alrm.buzz!=-1) {
