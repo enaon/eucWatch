@@ -6,7 +6,7 @@ face[0] = {
 		if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(set.dash[set.def.dash],0);return;}
         if (!face.appPrev.startsWith("dash")) this.g.clear();
         this.g.setColor(0,0);
-		this.g.fillRect(0,196,239,239);
+		this.g.fillRect(0,0,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
 		this.g.drawString("HAPTIC ALERTS",120-(this.g.stringWidth("HAPTIC ALERTS")/2),217); 

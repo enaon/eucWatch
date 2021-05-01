@@ -33,7 +33,7 @@ face[0] = {
     this.g.fillRect(0,99,239,195);
     this.g.setColor(1,col("white"));
 	this.g.setFont("Vector",26);
-    this.g.drawString((n==1)?"INMOTION":(n==2)?"VETERAN":"NINEBOT",120-(this.g.stringWidth((n==1)?"INMOTION":(n==2)?"VETERAN":"NINEBOT")/2),130);
+    this.g.drawString((n==1)?"INMOTION V11":(n==2)?"VETERAN":"NINEBOT",120-(this.g.stringWidth((n==1)?"INMOTION V11":(n==2)?"VETERAN":"NINEBOT")/2),130);
 	this.g.setFont("Vector",14);
     this.g.drawString((n==1)?"":(n==2)?"":"ONE C/E/P",120-(this.g.stringWidth((n==1)?"":(n==2)?"":"ONE C/E/P")/2),165);
     this.g.flip();
@@ -147,7 +147,7 @@ touchHandler[0]=function(e,x,y){
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Inmotion");
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","V11");
 			euc.dash.name=0;
-			euc.dash.maker="Inmotion";
+			euc.dash.maker="InmotionV11";
 			face.go('w_scan',0,'ffe0');
 			return;
 		}else if ( face[0].set === 2 ) {
