@@ -196,19 +196,6 @@ euc.conn=function(mac){
 					});
 				}
 			};
-			/*
-			
-			euc.wri = function(cmd, value) {
-				if (value == undefined) {
-					characteristic.writeValue(euc.cmd(cmd));
-				} else {
-					characteristic.writeValue(euc.cmd(cmd,val));
-				}
-			};
-						
-			*/
-			
-			
 			euc.busy=0;
 			setTimeout(() => {euc.wri("live");}, 500);
 		//reconnect
@@ -258,7 +245,7 @@ euc.off=function(err){
 			delete euc.wri;
 			delete euc.tmp;
 			delete euc.cmd;
-			delete euc.dash.trpS;
+			//delete euc.dash.trpS;
 			delete euc.serv;
 			delete euc.wCha;
 			delete euc.rCha;

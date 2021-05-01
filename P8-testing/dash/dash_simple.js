@@ -29,8 +29,8 @@ face[0] = {
 		else {
 			this.g.setFontVector(33);
 			this.g.drawString(euc.dash.volt.toFixed(1),240-(this.g.stringWidth(euc.dash.volt.toFixed(1))),1); //fixed bat
-			this.g.setFontVector(15);
-			this.g.drawString("VOLTS",180,40); //fixed bat
+			this.g.setFontVector(14);
+			this.g.drawString("VOLTS",188,40); //fixed bat
 			}
 		this.g.flip();
 		this.g.setFont("7x11Numeric7Seg",4.5);
@@ -90,7 +90,7 @@ face[0] = {
 			this.g.setColor(1,(this.batC[euc.dash.batC]!=col("yellow")&&this.batC[euc.dash.batC]!=col("lgreen"))?col("white"):0);
 			this.g.setFontVector(33);
 			this.g.drawString(euc.dash.volt.toFixed(1),240-(this.g.stringWidth(euc.dash.volt.toFixed(1))),1); //fixed bat
-			this.g.setFontVector(13);
+			this.g.setFontVector(14);
 			this.g.drawString("VOLTS",188,40); //fixed bat
 			this.g.flip();
 		}
@@ -227,7 +227,7 @@ touchHandler[0]=function(e,x,y){
 		if (160<x&&y<55){
 			if (set.def.dashBat==undefined) set.def.dashBat=0;
 			set.def.dashBat=1-set.def.dashBat;
-			face[0].batt=0;face[0].volt=0;
+			face[0].batt=-1;face[0].volt=-1;
 			digitalPulse(D16,1,[30,50,30]);
 		}else{	
 			digitalPulse(D16,1,40);
@@ -258,7 +258,7 @@ touchHandler[0]=function(e,x,y){
 			if (set.def.dashBat==undefined) set.def.dashBat=0;
 			set.def.dashBat=1-set.def.dashBat;
 			digitalPulse(D16,1,100);
-			face[0].batt=0;face[0].volt=0;
+			face[0].batt=-1;face[0].volt=-1;
 		}	
 		else {
 			euc.tgl();
