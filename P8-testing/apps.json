@@ -219,7 +219,7 @@
 			{"name":"eucNinebotZ","url":"eucNinebotZ.js"}
 		]
 		},
-	{ "id": "eucInmotionV11",
+	{ "id": "eucInmotion",
 		"name": "Inmotion V11 module",
 		"icon": "icon.jpg",
 		"version":"0.20",
