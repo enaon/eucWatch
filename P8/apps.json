@@ -27,7 +27,7 @@
 	{ "id": "main",
 		"name": "Clock",
 		"icon": "icon.png",
-		"version":"0.20",
+		"version":"0.21",
 		"description": "Main Clock/notifications face",
 		"tags": "apps",
 		"type":"main",
@@ -94,7 +94,7 @@
 	{ "id": "dash",
 		"name": "EUC Dashboard",
 		"icon": "icon.png",
-		"version":"0.25",
+		"version":"0.26",
 		"description": "EUC dashboard. Garage, scan and dash faces. Depends on EUC modules.",
 		"tags": "euc",
 		"storage": [
@@ -133,11 +133,21 @@
 	{ "id": "dashNinebotZ",
 		"name": "NinebotZ Settings",
 		"icon": "icon.png",
-		"version":"0.20",
+		"version":"0.21",
 		"description": "EUC dashboard, NinebotZ settings gui files.",
 		"tags": "euc",
 		"storage": [
 			{"name":"dashNinebotZ","url":"dashNinebotZ.js"}
+    ]
+	}, 
+	{ "id": "dashInmotion",
+		"name": "Inmotion V11 Settings",
+		"icon": "icon.png",
+		"version":"0.30",
+		"description": "EUC dashboard, Inmotion V11 settings gui files.",
+		"tags": "euc",
+		"storage": [
+			{"name":"dashInmotion","url":"dashInmotion.js"}
     ]
 	}, 
 	{ "id": "dashVeteran",
@@ -160,7 +170,7 @@
 			{"name":"dashBegode","url":"dashBegode.js"},
 			{"name":"dashBegodeAdv","url":"dashBegodeAdv.js"},
 			{"name":"dashBegodeLimits","url":"dashBegodeLimits.js"},
-			{"name":"dashBegodeCalibrate","url":"dashBegodeCalibrate.js"}
+			{"name":"dashBegodeLCalibrate","url":"dashBegodeCalibrate.js"}
 		]
 	},
 	{ "id": "euc",
@@ -178,7 +188,7 @@
 	{ "id": "eucKingsong",
 		"name": "Kingsong module",
 		"icon": "icon.png",
-		"version":"0.21",
+		"version":"0.22",
 		"description": "EUC module for Kingsong.",
 		"tags": "euc",
 		"type": "euc",
@@ -209,6 +219,17 @@
 			{"name":"eucNinebotZ","url":"eucNinebotZ.js"}
 		]
 		},
+	{ "id": "eucInmotion",
+		"name": "Inmotion V11 module",
+		"icon": "icon.jpg",
+		"version":"0.30",
+		"description": "EUC module for Inmotion V11.",
+		"tags": "euc",
+		"type": "euc",
+		"storage": [
+			{"name":"eucInmotion","url":"eucInmotion.js"}
+		]
+	},
    { "id": "eucVeteran",
 		"name": "Veteran module",
 		"icon": "icon.png",

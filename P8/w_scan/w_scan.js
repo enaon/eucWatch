@@ -10,7 +10,7 @@ scan={
       else {
 		  app="dash";
 		  if (euc.dash.maker=="NinebotZ")  this.filter = [{manufacturer:16974}];  
-		  else if (euc.dash.maker=="InmotionV11")  this.filter = [{ namePrefix: 'V11-' }];
+		  else if (euc.dash.maker=="InmotionV11")  this.filter = [{ namePrefix: 'V11-' }]
 		  else this.filter = [{services:[service]}];
 	  }
       var found=[];
@@ -186,4 +186,5 @@ touchHandler[0]=function(e,x,y){
     }
     this.timeout();
 };
+
 

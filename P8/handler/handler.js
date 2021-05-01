@@ -156,7 +156,7 @@ function bdis() {
 function bcon() {
 	set.bt=1; 
 //    digitalPulse(D16,1,100);
-	if (set.def.cli==1||set.def.gb==1)  Bluetooth.on('data',ccon);
+	if (set.def.cli||set.def.gb)  Bluetooth.on('data',ccon);
 }
 function ccon(l){ 
     var cli="\x03";
@@ -550,8 +550,8 @@ if (set.def.acctype==="BMA421"){
 		on:function(){
 			if (!this.tid) {
 				this.tid=setWatch(()=>{
-				"ram";
-				i2c.writeTo(0x18,0x1);
+					"ram";
+					i2c.writeTo(0x18,0x1);
 					//let val=i2c.readFrom(0x18,1)[0];
 					//print (val);
 					if ( 192 < i2c.readFrom(0x18,1)[0] ) {
@@ -580,7 +580,7 @@ if (set.def.acctype==="BMA421"){
 			}else return false;
 		},
 		init:function(){
-			
+			return;
 		},
 		read:function(){
 			function conv(lo,hi) { 
