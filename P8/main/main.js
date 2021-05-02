@@ -188,7 +188,7 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
   this.s=(this.t[2]).toString().split('');
   if (this.t[1]!=this.min ){
     this.min=this.t[1];
-    this.g.setFont("Vector",66);
+    this.g.setFont("Vector",75);
 	this.fmin=col("lblue");
     this.fsec=0;
 	if (global.alrm) {
@@ -199,7 +199,7 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
 	this.g.setColor(0,this.bmin);
     this.g.fillRect(105,55,210,150);
 	this.g.setColor(1,this.fmin);
-    this.g.drawString(this.t[1],120,72);
+    this.g.drawString(this.t[1],120,69);
     this.g.flip();
   }
    //seconds
@@ -208,7 +208,7 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
   this.g.setColor(1,this.fsec);//
   this.g.setFont("Vector",35);
   this.g.drawString(this.s[0],218,70); //seconds
-  this.g.drawString(this.s[1],218,108); //seconds
+  this.g.drawString(this.s[1],218,105); //seconds
   this.g.flip(); 
   //hours
   if (this.t[0]!=this.hour){
@@ -216,8 +216,8 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
     this.g.setColor(0,col("lgray"));
     this.g.fillRect(0,55,100,150);
     this.g.setColor(1,col("white"));
-    this.g.setFont("Vector",66);
-    this.g.drawString((set.def.clkH)?this.t[0]:(this.t[0]<13)?this.t[0]:this.t[0]-12,(set.def.clkH)?15:(this.t[0]<13)?15:38,72); //hours
+    this.g.setFont("Vector",75);
+    this.g.drawString((set.def.clkH)?this.t[0]:(this.t[0]<13)?this.t[0]:this.t[0]-12,(set.def.clkH)?9:(this.t[0]<13)?9:34,69); //hours
   this.g.flip();
   }
 	  
