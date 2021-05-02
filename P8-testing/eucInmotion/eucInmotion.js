@@ -95,10 +95,10 @@ euc.conn=function(mac){
 			euc.rCha.on('characteristicvaluechanged', function(event) {
 				let data=event.target.value;
 				if (data.buffer[3] != 51 || !validateChecksum(data.buffer)) {
-					print ("packet dropped: ",data.buffer[3],data.buffer);
+					//print ("packet dropped: ",data.buffer[3],data.buffer);
 					return;
 				}
-				print ("packet: ",data.buffer);
+				//print ("packet: ",data.buffer);
 				euc.alert=0;			
 				//volt
 				euc.dash.volt=data.getUint16(5, true)/100;
