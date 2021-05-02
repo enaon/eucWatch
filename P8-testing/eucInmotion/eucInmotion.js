@@ -95,9 +95,10 @@ euc.conn=function(mac){
 			euc.rCha.on('characteristicvaluechanged', function(event) {
 				let data=event.target.value;
 				if (data.buffer[3] != 51 || !validateChecksum(data.buffer)) {
-					//setTimeout(() => euc.wri('requestData'), 100);
+					print ("packet dropped: ",data.buffer);
 					return;
 				}
+				print ("packet: ",data,buffer);
 				euc.alert=0;			
 				//volt
 				euc.dash.volt=(data.getUint16(5, true)/100).toFixed(2);
