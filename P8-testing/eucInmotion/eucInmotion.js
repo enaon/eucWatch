@@ -101,7 +101,7 @@ euc.conn=function(mac){
 				print ("packet: ",data.buffer);
 				euc.alert=0;			
 				//volt
-				euc.dash.volt=(data.getUint16(5, true)/100).toFixed(2);
+				euc.dash.volt=data.getUint16(5, true)/100;
 				//batt
 				euc.dash.bat = Math.round(((euc.dash.volt - 60) * 100) / (84 - 60));
 				//euc.dash.bat = (data.buffer[21] & 0x7f);
