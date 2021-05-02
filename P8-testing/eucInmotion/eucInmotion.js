@@ -95,7 +95,7 @@ euc.conn=function(mac){
 			euc.rCha.on('characteristicvaluechanged', function(event) {
 				let data=event.target.value;
 				if (data.buffer[3] != 51 || !validateChecksum(data.buffer)) {
-					print ("packet dropped: ",data.buffer);
+					print ("packet dropped: ",data.buffer[3]);
 					return;
 				}
 				print ("packet: ",data.buffer);
@@ -137,19 +137,19 @@ euc.conn=function(mac){
 				//euc.dash.spdM=((data.getUint16(19, true))/100).toFixed(1);
 				//haptic
 				if (!euc.buzz && euc.alert) {  
-						euc.buzz=1;
-						if (20 <= euc.alert) euc.alert = 20;
-						var a=[];
-						while (5 <= euc.alert) {
-							a.push(200,500);
-							euc.alert = euc.alert - 5;
-						}
-						let i;
-						for (i = 0; i < euc.alert ; i++) {
-							a.push(200,150);
-						}
-						digitalPulse(D16,0,a);  
-						setTimeout(() => { euc.buzz = 0; }, 3000);
+					euc.buzz=1;
+					if (20 <= euc.alert) euc.alert = 20;
+					var a=[];
+					while (5 <= euc.alert) {
+						a.push(200,500);
+						euc.alert = euc.alert - 5;
+					}
+					let i;
+					for (i = 0; i < euc.alert ; i++) {
+						a.push(200,150);
+					}
+					digitalPulse(D16,0,a);  
+					setTimeout(() => { euc.buzz = 0; }, 3000);
 				}
 				//screen on
 				if ((1<euc.dash.spdC||1<euc.dash.ampC)&&!w.gfx.isOn ){
@@ -230,15 +230,15 @@ euc.off=function(err){
 	} else {
 		if (set.def.cli) console.log("EUC: OUT");
 		global["\xFF"].bleHdl=[];
-			delete euc.off;
-			delete euc.conn;
-			delete euc.wri;
-			delete euc.tmp;
-			delete euc.cmd;
-			//delete euc.dash.trpS;
-			delete euc.serv;
-			delete euc.wCha;
-			delete euc.rCha;
-			NRF.setTxPower(set.def.rfTX);	
+		delete euc.off;
+		delete euc.conn;
+		delete euc.wri;
+		delete euc.tmp;
+		delete euc.cmd;
+		//delete euc.dash.trpS;
+		delete euc.serv;
+		delete euc.wCha;
+		delete euc.rCha;
+		NRF.setTxPower(set.def.rfTX);	
     }
 };
