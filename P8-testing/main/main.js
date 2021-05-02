@@ -217,7 +217,7 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
     this.g.fillRect(0,55,100,150);
     this.g.setColor(1,col("white"));
     this.g.setFont("Vector",75);
-    this.g.drawString((set.def.clkH)?this.t[0]:(this.t[0]<13)?this.t[0]:this.t[0]-12,(set.def.clkH)?9:(this.t[0]<13)?9:34,69); //hours
+    this.g.drawString((set.def.clkH)?this.t[0]:(this.t[0]<13)?this.t[0]:this.t[0]-12,(set.def.clkH)?9:(this.t[0]<13)?9:55-(this.g.stringWidth(this.t[0]-12)/2),69); //hours
   this.g.flip();
   }
 	  
