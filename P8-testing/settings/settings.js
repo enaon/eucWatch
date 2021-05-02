@@ -211,14 +211,14 @@ face[5] = {
     this.g.flip();
     this.g.setFont("Vector",18);
 	this.g.setColor(0,col("raf"));
-	this.g.fillRect(0,200,115,239);
+	this.g.fillRect(0,200,117,239);
 	this.g.setColor(1,col("white"));
-	this.g.drawString("RESTART",15,213);
+	this.g.drawString("RESTART",18,213);
     this.g.flip();	
 	this.g.setColor(0,col("raf"));
-	this.g.fillRect(125,200,239,239);
+	this.g.fillRect(121,200,239,239);
 	this.g.setColor(1,col("white"));
-	this.g.drawString("SHUTDOWN",132,213);
+	this.g.drawString("DEVMODE",136,213);
 	this.g.flip();
     face[0].appImgNone=0;
   },
@@ -424,14 +424,15 @@ touchHandler[5]=function(e,x,y){
     }else if  (e==12){
 	//devmode-shutdown
 	 if (x<120 && y>190) {
-	   set.updateSettings();
-	   require("Storage").write("devmode","dev");
-       w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
-       E.reboot();}
-	 else if (x>120 && y>190) {
+		set.updateSettings();
+		NRF.removeListener('disconnect',bdis);  
+    NRF.disconnect();
+    w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
+		reset();
+   }else if (x>120 && y>190) {
  	   set.updateSettings();
        NRF.disconnect();
-       require("Storage").write("devmode","off");
+       require("Storage").write("devmode","dev");
        w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
        E.reboot();}
      else digitalPulse(D16,1,40);
