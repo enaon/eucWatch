@@ -95,7 +95,7 @@ euc.conn=function(mac){
 			euc.rCha.on('characteristicvaluechanged', function(event) {
 				let data=event.target.value;
 				if (data.buffer[3] != 51 || !validateChecksum(data.buffer)) {
-					print ("packet dropped: ",data.buffer[3]);
+					print ("packet dropped: ",data.buffer[3],data.buffer);
 					return;
 				}
 				print ("packet: ",data.buffer);
