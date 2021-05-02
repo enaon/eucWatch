@@ -217,7 +217,7 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
     this.g.fillRect(0,55,100,150);
     this.g.setColor(1,col("white"));
     this.g.setFont("Vector",66);
-    this.g.drawString((set.def.clkH)?this.t[0]:(this.t[0]<13)?this.t[0]:this.t[0]-12,15,72); //hours
+    this.g.drawString((set.def.clkH)?this.t[0]:(this.t[0]<13)?this.t[0]:this.t[0]-12,(set.def.clkH)?15:(this.t[0]<13)?15:45,72); //hours
   this.g.flip();
   }
 	  
@@ -311,6 +311,7 @@ touchHandler[0]=function(e,x,y){
 	}else if (x<100 && 55<y && y<150){ 
 		if (set.def.clkH==undefined) set.def.clkH=0;
 		set.def.clkH=1-set.def.clkH;
+		face[0].hour=-1;
 		digitalPulse(D16,1,100);
 	//alarms
      }else if (x>105 && (55<y&&y<150)&&global.alrm){ 
