@@ -87,7 +87,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			//tt=euc.tmp[this.var];
 			break;
 		case 71://battery fixed/voltage
-			euc.dash.volt=(this.in16/100).toFixed(2);
+			euc.dash.volt=this.in16/100;
 			euc.dash.bat=(((this.in16/100)-51.5)*10|0); 
 			if ((euc.dash.bat) >= euc.dash.batH) euc.dash.batC=0;
 			else  if ((euc.dash.bat) >= euc.dash.batM) euc.dash.batC=1;
