@@ -98,7 +98,7 @@ euc.conn=function(mac){
 					print ("packet dropped: ",data.buffer);
 					return;
 				}
-				print ("packet: ",data,buffer);
+				print ("packet: ",data.buffer);
 				euc.alert=0;			
 				//volt
 				euc.dash.volt=(data.getUint16(5, true)/100).toFixed(2);
