@@ -25,12 +25,12 @@ face[0] = {
 		this.g.drawString(euc.dash.tmp|0, 3,5); //temp  
 		this.g.drawString(euc.dash.amp|0,(122-(this.g.stringWidth(euc.dash.amp|0)/2)),5); 
 		if (set.def.dashBat)
-			this.g.drawString(euc.dash.bat,240-(this.g.stringWidth(euc.dash.bat)+3),5); //fixed bat
+			this.g.drawString(euc.dash.bat,238-(this.g.stringWidth(euc.dash.bat)),5); //fixed bat
 		else {
 			this.g.setFontVector(33);
-			this.g.drawString(euc.dash.volt.toFixed(1),240-(this.g.stringWidth(euc.dash.volt.toFixed(1))),1); //fixed bat
-			this.g.setFontVector(14);
-			this.g.drawString("VOLTS",188,40); //fixed bat
+			this.g.drawString(euc.dash.volt.toFixed(1),238-(this.g.stringWidth(euc.dash.volt.toFixed(1))),1); 
+			this.g.setFontVector(13);
+			this.g.drawString("VOLTS",188,36); //fixed bat
 			}
 		this.g.flip();
 		this.g.setFont("7x11Numeric7Seg",4.5);
@@ -79,7 +79,7 @@ face[0] = {
 			this.g.fillRect(161,0,239,55);
 			this.g.setColor(1,(this.batC[euc.dash.batC]!=col("yellow")&&this.batC[euc.dash.batC]!=col("lgreen"))?col("white"):0);
 			this.g.setFont("7x11Numeric7Seg",4.5);
-			this.g.drawString(euc.dash.bat,240-(this.g.stringWidth(euc.dash.bat)+3),5); //fixed bat
+			this.g.drawString(euc.dash.bat,238-(this.g.stringWidth(euc.dash.bat)),5); //fixed bat
 			this.g.flip();
 		}
 	}else {
@@ -89,9 +89,9 @@ face[0] = {
 			this.g.fillRect(161,0,239,55);
 			this.g.setColor(1,(this.batC[euc.dash.batC]!=col("yellow")&&this.batC[euc.dash.batC]!=col("lgreen"))?col("white"):0);
 			this.g.setFontVector(33);
-			this.g.drawString(euc.dash.volt.toFixed(1),240-(this.g.stringWidth(euc.dash.volt.toFixed(1))),1); //fixed bat
-			this.g.setFontVector(14);
-			this.g.drawString("VOLTS",188,40); //fixed bat
+			this.g.drawString(euc.dash.volt.toFixed(1),238-(this.g.stringWidth(euc.dash.volt.toFixed(1))),1); //fixed bat
+			this.g.setFontVector(13);
+			this.g.drawString("VOLTS",188,36); //fixed bat
 			this.g.flip();
 		}
 	}	
@@ -110,47 +110,9 @@ face[0] = {
     }
  
   } else if (euc.state=="OFF")  {
-	if (euc.state!=this.connoff) {
-      this.connoff=euc.state;
-	  this.g.setColor(0,0);
-	  this.g.fillRect(0,0,79,55); //temp
-	  this.g.fillRect(161,0,239,55); //batt	  
-	  this.g.setColor(1,col("white"));
-	  this.g.setFont("7x11Numeric7Seg",4.5);
-      this.g.drawString(euc.dash.tmp|0,3,5); //temp
-      this.g.drawString(euc.dash.bat,240-(this.g.stringWidth(euc.dash.bat)+3),5);
-	  this.g.flip();
-	  this.g.setColor(0,col("dgray"));
-      this.g.fillRect(80,0,160,55); //amp   
-      this.g.setColor(1,col("white"));
-      this.g.drawImage(require("heatshrink").decompress(atob("kUgwIOLn/AAYX4AYMeg4DBAQPggEDwEYBAPAgwDBmEBwEAhkAsAQBgAQKh0AkP///AjADBGIM/AgMAh/9BgMD/0f+EA/8H/hJCCAX4v4QCn4QCx4QC8YQDEIX/CAf/CAQyDH4UBAYJoBBgIUBA==")),106,10);	 
-	  this.g.flip();
-      this.g.setColor(0,0);
-	  this.g.fillRect(65,56,199,239); //middle	
-      this.g.setColor(1,col("white"));
-      this.g.setFontVector(28);
-      this.g.drawString(euc.dash.spdM,190-this.g.stringWidth(euc.dash.spdM),90);
-      this.g.drawString(euc.dash.time,190-this.g.stringWidth(euc.dash.time),133); 
-      this.g.drawString(euc.dash.trpL,190-this.g.stringWidth(euc.dash.trpL),175); 
-      this.g.drawString(euc.dash.trpT,190-this.g.stringWidth(euc.dash.trpT),217); 
-	  this.g.flip();	
-      this.g.setColor(0,0);
-	  this.g.fillRect(0,56,74,239); //left	
-      this.g.setColor(1,col("lgray"));
-      this.g.setFontVector(24);
-      this.g.drawString("TOP",5,93);
-      this.g.drawString("RUN",5,136);
-      this.g.drawString("TRP",5,178);
-      this.g.drawString("TOT",5,220);
-	  this.g.flip();
-      this.g.setColor(0,0);
-	  this.g.fillRect(200,56,239,239); //right	
-      this.g.setColor(1,col("lgray"));
-      this.g.drawString("kph",205,93);
-      this.g.drawString("Min",205,136);
-      this.g.drawString("Km",205,178);
-      this.g.drawString("Km",205,220);
-	  this.g.flip();
+
+			face.go("dashOff",0);
+			return;
 	}
 	if (euc.dash.lock!=this.lock&&euc.dash.lock==1){
       this.lock=euc.dash.lock;
@@ -160,7 +122,7 @@ face[0] = {
       this.g.drawImage(require("heatshrink").decompress(atob("j0gwIIFnwCBgf/AYMf/wDB8E8gEHgFwgEcgHAgFggcAgOAhkAg0AmEAjAOJDoM4gF///4F4P/8EPAYPAn/jHAP/g/8gf8j/wh/wv4OFx4OB/0/BwP4Do3/BwIDBBwIDBwE//5hBAYPwOQYA=")),106,10);	 
 	  this.g.flip();
 	  this.clear(); //if (set.def.cli) console.log("faceEUCexited");
-	}
+	*/}
 //rest
   } else  {
     if (euc.state!=this.connrest) {
