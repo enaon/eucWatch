@@ -110,7 +110,7 @@ face[0] = {
 			this.temp=euc.dash.tmp;
 			this.g.setColor(1,this.tmpC[euc.dash.tmpC]);
 			this.g.fillRect(0,0,135,50);       
-			this.g.setColor(0,0);
+			this.g.setColor(0,(euc.dash.tmpC!=3)?0:col("white"));
 			this.g.setFont("7x11Numeric7Seg",4);
 			this.g.drawString(euc.dash.tmp, 10,3); //temp
 			this.g.flip();
@@ -120,7 +120,7 @@ face[0] = {
 			this.batt=euc.dash.bat;
 			this.g.setColor(1,this.batC[euc.dash.batC]);
 			this.g.fillRect(139,0,239,50);
-			this.g.setColor(0,0);
+			this.g.setColor(0,(euc.dash.batC!=3)?0:col("white"));
 			this.g.setFont("7x11Numeric7Seg",4);
 			this.g.drawString(euc.dash.bat,240-(this.g.stringWidth(euc.dash.bat)+10),3); //fixed bat
 			this.g.flip();
