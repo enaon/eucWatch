@@ -14,21 +14,19 @@ face[0] = {
 		this.g.setColor(1,col("gray"));
 		this.g.fillRect(0,0,135,50); //temp
 		this.g.fillRect(139,0,239,50); //batt      
-		this.g.fillRect(0,158,239,193); //mileage
+		this.g.fillRect(0,170,239,195); //mileage
 		this.g.setColor(0,0);
 		this.g.setFont("7x11Numeric7Seg",4);
 		this.g.drawString(euc.dash.tmp, 10,3); //temp
 		this.g.drawString(euc.dash.bat,240-(this.g.stringWidth(euc.dash.bat)+10),3); //fixed bat
-		//this.g.flip();
-		//this.g.setColor(1,col("lblue"));
-		this.g.setFontVector(20); //mileage
+		this.g.setFontVector(16); //mileage
 		if (euc.dash.maker=="Ninebot") {
-			this.g.drawString("TRIP",1,167); 
-			this.g.drawString("TOT",97,167); 
-			this.g.drawString("LEFT",188,167); 
+			this.g.drawString("TRIP",1,175); 
+			this.g.drawString("TOT",97,175); 
+			this.g.drawString("LEFT",188,175); 
 		} else {
-			this.g.drawString("TRIP",1,167); 
-			this.g.drawString("TOTAL",167,167); 
+			this.g.drawString("TRIP",1,175); 
+			this.g.drawString("TOTAL",167,175); 
 		}
 		this.g.flip();
 		//mileage
@@ -76,18 +74,18 @@ face[0] = {
 					this.g.setFont("7x11Numeric7Seg",5);
 					this.g.drawString(euc.dash.spdA,(139-(this.g.stringWidth(euc.dash.spdA)))/2,90); 
 					this.g.flip();
-					this.g.setColor(1,col("gray"));
-					this.g.fillRect(0,158,239,193); //mileage
-					this.g.setColor(0,col("lblue"));
+					this.g.setColor(1,col("dgray"));
+					this.g.fillRect(0,170,239,195); //mileage
+					this.g.setColor(0,col("white"));
 					this.g.setFont("7x11Numeric7Seg",4);
-					this.g.setFontVector(20); //mileage
+					this.g.setFontVector(16); //mileage
 					if (euc.dash.maker=="Ninebot") {
-						this.g.drawString("TRIP",1,167); 
-						this.g.drawString("TOT",97,167); 
-						this.g.drawString("LEFT",188,167); 
+						this.g.drawString("TRIP",1,175); 
+						this.g.drawString("TOT",97,175); 
+						this.g.drawString("LEFT",188,175); 
 					} else {
-						this.g.drawString("TRIP",1,167); 
-						this.g.drawString("TOTAL",167,167); 
+						this.g.drawString("TRIP",1,175); 
+						this.g.drawString("TOTAL",167,175); 
 					}
 					this.g.flip();
 					this.g.setColor(0,0);
