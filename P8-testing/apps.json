@@ -123,7 +123,7 @@
 	{ "id": "dashNinebot",
 		"name": "Ninebot Settings",
 		"icon": "icon.png",
-		"version":"0.20",
+		"version":"0.21",
 		"description": "EUC dashboard, Ninebot settings gui files.",
 		"tags": "euc",
 		"storage": [
