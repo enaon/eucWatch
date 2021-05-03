@@ -102,7 +102,7 @@
 			{"name":"dash_digital","url":"dash_digital.js"},
 			{"name":"dashGarage","url":"dashGarage.js"},
 			{"name":"dashAlerts","url":"dashAlerts.js"},
-			{"name":"dashScan","url":"dashScan.js"}
+			{"name":"dashScan","url":"dashScan.js"},
 			{"name":"dashOff","url":"dashOff.js"}
 
 		]
