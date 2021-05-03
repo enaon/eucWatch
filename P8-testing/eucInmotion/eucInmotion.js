@@ -108,10 +108,8 @@ euc.conn=function(mac){
 				euc.dash.batC = (euc.dash.batH <= euc.dash.bat)? 0 : (euc.dash.batM <= euc.dash.bat)? 1 : (euc.dash.batL <= euc.dash.bat)? 2 : 3;	
 				if ( euc.dash.hapB && euc.dash.bat <= euc.dash.batL ) { euc.alert ++; euc.dash.spdC = 3; }    
 				//trip 
-				euc.dash.trpT=(data.getUint16(17, true))*10;
-				//if (!euc.dash.trpS) euc.dash.trpS=(data.getUint32(1, true)/1000).toFixed(3);
-				//euc.dash.trpL=(data.getUint32(1, true)/1000).toFixed(3)-euc.dash.trpS;
-				euc.dash.trpL=(data.getUint16(19, true))*10;
+				euc.dash.trpL=(data.getUint16(17, true))*10; //trip
+				//euc.dash.trpL=(data.getUint16(19, true))*10; //remain
 				//euc.dash.time=(data.getUint16(7, true)/60)|0;
 				//temp
 				euc.dash.tmp=((data.buffer[22] & 0xff) + 80 - 256).toFixed(1);
