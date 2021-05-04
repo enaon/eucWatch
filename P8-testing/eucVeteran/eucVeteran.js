@@ -45,6 +45,8 @@ euc.conn=function(mac){
 				euc.dash.trpL=(this.event[10] << 24 | this.event[11] << 16 | this.event[8] << 8  | this.event[9]);
 				euc.dash.trpT=(this.event[14] << 24 | this.event[15] << 16 | this.event[12] << 8  | this.event[13]);
 				euc.dash.amp=((this.event[16] << 8 | this.event[17])/10)|0;
+					ampL.unshift(euc.dash.amp);
+					if (14<ampL.length) ampL.pop();
 				euc.dash.tmp=((this.event[18] << 8 | this.event[19])/100).toFixed(1);	
 			} else {
 				print("secondary packet");
