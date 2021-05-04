@@ -27,7 +27,8 @@ face[0] = {
 		this.temp=-1;
 		this.batt=-1;
 		this.volt=-1;
-    this.alrm=-1;
+		this.alrm=-1;
+		this.max=-1;
 		//this.trpL=-1;
 		this.conn="OFF";
 		this.lock=2;
@@ -40,34 +41,22 @@ face[0] = {
 			//speed 1
 			if (euc.dash.spd!=this.spd){
 				this.spd=euc.dash.spd;
-				if (this.spdC[euc.dash.spdC]!=0) {
-					this.g.setColor(1,this.spdC[euc.dash.spdC]);
-					this.g.fillRect(40,54,200,170);
-					this.g.setColor(0,(euc.dash.spdC!=3)?0:col("white"));
-				}else { 
-					this.g.setColor(0,col("back"));
-					this.g.fillRect(40,54,200,170);
-					this.g.setColor(1,col("white"));
-				}
+				this.g.setColor(0,0);
+				this.g.fillRect(40,54,200,170);
+				this.g.setColor(1,4095);
 				this.g.setFontVector(130);
 				this.g.drawString((!set.def.dashSpd)?euc.dash.spd|0:Math.round(euc.dash.spd/1.6),129-(this.g.stringWidth((!set.def.dashSpd)?euc.dash.spd|0:Math.round(euc.dash.spd/1.6))/2),57); 
 				this.spd=euc.dash.spd;
 				this.g.flip();
 				if (euc.dash.spd==0) { 
-				/*	this.g.setFontVector(16);
-					this.g.drawString("AV.SPEED",1,60);
-					this.g.setFont("7x11Numeric7Seg",3);
-					this.g.drawString(euc.dash.spdA,1,70);
-				*/
 					this.g.flip();
 					this.bar();
 					this.g.setColor(0,0);
 				}else{
-
-					this.g.setColor(0,col("dgray"));
-					this.g.clearRect(euc.dash.spd*this.spdBar,176,239,197); //mileage
+					this.g.setColor(0,(euc.dash.spdC==3)?col("yellow"):col("dgray"));
+					this.g.clearRect(0,176,239,197); //mileage
 					this.g.setColor(1,(euc.dash.spdC==0)?col("white"):this.spdC[euc.dash.spdC]);
-					this.g.fillRect(0,176,euc.dash.spd*this.spdBar,197); //mileage
+					this.g.fillRect(0,181,euc.dash.spd*this.spdBar,191); //mileage
 					this.g.flip();
 					this.g.setColor(0,0);
 				}
@@ -75,62 +64,74 @@ face[0] = {
 			//alarm
 			if (euc.dash.alrm!=this.alrm) {
 				this.alrm=euc.dash.alrm;
-        this.g.setFontVector(30);
+				this.g.setFontVector(35);
 				this.g.setColor(0,(euc.dash.alrm)?col("red"):col("dgray"));
-				this.g.fillRect(0,55,40,105); //mileage
-				this.g.setColor(1,(euc.dash.alrm)?col("white"):col("lgray"));
-				this.g.drawString("AL", 2,67); //temp
+				this.g.fillRect(0,55,40,110); //buzzer
+				this.g.setColor(1,(euc.dash.alrm)?col("white"):col("black"));
+				this.g.drawString("B", 9,68); //temp
+				this.g.flip();
+				this.g.setColor(0,col("dgray"));
+				this.g.fillRect(0,115,40,171); //torque
+				this.g.setColor(1,0);
+				this.g.drawString("T", 9,130); //temp
 				this.g.flip();
 			}
-			
-			//Amp
-			/*
-			if ((euc.dash.amp|0)!=this.amp) {
-				this.amp=(euc.dash.amp|0);
-				if  (this.ampC[euc.dash.ampC]!=this.ampC[0] ) {
-					this.g.setColor(1,this.ampC[euc.dash.ampC]);
-					this.g.fillRect(139,54,239,154); 
-					this.g.setColor(0,0);
-				}else { 
-					this.g.setColor(0,col("back"));
-					this.g.fillRect(139,54,239,154); 
-					this.g.setColor(1,col("white"));
+			//Maxspeed
+			if (euc.dash.spdM!=this.max) {
+				this.max=euc.dash.spdM;
+				this.g.setColor(0,col("dgray"));
+				this.g.fillRect(200,55,239,110); 
+				this.g.setColor(1,col("white"));
+				this.g.setFont("7x11Numeric7Seg",2);
+				this.g.drawString(Math.round(euc.dash.spdM), 222-(this.g.stringWidth(Math.round(euc.dash.spdM))/2),73); 
+				this.g.flip();
+			}
+			//amp
+			if (euc.dash.amp!=this.amp) {
+				this.amp=euc.dash.amp;
+				this.g.setColor(0,(1<euc.dash.ampC)?this.ampC[euc.dash.ampC]:col("dgray"));
+				this.g.fillRect(200,115,239,171); 
+				this.g.setColor(1,(euc.dash.ampC==1||euc.dash.ampC==2)?0:col("white"));
+				this.g.setFont("7x11Numeric7Seg",2);
+				this.g.drawString(euc.dash.amp, 222-(this.g.stringWidth(euc.dash.amp)/2),133); 
+				this.g.flip();
+			}			
+			//temp-amp
+			if (!set.def.dashDTmp){
+				if (euc.dash.tmp!=this.temp) {
+					this.temp=euc.dash.tmp;
+					this.g.setColor(1,this.tmpC[euc.dash.tmpC]);
+					this.g.fillRect(0,0,135,50);       
+					this.g.setColor(0,(euc.dash.tmpC!=3)?0:col("white"));
+					this.g.setFont("7x11Numeric7Seg",4);
+					this.g.drawString(euc.dash.tmp, 10,3); //temp
+					let size=this.g.stringWidth(euc.dash.tmp)+10;
+					this.g.setFontVector(16);
+					this.g.drawString("o",size,0); //fixed bat
+					this.g.setFontVector(20);
+					this.g.drawString("C",size+10,5); //fixed bat
+					this.g.flip();
 				}
-				if (((euc.dash.amp|0)==0 && euc.dash.spd==0) ||  euc.dash.lock==1) {  
-					this.g.setFontVector(18);
-					this.g.drawString("RunTIME",140,60);
-					this.g.setFont("7x11Numeric7Seg",5);
-					this.g.drawString(euc.dash.time,192-(this.g.stringWidth(euc.dash.time)/2),90); 
+			}else {
+				//if ((euc.dash.amp|0)!=this.amp) {
+					this.amp=(euc.dash.amp|0);
+					this.g.setColor(1,col("dgray"));
+					this.g.fillRect(0,0,135,50);       
+					this.g.setColor(0,(1<euc.dash.ampC)?col("yellow"):col("white"));
+					let i;
+					for (i = 0; i < ampL.length; i++) {
+						this.g.fillRect(i*10,(0<=ampL[i])?50-(ampL[i]*1.2):1,(i*10)+5,(0<=ampL[i])?50:1-(ampL[i]*2));
+					}
 					this.g.flip();
-				}else{
-					this.g.setFont("7x11Numeric7Seg",6);
-					this.g.drawString(euc.dash.amp|0,(142+(100-this.g.stringWidth(euc.dash.amp|0))/2),73); 
-					this.g.flip();
-				}    
-			}
-			*/
-			//Temp
-			if (euc.dash.tmp!=this.temp) {
-				this.temp=euc.dash.tmp;
-				this.g.setColor(1,this.tmpC[euc.dash.tmpC]);
-				this.g.fillRect(0,0,135,50);       
-				this.g.setColor(0,(euc.dash.tmpC!=3)?0:col("white"));
-				this.g.setFont("7x11Numeric7Seg",4);
-				this.g.drawString(euc.dash.tmp, 10,3); //temp
-				let size=this.g.stringWidth(euc.dash.tmp)+10;
-				this.g.setFontVector(16);
-				this.g.drawString("o",size,0); //fixed bat
-				this.g.setFontVector(20);
-				this.g.drawString("C",size+10,5); //fixed bat
-				this.g.flip();
-			}
+				//}
+			} 
 			//Battery
 			if (set.def.dashDBat){
 				if (euc.dash.bat!=this.batt) {
 					this.batt=euc.dash.bat;
 					this.g.setColor(0,this.batC[euc.dash.batC]);
 					this.g.fillRect(139,0,239,50);
-					this.g.setColor(1,(this.batC[euc.dash.batC]!=col("yellow")&&this.batC[euc.dash.batC]!=col("white"))?col("white"):0);
+					this.g.setColor(1,(this.batC[euc.dash.batC]==col("yellow")||this.batC[euc.dash.batC]==col("white"))?0:col("white"));
 					this.g.setFont("7x11Numeric7Seg",4.5);
 					this.g.drawString(euc.dash.bat,240-(this.g.stringWidth(euc.dash.bat)+15),3); //fixed bat
 					this.g.setFontVector(20);
@@ -142,7 +143,7 @@ face[0] = {
 					this.volt=euc.dash.volt;
 					this.g.setColor(0,this.batC[euc.dash.batC]);
 					this.g.fillRect(139,0,239,50);
-					this.g.setColor(1,(this.batC[euc.dash.batC]!=col("yellow")&&this.batC[euc.dash.batC]!=col("lgreen"))?col("white"):0);
+					this.g.setColor(1,(this.batC[euc.dash.batC]==col("yellow")||this.batC[euc.dash.batC]==col("white"))?0:col("white"));
 					this.g.setFontVector(35);
 					this.g.drawString(euc.dash.volt,240-(this.g.stringWidth(euc.dash.volt)),1); //fixed bat
 					this.g.setFontVector(13);
@@ -164,7 +165,7 @@ face[0] = {
 			if (euc.state!=this.conn) {
 				this.conn=euc.state;
 				this.g.setColor(0,0);
-				this.g.fillRect(40,54,200,170);
+				this.g.fillRect(0,54,239,170);
 				this.g.setColor(1,col("white"));     
 				this.g.setFont("Vector",40);
 				this.g.drawString(euc.state,(125-(this.g.stringWidth(euc.state))/2),85);
@@ -178,7 +179,12 @@ face[0] = {
 				this.g.drawString("TEMP", 5,12); //temp
 				this.g.drawString("BATT", 150,12); //temp
 				this.g.flip();
-				if (euc.state=="WAIT"||euc.state=="RETRY"){this.spd=-1;this.amp=-1;this.temp=-1;this.batt=-1;this.trpL=-1;this.conn="OFF";this.lock=2;this.run=true;}
+				if (euc.state=="WAIT"||euc.state=="RETRY"){	
+					this.alrm=-1;this.spd=-1;this.amp=-1;
+					this.temp=-1;this.batt=-1;this.trpL=-1;
+					this.volt=-1;this.max=-1;
+					this.conn="OFF";this.lock=2;this.run=true;
+				}
 			}
 		}
 		//refresh 
@@ -260,6 +266,11 @@ touchHandler[0]=function(e,x,y){
 			if (set.def.dashDBat==undefined) set.def.dashDBat=0;
 			set.def.dashDBat=1-set.def.dashDBat;
 			face[0].batt=-1;face[0].volt=-1;
+			digitalPulse(D16,1,[30,50,30]);
+		}else if (x<160&&y<55){//battery percentage/voltage
+			if (set.def.dashDTmp==undefined) set.def.dashDTmp=0;
+ 			face[0].temp=-1;face[0].amp=-1;
+			set.def.dashDTmp=1-set.def.dashDTmp;
 			digitalPulse(D16,1,[30,50,30]);
 		}else
 			digitalPulse(D16,1,40);
