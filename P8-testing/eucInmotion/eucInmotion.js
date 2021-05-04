@@ -125,6 +125,8 @@ euc.conn=function(mac){
 					euc.dash.spdC = (euc.dash.ampC === 3)? 3 : (euc.dash.spdC === 3)? 3 : 2;
 					if (euc.dash.hapA) euc.alert = (euc.alert + 1 + ((-(euc.dash.amp - euc.dash.ampL)) / euc.dash.ampS|0));  				
 				}
+				//alarm
+				euc.dash.alrm=event.target.value.buffer[52];
 				//speed
 				euc.dash.spd=Math.round(event.target.value.getInt16(9, true) / 100);
 				if (euc.dash.spd<0) euc.dash.spd=-euc.dash.spd;

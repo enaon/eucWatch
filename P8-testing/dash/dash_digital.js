@@ -27,6 +27,7 @@ face[0] = {
 		this.temp=-1;
 		this.batt=-1;
 		this.volt=-1;
+    this.alrm=-1;
 		//this.trpL=-1;
 		this.conn="OFF";
 		this.lock=2;
@@ -49,7 +50,7 @@ face[0] = {
 					this.g.setColor(1,col("white"));
 				}
 				this.g.setFontVector(130);
-				this.g.drawString((!set.def.dashSpd)?euc.dash.spd|0:Math.round(euc.dash.spd/1.6),129-(this.g.stringWidth((set.def.dashSpd)?euc.dash.spd|0:Math.round(euc.dash.spd/1.6))/2),57); 
+				this.g.drawString((!set.def.dashSpd)?euc.dash.spd|0:Math.round(euc.dash.spd/1.6),129-(this.g.stringWidth((!set.def.dashSpd)?euc.dash.spd|0:Math.round(euc.dash.spd/1.6))/2),57); 
 				this.spd=euc.dash.spd;
 				this.g.flip();
 				if (euc.dash.spd==0) { 
@@ -71,6 +72,17 @@ face[0] = {
 					this.g.setColor(0,0);
 				}
 			}
+			//alarm
+			if (euc.dash.alrm!=this.alrm) {
+				this.alrm=euc.dash.alrm;
+        this.g.setFontVector(30);
+				this.g.setColor(0,(euc.dash.alrm)?col("red"):col("dgray"));
+				this.g.fillRect(0,55,40,105); //mileage
+				this.g.setColor(1,(euc.dash.alrm)?col("white"):col("lgray"));
+				this.g.drawString("AL", 2,67); //temp
+				this.g.flip();
+			}
+			
 			//Amp
 			/*
 			if ((euc.dash.amp|0)!=this.amp) {
