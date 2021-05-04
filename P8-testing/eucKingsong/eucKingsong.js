@@ -2,7 +2,6 @@
 //euc.conn(euc.mac);
 //euc.wri("lightsOn")
 //commands
-ampL=[];
 euc.wri=function() {if (set.def.cli) print("not connected yet");return false;};
 euc.cmd=function(no){
 	switch (no) {
