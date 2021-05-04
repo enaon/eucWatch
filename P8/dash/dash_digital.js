@@ -89,7 +89,7 @@ face[0] = {
 			//amp
 			if (euc.dash.amp!=this.amp) {
 				this.amp=euc.dash.amp;
-				this.g.setColor(0,(0<euc.dash.ampC)?this.ampC[euc.dash.ampC]:col("dgray"));
+				this.g.setColor(0,this.ampC[euc.dash.ampC]);
 				this.g.fillRect(200,115,239,171); 
 				this.g.setColor(1,(euc.dash.ampC==1||euc.dash.ampC==2)?0:col("white"));
 				this.g.setFont("7x11Numeric7Seg",2);
