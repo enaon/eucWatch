@@ -16,7 +16,7 @@ face[0] = {
 		this.g.setColor(0,col("dgray"));
 		this.g.fillRect(80,0,160,55); //amp   
 		this.g.setColor(1,col("white"));
-		this.g.drawImage(require("heatshrink").decompress(atob("kUgwIOLn/AAYX4AYMeg4DBAQPggEDwEYBAPAgwDBmEBwEAhkAsAQBgAQKh0AkP///AjADBGIM/AgMAh/9BgMD/0f+EA/8H/hJCCAX4v4QCn4QCx4QC8YQDEIX/CAf/CAQyDH4UBAYJoBBgIUBA==")),106,10);	 
+this.g.drawImage(require("heatshrink").decompress(atob("kUgwIOLn/AAYX4AYMeg4DBAQPggEDwEYBAPAgwDBmEBwEAhkAsAQBgAQKh0AkP///AjADBGIM/AgMAh/9BgMD/0f+EA/8H/hJCCAX4v4QCn4QCx4QC8YQDEIX/CAf/CAQyDH4UBAYJoBBgIUBA==")),106,10);	 
 		this.g.flip();
 		this.g.setColor(0,0);
 		this.g.fillRect(65,56,199,239); //middle	
@@ -53,8 +53,10 @@ face[0] = {
 		  this.g.drawImage(require("heatshrink").decompress(atob("j0gwIIFnwCBgf/AYMf/wDB8E8gEHgFwgEcgHAgFggcAgOAhkAg0AmEAjAOJDoM4gF///4F4P/8EPAYPAn/jHAP/g/8gf8j/wh/wv4OFx4OB/0/BwP4Do3/BwIDBBwIDBwE//5hBAYPwOQYA=")),106,10);	 
 		  this.g.flip();
 		  this.clear(); //if (set.def.cli) console.log("faceEUCexited");
-		*/}
+		*/
+    //}
 		//}
+
 	},
 	show : function(o){
 		if (!this.run) return;
@@ -104,8 +106,8 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
     case 1: //slide down event
-		this.timeout();
-		break;
+		face.go("main",0);
+		return;
     case 2: //slide up event
 		if (y>160&&x<50) {
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
@@ -116,7 +118,7 @@ touchHandler[0]=function(e,x,y){
         this.timeout();
 		break;
     case 3: //slide left event
-		face.go("dashGarage",0)
+		face.go("dashGarage",0);
 		return;
     case 4: //slide right event (back action)
 		face.go("main",0);
