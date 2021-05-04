@@ -89,7 +89,7 @@ face[0] = {
 			//amp
 			if (euc.dash.amp!=this.amp) {
 				this.amp=euc.dash.amp;
-				this.g.setColor(0,(1<euc.dash.ampC)?this.ampC[euc.dash.ampC]:col("dgray"));
+				this.g.setColor(0,(0<euc.dash.ampC)?this.ampC[euc.dash.ampC]:col("dgray"));
 				this.g.fillRect(200,115,239,171); 
 				this.g.setColor(1,(euc.dash.ampC==1||euc.dash.ampC==2)?0:col("white"));
 				this.g.setFont("7x11Numeric7Seg",2);
@@ -113,8 +113,6 @@ face[0] = {
 					this.g.flip();
 				}
 			}else {
-				//if ((euc.dash.amp|0)!=this.amp) {
-					this.amp=(euc.dash.amp|0);
 					this.g.setColor(1,col("dgray"));
 					this.g.fillRect(0,0,135,50);       
 					this.g.setColor(0,(1<euc.dash.ampC)?col("yellow"):col("white"));
@@ -123,7 +121,6 @@ face[0] = {
 						this.g.fillRect(i*10,(0<=ampL[i])?50-(ampL[i]*1.2):1,(i*10)+5,(0<=ampL[i])?50:1-(ampL[i]*2));
 					}
 					this.g.flip();
-				//}
 			} 
 			//Battery
 			if (set.def.dashDBat){
