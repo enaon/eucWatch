@@ -5,12 +5,13 @@ face[0] = {
 	g:w.gfx,
 	spd:[],
 	init: function(){
+		this.spdBar=240/((euc.dash.maker=="Ninebot")?25:(euc.dash.maker=="NinebotZ")?45:(euc.dash.maker=="Inmotion")?55:euc.dash.spdT);
 		if ( euc.day[0] < Date().getHours() && Date().getHours() < euc.day[1] ) euc.night=0; else euc.night=1;
 		this.g.clear();
-		this.spdC={0:0,1:4095,2:4080,3:3840};
-		this.ampC={0:1365,1:4095,2:4080,3:3840};
-		this.tmpC={0:col("lblue"),1:4095,2:4080,3:3840};
-		this.batC={0:col("lgreen"),1:4095,2:4080,3:3840}; 
+		this.spdC=new Uint16Array([0,4095,4080,3840]);
+		this.ampC=new Uint16Array([1365,4095,4080,3840]);
+		this.tmpC=new Uint16Array([col("lblue"),4095,4080,3840]);
+		this.batC=new Uint16Array([col("raf"),4095,4080,3840]);
 		this.g.setColor(1,col("gray"));
 		this.g.fillRect(0,0,135,50); //temp
 		this.g.fillRect(139,0,239,50); //batt      
@@ -63,9 +64,9 @@ face[0] = {
 				}else{
 
 					this.g.setColor(0,col("dgray"));
-					this.g.clearRect(euc.dash.spd*10,176,239,197); //mileage
+					this.g.clearRect(euc.dash.spd*this.spdBar,176,239,197); //mileage
 					this.g.setColor(1,(euc.dash.spdC==0)?col("white"):this.spdC[euc.dash.spdC]);
-					this.g.fillRect(0,176,euc.dash.spd*10,197); //mileage
+					this.g.fillRect(0,176,euc.dash.spd*this.spdBar,197); //mileage
 					this.g.flip();
 					this.g.setColor(0,0);
 				}
@@ -117,7 +118,7 @@ face[0] = {
 					this.batt=euc.dash.bat;
 					this.g.setColor(0,this.batC[euc.dash.batC]);
 					this.g.fillRect(139,0,239,50);
-					this.g.setColor(1,(this.batC[euc.dash.batC]!=col("yellow")&&this.batC[euc.dash.batC]!=col("lgreen"))?col("white"):0);
+					this.g.setColor(1,(this.batC[euc.dash.batC]!=col("yellow")&&this.batC[euc.dash.batC]!=col("white"))?col("white"):0);
 					this.g.setFont("7x11Numeric7Seg",4.5);
 					this.g.drawString(euc.dash.bat,240-(this.g.stringWidth(euc.dash.bat)+15),3); //fixed bat
 					this.g.setFontVector(20);

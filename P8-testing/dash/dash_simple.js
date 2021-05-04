@@ -113,7 +113,8 @@ face[0] = {
 
 			face.go("dashOff",0);
 			return;
-	}
+	//}
+	/*
 	if (euc.dash.lock!=this.lock&&euc.dash.lock==1){
       this.lock=euc.dash.lock;
       this.g.setColor(0,col("red"));
@@ -122,7 +123,8 @@ face[0] = {
       this.g.drawImage(require("heatshrink").decompress(atob("j0gwIIFnwCBgf/AYMf/wDB8E8gEHgFwgEcgHAgFggcAgOAhkAg0AmEAjAOJDoM4gF///4F4P/8EPAYPAn/jHAP/g/8gf8j/wh/wv4OFx4OB/0/BwP4Do3/BwIDBBwIDBwE//5hBAYPwOQYA=")),106,10);	 
 	  this.g.flip();
 	  this.clear(); //if (set.def.cli) console.log("faceEUCexited");
-	*/}
+	*/
+  //}
 //rest
   } else  {
     if (euc.state!=this.connrest) {
@@ -222,12 +224,6 @@ touchHandler[0]=function(e,x,y){
 			set.def.dashBat=1-set.def.dashBat;
 			digitalPulse(D16,1,100);
 			face[0].batt=-1;face[0].volt=-1;
-		}	
-		else if (55<y) {
-			//euc.tgl();
-			if (set.def.dashSpd==undefined) set.def.dashSpd=0;
-			set.def.dashSpd=1-set.def.dashSpd;
-			digitalPulse(D16,1,100);
 		}else digitalPulse(D16,1,40);
 		this.timeout();
 		return;
