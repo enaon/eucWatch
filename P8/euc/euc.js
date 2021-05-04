@@ -17,7 +17,8 @@ global.euc= {
 			if (!set.def.acc) {acc.off();}
 			this.seq=1;
 			this.state="OFF";
-   			face.go(set.dash[set.def.dash],0);
+   			//face.go(set.dash[set.def.dash],0);
+			face.go("dashOff",0);
 			//if (this.kill) clearTimout(this.kill);
 			//this.kill=setTimeout(()=>{
 			//if (euc.dash.emu) {set.def.atc=0;set.upd();}

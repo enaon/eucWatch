@@ -242,7 +242,10 @@ face[1] = {
   return true;
   },
   show : function(){
-	if (Boolean(require("Storage").read(set.dash[set.def.dash]))) {face.go(set.dash[set.def.dash],0);return;}
+	if (Boolean(require("Storage").read(set.dash[set.def.dash]))) {
+		(euc.state=="OFF")?face.go("dashOff",0):face.go(set.dash[set.def.dash],0);
+		return;
+	}
 	else if (Boolean(require("Storage").read("alarm"))) {face.go("alarm",0);}  
 	return true;
   },
@@ -297,8 +300,11 @@ touchHandler[0]=function(e,x,y){
 		if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
 	  //} else digitalPulse(D16,1,40);
     }else if  (e==3){
-		if (Boolean(require("Storage").read(set.dash[set.def.dash]))) {face.go(set.dash[set.def.dash],0);return;}
-		else if (Boolean(require("Storage").read("alarm"))) {face.go("alarm",0);return;}
+		if (Boolean(require("Storage").read(set.dash[set.def.dash]))) {
+			(euc.state=="OFF")?face.go("dashOff",0):face.go(set.dash[set.def.dash],0);
+			//face.go(set.dash[set.def.dash],0);
+			return;
+		}else if (Boolean(require("Storage").read("alarm"))) {face.go("alarm",0);return;}
     }else if  (e==4){
 		if (Boolean(require("Storage").read("notify"))) {face.go("notify",0);return;}
     }else if  (e==12){

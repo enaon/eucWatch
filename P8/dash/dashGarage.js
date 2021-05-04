@@ -183,7 +183,7 @@ face[1] = {
   return true;
   },
   show : function(){
-	face.go(set.dash[set.def.dash],0);
+	(euc.state=="OFF")?face.go("dashOff",0):face.go(set.dash[set.def.dash],0);
     return true;
   },
    clear: function(){
@@ -244,7 +244,7 @@ touchHandler[0]=function(e,x,y){
 			face[0].dash=require("Storage").readJSON("dash.json",1);
 			face[0].run=true;face[0].set=0;face[0].show();		
 		}else
-			face.go(set.dash[set.def.dash],0);
+			(euc.state=="OFF")?face.go("dashOff",0):face.go(set.dash[set.def.dash],0);
 		return;
 	case 12: //long press event
 		digitalPulse(D16,1,[100]);

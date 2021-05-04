@@ -2,6 +2,7 @@
 //euc.conn(euc.mac);
 //euc.wri("lightsOn")
 //commands
+ampL=[];
 euc.wri=function() {if (set.def.cli) print("not connected yet");return false;};
 euc.cmd=function(no){
 	switch (no) {
@@ -102,6 +103,8 @@ euc.conn=function(mac){
 						euc.dash.spdC = (euc.dash.ampC === 3)? 3 : (euc.dash.spdC === 3)? 3 : 2;
 						if (euc.dash.hapA) euc.alert = (euc.alert + 1 + ((-(euc.dash.amp - euc.dash.ampL)) / euc.dash.ampS|0));  				
 					}
+					ampL.unshift(euc.dash.amp);
+					if (14<ampL.length) ampL.pop();
 					//volt
 					euc.dash.volt = event.target.value.getUint16(2, true)/100;
 					let model=euc.dash.name.split("-")[0];

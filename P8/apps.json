@@ -27,7 +27,7 @@
 	{ "id": "main",
 		"name": "Clock",
 		"icon": "icon.png",
-		"version":"0.23",
+		"version":"0.24",
 		"description": "Main Clock/notifications face",
 		"tags": "apps",
 		"type":"main",
@@ -102,7 +102,9 @@
 			{"name":"dash_digital","url":"dash_digital.js"},
 			{"name":"dashGarage","url":"dashGarage.js"},
 			{"name":"dashAlerts","url":"dashAlerts.js"},
-			{"name":"dashScan","url":"dashScan.js"}
+			{"name":"dashScan","url":"dashScan.js"},
+			{"name":"dashOff","url":"dashOff.js"}
+
 		]
 	}, 
 	{ "id": "dashKingsong",
@@ -176,7 +178,7 @@
 	{ "id": "euc",
 		"name": "EUC modules support",
 		"icon": "icon.png",
-		"version":"0.20",
+		"version":"0.21",
 		"description": "EUC module switcher, depends on wheel module.",
 		"tags": "euc",
 		"type": "euc",
