@@ -67,6 +67,8 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 				euc.dash.amp = ( (this.in16 - 65536) / 100 ).toFixed(0); 
 			else 
 				euc.dash.amp = (this.in16 / 100).toFixed(0);
+			ampL.unshift(euc.dash.amp);
+			if (14<ampL.length) ampL.pop();
 			euc.dash.ampC = ( euc.dash.ampH+10 <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL - 5 )? 3 : ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp < 0 )? 1 : 0;
 			if ( euc.dash.ampH <= euc.dash.amp ){
 				euc.dash.spdC = ( euc.dash.ampC === 3 )? 3 : ( euc.dash.spdC === 3 )? 3 : 2;
