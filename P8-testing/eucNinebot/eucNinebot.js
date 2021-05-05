@@ -68,7 +68,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			else 
 				euc.dash.amp = (this.in16 / 100).toFixed(0);
 			ampL.unshift(euc.dash.amp);
-			if (14<ampL.length) ampL.pop();
+			if (20<ampL.length) ampL.pop();
 			euc.dash.ampC = ( euc.dash.ampH+10 <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL - 5 )? 3 : ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp < 0 )? 1 : 0;
 			if ( euc.dash.ampH <= euc.dash.amp ){
 				euc.dash.spdC = ( euc.dash.ampC === 3 )? 3 : ( euc.dash.spdC === 3 )? 3 : 2;
@@ -77,6 +77,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 				euc.dash.spdC = (euc.dash.ampC === 3)? 3 : (euc.dash.spdC === 3)? 3 : 2;
 				if (euc.dash.hapA) euc.alert = (euc.alert + 1 + ((-(euc.dash.amp - euc.dash.ampL)) / euc.dash.ampS|0));  				
 			}
+			euc.new=1;
 			break;
 		case 185://trip
 			// if (euc.dash.trpN > (euc.tmp[this.var]/100).toFixed(1)) {
@@ -91,6 +92,8 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 		case 71://battery fixed/voltage
 			euc.dash.volt=this.in16/100;
 			euc.dash.bat=(((this.in16/100)-51.5)*10|0); 
+			batL.unshift(euc.dash.bat);
+			if (20<batL.length) batL.pop();
 			if ((euc.dash.bat) >= euc.dash.batH) euc.dash.batC=0;
 			else  if ((euc.dash.bat) >= euc.dash.batM) euc.dash.batC=1;
 			else  if ((euc.dash.bat) >= euc.dash.batL) euc.dash.batC=2;
@@ -98,6 +101,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 				euc.dash.batC=3;
 				if (euc.dash.hapB) euc.alert++;
 			}
+			euc.new=1;
 			break;
 		case 37: //remaining
 			euc.dash.trpR=(this.in16/100).toFixed(1);
@@ -179,7 +183,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 						euc.wri(euc.tmp.count);	
 						euc.tmp.count++;
 						if (euc.tmp.count>=21) euc.tmp.count=0;
-					},5);
+					},20);
 				}
 			}).catch(function(err)  {
 				euc.off("writefail");	
