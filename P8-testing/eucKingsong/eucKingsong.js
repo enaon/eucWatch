@@ -93,7 +93,7 @@ euc.conn=function(mac){
 					//amp
 					this.amp=event.target.value.getUint16(10, true);
 					if ( 32767 < this.amp ) this.amp = this.amp - 65536;
-					euc.dash.amp = ( this.amp / 100 ).toFixed(0);
+					euc.dash.amp = ( this.amp / 100 );
 					euc.dash.ampC = ( euc.dash.ampH+10 <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL - 5 )? 3 : ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp < 0 )? 1 : 0;
 					if ( euc.dash.ampH <= euc.dash.amp ){
 						euc.dash.spdC = (euc.dash.ampC === 3)? 3 : (euc.dash.spdC === 3)? 3 : 2;
@@ -103,14 +103,16 @@ euc.conn=function(mac){
 						if (euc.dash.hapA) euc.alert = (euc.alert + 1 + ((-(euc.dash.amp - euc.dash.ampL)) / euc.dash.ampS|0));  				
 					}
 					ampL.unshift(euc.dash.amp);
-					if (14<ampL.length) ampL.pop();
+					if (20<ampL.length) ampL.pop();
 					//volt
 					euc.dash.volt = event.target.value.getUint16(2, true)/100;
 					let model=euc.dash.name.split("-")[0];
 					if (model.includes("S18") || model.includes("18L") ||  model.includes("18XL") || model.includes("16X") )
-						euc.dash.bat = (((euc.dash.volt / 20) * 100 - 330 ) * 1.1111)|0;
+						euc.dash.bat = ((euc.dash.volt / 20) * 100 - 320 ) |0;
 					else 
 						euc.dash.bat = (((euc.dash.volt / 16) * 100 - 315 ) * 0.955)|0;
+					batL.unshift(euc.dash.bat);
+					if (20<batL.length) batL.pop();
 					euc.dash.batC = (euc.dash.batH <= euc.dash.bat)? 0 : (euc.dash.batM <= euc.dash.bat)? 1 : (euc.dash.batL <= euc.dash.bat)? 2 : 3;	
 					if ( euc.dash.hapB && euc.dash.bat <= euc.dash.batL ) { euc.alert ++; euc.dash.spdC = 3; }     
 					//temp
@@ -141,6 +143,7 @@ euc.conn=function(mac){
 					if ((1<euc.dash.spdC||1<euc.dash.ampC)&&!w.gfx.isOn ){
 						face.go(set.dash[set.def.dash],0);
 					}
+					euc.new=1;
 					break;
 				case 185://trip-time-max_speed
 					euc.dash.trpL=(((event.target.value.buffer[2] << 16) + (event.target.value.buffer[3] << 24) + event.target.value.buffer[4] + (event.target.value.buffer[5] << 8)) / 1000.0).toFixed(1);

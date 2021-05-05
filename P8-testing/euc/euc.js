@@ -11,6 +11,7 @@ global.euc= {
 	day:[7,19],
 	updateDash:function(slot){require('Storage').write('eucSlot'+slot+'.json', euc.dash);},
 	tgl:function(){ 
+		ampL=[];batL=[];
 		if (this.state!="OFF" ) {
 			digitalPulse(D16,1,[90,60,90]);  
 			set.def.accE=0;
@@ -30,7 +31,6 @@ global.euc= {
 			setTimeout(()=>{euc.updateDash(require("Storage").readJSON("dash.json",1).slot);},500);
 			return;
 		}else {
-			ampL=[];
 			NRF.setTxPower(4);
 			digitalPulse(D16,1,100); 
 			//if (euc.dash.emu){set.def.atc=1;set.def.gb=0;set.def.cli=0;set.def.hid=0;set.upd();}
