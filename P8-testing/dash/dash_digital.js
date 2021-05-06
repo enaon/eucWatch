@@ -35,6 +35,7 @@ face[0] = {
 		this.run=true;
 	},
 	show : function(o){
+		"ram"
 		if (!this.run) return;
 		//connected  
 		if (euc.state=="READY") {
@@ -80,17 +81,19 @@ face[0] = {
 			if (euc.dash.spdM!=this.max) {
 				this.max=euc.dash.spdM;
 				this.g.setColor(0,col("dgray"));
-				this.g.fillRect(200,55,239,110); 
+				this.g.fillRect(200,53,239,112); 
 				this.g.setColor(1,col("white"));
+				this.g.setFontVector(12);
+				this.g.drawString("TOP", 208,59); //temp
 				this.g.setFont("7x11Numeric7Seg",2);
-				this.g.drawString(Math.round(euc.dash.spdM), 222-(this.g.stringWidth(Math.round(euc.dash.spdM))/2),73); 
+				this.g.drawString(Math.round(euc.dash.spdM), 222-(this.g.stringWidth(Math.round(euc.dash.spdM))/2),80); 
 				this.g.flip();
 			}
 			//amp
 			if (this.amp!=euc.dash.amp|0) {
 			this.amp=euc.dash.amp|0;
 				this.g.setColor(0,this.ampC[euc.dash.ampC]);
-				this.g.fillRect(200,115,239,171); 
+				this.g.fillRect(200,115,239,173); 
 				this.g.setColor(1,(euc.dash.ampC==1||euc.dash.ampC==2)?0:col("white"));
 				this.g.setFont("7x11Numeric7Seg",2);
 				this.g.drawString(euc.dash.amp, 222-(this.g.stringWidth(euc.dash.amp)/2),133); 
@@ -133,9 +136,9 @@ face[0] = {
 					this.g.fillRect(122,0,239,50);
 					this.g.setColor(1,col("white"));
 					this.g.setFontVector(35);
-					this.g.drawString(euc.dash.volt,240-(this.g.stringWidth(euc.dash.volt)),1); //fixed bat
+					this.g.drawString(euc.dash.volt,242-(this.g.stringWidth(euc.dash.volt)),1);
 					this.g.setFontVector(13);
-					this.g.drawString("VOLTS",188,36); //fixed bat
+					this.g.drawString("VOLTS",191,36); //fixed bat
 					this.g.flip();
 				}
 			}else if (set.def.dashDBat==2) {
@@ -144,19 +147,20 @@ face[0] = {
 					this.g.setColor(0,this.batC[euc.dash.batC]);
 					this.g.fillRect(122,0,239,50);
 					this.g.setColor(1,col("white"));
-					this.g.setFont("7x11Numeric7Seg",4.5);
-					this.g.drawString(euc.dash.bat,240-(this.g.stringWidth(euc.dash.bat)+15),3); //fixed bat
+					this.g.setFontVector(50);
+					//this.g.setFont("7x11Numeric7Seg",4.5);
+					this.g.drawString(euc.dash.bat,220-(this.g.stringWidth(euc.dash.bat)),3);
 					this.g.setFontVector(20);
-					this.g.drawString("%",225,5); //fixed bat
+					this.g.drawString("%",224,8); //fixed bat
 					this.g.flip();
 				}
 			}else if (set.def.dashDBat==3&&euc.new) {
-					this.g.setColor(1,(euc.dash.batC==3)?col("red"):col("dgray"));
+					this.g.setColor(1,(euc.dash.batC==3)?col("red"):col("raf"));
 					this.g.fillRect(122,0,239,50);       
 					this.g.setColor(0,col("white"));
-					this.g.setFont("7x11Numeric7Seg",2);
-					this.g.drawString(euc.dash.volt,150-(this.g.stringWidth(euc.dash.volt)/2),1); //fixed bat
-					this.g.drawString(euc.dash.bat,235-(this.g.stringWidth(euc.dash.bat)),1); //fixed bat
+					this.g.setFontVector(20);
+					this.g.drawString(euc.dash.volt,123,1); 
+					this.g.drawString(euc.dash.bat,239-(this.g.stringWidth(euc.dash.bat)),1); 
 					let i;
 					for (i = 0; i < batL.length; i++) {
 						this.g.fillRect(238-(i*6),50-(batL[i]/4),238-(i*6)-1,50);
