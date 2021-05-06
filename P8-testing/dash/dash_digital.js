@@ -151,12 +151,15 @@ face[0] = {
 					this.g.flip();
 				}
 			}else if (set.def.dashDBat==3&&euc.new) {
-					this.g.setColor(1,(euc.dash.batC==3)?col("red"):col("raf"));
+					this.g.setColor(1,(euc.dash.batC==3)?col("red"):col("dgray"));
 					this.g.fillRect(122,0,239,50);       
 					this.g.setColor(0,col("white"));
+					this.g.setFont("7x11Numeric7Seg",2);
+					this.g.drawString(euc.dash.volt,150-(this.g.stringWidth(euc.dash.volt)/2),1); //fixed bat
+					this.g.drawString(euc.dash.bat,235-(this.g.stringWidth(euc.dash.bat)),1); //fixed bat
 					let i;
 					for (i = 0; i < batL.length; i++) {
-						this.g.fillRect(238-(i*6),50-(batL[i]/2),238-(i*6)-2,50);
+						this.g.fillRect(238-(i*6),50-(batL[i]/4),238-(i*6)-1,50);
 					}
 					this.g.flip();
 			}					
