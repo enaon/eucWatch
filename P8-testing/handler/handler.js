@@ -1,7 +1,4 @@
 //handler
-//set p8 type-obsolete-done from loader
-//const touchtype="816"; //716|816|816s
-//Const acctype="BMA421"; //BMA421|SC7A20
 //fonts
 require('Font7x11Numeric7Seg').add(Graphics);
 //notifications
@@ -543,16 +540,17 @@ if (set.def.acctype==="BMA421"){
 //		    i2c.writeTo(0x18,0x20,0x47); //reg1-odr=50zh lp=0 zyx=1
 		    i2c.writeTo(0x18,0x20,0x77); //reg1-odr=400zh lp=0 zyx=1
 			i2c.writeTo(0x18,0x21,0x00); //reg2-highpass filter disabled
-			i2c.writeTo(0x18,0x22,0x80); //reg3-ia1 interrupt to INT1
-//			i2c.writeTo(0x18,0x22,0xC0); //reg3-click and IA1 on interrupt to INT1
+//			i2c.writeTo(0x18,0x22,0x40); //reg3-ia1 interrupt to INT1
+//			i2c.writeTo(0x18,0x22,0x80); //reg3-click interrupt to INT1
+			i2c.writeTo(0x18,0x22,0xC0); //reg3-click and IA1 on interrupt to INT1
 			i2c.writeTo(0x18,0x23,0x88); //reg4-BDU,MSB at high addr, HR=1
 			i2c.writeTo(0x18,0x24,0x00); //reg5-latched interrupt off
 //			i2c.writeTo(0x18,0x24,0x08); //reg5-latched interrupt1
 			i2c.writeTo(0x18,0x32,0x10); //int1_ths-threshold = 250 milli g's
 			i2c.writeTo(0x18,0x33,0x01); //duration = 1 * 20ms
-//			i2c.writeTo(0x18,0x30,0x82); //XH interrupt aio=1 
-			i2c.writeTo(0x18,0x30,0x02); //XH interrupt 0Ah=XH&YH 2Ah=allH 95h=freefall 
-			
+			i2c.writeTo(0x18,0x30,0x02); //INT1_CFG-XH interrupt 0Ah=XH&YH 2Ah=allH 95h=freefall 
+//			i2c.writeTo(0x18,0x30,0x03); //INT1_CFG-1011 1111
+//			i2c.writeTo(0x18,0x30,0x82); //INT1_CFG-XH interrupt aio=1 
 			//click config
 			i2c.writeTo(0x18,0x38,0x01); //single tap on X
 //			i2c.writeTo(0x18,0x3A,0x3f); //single tap on X
@@ -560,7 +558,7 @@ if (set.def.acctype==="BMA421"){
  			//i2c.writeTo(0x18,0x39,0x80); //latch on
 
 //i2c.writeTo(0x18,0x31);print (i2c.readFrom(0x18,1)+""); //src int
-//i2c.writeTo(0x18,0x39);print (i2c.readFrom(0x18,1)+""); //src click
+i2c.writeTo(0x18,0x39);print (i2c.readFrom(0x18,1)+""); //src click
 
 			//Write 08h into CTRL_REG4 //set hr
 			
