@@ -192,10 +192,10 @@ var face={
 	mode:0,
 	offid:0,
 	offms:-1,
-	off:function(page){ 
+	off:function(t){ 
 		if (this.pageCurr===-1) return;
 		if (this.offid) {clearTimeout(this.offid); this.offid=0;}
-		if (face[this.pageCurr]!=-1) this.offms=face[this.pageCurr].offms;
+		if (face[this.pageCurr]!=-1) this.offms=(t)?t:face[this.pageCurr].offms;
 		this.offid=setTimeout((c)=>{
 			this.offid=0;
 			//if (set.def.acc&&acc.tid==-1) acc.on();
@@ -240,7 +240,7 @@ var face={
 			this.appRoot=[this.appPrev,this.pagePrev,this.pageArg];
 			eval(require('Storage').read(app));
 		} 
-		this.off(page);
+		this.off();
 		face[page].init(arg);	
 		if(!w.gfx.isOn) {
 			//digitalPulse(D13,1,[10,50]); //touch wake
@@ -255,7 +255,7 @@ var face={
 //touch 
 var touchHandler = {
 	timeout: function(){
-		face.off(face.pagePrev);
+		face.off();
 	}
 };
 //charging notify
@@ -537,23 +537,42 @@ if (set.def.acctype==="BMA421"){
 			}else {this.loop=300;this.up=0;this.go=1;if (set.tor==1)w.gfx.bri.set(7); }
 		}
 	};	
-}else if (set.def.acctype==="SC7A20"){
-    i2c.writeTo(0x18,0x20,0x47); 
-    i2c.writeTo(0x18,0x21,0x00); //highpass filter disabled
-    i2c.writeTo(0x18,0x22,0x40); //interrupt to INT1
-    i2c.writeTo(0x18,0x23,0x88); //BDU,MSB at high addr, HR
-    i2c.writeTo(0x18,0x24,0x00); //latched interrupt off
-    i2c.writeTo(0x18,0x32,0x10); //threshold = 250 milli g's
-    i2c.writeTo(0x18,0x33,0x01); //duration = 1 * 20ms
-    i2c.writeTo(0x18,0x30,0x02); //XH interrupt 
+}else if (set.def.acctype==="SC7A20"){ //based on work from jeffmer
 	acc={
 		on:function(){
+//		    i2c.writeTo(0x18,0x20,0x47); //reg1-odr=50zh lp=0 zyx=1
+		    i2c.writeTo(0x18,0x20,0x77); //reg1-odr=400zh lp=0 zyx=1
+			i2c.writeTo(0x18,0x21,0x00); //reg2-highpass filter disabled
+			i2c.writeTo(0x18,0x22,0x80); //reg3-ia1 interrupt to INT1
+//			i2c.writeTo(0x18,0x22,0xC0); //reg3-click and IA1 on interrupt to INT1
+			i2c.writeTo(0x18,0x23,0x88); //reg4-BDU,MSB at high addr, HR=1
+			i2c.writeTo(0x18,0x24,0x00); //reg5-latched interrupt off
+//			i2c.writeTo(0x18,0x24,0x08); //reg5-latched interrupt1
+			i2c.writeTo(0x18,0x32,0x10); //int1_ths-threshold = 250 milli g's
+			i2c.writeTo(0x18,0x33,0x01); //duration = 1 * 20ms
+//			i2c.writeTo(0x18,0x30,0x82); //XH interrupt aio=1 
+			i2c.writeTo(0x18,0x30,0x02); //XH interrupt 0Ah=XH&YH 2Ah=allH 95h=freefall 
+			
+			//click config
+			i2c.writeTo(0x18,0x38,0x01); //single tap on X
+//			i2c.writeTo(0x18,0x3A,0x3f); //single tap on X
+			i2c.writeTo(0x18,0x3A,0x01); //single tap on X
+ 			//i2c.writeTo(0x18,0x39,0x80); //latch on
+
+//i2c.writeTo(0x18,0x31);print (i2c.readFrom(0x18,1)+""); //src int
+//i2c.writeTo(0x18,0x39);print (i2c.readFrom(0x18,1)+""); //src click
+
+			//Write 08h into CTRL_REG4 //set hr
+			
 			if (!this.tid) {
 				this.tid=setWatch(()=>{
 					"ram";
-					i2c.writeTo(0x18,0x1);
-					//let val=i2c.readFrom(0x18,1)[0];
-					//print (val);
+					//
+					i2c.writeTo(0x18,0x31);print ("int"+i2c.readFrom(0x18,1)+"");
+					i2c.writeTo(0x18,0x39);print ("click"+i2c.readFrom(0x18,1)+"");
+					//i2c.writeTo(0x18,0x41);print (i2c.readFrom(0x18,1)+"");
+					//
+					i2c.writeTo(0x18,0x01);
 					if ( 192 < i2c.readFrom(0x18,1)[0] ) {
 						if (!w.gfx.isOn&&face.appCurr!=""){  
 							if  (global.euc) {
@@ -564,11 +583,10 @@ if (set.def.acctype==="BMA421"){
 								else face.go(face.appCurr,0);
 							}
 						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
-							if (face.appCurr=="main" && face.pageCurr==2) face.go("main",0);
-							else { if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off(); }
+               if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off();
 						} 
-					}
-				},D8,{repeat:true,edge:"rising",debounce:50});
+					} else face.off(1);
+				},D8,{repeat:true,edge:"rising"});
 				return true;
 			} else return false;
 		},
@@ -576,7 +594,10 @@ if (set.def.acctype==="BMA421"){
 			if (this.tid) {
 				clearWatch(this.tid);
 				this.tid=0;
-				return true;
+				i2c.writeTo(0x18,0x20,0x07); //Clear LPen-Enable all axes-Power down
+				i2c.writeTo(0x18,0x26);
+				i2c.readFrom(0x18,1);// Read REFERENCE-Reset filter block 
+        return true;
 			}else return false;
 		},
 		init:function(){
@@ -592,7 +613,6 @@ if (set.def.acctype==="BMA421"){
 			return {ax:conv(a[0],a[1]), ay:conv(a[2],a[3]), az:conv(a[4],a[5])};
 		},
 	};	
-
 }
 //themes -todo
 function col(no){

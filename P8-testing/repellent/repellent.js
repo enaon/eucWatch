@@ -44,10 +44,10 @@ if (!global.rep.read)
 };
 //rep face
 face[0]= {
-  offms: 5000,
+  offms: 20000,
   init: function(){
-	rep.mac=(require("Storage").readJSON("setting.json",1)||{}).repellent_mac;
-	rep.go=(require("Storage").readJSON("setting.json",1)||{}).repellent_go;
+	rep.mac=(require("Storage").readJSON("setting.json",1)||{}).repellentMac;
+	rep.go=(require("Storage").readJSON("setting.json",1)||{}).repellentGo;
     rep.con=0;
     var g=w.gfx;
   	g.clear();
