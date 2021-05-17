@@ -127,7 +127,7 @@ touchHandler[0]=function(e,x,y){
 			return;
 		}else if ( x<=120 && 100<=y ) {   //limits
 			euc.dash.spd3=euc.dash.spdT;
-			if (75 < euc.dash.spd3 ) euc.dash.spd3=75;
+			if (99 < euc.dash.spd3 ) euc.dash.spd3=99;
 			digitalPulse(D16,1,[30,50,30]);		
 			face.go("dashBegodeLimits",0);
 			return;

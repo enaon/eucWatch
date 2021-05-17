@@ -94,7 +94,7 @@
 	{ "id": "dash",
 		"name": "EUC Dashboard",
 		"icon": "icon.png",
-		"version":"0.29",
+		"version":"0.30",
 		"description": "EUC dashboard. Garage, scan and dash faces. Depends on EUC modules.",
 		"tags": "euc",
 		"storage": [
@@ -165,14 +165,14 @@
 	{ "id": "dashBegode",
 		"name": "Begode Settings",
 		"icon": "icon.png",
-		"version":"0.25",
+		"version":"0.30",
 		"description": "EUC dashboard, Begode settings gui files.",
 		"tags": "euc",
 		"storage": [
 			{"name":"dashBegode","url":"dashBegode.js"},
 			{"name":"dashBegodeAdv","url":"dashBegodeAdv.js"},
 			{"name":"dashBegodeLimits","url":"dashBegodeLimits.js"},
-			{"name":"dashBegodeLCalibrate","url":"dashBegodeCalibrate.js"}
+			{"name":"dashBegodeCalibrate","url":"dashBegodeCalibrate.js"}
 		]
 	},
 	{ "id": "euc",
@@ -246,7 +246,7 @@
    { "id": "eucBegode",
 		"name": "Begode module",
 		"icon": "icon.png",
-		"version":"0.26",
+		"version":"0.30",
 		"description": "EUC module for Begode (Gotway)",
 		"tags": "euc",
 		"type": "euc",

@@ -72,16 +72,19 @@ euc.conn=function(mac){
 				//temp
 				euc.dash.tmp=Math.round((event.target.value.getUint16(12)/340)+102)/10;
 				euc.dash.tmpC = (euc.dash.tmp <= euc.dash.tmpH)? 0 : (euc.dash.tmp <= euc.dash.tmpH+5)? 2 : 3;	
-				if (euc.dash.tmpH+5 <= euc.dash.tmp) {euc.alert++; euc.dash.spdC = 3;}   
+				if (euc.dash.tmpH+5 <= euc.dash.tmp) {euc.alert++; euc.dash.spdC = 3;} 
 			} else if ( event.target.value.buffer[0]===90 ){
 				euc.dash.trpT=(event.target.value.getUint32(6)/1000).toFixed(1);
 				euc.dash.mode = (event.target.value.getUint8(10) >> 4) & 0x0F;
-				euc.dash.alrm = event.target.value.getUint8(10) & 0x0F;
+				//euc.dash.alrm = event.target.value.getUint8(10) & 0x0F;
 				euc.dash.spdT = event.target.value.getUint8(15);
 				euc.dash.light = event.target.value.getUint8(17);
+				euc.dash.alrm = event.target.value.getUint8(18);	
+				if (euc.dash.alrm) euc.alert=20;
+				//print("alarm :"euc.dash.alrm);
 			}
 			//haptic
-			if (!euc.buzz && euc.alert) {  
+        if (!euc.buzz && euc.alert) {  
 				euc.buzz=1;
 				if (20 <= euc.alert) euc.alert = 20;
 				var a=[];
@@ -143,6 +146,7 @@ euc.conn=function(mac){
 				c.writeValue(87).then(function() {
 					c.writeValue(89).then(function() {
 						let tilt=euc.dash.spd3.toString().split('');
+            print (tilt);
 						c.writeValue(48+Number(tilt[0])).then(function() {
 							c.writeValue(48+Number(tilt[1])).then(function() {
 								c.writeValue((euc.dash.spd2E)?(euc.dash.spd1E)?111:117:105).then(function() {

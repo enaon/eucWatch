@@ -154,8 +154,8 @@ touchHandler[0]=function(e,x,y){
 			}else digitalPulse(D16,1,[30,50,30]);
 		}else {//set page
 			if (120<=x) { //up
-                if (euc.dash.spd3<75) euc.dash.spd3++;
-                else face[0].ntfy("THE LIMIT IS 75KpH","",20,col("red"),1);
+                if (euc.dash.spd3<99) euc.dash.spd3++;
+                else face[0].ntfy("THE LIMIT IS 99KpH","",20,col("red"),1);
             }else {  //dn
 				if (10<euc.dash.spd3) euc.dash.spd3--;
 				else face[0].ntfy("NO LESS THAN 10KpH","",20,col("red"),1);
