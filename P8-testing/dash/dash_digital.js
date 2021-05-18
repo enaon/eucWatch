@@ -32,7 +32,7 @@ face[0] = {
 		this.temp=-1;
 		this.batt=-1;
 		this.volt=-1;
-		this.buzz=-1
+		this.buzz=-1;
 		this.max=-1;
 		this.alrm=-1;
 		//this.trpL=-1;
@@ -65,13 +65,15 @@ face[0] = {
 					this.g.setColor(0,0);
 				}
 			}
-			if (euc.dash.spd!=0) {
+			if (euc.dash.spd!=0&& euc.new) {
 				this.g.setColor(0,col("dgray"));
 				this.g.clearRect(0,176,239,197); //mileage
 				this.g.setColor(1,col("white"));
 				let i;
-				for (i = 0; i < almL.length; i++) {
-					this.g.fillRect(237-(i*6),(almL[i])?181:191,237-((i*6)+3),191);
+				for (i = 0; i < 20; i++) {
+          if (almL[i])
+              this.g.fillRect(237-(i*12),181,237-((i*12)+8),191);
+					  //this.g.fillRect(237-(i*6),(almL[i])?181:191,237-((i*6)+3),191);
 				}
 				this.g.flip();
 			}
@@ -244,7 +246,7 @@ face[0] = {
 		this.tid=setTimeout(function(t){
 			t.tid=-1;
 			t.show();
-		},80,this);
+		},50,this);
 	},
 	mileage: function(){
 		this.trpL=euc.dash.trpL;
