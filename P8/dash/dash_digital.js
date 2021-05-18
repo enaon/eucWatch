@@ -92,12 +92,12 @@ face[0] = {
 				}
 			}	
 			//alarm
-			if (euc.dash.alrm!=this.alrm) {
-				this.alrm=euc.dash.alrm;
+			if (euc.buzz!=this.buzz) {
+				this.buzz=euc.buzz;
 				this.g.setFontVector(35);
-				this.g.setColor(0,(euc.dash.alrm)?col("red"):col("dgray"));
+				this.g.setColor(0,(euc.buzz)?col("red"):col("dgray"));
 				this.g.fillRect(0,115,40,173); //buzz
-				this.g.setColor(1,(euc.dash.alrm)?col("white"):col("black"));
+				this.g.setColor(1,(euc.buzz)?col("white"):col("black"));
 				this.g.drawString("!", 19,130); //temp
 				this.g.flip();
 			}
@@ -261,7 +261,7 @@ face[0] = {
 		this.tid=setTimeout(function(t){
 			t.tid=-1;
 			t.show();
-		},80,this);
+		},50,this);
 	},
 	mileage: function(){
 		this.trpL=euc.dash.trpL;

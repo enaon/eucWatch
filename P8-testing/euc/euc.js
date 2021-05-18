@@ -8,6 +8,7 @@ global.euc= {
     chrg:0,
 	kill:0,
 	night:1,
+	buzz:0,
 	day:[7,19],
 	updateDash:function(slot){require('Storage').write('eucSlot'+slot+'.json', euc.dash);},
 	tgl:function(){ 

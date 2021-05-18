@@ -28,12 +28,13 @@ face[0] = {
 		this.bar();
 		this.mileage();
 		this.spd=-1;
-		this.amp=-1;
+		this.amp=-10;
 		this.temp=-1;
 		this.batt=-1;
 		this.volt=-1;
-		this.alrm=-1;
+		this.buzz=-1
 		this.max=-1;
+		this.alrm=-1;
 		//this.trpL=-1;
 		this.conn="OFF";
 		this.lock=2;
@@ -55,7 +56,7 @@ face[0] = {
 					this.g.setFontVector(80);
 				}else 
 					this.g.setFontVector(130);
-				this.g.drawString((!set.def.dashSpd)?Math.round(euc.dash.spd):Math.round(euc.dash.spd/1.6),129-(this.g.stringWidth((!set.def.dashSpd)?euc.dash.spd|0:Math.round(euc.dash.spd/1.6))/2),57); 
+				this.g.drawString((set.def.dashSpd)?Math.round(euc.dash.spd):Math.round(euc.dash.spd/1.6),129-(this.g.stringWidth((set.def.dashSpd)?euc.dash.spd|0:Math.round(euc.dash.spd/1.6))/2),57); 
 				this.spd=euc.dash.spd;
 				this.g.flip();
 				if (euc.dash.spd==0) { 
@@ -101,13 +102,13 @@ face[0] = {
 					this.g.flip();
 				}
 			}	
-			//alarm
-			if (euc.dash.alrm!=this.alrm) {
-				this.alrm=euc.dash.alrm;
+			//buzz
+			if (this.buzz!=euc.buzz) {
+				this.buzz=euc.buzz;
 				this.g.setFontVector(35);
-				this.g.setColor(0,(euc.dash.alrm)?col("red"):col("dgray"));
+				this.g.setColor(0,(euc.buzz)?col("red"):col("dgray"));
 				this.g.fillRect(0,115,40,173); //buzz
-				this.g.setColor(1,(euc.dash.alrm)?col("white"):col("black"));
+				this.g.setColor(1,(euc.buzz)?col("white"):col("black"));
 				this.g.drawString("!", 19,130); //temp
 				this.g.flip();
 			}
@@ -123,9 +124,9 @@ face[0] = {
 				this.g.drawString(Math.round(euc.dash.spdM), 222-(this.g.stringWidth(Math.round(euc.dash.spdM))/2),80); 
 				this.g.flip();
 			}
-			//buzz
-			if (this.amp!=euc.dash.amp|0) {
-			this.amp=euc.dash.amp|0;
+			//alrm
+			if (this.alrm!=euc.dash.alrm) {
+			this.arlm=euc.dash.alrm;
 				this.g.setColor(0,col("dgray"));
 				this.g.fillRect(200,115,239,173); 
 				this.g.setColor(1,col("black"));
@@ -192,9 +193,9 @@ face[0] = {
 					this.g.setColor(1,(euc.dash.batC==3)?col("red"):col("raf"));
 					this.g.fillRect(122,0,239,50);       
 					this.g.setColor(0,col("white"));
-					this.g.setFontVector(20);
-					this.g.drawString(euc.dash.volt,123,1); 
-					this.g.drawString(euc.dash.bat,239-(this.g.stringWidth(euc.dash.bat)),1); 
+					//this.g.setFontVector(25);
+					//this.g.drawString(euc.dash.volt,123,25); 
+					//this.g.drawString(euc.dash.bat,239-(this.g.stringWidth(euc.dash.bat)),25); 
 					let i;
 					for (i = 0; i < batL.length; i++) {
 						this.g.fillRect(238-(i*6),50-(batL[i]/2),238-(i*6)-1,50);
@@ -231,9 +232,9 @@ face[0] = {
 				this.g.drawString("BATT", 150,12); //temp
 				this.g.flip();
 				if (euc.state=="WAIT"||euc.state=="RETRY"){	
-					this.alrm=-1;this.spd=-1;this.amp=-1;
+					this.alrm=-1;this.spd=-1;this.amp=-10;
 					this.temp=-1;this.batt=-1;this.trpL=-1;
-					this.volt=-1;this.max=-1;
+					this.volt=-1;this.max=-1;this.buzz=-1;
 					this.conn="OFF";this.lock=2;this.run=true;
 				}
 			}
