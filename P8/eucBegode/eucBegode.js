@@ -3,7 +3,6 @@
 //euc.wri("lightsOn")
 //commands
 //tilt speed = 87 - 89 - 3(speed1) - 3(speed2) 
-if (euc.dash.bms==undefined) euc.dash.bms=1.5;
 euc.cmd=function(no){
 	switch (no) {
 		case "beep":return [98]; 

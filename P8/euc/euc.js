@@ -43,6 +43,7 @@ global.euc= {
 				this.state="ON";
 				if (!set.def.acc) {set.def.accE=1;acc.on();}
 				this.seq=1;
+				if (euc.dash.bms==undefined) euc.dash.bms=1.5;
 				this.conn(this.mac); 
 				face.go(set.dash[set.def.dash],0);return;
             }

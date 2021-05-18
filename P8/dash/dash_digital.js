@@ -324,7 +324,7 @@ touchHandler[0]=function(e,x,y){
 			set.def.dashDBat++;
 			face[0].batt=-1;face[0].volt=-1;
 			digitalPulse(D16,1,[30,50,30]);
-		}else if (x<120&&y<55){//battery percentage/voltage
+		}else if (x<120&&y<55){//temp/amp
 			if (set.def.dashDTmp==undefined) set.def.dashDTmp=0;
 			set.def.dashDTmp=1-set.def.dashDTmp;
  			face[0].temp=-1;face[0].amp=-1;
@@ -363,12 +363,17 @@ touchHandler[0]=function(e,x,y){
 		face.go("main",0);
 		return;
     case 12: //touch and hold(long press) event
-		if (55<y<200) {
+		if (55<y && y<200) {
 			if (set.def.dashSpd==undefined) set.def.dashSpd=0;
 			set.def.dashSpd=1-set.def.dashSpd;
 			digitalPulse(D16,1,[30,50,30]);
 			face[0].bar();
 			face[0].trpL=-1;
+		}else if (120<x&&y<55){//battery percentage/voltage
+			if (1.5<=euc.dash.bms) euc.dash.bms=1;
+			else euc.dash.bms=euc.dash.bms+0.25;
+			face[0].batt=-1;
+			digitalPulse(D16,1,[30,50,30]);
 		} else digitalPulse(D16,1,40);
 		this.timeout();
 		break;
