@@ -58,12 +58,14 @@ euc.conn=function(mac){
 			this.var= event.target.value.getUint8(16, true);
 			//print (event.target.value.buffer);
             if (euc.busy) return;
-            if (set.bt==4&&euc.dash.emu==1) {
+            /*
+			//forward euc emu
+			if (set.bt==4&&euc.dash.emu==1) {
 				euc.emuW(event.target.value.buffer);
 			}
+			*/
 			switch (this.var){
 				case  169:
-					//forward euc emu
 					euc.alert=0;
 					//speed
 					euc.dash.spd= ( event.target.value.getUint16(4, true) / 100 ).toFixed(0); 
@@ -151,21 +153,31 @@ euc.conn=function(mac){
 					euc.dash.spdM=((event.target.value.getUint16(8, true)) / 100.0).toFixed(1);
 					euc.dash.fan=event.target.value.buffer[12];
 					break;
-/*				case 245:
+				case 245:
 					euc.dash.cpu=event.target.value.buffer[14];
 					//euc.dash.out=event.target.value.buffer[15];
+					//print("cpu: ",euc.dash.cpu);
+					//print("packet: ",event.target.value.buffer);
 					break;
 				case 246:
 					euc.dash.spdL=( event.target.value.getUint16(2, true) / 100 ).toFixed(0); 
+					euc.dash.alrm=(euc.dash.spdL < euc.dash.spdT)?1:0
+					//log alarms
+					almL.unshift(euc.dash.alrm);
+					if (20<almL.length) almL.pop();
+					//haptic
+					if (euc.dash.alrm) euc.alert=20;
+					//print("packet: ",event.target.value.buffer);
 					break;	
 				case 181:
 					print(181);
+					/*
 					euc.dash.spd1=event.target.value.buffer[4];
 					euc.dash.spd2=event.target.value.buffer[6];
 					euc.dash.spd3=event.target.value.buffer[8];
 					euc.dash.spdT=event.target.value.buffer[10];
+					*/
 					break;
-*/
 				case 179://serial
 					euc.dash.serial=String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,2,14))+String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,17,3));
 					break;

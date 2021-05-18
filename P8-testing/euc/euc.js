@@ -11,7 +11,7 @@ global.euc= {
 	day:[7,19],
 	updateDash:function(slot){require('Storage').write('eucSlot'+slot+'.json', euc.dash);},
 	tgl:function(){ 
-		ampL=[];batL=[];
+		ampL=[];batL=[];almL=[];
 		if (this.state!="OFF" ) {
 			digitalPulse(D16,1,[90,60,90]);  
 			set.def.accE=0;
