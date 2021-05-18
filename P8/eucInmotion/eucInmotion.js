@@ -104,11 +104,14 @@ euc.conn=function(mac){
 				euc.dash.volt=event.target.value.getUint16(5, true)/100;
 				//batt
 				euc.dash.bat = Math.round(((euc.dash.volt - 60) * 100) / (84 - 60));
+				//log
+				batL.unshift(euc.dash.bat);
+				if (20<batL.length) batL.pop();
 				//euc.dash.bat = (event.target.value.buffer[21] & 0x7f);
 				euc.dash.batC = (euc.dash.batH <= euc.dash.bat)? 0 : (euc.dash.batM <= euc.dash.bat)? 1 : (euc.dash.batL <= euc.dash.bat)? 2 : 3;	
 				if ( euc.dash.hapB && euc.dash.bat <= euc.dash.batL ) { euc.alert ++; euc.dash.spdC = 3; }    
 				//trip 
-				euc.dash.trpL=(event.target.value.getUint16(17, true))/10; //trip
+				euc.dash.trpL=(event.target.value.getUint16(17, true))/100; //trip
 				//euc.dash.trpL=(event.target.value.getUint16(19, true))*10; //remain
 				//euc.dash.time=(event.target.value.getUint16(7, true)/60)|0;
 				//temp
@@ -117,8 +120,9 @@ euc.conn=function(mac){
 				if (euc.dash.tmpH <= euc.dash.tmp) {euc.alert++; euc.dash.spdC = 3;}   
 				//amp
 				euc.dash.amp= Math.round(event.target.value.getInt16(7, true) / 100);
+				//log
 				ampL.unshift(euc.dash.amp);
-				if (14<ampL.length) ampL.pop();
+				if (20<ampL.length) ampL.pop();
 				euc.dash.ampC = ( euc.dash.ampH+10 <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL - 5 )? 3 : ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp < 0 )? 1 : 0;
 				if ( euc.dash.ampH <= euc.dash.amp ){
 					euc.dash.spdC = ( euc.dash.ampC === 3 )? 3 : ( euc.dash.spdC === 3 )? 3 : 2;
@@ -129,6 +133,11 @@ euc.conn=function(mac){
 				}
 				//alarm
 				euc.dash.alrm=event.target.value.buffer[52];
+				//log
+				almL.unshift(euc.dash.alrm);
+				if (40<almL.length) almL.pop();		
+				//haptic
+				if (euc.dash.alrm) euc.alert=20;
 				//speed
 				euc.dash.spd=Math.round(event.target.value.getInt16(9, true) / 100);
 				if (euc.dash.spd<0) euc.dash.spd=-euc.dash.spd;
@@ -139,6 +148,7 @@ euc.conn=function(mac){
 				//euc.dash.spdA=((event.target.value.getUint16(17, true))/100).toFixed(1);
 				//euc.dash.spdM=((event.target.value.getUint16(19, true))/100).toFixed(1);
 				//haptic
+				euc.new=1;
 				if (!euc.buzz && euc.alert) {  
 					euc.buzz=1;
 					if (20 <= euc.alert) euc.alert = 20;
@@ -155,7 +165,7 @@ euc.conn=function(mac){
 					setTimeout(() => { euc.buzz = 0; }, 3000);
 				}
 				//screen on
-				if ((1<euc.dash.spdC||1<euc.dash.ampC)&&!w.gfx.isOn ){
+				if ((1<euc.dash.spdC||1<euc.dash.ampC||euc.dash.alrm)&&!w.gfx.isOn ){
 					face.go(set.dash[set.def.dash],0);
 				}
 			});

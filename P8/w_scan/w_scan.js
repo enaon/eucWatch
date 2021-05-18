@@ -1,36 +1,36 @@
 //scan face-used by dash/repellent
 if(!global.scan){
-scan={
-    mac:[],
-	go:function(app,service){
-	set.gIsB=1;
-	NRF.findDevices(function(devices) {
-	  this.slot="";
-      if (app=="repellent") this.filter = [{serviceData:{"fe95":{}}}];
-      else {
-		  app="dash";
-		  if (euc.dash.maker=="NinebotZ")  this.filter = [{manufacturer:16974}];  
-		  else if (euc.dash.maker=="InmotionV11")  this.filter = [{ namePrefix: 'V11-' }]
-		  else this.filter = [{services:[service]}];
-	  }
-      var found=[];
-  	  NRF.filterDevices(devices, this.filter).forEach(function(entry) {found.push(entry.id);});
-	  if (found!=""&&found!=undefined){ 
-		if (app=="dash"){
-            set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Mac",found[0]+"");
-		    euc.dash.mac=found[0]+"";
-		}else{
-            set.write("setting",app+"Mac",found);
-            set.write("setting",app+"_go","0");
-		}
-		scan.mac=found;
-	  } else scan.mac=[];
-   	  set.gIsB=0;
-      face[0].start=1;
-   	  if (face.appCurr!="w_scan") {delete scan.go;delete scan;}
-	}, 2000);
-	}	
-};
+	scan={
+		mac:[],
+		go:function(app,service){
+			set.gIsB=1;
+			NRF.findDevices(function(devices) {
+				this.slot="";
+				if (app=="repellent") this.filter = [{serviceData:{"fe95":{}}}];
+				else {
+					app="dash";
+					if (euc.dash.maker=="NinebotZ")  this.filter = [{manufacturer:16974}];  
+					else if (euc.dash.maker=="InmotionV11")  this.filter = [{ namePrefix: 'V11-' }];
+					else this.filter = [{services:[service]}];
+				}
+				var found=[];
+				NRF.filterDevices(devices, this.filter).forEach(function(entry) {found.push(entry.id);});
+				if (found!=""&&found!=undefined){ 
+					if (app=="dash"){
+						set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Mac",found[0]+"");
+						euc.dash.mac=found[0]+"";
+					}else{
+						set.write("setting",app+"Mac",found);
+						set.write("setting",app+"Go","0");
+					}
+					scan.mac=found;
+				} else scan.mac=[];
+				set.gIsB=0;
+				face[0].start=1;
+				if (face.appCurr!="w_scan") {delete scan.go;delete scan;}
+			}, 2000);
+		}	
+	};
 }
 face[0] = {
   offms: 10000,
@@ -166,7 +166,8 @@ touchHandler[0]=function(e,x,y){
 				euc.tgl();
 				return;
 			}else	{
-                set.write("dash",face.appRoot[0]+"_go",face[0].line+1);
+
+                set.write("setting",face.appRoot[0]+"Go",face[0].line+"");
 			}
 			face.go(face.appRoot[0],face.appRoot[1]);return;
 		}else digitalPulse(D16,1,40);
