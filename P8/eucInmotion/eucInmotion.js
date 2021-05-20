@@ -135,7 +135,7 @@ euc.conn=function(mac){
 				euc.dash.alrm=event.target.value.buffer[52];
 				//log
 				almL.unshift(euc.dash.alrm);
-				if (40<almL.length) almL.pop();		
+				if (20<almL.length) almL.pop();		
 				//haptic
 				if (euc.dash.alrm) euc.alert=20;
 				//speed

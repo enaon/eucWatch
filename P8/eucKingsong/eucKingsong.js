@@ -64,9 +64,9 @@ euc.conn=function(mac){
 				euc.emuW(event.target.value.buffer);
 			}
 			*/
-			switch (this.var){
+      euc.alert=0;
+			switch (this.var){				
 				case  169:
-					euc.alert=0;
 					//speed
 					euc.dash.spd= ( event.target.value.getUint16(4, true) / 100 ).toFixed(0); 
 					euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd <= euc.dash.spd2 )? 1 : ( euc.dash.spd <= euc.dash.spd3 )? 2 : 3 ;	
@@ -105,7 +105,7 @@ euc.conn=function(mac){
 						if (euc.dash.hapA) euc.alert = (euc.alert + 1 + ((-(euc.dash.amp - euc.dash.ampL)) / euc.dash.ampS|0));  				
 					}
 					//log
-					ampL.unshift(euc.dash.amp);
+					ampL.unshift(Math.round(euc.dash.amp));
 					if (20<ampL.length) ampL.pop();
 					//volt
 					euc.dash.volt = event.target.value.getUint16(2, true)/100;
@@ -141,10 +141,11 @@ euc.conn=function(mac){
 					break;
 				case 246:
 					euc.dash.spdL=( event.target.value.getUint16(2, true) / 100 ).toFixed(0); 
-					euc.dash.alrm=(euc.dash.spdL < euc.dash.spdT)?1:0
+					euc.dash.alrm=(euc.dash.spdL < euc.dash.spdT)?1:0;
 					//log alarms
 					almL.unshift(euc.dash.alrm);
-					if (40<almL.length) almL.pop();
+					if (20<almL.length) almL.pop();
+					euc.new=1;
 					//haptic
 					if (euc.dash.alrm) euc.alert=20;
 					//print("packet: ",event.target.value.buffer);
@@ -168,29 +169,30 @@ euc.conn=function(mac){
 						set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",euc.dash.name);
 					}
 					break;
-				default :
-					//haptic
-					if (!euc.buzz && euc.alert) {  
-						euc.buzz=1;
-						if (20 <= euc.alert) euc.alert = 20;
-						var a=[];
-						while (5 <= euc.alert) {
-							a.push(200,500);
-							euc.alert = euc.alert - 5;
-						}
-						let i;
-						for (i = 0; i < euc.alert ; i++) {
-							a.push(200,150);
-						}
-						digitalPulse(D16,0,a);  
-						setTimeout(() => { euc.buzz = 0; }, 3000);
-					}
-					if ((1<euc.dash.spdC||1<euc.dash.ampC||euc.dash.alrm)&&!w.gfx.isOn ){
-						face.go(set.dash[set.def.dash],0);
-					}
+				//default :
+					
 
 				    //print ("got: ",this.var,event.target.value.buffer);
 				    //print (this.var); //else print(event.target.value.buffer); 
+			}
+			//haptic
+			if (!euc.buzz && euc.alert) {  
+				euc.buzz=1;
+				if (20 <= euc.alert) euc.alert = 20;
+				var a=[];
+				while (5 <= euc.alert) {
+					a.push(200,500);
+					euc.alert = euc.alert - 5;
+				}
+				let i;
+				for (i = 0; i < euc.alert ; i++) {
+					a.push(200,150);
+				}
+				digitalPulse(D16,0,a);  
+				setTimeout(() => { euc.buzz = 0; }, 3000);
+			}
+			if ((1<euc.dash.spdC||1<euc.dash.ampC||euc.dash.alrm)&&!w.gfx.isOn ){
+				face.go(set.dash[set.def.dash],0);
 			}
 		});
 		//on disconnect

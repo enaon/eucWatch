@@ -36,7 +36,7 @@ euc.conn=function(mac){
 			if  ( event.target.value.buffer[0]===85 ) {
 				//print( event.target.value.buffer);
 				euc.alert=0;
-        //speed
+				//speed
 				euc.dash.spd = Math.abs(event.target.value.getInt16(4) * 3.6)/100|0;
 				if ( (euc.dash.spdM < euc.dash.spd)&& euc.dash.spd < 100 ) euc.dash.spdM=euc.dash.spd;
 				euc.dash.spdC = ( euc.dash.spd <= 25 )? 0 : ( euc.dash.spd <= 30 )? 1 : ( euc.dash.spd <= 35 )? 2 : 3 ;	
@@ -54,6 +54,7 @@ euc.conn=function(mac){
 				euc.dash.trpL=event.target.value.getUint32(6)/1000;
 				//amp
 				euc.dash.amp=event.target.value.getInt16(10)/1000|0;
+				if (euc.dash.ampR) euc.dash.amp=-euc.dash.amp;
 				//log
 				ampL.unshift(euc.dash.amp);
 				if (20<ampL.length) ampL.pop();
@@ -81,7 +82,7 @@ euc.conn=function(mac){
 				euc.dash.alrm = event.target.value.getUint8(18);	
 				//log
 				almL.unshift(euc.dash.alrm);
-				if (40<almL.length) almL.pop();		
+				if (20<almL.length) almL.pop();		
 				//haptic
 				if (euc.dash.alrm) euc.alert=20;
 				//print("alarm :"euc.dash.alrm);
