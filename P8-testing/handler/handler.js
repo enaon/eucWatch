@@ -514,7 +514,6 @@ if (set.def.acctype==="BMA421"){
 			if (230<data[3]&&data[3]<this.yedge) {
 				if (data[1]<this.xedge||data[1]>=220) {
 					if (!this.up&&!w.gfx.isOn&&face.appCurr!=""){  
-							this.up=1;
 							if  (global.euc) {
 								if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash],0);
 								else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
@@ -527,13 +526,15 @@ if (set.def.acctype==="BMA421"){
 						if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off();
 						this.loop=200;
 					} 
+					this.up=1;
 				}
 			}else if (this.up && data[3] < 220 ) {
-				this.loop=300;this.up=0;
+				this.loop=300;
+				this.up=0;
 				if (set.tor==1)
 					w.gfx.bri.set(7);
 				else 
-					face.off(1000) 
+					face.off(600) 
 			}
 		}
 	};	
