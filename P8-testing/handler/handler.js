@@ -544,17 +544,17 @@ if (set.def.acctype==="BMA421"){
 //		    i2c.writeTo(0x18,0x20,0x47); //reg1-odr=50zh lp=0 zyx=1
 		    i2c.writeTo(0x18,0x20,0x77); //reg1-odr=400zh lp=0 zyx=1
 			i2c.writeTo(0x18,0x21,0x00); //reg2-highpass filter disabled
-//			i2c.writeTo(0x18,0x22,0x40); //reg3-ia1 interrupt to INT1
-			i2c.writeTo(0x18,0x22,0x80); //reg3-click interrupt to INT1
+			i2c.writeTo(0x18,0x22,0x40); //reg3-ia1 interrupt to INT1
+//			i2c.writeTo(0x18,0x22,0x80); //reg3-click interrupt to INT1
 //			i2c.writeTo(0x18,0x22,0xC0); //reg3-click and IA1 on interrupt to INT1
 			i2c.writeTo(0x18,0x23,0x88); //reg4-BDU,MSB at high addr, HR=1
 			i2c.writeTo(0x18,0x24,0x00); //reg5-latched interrupt off
 //			i2c.writeTo(0x18,0x24,0x08); //reg5-latched interrupt1
 			i2c.writeTo(0x18,0x32,0x10); //int1_ths-threshold = 250 milli g's
 			i2c.writeTo(0x18,0x33,0x05); //duration = 1 * 20ms
-//			i2c.writeTo(0x18,0x30,0x02); //INT1_CFG-XH interrupt 0Ah=XH&YH 2Ah=allH 95h=freefall 
+			i2c.writeTo(0x18,0x30,0x02); //INT1_CFG-XH interrupt 0Ah=XH&YH 2Ah=allH 95h=freefall 
 //			i2c.writeTo(0x18,0x30,0x03); //INT1_CFG-1011 1111
-			i2c.writeTo(0x18,0x30,0x80); //INT1_CFG-interrupt aio=1 
+//			i2c.writeTo(0x18,0x30,0x80); //INT1_CFG-interrupt aio=1 
 			//click config
 			i2c.writeTo(0x18,0x38,0x01); //click_cfg-single tap on X
 //			i2c.writeTo(0x18,0x3A,0x3f); //click_ths-
@@ -577,7 +577,7 @@ if (set.def.acctype==="BMA421"){
 					"ram";
 					//
 					i2c.writeTo(0x18,0x39);
-					//print ("click"+i2c.readFrom(0x18,1)+"");
+					print ("click"+i2c.readFrom(0x18,1)+"");
 					if (80 < i2c.readFrom(0x18,1)[0]) {
 						if (!w.gfx.isOn&&face.appCurr!=""){
 							
@@ -587,9 +587,9 @@ if (set.def.acctype==="BMA421"){
 					}
 					//i2c.writeTo(0x18,0x41);print (i2c.readFrom(0x18,1)+"");
 					i2c.writeTo(0x18,0x31);
-					//print ("int"+i2c.readFrom(0x18,1)+"");
+					print ("int"+i2c.readFrom(0x18,1)+"");
 					if (0 == i2c.readFrom(0x18,1)[0]) {
-						//print("wake drop");
+						print("wake drop");
 						return;
 					}	
 					i2c.writeTo(0x18,0x01);
@@ -605,7 +605,7 @@ if (set.def.acctype==="BMA421"){
 						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
 							if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off();
 						} 
-					} else face.off(1);
+					} else face.off(600);
 				},D8,{repeat:true,edge:"rising"});
 				return true;
 			} else return false;
