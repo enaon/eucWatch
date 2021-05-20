@@ -192,7 +192,10 @@ var face={
 	off:function(t){ 
 		if (this.pageCurr===-1) return;
 		if (this.offid) {clearTimeout(this.offid); this.offid=0;}
-		if (face[this.pageCurr]!=-1) this.offms=(t)?t:face[this.pageCurr].offms;
+		if (face[this.pageCurr]!=-1){
+			//print("page: ",this.pageCurr);
+			this.offms=(t)?t:face[this.pageCurr].offms;
+		}
 		this.offid=setTimeout((c)=>{
 			this.offid=0;
 			//if (set.def.acc&&acc.tid==-1) acc.on();
@@ -305,7 +308,7 @@ function buttonHandler(s){
 		if (global.euc&&euc.state=="READY"&&euc.dash.spd>=2&&euc.dash.horn==1&&euc.dash.maker!="Ninebot") {euc.wri("hornOff");return;}
 		if (face.pageCurr==-1) {
 			digitalPulse(D16,1,[60,40,60]);
-			face.go((global.euc&&euc.state!="OFF")?face.go(set.dash[set.def.dash]):face.appCurr,0);
+			face.go((global.euc&&euc.state!="OFF")?set.dash[set.def.dash]:face.appCurr,0);
 		}else { 
 			if (face.appCurr=="main"&&face.pagePrev!=-1&&face.pagePrev!=2) {
 				/*if (set.def.acc==1) {
@@ -316,7 +319,8 @@ function buttonHandler(s){
 						acc.on();
 						this.t2=0;
 					},2000);
-				}*/
+				}
+				*/
 				face.go("main",-1);
 				digitalPulse(D16,1,100);
 			}else{
@@ -484,7 +488,6 @@ if (set.def.acctype==="BMA421"){
 		loop:200,
 		tid:0,
 		run:0,
-		go:1,
 		up:0,
 		on:function(){
 			if (this.tid) {clearInterval(this.tid); this.tid=0;}
@@ -506,13 +509,12 @@ if (set.def.acctype==="BMA421"){
 			if(!this.run) return;
 			var data;
 			data=i2c.readFrom(0x18,6);
-			print(data);
-			if (!this.up && 230<data[3]&&data[3]<this.yedge) {
+			//print(data);
+			//if (!this.up && 230<data[3]&&data[3]<this.yedge) {
+			if (230<data[3]&&data[3]<this.yedge) {
 				if (data[1]<this.xedge||data[1]>=220) {
-				  //print(data);
-					this.up=1;
-					if (this.go){ 
-						if (!w.gfx.isOn&&face.appCurr!=""){  
+					if (!this.up&&!w.gfx.isOn&&face.appCurr!=""){  
+							this.up=1;
 							if  (global.euc) {
 								if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash],0);
 								else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
@@ -521,14 +523,13 @@ if (set.def.acctype==="BMA421"){
 								else face.go(face.appCurr,0);
 							}
 							this.loop=500;
-						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
-							if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off();
-							this.loop=200;
-						} 
-					}
+					}else if (w.gfx.isOn&&face.pageCurr!=-1) {
+						if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off();
+						this.loop=200;
+					} 
 				}
 			}else if (this.up && data[3] < 220 ) {
-				this.loop=300;this.up=0;this.go=1;
+				this.loop=300;this.up=0;
 				if (set.tor==1)
 					w.gfx.bri.set(7);
 				else 
@@ -574,7 +575,8 @@ if (set.def.acctype==="BMA421"){
 				this.tid=setWatch(()=>{
 					"ram";
 					//
-					i2c.writeTo(0x18,0x39);print ("click"+i2c.readFrom(0x18,1)+"");
+					i2c.writeTo(0x18,0x39);
+					//print ("click"+i2c.readFrom(0x18,1)+"");
 					if (80 < i2c.readFrom(0x18,1)[0]) {
 						if (!w.gfx.isOn&&face.appCurr!=""){
 							
@@ -583,9 +585,10 @@ if (set.def.acctype==="BMA421"){
 						return;
 					}
 					//i2c.writeTo(0x18,0x41);print (i2c.readFrom(0x18,1)+"");
-					i2c.writeTo(0x18,0x31);print ("int"+i2c.readFrom(0x18,1)+"");
+					i2c.writeTo(0x18,0x31);
+					//print ("int"+i2c.readFrom(0x18,1)+"");
 					if (0 == i2c.readFrom(0x18,1)[0]) {
-						print("wake drop");
+						//print("wake drop");
 						return;
 					}	
 					i2c.writeTo(0x18,0x01);

@@ -515,24 +515,24 @@ if (set.def.acctype==="BMA421"){
 			//print(data);
 			if (200<data[3]&&data[3]<this.yedge) {
 				if (data[1]<this.xedge||data[1]>=220) {
-				  //print(data);
-				  this.up=1;
-				  if (this.go){ 
-					if (!w.gfx.isOn&&face.appCurr!=""){  
-					if  (global.euc) {
-					  if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash],0);
-					  else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
-					}else{ 
-						if (face.appCurr=="main") face.go("main",0);
-						else face.go(face.appCurr,0);
+					//print(data);
+					this.up=1;
+					if (this.go){ 
+						if (!w.gfx.isOn&&face.appCurr!=""){  
+							if  (global.euc) {
+								if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash],0);
+								else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
+							}else{ 
+								if (face.appCurr=="main") face.go("main",0);
+								else face.go(face.appCurr,0);
+							}
+							this.loop=500;
+						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
+							if (face.appCurr=="main" && face.pageCurr==2) face.go("main",0);
+							else { if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off(); }
+							this.loop=200;
+						} 
 					}
-					this.loop=500;
-				  }else if (w.gfx.isOn&&face.pageCurr!=-1) {
-					if (face.appCurr=="main" && face.pageCurr==2) face.go("main",0);
-					else { if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off(); }
-					this.loop=200;
-				  } 
-				 }
 				}
 			}else {this.loop=300;this.up=0;this.go=1;if (set.tor==1)w.gfx.bri.set(7); }
 		}

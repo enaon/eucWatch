@@ -307,7 +307,12 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		if (euc.state=="OFF") face.go("main",0); else {face.pageCurr=0;face.go(set.dash[set.def.dash],-1);}
+		face.pageCurr=0;
+		if (euc.state=="OFF") 
+			face.go("main",0); 
+		else {
+			face.go(set.dash[set.def.dash],-1);
+		}
 		return true;
 	},
 	clear: function(){
