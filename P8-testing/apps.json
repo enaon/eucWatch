@@ -145,7 +145,7 @@
 	{ "id": "dashNinebotS",
 		"name": "NinebotS Settings",
 		"icon": "icon.png",
-		"version":"0.21",
+		"version":"0.30",
 		"description": "EUC dashboard, NinebotS settings gui files.",
 		"tags": "euc",
 		"storage": [
@@ -234,7 +234,7 @@
 	{ "id": "eucNinebotS",
 		"name": "Ninebot S2/A1 module",
 		"icon": "icon.png",
-		"version":"0.21",
+		"version":"0.30",
 		"description": "EUC module for Ninebot S2/A1",
 		"tags": "euc",
 		"type": "euc",
