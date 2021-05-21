@@ -141,13 +141,16 @@ euc.conn=function(mac){
 					break;
 				case 246:
 					euc.dash.spdL=( event.target.value.getUint16(2, true) / 100 ).toFixed(0); 
-					euc.dash.alrm=(euc.dash.spdL < euc.dash.spdT)?1:0;
+					if (euc.dash.spdL!=20) {
+						euc.dash.alrm=(euc.dash.spdL < euc.dash.spdT)?1:0;
+					} else euc.dash.alrm=0; //limmit when on charger and off.
 					//log alarms
 					almL.unshift(euc.dash.alrm);
 					if (20<almL.length) almL.pop();
 					euc.new=1;
 					//haptic
 					if (euc.dash.alrm) euc.alert=20;
+					//print(euc.dash.spdL,euc.dash.spdT);
 					//print("packet: ",event.target.value.buffer);
 					break;	
 				case 181:

@@ -44,6 +44,7 @@ global.euc= {
 				if (!set.def.acc) {set.def.accE=1;acc.on();}
 				this.seq=1;
 				if (euc.dash.bms==undefined) euc.dash.bms=1.5;
+				if (euc.dash.maker=="Begobe"||euc.dash.maker=="NinebotZ")euc.dash.spdM=0;
 				this.conn(this.mac); 
 				face.go(set.dash[set.def.dash],0);return;
             }
