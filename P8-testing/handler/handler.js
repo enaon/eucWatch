@@ -600,7 +600,6 @@ if (set.def.acctype==="BMA421"){
 					let xx=i2c.readFrom(0x18,1)[0];
 					//print( xx);
 					if ( 192 < xx ) {
-						
 						if (!w.gfx.isOn&&face.appCurr!=""){  
 							//print("wake");
 							if  (global.euc) {
