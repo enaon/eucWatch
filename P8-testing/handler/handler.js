@@ -543,8 +543,8 @@ if (set.def.acctype==="BMA421"){
 		up:0,
 		on:function(){
 //		    i2c.writeTo(0x18,0x20,0x47); //reg1-odr=50zh lp=0 zyx=1
-//			i2c.writeTo(0x18,0x20,0x57); //reg1-odr=100zh lp=0 zyx=1
-		    i2c.writeTo(0x18,0x20,0x77); //reg1-odr=400zh lp=0 zyx=1
+			i2c.writeTo(0x18,0x20,0x57); //reg1-odr=100zh lp=0 zyx=1
+//		    i2c.writeTo(0x18,0x20,0x77); //reg1-odr=400zh lp=0 zyx=1
 			i2c.writeTo(0x18,0x21,0x00); //reg2-highpass filter disabled
 			i2c.writeTo(0x18,0x22,0x40); //reg3-ia1 interrupt to INT1
 //			i2c.writeTo(0x18,0x22,0x80); //reg3-click interrupt to INT1
