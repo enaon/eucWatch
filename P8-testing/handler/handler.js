@@ -550,7 +550,7 @@ if (set.def.acctype==="BMA421"){
 			i2c.writeTo(0x18,0x23,0x88); //reg4-BDU,MSB at high addr, HR=1
 			i2c.writeTo(0x18,0x24,0x00); //reg5-latched interrupt off
 //			i2c.writeTo(0x18,0x24,0x08); //reg5-latched interrupt1
-			i2c.writeTo(0x18,0x32,5); //int1_ths-threshold = 250 milli g's
+			i2c.writeTo(0x18,0x32,3); //int1_ths-threshold = 250 milli g's
 			i2c.writeTo(0x18,0x33,5); //duration = 1 * 20ms
 			i2c.writeTo(0x18,0x30,0x02); //INT1_CFG-XH interrupt 0Ah=XH&YH 2Ah=allH 95h=freefall 
 //			i2c.writeTo(0x18,0x30,0x03); //INT1_CFG-1011 1111
@@ -596,12 +596,16 @@ if (set.def.acctype==="BMA421"){
 					*/
 					//print(acc.read());
 					//print("in");
+					i2c.writeTo(0x18,0x03);
+					let yy=i2c.readFrom(0x18,1)[0];
+					//print(yy);
 					i2c.writeTo(0x18,0x01);
 					let xx=i2c.readFrom(0x18,1)[0];
-					//print( xx);
-					if ( 192 < xx ) {
+					print( xx);
+					if ( 230 < xx && xx < 253 && ( 230 < yy || yy < 30)) {
 						if (!w.gfx.isOn&&face.appCurr!=""){  
 							//print("wake");
+							//i2c.writeTo(0x18,0x20,0x77);
 							if  (global.euc) {
 								if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash],0);
 								else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
@@ -610,8 +614,9 @@ if (set.def.acctype==="BMA421"){
 								else face.go(face.appCurr,0);
 							}
 						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
-							print("delay");
-							if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off();
+							//print("delay");
+							if (set.tor==1)w.gfx.bri.set(face[0].cbri); 
+							else face.off();
 						} 
 					} else if (w.gfx.isOn) {
 						face.off(600);
