@@ -2,11 +2,34 @@
 euc.tmp={count:0,loop:0};
 euc.cmd=function(no){
 	switch (no) {
-//    case "live":return [90,165,1,62,20,01,176,32,219,254]; //Current Amperage with sign if v[80] > 32768 I = v[80] - 65536 else I = v[80] in Amperes * 100
-    case "live" :return [0x5a,0xa5,0x01,0x3e,0x14,0x01,0xb0,0x20,0xdb,0xfe]; //Current Amperage with sign if v[80] > 32768 I = v[80] - 65536 else I = v[80] in Amperes * 100
-    case "live1":return [0x5a,0xa5,0x01,0x3e,0x14,0x01,0x68,0x02,0x41,0xff]; //Current Amperage with sign if v[80] > 32768 I = v[80] - 65536 else I = v[80] in Amperes * 100
-    case "live2":return [0x5a,0xa5,0x01,0x3e,0x14,0x01,0x10,0x0e,0x8d,0xff]; //Current Amperage with sign if v[80] > 32768 I = v[80] - 65536 else I = v[80] in Amperes * 100
-    case "live3":return [0x5a,0xa5,0x01,0x3e,0x14,0x01,0x1a,0x02,0x8f,0xff]; //Current Amperage with sign if v[80] > 32768 I = v[80] - 65536 else I = v[80] in Amperes * 100
+    case 0:case 3:case 6:case 9:case 12:case 15:case 18:
+	  return [85,170,3,9,1,80,2,160,255]; //Current Amperage with sign if v[80] > 32768 I = v[80] - 65536 else I = v[80] in Amperes * 100
+	case 1:case 4:case 7:case 10:case 13:case 16:case 19:
+	  return [85,170,3,9,1,38,2,202,255]; //Current Speed in Km/h*1000d
+	case 2:return [85,170,3,9,1,62,2,178,255]; //Temperature numeric positive C * 10
+	case 5:return [85,170,3,9,1,71,2,169,255]; //Voltage numeric positive V * 100
+	case 8:return [85,170,3,9,1,185,2,55,255]; //Single Mileage numeric positive in meters
+	case 11:return [85,170,3,9,1,58,2,182,255]; //Single Runtime numeric positive seconds
+	case 14:return [85,170,3,9,1,37,2,203,255]; //remaining mileage in Km*100
+	case 17:return [85,170,3,9,1,182,2,58,255]; //Average speed numeric positive m/h
+	case 20:return [85,170,3,9,1,112,2,128,255]; //Lock status
+	case 21:return [85,170,3,9,3,112,1,127,255]; //21- lock
+	case 22:return [85,170,3,9,3,112,0,128,255]; //22- unlock
+	case 23:return [85,170,4,9,3,198,0,0,30,255]; //metric khp
+	case 24:return [85,170,4,9,3,198,1,0,30,255]; //metric mph	
+	case 25:return [85,170,4,9,3,198,0,0,41,255]; //ring  off
+	case 26:return [85,170,4,9,3,198,1,0,40,255]; //ring  cyrcle
+    case 30:return [85,170,4,9,2,210,0,0,30,255]; //24 set Riding Mode 0
+	case 31:return [85,170,4,9,2,210,1,0,29,255]; //25 set Riding Mode 1
+	case 32:return [85,170,3,9,2,210,2,29,255]; //26 set Riding Mode 2
+	case 33:return [85,170,3,9,2,210,3,28,255]; //27 set Riding Mode 3
+	case 34:return [85,170,3,9,2,210,4,27,255]; //28 set Riding Mode 4
+	case 35:return [85,170,3,9,2,210,5,26,255]; //29 set Riding Mode 5
+	case 36:return [85,170,3,9,2,210,6,25,255]; //30 set Riding Mode 6
+	case 37:return [85,170,3,9,2,210,7,24,255]; //31 set Riding Mode 7  
+	case 38:return [85,170,3,9,2,210,8,23,255]; //32 set Riding Mode 8
+	case 39:return [85,170,3,9,2,210,9,22,255];  //33 set Riding Mode 9
+	case 40:return [85,170,4,9,2,210,0,0,30,255]; //24 set Riding Mode 0
     }
 };
 //
@@ -33,6 +56,8 @@ euc.conn=function(mac){
 			//read
 			euc.rCha.on('characteristicvaluechanged', function(event) {
 				euc.alert=0;
+				print(event.target.value.buffer);
+				return;
 				if (event.target.value.buffer[0]==90) {
 					//print(event.target.value.buffer);
 					//batt

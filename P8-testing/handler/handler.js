@@ -540,14 +540,17 @@ if (set.def.acctype==="BMA421"){
 	};	
 }else if (set.def.acctype==="SC7A20"){ //based on work from jeffmer
 	acc={
+		up:0,
 		on:function(){
-		    i2c.writeTo(0x18,0x20,0x47); //reg1-odr=50zh lp=0 zyx=1
-//		    i2c.writeTo(0x18,0x20,0x77); //reg1-odr=400zh lp=0 zyx=1
+//		    i2c.writeTo(0x18,0x20,0x47); //reg1-odr=50zh lp=0 zyx=1
+//			i2c.writeTo(0x18,0x20,0x57); //reg1-odr=100zh lp=0 zyx=1
+		    i2c.writeTo(0x18,0x20,0x77); //reg1-odr=400zh lp=0 zyx=1
 			i2c.writeTo(0x18,0x21,0x00); //reg2-highpass filter disabled
 			i2c.writeTo(0x18,0x22,0x40); //reg3-ia1 interrupt to INT1
 //			i2c.writeTo(0x18,0x22,0x80); //reg3-click interrupt to INT1
 //			i2c.writeTo(0x18,0x22,0xC0); //reg3-click and IA1 on interrupt to INT1
 			i2c.writeTo(0x18,0x23,0x88); //reg4-BDU,MSB at high addr, HR=1
+//			i2c.writeTo(0x18,0x23,0x80); //reg4-BDU,MSB at high addr, HR=0
 			i2c.writeTo(0x18,0x24,0x00); //reg5-latched interrupt off
 //			i2c.writeTo(0x18,0x24,0x08); //reg5-latched interrupt1
 			i2c.writeTo(0x18,0x32,3); //int1_ths-threshold = 250 milli g's
@@ -556,7 +559,7 @@ if (set.def.acctype==="BMA421"){
 //			i2c.writeTo(0x18,0x30,0x03); //INT1_CFG-1011 1111
 //			i2c.writeTo(0x18,0x30,0x80); //INT1_CFG-interrupt aio=1 
 			//click config
-			i2c.writeTo(0x18,0x38,0x01); //click_cfg-single tap on X
+			i2c.writeTo(0x18,0x38,0x00); //click_cfg-1=single tap on X
 //			i2c.writeTo(0x18,0x3A,0x3f); //click_ths-
 //			i2c.writeTo(0x18,0x3A,0x83); //click_ths-
 			i2c.writeTo(0x18,0x3A,250); //click_ths-
@@ -595,16 +598,16 @@ if (set.def.acctype==="BMA421"){
 					}	
 					*/
 					//print(acc.read());
-					//print("in");
+					print("in");
 					i2c.writeTo(0x18,0x03);
 					let yy=i2c.readFrom(0x18,1)[0];
-					//print(yy);
+					print(yy);
 					i2c.writeTo(0x18,0x01);
 					let xx=i2c.readFrom(0x18,1)[0];
 					print( xx);
-					if ( 230 < xx && xx < 253 && ( 230 < yy || yy < 30)) {
-						if (!w.gfx.isOn&&face.appCurr!=""){  
-							//print("wake");
+					if ( 192 < xx && xx < 253 && ( 230 < yy || yy < 30)) {
+						if (!this.up&&!w.gfx.isOn&&face.appCurr!=""){  
+							print("wake");
 							//i2c.writeTo(0x18,0x20,0x77);
 							if  (global.euc) {
 								if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash],0);
@@ -614,13 +617,15 @@ if (set.def.acctype==="BMA421"){
 								else face.go(face.appCurr,0);
 							}
 						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
-							//print("delay");
+							print("delay");
 							if (set.tor==1)w.gfx.bri.set(face[0].cbri); 
 							else face.off();
-						} 
-					} else if (w.gfx.isOn) {
-						face.off(600);
-						//print("sleep");
+						}
+						this.up=1;
+					} else if (this.up) {
+						this.up=0;
+						if (w.gfx.isOn)face.off(600);
+						print("sleep");
 					}
 				},D8,{repeat:true,edge:"rising"});
 				return true;
