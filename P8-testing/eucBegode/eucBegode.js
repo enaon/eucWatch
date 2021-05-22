@@ -75,7 +75,8 @@ euc.conn=function(mac){
 				euc.new=1;
 			} else if ( event.target.value.buffer[0]===90 ){
 				print(event.target.value.buffer);
-				euc.dash.trpT=((event.target.value.getUint32(6)/1000)*1.2).toFixed(1);
+				//euc.dash.trpT=((event.target.value.getUint32(6)/1000)*1.2).toFixed(1);
+				euc.dash.trpT=(event.target.value.getUint32(6)/1000).toFixed(1);
 				euc.dash.mode = (event.target.value.getUint8(10) >> 4) & 0x0F;
 				//euc.dash.alrm = event.target.value.getUint8(10) & 0x0F;
 				euc.dash.spdT = event.target.value.getUint8(15);
