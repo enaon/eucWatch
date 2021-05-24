@@ -311,6 +311,16 @@ function buttonHandler(s){
 			face.go((global.euc&&euc.state!="OFF")?set.dash[set.def.dash]:face.appCurr,0);
 		}else { 
 			if (face.appCurr=="main"&&face.pagePrev!=-1&&face.pagePrev!=2) {
+				/*if (set.def.acc==1) {
+					acc.off();
+					acc.go=0;
+					if (this.t2) {clearTimeout(this.t2); this.t2=0;}
+					this.t2=setTimeout(function(t){
+						acc.on();
+						this.t2=0;
+					},2000);
+				}
+				*/
 				face.go("main",-1);
 				digitalPulse(D16,1,100);
 			}else{
@@ -417,6 +427,7 @@ if (set.def.touchtype=="816"){ //816
 				this.do = 1;
 				this.x = tp[4];
                 this.y = tp[6];
+				//if (face.pageCurr==-1){this.loop=5;face.go(face.appCurr,0);return;}
                 return;
 			}
 			if ( this.do && getTime() - this.time > 1 ) { 
@@ -430,11 +441,16 @@ if (set.def.touchtype=="816"){ //816
 				else if (tp[4]>=this.x+20) a = 4;
 				if ( a != 0 && this.aLast != a ) {
                     this.aLast=a;
+                    //this.st = 1;
+                    //this.time = 0;                  
 					this.do=0;
 					touchHandler[face.pageCurr](a,this.x,this.y);
 				}
 			}else if ( this.do ){
 				if ( tp[1] == 5 || tp[1] ==12 ){
+                   // this.st = 1;
+                    //this.time = 0;
+                    //digitalPulse(D13,1,[5,50]);
 					this.do=0;
                     touchHandler[face.pageCurr](tp[1],this.x,this.y);
 				}
@@ -447,6 +463,7 @@ if (set.def.touchtype=="816"){ //816
             this.aLast=0;
 			this.st = 1;
             this.time = 0;
+           // print("2",tp);
 		}
 	},
 	start:function(){ 
@@ -528,28 +545,74 @@ if (set.def.acctype==="BMA421"){
 	acc={
 		up:0,
 		on:function(){
+//		    i2c.writeTo(0x18,0x20,0x47); //reg1-odr=50zh lp=0 zyx=1
 			i2c.writeTo(0x18,0x20,0x57); //reg1-odr=100zh lp=0 zyx=1
+//			i2c.writeTo(0x18,0x20,0x57); //reg1-odr=200zh lp=0 zyx=1
+//		    i2c.writeTo(0x18,0x20,0x77); //reg1-odr=400zh lp=0 zyx=1
 			i2c.writeTo(0x18,0x21,0x00); //reg2-highpass filter disabled
 			i2c.writeTo(0x18,0x22,0x40); //reg3-ia1 interrupt to INT1
+//			i2c.writeTo(0x18,0x22,0x80); //reg3-click interrupt to INT1
+//			i2c.writeTo(0x18,0x22,0xC0); //reg3-click and IA1 on interrupt to INT1
+//			i2c.writeTo(0x18,0x23,0x88); //reg4-BDU,MSB at high addr, HR=1
 			i2c.writeTo(0x18,0x23,0x80); //reg4-BDU,MSB at high addr, HR=0
 			i2c.writeTo(0x18,0x24,0x00); //reg5-latched interrupt off
-			i2c.writeTo(0x18,0x32,5); //int1_ths-threshold = 250 milli g's
-			i2c.writeTo(0x18,0x33,10); //duration = 1 * 20ms
-			i2c.writeTo(0x18,0x30,0x6A); //INT1_CFG-Xh Yh
+//			i2c.writeTo(0x18,0x24,0x08); //reg5-latched interrupt1
+			i2c.writeTo(0x18,0x32,3); //int1_ths-threshold = 250 milli g's
+			i2c.writeTo(0x18,0x33,5); //duration = 1 * 20ms
+			i2c.writeTo(0x18,0x30,0x02); //INT1_CFG-XH interrupt 0Ah=XH&YH 2Ah=allH 95h=freefall 
+//			i2c.writeTo(0x18,0x30,0x03); //INT1_CFG-1011 1111
+//			i2c.writeTo(0x18,0x30,0x80); //INT1_CFG-interrupt aio=1 
+			//click config
+			i2c.writeTo(0x18,0x38,0x00); //click_cfg-1=single tap on X
+//			i2c.writeTo(0x18,0x3A,0x3f); //click_ths-
+//			i2c.writeTo(0x18,0x3A,0x83); //click_ths-
+			i2c.writeTo(0x18,0x3A,250); //click_ths-
+			i2c.writeTo(0x18,0x3B,10); //time_limit-25ms at 400
+			i2c.writeTo(0x18,0x3C,20); //time_latency-50ms at 400
+			i2c.writeTo(0x18,0x3D,15); //time_window-25ms at 400
+			
+//			i2c.writeTo(0x18,0x31);print (i2c.readFrom(0x18,1)+""); //src int
+//			i2c.writeTo(0x18,0x39);print (i2c.readFrom(0x18,1)+""); //src click
+//			i2c.writeTo(0x18,0x26);print (i2c.readFrom(0x18,1)+""); //reference
+//			i2c.writeTo(0x18,0x27);print (i2c.readFrom(0x18,1)+""); //status
+
+			//Write 08h into CTRL_REG4 //set hr
+			
 			if (!this.tid) {
 				this.tid=setWatch(()=>{
-					//"ram";
+					"ram";
+					/*
+					//
+					i2c.writeTo(0x18,0x39);
+					print ("click"+i2c.readFrom(0x18,1)+"");
+					if (80 < i2c.readFrom(0x18,1)[0]) {
+						if (!w.gfx.isOn&&face.appCurr!=""){
+							print ("click wake");
+							face.go(face.appCurr,0);
+						} else face.off(1);
+						return;
+					}
+					
+					//i2c.writeTo(0x18,0x41);print (i2c.readFrom(0x18,1)+"");
 					i2c.writeTo(0x18,0x31);
-					print ("src int: ",i2c.readFrom(0x18,1)+""); //src int
-					i2c.writeTo(0x18,0x01);
-					let xx=i2c.readFrom(0x18,1)[0];
+					print ("int"+i2c.readFrom(0x18,1)+"");
+					if (0 == i2c.readFrom(0x18,1)[0]) {
+						print("face down");
+						return;
+					}	
+					*/
+					//print(acc.read());
+					print("in");
 					i2c.writeTo(0x18,0x03);
 					let yy=i2c.readFrom(0x18,1)[0];
-					print("in :",xx,yy);
-					if ( 160 < xx  && ( 200 < yy || yy < 50)) {
-						if (!w.gfx.isOn&&face.appCurr!=""){  
+					print(yy);
+					i2c.writeTo(0x18,0x01);
+					let xx=i2c.readFrom(0x18,1)[0];
+					print( xx);
+					if ( 192 < xx && xx < 253 && ( 230 < yy || yy < 30)) {
+						if (!this.up&&!w.gfx.isOn&&face.appCurr!=""){  
 							print("wake");
-							i2c.writeTo(0x18,0x30,0x02);
+							//i2c.writeTo(0x18,0x20,0x77);
 							if  (global.euc) {
 								if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash],0);
 								else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
@@ -565,7 +628,6 @@ if (set.def.acctype==="BMA421"){
 						this.up=1;
 					} else if (this.up) {
 						this.up=0;
-						i2c.writeTo(0x18,0x30,0x6A);
 						if (w.gfx.isOn)face.off(600);
 						print("sleep");
 					}
