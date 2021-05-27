@@ -159,6 +159,9 @@ touchHandler[0]=function(e,x,y){
 			euc.wri("lightsOff");
 			digitalPulse(D16,1,[30,50,30]);
 		}else if  (x<=120 && 100<=y ) { //bridge
+			digitalPulse(D16,1,40);
+			face[0].ntfy("NOT YET",col("red"));
+			/*
 			euc.dash.emu=1-euc.dash.emu;
 			w.gfx.setColor(0,(euc.dash.emu)?col("blue1"):col("dgray"));
 			w.gfx.fillRect(0,100,119,195); 
@@ -170,6 +173,7 @@ touchHandler[0]=function(e,x,y){
 			digitalPulse(D16,1,[30,50,30]);
 			if (euc.dash.emu)face[0].ntfy("BRIDGE ENABLED",col("raf2"));
 			else face[0].ntfy("BRIDGE DISABLED",col("dgray"));
+			*/
 		}else if ( 120<=x && 100<=y ) { //off
 			euc.aOff=euc.dash.aOff;
 			euc.aLck=euc.dash.aLck;

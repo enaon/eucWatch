@@ -11,10 +11,10 @@ face[0] = {
 		this.g.setFont("Vector",20);
 		this.g.drawString("HAPTIC ALERTS",120-(this.g.stringWidth("HAPTIC ALERTS")/2),217); 
 		this.g.flip(); 
-		this.btn(euc.dash.hapS,"SPEED",25,60,37,col("blue1"),col("raf4"),0,0,119,97);
-		this.btn(euc.dash.hapA,"AMP",25,185,37,col("blue1"),col("raf4"),122,0,239,97);
-		this.btn(euc.dash.hapT,"TEMP",25,60,136,col("blue1"),col("raf4"),0,100,119,195);
-        this.btn(euc.dash.hapB,"BATT",25,185,136,col("blue1"),col("raf4"),122,100,239,195);			
+		this.btn(euc.dash.hapS,"SPEED",25,60,37,col("blue"),col("raf4"),0,0,119,97);
+		this.btn(euc.dash.hapA,"AMP",25,185,37,col("blue"),col("raf4"),122,0,239,97);
+		this.btn(euc.dash.hapT,"TEMP",25,60,136,col("blue"),col("raf4"),0,100,119,195);
+        this.btn(euc.dash.hapB,"BATT",25,185,136,col("blue"),col("raf4"),122,100,239,195);			
         this.run=true;
 	},
 	show : function(){
@@ -162,22 +162,22 @@ touchHandler[0]=function(e,x,y){
         }else{
 			if (x<=120&&y<100) { //Speed
 				euc.dash.hapS=1-euc.dash.hapS;
-				face[0].btn(euc.dash.hapS,"SPEED",25,60,37,col("blue1"),col("raf4"),0,0,119,97);
+				face[0].btn(euc.dash.hapS,"SPEED",25,60,37,col("blue"),col("raf4"),0,0,119,97);
 				face[0].ntfy("HOLD -> SET SPEED","HOLD -> SET SPEED",18,col("dgray"),1);
 				digitalPulse(D16,1,[30,50,30]);
 			}else if (120<=x&&y<=100) { //Ampere
 				euc.dash.hapA=1-euc.dash.hapA;
-				face[0].btn(euc.dash.hapA,"AMP",25,185,37,col("blue1"),col("raf4"),122,0,239,97);
+				face[0].btn(euc.dash.hapA,"AMP",25,185,37,col("blue"),col("raf4"),122,0,239,97);
 				face[0].ntfy("HOLD -> SET AMPERE","",18,col("dgray"),1);
 				digitalPulse(D16,1,[30,50,30]);
 			}else if (x<=120&&100<=y) { //Temp
 				euc.dash.hapT=1-euc.dash.hapT;
-				face[0].btn(euc.dash.hapT,"TEMP",25,60,136,col("blue1"),col("raf4"),0,100,119,195);
+				face[0].btn(euc.dash.hapT,"TEMP",25,60,136,col("blue"),col("raf4"),0,100,119,195);
 				face[0].ntfy("HOLD -> SET TEMP","",18,col("dgray"),1);
 				digitalPulse(D16,1,[30,50,30]);		
 			}else if (120<=x&&100<=y) { //Batt
 				euc.dash.hapB=1-euc.dash.hapB;
-				face[0].btn(euc.dash.hapB,"BATT",25,185,136,col("blue1"),col("raf4"),122,100,239,195);
+				face[0].btn(euc.dash.hapB,"BATT",25,185,136,col("blue"),col("raf4"),122,100,239,195);
 				face[0].ntfy("HOLD -> SET BATTERY","",18,col("dgray"),1);
 				digitalPulse(D16,1,[30,50,30]);						
 			}else digitalPulse(D16,1,[30,50,30]);

@@ -8,7 +8,7 @@ face[0] = {
 		this.g.fillRect(0,196,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
-		this.g.drawString("SPEED LIMITS",120-(this.g.stringWidth("SPEED LIMITS")/2),214); 
+		this.g.drawString("WHEEL ALERTS",120-(this.g.stringWidth("WHEEL ALERTS")/2),214); 
 		this.g.flip(); 
 		this.btn(euc.dash.spd1E,"ALARM 1",18,60,15,col("olive"),col("gray"),0,0,119,97,(euc.dash.spd1E)?euc.dash.spd1:"OFF",28,60,50);
 		this.btn(euc.dash.spd2E,"ALARM 2",18,185,15,col("olive"),col("gray"),122,0,239,97,(euc.dash.spd2E)?euc.dash.spd2:"OFF",28,185,50);
@@ -58,7 +58,7 @@ face[0] = {
 			t.g.fillRect(0,198,239,239);
 			t.g.setColor(1,col("white"));
 			t.g.setFont("Vector",20);
-			t.g.drawString("SPEED LIMITS",120-(t.g.stringWidth("SPEED LIMITS")/2),214); 
+			t.g.drawString("WHEEL ALERTS",120-(t.g.stringWidth("WHEEL ALERTS")/2),214); 
 			t.g.flip();
 		    },1000,this);
     },
