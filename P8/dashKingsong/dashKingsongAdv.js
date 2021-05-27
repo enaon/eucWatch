@@ -49,10 +49,11 @@ face[0] = {
 		this.g.setColor(0,col("olive"));
 		this.g.fillRect(0,100,119,195);
 		this.g.setColor(1,col("white"));
-		this.g.setFont("Vector",18);	
-		this.g.drawString("LIMMITS",60-(this.g.stringWidth("LIMMITS")/2),115); 
-		this.g.setFont("Vector",30);	
-		this.g.drawString(euc.dash.spdT,60-(this.g.stringWidth(euc.dash.spdT)/2),150); 
+		this.g.setFont("Vector",22);	
+		this.g.drawString("WHEEL",60-(this.g.stringWidth("WHEEL")/2),115); 
+//		this.g.setFont("Vector",25);
+		this.g.drawString("ALERTS",60-(this.g.stringWidth("ALERTS")/2),150); 
+//		this.g.drawString(euc.dash.spdT,60-(this.g.stringWidth(euc.dash.spdT)/2),150); 
 		this.g.flip();
 		//pass
 		this.g.setColor(0,col("olive"));
