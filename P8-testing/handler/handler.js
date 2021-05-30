@@ -35,6 +35,7 @@ var set={
 	dash:[],
 	write:function(file,name,value){
 		let got=require("Storage").readJSON([file+".json"],1);
+		if (got==undefined) got={};
 		if (!value) delete got[name];
 		else got[name]=value;
 		require("Storage").writeJSON([file+".json"],got);
@@ -535,7 +536,8 @@ if (set.def.acctype==="BMA421"){
 			i2c.writeTo(0x18,0x24,0x00); //reg5-latched interrupt off
 			i2c.writeTo(0x18,0x32,5); //int1_ths-threshold = 250 milli g's
 			i2c.writeTo(0x18,0x33,10); //duration = 1 * 20ms
-			i2c.writeTo(0x18,0x30,0x6A); //INT1_CFG-Xh Yh
+			//i2c.writeTo(0x18,0x30,0x6A); //INT1_CFG-Xh Yh
+			i2c.writeTo(0x18,0x30,0x02);
 			if (!this.tid) {
 				this.tid=setWatch(()=>{
 					//"ram";
@@ -549,7 +551,7 @@ if (set.def.acctype==="BMA421"){
 					if ( 160 < xx  && ( 200 < yy || yy < 50)) {
 						if (!w.gfx.isOn&&face.appCurr!=""){  
 							print("wake");
-							i2c.writeTo(0x18,0x30,0x02);
+							//i2c.writeTo(0x18,0x30,0x02);
 							if  (global.euc) {
 								if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash],0);
 								else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
@@ -565,7 +567,7 @@ if (set.def.acctype==="BMA421"){
 						this.up=1;
 					} else if (this.up) {
 						this.up=0;
-						i2c.writeTo(0x18,0x30,0x6A);
+						//i2c.writeTo(0x18,0x30,0x6A);
 						if (w.gfx.isOn)face.off(600);
 						print("sleep");
 					}
