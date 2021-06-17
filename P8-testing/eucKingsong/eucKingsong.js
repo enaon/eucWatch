@@ -141,7 +141,7 @@ euc.conn=function(mac){
 					break;
 				case 246:
 					euc.dash.spdL=( event.target.value.getUint16(2, true) / 100 ).toFixed(0); 
-						euc.dash.alrm=(euc.dash.spdL-5 < euc.dash.spdT)?1:0;
+						euc.dash.alrm=(euc.dash.spdL-5 < euc.dash.spd)?1:0;
 					//log alarms
 					almL.unshift(euc.dash.alrm);
 					if (20<almL.length) almL.pop();
