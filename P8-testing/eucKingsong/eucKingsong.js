@@ -141,9 +141,7 @@ euc.conn=function(mac){
 					break;
 				case 246:
 					euc.dash.spdL=( event.target.value.getUint16(2, true) / 100 ).toFixed(0); 
-					if (5<euc.dash.spd) {
-						euc.dash.alrm=(euc.dash.spdL < euc.dash.spdT)?1:0;
-					} else euc.dash.alrm=0; //limmit when on charger and off.
+						euc.dash.alrm=(euc.dash.spdL-5 < euc.dash.spdT)?1:0;
 					//log alarms
 					almL.unshift(euc.dash.alrm);
 					if (20<almL.length) almL.pop();
