@@ -3,36 +3,63 @@ euc.tmp={count:0,loop:0};
 euc.cmd=function(no){
 	switch (no) {
     case 0:case 3:case 6:case 9:case 12:case 15:case 18:
-	  return [85,170,3,9,1,80,2,160,255]; //Current Amperage with sign if v[80] > 32768 I = v[80] - 65536 else I = v[80] in Amperes * 100
+	  return [85,170,3,17,1,80,2,152,255]; //Current Amperage with sign if v[80] > 32768 I = v[80] - 65536 else I = v[80] in Amperes * 100
 	case 1:case 4:case 7:case 10:case 13:case 16:case 19:
-	  return [85,170,3,9,1,38,2,202,255]; //Current Speed in Km/h*1000d
-	case 2:return [85,170,3,9,1,62,2,178,255]; //Temperature numeric positive C * 10
-	case 5:return [85,170,3,9,1,71,2,169,255]; //Voltage numeric positive V * 100
-	case 8:return [85,170,3,9,1,185,2,55,255]; //Single Mileage numeric positive in meters
-	case 11:return [85,170,3,9,1,58,2,182,255]; //Single Runtime numeric positive seconds
-	case 14:return [85,170,3,9,1,37,2,203,255]; //remaining mileage in Km*100
-	case 17:return [85,170,3,9,1,182,2,58,255]; //Average speed numeric positive m/h
-	case 20:return [85,170,3,9,1,112,2,128,255]; //Lock status
-	case 21:return [85,170,3,9,3,112,1,127,255]; //21- lock
-	case 22:return [85,170,3,9,3,112,0,128,255]; //22- unlock
+	  return [85,170,3,17,1,38,2,194,255]; //Current Speed in Km/h*1000d
+	case 2:return [85,170,3,17,1,62,2,170,255]; //Temperature numeric positive C * 10
+	case 5:return [85,170,3,17,1,71,2,161,255]; //Voltage numeric positive V * 100
+	case 8:return [85,170,3,17,1,185,2,47,255]; //Single Mileage numeric positive in meters
+	case 11:return [85,170,3,17,1,58,2,174,255]; //Single Runtime numeric positive seconds
+	case 14:return [85,170,3,17,1,37,2,195,255]; //remaining mileage in Km*100
+	case 17:return [85,170,3,17,1,182,2,50,255]; //Average speed numeric positive m/h
+	case 20:return [85,170,3,17,1,112,2,120,255]; //Lock status
+	case 21:return [85,170,3,17,2,112,1,120,255]; //21- lock
+	case 22:return [85,170,3,17,2,112,0,121,255]; //22- unlock
 	case 23:return [85,170,4,9,3,198,0,0,30,255]; //metric khp
 	case 24:return [85,170,4,9,3,198,1,0,30,255]; //metric mph	
 	case 25:return [85,170,4,9,3,198,0,0,41,255]; //ring  off
 	case 26:return [85,170,4,9,3,198,1,0,40,255]; //ring  cyrcle
-    case 30:return [85,170,4,9,2,210,0,0,30,255]; //24 set Riding Mode 0
-	case 31:return [85,170,4,9,2,210,1,0,29,255]; //25 set Riding Mode 1
-	case 32:return [85,170,3,9,2,210,2,29,255]; //26 set Riding Mode 2
-	case 33:return [85,170,3,9,2,210,3,28,255]; //27 set Riding Mode 3
-	case 34:return [85,170,3,9,2,210,4,27,255]; //28 set Riding Mode 4
-	case 35:return [85,170,3,9,2,210,5,26,255]; //29 set Riding Mode 5
-	case 36:return [85,170,3,9,2,210,6,25,255]; //30 set Riding Mode 6
-	case 37:return [85,170,3,9,2,210,7,24,255]; //31 set Riding Mode 7  
-	case 38:return [85,170,3,9,2,210,8,23,255]; //32 set Riding Mode 8
-	case 39:return [85,170,3,9,2,210,9,22,255];  //33 set Riding Mode 9
-	case 40:return [85,170,4,9,2,210,0,0,30,255]; //24 set Riding Mode 0
+    case 30:return [85,170,3,17,2,210,0,23,255]; //set Riding Mode 0
+	case 31:return [85,170,3,17,2,210,1,22,255]; //set Riding Mode 1
+	case 32:return [85,170,3,17,2,210,2,21,255]; //set Riding Mode 2
+	case 33:return [85,170,3,17,2,210,3,20,255]; //set Riding Mode 3
+	case 34:return [85,170,3,17,2,210,4,19,255]; //set Riding Mode 4
+	case 35:return [85,170,3,17,2,210,5,18,255]; //set Riding Mode 5
+	case 36:return [85,170,3,17,2,210,6,17,255]; //set Riding Mode 6
+	case 37:return [85,170,3,17,2,210,7,16,255]; //set Riding Mode 7  
+	case 38:return [85,170,3,17,2,210,8,15,255]; //set Riding Mode 8
+	case 39:return [85,170,3,17,2,210,9,14,255]; //set Riding Mode 9
     }
 };
-//
+/*
+euc.send=function(command, offset, data){
+	// 55 AA <len> 11 <cmd> <offset> [data...] <chk1> <chk2>
+
+	var packetLen = 8 + data.byteLength;
+	var packet = new Uint8Array(packetLen);
+	packet[0] = 0x55;
+	packet[1] = 0xAA;
+	packet[2] = data.byteLength + 2;
+	packet[3] = 0x11;
+	packet[4] = command;
+	packet[5] = offset;
+	packet.set(data, 6);
+
+	var checksum = euc.checksum(packet);
+	packet[packetLen - 2] = checksum & 0xFF;
+	packet[packetLen - 1] = (checksum >> 8) & 0xFF;
+	print(packet);
+	//return write_characteristic.writeValue(packet);
+};
+euc.checksum=function(packet){
+	var end = packet[2] + 4;
+	var sum = 0;
+	for(var i = 2; i < end; i++)
+		sum += packet[i];
+
+	return (sum & 0xFFFF) ^ 0xFFFF;
+};
+*/
 euc.conn=function(mac){
     if ( global["\xFF"].BLE_GATTS!="undefined") {
 		if (set.def.cli) print("ble allready connected"); 
