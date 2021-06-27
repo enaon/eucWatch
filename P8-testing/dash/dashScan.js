@@ -21,9 +21,9 @@ face[0] = {
     this.g.fillRect(0,0,239,96);
     this.g.setColor(1,col("white"));
 	this.g.setFont("Vector",26);
-  	this.g.drawString((n==1)?"KINGSONG":(n==2)?"BEGODE":"NINEBOT",120-(this.g.stringWidth((n==1)?"KINGSONG":(n==2)?"BEGODE":"NINEBOT")/2),38); 
+  	this.g.drawString((n==1)?"KINGSONG":(n==2)?"BEGODE":(n==3)?"NINEBOT":"NINEBOT",120-(this.g.stringWidth((n==1)?"KINGSONG":(n==2)?"BEGODE":(n==3)?"NINEBOT":"NINEBOT")/2),38); 
 	this.g.setFont("Vector",14);
-    this.g.drawString((n==1)?"":(n==2)?"":"ONE Z10",120-(this.g.stringWidth((n==1)?"":(n==2)?"":"ONE Z10")/2),73);
+    this.g.drawString((n==1)?"":(n==2)?"":(n==3)?"ONE Z10":"ONE S2/A1",120-(this.g.stringWidth((n==1)?"":(n==2)?"":(n==3)?"ONE Z10":"ONE S2/A1")/2),73);
     this.g.flip();
 	this.g.setColor(0,0);	
 	this.g.drawLine(0,97,239,97);
@@ -33,9 +33,9 @@ face[0] = {
     this.g.fillRect(0,99,239,195);
     this.g.setColor(1,col("white"));
 	this.g.setFont("Vector",26);
-    this.g.drawString((n==1)?"INMOTION V11":(n==2)?"VETERAN":"NINEBOT",120-(this.g.stringWidth((n==1)?"INMOTION V11":(n==2)?"VETERAN":"NINEBOT")/2),130);
+    this.g.drawString((n==1)?"INMOTION V11":(n==2)?"VETERAN":(n==3)?"NINEBOT":"",120-(this.g.stringWidth((n==1)?"INMOTION V11":(n==2)?"VETERAN":(n==3)?"NINEBOT":"")/2),130);
 	this.g.setFont("Vector",14);
-    this.g.drawString((n==1)?"":(n==2)?"":"ONE C/E/P",120-(this.g.stringWidth((n==1)?"":(n==2)?"":"ONE C/E/P")/2),165);
+    this.g.drawString((n==1)?"":(n==2)?"":(n==3)?"ONE C/E/P":"",120-(this.g.stringWidth((n==1)?"":(n==2)?"":(n==3)?"ONE C/E/P":"")/2),165);
     this.g.flip();
 	this.g.setColor(0,col("black"));
 	this.g.fillRect(0,196,239,204);
@@ -43,9 +43,10 @@ face[0] = {
     this.g.fillRect(75,200,165,204);
     this.g.flip();
     this.g.setColor(1,col("white"));
-    if (n===1) this.g.fillRect(75,200,105,204);
-    else if (n===2) this.g.fillRect(105,200,135,204);
-    else this.g.fillRect(135,200,165,204);
+    if (n===1) this.g.fillRect(75,200,98,204);
+    else if (n===2) this.g.fillRect(98,200,120,204);
+    else if (n===3) this.g.fillRect(120,200,142,204);
+    else this.g.fillRect(142,200,165,204);
 	this.g.flip();
 	this.g.setColor(0,0);
     this.g.fillRect(0,205,239,239);
@@ -139,6 +140,12 @@ touchHandler[0]=function(e,x,y){
 			euc.dash.name=0;
 			euc.dash.maker="NinebotZ";
 			face.go('w_scan',0,'e7fe');
+		}else if ( face[0].set === 4 ) { //Ninebot S
+			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","NinebotS");
+			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","S2/A1");
+			euc.dash.name=0;
+			euc.dash.maker="NinebotS";
+			face.go('w_scan',0,'e7fe');
 		}
 	}else if(100<y&&y<200) {
 		digitalPulse(D16,1,[30,50,30]);
@@ -180,7 +187,7 @@ touchHandler[0]=function(e,x,y){
 	this.timeout();
     break;
   case 3: //slide left event
-	if ( face[0].set < 3 ) {
+	if ( face[0].set < 4 ) {
 		if (face[0].ntid) clearTimeout(face[0].ntid); face[0].ntid=0;
 		face[0].set ++ ;
 		face[0].page(face[0].set);

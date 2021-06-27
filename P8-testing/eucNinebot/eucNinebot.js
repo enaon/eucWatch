@@ -2,7 +2,7 @@
 euc.tmp={count:0,loop:0};
 euc.cmd=function(no){
 	switch (no) {
-    case 0:case 3:case 6:case 9:case 12:case 15:case 18:
+    case 0:case 3:case 6:case 9:case 12:case 15:case 18:case "end":
 	  return [85,170,3,9,1,80,2,160,255]; //Current Amperage with sign if v[80] > 32768 I = v[80] - 65536 else I = v[80] in Amperes * 100
 	case 1:case 4:case 7:case 10:case 13:case 16:case 19:
 	  return [85,170,3,9,1,38,2,202,255]; //Current Speed in Km/h*1000d
