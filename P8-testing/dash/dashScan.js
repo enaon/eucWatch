@@ -23,7 +23,7 @@ face[0] = {
 	this.g.setFont("Vector",26);
   	this.g.drawString((n==1)?"KINGSONG":(n==2)?"BEGODE":(n==3)?"NINEBOT":"NINEBOT",120-(this.g.stringWidth((n==1)?"KINGSONG":(n==2)?"BEGODE":(n==3)?"NINEBOT":"NINEBOT")/2),38); 
 	this.g.setFont("Vector",14);
-    this.g.drawString((n==1)?"":(n==2)?"":(n==3)?"ONE Z10":"ONE S2/A1",120-(this.g.stringWidth((n==1)?"":(n==2)?"":(n==3)?"ONE Z10":"ONE S2/A1")/2),73);
+    this.g.drawString((n==1)?"":(n==2)?"":(n==3)?"ONE Z10":"ONE S2",120-(this.g.stringWidth((n==1)?"":(n==2)?"":(n==3)?"ONE Z10":"ONE S2")/2),73);
     this.g.flip();
 	this.g.setColor(0,0);	
 	this.g.drawLine(0,97,239,97);
@@ -142,7 +142,7 @@ touchHandler[0]=function(e,x,y){
 			face.go('w_scan',0,'e7fe');
 		}else if ( face[0].set === 4 ) { //Ninebot S
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","NinebotS");
-			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","S2/A1");
+			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","S2");
 			euc.dash.name=0;
 			euc.dash.maker="NinebotS";
 			face.go('w_scan',0,'e7fe');

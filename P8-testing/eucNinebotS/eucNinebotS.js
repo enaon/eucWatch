@@ -12,7 +12,6 @@ euc.cmd=function(no){
 	case 11:return [85,170,3,17,1,58,2,174,255]; //Single Runtime numeric positive seconds
 //	case 14:return [85,170,3,17,1,37,2,195,255]; //remaining mileage in Km*100
 	case 14:return [85,170,3,17,1,41,4,189,255]; //Total Mileage numeric positive in meters
-//	case 14:return [85,170,3,17,1,182,2,50,255]; //Total Mileage numeric positive in meters
 	case 17:return [85,170,3,17,1,182,2,50,255]; //Average speed numeric positive m/h
 	case 20:return [85,170,3,17,1,112,2,120,255]; //Lock status
 	case 21:return [85,170,3,17,2,112,1,120,255]; //21- lock
