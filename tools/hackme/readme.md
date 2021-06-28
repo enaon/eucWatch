@@ -1,6 +1,6 @@
 >**NOTICE:** 
 >
-><del>**Do not** use this how-to if your P8's about screen reports TON as a model number. </del>  @fanoush made an TON5 compatible 1st step bootloader, use the file step1-TON5-xx at the first step for TON5 models.
+><del>**Do not** use this how-to if your P8's about screen reports TON as a model number. </del>  @fanoush made an TON5 compatible 1st step bootloader, use the file step1-TON5-xx (in this repo) at the first step for TON5 models.
 
 ## Install espruino on the P8 smart watch:
 
@@ -17,7 +17,7 @@ Using the app, you will upload four files to the P8 watch:
 
 
 
-> Files are mirrored [here](https://github.com/enaon/eucWatch/tree/main/tools/hackme) 
+> Files are mirrored [here](https://github.com/enaon/eucWatch/tree/main/tools/hackme) (TON5 version here)
 > 
 >  **original links:**
 > [daflasher files](https://github.com/atc1441/DaFlasherFiles) (step 1&2)
