@@ -7,12 +7,15 @@ face[0] = {
 	this.g.fillRect(0,0,239,239);this.g.setColor(0,col("dgray"));this.g.fillRect(0,0,170,77);this.g.fillRect(175,0,239,77);this.g.fillRect(0,83,170,157);this.g.fillRect(175,83,239,157);this.g.fillRect(0,163,170,249);this.g.fillRect(175,163,239,249);
 	this.g.flip();
 	this.g.setColor(1,col("lblue"));	
+    	// checklist icon
 	this.img = require("heatshrink").decompress(atob("lMwwMAv/GBAQEEn/Oh////YhwEC/kOgYEB+12CYUDj9gAgMBw8wj/wgHBnF//0AsEcn//gE4hwZCj4HBAAIrBwBfbn4wBFAxQBw5RB/0B4YEBBoPgKIWAuAUC4E4AgRREmEOEoOAjEHKI8H//AEYQEDACkfKwYoG4JQB/cA8JWCKIN/MAJRGAgRRBEARRBAgPAhkDwf/8EHgJMCagJ6D/7KBAAI="));
 	this.g.drawImage(this.img,185,17);
     this.g.flip();	
+    	// notepad icon
 	this.img = require("heatshrink").decompress(atob("mEwwIJGj//AAUAn4FKAAcHAqAAHn4FKAAcGAokPJYuADYnAAod58AjD+HwAoUB8F4BQUD4E8JgfgAocP+AFDj14C4c8ngjDvEfF4fwh/AjwuCg5HCFwJTDBIIPBLoYuEEgJ3CBIPwAoV4EgJtBgFwEgIXCuEHwYFDh6nDuEeAok8AoIjBuF4Aod/+AFBFIN/KYIXCv/Aa6IdCfZQLFAAoA=="));
 	this.g.drawImage(this.img,185,98);
     this.g.flip();	
+    	// person icon (contacts)
 	this.img = require("heatshrink").decompress(atob("mEwwIROh/wAoc//wFD///wAEBgIFB4AFBgf4h/gAoMH8EDDwUP4EBAoYbB/AFBj4CBvACBjwCBvgFEngCBnwFEAS4dFFIo1FIIpNFLIplBAIJxDj4FCPoqJFgYLEg4FBEYUf+EPF4U/F4P8AoN/AQN+AQIICn4CBIgeATwsBWAfAgZKDWwLCDKwIFCCoMHagfwAocAIgIFFdgYFMAgYAHA=="));
 	this.g.drawImage(this.img,182,177);
     this.g.flip();
@@ -31,6 +34,7 @@ face[0] = {
 		this.g.setColor(0,col("white"));
 		this.g.setFont("Vector",25);
 		this.g.drawString((notify.nCall)?notify.nCall+" / "+notify.call.length:(notify.call.length)?notify.call.length+" OLD":"-",100-(this.g.stringWidth((notify.nCall)?notify.nCall+" / "+notify.call.length:(notify.call.length)?notify.call.length+" OLD":"-")/2),30);
+    		// phone icon
 		this.img = require("heatshrink").decompress(atob("jEYwIGDg4CBh4CBj+AAQPAgE/AQoLBn4RBnwCEj4CEh4RBh4XBg/g8ED+P4gP//kAAQV/AQM/AQMf/EAgfgIgQA="));
 		this.g.drawImage(this.img,10,27);
 		this.img=-1;
@@ -43,6 +47,7 @@ face[0] = {
 		this.g.setColor(0,col("white"));
 		this.g.setFont("Vector",25);
 		this.g.drawString((notify.nIm)?notify.nIm+" / "+notify.im.length:(notify.im.length)?notify.im.length+" OLD":"-",100-(this.g.stringWidth((notify.nIm)?notify.nIm+" / "+notify.im.length:(notify.im.length)?notify.im.length+" OLD":"-")/2),110);
+    		// letter icon
 		this.img = require("heatshrink").decompress(atob("jEYwIPMv///wCFj///EP//w4f/4fw/8P/F+j/+jATBwP/BoICBAA4mIHZAA="));
 		this.g.drawImage(this.img,10,107);
 		this.img=-1;
@@ -55,6 +60,7 @@ face[0] = {
 		this.g.setColor(0,col("white"));
 		this.g.setFont("Vector",25);		
 		this.g.drawString((notify.nInfo)?notify.nInfo+" / "+notify.info.length:(notify.info.length)?notify.info.length+" OLD":"-",100-(this.g.stringWidth((notify.nInfo)?notify.nInfo+" / "+notify.info.length:(notify.info.length)?notify.info.length+" OLD":"-")/2),190);
+    		// i in a circle icon (notifications)
 		this.img = require("heatshrink").decompress(atob("jEYwIHEv0AgP/wEH//gh//+Ef8/4j/D/E/4/8n///l///+v/nAQPDARM/4YXBAQIgCEwQsCGQQ4CHwQACA=="));
 		this.g.drawImage(this.img,10,187);
 		this.img=-1;
@@ -297,4 +303,3 @@ touchHandler[5]=function(e,x,y){
     }
    this.timeout();
 };
-
