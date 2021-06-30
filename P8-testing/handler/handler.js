@@ -347,7 +347,7 @@ if (set.def.touchtype=="816"){ //816
 	setWatch(function(s){
 	"ram";
 	var tp=i2c.readFrom(0x15,7);
-	console.log(tp);
+	//console.log(tp);
 		if (face.pageCurr>=0) {
             if (tp[3]==255) return;
 			else if (tp[3]==0) {
@@ -411,7 +411,6 @@ if (set.def.touchtype=="816"){ //816
 	init:function(){
 		"ram";
 		var tp=i2c.readFrom(0x15,7);
-		console.log (tp);
 		if ( tp[3] == 128 || (tp[3] === 0 && tp[2] === 1) ) {
 			if ( !this.time ) this.time=getTime();
 			if ( this.st ) {
