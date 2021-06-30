@@ -3,7 +3,7 @@
 E.kickWatchdog();
 function P8KickWd(){
 	"ram";
-  if(!D17.read())E.kickWatchdog();
+  if(!BTN1.read())E.kickWatchdog();
 }
 var wdint=setInterval(P8KickWd,3000);
 E.enableWatchdog(30, false);
