@@ -33,6 +33,7 @@ euc.conn=function(mac){
 	//read
 	}).then(function(c) {
 		c.on('characteristicvaluechanged', function(event) {
+			//print( event.target.value.buffer);
 			if  ( event.target.value.buffer[0]===85 ) {
 				//print( event.target.value.buffer);
 				euc.alert=0;
