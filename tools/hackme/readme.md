@@ -1,6 +1,6 @@
 >**NOTICE:** 
 >
-><del>**Do not** use this how-to if your P8's about screen reports TON as a model number. </del>  @fanoush made an TON5 compatible 1st step bootloader, use the file step1-TON5-xx at the first step for TON5 models.
+><del>**Do not** use this how-to if your P8's about screen reports TON as a model number. </del>  @fanoush made an TON5 compatible 1st step bootloader, use the file step1-TON5-xx at the first step for TON5 models.</del> TON5 is now compatible with the same 1st-step file.
 
 ## Install espruino on the P8 smart watch:
 
@@ -40,7 +40,6 @@ Press **Select File** and choose the file named step1-xxx you just downloaded, t
 When finished the watch will reboot to a three squares screen, ready for step2.
 
 Close DaFlasher or go back, scan again and this time look for an ATCdfu device, this is the P8 now. 
-> **TON5:** in the case of TON5 models, the watch will remain black, and the name will be dfutarg.  
  
 >**Step 2.**
 
