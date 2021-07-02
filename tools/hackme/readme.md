@@ -1,8 +1,6 @@
 >**NOTICE:** 
 >
-><del>**Do not** use this how-to if your P8's about screen reports TON as a model number. 
-> @fanoush made an TON5 compatible 1st step bootloader, use the file step1-TON5-xx at the first step for TON5 models.</del> 
-> TON5 is now compatible with the same 1st-step file.
+> <del>**Do not** use this how-to if your P8's about screen reports TON as a model number.</del> TON5 is now compatible with the same 1st-step file.
 
 ## Install espruino on the P8 smart watch:
 
