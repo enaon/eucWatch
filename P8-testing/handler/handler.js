@@ -335,6 +335,7 @@ if (set.def.touchtype=="816"){ //816
 		"ram";
 		i2c.writeTo(0x15,0);
 		var tp=i2c.readFrom(0x15,7);
+		console.log(tp);
 		if (face.pageCurr>=0) {
 			touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);}
 		else if (tp[1]==1) {
