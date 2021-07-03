@@ -258,9 +258,6 @@ face[0] = {
 		},100,this);
 	},
 	mileage: function(){
-		let d=(Date()).toString().split(' ');
-		let t=(d[4]).toString().split(':');
-		this.time=(t[0]+":"+t[1]);
 		this.trpL=euc.dash.trpL;
 		this.g.setColor(0,0);
 		this.g.fillRect(0,203,239,239);
@@ -273,6 +270,9 @@ face[0] = {
 		}else {
 			this.g.drawString((set.def.dashSpd)?(euc.dash.trpL/1).toFixed(2):(euc.dash.trpL/1.6).toFixed(2),0,208); 
 			if (!set.def.dashDTrip) {//clock
+				let d=(Date()).toString().split(' ');
+				let t=(d[4]).toString().split(':');
+				this.time=(t[0]+":"+t[1]);
 				this.g.drawString(this.time, 240-(this.g.stringWidth(this.time)),210); //temp
 			}else 	
 				this.g.drawString((set.def.dashSpd)?Math.round(euc.dash.trpT):Math.round(euc.dash.trpT/1.6),240-(this.g.stringWidth((set.def.dashSpd)?Math.round(euc.dash.trpT):Math.round(euc.dash.trpT/1.6))),208); 
