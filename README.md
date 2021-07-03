@@ -35,6 +35,10 @@ var spi=new SPI();spi.setup({sck:D2,mosi:D3,miso:D4,mode:0}); spi.send([0xab],D5
 @gfwilliams, who is the man behind Espruino. This project uses the Espruino [app loader](https://github.com/espruino/EspruinoApps) and many code snippets from [bangle.js](https://github.com/espruino/BangleApps) source code.
 **More info on Espruino [here](https://www.espruino.com/)**
 
+### Links
+
+https://www.youtube.com/watch?v=mjdcSiPKgE4
+
 
 ![image](/tools/assets/images/eucwatch.jpg)
 
