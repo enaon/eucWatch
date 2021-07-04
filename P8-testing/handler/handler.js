@@ -106,28 +106,16 @@ var set={
 				0xfec8: {
 					value : [0x02],
 					maxLen : 20,
-					onWrite : function(evt) {
-					  euc.emuR(evt);
-					},
-					readable:true,
 					description:"Characteristic 2"
 				},
 				0xfec7: {
 					value : [0x02],
 					maxLen : 20,
-					onWrite : function(evt) {
-					  euc.emuR(evt);
-					},
-					readable:true,
 					description:"Characteristic 2"
 				},
 				0xfec9: {
 					value : [0x02],
 					maxLen : 20,
-					onWrite : function(evt) {
-					  euc.emuR(evt);
-					},
-					readable:true,
 					description:"Characteristic 2"
 				}
 			}
