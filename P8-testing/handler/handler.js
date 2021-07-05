@@ -101,6 +101,7 @@ var set={
 	//if (!Boolean(require('Storage').read('eucEmu'))||!global.euc) this.def.atc=0;
 	//if (this.def.atc) eval(require('Storage').read('eucEmu'));
 	if (this.def.emuZ){
+		// ninebotZ
 		NRF.setServices({
 			0xfee7: {
 				0xfec8: {
@@ -120,6 +121,25 @@ var set={
 				}
 			}
 		}, { });
+		/*
+		//begode
+		NRF.setServices({
+			0xffe0: {
+				0xffe1: {
+					value : [0x01],
+					maxLen : 20,
+					writable : true,
+					readable:true,
+					notify:true,
+					onWrite : function(evt) {
+					  euc.emuR(evt);
+					},
+					description:"Characteristic 1"
+				}
+			}
+		}, { });
+		
+		*/
 	}else {
 		NRF.setServices(undefined,{uart:(this.def.cli||this.def.gb)?true:false,hid:(this.def.hid&&this.hidM)?this.hidM.report:undefined });
 		//if (this.atcW) {this.atcW=undefined;this.atcR=undefined;} 

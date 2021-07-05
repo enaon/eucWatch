@@ -1,76 +1,60 @@
-//	//this.maker=require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'];
-//	//this.mac=require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Mac'];
-				
-global.euc= {
-	state: "OFF",
-	reconnect:0,
-    busy:0,
-    chrg:0,
-	kill:0,
-	night:1,
-	buzz:0,
-	day:[7,19],
-	emuZ:{
-		chechsum:function(packet){
-			var end = packet[2] + 7;
-			var sum = 0;
-			for(var i = 2; i < end; i++)
-				sum += packet[i];
-			return (sum & 0xFFFF) ^ 0xFFFF;
+
+E.setConsole(Serial1,{force:true}); //0000 devmode
+euc={};
+euc.dash=[];
+euc.dash.bat=10;
+timeLast=getTime();
+
+/*
+NRF.setServices({
+	0xfee7: {
+		0xfec8: {
+			value : [0x02],
+			maxLen : 20,
+			description:"Characteristic 2"
 		},
-		send:function(data){
-			var packetLen = 2 + data.byteLength;
-			var packet = new Uint8Array(packetLen);
-			packet.set(data, 0);
-			var check = euc.emuZ.checksum(data);
-			packet[packetLen - 2] = check & 0xFF;
-			packet[packetLen - 1] = (check >> 8) & 0xFF;
-			//return packet;
-			return Bluetooth.write(packet);
+		0xfec7: {
+			value : [0x02],
+			maxLen : 20,
+			description:"Characteristic 2"
 		},
-		last:getTime(),
-	},
-	updateDash:function(slot){require('Storage').write('eucSlot'+slot+'.json', euc.dash);},
-	tgl:function(){ 
-		ampL=[];batL=[];almL=[];
-		if (this.state!="OFF" ) {
-			digitalPulse(D16,1,[90,60,90]);  
-			set.def.accE=0;
-			if (!set.def.acc) {acc.off();}
-			this.seq=1;
-			this.state="OFF";
-   			//face.go(set.dash[set.def.dash],0);
-			face.go("dashOff",0);
-			//if (this.kill) clearTimout(this.kill);
-			//this.kill=setTimeout(()=>{
-			//if (euc.dash.emu) {set.def.atc=0;set.upd();}
-			euc.wri("end");
-			if (euc.busy)euc.busy=0;
-			setTimeout(()=>{euc.updateDash(require("Storage").readJSON("dash.json",1).slot);},500);
-			return;
-		}else {
-			NRF.setTxPower(4);
-			digitalPulse(D16,1,100); 
-			//if (euc.dash.emu){set.def.atc=1;set.def.gb=0;set.def.cli=0;set.def.hid=0;set.upd();}
-			this.mac=require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Mac"];
-			if(!this.mac) {
-				face.go('dashScan',0);return;
-		    }else {
-				eval(require('Storage').read('euc'+require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]));
-				this.state="ON";
-				if (!set.def.acc) {set.def.accE=1;acc.on();}
-				this.seq=1;
-				if (euc.dash.bms==undefined) euc.dash.bms=1.5;
-				if (euc.dash.maker=="Begobe"||euc.dash.maker=="NinebotZ")euc.dash.spdM=0;
-				this.conn(this.mac); 
-				face.go(set.dash[set.def.dash],0);return;
-            }
+		0xfec9: {
+			value : [0x02],
+			maxLen : 20,
+			description:"Characteristic 2"
 		}
-	} 
-};
-//emu
-euc.emuZ.get=function(l){ 
-switch (l) {
+	}
+}, { });
+*/		
+function checksum(packet){
+	var end = packet[2] + 7;
+	var sum = 0;
+	for(var i = 2; i < end; i++)
+		sum += packet[i];
+	return (sum & 0xFFFF) ^ 0xFFFF;
+}
+function send(data){
+	var packetLen = 2 + data.byteLength;
+	var packet = new Uint8Array(packetLen);
+	packet.set(data, 0);
+	var check = checksum(data);
+	packet[packetLen - 2] = check & 0xFF;
+	packet[packetLen - 1] = (check >> 8) & 0xFF;
+	//return packet;
+	return Bluetooth.write(packet);
+}	
+function bcon() {
+   console.log("in",Bluetooth.read());
+    Bluetooth.on('data',ccon);
+}
+function bdis() {
+    Bluetooth.removeListener('data',ccon);
+	//if (emuMon) { clearInterval(emuMon);emuMon=0;}
+}
+function ccon(l){ 
+	var resp;
+	
+	switch (l) {
 	case "U\xAA\3\x11\1\x1A\2\xCE\xFF":
 		print(1,l.charCodeAt(0));
 		return;
@@ -199,11 +183,8 @@ switch (l) {
 		print("Unknown",l);
 		return;
     }
-	euc.emuZ.send(resp);
-};
+	send(resp);
+}
+NRF.on('disconnect',bdis);  
+NRF.on('connect',bcon);
 
-
-//init
-if (Boolean(require("Storage").read('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json'))) { 
-euc.dash=require("Storage").readJSON('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json',1);
-}else euc.dash=require("Storage").readJSON("eucSlot.json",1);
