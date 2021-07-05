@@ -4,11 +4,7 @@ face[0] = {
 	g:w.gfx,
 	spd:[],
 	init: function(){
-		let d=(Date()).toString().split(' ');
-		let t=(d[4]).toString().split(':');
-		let s=(t[2]).toString().split('');
-		this.time=(t[0]+":"+t[1]);
-		this.spdBar=240/((euc.dash.maker=="Ninebot")?25:(euc.dash.maker=="NinebotZ")?45:(euc.dash.maker=="Inmotion")?55:euc.dash.spdT);
+		//this.spdBar=240/((euc.dash.maker=="Ninebot")?25:(euc.dash.maker=="NinebotZ")?45:(euc.dash.maker=="Inmotion")?55:euc.dash.spdT);
 		if ( euc.day[0] < Date().getHours() && Date().getHours() < euc.day[1] ) euc.night=0; else euc.night=1;
 		this.g.clear();
 		this.spdC=new Uint16Array([0,4095,4080,3840]);
@@ -88,7 +84,6 @@ face[0] = {
 					this.g.setColor(1,(euc.dash.ampC==1||euc.dash.ampC==2)?0:4095);
 					this.g.setFontVector(12);
 					this.g.drawString("AMP", 8,59);
-					//this.g.setFont("7x11Numeric7Seg",2);
 					this.g.setFontVector(32);
 					this.g.drawString(euc.dash.amp|0, 22-(this.g.stringWidth(euc.dash.amp|0)/2),80); 
 					this.g.flip();
@@ -102,7 +97,6 @@ face[0] = {
 					this.g.setFontVector(11);
 					this.g.drawString("TEMP", 6,59);
 					this.g.setFontVector(32);
-					//this.g.setFont("7x11Numeric7Seg",2);
 					this.g.drawString(Math.round(euc.dash.tmp), 22-(this.g.stringWidth(Math.round(euc.dash.tmp))/2),80); 
 					this.g.flip();
 				}
@@ -126,7 +120,6 @@ face[0] = {
 				this.g.setFontVector(12);
 				this.g.drawString("TOP", 208,59);
 				this.g.setFontVector(32);
-				//this.g.setFont("7x11Numeric7Seg",2);
 				this.g.drawString(Math.round(euc.dash.spdM), 222-(this.g.stringWidth(Math.round(euc.dash.spdM))/2),80); 
 				this.g.flip();
 			}
@@ -177,7 +170,6 @@ face[0] = {
 					//graph
 					let i=0;
 					this.ampL.forEach(function(val){
-					//ampL.forEach(function(val){
 						//w.gfx.fillRect(118-(i*8),(0<=val)?50-(val*1.2):1,118-(i*8)-3,(0<=val)?50:1-(val*2));
 						w.gfx.fillRect(118-(i*8),(val<200)?50-(val*1.2):1,118-(i*8)-3,(val<200)?50:(255-val)*2);
 						i++;
@@ -204,7 +196,6 @@ face[0] = {
 					this.g.fillRect(122,0,239,50);
 					this.g.setColor(1,4095);
 					this.g.setFontVector(50);
-					//this.g.setFont("7x11Numeric7Seg",4.5);
 					this.g.drawString(euc.dash.bat,220-(this.g.stringWidth(euc.dash.bat)),3);
 					this.g.setFontVector(20);
 					this.g.drawString("%",224,8);
@@ -279,6 +270,9 @@ face[0] = {
 		}else {
 			this.g.drawString((set.def.dashSpd)?(euc.dash.trpL/1).toFixed(2):(euc.dash.trpL/1.6).toFixed(2),0,208); 
 			if (!set.def.dashDTrip) {//clock
+				let d=(Date()).toString().split(' ');
+				let t=(d[4]).toString().split(':');
+				this.time=(t[0]+":"+t[1]);
 				this.g.drawString(this.time, 240-(this.g.stringWidth(this.time)),210); //temp
 			}else 	
 				this.g.drawString((set.def.dashSpd)?Math.round(euc.dash.trpT):Math.round(euc.dash.trpT/1.6),240-(this.g.stringWidth((set.def.dashSpd)?Math.round(euc.dash.trpT):Math.round(euc.dash.trpT/1.6))),208); 

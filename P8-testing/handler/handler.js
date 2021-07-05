@@ -25,7 +25,7 @@ function handleInfoEvent(event) {
 }
 //settings - run set.upd() after changing BT settings to take effect.
 var set={
-	bt:0, //Incomming BT service status indicator- Not user settable.0=not_connected|1=unknown|2=webide|3=gadgetbridge|4=atc|5=esp32
+	bt:0, //Incomming BT service status indicator- Not user settable.0=not_connected|1=unknown|2=webide|3=gadgetbridge|4=eucemu|5=esp32
 	tor:0, //Enables/disables torch- Not user settable.
 	ondc:0, //charging indicator-not user settable.
 	btsl:0, //bt sleep status-not user settable.
@@ -61,7 +61,7 @@ var set={
 		cli:1, //Nordic serial bluetooth access. Enables/disables Espruino Web IDE.
 		hid:0, //enable/disable Bluetooth music controll Service.
 		gb:0,  //Notifications service. Enables/disables support for "GadgetBridge" playstore app.
-		atc:0, //Notifications service. Enables/disables support for "d6 notification" playstore app from ATC1441.
+		emuZ:0, //Notifications service. Enables/disables support for "d6 notification" playstore app from ATC1441.
 		acc:0, //enables/disables wake-screen on wrist-turn. 
 		accE:0,//euc acc on/off
 		dnd:0, //Do not disturb mode, if ebabled vibrations are on.
@@ -98,11 +98,31 @@ var set={
 		if (global["\xFF"].modules.ble_hid_controls) Modules.removeCached("ble_hid_controls");
 	}
 	//if (!Boolean(require('Storage').read('atc'))) this.def.atc=0;
-	if (!Boolean(require('Storage').read('eucEmu'))||!global.euc) this.def.atc=0;
-	if (this.def.atc) eval(require('Storage').read('eucEmu'));
-	else {
+	//if (!Boolean(require('Storage').read('eucEmu'))||!global.euc) this.def.atc=0;
+	//if (this.def.atc) eval(require('Storage').read('eucEmu'));
+	if (this.def.emuZ){
+		NRF.setServices({
+			0xfee7: {
+				0xfec8: {
+					value : [0x02],
+					maxLen : 20,
+					description:"Characteristic 2"
+				},
+				0xfec7: {
+					value : [0x02],
+					maxLen : 20,
+					description:"Characteristic 2"
+				},
+				0xfec9: {
+					value : [0x02],
+					maxLen : 20,
+					description:"Characteristic 2"
+				}
+			}
+		}, { });
+	}else {
 		NRF.setServices(undefined,{uart:(this.def.cli||this.def.gb)?true:false,hid:(this.def.hid&&this.hidM)?this.hidM.report:undefined });
-		if (this.atcW) {this.atcW=undefined;this.atcR=undefined;} 
+		//if (this.atcW) {this.atcW=undefined;this.atcR=undefined;} 
 	}
 	if (this.def.gb) eval(require('Storage').read('m_gb'));
 	else {
@@ -157,19 +177,26 @@ function bcon() {
 	if (set.def.cli||set.def.gb)  Bluetooth.on('data',ccon);
 }
 function ccon(l){ 
-    var cli="\x03";
-    var gb="\x20\x03";
-	if (set.def.cli) {
-		if (l.startsWith(cli)) {set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
-		print("Welcome.\n** Working mode **\nUse devmode (Settings-Info-long press on Restart) for uploading files."); 
-		handleInfoEvent({"src":"BT","title":"IDE","body":"Connected"});
+	if (set.def.emuZ) {
+		euc.emuZ.get(l);
+	}else {
+		var cli="\x03";
+		var gb="\x20\x03";
+		if (set.def.cli) {
+			if (l.startsWith(cli)) {
+				set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
+				print("Welcome.\n** Working mode **\nUse devmode (Settings-Info-long press on Restart) for uploading files."); 
+				handleInfoEvent({"src":"BT","title":"IDE","body":"Connected"});
+			}
 		}
-    }
-    if (set.def.gb) if (l.startsWith(gb)){
-		set.bt=3;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
-		handleInfoEvent({"src":"BT","title":"GB","body":"Connected"});
+		if (set.def.gb) {
+			if (l.startsWith(gb)){
+				set.bt=3;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
+				handleInfoEvent({"src":"BT","title":"GB","body":"Connected"});
+			}
 		}
-    if (l.length>5)  NRF.disconnect();
+		if (l.length>5)  NRF.disconnect();
+	}
 }
 NRF.setTxPower(set.def.rfTX);
 //E.setConsole(null,{force:true});
@@ -335,6 +362,7 @@ if (set.def.touchtype=="816"){ //816
 		"ram";
 		i2c.writeTo(0x15,0);
 		var tp=i2c.readFrom(0x15,7);
+		console.log(tp);
 		if (face.pageCurr>=0) {
 			touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);}
 		else if (tp[1]==1) {
