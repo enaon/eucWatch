@@ -77,6 +77,7 @@ var set={
 	hidM:undefined, //not user settable.
 	clin:0,//not settable
 	upd:function(){ //run this for settings changes to take effect.
+	if (this.def.hid===1) def.hid=0;
 	if (this.def.hid===1&&this.hidM==undefined) {
 		Modules.addCached("ble_hid_controls",function(){
 		function b(a,b){NRF.sendHIDReport(a,function(){NRF.sendHIDReport(0,b);});}
@@ -101,6 +102,9 @@ var set={
 	//if (!Boolean(require('Storage').read('eucEmu'))||!global.euc) this.def.atc=0;
 	//if (this.def.atc) eval(require('Storage').read('eucEmu'));
 	if (this.def.emuZ){
+		this.def.cli=1;
+		this.def.gb=0;
+		this.def.hid=0;
 		// ninebotZ
 		NRF.setServices({
 			0xfee7: {
@@ -120,7 +124,7 @@ var set={
 					description:"Characteristic 2"
 				}
 			}
-		}, { });
+		}, { uart: true});
 		/*
 		//begode
 		NRF.setServices({
@@ -140,6 +144,7 @@ var set={
 		}, { });
 		
 		*/
+		NRF.disconnect();
 	}else {
 		NRF.setServices(undefined,{uart:(this.def.cli||this.def.gb)?true:false,hid:(this.def.hid&&this.hidM)?this.hidM.report:undefined });
 		//if (this.atcW) {this.atcW=undefined;this.atcR=undefined;} 
@@ -157,7 +162,7 @@ var set={
 		//global.GB=undefined;
 		delete this.handleNotificationEvent;delete this.handleFindEvent;delete handleWeatherEvent;delete handleCallEvent;delete handleFindEvent;delete sendBattery;delete global.GB;
 	}		
-	if (!this.def.cli&&!this.def.gb&&!this.def.atc&&!this.def.hid) { if (this.bt) NRF.disconnect(); else{ NRF.sleep();this.btsl=1;}}
+	if (!this.def.cli&&!this.def.gb&&!this.def.emuZ&&!this.def.hid) { if (this.bt) NRF.disconnect(); else{ NRF.sleep();this.btsl=1;}}
 	else if (this.bt) NRF.disconnect();
 	else if (this.btsl==1) {NRF.restart();this.btsl=0;}
 	}
@@ -186,19 +191,22 @@ function bdis() {
 	else if (set.bt==2) handleInfoEvent({"src":"BT","title":"IDE","body":"Disconnected"});
 	else if (set.bt==3) handleInfoEvent({"src":"BT","title":"GB","body":"Disconnected"});
 	//else if (set.bt==4) handleInfoEvent({"src":"BT","title":"ATC","body":"Disconnected"});
-	else if (set.bt==4) handleInfoEvent({"src":"BT","title":"EUC","body":"Phone disconnected"});
+	else if (set.bt==4) handleInfoEvent({"src":"BT","title":"EUC PHONE","body":"DISCONNECTED"});
 	else if (set.bt==5) handleInfoEvent({"src":"BT","title":"ESP","body":"Disconnected"});
   	set.bt=0; 
+	global.test=0;
 //	digitalPulse(D16,1,[100,50,50,50,100]); 
 }
 function bcon() {
 	set.bt=1; 
 //    digitalPulse(D16,1,100);
-	if (set.def.cli||set.def.gb)  Bluetooth.on('data',ccon);
+	if (set.def.cli||set.def.gb||set.def.emuZ)  Bluetooth.on('data',ccon);
 }
+global.lastTime=getTime();
 function ccon(l){ 
 	if (set.def.emuZ) {
-		euc.emuZ.get(l);
+		if (getTime() - lastTime < 0.005 ) return;
+		emuG(l);
 	}else {
 		var cli="\x03";
 		var gb="\x20\x03";

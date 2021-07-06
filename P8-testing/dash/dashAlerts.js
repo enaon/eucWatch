@@ -219,6 +219,8 @@ touchHandler[0]=function(e,x,y){
 			face.go("dashBegode",0);
         else if (euc.state=="READY"&&euc.dash.maker=="Ninebot")
 			face.go("dashNinebot",0);
+		else if (euc.state=="READY"&&euc.dash.maker=="NinebotS")
+			face.go("dashNinebotS",0);
 		else
 			face.go("dashGarage",0);
 		return;
