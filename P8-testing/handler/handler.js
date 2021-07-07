@@ -194,7 +194,7 @@ function bdis() {
 	else if (set.bt==4) handleInfoEvent({"src":"BT","title":"EUC PHONE","body":"DISCONNECTED"});
 	else if (set.bt==5) handleInfoEvent({"src":"BT","title":"ESP","body":"Disconnected"});
   	set.bt=0; 
-	global.emuD=0;
+	global.emuD=1;
 //	digitalPulse(D16,1,[100,50,50,50,100]); 
 }
 function bcon() {
