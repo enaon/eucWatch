@@ -10,26 +10,6 @@ global.euc= {
 	night:1,
 	buzz:0,
 	day:[7,19],
-	emuZ:{
-		checksum:function(packet){
-			var end = packet[2] + 7;
-			var sum = 0;
-			for(var i = 2; i < end; i++)
-			sum += packet[i];
-			return (sum & 0xFFFF) ^ 0xFFFF;
-		},
-		send:function(data){
-			var packetLen = 2 + data.byteLength;
-			var packet = new Uint8Array(packetLen);
-			packet.set(data, 0);
-			var check = euc.emuZ.checksum(data);
-			packet[packetLen - 2] = check & 0xFF;
-			packet[packetLen - 1] = (check >> 8) & 0xFF;
-			//return packet;
-			return Bluetooth.write(packet);
-		},
-		last:getTime(),
-	},
 	updateDash:function(slot){require('Storage').write('eucSlot'+slot+'.json', euc.dash);},
 	tgl:function(){ 
 		ampL=[];batL=[];almL=[];
