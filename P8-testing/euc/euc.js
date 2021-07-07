@@ -71,6 +71,7 @@ global.euc= {
 //emu
 
 function checksum(packet){
+	"ram"
 	var sum = 0;
 	packet.forEach(function(val){
 		sum += val;
@@ -79,6 +80,7 @@ function checksum(packet){
 }					
 					
 function emuS(data){
+	"ram"
 	global.lastTime=getTime();
 	var packetLen = 4 + data.byteLength;
 	var packet = new Uint8Array(packetLen);
@@ -96,7 +98,7 @@ function d2h(i) {
    return (i+0x10000).toString(16).substr(-4);
 }
 function emuG(l){ 
-var resp;
+	"ram"
 switch (l) {
 	case "U\xAA\3\x11\1\x1A\2\xCE\xFF":
 		global.emuD=0;
