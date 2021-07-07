@@ -77,7 +77,7 @@ var set={
 	hidM:undefined, //not user settable.
 	clin:0,//not settable
 	upd:function(){ //run this for settings changes to take effect.
-	if (this.def.hid===1) def.hid=0;
+	if (this.def.hid===1) {this.def.hid=0; return;}
 	if (this.def.hid===1&&this.hidM==undefined) {
 		Modules.addCached("ble_hid_controls",function(){
 		function b(a,b){NRF.sendHIDReport(a,function(){NRF.sendHIDReport(0,b);});}
@@ -102,7 +102,7 @@ var set={
 	//if (!Boolean(require('Storage').read('eucEmu'))||!global.euc) this.def.atc=0;
 	//if (this.def.atc) eval(require('Storage').read('eucEmu'));
 	if (this.def.emuZ){
-		this.def.cli=1;
+		this.def.cli=0;
 		this.def.gb=0;
 		this.def.hid=0;
 		// ninebotZ
@@ -183,7 +183,7 @@ E.setTimeZone(set.def.timezone);
 function bdis() {
     Bluetooth.removeListener('data',ccon);
 	E.setConsole(null,{force:true});
-    if (!set.def.cli&&!set.def.gb&&!set.def.atc&&!set.def.hid){
+    if (!set.def.cli&&!set.def.gb&&!set.def.emuZ&&!set.def.hid){
 		NRF.sleep();
 		set.btsl=1;
     }	
@@ -205,7 +205,7 @@ function bcon() {
 global.lastTime=getTime();
 function ccon(l){ 
 	if (set.def.emuZ) {
-		if (getTime() - lastTime < 0.005 ) return;
+		if (getTime() - lastTime < 0.2 ) return;
 		emuG(l);
 	}else {
 		var cli="\x03";
@@ -392,6 +392,7 @@ if (set.def.touchtype=="816"){ //816
 		var tp=i2c.readFrom(0x15,7);
 		console.log(tp);
 		if (face.pageCurr>=0) {
+			if (tp[1]==0 && tp[3]==64) tp[1]=5;
 			touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);}
 		else if (tp[1]==1) {
 			face.go(face.appCurr,0);
