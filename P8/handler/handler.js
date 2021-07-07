@@ -347,6 +347,7 @@ if (set.def.touchtype=="816"){ //816
 		i2c.writeTo(0x15,0);
 		var tp=i2c.readFrom(0x15,7);
 		if (face.pageCurr>=0) {
+			if (tp[1]==0 && tp[3]==64) tp[1]=5;
 			touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);}
 		else if (tp[1]==1) {
 			face.go(face.appCurr,0);
