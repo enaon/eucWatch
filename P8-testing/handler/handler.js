@@ -144,7 +144,7 @@ var set={
 		}, { });
 		
 		*/
-		NRF.disconnect();
+		NRF.restart();
 	}else {
 		NRF.setServices(undefined,{uart:(this.def.cli||this.def.gb)?true:false,hid:(this.def.hid&&this.hidM)?this.hidM.report:undefined });
 		//if (this.atcW) {this.atcW=undefined;this.atcR=undefined;} 
@@ -234,7 +234,7 @@ NRF.on('disconnect',bdis);
 NRF.on('connect',bcon);
 //if (global["\xFF"].modules.ble_hid_controls) Modules.removeCached("ble_hid_controls");
 set.upd();
-
+NRF.disconnect();
 //face
 var face={
 	appCurr:"main",
