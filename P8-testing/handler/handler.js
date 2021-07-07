@@ -194,7 +194,7 @@ function bdis() {
 	else if (set.bt==4) handleInfoEvent({"src":"BT","title":"EUC PHONE","body":"DISCONNECTED"});
 	else if (set.bt==5) handleInfoEvent({"src":"BT","title":"ESP","body":"Disconnected"});
   	set.bt=0; 
-	global.test=0;
+	global.emuD=0;
 //	digitalPulse(D16,1,[100,50,50,50,100]); 
 }
 function bcon() {
@@ -203,9 +203,10 @@ function bcon() {
 	if (set.def.cli||set.def.gb||set.def.emuZ)  Bluetooth.on('data',ccon);
 }
 global.lastTime=getTime();
+global.emuD=1;
 function ccon(l){ 
 	if (set.def.emuZ) {
-		if (getTime() - lastTime < 0.2 ) return;
+		if (global.emuD) if (getTime() - lastTime < 0.2 ) return;
 		emuG(l);
 	}else {
 		var cli="\x03";

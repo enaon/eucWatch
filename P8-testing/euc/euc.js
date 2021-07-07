@@ -94,6 +94,7 @@ function emuG(l){
 var resp;
 switch (l) {
 	case "U\xAA\3\x11\1\x1A\2\xCE\xFF":
+		global.emuD=0;
 		//print(1,l.charCodeAt(0));
 		return;
 	case "Z\xA5\1>\x14\1\xB0\x20\xDB\xFE": //live

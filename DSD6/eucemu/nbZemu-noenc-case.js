@@ -24,7 +24,7 @@ NRF.setServices({
 			description:"Characteristic 2"
 		}
 	}
-}, { });
+}, { uart:true});
 */		
 function checksum(packet){
 	var end = packet[2] + 7;
@@ -57,7 +57,7 @@ function ccon(l){
 	
 	switch (l) {
 	case "U\xAA\3\x11\1\x1A\2\xCE\xFF":
-		print(1,l.charCodeAt(0));
+		print(1);
 		return;
 	case "Z\xA5\1>\x14\1\xB0\x20\xDB\xFE": //live
 		if (0.1 < getTime() - timeLast  ){
