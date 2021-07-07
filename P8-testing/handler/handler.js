@@ -206,7 +206,7 @@ global.lastTime=getTime();
 global.emuD=1;
 function ccon(l){ 
 	if (set.def.emuZ) {
-		if (global.emuD) if (getTime() - lastTime < 0.2 ) return;
+		if (global.emuD) if (getTime() - lastTime < 0.1 ) return;
 		emuG(l);
 	}else {
 		var cli="\x03";
