@@ -106,7 +106,11 @@ var set={
 		this.def.gb=0;
 		this.def.hid=0;
 		// ninebotZ
-		NRF.setServices({
+NRF.setServices({
+			0xfee7: {
+			}
+		}, { uart: true});
+/*		NRF.setServices({
 			0xfee7: {
 				0xfec8: {
 					value : [0x02],
@@ -125,7 +129,7 @@ var set={
 				}
 			}
 		}, { uart: true});
-		NRF.restart();
+*/
 	}else {
 		NRF.setServices(undefined,{uart:(this.def.cli||this.def.gb)?true:false,hid:(this.def.hid&&this.hidM)?this.hidM.report:undefined });
 		//if (this.atcW) {this.atcW=undefined;this.atcR=undefined;} 
