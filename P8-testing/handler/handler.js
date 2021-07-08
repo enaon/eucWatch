@@ -125,25 +125,6 @@ var set={
 				}
 			}
 		}, { uart: true});
-		/*
-		//begode
-		NRF.setServices({
-			0xffe0: {
-				0xffe1: {
-					value : [0x01],
-					maxLen : 20,
-					writable : true,
-					readable:true,
-					notify:true,
-					onWrite : function(evt) {
-					  euc.emuR(evt);
-					},
-					description:"Characteristic 1"
-				}
-			}
-		}, { });
-		
-		*/
 		NRF.restart();
 	}else {
 		NRF.setServices(undefined,{uart:(this.def.cli||this.def.gb)?true:false,hid:(this.def.hid&&this.hidM)?this.hidM.report:undefined });
@@ -180,30 +161,8 @@ if (!Boolean(require("Storage").read("dash.json"))) {
 }
 //
 E.setTimeZone(set.def.timezone);
-function bdis() {
-    Bluetooth.removeListener('data',ccon);
-	E.setConsole(null,{force:true});
-    if (!set.def.cli&&!set.def.gb&&!set.def.emuZ&&!set.def.hid){
-		NRF.sleep();
-		set.btsl=1;
-    }	
-	if (set.bt==1) handleInfoEvent({"src":"BT","title":"BT","body":"Disconnected"});
-	else if (set.bt==2) handleInfoEvent({"src":"BT","title":"IDE","body":"Disconnected"});
-	else if (set.bt==3) handleInfoEvent({"src":"BT","title":"GB","body":"Disconnected"});
-	//else if (set.bt==4) handleInfoEvent({"src":"BT","title":"ATC","body":"Disconnected"});
-	else if (set.bt==4) handleInfoEvent({"src":"BT","title":"EUC PHONE","body":"DISCONNECTED"});
-	else if (set.bt==5) handleInfoEvent({"src":"BT","title":"ESP","body":"Disconnected"});
-  	set.bt=0; 
-	global.emuD=1;
-//	digitalPulse(D16,1,[100,50,50,50,100]); 
-}
-function bcon() {
-	set.bt=1; 
-//    digitalPulse(D16,1,100);
-	if (set.def.cli||set.def.gb||set.def.emuZ)  Bluetooth.on('data',ccon);
-}
+//nrf
 global.lastTime=getTime();
-global.emuD=1;
 function ccon(l){ 
 	if (set.def.emuZ) {
 		if (global.emuD) if (getTime() - lastTime < 0.1 ) return;
@@ -227,14 +186,33 @@ function ccon(l){
 		if (l.length>5)  NRF.disconnect();
 	}
 }
+function bcon() {
+	E.setConsole(null,{force:true});
+	set.bt=1; 
+	if (set.def.cli||set.def.gb||set.def.emuZ) Bluetooth.on('data',ccon);
+	setTimeout(()=>{if (set.bt==1) NRF.disconnect();},5000);
+}
+function bdis() {
+    Bluetooth.removeListener('data',ccon);
+	E.setConsole(null,{force:true});
+    if (!set.def.cli&&!set.def.gb&&!set.def.emuZ&&!set.def.hid){
+		NRF.sleep();
+		set.btsl=1;
+    }	
+	if (set.bt==1) handleInfoEvent({"src":"BT","title":"BT","body":"Disconnected"});
+	else if (set.bt==2) handleInfoEvent({"src":"BT","title":"IDE","body":"Disconnected"});
+	else if (set.bt==3) handleInfoEvent({"src":"BT","title":"GB","body":"Disconnected"});
+	//else if (set.bt==4) handleInfoEvent({"src":"BT","title":"ATC","body":"Disconnected"});
+	else if (set.bt==4) handleInfoEvent({"src":"BT","title":"EUC PHONE","body":"DISCONNECTED"});
+	else if (set.bt==5) handleInfoEvent({"src":"BT","title":"ESP","body":"Disconnected"});
+  	set.bt=0; 
+//	digitalPulse(D16,1,[100,50,50,50,100]); 
+}
 NRF.setTxPower(set.def.rfTX);
-//E.setConsole(null,{force:true});
-NRF.setAdvertising({}, { name:set.def.name,connectable:true });
 NRF.on('disconnect',bdis);  
 NRF.on('connect',bcon);
-//if (global["\xFF"].modules.ble_hid_controls) Modules.removeCached("ble_hid_controls");
+NRF.setAdvertising({}, { name:set.def.name,connectable:true });
 set.upd();
-NRF.disconnect();
 //face
 var face={
 	appCurr:"main",
@@ -388,7 +366,6 @@ digitalPulse(D13,1,[5,50]);
 var c;
 if (set.def.touchtype=="816"){ //816
 	setWatch(function(s){
-		"ram";
 		i2c.writeTo(0x15,0);
 		var tp=i2c.readFrom(0x15,7);
 		console.log(tp);
@@ -403,7 +380,6 @@ if (set.def.touchtype=="816"){ //816
 	var lt,xt,yt,tt,tf;
 	//var ct=0;
 	setWatch(function(s){
-	"ram";
 	var tp=i2c.readFrom(0x15,7);
 	//console.log(tp);
 		if (face.pageCurr>=0) {
@@ -467,7 +443,7 @@ if (set.def.touchtype=="816"){ //816
 	st:1,
 	loop:5,
 	init:function(){
-		"ram";
+		//"ram";
 		var tp=i2c.readFrom(0x15,7);
 		if ( tp[3] == 128 || (tp[3] === 0 && tp[2] === 1) ) {
 			if ( !this.time ) this.time=getTime();
@@ -550,7 +526,7 @@ if (set.def.acctype==="BMA421"){
 			this.run=0;
 		},
 		init:function(){
-			"ram";
+			//"ram";
 			if(!this.run) return;
 			var data;
 			data=i2c.readFrom(0x18,6);
@@ -598,7 +574,6 @@ if (set.def.acctype==="BMA421"){
 			i2c.writeTo(0x18,0x30,0x02);
 			if (!this.tid) {
 				this.tid=setWatch(()=>{
-					//"ram";
 					i2c.writeTo(0x18,0x31);
 					print ("src int: ",i2c.readFrom(0x18,1)+""); //src int
 					i2c.writeTo(0x18,0x01);
