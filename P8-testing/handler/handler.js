@@ -105,31 +105,11 @@ var set={
 		this.def.cli=0;
 		this.def.gb=0;
 		this.def.hid=0;
-		// ninebotZ
-NRF.setServices({
+		// ninebotZ emu support
+		NRF.setServices({
 			0xfee7: {
 			}
 		}, { uart: true});
-/*		NRF.setServices({
-			0xfee7: {
-				0xfec8: {
-					value : [0x02],
-					maxLen : 20,
-					description:"Characteristic 2"
-				},
-				0xfec7: {
-					value : [0x02],
-					maxLen : 20,
-					description:"Characteristic 2"
-				},
-				0xfec9: {
-					value : [0x02],
-					maxLen : 20,
-					description:"Characteristic 2"
-				}
-			}
-		}, { uart: true});
-*/
 	}else {
 		NRF.setServices(undefined,{uart:(this.def.cli||this.def.gb)?true:false,hid:(this.def.hid&&this.hidM)?this.hidM.report:undefined });
 		//if (this.atcW) {this.atcW=undefined;this.atcR=undefined;} 
@@ -166,11 +146,13 @@ if (!Boolean(require("Storage").read("dash.json"))) {
 //
 E.setTimeZone(set.def.timezone);
 //nrf
-global.lastTime=getTime();
+set.lastTime=getTime();
+set.emuD=1;
 function ccon(l){ 
+	"ram"
 	if (set.def.emuZ) {
-		if (global.emuD) if (getTime() - lastTime < 0.1 ) return;
-		emuG(l);
+		if (set.emuD) if (getTime() - set.lastTime < 0.1 ) return;
+		return emuG(l);
 	}else {
 		var cli="\x03";
 		var gb="\x20\x03";
@@ -210,7 +192,7 @@ function bdis() {
 	else if (set.bt==4) handleInfoEvent({"src":"BT","title":"EUC PHONE","body":"DISCONNECTED"});
 	else if (set.bt==5) handleInfoEvent({"src":"BT","title":"ESP","body":"Disconnected"});
   	set.bt=0; 
-//	digitalPulse(D16,1,[100,50,50,50,100]); 
+	set.emuD=1;
 }
 NRF.setTxPower(set.def.rfTX);
 NRF.on('disconnect',bdis);  
