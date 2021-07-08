@@ -255,7 +255,7 @@ face[0] = {
 		this.tid=setTimeout(function(t){
 			t.tid=-1;
 			t.show();
-		},200,this);
+		},150,this);
 	},
 	mileage: function(){
 		this.trpL=euc.dash.trpL;
