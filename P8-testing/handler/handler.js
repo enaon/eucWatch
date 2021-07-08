@@ -151,7 +151,7 @@ set.emuD=1;
 function ccon(l){ 
 	"ram"
 	if (set.def.emuZ) {
-		if (set.emuD) if (getTime() - set.lastTime < 0.1 ) return;
+		if (set.emuD) if (getTime() - set.lastTime < 0.15 ) return;
 		return emuG(l);
 	}else {
 		var cli="\x03";

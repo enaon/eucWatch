@@ -58,20 +58,28 @@ euc.conn=function(mac){
 			this.var= event.target.value.getUint8(16, true);
 			//print (event.target.value.buffer);
             if (euc.busy) return;
-            /*
-			//forward euc emu
-			if (set.bt==4&&euc.dash.emu==1) {
-				euc.emuW(event.target.value.buffer);
-			}
-			*/
 			euc.alert=0;
 			switch (this.var){				
 				case  169:
 					//speed
-					euc.dash.spd= ( event.target.value.getUint16(4, true) / 100 ).toFixed(0); 
+					euc.dash.spd= Math.round( event.target.value.getUint16(4, true) / 100 ); 
 					euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd <= euc.dash.spd2 )? 1 : ( euc.dash.spd <= euc.dash.spd3 )? 2 : 3 ;	
 					if ( euc.dash.hapS && euc.dash[euc.dash.haSv]  <= euc.dash.spd ) 
 						euc.alert = ( 1 + ((euc.dash.spd-euc.dash[euc.dash.haSv]) / euc.dash.spdS | 0 ) );  
+					//amp
+					this.amp=event.target.value.getUint16(10, true);
+					if ( 32767 < this.amp ) this.amp = this.amp - 65536;
+					//volt
+					this.volt=event.target.value.getUint16(2, true)/100;
+					//temp
+					euc.dash.tmp = (event.target.value.getUint16(12, true) / 100).toFixed(1);
+					euc.dash.tmpC = (euc.dash.tmp <= euc.dash.tmpH)? 0 : (euc.dash.tmp <= euc.dash.tmpH+5)? 2 : 3;	
+					if (euc.dash.tmpH <= euc.dash.tmp) {euc.alert++; euc.dash.spdC = 3;}     
+					//total mileage
+					euc.dash.trpT = (((event.target.value.buffer[6] << 16) + (event.target.value.buffer[7] << 24) + event.target.value.buffer[8] + (event.target.value.buffer[9] << 8)) / 1000).toFixed(1);
+					//mode
+					euc.dash.mode = event.target.value.getUint8(14, true);
+					euc.new=1;
 					//City lights 
 					if ( euc.dash.aLight === "lightsCity" ) { 
 						if ( euc.dash.amp < -1 && euc.dash.light ===1 ) {
@@ -92,23 +100,14 @@ euc.conn=function(mac){
 								euc.wri("lightsAuto") ;
 						}
 					}
-					//amp
-					this.amp=event.target.value.getUint16(10, true);
-					if ( 32767 < this.amp ) this.amp = this.amp - 65536;
-					euc.dash.amp = ( this.amp / 100 );
-					euc.dash.ampC = ( euc.dash.ampH+10 <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL - 5 )? 3 : ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp < 0 )? 1 : 0;
-					if ( euc.dash.ampH <= euc.dash.amp ){
-						//euc.dash.spdC = (euc.dash.ampC === 3)? 3 : (euc.dash.spdC === 3)? 3 : 2;
-						if (euc.dash.hapA) euc.alert = ( euc.alert + 1 + ((euc.dash.amp - euc.dash.ampH) / euc.dash.ampS|0) );
-					}else if ( euc.dash.amp <= euc.dash.ampL )  {
-						//euc.dash.spdC = (euc.dash.ampC === 3)? 3 : (euc.dash.spdC === 3)? 3 : 2;
-						if (euc.dash.hapA) euc.alert = (euc.alert + 1 + ((-(euc.dash.amp - euc.dash.ampL)) / euc.dash.ampS|0));  				
-					}
-					//log
-					ampL.unshift(Math.round(euc.dash.amp));
-					if (20<ampL.length) ampL.pop();
-					//volt
-					euc.dash.volt = event.target.value.getUint16(2, true)/100;
+					break;
+				case 185://trip-time-max_speed
+					euc.dash.trpL=(((event.target.value.buffer[2] << 16) + (event.target.value.buffer[3] << 24) + event.target.value.buffer[4] + (event.target.value.buffer[5] << 8)) / 1000.0).toFixed(1);
+					euc.dash.time=Math.round((event.target.value.getUint16(6, true)) / 60.0);
+					euc.dash.spdM=((event.target.value.getUint16(8, true)) / 100.0).toFixed(1);
+					euc.dash.fan=event.target.value.buffer[12];
+					//volt (evening out drawing times)
+					euc.dash.volt = this.volt;
 					let model=euc.dash.name.split("-")[0];
 					if (model.includes("S18") || model.includes("18L") ||  model.includes("18XL") || model.includes("16X") )
 						euc.dash.bat = ((euc.dash.volt / 20) * 100 - 320 ) |0;
@@ -119,28 +118,26 @@ euc.conn=function(mac){
 					if (20<batL.length) batL.pop();
 					euc.dash.batC = (euc.dash.batH <= euc.dash.bat)? 0 : (euc.dash.batM <= euc.dash.bat)? 1 : (euc.dash.batL <= euc.dash.bat)? 2 : 3;	
 					if ( euc.dash.hapB && euc.dash.bat <= euc.dash.batL ) { euc.alert ++; euc.dash.spdC = 3; }     
-					//temp
-					euc.dash.tmp = (event.target.value.getUint16(12, true) / 100).toFixed(1);
-					euc.dash.tmpC = (euc.dash.tmp <= euc.dash.tmpH)? 0 : (euc.dash.tmp <= euc.dash.tmpH+5)? 2 : 3;	
-					if (euc.dash.tmpH <= euc.dash.tmp) {euc.alert++; euc.dash.spdC = 3;}     
-					//total mileage
-					euc.dash.trpT = (((event.target.value.buffer[6] << 16) + (event.target.value.buffer[7] << 24) + event.target.value.buffer[8] + (event.target.value.buffer[9] << 8)) / 1000).toFixed(1);
-					//mode
-					euc.dash.mode = event.target.value.getUint8(14, true);
-					euc.new=1;
-					break;
-				case 185://trip-time-max_speed
-					euc.dash.trpL=(((event.target.value.buffer[2] << 16) + (event.target.value.buffer[3] << 24) + event.target.value.buffer[4] + (event.target.value.buffer[5] << 8)) / 1000.0).toFixed(1);
-					euc.dash.time=((event.target.value.getUint16(6, true)) / 60.0).toFixed(0);
-					euc.dash.spdM=((event.target.value.getUint16(8, true)) / 100.0).toFixed(1);
-					euc.dash.fan=event.target.value.buffer[12];
 					break;
 				case 245:
 					euc.dash.cpu=event.target.value.buffer[14];
 					//euc.dash.out=event.target.value.buffer[15];
+					//amp (evening out drawing times)
+					euc.dash.amp = ( this.amp / 100 );
+					euc.dash.ampC = ( euc.dash.ampH+10 <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL - 5 )? 3 : ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp < 0 )? 1 : 0;
+					if ( euc.dash.ampH <= euc.dash.amp ){
+						if (euc.dash.hapA) euc.alert = ( euc.alert + 1 + ((euc.dash.amp - euc.dash.ampH) / euc.dash.ampS|0) );
+					}else if ( euc.dash.amp <= euc.dash.ampL )  {
+						//euc.dash.spdC = (euc.dash.ampC === 3)? 3 : (euc.dash.spdC === 3)? 3 : 2;
+						if (euc.dash.hapA) euc.alert = (euc.alert + 1 + ((-(euc.dash.amp - euc.dash.ampL)) / euc.dash.ampS|0));  				
+					}
+					//log
+					ampL.unshift(Math.round(euc.dash.amp));
+					if (20<ampL.length) ampL.pop();
+					euc.new=1;
 					break;
 				case 246:
-					euc.dash.spdL=( event.target.value.getUint16(2, true) / 100 ).toFixed(0); 
+					euc.dash.spdL=Math.round( event.target.value.getUint16(2, true) / 100 ); 
 						euc.dash.alrm=(euc.dash.spdL-5 < euc.dash.spd)?1:0;
 					//log alarms
 					almL.unshift(euc.dash.alrm);
@@ -171,13 +168,9 @@ euc.conn=function(mac){
 					}
 					break;
 				//default :
-					
-
 				    //print ("got: ",this.var,event.target.value.buffer);
 				    //print (this.var); //else print(event.target.value.buffer); 
 			}
-			//emuZ
-			//euc.emuZ.live=new Uint8Array([0x5a,0xa5,0x20,0x14,0x3e,0x04,0xb0,0x00,0x00,0x00,0x00,0x48,0x98,0x00,0x00,euc.dash.bat,0x00,euc.dash.spd,0x00,0x00,0x00,0x18,0x38,0x25,0x00,0x00,0x00,0x3b,0x00,euc.dash.spd*10,0x00,0xa2,0x14,0x08,0x00,0x00,0x00,0x00,0x00]);
 			//haptic
 			if (!euc.buzz && euc.alert) {  
 				euc.buzz=1;
@@ -194,6 +187,7 @@ euc.conn=function(mac){
 				digitalPulse(D16,0,a);  
 				setTimeout(() => { euc.buzz = 0; }, 3000);
 			}
+			//screen on
 			if ((1<euc.dash.spdC||1<euc.dash.ampC||euc.dash.alrm)&&!w.gfx.isOn ){
 				face.go(set.dash[set.def.dash],0);
 			}

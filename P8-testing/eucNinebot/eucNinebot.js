@@ -147,6 +147,10 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			digitalPulse(D16,0,a);  
 			setTimeout(() => {euc.buzz=0; }, 3000);
 		}
+		//screen on
+		if ((1<euc.dash.spdC||1<euc.dash.ampC||euc.dash.alrm)&&!w.gfx.isOn ){
+			face.go(set.dash[set.def.dash],0);
+		}
 	});
 	//on disconnect
 	global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {

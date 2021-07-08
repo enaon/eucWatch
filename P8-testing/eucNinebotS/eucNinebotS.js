@@ -33,6 +33,8 @@ euc.cmd=function(no){
     }
 };
 euc.conn=function(mac){
+		global.time=getTime();
+
     if ( global["\xFF"].BLE_GATTS!="undefined") {
 		if (set.def.cli) print("ble allready connected"); 
 		if (global["\xFF"].BLE_GATTS.connected) 
@@ -54,6 +56,7 @@ euc.conn=function(mac){
 			euc.rCha=rc;
 			//read
 			euc.rCha.on('characteristicvaluechanged', function(event) {
+				console.log("loop start :", getTime() - time );
 				//  this.var = event.target.value.getUint8(5, true);
 				this.var= event.target.value.getUint8(5, true);
 				this.in16=event.target.value.getUint16(6, true);
@@ -147,6 +150,12 @@ euc.conn=function(mac){
 						digitalPulse(D16,0,a);  
 						setTimeout(() => {euc.buzz=0; }, 3000);
 					}
+					//screen on
+					if ((1<euc.dash.spdC||1<euc.dash.ampC||euc.dash.alrm)&&!w.gfx.isOn ){
+					face.go(set.dash[set.def.dash],0);
+					}
+					console.log("loop end :", getTime() - time );
+					time=getTime();
 			});
 			//on disconnect
 			global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
