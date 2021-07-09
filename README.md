@@ -8,11 +8,11 @@
 
 
 
-#### Espruino Installation on P8/P22B [how-to](https://enaon.github.io/eucWatch/tools/hackme/)
+#### Espruino Installation on P8/P22(B) [how-to](https://enaon.github.io/eucWatch/tools/hackme/)
 
 ### Loader version:
 
-[**Web loader**](https://enaon.github.io/eucWatch/p8)  for the P8/P22B watch
+[**Web loader**](https://enaon.github.io/eucWatch/p8)  for the P8/P22 watch
 
 [**Web loader**](https://enaon.github.io/eucWatch/dk08) for the DK08 watch
 
