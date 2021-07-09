@@ -36,10 +36,7 @@ var set={
 	read:function(file,name){
 		let got=require("Storage").readJSON([file+".json"],1);
 		if (got==undefined) return false;
-		if (!name) 
-			return require("Storage").readJSON([file+".json"],1);
-		else 
-			return require("Storage").readJSON([file+".json"],1).name;
+		return require("Storage").readJSON([file+".json"],1)[name];
 	},	
 	write:function(file,name,value){
 		let got=require("Storage").readJSON([file+".json"],1);
