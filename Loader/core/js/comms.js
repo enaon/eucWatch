@@ -236,7 +236,7 @@ const Comms = {
       cmd += "set.write("+file+","+id+","+value+")\n";
       Puck.write(cmd, (result) => {
         if (result===null) return reject("");
-        resolve();
+        resolve(result);
       });
     });
   },
@@ -246,7 +246,7 @@ const Comms = {
       cmd += "set.read('"+file+"','"+id+"')\n";
       Puck.write(cmd, (result) => {
         if (result===null) return reject("");
-        resolve();
+        resolve(result);
       });
     });
   },
