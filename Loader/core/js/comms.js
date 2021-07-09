@@ -246,7 +246,7 @@ const Comms = {
       cmd += "set.read('"+file+"','"+id+"')\n";
       Puck.write(cmd, (result) => {
         if (result===null) return reject("");
-        resolve(outp);
+        resolve();
       });
     });
   },
