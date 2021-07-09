@@ -451,10 +451,10 @@ if (set.def.touchtype=="816"){ //816
 				touchHandler[face.pageCurr](12,this.x,this.y);
 			}else if ( this.do && !tp[1] ) {
 				var a=0;
-				if (tp[6]>=this.y+20) a = 1;
-				else if (tp[6]<=this.y-20) a = 2;
-				else if (tp[4]<=this.x-20) a = 3;
-				else if (tp[4]>=this.x+20) a = 4;
+				if (tp[6]>=this.y+30) a = 1;
+				else if (tp[6]<=this.y-30) a = 2;
+				else if (tp[4]<=this.x-30) a = 3;
+				else if (tp[4]>=this.x+30) a = 4;
 				if ( a != 0 && this.aLast != a ) {
                     this.aLast=a;
 					this.do=0;
