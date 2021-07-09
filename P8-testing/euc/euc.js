@@ -10,26 +10,6 @@ global.euc= {
 	night:1,
 	buzz:0,
 	day:[7,19],
-	emuZ:{
-		checksum:function(packet){
-			var end = packet[2] + 7;
-			var sum = 0;
-			for(var i = 2; i < end; i++)
-			sum += packet[i];
-			return (sum & 0xFFFF) ^ 0xFFFF;
-		},
-		send:function(data){
-			var packetLen = 2 + data.byteLength;
-			var packet = new Uint8Array(packetLen);
-			packet.set(data, 0);
-			var check = euc.emuZ.checksum(data);
-			packet[packetLen - 2] = check & 0xFF;
-			packet[packetLen - 1] = (check >> 8) & 0xFF;
-			//return packet;
-			return Bluetooth.write(packet);
-		},
-		last:getTime(),
-	},
 	updateDash:function(slot){require('Storage').write('eucSlot'+slot+'.json', euc.dash);},
 	tgl:function(){ 
 		ampL=[];batL=[];almL=[];
@@ -68,9 +48,17 @@ global.euc= {
 		}
 	} 
 };
+
+
+//init
+if (Boolean(require("Storage").read('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json'))) { 
+euc.dash=require("Storage").readJSON('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json',1);
+}else euc.dash=require("Storage").readJSON("eucSlot.json",1);
+
+
 //emu
 function checksum(packet){
-	"ram";
+	//"ram";
 	var sum = 0;
 	packet.forEach(function(val){
 		sum += val;
@@ -79,8 +67,7 @@ function checksum(packet){
 }					
 					
 function emuS(data){
-	"ram";
-	set.lastTime=getTime();
+	//"ram";
 	var packetLen = 4 + data.byteLength;
 	var packet = new Uint8Array(packetLen);
 	packet[0]=0x5a;
@@ -89,44 +76,18 @@ function emuS(data){
 	var check = checksum(data);
 	packet[packetLen - 2] = check & 0xFF;
 	packet[packetLen - 1] = (check >> 8) & 0xFF;
-	//return packet;
+	setTimeout(()=>{set.emuD=0;},5);
 	return Bluetooth.write(packet);
 }	
 
 function d2h(i) {
    return (i+0x10000).toString(16).substr(-4);
 }
-/* //wheellog
+
 function emuG(l){ 
-	//"ram"
-	switch (l) {
-	case "U\xAA\3\x11\1\x1A\2\xCE\xFF":
-		set.emuD=0;
-		eumG=emuG2; 
-		//print(1,l.charCodeAt(0));
-		return;
-	case "Z\xA5\1>\x14\1\xB0\x20\xDB\xFE"://live
-		return emuS(new Uint8Array( [32, 20, 62, 4, 176, 0, 0, 0, 0, 72, 152, 0, 0, euc.dash.bat, 0, "0x"+(euc.dash.spd*100+0x10000).toString(16).substr(3), "0x"+(euc.dash.spd*100+0x10000).toString(16).substr(1,2), 0, 0, 24, 56, 37, 0, 0, 0, 59, 0,euc.dash.tmp,0,parseInt((euc.dash.volt*100).toString(16).substr(2),16), parseInt((euc.dash.volt*100).toString(16).substr(0,2),16), euc.dash.amp, 0, 0, 0, 0, 0]));
-	case "Z\xA5\1>\x14\1\x1A\2\x8F\xFF": //firmware
-		if (set.bt!=4) {
-			set.bt=4;
-			handleInfoEvent({"src":"BT","title":"EUC PHONE","body":"CONNECTED"});
-		}
-		return emuS(new Uint8Array([0x02,0x14,0x3e,0x04,0x1a,0x07,0x11]));  
-	case "Z\xA5\1>\x14\1\x68\2\x41\xFF":return emuS(new Uint8Array([0x02,0x14,0x3e,0x04,0x68,0x01,0x01]));  //start
-	case "Z\xA5\1>\x14\1\x10\x0e\x8d\xFF":return emuS(new Uint8Array([0x0e,0x14,0x3e,0x04,0x10,0x4e,0x33,0x4f,0x54,0x43,0x31,0x38,0x33,0x33,0x54,0x30,0x30,0x33,0x38]));  
-//		return emuS(new Uint8Array(0x0e,0x14,0x3e,0x04,0x10,0x4e,0x33,0x4f,0x54,0x43,0x31,0x38,0x33,0x33,0x54,0x30,0x30,0x30,0x30]));  //info 
-	default: 
-		//print("Unknown",l);
-		return emuS(new Uint8Array([0x20,0x14,0x3e,0x04,0xb0,0x00,0x00,0x00,0x00,0x48,0x98,0x00,0x00,0x41,0x00,0x00,0x00,0x00,0x00,0x18,0x38,0x25,0x00,0x00,0x00,0x3b,0x00,0xbe,0x00,0xa2,0x14,0x08,0x00,0x00,0x00,0x00,0x00]));
-    }
-}
-*/
-function emuG(l){ 
-	//"ram"
+	set.emuD=1;
 switch (l) {
 	case "U\xAA\3\x11\1\x1A\2\xCE\xFF":
-		set.emuD=0;
 		return;
 	case "Z\xA5\1>\x14\1\xB0\x20\xDB\xFE"://live
 	return emuS(new Uint8Array( [32, 20, 62, 4, 176, 0, 0, 0, 0, 72, 152, 0, 0, euc.dash.bat, 0, "0x"+(euc.dash.spd*100+0x10000).toString(16).substr(3), "0x"+(euc.dash.spd*100+0x10000).toString(16).substr(1,2), 0, 0, 24, 56, 37, 0, 0, 0, 59, 0,euc.dash.tmp,0,parseInt((euc.dash.volt*100).toString(16).substr(2),16), parseInt((euc.dash.volt*100).toString(16).substr(0,2),16), euc.dash.amp, 0, 0, 0, 0, 0]));
@@ -168,7 +129,30 @@ switch (l) {
 		return emuS(new Uint8Array([0x20,0x14,0x3e,0x04,0xb0,0x00,0x00,0x00,0x00,0x48,0x98,0x00,0x00,0x41,0x00,0x00,0x00,0x00,0x00,0x18,0x38,0x25,0x00,0x00,0x00,0x3b,0x00,0xbe,0x00,0xa2,0x14,0x08,0x00,0x00,0x00,0x00,0x00]));
     }
 }
-//init
-if (Boolean(require("Storage").read('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json'))) { 
-euc.dash=require("Storage").readJSON('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json',1);
-}else euc.dash=require("Storage").readJSON("eucSlot.json",1);
+
+/* //wheellog
+function emuG(l){ 
+	//"ram"
+	switch (l) {
+	case "U\xAA\3\x11\1\x1A\2\xCE\xFF":
+		set.emuD=0;
+		eumG=emuG2; 
+		//print(1,l.charCodeAt(0));
+		return;
+	case "Z\xA5\1>\x14\1\xB0\x20\xDB\xFE"://live
+		return emuS(new Uint8Array( [32, 20, 62, 4, 176, 0, 0, 0, 0, 72, 152, 0, 0, euc.dash.bat, 0, "0x"+(euc.dash.spd*100+0x10000).toString(16).substr(3), "0x"+(euc.dash.spd*100+0x10000).toString(16).substr(1,2), 0, 0, 24, 56, 37, 0, 0, 0, 59, 0,euc.dash.tmp,0,parseInt((euc.dash.volt*100).toString(16).substr(2),16), parseInt((euc.dash.volt*100).toString(16).substr(0,2),16), euc.dash.amp, 0, 0, 0, 0, 0]));
+	case "Z\xA5\1>\x14\1\x1A\2\x8F\xFF": //firmware
+		if (set.bt!=4) {
+			set.bt=4;
+			handleInfoEvent({"src":"BT","title":"EUC PHONE","body":"CONNECTED"});
+		}
+		return emuS(new Uint8Array([0x02,0x14,0x3e,0x04,0x1a,0x07,0x11]));  
+	case "Z\xA5\1>\x14\1\x68\2\x41\xFF":return emuS(new Uint8Array([0x02,0x14,0x3e,0x04,0x68,0x01,0x01]));  //start
+	case "Z\xA5\1>\x14\1\x10\x0e\x8d\xFF":return emuS(new Uint8Array([0x0e,0x14,0x3e,0x04,0x10,0x4e,0x33,0x4f,0x54,0x43,0x31,0x38,0x33,0x33,0x54,0x30,0x30,0x33,0x38]));  
+//		return emuS(new Uint8Array(0x0e,0x14,0x3e,0x04,0x10,0x4e,0x33,0x4f,0x54,0x43,0x31,0x38,0x33,0x33,0x54,0x30,0x30,0x30,0x30]));  //info 
+	default: 
+		//print("Unknown",l);
+		return emuS(new Uint8Array([0x20,0x14,0x3e,0x04,0xb0,0x00,0x00,0x00,0x00,0x48,0x98,0x00,0x00,0x41,0x00,0x00,0x00,0x00,0x00,0x18,0x38,0x25,0x00,0x00,0x00,0x3b,0x00,0xbe,0x00,0xa2,0x14,0x08,0x00,0x00,0x00,0x00,0x00]));
+    }
+}
+*/

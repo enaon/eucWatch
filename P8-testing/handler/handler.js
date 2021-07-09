@@ -108,6 +108,12 @@ var set={
 		// ninebotZ emu support
 		NRF.setServices({
 			0xfee7: {
+				0xfec8: {
+				},
+				0xfec7: {
+				},
+				0xfec9: {
+				}
 			}
 		}, { uart: true});
 	}else {
@@ -146,13 +152,13 @@ if (!Boolean(require("Storage").read("dash.json"))) {
 //
 E.setTimeZone(set.def.timezone);
 //nrf
-set.lastTime=getTime();
-set.emuD=1;
+set.emuD=0;
 function ccon(l){ 
-	"ram"
+	//"ram"
 	if (set.def.emuZ) {
-		if (set.emuD) if (getTime() - set.lastTime < 0.15 ) return;
-		return emuG(l);
+		if (set.emuD) return;
+		emuG(l);
+		return;
 	}else {
 		var cli="\x03";
 		var gb="\x20\x03";
@@ -175,7 +181,7 @@ function ccon(l){
 function bcon() {
 	E.setConsole(null,{force:true});
 	set.bt=1; 
-	if (set.def.cli||set.def.gb||set.def.emuZ) Bluetooth.on('data',ccon);
+	if (set.def.cli||set.def.gb||set.def.emuZ) { Bluetooth.on('data',ccon);}
 	setTimeout(()=>{if (set.bt==1) NRF.disconnect();},5000);
 }
 function bdis() {
@@ -192,7 +198,7 @@ function bdis() {
 	else if (set.bt==4) handleInfoEvent({"src":"BT","title":"EUC PHONE","body":"DISCONNECTED"});
 	else if (set.bt==5) handleInfoEvent({"src":"BT","title":"ESP","body":"Disconnected"});
   	set.bt=0; 
-	set.emuD=1;
+	set.emuD=0;
 }
 NRF.setTxPower(set.def.rfTX);
 NRF.on('disconnect',bdis);  
