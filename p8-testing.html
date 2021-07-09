@@ -141,6 +141,8 @@
 					let acc = Comms.setRead("setting","acctype");
 					let touch = Comms.setRead("setting","touchtype");
 					let name = Comms.setRead("setting","name");
+					console.log("<COMMS> acc,touch,name", acc,touch,name);
+
 					selectElement('acctype', acc)
 					selectElement('touchtype', touch)
 					selectElement('devname', name)
