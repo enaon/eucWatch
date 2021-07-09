@@ -131,20 +131,25 @@
 			<button id="getval" class="btn btn-primary">Get Values</button>
 
 			<script>
-				// When the 'upload' button is clicked...
+				// When the 'get values' button is clicked...
 				document.getElementById("getval").addEventListener("click", function() {
-					// get the text to add
-					//var acc = document.getElementById("acctype").value;
-					//var acc = comms.setRead("setting","touchtype");
-					document.getElementById("acctype").value=Comms.setRead("setting","touchtype");
-					var event = new Event('change');
-					document.getElementById("acctype").value.dispatchEvent(event);
+				
+					function selectElement(id, valueToSelect) {    
+						let element = document.getElementById(id);
+						element.value = valueToSelect;
+					}
+					let acc = comms.setRead("setting","acctype");
+					let touch = comms.setRead("setting","touchtype");
+					let name = comms.setRead("setting","name");
+					selectElement('acctype', acc)
+					selectElement('touchtype', touch)
+					selectElement('name', name)
+
 			
 				});
+				// When the 'set values' button is clicked...
 				document.getElementById("tt").addEventListener("click", function() {
 					// get the text to add
-					//var acc = document.getElementById("acctype").value;
-					//var acc = comms.setRead("setting","touchtype");
 					var acc = document.getElementById("acctype").value;
 					var touch = document.getElementById("touchtype").value;
 					var name = document.getElementById("devname").value;
