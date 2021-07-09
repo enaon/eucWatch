@@ -85,7 +85,7 @@ function d2h(i) {
 }
 
 function emuG(l){ 
-	"ram";
+	//"ram";
 	set.emuD=1;
 switch (l) {
 	case "Z\xA5\1>\x14\1\xB0\x20\xDB\xFE"://live
