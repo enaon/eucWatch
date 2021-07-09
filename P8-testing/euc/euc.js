@@ -58,7 +58,7 @@ euc.dash=require("Storage").readJSON('eucSlot'+require("Storage").readJSON("dash
 
 //emu
 function checksum(packet){
-	//"ram";
+	"ram";
 	var sum = 0;
 	packet.forEach(function(val){
 		sum += val;
@@ -67,7 +67,7 @@ function checksum(packet){
 }					
 					
 function emuS(data){
-	//"ram";
+	"ram";
 	var packetLen = 4 + data.byteLength;
 	var packet = new Uint8Array(packetLen);
 	packet[0]=0x5a;
@@ -85,9 +85,11 @@ function d2h(i) {
 }
 
 function emuG(l){ 
+	"ram";
 	set.emuD=1;
 switch (l) {
 	case "U\xAA\3\x11\1\x1A\2\xCE\xFF":
+	set.emuD=0;
 		return;
 	case "Z\xA5\1>\x14\1\xB0\x20\xDB\xFE"://live
 	return emuS(new Uint8Array( [32, 20, 62, 4, 176, 0, 0, 0, 0, 72, 152, 0, 0, euc.dash.bat, 0, "0x"+(euc.dash.spd*100+0x10000).toString(16).substr(3), "0x"+(euc.dash.spd*100+0x10000).toString(16).substr(1,2), 0, 0, 24, 56, 37, 0, 0, 0, 59, 0,euc.dash.tmp,0,parseInt((euc.dash.volt*100).toString(16).substr(2),16), parseInt((euc.dash.volt*100).toString(16).substr(0,2),16), euc.dash.amp, 0, 0, 0, 0, 0]));

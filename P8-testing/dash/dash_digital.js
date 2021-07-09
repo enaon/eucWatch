@@ -38,6 +38,7 @@ face[0] = {
 		
 	},
 	show : function(o){
+		"ram";
 		if (!this.run) return;
 		//connected  
 		if (euc.state=="READY") {
@@ -255,7 +256,7 @@ face[0] = {
 		this.tid=setTimeout(function(t){
 			t.tid=-1;
 			t.show();
-		},150,this);
+		},50,this);
 	},
 	mileage: function(){
 		this.trpL=euc.dash.trpL;
