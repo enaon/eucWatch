@@ -723,6 +723,20 @@ if (btn) btn.addEventListener("click",event=>{
     showToast("Error setting time, "+err,"error");
   });
 });
+
+btn = document.getElementById("test");
+if (btn) btn.addEventListener("click",event=>{
+  Comms.setTime().then(()=>{
+    showToast("Time set successfully","success");
+  }, err=>{
+    showToast("Error setting time, "+err,"error");
+  });
+});
+
+
+
+
+
 btn = document.getElementById("restart");
 if (btn) btn.addEventListener("click",event=>{
   Comms.reset().then(()=>{

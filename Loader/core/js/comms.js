@@ -230,6 +230,26 @@ const Comms = {
       });
     });
   },
+  setWrite : (file,id,value) => {
+    return new Promise((resolve,reject) => {
+      let cmd = '\x03\x10';
+      cmd += "set.write("+file+","+id+","+value+")\n";
+      Puck.write(cmd, (result) => {
+        if (result===null) return reject("");
+        resolve();
+      });
+    });
+  },
+  setRead : (id) => {
+    return new Promise((resolve,reject) => {
+      let cmd = '\x03\x10';
+      cmd += "set.read("+file+","+id+")\n"";
+      Puck.write(cmd, (result) => {
+        if (result===null) return reject("");
+        resolve();
+      });
+    });
+  },
   disconnectDevice: () => {
     let connection = Puck.getConnection();
 

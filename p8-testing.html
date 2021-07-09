@@ -118,6 +118,46 @@
         <p><button class="btn" id="settime">Set Time</button>
 			<button class="btn" id="restart">Restart Watch</button>
            <button class="btn" id="removeall">Remove all Apps</button>
+
+			<button class="btn" id="settime" onclick="Puck.write('reset();\n');">reset !</button>
+			
+			<p>Device Name: <input type="text" id="devname" class="form-input" value="P8-eucWatch"></p>
+			<p>Touch controler type: <select type="text" id="touchtype" value="716" class="form-select"><option>716</option><option>816</option><option>816s</option></select></p>
+			<p>Accelerator type: <select type="text" id="acctype" value="BMA421" class="form-select"><option>BMA421</option><option>SC7A20</option></select></p>
+			<p>Timezone: <input type="text" id="timezone" class="form-input" value="3"></p>			
+		
+		
+			<button id="tt" class="btn btn-primary">tt</button>
+			<script>
+				// When the 'upload' button is clicked...
+				document.getElementById("tt").addEventListener("click", function() {
+					// get the text to add
+					var acc = document.getElementById("acctype").value;
+					var touch = document.getElementById("touchtype").value;
+					var name = document.getElementById("devname").value;
+					var zone = document.getElementById("timezone").value;
+
+					if (acc!="BMA421"&&acc!="SC7A20") {
+					  alert("Accelerator type needs to be BMA421 or SC7A20");
+					  return;
+					}
+					if (touch!="816"&&touch!="716"&&touch!="816s") {
+					  alert("Touch controler type needs to be 716 or 816 or 816s");
+					  return;
+					}
+					// build the app's text using a templated String
+					//require("handler").advertise(${JSON.stringify(acc)});
+
+					// send finished app
+					 //       sendCustomizedApp({
+					 //         storage:[
+					 //           {name:"setting.json", url:"devmode", content:app},
+					 //         ]
+					 //       });
+				});
+			</script>
+		
+		
         </p>
       </div>
     </div>
