@@ -240,16 +240,17 @@ const Comms = {
       });
     });
   },
-  setRead : (file,id) => {
-    return new Promise((resolve,reject) => {
-      let cmd = '\x03\x10';
-      cmd += "set.read('"+file+"','"+id+"')\n";
-      Puck.write(cmd, (result) => {
-        if (result===null) return reject("");
-        resolve(result);
-      });
-    });
-  },
+	setRead : (file,id) => {
+		return new Promise((resolve,reject) => {
+			let cmd = '\x03\x10';
+			cmd += "set.read('"+file+"','"+id+"')\n";
+			Puck.eval(cmd, (resp,err) => {
+				if (resp===null) return reject(err || "");
+				console.log("<COMMS> resp", resp);
+				resolve(resp);
+			});
+		});
+	},
   disconnectDevice: () => {
     let connection = Puck.getConnection();
 
