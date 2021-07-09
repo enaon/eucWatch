@@ -127,16 +127,24 @@
 			<p>Timezone: <input type="text" id="timezone" class="form-input" value="3"></p>			
 		
 		
-			<button id="tt" class="btn btn-primary">tt</button>
+			<button id="tt" class="btn btn-primary">Set values</button>
+			<button id="getval" class="btn btn-primary">Get Values</button>
+
 			<script>
 				// When the 'upload' button is clicked...
+				document.getElementById("getval").addEventListener("click", function() {
+					// get the text to add
+					//var acc = document.getElementById("acctype").value;
+					//var acc = comms.setRead("setting","touchtype");
+					document.getElementById("acctype").value=Comms.setRead("setting","touchtype");
+					var event = new Event('change');
+					document.getElementById("acctype").value.dispatchEvent(event);
+			
+				});
 				document.getElementById("tt").addEventListener("click", function() {
 					// get the text to add
 					//var acc = document.getElementById("acctype").value;
 					//var acc = comms.setRead("setting","touchtype");
-					document.getElementById("acctype").value= comms.setRead("setting","touchtype");
-					var event = new Event('change');
-					document.getElementById("acctype").value.dispatchEvent(event);
 					var acc = document.getElementById("acctype").value;
 					var touch = document.getElementById("touchtype").value;
 					var name = document.getElementById("devname").value;
