@@ -248,6 +248,7 @@ const Comms = {
 				if (resp===null) return reject(err || "");
 				console.log("<COMMS> resp", resp);
 				resolve(resp);
+				return resp;
 			});
 		});
 	},
