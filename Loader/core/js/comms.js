@@ -247,8 +247,8 @@ const Comms = {
 			Puck.eval(cmd, (resp,err) => {
 				if (resp===null) return reject(err || "");
 				console.log("<COMMS> resp", resp);
-				resolve(resp);
-				return resp;
+				//resolve(resp);
+				return resolve(resp);
 			});
 		});
 	},
