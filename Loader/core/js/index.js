@@ -553,6 +553,11 @@ function getInstalledApps(refresh) {
   // Get apps and files
   return Comms.getInstalledApps()
     .then(appJSON => {
+	  var p8acc=Comms.setRead("setting","acctype").then(function(c) {localStorage.setItem("p8acc", c);});
+		var p8touch=Comms.setRead("setting","touchtype").then(function(c) {var p8touch= c;});
+		var p8name=Comms.setRead("setting","name").then(function(c) {var p8name= c;});
+		localStorage.setItem("p8touch", p8touch);
+		localStorage.setItem("p8name", p8name);
       appsInstalled = appJSON;
       haveInstalledApps = true;
       refreshMyApps();
@@ -653,11 +658,6 @@ connectMyDeviceBtn.addEventListener("click", () => {
     getInstalledApps(true).catch(err => {
       showToast("Device connection failed, "+err,"error");
     });
-	var p8acc=Comms.setRead("setting","acctype").then(function(c) {localStorage.setItem("p8acc", c);});
-	var p8touch=Comms.setRead("setting","touchtype").then(function(c) {var p8touch= c;});
-	var p8name=Comms.setRead("setting","name").then(function(c) {var p8name= c;});
-	localStorage.setItem("p8touch", p8touch);
-	localStorage.setItem("p8name", p8name);
   }
 });
 Comms.watchConnectionChange(handleConnectionChange);
