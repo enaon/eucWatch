@@ -585,7 +585,7 @@ function installMultipleApps(appIds, promptName, defaults) {
 	return Comms.writeSettings(defaults);
   }).then(()=>{
     Progress.hide({sticky:true});
-	Puck.write(`require('Storage').write('devmode','devmode');`);
+	Puck.write(`require('Storage').write('devmode','loader');`);
     appsInstalled = [];
     showToast(`Installing  ${appCount} apps...`);
     return new Promise((resolve,reject) => {
