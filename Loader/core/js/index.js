@@ -785,10 +785,10 @@ function changeSettings() {
 
     let iframe = modal.getElementsByTagName("iframe")[0];
     iframe.contentWindow.addEventListener("message", function(event) {
-	  	Comms.changeSettings('setting','acctype',acc).then(function() {
-			Comms.changeSettings('setting','touchtype',touch)
+	  	Comms.changeSettings('setting','acctype',localStorage.p8acc).then(function() {
+			Comms.changeSettings('setting','touchtype',localStorage.p8touch)
 			}).then(function() {
-			Comms.changeSettings('setting','name', name)
+			Comms.changeSettings('setting','name', localStorage.p8name)
 			}).then(function() {
 			Comms.reset()
 			return;

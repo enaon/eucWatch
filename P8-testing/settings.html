@@ -34,6 +34,9 @@
           alert("Touch controler type needs to be 716 or 816 or 816s");
           return;
         }
+		localStorage.setItem("p8acc", acc);
+		localStorage.setItem("p8touch", touch);
+		localStorage.setItem("p8name", name);
 		window.postMessage(0);
       });
 
