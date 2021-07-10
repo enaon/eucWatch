@@ -17,7 +17,6 @@
 		"version":"0.26",
 		"description": "P8 functions handler",
 		"tags": "core",
-		"custom": "custom.html",
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
@@ -97,6 +96,7 @@
 		"version":"0.33",
 		"description": "EUC dashboard. Garage, scan and dash faces. Depends on EUC modules.",
 		"tags": "euc",
+		"readme": "README.md",
 		"storage": [
 			{"name":"dash_simple","url":"dash_simple.js"},
 			{"name":"dash_digital","url":"dash_digital.js"},
@@ -113,6 +113,7 @@
 		"version":"0.20",
 		"description": "EUC dashboard, Kingsong settings gui files.",
 		"tags": "euc",
+		"readme": "README.md",
 		"storage": [
 			{"name":"dashKingsong","url":"dashKingsong.js"},
 			{"name":"dashKingsongOpt","url":"dashKingsongOpt.js"},
@@ -128,6 +129,7 @@
 		"version":"0.21",
 		"description": "EUC dashboard, Ninebot settings gui files.",
 		"tags": "euc",
+		"readme": "README.md",
 		"storage": [
 			{"name":"dashNinebot","url":"dashNinebot.js"}
     ]
@@ -138,6 +140,7 @@
 		"version":"0.21",
 		"description": "EUC dashboard, NinebotZ settings gui files.",
 		"tags": "euc",
+		"readme": "README.md",
 		"storage": [
 			{"name":"dashNinebotZ","url":"dashNinebotZ.js"}
     ]
@@ -148,6 +151,7 @@
 		"version":"0.30",
 		"description": "EUC dashboard, NinebotS settings gui files.",
 		"tags": "euc",
+		"readme": "README.md",
 		"storage": [
 			{"name":"dashNinebotS","url":"dashNinebotS.js"}
     ]
@@ -158,6 +162,7 @@
 		"version":"0.30",
 		"description": "EUC dashboard, Inmotion V11 settings gui files.",
 		"tags": "euc",
+		"readme": "README.md",
 		"storage": [
 			{"name":"dashInmotion","url":"dashInmotion.js"}
     ]
@@ -178,6 +183,7 @@
 		"version":"0.31",
 		"description": "EUC dashboard, Begode settings gui files.",
 		"tags": "euc",
+		"readme": "README.md",
 		"storage": [
 			{"name":"dashBegode","url":"dashBegode.js"},
 			{"name":"dashBegodeAdv","url":"dashBegodeAdv.js"},
