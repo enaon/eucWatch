@@ -7,7 +7,7 @@
     <p>Device Name: <input type="text" id="devname" class="form-input" value="eucWatch"></p>
 	<p>Touch controler type: <select type="text" id="touchtype" value="716" class="form-select"><option>716</option><option>816</option><option>816s</option></select></p>
 	<p>Accelerator type: <select type="text" id="acctype" value=localStorage.p8acc class="form-select"><option>BMA421</option><option>SC7A20</option></select></p>
-    <p><button id="upload" class="btn btn-primary">Set</button></p>
+    <p><button id="set" class="btn btn-primary">Set</button></p>
 	<h6>This will change drivers on the fly</h6>
 	<h7>Select an accelerator and touch controller that works with your watch variant.</h7>
 
@@ -20,7 +20,7 @@
 		selectElement('touchtype', localStorage.p8touch);
 		selectElement('devname', localStorage.p8name);
       // When the 'upload' button is clicked...
-      document.getElementById("upload").addEventListener("click", function() {
+      document.getElementById("set").addEventListener("click", function() {
 
         // get the text to add
         var acc = document.getElementById("acctype").value;
@@ -38,7 +38,7 @@
 		Comms.changeSettings('setting','acctype',acc)
 		Comms.changeSettings('setting','touchtype',touch)
 		Comms.changeSettings('setting','name', name)
-
+		return;
       });
 
     </script>
