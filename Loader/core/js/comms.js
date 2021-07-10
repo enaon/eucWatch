@@ -122,7 +122,7 @@ const Comms = {
 		  //Comms.readSettings("setting","acctype").then(function(c) {localStorage.setItem("p8acc", c);});
 		  //Comms.readSettings("setting","touchtype").then(function(c) {localStorage.setItem("p8touch", c);});
 		  //Comms.readSettings("setting","name").then(function(c) {localStorage.setItem("p8name", c);});
-          //resolve(appList);
+          resolve(appList);
 		 setTimeout(()=>{
 		 Comms.readSettings("setting","acctype").then(function(c) {
 			return localStorage.setItem("p8acc", c);
@@ -133,9 +133,8 @@ const Comms = {
 			}).then(function(c) {
 			return Comms.readSettings("setting","name");
 			}).then(function(c) {
-			return localStorage.setItem("p8name", c);
-			}).then(function(c) {	
-			 resolve(appList);
+			 localStorage.setItem("p8name", c);
+		 
 		});
 		},1000);
         }, true /* callback on newline */);
