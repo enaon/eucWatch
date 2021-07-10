@@ -43,7 +43,6 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
     }, 500);
   },BTN1,{repeat:false, edge:"rising"}); 
 }else{ //load in working mode
-if (!Boolean(require('Storage').read('setting.json'))) require('Storage').write('setting.json',{"watchtype":"eucwatch"});
 var w;
 var pal=[];
 Modules.addCached("P8",function(){
