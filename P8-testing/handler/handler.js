@@ -168,7 +168,7 @@ function ccon(l){
 		var cli="\x03";
 		var loa="\x04";
 		var gb="\x20\x03";
-		if if (l.startsWith(loa)) {
+		 if (l.startsWith(loa)) {
 			handleInfoEvent({"src":"BT","title":"Loader","body":"Use DEVMODE to connect the Loader"});
 			NRF.disconnect();
 			return;
