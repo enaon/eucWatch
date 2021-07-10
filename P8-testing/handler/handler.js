@@ -166,7 +166,14 @@ function ccon(l){
 		return;
 	}else {
 		var cli="\x03";
+		var loa="\x04";
 		var gb="\x20\x03";
+		if if (l.startsWith(loa)) {
+			handleInfoEvent({"src":"BT","title":"Loader","body":"Use DEVMODE to connect the Loader"});
+			NRF.disconnect();
+			return;
+		}else {
+			
 		if (set.def.cli) {
 			if (l.startsWith(cli)) {
 				set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
@@ -181,6 +188,7 @@ function ccon(l){
 			}
 		}
 		if (l.length>5)  NRF.disconnect();
+		}
 	}
 }
 function bcon() {
