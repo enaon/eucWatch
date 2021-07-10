@@ -11,15 +11,10 @@ const Comms = {
     Puck.write(`\x03\x10reset(${opt=="wipe"?"1":""});\n`,function rstHandler(result) {
       console.log("<COMMS> reset: got "+JSON.stringify(result));
       if (result===null) return reject("Connection failed");
-      console.log(result);
-	  
-      if (result==="todevmode") return reject("Connection failed");
-
       if (result=="" && (tries-- > 0)) {
         console.log(`<COMMS> reset: no response. waiting ${tries}...`);
         Puck.write("\x03",rstHandler);
       } else {
-		  console.log(result);
         console.log(`<COMMS> reset: complete.`);
 		setTimeout(resolve,250);
 		Comms.readSettings("setting","acctype").then(function(c) {
@@ -115,6 +110,8 @@ const Comms = {
           Progress.hide({sticky:true});
           return reject("");
         }
+		console.log("result :",result);
+
         let cmd;
         if (Const.SINGLE_APP_ONLY) // only one app on device, info file is in app.info
           cmd = `\x10Bluetooth.println("["+(require("Storage").read("app.info")||"null")+",0]")\n`;
