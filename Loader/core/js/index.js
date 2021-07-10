@@ -788,7 +788,7 @@ function changeSettings() {
       console.log("Received customm Setting");
        modal.remove();
 		console.log("sotos1");
-
+	return true;
   }).catch(err=>{
     Progress.hide({sticky:true});
     showToast("Install failed, "+err,"error");
