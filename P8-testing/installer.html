@@ -17,6 +17,10 @@
       // When the 'upload' button is clicked...
       document.getElementById("upload").addEventListener("click", function() {
         // get the text to add
+		
+		Comms.setRead("setting","acctype").then(function(c) {selectElement('acctype', c);});
+		Comms.setRead("setting","touchtype").then(function(c) {selectElement('touchtype', c);});
+		Comms.setRead("setting","name").then(function(c) {selectElement('devname', c);});
         var acc = document.getElementById("acctype").value;
         var touch = document.getElementById("touchtype").value;
 		var name = document.getElementById("devname").value;
