@@ -24,7 +24,7 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
     //NRF.setAdvertising({},{connectable:false});
     //NRF.disconnect();
     //NRF.sleep();
-	Bluetooth.println("eucwatch");
+	Bluetooth.println("devmode");
     digitalPulse(D16,1,[100,150,100,150,100]);
   } else {
     require("Storage").write("devmode","done");

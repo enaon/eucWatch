@@ -111,7 +111,11 @@ const Comms = {
           return reject("");
         }
 		console.log("result :",result);
-
+		if (result==="eucwatch"||result==="devmode") {
+          Progress.hide({sticky:true});
+		  Comms.getInstalledApps{};
+          return reject("");
+        }
         let cmd;
         if (Const.SINGLE_APP_ONLY) // only one app on device, info file is in app.info
           cmd = `\x10Bluetooth.println("["+(require("Storage").read("app.info")||"null")+",0]")\n`;
