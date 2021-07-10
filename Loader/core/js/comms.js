@@ -110,13 +110,6 @@ const Comms = {
           Progress.hide({sticky:true});
           return reject("");
         }
-		console.log("result :",result);
-		if (result=="eucwatch"||result==="devmode"||result.startsWith("euc")) {
-			console.log("restart to devmode :",result);
-          Progress.hide({sticky:true});
-		  setTimeout(()=>{Comms.getInstalledApps();},6000);
-          return;
-        }
         let cmd;
         if (Const.SINGLE_APP_ONLY) // only one app on device, info file is in app.info
           cmd = `\x10Bluetooth.println("["+(require("Storage").read("app.info")||"null")+",0]")\n`;
@@ -224,7 +217,7 @@ const Comms = {
     return new Promise((resolve,reject) => {
       let d = new Date();
       let tz = d.getTimezoneOffset()/-60;
-      let cmd = '\x03\x10setTime('+(d.getTime()/1000)+');require("Storage").erase("devmode");';
+      let cmd = '\x03\x10setTime('+(d.getTime()/1000)+');';
       // in 1v93 we have timezones too
       cmd += 'E.setTimeZone('+tz+');';
       cmd += "(s=>{s&&(s.timezone="+tz+")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1))\n";
