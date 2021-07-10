@@ -114,7 +114,7 @@ const Comms = {
 		if (result=="eucwatch"||result==="devmode"||result.startsWith("euc")) {
 			console.log("restart to devmode :",result);
           Progress.hide({sticky:true});
-		  setTimeout(()=>{Comms.getInstalledApps();},3000);
+		  setTimeout(()=>{Comms.getInstalledApps();},6000);
           return reject("");
         }
         let cmd;

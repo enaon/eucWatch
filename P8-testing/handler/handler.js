@@ -172,6 +172,7 @@ function ccon(l){
 		   //devmode
 			Bluetooth.println("eucwatch");
 			require("Storage").write("devmode","loader");
+			reset();
 		}else {
 			
 		if (set.def.cli) {
