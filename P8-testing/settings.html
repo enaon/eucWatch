@@ -8,7 +8,7 @@
 	<p>Touch controler type: <select type="text" id="touchtype" value="716" class="form-select"><option>716</option><option>816</option><option>816s</option></select></p>
 	<p>Accelerator type: <select type="text" id="acctype" value=localStorage.p8acc class="form-select"><option>BMA421</option><option>SC7A20</option></select></p>
     <p><button id="set" class="btn btn-primary">Set</button></p>
-	<h6>This will change drivers on the fly</h6>
+	<h6>This will change drivers and restart the watch</h6>
 	<h7>Select an accelerator and touch controller that works with your watch variant.</h7>
     <script src="../Loader/core/js/comms.js"></script>
 	<script src="https://www.puck-js.com/puck.js"></script>
@@ -36,10 +36,15 @@
           alert("Touch controler type needs to be 716 or 816 or 816s");
           return;
         }
-		Comms.changeSettings('setting','acctype',acc)
+		Comms.changeSettings('setting','acctype',acc).then(function() {
 		Comms.changeSettings('setting','touchtype',touch)
+		}).then(function() {
 		Comms.changeSettings('setting','name', name)
+		}).then(function() {
+		Comms.reset()
 		return;
+		});
+	
       });
 
     </script>
