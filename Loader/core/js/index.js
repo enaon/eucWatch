@@ -756,6 +756,7 @@ if (btn) btn.addEventListener("click",event=>{
     showToast("App removal failed, "+err,"error");
   });
 });
+
 //change options to setting.json on Watch
 function changeSettings() {
   // Pops up an IFRAME that allows an app to be customised
@@ -792,10 +793,11 @@ function changeSettings() {
 			}).then(function() {
 			Comms.reset()
 			return;
+			}).then(function() {
+			showToast("Settings Updated","success");
 		});
 		console.log("Sending new Setting");
 		modal.remove();
-	    showToast("Settings Updated","success");
 		return true;
       }, false);
   });
