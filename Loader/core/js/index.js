@@ -723,7 +723,14 @@ if (btn) btn.addEventListener("click",event=>{
     showToast("Error setting time, "+err,"error");
   });
 });
-
+btn = document.getElementById("settings");
+if (btn) btn.addEventListener("click",event=>{ 
+    installerOptions("none").then(() => {
+    }).catch(err=>{
+    Progress.hide({sticky:true});
+    showToast("FULL Install failed, "+err,"error");
+  });
+});
 
 
 
@@ -783,7 +790,7 @@ function installerOptions(installtype) {
        modal.remove();
         //console.log(`${APP_SOURCECODE_DEV}/${installtype}.json`);
 		//console.log(httpGet(`${APP_SOURCECODE_DEV}/${installtype}.json`));
-		if (!installtype) {console.log("sotoa"); return;};
+		if (installtype==="none") {console.log("type none"); return;};
     httpGet(`${APP_SOURCECODE_DEV}/${installtype}.json`).then(json=>{
     return installMultipleApps(JSON.parse(json), installtype,event.data);
   }).catch(err=>{
