@@ -30,7 +30,7 @@ const Comms = {
 			}).then(function(c) {	
 			setTimeout(resolve,100);
 			});
-		},1000);
+		},5000);
       }
     });
   }),
