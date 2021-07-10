@@ -787,10 +787,8 @@ function changeSettings() {
     iframe.contentWindow.addEventListener("message", function(event) {
       console.log("Received customm Setting");
        modal.remove();
-		console.log("sotos1");
-	return true;
-  
-    }, false);
+		return true;
+      }, false);
   });
 }
 
