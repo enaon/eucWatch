@@ -27,7 +27,7 @@ const Comms = {
 			}).then(function(c) {
 			return localStorage.setItem("p8name", c);
 			}).then(function(c) {	
-			setTimeout(resolve,250);
+			setTimeout(resolve,1000);
 		});
       }
     });
