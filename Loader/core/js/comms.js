@@ -234,9 +234,9 @@ const Comms = {
     return new Promise((resolve,reject) => {
       let cmd = '\x03\x10';
       cmd += "set.write("+file+","+id+","+value+")\n";
-      Puck.eval(cmd,(resp,err) => {
-        if (resp===null) return reject("");
-        resolve(resp);
+      Puck.write(cmd, (result) => {
+        if (result===null) return reject("");
+        resolve(result);
       });
     });
   },
