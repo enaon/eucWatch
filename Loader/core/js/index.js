@@ -728,7 +728,7 @@ if (btn) btn.addEventListener("click",event=>{
     changeSettings().then(() => {
     }).catch(err=>{
     Progress.hide({sticky:true});
-    showToast("FULL Install failed, "+err,"error");
+    showToast("Change Settings failed, "+err,"error");
   });
 });
 

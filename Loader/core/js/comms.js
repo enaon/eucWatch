@@ -223,10 +223,10 @@ const Comms = {
       });
     });
   },
-  changeSettings : (id,value) => {
+  changeSettings : (file,id,val) => {
     return new Promise((resolve,reject) => {
       let cmd = '\x03\x10';
-      cmd += "(s=>{s&&(s[id]="+value+")&&require('Storage').write('setting.json',s);})(require('Storage').readJSON('setting.json',1))\n";
+      cmd += "(s=>{s&&(s[id]="+val+")&&require('Storage').write('"+file+".json',s);})(require('Storage').readJSON('setting.json',1))\n";
       Puck.write(cmd, (result) => {
         if (result===null) return reject("");
         resolve();
