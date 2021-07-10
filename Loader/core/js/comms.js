@@ -20,13 +20,13 @@ const Comms = {
 		Comms.readSettings("setting","acctype").then(function(c) {
 			return localStorage.setItem("p8acc", c);
 			}).then(function(c) {
-			return Comms.readSettings("setting","touchtype");
+			Comms.readSettings("setting","touchtype");
 			}).then(function(c) {
-			return localStorage.setItem("p8touch", c);
+			localStorage.setItem("p8touch", c);
 			}).then(function(c) {
-			return Comms.readSettings("setting","name");
+			Comms.readSettings("setting","name");
 			}).then(function(c) {
-			return localStorage.setItem("p8name", c);
+			localStorage.setItem("p8name", c);
 			}).then(function(c) {	
 			setTimeout(resolve,100);
 			});
