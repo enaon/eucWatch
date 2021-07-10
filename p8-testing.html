@@ -138,16 +138,10 @@
 						let element = document.getElementById(id);
 						element.value = valueToSelect;
 					}
-					Comms.setRead("setting","acctype").then(function(c) {let acc=c;});
-					Comms.setRead("setting","touchtype").then(function(c) {let touch=c;});
-					Comms.setRead("setting","name").then(function(c) {let name=c;});
-					console.log("<COMMS> acc,touch,name", acc,touch,name);
-
-					selectElement('acctype', acc)
-					selectElement('touchtype', touch)
-					selectElement('devname', name)
-
-			
+					Comms.setRead("setting","acctype").then(function(c) {selectElement('acctype', c);});
+					Comms.setRead("setting","touchtype").then(function(c) {selectElement('touchtype', c);});
+					Comms.setRead("setting","name").then(function(c) {selectElement('devname', c);});
+	
 				});
 				// When the 'set values' button is clicked...
 				document.getElementById("tt").addEventListener("click", function() {
