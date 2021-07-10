@@ -26,7 +26,6 @@
         var acc = document.getElementById("acctype").value;
         var touch = document.getElementById("touchtype").value;
 		var name = document.getElementById("devname").value;
-		var zone = document.getElementById("timezone").value;
 
         if (acc!="BMA421"&&acc!="SC7A20") {
           alert("Accelerator type needs to be BMA421 or SC7A20");
@@ -36,6 +35,9 @@
           alert("Touch controler type needs to be 716 or 816 or 816s");
           return;
         }
+		Comms.changeSettings('setting','acctype',acc)
+		Comms.changeSettings('setting','touchtype',touch)
+		Comms.changeSettings('setting','name', name)
 
       });
 
