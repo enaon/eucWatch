@@ -11,6 +11,10 @@ const Comms = {
     Puck.write(`\x03\x10reset(${opt=="wipe"?"1":""});\n`,function rstHandler(result) {
       console.log("<COMMS> reset: got "+JSON.stringify(result));
       if (result===null) return reject("Connection failed");
+      console.log(result);
+	  
+      if (result==="todevmode") return reject("Connection failed");
+
       if (result=="" && (tries-- > 0)) {
         console.log(`<COMMS> reset: no response. waiting ${tries}...`);
         Puck.write("\x03",rstHandler);
