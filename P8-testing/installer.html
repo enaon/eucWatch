@@ -27,7 +27,6 @@
         var acc = document.getElementById("acctype").value;
         var touch = document.getElementById("touchtype").value;
 		var name = document.getElementById("devname").value;
-		var zone = document.getElementById("timezone").value;
 
         if (acc!="BMA421"&&acc!="SC7A20") {
           alert("Accelerator type needs to be BMA421 or SC7A20");
@@ -39,6 +38,9 @@
         }
         // build the app's text using a templated String
 		//require("handler").advertise(${JSON.stringify(acc)});
+		localStorage.setItem("p8acc", acc);
+		localStorage.setItem("p8touch", touch);
+		localStorage.setItem("p8name", name);
         var app = ` 
 		{"name":${JSON.stringify(name)},"touchtype":${JSON.stringify(touch)},"acctype":${JSON.stringify(acc)},"timezone":${JSON.stringify(zone)},"woe":1,"wob":1,"rfTX":-4,"cli":1,"hid":0,"gb":0,"emuZ":0,"atc":0,"acc":0,"accE":0,"dnd":1,"hidT":"media","bri":2,"dash":0}
 `;
