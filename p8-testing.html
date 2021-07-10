@@ -118,51 +118,8 @@
         <p><button class="btn" id="settime">Set Time</button>
 			<button class="btn" id="restart">Restart Watch</button>
            <button class="btn" id="removeall">Remove all Apps</button>
-
 			<button class="btn" id="settime" onclick="Puck.write('reset();\n');">reset !</button>
-			
-			<p>Device Name: <input type="text" id="devname" class="form-input" value="P8-eucWatch"></p>
-			<p>Touch controler type: <select type="text" id="touchtype" value="716" class="form-select"><option>716</option><option>816</option><option>816s</option></select></p>
-			<p>Accelerator type: <select type="text" id="acctype" value="BMA421" class="form-select"><option>BMA421</option><option>SC7A20</option></select></p>
-			<p>Timezone: <input type="text" id="timezone" class="form-input" value="3"></p>			
-		
-		
-			<button id="tt" class="btn btn-primary">Set values</button>
-			<button id="getval" class="btn btn-primary">Get Values</button>
-
-			<script>
-				// When the 'get values' button is clicked...
-				document.getElementById("getval").addEventListener("click", function() {
-				
-					function selectElement(id, valueToSelect) {    
-						let element = document.getElementById(id);
-						element.value = valueToSelect;
-					}
-					Comms.setRead("setting","acctype").then(function(c) {selectElement('acctype', c);});
-					Comms.setRead("setting","touchtype").then(function(c) {selectElement('touchtype', c);});
-					Comms.setRead("setting","name").then(function(c) {selectElement('devname', c);});
-	
-				});
-				// When the 'set values' button is clicked...
-				document.getElementById("tt").addEventListener("click", function() {
-					// get the text to add
-					var acc = document.getElementById("acctype").value;
-					var touch = document.getElementById("touchtype").value;
-					var name = document.getElementById("devname").value;
-					var zone = document.getElementById("timezone").value;
-
-					if (acc!="BMA421"&&acc!="SC7A20") {
-					  alert("Accelerator type needs to be BMA421 or SC7A20");
-					  return;
-					}
-					if (touch!="816"&&touch!="716"&&touch!="816s") {
-					  alert("Touch controler type needs to be 716 or 816 or 816s");
-					  return;
-					}
-				});
-			</script>
-		
-		
+		    <button class="btn" id="settings">Change Settings</button>
         </p>
       </div>
     </div>

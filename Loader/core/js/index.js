@@ -724,16 +724,6 @@ if (btn) btn.addEventListener("click",event=>{
   });
 });
 
-btn = document.getElementById("test");
-if (btn) btn.addEventListener("click",event=>{
-  Comms.setTime().then(()=>{
-    showToast("Time set successfully","success");
-  }, err=>{
-    showToast("Error setting time, "+err,"error");
-  });
-});
-
-
 
 
 
@@ -793,6 +783,7 @@ function installerOptions(installtype) {
        modal.remove();
         //console.log(`${APP_SOURCECODE_DEV}/${installtype}.json`);
 		//console.log(httpGet(`${APP_SOURCECODE_DEV}/${installtype}.json`));
+		if (!installtype) {console.log("sotoa"); return;};
     httpGet(`${APP_SOURCECODE_DEV}/${installtype}.json`).then(json=>{
     return installMultipleApps(JSON.parse(json), installtype,event.data);
   }).catch(err=>{
