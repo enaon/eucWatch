@@ -115,7 +115,7 @@ const Comms = {
 			console.log("restart to devmode :",result);
           Progress.hide({sticky:true});
 		  setTimeout(()=>{Comms.getInstalledApps();},6000);
-          return reject("");
+          return;
         }
         let cmd;
         if (Const.SINGLE_APP_ONLY) // only one app on device, info file is in app.info
