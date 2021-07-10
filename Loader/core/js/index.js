@@ -756,6 +756,47 @@ if (btn) btn.addEventListener("click",event=>{
     showToast("App removal failed, "+err,"error");
   });
 });
+//change options to setting.json on Watch
+function changeSettings() {
+  // Pops up an IFRAME that allows an app to be customised
+  return new Promise((resolve,reject) => {
+    let modal = htmlElement(`<div class="modal active">
+      <a href="#close" class="modal-overlay " aria-label="Close"></a>
+      <div class="modal-container" style="height:100%">
+        <div class="modal-header">
+          <a href="#close" class="btn btn-clear float-right" aria-label="Close"></a>
+          <div class="modal-title h5">Change Settings</div>
+        </div>
+        <div class="modal-body" style="height:100%">
+          <div class="content" style="height:100%">
+            <iframe src="${APP_SOURCECODE_DEV}/settings.html" style="width:100%;height:100%;border:0px;">
+          </div>
+        </div>
+      </div>
+    </div>`);
+    document.body.append(modal);
+    htmlToArray(modal.getElementsByTagName("a")).forEach(button => {
+      button.addEventListener("click",event => {
+        event.preventDefault();
+        modal.remove();
+        reject("Window closed");
+      });
+    });
+
+    let iframe = modal.getElementsByTagName("iframe")[0];
+    iframe.contentWindow.addEventListener("message", function(event) {
+      console.log("Received customm Setting");
+       modal.remove();
+		console.log("sotos1");
+
+  }).catch(err=>{
+    Progress.hide({sticky:true});
+    showToast("Install failed, "+err,"error");
+  });
+    }, false);
+  });
+}
+
 
 //write options to setting.json on Watch
 function installerOptions(installtype) {

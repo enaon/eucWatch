@@ -9,7 +9,7 @@
 	<p>Accelerator type: <select type="text" id="acctype" value=localStorage.p8acc class="form-select"><option>BMA421</option><option>SC7A20</option></select></p>
     <p>Timezone: <input type="text" id="timezone" class="form-input" value="3"></p>
 
-    <p><button id="upload" class="btn btn-primary">Upload</button></p>
+    <p><button id="upload" class="btn btn-primary">Set</button></p>
     <script>
 		function selectElement(id, valueToSelect) {    
 			let element = document.getElementById(id);
@@ -35,11 +35,6 @@
           alert("Touch controler type needs to be 716 or 816 or 816s");
           return;
         }
-        // build the app's text using a templated String
-		//require("handler").advertise(${JSON.stringify(acc)});
-		
-
-		//  window.postMessage(app);
 
       });
 
