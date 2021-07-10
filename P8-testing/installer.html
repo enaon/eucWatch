@@ -4,8 +4,8 @@
   </head>
   <body>
 
-    <p>Device Name: <input type="text" id="devname" class="form-input" value="window.localStorage.getItem('p8name')"></p>
-	<p>Touch controler type: <select type="text" id="touchtype" value="window.localStorage.getItem('p8touch')" class="form-select"><option>716</option><option>816</option><option>816s</option></select></p>
+    <p>Device Name: <input type="text" id="devname" class="form-input" value="eucWatch"></p>
+	<p>Touch controler type: <select type="text" id="touchtype" value="716" class="form-select"><option>716</option><option>816</option><option>816s</option></select></p>
 	<p>Accelerator type: <select type="text" id="acctype" value=localStorage.p8acc class="form-select"><option>BMA421</option><option>SC7A20</option></select></p>
     <p>Timezone: <input type="text" id="timezone" class="form-input" value="3"></p>
 
@@ -16,6 +16,13 @@
     <script>
       // When the 'upload' button is clicked...
       document.getElementById("upload").addEventListener("click", function() {
+	  	function selectElement(id, valueToSelect) {    
+			let element = document.getElementById(id);
+			element.value = valueToSelect;
+		}
+		selectElement('acctype', localStorage.p8acc);
+		selectElement('touchtype', localStorage.p8touch);
+		selectElement('name', localStorage.name);
         // get the text to add
         var acc = document.getElementById("acctype").value;
         var touch = document.getElementById("touchtype").value;
