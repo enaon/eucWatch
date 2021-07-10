@@ -440,7 +440,7 @@ if (set.def.touchtype=="816"){ //816
 	st:1,
 	loop:5,
 	init:function(){
-		//"ram";
+		"ram";
 		var tp=i2c.readFrom(0x15,7);
 		if ( tp[3] == 128 || (tp[3] === 0 && tp[2] === 1) ) {
 			if ( !this.time ) this.time=getTime();
@@ -485,13 +485,13 @@ if (set.def.touchtype=="816"){ //816
 		if (this.tid) clearInterval(this.tid);
 		digitalPulse(D13,1,[10,50]); //touch wake
         this.st=1;
-		this.tid=setInterval(function(t){
+		this.tid=setInterval(function(){
 			tfk.init();
 		},this.loop);
 	},
 	exit:function(){
-	    digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100);
 		if (this.tid) clearInterval(this.tid);this.tid=0;
+	    digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100);
 		this.aLast=0;
 		this.st = 1;
 		this.time = 0;
