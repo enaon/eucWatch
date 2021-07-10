@@ -17,19 +17,17 @@ const Comms = {
       } else {
         console.log(`<COMMS> reset: complete.`);
 		setTimeout(resolve,250);
-		setTimeout(()=>{
-			Comms.readSettings("setting","acctype").then(function(c) {
-				localStorage.setItem("p8acc", c);
-			}).then(function(c) {
-				return Comms.readSettings("setting","touchtype");
-			}).then(function(c) {
-				localStorage.setItem("p8touch", c);
-			}).then(function(c) {
-				return Comms.readSettings("setting","name");
-			}).then(function(c) {
-				localStorage.setItem("p8name", c);
-			});
-		},3000);
+		Comms.readSettings("setting","acctype").then(function(c) {
+			localStorage.setItem("p8acc", c);
+		}).then(function(c) {
+			return Comms.readSettings("setting","touchtype");
+		}).then(function(c) {
+			localStorage.setItem("p8touch", c);
+		}).then(function(c) {
+			return Comms.readSettings("setting","name");
+		}).then(function(c) {
+			localStorage.setItem("p8name", c);
+		});
       }
     });
   }),

@@ -169,9 +169,13 @@ function ccon(l){
 		var loa="\x04";
 		var gb="\x20\x03";
 		 if (l.startsWith(loa)) {
-			handleInfoEvent({"src":"BT","title":"Loader","body":"Use DEVMODE to connect the Loader"});
-			NRF.disconnect();
-			return;
+		   //devmode
+		   Bluetooth.write("todevmode");
+		   set.updateSettings();
+		   NRF.disconnect();
+		   require("Storage").write("devmode","dev");
+		   w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
+		   E.reboot();
 		}else {
 			
 		if (set.def.cli) {

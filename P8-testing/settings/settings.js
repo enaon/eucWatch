@@ -400,42 +400,43 @@ touchHandler[0]=function(e,x,y){
 //
 touchHandler[5]=function(e,x,y){
     if (e==5){
-      if (x<120 && y>190) {
-		set.updateSettings();
-		NRF.removeListener('disconnect',bdis);  
-        NRF.disconnect();
-        w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
-		reset();
-	  } else  digitalPulse(D16,1,40);
+		if (x<120 && y>190) {
+			set.updateSettings();
+			NRF.removeListener('disconnect',bdis);  
+			NRF.disconnect();
+			w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
+			reset();
+		} else  digitalPulse(D16,1,40);
     }else if  (e==1){
-      face[0].btSetOn=1;
-	  face.go("settings",0);return;
+		face[0].btSetOn=1;
+		face.go("settings",0);return;
     }else if  (e==2){
-	  if (y>160&&x<50) {
-        if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
-        else w.gfx.bri.set(this.bri);
-		digitalPulse(D16,1,[30,50,30]);
-	  } else digitalPulse(D16,1,40);
+		if (y>160&&x<50) {
+			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
+			else w.gfx.bri.set(this.bri);
+			digitalPulse(D16,1,[30,50,30]);
+		} else digitalPulse(D16,1,40);
     }else if  (e==3){
-      digitalPulse(D16,1,40);
+		digitalPulse(D16,1,40);
     }else if  (e==4){
-      face[0].btSetOn=1;
-	  face.go("settings",0);return;
+		face[0].btSetOn=1;
+		face.go("settings",0);return;
     }else if  (e==12){
-	//devmode-shutdown
-	 if (x<120 && y>190) {
-		set.updateSettings();
-		NRF.removeListener('disconnect',bdis);  
-    NRF.disconnect();
-    w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
-		reset();
-   }else if (x>120 && y>190) {
- 	   set.updateSettings();
-       NRF.disconnect();
-       require("Storage").write("devmode","dev");
-       w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
-       E.reboot();}
-     else digitalPulse(D16,1,40);
+	//restart
+		if (x<120 && y>190) {
+			set.updateSettings();
+			NRF.removeListener('disconnect',bdis);  
+			NRF.disconnect();
+			w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
+			reset();
+		}else if (x>120 && y>190) {
+			//devmode
+			set.updateSettings();
+			NRF.disconnect();
+			require("Storage").write("devmode","dev");
+			w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
+			E.reboot();
+		}else digitalPulse(D16,1,40);
     }
    this.timeout();
 };
