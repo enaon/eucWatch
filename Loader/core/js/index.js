@@ -786,15 +786,15 @@ function changeSettings() {
     let iframe = modal.getElementsByTagName("iframe")[0];
     iframe.contentWindow.addEventListener("message", function(event) {
 	  	Comms.changeSettings('setting','acctype',acc).then(function() {
-		Comms.changeSettings('setting','touchtype',touch)
-		}).then(function() {
-		Comms.changeSettings('setting','name', name)
-		}).then(function() {
-		Comms.reset()
-		return;
+			Comms.changeSettings('setting','touchtype',touch)
+			}).then(function() {
+			Comms.changeSettings('setting','name', name)
+			}).then(function() {
+			Comms.reset()
+			return;
 		});
 		console.log("Sending new Setting");
-       modal.remove();
+		modal.remove();
 		return true;
       }, false);
   });
