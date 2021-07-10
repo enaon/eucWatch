@@ -708,6 +708,9 @@ if (btn) btn.addEventListener("click",event=>{
 // Install all apps in one go
 btn = document.getElementById("installall");
 if (btn) btn.addEventListener("click",event=>{ 
+	Comms.setRead("setting","acctype").then(function(c) {selectElement('acctype', c);});
+	Comms.setRead("setting","touchtype").then(function(c) {selectElement('touchtype', c);});
+	Comms.setRead("setting","name").then(function(c) {selectElement('devname', c);});
     installerOptions("All").then(() => {
     }).catch(err=>{
     Progress.hide({sticky:true});
