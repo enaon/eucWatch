@@ -145,7 +145,7 @@ var set={
 };
 
 set.def = require('Storage').readJSON('setting.json', 1);
-if (!set.def) set.resetSettings();
+if (!set.def) {set.resetSettings();set.updateSettings();}
 //dash
 require('Storage').list(/dash_/).forEach(dashfile=>{
 	set.dash.push(dashfile);
@@ -169,12 +169,11 @@ function ccon(l){
 		var loa="\x04";
 		var gb="\x20\x03";
 		 if (l.startsWith(loa)) {
-		   //devmode
-			Bluetooth.println("eucwatch");
 			require("Storage").write("devmode","loader");
-			reset();
+			set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
+			print("Welcome.\n** Working mode **\nUse devmode (Settings-Info-long press on Restart) for uploading files."); 
+			handleInfoEvent({"src":"BT","title":"Loader","body":"Connected"});
 		}else {
-			
 		if (set.def.cli) {
 			if (l.startsWith(cli)) {
 				set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
