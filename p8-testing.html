@@ -138,9 +138,9 @@
 						let element = document.getElementById(id);
 						element.value = valueToSelect;
 					}
-					let acc = Comms.setRead("setting","acctype");
-					let touch = Comms.setRead("setting","touchtype");
-					let name = Comms.setRead("setting","name");
+					let acc = Comms.setRead("setting","acctype").then(function(c) {return(c);});
+					let touch = Comms.setRead("setting","touchtype").then(function(c) {return(c);});
+					let name = Comms.setRead("setting","name").then(function(c) {return(c);});
 					console.log("<COMMS> acc,touch,name", acc,touch,name);
 
 					selectElement('acctype', acc)
