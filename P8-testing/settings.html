@@ -10,8 +10,6 @@
     <p><button id="set" class="btn btn-primary">Set</button></p>
 	<h6>This will change drivers and restart the watch</h6>
 	<h7>Select an accelerator and touch controller that works with your watch variant.</h7>
-    <script src="../Loader/core/js/comms.js"></script>
-	<script src="https://www.puck-js.com/puck.js"></script>
     <script>
 		function selectElement(id, valueToSelect) {    
 			let element = document.getElementById(id);
@@ -36,16 +34,6 @@
           alert("Touch controler type needs to be 716 or 816 or 816s");
           return;
         }
-		/*
-		Comms.changeSettings('setting','acctype',acc).then(function() {
-		Comms.changeSettings('setting','touchtype',touch)
-		}).then(function() {
-		Comms.changeSettings('setting','name', name)
-		}).then(function() {
-		Comms.reset()
-		return;
-		});
-		*/
 		window.postMessage(0);
       });
 
