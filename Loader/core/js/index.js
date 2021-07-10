@@ -764,7 +764,7 @@ if (btn) btn.addEventListener("click",event=>{
   }).then(()=>{
 	Comms.reset();
     Progress.hide({sticky:true});
-    showToast("Default settings ok.","success");
+    showToast("Reset done.","success");
     return ;
   }).catch(err=>{
     Progress.hide({sticky:true});
