@@ -13,19 +13,13 @@
 
     <script src="../Loader/core/lib/customize.js"></script>
     <script>
-		  	function selectElement(id, valueToSelect) {    
+		function selectElement(id, valueToSelect) {    
 			let element = document.getElementById(id);
 			element.value = valueToSelect;
 		}
 		selectElement('acctype', localStorage.p8acc);
 		selectElement('touchtype', localStorage.p8touch);
-		selectElement('name', localStorage.p8name);
-		console.log('lala');
-	
-	
-	</script>
-
-    <script>
+		selectElement('devname', localStorage.p8name);
       // When the 'upload' button is clicked...
       document.getElementById("upload").addEventListener("click", function() {
 
