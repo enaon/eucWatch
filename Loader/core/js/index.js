@@ -725,7 +725,7 @@ if (btn) btn.addEventListener("click",event=>{
 });
 btn = document.getElementById("settings");
 if (btn) btn.addEventListener("click",event=>{ 
-    installerOptions("none").then(() => {
+    changeSettings().then(() => {
     }).catch(err=>{
     Progress.hide({sticky:true});
     showToast("FULL Install failed, "+err,"error");
@@ -789,13 +789,11 @@ function changeSettings() {
        modal.remove();
 		console.log("sotos1");
 	return true;
-  }).catch(err=>{
-    Progress.hide({sticky:true});
-    showToast("Install failed, "+err,"error");
-  });
+  
     }, false);
   });
 }
+
 
 
 //write options to setting.json on Watch
@@ -829,9 +827,6 @@ function installerOptions(installtype) {
     iframe.contentWindow.addEventListener("message", function(event) {
       console.log("Received customm Setting");
        modal.remove();
-        //console.log(`${APP_SOURCECODE_DEV}/${installtype}.json`);
-		//console.log(httpGet(`${APP_SOURCECODE_DEV}/${installtype}.json`));
-		if (installtype==="none") {console.log("type none"); return;};
     httpGet(`${APP_SOURCECODE_DEV}/${installtype}.json`).then(json=>{
     return installMultipleApps(JSON.parse(json), installtype,event.data);
   }).catch(err=>{
