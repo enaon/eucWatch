@@ -795,6 +795,7 @@ function changeSettings() {
 		});
 		console.log("Sending new Setting");
 		modal.remove();
+	    showToast("Settings Updated","success");
 		return true;
       }, false);
   });
