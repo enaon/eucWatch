@@ -756,6 +756,21 @@ if (btn) btn.addEventListener("click",event=>{
     showToast("App removal failed, "+err,"error");
   });
 });
+//reset settings to default
+btn = document.getElementById("defSettings");
+if (btn) btn.addEventListener("click",event=>{
+  showPrompt("Reset to defaults","Really reset to defaults?").then(() => {
+    return Puck.write('require('Storage').erase('settings.json');\n');
+  }).then(()=>{
+	Comms.reset();
+    Progress.hide({sticky:true});
+    showToast("Default settings ok.","success");
+    return ;
+  }).catch(err=>{
+    Progress.hide({sticky:true});
+    showToast("App removal failed, "+err,"error");
+  });
+});
 
 //change options to setting.json on Watch
 function changeSettings() {
