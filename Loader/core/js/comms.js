@@ -233,10 +233,10 @@ const Comms = {
       });
     });
   },
-  readSettings : (id) => {
+  readSettings : (file,id) => {
 		return new Promise((resolve,reject) => {
 			let cmd = '\x03\x10';
-			cmd += "require('Storage').readJSON('setting.json',1)["+id+"]\n";
+			cmd += "require('Storage').readJSON("+file+"+'.json',1)["+id+"]\n";
 			Puck.eval(cmd, (resp,err) => {
 				if (resp===null) return reject(err || "");
 				console.log("<COMMS> resp", resp);
