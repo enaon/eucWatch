@@ -653,6 +653,9 @@ connectMyDeviceBtn.addEventListener("click", () => {
     getInstalledApps(true).catch(err => {
       showToast("Device connection failed, "+err,"error");
     });
+	let p8acc=Comms.setRead("setting","acctype").then(function(c) {return c;});
+	let p8touch=Comms.setRead("setting","touchtype").then(function(c) {return c;});
+	let p8name=Comms.setRead("setting","name").then(function(c) {return c;});
   }
 });
 Comms.watchConnectionChange(handleConnectionChange);
@@ -708,9 +711,6 @@ if (btn) btn.addEventListener("click",event=>{
 // Install all apps in one go
 btn = document.getElementById("installall");
 if (btn) btn.addEventListener("click",event=>{ 
-	Comms.setRead("setting","acctype").then(function(c) {selectElement('acctype', c);});
-	Comms.setRead("setting","touchtype").then(function(c) {selectElement('touchtype', c);});
-	Comms.setRead("setting","name").then(function(c) {selectElement('devname', c);});
     installerOptions("All").then(() => {
     }).catch(err=>{
     Progress.hide({sticky:true});
