@@ -553,11 +553,9 @@ function getInstalledApps(refresh) {
   // Get apps and files
   return Comms.getInstalledApps()
     .then(appJSON => {
-	  var p8acc=Comms.setRead("setting","acctype").then(function(c) {localStorage.setItem("p8acc", c);});
-		var p8touch=Comms.setRead("setting","touchtype").then(function(c) {var p8touch= c;});
-		var p8name=Comms.setRead("setting","name").then(function(c) {var p8name= c;});
-		localStorage.setItem("p8touch", p8touch);
-		localStorage.setItem("p8name", p8name);
+		Comms.setRead("setting","acctype").then(function(c) {localStorage.setItem("p8acc", c);});
+		Comms.setRead("setting","touchtype").then(function(c) {localStorage.setItem("p8touch", c);});
+		Comms.setRead("setting","name").then(function(c) {localStorage.setItem("p8name", c);});
       appsInstalled = appJSON;
       haveInstalledApps = true;
       refreshMyApps();
