@@ -26,9 +26,9 @@ const Comms = {
 			return Comms.readSettings("setting","name");
 			}).then(function(c) {
 			return localStorage.setItem("p8name", c);
-			}).then(function(c) {	
-			setTimeout(resolve,1000);
 		});
+		setTimeout(resolve,1000);
+
       }
     });
   }),
