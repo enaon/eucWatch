@@ -109,16 +109,16 @@
         </div>
       </div>
       <div class="container" style="padding-top: 8px;">
-        <h5>Features set</h5><h7>Select Basic or EUC if not using the flash enabled Image.</h7>
-        <p><button class="btn" id="installbasic">Basic</button>
-           <button class="btn" id="installeuc">EUC</button>
-           <button class="btn" id="installall">All</button>
+        <h5>Install Actions</h5><h7>Select Basic or EUC if not using the flash enabled Image.</h7>
+        <p><
+           <button class="btn" id="installall">Install all apps</button>
+           <button class="btn" id="removeall">Remove all Apps</button>
+		<button class="btn" id="defSettings" onclick="Puck.write('reset();\n');">Reset default Settings</button>
+
         </p>
         <h5>Utilities</h5>
         <p><button class="btn" id="settime">Set Time</button>
 			<button class="btn" id="restart">Restart Watch</button>
-           <button class="btn" id="removeall">Remove all Apps</button>
-			<button class="btn" id="settime" onclick="Puck.write('reset();\n');">reset !</button>
 		    <button class="btn" id="settings">Change Settings</button>
         </p>
       </div>
