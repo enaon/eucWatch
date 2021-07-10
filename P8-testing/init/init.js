@@ -19,12 +19,13 @@ global.save = function() { throw new Error("You don't need to use save() on P8!"
 //load in devmode
 if (BTN1.read() || Boolean(require("Storage").read("devmode"))) { 
   let mode=(require("Storage").read("devmode"));
-  if ( mode=="off"){ 
-    require("Storage").write("devmode","done");
-    NRF.setAdvertising({},{connectable:false});
-    NRF.disconnect();
-    NRF.sleep();
-    digitalPulse(D16,1,250);
+  if ( mode=="loader"){ 
+    //require("Storage").write("devmode","done");
+    //NRF.setAdvertising({},{connectable:false});
+    //NRF.disconnect();
+    //NRF.sleep();
+	Bluetooth.println("eucwatch");
+    digitalPulse(D16,1,[100,150,100,150,100]);
   } else {
     require("Storage").write("devmode","done");
     NRF.setAdvertising({}, { name:"Espruino-devmode",connectable:true });

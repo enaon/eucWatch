@@ -170,12 +170,12 @@ function ccon(l){
 		var gb="\x20\x03";
 		 if (l.startsWith(loa)) {
 		   //devmode
-		   Bluetooth.write("todevmode");
-		   set.updateSettings();
-		   NRF.disconnect();
+			//Bluetooth.println(JSON.stringify(require('Storage').readJSON('setting.json',1).touchtype));
+			Bluetooth.println("eucwatch");
+			//set.updateSettings();
+		   //NRF.disconnect();
 		   require("Storage").write("devmode","dev");
-		   w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
-		   E.reboot();
+		   //E.reboot();
 		}else {
 			
 		if (set.def.cli) {
