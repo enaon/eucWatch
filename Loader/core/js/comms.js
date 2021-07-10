@@ -29,7 +29,7 @@ const Comms = {
 			}).then(function(c) {
 				localStorage.setItem("p8name", c);
 			});
-		},1000);
+		},3000);
       }
     });
   }),
