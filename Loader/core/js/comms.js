@@ -19,6 +19,7 @@ const Comms = {
         console.log(`<COMMS> reset: no response. waiting ${tries}...`);
         Puck.write("\x03",rstHandler);
       } else {
+		  console.log(result);
         console.log(`<COMMS> reset: complete.`);
 		setTimeout(resolve,250);
 		Comms.readSettings("setting","acctype").then(function(c) {
