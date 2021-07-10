@@ -16,6 +16,7 @@ const Comms = {
         Puck.write("\x03",rstHandler);
       } else {
         console.log(`<COMMS> reset: complete.`);
+		setTimeout(()=>{
 		Comms.readSettings("setting","acctype").then(function(c) {
 			return localStorage.setItem("p8acc", c);
 			}).then(function(c) {
@@ -26,9 +27,10 @@ const Comms = {
 			return Comms.readSettings("setting","name");
 			}).then(function(c) {
 			return localStorage.setItem("p8name", c);
-		});
-		setTimeout(resolve,1000);
-
+			}).then(function(c) {	
+			setTimeout(resolve,100);
+			});
+		},1000);
       }
     });
   }),
