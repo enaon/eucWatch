@@ -119,9 +119,9 @@ const Comms = {
           }
           if (appList===null) return reject(err || "");
           console.log("<COMMS> getInstalledApps", appList);
-		  setRead("setting","acctype").then(function(c) {localStorage.setItem("p8acc", c);});
-		  setRead("setting","touchtype").then(function(c) {localStorage.setItem("p8touch", c);});
-		  setRead("setting","name").then(function(c) {localStorage.setItem("p8name", c);});
+		  Comms.setRead("setting","acctype").then(function(c) {localStorage.setItem("p8acc", c);});
+		  Comms.setRead("setting","touchtype").then(function(c) {localStorage.setItem("p8touch", c);});
+		  Comms.setRead("setting","name").then(function(c) {localStorage.setItem("p8name", c);});
           resolve(appList);
         }, true /* callback on newline */);
       });
