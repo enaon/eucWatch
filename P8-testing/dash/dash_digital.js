@@ -34,6 +34,8 @@ face[0] = {
 		this.conn="OFF";
 		this.lock=2;
 		this.spdL=-1;
+		this.spdF=((set.def.mph)?1.6:1)*euc.dash.spdF;
+		this.trpF=((set.def.mph)?1.6*:1)*euc.dash.trpF;
 		this.run=true;
 		
 	},
@@ -48,23 +50,22 @@ face[0] = {
 				this.g.setColor(0,0);
 				this.g.fillRect(41,54,199,170);
 				this.g.setColor(1,4095);
-				if (100 <= euc.dash.spd) {
-					if (150 < euc.dash.spd)  euc.dash.spd=150;
+				if (100 <= this.spd) {
+					if (150 < this.spd)  this.spd=150;
 					this.g.setFontVector(80);
 				}else 
 					this.g.setFontVector(130);
 				//this.g.drawString((set.def.dashSpd)?euc.dash.spd:Math.round(euc.dash.spd/1.6),129-(this.g.stringWidth((set.def.dashSpd)?euc.dash.spd:Math.round(euc.dash.spd/1.6))/2),57); 
-				this.g.drawString(Math.round(euc.dash.spd*euc.dash.spdF),129-(this.g.stringWidth(Math.round(euc.dash.spd*euc.dash.spdF))/2),57); 
-				this.spd=euc.dash.spd;
+				this.g.drawString(Math.round(this.spd*this.spdF*),129-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2),57); 
 				this.g.flip();
-				if (euc.dash.spd==0) { 
+				if (this.spd==0) { 
 					this.g.flip();
 					this.bar();
 					this.g.setColor(0,0);
 				}
 			}
 			// alarm events time graph
-			if (euc.dash.spd!=0&&this.al!=almL) {
+			if (this.spd!=0&&this.al!=almL) {
  				this.al= new Uint8Array(almL);
 				this.g.setColor(0,1365);
 				this.g.clearRect(0,176,239,197);
@@ -87,7 +88,7 @@ face[0] = {
 					this.g.setFontVector(12);
 					this.g.drawString("AMP", 8,59);
 					this.g.setFontVector(32);
-					this.g.drawString(euc.dash.amp|0, 22-(this.g.stringWidth(euc.dash.amp|0)/2),80); 
+					this.g.drawString(this.amp|0, 22-(this.g.stringWidth(this.amp|0)/2),80); 
 					this.g.flip();
 				}
 			}else {
@@ -99,7 +100,7 @@ face[0] = {
 					this.g.setFontVector(11);
 					this.g.drawString("TEMP", 6,59);
 					this.g.setFontVector(32);
-					this.g.drawString(Math.round(euc.dash.tmp), 22-(this.g.stringWidth(Math.round(euc.dash.tmp))/2),80); 
+					this.g.drawString(Math.round(this.tmp), 22-(this.g.stringWidth(Math.round(this.tmp))/2),80); 
 					this.g.flip();
 				}
 			}	
@@ -107,9 +108,9 @@ face[0] = {
 			if (this.buzz!=euc.buzz) {
 				this.buzz=euc.buzz;
 				this.g.setFontVector(35);
-				this.g.setColor(0,(euc.buzz)?3840:1365);
+				this.g.setColor(0,(this.buzz)?3840:1365);
 				this.g.fillRect(0,115,40,173); 
-				this.g.setColor(1,(euc.buzz)?4095:0);
+				this.g.setColor(1,(this.buzz)?4095:0);
 				this.g.drawString("!", 19,130); 
 				this.g.flip();
 			}
@@ -122,24 +123,23 @@ face[0] = {
 				this.g.setFontVector(12);
 				this.g.drawString("TOP", 208,59);
 				this.g.setFontVector(32);
-				this.g.drawString(Math.round(euc.dash.spdM), 222-(this.g.stringWidth(Math.round(euc.dash.spdM))/2),80); 
+				this.g.drawString(Math.round(this.max), 222-(this.g.stringWidth(Math.round(this.max))/2),80); 
 				this.g.flip();
 			}
 			//buzzer/health block
 			if (euc.dash.maker=="Kingsong") {
 				if (this.spdL!=euc.dash.spdL) {
 					this.spdL=euc.dash.spdL;
-					this.g.setColor(0,(euc.dash.spdT<=euc.dash.spdL)?1365:3840);	
+					this.g.setColor(0,(euc.dash.spdT<=this.spdL)?1365:3840);	
 					this.g.fillRect(200,115,239,173); 
 					this.g.setColor(1,4095);
 					this.g.setFontVector(11);
 					this.g.drawString("LIMIT", 205,120);
 					this.g.setFontVector(32);
-					this.g.drawString(euc.dash.spdL, 202,140); 
+					this.g.drawString(this.spdL, 202,140); 
 					this.g.flip();
 				}
 			}else if (this.alrm!=euc.dash.alrm) {
-				this.alrm=euc.dash.alrm;
 				this.alrm=euc.dash.alrm;
 				this.g.setColor(0,1365);
 				this.g.fillRect(200,115,239,173); 
@@ -156,8 +156,8 @@ face[0] = {
 					this.g.fillRect(0,0,119,50);       
 					this.g.setColor(0,(euc.dash.tmpC!=3&&euc.dash.tmpC!=0)?0:4095);
 					this.g.setFontVector(45);
-					this.g.drawString(euc.dash.tmp, 5,5); 
-					let size=this.g.stringWidth(euc.dash.tmp)+3;
+					this.g.drawString(this.tmp, 5,5); 
+					let size=this.g.stringWidth(this.tmp)+3;
 					this.g.setFontVector(13);
 					this.g.drawString("o",size,6); 
 					this.g.setFontVector(16);
@@ -186,7 +186,7 @@ face[0] = {
 					this.g.fillRect(122,0,239,50);
 					this.g.setColor(1,4095);
 					this.g.setFontVector(35);
-					this.g.drawString((euc.dash.volt).toFixed(2),242-(this.g.stringWidth((euc.dash.volt).toFixed(2))),1);
+					this.g.drawString((this.volt).toFixed(2),242-(this.g.stringWidth((this.volt).toFixed(2))),1);
 					this.g.setFontVector(13);
 					this.g.drawString("VOLTS",191,36);
 					this.g.flip();
@@ -198,7 +198,7 @@ face[0] = {
 					this.g.fillRect(122,0,239,50);
 					this.g.setColor(1,4095);
 					this.g.setFontVector(50);
-					this.g.drawString(euc.dash.bat,220-(this.g.stringWidth(euc.dash.bat)),3);
+					this.g.drawString(this.batt,220-(this.g.stringWidth(this.batt)),3);
 					this.g.setFontVector(20);
 					this.g.drawString("%",224,8);
 					this.g.flip();
@@ -270,14 +270,14 @@ face[0] = {
 			this.g.drawString(euc.dash.trpT|0,(240-(this.g.stringWidth(euc.dash.trpT|0)))/2,210); 
 			this.g.drawString(euc.dash.trpR,240-(this.g.stringWidth(euc.dash.trpR)+1),210); 
 		}else {
-			this.g.drawString((euc.dash.trpL*euc.dash.trpF).toFixed(2),0,208); 
+			this.g.drawString((euc.dash.trpL*this.trpF).toFixed(2),0,208); 
 			if (!set.def.dashDTrip) {//clock
 				let d=(Date()).toString().split(' ');
 				let t=(d[4]).toString().split(':');
 				this.time=(t[0]+":"+t[1]);
 				this.g.drawString(this.time, 240-(this.g.stringWidth(this.time)),210); //temp
 			}else 	
-				this.g.drawString(Math.round(euc.dash.trpT*euc.dash.trpF),240-(this.g.stringWidth(Math.round(euc.dash.trpT*euc.dash.trpF))),208); 
+				this.g.drawString(Math.round(euc.dash.trpT*this.trpF),240-(this.g.stringWidth(Math.round(euc.dash.trpT*this.trpF))),208); 
 		}
 		this.g.flip();
 	},
@@ -293,11 +293,8 @@ face[0] = {
 			this.g.drawString("LEFT",197,180); 
 		} else {
 			this.g.drawString("TRIP",2,180); 
-			if (set.def.dashSpd) 
-				this.g.drawString("KPH",105,180);
-			else 
-				this.g.drawString("MPH",105,180);
-			  this.g.drawString((!set.def.dashDTrip)?"CLOCK":"TOTAL",181,180); 
+			this.g.drawString((this.mph)?"MPH":"KPH",105,180);
+			this.g.drawString((!set.def.dashDTrip)?"CLOCK":"TOTAL",181,180); 
 		}
 		this.g.flip();
 	},
@@ -383,8 +380,8 @@ touchHandler[0]=function(e,x,y){
 		return;
     case 12: //touch and hold(long press) event
 		if (55<y && y<200) {
-			if (set.def.dashSpd==undefined) set.def.dashSpd=0;
-			set.def.dashSpd=1-set.def.dashSpd;
+			if (set.def.mph==undefined) set.def.mph=0;
+			set.def.mph=1-set.def.mph;
 			digitalPulse(D16,1,[30,50,30]);
 			face[0].bar();
 			face[0].trpL=-1;
