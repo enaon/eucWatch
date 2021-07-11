@@ -1,4 +1,4 @@
-# EUC Dash
+#### EUC Dash
 
 This is the app for the EUC Dash.
 
@@ -13,7 +13,7 @@ In advanced:
 - Short tap the mileage bar to switch between total mileage and current time.
 
 
-** for Begode wheels.
+**for Begode wheels.
 - Long tap on the battery indicator when in voltage mode to change the voltage base readings (67/64/100 volts) for Begode wheels.
 - Long tap on the amperage bar toggles negative/positive values, positive should be bottom bars.
 
@@ -24,7 +24,7 @@ In advanced:
 
 Four slots are available for storing/selecting wheels.
 
-** Storing:
+**Storing:
 -Long hold on an empty slot to call the scan function, select the wheel type and scan for it. 
 -If a slot is already used, Long hold on it to delete.
 
