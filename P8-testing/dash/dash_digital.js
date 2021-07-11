@@ -275,7 +275,7 @@ face[0] = {
 				let d=(Date()).toString().split(' ');
 				let t=(d[4]).toString().split(':');
 				this.time=(t[0]+":"+t[1]);
-				this.g.drawString(this.time, 240-(this.g.stringWidth(this.time)),210); //temp
+				this.g.drawString(this.time, 240-(this.g.stringWidth(this.time)),208); //temp
 			}else 	
 				this.g.drawString(Math.round(euc.dash.trpT*this.trpF),240-(this.g.stringWidth(Math.round(euc.dash.trpT*this.trpF))),208); 
 		}

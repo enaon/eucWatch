@@ -85,7 +85,7 @@ function d2h(i) {
    return (i+0x10000).toString(16).substr(-4);
 }
 
-function emuG(l){ 
+function emuG1(l){ 
 	//"ram";
 	set.emuD=1;
 switch (l) {
@@ -107,7 +107,7 @@ switch (l) {
     }
 }
 
-function emuG1(l){ 
+function emuG(l){ 
 	//"ram";
 	set.emuD=1;
 switch (l) {

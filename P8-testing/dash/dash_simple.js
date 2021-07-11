@@ -17,7 +17,6 @@ face[0] = {
 	this.tmp=-1;
 	this.batt=-1;
     this.trpL=-1;
-	this.spd=euc.dash.spd;
 	this.spdF=((set.def.mph)?1.6:1)*euc.dash.spdF;
 	if (euc.state=="READY") {
 		this.g.setColor(0,0);
@@ -41,7 +40,7 @@ face[0] = {
 		this.g.setColor(1,(this.spdC[euc.dash.spdC]!=4080&&this.spdC[euc.dash.spdC]!=4095)?4095:0);
 		this.spd=euc.dash.spd;
 		this.g.setFontVector(200);
-		this.g.drawString(Math.round(this.spd*this.spdF),(132-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2)),65); 
+		this.g.drawString(Math.round(euc.dash.spd*this.spdF),(132-(this.g.stringWidth(Math.round(euc.dash.spd*this.spdF))/2)),65); 
 		this.g.flip();
 	}
     this.connrest=0;
