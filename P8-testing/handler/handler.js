@@ -580,15 +580,15 @@ if (set.def.acctype==="BMA421"){
 			if (!this.tid) {
 				this.tid=setWatch(()=>{
 					i2c.writeTo(0x18,0x31);
-					print ("src int: ",i2c.readFrom(0x18,1)+""); //src int
+					//print ("src int: ",i2c.readFrom(0x18,1)+""); //src int
 					i2c.writeTo(0x18,0x01);
 					let xx=i2c.readFrom(0x18,1)[0];
 					i2c.writeTo(0x18,0x03);
 					let yy=i2c.readFrom(0x18,1)[0];
-					print("in :",xx,yy);
+					//print("in :",xx,yy);
 					if ( 160 < xx  && ( 200 < yy || yy < 50)) {
 						if (!w.gfx.isOn&&face.appCurr!=""){  
-							print("wake");
+							//print("wake");
 							//i2c.writeTo(0x18,0x30,0x02);
 							if  (global.euc) {
 								if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash],0);
@@ -598,7 +598,7 @@ if (set.def.acctype==="BMA421"){
 								else face.go(face.appCurr,0);
 							}
 						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
-							print("delay");
+							//print("delay");
 							if (set.tor==1)w.gfx.bri.set(face[0].cbri); 
 							else face.off();
 						}
@@ -607,7 +607,7 @@ if (set.def.acctype==="BMA421"){
 						this.up=0;
 						//i2c.writeTo(0x18,0x30,0x6A);
 						if (w.gfx.isOn)face.off(600);
-						print("sleep");
+						//print("sleep");
 					}
 				},D8,{repeat:true,edge:"rising"});
 				return true;
