@@ -14,9 +14,11 @@ face[0] = {
 	this.batC=new Uint16Array([0,0,4080,3840]);
 	this.spd=-1;
 	this.amp=-1;
-	this.temp=-1;
+	this.tmp=-1;
 	this.batt=-1;
     this.trpL=-1;
+	this.spd=euc.dash.spd;
+	this.spdF=((set.def.mph)?1.6:1)*euc.dash.spdF;
 	if (euc.state=="READY") {
 		this.g.setColor(0,0);
 		this.g.fillRect(0,0,239,64);
@@ -40,21 +42,19 @@ face[0] = {
 		this.spd=euc.dash.spd;
 		this.g.setFontVector(200);
 		this.g.drawString(Math.round(this.spd*this.spdF),(132-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2)),65); 
-		this.spd=euc.dash.spd;
 		this.g.flip();
 	}
     this.connrest=0;
 	this.connoff=0;
     this.lock=2;
-	this.spdF=((set.def.mph)?1.6:1)*euc.dash.spdF;
 	this.run=true;
   },
   show : function(o){
   if (!this.run) return;
   if (euc.state=="READY") {
 	//Temp
-    if (euc.dash.tmp!=this.temp) {
-      this.temp=euc.dash.tmp;
+    if (euc.dash.tmp!=this.tmp) {
+      this.tmp=euc.dash.tmp;
 	  this.g.setColor(0,this.tmpC[euc.dash.tmpC]);
       this.g.fillRect(0,0,79,55);       
       this.g.setColor(1,(this.tmpC[euc.dash.tmpC]!=4080&&this.tmpC[euc.dash.tmpC]!=1535)?4095:0);
@@ -148,7 +148,7 @@ face[0] = {
       this.g.setFont("Vector",50);
       this.g.drawString(euc.state,(125-this.g.stringWidth(euc.state)/2),115);
       this.g.flip();
-	  if (euc.state=="WAIT"||euc.state=="RETRY"){this.spd=-1;this.amp=-1;this.temp=-1;this.batt=-1;this.trpL=-1;this.conn="OFF";this.lock=2;this.run=true;}
+	  if (euc.state=="WAIT"||euc.state=="RETRY"){this.spd=-1;this.amp=-1;this.tmp=-1;this.batt=-1;this.trpL=-1;this.conn="OFF";this.lock=2;this.run=true;}
     }
   }
 //refresh 
