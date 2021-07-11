@@ -200,7 +200,127 @@ euc.conn=function(mac){
 	//write
 	}).then(function(c) {
 		console.log("EUC connected"); 
-        digitalPulse(D16,1,[90,40,150]);
+          digitalPulse(D16,1,[90,40,150]);
+		euc.wri= function(n) {
+			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},100);return;} euc.busy=setTimeout(()=>{euc.busy=0;},1000);
+			//horn
+			if (n==="hornOn"||n==="hornOff"){
+				c.writeValue(euc.cmd((n==="hornOn")?"strobeOn":"strobeOff")).then(function() {
+					c.writeValue(euc.cmd((n==="hornOn")?"lock":"unlock")).then(function(){
+						if (n==="hornOn") euc.dash.lock=1; else {euc.dash.lock=0;if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;} return;}
+						if (!BTN1.read()){ 
+							c.writeValue(euc.cmd("unlock")).then(function(){
+								euc.dash.lock=0;
+								c.writeValue(euc.cmd("strobeOff")).then(function(){
+									euc.dash.strb=0;if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+								}).catch(function(err)  {
+									if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+									euc.off("err");
+								});
+							}).catch(function(err)  {
+								if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+								euc.off("err");
+							});
+							return;
+						}else if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+					}).catch(function(err)  {
+						if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+						euc.off("err");
+					});
+				}).catch(function(err)  {
+                    if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+                    euc.off("err");
+				});	
+			//toogle
+			}else if (n==="start"||n=="end"){
+                if (n=="end") c.stopNotifications();
+				c.writeValue(euc.cmd((n==="start")?"rideLedOn":((euc.dash.aLck)?"lock":(euc.dash.aOff)?"off":"lightsOff"))).then(function() {
+					if (euc.seq==0) {
+						c.writeValue(euc.cmd("rideLedOff")).then(function() {
+							if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
+							global["\xFF"].BLE_GATTS.disconnect();
+						}).catch(function(err)  {
+							if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
+							global["\xFF"].BLE_GATTS.disconnect();
+							if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+							euc.off("exit5");
+						});
+						return;
+					}	
+					c.writeValue(euc.cmd((n==="start")?((euc.dash.passSend)?"passSend":(euc.dash.aLck)?"unlock":(euc.dash.aLight)?euc.dash.aLight:"lightsAuto"):(euc.dash.aOff)?"off":"lightsOff")).then(function() {
+						if (euc.seq==0) {
+							if (n==="start") {
+								c.writeValue(euc.cmd("model")).then(function() {
+									if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+									euc.state="READY";
+                                    c.startNotifications();
+									euc.run=1;
+								});
+							}else {
+								c.writeValue(euc.cmd("rideLedOff")).then(function() {
+									if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
+									global["\xFF"].BLE_GATTS.disconnect();
+								}).catch(function(err)  {
+									if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
+									global["\xFF"].BLE_GATTS.disconnect();
+									if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+									euc.off("err-4");
+								});
+							}
+							return;
+						}	
+						c.writeValue(euc.cmd((euc.dash.aLck&&euc.dash.passSend)?"unlock":(euc.dash.aLight)?euc.dash.aLight:"lightsAuto")).then(function() {
+							if (euc.seq==0) {
+								c.writeValue(euc.cmd("model")).then(function() {
+									if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+									euc.state="READY";
+                                    c.startNotifications();
+									euc.run=1;
+								});
+								return;
+							}
+							c.writeValue(euc.cmd((euc.dash.aLight)?euc.dash.aLight:"lightsAuto")).then(function() {
+								c.writeValue(euc.cmd("model")).then(function() {
+									if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+									euc.state="READY";
+                                    c.startNotifications();
+									euc.run=1;
+								});
+								return;
+							}).catch(function(err)  {
+								if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+								euc.off("err-3");
+							});
+						}).catch(function(err)  {
+							if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+							euc.off("err-2");
+						});
+					}).catch(function(err)  {
+						if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+						euc.off("err-1");
+					});
+				}).catch(function(err)  {
+				  if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+                  euc.off("err-0");
+				});
+			//forward if cmd unknown
+			}else if (!euc.cmd(n)) {
+				c.writeValue(n).then(function() {
+                    clearTimeout(euc.busy);euc.busy=0;
+				}).catch(function(err)  {
+					clearTimeout(euc.busy);euc.busy=0;euc.off("err-fwd");
+				});
+
+			//rest
+			}else{
+				c.writeValue(euc.cmd(n)).then(function() {
+					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+				}).catch(function(err)  {
+					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+                    euc.off("err-rest");
+				});
+			}
+		};
 		if (!euc.run) { 
 			euc.wri("start");
         } else {
