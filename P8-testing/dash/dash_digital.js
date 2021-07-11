@@ -40,7 +40,7 @@ face[0] = {
 		
 	},
 	show : function(o){
-		"ram";
+		//"ram";
 		if (!this.run) return;
 		//connected  
 		if (euc.state=="READY") {

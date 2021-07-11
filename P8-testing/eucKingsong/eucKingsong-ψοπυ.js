@@ -41,7 +41,6 @@ euc.cmd=function(no){
 };
 //start
 euc.conn=function(mac){
-	console.log("in");
 	//check
 	if ( global["\xFF"].BLE_GATTS!="undefined") {
 		if (set.def.cli) print("ble allready connected"); 
@@ -206,105 +205,79 @@ euc.conn=function(mac){
 			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},100);return;} euc.busy=setTimeout(()=>{euc.busy=0;},1000);
 			//horn
 			if (n==="hornOn"||n==="hornOff"){
-				if (euc.horn) {clearTimeout(euc.horn);euc.horn=0;}
 				c.writeValue(euc.cmd((n==="hornOn")?"strobeOn":"strobeOff")).then(function() {
-					return c.writeValue(euc.cmd((n==="hornOn")?"lock":"unlock"));
-				}).then(function() {
-					euc.dash.lock=(n==="hornOn")?1:0;
-					euc.horn=setTimeout(() => {
-						if (n==="hornOn"&&!BTN1.read()){
-							euc.dash.lock=0;
-							euc.dash.strb=0; 
-							c.writeValue(euc.cmd("unlock")).then(function() {		
-								euc.dash.strb=0;
-								return c.writeValue(euc.cmd("strobeOff"));
+					c.writeValue(euc.cmd((n==="hornOn")?"lock":"unlock")).then(function(){
+						euc.dash.lock=(n==="hornOn")?1:0;
+						if (!BTN1.read()){
+							c.writeValue(euc.cmd("unlock")).then(function(){
+								euc.dash.lock=0;
+								c.writeValue(euc.cmd("strobeOff")).then(function(){
+									euc.dash.strb=0;
+								});	
 							});
-						}
+						}  
 						if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-					}, 100);   
-				}).catch(function(err)  {
-					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-					euc.off("err-horn");					
+					});	
 				});	
 			//toogle
 			}else if (n==="start"||n=="end"){
 				if (n=="end") c.stopNotifications();
 				c.writeValue(euc.cmd((n==="start")?"rideLedOn":((euc.dash.aLck)?"lock":(euc.dash.aOff)?"off":"lightsOff"))).then(function() {
-					print(1);
 					if (euc.seq==0) {
 						c.writeValue(euc.cmd("rideLedOff")).then(function() {
 							if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
-							global["\xFF"].BLE_GATTS.disconnect();
-							return euc.off("toggle");
+						    global["\xFF"].BLE_GATTS.disconnect();
 						});
-					}else return true;
-				}).then(function() {
-					print(2);
-					return c.writeValue(euc.cmd((n==="start")?((euc.dash.passSend)?"passSend":(euc.dash.aLck)?"unlock":(euc.dash.aLight)?euc.dash.aLight:"lightsAuto"):(euc.dash.aOff)?"off":"lightsOff")); 
-				}).then(function() {
-					print(3);
-
-					if (euc.seq==0) {
-						if (n==="start") {
-							c.writeValue(euc.cmd("model")).then(function() {
-								if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-								euc.state="READY";
-								euc.run=1;
-								return c.startNotifications();
-							});
-						}else {
-							c.writeValue(euc.cmd("rideLedOff")).then(function() {
-								if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
-								global["\xFF"].BLE_GATTS.disconnect();
-								return euc.off("toggle1");
-							});
-						}
-					}
-				}).then(function() {
-					print(4);
-
-					return c.writeValue(euc.cmd((euc.dash.aLck&&euc.dash.passSend)?"unlock":(euc.dash.aLight)?euc.dash.aLight:"lightsAuto"));
-				}).then(function() {
-					print(5);
-
-					if (euc.seq==0) {
-						c.writeValue(euc.cmd("model")).then(function() {
-							if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-							euc.state="READY";
-							euc.run=1;
-							return c.startNotifications();
-						});
-				  	}
-				}).then(function() {
-					print(6);
-					
-					return c.writeValue(euc.cmd((euc.dash.aLight)?euc.dash.aLight:"lightsAuto"));
-				}).then(function() {
-					print(7);
-					
-					c.writeValue(euc.cmd("model")).then(function() {
-						if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-						euc.state="READY";
-						euc.run=1;
-						return c.startNotifications();
-				  	});
-				}).catch(function(err)  {
-					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-					global["\xFF"].BLE_GATTS.disconnect();
-					euc.off("err-toggle");
+						return;
+					}	
+				c.writeValue(euc.cmd((n==="start")?((euc.dash.passSend)?"passSend":(euc.dash.aLck)?"unlock":(euc.dash.aLight)?euc.dash.aLight:"lightsAuto"):(euc.dash.aOff)?"off":"lightsOff")).then(function() {
+						  if (euc.seq==0) {
+							  if (n==="start") {
+								  c.writeValue(euc.cmd("model")).then(function() {
+								  	if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+									  euc.state="READY";
+                     c.startNotifications();
+									  euc.run=1;
+							  	});
+							  }else {
+								  c.writeValue(euc.cmd("rideLedOff")).then(function() {
+									  if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
+									  global["\xFF"].BLE_GATTS.disconnect();
+								  });
+						  	}
+						  	return;
+						  }	
+						  c.writeValue(euc.cmd((euc.dash.aLck&&euc.dash.passSend)?"unlock":(euc.dash.aLight)?euc.dash.aLight:"lightsAuto")).then(function() {
+							  if (euc.seq==0) {
+								  c.writeValue(euc.cmd("model")).then(function() {
+									  if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+									  euc.state="READY";
+                    c.startNotifications();
+									  euc.run=1;
+								  });
+								  return;
+						  	}
+							  c.writeValue(euc.cmd((euc.dash.aLight)?euc.dash.aLight:"lightsAuto")).then(function() {
+								  c.writeValue(euc.cmd("model")).then(function() {
+									  if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+									  euc.state="READY";
+                    c.startNotifications();
+								  	euc.run=1;
+							  	});
+						  		return;
 				});
+        });
+        });
+        });
 			//forward if cmd unknown
 			}else if (!euc.cmd(n)) {
 				c.writeValue(n).then(function() {
-					clearTimeout(euc.busy);euc.busy=0;
+            clearTimeout(euc.busy);euc.busy=0;
 				});
 			//rest
 			}else{
 				c.writeValue(euc.cmd(n)).then(function() {
 					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-				}).catch(function(err)  {
-					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-					euc.off("err-rest");
 				});
 			}
 		};
@@ -316,7 +289,7 @@ euc.conn=function(mac){
                 //print(global["\xFF"].bleHdl[54].value.buffer[0]);
                 if (global["\xFF"].bleHdl[54].value.buffer[0]==65 ||global["\xFF"].bleHdl[54].value.buffer[0]==188){
                     euc.wri("start");
-			    } else c.startNotifications();
+				} else c.startNotifications();
             },1000);
         }
 	//reconect
@@ -360,7 +333,7 @@ euc.off=function(err){
 			if ( euc.aOff==0 || euc.aOff==1 ) {euc.dash.aOff=euc.aOff;	delete euc.aOff;}
 			if ( euc.aLck==0 || euc.aLck==1 )  {euc.dash.aLck=euc.aLck;	delete euc.aLck;}
 			clearTimeout(euc.busy);euc.busy=0;
-			euc.off=function(err){if (set.def.cli) console.log("EUC stoped at:",err);};
+			euc.off=function(err){if (set.def.cli) console.log("EUC allready killed at:",err);};
 			delete euc.conn;
 			delete euc.wri;
 			delete euc.cmd;
