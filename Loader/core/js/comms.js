@@ -19,31 +19,17 @@ const Comms = {
 		}).then(function(c) {
 			localStorage.setItem("p8name", c);
 		}).then(function(c) {
-		
-	
-	
-    Puck.write(`\x03\x10reset(${opt=="wipe"?"1":""});\n`,function rstHandler(result) {
-      console.log("<COMMS> reset: got "+JSON.stringify(result));
-      if (result===null) return reject("Connection failed");
-      if (result=="" && (tries-- > 0)) {
-        console.log(`<COMMS> reset: no response. waiting ${tries}...`);
-        Puck.write("\x03",rstHandler);
-      } else {
-        console.log(`<COMMS> reset: complete.`);
-		setTimeout(resolve,250);
-		Comms.readSettings("setting","acctype").then(function(c) {
-			localStorage.setItem("p8acc", c);
-		}).then(function(c) {
-			return Comms.readSettings("setting","touchtype");
-		}).then(function(c) {
-			localStorage.setItem("p8touch", c);
-		}).then(function(c) {
-			return Comms.readSettings("setting","name");
-		}).then(function(c) {
-			localStorage.setItem("p8name", c);
+			Puck.write(`\x03\x10reset(${opt=="wipe"?"1":""});\n`,function rstHandler(result) {
+			console.log("<COMMS> reset: got "+JSON.stringify(result));
+			if (result===null) return reject("Connection failed");
+			if (result=="" && (tries-- > 0)) {
+				console.log(`<COMMS> reset: no response. waiting ${tries}...`);
+				Puck.write("\x03",rstHandler);
+			} else {
+				console.log(`<COMMS> reset: complete.`);
+				setTimeout(resolve,250);
+			}
 		});
-      }
-    });
 	});
   }),
   uploadApp : (app,skipReset) => { // expects an apps.json structure (i.e. with `storage`)
