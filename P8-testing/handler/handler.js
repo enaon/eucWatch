@@ -531,7 +531,7 @@ if (set.def.acctype==="BMA421"){
 			this.run=0;
 		},
 		init:function(){
-			//"ram";
+			"ram";
 			if(!this.run) return;
 			var data;
 			data=i2c.readFrom(0x18,6);
@@ -560,7 +560,7 @@ if (set.def.acctype==="BMA421"){
 				if (set.tor==1)
 					w.gfx.bri.set(7);
 				else 
-					face.off(600) 
+					face.off(1500) 
 			}
 		}
 	};	
