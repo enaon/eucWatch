@@ -10,15 +10,15 @@ const Comms = {
     console.log("<COMMS> reset");
 	Comms.readSettings("setting","acctype").then(function(c) {
 			localStorage.setItem("p8acc", c);
-		}).then(function(c) {
+		}).then(function() {
 			return Comms.readSettings("setting","touchtype");
 		}).then(function(c) {
 			localStorage.setItem("p8touch", c);
-		}).then(function(c) {
+		}).then(function() {
 			return Comms.readSettings("setting","name");
 		}).then(function(c) {
 			localStorage.setItem("p8name", c);
-		}).then(function(c) {
+		}).then(function() {
 			Puck.write(`\x03\x10reset(${opt=="wipe"?"1":""});\n`,function rstHandler(result) {
 			console.log("<COMMS> reset: got "+JSON.stringify(result));
 			if (result===null) return reject("Connection failed");
