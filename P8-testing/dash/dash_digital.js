@@ -56,7 +56,7 @@ face[0] = {
 				}else 
 					this.g.setFontVector(130);
 				//this.g.drawString((set.def.dashSpd)?euc.dash.spd:Math.round(euc.dash.spd/1.6),129-(this.g.stringWidth((set.def.dashSpd)?euc.dash.spd:Math.round(euc.dash.spd/1.6))/2),57); 
-				this.g.drawString(Math.round(this.spd*this.spdF*),129-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2),57); 
+				this.g.drawString(Math.round(this.spd*this.spdF),129-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2),57); 
 				this.g.flip();
 				if (this.spd==0) { 
 					this.g.flip();

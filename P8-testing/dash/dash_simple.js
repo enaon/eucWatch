@@ -39,13 +39,14 @@ face[0] = {
 		this.g.setColor(1,(this.spdC[euc.dash.spdC]!=4080&&this.spdC[euc.dash.spdC]!=4095)?4095:0);
 		this.spd=euc.dash.spd;
 		this.g.setFontVector(200);
-		this.g.drawString(Math.round(euc.dash.spd*euc.dash.spdF),(132-(this.g.stringWidth(Math.round(euc.dash.spd*euc.dash.spdF))/2)),65); 
+		this.g.drawString(Math.round(this.spd*this.spdF),(132-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2)),65); 
 		this.spd=euc.dash.spd;
 		this.g.flip();
 	}
     this.connrest=0;
 	this.connoff=0;
     this.lock=2;
+	this.spdF=((set.def.mph)?1.6:1)*euc.dash.spdF;
 	this.run=true;
   },
   show : function(o){
@@ -58,7 +59,7 @@ face[0] = {
       this.g.fillRect(0,0,79,55);       
       this.g.setColor(1,(this.tmpC[euc.dash.tmpC]!=4080&&this.tmpC[euc.dash.tmpC]!=1535)?4095:0);
       this.g.setFont("7x11Numeric7Seg",4.5);
-      this.g.drawString(euc.dash.tmp|0, 3,5); //temp      
+      this.g.drawString(this.tmp|0, 3,5); //temp      
 	  this.g.flip();
     }
 	//Amp
@@ -68,7 +69,7 @@ face[0] = {
 		this.g.fillRect(80,0,160,55); //amp 
         this.g.setColor(1,(this.ampC[euc.dash.ampC]!=4080&&this.ampC[euc.dash.ampC]!=4095)?4095:0);
         this.g.setFont("7x11Numeric7Seg",4.5);
-        this.g.drawString(euc.dash.amp|0,(122-(this.g.stringWidth(euc.dash.amp|0)/2)),5); 
+        this.g.drawString(this.amp|0,(122-(this.g.stringWidth(this.amp|0)/2)),5); 
         this.g.flip();
     }
 	//Battery
@@ -79,7 +80,7 @@ face[0] = {
 			this.g.fillRect(161,0,239,55);
 			this.g.setColor(1,(this.batC[euc.dash.batC]!=4080&&this.batC[euc.dash.batC]!=1525)?4095:0);
 			this.g.setFont("7x11Numeric7Seg",4.5);
-			this.g.drawString(euc.dash.bat,238-(this.g.stringWidth(euc.dash.bat)),5); //fixed bat
+			this.g.drawString(this.batt,238-(this.g.stringWidth(this.batt)),5); //fixed bat
 			this.g.flip();
 		}
 	}else {
@@ -89,7 +90,7 @@ face[0] = {
 			this.g.fillRect(161,0,239,55);
 			this.g.setColor(1,(this.batC[euc.dash.batC]!=4080&&this.batC[euc.dash.batC]!=1525)?4095:0);
 			this.g.setFontVector(33);
-			this.g.drawString(euc.dash.volt.toFixed(1),238-(this.g.stringWidth(euc.dash.volt.toFixed(1))),1); //fixed bat
+			this.g.drawString(this.volt.toFixed(1),238-(this.g.stringWidth(this.volt.toFixed(1))),1); //fixed bat
 			this.g.setFontVector(13);
 			this.g.drawString("VOLTS",188,36); //fixed bat
 			this.g.flip();
@@ -104,12 +105,12 @@ face[0] = {
 		this.g.setColor(0,this.spdC[euc.dash.spdC]);
 		this.g.fillRect(0,65,239,239);
 		this.g.setColor(1,(this.spdC[euc.dash.spdC]!=this.spdC[2]&&this.spdC[euc.dash.spdC]!=this.spdC[1])?4095:0);
-		if (100 <= euc.dash.spd) {
-			if (120 < euc.dash.spd)  euc.dash.spd=100;
+		if (100 <= this.spd) {
+			if (120 < this.spd)  this.spd=120;
 			this.g.setFontVector(140);
 		}else 
 			this.g.setFontVector(200);	  
-		this.g.drawString(Math.round(euc.dash.spd*euc.dash.spdF),132-(this.g.stringWidth(Math.round(euc.dash.spd*euc.dash.spdF))/2),65); 
+		this.g.drawString(Math.round(this.spd*this.spdF),132-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2),65); 
 		this.g.flip();
     }
  
