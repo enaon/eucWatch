@@ -199,7 +199,7 @@ euc.conn=function(mac){
 		return  c;
 	//write
 	}).then(function(c) {
-		console.log("EUC connected"); 
+		//if (set.def.cli) console.log("EUC connected"); 
           digitalPulse(D16,1,[90,40,150]);
 		euc.wri= function(n) {
 			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},100);return;} euc.busy=setTimeout(()=>{euc.busy=0;},1000);
@@ -342,9 +342,9 @@ euc.off=function(err){
 	if (euc.reconnect) {clearTimeout(euc.reconnect); euc.reconnect=0;}
 	if (euc.state!="OFF") {
         euc.seq=1;
-		if (set.def.cli) console.log("EUC: Restarting");
+		//if (set.def.cli) console.log("EUC: Restarting");
 		if ( err==="Connection Timeout"  )  {
-			if (set.def.cli) console.log("reason :timeout");
+			//if (set.def.cli) console.log("reason :timeout");
 			euc.state="LOST";
 			if (euc.dash.lock==1) digitalPulse(D16,1,250);
 			else digitalPulse(D16,1,[250,200,250,200,250]);
@@ -353,14 +353,14 @@ euc.off=function(err){
 				euc.conn(euc.mac); 
 			}, 5000);
 		}else if ( err==="Disconnected"|| err==="Not connected")  {
-			if (set.def.cli) console.log("reason :",err);
+			//if (set.def.cli) console.log("reason :",err);
 			euc.state="FAR";
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
 				euc.conn(euc.mac); 
 			}, 500);
 		} else {
-			if (set.def.cli) console.log("reason :",err);
+			//if (set.def.cli) console.log("reason :",err);
 			euc.state="RETRY";
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
@@ -368,12 +368,12 @@ euc.off=function(err){
 			}, 1000);
 		}
 	} else {
-		if (set.def.cli) console.log("EUC OUT:",err);
+		//if (set.def.cli) console.log("EUC OUT:",err);
 			//global["\xFF"].bleHdl=[];
 			if ( euc.aOff==0 || euc.aOff==1 ) {euc.dash.aOff=euc.aOff;	delete euc.aOff;}
 			if ( euc.aLck==0 || euc.aLck==1 )  {euc.dash.aLck=euc.aLck;	delete euc.aLck;}
 			clearTimeout(euc.busy);euc.busy=0;
-			euc.off=function(){if (set.def.cli) console.log("EUC allready killed at:",err);};
+			euc.off=function(err){if (set.def.cli) console.log("EUC allready killed at:",err);};
 			delete euc.conn;
 			delete euc.wri;
 			delete euc.cmd;
