@@ -58,7 +58,7 @@ var set={
 	updateSettings:function(){require('Storage').write('setting.json', set.def);},
 	resetSettings:function() {
 		set.def = {
-		name:"p8-EUCWatch", //Set the name to be broadcasted by the Bluetooth module. 
+		name:"eucWatch", //Set the name to be broadcasted by the Bluetooth module. 
 		timezone:3, //Timezone
 		woe:1, //wake Screen on event.0=disable|1=enable
 		wob:1, //wake Screen on Button press.0=disable|1=enable
