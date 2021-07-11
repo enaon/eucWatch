@@ -17,16 +17,16 @@ const Comms = {
 			} else {
 				console.log(`<COMMS> reset: complete.`);
 				setTimeout(resolve,250);
-				 Comms.readSettings("setting","acctype").then(function(c) {
-				return localStorage.setItem("p8acc", c);
+				Comms.readSettings("setting","acctype").then(function(c) {
+					return localStorage.setItem("p8acc", c);
+				}).then(function() {
+					Comms.readSettings("setting","touchtype");
 				}).then(function(c) {
-				return Comms.readSettings("setting","touchtype");
+					localStorage.setItem("p8touch", c);
+				}).then(function() {
+					Comms.readSettings("setting","name");
 				}).then(function(c) {
-				return localStorage.setItem("p8touch", c);
-				}).then(function(c) {
-				return Comms.readSettings("setting","name");
-				}).then(function(c) {
-				 localStorage.setItem("p8name", c);
+					localStorage.setItem("p8name", c);
 				});
 			}
 		
