@@ -35,7 +35,7 @@ face[0] = {
 		this.lock=2;
 		this.spdL=-1;
 		this.spdF=((set.def.mph)?1.6:1)*euc.dash.spdF;
-		this.trpF=((set.def.mph)?1.6*:1)*euc.dash.trpF;
+		this.trpF=((set.def.mph)?1.6:1)*euc.dash.trpF;
 		this.run=true;
 		
 	},
