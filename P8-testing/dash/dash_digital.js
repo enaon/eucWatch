@@ -49,7 +49,7 @@ face[0] = {
 				this.g.fillRect(41,54,199,170);
 				this.g.setColor(1,4095);
 				if (100 <= euc.dash.spd) {
-					if (120 < euc.dash.spd)  euc.dash.spd=100;
+					if (150 < euc.dash.spd)  euc.dash.spd=150;
 					this.g.setFontVector(80);
 				}else 
 					this.g.setFontVector(130);
