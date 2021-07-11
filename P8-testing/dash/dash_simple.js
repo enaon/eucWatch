@@ -39,7 +39,7 @@ face[0] = {
 		this.g.setColor(1,(this.spdC[euc.dash.spdC]!=4080&&this.spdC[euc.dash.spdC]!=4095)?4095:0);
 		this.spd=euc.dash.spd;
 		this.g.setFontVector(200);
-		this.g.drawString(euc.dash.spd|0,(132-(this.g.stringWidth(euc.dash.spd|0)/2)),65); 
+		this.g.drawString(Math.round(euc.dash.spd*euc.dash.spdF),(132-(this.g.stringWidth(Math.round(euc.dash.spd*euc.dash.spdF))/2)),65); 
 		this.spd=euc.dash.spd;
 		this.g.flip();
 	}
@@ -109,7 +109,7 @@ face[0] = {
 			this.g.setFontVector(140);
 		}else 
 			this.g.setFontVector(200);	  
-		this.g.drawString((set.def.dashSpd)?euc.dash.spd|0:Math.round(euc.dash.spd/1.6),132-(this.g.stringWidth((set.def.dashSpd)?euc.dash.spd|0:Math.round(euc.dash.spd/1.6))/2),65); 
+		this.g.drawString(Math.round(euc.dash.spd*euc.dash.spdF),132-(this.g.stringWidth(Math.round(euc.dash.spd*euc.dash.spdF))/2),65); 
 		this.g.flip();
     }
  

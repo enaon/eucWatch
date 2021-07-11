@@ -53,7 +53,8 @@ face[0] = {
 					this.g.setFontVector(80);
 				}else 
 					this.g.setFontVector(130);
-				this.g.drawString((set.def.dashSpd)?euc.dash.spd:Math.round(euc.dash.spd/1.6),129-(this.g.stringWidth((set.def.dashSpd)?euc.dash.spd:Math.round(euc.dash.spd/1.6))/2),57); 
+				//this.g.drawString((set.def.dashSpd)?euc.dash.spd:Math.round(euc.dash.spd/1.6),129-(this.g.stringWidth((set.def.dashSpd)?euc.dash.spd:Math.round(euc.dash.spd/1.6))/2),57); 
+				this.g.drawString(Math.round(euc.dash.spd*euc.dash.spdF),129-(this.g.stringWidth(Math.round(euc.dash.spd*euc.dash.spdF))/2),57); 
 				this.spd=euc.dash.spd;
 				this.g.flip();
 				if (euc.dash.spd==0) { 
@@ -269,14 +270,14 @@ face[0] = {
 			this.g.drawString(euc.dash.trpT|0,(240-(this.g.stringWidth(euc.dash.trpT|0)))/2,210); 
 			this.g.drawString(euc.dash.trpR,240-(this.g.stringWidth(euc.dash.trpR)+1),210); 
 		}else {
-			this.g.drawString((set.def.dashSpd)?(euc.dash.trpL/1).toFixed(2):(euc.dash.trpL/1.6).toFixed(2),0,208); 
+			this.g.drawString((euc.dash.trpL*euc.dash.trpF).toFixed(2),0,208); 
 			if (!set.def.dashDTrip) {//clock
 				let d=(Date()).toString().split(' ');
 				let t=(d[4]).toString().split(':');
 				this.time=(t[0]+":"+t[1]);
 				this.g.drawString(this.time, 240-(this.g.stringWidth(this.time)),210); //temp
 			}else 	
-				this.g.drawString((set.def.dashSpd)?Math.round(euc.dash.trpT):Math.round(euc.dash.trpT/1.6),240-(this.g.stringWidth((set.def.dashSpd)?Math.round(euc.dash.trpT):Math.round(euc.dash.trpT/1.6))),208); 
+				this.g.drawString(Math.round(euc.dash.trpT*euc.dash.trpF),240-(this.g.stringWidth(Math.round(euc.dash.trpT*euc.dash.trpF))),208); 
 		}
 		this.g.flip();
 	},
