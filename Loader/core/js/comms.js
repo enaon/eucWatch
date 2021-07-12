@@ -106,7 +106,7 @@ const Comms = {
   getInstalledApps : () => {
     Progress.show({title:`Getting app list...`,sticky:true});
     return new Promise((resolve,reject) => {
-      Puck.write("\x04",(result) => {
+      Puck.write("\x03",(result) => {
         if (result===null) {
           Progress.hide({sticky:true});
           return reject("");
