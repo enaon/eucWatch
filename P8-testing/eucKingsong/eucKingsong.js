@@ -255,7 +255,7 @@ euc.conn=function(mac){
 				c.writeValue(euc.cmd((euc.dash.aOff)?"off":"rideLedOff")).then(function() {
 					return c.writeValue(euc.cmd((euc.dash.aLck)?"lock":"lightsOff"));
 				}).then(function() {
-					return ((euc.seq==0)?"οκ":c.writeValue(euc.cmd("lightsOff")));
+					return ((euc.seq==0)?"ok":c.writeValue(euc.cmd("lightsOff")));
 				}).then(function() {
 					//c.stopNotifications();
 					return global["\xFF"].BLE_GATTS.disconnect();	
