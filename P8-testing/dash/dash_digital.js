@@ -24,8 +24,8 @@ face[0] = {
 		this.conn="OFF";
 		this.lock=2;
 		this.spdL=-1;
-		this.spdF=((set.def.mph)?1.6:1)*euc.dash.spdF;
-		this.trpF=((set.def.mph)?1.6:1)*euc.dash.trpF;
+		this.spdF=((set.def.dash.mph)?0.625:1)*euc.dash.spdF;
+		this.trpF=((set.def.dash.mph)?0.626:1)*euc.dash.trpF;
 		this.g.setColor(1,2730);
 		this.g.fillRect(0,0,119,50); //temp
 		this.g.fillRect(122,0,239,50); //batt      
@@ -271,7 +271,7 @@ face[0] = {
 			this.g.drawString(euc.dash.trpR,240-(this.g.stringWidth(euc.dash.trpR)+1),210); 
 		}else {
 			this.g.drawString((euc.dash.trpL*this.trpF).toFixed(2),0,208); 
-			if (!set.def.dashDTrip) {//clock
+			if (set.def.dash.clck) {//clock
 				let d=(Date()).toString().split(' ');
 				let t=(d[4]).toString().split(':');
 				this.time=(t[0]+":"+t[1]);
@@ -293,8 +293,8 @@ face[0] = {
 			this.g.drawString("LEFT",197,180); 
 		} else {
 			this.g.drawString("TRIP",2,180); 
-			this.g.drawString((this.mph)?"MPH":"KPH",105,180);
-			this.g.drawString((!set.def.dashDTrip)?"CLOCK":"TOTAL",181,180); 
+			this.g.drawString((set.def.dash.mph)?"MPH":"KPH",105,180);
+			this.g.drawString((!set.def.dash.clck)?"CLOCK":"TOTAL",181,180); 
 		}
 		this.g.flip();
 	},
@@ -346,8 +346,8 @@ touchHandler[0]=function(e,x,y){
  			face[0].tmp=-1;face[0].amp=-1;face[0].ampL=-1;
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (190<y){//mileage/time
-			if (set.def.dashDTrip==undefined) set.def.dashDTrip=0;
-			set.def.dashDTrip=1-set.def.dashDTrip;
+			if (set.def.dash.clck==undefined) set.def.dash.clck=0;
+			set.def.dash.clck=1-set.def.dash.clck;
  			face[0].trpL=-1;face[0].bar();
 			digitalPulse(D16,1,[30,50,30]);
 		}else
@@ -359,7 +359,7 @@ touchHandler[0]=function(e,x,y){
 			set.def.dash=0; 
 		else 
 			set.def.dash++;
-		face.go(set.dash[set.def.dash],0);
+		face.go(set.dash[set.def.dash.face],0);
 		return;
     case 2: //slide up event
 		if (y>160&&x<50) {
@@ -380,8 +380,8 @@ touchHandler[0]=function(e,x,y){
 		return;
     case 12: //touch and hold(long press) event
 		if (55<y && y<200) {
-			if (set.def.mph==undefined) set.def.mph=0;
-			set.def.mph=1-set.def.mph;
+			if (set.def.dash.mph==undefined) set.def.dash.mph=0;
+			set.def.dash.mph=1-set.def.dash.mph;
 			digitalPulse(D16,1,[30,50,30]);
 			face[0].bar();
 			face[0].trpL=-1;

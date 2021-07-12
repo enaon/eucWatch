@@ -183,7 +183,7 @@ face[1] = {
   return true;
   },
   show : function(){
-	(euc.state=="OFF")?face.go("dashOff",0):face.go(set.dash[set.def.dash],0);
+	(euc.state=="OFF")?face.go("dashOff",0):face.go(set.dash[set.def.dash.face],0);
     return true;
   },
    clear: function(){
@@ -221,7 +221,7 @@ touchHandler[0]=function(e,x,y){
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
-		face.go(set.dash[set.def.dash],0);
+		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
 		if ( 200<=y && x<=50 ) { //toggles full/current brightness on a left down corner swipe up. 
@@ -244,7 +244,7 @@ touchHandler[0]=function(e,x,y){
 			face[0].dash=require("Storage").readJSON("dash.json",1);
 			face[0].run=true;face[0].set=0;face[0].show();		
 		}else
-			(euc.state=="OFF")?face.go("dashOff",0):face.go(set.dash[set.def.dash],0);
+			(euc.state=="OFF")?face.go("dashOff",0):face.go(set.dash[set.def.dash.face],0);
 		return;
 	case 12: //long press event
 		digitalPulse(D16,1,[100]);

@@ -3,7 +3,7 @@ face[0] = {
 	offms: 5000,
 	g:w.gfx,
 	init: function(){
-		if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(set.dash[set.def.dash],0);return;}
+		if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(set.dash[set.def.dash.face],0);return;}
         if (!face.appPrev.startsWith("dash")) this.g.clear();
         this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,239);
@@ -18,7 +18,7 @@ face[0] = {
         this.run=true;
 	},
 	show : function(){
-		if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(set.dash[set.def.dash],0);return;}
+		if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
@@ -82,7 +82,7 @@ face[1] = {
 		else if (euc.state=="READY"&&euc.dash.maker=="Ninebot")
 			face.go("dashNinebot",0);
 		else
-			face.go(set.dash[set.def.dash],0);
+			face.go(set.dash[set.def.dash.face],0);
 		return;
 	},
 	clear: function(){
@@ -186,7 +186,7 @@ touchHandler[0]=function(e,x,y){
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
-		face.go(set.dash[set.def.dash],0);
+		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 

@@ -120,7 +120,7 @@ touchHandler[0]=function(e,x,y){
     if(0<y&&y<100) {
 		digitalPulse(D16,1,[30,50,30]);
 		if ( face[0].set === 1 ) { //kingsong
-			if (!Boolean(require("Storage").read('eucKingsong'))) {	face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
+			if (!Boolean(require("Storage").read('eucKingsong'))) {face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Kingsong");
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","KS-NO NAME");
 			euc.dash.name=0;
@@ -128,6 +128,7 @@ touchHandler[0]=function(e,x,y){
 			face.go('w_scan',0,'fff0'); 
 			return;
 		}else if ( face[0].set === 2 ) { //begode
+			if (!Boolean(require("Storage").read('begode'))) {face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Begode");
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","BG-NO NAME");
 			euc.dash.name=0;
@@ -135,12 +136,14 @@ touchHandler[0]=function(e,x,y){
 			face.go('w_scan',0,'ffe0'); 
 			//face[0].ntfy("NOT YET","",20,col("red"),1);
 		}else if ( face[0].set === 3 ) { //Ninebot Z
+			if (!Boolean(require("Storage").read('ninebotZ'))) {face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","NinebotZ");
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","Z10");
 			euc.dash.name=0;
 			euc.dash.maker="NinebotZ";
 			face.go('w_scan',0,'e7fe');
 		}else if ( face[0].set === 4 ) { //Ninebot S
+			if (!Boolean(require("Storage").read('ninebotS'))) {face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","NinebotS");
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","S2");
 			euc.dash.name=0;
@@ -150,7 +153,7 @@ touchHandler[0]=function(e,x,y){
 	}else if(100<y&&y<200) {
 		digitalPulse(D16,1,[30,50,30]);
 		if ( face[0].set === 1 ) {
-			if (!Boolean(require("Storage").read('eucInmotion'))) {	face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
+			if (!Boolean(require("Storage").read('eucInmotion'))) {face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Inmotion");
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","V11");
 			euc.dash.name=0;
@@ -158,14 +161,14 @@ touchHandler[0]=function(e,x,y){
 			face.go('w_scan',0,'ffe0');
 			return;
 		}else if ( face[0].set === 2 ) {
-			if (!Boolean(require("Storage").read('eucVeteran'))) {	face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
+			if (!Boolean(require("Storage").read('eucVeteran'))) {face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Veteran");
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","SM-NO NAME");
 			euc.dash.name=0;
 			euc.dash.maker="Veteran";
 			face.go('w_scan',0,'ffe0'); return;
 		}else if ( face[0].set === 3 ) {
-			if (!Boolean(require("Storage").read("eucNinebot"))) {	face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
+			if (!Boolean(require("Storage").read("eucNinebot"))) {face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Ninebot");
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","E+-NO NAME");
 			euc.dash.name=0;
@@ -175,7 +178,7 @@ touchHandler[0]=function(e,x,y){
     }else digitalPulse(D16,1,40); 
     break;
   case 1: //slide down event
-    face.go(set.dash[set.def.dash],0);
+    face.go(set.dash[set.def.dash.face],0);
 	return;	 
   case 2: //slide up event
     if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 

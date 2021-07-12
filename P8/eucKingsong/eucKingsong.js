@@ -193,7 +193,7 @@ euc.conn=function(mac){
 				setTimeout(() => { euc.buzz = 0; }, 3000);
 			}
 			if ((1<euc.dash.spdC||1<euc.dash.ampC||euc.dash.alrm)&&!w.gfx.isOn ){
-				face.go(set.dash[set.def.dash],0);
+				face.go(set.dash[set.def.dash.face],0);
 			}
 		});
 		//on disconnect

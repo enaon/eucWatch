@@ -27,7 +27,7 @@ face[0] = {
 		this.run=true;
 	},
 	show : function(){
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
+		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
         if (this.calibrate) {
             this.g.setColor(0,col("dgray"));
@@ -150,7 +150,7 @@ touchHandler[0]=function(e,x,y){
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
-		face.go(set.dash[set.def.dash],0);
+		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 

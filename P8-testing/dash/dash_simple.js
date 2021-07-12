@@ -17,7 +17,7 @@ face[0] = {
 	this.tmp=-1;
 	this.batt=-1;
     this.trpL=-1;
-	this.spdF=((set.def.mph)?1.6:1)*euc.dash.spdF;
+	this.trpF=((set.def.dash.mph)?0.626:1)*euc.dash.trpF;
 	if (euc.state=="READY") {
 		this.g.setColor(0,0);
 		this.g.fillRect(0,0,239,64);
@@ -205,7 +205,7 @@ touchHandler[0]=function(e,x,y){
 		break;
     case 1: //slide down event
 		if (set.def.dash+1>=set.dash.length) set.def.dash=0; else set.def.dash++;
-		face.go(set.dash[set.def.dash],0);
+		face.go(set.dash[set.def.dash.face],0);
 		return;
     case 2: //slide up event
 		if (y>160&&x<50) {
