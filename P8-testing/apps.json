@@ -200,7 +200,8 @@
 		"type": "euc",
 		"storage": [
 			{"name":"euc","url":"euc.js"},
-			{"name":"eucSlot.json","url":"eucSlot.json"}
+			{"name":"eucSlot.json","url":"eucSlot.json"},
+			{"name":"emuZ","url":"emuZ.js"}
 		]
 		},
 	{ "id": "eucKingsong",
@@ -211,8 +212,7 @@
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"eucKingsong","url":"eucKingsong.js"},
-			{"name":"eucEmu","url":"eucEmuKs.js"}
+			{"name":"eucKingsong","url":"eucKingsong.js"}
 		]
 		},
 	{ "id": "eucNinebot",

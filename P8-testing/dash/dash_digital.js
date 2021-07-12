@@ -180,7 +180,7 @@ face[0] = {
 			} 
 			//Battery field
 			if (!set.def.dashDBat || set.def.dashDBat==1){
-				if (euc.dash.volt!=this.volt) {
+				if (this.volt!=euc.dash.volt) {
 					this.volt=euc.dash.volt;
 					this.g.setColor(0,this.batC[euc.dash.batC]);
 					this.g.fillRect(122,0,239,50);

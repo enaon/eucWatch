@@ -103,7 +103,14 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		face.go("dashKingsong",0);
+		w.gfx.setColor(0,0);
+		w.gfx.drawLine (0,98,239,98);
+		w.gfx.drawLine (0,99,239,99);
+        w.gfx.flip();
+		w.gfx.drawLine (120,0,120,195);
+      	w.gfx.drawLine (121,0,121,195);
+        w.gfx.flip();	
+		face.go("dashKingsongAdv",0);
 		return true;
 	},
 	clear: function(){
