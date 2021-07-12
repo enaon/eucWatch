@@ -62,7 +62,7 @@ var set={
 			emuZ:0, //emulator service. Enables/disables bridge support for euc world, wheelog, darknessbot emulating a z10 .
 			mph:0,  
 			face:0,  
-			accE:0, 
+			accE:0,//euc acc on/off
 			clck:0 
 		},
 		name:"eucWatch", //Set the name to be broadcasted by the Bluetooth module. 
@@ -75,7 +75,6 @@ var set={
 		gb:0,  //Notifications service. Enables/disables support for "GadgetBridge" playstore app.
 		//atc:0, //Notifications service. Enables/disables support for "d6 notification" playstore app from ATC1441.
 		acc:0, //enables/disables wake-screen on wrist-turn. 
-		accE:0,//euc acc on/off
 		dnd:0, //Do not disturb mode, if ebabled vibrations are on.
 		hidT:"media", //joy/kb/media
 		bri:2, //Screen brightness 1..7
@@ -84,7 +83,7 @@ var set={
 		};
 		set.updateSettings();
 	},
-	accR:function(){if(!this.def.accE) { if (this.def.acc)acc.on(); else acc.off();}},
+	accR:function(){if(!this.def.dash.accE) { if (this.def.acc)acc.on(); else acc.off();}},
 	hidM:undefined, //not user settable.
 	clin:0,//not settable
 	upd:function(){ //run this for settings changes to take effect.

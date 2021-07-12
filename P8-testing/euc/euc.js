@@ -17,7 +17,7 @@ global.euc= {
 		ampL=[];batL=[];almL=[];
 		if (this.state!="OFF" ) {
 			digitalPulse(D16,1,[90,60,90]);  
-			set.def.accE=0;
+			set.def.dash.accE=0;
 			if (!set.def.acc) {acc.off();}
 			this.state="OFF";
 			face.go("dashOff",0);
@@ -34,7 +34,7 @@ global.euc= {
 		    }else {
 				eval(require('Storage').read('euc'+require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]));
 				this.state="ON";
-				if (!set.def.acc) {set.def.accE=1;acc.on();}
+				if (!set.def.acc) {set.def.dash.accE=1;acc.on();}
 				if (euc.dash.bms==undefined) euc.dash.bms=1.5;
 				if (euc.dash.maker=="Begobe"||euc.dash.maker=="NinebotZ")euc.dash.spdM=0;
 				this.conn(this.mac); 
