@@ -291,16 +291,6 @@
 			{"name":"repellent","url":"repellent.js"}
 		]
 	},
-	{ "id": "atc",
-		"name": "D6 Notification",
-		"icon": "icon.png",
-		"version":"0.20",
-		"description": "Support for playstore app D6 Notification from atc1441",
-		"tags": "system",
-		"storage": [
-			{"name":"atc","url":"D6Notification.js"}
-		]
-	},
 	{ "id": "hid",
 		"name": "Music controls",
 		"icon": "icon.png",

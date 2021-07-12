@@ -73,7 +73,7 @@ var set={
 		cli:1, //Nordic serial bluetooth access. Enables/disables Espruino Web IDE.
 		hid:0, //enable/disable Bluetooth music controll Service.
 		gb:0,  //Notifications service. Enables/disables support for "GadgetBridge" playstore app.
-		//atc:0, //Notifications service. Enables/disables support for "d6 notification" playstore app from ATC1441.
+		atc:0, //Notifications service. Enables/disables support for "d6 notification" playstore app from ATC1441.
 		acc:0, //enables/disables wake-screen on wrist-turn. 
 		dnd:0, //Do not disturb mode, if ebabled vibrations are on.
 		hidT:"media", //joy/kb/media
