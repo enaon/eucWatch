@@ -60,7 +60,8 @@ var set={
 		set.def = {
 		dash:{
 			emuZ:0, //emulator service. Enables/disables bridge support for euc world, wheelog, darknessbot emulating a z10 .
-			mph:0,  
+			mph:0, 
+			amp:0,  
 			face:0,  
 			accE:0,//euc acc on/off
 			clck:0 
