@@ -64,7 +64,7 @@ euc.conn=function(mac){
 				euc.emuW(event.target.value.buffer);
 			}
 			*/
-      euc.alert=0;
+			euc.alert=0;
 			switch (this.var){				
 				case  169:
 					//speed

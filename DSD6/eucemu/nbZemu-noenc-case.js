@@ -44,7 +44,7 @@ function send(data){
 	var check = checksum(data);
 	packet[packetLen - 2] = check & 0xFF;
 	packet[packetLen - 1] = (check >> 8) & 0xFF;
-	//return packet;
+	print( packet);
 	return Bluetooth.write(packet);
 }	
 function bcon() {

@@ -72,11 +72,7 @@ euc.conn=function(mac){
 					if ( 32767 < this.amp ) this.amp = this.amp - 65536;
 					//volt
 					euc.dash.volt=event.target.value.getUint16(2, true)/100;
-					let model=euc.dash.name.split("-")[0];
-					if (model.includes("S18") || model.includes("18L") ||  model.includes("18XL") || model.includes("16X") )
-						euc.dash.bat = ((euc.dash.volt / 20) * 100 - 320 ) |0;
-					else 
-						euc.dash.bat = (((euc.dash.volt / 16) * 100 - 315 ) * 0.955)|0;
+					euc.dash.bat=Math.round((euc.dash.volt*euc.dash.batF - euc.dash.batE ) * (100/(420-euc.dash.batE)));
 					//log
 					batL.unshift(euc.dash.bat);
 					if (20<batL.length) batL.pop();
@@ -160,9 +156,17 @@ euc.conn=function(mac){
 					euc.dash.serial=String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,2,14))+String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,17,3));
 					break;
 				case 187://model
+					console.log("model");
 					if (!euc.dash.name) {
 						euc.dash.model=String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,2,11));
 						euc.dash.name=String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,5,8));
+						if (euc.dash.model.includes("-")) {
+							let model=euc.dash.name.split("-")[0];
+							if (model.includes("S18") || model.includes("18L") ||  model.includes("18XL") || model.includes("16X") )
+								euc.dash.batF = 5;
+							else 
+								euc.dash.batF = 6.25;
+						} else euc.dash.batF=5;
 						set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",euc.dash.name);
 					}
 					break;
@@ -242,11 +246,12 @@ euc.conn=function(mac){
 				}).then(function() {
 					return (euc.dash.aLck&&euc.dash.passSend)?c.writeValue(euc.cmd("rideLedOn")):"ok";
 				}).then(function() {
-					return c.writeValue(euc.cmd("model"));
-				}).then(function() {
 					euc.state="READY";
-					c.startNotifications();
 					euc.run=1;
+					return c.startNotifications();
+				}).then(function() {
+					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+					return (euc.dash.model)?"ok":c.writeValue(euc.cmd("model"));
 				}).catch(function(err)  {
 					global["\xFF"].BLE_GATTS.disconnect();
 				});
