@@ -60,6 +60,7 @@ var set={
 		set.def = {
 		dash:{
 			mph:0, 
+			amp:0, 
 			amp:0,  
 			face:0,  
 			accE:0,//euc acc on/off
