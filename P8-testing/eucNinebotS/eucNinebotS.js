@@ -56,7 +56,6 @@ euc.conn=function(mac){
 			euc.rCha=rc;
 			//read
 			euc.rCha.on('characteristicvaluechanged', function(event) {
-				console.log("loop start :", getTime() - time );
 				//  this.var = event.target.value.getUint8(5, true);
 				this.var= event.target.value.getUint8(5, true);
 				this.in16=event.target.value.getUint16(6, true);
@@ -154,7 +153,6 @@ euc.conn=function(mac){
 					if ((1<euc.dash.spdC||1<euc.dash.ampC||euc.dash.alrm)&&!w.gfx.isOn ){
 					face.go(set.dash[set.def.dash.face],0);
 					}
-					console.log("loop end :", getTime() - time );
 					time=getTime();
 			});
 			//on disconnect
