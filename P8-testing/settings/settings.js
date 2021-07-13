@@ -10,7 +10,8 @@ face[0] = {
     var t=(d[4]).toString().split(':');	
       this.g.setColor(0,0);
 	  this.g.fillRect(0,0,239,155);
-      if(!face.mode) this.g.setColor(1,col("dgray")); else this.g.setColor(1,col("dgray1"));
+  	  this.g.setColor(1,col("dgray1"));
+      //if(!face.mode) this.g.setColor(1,col("dgray")); else this.g.setColor(1,col("dgray1"));
       this.g.fillRect(0,0,75,75);//1
       this.g.fillRect(80,0,155,75); //2
       this.g.fillRect(160,0,239,75); //3
