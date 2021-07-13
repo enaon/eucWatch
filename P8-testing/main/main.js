@@ -242,8 +242,8 @@ face[1] = {
   return true;
   },
   show : function(){
-	if (Boolean(require("Storage").read(set.dash[set.def.dash]))) {
-		(euc.state=="OFF")?face.go("dashOff",0):face.go(set.dash[set.def.dash],0);
+	if (Boolean(require("Storage").read(set.dash[set.def.dash.face]))) {
+		(euc.state=="OFF")?face.go("dashOff",0):face.go(set.dash[set.def.dash.face],0);
 		return;
 	}
 	else if (Boolean(require("Storage").read("alarm"))) {face.go("alarm",0);}  
@@ -300,9 +300,9 @@ touchHandler[0]=function(e,x,y){
 		if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
 	  //} else digitalPulse(D16,1,40);
     }else if  (e==3){
-		if (Boolean(require("Storage").read(set.dash[set.def.dash]))) {
-			(euc.state=="OFF")?face.go("dashOff",0):face.go(set.dash[set.def.dash],0);
-			//face.go(set.dash[set.def.dash],0);
+		if (Boolean(require("Storage").read(set.dash[set.def.dash.face]))) {
+			(euc.state=="OFF")?face.go("dashOff",0):face.go(set.dash[set.def.dash.face],0);
+			//face.go(set.dash[set.def.dash.face],0);
 			return;
 		}else if (Boolean(require("Storage").read("alarm"))) {face.go("alarm",0);return;}
     }else if  (e==4){
