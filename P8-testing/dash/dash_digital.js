@@ -355,7 +355,7 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
     case 1: //slide down event
-		if (set.def.dash.face+1>=set.dash.face.length) 
+		if (set.def.dash.face+1>=set.dash.length) 
 			set.def.dash.face=0; 
 		else 
 			set.def.dash.face++;
