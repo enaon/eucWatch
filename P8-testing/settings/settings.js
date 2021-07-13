@@ -3,6 +3,7 @@ face[0] = {
   offms: 5000,
   g:w.gfx,
   init: function(){
+	face.mode=0;
 	if (face.faceSave==-1) face.faceSave=[face.appPrev,face.pagePrev,face.pageArg];
     this.cli=-1;this.bt=-1;this.gb=-1;this.hid=-1;this.emuZ=-1;this.bri=-1;this.acc=-1;this.dnd=-1;this.sys=1;this.btn2=1;this.fmp=-1;
     face[0].btSetOn=1;
@@ -10,7 +11,7 @@ face[0] = {
     var t=(d[4]).toString().split(':');	
       this.g.setColor(0,0);
 	  this.g.fillRect(0,0,239,155);
-  	  this.g.setColor(1,col("dgray1"));
+  	  this.g.setColor(1,col("dgray"));
       //if(!face.mode) this.g.setColor(1,col("dgray")); else this.g.setColor(1,col("dgray1"));
       this.g.fillRect(0,0,75,75);//1
       this.g.fillRect(80,0,155,75); //2
