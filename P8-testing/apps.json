@@ -334,17 +334,6 @@
 		{"name":"Font7x11Numeric7Seg","url":"Font7x11Numeric7Seg.js"}
 		]
 	},
-	{ "id": "life",
-		"name": "Life",
-		"icon": "icon.png",
-		"version":"0.20",
-		"description": "Conway's Game of Life cellular automata (MightyWither port)",
-		"tags": "apps",
-		"readme": "README.md",
-		"storage": [
-			{"name":"life","url":"life.js"}
-		]
-	},
 	{ "id": "example_app",
 		"name": "Hello example",
 		"icon": "icon.png",
