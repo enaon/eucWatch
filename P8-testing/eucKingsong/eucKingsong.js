@@ -41,7 +41,6 @@ euc.cmd=function(no){
 };
 //start
 euc.conn=function(mac){
-	console.log("in");
 	//check
 	if ( global["\xFF"].BLE_GATTS!="undefined") {
 		if (set.def.cli) console.log("ble allready connected"); 
@@ -140,8 +139,6 @@ euc.conn=function(mac){
 					euc.new=1;
 					//haptic
 					if (euc.dash.alrm) euc.alert=20;
-					//console.log(euc.dash.spdL,euc.dash.spdT);
-					//console.log("packet: ",event.target.value.buffer);
 					break;	
 				case 181:
 					//console.log(181);
@@ -156,7 +153,7 @@ euc.conn=function(mac){
 					euc.dash.serial=String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,2,14))+String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,17,3));
 					break;
 				case 187://model
-					console.log("model");
+					//console.log("model");
 					if (!euc.dash.name) {
 						euc.dash.model=String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,2,11));
 						euc.dash.name=String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,5,8));
@@ -208,7 +205,6 @@ euc.conn=function(mac){
 			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},100);return;} 
 			euc.busy=setTimeout(()=>{euc.busy=0;},1000);
 			if (n=="end") c.stopNotifications();
-			console.log(n);
 			if (n=="hornOn"){
 				if (euc.horn) {clearTimeout(euc.horn);euc.horn=0;}
 				c.writeValue(euc.cmd("lock")).then(function() {
@@ -272,7 +268,6 @@ euc.conn=function(mac){
 				
 			}else if (!euc.cmd(n)) {
 				c.writeValue(n).then(function() {
-				console.log(11);
 					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 				}).catch(function(err)  {
 					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
@@ -334,7 +329,7 @@ euc.off=function(err){
 			}, 1000);
 		}
 	} else {
-			if (set.def.cli) console.log("EUC OUT:",err);
+			//if (set.def.cli) console.log("EUC OUT:",err);
 			//global["\xFF"].bleHdl=[];
 			if ( euc.aOff==0 || euc.aOff==1 ) {euc.dash.aOff=euc.aOff;	delete euc.aOff;}
 			if ( euc.aLck==0 || euc.aLck==1 )  {euc.dash.aLck=euc.aLck;	delete euc.aLck;}
