@@ -56,7 +56,7 @@ face[0] = {
 	  this.g.fillRect(0,0,158,50); //date
       this.g.setColor(1,col("lblue"));
       this.g.setFont("Vector",35);
-	  if (this.bt==0&&!set.def.cli&&!set.def.atc&&!set.def.hid&&!set.def.gb) {
+	  if (this.bt==0&&!set.def.cli&&!set.def.emuZ&&!set.def.hid&&!set.def.gb) {
 	    this.g.drawString(this.d[2]+" "+this.d[0].toUpperCase(), (81-(this.g.stringWidth(this.d[2]+" "+this.d[0].toUpperCase()))/2) ,9); //date
 	    this.g.flip();
 	  }else {

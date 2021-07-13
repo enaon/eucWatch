@@ -59,7 +59,6 @@ var set={
 	resetSettings:function() {
 		set.def = {
 		dash:{
-			emuZ:0, //emulator service. Enables/disables bridge support for euc world, wheelog, darknessbot emulating a z10 .
 			mph:0, 
 			amp:0,  
 			face:0,  
@@ -75,6 +74,7 @@ var set={
 		hid:0, //enable/disable Bluetooth music controll Service.
 		gb:0,  //Notifications service. Enables/disables support for "GadgetBridge" playstore app.
 		atc:0, //Notifications service. Enables/disables support for "d6 notification" playstore app from ATC1441.
+		emuZ:0, //emulator service. Enables/disables bridge support for euc world, wheelog, darknessbot emulating a z10 .
 		acc:0, //enables/disables wake-screen on wrist-turn. 
 		dnd:0, //Do not disturb mode, if ebabled vibrations are on.
 		hidT:"media", //joy/kb/media
@@ -112,7 +112,7 @@ var set={
 	//if (!Boolean(require('Storage').read('atc'))) this.def.atc=0;
 	//if (!Boolean(require('Storage').read('eucEmu'))||!global.euc) this.def.atc=0;
 	//if (this.def.atc) eval(require('Storage').read('atc'));
-	if (this.def.dash.emuZ){
+	if (this.def.emuZ){
 		this.def.cli=0;
 		this.def.gb=0;
 		this.def.hid=0;
@@ -146,7 +146,7 @@ var set={
 		//global.GB=undefined;
 		delete this.handleNotificationEvent;delete this.handleFindEvent;delete handleWeatherEvent;delete handleCallEvent;delete handleFindEvent;delete sendBattery;delete global.GB;
 	}		
-	if (!this.def.cli&&!this.def.gb&&!this.def.dash.emuZ&&!this.def.hid) { if (this.bt) NRF.disconnect(); else{ NRF.sleep();this.btsl=1;}}
+	if (!this.def.cli&&!this.def.gb&&!this.def.emuZ&&!this.def.hid) { if (this.bt) NRF.disconnect(); else{ NRF.sleep();this.btsl=1;}}
 	else if (this.bt) NRF.disconnect();
 	else if (this.btsl==1) {NRF.restart();this.btsl=0;}
 	}
@@ -168,7 +168,7 @@ E.setTimeZone(set.def.timezone);
 set.emuD=0;
 function ccon(l){ 
 	//"ram"
-	if (set.def.dash.emuZ) {
+	if (set.def.emuZ) {
 		if (set.emuD) return;
 		emuZ.cmd(l);
 		return;
@@ -202,13 +202,13 @@ function ccon(l){
 function bcon() {
 	E.setConsole(null,{force:true});
 	set.bt=1; 
-	if (set.def.cli||set.def.gb||set.def.dash.emuZ) { Bluetooth.on('data',ccon);}
+	if (set.def.cli||set.def.gb||set.def.emuZ) { Bluetooth.on('data',ccon);}
 	setTimeout(()=>{if (set.bt==1) NRF.disconnect();},5000);
 }
 function bdis() {
     Bluetooth.removeListener('data',ccon);
 	E.setConsole(null,{force:true});
-    if (!set.def.cli&&!set.def.gb&&!set.def.dash.emuZ&&!set.def.hid){
+    if (!set.def.cli&&!set.def.gb&&!set.def.emuZ&&!set.def.hid){
 		NRF.sleep();
 		set.btsl=1;
     }	
