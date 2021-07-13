@@ -245,8 +245,8 @@ euc.conn=function(mac){
 					return c.writeValue(euc.cmd("model"));
 				}).then(function() {
 					euc.state="READY";
+					c.startNotifications();
 					euc.run=1;
-					return c.startNotifications();
 				}).catch(function(err)  {
 					global["\xFF"].BLE_GATTS.disconnect();
 				});
