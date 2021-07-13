@@ -66,36 +66,6 @@ this.g.drawImage(require("heatshrink").decompress(atob("kUgwIOLn/AAYX4AYMeg4DBAQ
 			t.show();
 		},150,this);
 	},
-	btn: function(txt,size,x,y,clr,rx1,ry1,rx2,ry2,txt1,size1,x1,y1){
-			this.g.setColor(0,clr);
-			this.g.fillRect(rx1,ry1,rx2,ry2);
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",size);	
-            this.g.drawString(txt,x-(this.g.stringWidth(txt)/2),y); 
-   			if (txt1){
-            this.g.setFont("Vector",size1);	
-            this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1);
-            }
-			this.g.flip();
-    },
-	ntfy: function(txt1,txt0,size,clr,bt){
-			this.g.setColor(0,clr);
-			this.g.fillRect(0,198,239,239);
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",size);
-			this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
-			this.g.flip();
-			if (this.ntid) clearTimeout(this.ntid);
-			this.ntid=setTimeout(function(t){
-				t.ntid=0;
-				t.g.setColor(0,0);
-				t.g.fillRect(0,196,239,239);
-				t.g.setColor(1,col("white"));
-				t.g.setFont("Vector",22);
-				t.g.drawString("GARAGE",120-(t.g.stringWidth("GARAGE")/2),217); 
-				t.g.flip();
-			},1000,this);
-	},
 	tid:-1,
 	run:false,
 	clear : function(){

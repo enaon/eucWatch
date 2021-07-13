@@ -71,7 +71,7 @@ Modules.addCached("P8",function(){
 //battery
 const battVoltage=function(s){
 	let v=7.1*analogRead(D31);
-	if (s) { v=(v*100-345)*1.43|0; //if (v>=100) v=100;
+	if (s) { v=(v*100-340)*1.33|0; //if (v>=100) v=100;
 	}
     let hexString = ("0x"+(0x50000700+(D31*4)).toString(16));
 	poke32(hexString,2); // disconnect pin for power saving, otherwise it draws 70uA more 
