@@ -32,7 +32,7 @@ face[0] = {
 		this.g.setColor(0,0);
 		this.g.setFontVector(30);
 		this.g.drawString((set.def.dash.amp==1)?"AMP":"TEMP", 5,12); 
-		this.g.drawString("bat", 150,12); 
+		this.g.drawString("BATT", 150,12); 
 		this.g.flip();
 		this.bar();
 		this.mileage();
@@ -241,7 +241,7 @@ face[0] = {
 				this.g.setColor(0,0);
 				this.g.setFontVector(30);
 				this.g.drawString((set.def.dash.amp==1)?"AMP":"TEMP", 5,12); 
-				this.g.drawString("bat", 150,12);
+				this.g.drawString("BATT", 150,12);
 				this.g.flip();
 				if (euc.state=="WAIT"||euc.state=="RETRY"){	
 					this.alrm=-1;this.spd=-1;this.amp=-10;
