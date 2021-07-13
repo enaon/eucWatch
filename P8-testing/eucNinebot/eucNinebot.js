@@ -167,32 +167,26 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 	euc.dash.lock=0;
 	//write function
 	euc.wri=function(cmd){
-        if (euc.state==="OFF") {
-			if (euc.dash.aLck) {
-				c.writeValue(euc.cmd(21)).then(function() {
-					euc.dash.lock=1;
-				    global["\xFF"].BLE_GATTS.disconnect().catch(function(err)  {if (set.def.cli) console.log("EUC OUT disconnect failed:", err);});
-					return;
-				}).catch(function(err)  {
-					euc.off("lockFail");
-				});
-			} else {
-				global["\xFF"].BLE_GATTS.disconnect().catch(function(err)  {if (set.def.cli) console.log("EUC OUT disconnect failed:", err);});
-			}
-		} else {
+			if (cmd=="off") {c.stopNotifications(); cmd=(euc.dash.aLck)?21:0;}
 			c.writeValue(euc.cmd(cmd)).then(function() {
-				if (!euc.busy) { 
-					euc.loop=setTimeout(function(t,o){
-						euc.loop=0;
-						euc.wri(euc.tmp.count);	
-						euc.tmp.count++;
-						if (euc.tmp.count>=21) euc.tmp.count=0;
-					},20);
-				}
+				if (euc.state!=="OFF") {
+					if (!euc.busy) {
+						euc.loop=setTimeout( function(t,o){ 
+							euc.loop=0;
+							euc.wri(euc.tmp.count);
+							euc.tmp.count++;
+							if (euc.tmp.count>=21)euc.tmp.count=0;
+						},50);
+					} else return;
+				}else {
+					c.writeValue(euc.cmd(euc.dash.aLck)?21:0).then(function() {
+						return global["\xFF"].BLE_GATTS.disconnect().catch(function(err){if (set.def.cli)console.log("EUC OUT disconnect failed:", err);});
+					});
+				}		
+				//return  (euc.state!=="OFF")?(!euc.busy)?setTimeout(function(t,o){euc.loop=0;euc.wri(euc.tmp.count);euc.tmp.count++;if (euc.tmp.count>=21)euc.tmp.count=0;},50):true:global["\xFF"].BLE_GATTS.disconnect().catch(function(err){if (set.def.cli)console.log("EUC OUT disconnect failed:", err);});
 			}).catch(function(err)  {
 				euc.off("writefail");	
 			});
-		}
 	};
     euc.busy=0;
 	setTimeout(() => {euc.wri(euc.tmp.count);}, 500);
@@ -203,8 +197,6 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 };
 
 euc.off=function(err){
-	//if (set.def.cli) console.log("EUC:", err);
-	//  global.error.push("EUC :"+err);
 	if (euc.tmp.loop) {clearInterval(euc.tmp.loop);euc.tmp.loop=0;}
 	if (euc.reconnect) {clearTimeout(euc.reconnect); euc.reconnect=0;}
 	if (euc.state!="OFF") {
@@ -221,8 +213,6 @@ euc.off=function(err){
 		}else if ( err==="Disconnected"|| err==="Not connected")  {
 			if (set.def.cli) console.log("reason :",err);
 			euc.state="FAR";
-			// if (euc.dash.lock==1) digitalPulse(D16,1,100);
-			// else digitalPulse(D16,1,[100,150,100]);
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
 				euc.conn(euc.mac); 
@@ -237,12 +227,13 @@ euc.off=function(err){
 		}
 	} else {
 		if (set.def.cli) console.log("EUC: OUT");
-		global["\xFF"].bleHdl=[];
+			global["\xFF"].bleHdl=[];
             delete euc.off;
 			delete euc.conn;
             delete euc.wri;
 			delete euc.tmp;
 			delete euc.cmd;
+			euc.busy=0;
 			NRF.setTxPower(set.def.rfTX);	
     }
 };

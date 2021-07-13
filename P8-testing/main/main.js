@@ -265,29 +265,31 @@ touchHandler[0]=function(e,x,y){
 			digitalPulse(p,1,[30,50,30]);
 			set.gbSend({t:"call",n:"ignore"});notify.ring=0;
 		}else  digitalPulse(p,1,40);
-/*	  }else if (x>105 && (55<y&&y<150)){ 
-	     digitalPulse(D16,1,[30,50,30]);
-		if (Boolean(require("Storage").read("alarm"))) {face.go("alarm",0);return;}
-*/      
 	  //batt notifications dismiss
 	  }else if (x>158 && y<50){//batt
+	  
 		if (notify.ring){
 			digitalPulse(D16,1,[30,50,30]);
 			set.gbSend({t:"call",n:"accept"});notify.ring=0;
 		}else if (face[0].bs){
-			notify[face[0].bs]=0;
-			if (!notify.nInfo&&!notify.nCall&&!notify.nIm) {face[0].batt=-1;face[0].bs=0;notify.New=0;}
-			digitalPulse(D16,1,[30,50,30]);
+			if (Boolean(require("Storage").read("notify"))) {
+				digitalPulse(D16,1,[30,50,30]);	
+				face.go("notify",5,face[0].bs.substr(1).toLowerCase());return;
+			}else digitalPulse(D16,1,40);
 		}else if (set.hidM){
 			digitalPulse(D16,1,[30,50,30]);
 			if (Boolean(require("Storage").read("hid"))) {face.go("hid",0);return;}
 		}else digitalPulse(D16,1,40);
+		
+		
 	  }else if (y>151&&face[0].bs){ 
 		if (Boolean(require("Storage").read("notify"))) {
-          digitalPulse(D16,1,[30,50,30]);	
-          face.go("notify",5,face[0].bs.substr(1).toLowerCase());return;
+			notify[face[0].bs]=0;
+			if (!notify.nInfo&&!notify.nCall&&!notify.nIm) {face[0].batt=-1;face[0].bs=0;notify.New=0;}
+			digitalPulse(D16,1,[30,50,30]);
 		}else digitalPulse(D16,1,40);
 	  }else digitalPulse(D16,1,40);
+	  
     }else if  (e==1){
 		face.go("main",-1);return;
     }else if  (e==2){

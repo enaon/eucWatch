@@ -36,7 +36,7 @@ global.euc= {
 				this.state="ON";
 				if (!set.def.acc) {set.def.dash.accE=1;acc.on();}
 				if (euc.dash.bms==undefined) euc.dash.bms=1.5;
-				if (euc.dash.maker=="Begobe"||euc.dash.maker=="NinebotZ")euc.dash.spdM=0;
+				if (euc.dash.maker!=="Kingsong"||euc.dash.maker!=="inmotionV11")euc.dash.spdM=0;
 				this.conn(this.mac); 
 				face.go(set.dash[set.def.dash.face],0);return;
             }
