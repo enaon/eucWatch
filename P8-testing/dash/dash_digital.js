@@ -346,8 +346,8 @@ touchHandler[0]=function(e,x,y){
  			face[0].tmp=-1;face[0].amp=-1;face[0].ampL=-1;
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (190<y){//mileage/time
-			if (set.def.dashDTrip==undefined) set.def.dashDTrip=0;
-			set.def.dashDTrip=1-set.def.dashDTrip;
+			if (set.def.dash.clck==undefined) set.def.dash.clck=0;
+			set.def.dash.clck=1-set.def.dash.clck;
  			face[0].trpL=-1;face[0].bar();
 			digitalPulse(D16,1,[30,50,30]);
 		}else

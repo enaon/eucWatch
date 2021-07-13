@@ -17,7 +17,7 @@ face[0] = {
 	this.tmp=-1;
 	this.bat=-1;
     this.trpL=-1;
-	this.trpF=((set.def.dash.mph)?0.626:1)*euc.dash.trpF;
+	this.spdF=((set.def.dash.mph)?0.625:1)*euc.dash.spdF;
 	if (euc.state=="READY") {
 		this.g.setColor(0,0);
 		this.g.fillRect(0,0,239,64);
