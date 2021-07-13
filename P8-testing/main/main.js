@@ -149,7 +149,7 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
 	    else if (this.nIm)  {this.msg=JSON.parse(notify.im[0]);this.cf=col("lblue");}
         else if (this.nInfo)  {this.msg=JSON.parse(notify.info[0]);this.cf=col("raf2");}
 	    this.g.setColor(1,col("white"));//
-	    this.g.setFont("Vector",27);
+	    this.g.setFont("Vector",25);
 	    this.g.drawString((this.msg.title.length>16)?this.msg.title.substr(0,13)+"...":this.msg.title,122-(this.g.stringWidth((this.msg.title.length>16)?this.msg.title.substr(0,13)+"...":this.msg.title))/2,168); //info
 	    this.g.drawString((this.msg.body.length>16)?this.msg.body.substr(0,13)+"...":this.msg.body,122-(this.g.stringWidth((this.msg.body.length>16)?this.msg.body.substr(0,13)+"...":this.msg.body))/2,210); //info
 		this.msg=-1;
@@ -171,7 +171,6 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
 		this.g.flip();
 		this.img=-1;
 	  }else {
-//		this.g.setColor(1,col("raf2"));
 		this.g.setColor(0,0);
 		this.g.fillRect(0,151,239,239);
 		this.g.setColor(1,col("white"));//
