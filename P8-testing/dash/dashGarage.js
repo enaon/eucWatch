@@ -259,10 +259,11 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.flip();
 				face.go("dashAlerts",0);return;
 			} else {
-                set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Mac");
-                set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker");
-                set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name");
-				require("Storage").erase('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json');	
+                set.write("dash", "slot"+set.read("dash","slot")+"Mac"  );
+                set.write("dash","slot"+set.read("dash","slot")+"Maker");
+                set.write("dash","slot"+set.read("dash","slot")+"Name");
+				require("Storage").erase('eucSlot'+set.read("dash","slot")+'.json');
+				euc.dash=require("Storage").readJSON("eucSlot.json",1);				
 			    face[0].sv1=-1;face[0].sv2=-1;face[0].sv3=-1;face[0].sv4=-1;
                 w.gfx.setColor(0,0);w.gfx.fillRect(0,0,239,195);w.gfx.flip();
               	face[0].dash=require("Storage").readJSON("dash.json",1);
