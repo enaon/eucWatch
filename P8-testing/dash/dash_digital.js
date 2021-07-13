@@ -15,7 +15,7 @@ face[0] = {
 		this.amp=-10;
 		this.ampL=1;
 		this.tmp=-1;
-		this.batt=-1;
+		this.bat=-1;
 		this.batL=1;
 		this.volt=-1;
 		this.buzz=-1;
@@ -28,11 +28,11 @@ face[0] = {
 		this.trpF=((set.def.dash.mph)?0.626:1)*euc.dash.trpF;
 		this.g.setColor(1,2730);
 		this.g.fillRect(0,0,119,50); //temp
-		this.g.fillRect(122,0,239,50); //batt      
+		this.g.fillRect(122,0,239,50); //bat      
 		this.g.setColor(0,0);
 		this.g.setFontVector(30);
 		this.g.drawString((set.def.dash.amp==1)?"AMP":"TEMP", 5,12); 
-		this.g.drawString("BATT", 150,12); 
+		this.g.drawString("bat", 150,12); 
 		this.g.flip();
 		this.bar();
 		this.mileage();
@@ -178,8 +178,8 @@ face[0] = {
 					});
 					this.g.flip();
 			} 
-			//Battery field
-			if (!set.def.dashDBat || set.def.dashDBat==1){
+			//batery field
+			if (!set.def.dash.bat || set.def.dash.bat==1){
 				if (this.volt!=euc.dash.volt) {
 					this.volt=euc.dash.volt;
 					this.g.setColor(0,this.batC[euc.dash.batC]);
@@ -191,14 +191,14 @@ face[0] = {
 					this.g.drawString("VOLTS",191,36);
 					this.g.flip();
 				}
-			}else if (set.def.dashDBat==2) {
-				if (euc.dash.bat!=this.batt) {
-					this.batt=euc.dash.bat;
+			}else if (set.def.dash.bat==2) {
+				if (euc.dash.bat!=this.bat) {
+					this.bat=euc.dash.bat;
 					this.g.setColor(0,this.batC[euc.dash.batC]);
 					this.g.fillRect(122,0,239,50);
 					this.g.setColor(1,4095);
 					this.g.setFontVector(50);
-					this.g.drawString(this.batt,220-(this.g.stringWidth(this.batt)),3);
+					this.g.drawString(this.bat,220-(this.g.stringWidth(this.bat)),3);
 					this.g.setFontVector(20);
 					this.g.drawString("%",224,8);
 					this.g.flip();
@@ -241,11 +241,11 @@ face[0] = {
 				this.g.setColor(0,0);
 				this.g.setFontVector(30);
 				this.g.drawString((set.def.dash.amp==1)?"AMP":"TEMP", 5,12); 
-				this.g.drawString("BATT", 150,12);
+				this.g.drawString("bat", 150,12);
 				this.g.flip();
 				if (euc.state=="WAIT"||euc.state=="RETRY"){	
 					this.alrm=-1;this.spd=-1;this.amp=-10;
-					this.tmp=-1;this.batt=-1;this.trpL=-1;
+					this.tmp=-1;this.bat=-1;this.trpL=-1;
 					this.volt=-1;this.max=-1;this.buzz=-1;
 					this.conn="OFF";this.lock=2;
 					this.spdL=-1;this.ampL=1;this.run=true;
@@ -335,10 +335,10 @@ face[1] = {
 touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event	
-		if (120<x&&y<55){//battery percentage/voltage
-			if (set.def.dashDBat==undefined || 2 < set.def.dashDBat) set.def.dashDBat=0;
-			set.def.dashDBat++;
-			face[0].batt=-1;face[0].batL=-1;face[0].volt=-1;
+		if (120<x&&y<55){//batery percentage/voltage
+			if (set.def.dash.bat==undefined || 2 < set.def.dash.bat) set.def.dash.bat=0;
+			set.def.dash.bat++;
+			face[0].bat=-1;face[0].batL=-1;face[0].volt=-1;
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (x<120&&y<55){//tmp/amp
 			if (set.def.dash.amp==undefined) set.def.dash.amp=0;
@@ -355,10 +355,10 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
     case 1: //slide down event
-		if (set.def.dash+1>=set.dash.length) 
-			set.def.dash=0; 
+		if (set.def.dash.face+1>=set.dash.face.length) 
+			set.def.dash.face=0; 
 		else 
-			set.def.dash++;
+			set.def.dash.face++;
 		face.go(set.dash[set.def.dash.face],0);
 		return;
     case 2: //slide up event
@@ -389,10 +389,10 @@ touchHandler[0]=function(e,x,y){
 			if (euc.dash.ampR==undefined) euc.dash.ampR=0;
 			euc.dash.ampR=1-euc.dash.ampR;
 			digitalPulse(D16,1,[30,50,30]);
-		}else if (120<x&&y<55){//battery percentage/voltage
+		}else if (120<x&&y<55){//batery percentage/voltage
 			if (1.5<=euc.dash.bms) euc.dash.bms=1;
 			else euc.dash.bms=euc.dash.bms+0.25;
-			face[0].batt=-1;
+			face[0].bat=-1;
 			digitalPulse(D16,1,[30,50,30]);
 		} else digitalPulse(D16,1,40);
 		this.timeout();

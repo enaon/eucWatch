@@ -15,7 +15,7 @@ face[0] = {
 	this.spd=-1;
 	this.amp=-1;
 	this.tmp=-1;
-	this.batt=-1;
+	this.bat=-1;
     this.trpL=-1;
 	this.trpF=((set.def.dash.mph)?0.626:1)*euc.dash.trpF;
 	if (euc.state=="READY") {
@@ -25,7 +25,7 @@ face[0] = {
 		this.g.setFont("7x11Numeric7Seg",4.5);
 		this.g.drawString(euc.dash.tmp|0, 3,5); //temp  
 		this.g.drawString(euc.dash.amp|0,(122-(this.g.stringWidth(euc.dash.amp|0)/2)),5); 
-		if (set.def.dashBat)
+		if (set.def.dash.bat)
 			this.g.drawString(euc.dash.bat,238-(this.g.stringWidth(euc.dash.bat)),5); //fixed bat
 		else {
 			this.g.setFontVector(33);
@@ -71,15 +71,15 @@ face[0] = {
         this.g.drawString(this.amp|0,(122-(this.g.stringWidth(this.amp|0)/2)),5); 
         this.g.flip();
     }
-	//Battery
-	if (set.def.dashBat){
-		if (euc.dash.bat!=this.batt) {
-			this.batt=euc.dash.bat;
+	//batery
+	if (set.def.dash.bat){
+		if (euc.dash.bat!=this.bat) {
+			this.bat=euc.dash.bat;
 			this.g.setColor(0,this.batC[euc.dash.batC]);
 			this.g.fillRect(161,0,239,55);
 			this.g.setColor(1,(this.batC[euc.dash.batC]!=4080&&this.batC[euc.dash.batC]!=1525)?4095:0);
 			this.g.setFont("7x11Numeric7Seg",4.5);
-			this.g.drawString(this.batt,238-(this.g.stringWidth(this.batt)),5); //fixed bat
+			this.g.drawString(this.bat,238-(this.g.stringWidth(this.bat)),5); //fixed bat
 			this.g.flip();
 		}
 	}else {
@@ -147,7 +147,7 @@ face[0] = {
       this.g.setFont("Vector",50);
       this.g.drawString(euc.state,(125-this.g.stringWidth(euc.state)/2),115);
       this.g.flip();
-	  if (euc.state=="WAIT"||euc.state=="RETRY"){this.spd=-1;this.amp=-1;this.tmp=-1;this.batt=-1;this.trpL=-1;this.conn="OFF";this.lock=2;this.run=true;}
+	  if (euc.state=="WAIT"||euc.state=="RETRY"){this.spd=-1;this.amp=-1;this.tmp=-1;this.bat=-1;this.trpL=-1;this.conn="OFF";this.lock=2;this.run=true;}
     }
   }
 //refresh 
@@ -192,10 +192,10 @@ face[1] = {
 touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
-		if (160<x&&y<55){//battery percentage/voltage
-			if (set.def.dashBat==undefined) set.def.dashBat=0;
-			set.def.dashBat=1-set.def.dashBat;
-			face[0].batt=-1;face[0].volt=-1;
+		if (160<x&&y<55){//batery percentage/voltage
+			if (set.def.dash.bat==undefined) set.def.dash.bat=0;
+			set.def.dash.bat=1-set.def.dash.bat;
+			face[0].bat=-1;face[0].volt=-1;
 			digitalPulse(D16,1,[30,50,30]);
 		}
 		else{	
@@ -204,7 +204,7 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
     case 1: //slide down event
-		if (set.def.dash+1>=set.dash.length) set.def.dash=0; else set.def.dash++;
+		if (set.def.dash.face+1>=set.dash.face.length) set.def.dash.face=0; else set.def.dash.face++;
 		face.go(set.dash[set.def.dash.face],0);
 		return;
     case 2: //slide up event
@@ -224,10 +224,10 @@ touchHandler[0]=function(e,x,y){
 		return;
     case 12: //touch and hold(long press) event
 		if (160<x&&y<55){
-			if (set.def.dashBat==undefined) set.def.dashBat=0;
-			set.def.dashBat=1-set.def.dashBat;
+			if (set.def.dash.bat==undefined) set.def.dash.bat=0;
+			set.def.dash.bat=1-set.def.dash.bat;
 			digitalPulse(D16,1,100);
-			face[0].batt=-1;face[0].volt=-1;
+			face[0].bat=-1;face[0].volt=-1;
 		}else digitalPulse(D16,1,40);
 		this.timeout();
 		return;
