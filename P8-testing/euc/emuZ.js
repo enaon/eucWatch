@@ -40,7 +40,7 @@ global.emuZ={
 		case "Z\xA5\1>\x14\1\x1A\2\x8F\xFF": //firmware
 			if (set.bt!=4) {
 				set.bt=4;
-				handleInfoEvent({"src":"BT","title":"EUC PHONE","body":"CONNECTED"});
+				handleInfoEvent({"src":"BT","title":"BRIDGE","body":"Connected"});
 			}
 			return this.send(new Uint8Array([0x02,0x14,0x3e,0x04,0x1a,0x07,0x11]));  
 		case "Z\xA5\1>\x14\1\x68\2\x41\xFF":return this.send(new Uint8Array([0x02,0x14,0x3e,0x04,0x68,0x01,0x01]));  //star 

@@ -216,7 +216,7 @@ function bdis() {
 	else if (set.bt==2) handleInfoEvent({"src":"BT","title":"IDE","body":"Disconnected"});
 	else if (set.bt==3) handleInfoEvent({"src":"BT","title":"GB","body":"Disconnected"});
 	//else if (set.bt==4) handleInfoEvent({"src":"BT","title":"ATC","body":"Disconnected"});
-	else if (set.bt==4) handleInfoEvent({"src":"BT","title":"EUC PHONE","body":"DISCONNECTED"});
+	else if (set.bt==4) handleInfoEvent({"src":"BT","title":"BRIDGE","body":"Disconnected"});
 	else if (set.bt==5) handleInfoEvent({"src":"BT","title":"ESP","body":"Disconnected"});
   	set.bt=0; 
 	set.emuD=0;
