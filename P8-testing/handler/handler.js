@@ -357,7 +357,7 @@ function buttonHandler(s){
 		if (global.euc&&euc.state=="READY"&&euc.dash.spd>=2&&euc.dash.horn==1&&euc.dash.maker!="Ninebot") {euc.wri("hornOff");return;}
 		if (face.pageCurr==-1) {
 			digitalPulse(D16,1,[60,40,60]);
-			face.go((global.euc&&euc.state!="OFF")?set.dash[set.def.dash]:face.appCurr,0);
+			face.go((global.euc&&euc.state!="OFF")?set.dash[set.def.dash.face]:face.appCurr,0);
 		}else { 
 			if (face.appCurr=="main"&&face.pagePrev!=-1&&face.pagePrev!=2) {
 				face.go("main",-1);
@@ -549,7 +549,7 @@ if (set.def.acctype==="BMA421"){
 				if (data[1]<this.xedge||data[1]>=220) {
 					if (!this.up&&!w.gfx.isOn&&face.appCurr!=""){  
 							if  (global.euc) {
-								if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash],0);
+								if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash.face],0);
 								else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
 							}else{ 
 								if (face.appCurr=="main") face.go("main",0);
@@ -599,7 +599,7 @@ if (set.def.acctype==="BMA421"){
 							//print("wake");
 							//i2c.writeTo(0x18,0x30,0x02);
 							if  (global.euc) {
-								if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash],0);
+								if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash.face],0);
 								else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
 							}else{ 
 								if (face.appCurr=="main") face.go("main",0);
@@ -614,7 +614,7 @@ if (set.def.acctype==="BMA421"){
 					} else if (this.up) {
 						this.up=0;
 						//i2c.writeTo(0x18,0x30,0x6A);
-						if (w.gfx.isOn)face.off(600);
+						if (w.gfx.isOn)face.off(1500);
 						//print("sleep");
 					}
 				},D8,{repeat:true,edge:"rising"});

@@ -151,7 +151,6 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 		if ((1<euc.dash.spdC||1<euc.dash.ampC||euc.dash.alrm)&&!w.gfx.isOn ){
 			face.go(set.dash[set.def.dash],0);
 		}
-
 	});
 	//on disconnect
 	global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
@@ -168,8 +167,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 	//write function
 	//write function
 	euc.wri=function(i){
-		print ("cmd",i);
-		if (i==="end"){ print("end"); return;}
+		if (i==="end"){ if (euc.busy) i=0; else return;}
 		if (euc.state=="OFF") {
 			c.writeValue(euc.cmd((euc.dash.aLck)?21:25)).then(function() {
 				global["\xFF"].BLE_GATTS.disconnect().catch(function(err){if (set.def.cli)console.log("EUC OUT disconnect failed:", err);});
@@ -178,6 +176,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			});
 		}else{
 			c.writeValue(euc.cmd(i)).then(function() {
+				if (euc.busy==1) return;
 				euc.loop=setTimeout( function(){ 
 					euc.loop=0;
 					euc.tmp.count++;
@@ -188,7 +187,6 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 				euc.off("write fail");	
 			});
 		} 
-		
 	};
     euc.busy=0;
 	setTimeout(() => {euc.wri((euc.dash.aLck)?22:26);}, 500);
