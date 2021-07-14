@@ -151,6 +151,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 		if ((1<euc.dash.spdC||1<euc.dash.ampC||euc.dash.alrm)&&!w.gfx.isOn ){
 			face.go(set.dash[set.def.dash],0);
 		}
+
 	});
 	//on disconnect
 	global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
@@ -163,33 +164,34 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 	if (set.def.cli) console.log("EUC: Connected"); 
 	euc.state="READY"; //connected
 	digitalPulse(D16,1,[90,40,150,40,90]);
-	euc.tmp.count=22;// else euc.tmp.count=0;  //unlock	
 	euc.dash.lock=0;
 	//write function
-	euc.wri=function(cmd){
-			if (cmd=="off") {c.stopNotifications(); cmd=(euc.dash.aLck)?21:0;}
-			c.writeValue(euc.cmd(cmd)).then(function() {
-				if (euc.state!=="OFF") {
-					if (!euc.busy) {
-						euc.loop=setTimeout( function(t,o){ 
-							euc.loop=0;
-							euc.wri(euc.tmp.count);
-							euc.tmp.count++;
-							if (euc.tmp.count>=21)euc.tmp.count=0;
-						},50);
-					} else return;
-				}else {
-					c.writeValue(euc.cmd(euc.dash.aLck)?21:0).then(function() {
-						return global["\xFF"].BLE_GATTS.disconnect().catch(function(err){if (set.def.cli)console.log("EUC OUT disconnect failed:", err);});
-					});
-				}		
-				//return  (euc.state!=="OFF")?(!euc.busy)?setTimeout(function(t,o){euc.loop=0;euc.wri(euc.tmp.count);euc.tmp.count++;if (euc.tmp.count>=21)euc.tmp.count=0;},50):true:global["\xFF"].BLE_GATTS.disconnect().catch(function(err){if (set.def.cli)console.log("EUC OUT disconnect failed:", err);});
+	//write function
+	euc.wri=function(i){
+		print ("cmd",i);
+		if (i==="end"){ print("end"); return;}
+		if (euc.state=="OFF") {
+			c.writeValue(euc.cmd((euc.dash.aLck)?21:25)).then(function() {
+				global["\xFF"].BLE_GATTS.disconnect().catch(function(err){if (set.def.cli)console.log("EUC OUT disconnect failed:", err);});
 			}).catch(function(err)  {
-				euc.off("writefail");	
+				euc.off("end fail");	
 			});
+		}else{
+			c.writeValue(euc.cmd(i)).then(function() {
+				euc.loop=setTimeout( function(){ 
+					euc.loop=0;
+					euc.tmp.count++;
+					if (euc.tmp.count>=21)euc.tmp.count=0;
+					euc.wri(euc.tmp.count);
+				},50);	
+			}).catch(function(err)  {
+				euc.off("write fail");	
+			});
+		} 
+		
 	};
     euc.busy=0;
-	setTimeout(() => {euc.wri(euc.tmp.count);}, 500);
+	setTimeout(() => {euc.wri((euc.dash.aLck)?22:26);}, 500);
 //reconnect
 }).catch(function(err)  {
 	euc.off(err);
