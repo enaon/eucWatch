@@ -240,14 +240,14 @@ euc.conn=function(mac){
 				}).then(function() {
 					return (euc.seq==0)?(euc.dash.aLck^euc.dash.passSend)?c.writeValue(euc.cmd("rideLedOn")):"ok":c.writeValue(euc.cmd((euc.dash.aLight)?euc.dash.aLight:"lightsAuto"));
 				}).then(function() {
-					return (euc.dash.aLck&&euc.dash.passSend)?c.writeValue(euc.cmd("rideLedOn")):"ok";
+					return ((euc.dash.aLck&&euc.dash.passSend)?c.writeValue(euc.cmd("rideLedOn")):"ok");
 				}).then(function() {
 					euc.state="READY";
 					euc.run=1;
-					return c.startNotifications();
+					return ((euc.dash.model)?"ok":c.writeValue(euc.cmd("model")));
 				}).then(function() {
 					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-					return (euc.dash.model)?"ok":c.writeValue(euc.cmd("model"));
+					return c.startNotifications();
 				}).catch(function(err)  {
 					global["\xFF"].BLE_GATTS.disconnect();
 				});
