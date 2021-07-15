@@ -543,7 +543,8 @@ if (set.def.acctype==="BMA421"){
 			if(!this.run) return;
 			var data;
 			data=i2c.readFrom(0x18,6);
-			//print(data);
+			print(data);
+			/*
 			//if (!this.up && 230<data[3]&&data[3]<this.yedge) {
 			if (230<data[3]&&data[3]<this.yedge) {
 				if (data[1]<this.xedge||data[1]>=220) {
@@ -570,6 +571,7 @@ if (set.def.acctype==="BMA421"){
 				else 
 					face.off(1500);
 			}
+			*/
 		}
 	};	
 }else if (set.def.acctype==="SC7A20"){ //based on work from jeffmer
@@ -579,12 +581,15 @@ if (set.def.acctype==="BMA421"){
 			i2c.writeTo(0x18,0x20,0x57); //reg1-odr=100zh lp=0 zyx=1
 			i2c.writeTo(0x18,0x21,0x00); //reg2-highpass filter disabled
 			i2c.writeTo(0x18,0x22,0x40); //reg3-ia1 interrupt to INT1
+			//i2c.writeTo(0x18,0x23,0x88); //reg4-BDU,MSB at high addr, HR=1
 			i2c.writeTo(0x18,0x23,0x80); //reg4-BDU,MSB at high addr, HR=0
 			i2c.writeTo(0x18,0x24,0x00); //reg5-latched interrupt off
 			i2c.writeTo(0x18,0x32,5); //int1_ths-threshold = 250 milli g's
-			i2c.writeTo(0x18,0x33,10); //duration = 1 * 20ms
-			//i2c.writeTo(0x18,0x30,0x6A); //INT1_CFG-Xh Yh
-			i2c.writeTo(0x18,0x30,0x02);
+			i2c.writeTo(0x18,0x33,30); //duration = 1 * 20ms
+//			i2c.writeTo(0x18,0x30,0x6A); //INT1_CFG-Xh Yh
+			i2c.writeTo(0x18,0x30,0x02); //INT1_CFG-XH interrupt 0Ah=XH&YH 2Ah=allH 95h=freefall 
+//			i2c.writeTo(0x18,0x30,0x03); //INT1_CFG-1011 1111
+//			i2c.writeTo(0x18,0x30,0x80); //INT1_CFG-interrupt aio=1 
 			if (!this.tid) {
 				this.tid=setWatch(()=>{
 					i2c.writeTo(0x18,0x31);
@@ -593,7 +598,7 @@ if (set.def.acctype==="BMA421"){
 					let xx=i2c.readFrom(0x18,1)[0];
 					i2c.writeTo(0x18,0x03);
 					let yy=i2c.readFrom(0x18,1)[0];
-					//print("in :",xx,yy);
+					print("in :",xx,yy);
 					if ( 160 < xx  && ( 200 < yy || yy < 50)) {
 						if (!w.gfx.isOn&&face.appCurr!=""){  
 							//print("wake");
