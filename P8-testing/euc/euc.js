@@ -21,12 +21,11 @@ global.euc= {
 		ampL=[];batL=[];almL=[];
 		if (this.state!="OFF" ) {
 			digitalPulse(D16,1,[90,60,90]);  
+			face.go("dashOff",0);
 			set.def.dash.accE=0;
 			if (!set.def.acc) {acc.off();}
 			this.state="OFF";
 			this.wri("end");
-			//if (euc.busy)euc.busy=0;
-			face.go("dashOff",0);
 			setTimeout(()=>{euc.updateDash(require("Storage").readJSON("dash.json",1).slot);NRF.setTxPower(set.def.rfTX);},500);
 			return;
 		}else {
@@ -38,12 +37,12 @@ global.euc= {
 		    }else {
 				eval(require('Storage').read('euc'+require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]));
 				this.state="ON";
+				this.conn(this.mac);
 				if (!set.def.acc) {set.def.dash.accE=1;acc.on();}
 				if (this.dash.bms==undefined) this.dash.bms=1.5;
 				if (this.dash.maker!=="Kingsong"||this.dash.maker!=="inmotionV11") this.dash.spdM=0;
-				this.conn(this.mac); 
-				face.go(set.dash[set.def.dash.face],0);return;
-            }
+				setTimeout(()=>{face.go(set.dash[set.def.dash.face],0);},100);
+			}
 		}
 	} 
 };

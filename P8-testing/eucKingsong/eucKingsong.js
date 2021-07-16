@@ -154,7 +154,7 @@ euc.conn=function(mac){
 					break;
 				case 187://model
 					//console.log("model");
-					if (!euc.dash.model) {
+					if (!euc.dash.name) {
 						euc.dash.model=String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,2,11));
 						euc.dash.name=String.fromCharCode.apply(String,new Uint8Array(event.target.value.buffer,5,8));
 						if (euc.dash.model.includes("-")) {
@@ -233,7 +233,6 @@ euc.conn=function(mac){
 					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 					euc.dash.strb=0;
 				});
-				c.writeValue(euc.cmd("rideLedOn"));
 			} else if (n==="start") {
 				c.writeValue(euc.cmd((euc.dash.passSend)?"passSend":(euc.dash.aLck)?"unlock":(euc.dash.aLight)?euc.dash.aLight:"lightsAuto")).then(function() {
 					return c.writeValue(euc.cmd((euc.dash.aLck&&euc.dash.passSend)?"unlock":(euc.seq==0)?"rideLedOn":(euc.dash.aLight)?euc.dash.aLight:"lightsAuto"));
@@ -242,11 +241,11 @@ euc.conn=function(mac){
 				}).then(function() {
 					return ((euc.dash.aLck&&euc.dash.passSend)?c.writeValue(euc.cmd("rideLedOn")):"ok");
 				}).then(function() {
-					return c.startNotifications();
-				}).then(function() {
-					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 					euc.state="READY";
-					return ((euc.run&&euc.dash.model)?"ok":c.writeValue(euc.cmd("model")));
+					return c.writeValue(euc.cmd("model"));
+        }).then(function() {
+					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+					return c.startNotifications();
 				}).catch(function(err)  {
 					if (global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected) global["\xFF"].BLE_GATTS.disconnect();
 					else euc.off("err-start");
@@ -259,7 +258,6 @@ euc.conn=function(mac){
 				}).then(function() {
 					return ((euc.seq==0)?"ok":c.writeValue(euc.cmd("lightsOff")));
 				}).then(function() {
-					//c.stopNotifications();
 					return global["\xFF"].BLE_GATTS.disconnect();	
 				}).catch(function(err)  {
 					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
@@ -291,7 +289,7 @@ euc.conn=function(mac){
 				if (global["\xFF"].bleHdl[54].value.buffer[0]==65 ||global["\xFF"].bleHdl[54].value.buffer[0]==188){
 					euc.wri("start");
 				} else c.startNotifications();
-			},1000);
+			},500);
 		}
 	//reconect
 	}).catch(function(err)  {
@@ -336,7 +334,6 @@ euc.off=function(err){
 			//global["\xFF"].bleHdl=[];
 			if ( euc.aOff==0 || euc.aOff==1 ) {euc.dash.aOff=euc.aOff;	delete euc.aOff;}
 			if ( euc.aLck==0 || euc.aLck==1 )  {euc.dash.aLck=euc.aLck;	delete euc.aLck;}
-			if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 			euc.off=function(err){if (set.def.cli) console.log("EUC stoped at:",err);};
 			euc.wri=function(err){if (set.def.cli) console.log("EUC write, not connected");};
 			delete euc.conn;

@@ -162,12 +162,12 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 	digitalPulse(D16,1,[90,40,150,40,90]);
 	euc.dash.lock=0;
 	//write function
-	//write function
 	euc.wri=function(i){
 		if (i==="end") {
 			euc.busy=1;
 			if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 			euc.loop=setTimeout( function(){ 
+				euc.loop=0;
 				if (!global["\xFF"].BLE_GATTS) {;euc.off("not connected");return;}
 				c.writeValue(euc.cmd((euc.dash.aLck)?21:25)).then(function() {
 					global["\xFF"].BLE_GATTS.disconnect().catch(function(err){if (set.def.cli)console.log("EUC OUT disconnect failed:", err);});
