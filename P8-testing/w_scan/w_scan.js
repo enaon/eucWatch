@@ -165,7 +165,7 @@ touchHandler[0]=function(e,x,y){
 			digitalPulse(D16,1,[30,50,30]);
 			if (face.appRoot[0]!="repellent"){
                 //set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Mac",this.mac);
-				euc.dash.mac=this.mac;
+				euc.mac=this.mac;
 				euc.tgl();
 				return;
 			}else	{
