@@ -584,10 +584,10 @@ if (set.def.acctype==="BMA421"){
 			//i2c.writeTo(0x18,0x23,0x88); //reg4-BDU,MSB at high addr, HR=1
 			i2c.writeTo(0x18,0x23,0x80); //reg4-BDU,MSB at high addr, HR=0
 			i2c.writeTo(0x18,0x24,0x00); //reg5-latched interrupt off
-			i2c.writeTo(0x18,0x32,5); //int1_ths-threshold = 250 milli g's
-			i2c.writeTo(0x18,0x33,30); //duration = 1 * 20ms
+			i2c.writeTo(0x18,0x32,1); //int1_ths-threshold = 250 milli g's
+			i2c.writeTo(0x18,0x33,); //duration = 1 * 20ms
 //			i2c.writeTo(0x18,0x30,0x6A); //INT1_CFG-Xh Yh
-			i2c.writeTo(0x18,0x30,0x02); //INT1_CFG-XH interrupt 0Ah=XH&YH 2Ah=allH 95h=freefall 
+			i2c.writeTo(0x18,0x30,0x01); //INT1_CFG-XH interrupt 0Ah=XH&YH 2Ah=allH 95h=freefall 
 //			i2c.writeTo(0x18,0x30,0x03); //INT1_CFG-1011 1111
 //			i2c.writeTo(0x18,0x30,0x80); //INT1_CFG-interrupt aio=1 
 			if (!this.tid) {

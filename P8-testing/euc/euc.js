@@ -11,8 +11,12 @@ global.euc= {
 	buzz:0,
 	day:[7,19],
 	updateDash:function(slot){require('Storage').write('eucSlot'+slot+'.json', euc.dash);},
+	off:function(err){if (set.def.cli) console.log("EUC off, not connected");},
+	wri:function(err){if (set.def.cli) console.log("EUC write, not connected");},
 	tgl:function(){ 
 		face.off();
+		if (this.reconnect) {clearTimeout(this.reconnect); this.reconnect=0;}
+		if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 		this.seq=1;
 		ampL=[];batL=[];almL=[];
 		if (this.state!="OFF" ) {
@@ -20,10 +24,10 @@ global.euc= {
 			set.def.dash.accE=0;
 			if (!set.def.acc) {acc.off();}
 			this.state="OFF";
+			this.wri("end");
+			//if (euc.busy)euc.busy=0;
 			face.go("dashOff",0);
-			euc.wri("end");
-			if (euc.busy)euc.busy=0;
-			setTimeout(()=>{euc.updateDash(require("Storage").readJSON("dash.json",1).slot);},500);
+			setTimeout(()=>{euc.updateDash(require("Storage").readJSON("dash.json",1).slot);NRF.setTxPower(set.def.rfTX);},500);
 			return;
 		}else {
 			NRF.setTxPower(4);
@@ -35,15 +39,14 @@ global.euc= {
 				eval(require('Storage').read('euc'+require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]));
 				this.state="ON";
 				if (!set.def.acc) {set.def.dash.accE=1;acc.on();}
-				if (euc.dash.bms==undefined) euc.dash.bms=1.5;
-				if (euc.dash.maker!=="Kingsong"||euc.dash.maker!=="inmotionV11")euc.dash.spdM=0;
+				if (this.dash.bms==undefined) this.dash.bms=1.5;
+				if (this.dash.maker!=="Kingsong"||this.dash.maker!=="inmotionV11") this.dash.spdM=0;
 				this.conn(this.mac); 
 				face.go(set.dash[set.def.dash.face],0);return;
             }
 		}
 	} 
 };
-
 
 //init
 if (Boolean(require("Storage").read('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json'))) { 
