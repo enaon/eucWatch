@@ -26,12 +26,13 @@ global.euc= {
 			if (!set.def.acc) {acc.off();}
 			this.state="OFF";
 			this.wri("end");
+			this.mac=0;
 			setTimeout(()=>{euc.updateDash(require("Storage").readJSON("dash.json",1).slot);NRF.setTxPower(set.def.rfTX);},500);
 			return;
 		}else {
 			NRF.setTxPower(4);
 			digitalPulse(D16,1,100); 
-			this.mac=require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Mac"];
+			this.mac=(this.mac)?this.mac:set.read("dash","slot"+set.read("dash","slot")+"Mac");
 			if(!this.mac) {
 				face.go('dashScan',0);return;
 		    }else {
