@@ -187,7 +187,7 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
   this.s=(this.t[2]).toString().split('');
   if (this.t[1]!=this.min ){
     this.min=this.t[1];
-    this.g.setFont("Vector",75);
+    this.g.setFont("Vector",70);
 	this.fmin=col("lblue");
     this.fsec=0;
 	if (global.alrm) {
@@ -215,8 +215,17 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
     this.g.setColor(0,col("lgray"));
     this.g.fillRect(0,55,100,150);
     this.g.setColor(1,col("white"));
-    this.g.setFont("Vector",75);
-    this.g.drawString((set.def.clkH)?this.t[0]:(this.t[0]<13)?this.t[0]:this.t[0]-12,(set.def.clkH)?9:(this.t[0]<13)?9:55-(this.g.stringWidth(this.t[0]-12)/2),69); //hours
+    this.g.setFont("Vector",70);
+	if (set.def.hr24) {
+		this.g.drawString(this.hour,9,69); //hours
+		this.g.setFont("Vector",14);
+		this.g.drawString("24H",77,138); //hours
+	} else {	
+		this.hour=(this.hour<13)?"0"+this.hour:"0"+this.hour-12;
+		this.g.drawString(this.hour,9,69); //hours
+		this.g.setFont("Vector",14);
+		this.g.drawString((this.t[0]<13)?"AM":"PM",80,138); //hours
+	}
   this.g.flip();
   }
 	  
@@ -316,8 +325,8 @@ touchHandler[0]=function(e,x,y){
       digitalPulse(D16,1,40);
 	//24 hour
 	}else if (x<100 && 55<y && y<150){ 
-		if (set.def.clkH==undefined) set.def.clkH=0;
-		set.def.clkH=1-set.def.clkH;
+		if (set.def.hr24==undefined) set.def.hr24=0;
+		set.def.hr24=1-set.def.hr24;
 		face[0].hour=-1;
 		digitalPulse(D16,1,100);
 	//alarms

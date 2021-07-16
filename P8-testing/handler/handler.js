@@ -68,6 +68,7 @@ var set={
 		},
 		name:"eucWatch", //Set the name to be broadcasted by the Bluetooth module. 
 		timezone:0, //Timezone
+		hr24:1, //24 hour mode
 		woe:1, //wake Screen on event.0=disable|1=enable
 		wob:1, //wake Screen on Button press.0=disable|1=enable
 		rfTX:-4, //BT radio tx power, -4=low|0=normal|4=high

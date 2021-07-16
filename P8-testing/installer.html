@@ -41,7 +41,7 @@
 		localStorage.setItem("p8acc", acc);
 		localStorage.setItem("p8touch", touch);
 		localStorage.setItem("p8name", name);
-        var app = ` {dash:{"mph":0,"amp":0,"face":0,"accE":0,"clck":0},"name":${JSON.stringify(name)},"touchtype":${JSON.stringify(touch)},"acctype":${JSON.stringify(acc)},"emuZ":0,"timezone":"0","woe":1,"wob":1,"rfTX":-4,"cli":1,"hid":0,"gb":0,"atc":0,"acc":0,"dnd":1,"hidT":"media","bri":2}
+        var app = ` {dash:{"mph":0,"amp":0,"face":0,"accE":0,"clck":0},"name":${JSON.stringify(name)},"touchtype":${JSON.stringify(touch)},"acctype":${JSON.stringify(acc)},"hr24":1,"emuZ":0,"timezone":"0","woe":1,"wob":1,"rfTX":-4,"cli":1,"hid":0,"gb":0,"atc":0,"acc":0,"dnd":1,"hidT":"media","bri":2}
 `;
 		window.postMessage(app);
 		// send finished app
