@@ -61,7 +61,6 @@ var set={
 		dash:{
 			mph:0, 
 			amp:0, 
-			amp:0,  
 			face:0,  
 			accE:0,//euc acc on/off
 			clck:0 
@@ -545,7 +544,7 @@ if (set.def.acctype==="BMA421"){
 			var data;
 			data=i2c.readFrom(0x18,6);
 			print(data);
-			/*
+			
 			//if (!this.up && 230<data[3]&&data[3]<this.yedge) {
 			if (230<data[3]&&data[3]<this.yedge) {
 				if (data[1]<this.xedge||data[1]>=220) {
@@ -572,7 +571,7 @@ if (set.def.acctype==="BMA421"){
 				else 
 					face.off(1500);
 			}
-			*/
+			
 		}
 	};	
 }else if (set.def.acctype==="SC7A20"){ //based on work from jeffmer
@@ -586,7 +585,7 @@ if (set.def.acctype==="BMA421"){
 			i2c.writeTo(0x18,0x23,0x80); //reg4-BDU,MSB at high addr, HR=0
 			i2c.writeTo(0x18,0x24,0x00); //reg5-latched interrupt off
 			i2c.writeTo(0x18,0x32,1); //int1_ths-threshold = 250 milli g's
-			i2c.writeTo(0x18,0x33,); //duration = 1 * 20ms
+			i2c.writeTo(0x18,0x33,10); //duration = 1 * 20ms
 //			i2c.writeTo(0x18,0x30,0x6A); //INT1_CFG-Xh Yh
 			i2c.writeTo(0x18,0x30,0x01); //INT1_CFG-XH interrupt 0Ah=XH&YH 2Ah=allH 95h=freefall 
 //			i2c.writeTo(0x18,0x30,0x03); //INT1_CFG-1011 1111
