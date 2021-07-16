@@ -231,7 +231,7 @@ euc.off=function(err){
 			if (set.def.cli) console.log("ble still connected"); 
 			global["\xFF"].BLE_GATTS.disconnect();return;
 		}
-		if (set.def.cli) console.log("EUC:",err);
+		if (set.def.cli) console.log("EUC OUT:",err);
 		//global["\xFF"].bleHdl=[];
 		euc.busy=0;
 		euc.off=function(err){if (set.def.cli) console.log("EUC stoped at:",err);};
