@@ -135,7 +135,7 @@ euc.conn=function(mac){
 					});
 				}
 			};
-			if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) set.write("dash","slot"+set.read("dash","slot")+"Mac",this.mac);
+			if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
 			euc.busy=0;
 			setTimeout(() => {euc.wri("live");}, 500);
 		//reconnect
