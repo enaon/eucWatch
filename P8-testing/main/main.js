@@ -196,21 +196,20 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
 		else  {this.bmin=col("raf1");this.fsec=col("black");this.bsec=col("raf1");}
 	}else {this.bmin=col("raf1");this.fsec=col("black");this.bsec=col("raf1");}
 	this.g.setColor(0,this.bmin);
-    this.g.fillRect(105,55,206,150);
+    this.g.fillRect(105,55,205,150);
 	this.g.setColor(1,this.fmin);
     this.g.drawString(this.t[1],115,69);
     this.g.flip();
   }
    //seconds
   this.g.setColor(0,this.bsec);
-  this.g.fillRect(206,55,240,150);
+  this.g.fillRect(205,55,240,150);
   this.g.setColor(1,this.fsec);//
-  this.g.setFont("Vector",22);
-  this.g.drawString((set.def.hr24)?"24":(this.t[0]<12)?"AM":"PM",206,74); //hours mode
-  this.g.setFont("Vector",29);
-//  this.g.drawString(this.s[0],218,75); //seconds
-//  this.g.drawString(this.s[1],218,105); //seconds
-  this.g.drawString(this.s[0]+this.s[1],206,102); //seconds
+  this.g.setFont("Vector",20);
+  let sec=(set.def.hr24)?"24h":(this.t[0]<12)?"AM":"PM"
+  this.g.drawString(sec,240-(this.g.stringWidth(sec)),75); //hours mode
+  this.g.setFont("Vector",30);
+  this.g.drawString(this.s[0]+this.s[1],205,102); //seconds
 
   this.g.flip(); 
   //hours
