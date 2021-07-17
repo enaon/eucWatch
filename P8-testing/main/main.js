@@ -9,7 +9,7 @@ face[0] = {
     this.v=w.battVoltage(1);
     //top
     pal[0]=0;
-    this.g.setColor(1,col("lgray"));
+    this.g.setColor(1,col("dgray"));
     this.g.fillRect(0,0,158,50); //date
     this.g.fillRect(162,0,239,50);//batt
     if (face.pagePrev!=2){this.g.fillRect(0,55,100,150);}
@@ -48,7 +48,7 @@ face[0] = {
     }else if (set.bt != this.bt){
 	  this.bt=set.bt;
 	  this.ring=0;
-      var colbt=col("lgray");
+      var colbt=col("dgray");
       if (this.bt==3)  colbt=col("raf2");
       else if (this.bt==4)  colbt=143;
       else if (this.bt==2)  colbt=col("purple");
@@ -75,7 +75,7 @@ face[0] = {
     //batt status
     if (notify.ring){
 	  if (this.ring!=notify.ring){
-	    this.g.setColor(0,col("olive"));
+	    this.g.setColor(0,col("raf1"));
 	    this.g.fillRect(162,0,239,50);//batt
         this.g.setColor(1,col("white"));
 this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8FwAbvh+HnjHh8HjAYPABYNhAYVxAY0wIYU4H4U4EYUcnkP/0Oj0f/8Ph///8Hw/4g8D4IDBgIfBg8AD4IDBvgDCj+AAYIbCgEB//+FoM//gA==")),183,9);
@@ -113,7 +113,7 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
       this.v=w.battVoltage(1);
       if (this.batt==1) this.g.setColor(0,col("purple"));
       else if (this.v<=20) this.g.setColor(0,col("red"));
-      else this.g.setColor(0,col("olive"));
+      else this.g.setColor(0,col("raf1"));
       this.g.fillRect(162,0,239,50);//batt
       this.g.setColor(1,col("lblue"));
       if (this.v<0) {this.g.setFont("Vector",21);this.g.drawString("EMPTY",240-(this.g.stringWidth("EMPTY")),14); 
@@ -187,44 +187,44 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
   this.s=(this.t[2]).toString().split('');
   if (this.t[1]!=this.min ){
     this.min=this.t[1];
-    this.g.setFont("Vector",70);
+    this.g.setFont("Vector",73);
 	this.fmin=col("lblue");
     this.fsec=0;
 	if (global.alrm) {
-    if (alrm.buzz!=-1) {this.bmin=col("gray");this.fmin=col("yellow");this.fsec=col("gray");this.bsec=col("yellow");}
-    else if (alrm[1].tmr!==-1||alrm[2].tmr!==-1||alrm[3].tmr!==-1) {this.bmin=col("raf");this.bsec=col("raf");}
-    else  {this.bmin=col("raf2");this.fsec=col("dgray1");this.bsec=col("raf2");}
-	}else {this.bmin=col("raf2");this.fsec=col("dgray1");this.bsec=col("raf2");}
+		if (alrm.buzz!=-1) {this.bmin=col("dgray");this.fmin=col("yellow");this.fsec=col("dgray");this.bsec=col("yellow");}
+		else if (alrm[1].tmr!==-1||alrm[2].tmr!==-1||alrm[3].tmr!==-1) {this.bmin=col("raf");this.bsec=col("raf");}
+		else  {this.bmin=col("raf1");this.fsec=col("black");this.bsec=col("raf1");}
+	}else {this.bmin=col("raf1");this.fsec=col("black");this.bsec=col("raf1");}
 	this.g.setColor(0,this.bmin);
-    this.g.fillRect(105,55,210,150);
+    this.g.fillRect(105,55,206,150);
 	this.g.setColor(1,this.fmin);
-    this.g.drawString(this.t[1],120,69);
+    this.g.drawString(this.t[1],115,69);
     this.g.flip();
   }
    //seconds
   this.g.setColor(0,this.bsec);
-  this.g.fillRect(210,55,240,150);
+  this.g.fillRect(206,55,240,150);
   this.g.setColor(1,this.fsec);//
-  this.g.setFont("Vector",35);
-  this.g.drawString(this.s[0],218,70); //seconds
-  this.g.drawString(this.s[1],218,105); //seconds
+  this.g.setFont("Vector",22);
+  this.g.drawString((set.def.hr24)?"24":(this.t[0]<12)?"AM":"PM",206,74); //hours mode
+  this.g.setFont("Vector",29);
+//  this.g.drawString(this.s[0],218,75); //seconds
+//  this.g.drawString(this.s[1],218,105); //seconds
+  this.g.drawString(this.s[0]+this.s[1],206,102); //seconds
+
   this.g.flip(); 
   //hours
   if (this.t[0]!=this.hour){
     this.hour=this.t[0];
-    this.g.setColor(0,col("lgray"));
+    this.g.setColor(0,col("dgray"));
     this.g.fillRect(0,55,100,150);
     this.g.setColor(1,col("white"));
-    this.g.setFont("Vector",70);
+    this.g.setFont("Vector",73);
 	if (set.def.hr24) {
 		this.g.drawString(this.hour,9,69); //hours
 	} else {	
-		this.hour=(this.hour<13)?this.hour[1]:this.hour-12;
-		this.g.drawString(this.hour,25,69); //hours
-		this.g.setFont("Vector",20);
-		this.g.drawString((this.t[0]<13)?"A":"P",78,80); //hours
-		this.g.drawString("M",78,105); //hours
-
+		this.hour=(this.hour<10)?(this.hour=="00")?12:this.hour[1]:(this.hour<13)?this.hour:this.hour-12;
+		this.g.drawString(this.hour,(this.hour<10)?45:9,69); //hours
 	}
   this.g.flip();
   }
