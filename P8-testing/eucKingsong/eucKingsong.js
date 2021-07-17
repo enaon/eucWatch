@@ -280,7 +280,7 @@ euc.conn=function(mac){
 				});
 			}
 		};
-		if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) set.write("dash","slot"+set.read("dash","slot")+"Mac",this.mac);
+		if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
 		if (!euc.run) { 
 			euc.wri("start");
 		} else {

@@ -218,13 +218,13 @@ this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8Fw
     this.g.setFont("Vector",70);
 	if (set.def.hr24) {
 		this.g.drawString(this.hour,9,69); //hours
-		this.g.setFont("Vector",14);
-		this.g.drawString("24H",77,138); //hours
 	} else {	
-		this.hour=(this.hour<13)?"0"+this.hour:"0"+this.hour-12;
-		this.g.drawString(this.hour,9,69); //hours
-		this.g.setFont("Vector",14);
-		this.g.drawString((this.t[0]<13)?"AM":"PM",80,138); //hours
+		this.hour=(this.hour<13)?this.hour[1]:this.hour-12;
+		this.g.drawString(this.hour,25,69); //hours
+		this.g.setFont("Vector",20);
+		this.g.drawString((this.t[0]<13)?"A":"P",78,80); //hours
+		this.g.drawString("M",78,105); //hours
+
 	}
   this.g.flip();
   }
