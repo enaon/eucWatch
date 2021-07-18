@@ -41,7 +41,7 @@ var set={
 	write:function(file,name,value){
 		let got=require("Storage").readJSON([file+".json"],1);
 		if (got==undefined) got={};
-		if (!value) delete got[name];
+		if (!value)  got[name]=0;
 		else got[name]=value;
 		require("Storage").writeJSON([file+".json"],got);
 		return true;
@@ -131,7 +131,7 @@ var set={
 		}, { uart: true});
 	}else {
 		NRF.setServices(undefined,{uart:(this.def.cli||this.def.gb)?true:false,hid:(this.def.hid&&this.hidM)?this.hidM.report:undefined });
-		if (global.emuZ) delete emuZ;
+		if (global.emuZ)  emuZ=0;
 		//if (this.atcW) {this.atcW=undefined;this.atcR=undefined;} 
 	}
 	if (this.def.gb) eval(require('Storage').read('m_gb'));
@@ -145,7 +145,7 @@ var set={
 		//this.sendBattery=undefined;
 		this.gbSend=function(){return;};
 		//global.GB=undefined;
-		delete this.handleNotificationEvent;delete this.handleFindEvent;delete handleWeatherEvent;delete handleCallEvent;delete handleFindEvent;delete sendBattery;delete global.GB;
+		this.handleNotificationEvent=0;this.handleFindEvent=0;handleWeatherEvent=0;handleCallEvent=0;handleFindEvent=0;sendBattery=0;global.GB=0;
 	}		
 	if (!this.def.cli&&!this.def.gb&&!this.def.emuZ&&!this.def.hid) { if (this.bt) NRF.disconnect(); else{ NRF.sleep();this.btsl=1;}}
 	else if (this.bt) NRF.disconnect();
