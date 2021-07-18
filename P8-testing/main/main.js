@@ -65,7 +65,7 @@ face[0] = {
 				this.g.setColor(0,colbt);
 				this.g.fillRect(0,0,15,50); //date
 				var colbtf=4095;
-				if (set.bt==0) colbtf=0;
+				if (set.bt==0) colbtf=3003;
 				this.g.setColor(1,colbtf);
 				this.g.drawImage(E.toArrayBuffer(atob("CxQBBgDgFgJgR4jZMawfAcA4D4NYybEYIwTAsBwDAA==")),3,13);
 				this.g.flip();
@@ -227,10 +227,10 @@ face[0] = {
 				this.g.drawString(this.hour,0,69); //hours
 			} else {	
 				this.hour=(this.hour<10)?(this.hour=="00")?12:this.hour[1]:(this.hour<13)?this.hour:this.hour-12;
-				this.g.drawString(this.hour,(this.hour<10)?45:10,69); //hours
+				this.g.drawString(this.hour,(this.hour<10)?45:0,69); //hours
 			}
-			this.g.fillRect(92,90,95,93);
-			this.g.fillRect(92,110,95,113);
+			this.g.fillRect(91,90,95,94);
+			this.g.fillRect(91,110,95,114);
 			this.g.flip();
 		}
 	},
