@@ -20,7 +20,7 @@ face[0] = {
 		if (this.s1!=this.sv1){
 			this.sv1=this.s1;
 			if (this.dash.slot1Mac) {
-				this.g.setColor(0,(this.s1)?col("raf1"):col("dgray"));
+				this.g.setColor(0,(this.s1)?col("raf"):col("dgray"));
 				this.g.fillRect(0,0,119,97);
 				this.g.setColor(1,col("white"));
 				this.g.setFont("Vector",18);	
@@ -50,7 +50,7 @@ face[0] = {
 		if (this.s2!=this.sv2){
 			this.sv2=this.s2;
 			if (this.dash.slot2Mac) {
-				this.g.setColor(0,(this.s2)?col("raf1"):col("dgray"));
+				this.g.setColor(0,(this.s2)?col("raf"):col("dgray"));
 				this.g.fillRect(122,0,239,97);	
 				this.g.setColor(1,col("white"));
 				this.g.setFont("Vector",18);	
@@ -81,7 +81,7 @@ face[0] = {
 		if (this.s3!=this.sv3){
 			this.sv3=this.s3;	
 			if (this.dash.slot3Mac) {
-				this.g.setColor(0,(this.s3)?col("raf1"):col("dgray"));
+				this.g.setColor(0,(this.s3)?col("raf"):col("dgray"));
 				this.g.fillRect(0,100,119,195);
 				this.g.setColor(1,col("white"));
 				this.g.setFont("Vector",18);	
@@ -111,7 +111,7 @@ face[0] = {
 		if (this.s4!=this.sv4){
 			this.sv4=this.s4;
 			if (this.dash.slot4Mac) {
-				this.g.setColor(0,(this.s4)?col("raf1"):col("dgray"));
+				this.g.setColor(0,(this.s4)?col("raf"):col("dgray"));
 		this.g.fillRect(122,100,239,195);
 				this.g.setColor(1,col("white"));
 				this.g.setFont("Vector",18);	
@@ -209,13 +209,13 @@ touchHandler[0]=function(e,x,y){
 					euc.dash=require("Storage").readJSON('eucSlot'+this.s+'.json',1);
 				else euc.dash=require("Storage").readJSON("eucSlot.json",1);
 				face[0].s1=0;face[0].s2=0;face[0].s3=0;face[0].s4=0;
-				face[0].ntfy("HOLD -> OPTIONS","",20,col("dgray"),1);
+				face[0].ntfy("HOLD -> OPTIONS","",20,col("raf"),1);
 			} else face[0].ntfy("HOLD -> SCAN & SET","",20,col("dgray"),1);
 			face[0]["s"+this.s]=1;
 		}
 		else   {
 			if ( y<=120 ) face[0].ntfy("HOLD -> SETUP","",22,col("dgray"),1);
-			else face[0].ntfy("HOLD -> DELETE","",22,col("raf1"),1);
+			else face[0].ntfy("HOLD -> DELETE","",22,col("red"),1);
 		}
 		this.timeout();
 		break;
