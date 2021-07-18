@@ -195,7 +195,7 @@ euc.conn=function(mac){
 					});
 				} 
 			};
-			if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
+			if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {euc.dash.mac=euc.mac; set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);}
 			euc.busy=0;
 			setTimeout(() => {euc.wri((euc.dash.aLck)?22:26);}, 500);
 		//reconnect

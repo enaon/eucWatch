@@ -90,7 +90,7 @@ euc.conn=function(mac){
 				});
 			}
 		};
-		if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
+		if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {euc.dash.mac=euc.mac; set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);}
 		setTimeout(() => {euc.wri("serial");euc.state="READY";}, 500);
 
 	//reconect
