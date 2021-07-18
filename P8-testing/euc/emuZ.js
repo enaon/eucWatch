@@ -34,7 +34,7 @@ global.emuZ={
 		set.emuD=0;
 			return;
 		case "Z\xA5\1>\x14\1\xB0\x20\xDB\xFE"://live
-		return this.send(new Uint8Array( [32, 20, 62, 4, 176, 0, 0, 0, 0, 72, 152, 0, 0, euc.dash.bat, 0, "0x"+(euc.dash.spd*100+0x10000).toString(16).substr(3), "0x"+(euc.dash.spd*100+0x10000).toString(16).substr(1,2), 0, 0, 24, 56, 37, 0, 0, 0, 59, 0,euc.dash.tmp,0,parseInt((euc.dash.volt*100).toString(16).substr(2),16), parseInt((euc.dash.volt*100).toString(16).substr(0,2),16), euc.dash.amp, 0, 0, 0, 0, 0]));
+		return this.send(new Uint8Array( [32, 20, 62, 4, 176, 0, 0, 0, 0, 72, 152, 0, 0, euc.dash.bat, 0, "0x"+(euc.dash.spd*100+0x10000).toString(16).substr(3), "0x"+(euc.dash.spd*100+0x10000).toString(16).substr(1,2), 0, 0, 24, 56, 37, 0, 0, 0, 59, 0,"0x"+(euc.dash.tmp*10+0x10000).toString(16).substr(3), "0x"+(euc.dash.tmp*10+0x10000).toString(16).substr(1,2),parseInt((euc.dash.volt*100).toString(16).substr(2),16), parseInt((euc.dash.volt*100).toString(16).substr(0,2),16), "0x"+(euc.dash.amp*100+0x10000).toString(16).substr(3), "0x"+(euc.dash.amp*100+0x10000).toString(16).substr(1,2), 0, 0, 0, 0]));
 		case "Z\xA5\1>\x14\1\x25\x0c\x7a\xFF":return this.send(new Uint8Array([0x0c,0x14,0x3e,0x04,0x25,0xf0,0x15,0x08,0xe5,0xd2,0x93,0x7b,0x56,0xa2,0xb8,0x7d,0xf6]));  //live2  
 		case  "Z\xA5\1>\x14\1\x61\x04\x46\xFF":return this.send(new Uint8Array([0x04,0x14,0x3e,0x04,0x61,0x00,0x00,0x08,0xe5]));  //live3 
 		case "Z\xA5\1>\x14\1\x1A\2\x8F\xFF": //firmware
