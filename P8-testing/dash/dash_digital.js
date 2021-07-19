@@ -265,11 +265,11 @@ face[0] = {
 		this.g.fillRect(0,203,239,239);
 		this.g.setColor(1,1535);
 		this.g.setFontVector(35);
-		if (euc.dash.maker=="Ninebot") {
-			this.g.drawString(euc.dash.trpL,0,205); 
-			this.g.drawString(euc.dash.trpT|0,(240-(this.g.stringWidth(euc.dash.trpT|0)))/2,210); 
-			this.g.drawString(euc.dash.trpR,240-(this.g.stringWidth(euc.dash.trpR)+1),210); 
-		}else {
+		//if (euc.dash.maker=="Ninebot") {
+		//	this.g.drawString(euc.dash.trpL,0,205); 
+		//	this.g.drawString(euc.dash.trpT|0,(240-(this.g.stringWidth(euc.dash.trpT|0)))/2,210); 
+		//	this.g.drawString(euc.dash.trpR,240-(this.g.stringWidth(euc.dash.trpR)+1),210); 
+		//}else {
 			this.g.drawString((euc.dash.trpL*this.trpF).toFixed(2),0,208); 
 			if (!set.def.dash.clck) {//clock
 				let d=(Date()).toString().split(' ');
@@ -278,7 +278,7 @@ face[0] = {
 				this.g.drawString(this.time, 240-(this.g.stringWidth(this.time)),208); //temp
 			}else 	
 				this.g.drawString(Math.round(euc.dash.trpT*this.trpF),240-(this.g.stringWidth(Math.round(euc.dash.trpT*this.trpF))),208); 
-		}
+		//}
 		this.g.flip();
 	},
 	bar: function(){

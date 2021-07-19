@@ -33,11 +33,13 @@ euc.conn=function(mac){
 			//read
 			euc.rCha.on('characteristicvaluechanged', function(event) {
 				euc.alert=0;
-				print("eucNBZin :",event.target.value.buffer);
+				//print("eucNBZin :",event.target.value.buffer);
 				if (event.target.value.buffer[0]==90 && event.target.value.buffer.length==20) {
-					print("o",event.target.value.buffer);
+					//print("o",event.target.value.buffer);
 					//batt
 					euc.dash.bat=event.target.value.getUint16(15, true);
+					batL.unshift(euc.dash.bat);
+					if (20<batL.length) batL.pop();
 					if ((euc.dash.bat) >= euc.dash.batH) euc.dash.batC=0;
 					else  if ((euc.dash.bat) >= euc.dash.batM) euc.dash.batC=1;
 					else  if ((euc.dash.bat) >= euc.dash.batL) euc.dash.batC=2;
@@ -51,7 +53,7 @@ euc.conn=function(mac){
 					//if ( euc.dash.hapS && euc.dash.spd >= euc.dash.spd1 ) 
 					//	euc.alert = 1 + ((euc.dash.spd-euc.dash.spd1) / euc.dash.ampS|0) ;
 				}else  if (event.target.value.buffer[1] && event.target.value.buffer.length==20){
-					print("l",event.target.value.buffer);
+					//print("l",event.target.value.buffer);
 					euc.dash.trpT=(event.target.value.getUint32(1, true)/1000).toFixed(0);
 					if (!euc.dash.trpS) euc.dash.trpS=(event.target.value.getUint32(1, true)/1000).toFixed(3);
 					euc.dash.trpL=(event.target.value.getUint32(1, true)/1000).toFixed(3)-euc.dash.trpS;
@@ -61,11 +63,12 @@ euc.conn=function(mac){
 					euc.dash.tmpC = (euc.dash.tmp <= euc.dash.tmpH)? 0 : (euc.dash.tmp <= euc.dash.tmpH+5)? 2 : 3;	
 					if (euc.dash.tmpH <= euc.dash.tmp) {euc.alert++; euc.dash.spdC = 3;}   
 					//volt
-					euc.dash.volt=(event.target.value.getUint16(11, true)/100).toFixed(2);
+					euc.dash.volt=(event.target.value.getUint16(11, true)/100);
+					//print(euc.dash.volt);
 					//amp
 					euc.dash.amp=(event.target.value.getInt16(13, true)/100)|0;
-					//ampL.unshift(euc.dash.amp);
-					//if (14<ampL.length) ampL.pop();
+					ampL.unshift(Math.round(euc.dash.amp));
+					if (20<ampL.length) ampL.pop();
 					euc.dash.ampC = ( euc.dash.ampH+10 <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL - 5 )? 3 : ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp < 0 )? 1 : 0;
 					if ( euc.dash.ampH <= euc.dash.amp ){
 						euc.dash.spdC = ( euc.dash.ampC === 3 )? 3 : ( euc.dash.spdC === 3 )? 3 : 2;
