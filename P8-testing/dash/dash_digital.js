@@ -287,15 +287,15 @@ face[0] = {
 		this.g.setColor(0,4095);
 		this.g.setFont("7x11Numeric7Seg",4);
 		this.g.setFontVector(16); //mileage
-		if (euc.dash.maker=="Ninebot") {
-			this.g.drawString("TRIP",2,180); 
-			this.g.drawString("TOT",101,180); 
-			this.g.drawString("LEFT",197,180); 
-		} else {
+		//if (euc.dash.maker=="Ninebot") {
+		//	this.g.drawString("TRIP",2,180); 
+		//	this.g.drawString("TOT",101,180); 
+		//	this.g.drawString("LEFT",197,180); 
+		//} else {
 			this.g.drawString("TRIP",2,180); 
 			this.g.drawString((set.def.dash.mph)?"MPH":"KPH",105,180);
 			this.g.drawString((!set.def.dash.clck)?"CLOCK":"TOTAL",181,180); 
-		}
+		//}
 		this.g.flip();
 	},
 	tid:-1,
