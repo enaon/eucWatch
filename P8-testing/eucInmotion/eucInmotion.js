@@ -119,9 +119,9 @@ euc.conn=function(mac){
 				euc.dash.tmpC = (euc.dash.tmp <= euc.dash.tmpH)? 0 : (euc.dash.tmp <= euc.dash.tmpH+5)? 2 : 3;	
 				if (euc.dash.tmpH <= euc.dash.tmp) {euc.alert++; euc.dash.spdC = 3;}   
 				//amp
-				euc.dash.amp= Math.round(event.target.value.getInt16(7, true) / 100);
+				euc.dash.amp= event.target.value.getInt16(7, true) / 100;
 				//log
-				ampL.unshift(euc.dash.amp);
+				ampL.unshift(Math.round(euc.dash.amp));
 				if (20<ampL.length) ampL.pop();
 				euc.dash.ampC = ( euc.dash.ampH+10 <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL - 5 )? 3 : ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp < 0 )? 1 : 0;
 				if ( euc.dash.ampH <= euc.dash.amp ){

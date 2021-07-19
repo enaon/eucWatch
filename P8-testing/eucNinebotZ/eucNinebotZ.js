@@ -66,7 +66,7 @@ euc.conn=function(mac){
 					euc.dash.volt=(event.target.value.getUint16(11, true)/100);
 					//print(euc.dash.volt);
 					//amp
-					euc.dash.amp=(event.target.value.getInt16(13, true)/100)|0;
+					euc.dash.amp=event.target.value.getInt16(13, true)/100;
 					ampL.unshift(Math.round(euc.dash.amp));
 					if (20<ampL.length) ampL.pop();
 					euc.dash.ampC = ( euc.dash.ampH+10 <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL - 5 )? 3 : ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp < 0 )? 1 : 0;

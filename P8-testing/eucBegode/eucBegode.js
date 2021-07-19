@@ -54,10 +54,10 @@ euc.conn=function(mac){
 				//trip
 				euc.dash.trpL=event.target.value.getUint32(6)/1000;
 				//amp
-				euc.dash.amp=event.target.value.getInt16(10)/1000|0;
+				euc.dash.amp=event.target.value.getInt16(10)/1000;
 				if (euc.dash.ampR) euc.dash.amp=-euc.dash.amp;
 				//log
-				ampL.unshift(euc.dash.amp);
+				ampL.unshift(Math.round(euc.dash.amp));
 				if (20<ampL.length) ampL.pop();
 				euc.dash.ampC = ( euc.dash.ampH+10 <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL - 5 )? 3 : ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp < 0 )? 1 : 0;
 				if ( euc.dash.ampH <= euc.dash.amp ){
