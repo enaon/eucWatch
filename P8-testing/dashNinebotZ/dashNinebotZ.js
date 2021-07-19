@@ -4,9 +4,17 @@ face[0] = {
 	g:w.gfx,
 	init: function(){
 		if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(set.dash[set.def.dash.face],0);return;}
-        if (!face.appPrev.startsWith("dash")) this.g.clear();
         this.g.setColor(0,0);
-		this.g.fillRect(0,0,239,239);
+		//if (!face.appPrev.startsWith("dash")) this.g.clear();
+		//else {
+			this.g.drawLine (0,98,239,98);
+			this.g.drawLine (0,99,239,99);
+			this.g.flip(); 
+			this.g.drawLine (120,0,120,195);
+			this.g.drawLine (121,0,121,195);
+			this.g.flip(); 
+		//}	
+		this.g.fillRect(0,196,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
 		this.g.drawString("HAPTIC ALERTS",120-(this.g.stringWidth("HAPTIC ALERTS")/2),217); 
@@ -131,10 +139,6 @@ touchHandler[0]=function(e,x,y){
                     face[0].btn(1,"SET HI-TEMP:",18,120,8,col("dgray"),0,0,0,239,97,euc.dash.tmpH,50,120,41);
 					face[0].ntfy("HAPTIC STARTS AT:","",18,col("dgray"),1);
 				}else{ //back
-		            w.gfx.setColor(0,0);
-					w.gfx.drawLine (120,0,120,97);
-					w.gfx.drawLine (121,0,121,97);
-					w.gfx.flip();
 					face[0].set=0;face[0].init();
                 }
             }else if (face[0].set=="batt") { //temp
@@ -144,10 +148,6 @@ touchHandler[0]=function(e,x,y){
                     face[0].btn(1,"SET LOW-BATT:",18,120,8,col("dgray"),0,0,0,239,97,euc.dash.batL,50,120,41);
 					face[0].ntfy("HAPTIC STARTS AT:","",18,col("dgray"),1);
 				}else{ //back
-           		    w.gfx.setColor(0,0);
-					w.gfx.drawLine (120,0,120,97);
-					w.gfx.drawLine (121,0,121,97);
-					w.gfx.flip();
 					face[0].set=0;face[0].init();
                 }
               
@@ -196,29 +196,16 @@ touchHandler[0]=function(e,x,y){
 		break;
 	case 4: //slide right event (back action)
         if (face[0].set) {
-       		this.timeout();
-		   //clear
-		    w.gfx.setColor(0,0);
-		    w.gfx.drawLine (0,98,239,98);
-		    w.gfx.drawLine (0,99,239,99);
-            w.gfx.flip();
-		    w.gfx.drawLine (120,0,120,195);
-          	w.gfx.drawLine (121,0,121,195);
-            w.gfx.flip();	
+       		//this.timeout();
   			face[0].set=0;face[0].init();
-        }else {
-			face.go(set.dash[set.def.dash.face],0);
 			return;
-		}
+        }else {
+			    face.go(set.dash[set.def.dash.face],0);
+			return;
+		    }
+      break;
 	case 12: //hold event
 		if (face[0].set) { 
-		    w.gfx.setColor(0,0);
-		    w.gfx.drawLine (0,98,239,98);
-		    w.gfx.drawLine (0,99,239,99);
-            w.gfx.flip();
-		    w.gfx.drawLine (120,0,120,195);
-          	w.gfx.drawLine (121,0,121,195);
-            w.gfx.flip();
 			face[0].set=0;face[0].init();
 			digitalPulse(D16,1,[30,50,30]);	
         }else if (x<=120&&y<100) { //spd

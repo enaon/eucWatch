@@ -1,5 +1,5 @@
 //m_euc ninebot one c/e/p
-euc.tmp={count:0,loop:0};
+euc.tmp={count:0,loop:0,rota:0};
 euc.cmd=function(no){
 	switch (no) {
     case 0:case 3:case 6:case 9:case 12:case 15:case 18:case "end":
@@ -10,7 +10,7 @@ euc.cmd=function(no){
 	case 5:return [85,170,3,9,1,71,2,169,255]; //Voltage numeric positive V * 100
 	case 8:return [85,170,3,9,1,185,2,55,255]; //Single Mileage numeric positive in meters
 	case 11:return [85,170,3,9,1,58,2,182,255]; //Single Runtime numeric positive seconds
-	case 14:return [85,170,3,9,1,37,2,203,255]; //remaining mileage in Km*100
+	case 14: euc.tmp.rota=1-euc.tmp.rota; return (!euc.tmp.rota)?[85,170,3,9,1,37,2,203,255]:[85,170,3,9,1,41,4,197,255]; //remaining mileage in Km*100/total mileage
 	case 17:return [85,170,3,9,1,182,2,58,255]; //Average speed numeric positive m/h
 	case 20:return [85,170,3,9,1,112,2,128,255]; //Lock status
 	case 21:return [85,170,3,9,3,112,1,127,255]; //21- lock
@@ -47,8 +47,8 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 }).then(function(c) {
 	//euc.tmp.characteristic=c;
 	c.on('characteristicvaluechanged', function(event) {
-		//  this.var = event.target.value.getUint8(5, true);
-		this.var= event.target.value.getUint8(5, true);
+    print(event);
+		this.var= event.target.value.buffer[5];
 		this.in16=event.target.value.getUint16(6, true);
 		//print(this.var);
 		euc.alert=0;
@@ -76,13 +76,16 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			}
 			euc.new=1;
 			break;
+		case 41://total distance
+			euc.dash.trpT=(event.target.value.getUint32(6, true)/1000).toFixed(1);
+			break;
 		case 185://trip
 			// if (euc.dash.trpN > (euc.tmp[this.var]/100).toFixed(1)) {
 			//   euc.dash.trpL=Number(euc.dash.trpL)+Number(euc.dash.trpN);
 			//   if (set.def.cli) console.log("EUC_trip new :",euc.dash.trpL);
 			// } 
-			euc.dash.trpL=(this.in16/100).toFixed(1);
-			euc.dash.trpT=(this.in16/100).toFixed(1);
+			euc.dash.trpL=(this.in16/100).toFixed(2);
+			//euc.dash.trpT=(this.in16/100).toFixed(1);
 			//euc.dash.trpT=Number(euc.dash.trpL)+Number(euc.dash.trpN);
 			//tt=euc.tmp[this.var];
 			break;

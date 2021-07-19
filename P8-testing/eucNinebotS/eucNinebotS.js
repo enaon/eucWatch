@@ -1,5 +1,5 @@
 //m_euc ninebot one Z10
-euc.tmp={count:0,loop:0};
+euc.tmp={count:0,loop:0,rota:0};
 euc.cmd=function(no){
 	switch (no) {
     case 0:case 3:case 6:case 9:case 12:case 15:case 18:case "end":
@@ -10,8 +10,8 @@ euc.cmd=function(no){
 	case 5:return [85,170,3,17,1,71,2,161,255]; //Voltage numeric positive V * 100
 	case 8:return [85,170,3,17,1,185,2,47,255]; //Single Mileage numeric positive in meters
 	case 11:return [85,170,3,17,1,58,2,174,255]; //Single Runtime numeric positive seconds
-//	case 14:return [85,170,3,17,1,37,2,195,255]; //remaining mileage in Km*100
-	case 14:return [85,170,3,17,1,41,4,189,255]; //Total Mileage numeric positive in meters
+	case 14: euc.tmp.rota=1-euc.tmp.rota; return  (euc.tmp.rota)?[85,170,3,17,1,41,4,189,255]:[85,170,3,17,1,37,2,195,255];//Total Mileage numeric positive in meters // remaining mileage in Km*100
+//	case 14:return [85,170,3,17,1,41,4,189,255]; //Total Mileage numeric positive in meters
 	case 17:return [85,170,3,17,1,182,2,50,255]; //Average speed numeric positive m/h
 	case 20:return [85,170,3,17,1,112,2,120,255]; //Lock status
 	case 21:return [85,170,3,17,2,112,1,120,255]; //21- lock
@@ -89,7 +89,7 @@ euc.conn=function(mac){
 						euc.dash.trpT=(event.target.value.getUint32(6, true)/1000).toFixed(1); 
 						break;
 					case 185://current trip
-						euc.dash.trpL=(this.in16/100).toFixed(1);
+						euc.dash.trpL=(this.in16/100).toFixed(2);
 						break;
 					case 71://battery fixed/voltage
 						euc.dash.volt=this.in16/100;

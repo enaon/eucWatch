@@ -33,8 +33,9 @@ euc.conn=function(mac){
 			//read
 			euc.rCha.on('characteristicvaluechanged', function(event) {
 				euc.alert=0;
-				if (event.target.value.buffer[0]==90) {
-					//print(event.target.value.buffer);
+				print("eucNBZin :",event.target.value.buffer);
+				if (event.target.value.buffer[0]==90 && event.target.value.buffer.length==20) {
+					print("o",event.target.value.buffer);
 					//batt
 					euc.dash.bat=event.target.value.getUint16(15, true);
 					if ((euc.dash.bat) >= euc.dash.batH) euc.dash.batC=0;
@@ -49,8 +50,8 @@ euc.conn=function(mac){
 					//euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd <= euc.dash.spd1+5 )? 1 : ( euc.dash.spd <= euc.dash.spd1+10 )? 2 : 3 ;	
 					//if ( euc.dash.hapS && euc.dash.spd >= euc.dash.spd1 ) 
 					//	euc.alert = 1 + ((euc.dash.spd-euc.dash.spd1) / euc.dash.ampS|0) ;
-				}else  if (event.target.value.buffer[1]){
-					//print(event.target.value.buffer);
+				}else  if (event.target.value.buffer[1] && event.target.value.buffer.length==20){
+					print("l",event.target.value.buffer);
 					euc.dash.trpT=(event.target.value.getUint32(1, true)/1000).toFixed(0);
 					if (!euc.dash.trpS) euc.dash.trpS=(event.target.value.getUint32(1, true)/1000).toFixed(3);
 					euc.dash.trpL=(event.target.value.getUint32(1, true)/1000).toFixed(3)-euc.dash.trpS;
@@ -63,8 +64,8 @@ euc.conn=function(mac){
 					euc.dash.volt=(event.target.value.getUint16(11, true)/100).toFixed(2);
 					//amp
 					euc.dash.amp=(event.target.value.getInt16(13, true)/100)|0;
-					ampL.unshift(euc.dash.amp);
-					if (14<ampL.length) ampL.pop();
+					//ampL.unshift(euc.dash.amp);
+					//if (14<ampL.length) ampL.pop();
 					euc.dash.ampC = ( euc.dash.ampH+10 <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL - 5 )? 3 : ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp < 0 )? 1 : 0;
 					if ( euc.dash.ampH <= euc.dash.amp ){
 						euc.dash.spdC = ( euc.dash.ampC === 3 )? 3 : ( euc.dash.spdC === 3 )? 3 : 2;
@@ -81,7 +82,7 @@ euc.conn=function(mac){
 					//average
 					euc.dash.spdA=((event.target.value.getUint16(17, true))/100).toFixed(1);
 					//euc.dash.spdM=((event.target.value.getUint16(19, true))/100).toFixed(1);
-				}
+				} else return;
 				//haptic
 				if (!euc.buzz && euc.alert) {  
 						euc.buzz=1;
@@ -163,8 +164,6 @@ euc.off=function(err){
 		}else if ( err==="Disconnected"|| err==="Not connected")  {
 			if (set.def.cli) console.log("reason :",err);
 			euc.state="FAR";
-			// if (euc.dash.lock==1) digitalPulse(D16,1,100);
-			// else digitalPulse(D16,1,[100,150,100]);
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
 				euc.conn(euc.mac); 
@@ -178,17 +177,20 @@ euc.off=function(err){
 			}, 1500);
 		}
 	} else {
-		if (set.def.cli) console.log("EUC: OUT");
-		global["\xFF"].bleHdl=[];
-			delete euc.off;
-			delete euc.conn;
-			delete euc.wri;
-			delete euc.tmp;
-			delete euc.cmd;
+		if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
+			if (set.def.cli) console.log("ble still connected"); 
+			global["\xFF"].BLE_GATTS.disconnect();return;
+		}
+		if (set.def.cli) console.log("EUC OUT:",err);
+		//global["\xFF"].bleHdl=[];
+		euc.busy=0;
+		euc.off=function(err){if (set.def.cli) console.log("EUC stoped at:",err);};
+		euc.wri=function(err){if (set.def.cli) console.log("EUC write, not connected");};
 			delete euc.dash.trpS;
 			delete euc.serv;
 			delete euc.wCha;
 			delete euc.rCha;
-			NRF.setTxPower(set.def.rfTX);	
+		delete euc.conn;
+		delete euc.cmd;
     }
 };
