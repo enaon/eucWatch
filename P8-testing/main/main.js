@@ -178,6 +178,27 @@ face[0] = {
 				this.g.setColor(0,0);
 				this.g.fillRect(0,151,239,239);
 				this.g.setColor(1,col("white"));//
+				
+				this.mac=(this.mac)?this.mac:set.read("dash","slot"+set.read("dash","slot")+"Mac");
+				if(!this.mac) {
+						this.g.setFont("Vector",25);
+						this.g.drawString("eucWatch",119-(this.g.stringWidth("eucWatch")/2),170); //info
+						this.g.setFont("Vector",20);
+						this.g.drawString("Hold side Btn to Scan",119-(this.g.stringWidth("Hold side Btn to Scan")/2),195); //
+						this.g.flip();
+				}else {
+					eval(require('Storage').read('euc'+require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]));
+					this.state="ON";
+					this.conn(this.mac);
+					if (!set.def.acc) {set.def.dash.accE=1;acc.on();}
+					if (this.dash.bms==undefined) this.dash.bms=1.5;
+					if (this.dash.maker!=="Kingsong"||this.dash.maker!=="inmotionV11") this.dash.spdM=0;
+					setTimeout(()=>{face.go(set.dash[set.def.dash.face],0);},100);
+				}
+				
+				
+				
+				
 				this.g.setFont("Vector",25);
 				this.g.drawString("eucWatch",119-(this.g.stringWidth("eucWatch")/2),185); //info
 				this.g.flip();
