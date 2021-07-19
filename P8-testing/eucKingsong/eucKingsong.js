@@ -120,10 +120,10 @@ euc.conn=function(mac){
 					euc.dash.amp = ( this.amp / 100 );
 					euc.dash.ampC = ( euc.dash.ampH+10 <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL - 5 )? 3 : ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp < 0 )? 1 : 0;
 					if ( euc.dash.ampH <= euc.dash.amp ){
-						if (euc.dash.hapA) euc.alert = ( euc.alert + 1 + ((euc.dash.amp - euc.dash.ampH) / euc.dash.ampS|0) );
+						if (euc.dash.hapA) euc.alert = Math.round( euc.alert + 1 + ((euc.dash.amp - euc.dash.ampH) / euc.dash.ampS) );
 					}else if ( euc.dash.amp <= euc.dash.ampL )  {
 						//euc.dash.spdC = (euc.dash.ampC === 3)? 3 : (euc.dash.spdC === 3)? 3 : 2;
-						if (euc.dash.hapA) euc.alert = (euc.alert + 1 + ((-(euc.dash.amp - euc.dash.ampL)) / euc.dash.ampS|0));  				
+						if (euc.dash.hapA) euc.alert = Math.round(euc.alert + 1 + ((-(euc.dash.amp - euc.dash.ampL)) / euc.dash.ampS));  				
 					}
 					//log
 					ampL.unshift(Math.round(euc.dash.amp));
