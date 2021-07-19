@@ -48,10 +48,10 @@ euc.conn=function(mac){
 						if (euc.dash.hapB) euc.alert++;
 					}
 					//speed
-					//euc.dash.spd=event.target.value.getUint16(17, true)/100;
-					//euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd <= euc.dash.spd1+5 )? 1 : ( euc.dash.spd <= euc.dash.spd1+10 )? 2 : 3 ;	
-					//if ( euc.dash.hapS && euc.dash.spd >= euc.dash.spd1 ) 
-					//	euc.alert = 1 + ((euc.dash.spd-euc.dash.spd1) / euc.dash.ampS|0) ;
+					euc.dash.spd=event.target.value.getUint16(17, true)/100;
+					euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd <= euc.dash.spd1+5 )? 1 : ( euc.dash.spd <= euc.dash.spd1+10 )? 2 : 3 ;	
+					if ( euc.dash.hapS && euc.dash.spd >= euc.dash.spd1 ) 
+						euc.alert = 1 + ((euc.dash.spd-euc.dash.spd1) / euc.dash.ampS|0) ;
 				}else  if (event.target.value.buffer[1] && event.target.value.buffer.length==20){
 					//print("l",event.target.value.buffer);
 					euc.dash.trpT=(event.target.value.getUint32(1, true)/1000).toFixed(0);
