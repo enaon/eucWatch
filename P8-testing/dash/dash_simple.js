@@ -7,7 +7,6 @@ face[0] = {
 	init: function(){
 		if ( euc.day[0] < Date().getHours() && Date().getHours() < euc.day[1] ) euc.night=0; else euc.night=1;
 		this.g.clear();
-		euc.buff=new Uint8Array(35);
 		this.spdC=[0,4095,4080,3840];
 		this.ampC=[1365,4095,4080,3840];
 		this.tmpC=[0,4095,4080,3840];
@@ -17,17 +16,6 @@ face[0] = {
 		this.tmp=-1;
 		this.bat=-1;
 		this.spdF=((set.def.dash.mph)?0.625:1)*euc.dash.spdF;
-		if (euc.state=="READY") {
-			this.g.setColor(0,0);
-			this.g.fillRect(0,0,239,64);
-			this.tmpf(); 
-			if (set.def.dash.bats)
-				this.batf();
-			else {
-				this.voltf();
-			}
-			this.spdf()
-		}
 		this.connrest=0;
 		this.connoff=0;
 		this.lock=2;
@@ -36,27 +24,17 @@ face[0] = {
 	show : function(o){
 		if (!this.run) return;
 		if (euc.state=="READY") {
-			if (this.tmp!=euc.dash.tmp) {
-				this.tmpf(); 
-			}
-			/*//Amp
-			if ((euc.dash.amp|0)!=this.amp) {
-				this.apmf();
-			}
-			*/
-			//batery
-			if (set.def.dash.bats){
-				if (euc.dash.bat!=this.bat) {
-					this.batf();
-				}
-			}else {
-				if (euc.dash.volt!=this.volt) {
-					this.voltf();
-				}
-			}	
-				//speed 
-			if (euc.dash.spd|0!=this.spd){
+			if (euc.dash.spd|0!=this.spd)
 				this.spdf();
+			else{
+				if (this.tmp!=euc.dash.tmp) 
+					this.tmpf(); 
+				if (set.def.dash.batS){
+					if (this.bat!=euc.dash.bat) 
+						this.batf();
+				}else 
+					if (this.volt!=euc.dash.volt) 
+						this.vltf();
 			}
 		} else if (euc.state=="OFF")  {
 			face.go("dashOff",0);
@@ -78,7 +56,7 @@ face[0] = {
 		this.tid=setTimeout(function(t){
 			t.tid=-1;
 			t.show();
-		},150,this);
+		},50,this);
 	},
 	tmpf: function(){
 		this.tmp=euc.dash.tmp;
@@ -97,26 +75,30 @@ face[0] = {
 	batf: function(){
 		this.bat=euc.dash.bat;
 		this.g.setColor(0,this.batC[euc.dash.batC]);
-		this.g.fillRect(122,0,239,55);
+		this.g.fillRect(122,0,239,50);
+//		this.g.setColor(1,4095);
 		this.g.setColor(1,(this.batC[euc.dash.batC]!=4080&&this.batC[euc.dash.batC]!=1525)?4095:0);
-		this.g.setFontVector(40);
-		this.g.drawString(this.bat,238-(this.g.stringWidth(this.bat)),5); //fixed bat
+		this.g.setFontVector(50);
+		this.g.drawString(this.bat,220-(this.g.stringWidth(this.bat)),3);
+		this.g.setFontVector(20);
+		this.g.drawString("%",224,8);
 		this.g.flip();
 	},
-	voltf: function(){
+	vltf: function(){
 		this.volt=euc.dash.volt;
+		
 		this.g.setColor(0,this.batC[euc.dash.batC]);
 		this.g.fillRect(122,0,239,55);
 		this.g.setColor(1,(this.batC[euc.dash.batC]!=4080&&this.batC[euc.dash.batC]!=1525)?4095:0);
-		this.g.setFontVector(33);
-		this.g.drawString(this.volt.toFixed(1),238-(this.g.stringWidth(this.volt.toFixed(1))),1); //fixed bat
-		this.g.setFontVector(13);
-		this.g.drawString("VOLTS",188,36); //fixed bat
+		this.g.setFontVector(50);
+		this.g.drawString(this.volt.toFixed(1),225-(this.g.stringWidth(this.volt.toFixed(1))),3); 
+		this.g.setFontVector(16);
+		this.g.drawString("V",230,8); 
 		this.g.flip();
 	},
 	spdf: function(){
-		"ram"
-		this.spd=euc.dash.spd|0;
+		"ram";
+		this.spd=euc.dash.spd;
 		this.g.setColor(0,"black");
 		this.g.fillRect(0,56,239,64);
 		this.g.flip();
@@ -132,7 +114,7 @@ face[0] = {
 		this.g.flip();
 	},
 	amp: function(){
-		this.amp=(euc.dash.amp|0);
+		this.amp=(euc.dash.amp);
 		this.g.setColor(0,this.ampC[euc.dash.ampC]);
 		this.g.fillRect(80,0,160,55); //amp 
 		this.g.setColor(1,(this.ampC[euc.dash.ampC]!=4080&&this.ampC[euc.dash.ampC]!=4095)?4095:0);
@@ -143,7 +125,6 @@ face[0] = {
 	tid:-1,
 	run:false,
 	clear : function(){
-		//if (face.appCurr!="dash_simple" || face.pageCurr!=0) this.g.clear();
 		this.run=false;
 		if (this.tid>=0) clearTimeout(this.tid);
 		this.tid=-1;
@@ -176,7 +157,7 @@ face[1] = {
 touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
-		if (160<x&&y<55){//batery percentage/voltage
+		if (120 < x && y < 60){//batery percentage/voltage
 			if (set.def.dash.batS==undefined) set.def.dash.batS=0;
 			set.def.dash.batS=1-set.def.dash.batS;
 			face[0].bat=-1;face[0].volt=-1;
