@@ -5,18 +5,22 @@ face[0] = {
 	g:w.gfx,
 	spd:[],
 	init: function(){
+		if (!euc.dash.maker) {face.go((face.appPrev=="dashGarage")?"main":"dashGarage",0);return;}
         if (!face.appPrev.startsWith("dash")) this.g.clear();
         this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
-		this.g.drawString("WHEEL INFO",120-(this.g.stringWidth("WHEEL INFO")/2),217); 
+		this.g.drawString(euc.dash.maker,120-(this.g.stringWidth(euc.dash.maker)/2),217); 
 		this.g.flip(); 
-		
-        this.btn(1,"BATT:",25,185,136,col("blue"),col("red"),122,65,239,105);	
-        this.btn(1,"BATT:",25,185,136,col("blue"),col("red"),122,110,239,150);			
-        this.btn(1,"BATT:",25,185,136,col("blue"),col("red"),122,155,239,195);			
-        this.btn(1,"BATT:",25,185,136,col("blue"),col("red"),122,200,239,239);			
+		//this.btn(1,euc.dash.lock,35,60,10,col("black"),col("red"),0,0,119,45);	
+       // this.btn(1,euc.dash.trpL,35,60,60,col("raf2"),col("red"),0,50,119,95);			
+        this.btn(1,euc.dash.spdM,38,48,110,col("dgray"),col("red"),0,100,95,145);			
+        this.btn(1,euc.dash.spdA,38,48,160,col("dgray"),col("red"),0,150,95,195);				
+        this.btn(1,euc.dash.bat+"%",38,185,10,col("raf1"),col("red"),122,0,239,45);	
+        this.btn(1,euc.dash.time,38,185,60,col("dgray"),col("red"),122,50,239,95);			
+        this.btn(1,euc.dash.trpL,38,172,110,col("dgray"),col("red"),100,100,239,145);			
+        this.btn(1,euc.dash.trpT,38,172,160,col("dgray"),col("red"),100,150,239,195);			
 
 		this.g.flip();
 	},
@@ -52,7 +56,7 @@ face[0] = {
 				t.g.fillRect(0,196,239,239);
 				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",20);
-		        t.g.drawString("WHEEL INFO",120-(t.g.stringWidth("WHEEL INFO")/2),217); 
+		        t.g.drawString(euc.dash.maker,120-(t.g.stringWidth(euc.dash.maker)/2),217); 
 				t.g.flip();
 
 			},1000,this);
@@ -93,7 +97,21 @@ face[1] = {
 touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
-		digitalPulse(D16,1,40);
+		if ( 100<x &&  y <50 ) {
+			
+			face[0].ntfy("LAST TRIP (Km)","",23,col("raf3"),1);
+			digitalPulse(D16,1,[30,50,30]);
+		}else if ( 100<x && 50 < y && y <100 ) {
+			face[0].ntfy("LAST TRIP (Km)","",23,col("raf3"),1);
+			digitalPulse(D16,1,[30,50,30]);
+		}else if ( 100<x && 100 < y && y <150 ) {
+			face[0].ntfy("LAST TRIP (Km)","",23,col("raf3"),1);
+			digitalPulse(D16,1,[30,50,30]);
+		}else if ( 100<x && 150 < y && y <196 ) {
+			face[0].ntfy("TOTAL TRIP (Km)","",23,col("raf3"),1);
+			digitalPulse(D16,1,[30,50,30]);
+		}else 
+			digitalPulse(D16,1,40);
 		this.timeout();
 		break;
     case 1: //slide down event

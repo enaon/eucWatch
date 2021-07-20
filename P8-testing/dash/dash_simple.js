@@ -1,102 +1,121 @@
 //dash simple 
 //faces-main face
 face[0] = {
-  offms: 10000, //5 sec timeout
-  g:w.gfx,
-  spd:[],
-  init: function(){
-	if ( euc.day[0] < Date().getHours() && Date().getHours() < euc.day[1] ) euc.night=0; else euc.night=1;
-	this.g.clear();
-	euc.buff=new Uint8Array(35);
-	this.spdC=new Uint16Array([0,4095,4080,3840]);
-	this.ampC=new Uint16Array([1365,4095,4080,3840]);
-	this.tmpC=new Uint16Array([0,4095,4080,3840]);
-	this.batC=new Uint16Array([0,0,4080,3840]);
-	this.spd=-1;
-	this.amp=-1;
-	this.tmp=-1;
-	this.bat=-1;
-    this.trpL=-1;
-	this.spdF=((set.def.dash.mph)?0.625:1)*euc.dash.spdF;
-	if (euc.state=="READY") {
-		this.g.setColor(0,0);
-		this.g.fillRect(0,0,239,64);
-		this.g.setColor(1,4095);
-		this.g.setFont("7x11Numeric7Seg",4.5);
-		this.g.drawString(euc.dash.tmp|0, 3,5); //temp  
-		this.g.drawString(euc.dash.amp|0,(122-(this.g.stringWidth(euc.dash.amp|0)/2)),5); 
-		if (set.def.dash.bats)
-			this.g.drawString(euc.dash.bat,238-(this.g.stringWidth(euc.dash.bat)),5); //fixed bat
-		else {
-			this.g.setFontVector(33);
-			this.g.drawString(euc.dash.volt.toFixed(1),238-(this.g.stringWidth(euc.dash.volt.toFixed(1))),1); 
-			this.g.setFontVector(13);
-			this.g.drawString("VOLTS",188,36); //fixed bat
+	offms: 10000, //5 sec timeout
+	g:w.gfx,
+	spd:[],
+	init: function(){
+		if ( euc.day[0] < Date().getHours() && Date().getHours() < euc.day[1] ) euc.night=0; else euc.night=1;
+		this.g.clear();
+		euc.buff=new Uint8Array(35);
+		this.spdC=[0,4095,4080,3840];
+		this.ampC=[1365,4095,4080,3840];
+		this.tmpC=[0,4095,4080,3840];
+		this.batC=[0,0,4080,3840];
+		this.spd=-1;
+		this.amp=-1;
+		this.tmp=-1;
+		this.bat=-1;
+		this.spdF=((set.def.dash.mph)?0.625:1)*euc.dash.spdF;
+		if (euc.state=="READY") {
+			this.g.setColor(0,0);
+			this.g.fillRect(0,0,239,64);
+			this.tmpf(); 
+			if (set.def.dash.bats)
+				this.batf();
+			else {
+				this.voltf();
 			}
-		this.g.flip();
-		this.g.setFont("7x11Numeric7Seg",4.5);
-		this.g.setColor(0,this.spdC[euc.dash.spdC]);
-		this.g.fillRect(0,65,239,239);
-		this.g.setColor(1,(this.spdC[euc.dash.spdC]!=4080&&this.spdC[euc.dash.spdC]!=4095)?4095:0);
-		this.spd=euc.dash.spd;
-		this.g.setFontVector(200);
-		this.g.drawString(Math.round(euc.dash.spd*this.spdF),(132-(this.g.stringWidth(Math.round(euc.dash.spd*this.spdF))/2)),65); 
-		this.g.flip();
-	}
-    this.connrest=0;
-	this.connoff=0;
-    this.lock=2;
-	this.run=true;
-  },
-  show : function(o){
-  if (!this.run) return;
-  if (euc.state=="READY") {
-	//Temp
-    if (euc.dash.tmp!=this.tmp) {
-      this.tmp=euc.dash.tmp;
-	  this.g.setColor(0,this.tmpC[euc.dash.tmpC]);
-      this.g.fillRect(0,0,79,55);       
-      this.g.setColor(1,(this.tmpC[euc.dash.tmpC]!=4080&&this.tmpC[euc.dash.tmpC]!=1535)?4095:0);
-      this.g.setFont("7x11Numeric7Seg",4.5);
-      this.g.drawString(this.tmp|0, 3,5); //temp      
-	  this.g.flip();
-    }
-	//Amp
-    if ((euc.dash.amp|0)!=this.amp) {
-        this.amp=(euc.dash.amp|0);
-		this.g.setColor(0,this.ampC[euc.dash.ampC]);
-		this.g.fillRect(80,0,160,55); //amp 
-        this.g.setColor(1,(this.ampC[euc.dash.ampC]!=4080&&this.ampC[euc.dash.ampC]!=4095)?4095:0);
-        this.g.setFont("7x11Numeric7Seg",4.5);
-        this.g.drawString(this.amp|0,(122-(this.g.stringWidth(this.amp|0)/2)),5); 
-        this.g.flip();
-    }
-	//batery
-	if (set.def.dash.bats){
-		if (euc.dash.bat!=this.bat) {
-			this.bat=euc.dash.bat;
-			this.g.setColor(0,this.batC[euc.dash.batC]);
-			this.g.fillRect(161,0,239,55);
-			this.g.setColor(1,(this.batC[euc.dash.batC]!=4080&&this.batC[euc.dash.batC]!=1525)?4095:0);
-			this.g.setFont("7x11Numeric7Seg",4.5);
-			this.g.drawString(this.bat,238-(this.g.stringWidth(this.bat)),5); //fixed bat
-			this.g.flip();
+			this.spdf()
 		}
-	}else {
-		if (euc.dash.volt!=this.volt) {
-			this.volt=euc.dash.volt;
-			this.g.setColor(0,this.batC[euc.dash.batC]);
-			this.g.fillRect(161,0,239,55);
-			this.g.setColor(1,(this.batC[euc.dash.batC]!=4080&&this.batC[euc.dash.batC]!=1525)?4095:0);
-			this.g.setFontVector(33);
-			this.g.drawString(this.volt.toFixed(1),238-(this.g.stringWidth(this.volt.toFixed(1))),1); //fixed bat
-			this.g.setFontVector(13);
-			this.g.drawString("VOLTS",188,36); //fixed bat
-			this.g.flip();
+		this.connrest=0;
+		this.connoff=0;
+		this.lock=2;
+		this.run=true;
+	},
+	show : function(o){
+		if (!this.run) return;
+		if (euc.state=="READY") {
+			if (this.tmp!=euc.dash.tmp) {
+				this.tmpf(); 
+			}
+			/*//Amp
+			if ((euc.dash.amp|0)!=this.amp) {
+				this.apmf();
+			}
+			*/
+			//batery
+			if (set.def.dash.bats){
+				if (euc.dash.bat!=this.bat) {
+					this.batf();
+				}
+			}else {
+				if (euc.dash.volt!=this.volt) {
+					this.voltf();
+				}
+			}	
+				//speed 
+			if (euc.dash.spd|0!=this.spd){
+				this.spdf();
+			}
+		} else if (euc.state=="OFF")  {
+			face.go("dashOff",0);
+			return;
+		//rest
+		} else  {
+			if (euc.state!=this.connrest) {
+				this.connrest=euc.state;
+				this.g.setColor(0,0);
+				this.g.fillRect(0,0,239,239);
+				this.g.setColor(1,4095);
+				this.g.setFont("Vector",50);
+				this.g.drawString(euc.state,(125-this.g.stringWidth(euc.state)/2),95);
+				this.g.flip();
+				if (euc.state=="WAIT"||euc.state=="RETRY"){this.spd=-1;this.amp=-1;this.tmp=-1;this.bat=-1;this.trpL=-1;this.conn="OFF";this.lock=2;this.run=true;}
+			}
 		}
-	}	
-		//speed 
-    if (euc.dash.spd|0!=this.spd){
+		//refresh 
+		this.tid=setTimeout(function(t){
+			t.tid=-1;
+			t.show();
+		},150,this);
+	},
+	tmpf: function(){
+		this.tmp=euc.dash.tmp;
+		this.g.setColor(0,this.tmpC[euc.dash.tmpC]);
+		this.g.fillRect(0,0,119,55);       
+		this.g.setColor(1,(this.tmpC[euc.dash.tmpC]!=4080&&this.tmpC[euc.dash.tmpC]!=1535)?4095:0);
+		this.g.setFontVector(45);
+		this.g.drawString(this.tmp, 5,5); 
+		let size=this.g.stringWidth(this.tmp)+3;
+		this.g.setFontVector(13);
+		this.g.drawString("o",size,6); 
+		this.g.setFontVector(16);
+		this.g.drawString("C",size+8,10); 
+		this.g.flip();
+	},
+	batf: function(){
+		this.bat=euc.dash.bat;
+		this.g.setColor(0,this.batC[euc.dash.batC]);
+		this.g.fillRect(122,0,239,55);
+		this.g.setColor(1,(this.batC[euc.dash.batC]!=4080&&this.batC[euc.dash.batC]!=1525)?4095:0);
+		this.g.setFontVector(40);
+		this.g.drawString(this.bat,238-(this.g.stringWidth(this.bat)),5); //fixed bat
+		this.g.flip();
+	},
+	voltf: function(){
+		this.volt=euc.dash.volt;
+		this.g.setColor(0,this.batC[euc.dash.batC]);
+		this.g.fillRect(122,0,239,55);
+		this.g.setColor(1,(this.batC[euc.dash.batC]!=4080&&this.batC[euc.dash.batC]!=1525)?4095:0);
+		this.g.setFontVector(33);
+		this.g.drawString(this.volt.toFixed(1),238-(this.g.stringWidth(this.volt.toFixed(1))),1); //fixed bat
+		this.g.setFontVector(13);
+		this.g.drawString("VOLTS",188,36); //fixed bat
+		this.g.flip();
+	},
+	spdf: function(){
+		"ram"
 		this.spd=euc.dash.spd|0;
 		this.g.setColor(0,"black");
 		this.g.fillRect(0,56,239,64);
@@ -111,52 +130,29 @@ face[0] = {
 			this.g.setFontVector(200);	  
 		this.g.drawString(Math.round(this.spd*this.spdF),132-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2),65); 
 		this.g.flip();
-    }
- 
-  } else if (euc.state=="OFF")  {
-
-			face.go("dashOff",0);
-			return;
-//rest
-  } else  {
-    if (euc.state!=this.connrest) {
-      this.connrest=euc.state;
-      this.g.setFontVector(36);
-	  this.g.setColor(0,1365);
-      this.g.fillRect(0,0,239,55); //top
-      this.g.setColor(1,1535);
- 	  this.g.drawImage(require("heatshrink").decompress(atob("jkwwIEBj4CBg/8AYP/8EAh//gEB//wgEeh4GB4FwDgMHwAGBnAGBgYGLjvzAwPfAzMDAwV9+fgh/fn8B+Px+E+j8HwfD/F8vl/8fHx//jl5//x98f/+e+P//Hvn//x3zAwQNCuP//Pnz//j14//h4/H/08nk/w+BQwP4j+ASYP+g/gg//SwIpBwCZDgCVBA=")),25,3);
-      this.g.drawImage(require("heatshrink").decompress(atob("mEwwIdah/wAqkB///wAFBgYFB4AFh34FKn4FJ/wFK/gFE/AFK+AFFgYFD8EHApPAh4vEAosfApRHFv4FKPogFF/oFKU6zRFACwA=")),180,3);	 
-      this.g.drawImage(require("heatshrink").decompress(atob("mEwwIMJv/4Aof/+AECjgFE/v/8AEBgf5AocH/f/4AFBj/D/+YAoM/g//3wFBvgFBn4FB/EP/0fwEB+AFBh/Agfgj/8g/gg/Aj/4BIMHwE//AVCFQJGBAoV/AoP4jwFBKYN4AoP/AoN8jkBAoPgvk8AoXAnk8gYFBwAFEgAFBKQP+Aon8AoRyBRwIFCh47BAo0cPwKIBAoaIBnhHBn+AgE4KYSBBnBfBvwFBvAFBGgMAuB3BYYXwg+BXoXggfBFwMBSoPjAoMD4EB+Y0BDYMA+4CBE4MAs4CBnwCBhzCCAQMMEwIxCjKVCAoMRR4QFBkCnBfQR9DAAwA=")),97,3);	 
-      this.g.flip();
-  	  this.g.setColor(0,0);
-	  this.g.fillRect(0,56,239,239);
-      this.g.setColor(1,4095);
-      this.g.setFont("Vector",50);
-      this.g.drawString(euc.state,(125-this.g.stringWidth(euc.state)/2),115);
-      this.g.flip();
-	  if (euc.state=="WAIT"||euc.state=="RETRY"){this.spd=-1;this.amp=-1;this.tmp=-1;this.bat=-1;this.trpL=-1;this.conn="OFF";this.lock=2;this.run=true;}
-    }
-  }
-//refresh 
-  this.tid=setTimeout(function(t){
-      t.tid=-1;
-      t.show();
-    },150,this);
-  },
-  tid:-1,
-  run:false,
-  clear : function(){
-	//if (face.appCurr!="dash_simple" || face.pageCurr!=0) this.g.clear();
-    this.run=false;
-    if (this.tid>=0) clearTimeout(this.tid);
-    this.tid=-1;
-    return true;
-  },
-  off: function(){
-    this.g.off();
-    this.clear();
-  } 
+	},
+	amp: function(){
+		this.amp=(euc.dash.amp|0);
+		this.g.setColor(0,this.ampC[euc.dash.ampC]);
+		this.g.fillRect(80,0,160,55); //amp 
+		this.g.setColor(1,(this.ampC[euc.dash.ampC]!=4080&&this.ampC[euc.dash.ampC]!=4095)?4095:0);
+		this.g.setFontVector(33);
+		this.g.drawString(this.amp|0,(122-(this.g.stringWidth(this.amp|0)/2)),5); 
+		this.g.flip();
+	},
+	tid:-1,
+	run:false,
+	clear : function(){
+		//if (face.appCurr!="dash_simple" || face.pageCurr!=0) this.g.clear();
+		this.run=false;
+		if (this.tid>=0) clearTimeout(this.tid);
+		this.tid=-1;
+		return true;
+	},
+	off: function(){
+		this.g.off();
+		this.clear();
+	} 
 };
 //loop face
 face[1] = {
