@@ -189,8 +189,13 @@ face[0] = {
 				}else {
 						this.g.setFont("Vector",25);
 						this.g.drawString(euc.dash.maker,119-(this.g.stringWidth(euc.dash.maker)/2),170); //info
-						this.g.setFont("Vector",20);
-						this.g.drawString(euc.state,119-(this.g.stringWidth(euc.state)/2),195); //
+						
+						//this.g.drawString(euc.state,0,215); //
+            if (euc.state !== "OFF") {
+                this.g.setFont("Vector",25);
+                this.g.drawString(euc.state,119-(this.g.stringWidth(euc.state)/2),215); //
+            }
+						//this.g.drawString(euc.dash.bat+"%",240-(this.g.stringWidth(euc.dash.bat+"%")),215); //
 						this.g.flip();
 				}
 			}

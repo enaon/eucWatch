@@ -25,7 +25,7 @@ face[0] = {
 		this.g.setFont("7x11Numeric7Seg",4.5);
 		this.g.drawString(euc.dash.tmp|0, 3,5); //temp  
 		this.g.drawString(euc.dash.amp|0,(122-(this.g.stringWidth(euc.dash.amp|0)/2)),5); 
-		if (set.def.dash.bat)
+		if (set.def.dash.bats)
 			this.g.drawString(euc.dash.bat,238-(this.g.stringWidth(euc.dash.bat)),5); //fixed bat
 		else {
 			this.g.setFontVector(33);
@@ -72,7 +72,7 @@ face[0] = {
         this.g.flip();
     }
 	//batery
-	if (set.def.dash.bat){
+	if (set.def.dash.bats){
 		if (euc.dash.bat!=this.bat) {
 			this.bat=euc.dash.bat;
 			this.g.setColor(0,this.batC[euc.dash.batC]);
@@ -117,18 +117,6 @@ face[0] = {
 
 			face.go("dashOff",0);
 			return;
-	//}
-	/*
-	if (euc.dash.lock!=this.lock&&euc.dash.lock==1){
-      this.lock=euc.dash.lock;
-      this.g.setColor(0,col("red"));
-	  this.g.fillRect(80,0,160,55); //amp   
-      this.g.setColor(1,4095);
-      this.g.drawImage(require("heatshrink").decompress(atob("j0gwIIFnwCBgf/AYMf/wDB8E8gEHgFwgEcgHAgFggcAgOAhkAg0AmEAjAOJDoM4gF///4F4P/8EPAYPAn/jHAP/g/8gf8j/wh/wv4OFx4OB/0/BwP4Do3/BwIDBBwIDBwE//5hBAYPwOQYA=")),106,10);	 
-	  this.g.flip();
-	  this.clear(); //if (set.def.cli) console.log("faceEUCexited");
-	*/
-  //}
 //rest
   } else  {
     if (euc.state!=this.connrest) {
@@ -193,8 +181,8 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
 		if (160<x&&y<55){//batery percentage/voltage
-			if (set.def.dash.bat==undefined) set.def.dash.bat=0;
-			set.def.dash.bat=1-set.def.dash.bat;
+			if (set.def.dash.batS==undefined) set.def.dash.batS=0;
+			set.def.dash.batS=1-set.def.dash.batS;
 			face[0].bat=-1;face[0].volt=-1;
 			digitalPulse(D16,1,[30,50,30]);
 		}
@@ -223,13 +211,8 @@ touchHandler[0]=function(e,x,y){
 		face.go("main",0);
 		return;
     case 12: //touch and hold(long press) event
-		if (160<x&&y<55){
-			if (set.def.dash.bat==undefined) set.def.dash.bat=0;
-			set.def.dash.bat=1-set.def.dash.bat;
-			digitalPulse(D16,1,100);
-			face[0].bat=-1;face[0].volt=-1;
-		}else digitalPulse(D16,1,40);
+		digitalPulse(D16,1,40);
 		this.timeout();
-		return;
+		break;
     }
 };

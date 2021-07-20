@@ -5,58 +5,20 @@ face[0] = {
 	g:w.gfx,
 	spd:[],
 	init: function(){
-		this.g.setColor(0,0);
-		this.g.fillRect(0,0,79,55); //temp
-		this.g.fillRect(161,0,239,55); //batt	  
+        if (!face.appPrev.startsWith("dash")) this.g.clear();
+        this.g.setColor(0,0);
+		this.g.fillRect(0,196,239,239);
 		this.g.setColor(1,col("white"));
-		this.g.setFont("7x11Numeric7Seg",4.5);
-		this.g.drawString(euc.dash.tmp|0,3,5); //temp
-		this.g.drawString(euc.dash.bat,238-(this.g.stringWidth(euc.dash.bat)),5);
-		this.g.flip();
-		this.g.setColor(0,col("dgray"));
-		this.g.fillRect(80,0,160,55); //amp   
-		this.g.setColor(1,col("white"));
-this.g.drawImage(require("heatshrink").decompress(atob("kUgwIOLn/AAYX4AYMeg4DBAQPggEDwEYBAPAgwDBmEBwEAhkAsAQBgAQKh0AkP///AjADBGIM/AgMAh/9BgMD/0f+EA/8H/hJCCAX4v4QCn4QCx4QC8YQDEIX/CAf/CAQyDH4UBAYJoBBgIUBA==")),106,10);	 
-		this.g.flip();
-		this.g.setColor(0,0);
-		this.g.fillRect(65,56,199,239); //middle	
-		this.g.setColor(1,col("white"));
-		this.g.setFontVector(28);
-		this.g.drawString(euc.dash.spdM,190-this.g.stringWidth(euc.dash.spdM),90);
-		this.g.drawString(euc.dash.time,190-this.g.stringWidth(euc.dash.time),133); 
-		this.g.drawString(euc.dash.trpL,190-this.g.stringWidth(euc.dash.trpL),175); 
-		this.g.drawString(euc.dash.trpT,190-this.g.stringWidth(euc.dash.trpT),217); 
-		this.g.flip();	
-		this.g.setColor(0,0);
-		this.g.fillRect(0,56,74,239); //left	
-		this.g.setColor(1,col("lgray"));
-		this.g.setFontVector(24);
-		this.g.drawString("TOP",5,93);
-		this.g.drawString("RUN",5,136);
-		this.g.drawString("TRP",5,178);
-		this.g.drawString("TOT",5,220);
-		this.g.flip();
-		this.g.setColor(0,0);
-		this.g.fillRect(200,56,239,239); //right	
-		this.g.setColor(1,col("lgray"));
-		this.g.drawString("kph",205,93);
-		this.g.drawString("Min",205,136);
-		this.g.drawString("Km",205,178);
-		this.g.drawString("Km",205,220);
-		this.g.flip();
-		//}
-		/*		if (euc.dash.lock!=this.lock&&euc.dash.lock==1){
-		  this.lock=euc.dash.lock;
-		  this.g.setColor(0,col("red"));
-		  this.g.fillRect(80,0,160,55); //amp   
-		  this.g.setColor(1,col("white"));
-		  this.g.drawImage(require("heatshrink").decompress(atob("j0gwIIFnwCBgf/AYMf/wDB8E8gEHgFwgEcgHAgFggcAgOAhkAg0AmEAjAOJDoM4gF///4F4P/8EPAYPAn/jHAP/g/8gf8j/wh/wv4OFx4OB/0/BwP4Do3/BwIDBBwIDBwE//5hBAYPwOQYA=")),106,10);	 
-		  this.g.flip();
-		  this.clear(); //if (set.def.cli) console.log("faceEUCexited");
-		*/
-    //}
-		//}
+		this.g.setFont("Vector",20);
+		this.g.drawString("WHEEL INFO",120-(this.g.stringWidth("WHEEL INFO")/2),217); 
+		this.g.flip(); 
+		
+        this.btn(1,"BATT:",25,185,136,col("blue"),col("red"),122,65,239,105);	
+        this.btn(1,"BATT:",25,185,136,col("blue"),col("red"),122,110,239,150);			
+        this.btn(1,"BATT:",25,185,136,col("blue"),col("red"),122,155,239,195);			
+        this.btn(1,"BATT:",25,185,136,col("blue"),col("red"),122,200,239,239);			
 
+		this.g.flip();
 	},
 	show : function(o){
 		if (!this.run) return;
@@ -66,36 +28,35 @@ this.g.drawImage(require("heatshrink").decompress(atob("kUgwIOLn/AAYX4AYMeg4DBAQ
 			t.show();
 		},150,this);
 	},
-	btn: function(txt,size,x,y,clr,rx1,ry1,rx2,ry2,txt1,size1,x1,y1){
-			this.g.setColor(0,clr);
+    btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
+			this.g.setColor(0,(bt)?clr1:clr0);
 			this.g.fillRect(rx1,ry1,rx2,ry2);
 			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",size);	
-            this.g.drawString(txt,x-(this.g.stringWidth(txt)/2),y); 
-   			if (txt1){
-            this.g.setFont("Vector",size1);	
-            this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1);
-            }
+			this.g.setFont("Vector",size1);	
+          this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1); 
+   			if (txt2){this.g.setFont("Vector",size2);	
+            this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);}
 			this.g.flip();
     },
-	ntfy: function(txt1,txt0,size,clr,bt){
-			this.g.setColor(0,clr);
+    ntfy: function(txt1,txt0,size,clr,bt){
+            this.g.setColor(0,clr);
 			this.g.fillRect(0,198,239,239);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",size);
-			this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
+     		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
 			this.g.flip();
 			if (this.ntid) clearTimeout(this.ntid);
 			this.ntid=setTimeout(function(t){
-				t.ntid=0;
+                t.ntid=0;
 				t.g.setColor(0,0);
 				t.g.fillRect(0,196,239,239);
 				t.g.setColor(1,col("white"));
-				t.g.setFont("Vector",22);
-				t.g.drawString("GARAGE",120-(t.g.stringWidth("GARAGE")/2),217); 
+				t.g.setFont("Vector",20);
+		        t.g.drawString("WHEEL INFO",120-(t.g.stringWidth("WHEEL INFO")/2),217); 
 				t.g.flip();
+
 			},1000,this);
-	},
+    },
 	tid:-1,
 	run:false,
 	clear : function(){

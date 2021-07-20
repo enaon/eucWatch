@@ -61,6 +61,8 @@ var set={
 		dash:{
 			mph:0, 
 			amp:0, 
+			bat:0, 
+			batS:0, 
 			face:0,  
 			accE:0,//euc acc on/off
 			clck:0 

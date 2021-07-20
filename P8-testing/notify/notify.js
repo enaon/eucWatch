@@ -133,6 +133,7 @@ face[5] = {
     this.del=0;
     this.g.setColor(0,col("dgray"));
     if (this.list.length==0){
+      this.g.setColor(0,col("black"));
       this.g.fillRect(0,0,239,239);
       this.g.setColor(1,col("lblue"));
       this.g.setFont("Vector",24);		
