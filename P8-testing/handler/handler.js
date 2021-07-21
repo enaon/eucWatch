@@ -61,11 +61,12 @@ var set={
 		dash:{
 			mph:0, 
 			amp:0, 
-			bat:0, 
+			bat:0,
 			batS:0, 
 			face:0,  
 			accE:0,//euc acc on/off
-			clck:0 
+			clck:0,
+			clkS:0,			
 		},
 		name:"eucWatch", //Set the name to be broadcasted by the Bluetooth module. 
 		timezone:0, //Timezone
