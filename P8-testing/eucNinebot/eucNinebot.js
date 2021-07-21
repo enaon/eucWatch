@@ -171,7 +171,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 			euc.loop=setTimeout( function(){ 
 				euc.loop=0;
-				if (!global["\xFF"].BLE_GATTS) {;euc.off("not connected");return;}
+				if (!global["\xFF"].BLE_GATTS) {euc.off("not connected");return;}
 				c.writeValue(euc.cmd((euc.dash.aLck)?21:25)).then(function() {
 					global["\xFF"].BLE_GATTS.disconnect().catch(function(err){if (set.def.cli)console.log("EUC OUT disconnect failed:", err);});
 				}).catch(function(err)  {
