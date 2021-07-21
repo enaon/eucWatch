@@ -4,9 +4,12 @@ face[0] = {
 	g:w.gfx,
 	spd:[],
 	init: function(){
-		//this.spdBar=240/((euc.dash.maker=="Ninebot")?25:(euc.dash.maker=="NinebotZ")?45:(euc.dash.maker=="Inmotion")?55:euc.dash.spdT);
 		if ( euc.day[0] < Date().getHours() && Date().getHours() < euc.day[1] ) euc.night=0; else euc.night=1;
-		this.g.clear();
+        if (face.appPrev.startsWith("dash_")) {
+			this.g.setColor(0,0);
+			this.g.fillRect(0,51,239,239);
+			this.g.flip();	
+		}else this.g.clear();
 		this.spdC=new Uint16Array([0,4095,4080,3840]);
 		this.ampC=new Uint16Array([1365,4095,4080,3840]);
 		this.tmpC=new Uint16Array([1365,1365,4080,3840]);
@@ -26,21 +29,10 @@ face[0] = {
 		this.spdL=-1;
 		this.spdF=((set.def.dash.mph)?0.625:1)*euc.dash.spdF;
 		this.trpF=((set.def.dash.mph)?0.626:1)*euc.dash.trpF;
-		this.g.setColor(1,2730);
-		this.g.fillRect(0,0,119,50); //temp
-		this.g.fillRect(122,0,239,50); //bat      
-		this.g.setColor(0,0);
-		this.g.setFontVector(30);
-		this.g.drawString((set.def.dash.amp==1)?"AMP":"TEMP", 5,12); 
-		this.g.drawString("BATT", 150,12); 
-		this.g.flip();
-		this.bar();
-		this.mileage();
 		this.run=true;
 		
 	},
 	show : function(o){
-		//"ram";
 		if (!this.run) return;
 		//connected  
 		if (euc.state=="READY") {
@@ -155,13 +147,13 @@ face[0] = {
 					this.g.setColor(1,this.tmpC[euc.dash.tmpC]);
 					this.g.fillRect(0,0,119,50);       
 					this.g.setColor(0,(euc.dash.tmpC!=3&&euc.dash.tmpC!=0)?0:4095);
-					this.g.setFontVector(45);
-					this.g.drawString(this.tmp, 5,5); 
-					let size=this.g.stringWidth(this.tmp)+3;
+					this.g.setFontVector(50);
+					this.g.drawString(this.tmp, 0,3); 
+					let size=this.g.stringWidth(this.tmp)+0;
 					this.g.setFontVector(13);
-					this.g.drawString("o",size,6); 
+					this.g.drawString("o",size-3,2); 
 					this.g.setFontVector(16);
-					this.g.drawString("C",size+8,10); 
+					this.g.drawString("C",size+3,5); 
 					this.g.flip();
 				}
 			}else if (this.ampL!=ampL){
@@ -185,10 +177,10 @@ face[0] = {
 					this.g.setColor(0,this.batC[euc.dash.batC]);
 					this.g.fillRect(122,0,239,50);
 					this.g.setColor(1,4095);
-					this.g.setFontVector(35);
-					this.g.drawString((this.volt).toFixed(2),242-(this.g.stringWidth((this.volt).toFixed(2))),1);
+					this.g.setFontVector((this.volt<100)?40:35);
+					this.g.drawString(this.volt,(this.volt<100)?135:125,0); 
 					this.g.setFontVector(13);
-					this.g.drawString("VOLTS",191,36);
+					this.g.drawString("VOLT",202,40);
 					this.g.flip();
 				}
 			}else if (set.def.dash.bat==2) {
@@ -226,30 +218,16 @@ face[0] = {
 			face.go("dashOff",0);
 			return;
 		//rest
-		} else  {
+			} else  {
 			if (euc.state!=this.conn) {
 				this.conn=euc.state;
 				this.g.setColor(0,0);
-				this.g.fillRect(0,54,239,170);
-				this.g.setColor(1,4095);     
-				this.g.setFont("Vector",40);
-				this.g.drawString(euc.state,(125-(this.g.stringWidth(euc.state))/2),85);
+				this.g.fillRect(0,0,239,239);
+				this.g.setColor(1,4095);
+				this.g.setFont("Vector",50);
+				this.g.drawString(euc.state,(125-this.g.stringWidth(euc.state)/2),95);
 				this.g.flip();
-				this.g.setColor(1,1535);
-				this.g.fillRect(0,0,119,50);
-				this.g.fillRect(122,0,239,50);
-				this.g.setColor(0,0);
-				this.g.setFontVector(30);
-				this.g.drawString((set.def.dash.amp==1)?"AMP":"TEMP", 5,12); 
-				this.g.drawString("BATT", 150,12);
-				this.g.flip();
-				if (euc.state=="WAIT"||euc.state=="RETRY"){	
-					this.alrm=-1;this.spd=-1;this.amp=-10;
-					this.tmp=-1;this.bat=-1;this.trpL=-1;
-					this.volt=-1;this.max=-1;this.buzz=-1;
-					this.conn="OFF";this.lock=2;
-					this.spdL=-1;this.ampL=1;this.run=true;
-				}
+				if (euc.state=="WAIT"||euc.state=="RETRY"){this.spd=-1;this.time=0;this.amp=-1;this.tmp=-1;this.bat=-1;this.trpL=-1;this.conn=0;this.lock=2;this.run=true;}
 			}
 		}
 		euc.new=0;
