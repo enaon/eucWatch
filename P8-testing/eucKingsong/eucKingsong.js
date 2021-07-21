@@ -69,6 +69,17 @@ euc.conn=function(mac){
 					//amp
 					this.amp=event.target.value.getUint16(10, true);
 					if ( 32767 < this.amp ) this.amp = this.amp - 65536;
+					euc.dash.amp = ( this.amp / 100 );
+					euc.dash.ampC = ( euc.dash.ampH+10 <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL - 5 )? 3 : ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp < 0 )? 1 : 0;
+					if ( euc.dash.ampH <= euc.dash.amp ){
+						if (euc.dash.hapA) euc.alert = Math.round( euc.alert + 1 + ((euc.dash.amp - euc.dash.ampH) / euc.dash.ampS) );
+					}else if ( euc.dash.amp <= euc.dash.ampL )  {
+						//euc.dash.spdC = (euc.dash.ampC === 3)? 3 : (euc.dash.spdC === 3)? 3 : 2;
+						if (euc.dash.hapA) euc.alert = Math.round(euc.alert + 1 + ((-(euc.dash.amp - euc.dash.ampL)) / euc.dash.ampS));  				
+					}
+					//log
+					ampL.unshift(Math.round(euc.dash.amp));
+					if (20<ampL.length) ampL.pop();
 					//volt
 					euc.dash.volt=event.target.value.getUint16(2, true)/100;
 					euc.dash.bat=Math.round((euc.dash.volt*euc.dash.batF - euc.dash.batE ) * (100/(420-euc.dash.batE)));
@@ -116,22 +127,9 @@ euc.conn=function(mac){
 				case 245:
 					euc.dash.cpu=event.target.value.buffer[14];
 					//euc.dash.out=event.target.value.buffer[15];
-					//amp (evening out drawing times)
-					euc.dash.amp = ( this.amp / 100 );
-					euc.dash.ampC = ( euc.dash.ampH+10 <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL - 5 )? 3 : ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp < 0 )? 1 : 0;
-					if ( euc.dash.ampH <= euc.dash.amp ){
-						if (euc.dash.hapA) euc.alert = Math.round( euc.alert + 1 + ((euc.dash.amp - euc.dash.ampH) / euc.dash.ampS) );
-					}else if ( euc.dash.amp <= euc.dash.ampL )  {
-						//euc.dash.spdC = (euc.dash.ampC === 3)? 3 : (euc.dash.spdC === 3)? 3 : 2;
-						if (euc.dash.hapA) euc.alert = Math.round(euc.alert + 1 + ((-(euc.dash.amp - euc.dash.ampL)) / euc.dash.ampS));  				
-					}
-					//log
-					ampL.unshift(Math.round(euc.dash.amp));
-					if (20<ampL.length) ampL.pop();
-					euc.new=1;
 					break;
 				case 246:
-					euc.dash.spdL=Math.round( event.target.value.getUint16(2, true) / 100 ); 
+					euc.dash.spdL=Math.round( (event.target.value.getUint16(2, true) / 100)*euc.dash.spdF*((set.def.dash.mph)?0.625:1)); 
 						euc.dash.alrm=(euc.dash.spdL-((set.def.dash.mph)?3:5) < euc.dash.spd)?1:0;
 					//log alarms
 					almL.unshift(euc.dash.alrm);
