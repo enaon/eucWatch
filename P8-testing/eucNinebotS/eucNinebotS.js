@@ -63,7 +63,7 @@ euc.conn=function(mac){
 				euc.alert=0;
 				switch (this.var) {
 					case 38://speed
-						euc.dash.spd=Math.round((this.in16/1000)*euc.dash.spdF*(set.def.dash.mph)?0.625:1);
+						euc.dash.spd=Math.round((this.in16/1000)*euc.dash.spdF*((set.def.dash.mph)?0.625:1));
 						euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd1+5 <= euc.dash.spd )? 3 : ( euc.dash.spd1+2 <= euc.dash.spd )? 2 : 1 ;	
 						if ( euc.dash.hapS && euc.dash.spd >= euc.dash.spd1 ) 
 							euc.alert = 1 + ((euc.dash.spd-euc.dash.spd1) / euc.dash.ampS|0) ;
@@ -86,10 +86,10 @@ euc.conn=function(mac){
 						euc.new=1;
 						break;
 					case 41://total trip
-						euc.dash.trpT=(event.target.value.getUint32(6, true)/1000)*euc.dash.trpF*(set.def.dash.mph)?0.625:1; 
+						euc.dash.trpT=(event.target.value.getUint32(6, true)/1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1)); 
 						break;
 					case 185://current trip
-						euc.dash.trpL=(this.in16/100)*euc.dash.trpF*(set.def.dash.mph)?0.625:1;
+						euc.dash.trpL=(this.in16/100)*euc.dash.trpF*((set.def.dash.mph)?0.625:1));
 						break;
 					case 71://battery fixed/voltage
 						euc.dash.volt=this.in16/100;
@@ -106,7 +106,7 @@ euc.conn=function(mac){
 						euc.new=1;
 						break;
 					case 37: //remaining
-						euc.dash.trpR=(this.in16/100)*euc.dash.trpF*(set.def.dash.mph)?0.625:1;
+						euc.dash.trpR=(this.in16/100)*euc.dash.trpF*((set.def.dash.mph)?0.625:1));
 						break;
 					case 62: //temp
 						euc.dash.tmp=(this.in16/10).toFixed(1);

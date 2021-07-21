@@ -62,7 +62,7 @@ euc.conn=function(mac){
 			switch (got){				
 				case  169:
 					//speed
-					euc.dash.spd=Math.round( (event.target.value.getUint16(4, true) / 100)*euc.dash.spdF*(set.def.dash.mph)?0.625:1); 
+					euc.dash.spd=Math.round( (event.target.value.getUint16(4, true) / 100)*euc.dash.spdF*((set.def.dash.mph)?0.625:1)); 
 					euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd <= euc.dash.spd2 )? 1 : ( euc.dash.spd <= euc.dash.spd3 )? 2 : 3 ;	
 					if ( euc.dash.hapS && euc.dash[euc.dash.haSv]  <= euc.dash.spd ) 
 						euc.alert = ( 1 + ((euc.dash.spd-euc.dash[euc.dash.haSv]) / euc.dash.spdS | 0 ) );  
@@ -82,7 +82,7 @@ euc.conn=function(mac){
 					euc.dash.tmpC = (euc.dash.tmp <= euc.dash.tmpH)? 0 : (euc.dash.tmp <= euc.dash.tmpH+5)? 2 : 3;	
 					if (euc.dash.tmpH <= euc.dash.tmp) {euc.alert++; euc.dash.spdC = 3;}     
 					//total mileage
-					euc.dash.trpT = (((event.target.value.buffer[6] << 16) + (event.target.value.buffer[7] << 24) + event.target.value.buffer[8] + (event.target.value.buffer[9] << 8)) / 1000)*euc.dash.trpF*(set.def.dash.mph)?0.625:1;
+					euc.dash.trpT = (((event.target.value.buffer[6] << 16) + (event.target.value.buffer[7] << 24) + event.target.value.buffer[8] + (event.target.value.buffer[9] << 8)) / 1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1));
 					//mode
 					euc.dash.mode = event.target.value.getUint8(14, true);
 					euc.new=1;
@@ -108,7 +108,7 @@ euc.conn=function(mac){
 					}
 					break;
 				case 185://trip-time-max_speed
-					euc.dash.trpL=(((event.target.value.buffer[2] << 16) + (event.target.value.buffer[3] << 24) + event.target.value.buffer[4] + (event.target.value.buffer[5] << 8)) / 1000.0)*euc.dash.trpF*(set.def.dash.mph)?0.625:1;
+					euc.dash.trpL=(((event.target.value.buffer[2] << 16) + (event.target.value.buffer[3] << 24) + event.target.value.buffer[4] + (event.target.value.buffer[5] << 8)) / 1000.0)*euc.dash.trpF*((set.def.dash.mph)?0.625:1));
 					euc.dash.time=Math.round((event.target.value.getUint16(6, true)) / 60.0);
 					euc.dash.spdM=((event.target.value.getUint16(8, true)) / 100.0).toFixed(1);
 					euc.dash.fan=event.target.value.buffer[12];

@@ -53,7 +53,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 		euc.alert=0;
 		switch (this.var) {
 		case 38://speed
-			euc.dash.spd=Math.round((this.in16/1000)*euc.dash.spdF*(set.def.dash.mph)?0.625:1);
+			euc.dash.spd=Math.round((this.in16/1000)*euc.dash.spdF*((set.def.dash.mph)?0.625:1));
 			euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd1+5 <= euc.dash.spd )? 3 : ( euc.dash.spd1+2 <= euc.dash.spd )? 2 : 1 ;	
 			if ( euc.dash.hapS && euc.dash.spd >= euc.dash.spd1 ) 
 				euc.alert = 1 + ((euc.dash.spd-euc.dash.spd1) / euc.dash.ampS|0) ;
@@ -76,14 +76,14 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			euc.new=1;
 			break;
 		case 41://total distance
-			euc.dash.trpT=(event.target.value.getUint32(6, true)/1000)*euc.dash.trpF*(set.def.dash.mph)?0.625:1;
+			euc.dash.trpT=(event.target.value.getUint32(6, true)/1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1));
 			break;
 		case 185://trip
 			// if (euc.dash.trpN > (euc.tmp[this.var]/100).toFixed(1)) {
 			//   euc.dash.trpL=Number(euc.dash.trpL)+Number(euc.dash.trpN);
 			//   if (set.def.cli) console.log("EUC_trip new :",euc.dash.trpL);
 			// } 
-			euc.dash.trpL=(this.in16/100)*euc.dash.trpF*(set.def.dash.mph)?0.625:1;
+			euc.dash.trpL=(this.in16/100)*euc.dash.trpF*((set.def.dash.mph)?0.625:1));
 			//euc.dash.trpT=(this.in16/100).toFixed(1);
 			//euc.dash.trpT=Number(euc.dash.trpL)+Number(euc.dash.trpN);
 			//tt=euc.tmp[this.var];
@@ -103,7 +103,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			euc.new=1;
 			break;
 		case 37: //remaining
-			euc.dash.trpR=(this.in16/100)*euc.dash.trpF*(set.def.dash.mph)?0.625:1;
+			euc.dash.trpR=(this.in16/100)*euc.dash.trpF*((set.def.dash.mph)?0.625:1));
 			break;
 		case 62: //temp
 			euc.dash.tmp=(this.in16/10).toFixed(1);
