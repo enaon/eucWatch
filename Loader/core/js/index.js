@@ -652,6 +652,7 @@ connectMyDeviceBtn.addEventListener("click", () => {
   if (connectMyDeviceBtn.classList.contains('is-connected')) {
     Comms.disconnectDevice();
   } else {
+	Comms.reset();
     getInstalledApps(true).catch(err => {
       showToast("Device connection failed, "+err,"error");
     });
