@@ -48,7 +48,7 @@ euc.conn=function(mac){
 						if (euc.dash.hapB) euc.alert++;
 					}
 					//speed
-					euc.dash.spd=event.target.value.getUint16(17, true)/100;
+					euc.dash.spd=Math.round((event.target.value.getUint16(17, true)/100)*euc.dash.spdF*(set.def.dash.mph)?0.625:1);
 					euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd <= euc.dash.spd1+5 )? 1 : ( euc.dash.spd <= euc.dash.spd1+10 )? 2 : 3 ;	
 					if ( euc.dash.hapS && euc.dash.spd >= euc.dash.spd1 ) 
 						euc.alert = 1 + ((euc.dash.spd-euc.dash.spd1) / euc.dash.ampS|0) ;
@@ -139,7 +139,11 @@ euc.conn=function(mac){
 					});
 				}
 			};
-			if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {euc.dash.mac=euc.mac; set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);}
+			if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {
+				euc.dash.mac=euc.mac; 
+				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
+				set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
+			}
 			euc.busy=0;
 			setTimeout(() => {euc.wri("live");}, 500);
 		//reconnect

@@ -38,7 +38,7 @@ euc.conn=function(mac){
 				//print( event.target.value.buffer);
 				euc.alert=0;
 				//speed
-				euc.dash.spd = Math.abs(event.target.value.getInt16(4) * 3.6)/100|0;
+				euc.dash.spd = Math.round((Math.abs(event.target.value.getInt16(4) * 3.6)/100)*euc.dash.spdF*(set.def.dash.mph)?0.625:1);
 				if ( (euc.dash.spdM < euc.dash.spd)&& euc.dash.spd < 100 ) euc.dash.spdM=euc.dash.spd;
 				euc.dash.spdC = ( euc.dash.spd <= 25 )? 0 : ( euc.dash.spd <= 30 )? 1 : ( euc.dash.spd <= 35 )? 2 : 3 ;	
 				if ( euc.dash.hapS && euc.dash[euc.dash.haSv]  <= euc.dash.spd ) 
@@ -201,7 +201,11 @@ euc.conn=function(mac){
 				});
 			}
 		};
-		if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {euc.dash.mac=euc.mac; set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);}
+		if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {
+			euc.dash.mac=euc.mac; 
+			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
+			set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
+		}	
 		setTimeout(() => {euc.wri("start");euc.state="READY";}, 500);
 	//reconect
 	}).catch(function(err)  {

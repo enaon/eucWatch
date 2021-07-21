@@ -54,7 +54,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 		euc.alert=0;
 		switch (this.var) {
 		case 38://speed
-			euc.dash.spd=(this.in16/1000).toFixed(0);
+			euc.dash.spd=Math.round((this.in16/1000)*euc.dash.spdF*(set.def.dash.mph)?0.625:1);
 			euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd1+5 <= euc.dash.spd )? 3 : ( euc.dash.spd1+2 <= euc.dash.spd )? 2 : 1 ;	
 			if ( euc.dash.hapS && euc.dash.spd >= euc.dash.spd1 ) 
 				euc.alert = 1 + ((euc.dash.spd-euc.dash.spd1) / euc.dash.ampS|0) ;
@@ -192,7 +192,11 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			});
 		} 
 	};
-	if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {euc.dash.mac=euc.mac; set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);}
+	if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {
+		euc.dash.mac=euc.mac; 
+		euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
+		set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
+	}
     euc.busy=0;
 	setTimeout(() => {euc.wri((euc.dash.aLck)?22:26);}, 500);
 //reconnect
