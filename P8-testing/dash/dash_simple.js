@@ -21,7 +21,7 @@ face[0] = {
 		this.bat=-1;
 		this.conn=0;
 		this.lock=2;
-		//this.clkf();
+		this.spdF=euc.dash.spdF*((set.def.dash.mph)?0.625:1);
 		this.run=true;
 	},
 	show : function(o){
@@ -68,12 +68,12 @@ face[0] = {
 		this.g.fillRect(0,0,119,50);       
 		this.g.setColor(1,(this.tmpC[euc.dash.tmpC]!=4080&&this.tmpC[euc.dash.tmpC]!=1535)?4095:0);
 		this.g.setFontVector(50);
-		this.g.drawString(this.tmp, 0,3); 
-		let size=this.g.stringWidth(this.tmp)+0;
+		this.g.drawString((set.def.dash.farn)?this.tmp*33.8:this.tmp, 0,3); 
+		let size=this.g.stringWidth((set.def.dash.farn)?this.tmp*33.8:this.tmp);
 		this.g.setFontVector(13);
 		this.g.drawString("o",size-3,2); 
 		this.g.setFontVector(16);
-		this.g.drawString("C",size+3,5); 
+		this.g.drawString((set.def.dash.farn)?:"F":"C",size+3,5); 
 		this.g.flip();
 	},
 	clkf: function(){
@@ -124,7 +124,7 @@ face[0] = {
 			this.g.setFontVector(140);
 		}else 
 			this.g.setFontVector(200);	  
-		this.g.drawString(this.spd,132-(this.g.stringWidth(this.spd)/2),55); 
+		this.g.drawString(Math.round(this.spd*this.spdF),132-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2),55); 
 		this.g.flip();
 	},
 	ampf: function(){

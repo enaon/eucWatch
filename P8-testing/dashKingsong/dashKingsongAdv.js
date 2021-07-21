@@ -126,7 +126,7 @@ touchHandler[0]=function(e,x,y){
 			face.go("dashKingsongAdvCalibrate",0);
 			return;
 		}else if ( x<=120 && 100<=y ) {   //limits
-			digitalPulse(D16,1,[30,50,30]);		
+			digitalPulse(D16,1,[30,50,30]);
 			face.go("dashKingsongAdvLimits",0);
 			return;
 		}else if ( 120<=x && 100<=y ) { //pass

@@ -22,14 +22,14 @@ face[0] = {
 		this.batL=1;
 		this.volt=-1;
 		this.buzz=-1;
-		this.max=-1;
+		this.spdM=-1;
 		this.alrm=-1;
 		this.conn="OFF";
 		this.lock=2;
 		this.spdL=-1;
 		this.trpL=-1;
+		this.spdF=euc.dash.spdF*((set.def.dash.mph)?0.625:1);
 		this.run=true;
-		
 	},
 	show : function(o){
 		if (!this.run) return;
@@ -47,7 +47,7 @@ face[0] = {
 				}else 
 					this.g.setFontVector(130);
 				//this.g.drawString((set.def.dashSpd)?euc.dash.spd:Math.round(euc.dash.spd/1.6),129-(this.g.stringWidth((set.def.dashSpd)?euc.dash.spd:Math.round(euc.dash.spd/1.6))/2),57); 
-				this.g.drawString(this.spd,129-(this.g.stringWidth(this.spd)/2),57); 
+				this.g.drawString(Math.round(this.spd*this.spdF),129-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2),57); 
 				this.g.flip();
 				if (this.spd==0) { 
 					this.g.flip();
@@ -105,16 +105,16 @@ face[0] = {
 				this.g.drawString("!", 19,130); 
 				this.g.flip();
 			}
-			//Maxspeed block
-			if (euc.dash.spdM!=this.max) {
-				this.max=euc.dash.spdM;
+			//spdMspeed block
+			if (euc.dash.spdM!=this.spdM) {
+				this.spdM=euc.dash.spdM;
 				this.g.setColor(0,1365);
 				this.g.fillRect(200,53,239,112); 
 				this.g.setColor(1,4095);
 				this.g.setFontVector(12);
 				this.g.drawString("TOP", 208,59);
 				this.g.setFontVector(32);
-				this.g.drawString(Math.round(this.max), 222-(this.g.stringWidth(Math.round(this.max))/2),80); 
+				this.g.drawString(Math.round(this.spdM*this.spdF), 222-(this.g.stringWidth(Math.round(this.spdM*this.spdF))/2),80); 
 				this.g.flip();
 			}
 			//buzzer/health block
@@ -127,7 +127,7 @@ face[0] = {
 					this.g.setFontVector(11);
 					this.g.drawString("LIMIT", 205,120);
 					this.g.setFontVector(32);
-					this.g.drawString(this.spdL, 202,140); 
+					this.g.drawString(Math.round(this.spdL*this.spdF), 202,140); 
 					this.g.flip();
 				}
 			}else if (this.alrm!=euc.dash.alrm) {
@@ -147,12 +147,12 @@ face[0] = {
 					this.g.fillRect(0,0,119,50);       
 					this.g.setColor(0,(euc.dash.tmpC!=3&&euc.dash.tmpC!=0)?0:4095);
 					this.g.setFontVector(50);
-					this.g.drawString(this.tmp, 0,3); 
-					let size=this.g.stringWidth(this.tmp)+0;
+					this.g.drawString((set.def.dash.farn)?Math.round(this.tmp*33.8):this.tmp, 0,3); 
+					let size=this.g.stringWidth((set.def.dash.farn)?Math.round(this.tmp*33.8):this.tmp);
 					this.g.setFontVector(13);
 					this.g.drawString("o",size-3,2); 
 					this.g.setFontVector(16);
-					this.g.drawString("C",size+3,5); 
+					this.g.drawString((set.def.dash.farn)?" F":"C",size+3,5); 
 					this.g.flip();
 				}
 			}else if (this.ampL!=ampL){
@@ -307,8 +307,7 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event	
 		if (120<x&&y<55){//batery percentage/voltage
-			if (set.def.dash.bat==undefined || 1 < set.def.dash.bat) set.def.dash.bat=0;
-			set.def.dash.bat++;
+			if (set.def.dash.bat==undefined || 1 < set.def.dash.bat) set.def.dash.bat=0; else set.def.dash.bat++;
 			face[0].bat=-1;face[0].batL=-1;face[0].volt=-1;
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (x<120&&y<55){//tmp/amp
@@ -354,11 +353,20 @@ touchHandler[0]=function(e,x,y){
 			if (set.def.dash.mph==undefined) set.def.dash.mph=0;
 			set.def.dash.mph=1-set.def.dash.mph;
 			digitalPulse(D16,1,[30,50,30]);
-			face[0].bar();
+			face[0].spdF=euc.dash.spdF*((set.def.dash.mph)?0.625:1);
 			face[0].trpL=-1;
-		}else if (x<120&&y<55 && set.def.dash.amp){//reverce amps
-			if (euc.dash.ampR==undefined) euc.dash.ampR=0;
-			euc.dash.ampR=1-euc.dash.ampR;
+			face[0].spdL=-1;
+			face[0].spdM=-1;
+			//face[0].bar();
+		}else if (x<120&&y<55){//reverce amps
+			if (set.def.dash.amp){//reverce amps
+				if (euc.dash.ampR==undefined) euc.dash.ampR=0;
+				euc.dash.ampR=1-euc.dash.ampR;
+			}else{
+				if (set.def.dash.farn==undefined) set.def.dash.farn=0;
+				set.def.dash.farn=1-set.def.dash.farn;
+				face[0].tmp=-1;
+			}
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (120<x&&y<55){//batery percentage/voltage
 			if (1.5<=euc.dash.bms) euc.dash.bms=1;

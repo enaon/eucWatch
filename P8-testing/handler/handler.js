@@ -66,7 +66,8 @@ var set={
 			face:0,  
 			accE:0,//euc acc on/off
 			clck:0,
-			clkS:0,			
+			clkS:0,	
+			farn:0
 		},
 		name:"eucWatch", //Set the name to be broadcasted by the Bluetooth module. 
 		timezone:0, //Timezone
