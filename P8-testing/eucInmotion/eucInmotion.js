@@ -111,7 +111,7 @@ euc.conn=function(mac){
 				euc.dash.batC = (euc.dash.batH <= euc.dash.bat)? 0 : (euc.dash.batM <= euc.dash.bat)? 1 : (euc.dash.batL <= euc.dash.bat)? 2 : 3;	
 				if ( euc.dash.hapB && euc.dash.bat <= euc.dash.batL ) { euc.alert ++; euc.dash.spdC = 3; }    
 				//trip 
-				euc.dash.trpL=((event.target.value.getUint16(17, true))/100)*euc.dash.trpF*(set.def.dash.mph)?0.625:1; //trip
+				euc.dash.trpL=((event.target.value.getUint16(17, true))/100)*euc.dash.trpF*((set.def.dash.mph)?0.625:1); //trip
 				//euc.dash.trpL=(event.target.value.getUint16(19, true))*10; //remain
 				//euc.dash.time=(event.target.value.getUint16(7, true)/60)|0;
 				//temp
@@ -139,7 +139,7 @@ euc.conn=function(mac){
 				//haptic
 				if (euc.dash.alrm) euc.alert=20;
 				//speed
-				euc.dash.spd=Math.round((event.target.value.getInt16(9, true) / 100)*euc.dash.spdF*(set.def.dash.mph)?0.625:1);
+				euc.dash.spd=Math.round((event.target.value.getInt16(9, true) / 100)*euc.dash.spdF*((set.def.dash.mph)?0.625:1));
 				if (euc.dash.spd<0) euc.dash.spd=-euc.dash.spd;
 				euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd1+5 <= euc.dash.spd )? 3 : ( euc.dash.spd1+2 <= euc.dash.spd )? 2 : 1 ;	
 				if ( euc.dash.hapS && euc.dash.spd >= euc.dash.spd1 ) 

@@ -42,8 +42,8 @@ euc.conn=function(mac){
                 }
 				euc.dash.volt=this.voltage/100;
 				euc.dash.spd=((this.event[6] << 8 | this.event[7]) / 10)|0;
-				euc.dash.trpL=(this.event[10] << 24 | this.event[11] << 16 | this.event[8] << 8  | this.event[9])*euc.dash.trpF*((set.def.dash.mph)?0.625:1));
-				euc.dash.trpT=(this.event[14] << 24 | this.event[15] << 16 | this.event[12] << 8  | this.event[13])*euc.dash.trpF*((set.def.dash.mph)?0.625:1));
+				euc.dash.trpL=(this.event[10] << 24 | this.event[11] << 16 | this.event[8] << 8  | this.event[9])*euc.dash.trpF*((set.def.dash.mph)?0.625:1);
+				euc.dash.trpT=(this.event[14] << 24 | this.event[15] << 16 | this.event[12] << 8  | this.event[13])*euc.dash.trpF*((set.def.dash.mph)?0.625:1);
 				euc.dash.amp=((this.event[16] << 8 | this.event[17])/10)|0;
 					ampL.unshift(euc.dash.amp);
 					if (14<ampL.length) ampL.pop();

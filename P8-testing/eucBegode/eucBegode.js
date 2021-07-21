@@ -52,7 +52,7 @@ euc.conn=function(mac){
 				euc.dash.batC = (euc.dash.batH <= euc.dash.bat)? 0 : (euc.dash.batM <= euc.dash.bat)? 1 : (euc.dash.batL <= euc.dash.bat)? 2 : 3;	
 				if ( euc.dash.hapB && euc.dash.bat <= euc.dash.batL ) { euc.alert ++; euc.dash.spdC = 3; }   
 				//trip
-				euc.dash.trpL=(event.target.value.getUint32(6)/1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1));
+				euc.dash.trpL=(event.target.value.getUint32(6)/1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1);
 				//amp
 				euc.dash.amp=event.target.value.getInt16(10)/1000;
 				if (euc.dash.ampR) euc.dash.amp=-euc.dash.amp;
