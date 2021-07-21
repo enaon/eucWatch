@@ -47,7 +47,6 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 }).then(function(c) {
 	//euc.tmp.characteristic=c;
 	c.on('characteristicvaluechanged', function(event) {
-    print(event);
 		this.var= event.target.value.buffer[5];
 		this.in16=event.target.value.getUint16(6, true);
 		//print(this.var);
