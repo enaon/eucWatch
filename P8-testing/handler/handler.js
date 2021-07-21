@@ -366,7 +366,7 @@ function buttonHandler(s){
 				face.go("main",-1);
 				digitalPulse(D16,1,100);
 			}else{
-				var to=face.pageCurr+1;
+				let to=face.pageCurr+1;
 				if (to>=2) to=0;
 				face.go(face.appCurr,to);
 			}

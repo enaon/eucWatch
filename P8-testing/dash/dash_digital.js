@@ -27,7 +27,6 @@ face[0] = {
 		this.conn="OFF";
 		this.lock=2;
 		this.spdL=-1;
-		this.spdF=((set.def.dash.mph)?0.625:1)*euc.dash.spdF;
 		this.trpF=((set.def.dash.mph)?0.626:1)*euc.dash.trpF;
 		this.run=true;
 		
@@ -48,7 +47,7 @@ face[0] = {
 				}else 
 					this.g.setFontVector(130);
 				//this.g.drawString((set.def.dashSpd)?euc.dash.spd:Math.round(euc.dash.spd/1.6),129-(this.g.stringWidth((set.def.dashSpd)?euc.dash.spd:Math.round(euc.dash.spd/1.6))/2),57); 
-				this.g.drawString(Math.round(this.spd*this.spdF),129-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2),57); 
+				this.g.drawString(this.spd,129-(this.g.stringWidth(this.spd)/2),57); 
 				this.g.flip();
 				if (this.spd==0) { 
 					this.g.flip();
