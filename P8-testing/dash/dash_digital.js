@@ -71,8 +71,8 @@ face[0] = {
 			}
 			//tmp/amp block
 			if (!set.def.dash.amp) {
-				if (this.amp!=(euc.dash.amp|0)) {
-					this.amp=euc.dash.amp|0;
+				if (this.amp!=euc.dash.amp) {
+					this.amp=euc.dash.amp;
 					this.g.setColor(0,this.ampC[euc.dash.ampC]);
 					this.g.fillRect(0,55,40,112);
 					this.g.setColor(1,(euc.dash.ampC==1||euc.dash.ampC==2)?0:4095);
@@ -83,15 +83,17 @@ face[0] = {
 					this.g.flip();
 				}
 			}else {
-				if (this.tmp!=euc.dash.tmp|0) {
-					this.tmp=euc.dash.tmp|0;
+				if (this.tmp!=euc.dash.tmp) {
+					this.tmp=euc.dash.tmp;
 					this.g.setColor(0,this.tmpC[euc.dash.tmpC]);
 					this.g.fillRect(0,53,40,112);
 					this.g.setColor(1,(euc.dash.tmpC==1||euc.dash.tmpC==2)?0:4095);
 					this.g.setFontVector(11);
 					this.g.drawString("TEMP", 6,59);
-					this.g.setFontVector(32);
-					this.g.drawString(Math.round(this.tmp), 22-(this.g.stringWidth(Math.round(this.tmp))/2),80); 
+					let temp=(set.def.dash.farn)?Math.round(this.tmp*1.8+32):Math.round(this.tmp);
+					this.g.setFontVector((100<temp)?20:32);
+					this.g.drawString(temp,22-(this.g.stringWidth(temp)/2),80); 
+					//this.g.drawString(Math.round(this.tmp), 22-(this.g.stringWidth(Math.round(this.tmp))/2),80); 
 					this.g.flip();
 				}
 			}	
@@ -147,12 +149,14 @@ face[0] = {
 					this.g.fillRect(0,0,119,50);       
 					this.g.setColor(0,(euc.dash.tmpC!=3&&euc.dash.tmpC!=0)?0:4095);
 					this.g.setFontVector(50);
-					this.g.drawString((set.def.dash.farn)?Math.round(this.tmp*33.8):this.tmp, 0,3); 
-					let size=this.g.stringWidth((set.def.dash.farn)?Math.round(this.tmp*33.8):this.tmp);
+					let temp=(set.def.dash.farn)?this.tmp*1.8+32:this.tmp;
+					temp=(temp<100)?temp:Math.round(temp);
+					let size=this.g.stringWidth(temp);
+					this.g.drawString(temp, 0,3); 
 					this.g.setFontVector(13);
 					this.g.drawString("o",size-3,2); 
 					this.g.setFontVector(16);
-					this.g.drawString((set.def.dash.farn)?" F":"C",size+3,5); 
+					this.g.drawString((set.def.dash.farn)?"F":"C",size+5,5); 
 					this.g.flip();
 				}
 			}else if (this.ampL!=ampL){
