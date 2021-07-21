@@ -8,7 +8,7 @@ face[0] = {
         if (face.appPrev.startsWith("dash_")) {
 			this.g.setColor(0,0);
 			this.g.fillRect(0,51,239,239);
-			this.g.flip();	
+		this.g.flip();	
 		}else this.g.clear();
 		this.spdC=[0,4095,4080,3840];
 		this.ampC=[1365,4095,4080,3840];
@@ -157,7 +157,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		if (euc.state=="OFF") face.go("main",0); else {face.pageCurr=0;face.go(set.dash[set.def.dash],-1);}
+		if (euc.state=="OFF") face.go("main",0); else {face.pageCurr=0;face.go(set.dash[set.def.dash.face],-1);}
 	return true;
 	},
 	clear: function(){

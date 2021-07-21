@@ -300,7 +300,7 @@ face[1] = {
 		if (euc.state=="OFF") 
 			face.go("main",0); 
 		else {
-			face.go(set.dash[set.def.dash],-1);
+			face.go(set.dash[set.def.dash.face],-1);
 		}
 		return true;
 	},
