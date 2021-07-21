@@ -241,7 +241,7 @@ face[0] = {
 		this.g.fillRect(0,203,239,239);
 		this.g.setColor(1,1535);
 		this.g.setFontVector(35);
-		this.g.drawString(euc.dash.trpL.toString().toFixed(2),0,208); 
+		this.g.drawString(euc.dash.trpL.toFixed(2),0,208); 
 		if (!set.def.dash.clck) {//clock
 			let d=(Date()).toString().split(' ');
 			let t=(d[4]).toString().split(':');

@@ -124,7 +124,7 @@ face[0] = {
 			this.g.setFontVector(140);
 		}else 
 			this.g.setFontVector(200);	  
-		this.g.drawString(this.spd),132-(this.g.stringWidth(this.spd)/2),55); 
+		this.g.drawString(this.spd,132-(this.g.stringWidth(this.spd)/2),55); 
 		this.g.flip();
 	},
 	ampf: function(){
