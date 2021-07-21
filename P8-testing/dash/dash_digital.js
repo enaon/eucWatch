@@ -27,6 +27,7 @@ face[0] = {
 		this.conn="OFF";
 		this.lock=2;
 		this.spdL=-1;
+		this.trpL=-1;
 		this.run=true;
 		
 	},
@@ -207,8 +208,7 @@ face[0] = {
 					this.g.flip();
 			}				
 			//Mileage
-			if (euc.dash.trpL!=this.trpL) {
-				this.trpL=euc.dash.trpL;
+			if (this.trpL!=euc.dash.trpL) {
 				this.mileage();
 			}     
 		//off
