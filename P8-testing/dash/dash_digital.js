@@ -170,7 +170,7 @@ face[0] = {
 					this.g.flip();
 			} 
 			//batery field
-			if (!set.def.dash.bat || set.def.dash.bat==1){
+			if (!set.def.dash.bat){
 				if (this.volt!=euc.dash.volt) {
 					this.volt=euc.dash.volt;
 					this.g.setColor(0,this.batC[euc.dash.batC]);
@@ -182,7 +182,7 @@ face[0] = {
 					this.g.drawString("VOLT",202,40);
 					this.g.flip();
 				}
-			}else if (set.def.dash.bat==2) {
+			}else if (set.def.dash.bat==1) {
 				if (euc.dash.bat!=this.bat) {
 					this.bat=euc.dash.bat;
 					this.g.setColor(0,this.batC[euc.dash.batC]);
@@ -313,7 +313,7 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event	
 		if (120<x&&y<55){//batery percentage/voltage
-			if (set.def.dash.bat==undefined || 2 < set.def.dash.bat) set.def.dash.bat=0;
+			if (set.def.dash.bat==undefined || 1 < set.def.dash.bat) set.def.dash.bat=0;
 			set.def.dash.bat++;
 			face[0].bat=-1;face[0].batL=-1;face[0].volt=-1;
 			digitalPulse(D16,1,[30,50,30]);
