@@ -610,8 +610,8 @@ function installMultipleApps(appIds, promptName, defaults) {
       upload();
     });
   }).then(()=>{
-	 Puck.write('require("Storage").erase("devmode");\n') 
-	}).then(()=>{  
+	 return Puck.write('require("Storage").erase("devmode");\n') 
+  }).then(()=>{  
     return Comms.setTime();
   }).then(()=>{
     showToast("Apps successfully installed!","success");
@@ -652,7 +652,7 @@ connectMyDeviceBtn.addEventListener("click", () => {
   if (connectMyDeviceBtn.classList.contains('is-connected')) {
     Comms.disconnectDevice();
   } else {
-	Comms.reset();
+	Puck.write(`require('Storage').write('devmode','loader');reset();`); 
     getInstalledApps(true).catch(err => {
       showToast("Device connection failed, "+err,"error");
     });
