@@ -652,7 +652,7 @@ connectMyDeviceBtn.addEventListener("click", () => {
   if (connectMyDeviceBtn.classList.contains('is-connected')) {
     Comms.disconnectDevice();
   } else {
-	Puck.write(`\x03\x10require('Storage').write('devmode','loader');reset();\n`);
+	Puck.write(`require('Storage').write('devmode','loader');reset();\n`);
     getInstalledApps(true).catch(err => {
       showToast("Device connection failed, "+err,"error");
     });
