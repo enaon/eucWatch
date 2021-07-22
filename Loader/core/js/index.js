@@ -339,7 +339,7 @@ refreshLibrary();
 
 function uploadApp(app) {
   return getInstalledApps().then(()=>{
-	 Puck.write(`require('Storage').write('devmode','loader')\n`);
+	 //Puck.write(`require('Storage').write('devmode','loader')\n`);
     if (appsInstalled.some(i => i.id === app.id)) {
       return updateApp(app);
     }
@@ -368,8 +368,6 @@ function uploadApp(app) {
 function removeApp(app) {
   return showPrompt("Delete","Really remove '"+app.name+"'?").then(() => {
     return getInstalledApps().then(()=>{
-     	//Puck.write(`require('Storage').write('devmode','loader')\n`);
-	
       // a = from appid.info, app = from apps.json
       return Comms.removeApp(appsInstalled.find(a => a.id === app.id));
     });
@@ -378,7 +376,7 @@ function removeApp(app) {
     showToast(app.name+" removed successfully","success");
     refreshMyApps();
     refreshLibrary();
-   	Puck.write(`require("Storage").erase("devmode");\n`);
+//   	Puck.write(`require("Storage").erase("devmode");\n`);
   }, err=>{
     showToast(app.name+" removal failed, "+err,"error");
   });
@@ -658,7 +656,7 @@ connectMyDeviceBtn.addEventListener("click", () => {
   if (connectMyDeviceBtn.classList.contains('is-connected')) {
     Comms.disconnectDevice();
   } else {
-	Puck.write(`require('Storage').write('devmode','loader');\n`);
+	//Puck.write(`require('Storage').write('devmode','loader');\n`);
     getInstalledApps(true).catch(err => {
       showToast("Device connection failed, "+err,"error");
     });

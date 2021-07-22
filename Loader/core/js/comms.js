@@ -87,7 +87,7 @@ const Comms = {
         }
         // Start the upload
         function doUpload() {
-          Puck.write(`\x10print('Uploading\\n${app.id}...')\n`,(result) => {
+          Puck.write(`\x10Puck.write(`require('Storage').write('devmode','loader')\n`);print('Uploading\\n${app.id}...')\n`,(result) => {
             if (result===null) {
               Progress.hide({sticky:true});
               return reject("");
