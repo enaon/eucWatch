@@ -8,7 +8,7 @@ const Comms = {
   reset : (opt) => new Promise((resolve,reject) => {
     let tries = 8;
     console.log("<COMMS> reset");
-	Puck.write(`\x03\x10require('Storage').write('devmode','loader');reset(${opt=="wipe"?"1":""});\n`,function rstHandler(result) {
+	Puck.write(`\x03\x10reset(${opt=="wipe"?"1":""});\n`,function rstHandler(result) {
 			console.log("<COMMS> reset: got "+JSON.stringify(result));
 			if (result===null) return reject("Connection failed");
 			if (result=="" && (tries-- > 0)) {
@@ -99,6 +99,7 @@ const Comms = {
           doUpload();
         } else {
         // reset to ensure we have enough memory to upload what we need to
+		  Puck.write(`require('Storage').write('devmode','loader')\n`);
           Comms.reset().then(doUpload, reject);
         }
       });
