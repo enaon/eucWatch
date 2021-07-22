@@ -183,6 +183,7 @@ function ccon(l){
 		var gb="\x20\x03";
 		 if (l.startsWith(loa)) {
 			Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
+			print("OK\n")
 			require("Storage").write("devmode","loader")
 			return; 
 		}else {
