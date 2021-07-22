@@ -811,10 +811,10 @@ function changeSettings() {
 	  	Comms.changeSettings('setting','acctype',localStorage.p8acc).then(function() {
 			Comms.changeSettings('setting','touchtype',localStorage.p8touch)
 			}).then(function() {
-			Comms.changeSettings('setting','name', localStorage.p8name)
-			}).then(function() {
-			Comms.reset()
-			return;
+			return Comms.changeSettings('setting','name', localStorage.p8name)
+	//		}).then(function() {
+	//		Comms.reset()
+	//		return;
 			}).then(function() {
 			showToast("Settings Updated","success");
 		});
