@@ -179,7 +179,7 @@ function ccon(l){
 		return;
 	}else {
 		var cli="\x03";
-		var loa="\x03";
+		var loa="\x04";
 		var gb="\x20\x03";
 		 if (l.startsWith(loa)) {
 			Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
