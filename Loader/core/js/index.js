@@ -339,6 +339,7 @@ refreshLibrary();
 
 function uploadApp(app) {
   return getInstalledApps().then(()=>{
+	 Puck.write(`require('Storage').write('devmode','loader')\n`);
     if (appsInstalled.some(i => i.id === app.id)) {
       return updateApp(app);
     }
