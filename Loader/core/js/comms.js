@@ -55,7 +55,7 @@ const Comms = {
         function doUploadFiles() {
         // No files left - print 'reboot' message
           if (fileContents.length==0) {
-            //Puck.write(`\x10print('Tap BTN1\\nto boot')\n`,(result) => {
+            Puck.write(`\x10print('Tap BTN1\\nto boot')\n`,(result) => {
             //Puck.write(`require("Storage").erase("devmode");\n`,(result) => {
               Progress.hide({sticky:true});
               if (result===null) return reject("");
