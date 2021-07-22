@@ -551,6 +551,7 @@ function refreshMyApps() {
 let haveInstalledApps = false;
 function getInstalledApps(refresh) {
   if (haveInstalledApps && !refresh) {
+   	//Puck.write(`require('Storage').write('devmode','loader')\n`);
     return Promise.resolve(appsInstalled);
   }
   showLoadingIndicator("myappscontainer");
