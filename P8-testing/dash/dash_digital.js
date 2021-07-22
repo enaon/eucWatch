@@ -10,11 +10,13 @@ face[0] = {
 			this.g.fillRect(0,51,239,239);
 			this.g.flip();	
 		}else this.g.clear();
-		this.spdC=new Uint16Array([0,4095,4080,3840]);
-		this.ampC=new Uint16Array([1365,4095,4080,3840]);
-		this.tmpC=new Uint16Array([1365,1365,4080,3840]);
+		this.spdC=new Uint16Array([0,0,3840,3840]);
+		this.ampC=new Uint16Array([1365,4095,3840,3840]);
+		this.tmpC=[1365,1365,3840,3840];
 		this.batC=new Uint16Array([1453,1453,1365,3840]);
 		this.spd=-1;
+		this.spdL=-1;
+		this.spdM=-1;
 		this.amp=-10;
 		this.ampL=1;
 		this.tmp=-1;
@@ -88,7 +90,7 @@ face[0] = {
 	},
 	spdF: function(){
 		this.spd=euc.dash.spd;
-		this.g.setColor(0,0);
+		this.g.setColor(0,this.spdC[euc.dash.spdC]);
 		this.g.fillRect(41,54,199,170);
 		this.g.setColor(1,4095);
 		if (100 <= this.spd) {
@@ -133,7 +135,7 @@ face[0] = {
 		this.tmp=euc.dash.tmp;
 		this.g.setColor(0,this.tmpC[euc.dash.tmpC]);
 		this.g.fillRect(0,53,40,112);
-		this.g.setColor(1,(euc.dash.tmpC==1||euc.dash.tmpC==2)?0:4095);
+		this.g.setColor(1,4095);
 		this.g.setFontVector(11);
 		this.g.drawString("TEMP", 6,59);
 		let temp=(set.def.dash.farn)?Math.round(this.tmp*1.8+32):Math.round(this.tmp);
@@ -184,9 +186,9 @@ face[0] = {
 	},	
 	tmFF: function(){
 		this.tmp=euc.dash.tmp;
-		this.g.setColor(1,this.tmpC[euc.dash.tmpC]);
+		this.g.setColor(0,this.tmpC[euc.dash.tmpC]);
 		this.g.fillRect(0,0,119,50);       
-		this.g.setColor(0,(euc.dash.tmpC!=3&&euc.dash.tmpC!=0)?0:4095);
+		this.g.setColor(1,4095);
 		this.g.setFontVector(50);
 		let temp=(set.def.dash.farn)?this.tmp*1.8+32:this.tmp;
 		temp=(temp<100)?Number(temp).toFixed(1):Math.round(temp);

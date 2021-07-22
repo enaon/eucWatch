@@ -21,7 +21,7 @@ face[0] = {
 		this.g.flip(); 
         this.btn(euc.dash.aLck,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
         //this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"HAPTIC",25,185,37,col("raf"),col("raf4"),122,0,239,97);	
-		    this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("raf4"),122,0,239,97,"ALERTS",22,185,55);		
+		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("raf4"),122,0,239,97,"ALERTS",22,185,55);		
         this.btn(euc.dash.aOff,"AUTO",18,60,115,col("red"),col("dgray"),0,100,119,195,"OFF",30,60,150);
         this.btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("raf4"),122,100,239,195);		
         this.run=true;
@@ -107,7 +107,7 @@ touchHandler[0]=function(e,x,y){
             face[0].btn(euc.dash.aLck,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
             face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,col("dgray"),euc.dash.aLck);
 			digitalPulse(D16,1,[30,50,30]);
-		}else if ( 120<=x && y<=100 ) { //buzz
+		}else if ( 120<=x && y<=100 ) { //watch alerts
 			digitalPulse(D16,1,[30,50,30]);						
 			face.go("dashAlerts",0);
 			return;		
@@ -153,9 +153,8 @@ touchHandler[0]=function(e,x,y){
 		}else if ( 120<=x && y<=100 ) { //haptic
 			if (euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB) {euc.dash.hapS=0;euc.dash.hapA=0;euc.dash.hapT=0;euc.dash.hapB=0;}
 			else {euc.dash.hapS=1;euc.dash.hapA=1;euc.dash.hapT=1;euc.dash.hapB=1;}
-			face[0].btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,37,col("raf"),col("raf4"),122,0,239,97,"ALERTS",22,185,55);		
-            face[0].btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"HAPTIC",25,185,37,col("raf"),col("raf4"),122,0,239,97);
-            face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",19,col("dgray"),(euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB));
+			face[0].btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("raf4"),122,0,239,97,"ALERTS",22,185,55);		
+			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",19,col("dgray"),(euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB));
 			digitalPulse(D16,1,[30,50,30]);
 		}else if ( x<=120 && 100<=y ) { //auto off
 			euc.dash.aOff=1-euc.dash.aOff;

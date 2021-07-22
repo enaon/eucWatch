@@ -10,15 +10,16 @@ face[0] = {
 			this.g.fillRect(0,51,239,239);
 		this.g.flip();	
 		}else this.g.clear();
-		this.spdC=[0,4095,4080,3840];
-		this.ampC=[1365,4095,4080,3840];
-		this.tmpC=[0,4095,4080,3840];
-		this.batC=[1453,1365,4080,3840];
+		this.spdC=[0,0,3840,3840];
+		this.ampC=[1365,4095,3840,3840];
+		this.tmpC=[1365,1365,3840,3840];
+		this.batC=[1453,1453,1365,3840];
 		this.spd=-1;
 		this.amp=-1;
 		this.tmp=-1;
 		this.time=-1;
 		this.bat=-1;
+		this.volt=-1;
 		this.conn=0;
 		this.lock=2;
 		this.spdF=euc.dash.spdF*((set.def.dash.mph)?0.625:1);
@@ -27,19 +28,11 @@ face[0] = {
 	show : function(o){
 		if (!this.run) return;
 		if (euc.state=="READY") {
-			if (euc.dash.spd|0!=this.spd)
-				this.spdf();
-			if (!set.def.dash.clkS) {	
-				if (this.tmp!=euc.dash.tmp) 
-					this.tmpf();
-			} else 	if (60 < getTime()-this.time ) 
-				this.clkf();
-			if (set.def.dash.batS){
-					if (this.bat!=euc.dash.bat) 
-						this.batf();
-			}else 
-				if (this.volt!=euc.dash.volt) 
-					this.vltf();
+			if (euc.dash.spd|0!=this.spd) this.spdf();
+			if (!set.def.dash.clkS){	if (this.tmp!=euc.dash.tmp)	this.tmpf();}
+			else if (60 < getTime()-this.time )	this.clkf();
+			if (set.def.dash.batS){	if (this.bat!=euc.dash.bat)	this.batf();}
+			else  if (this.volt!=euc.dash.volt) this.vltf();
 		} else if (euc.state=="OFF")  {
 			face.go("dashOff",0);
 			return;
@@ -66,7 +59,7 @@ face[0] = {
 		this.tmp=euc.dash.tmp;
 		this.g.setColor(0,this.tmpC[euc.dash.tmpC]);
 		this.g.fillRect(0,0,119,50);       
-		this.g.setColor(1,(this.tmpC[euc.dash.tmpC]!=4080&&this.tmpC[euc.dash.tmpC]!=1535)?4095:0);
+		this.g.setColor(1,4095);
 		this.g.setFontVector(50);
 		let temp=(set.def.dash.farn)?this.tmp*1.8+32:this.tmp;
 		temp=(temp<100)?Number(temp).toFixed(1):Math.round(temp);
@@ -97,7 +90,7 @@ face[0] = {
 		this.g.setColor(0,this.batC[euc.dash.batC]);
 		this.g.fillRect(122,0,239,50);
 //		this.g.setColor(1,4095);
-		this.g.setColor(1,(this.batC[euc.dash.batC]!=4080&&this.batC[euc.dash.batC]!=1525)?4095:0);
+		this.g.setColor(1,4095);
 		this.g.setFontVector(50);
 		this.g.drawString(this.bat,220-(this.g.stringWidth(this.bat)),3);
 		this.g.setFontVector(20);
@@ -108,7 +101,7 @@ face[0] = {
 		this.volt=euc.dash.volt;
 		this.g.setColor(0,this.batC[euc.dash.batC]);
 		this.g.fillRect(122,0,239,50);
-		this.g.setColor(1,(this.batC[euc.dash.batC]!=4080&&this.batC[euc.dash.batC]!=1525)?4095:0);
+		this.g.setColor(1,4095);
 		this.g.setFontVector((this.volt<100)?40:35);
 		this.g.drawString(this.volt,(this.volt<100)?135:125,0); 
 		this.g.setFontVector(13);
@@ -120,7 +113,7 @@ face[0] = {
 		this.spd=euc.dash.spd;
 		this.g.setColor(0,this.spdC[euc.dash.spdC]);
 		this.g.fillRect(0,55,239,220);
-		this.g.setColor(1,(this.spdC[euc.dash.spdC]!=this.spdC[2]&&this.spdC[euc.dash.spdC]!=this.spdC[1])?4095:0);
+		this.g.setColor(1,4095);
 		if (100 <= this.spd) {
 			if (120 < this.spd)  this.spd=120;
 			this.g.setFontVector(140);
@@ -133,7 +126,7 @@ face[0] = {
 		this.amp=(euc.dash.amp);
 		this.g.setColor(0,this.ampC[euc.dash.ampC]);
 		this.g.fillRect(80,0,160,55); //amp 
-		this.g.setColor(1,(this.ampC[euc.dash.ampC]!=4080&&this.ampC[euc.dash.ampC]!=4095)?4095:0);
+		this.g.setColor(1,4095);
 		this.g.setFontVector(33);
 		this.g.drawString(this.amp|0,(122-(this.g.stringWidth(this.amp|0)/2)),5); 
 		this.g.flip();

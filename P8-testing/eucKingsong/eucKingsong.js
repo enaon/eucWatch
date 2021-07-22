@@ -63,9 +63,10 @@ euc.conn=function(mac){
 				case  169:
 					//speed
 					euc.dash.spd=Math.round(event.target.value.getUint16(4, true) / 100); 
-					euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd <= euc.dash.spd2 )? 1 : ( euc.dash.spd <= euc.dash.spd3 )? 2 : 3 ;	
+					
+					euc.dash.spdC = ( euc.dash.spd <= euc.dash.lim[0] )? 0 : ( euc.dash.spd <= euc.dash.lim[1] )? 1 : ( euc.dash.spd <= euc.dash.lim[2] )? 2 : 3 ;	
 					if ( euc.dash.hapS && euc.dash[euc.dash.haSv]  <= euc.dash.spd ) 
-						euc.alert = ( 1 + ((euc.dash.spd-euc.dash[euc.dash.haSv]) / euc.dash.spdS | 0 ) );  
+						euc.alert = ( 1 + ((euc.dash.spd-euc.dash.lim[euc.dash.haSv]) / euc.dash.spdS | 0 ) );  
 					//amp
 					this.amp=event.target.value.getUint16(10, true);
 					if ( 32767 < this.amp ) this.amp = this.amp - 65536;
