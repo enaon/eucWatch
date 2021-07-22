@@ -25,7 +25,7 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
     //NRF.disconnect();
     //NRF.sleep();
 	//Bluetooth.println("devmode");
-    digitalPulse(D16,1,[80,50,80,50,80]);
+    digitalPulse(D16,1,80);
   } else {
     require("Storage").write("devmode","done");
     NRF.setAdvertising({}, { name:"Espruino-devmode",connectable:true });
