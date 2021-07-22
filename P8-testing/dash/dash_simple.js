@@ -69,7 +69,7 @@ face[0] = {
 		this.g.setColor(1,(this.tmpC[euc.dash.tmpC]!=4080&&this.tmpC[euc.dash.tmpC]!=1535)?4095:0);
 		this.g.setFontVector(50);
 		let temp=(set.def.dash.farn)?this.tmp*1.8+32:this.tmp;
-		temp=(temp<100)?temp:Math.round(temp);
+		temp=(temp<100)?Number(temp).toFixed(1):Math.round(temp);
 		let size=this.g.stringWidth(temp);
 		this.g.drawString(temp, 0,3); 
 		this.g.setFontVector(13);
