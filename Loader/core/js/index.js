@@ -654,6 +654,7 @@ htmlToArray(document.querySelectorAll(".btn.updateapps")).map(button => button.a
 }));
 connectMyDeviceBtn.addEventListener("click", () => {
   if (connectMyDeviceBtn.classList.contains('is-connected')) {
+	Puck.write('require("Storage").erase("devmode");reset();\n')  
     Comms.disconnectDevice();
   } else {
 	//Puck.write(`require('Storage').write('devmode','loader');\n`);
