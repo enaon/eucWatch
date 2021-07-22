@@ -132,9 +132,6 @@ const Comms = {
           }
           if (appList===null) return reject(err || "");
           console.log("<COMMS> getInstalledApps", appList);
-		  //Comms.readSettings("setting","acctype").then(function(c) {localStorage.setItem("p8acc", c);});
-		  //Comms.readSettings("setting","touchtype").then(function(c) {localStorage.setItem("p8touch", c);});
-		  //Comms.readSettings("setting","name").then(function(c) {localStorage.setItem("p8name", c);});
           resolve(appList);
 		  //setTimeout(()=>{
 			 Comms.readSettings("setting","acctype").then(function(c) {
