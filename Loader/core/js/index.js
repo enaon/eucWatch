@@ -351,7 +351,7 @@ function uploadApp(app) {
           appsInstalled.push(appJSON);
         }
         showToast(app.name + ' Uploaded!', 'success');
-		Comms.reset();
+		//Comms.reset();
       }).catch(err => {
         Progress.hide({ sticky: true });
         showToast('Upload failed, ' + err, 'error');
@@ -453,7 +453,7 @@ function updateApp(app) {
   ).then((appJSON) => {
     if (appJSON) appsInstalled.push(appJSON);
     showToast(app.name+" Updated!", "success");
-	Comms.reset();
+	//Comms.reset();
     refreshMyApps();
     refreshLibrary();
   }, err=>{
