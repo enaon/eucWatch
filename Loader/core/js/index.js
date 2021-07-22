@@ -770,7 +770,7 @@ if (btn) btn.addEventListener("click",event=>{
   showPrompt("Reset to defaults","Really reset to defaults?").then(() => {
     return Puck.write(`require("Storage").erase("setting.json");\n`);
   }).then(()=>{
-	Comms.reset();
+	//Comms.reset();
     Progress.hide({sticky:true});
     showToast("Reset done.","success");
     return ;
