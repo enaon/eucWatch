@@ -657,7 +657,7 @@ connectMyDeviceBtn.addEventListener("click", () => {
 	Puck.write('require("Storage").erase("devmode");reset();\n')  
 	setTimeout(() => {
 	  Comms.disconnectDevice();
-    }, 1500);
+    }, 1000);
   } else {
 	Puck.write('require("Storage").write("devmode","loader");reset();\n')  
     getInstalledApps(true).catch(err => {
