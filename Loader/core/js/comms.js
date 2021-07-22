@@ -17,6 +17,8 @@ const Comms = {
 			} else {
 				console.log(`<COMMS> reset: complete.`);
 				setTimeout(resolve,250);
+				setTimeout(()=>{
+
 				Comms.readSettings("setting","acctype").then(function(c) {
 					return localStorage.setItem("p8acc", c);
 				}).then(function() {
@@ -28,6 +30,8 @@ const Comms = {
 				}).then(function(c) {
 					localStorage.setItem("p8name", c);
 				});
+				},1000);
+
 			}
 		
 	});
