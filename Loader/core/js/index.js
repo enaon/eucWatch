@@ -367,7 +367,7 @@ function uploadApp(app) {
 function removeApp(app) {
   return showPrompt("Delete","Really remove '"+app.name+"'?").then(() => {
     return getInstalledApps().then(()=>{
-     	Puck.write(`require('Storage').write('devmode','loader')\n`);
+     	//Puck.write(`require('Storage').write('devmode','loader')\n`);
 	
       // a = from appid.info, app = from apps.json
       return Comms.removeApp(appsInstalled.find(a => a.id === app.id));
@@ -590,7 +590,7 @@ function installMultipleApps(appIds, promptName, defaults) {
 	return Comms.writeSettings(defaults);
   }).then(()=>{
     Progress.hide({sticky:true});
-	Puck.write(`require('Storage').write('devmode','loader');`);
+	//Puck.write(`require('Storage').write('devmode','loader');`);
     appsInstalled = [];
     showToast(`Installing  ${appCount} apps...`);
     return new Promise((resolve,reject) => {
@@ -657,7 +657,7 @@ connectMyDeviceBtn.addEventListener("click", () => {
   if (connectMyDeviceBtn.classList.contains('is-connected')) {
     Comms.disconnectDevice();
   } else {
-	Puck.write(`require('Storage').write('devmode','loader');reset();\n`);
+	Puck.write(`require('Storage').write('devmode','loader');\n`);
     getInstalledApps(true).catch(err => {
       showToast("Device connection failed, "+err,"error");
     });
