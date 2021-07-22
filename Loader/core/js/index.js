@@ -658,7 +658,6 @@ connectMyDeviceBtn.addEventListener("click", () => {
 	setTimeout(() => {
 	  Comms.disconnectDevice();
     }, 1500);
-    Comms.disconnectDevice();
   } else {
 	Puck.write('require("Storage").write("devmode","loader");reset();\n')  
     getInstalledApps(true).catch(err => {
