@@ -658,6 +658,8 @@ connectMyDeviceBtn.addEventListener("click", () => {
     Comms.disconnectDevice();
   } else {
     getInstalledApps(true).catch(err => {
+	Puck.write('require("Storage").write("devmode","loader");reset();\n')  
+
       showToast("Device connection failed, "+err,"error");
     });
   }
