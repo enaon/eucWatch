@@ -179,13 +179,11 @@ function ccon(l){
 		return;
 	}else {
 		var cli="\x03";
-		var loa="\x04";
+		var loa="\x03";
 		var gb="\x20\x03";
 		 if (l.startsWith(loa)) {
-			require("Storage").write("devmode","loader");
-			set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
-			print("Welcome.\n** Working mode **\nUse devmode (Settings-Info-long press on Restart) for uploading files."); 
-			handleInfoEvent({"src":"BT","title":"Loader","body":"Connected"});
+			require("Storage").write("devmode","loader");reset();
+			return; 
 		}else {
 		if (set.def.cli) {
 			if (l.startsWith(cli)) {
