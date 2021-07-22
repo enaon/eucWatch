@@ -139,15 +139,15 @@ euc.conn=function(mac){
 					if (euc.dash.alrm) euc.alert=20;
 					break;	
 				case 181:
-					console.log(181);
+					//console.log(181);
 					if (event.target.value.buffer[4]!=0){ 
 						euc.dash.lim[0]=event.target.value.buffer[4];
 						euc.dash.limE[0]=1;
-          }else euc.dash.limE[0]=0;
+					}else euc.dash.limE[0]=0;
 					if (event.target.value.buffer[6]!=0){ 
 						euc.dash.lim[1]=event.target.value.buffer[6];
 						euc.dash.limE[1]=1;
-          }else euc.dash.limE[1]=0;
+					}else euc.dash.limE[1]=0;
 					euc.dash.lim[2]=event.target.value.buffer[8];
 					euc.dash.lim[3]=event.target.value.buffer[10];
 					break;

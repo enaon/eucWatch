@@ -28,193 +28,40 @@ face[0] = {
 		this.lock=2;
 		this.spdL=-1;
 		this.trpL=-1;
-		this.spdF=euc.dash.spdF*((set.def.dash.mph)?0.625:1);
+		this.fact=euc.dash.spdF*((set.def.dash.mph)?0.625:1);
 		this.run=true;
 	},
 	show : function(o){
 		if (!this.run) return;
-		//connected  
 		if (euc.state=="READY") {
-			//speed
-			if (euc.dash.spd!=this.spd){
-				this.spd=euc.dash.spd;
-				this.g.setColor(0,0);
-				this.g.fillRect(41,54,199,170);
-				this.g.setColor(1,4095);
-				if (100 <= this.spd) {
-					if (150 < this.spd)  this.spd=150;
-					this.g.setFontVector(80);
-				}else 
-					this.g.setFontVector(130);
-				//this.g.drawString((set.def.dashSpd)?euc.dash.spd:Math.round(euc.dash.spd/1.6),129-(this.g.stringWidth((set.def.dashSpd)?euc.dash.spd:Math.round(euc.dash.spd/1.6))/2),57); 
-				this.g.drawString(Math.round(this.spd*this.spdF),129-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2),57); 
-				this.g.flip();
-				if (this.spd==0) { 
-					this.g.flip();
-					this.bar();
-					this.g.setColor(0,0);
-				}
-			}
+			if (euc.dash.spd!=this.spd) this.spdF();
 			// alarm events time graph
-			if (this.spd!=0&&this.al!=almL) {
- 				this.al= new Uint8Array(almL);
-				this.g.setColor(0,1365);
-				this.g.clearRect(0,176,239,197);
-				this.g.setColor(1,4095);
-				//graph
-				let i=0;
-				this.al.forEach(function(val){
-					w.gfx.fillRect(237-(i*12),(val)?181:191,237-((i*12)+8),191);
-					i++;
-				});
-				this.g.flip();
-			}
+			if (this.spd!=0&&this.al!=almL) this.alF();
 			//tmp/amp block
 			if (!set.def.dash.amp) {
-				if (this.amp!=euc.dash.amp) {
-					this.amp=euc.dash.amp;
-					this.g.setColor(0,this.ampC[euc.dash.ampC]);
-					this.g.fillRect(0,55,40,112);
-					this.g.setColor(1,(euc.dash.ampC==1||euc.dash.ampC==2)?0:4095);
-					this.g.setFontVector(12);
-					this.g.drawString("AMP", 8,59);
-					this.g.setFontVector(32);
-					this.g.drawString(this.amp|0, 22-(this.g.stringWidth(this.amp|0)/2),80); 
-					this.g.flip();
-				}
-			}else {
-				if (this.tmp!=euc.dash.tmp) {
-					this.tmp=euc.dash.tmp;
-					this.g.setColor(0,this.tmpC[euc.dash.tmpC]);
-					this.g.fillRect(0,53,40,112);
-					this.g.setColor(1,(euc.dash.tmpC==1||euc.dash.tmpC==2)?0:4095);
-					this.g.setFontVector(11);
-					this.g.drawString("TEMP", 6,59);
-					let temp=(set.def.dash.farn)?Math.round(this.tmp*1.8+32):Math.round(this.tmp);
-					this.g.setFontVector((100<temp)?20:32);
-					this.g.drawString(temp,22-(this.g.stringWidth(temp)/2),80); 
-					//this.g.drawString(Math.round(this.tmp), 22-(this.g.stringWidth(Math.round(this.tmp))/2),80); 
-					this.g.flip();
-				}
-			}	
+				if (this.amp!=euc.dash.amp) this.ampF();
+			}else 
+				if (this.tmp!=euc.dash.tmp)	this.tmpF();
 			//alarm block
-			if (this.buzz!=euc.buzz) {
-				this.buzz=euc.buzz;
-				this.g.setFontVector(35);
-				this.g.setColor(0,(this.buzz)?3840:1365);
-				this.g.fillRect(0,115,40,173); 
-				this.g.setColor(1,(this.buzz)?4095:0);
-				this.g.drawString("!", 19,130); 
-				this.g.flip();
-			}
+			if (this.buzz!=euc.buzz) this.buzF(); 
 			//spdMspeed block
-			if (euc.dash.spdM!=this.spdM) {
-				this.spdM=euc.dash.spdM;
-				this.g.setColor(0,1365);
-				this.g.fillRect(200,53,239,112); 
-				this.g.setColor(1,4095);
-				this.g.setFontVector(12);
-				this.g.drawString("TOP", 208,59);
-				this.g.setFontVector(32);
-				this.g.drawString(Math.round(this.spdM*this.spdF), 222-(this.g.stringWidth(Math.round(this.spdM*this.spdF))/2),80); 
-				this.g.flip();
-			}
+			if (euc.dash.spdM!=this.spdM) this.spMF(); 
 			//buzzer/health block
 			if (euc.dash.maker=="Kingsong") {
-				if (this.spdL!=euc.dash.spdL) {
-					this.spdL=euc.dash.spdL;
-					this.g.setColor(0,(euc.dash.spdT<=this.spdL)?1365:3840);	
-					this.g.fillRect(200,115,239,173); 
-					this.g.setColor(1,4095);
-					this.g.setFontVector(11);
-					this.g.drawString("LIMIT", 205,120);
-					this.g.setFontVector(32);
-					this.g.drawString(Math.round(this.spdL*this.spdF), 202,140); 
-					this.g.flip();
-				}
-			}else if (this.alrm!=euc.dash.alrm) {
-				this.alrm=euc.dash.alrm;
-				this.g.setColor(0,1365);
-				this.g.fillRect(200,115,239,173); 
-				this.g.setColor(1,0);
-				this.g.setFontVector(35);
-				this.g.drawString("B", 212,130); 
-				this.g.flip();
-			}			
+				if (this.spdL!=euc.dash.spdL) this.spLF();
+			}else if (this.alrm!=euc.dash.alrm) this.alrF();	
 			//tmp/amp field
 			if (!set.def.dash.amp){
-				if (this.tmp!=euc.dash.tmp) {
-					this.tmp=euc.dash.tmp;
-					this.g.setColor(1,this.tmpC[euc.dash.tmpC]);
-					this.g.fillRect(0,0,119,50);       
-					this.g.setColor(0,(euc.dash.tmpC!=3&&euc.dash.tmpC!=0)?0:4095);
-					this.g.setFontVector(50);
-					let temp=(set.def.dash.farn)?this.tmp*1.8+32:this.tmp;
-					temp=(temp<100)?temp:Math.round(temp);
-					let size=this.g.stringWidth(temp);
-					this.g.drawString(temp, 0,3); 
-					this.g.setFontVector(13);
-					this.g.drawString("o",size-3,2); 
-					this.g.setFontVector(16);
-					this.g.drawString((set.def.dash.farn)?"F":"C",size+5,5); 
-					this.g.flip();
-				}
-			}else if (this.ampL!=ampL){
-					this.ampL = new Uint8Array(ampL);
-					this.g.setColor(1,1365);
-					this.g.fillRect(0,0,119,50);       
-					this.g.setColor(0,(1<euc.dash.ampC)?4080:4095);
-					//graph
-					let i=0;
-					this.ampL.forEach(function(val){
-						//w.gfx.fillRect(118-(i*8),(0<=val)?50-(val*1.2):1,118-(i*8)-3,(0<=val)?50:1-(val*2));
-						w.gfx.fillRect(118-(i*8),(val<200)?50-(val*1.2):1,118-(i*8)-3,(val<200)?50:(255-val)*2);
-						i++;
-					});
-					this.g.flip();
-			} 
+				if (this.tmp!=euc.dash.tmp) this.tmFF();
+			}else if (this.ampL!=ampL) this.amLF();
 			//batery field
 			if (!set.def.dash.bat){
-				if (this.volt!=euc.dash.volt) {
-					this.volt=euc.dash.volt;
-					this.g.setColor(0,this.batC[euc.dash.batC]);
-					this.g.fillRect(122,0,239,50);
-					this.g.setColor(1,4095);
-					this.g.setFontVector((this.volt<100)?40:35);
-					this.g.drawString(this.volt,(this.volt<100)?135:125,0); 
-					this.g.setFontVector(13);
-					this.g.drawString("VOLT",202,40);
-					this.g.flip();
-				}
+				if (this.volt!=euc.dash.volt) this.vltF();
 			}else if (set.def.dash.bat==1) {
-				if (euc.dash.bat!=this.bat) {
-					this.bat=euc.dash.bat;
-					this.g.setColor(0,this.batC[euc.dash.batC]);
-					this.g.fillRect(122,0,239,50);
-					this.g.setColor(1,4095);
-					this.g.setFontVector(50);
-					this.g.drawString(this.bat,220-(this.g.stringWidth(this.bat)),3);
-					this.g.setFontVector(20);
-					this.g.drawString("%",224,8);
-					this.g.flip();
-				}
-			}else if (this.batL!=batL) {
-					this.batL = new Uint8Array(batL);
-					this.g.setColor(1,(euc.dash.batC==3)?3840:1453);
-					this.g.fillRect(122,0,239,50);       
-					this.g.setColor(0,4095);
-					//graph
-					let i=0;
-					this.batL.forEach(function(val){
-						w.gfx.fillRect(238-(i*6),50-(val/2),238-(i*6)-1,50);
-						i++;
-					});
-					this.g.flip();
-			}				
+				if (euc.dash.bat!=this.bat) this.batF();
+			}else if (this.batL!=batL) this.baLF();			
 			//Mileage
-			if (this.trpL!=euc.dash.trpL) {
-				this.mileage();
-			}     
+			if (this.trpL!=euc.dash.trpL) this.mileage();    
 		//off
 		} else if (euc.state=="OFF")  {
 			face.go("dashOff",0);
@@ -239,6 +86,167 @@ face[0] = {
 			t.show();
 		},100,this);
 	},
+	spdF: function(){
+		this.spd=euc.dash.spd;
+		this.g.setColor(0,0);
+		this.g.fillRect(41,54,199,170);
+		this.g.setColor(1,4095);
+		if (100 <= this.spd) {
+			if (150 < this.spd)  this.spd=150;
+			this.g.setFontVector(80);
+		}else 
+			this.g.setFontVector(130);
+		//this.g.drawString((set.def.dashSpd)?euc.dash.spd:Math.round(euc.dash.spd/1.6),129-(this.g.stringWidth((set.def.dashSpd)?euc.dash.spd:Math.round(euc.dash.spd/1.6))/2),57); 
+		this.g.drawString(Math.round(this.spd*this.fact),129-(this.g.stringWidth(Math.round(this.spd*this.fact))/2),57); 
+		this.g.flip();
+		if (this.spd==0) { 
+			this.g.flip();
+			this.bar();
+			this.g.setColor(0,0);
+		}
+	},
+	alF: function(){
+		this.al= new Uint8Array(almL);
+		this.g.setColor(0,1365);
+		this.g.clearRect(0,176,239,197);
+		this.g.setColor(1,4095);
+		//graph
+		let i=0;
+		this.al.forEach(function(val){
+			w.gfx.fillRect(237-(i*12),(val)?181:191,237-((i*12)+8),191);
+			i++;
+		});
+		this.g.flip();
+	},
+	ampF: function(){
+		this.amp=euc.dash.amp;
+		this.g.setColor(0,this.ampC[euc.dash.ampC]);
+		this.g.fillRect(0,55,40,112);
+		this.g.setColor(1,(euc.dash.ampC==1||euc.dash.ampC==2)?0:4095);
+		this.g.setFontVector(12);
+		this.g.drawString("AMP", 8,59);
+		this.g.setFontVector(32);
+		this.g.drawString(this.amp|0, 22-(this.g.stringWidth(this.amp|0)/2),80); 
+		this.g.flip();
+	},
+	tmpF: function(){
+		this.tmp=euc.dash.tmp;
+		this.g.setColor(0,this.tmpC[euc.dash.tmpC]);
+		this.g.fillRect(0,53,40,112);
+		this.g.setColor(1,(euc.dash.tmpC==1||euc.dash.tmpC==2)?0:4095);
+		this.g.setFontVector(11);
+		this.g.drawString("TEMP", 6,59);
+		let temp=(set.def.dash.farn)?Math.round(this.tmp*1.8+32):Math.round(this.tmp);
+		this.g.setFontVector((100<temp)?20:32);
+		this.g.drawString(temp,22-(this.g.stringWidth(temp)/2),80); 
+		//this.g.drawString(Math.round(this.tmp), 22-(this.g.stringWidth(Math.round(this.tmp))/2),80); 
+		this.g.flip();
+	},
+	buzF: function(){
+		this.buzz=euc.buzz;
+		this.g.setFontVector(35);
+		this.g.setColor(0,(this.buzz)?3840:1365);
+		this.g.fillRect(0,115,40,173); 
+		this.g.setColor(1,(this.buzz)?4095:0);
+		this.g.drawString("!", 19,130); 
+		this.g.flip();
+	},
+	spMF: function(){
+		this.spdM=euc.dash.spdM;
+		this.g.setColor(0,1365);
+		this.g.fillRect(200,53,239,112); 
+		this.g.setColor(1,4095);
+		this.g.setFontVector(12);
+		this.g.drawString("TOP", 208,59);
+		this.g.setFontVector(32);
+		this.g.drawString(Math.round(this.spdM*this.fact), 222-(this.g.stringWidth(Math.round(this.spdM*this.fact))/2),80); 
+		this.g.flip();
+	},	
+	spLF: function(){
+		this.spdL=euc.dash.spdL;
+		this.g.setColor(0,(euc.dash.spdT<=this.spdL)?1365:3840);	
+		this.g.fillRect(200,115,239,173); 
+		this.g.setColor(1,4095);
+		this.g.setFontVector(11);
+		this.g.drawString("LIMIT", 205,120);
+		this.g.setFontVector(32);
+		this.g.drawString(Math.round(this.spdL*this.fact), 202,140); 
+		this.g.flip();
+	},	
+	alrF: function(){
+		this.alrm=euc.dash.alrm;
+		this.g.setColor(0,1365);
+		this.g.fillRect(200,115,239,173); 
+		this.g.setColor(1,0);
+		this.g.setFontVector(35);
+		this.g.drawString("B", 212,130); 
+		this.g.flip();
+	},	
+	tmFF: function(){
+		this.tmp=euc.dash.tmp;
+		this.g.setColor(1,this.tmpC[euc.dash.tmpC]);
+		this.g.fillRect(0,0,119,50);       
+		this.g.setColor(0,(euc.dash.tmpC!=3&&euc.dash.tmpC!=0)?0:4095);
+		this.g.setFontVector(50);
+		let temp=(set.def.dash.farn)?this.tmp*1.8+32:this.tmp;
+		temp=(temp<100)?Number(temp).toFixed(1):Math.round(temp);
+		let size=this.g.stringWidth(temp);
+		this.g.drawString(temp, 0,3); 
+		this.g.setFontVector(13);
+		this.g.drawString("o",size-3,2); 
+		this.g.setFontVector(16);
+		this.g.drawString((set.def.dash.farn)?"F":"C",size+5,5); 
+		this.g.flip();
+	},	
+	amLF: function(){
+		this.ampL = new Uint8Array(ampL);
+		this.g.setColor(1,1365);
+		this.g.fillRect(0,0,119,50);       
+		this.g.setColor(0,(1<euc.dash.ampC)?4080:4095);
+		//graph
+		let i=0;
+		this.ampL.forEach(function(val){
+			//w.gfx.fillRect(118-(i*8),(0<=val)?50-(val*1.2):1,118-(i*8)-3,(0<=val)?50:1-(val*2));
+			w.gfx.fillRect(118-(i*6),(val<200)?50-(val*1.2):1,118-(i*6)-1,(val<200)?50:(255-val)*2);
+			i++;
+		});
+		this.g.flip();
+	},	
+	vltF: function(){
+		this.volt=euc.dash.volt;
+		this.g.setColor(0,this.batC[euc.dash.batC]);
+		this.g.fillRect(122,0,239,50);
+		this.g.setColor(1,4095);
+		this.g.setFontVector((this.volt<100)?40:35);
+		this.g.drawString(this.volt,(this.volt<100)?135:125,0); 
+		this.g.setFontVector(13);
+		this.g.drawString("VOLT",202,40);
+		this.g.flip();
+	},	
+	batF: function(){
+		this.bat=euc.dash.bat;
+		this.g.setColor(0,this.batC[euc.dash.batC]);
+		this.g.fillRect(122,0,239,50);
+		this.g.setColor(1,4095);
+		this.g.setFontVector(50);
+		this.g.drawString(this.bat,220-(this.g.stringWidth(this.bat)),3);
+		this.g.setFontVector(20);
+		this.g.drawString("%",224,8);
+		this.g.flip();
+	},
+	baLF: function(){
+		this.batL = new Uint8Array(batL);
+		this.g.setColor(1,(euc.dash.batC==3)?3840:1453);
+		this.g.fillRect(122,0,239,50);       
+		this.g.setColor(0,4095);
+		//graph
+		let i=0;
+		this.batL.forEach(function(val){
+			w.gfx.fillRect(238-(i*6),50-(val/2),238-(i*6)-1,50);
+			i++;
+		});
+		this.g.flip();
+	},	
 	mileage: function(){
 		this.trpL=euc.dash.trpL;
 		this.g.setColor(0,0);
@@ -357,7 +365,7 @@ touchHandler[0]=function(e,x,y){
 			if (set.def.dash.mph==undefined) set.def.dash.mph=0;
 			set.def.dash.mph=1-set.def.dash.mph;
 			digitalPulse(D16,1,[30,50,30]);
-			face[0].spdF=euc.dash.spdF*((set.def.dash.mph)?0.625:1);
+			face[0].fact=euc.dash.spdF*((set.def.dash.mph)?0.625:1);
 			face[0].trpL=-1;
 			face[0].spdL=-1;
 			face[0].spdM=-1;
