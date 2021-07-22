@@ -377,7 +377,7 @@ function removeApp(app) {
     showToast(app.name+" removed successfully","success");
     refreshMyApps();
     refreshLibrary();
-   	Puck.write(`require("Storage").erase("devmode");reset();\n`);
+   	Puck.write(`require("Storage").erase("devmode");\n`);
   }, err=>{
     showToast(app.name+" removal failed, "+err,"error");
   });

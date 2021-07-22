@@ -56,7 +56,7 @@ const Comms = {
         // No files left - print 'reboot' message
           if (fileContents.length==0) {
             //Puck.write(`\x10print('Tap BTN1\\nto boot')\n`,(result) => {
-            Puck.write(`require("Storage").erase("devmode");reset();\n`,(result) => {
+            Puck.write(`require("Storage").erase("devmode");\n`,(result) => {
               Progress.hide({sticky:true});
               if (result===null) return reject("");
               resolve(appInfo);
@@ -212,7 +212,7 @@ const Comms = {
         }
       }
       // Use write with newline here so we wait for it to finish
-      let cmd = '\x10require("Storage").eraseAll();Bluetooth.println("OK");reset()\n';
+      let cmd = '\x10require("Storage").eraseAll();Bluetooth.println("OK");\n';
       Puck.write(cmd, handleResult, true /* wait for newline */);
     });
   },
