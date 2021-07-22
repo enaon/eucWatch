@@ -260,7 +260,8 @@ const Comms = {
   },
   readSettings : (file,id) => {
 		return new Promise((resolve,reject) => {
-			let cmd = '\x03\x10';
+			//let cmd = '\x03\x10';
+			cmd = '';
 			cmd += "require('Storage').readJSON('"+file+".json',1)."+id+"\n";
 			Puck.eval(cmd, (resp,err) => {
 				if (resp===null||resp===undefined) return reject(err || "");
