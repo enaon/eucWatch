@@ -71,7 +71,7 @@ face[0] = {
 				face[0].set=0;
 				t.g.setColor(0,0);
 				t.g.fillRect(0,156,239,239);
-				t.g.setColor(1,col("white"));
+				t.g.setColor(1,4095);
 				t.g.setFont("Vector",25);
 				t.g.drawString("DASH OPTIONS",120-(t.g.stringWidth("DASH OPTIONS")/2),217); 
 				t.g.flip();

@@ -8,7 +8,7 @@ face[0] = {
 		if (!euc.dash.maker) {face.go((face.appPrev=="dashGarage")?"main":"dashGarage",0);return;}
         if (!face.appPrev.startsWith("dash")) this.g.clear();
         this.g.setColor(0,0);
-		this.g.fillRect(0,196,239,239);
+		this.g.fillRect(0,0,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
 		this.g.drawString(euc.dash.maker,120-(this.g.stringWidth(euc.dash.maker)/2),217); 
