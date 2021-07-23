@@ -2,7 +2,7 @@
 face[0] = {
   offms: 5000,
   g:w.gfx,
-  init: function(){
+  init: function(){ 
 	face.mode=0;
 	if (face.faceSave==-1) face.faceSave=[face.appPrev,face.pagePrev,face.pageArg];
     this.cli=-1;this.bt=-1;this.gb=-1;this.hid=-1;this.emuZ=-1;this.bri=-1;this.acc=-1;this.dnd=-1;this.sys=1;this.btn2=1;this.fmp=-1;
@@ -311,7 +311,10 @@ touchHandler[0]=function(e,x,y){
         return;  
       }else if(77<x&&x<157&&158<y&&y<239){//btn8	
    		digitalPulse(D16,1,[30,50,30]);
-		face.go("settings",5);return;
+		if (Boolean(require("Storage").read(face.faceSave[0].substring(0,4)+"Options"))){
+			face.go(face.faceSave[0].substring(0,4)+"Options",0);
+    }else face.go("settings",5);
+		return;
       }else if(158<x&&x<239&&160<y&&y<239){//btn9
 		digitalPulse(D16,1,[30,50,30]);
 		if (Boolean(require("Storage").read("alarm"))) {

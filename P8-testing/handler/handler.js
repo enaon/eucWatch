@@ -270,6 +270,7 @@ var face={
 		},this.offms,this.pageCurr);
 	},
 	go:function(app,page,arg){
+	 	if (this.appCurr.startsWith("dash")&&app=="settings") app="dashOptions"; //temporary
 		this.appPrev=this.appCurr;
 		this.pagePrev=this.pageCurr;
 		this.appCurr=app;

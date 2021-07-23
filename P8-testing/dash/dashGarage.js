@@ -214,8 +214,16 @@ touchHandler[0]=function(e,x,y){
 			face[0]["s"+this.s]=1;
 		}
 		else   {
-			if ( y<=120 ) face[0].ntfy("HOLD -> SETUP","",22,col("dgray"),1);
-			else face[0].ntfy("HOLD -> DELETE","",22,col("red"),1);
+			if ( y<=120 ) {
+				w.gfx.setColor(0,0);
+				w.gfx.drawLine (0,98,239,98);
+				w.gfx.drawLine (0,99,239,99);
+				w.gfx.flip();
+				w.gfx.drawLine (120,0,120,195);
+				w.gfx.drawLine (121,0,121,195);
+				w.gfx.flip();
+				face.go("dashAlerts",0);return;			
+      }else face[0].ntfy("HOLD -> DELETE","",22,col("red"),1);
 		}
 		this.timeout();
 		break;
@@ -283,7 +291,7 @@ touchHandler[0]=function(e,x,y){
 				g.setColor(0,col("dgray"));
 				g.fillRect(0,0,239,97);
               	g.setColor(1,col("white"));
-				g.drawString("SETUP HAPTIC",120-(g.stringWidth("SETUP HAPTIC")/2),35);
+				g.drawString("WATCH ALERTS",120-(g.stringWidth("WATCH ALERTS")/2),35);
 				g.flip();
 				g.setColor(0,col("red"));
 				g.fillRect(0,100,239,195);

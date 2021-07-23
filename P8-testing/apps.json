@@ -103,8 +103,8 @@
 			{"name":"dashGarage","url":"dashGarage.js"},
 			{"name":"dashAlerts","url":"dashAlerts.js"},
 			{"name":"dashScan","url":"dashScan.js"},
-			{"name":"dashOff","url":"dashOff.js"}
-
+			{"name":"dashOff","url":"dashOff.js"},
+			{"name":"dashOptions","url":"dashOptions.js"}
 		]
 	}, 
 	{ "id": "dashKingsong",

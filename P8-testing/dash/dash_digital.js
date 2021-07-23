@@ -363,32 +363,8 @@ touchHandler[0]=function(e,x,y){
 		face.go("main",0);
 		return;
     case 12: //touch and hold(long press) event
-		if (55<y && y<200) {
-			if (set.def.dash.mph==undefined) set.def.dash.mph=0;
-			set.def.dash.mph=1-set.def.dash.mph;
-			digitalPulse(D16,1,[30,50,30]);
-			face[0].fact=euc.dash.spdF*((set.def.dash.mph)?0.625:1);
-			face[0].trpL=-1;
-			face[0].spdL=-1;
-			face[0].spdM=-1;
-			//face[0].bar();
-		}else if (x<120&&y<55){//reverce amps
-			if (set.def.dash.amp){//reverce amps
-				if (euc.dash.ampR==undefined) euc.dash.ampR=0;
-				euc.dash.ampR=1-euc.dash.ampR;
-			}else{
-				if (set.def.dash.farn==undefined) set.def.dash.farn=0;
-				set.def.dash.farn=1-set.def.dash.farn;
-				face[0].tmp=-1;
-			}
-			digitalPulse(D16,1,[30,50,30]);
-		}else if (120<x&&y<55){//batery percentage/voltage
-			if (1.5<=euc.dash.bms) euc.dash.bms=1;
-			else euc.dash.bms=euc.dash.bms+0.25;
-			face[0].bat=-1;
-			digitalPulse(D16,1,[30,50,30]);
-		} else digitalPulse(D16,1,40);
 		this.timeout();
+		digitalPulse(D16,1,40);
 		break;
     }
 };
