@@ -1,6 +1,9 @@
 //	//this.maker=require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'];
 //	//this.mac=require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Mac'];
-				
+
+//day={1:22,2:1,3:2,10:3};
+//set.write("logDay",Date().getHours(),{3:5,4:10,10:10})
+//set.read("logDay","day")[6]
 global.euc= {
 	state: "OFF",
 	reconnect:0,
@@ -10,6 +13,31 @@ global.euc= {
 	night:1,
 	buzz:0,
 	day:[7,19],
+	log:{
+		tid:0,
+		trpS:0,
+		hrsS:0,
+		strt:function(){
+			if (this.tid) {clearInterval(this.tid); this.tid=0;}
+			this.trpS=euc.dash.trpT;
+			this.hrsS=Date().getHours();
+			this.tid=setInterval((s)=>{
+				if (s!=euc.dash.trpT){
+					clearInterval(this.tid); this.tid=0;	
+					this.trpS=euc.dash.trpT;
+					this.tid=setInterval(()=>{
+						if (this.hrsS!=Date().getHours()){
+							set.write("logDay",this.hrsS,(euc.dash.trpT-this.log.trpS)+( (set.read("logDay",this.hrsS))? set.read("logDay",this.hrsS):0));
+							this.hrsS=Date().getHours();
+						}
+					},60000);
+				}
+				//r="{"+Date().getDate()+":{a:"+euc.dash.trpT+"}}"
+				//"{24:{a:2443.963}}"
+				//set.write("log",Date().getMonth()+1.2,r)
+			},1000,this.trpS);
+		}
+	},
 	updateDash:function(slot){require('Storage').write('eucSlot'+slot+'.json', euc.dash);},
 	off:function(err){if (set.def.cli) console.log("EUC off, not connected");},
 	wri:function(err){if (set.def.cli) console.log("EUC write, not connected");},
@@ -20,6 +48,7 @@ global.euc= {
 		this.seq=1;
 		ampL=[];batL=[];almL=[];
 		if (this.state!="OFF" ) {
+			if (euc.log.tid) {clearInterval(euc.log.tid); euc.log.tid=0;}
 			digitalPulse(D16,1,[90,60,90]);  
 			face.go("dashOff",0);
 			set.def.dash.accE=0;
@@ -27,6 +56,10 @@ global.euc= {
 			this.state="OFF";
 			this.wri("end");
 			this.mac=0;
+			//set.write("log","trip",euc.dash.trpT-this.log.trpS);
+			//log
+			set.write("logDay",euc.log.hrsS,(euc.dash.trpT-this.log.trpS)+( (set.read("logDay",euc.log.hrsS))?set.read("logDay",euc.log.hrsS):0));
+			//save
 			setTimeout(()=>{euc.updateDash(require("Storage").readJSON("dash.json",1).slot);NRF.setTxPower(set.def.rfTX);},500);
 			return;
 		}else {
@@ -43,6 +76,7 @@ global.euc= {
 				if (this.dash.bms==undefined) this.dash.bms=1.5;
 				if (this.dash.maker!=="Kingsong"||this.dash.maker!=="inmotionV11") this.dash.spdM=0;
 				setTimeout(()=>{face.go(set.dash[set.def.dash.face],0);},100);
+				this.log.strt();
 			}
 		}
 	} 

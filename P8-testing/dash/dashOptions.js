@@ -15,12 +15,14 @@ face[0] = {
 		this.g.setFont("Vector",25);
 		this.g.drawString("DASH OPTIONS",120-(this.g.stringWidth("DASH OPTIONS")/2),217); 
 		this.g.flip(); 
-		this.btn(set.def.dash.mph,(set.def.dash.mph)?"MPH":"KPH",30,40,25,col("olive"),1453,0,0,75,75);//1
-		this.btn(set.def.dash.farn,"o",20,100,20,col("olive"),1453,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);//2
+		this.btn(1,(set.def.dash.mph)?"MPH":"KPH",30,40,25,2220,0,0,0,75,75);//1
+		this.btn(1,"o",20,100,20,2220,0,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);//2
+		//this.btn(set.def.dash.mph,(set.def.dash.mph)?"MPH":"KPH",30,40,25,col("olive"),1453,0,0,75,75);//1
+		//this.btn(set.def.dash.farn,"o",20,100,20,col("olive"),1453,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);//2
 		let makr=set.read("dash","slot"+set.read("dash","slot")+"Maker"); 
 		if (makr) {
 			//if (makr=="Begode"){
-				this.btn(euc.dash.ampR,"AMP",15,200,10,1365,col("olive"),160,0,239,75,(euc.dash.ampR)?"R":"N",40,200,35); //3
+				this.btn(euc.dash.ampR,"AMP",15,200,10,1365,1365,160,0,239,75,(euc.dash.ampR)?"R":"N",30,200,35); //3
 				this.btn(1,"PACK",15,200,90,1365,col("olive"),160,80,239,155,euc.dash.bms*67.2|0,30,200,120); //6
 
 			//}else {
@@ -99,7 +101,6 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		print(face.appCurr,face.appPrev,this.appPrev);
 		face.go(appRoot[0],0);
 		return;	 
 	},
@@ -128,8 +129,8 @@ touchHandler[0]=function(e,x,y){
 						euc.dash.spdF=(euc.dash.spdF + 0.01);
 						if (1.5 <euc.dash.spdF)  euc.dash.spdF=1.5;
 					}
-					face[0].btn(1,"SPEED X",15,40,90,1453,0,0,80,75,155,euc.dash.spdF,30,40,120); //4
-					face[0].ntfy("SPEED FACTOR",euc.dash.spdF,40,1,1453,5000,1);
+					face[0].btn(1,"SPEED X",15,40,90,170,0,0,80,75,155,euc.dash.spdF,30,40,120); //4
+					face[0].ntfy("SPEED FACTOR",euc.dash.spdF,40,1,170,5000,1);
 				}else if (face[0].set=="trpF") { 
 					if (x<120){ //spd
 						euc.dash.trpF=(euc.dash.trpF - 0.01);
@@ -138,8 +139,8 @@ touchHandler[0]=function(e,x,y){
 						euc.dash.trpF=(euc.dash.trpF + 0.01);
 						if (1.5 <euc.dash.trpF)  euc.dash.trpF=1.5;
 					}
-					face[0].btn(1,"DIST X",15,120,90,1453,0,80,80,155,155,euc.dash.trpF,30,120,120); //5
-					face[0].ntfy("DISTANCE FACTOR",euc.dash.trpF,40,1,1453,5000,1);
+					face[0].btn(1,"DIST X",15,120,90,170,0,80,80,155,155,euc.dash.trpF,30,120,120); //5
+					face[0].ntfy("DISTANCE FACTOR",euc.dash.trpF,40,1,170,5000,1);
 				}else if (face[0].set=="temp") { //temp
 				  if (x<120){ //
 
@@ -163,29 +164,29 @@ touchHandler[0]=function(e,x,y){
 			//face[0].set="mph";
             digitalPulse(D16,1,[30,50,30]);
 			set.def.dash.mph=1-set.def.dash.mph;
-			face[0].btn(set.def.dash.mph,(set.def.dash.mph)?"MPH":"KPH",30,40,25,col("olive"),1453,0,0,75,75);
+			face[0].btn(1,(set.def.dash.mph)?"MPH":"KPH",30,40,25,2220,0,0,0,75,75);
 			face[0].ntfy("SPEED & DISTANCE IN",(set.def.dash.mph)?"MILES":"KILOMETERS",30,1,1365,1500);
 		}else if (75<= x && x < 155 && y < 75) { //2
 			//face[0].set="far";
 			digitalPulse(D16,1,[30,50,30]);
             set.def.dash.farn=1-set.def.dash.farn;
-			face[0].btn(set.def.dash.farn,"o",20,100,20,col("olive"),1453,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);
+			face[0].btn(1,"o",20,100,20,2220,0,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);
 			face[0].ntfy("TMPERATURE IN",(set.def.dash.farn)?"FAHRENHEIT":"CELSIUS",30,1,1365,1500);
 		}else if (155 <= x && y < 75) { //3
 			euc.dash.ampR=1-euc.dash.ampR;
-			face[0].btn(euc.dash.ampR,"AMP",15,200,10,1365,col("olive"),160,0,239,75,(euc.dash.ampR)?"R":"N",40,200,35); //3
+			face[0].btn(euc.dash.ampR,"AMP",15,200,10,1365,1365,160,0,239,75,(euc.dash.ampR)?"R":"N",30,200,35); //3
 			face[0].ntfy("AMPERAGE REPORT",(euc.dash.ampR)?"REVERSED":"NORMAL",30,1,1365,1500);
             digitalPulse(D16,1,[30,50,30]);
 		}else if (x<75 && 75 <y && y < 155) { //4
 			face[0].set="spdF";
             digitalPulse(D16,1,[30,50,30]);
-			face[0].btn(1,"SPEED X",15,40,90,1453,0,0,80,75,155,euc.dash.spdF,30,40,120); //4
-			face[0].ntfy("SPEED FACTOR",euc.dash.spdF,40,1,1453,5000,1);
+			//face[0].btn(1,"SPEED X",15,40,90,1453,0,0,80,75,155,euc.dash.spdF,30,40,120); //4
+			face[0].ntfy("SPEED FACTOR",euc.dash.spdF,40,1,170,5000,1);
 		}else if (75<= x && x < 155 && 75 <y && y < 155) { //5
 			face[0].set="trpF";
             digitalPulse(D16,1,[30,50,30]);
-			face[0].btn(1,"DIST X",15,120,90,1453,0,80,80,155,155,euc.dash.trpF,30,120,120); //5
-			face[0].ntfy("DISTANCE FACTOR",euc.dash.trpF,40,1,1453,5000,1);
+			//face[0].btn(1,"DIST X",15,120,90,1453,0,80,80,155,155,euc.dash.trpF,30,120,120); //5
+			face[0].ntfy("DISTANCE FACTOR",euc.dash.trpF,40,1,170,5000,1);
 		}else if (155 <= x && 75 <y && y < 155) { //6
 			if (1.5<=euc.dash.bms) euc.dash.bms=1;
 			else euc.dash.bms=euc.dash.bms+0.25;
