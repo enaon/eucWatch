@@ -1,26 +1,25 @@
 //dash off 
-//faces-main face
 face[0] = {
 	offms: 10000, //5 sec timeout
 	g:w.gfx,
 	spd:[],
 	init: function(){
-    this.btn(1,"DAY",25,60,15,1453,1453,0,0,119,50);
-    this.btn(1,"INFO",25,180,15,0,1453,120,0,239,50);
+		if (!euc.dash.maker||!Boolean(require("Storage").read("logDaySlot"+set.read("dash","slot")+".json"))  ) {face.go((face.appPrev=="dashGarage")?"main":"dashGarage",0);return;}
+		this.btn(1,"DAY",25,60,15,1453,1453,0,0,119,50);
+		this.btn(1,"INFO",25,180,15,0,1453,120,0,239,50);
 		//logDay
-		this.log=require("Storage").readJSON("logDay.json",1);
+		this.log=require("Storage").readJSON("logDaySlot"+set.read("dash","slot")+".json",1);
 		this.ref=Date().getHours();
-    this.pos=this.ref;
+		this.pos=this.ref;
 		this.btn(1,"<  Total Today  >",25,120,65,1365,1365,0,50,239,160,"74.54 km",45,120,110);
-    this.g.setColor(0,0);
+		this.g.setColor(0,0);
 		this.g.fillRect(0,180,239,239);
 		this.g.setColor(1,col("lblue"));
-    for (let i = 0; i < 24; i++) {
+		for (let i = 0; i < 24; i++) {
 			let h=(this.ref-i<0)?24+(this.ref-i):this.ref-i;
 			if (this.log[h]) w.gfx.fillRect(237-(i*10),(this.log[h])?233-this.log[h]:233, 237-((i*10)+8),233);		
 			this.g.flip(); 
 		}
-
 	},
 	show : function(o){
 		if (!this.run) return;
@@ -46,8 +45,6 @@ face[0] = {
 		this.g.setColor(1,4095);
 		this.g.setFont("Vector",50);	
 		this.g.drawString(txt1,120-(this.g.stringWidth(txt1)/2),70); 
-	//	this.g.setFont("Vector",25);	
-	//	this.g.drawString(((set.def.dash.mph)?" mi":" km"),155+(this.g.stringWidth(txt1)/2),102);
  		this.g.setFont("Vector",23);	
 		this.g.drawString(txt2,120-(this.g.stringWidth(txt2)/2),145);
 		this.g.flip();
@@ -116,32 +113,32 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
 		if (50 < y) {
-      let i=0;
-      //print("ref :",face[0].ref);
-      if (face[0].log[face[0].ref]&&!face[0].once){
-       // print("once");
-       face[0].once=1;
-        face[0].pos=face[0].ref;
-      }else if  ( 120 < x ) {
+			let i=0;
+			print("ref :",face[0].ref);
+			if (face[0].log[face[0].ref]&&!face[0].once){
+				print("once");
+				face[0].once=1;
+				face[0].pos=face[0].ref;
+			}else if  ( 120 < x ) {
 				face[0].pos++;
 				while (!face[0].log[face[0].pos]) {
-          //print("i",i);
+					print("i",i);
  					face[0].pos++;
-          i++;
-          if (24<i) return;
+					i++;
+					if (24<i) return;
 					if (24<face[0].pos) face[0].pos=0;
 				}
 			}else if ( x < 120 ){
  				face[0].pos--;
 				while (!face[0].log[face[0].pos]) {
  					face[0].pos--;
-          //print("i",i);
-          i++;
-          if (24<i) return;
+					print("i",i);
 					if (face[0].pos< 0) face[0].pos=23;
+					i++;
+					if (24<i) return;
 				}
 			}
-			//print("position :",(face[0].pos<=face[0].ref)?24-(face[0].ref-face[0].pos):face[0].pos-face[0].ref);
+			print("position :",(face[0].pos<=face[0].ref)?24-(face[0].ref-face[0].pos):face[0].pos-face[0].ref);
 			face[0].ind((face[0].pos<=face[0].ref)?24-(face[0].ref-face[0].pos):face[0].pos-face[0].ref);
 			face[0].sel((face[0].log[face[0].pos]*((set.def.dash.mph)?0.625:1)).toFixed(2)+((set.def.dash.mph)?" mi":" km") , ((face[0].pos<=face[0].ref)?"":"Yday ")+face[0].pos+"-"+(face[0].pos+1)+((face[0].pos>12)?" PM":" AM"));
 			digitalPulse(D16,1,[30,50,30]);

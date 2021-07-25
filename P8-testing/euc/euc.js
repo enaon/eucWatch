@@ -17,24 +17,25 @@ global.euc= {
 		tid:0,
 		trpS:0,
 		hrsS:0,
+		datS:0,
+		monS:0,
 		strt:function(){
 			if (this.tid) {clearInterval(this.tid); this.tid=0;}
 			this.trpS=euc.dash.trpT;
 			this.hrsS=Date().getHours();
+			this.wekS=Date().toString().split(' ')[0];
+			this.monS=Date().toString().split(' ')[1];
 			this.tid=setInterval((s)=>{
 				if (s!=euc.dash.trpT){
 					clearInterval(this.tid); this.tid=0;	
 					this.trpS=euc.dash.trpT;
 					this.tid=setInterval(()=>{
 						if (this.hrsS!=Date().getHours()){
-							set.write("logDay",this.hrsS,(euc.dash.trpT-this.log.trpS)+( (set.read("logDay",this.hrsS))? set.read("logDay",this.hrsS):0));
+							set.write("logDaySlot"+set.read("dash","slot"),this.hrsS,(euc.dash.trpT-this.log.trpS)+( (set.read("logDaySlot"+set.read("dash","slot"),this.hrsS))? set.read("logDaySlot"+set.read("dash","slot"),this.hrsS):0));
 							this.hrsS=Date().getHours();
 						}
 					},60000);
 				}
-				//r="{"+Date().getDate()+":{a:"+euc.dash.trpT+"}}"
-				//"{24:{a:2443.963}}"
-				//set.write("log",Date().getMonth()+1.2,r)
 			},1000,this.trpS);
 		}
 	},
@@ -50,7 +51,10 @@ global.euc= {
 		if (this.state!="OFF" ) {
 			//log
 			if (euc.log.tid) {clearInterval(euc.log.tid); euc.log.tid=0;}
-			set.write("logDay",euc.log.hrsS,(euc.dash.trpT-this.log.trpS)+( (set.read("logDay",euc.log.hrsS))?set.read("logDay",euc.log.hrsS):0));
+			set.write("logDaySlot"+set.read("dash","slot"),euc.log.hrsS,(euc.dash.trpT-this.log.trpS)+( (set.read("logDaySlot"+set.read("dash","slot"),euc.log.hrsS))?set.read("logDaySlot"+set.read("dash","slot"),euc.log.hrsS):0));
+			set.write("logMonthSlot"+set.read("dash","slot"),euc.log.datS,(euc.dash.trpT-this.log.trpS)+( (set.read("logMonthSlot"+set.read("dash","slot"),euc.log.datS))?set.read("logMonthSlot"+set.read("dash","slot"),euc.log.datS):0));
+			set.write("logYearSlot"+set.read("dash","slot"),euc.log.monS,(euc.dash.trpT-this.log.trpS)+( (set.read("logYearSlot"+set.read("dash","slot"),euc.log.monS))?set.read("logYearSlot"+set.read("dash","slot"),euc.log.monS):0));
+
 			digitalPulse(D16,1,[90,60,90]);  
 			set.def.dash.accE=0;
 			if (!set.def.acc) {acc.off();}
