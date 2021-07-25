@@ -5,24 +5,35 @@ face[0] = {
 	g:w.gfx,
 	spd:[],
 	init: function(){
-		if (!euc.dash.maker) {face.go((face.appPrev=="dashGarage")?"main":"dashGarage",0);return;}
-        if (!face.appPrev.startsWith("dash")) this.g.clear();
+		//if (!euc.dash.maker) {face.go((face.appPrev=="dashGarage")?"main":"dashGarage",0);return;}
+        // if (!face.appPrev.startsWith("dash")) this.g.clear();
         this.g.setColor(0,0);
 		this.g.fillRect(0,0,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
 		this.g.drawString(euc.dash.maker,120-(this.g.stringWidth(euc.dash.maker)/2),217); 
 		this.g.flip(); 
-		//this.btn(1,euc.dash.lock,35,60,10,col("black"),col("red"),0,0,119,45);	
        // this.btn(1,euc.dash.trpL,35,60,60,col("raf2"),col("red"),0,50,119,95);			
-        this.btn(1,euc.dash.spdM,38,48,110,col("dgray"),col("red"),0,100,95,145);			
-        this.btn(1,euc.dash.spdA,38,48,160,col("dgray"),col("red"),0,150,95,195);				
-        this.btn(1,euc.dash.bat+"%",38,185,10,col("raf1"),col("red"),122,0,239,45);	
-        this.btn(1,euc.dash.time,38,185,60,col("dgray"),col("red"),122,50,239,95);			
-        this.btn(1,euc.dash.trpL,38,172,110,col("dgray"),col("red"),100,100,239,145);			
-        this.btn(1,euc.dash.trpT,38,172,160,col("dgray"),col("red"),100,150,239,195);			
+       // this.btn(1,euc.dash.spdM,38,48,110,col("dgray"),col("red"),0,100,95,145);			
+        //this.btn(1,euc.dash.spdA,38,48,160,col("dgray"),col("red"),0,150,95,195);				
+        //this.btn(1,euc.dash.bat+"%",38,185,10,col("raf1"),col("red"),122,0,239,45);	
+        //this.btn(1,euc.dash.time,38,185,60,col("dgray"),col("red"),122,50,239,95);			
+        //this.btn(1,euc.dash.trpL,38,172,110,col("dgray"),col("red"),100,100,239,145);			
+        //this.btn(1,euc.dash.trpT,38,172,160,col("dgray"),col("red"),100,150,239,195);			
+		this.g.setColor(0,0);
+		this.g.fillRect(0,75,239,155);
+		this.g.setColor(1,col("lblue"));
+		//logDay
+		this.log=require("Storage").readJSON("logDay.json",1);
+		this.hr=Date().getHours();
+  	this.btn(1,(this.log[this.hr])?this.log[this.hr].toFixed(2):0,35,120,170,1365,1365,0,160,249,239);	
+    this.pos=this.hr;
+		for (let i = 0; i < 24; i++) {
+			let h=(this.hr-i<0)?24+(this.hr-i):this.hr-i;
+			w.gfx.fillRect(237-(i*10),(this.log[h])?150-this.log[h]:150, 237-((i*10)+8),150);		
+			this.g.flip(); 
+		}
 
-		this.g.flip();
 	},
 	show : function(o){
 		if (!this.run) return;
@@ -97,18 +108,23 @@ face[1] = {
 touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
-		if ( 100<x &&  y <50 ) {
-			
-			face[0].ntfy("LAST TRIP (Km)","",23,col("raf3"),1);
-			digitalPulse(D16,1,[30,50,30]);
-		}else if ( 100<x && 50 < y && y <100 ) {
-			face[0].ntfy("LAST TRIP (Km)","",23,col("raf3"),1);
-			digitalPulse(D16,1,[30,50,30]);
-		}else if ( 100<x && 100 < y && y <150 ) {
-			face[0].ntfy("LAST TRIP (Km)","",23,col("raf3"),1);
-			digitalPulse(D16,1,[30,50,30]);
-		}else if ( 100<x && 150 < y && y <196 ) {
-			face[0].ntfy("TOTAL TRIP (Km)","",23,col("raf3"),1);
+		if (160 <y ) {
+			if  ( 120 < x ) {
+				face[0].pos++;
+				while (!face[0].log[face[0].pos]) {
+ 					face[0].pos++;
+					if (24<face[0].pos) face[0].pos=0;
+				}
+			}else if ( x < 120 ){
+				face[0].pos--;
+				while (!face[0].log[face[0].pos]) {
+ 					face[0].pos--;
+					if (face[0].pos< 0) face[0].pos=23;
+
+				}
+			}
+			print("pos :",face[0].pos);
+			face[0].btn(1,face[0].pos+"-"+(face[0].pos+1)+((face[0].pos>12)?" PM":" AM"),25,120,165,1365,1365,0,160,249,239,face[0].log[face[0].pos].toFixed(2),40,120,205);
 			digitalPulse(D16,1,[30,50,30]);
 		}else 
 			digitalPulse(D16,1,40);
