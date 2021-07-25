@@ -655,6 +655,12 @@ if (set.def.acctype==="BMA421"){
 		},
 	};	
 }
+//cron
+function cron(){
+	
+
+
+}
 //themes -todo
 function col(no){
 	switch (no) {

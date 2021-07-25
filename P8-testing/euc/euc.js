@@ -48,17 +48,15 @@ global.euc= {
 		this.seq=1;
 		ampL=[];batL=[];almL=[];
 		if (this.state!="OFF" ) {
+			//log
 			if (euc.log.tid) {clearInterval(euc.log.tid); euc.log.tid=0;}
+			set.write("logDay",euc.log.hrsS,(euc.dash.trpT-this.log.trpS)+( (set.read("logDay",euc.log.hrsS))?set.read("logDay",euc.log.hrsS):0));
 			digitalPulse(D16,1,[90,60,90]);  
-			face.go("dashOff",0);
 			set.def.dash.accE=0;
 			if (!set.def.acc) {acc.off();}
 			this.state="OFF";
 			this.wri("end");
 			this.mac=0;
-			//set.write("log","trip",euc.dash.trpT-this.log.trpS);
-			//log
-			set.write("logDay",euc.log.hrsS,(euc.dash.trpT-this.log.trpS)+( (set.read("logDay",euc.log.hrsS))?set.read("logDay",euc.log.hrsS):0));
 			//save
 			setTimeout(()=>{euc.updateDash(require("Storage").readJSON("dash.json",1).slot);NRF.setTxPower(set.def.rfTX);},500);
 			return;

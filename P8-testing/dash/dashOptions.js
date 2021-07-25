@@ -33,7 +33,7 @@ face[0] = {
 		} else {
 			this.g.fillRect(160,0,239,75);//3
 			this.g.fillRect(0,80,75,155); //4
-			his.g.fillRect(80,80,155,155); //5
+			this.g.fillRect(80,80,155,155); //5
 			this.g.fillRect(160,80,239,155);//6
 		}
 	
