@@ -168,7 +168,7 @@ face[0] = {
 	},	
 	spLF: function(){
 		this.spdL=euc.dash.spdL;
-		this.g.setColor(0,(euc.dash.spdT<=this.spdL)?1365:3840);	
+		this.g.setColor(0,(euc.dash.lim[3]<=this.spdL)?1365:3840);	
 		this.g.fillRect(200,115,239,173); 
 		this.g.setColor(1,4095);
 		this.g.setFontVector(11);

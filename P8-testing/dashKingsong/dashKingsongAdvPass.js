@@ -4,6 +4,11 @@ face[0] = {
 	g:w.gfx,
 	init: function(){
    		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
+		if (!face[5].pass) {
+			face[5].ntfy("EMPTY PASSWORD",20,col("blue1"));
+            setTimeout(()=>{face.go("dashKingsongOpt",0);return;},1000);
+			return;
+		}	
         //status
         if (euc.dash.pass.length>=4){
 		this.g.setColor(0,col("blue1"));
@@ -96,7 +101,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		face.go("dashKingsong",0);
+		face.go("dashKingsongAdv",0);
 		return true;
 	},
 	clear: function(){

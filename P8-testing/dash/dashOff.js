@@ -11,15 +11,23 @@ face[0] = {
 		this.log=require("Storage").readJSON("logDaySlot"+set.def.dash.slot+".json",1);
 		this.ref=Date().getHours();
 		this.pos=this.ref;
-		this.btn(1,"<  Total Today  >",25,120,65,1365,1365,0,51,239,175,"74.54 km",45,120,110);
+		//this.g.setColor(0,1365);
+		//this.g.fillRect(0,51,239,175);
+		//this.g.flip(); 
+		this.btn(1,"<  Total Today  >",25,120,65,1365,1365,0,51,239,175);
 		this.g.setColor(0,0);
 		this.g.fillRect(0,176,239,239);
 		this.g.setColor(1,col("lblue"));
+		this.totD=0;
 		for (let i = 0; i < 24; i++) {
 			let h=(this.ref-i<0)?24+(this.ref-i):this.ref-i;
-			if (this.log[h]) w.gfx.fillRect(237-(i*10),(this.log[h])?239-this.log[h]:239, 237-((i*10)+8),239);		
-			this.g.flip(); 
+			if (this.log[h]) {
+				w.gfx.fillRect(237-(i*10),(this.log[h])?239-this.log[h]:239, 237-((i*10)+8),239);		
+				this.g.flip(); 
+				this.totD=this.totD+this.log[h];
+			}
 		}
+		this.btn(1,"<  Total Today  >",25,120,65,1365,1365,0,51,239,175,this.totD.toFixed(2)+" km",45,120,110);
 	},
 	show : function(o){
 		if (!this.run) return;
