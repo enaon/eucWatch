@@ -29,7 +29,6 @@ global.euc= {
 			digitalPulse(D16,1,[90,60,90]); 
 			//log
 			if (this.log.trpS) set.write("logDaySlot"+set.def.dash.slot,Date().getHours(),(this.dash.trpT-this.log.trpS)+((set.read("logDaySlot"+set.def.dash.slot,Date().getHours()))?set.read("logDaySlot"+set.def.dash.slot,Date().getHours()):0));
-			if (euc.log.tid) {clearInterval(euc.log.tid); euc.log.tid=0;}
 			set.def.dash.accE=0;
 			if (!set.def.acc) {acc.off();}
 			this.mac=0;
