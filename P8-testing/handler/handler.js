@@ -656,11 +656,35 @@ if (set.def.acctype==="BMA421"){
 	};	
 }
 //cron
-function cron(){
-	
+cron={
+	test:(x) => {console.log(x);print("ok");},
+	date:{
+		year:0,
+		mnth:0,
+		day:0,
+		hour:0,
+		min:0,
+		sec:0,
+	},
+	event:{
+		//date:()=>{ setTimeout(() =>{ cron.emit('dateChange',Date().getDate());cron.event.date();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate()+1)-Date()));},
+		hour:()=>{setTimeout(() =>{ cron.emit('hour'  ,Date().getHours());  cron.event.date();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate(),Date().getHours()+1)-Date()));},
+		min: ()=>{setTimeout(() =>{ cron.emit('mine',Date().getMinutes());cron.event.min();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate(),Date().getHours(),Date().getMinutes()+1)-Date()));},
+		sec:()=>{setTimeout(() =>{ cron.emit('sec',Date().getSeconds());cron.event.sec();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate(),Date().getHours(),Date().getMinutes(),Date().getSeconds()+1)-Date()));},
+	},
+	task:{
+    euc:{
+		Hour:x=>{
+			print(x);
+			let v=set.read("logDaySlot"+set.def.dash.slot,x-1);
+			set.write("logDaySlot"+set.def.dash.slot,x-1,((euc.log.trpS)?euc.dash.trpT-euc.log.trpS:0)+((v)?v:0));
+			set.write("logDaySlot"+set.def.dash.slot,x,0);               
+		}
+    }
+  }
+};
+cron.event.hour();
 
-
-}
 //themes -todo
 function col(no){
 	switch (no) {

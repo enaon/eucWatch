@@ -14,30 +14,7 @@ global.euc= {
 	buzz:0,
 	day:[7,19],
 	log:{
-		tid:0,
-		trpS:0,
-		hrsS:0,
-		dayS:0,
-		monS:0,
-		strt:function(){
-			if (this.tid) {clearInterval(this.tid); this.tid=0;}
-			this.trpS=euc.dash.trpT;
-			this.hrsS=Date().getHours();
-			this.dayS=Date().toString().split(' ')[0];
-			this.monS=Date().toString().split(' ')[1];
-			this.tid=setInterval((s)=>{
-				if (s!=euc.dash.trpT){
-					clearInterval(this.tid); this.tid=0;	
-					this.trpS=euc.dash.trpT;
-					this.tid=setInterval(()=>{
-						if (this.hrsS!=Date().getHours()){
-							set.write("logDaySlot"+set.read("dash","slot"),this.hrsS,(euc.dash.trpT-this.log.trpS)+( (set.read("logDaySlot"+set.read("dash","slot"),this.hrsS))? set.read("logDaySlot"+set.read("dash","slot"),this.hrsS):0));
-							this.hrsS=Date().getHours();
-						}
-					},60000);
-				}
-			},1000,this.trpS);
-		}
+		trpS:0
 	},
 	updateDash:function(slot){require('Storage').write('eucSlot'+slot+'.json', euc.dash);},
 	off:function(err){if (set.def.cli) console.log("EUC off, not connected");},
@@ -51,7 +28,7 @@ global.euc= {
 		if (this.state!="OFF" ) {
 			digitalPulse(D16,1,[90,60,90]); 
 			//log
-			set.write("logDaySlot"+set.def.dash.slot,euc.log.hrsS,(euc.dash.trpT-this.log.trpS)+(   (set.read("logDaySlot"+set.def.dash.slot,euc.log.hrsS))?set.read("logDaySlot"+set.def.dash.slot,euc.log.hrsS):0));
+			if (this.log.trpS) set.write("logDaySlot"+set.def.dash.slot,Date().getHours(),(this.dash.trpT-this.log.trpS)+((set.read("logDaySlot"+set.def.dash.slot,Date().getHours()))?set.read("logDaySlot"+set.def.dash.slot,Date().getHours()):0));
 			if (euc.log.tid) {clearInterval(euc.log.tid); euc.log.tid=0;}
 			set.def.dash.accE=0;
 			if (!set.def.acc) {acc.off();}
@@ -59,12 +36,15 @@ global.euc= {
 			this.state="OFF";
 			this.wri("end");
 			setTimeout(()=>{
-				set.write("logWeekSlot"+set.def.dash.slot,euc.log.dayS,(euc.dash.trpT-this.log.trpS)+( (set.read("logWeekSlot"+set.def.dash.slot,euc.log.dayS))?set.read("logWeekSlot"+set.def.dash.slot,euc.log.dayS):0));
-				set.write("logYearSlot"+set.def.dash.slot,euc.log.monS,(euc.dash.trpT-this.log.trpS)+( (set.read("logYearSlot"+set.def.dash.slot,euc.log.monS))?set.read("logYearSlot"+set.def.dash.slot,euc.log.monS):0));	
+				if (this.log.trpS) {set.write("logWeekSlot"+set.def.dash.slot,Date().getDate(),(euc.dash.trpT-this.log.trpS)+( (set.read("logWeekSlot"+set.def.dash.slot,Date().getDate()))?set.read("logWeekSlot"+set.def.dash.slot,Date().getDate()):0));
+				set.write("logYearSlot"+set.def.dash.slot,Date().getMonth()+1,(euc.dash.trpT-this.log.trpS)+( (set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()+1))?set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()+1):0));	
+				}
 				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);NRF.setTxPower(set.def.rfTX);
+				this.log.trpS=0;
 			},1000);
 			return;
 		}else {
+			this.log.trpS=0;
 			NRF.setTxPower(4);
 			digitalPulse(D16,1,100); 
 			this.mac=(this.mac)?this.mac:set.read("dash","slot"+set.read("dash","slot")+"Mac");
@@ -78,7 +58,6 @@ global.euc= {
 				this.state="ON";
 				face.go(set.dash[set.def.dash.face],0);
 				this.conn(this.mac);
-				this.log.strt();
 				return;
 			}
 		}
