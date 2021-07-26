@@ -66,9 +66,9 @@ face[0] = {
 			if (this.trpL!=euc.dash.trpL) this.mileage();    
 		//off
 		} else if (euc.state=="OFF")  {
-			setTimeout(function(t){
+			setTimeout(function(){
 				face.go("dashOff",0);
-			},250,this);
+			},250);
 			return;
 		//rest
 			} else  {
