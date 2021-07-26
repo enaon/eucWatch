@@ -34,7 +34,9 @@ face[0] = {
 			if (set.def.dash.batS){	if (this.bat!=euc.dash.bat)	this.batf();}
 			else  if (this.volt!=euc.dash.volt) this.vltf();
 		} else if (euc.state=="OFF")  {
-			face.go("dashOff",0);
+			setTimeout(function(t){
+				face.go("dashOff",0);
+			},250,this);
 			return;
 		//rest
 		} else  {

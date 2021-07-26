@@ -17,13 +17,13 @@ global.euc= {
 		tid:0,
 		trpS:0,
 		hrsS:0,
-		datS:0,
+		dayS:0,
 		monS:0,
 		strt:function(){
 			if (this.tid) {clearInterval(this.tid); this.tid=0;}
 			this.trpS=euc.dash.trpT;
 			this.hrsS=Date().getHours();
-			this.wekS=Date().toString().split(' ')[0];
+			this.dayS=Date().toString().split(' ')[0];
 			this.monS=Date().toString().split(' ')[1];
 			this.tid=setInterval((s)=>{
 				if (s!=euc.dash.trpT){
@@ -49,20 +49,20 @@ global.euc= {
 		this.seq=1;
 		ampL=[];batL=[];almL=[];
 		if (this.state!="OFF" ) {
+			digitalPulse(D16,1,[90,60,90]); 
 			//log
+			set.write("logDaySlot"+set.def.dash.slot,euc.log.hrsS,(euc.dash.trpT-this.log.trpS)+(   (set.read("logDaySlot"+set.def.dash.slot,euc.log.hrsS))?set.read("logDaySlot"+set.def.dash.slot,euc.log.hrsS):0));
 			if (euc.log.tid) {clearInterval(euc.log.tid); euc.log.tid=0;}
-			set.write("logDaySlot"+set.read("dash","slot"),euc.log.hrsS,(euc.dash.trpT-this.log.trpS)+( (set.read("logDaySlot"+set.read("dash","slot"),euc.log.hrsS))?set.read("logDaySlot"+set.read("dash","slot"),euc.log.hrsS):0));
-			set.write("logMonthSlot"+set.read("dash","slot"),euc.log.datS,(euc.dash.trpT-this.log.trpS)+( (set.read("logMonthSlot"+set.read("dash","slot"),euc.log.datS))?set.read("logMonthSlot"+set.read("dash","slot"),euc.log.datS):0));
-			set.write("logYearSlot"+set.read("dash","slot"),euc.log.monS,(euc.dash.trpT-this.log.trpS)+( (set.read("logYearSlot"+set.read("dash","slot"),euc.log.monS))?set.read("logYearSlot"+set.read("dash","slot"),euc.log.monS):0));
-
-			digitalPulse(D16,1,[90,60,90]);  
 			set.def.dash.accE=0;
 			if (!set.def.acc) {acc.off();}
+			this.mac=0;
 			this.state="OFF";
 			this.wri("end");
-			this.mac=0;
-			//save
-			setTimeout(()=>{euc.updateDash(require("Storage").readJSON("dash.json",1).slot);NRF.setTxPower(set.def.rfTX);},500);
+			setTimeout(()=>{
+				set.write("logWeekSlot"+set.def.dash.slot,euc.log.dayS,(euc.dash.trpT-this.log.trpS)+( (set.read("logWeekSlot"+set.def.dash.slot,euc.log.dayS))?set.read("logWeekSlot"+set.def.dash.slot,euc.log.dayS):0));
+				set.write("logYearSlot"+set.def.dash.slot,euc.log.monS,(euc.dash.trpT-this.log.trpS)+( (set.read("logYearSlot"+set.def.dash.slot,euc.log.monS))?set.read("logYearSlot"+set.def.dash.slot,euc.log.monS):0));	
+				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);NRF.setTxPower(set.def.rfTX);
+			},1000);
 			return;
 		}else {
 			NRF.setTxPower(4);
@@ -70,15 +70,15 @@ global.euc= {
 			this.mac=(this.mac)?this.mac:set.read("dash","slot"+set.read("dash","slot")+"Mac");
 			if(!this.mac) {
 				face.go('dashScan',0);return;
-		    }else {
+			}else {
 				eval(require('Storage').read('euc'+require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]));
-				this.state="ON";
-				this.conn(this.mac);
 				if (!set.def.acc) {set.def.dash.accE=1;acc.on();}
 				if (this.dash.bms==undefined) this.dash.bms=1.5;
 				if (this.dash.maker!=="Kingsong"||this.dash.maker!=="inmotionV11") this.dash.spdM=0;
-				setTimeout(()=>{face.go(set.dash[set.def.dash.face],0);},100);
+				this.conn(this.mac);
+        face.go(set.dash[set.def.dash.face]);
 				this.log.strt();
+				return;
 			}
 		}
 	} 
@@ -88,4 +88,4 @@ global.euc= {
 if (Boolean(require("Storage").read('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json'))) { 
 euc.dash=require("Storage").readJSON('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json',1);
 }else euc.dash=require("Storage").readJSON("eucSlot.json",1);
-
+set.def.dash.slot=require("Storage").readJSON("dash.json",1).slot;

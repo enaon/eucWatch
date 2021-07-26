@@ -205,6 +205,7 @@ touchHandler[0]=function(e,x,y){
 			else if( 120<=x && 100<=y ) this.s=4;	//slot4
 			if (face[0].dash["slot"+this.s+"Mac"]){
                 set.write("dash","slot",this.s);
+				set.def.dash.slot=this.s;
 				if (Boolean(require("Storage").read('eucSlot'+this.s+'.json')))
 					euc.dash=require("Storage").readJSON('eucSlot'+this.s+'.json',1);
 				else euc.dash=require("Storage").readJSON("eucSlot.json",1);
@@ -270,6 +271,7 @@ touchHandler[0]=function(e,x,y){
                 set.write("dash", "slot"+set.read("dash","slot")+"Mac"  );
                 set.write("dash","slot"+set.read("dash","slot")+"Maker");
                 set.write("dash","slot"+set.read("dash","slot")+"Name");
+				set.def.dash.slot=0;
 				require("Storage").erase('eucSlot'+set.read("dash","slot")+'.json');
 				euc.dash=require("Storage").readJSON("eucSlot.json",1);				
 			    face[0].sv1=-1;face[0].sv2=-1;face[0].sv3=-1;face[0].sv4=-1;
@@ -284,6 +286,7 @@ touchHandler[0]=function(e,x,y){
 			else if( x<=120 && 100<=y ) this.s=3;   //slot3 
 			else if( 120<=x && 100<=y ) this.s=4;	//slot4
             set.write("dash","slot",this.s);
+			set.def.dash.slot=this.s;
 			if (Boolean(require("Storage").read('eucSlot'+this.s+'.json')))
 				euc.dash=require("Storage").readJSON('eucSlot'+this.s+'.json',1);
 			else euc.dash=require("Storage").readJSON("eucSlot.json",1);

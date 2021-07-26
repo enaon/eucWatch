@@ -4,20 +4,20 @@ face[0] = {
 	g:w.gfx,
 	spd:[],
 	init: function(){
-		if (!euc.dash.maker||!Boolean(require("Storage").read("logDaySlot"+set.read("dash","slot")+".json"))  ) {face.go((face.appPrev=="dashGarage")?"main":"dashGarage",0);return;}
-		this.btn(1,"DAY",25,60,15,1453,1453,0,0,119,50);
-		this.btn(1,"INFO",25,180,15,0,1453,120,0,239,50);
+		if (!euc.dash.maker||!set.def.dash.slot) {face.go((face.appPrev=="dashGarage")?"main":"dashGarage",0);return;}
+		this.btn(1,"DAY",30,60,13,1453,1453,0,0,119,50);
+		this.btn(1,"INFO",30,185,10,0,1453,120,0,239,50);
 		//logDay
-		this.log=require("Storage").readJSON("logDaySlot"+set.read("dash","slot")+".json",1);
+		this.log=require("Storage").readJSON("logDaySlot"+set.def.dash.slot+".json",1);
 		this.ref=Date().getHours();
 		this.pos=this.ref;
-		this.btn(1,"<  Total Today  >",25,120,65,1365,1365,0,50,239,160,"74.54 km",45,120,110);
+		this.btn(1,"<  Total Today  >",25,120,65,1365,1365,0,51,239,175,"74.54 km",45,120,110);
 		this.g.setColor(0,0);
-		this.g.fillRect(0,180,239,239);
+		this.g.fillRect(0,176,239,239);
 		this.g.setColor(1,col("lblue"));
 		for (let i = 0; i < 24; i++) {
 			let h=(this.ref-i<0)?24+(this.ref-i):this.ref-i;
-			if (this.log[h]) w.gfx.fillRect(237-(i*10),(this.log[h])?233-this.log[h]:233, 237-((i*10)+8),233);		
+			if (this.log[h]) w.gfx.fillRect(237-(i*10),(this.log[h])?239-this.log[h]:239, 237-((i*10)+8),239);		
 			this.g.flip(); 
 		}
 	},

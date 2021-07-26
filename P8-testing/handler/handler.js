@@ -183,8 +183,8 @@ function ccon(l){
 		var gb="\x20\x03";
 		 if (l.startsWith(loa)) {
 			Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
-			print("OK\n")
-			require("Storage").write("devmode","loader")
+			//print("OK\n");
+			//require("Storage").write("devmode","loader");
 			return; 
 		}else {
 		if (set.def.cli) {
@@ -373,7 +373,7 @@ function buttonHandler(s){
 				face.go(face.appCurr,to);
 			}
 		}
-	}else if (global.euc&&euc.state==="READY"&&euc.dash.horn===1) {euc.wri("hornOff");return;
+	}else if (this.press&&global.euc&&euc.state==="READY"&&euc.dash.horn===1) {euc.wri("hornOff");return;
 	}else face.off();
 }
 btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
