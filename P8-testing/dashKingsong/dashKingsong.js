@@ -7,6 +7,7 @@ face[0] = {
  		//if (!face.appPrev.startsWith("dash")||face.appPrev.startsWith("dash_")) this.g.clear();
 		this.g.setColor(0,0);
 		this.g.fillRect(0,98,239,99);
+        this.g.flip();	
 		this.g.fillRect(120,0,121,195);
         this.g.flip();	
         this.g.setColor(0,0);
