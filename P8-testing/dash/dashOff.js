@@ -70,8 +70,10 @@ face[0] = {
 		this.g.fillRect(0,51,239,175);
 		this.g.setColor(1,4095);
 		this.g.setFont("Vector",50);	
-		this.g.drawString(txt1,125-(this.g.stringWidth(txt1)/2),70); 
+		let size=this.g.stringWidth(txt1);
+		this.g.drawString(txt1,110-(this.g.stringWidth(txt1)/2),70); 
 		this.g.setFont("Vector",28);	
+		this.g.drawString((set.def.dash.mph)?" mi":" km",130+(size/2)-(this.g.stringWidth((set.def.dash.mph)?" mi":" km")/2),85);
 		this.g.drawString(txt2,120-(this.g.stringWidth(txt2)/2),137);
 		this.g.flip();
     },
