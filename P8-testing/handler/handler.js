@@ -190,8 +190,8 @@ function ccon(l){
 		if (set.def.cli) {
 			if (l.startsWith(cli)) {
 				set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
-				print("Welcome.\n** Working mode **\nUse devmode (Settings-Info-long press on Restart) for uploading files."); 
-				handleInfoEvent({"src":"BT","title":"IDE","body":"Connected"});
+				//print("Welcome.\n** Working mode **\nUse devmode (Settings-Info-long press on Restart) for uploading files."); 
+				//handleInfoEvent({"src":"BT","title":"IDE","body":"Connected"});
 			}
 		}
 		if (set.def.gb) {

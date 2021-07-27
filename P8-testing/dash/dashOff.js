@@ -4,37 +4,22 @@ face[0] = {
 	g:w.gfx,
 	spd:[],
 	init: function(){
-		if (!euc.dash.maker||!set.def.dash.slot||!Boolean(require("Storage").read("logYearSlot"+set.def.dash.slot+".json"))) {face.go((face.appPrev=="dashGarage")?"main":"dashGarage",0);return;}
+		this.log=require("Storage").readJSON("logDaySlot"+set.def.dash.slot+".json",1);
+		if (!euc.dash.maker||!set.def.dash.slot||!this.log) {face.go((face.appPrev=="dashGarage")?"main":"dashGarage",0);return;}
+		//print("this.log",this.log);
+		this.rowL=0;
+		this.posL=0;
+		this.ref=Date().getHours();
+		this.len=24;
+		this.pos=this.ref;
+		this.disp=0;
 		this.btn(1,"DAY",30,60,13,1453,1453,0,0,119,50);
 		this.btn(1,"INFO",30,185,10,0,1453,120,0,239,50);
-    this.rowL=0;
-    this.posL=0;
-		//logDay
-		this.log=require("Storage").readJSON("logDaySlot"+set.def.dash.slot+".json",1);
-		this.ref=Date().getHours();
-		this.pos=this.ref;
-		this.btn(1,"<  Total Today  >",25,120,65,1365,1365,0,51,239,175);
-		this.scale=0;
- 		this.totD=0;
-		for (let i = 0; i < 24; i++) {
-			if (this.log[i]) {
-          this.totD=this.totD+this.log[i];
-          if (this.scale<this.log[i] ) this.scale=this.log[i];
-      }
-		}
- 		this.btn(1,"<  Total Today  >",25,120,65,1365,1365,0,51,239,175,this.totD.toFixed(2)+" km",45,120,110);
-		this.scale=60/this.scale;		
-		this.g.setColor(0,0);
-		this.g.fillRect(0,176,239,239);
-    this.g.setColor(1,col("lblue"));
-    for (let i = 0; i < 24; i++) {
-			let h=(this.ref-i<0)?24+(this.ref-i):this.ref-i;
-			if (this.log[h]) {
-				this.g.fillRect(239-(i*10),(this.log[h])?239-(this.log[h]*this.scale):239, 239-((i*10)+8),239);		
-				this.g.flip(); 
-			}
-		}
-    //this.g.flip(); 
+		//this.btn(1,"<  Total Today  >",25,120,65,1365,1365,0,51,239,175);
+		this.sc();
+		this.btn(1,face[0].totD.toFixed(2)+" km",45,120,80,1365,1365,0,51,239,175,"<  Total   >",25,120,140);
+		this.lg();
+		this.id=["12:00-01:00 AM","1:00-2:00 AM","2:00-3:00 AM","3:00-4:00 AM","4:00-5:00 AM","5:00-6:00 AM","6:00-7:00 AM","7:00-8:00 AM","8:00-9:00 AM","9:00-10:00 AM","10:00-11:00 AM","11:00-11:59 AM","12:00-01:00 PM","1:00-2:00 PM","2:00-3:00 PM","3:00-4:00 PM","4:00-5:00 PM","5:00-6:00 PM","6:00-7:00 PM","7:00-8:00 PM","8:00-9:00 PM","9:00-10:00 PM","10:00-11:00 PM","11:00-11:59 PM"];
 	},
 	show : function(o){
 		if (!this.run) return;
@@ -44,6 +29,30 @@ face[0] = {
 			t.show();
 		},150,this);
 	},
+	sc:function(){
+	 		this.totD=0;
+			this.scale=0;
+			for (let i = 0; i < this.len; i++) {
+				if (this.log[i]) {
+					this.totD=this.totD+this.log[i];
+					if (this.scale<this.log[i] ) this.scale=this.log[i];
+				}
+			}
+			this.scale=60/this.scale;		
+			return this.scale;
+	},
+	lg: function(){
+		this.g.setColor(0,0);
+		this.g.fillRect(0,176,239,239);
+		this.g.setColor(1,col("lblue"));
+		for (let i = 0; i < this.len; i++) {
+   		let h=(this.ref-i<0)?this.len+(this.ref-i):this.ref-i;
+			if (this.log[h]) {
+				this.g.fillRect(239-(i*(240/this.len)),(this.log[h])?239-(this.log[h]*this.scale):239, 239-((i*(240/this.len))+((240/this.len)-2)),239);		
+				this.g.flip(); 
+			}
+		}
+    },
     btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
 		this.g.setColor(0,(bt)?clr1:clr0);
 		this.g.fillRect(rx1,ry1,rx2,ry2);
@@ -54,9 +63,9 @@ face[0] = {
 		this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);}
 		this.g.flip();
     },
-  sel: function(txt1,txt2){
+	sel: function(txt1,txt2){
 		this.g.setColor(0,1365);
-		this.g.fillRect(0,51,239,175);
+		this.g.fillRect(0,51,239,172);
 		this.g.setColor(1,4095);
 		this.g.setFont("Vector",50);	
 		this.g.drawString(txt1,120-(this.g.stringWidth(txt1)/2),70); 
@@ -65,24 +74,24 @@ face[0] = {
 		this.g.flip();
     },
 	ind: function(pos){
-		pos=((pos-1)*10)+1;
-		print(pos,this.pos,this.ref);
+		pos=(((pos-1)*(240/this.len))+1);
+		//print(pos,this.pos,this.len,this.ref);
 		this.g.setColor(0,0);
 		this.g.setColor(1,col("yellow"));
-		this.g.fillRect(pos,(this.log[this.pos])?239-(this.log[this.pos]*this.scale):239,pos +8,239);
+		this.g.fillRect(pos,(this.log[this.pos])?239-(this.log[this.pos]*this.scale):239,pos+((240/this.len)-2),239);
 		this.g.flip(); 
 		if (this.rowL){
 			this.g.setColor(1,col("lblue"));
-			this.g.fillRect(this.rowL,(this.log[this.posL])?239-(this.log[this.posL]*this.scale):239,this.rowL+8,239);
+			this.g.fillRect(this.rowL,(this.log[this.posL])?239-(this.log[this.posL]*this.scale):239,this.rowL+((240/this.len)-2),239);
 			this.g.flip(); 
 		}
 		this.rowL=pos;
 		this.posL=this.pos;
 		pos=pos-1;
-		this.g.setColor(0,0);
-		this.g.fillRect(0,175,239,180);
+		this.g.setColor(0,1365);
+		this.g.fillRect(0,172,239,175);
 		this.g.setColor(1,4080);
-		this.g.fillRect(pos,175,pos+10,180);
+		this.g.fillRect(pos,172,pos+(240/this.len),175);
 		this.g.flip();
     },
 	ntfy: function(txt1,txt0,size,clr,bt){
@@ -101,7 +110,6 @@ face[0] = {
 			t.g.setFont("Vector",20);
 			t.g.drawString(euc.dash.maker,120-(t.g.stringWidth(euc.dash.maker)/2),217); 
 			t.g.flip();
-
 		},1000,this);
     },
 	tid:-1,
@@ -142,36 +150,74 @@ touchHandler[0]=function(e,x,y){
 	case 5: //tap event
 		if (50 < y) {
 			let i=0;
-			print("ref :",face[0].ref);
+			digitalPulse(D16,1,[30,50,30]);
+			//print("ref :",face[0].ref);
 			if (face[0].log[face[0].ref]&&!face[0].once){
-				print("once");
+				//print("once");
 				face[0].once=1;
 				face[0].pos=face[0].ref;
 			}else if  ( 120 < x ) {
 				face[0].pos++;
 				while (!face[0].log[face[0].pos]) {
-					print("i",i);
+					//print("i",i);
  					face[0].pos++;
 					i++;
-					if (24<i) return;
-					if (24<face[0].pos) face[0].pos=0;
+					if (face[0].len<i) return;
+					if (face[0].len<face[0].pos) face[0].pos=0;
 				}
 			}else if ( x < 120 ){
  				face[0].pos--;
 				while (!face[0].log[face[0].pos]) {
  					face[0].pos--;
-					print("i",i);
-					if (face[0].pos< 0) face[0].pos=23;
+					//print("i",i);
+					if (face[0].pos< 0) face[0].pos=face[0].len-1;
 					i++;
-					if (24<i) return;
+					if (face[0].len<i) return;
 				}
 			}
-			print("position :",(face[0].pos<=face[0].ref)?24-(face[0].ref-face[0].pos):face[0].pos-face[0].ref);
-			face[0].ind((face[0].pos<=face[0].ref)?24-(face[0].ref-face[0].pos):face[0].pos-face[0].ref);
-			face[0].sel((face[0].log[face[0].pos]*((set.def.dash.mph)?0.625:1)).toFixed(2)+((set.def.dash.mph)?" mi":" km") , ((face[0].pos<=face[0].ref)?"":"Yday ")+face[0].pos+"-"+(face[0].pos+1)+((face[0].pos>12)?" PM":" AM"));
-			digitalPulse(D16,1,[30,50,30]);
-		}else 
-			digitalPulse(D16,1,40);
+			face[0].sel((face[0].log[face[0].pos]*((set.def.dash.mph)?0.625:1)).toFixed((face[0].page)?1:2)+((set.def.dash.mph)?" mi":" km") , face[0].id[face[0].pos].toUpperCase());
+			face[0].ind((face[0].pos<=face[0].ref)?face[0].len-(face[0].ref-face[0].pos):face[0].pos-face[0].ref);
+		}else {
+			if  ( 120 < x ) { //info
+				digitalPulse(D16,1,40);
+			}else{ //day/week/month/year
+				digitalPulse(D16,1,[30,50,30]);
+				face[0].once=0;
+				face[0].rowL=0;
+				if (!face[0].page){
+					face[0].page=1;
+					face[0].len=7;
+					face[0].ref=Date().getDay();
+					face[0].pos=face[0].ref;
+					face[0].btn(1,"WEEK",30,60,13,1453,1453,0,0,119,50);
+					face[0].log=require("Storage").readJSON("logWeekSlot"+set.def.dash.slot+".json",1);
+					face[0].id=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+					face[0].id[face[0].ref]="Today";
+				}else if (face[0].page==1){
+					face[0].page=2;
+					face[0].len=12;
+					face[0].ref=Date().getMonth();
+					face[0].pos=face[0].ref;
+					face[0].btn(1,"YEAR",30,60,13,1453,1453,0,0,119,50);
+					face[0].log=require("Storage").readJSON("logMonthSlot"+set.def.dash.slot+".json",1);
+					face[0].id=["January","February","March","April","May","June","July","August","September","October","November","December"];
+					face[0].id[face[0].ref]="running Month";
+				}else{
+					face[0].page=0;
+					face[0].len=24;
+					face[0].ref=Date().getHours();
+					face[0].pos=face[0].ref;
+					face[0].btn(1,"DAY",30,60,13,1453,1453,0,0,119,50);
+					face[0].log=require("Storage").readJSON("logDaySlot"+set.def.dash.slot+".json",1);
+					FACE[0].id=["12:00-01:00 AM","1:00-2:00 AM","2:00-3:00 AM","3:00-4:00 AM","4:00-5:00 AM","5:00-6:00 AM","6:00-7:00 AM","7:00-8:00 AM","8:00-9:00 AM","9:00-10:00 AM","10:00-11:00 AM","11:00-11:59 AM","12:00-01:00 PM","1:00-2:00 PM","2:00-3:00 PM","3:00-4:00 PM","4:00-5:00 PM","5:00-6:00 PM","6:00-7:00 PM","7:00-8:00 PM","8:00-9:00 PM","9:00-10:00 PM","10:00-11:00 PM","11:00-11:59 PM"];
+					face[0].id[face[0].ref]="Now";
+
+				}
+				face[0].sc();
+				face[0].btn(1,face[0].totD.toFixed(2)+" km",45,120,80,1365,1365,0,51,239,175,"<  Total   >",25,120,140);
+				face[0].lg();
+			}			
+		}
 		this.timeout();
 		break;
     case 1: //slide down event
