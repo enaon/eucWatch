@@ -1,9 +1,3 @@
-//	//this.maker=require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'];
-//	//this.mac=require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Mac'];
-
-//day={1:22,2:1,3:2,10:3};
-//set.write("logDay",Date().getHours(),{3:5,4:10,10:10})
-//set.read("logDay","day")[6]
 global.euc= {
 	state: "OFF",
 	reconnect:0,
@@ -41,7 +35,9 @@ global.euc= {
 				}
 				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);NRF.setTxPower(set.def.rfTX);
 				this.log.trpS=0;
+				if (face.appCurr!=="dashOff") face.go('dashOff',0);
 			},1000);
+			
 			return;
 		}else {
 			this.log.trpS=0;

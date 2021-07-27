@@ -81,7 +81,7 @@ face[0] = {
 		this.g.setColor(1,col("yellow"));
 		this.g.fillRect(pos,(this.log[this.pos])?239-(this.log[this.pos]*this.scale):239,pos+((240/this.len)-2),239);
 		this.g.flip(); 
-		if (this.rowL){
+		if (this.rowL&&this.rowL!==pos){
 			this.g.setColor(1,col("lblue"));
 			this.g.fillRect(this.rowL,(this.log[this.posL])?239-(this.log[this.posL]*this.scale):239,this.rowL+((240/this.len)-2),239);
 			this.g.flip(); 
@@ -176,6 +176,7 @@ touchHandler[0]=function(e,x,y){
 					if (face[0].len<i) return;
 				}
 			}
+			print(face[0].pos);
 			face[0].sel((face[0].log[face[0].pos]*((set.def.dash.mph)?0.625:1)).toFixed((face[0].page)?(face[0].page==1)?1:0:2)+((set.def.dash.mph)?" mi":" km") , face[0].id[face[0].pos].toUpperCase());
 			face[0].ind((face[0].pos<=face[0].ref)?face[0].len-(face[0].ref-face[0].pos):face[0].pos-face[0].ref);
 		}else {
