@@ -37,7 +37,7 @@ global.euc= {
 			setTimeout(()=>{
 				if (this.log.trpS&& 0<this.dash.trpT-this.log.trpS ) {
 					set.write("logWeekSlot"+set.def.dash.slot,Date().getDay(),(euc.dash.trpT-this.log.trpS)+( (set.read("logWeekSlot"+set.def.dash.slot,Date().getDay()))?set.read("logWeekSlot"+set.def.dash.slot,Date().getDay()):0));
-					set.write("logMonthSlot"+set.def.dash.slot,Date().getMonth(),(euc.dash.trpT-this.log.trpS)+( (set.read("logMonthSlot"+set.def.dash.slot,Date().getMonth()))?set.read("logMonthSlot"+set.def.dash.slot,Date().getMonth()):0));	
+					set.write("logYearSlot"+set.def.dash.slot,Date().getMonth(),(euc.dash.trpT-this.log.trpS)+( (set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()))?set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()):0));	
 				}
 				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);NRF.setTxPower(set.def.rfTX);
 				this.log.trpS=0;

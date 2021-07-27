@@ -670,6 +670,18 @@ cron={
 				if (euc.log.trpS) set.write("logDaySlot"+set.def.dash.slot,x-1,((euc.log.trpS)?euc.dash.trpT-euc.log.trpS:0)+((v)?v:0));
 				set.write("logDaySlot"+set.def.dash.slot,x,0); 
 				euc.log.trpS=0;
+			},
+			day:x=>{
+				let v=set.read("logWeekSlot"+set.def.dash.slot,x-1);
+				if (euc.log.trpS) set.write("logDaySlot"+set.def.dash.slot,x-1,((euc.log.trpS)?euc.dash.trpT-euc.log.trpS:0)+((v)?v:0));
+				set.write("logDaySlot"+set.def.dash.slot,x,0); 
+				euc.log.trpS=0;
+			},
+			month:x=>{
+				let v=set.read("logYearSlot"+set.def.dash.slot,x-1);
+				if (euc.log.trpS) set.write("logDaySlot"+set.def.dash.slot,x-1,((euc.log.trpS)?euc.dash.trpT-euc.log.trpS:0)+((v)?v:0));
+				set.write("logDaySlot"+set.def.dash.slot,x,0); 
+				euc.log.trpS=0;
 			}
 		}
 	}

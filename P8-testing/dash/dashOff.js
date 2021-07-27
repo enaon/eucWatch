@@ -17,7 +17,7 @@ face[0] = {
 		this.btn(1,"INFO",30,185,10,0,1453,120,0,239,50);
 		//this.btn(1,"<  Total Today  >",25,120,65,1365,1365,0,51,239,175);
 		this.sc();
-		this.btn(1,face[0].totD.toFixed(2)+" km",45,120,80,1365,1365,0,51,239,175,"<  Total   >",25,120,140);
+		this.btn(1,(face[0].totD*((set.def.dash.mph)?0.625:1)).toFixed((face[0].page)?(face[0].page==1)?1:0:2)+((set.def.dash.mph)?" mi":" km"),50,120,70,1365,1365,0,51,239,175,"<  TOTAL   >",25,120,145);
 		this.lg();
 		this.id=["12:00-01:00 AM","1:00-2:00 AM","2:00-3:00 AM","3:00-4:00 AM","4:00-5:00 AM","5:00-6:00 AM","6:00-7:00 AM","7:00-8:00 AM","8:00-9:00 AM","9:00-10:00 AM","10:00-11:00 AM","11:00-11:59 AM","12:00-01:00 PM","1:00-2:00 PM","2:00-3:00 PM","3:00-4:00 PM","4:00-5:00 PM","5:00-6:00 PM","6:00-7:00 PM","7:00-8:00 PM","8:00-9:00 PM","9:00-10:00 PM","10:00-11:00 PM","11:00-11:59 PM"];
 	},
@@ -69,7 +69,7 @@ face[0] = {
 		this.g.setColor(1,4095);
 		this.g.setFont("Vector",50);	
 		this.g.drawString(txt1,120-(this.g.stringWidth(txt1)/2),70); 
- 		this.g.setFont("Vector",23);	
+		this.g.setFont("Vector",25);	
 		this.g.drawString(txt2,120-(this.g.stringWidth(txt2)/2),145);
 		this.g.flip();
     },
@@ -199,7 +199,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].ref=Date().getMonth();
 					face[0].pos=face[0].ref;
 					face[0].btn(1,"YEAR",30,60,13,1453,1453,0,0,119,50);
-					face[0].log=require("Storage").readJSON("logMonthSlot"+set.def.dash.slot+".json",1);
+					face[0].log=require("Storage").readJSON("logYearSlot"+set.def.dash.slot+".json",1);
 					face[0].id=["January","February","March","April","May","June","July","August","September","October","November","December"];
 					face[0].id[face[0].ref]="running Month";
 				}else{
@@ -214,7 +214,7 @@ touchHandler[0]=function(e,x,y){
 
 				}
 				face[0].sc();
-				face[0].btn(1,face[0].totD.toFixed(2)+" km",45,120,80,1365,1365,0,51,239,175,"<  Total   >",25,120,140);
+				face[0].btn(1,(face[0].totD*((set.def.dash.mph)?0.625:1)).toFixed((face[0].page)?(face[0].page==1)?1:0:2)+((set.def.dash.mph)?" mi":" km"),50,120,70,1365,1365,0,51,239,175,"<  TOTAL   >",25,120,145);
 				face[0].lg();
 			}			
 		}
