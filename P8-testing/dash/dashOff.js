@@ -4,30 +4,37 @@ face[0] = {
 	g:w.gfx,
 	spd:[],
 	init: function(){
-		if (!euc.dash.maker||!set.def.dash.slot) {face.go((face.appPrev=="dashGarage")?"main":"dashGarage",0);return;}
+		if (!euc.dash.maker||!set.def.dash.slot||!Boolean(require("Storage").read("logYearSlot"+set.def.dash.slot+".json"))) {face.go((face.appPrev=="dashGarage")?"main":"dashGarage",0);return;}
 		this.btn(1,"DAY",30,60,13,1453,1453,0,0,119,50);
 		this.btn(1,"INFO",30,185,10,0,1453,120,0,239,50);
+    this.rowL=0;
+    this.posL=0;
 		//logDay
 		this.log=require("Storage").readJSON("logDaySlot"+set.def.dash.slot+".json",1);
 		this.ref=Date().getHours();
 		this.pos=this.ref;
-		//this.g.setColor(0,1365);
-		//this.g.fillRect(0,51,239,175);
-		//this.g.flip(); 
 		this.btn(1,"<  Total Today  >",25,120,65,1365,1365,0,51,239,175);
+		this.scale=0;
+ 		this.totD=0;
+		for (let i = 0; i < 24; i++) {
+			if (this.log[i]) {
+          this.totD=this.totD+this.log[i];
+          if (this.scale<this.log[i] ) this.scale=this.log[i];
+      }
+		}
+ 		this.btn(1,"<  Total Today  >",25,120,65,1365,1365,0,51,239,175,this.totD.toFixed(2)+" km",45,120,110);
+		this.scale=60/this.scale;		
 		this.g.setColor(0,0);
 		this.g.fillRect(0,176,239,239);
-		this.g.setColor(1,col("lblue"));
-		this.totD=0;
-		for (let i = 0; i < 24; i++) {
+    this.g.setColor(1,col("lblue"));
+    for (let i = 0; i < 24; i++) {
 			let h=(this.ref-i<0)?24+(this.ref-i):this.ref-i;
 			if (this.log[h]) {
-				w.gfx.fillRect(237-(i*10),(this.log[h])?239-this.log[h]:239, 237-((i*10)+8),239);		
+				this.g.fillRect(239-(i*10),(this.log[h])?239-(this.log[h]*this.scale):239, 239-((i*10)+8),239);		
 				this.g.flip(); 
-				this.totD=this.totD+this.log[h];
 			}
 		}
-		this.btn(1,"<  Total Today  >",25,120,65,1365,1365,0,51,239,175,this.totD.toFixed(2)+" km",45,120,110);
+    //this.g.flip(); 
 	},
 	show : function(o){
 		if (!this.run) return;
@@ -57,8 +64,21 @@ face[0] = {
 		this.g.drawString(txt2,120-(this.g.stringWidth(txt2)/2),145);
 		this.g.flip();
     },
-  ind: function(pos){
-    pos=((pos-1)*10)-2;
+	ind: function(pos){
+		pos=((pos-1)*10)+1;
+		print(pos,this.pos,this.ref);
+		this.g.setColor(0,0);
+		this.g.setColor(1,col("yellow"));
+		this.g.fillRect(pos,(this.log[this.pos])?239-(this.log[this.pos]*this.scale):239,pos +8,239);
+		this.g.flip(); 
+		if (this.rowL){
+			this.g.setColor(1,col("lblue"));
+			this.g.fillRect(this.rowL,(this.log[this.posL])?239-(this.log[this.posL]*this.scale):239,this.rowL+8,239);
+			this.g.flip(); 
+		}
+		this.rowL=pos;
+		this.posL=this.pos;
+		pos=pos-1;
 		this.g.setColor(0,0);
 		this.g.fillRect(0,175,239,180);
 		this.g.setColor(1,4080);

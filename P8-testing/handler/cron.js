@@ -17,10 +17,9 @@ cron={
 	task:{
     euc:{
 		Hour:x=>{
-			print(x);
 			let v=set.read("logDaySlot"+set.def.dash.slot,x-1);
 			set.write("logDaySlot"+set.def.dash.slot,x-1,((euc.log.trpS)?euc.dash.trpT-euc.log.trpS:0)+((v)?v:0));
-			set.write("logDaySlot"+set.def.dash.slot,x,0);               
+			set.write("logDaySlot"+set.def.dash.slot,x,0); 
 		}
     }
   }

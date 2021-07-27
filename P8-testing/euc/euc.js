@@ -28,15 +28,16 @@ global.euc= {
 		if (this.state!="OFF" ) {
 			digitalPulse(D16,1,[90,60,90]); 
 			//log
-			if (this.log.trpS) set.write("logDaySlot"+set.def.dash.slot,Date().getHours(),(this.dash.trpT-this.log.trpS)+((set.read("logDaySlot"+set.def.dash.slot,Date().getHours()))?set.read("logDaySlot"+set.def.dash.slot,Date().getHours()):0));
+			if (this.log.trpS&&this.dash.trpT-this.log.trpS) set.write("logDaySlot"+set.def.dash.slot,Date().getHours(),(this.dash.trpT-this.log.trpS)+((set.read("logDaySlot"+set.def.dash.slot,Date().getHours()))?set.read("logDaySlot"+set.def.dash.slot,Date().getHours()):0));
 			set.def.dash.accE=0;
 			if (!set.def.acc) {acc.off();}
 			this.mac=0;
 			this.state="OFF";
 			this.wri("end");
 			setTimeout(()=>{
-				if (this.log.trpS) {set.write("logWeekSlot"+set.def.dash.slot,Date().getDate(),(euc.dash.trpT-this.log.trpS)+( (set.read("logWeekSlot"+set.def.dash.slot,Date().getDate()))?set.read("logWeekSlot"+set.def.dash.slot,Date().getDate()):0));
-				set.write("logYearSlot"+set.def.dash.slot,Date().getMonth()+1,(euc.dash.trpT-this.log.trpS)+( (set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()+1))?set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()+1):0));	
+				if (this.log.trpS&&this.dash.trpT-this.log.trpS) {
+					set.write("logWeekSlot"+set.def.dash.slot,Date().getDate(),(euc.dash.trpT-this.log.trpS)+( (set.read("logWeekSlot"+set.def.dash.slot,Date().getDate()))?set.read("logWeekSlot"+set.def.dash.slot,Date().getDate()):0));
+					set.write("logYearSlot"+set.def.dash.slot,Date().getMonth()+1,(euc.dash.trpT-this.log.trpS)+( (set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()+1))?set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()+1):0));	
 				}
 				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);NRF.setTxPower(set.def.rfTX);
 				this.log.trpS=0;
