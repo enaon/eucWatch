@@ -5,17 +5,10 @@ face[0] = {
 	init: function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
         //if (!face.appPrev.startsWith("dash")) this.g.clear();
-        	   //clear
 		this.g.setColor(0,0);
-		this.g.drawLine (0,98,239,98);
-		this.g.drawLine (0,99,239,99);
+		this.g.fillRect(0,98,239,99);
+		this.g.fillRect(120,0,121,195);
         this.g.flip();
-		this.g.drawLine (120,0,120,195);
-        this.g.drawLine (121,0,121,195);
-        this.g.flip();	
-		
-		
-		
 		this.g.setColor(0,0);
 		this.g.fillRect(0,205,239,239);
 		this.g.setColor(1,col("white"));
