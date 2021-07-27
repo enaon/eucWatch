@@ -201,7 +201,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].btn(1,"YEAR",30,60,13,1453,1453,0,0,119,50);
 					face[0].log=require("Storage").readJSON("logYearSlot"+set.def.dash.slot+".json",1);
 					face[0].id=["January","February","March","April","May","June","July","August","September","October","November","December"];
-					face[0].id[face[0].ref]="running Month";
+					//face[0].id[face[0].ref]="running Month";
 				}else{
 					face[0].page=0;
 					face[0].len=24;
