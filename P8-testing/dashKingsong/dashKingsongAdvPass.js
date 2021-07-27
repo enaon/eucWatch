@@ -4,44 +4,44 @@ face[0] = {
 	g:w.gfx,
 	init: function(){
    		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
-		if (!face[5].pass) {
-			face[5].ntfy("EMPTY PASSWORD",20,col("blue1"));
-            setTimeout(()=>{face.go("dashKingsongOpt",0);return;},1000);
-			return;
-		}	
+		//if (!face[5].pass) {
+		//	face[5].ntfy("EMPTY PASSWORD",20,col("blue1"));
+        //    setTimeout(()=>{face.go("dashKingsongOpt",0);return;},1000);
+		//	return;
+		//}	
         //status
         if (euc.dash.pass.length>=4){
-		this.g.setColor(0,col("blue1"));
-		this.g.fillRect(0,0,239,97);
- 		this.g.setColor(1,col("white"));
-   		this.g.setFont("Vector",16);
-		this.g.drawString("WHEEL IS",120-(this.g.stringWidth("WHEEL IS")/2),18); 
-   		this.g.setFont("Vector",26);
-        this.g.drawString("PASS LOCKED",120-(this.g.stringWidth("PASS LOCKED")/2),50); 
-        this.g.flip();
-		//line
-      	this.g.setColor(0,0);
-		this.g.drawLine (0,98,239,98);
-		this.g.drawLine (0,99,239,99);
-        this.g.flip();
-        //change
-		this.g.setColor(0,col("olive"));
-		this.g.fillRect(0,100,239,195);
- 		this.g.setColor(1,col("white"));
-   		this.g.setFont("Vector",16);
-		this.g.drawString("CHANGE",122-(this.g.stringWidth("CHANGE")/2),118); 
-   		this.g.setFont("Vector",26);
-        this.g.drawString("PASS",122-(this.g.stringWidth("PASS")/2),150); 
-        this.g.flip();
+			this.g.setColor(0,col("blue1"));
+			this.g.fillRect(0,0,239,97);
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",16);
+			this.g.drawString("WHEEL IS",120-(this.g.stringWidth("WHEEL IS")/2),18); 
+			this.g.setFont("Vector",26);
+			this.g.drawString("PASS LOCKED",120-(this.g.stringWidth("PASS LOCKED")/2),50); 
+			this.g.flip();
+			//line
+			this.g.setColor(0,0);
+			this.g.drawLine (0,98,239,98);
+			this.g.drawLine (0,99,239,99);
+			this.g.flip();
+			//change
+			this.g.setColor(0,col("olive"));
+			this.g.fillRect(0,100,239,195);
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",16);
+			this.g.drawString("CHANGE",122-(this.g.stringWidth("CHANGE")/2),118); 
+			this.g.setFont("Vector",26);
+			this.g.drawString("PASS",122-(this.g.stringWidth("PASS")/2),150); 
+			this.g.flip();
         }else {
-		this.g.setColor(0,col("olive"));
-		this.g.fillRect(0,0,239,195);
- 		this.g.setColor(1,col("white"));
-   		this.g.setFont("Vector",18);
-		this.g.drawString("WHEEL IS",120-(this.g.stringWidth("WHEEL IS")/2),55); 
-   		this.g.setFont("Vector",30);
-        this.g.drawString("PASS FREE",120-(this.g.stringWidth("PASS FREE")/2),90); 
-        this.g.flip();
+			this.g.setColor(0,col("olive"));
+			this.g.fillRect(0,0,239,195);
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",18);
+			this.g.drawString("WHEEL IS",120-(this.g.stringWidth("WHEEL IS")/2),55); 
+			this.g.setFont("Vector",30);
+			this.g.drawString("PASS FREE",120-(this.g.stringWidth("PASS FREE")/2),90); 
+			this.g.flip();
         }
         //info
         this.g.setColor(0,0);
