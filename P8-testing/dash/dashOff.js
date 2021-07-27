@@ -18,8 +18,7 @@ face[0] = {
 		//this.btn(1,"<  Total Today  >",25,120,65,1365,1365,0,51,239,175);
 		this.sc();
 		//this.btn(1,(face[0].totD*((set.def.dash.mph)?0.625:1)).toFixed((face[0].page)?(face[0].page==1)?1:0:2)+((set.def.dash.mph)?" mi":" km"),50,125,70,1365,1365,0,51,239,175,"<  TOTAL   >",28,120,137);
-		this.btn(1,(face[0].totD*((set.def.dash.mph)?0.625:1)).toFixed,50,120,70,1365,1365,0,51,239,175,"<  TOTAL   >",28,120,137);
-
+		this.sel((this.totD*((set.def.dash.mph)?0.625:1)).toFixed((this.page)?(this.page==1)?1:0:2),"<   TOTAL   >");
 		this.lg();
 		this.id=(set.def.hr24)?["00:00-01:00","01:00-02:00","02:00-03:00","03:00-04:00","04:00-05:00","05:00-06:00","06:00-07:00","07:00-08:00","08:00-09:00","09:00-10:00","10:00-11:00","11:00-12:00","12:00-13:00","13:00-14:00","14:00-15:00","15:00-16:00","16:00-17:00","17:00-18:00","18:00-19:00","19:00-20:00","20:00-21:00","21:00-22:00","22:00-23:00","23:00-00:00"]
 		:["12:00-1:00 AM","1:00-2:00 AM","2:00-3:00 AM","3:00-4:00 AM","4:00-5:00 AM","5:00-6:00 AM","6:00-7:00 AM","7:00-8:00 AM","8:00-9:00 AM","9:00-10:00 AM","10:00-11:00 AM","11:00-11:59 AM","12:00-1:00 PM","1:00-2:00 PM","2:00-3:00 PM","3:00-4:00 PM","4:00-5:00 PM","5:00-6:00 PM","6:00-7:00 PM","7:00-8:00 PM","8:00-9:00 PM","9:00-10:00 PM","10:00-11:00 PM","11:00-11:59 PM"];
@@ -68,7 +67,7 @@ face[0] = {
     },
 	sel: function(txt1,txt2){
 		this.g.setColor(0,1365);
-		this.g.fillRect(0,51,239,172);
+		this.g.fillRect(0,51,239,175);
 		this.g.setColor(1,4095);
 		this.g.setFont("Vector",50);	
 		this.g.drawString(txt1,125-(this.g.stringWidth(txt1)/2),70); 
@@ -91,10 +90,10 @@ face[0] = {
 		this.rowL=pos;
 		this.posL=this.pos;
 		pos=pos-1;
-		this.g.setColor(0,1365);
-		this.g.fillRect(0,172,239,175);
+		this.g.setColor(0,0);
+		this.g.fillRect(0,176,239,178);
 		this.g.setColor(1,4080);
-		this.g.fillRect(pos,172,pos+(240/this.len),175);
+		this.g.fillRect(pos,176,pos+(240/this.len),178);
 		this.g.flip();
     },
 	ntfy: function(txt1,txt0,size,clr,bt){
@@ -178,7 +177,7 @@ touchHandler[0]=function(e,x,y){
 					if (face[0].len<i) return;
 				}
 			}
-			face[0].sel((face[0].log[face[0].pos]*((set.def.dash.mph)?0.625:1)).toFixed, face[0].id[face[0].pos].toUpperCase());
+			face[0].sel((face[0].log[face[0].pos]*((set.def.dash.mph)?0.625:1)).toFixed((face[0].page)?(face[0].page==1)?1:0:2), face[0].id[face[0].pos].toUpperCase());
 			//face[0].sel((face[0].log[face[0].pos]*((set.def.dash.mph)?0.625:1)).toFixed((face[0].page)?(face[0].page==1)?1:0:2)+((set.def.dash.mph)?" mi":" km") , face[0].id[face[0].pos].toUpperCase());
 			face[0].ind((face[0].pos<=face[0].ref)?face[0].len-(face[0].ref-face[0].pos):face[0].pos-face[0].ref);
 		}else {
@@ -219,7 +218,8 @@ touchHandler[0]=function(e,x,y){
 
 				}
 				face[0].sc();
-				this.face[0](1,(face[0].totD*((set.def.dash.mph)?0.625:1)).toFixed,50,120,70,1365,1365,0,51,239,175,"<  TOTAL   >",28,120,137);
+				face[0].sel((face[0].totD*((set.def.dash.mph)?0.625:1)).toFixed((face[0].page)?(face[0].page==1)?1:0:2),"<   TOTAL   >");
+				//face[0].btn(1,(face[0].totD*((set.def.dash.mph)?0.625:1)).toFixed((face[0].page)?(face[0].page==1)?1:0:2),50,120,70,1365,1365,0,51,239,175,"<  TOTAL   >",28,120,137);
 //				face[0].btn(1,(face[0].totD*((set.def.dash.mph)?0.625:1)).toFixed((face[0].page)?(face[0].page==1)?1:0:2)+((set.def.dash.mph)?" mi":" km"),50,125,70,1365,1365,0,51,239,175,"<  TOTAL   >",28,120,137);
 				face[0].lg();
 			}			
