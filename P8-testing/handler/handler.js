@@ -659,13 +659,18 @@ if (set.def.acctype==="BMA421"){
 cron={
 	event:{
 		//date:()=>{ setTimeout(() =>{ cron.emit('dateChange',Date().getDate());cron.event.date();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate()+1)-Date()));},
-		hour:()=>{setTimeout(() =>{ cron.emit('hour'  ,Date().getHours());  cron.event.date();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate(),Date().getHours()+1)-Date()));},
-		min: ()=>{setTimeout(() =>{ cron.emit('mine',Date().getMinutes());cron.event.min();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate(),Date().getHours(),Date().getMinutes()+1)-Date()));},
+		hour:()=>{setTimeout(() =>{ cron.emit('hour',Date().getHours());cron.event.date();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate(),Date().getHours()+1)-Date()));},
+		min: ()=>{setTimeout(() =>{ cron.emit('min',Date().getMinutes());cron.event.min();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate(),Date().getHours(),Date().getMinutes()+1)-Date()));},
 		sec:()=>{setTimeout(() =>{ cron.emit('sec',Date().getSeconds());cron.event.sec();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate(),Date().getHours(),Date().getMinutes(),Date().getSeconds()+1)-Date()));},
 	},
 	task:{
 		euc:{
 			hour:x=>{
+				if (!Date().getHours()) {
+					cron.emit('day',Date().getDay());
+					if (Date().getDate()==1) cron.emit('month',Date().getMonth());
+				}
+				
 				let v=set.read("logDaySlot"+set.def.dash.slot,x-1);
 				if (euc.log.trpS) set.write("logDaySlot"+set.def.dash.slot,x-1,((euc.log.trpS)?euc.dash.trpT-euc.log.trpS:0)+((v)?v:0));
 				set.write("logDaySlot"+set.def.dash.slot,x,0); 
@@ -673,14 +678,14 @@ cron={
 			},
 			day:x=>{
 				let v=set.read("logWeekSlot"+set.def.dash.slot,x-1);
-				if (euc.log.trpS) set.write("logDaySlot"+set.def.dash.slot,x-1,((euc.log.trpS)?euc.dash.trpT-euc.log.trpS:0)+((v)?v:0));
-				set.write("logDaySlot"+set.def.dash.slot,x,0); 
+				if (euc.log.trpS) set.write("logWeekSlot"+set.def.dash.slot,x-1,((euc.log.trpS)?euc.dash.trpT-euc.log.trpS:0)+((v)?v:0));
+				set.write("logWeekSlot"+set.def.dash.slot,x,0); 
 				euc.log.trpS=0;
 			},
 			month:x=>{
 				let v=set.read("logYearSlot"+set.def.dash.slot,x-1);
-				if (euc.log.trpS) set.write("logDaySlot"+set.def.dash.slot,x-1,((euc.log.trpS)?euc.dash.trpT-euc.log.trpS:0)+((v)?v:0));
-				set.write("logDaySlot"+set.def.dash.slot,x,0); 
+				if (euc.log.trpS) set.write("logYearSlot"+set.def.dash.slot,x-1,((euc.log.trpS)?euc.dash.trpT-euc.log.trpS:0)+((v)?v:0));
+				set.write("logYearSlot"+set.def.dash.slot,x,0); 
 				euc.log.trpS=0;
 			}
 		}
