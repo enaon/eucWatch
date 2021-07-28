@@ -1,6 +1,5 @@
 //dash  Options
-
-	  
+//dash options  
 face[0] = {
 	offms: 8000,
 	g:w.gfx,

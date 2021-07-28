@@ -6,7 +6,6 @@ face[0] = {
 	init: function(){
 		this.log=require("Storage").readJSON("logDaySlot"+set.def.dash.slot+".json",1);
 		if (!euc.dash.maker||!set.def.dash.slot||!this.log) {face.go((face.appPrev=="dashGarage")?"main":"dashGarage",0);return;}
-		//print("this.log",this.log);
 		this.rowL=0;
 		this.posL=0;
 		this.ref=Date().getHours();
@@ -15,9 +14,7 @@ face[0] = {
 		this.disp=0;
 		this.btn(1,"DAY",30,60,13,1453,1453,0,0,119,50);
 		this.btn(1,"INFO",30,185,10,0,1453,120,0,239,50);
-		//this.btn(1,"<  Total Today  >",25,120,65,1365,1365,0,51,239,175);
 		this.sc();
-		//this.btn(1,(face[0].totD*((set.def.dash.mph)?0.625:1)).toFixed((face[0].page)?(face[0].page==1)?1:0:2)+((set.def.dash.mph)?" mi":" km"),50,125,70,1365,1365,0,51,239,175,"<  TOTAL   >",28,120,137);
 		this.sel(this.comf((this.totD*((set.def.dash.mph)?0.625:1)).toFixed((this.page)?(this.page==1)?1:0:2)),"<   TOTAL   >");
 		this.lg();
 		this.id=(set.def.hr24)?["00:00 - 01:00","01:00 - 02:00","02:00 - 03:00","03:00 - 04:00","04:00 - 05:00","05:00 - 06:00","06:00 - 07:00","07:00 - 08:00","08:00 - 09:00","09:00 - 10:00","10:00 - 11:00","11:00 - 12:00","12:00 - 13:00","13:00 - 14:00","14:00 - 15:00","15:00 - 16:00","16:00 - 17:00","17:00 - 18:00","18:00 - 19:00","19:00 - 20:00","20:00 - 21:00","21:00 - 22:00","22:00 - 23:00","23:00 - 00:00"]
@@ -125,7 +122,6 @@ face[0] = {
 	tid:-1,
 	run:false,
 	clear : function(){
-		//if (face.appCurr!="dash_simple" || face.pageCurr!=0) this.g.clear();
 		this.run=false;
 		if (this.tid>=0) clearTimeout(this.tid);
 		this.tid=-1;
@@ -159,17 +155,15 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
 		if (50 < y) {
+		if (face[0].info) {digitalPulse(D16,1,40);return;}
 			let i=0;
 			digitalPulse(D16,1,[30,50,30]);
-			//print("ref :",face[0].ref);
 			if (face[0].log[face[0].ref]&&!face[0].once){
-				//print("once");
 				face[0].once=1;
 				face[0].pos=face[0].ref;
 			}else if  ( 120 < x ) {
 				face[0].pos++;
 				while (!face[0].log[face[0].pos]) {
-					//print("i",i);
  					face[0].pos++;
 					i++;
 					if (face[0].len<i) return;
@@ -179,20 +173,54 @@ touchHandler[0]=function(e,x,y){
  				face[0].pos--;
 				while (!face[0].log[face[0].pos]) {
  					face[0].pos--;
-					//print("i",i);
 					if (face[0].pos< 0) face[0].pos=face[0].len-1;
 					i++;
 					if (face[0].len<i) return;
 				}
 			}
 			face[0].sel(face[0].comf((face[0].log[face[0].pos]*((set.def.dash.mph)?0.625:1)).toFixed((face[0].page)?(face[0].page==1)?1:0:2)), face[0].id[face[0].pos].toUpperCase());
-			//face[0].sel((face[0].log[face[0].pos]*((set.def.dash.mph)?0.625:1)).toFixed((face[0].page)?(face[0].page==1)?1:0:2)+((set.def.dash.mph)?" mi":" km") , face[0].id[face[0].pos].toUpperCase());
 			face[0].ind((face[0].pos<=face[0].ref)?face[0].len-(face[0].ref-face[0].pos):face[0].pos-face[0].ref);
 		}else {
+			digitalPulse(D16,1,[30,50,30]);
 			if  ( 120 < x ) { //info
-				digitalPulse(D16,1,40);
+				face[0].info=1;
+				face[0].btn(1,"INFO",30,185,10,1453,0,120,0,239,50);
+				face[0].btn(1,"DAY",30,60,13,0,0,0,0,119,50);
+				face[0].page=2;	
+				//face[0].btn(1,"Battery:",30,80,60,1365,0,0,51,239,90,euc.dash.bat+" %",30,185,60);
+				//face[0].btn(1,"Top Speed:",30,80,100,1453,0,0,91,239,130,euc.dash.spdM,30,200,100);
+				//face[0].btn(1,"Run Time:",30,80,140,1365,0,0,131,239,170,euc.dash.time,30,185,140);
+				//face[0].btn(1,"Trip Last:",30,80,140,1365,0,0,131,239,170,euc.dash.time,30,185,140);
+				//face[0].btn(1,"Trip Total:",30,80,140,1365,0,0,131,239,170,euc.dash.time,30,185,140);
+				w.gfx.setColor(0,0);
+				w.gfx.fillRect(65,51,239,239); //middle	
+				w.gfx.setColor(1,col("white"));
+				w.gfx.setFontVector(28);
+				w.gfx.drawString(euc.dash.spdM,190-w.gfx.stringWidth(euc.dash.spdM),90);
+				w.gfx.drawString(euc.dash.time,190-w.gfx.stringWidth(euc.dash.time),133); 
+				w.gfx.drawString(euc.dash.trpL,190-w.gfx.stringWidth(euc.dash.trpL),175); 
+				w.gfx.drawString(euc.dash.trpT,190-w.gfx.stringWidth(euc.dash.trpT),217); 
+				w.gfx.flip();	
+				w.gfx.setColor(0,0);
+				w.gfx.fillRect(0,51,74,239); //left	
+				w.gfx.setColor(1,col("lgray"));
+				w.gfx.setFontVector(24);
+				w.gfx.drawString("TOP",5,93);
+				w.gfx.drawString("RUN",5,136);
+				w.gfx.drawString("TRP",5,178);
+				w.gfx.drawString("TOT",5,220);
+				w.gfx.flip();
+				//w.gfx.setColor(0,0);
+				//w.gfx.fillRect(200,56,239,239); //right	
+				w.gfx.setColor(1,col("lgray"));
+				w.gfx.drawString("kph",205,93);
+				w.gfx.drawString("Min",205,136);
+				w.gfx.drawString("Km",205,178);
+				w.gfx.drawString("Km",205,220);
+				w.gfx.flip();
 			}else{ //day/week/month/year
-				digitalPulse(D16,1,[30,50,30]);
+				face[0].info=0;
+				face[0].btn(1,"INFO",30,185,10,0,0,120,0,239,50);
 				face[0].once=0;
 				face[0].rowL=0;
 				if (!face[0].page){
@@ -223,12 +251,9 @@ touchHandler[0]=function(e,x,y){
 					face[0].id=(set.def.hr24)?["00:00 - 01:00","01:00 - 02:00","02:00 - 03:00","03:00 - 04:00","04:00 - 05:00","05:00 - 06:00","06:00 - 07:00","07:00 - 08:00","08:00 - 09:00","09:00 - 10:00","10:00 - 11:00","11:00 - 12:00","12:00 - 13:00","13:00 - 14:00","14:00 - 15:00","15:00 - 16:00","16:00 - 17:00","17:00 - 18:00","18:00 - 19:00","19:00 - 20:00","20:00 - 21:00","21:00 - 22:00","22:00 - 23:00","23:00 - 00:00"]
 		:["12:00 - 1:00 AM","1:00 - 2:00 AM","2:00 - 3:00 AM","3:00 - 4:00 AM","4:00 - 5:00 AM","5:00 - 6:00 AM","6:00 - 7:00 AM","7:00 - 8:00 AM","8:00 - 9:00 AM","9:00 - 10:00 AM","10:00 - 11:00 AM","11:00 - 11:59 AM","12:00 - 1:00 PM","1:00 - 2:00 PM","2:00 - 3:00 PM","3:00 - 4:00 PM","4:00 - 5:00 PM","5:00 - 6:00 PM","6:00 - 7:00 PM","7:00 - 8:00 PM","8:00 - 9:00 PM","9:00 - 10:00 PM","10:00 - 11:00 PM","11:00 - 11:59 PM"];
 					face[0].id[face[0].ref]="Now";
-
 				}
 				face[0].sc();
 				face[0].sel(face[0].comf((face[0].totD*((set.def.dash.mph)?0.625:1)).toFixed((face[0].page)?(face[0].page==1)?1:0:2)),"<   TOTAL   >");
-				//face[0].btn(1,(face[0].totD*((set.def.dash.mph)?0.625:1)).toFixed((face[0].page)?(face[0].page==1)?1:0:2),50,120,70,1365,1365,0,51,239,175,"<  TOTAL   >",28,120,137);
-//				face[0].btn(1,(face[0].totD*((set.def.dash.mph)?0.625:1)).toFixed((face[0].page)?(face[0].page==1)?1:0:2)+((set.def.dash.mph)?" mi":" km"),50,125,70,1365,1365,0,51,239,175,"<  TOTAL   >",28,120,137);
 				face[0].lg();
 			}			
 		}
