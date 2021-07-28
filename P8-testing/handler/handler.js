@@ -612,7 +612,7 @@ if (set.def.acctype==="BMA421"){
 					let xx=i2c.readFrom(0x18,1)[0];
 					i2c.writeTo(0x18,0x03);
 					let yy=i2c.readFrom(0x18,1)[0];
-					print("in :",xx,yy);
+					//print("in :",xx,yy);
 					if ( 160 < xx  && ( 200 < yy || yy < 50)) {
 						if (!w.gfx.isOn&&face.appCurr!=""){  
 							//print("wake");

@@ -1,4 +1,4 @@
-//kingsong euc module 
+//Vteran euc module 
 //euc.conn(euc.mac);
 //euc.wri("lightsOn")
 //commands
@@ -28,28 +28,30 @@ euc.conn=function(mac){
 		this.need=0;
 		c.on('characteristicvaluechanged', function(event) {
 			this.event=new Uint8Array(event.target.value.buffer);
+			//print(this.event);
 			if  ( this.event[0]===220 && this.event[1]===90 && this.event[2]===92 ) {
-				print("primary packet");
-				this.voltage=(this.event[4]  << 8 | this.event[5] );
-				if (this.voltage > 10020) {
-                        euc.dash.bat = 100;
-                } else if (this.voltage > 8160) {
-                       euc.dash.bat = ((this.voltage - 8070) / 19.5)|0;
-                } else if (this.voltage > 7935) {
-                        euc.dash.bat =  ((this.voltage - 7935) / 48.75)|0;
-                } else {
-                        euc.dash.bat = 0;
-                }
-				euc.dash.volt=this.voltage/100;
+				//print("primary packet");
+				euc.dash.volt=(this.event[4]  << 8 | this.event[5] )/100;
+				euc.dash.bat = Math.round(((euc.dash.volt / 24) * 100 - 310 ) * 0.95);
+//				euc.dash.bat=Math.round(((euc.dash.volt*euc.dash.batF) - euc.dash.batE ) * (100/(420-euc.dash.batE)));
+				batL.unshift(euc.dash.bat);
+				if (20<batL.length) batL.pop();
+				euc.dash.batC = (euc.dash.batH <= euc.dash.bat)? 0 : (euc.dash.batM <= euc.dash.bat)? 1 : (euc.dash.batL <= euc.dash.bat)? 2 : 3;	
+				batL.unshift(euc.dash.bat);
+				if (20<batL.length) batL.pop();
 				euc.dash.spd=((this.event[6] << 8 | this.event[7]) / 10)|0;
-				euc.dash.trpL=(this.event[10] << 24 | this.event[11] << 16 | this.event[8] << 8  | this.event[9])*euc.dash.trpF*((set.def.dash.mph)?0.625:1);
-				euc.dash.trpT=(this.event[14] << 24 | this.event[15] << 16 | this.event[12] << 8  | this.event[13])*euc.dash.trpF*((set.def.dash.mph)?0.625:1);
-				euc.dash.amp=((this.event[16] << 8 | this.event[17])/10)|0;
+				euc.dash.trpL=(this.event[10] << 24 | this.event[11] << 16 | this.event[8] << 8  | this.event[9])/1000;
+				euc.dash.trpT=(this.event[14] << 24 | this.event[15] << 16 | this.event[12] << 8  | this.event[13])/1000;
+				if (!euc.log.trpS) euc.log.trpS=euc.dash.trpT;
+				euc.dash.amp=event.target.value.getInt16(16)/100;
+				if (euc.dash.ampR) euc.dash.amp=-euc.dash.amp;				
 					ampL.unshift(euc.dash.amp);
-					if (14<ampL.length) ampL.pop();
-				euc.dash.tmp=((this.event[18] << 8 | this.event[19])/100).toFixed(1);	
+					if (20<ampL.length) ampL.pop();
+				euc.dash.ampC = ( euc.dash.ampH+10 <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL - 5 )? 3 : ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp < 0 )? 1 : 0;
+				euc.dash.tmp=((this.event[18] << 8 | this.event[19])/100).toFixed(1);
+				euc.dash.tmpC = (euc.dash.tmp <= euc.dash.tmpH)? 0 : (euc.dash.tmp <= euc.dash.tmpH+5)? 2 : 3;	
 			} else {
-				print("secondary packet");
+				//print("secondary packet");
 				euc.dash.off=(this.event[0] << 8 | this.event[1]);
 				euc.dash.chrg=(this.event[2] << 8 | this.event[3]);
 				euc.dash.spd1=((this.event[4] << 8 | this.event[5]) / 10)|0;
@@ -68,7 +70,7 @@ euc.conn=function(mac){
 		console.log("EUC Veteran connected!!"); 
 		digitalPulse(D16,1,[90,40,150,40,90]);
 		euc.wri= function(n) {
-            print(n);
+            //print(n);
 			if (euc.busy) {print(1); clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},500);return;} euc.busy=euc.busy=setTimeout(()=>{euc.busy=0;},500);
             //end
 			if (n=="end") {
@@ -90,7 +92,6 @@ euc.conn=function(mac){
 				});
 			}
 		};
-		if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {euc.dash.mac=euc.mac; set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);}
 		setTimeout(() => {euc.wri("serial");euc.state="READY";}, 500);
 
 	//reconect

@@ -75,7 +75,7 @@ euc.conn=function(mac){
 				if (euc.dash.tmpH+5 <= euc.dash.tmp) {euc.alert++; euc.dash.spdC = 3;} 
 				euc.new=1;
 			} else if ( event.target.value.buffer[0]===90 ){
-				print(event.target.value.buffer);
+				//print(event.target.value.buffer);
 				//euc.dash.trpT=((event.target.value.getUint32(6)/1000)*1.2).toFixed(1);
 				euc.dash.trpT=((event.target.value.getUint32(6)/1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1)).toFixed(1);
 				euc.dash.mode = (event.target.value.getUint8(10) >> 4) & 0x0F;
@@ -122,7 +122,7 @@ euc.conn=function(mac){
 		console.log("EUC Begode connected!!"); 
 		digitalPulse(D16,1,[90,40,150,40,90]);
 		euc.wri= function(n) {
-			print(n);
+			//print(n);
 			if (euc.busy) {print(1); clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},500);return;} euc.busy=euc.busy=setTimeout(()=>{euc.busy=0;},500);
 			//end
 			if (n=="end") {
@@ -155,7 +155,7 @@ euc.conn=function(mac){
 				c.writeValue(87).then(function() {
 					c.writeValue(89).then(function() {
 						let tilt=euc.dash.spd3.toString().split('');
-            print (tilt);
+           // print (tilt);
 						c.writeValue(48+Number(tilt[0])).then(function() {
 							c.writeValue(48+Number(tilt[1])).then(function() {
 								c.writeValue((euc.dash.spd2E)?(euc.dash.spd1E)?111:117:105).then(function() {

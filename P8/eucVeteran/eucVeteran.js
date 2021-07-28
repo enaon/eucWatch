@@ -29,7 +29,7 @@ euc.conn=function(mac){
 		c.on('characteristicvaluechanged', function(event) {
 			this.event=new Uint8Array(event.target.value.buffer);
 			if  ( this.event[0]===220 && this.event[1]===90 && this.event[2]===92 ) {
-				print("primary packet");
+				//print("primary packet");
 				this.voltage=(this.event[4]  << 8 | this.event[5] );
 				if (this.voltage > 10020) {
                         euc.dash.bat = 100;
@@ -40,16 +40,20 @@ euc.conn=function(mac){
                 } else {
                         euc.dash.bat = 0;
                 }
+				batL.unshift(euc.dash.bat);
+				if (20<batL.length) batL.pop();
+
 				euc.dash.volt=this.voltage/100;
 				euc.dash.spd=((this.event[6] << 8 | this.event[7]) / 10)|0;
-				euc.dash.trpL=(this.event[10] << 24 | this.event[11] << 16 | this.event[8] << 8  | this.event[9]);
-				euc.dash.trpT=(this.event[14] << 24 | this.event[15] << 16 | this.event[12] << 8  | this.event[13]);
+				euc.dash.trpL=(this.event[10] << 24 | this.event[11] << 16 | this.event[8] << 8  | this.event[9])/1000;
+				euc.dash.trpT=(this.event[14] << 24 | this.event[15] << 16 | this.event[12] << 8  | this.event[13])/1000;
+				if (!euc.trpS) euc.trpS=euc.dash.trpT;
 				euc.dash.amp=((this.event[16] << 8 | this.event[17])/10)|0;
 					ampL.unshift(euc.dash.amp);
-					if (14<ampL.length) ampL.pop();
+					if (20<ampL.length) ampL.pop();
 				euc.dash.tmp=((this.event[18] << 8 | this.event[19])/100).toFixed(1);	
 			} else {
-				print("secondary packet");
+				//print("secondary packet");
 				euc.dash.off=(this.event[0] << 8 | this.event[1]);
 				euc.dash.chrg=(this.event[2] << 8 | this.event[3]);
 				euc.dash.spd1=((this.event[4] << 8 | this.event[5]) / 10)|0;
