@@ -1,4 +1,4 @@
-//kingsong euc module 
+//Vteran euc module 
 //euc.conn(euc.mac);
 //euc.wri("lightsOn")
 //commands
