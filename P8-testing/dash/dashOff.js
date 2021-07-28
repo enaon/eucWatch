@@ -183,6 +183,7 @@ touchHandler[0]=function(e,x,y){
 		}else {
 			digitalPulse(D16,1,[30,50,30]);
 			if  ( 120 < x ) { //info
+				if (face[0].info) return;
 				face[0].info=1;
 				face[0].btn(1,"INFO",30,185,10,1453,0,120,0,239,50);
 				face[0].btn(1,"DAY",30,60,13,0,0,0,0,119,50);
@@ -191,12 +192,12 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.fillRect(0,51,239,239); 
 				w.gfx.setColor(1,col("white"));
 				w.gfx.setFontVector(30);
-				w.gfx.drawString((euc.dash.name)?euc.dash.name:euc.dash.maker,120-w.gfx.stringWidth((euc.dash.name)?euc.dash.name:euc.dash.maker)/2,65);
+				w.gfx.drawString((euc.dash.name)?euc.dash.name:euc.dash.maker,120-w.gfx.stringWidth((euc.dash.name)?euc.dash.name:euc.dash.maker)/2,62);
 				w.gfx.setFontVector(28);
-				w.gfx.drawString(euc.dash.spdM,190-w.gfx.stringWidth(euc.dash.spdM),99);
-				w.gfx.drawString(euc.dash.time,190-w.gfx.stringWidth(euc.dash.time),139); 
-				w.gfx.drawString(euc.dash.trpL,190-w.gfx.stringWidth(euc.dash.trpL),178); 
-				w.gfx.drawString(euc.dash.trpT,190-w.gfx.stringWidth(euc.dash.trpT),217); 
+				w.gfx.drawString(euc.dash.spdM*((set.def.dash.mph)?0.625:1)*euc.dash.spdF,185-w.gfx.stringWidth(euc.dash.spdM*((set.def.dash.mph)?0.625:1)*euc.dash.spdF),99);
+				w.gfx.drawString(euc.dash.time,185-w.gfx.stringWidth(euc.dash.time),139); 
+				w.gfx.drawString(face[0].comf((euc.dash.trpL*((set.def.dash.mph)?0.625:1)).toFixed(0)),185-w.gfx.stringWidth(face[0].comf((euc.dash.trpL*((set.def.dash.mph)?0.625:1)).toFixed(0))),178); 
+				w.gfx.drawString(face[0].comf((euc.dash.trpT*((set.def.dash.mph)?0.625:1)).toFixed(1)),185-w.gfx.stringWidth(face[0].comf((euc.dash.trpT*((set.def.dash.mph)?0.625:1)).toFixed(1))),217); 
 				w.gfx.flip();	
 				w.gfx.setColor(1,col("lgray"));
 				w.gfx.setFontVector(24);
@@ -206,10 +207,10 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.drawString("TOT",5,220);
 				w.gfx.flip();
 				w.gfx.setColor(1,col("lgray"));
-				w.gfx.drawString((set.def.dash.mph)?"mph":"kph",205,102);
-				w.gfx.drawString("Min",205,143);
-				w.gfx.drawString((set.def.dash.mph)?"mi":"Km",205,181);
-				w.gfx.drawString((set.def.dash.mph)?"mi":"Km",205,220);
+				w.gfx.drawString((set.def.dash.mph)?"mph":"kph",195,102);
+				w.gfx.drawString("Min",195,143);
+				w.gfx.drawString((set.def.dash.mph)?"mi":"Km",195,181);
+				w.gfx.drawString((set.def.dash.mph)?"mi":"Km",195,220);
 				w.gfx.flip();
 			}else{ //day/week/month/year
 				face[0].info=0;
