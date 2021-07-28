@@ -38,7 +38,8 @@ euc.conn=function(mac){
 				//print( event.target.value.buffer);
 				euc.alert=0;
 				//speed
-				euc.dash.spd = Math.round((Math.abs(event.target.value.getInt16(4) * 3.6)/100)*euc.dash.spdF*((set.def.dash.mph)?0.625:1));
+				euc.dash.spd=Math.round(event.target.value.getint16(4)/100); 
+				//euc.dash.spd = Math.round((Math.abs(event.target.value.getInt16(4) * 3.6)/100)*euc.dash.spdF*((set.def.dash.mph)?0.625:1));
 				if ( (euc.dash.spdM < euc.dash.spd)&& euc.dash.spd < 100 ) euc.dash.spdM=euc.dash.spd;
 				euc.dash.spdC = ( euc.dash.spd <= 25 )? 0 : ( euc.dash.spd <= 30 )? 1 : ( euc.dash.spd <= 35 )? 2 : 3 ;	
 				if ( euc.dash.hapS && euc.dash[euc.dash.haSv]  <= euc.dash.spd ) 
@@ -81,6 +82,7 @@ euc.conn=function(mac){
 				euc.dash.mode = (event.target.value.getUint8(10) >> 4) & 0x0F;
 				//euc.dash.alrm = event.target.value.getUint8(10) & 0x0F;
 				euc.dash.spdT = event.target.value.getUint8(15);
+				if (!euc.log.trpS) euc.log.trpS=euc.dash.trpT;
 				euc.dash.light = event.target.value.getUint8(17);
 				euc.dash.alrm = event.target.value.getUint8(18);	
 				//log
