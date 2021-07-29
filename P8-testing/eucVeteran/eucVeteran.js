@@ -39,6 +39,7 @@ euc.conn=function(mac){
 				batL.unshift(euc.dash.bat);
 				if (20<batL.length) batL.pop();
 				euc.dash.spd=((this.event[6] << 8 | this.event[7]) / 10)|0;
+				if (euc.dash.spdM<euc.dash.spd)euc.dash.spd=euc.dash.spdM;
 				euc.dash.trpL=(this.event[10] << 24 | this.event[11] << 16 | this.event[8] << 8  | this.event[9])/1000;
 				euc.dash.trpT=(this.event[14] << 24 | this.event[15] << 16 | this.event[12] << 8  | this.event[13])/1000;
 				if (!euc.log.trpS) euc.log.trpS=euc.dash.trpT;
@@ -72,25 +73,24 @@ euc.conn=function(mac){
             //print(n);
 			if (euc.busy) {print(1); clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},500);return;} euc.busy=euc.busy=setTimeout(()=>{euc.busy=0;},500);
             //end
-			if (n=="end") {
+			if (euc.state=="OFF") {
                c.stopNotifications(); 
 				if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
-				global["\xFF"].BLE_GATTS.disconnect();
-			//rest
-            } else if (!euc.cmd(n)) {
-				c.writeValue(n).then(function() {
-					//clearTimeout(euc.busy);euc.busy=0;/*c.startNotifications();*/
-				}).catch(function(err)  {
-					clearTimeout(euc.busy);euc.busy=0;euc.off("err");
-				});   
+				setTimeout(()=>{global["\xFF"].BLE_GATTS.disconnect();if (set.def.cli) console.log("EUC Veteran out");},300);
             }else{
 				c.writeValue(euc.cmd(n)).then(function() {
-					clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
+					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+					c.startNotifications();
 				}).catch(function(err)  {
 					clearTimeout(euc.busy);euc.busy=0;euc.off("err");
 				});
 			}
 		};
+		ιf (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {
+			euc.dash.mac=euc.mac; 
+			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
+			set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
+		}
 		setTimeout(() => {euc.wri("serial");euc.state="READY";}, 500);
 
 	//reconect

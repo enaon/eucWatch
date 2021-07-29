@@ -125,7 +125,7 @@ euc.conn=function(mac){
 		digitalPulse(D16,1,[90,40,150,40,90]);
 		euc.wri= function(n) {
 			//print(n);
-			if (euc.busy) {print(1); clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},500);return;} euc.busy=euc.busy=setTimeout(()=>{euc.busy=0;},500);
+			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},500);return;} euc.busy=euc.busy=setTimeout(()=>{euc.busy=0;},500);
 			//end
 			if (n=="end") {
 				c.writeValue(euc.cmd("lightsOff")).then(function() {
