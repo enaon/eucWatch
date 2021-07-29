@@ -37,7 +37,7 @@ euc.conn=function(mac){
 				//print( event.target.value.buffer);
 				euc.alert=0;
 				//speed
-				euc.dash.spd = Math.round(Math.abs(event.target.value.getInt16(4) * 3.6)/100)); 
+				euc.dash.spd = Math.round(Math.abs((event.target.value.getInt16(4) * 3.6)/100)); 
 				if ( (euc.dash.spdM < euc.dash.spd)&& euc.dash.spd < 100 ) euc.dash.spdM=euc.dash.spd;
 				euc.dash.spdC = ( euc.dash.spd <= 25 )? 0 : ( euc.dash.spd <= 30 )? 1 : ( euc.dash.spd <= 35 )? 2 : 3 ;	
 				if ( euc.dash.hapS && euc.dash[euc.dash.haSv]  <= euc.dash.spd ) 
