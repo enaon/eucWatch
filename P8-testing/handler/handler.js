@@ -591,7 +591,8 @@ if (set.def.acctype==="BMA421"){
 			i2c.writeTo(0x18,0x32,0x10); //threshold = 250 milli g's
 			i2c.writeTo(0x18,0x33,0x01); //duration = 1 * 20ms
 			i2c.writeTo(0x18,0x30,0x02); //XH interrupt 
-			*/i2c.writeTo(0x18,0x20,0x57); //reg1-odr=100zh lp=0 zyx=1
+			*/
+			i2c.writeTo(0x18,0x20,0x57); //reg1-odr=100zh lp=0 zyx=1
 			i2c.writeTo(0x18,0x21,0x00); //reg2-highpass filter disabled
 			i2c.writeTo(0x18,0x22,0x40); //reg3-ia1 interrupt to INT1
 			//i2c.writeTo(0x18,0x23,0x88); //reg4-BDU,MSB at high addr, HR=1
