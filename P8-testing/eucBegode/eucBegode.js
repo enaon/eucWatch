@@ -33,13 +33,11 @@ euc.conn=function(mac){
 	//read
 	}).then(function(c) {
 		c.on('characteristicvaluechanged', function(event) {
-			//print( event.target.value.buffer);
 			if  ( event.target.value.buffer[0]==85 && event.target.value.buffer[1]==170 ) {
 				//print( event.target.value.buffer);
 				euc.alert=0;
 				//speed
-				euc.dash.spd=Math.round(event.target.value.getint16(4)/100); 
-				//euc.dash.spd = Math.round((Math.abs(event.target.value.getInt16(4) * 3.6)/100)*euc.dash.spdF*((set.def.dash.mph)?0.625:1));
+				euc.dash.spd = Math.round(Math.abs(event.target.value.getInt16(4) * 3.6)/100)); 
 				if ( (euc.dash.spdM < euc.dash.spd)&& euc.dash.spd < 100 ) euc.dash.spdM=euc.dash.spd;
 				euc.dash.spdC = ( euc.dash.spd <= 25 )? 0 : ( euc.dash.spd <= 30 )? 1 : ( euc.dash.spd <= 35 )? 2 : 3 ;	
 				if ( euc.dash.hapS && euc.dash[euc.dash.haSv]  <= euc.dash.spd ) 
