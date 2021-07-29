@@ -38,8 +38,10 @@ euc.conn=function(mac){
 				euc.dash.batC = (euc.dash.batH <= euc.dash.bat)? 0 : (euc.dash.batM <= euc.dash.bat)? 1 : (euc.dash.batL <= euc.dash.bat)? 2 : 3;	
 				batL.unshift(euc.dash.bat);
 				if (20<batL.length) batL.pop();
+				euc.dash.spd=((this.event[6] << 8 | this.event[7]) / 10)|0;
 				euc.dash.spd=Math.round((this.event[6] << 8 | this.event[7]) / 10);
 				if (euc.dash.spdM <euc.dash.spd) euc.dash.spd = euc.dash.spdM;
+				
 				euc.dash.trpL=(this.event[10] << 24 | this.event[11] << 16 | this.event[8] << 8  | this.event[9])/1000;
 				euc.dash.trpT=(this.event[14] << 24 | this.event[15] << 16 | this.event[12] << 8  | this.event[13])/1000;
 				if (!euc.log.trpS) euc.log.trpS=euc.dash.trpT;
