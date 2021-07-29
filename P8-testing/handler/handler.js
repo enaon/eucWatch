@@ -583,15 +583,7 @@ if (set.def.acctype==="BMA421"){
 	acc={
 		up:0,
 		on:function(){
-			/*i2c.writeTo(0x18,0x20,0x47); 
-			i2c.writeTo(0x18,0x21,0x00); //highpass filter disabled
-			i2c.writeTo(0x18,0x22,0x40); //interrupt to INT1
-			i2c.writeTo(0x18,0x23,0x88); //BDU,MSB at high addr, HR
-			i2c.writeTo(0x18,0x24,0x00); //latched interrupt off
-			i2c.writeTo(0x18,0x32,0x10); //threshold = 250 milli g's
-			i2c.writeTo(0x18,0x33,0x01); //duration = 1 * 20ms
-			i2c.writeTo(0x18,0x30,0x02); //XH interrupt 
-			*/
+
 			i2c.writeTo(0x18,0x20,0x57); //reg1-odr=100zh lp=0 zyx=1
 			i2c.writeTo(0x18,0x21,0x00); //reg2-highpass filter disabled
 			i2c.writeTo(0x18,0x22,0x40); //reg3-ia1 interrupt to INT1
@@ -665,8 +657,49 @@ if (set.def.acctype==="BMA421"){
 		},
 	};	
 }
-//cron
+/*
+//sc7a20 notes 
+1. Write CTRL_REG1
+2. Write CTRL_REG2
+3. Write CTRL_REG3
+4. Write CTRL_REG4
+5. Write CTRL_REG5
+6. Write CTRL_REG6
+7. Write REFERENCE
+8. Write INTx_THS
+9. Write INTx_DUR
+10. Write INTx_CFG
+11. Write CTRL_REG5
 
+
+//WHO_AM_I 0Fh 0 0 1 1 0 0 1 1
+//low power mode
+i2c.writeTo(0x18,0x20,0x47); //CTRL_REG1 20h ODR3 ODR2 ODR1 ODR0 LPen Zen Yen Xen //0100 = set 50hz, 0 111
+i2c.writeTo(0x18,0x20,0x41); //CTRL_REG1 20h ODR3 ODR2 ODR1 ODR0 LPen Zen Yen Xen //0101 = set 50hz, 0 001
+i2c.writeTo(0x18,0x20,0x57); //CTRL_REG1 20h ODR3 ODR2 ODR1 ODR0 LPen Zen Yen Xen //0101 = set 100hz, 0 111
+i2c.writeTo(0x18,0x20,0x51); //CTRL_REG1 20h ODR3 ODR2 ODR1 ODR0 LPen Zen Yen Xen //0101 = set 100hz, 0 001
+
+i2c.writeTo(0x18,0x21,0x00); //CTRL_REG2 21h HPM1 HPM0 HPCF2 HPCF1 FDS HPCLICK HP_IA2 HP_IA-highpass filter disabled
+i2c.writeTo(0x18,0x22,0x40); //CTRL_REG3 22h I1_CLICK I1_IA1 I1_IA2 I1_ZYXDA I1_321DA I1_WTM I1_OVERRUN -Interrupt to I1_IA1
+i2c.writeTo(0x18,0x22,0x80); //CTRL_REG3 22h I1_CLICK I1_IA1 I1_IA2 I1_ZYXDA I1_321DA I1_WTM I1_OVERRUN -Interrupt to I1_CLICK 
+i2c.writeTo(0x18,0x22,0x10); //CTRL_REG3 22h I1_CLICK I1_IA1 I1_IA2 I1_ZYXDA I1_321DA I1_WTM I1_OVERRUN -Interrupt to I1_ZYXDA
+
+i2c.writeTo(0x18,0x23,0x88); //CTRL_REG4 23h BDU BLE FS1 FS0 HR ST1 ST0 SIM- 1000 BDU,MSB at high addr, 1000 HR high
+i2c.writeTo(0x18,0x24,0x00); //CTRL_REG5 24h BOOT FIFO_EN - - LIR_INT1 D4D_INT1 LIR_INT2 D4D_INT2- latched interrupt off
+//CTRL_REG6 25h I2_CLICK I2_IA1 I2_IA2 I2_BOOT I2_ACT - INT_POLARITY-threshold 
+//REFERENCE 26h REF7 REF6 REF5 REF4 REF3 REF2 REF1 REF0
+//STATUS_REG 27h ZYXOR ZOR YOR XOR ZYXDA ZDA YDA XDA
+//OUT_X_L 28h XD7 XD6 XD5 XD4 XD3 XD2 XD1 XD0
+//OUT_X_H 29h XD15 XD14 XD13 XD12 XD11 XD10 XD9 XD8
+//OUT_Y_L 2Ah YD7 YD6 YD5 YD4 YD3 YD2 YD1 YD0
+//OUT_Y_H 2Bh YD15 YD14 YD13 YD12 YD11 YD10 YD9 YD8
+//OUT_Z_L 2Ch ZD7 ZD6 ZD5 ZD4 ZD3 ZD2 ZD1 ZD0
+//OUT_Z_H 2Dh ZD15 ZD14 ZD13 ZD12 ZD11 ZD10 ZD9 ZD
+i2c.writeTo(0x18,0x32,0x10); //250 milli g's
+i2c.writeTo(0x18,0x33,0x01); //duration = 1 * 20ms
+i2c.writeTo(0x18,0x30,0x02); //XH interrupt 
+			
+*/
 cron={
 	event:{
 		//date:()=>{ setTimeout(() =>{ cron.emit('dateChange',Date().getDate());cron.event.date();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate()+1)-Date()));},
