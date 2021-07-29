@@ -75,11 +75,11 @@ euc.conn=function(mac){
 				euc.new=1;
 			} else if ( event.target.value.buffer[0]==90 && event.target.value.buffer[1]==90 && event.target.value.buffer[4]==85 && event.target.value.buffer[5]==170) {
 				//euc.dash.trpT=((event.target.value.getUint32(6)/1000)*1.2).toFixed(1);
-				euc.dash.trpT=((event.target.value.getUint32(6)/1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1)).toFixed(1);
+				euc.dash.trpT=((event.target.value.getUint32(6)/1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1));
+				if (!euc.log.trpS) euc.log.trpS=euc.dash.trpT;
 				euc.dash.mode = (event.target.value.getUint8(10) >> 4) & 0x0F;
 				//euc.dash.alrm = event.target.value.getUint8(10) & 0x0F;
 				euc.dash.spdT = event.target.value.getUint8(15);
-				if (!euc.log.trpS) euc.log.trpS=euc.dash.trpT;
 				euc.dash.light = event.target.value.getUint8(17);
 				euc.dash.alrm = event.target.value.getUint8(18);	
 				//log
