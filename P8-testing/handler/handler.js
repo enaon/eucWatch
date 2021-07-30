@@ -671,9 +671,15 @@ if (set.def.acctype==="BMA421"){
 10. Write INTx_CFG
 11. Write CTRL_REG5
 
-
 //WHO_AM_I 0Fh 0 0 1 1 0 0 1 1
-//low power mode
+
+//Operating mode
+CTRL_REG1[3](LPen bit) CTRL_REG4[3](HR bit)
+Low-power mode(8-bit data output) 1 0 ODR/2 1 16
+Normal mode(10-bit data output) 0 0 ODR/2 1.6 4
+High-resolution mode(12-bit data output)0 1 ODR/9 7/ODR 1
+Not allowed 1 1 -- -- -
+
 i2c.writeTo(0x18,0x20,0x47); //CTRL_REG1 20h ODR3 ODR2 ODR1 ODR0 LPen Zen Yen Xen //0100 = set 50hz, 0 111
 i2c.writeTo(0x18,0x20,0x41); //CTRL_REG1 20h ODR3 ODR2 ODR1 ODR0 LPen Zen Yen Xen //0101 = set 50hz, 0 001
 i2c.writeTo(0x18,0x20,0x57); //CTRL_REG1 20h ODR3 ODR2 ODR1 ODR0 LPen Zen Yen Xen //0101 = set 100hz, 0 111

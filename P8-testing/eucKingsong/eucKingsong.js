@@ -132,13 +132,14 @@ euc.conn=function(mac){
 				    //print ("245 :",inpk);
 					//euc.dash.cpu=inpk[14];
 					euc.dash.out=inpk[15];
-					print("out :", euc.dash.out);
-
+					pwrL.unshift(euc.dash.pwr);
+					if (20<pwrL.length) pwrL.pop();
+					euc.new=1;
 					break;
 				case 246:
 					euc.dash.spdL=(inpk[3] << 8 | inpk[2])/100;
-					euc.dash.watt=(inpk[13] << 8 | inpk[12])/100;
-					print("watt :", euc.dash.watt);
+					//euc.dash.watt=(inpk[13] << 8 | inpk[12])/100;
+					//print("watt :", euc.dash.watt);
 					
 					euc.dash.alrm=(euc.dash.spdL-5 < euc.dash.spd)?1:0;
 					//log alarms
@@ -163,7 +164,7 @@ euc.conn=function(mac){
 					//print(inpk[4],inpk[6],inpk[8],inpk[10]);
 					break;
 				case 179://serial
-					euc.dash.serial=String.fromCharCode.apply(String,new Uint8Array(inpk,2,14))+String.fromCharCode.apply(String,inpk.slice(17,3));
+					euc.dash.serial=String.fromCharCode.apply(String,inpk.slice(2,14))+String.fromCharCode.apply(String,inpk.slice(17,3));
 					break;
 				case 187://model
 					//console.log("model");

@@ -21,7 +21,10 @@ face[0] = {
 		this.ampL=1;
 		this.tmp=-1;
 		this.bat=-1;
-		this.batL=1;
+		this.batL=new Uint8Array(20);
+		this.pwrL=new Uint8Array(20);
+		this.ampL = new Uint8Array(20);
+		this.al=new Uint8Array(20);
 		this.volt=-1;
 		this.buzz=-1;
 		this.spdM=-1;
@@ -52,10 +55,12 @@ face[0] = {
 			if (euc.dash.maker=="Kingsong") {
 				if (this.spdL!=euc.dash.spdL) this.spLF();
 			}else if (this.alrm!=euc.dash.alrm) this.alrF();	
-			//tmp/amp field
-			if (!set.def.dash.amp){
-				if (this.tmp!=euc.dash.tmp) this.tmFF();
-			}else if (this.ampL!=ampL) this.amLF();
+			//tmp/amp/pwr field
+			if (set.def.dash.amp){
+				if (this.ampL!=ampL) this.amLF();
+			}else if (set.def.dash.pwr){
+				if (this.pwrL!=pwrL) this.pwrF();
+			}else if (this.tmp!=euc.dash.tmp) this.tmFF();
 			//batery field
 			if (!set.def.dash.bat){
 				if (this.volt!=euc.dash.volt) this.vltF();
@@ -110,7 +115,7 @@ face[0] = {
 		}
 	},
 	alF: function(){
-		this.al= new Uint8Array(almL);
+		this.al.set(almL);
 		this.g.setColor(0,1365);
 		this.g.clearRect(0,176,239,197);
 		this.g.setColor(1,4095);
@@ -203,7 +208,7 @@ face[0] = {
 		this.g.flip();
 	},	
 	amLF: function(){
-		this.ampL = new Uint8Array(ampL);
+		this.ampL.set(ampL);
 		this.g.setColor(1,1365);
 		this.g.fillRect(0,0,119,50);       
 		this.g.setColor(0,(1<euc.dash.ampC)?4080:4095);
@@ -216,6 +221,20 @@ face[0] = {
 		});
 		this.g.flip();
 	},	
+	pwrF: function(){
+		this.ampL.set(pwrL);
+		this.g.setColor(1,1365);
+		this.g.fillRect(0,0,119,50);       
+		//graph
+		let i=0;
+		this.ampL.forEach(function(val){
+			this.g.setColor(0,(10<val)?4080:4095);
+			//w.gfx.fillRect(118-(i*8),(0<=val)?50-(val*1.2):1,118-(i*8)-3,(0<=val)?50:1-(val*2));
+			w.gfx.fillRect(118-(i*6),(val<200)?50-(val*1.2):1,118-(i*6)-1,(val<200)?50:(255-val)*2);
+			i++;
+			this.g.flip();
+		});
+	},
 	vltF: function(){
 		this.volt=euc.dash.volt;
 		this.g.setColor(0,this.batC[euc.dash.batC]);
@@ -239,7 +258,7 @@ face[0] = {
 		this.g.flip();
 	},
 	baLF: function(){
-		this.batL = new Uint8Array(batL);
+		this.batL.set(batL);
 		this.g.setColor(1,(euc.dash.batC==3)?3840:1453);
 		this.g.fillRect(122,0,239,50);       
 		this.g.setColor(0,4095);

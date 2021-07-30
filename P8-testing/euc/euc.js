@@ -18,7 +18,7 @@ global.euc= {
 		if (this.reconnect) {clearTimeout(this.reconnect); this.reconnect=0;}
 		if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 		this.seq=1;
-		ampL=[];batL=[];almL=[];
+		ampL=[];batL=[];almL=[];pwrL=[];
 		if (this.state!="OFF" ) {
 			digitalPulse(D16,1,[90,60,90]); 
 			//log
