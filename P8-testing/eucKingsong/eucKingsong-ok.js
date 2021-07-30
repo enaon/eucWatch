@@ -53,24 +53,21 @@ euc.conn=function(mac){
 	  return s.getCharacteristic(0xffe1);
 	//read
 	}).then(function(c) {
-//		inpk=new Uint8Array(event.target.value.buffer);
-		var inpk=new Uint8Array(20);
 		c.on('characteristicvaluechanged', function(event) {
-			//inpk=new DataView(event.target.value.buffer);
-			inpk.set(event.target.value.buffer);
-			//console.log (inpk);
+			this.inpk=new DataView(event.target.value.buffer);
+			//console.log (this.inpk.buffer);
             if (euc.busy) return;
 			euc.run=1;
 			euc.alert=0;
-			switch (inpk[16]){				
+			switch (this.inpk.buffer[16]){				
 				case  169:
 					//speed
-					euc.dash.spd=Math.round((inpk[5] << 8 | inpk[4])/100); 
+					euc.dash.spd=Math.round(this.inpk.getUint16(4, true) / 100); 
 					euc.dash.spdC = ( euc.dash.spd <= euc.dash.lim[0] )? 0 : ( euc.dash.spd <= euc.dash.lim[1] )? 1 : ( euc.dash.spd <= euc.dash.lim[2] )? 2 : 3 ;	
 					if ( euc.dash.hapS && euc.dash[euc.dash.haSv]  <= euc.dash.spd ) 
 						euc.alert = ( 1 + ((euc.dash.spd-euc.dash.lim[euc.dash.haSv]) / euc.dash.spdS | 0 ) );  
 					//amp
-					this.amp=inpk[11] << 8 | inpk[10];
+					this.amp=this.inpk.getUint16(10, true);
 					if ( 32767 < this.amp ) this.amp = this.amp - 65536;
 					euc.dash.amp = ( this.amp / 100 );
 					euc.dash.ampC = ( euc.dash.ampH+10 <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL - 5 )? 3 : ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp < 0 )? 1 : 0;
@@ -84,7 +81,7 @@ euc.conn=function(mac){
 					ampL.unshift(Math.round(euc.dash.amp));
 					if (20<ampL.length) ampL.pop();
 					//volt
-					euc.dash.volt=(inpk[3] << 8 | inpk[2])/100;
+					euc.dash.volt=this.inpk.getUint16(2, true)/100;
 					euc.dash.bat=Math.round(((euc.dash.volt*euc.dash.batF) - euc.dash.batE ) * (100/(420-euc.dash.batE)));
 					//log
 					batL.unshift(euc.dash.bat);
@@ -92,14 +89,14 @@ euc.conn=function(mac){
 					euc.dash.batC = (euc.dash.batH <= euc.dash.bat)? 0 : (euc.dash.batM <= euc.dash.bat)? 1 : (euc.dash.batL <= euc.dash.bat)? 2 : 3;	
 					if ( euc.dash.hapB && euc.dash.bat <= euc.dash.batL ) { euc.alert ++; euc.dash.spdC = 3; }  
 					//temp
-					euc.dash.tmp = (inpk[13] << 8 | inpk[12])/100;
+					euc.dash.tmp = (this.inpk.getUint16(12, true) / 100).toFixed(1);
 					euc.dash.tmpC = (euc.dash.tmp <= euc.dash.tmpH)? 0 : (euc.dash.tmp <= euc.dash.tmpH+5)? 2 : 3;	
 					if (euc.dash.tmpH <= euc.dash.tmp) {euc.alert++; euc.dash.spdC = 3;}     
 					//total mileage
-					euc.dash.trpT = (((inpk[6] << 16) + (inpk[7] << 24) + inpk[8] + (inpk[9] << 8)) / 1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1);
+					euc.dash.trpT = (((this.inpk.buffer[6] << 16) + (this.inpk.buffer[7] << 24) + this.inpk.buffer[8] + (this.inpk.buffer[9] << 8)) / 1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1);
 					if (!euc.log.trpS) euc.log.trpS=euc.dash.trpT;
 					//mode
-					euc.dash.mode = inpk[14];
+					euc.dash.mode = this.inpk.getUint8(14, true);
 					euc.new=1;
 					//City lights 
 					if ( euc.dash.aLight === "lightsCity" ) { 
@@ -123,17 +120,17 @@ euc.conn=function(mac){
 					}
 					break;
 				case 185://trip-time-max_speed
-					euc.dash.trpL=(((inpk[2] << 16) + (inpk[3] << 24) + inpk[4] + (inpk[5] << 8)) / 1000.0)*euc.dash.trpF*((set.def.dash.mph)?0.625:1);
-					euc.dash.time=Math.round((inpk[7] << 8 | inpk[6])/60);
-					euc.dash.spdM=Math.round((inpk[9] << 8 | inpk[8])/100) ;
-					euc.dash.fan=inpk[12];
+					euc.dash.trpL=(((this.inpk.buffer[2] << 16) + (this.inpk.buffer[3] << 24) + this.inpk.buffer[4] + (this.inpk.buffer[5] << 8)) / 1000.0)*euc.dash.trpF*((set.def.dash.mph)?0.625:1);
+					euc.dash.time=Math.round(this.inpk.getUint16(6, true) / 60.0);
+					euc.dash.spdM=Math.round(this.inpk.getUint16(8, true)/ 100.0) ;
+					euc.dash.fan=this.inpk.buffer[12];
 					break;
 				case 245:
-					euc.dash.cpu=inpk[14];
-					//euc.dash.out=inpk[15];
+					euc.dash.cpu=this.inpk.buffer[14];
+					//euc.dash.out=this.inpk.buffer[15];
 					break;
 				case 246:
-					euc.dash.spdL=(inpk[3] << 8 | inpk[2])/100
+					euc.dash.spdL=this.inpk.getUint16(2, true) / 100; 
 						euc.dash.alrm=(euc.dash.spdL-5 < euc.dash.spd)?1:0;
 					//log alarms
 					almL.unshift(euc.dash.alrm);
@@ -144,26 +141,26 @@ euc.conn=function(mac){
 					break;	
 				case 181:
 					//console.log(181);
-					if (inpk[4]!=0&&inpk[4]!=255){ 
-						euc.dash.lim[0]=inpk[4];
+					if (this.inpk.buffer[4]!=0&&this.inpk.buffer[4]!=255){ 
+						euc.dash.lim[0]=this.inpk.buffer[4];
 						euc.dash.limE[0]=1;
 					}else euc.dash.limE[0]=0;
-					if (inpk[6]!=0){ 
-						euc.dash.lim[1]=inpk[6];
+					if (this.inpk.buffer[6]!=0){ 
+						euc.dash.lim[1]=this.inpk.buffer[6];
 						euc.dash.limE[1]=1;
 					}else euc.dash.limE[1]=0;
-					euc.dash.lim[2]=inpk[8];
-					euc.dash.lim[3]=inpk[10];
-					//print(inpk[4],inpk[6],inpk[8],inpk[10]);
+					euc.dash.lim[2]=this.inpk.buffer[8];
+					euc.dash.lim[3]=this.inpk.buffer[10];
+					//print(this.inpk.buffer[4],this.inpk.buffer[6],this.inpk.buffer[8],this.inpk.buffer[10]);
 					break;
 				case 179://serial
-					euc.dash.serial=String.fromCharCode.apply(String,new Uint8Array(inpk,2,14))+String.fromCharCode.apply(String,inpk.slice(17,3));
+					euc.dash.serial=String.fromCharCode.apply(String,new Uint8Array(this.inpk.buffer,2,14))+String.fromCharCode.apply(String,new Uint8Array(this.inpk.buffer,17,3));
 					break;
 				case 187://model
 					//console.log("model");
 					if (!euc.dash.name) {
-						euc.dash.model=String.fromCharCode.apply(String,inpk.slice(2,11));
-						euc.dash.name=String.fromCharCode.apply(String,inpk.slice(5,8));
+						euc.dash.model=String.fromCharCode.apply(String,new Uint8Array(this.inpk.buffer,2,11));
+						euc.dash.name=String.fromCharCode.apply(String,new Uint8Array(this.inpk.buffer,5,8));
 						if (euc.dash.model.includes("-")) {
 							let model=euc.dash.name.split("-")[0];
 							if (model.includes("S18") || model.includes("18L") ||  model.includes("18XL") || model.includes("16X") )
@@ -175,8 +172,8 @@ euc.conn=function(mac){
 					}
 					break;
 				//default :
-				    //console.log ("got: ",this.var,inpk);
-				    //console.log (this.var); //else console.log(inpk); 
+				    //console.log ("got: ",this.var,this.inpk.buffer);
+				    //console.log (this.var); //else console.log(this.inpk.buffer); 
 			}
 			//haptic
 			if (!euc.buzz && euc.alert) {  
