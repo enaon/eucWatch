@@ -104,10 +104,11 @@ face[0] = {
 		this.g.setColor(0,this.batC[euc.dash.batC]);
 		this.g.fillRect(122,0,239,50);
 		this.g.setColor(1,4095);
-		this.g.setFontVector((this.volt<100)?45:40);
-		this.g.drawString(this.volt.tiFixed(1),(this.volt<100)?135:125,0); 
+		this.g.setFontVector((this.volt<100)?50:44);
+		this.g.drawString(this.volt.toFixed(1),(this.volt<100)?135:125,3); 
 		this.g.setFontVector(13);
-		this.g.drawString("VOLT",202,40);
+		//this.g.drawString("V",202,10);
+		//this.g.drawString("VOLT",202,40);
 		this.g.flip();
 	},
 	spdf: function(){
