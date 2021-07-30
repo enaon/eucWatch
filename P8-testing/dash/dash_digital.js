@@ -18,7 +18,6 @@ face[0] = {
 		this.spdL=-1;
 		this.spdM=-1;
 		this.amp=-10;
-		this.ampL=1;
 		this.tmp=-1;
 		this.bat=-1;
 		this.batL=new Uint8Array(20);
@@ -56,10 +55,10 @@ face[0] = {
 				if (this.spdL!=euc.dash.spdL) this.spLF();
 			}else if (this.alrm!=euc.dash.alrm) this.alrF();	
 			//tmp/amp/pwr field
-			if (set.def.dash.amp){
-				if (this.ampL!=ampL) this.amLF();
-			}else if (set.def.dash.pwr){
+			if (set.def.dash.pwr){
 				if (this.pwrL!=pwrL) this.pwrF();
+			}else if (set.def.dash.amp){
+				if (this.ampL!=ampL) this.amLF();				
 			}else if (this.tmp!=euc.dash.tmp) this.tmFF();
 			//batery field
 			if (!set.def.dash.bat){
@@ -222,17 +221,17 @@ face[0] = {
 		this.g.flip();
 	},	
 	pwrF: function(){
-		this.ampL.set(pwrL);
+		this.pwrL.set(pwrL);
 		this.g.setColor(1,1365);
 		this.g.fillRect(0,0,119,50);       
 		//graph
 		let i=0;
-		this.ampL.forEach(function(val){
-			this.g.setColor(0,(10<val)?4080:4095);
+		this.pwrL.forEach(function(val){
+			w.gfx.setColor(0,(10<val)?4080:4095);
 			//w.gfx.fillRect(118-(i*8),(0<=val)?50-(val*1.2):1,118-(i*8)-3,(0<=val)?50:1-(val*2));
 			w.gfx.fillRect(118-(i*6),(val<200)?50-(val*1.2):1,118-(i*6)-1,(val<200)?50:(255-val)*2);
 			i++;
-			this.g.flip();
+			w.gfx.flip();
 		});
 	},
 	vltF: function(){
@@ -343,12 +342,12 @@ touchHandler[0]=function(e,x,y){
 	case 5: //tap event	
 		if (120<x&&y<55){//batery percentage/voltage
 			if (set.def.dash.bat==undefined || 1 < set.def.dash.bat) set.def.dash.bat=0; else set.def.dash.bat++;
-			face[0].bat=-1;face[0].batL=-1;face[0].volt=-1;
+			face[0].bat=-1;face[0].volt=-1;
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (x<120&&y<55){//tmp/amp
 			if (set.def.dash.amp==undefined) set.def.dash.amp=0;
 			set.def.dash.amp=1-set.def.dash.amp;
- 			face[0].tmp=-1;face[0].amp=-1;face[0].ampL=-1;
+ 			face[0].tmp=-1;face[0].amp=-1;
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (190<y){//mileage/time
 			if (set.def.dash.clck==undefined) set.def.dash.clck=0;
