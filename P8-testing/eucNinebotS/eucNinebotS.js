@@ -87,6 +87,7 @@ euc.conn=function(mac){
 						break;
 					case 41://total trip
 						euc.dash.trpT=(event.target.value.getUint32(6, true)/1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1); 
+						euc.log.trp.forEach(function(val,pos){ if (!val) euc.log.trp[pos]=euc.dash.trpT;});
 						break;
 					case 185://current trip
 						euc.dash.trpL=(this.in16/100)*euc.dash.trpF*((set.def.dash.mph)?0.625:1);

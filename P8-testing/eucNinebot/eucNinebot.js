@@ -77,6 +77,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			break;
 		case 41://total distance
 			euc.dash.trpT=(event.target.value.getUint32(6, true)/1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1);
+			euc.log.trp.forEach(function(val,pos){ if (!val) euc.log.trp[pos]=euc.dash.trpT;});
 			break;
 		case 185://trip
 			// if (euc.dash.trpN > (euc.tmp[this.var]/100).toFixed(1)) {

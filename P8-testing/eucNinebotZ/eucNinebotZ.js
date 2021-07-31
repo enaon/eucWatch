@@ -55,7 +55,7 @@ euc.conn=function(mac){
 				}else  if (event.target.value.buffer[1] && event.target.value.buffer.length==20){
 					//print("l",event.target.value.buffer);
 					euc.dash.trpT=(event.target.value.getUint32(1, true)/1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1);
-					if (!euc.dash.trpS) euc.dash.trpS=(event.target.value.getUint32(1, true)/1000).toFixed(3);
+					euc.log.trp.forEach(function(val,pos){ if (!val) euc.log.trp[pos]=euc.dash.trpT;});
 					euc.dash.trpL=((event.target.value.getUint32(1, true)/1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1))-euc.dash.trpS;
 					euc.dash.time=(event.target.value.getUint16(7, true)/60)|0;
 					//temp
