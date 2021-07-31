@@ -500,7 +500,8 @@ if (set.def.touchtype=="816"){ //816
 		}else if ( (tp[3] == 255 || tp[3] == 0)  && !this.st ) {
 			if (this.do===1){
               this.do=0;
-              return touchHandler[face.pageCurr](5,this.x,this.y);
+              touchHandler[face.pageCurr](5,this.x,this.y);
+			  return;
             }
             this.aLast=0;
 			this.st = 1;
