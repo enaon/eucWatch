@@ -485,13 +485,15 @@ if (set.def.touchtype=="816"){ //816
 				if ( a != 0 && this.aLast != a ) {
                     this.aLast=a;
 					this.do=0;
-					return touchHandler[face.pageCurr](a,this.x,this.y);
+					touchHandler[face.pageCurr](a,this.x,this.y);
+					return;
 				}
 			}else if ( this.do ){
 				if ( tp[1] == 5 || tp[1] ==12 ){
 					this.do=0;
 					tfk.emit("touch",
-                    return touchHandler[face.pageCurr](tp[1],this.x,this.y);
+                    touchHandler[face.pageCurr](tp[1],this.x,this.y);
+                    return;
 				}
 			}
 		}else if ( (tp[3] == 255 || tp[3] == 0)  && !this.st ) {
