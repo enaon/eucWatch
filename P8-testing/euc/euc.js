@@ -8,6 +8,7 @@ global.euc= {
 	buzz:0,
 	day:[7,19],
 	log:{
+		trp:[0,0,0]//hour/day/month
 		trpS:0
 	},
 	updateDash:function(slot){require('Storage').write('eucSlot'+slot+'.json', euc.dash);},
@@ -22,25 +23,28 @@ global.euc= {
 		if (this.state!="OFF" ) {
 			digitalPulse(D16,1,[90,60,90]); 
 			//log
-			if (this.log.trpS&& 0<this.dash.trpT-this.log.trpS ) set.write("logDaySlot"+set.def.dash.slot,Date().getHours(),(this.dash.trpT-this.log.trpS)+((set.read("logDaySlot"+set.def.dash.slot,Date().getHours()))?set.read("logDaySlot"+set.def.dash.slot,Date().getHours()):0));
+			if (this.log.trp[0]&& 0<this.dash.trpT-this.log.trp[0] ) 
+				set.write("logDaySlot"+set.def.dash.slot,Date().getHours(),(this.dash.trpT-this.log.trp[0])+((set.read("logDaySlot"+set.def.dash.slot,Date().getHours()))?set.read("logDaySlot"+set.def.dash.slot,Date().getHours()):0));
 			set.def.dash.accE=0;
 			if (!set.def.acc) {acc.off();}
 			this.mac=0;
 			this.state="OFF";
 			this.wri("end");
 			setTimeout(()=>{
-				if (this.log.trpS&& 0<this.dash.trpT-this.log.trpS ) {
-					set.write("logWeekSlot"+set.def.dash.slot,Date().getDay(),(euc.dash.trpT-this.log.trpS)+( (set.read("logWeekSlot"+set.def.dash.slot,Date().getDay()))?set.read("logWeekSlot"+set.def.dash.slot,Date().getDay()):0));
-					set.write("logYearSlot"+set.def.dash.slot,Date().getMonth(),(euc.dash.trpT-this.log.trpS)+( (set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()))?set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()):0));	
+				if (this.log.trp[1]&& 0<this.dash.trpT-this.log.trp[1] ) {
+					set.write("logWeekSlot"+set.def.dash.slot,Date().getDay(),(euc.dash.trpT-this.log.trp[1])+( (set.read("logWeekSlot"+set.def.dash.slot,Date().getDay()))?set.read("logWeekSlot"+set.def.dash.slot,Date().getDay()):0));
+				}
+				if (this.log.trp[2]&& 0<this.dash.trpT-this.log.trp[2] ) {
+					set.write("logYearSlot"+set.def.dash.slot,Date().getMonth(),(euc.dash.trpT-this.log.trp[2])+( (set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()))?set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()):0));	
 				}
 				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);NRF.setTxPower(set.def.rfTX);
-				this.log.trpS=0;
+				this.log.trp=[0,0,0];
 				if (face.appCurr!=="dashOff") face.go('dashOff',0);
 			},1000);
 			
 			return;
 		}else {
-			this.log.trpS=0;
+			this.log.trp=[0,0,0];
 			NRF.setTxPower(4);
 			digitalPulse(D16,1,100); 
 			this.mac=(this.mac)?this.mac:set.read("dash","slot"+set.read("dash","slot")+"Mac");

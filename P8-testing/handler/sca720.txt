@@ -1,0 +1,75 @@
+4 Startup sequence
+Once the device is powered up, it automatically downloads the calibration coefficients from 
+the embedded flash to the internal registers. When the boot procedure is completed, i.e. 
+after approximately 5 milliseconds, the device automatically enters power-down mode. To 
+turn on the device and gather acceleration data, select the HR bit in CTRL_REG4 and the 
+LPen bit in CTRL_REG1, enable at least one of the axes and select the preferred ODR.
+The following general-purpose sequence can be used to configure the device:
+1. Write CTRL_REG1
+2. Write CTRL_REG2
+3. Write CTRL_REG3
+4. Write CTRL_REG4
+5. Write CTRL_REG5
+6. Write CTRL_REG6
+7. Write REFERENCE
+8. Write INTx_THS
+9. Write INTx_DUR
+10. Write INTx_CFG
+11. Write CTRL_REG5
+
+
+4.1 Reading acceleration data
+4.1.1 Using the status register
+The LIS3DH generates data serially (X first, Y second, Z third). Every time the single-axis 
+data is generated, the corresponding DA signal (XDA, YDA, ZDA) bit of STATUS_REG is 
+set to 1. XDA, YDA, ZDA are individually reset to 0 when the respective higher part of the 
+data is read (ie. XDA goes to 0 as soon as the X-axis higher part of the data (reg. 29h) is 
+read, and so on).
+The ZYXDA signal can be set only after Z data generation and is set if XDA, YDA and ZDA 
+bits are simultaneously '1', otherwise the ZYXDA bit is reset to '0' when XDA, YDA and 
+ZDA are simultaneously '0'.
+The overrun flags XOR, YOR, ZOR bits are individually set to '1' when the corresponding 
+data is generated and the corresponding DA bit is already at 1, while they are reset to '0' 
+(with corresponding DA bit) when the corresponding data is read. 
+The ZYXOR bit is set to 1 when at least one overrun flag ( XOR, YOR, ZOR) goes to 1, 
+while the ZYXOR bit is reset to 0 when all the overrun flags are zero
+
+
+The device is provided with a STATUS_REG which should be polled to check when a new 
+set of data is available. The reading procedure should be the following:
+1. Read STATUS_REG
+2. If STATUS_REG(3) = 0, then go to 1
+3. If STATUS_REG(7) = 1, then some data have been overwritten
+4. Read OUTX_L
+5. Read OUTX_H
+6. Read OUTY_L
+7. Read OUTY_H
+8. Read OUTZ_L
+9. Read OUTZ_H
+10. Data processing
+11. Go to 1
+
+
+Using the data-ready (DRDY) signal
+ZYXDA can be driven to the INT1 pin when the I1_ ZYXDA bit of CTRL_REG3 (22h) is set 
+to '1'.
+This signal is called DRDY. DRDY signal behavior is the same as that of the ZYXDA bit 
+(Figure 2: "DRDY signal synchronization"
+
+
+
+
+
+
+Inertial interrupt
+The LIS3DH can provide two inertial interrupt signals and offers several possibilities to 
+personalize these signals. The registers involved in the interrupt generation behavior are 
+INTx_CFG, INTx_THS and INTx_DURATION.
+Table 17: Interrupt mode configuration
+AOI 6D Interrupt mode
+0 0 OR combination of interrupt events
+0 1 6-direction movement recognition
+1 0 AND combination of interrupt events
+1 1 6-direction position recognition
+Whenever an interrupt condition is verified, the interrupt signal is generated and by reading 
+the INTx_SRC register, it is possible to understand which condition happened

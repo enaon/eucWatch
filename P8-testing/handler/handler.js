@@ -485,18 +485,19 @@ if (set.def.touchtype=="816"){ //816
 				if ( a != 0 && this.aLast != a ) {
                     this.aLast=a;
 					this.do=0;
-					touchHandler[face.pageCurr](a,this.x,this.y);
+					return touchHandler[face.pageCurr](a,this.x,this.y);
 				}
 			}else if ( this.do ){
 				if ( tp[1] == 5 || tp[1] ==12 ){
 					this.do=0;
-                    touchHandler[face.pageCurr](tp[1],this.x,this.y);
+					tfk.emit("touch",
+                    return touchHandler[face.pageCurr](tp[1],this.x,this.y);
 				}
 			}
 		}else if ( (tp[3] == 255 || tp[3] == 0)  && !this.st ) {
 			if (this.do===1){
               this.do=0;
-              touchHandler[face.pageCurr](5,this.x,this.y);
+              return touchHandler[face.pageCurr](5,this.x,this.y);
             }
             this.aLast=0;
 			this.st = 1;
@@ -584,7 +585,7 @@ if (set.def.acctype==="BMA421"){
 		up:0,
 		on:function(){
 
-			i2c.writeTo(0x18,0x20,0x57); //reg1-odr=100zh lp=0 zyx=1
+			i2c.writeTo(0x18,0x20,0x47); //reg1-odr=100zh lp=0 zyx=1
 			i2c.writeTo(0x18,0x21,0x00); //reg2-highpass filter disabled
 			i2c.writeTo(0x18,0x22,0x40); //reg3-ia1 interrupt to INT1
 			//i2c.writeTo(0x18,0x23,0x88); //reg4-BDU,MSB at high addr, HR=1
@@ -722,23 +723,23 @@ cron={
 				}
 				let pr=(!x)?23:x-1;
 				let v=set.read("logDaySlot"+set.def.dash.slot,pr);
-				if (euc.log.trpS) set.write("logDaySlot"+set.def.dash.slot,pr,((euc.log.trpS)?euc.dash.trpT-euc.log.trpS:0)+((v)?v:0));
+				if (this.log.trp[0]) set.write("logDaySlot"+set.def.dash.slot,pr,((this.log.trp[0])?euc.dash.trpT-this.log.trp[0]:0)+((v)?v:0));
 				set.write("logDaySlot"+set.def.dash.slot,x,0); 
-				euc.log.trpS=0;
+				this.log.trp[0]=0;
 			},
 			day:x=>{
 				let pr=(!x)?6:x-1;
 				let v=set.read("logWeekSlot"+set.def.dash.slot,pr);
-				if (euc.log.trpS) set.write("logWeekSlot"+set.def.dash.slot,pr,((euc.log.trpS)?euc.dash.trpT-euc.log.trpS:0)+((v)?v:0));
+				if (this.log.trp[1]) set.write("logWeekSlot"+set.def.dash.slot,pr,((this.log.trp[1])?euc.dash.trpT-this.log.trp[1]:0)+((v)?v:0));
 				set.write("logWeekSlot"+set.def.dash.slot,x,0); 
-				euc.log.trpS=0;
+				this.log.trp[1]=0;
 			},
 			month:x=>{
 				let pr=(!x)?11:x-1;
 				let v=set.read("logYearSlot"+set.def.dash.slot,pr);
-				if (euc.log.trpS) set.write("logYearSlot"+set.def.dash.slot,pr,((euc.log.trpS)?euc.dash.trpT-euc.log.trpS:0)+((v)?v:0));
+				if (this.log.trp[2]) set.write("logYearSlot"+set.def.dash.slot,pr,((this.log.trp[2])?euc.dash.trpT-this.log.trp[2]:0)+((v)?v:0));
 				set.write("logYearSlot"+set.def.dash.slot,x,0); 
-				euc.log.trpS=0;
+				this.log.trp[2]=0;
 			}
 		}
 	}

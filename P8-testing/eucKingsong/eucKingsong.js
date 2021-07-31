@@ -97,7 +97,7 @@ euc.conn=function(mac){
 					if (euc.dash.tmpH <= euc.dash.tmp) {euc.alert++; euc.dash.spdC = 3;}     
 					//total mileage
 					euc.dash.trpT = (((inpk[6] << 16) + (inpk[7] << 24) + inpk[8] + (inpk[9] << 8)) / 1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1);
-					if (!euc.log.trpS) euc.log.trpS=euc.dash.trpT;
+					euc.log.trp.forEach(function(val,pos){ if (!val) euc.log.trp[pos]=euc.dash.trpT;});
 					//mode
 					euc.dash.mode = inpk[14];
 					euc.new=1;
