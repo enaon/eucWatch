@@ -491,7 +491,7 @@ if (set.def.touchtype=="816"){ //816
 			}else if ( this.do ){
 				if ( tp[1] == 5 || tp[1] ==12 ){
 					this.do=0;
-					tfk.emit("touch",
+					//tfk.emit("touch",
                     touchHandler[face.pageCurr](tp[1],this.x,this.y);
                     return;
 				}
