@@ -476,6 +476,7 @@ if (set.def.touchtype=="816"){ //816
 			if ( this.do && getTime() - this.time > 1 ) { 
 				this.do = 0 ;
 				touchHandler[face.pageCurr](12,this.x,this.y);
+				return;
 			}else if ( this.do && !tp[1] ) {
 				var a=0;
 				if (tp[6]>=this.y+30) a = 1;
