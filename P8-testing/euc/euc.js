@@ -9,7 +9,6 @@ global.euc= {
 	day:[7,19],
 	log:{
 		trp:[0,0,0]//hour/day/month
-		trpS:0
 	},
 	updateDash:function(slot){require('Storage').write('eucSlot'+slot+'.json', euc.dash);},
 	off:function(err){if (set.def.cli) console.log("EUC off, not connected");},
