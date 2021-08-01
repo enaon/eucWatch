@@ -626,7 +626,7 @@ if (set.def.acctype==="BMA421"){
 				this.loop= setInterval(()=>{	
 					let cor=acc.read();
 					if (-1000<=cor.ax && cor.ax<=0  && cor.az<=-300 ) {
-						if (!w.gfx.isOn&&face.appCurr!=""){  
+						if (!w.gfx.isOn&&face.appCurr!=""&&this.up){  
 								if  (global.euc) {
 									if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash.face],0);
 									else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
@@ -637,7 +637,8 @@ if (set.def.acctype==="BMA421"){
 						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
 							if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off(1000);
 						}
-					}
+						this.up=0;
+					} else this.up=1;
 				},500);
 			}else if (!this.tid) {
 				this.tid=setWatch(()=>{
