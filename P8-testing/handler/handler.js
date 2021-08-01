@@ -550,7 +550,7 @@ if (set.def.acctype==="BMA421"){
 			this.run=0;
 		},
 		init:function(){
-			"ram";
+			//"ram";
 			if(!this.run) return;
 			var data;
 			data=i2c.readFrom(0x18,6);

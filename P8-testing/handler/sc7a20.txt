@@ -101,7 +101,7 @@ acc={
 			if (this.loop) { clearInterval(this.loop); this.loop=0;}
 			this.loop= setInterval(()=>{	
 				let cor=acc.read();
-				print(cor);
+				print(cor, cor.ax);
 				if (-120<=cor.ax<= -700) print("UP");
 			},500);
 		}else if (!this.tid) {
