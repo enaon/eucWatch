@@ -343,11 +343,12 @@ touchHandler[0]=function(e,x,y){
 		if (120<x&&y<55){//batery percentage/voltage
 			if (set.def.dash.bat==undefined || 1 < set.def.dash.bat) set.def.dash.bat=0; else set.def.dash.bat++;
 			face[0].bat=-1;face[0].volt=-1;
+			face[0].bat=-1;face[0].volt=-1;face[0].batL.fill(2);
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (x<120&&y<55){//tmp/amp
 			if (set.def.dash.amp==undefined) set.def.dash.amp=0;
 			set.def.dash.amp=1-set.def.dash.amp;
- 			face[0].tmp=-1;face[0].amp=-1;
+ 			face[0].tmp=-1;face[0].amp=-1;face[0].ampL.fill(2);
 			digitalPulse(D16,1,[30,50,30]);
 		}else if (190<y){//mileage/time
 			if (set.def.dash.clck==undefined) set.def.dash.clck=0;
