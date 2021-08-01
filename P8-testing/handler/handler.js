@@ -568,7 +568,7 @@ if (set.def.acctype==="BMA421"){
 							}
 							this.loop=500;
 					}else if (w.gfx.isOn&&face.pageCurr!=-1) {
-						if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off();
+						if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off(500);
 						this.loop=200;
 					} 
 					this.up=1;
@@ -607,10 +607,10 @@ if (set.def.acctype==="BMA421"){
 			this.init(v);
 		},
 		off:function(){
+			if (this.loop) { clearInterval(this.loop); this.loop=0;}
 			if (this.tid) {
 				clearWatch(this.tid);
 				this.tid=0;
-				if (this.loop) { clearInterval(this.loop); this.loop=0; }
 				i2c.writeTo(0x18,0x20,0x07); //Clear LPen-Enable all axes-Power down
 				i2c.writeTo(0x18,0x26);
 				i2c.readFrom(0x18,1);// Read REFERENCE-Reset filter block 
@@ -618,16 +618,14 @@ if (set.def.acctype==="BMA421"){
 			}else return false;
 		},
 		init:function(v){
-			if (!this.tid) {
-				this.tid=setWatch(()=>{
-					if (this.up) { 
-						i2c.writeTo(0x18,0x30,this.ori[1]);
-						this.up=0;
-						print("up");
-						print(acc.read());
-						if (this.loop) { clearInterval(this.loop); this.loop=0; }
-						this.loop= setInterval(()=>{
-							if (!w.gfx.isOn&&face.appCurr!=""){  
+			v=2;
+			if (v==2) {
+				if (this.loop) { clearInterval(this.loop); this.loop=0;}
+				this.loop= setInterval(()=>{	
+					let cor=acc.read();
+					//print(cor, cor.ax);
+					if (-1000<=cor.ax && cor.ax<=0  && cor.az<=-300 ) {
+						if (!w.gfx.isOn&&face.appCurr!=""){  
 								if  (global.euc) {
 									if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash.face],0);
 									else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
@@ -635,9 +633,33 @@ if (set.def.acctype==="BMA421"){
 									if (face.appCurr=="main") face.go("main",0);
 									else face.go(face.appCurr,0);
 								}
-							}else if (w.gfx.isOn&&face.pageCurr!=-1) {
-								if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off();
-							} 
+						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
+							if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off(1000);
+						}
+						//print("UP");
+					}
+				},500);
+			}else if (!this.tid) {
+				this.tid=setWatch(()=>{
+					if (this.up) { 
+						i2c.writeTo(0x18,0x30,this.ori[1]);
+						this.up=0;
+						print("up");
+						if (!w.gfx.isOn&&face.appCurr!=""){  
+							if  (global.euc) {
+								if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash.face],0);
+								else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
+							}else{ 
+								if (face.appCurr=="main") face.go("main",0);
+								else face.go(face.appCurr,0);
+							}
+						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
+							if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off();
+						} 
+						if (this.loop) { clearInterval(this.loop); this.loop=0; }
+						this.loop= setInterval(()=>{	
+							let cor=acc.read();
+							print(cor);
 						},500);
 					}else {
 						if (this.loop) { clearInterval(this.loop); this.loop=0; }
@@ -647,7 +669,7 @@ if (set.def.acctype==="BMA421"){
 						if (set.tor==1)
 							w.gfx.bri.set(7);
 						else 
-							face.off(1500);
+							face.off(1200);
 					}
 				},D8,{repeat:true,edge:"rising"});
 				return true;
@@ -660,6 +682,7 @@ if (set.def.acctype==="BMA421"){
 			}
 			i2c.writeTo(0x18,0xA8);
 			var a =i2c.readFrom(0x18,6);
+			//print ( "test got : ax: " + ( a[1] << 8 | a[0] ) + " ay: " + ( a[3] << 8 | a[2] ) + " az: " + ( a[5] << 8 | a[4] ) );
 			return {ax:conv(a[0],a[1]), ay:conv(a[2],a[3]), az:conv(a[4],a[5])};
 		},
 	};	
