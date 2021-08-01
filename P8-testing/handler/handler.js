@@ -84,7 +84,7 @@ var set={
 		dnd:0, //Do not disturb mode, if ebabled vibrations are on.
 		hidT:"media", //joy/kb/media
 		bri:2, //Screen brightness 1..7
-		acctype:"SC7A20",
+		acctype:"0",
 		touchtype:"716"
 		};
 		set.updateSettings();
@@ -525,6 +525,11 @@ if (set.def.touchtype=="816"){ //816
 	}
 };	
 }
+//find acc
+if (set.def.acctype==0) {
+ i2c.writeTo(0x18,0x0F)
+	set.def.acctype=( i2c.readFrom(0x18,1)==17)?"SC7A20":"BMA421";
+}
 //accelerometer(wake on wrist turn)
 if (set.def.acctype==="BMA421"){
 	i2c.writeTo(0x18,0x40,0x17);
@@ -608,14 +613,11 @@ if (set.def.acctype==="BMA421"){
 		},
 		off:function(){
 			if (this.loop) { clearInterval(this.loop); this.loop=0;}
-			if (this.tid) {
-				clearWatch(this.tid);
-				this.tid=0;
-				i2c.writeTo(0x18,0x20,0x07); //Clear LPen-Enable all axes-Power down
-				i2c.writeTo(0x18,0x26);
-				i2c.readFrom(0x18,1);// Read REFERENCE-Reset filter block 
-				return true;
-			}else return false;
+			if (this.tid) {	clearWatch(this.tid);this.tid=0;}
+			i2c.writeTo(0x18,0x20,0x07); //Clear LPen-Enable all axes-Power down
+			i2c.writeTo(0x18,0x26);
+			i2c.readFrom(0x18,1);// Read REFERENCE-Reset filter block 
+			return true;
 		},
 		init:function(v){
 			v=2;
@@ -623,7 +625,6 @@ if (set.def.acctype==="BMA421"){
 				if (this.loop) { clearInterval(this.loop); this.loop=0;}
 				this.loop= setInterval(()=>{	
 					let cor=acc.read();
-					//print(cor, cor.ax);
 					if (-1000<=cor.ax && cor.ax<=0  && cor.az<=-300 ) {
 						if (!w.gfx.isOn&&face.appCurr!=""){  
 								if  (global.euc) {
@@ -636,7 +637,6 @@ if (set.def.acctype==="BMA421"){
 						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
 							if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off(1000);
 						}
-						//print("UP");
 					}
 				},500);
 			}else if (!this.tid) {
