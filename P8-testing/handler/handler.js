@@ -568,7 +568,7 @@ if (set.def.acctype==="BMA421"){
 							}
 							this.loop=500;
 					}else if (w.gfx.isOn&&face.pageCurr!=-1) {
-						if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off(500);
+						if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off(1000);
 						this.loop=200;
 					} 
 					this.up=1;
