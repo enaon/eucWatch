@@ -90,7 +90,7 @@ euc.conn=function(mac){
 					batL.unshift(euc.dash.bat);
 					if (20<batL.length) batL.pop();
 					euc.dash.batC = (euc.dash.batH <= euc.dash.bat)? 0 : (euc.dash.batM <= euc.dash.bat)? 1 : (euc.dash.batL <= euc.dash.bat)? 2 : 3;	
-					if ( euc.dash.hapB && euc.dash.bat <= euc.dash.batL ) { euc.alert ++; euc.dash.spdC = 3; }  
+					if ( euc.dash.hapB && euc.dash.bat <= euc.dash.batL ) { euc.alert ++; }  
 					//temp
 					euc.dash.tmp = (inpk[13] << 8 | inpk[12])/100;
 					euc.dash.tmpC = (euc.dash.tmp <= euc.dash.tmpH)? 0 : (euc.dash.tmp <= euc.dash.tmpH+5)? 2 : 3;	

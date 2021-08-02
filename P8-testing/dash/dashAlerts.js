@@ -72,6 +72,7 @@ face[0] = {
 face[1] = {
 	offms:1000,
 	init: function(){
+		if (face.appPrev=="dashGarage") euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 		return true;
 	},
 	show : function(){
@@ -222,7 +223,8 @@ touchHandler[0]=function(e,x,y){
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
-		face.go(set.dash[set.def.dash.face],0);
+		if (face.appPrev=="dashGarage") euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
+		face.go(face.appPrev,0);
 		return;	 
 	case 2: //slide up event
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
@@ -238,6 +240,7 @@ touchHandler[0]=function(e,x,y){
 		digitalPulse(D16,1,40);
 		break;
 	case 4: //slide right event (back action)
+		if (face.appPrev=="dashGarage") euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
         if (face[0].set) {
        		this.timeout();
 		   //clear
