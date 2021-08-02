@@ -252,14 +252,8 @@ touchHandler[0]=function(e,x,y){
           	w.gfx.drawLine (121,0,121,195);
             w.gfx.flip();	
   			face[0].set=0;face[0].init();
-        }else if (euc.state=="READY"&&euc.dash.maker=="Kingsong")
-			face.go("dashKingsongOpt",0);
-		else if (euc.state=="READY"&&euc.dash.maker=="Begode")
-			face.go("dashBegode",0);
-        else if (euc.state=="READY"&&euc.dash.maker=="Ninebot")
-			face.go("dashNinebot",0);
-		else if (euc.state=="READY"&&euc.dash.maker=="NinebotS")
-			face.go("dashNinebotS",0);
+        }else if (euc.state=="READY")
+			face.go("dash"+euc.dash.maker,0);
 		else
 			face.go("dashGarage",0);
 		return;
