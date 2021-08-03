@@ -9,8 +9,8 @@ euc.cmd=function(no){
 		case "rideMed":return  "SETm"; 
 		case "rideHard":return "SETh";
 		case "clearMeter":return "CLEARMETER";
-		case "setLightOn":return "SetlightOn";
-		case "setLightOff":return "SetlightOff";
+		case "setLightOn":return "SetLightOn";
+		case "setLightOff":return "SetLightOff";
 		case "setVolUp":return "SetFctVol+";
 		case "setVolDn":return "SetFctVol-";
 		//case "rideSoft":return  [0x53,0x45,0x54,0x73]; 
@@ -124,7 +124,7 @@ euc.conn=function(mac){
 				if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
 				//setTimeout(()=>{
 				c.writeValue(euc.cmd("beep")).then(function() {
-					return c.writeValue(euc.cmd("setlightOff"));
+					return c.writeValue(euc.cmd("setLightOff"));
 				}).then(function()  {
 					global["\xFF"].BLE_GATTS.disconnect();if (set.def.cli) console.log("EUC Veteran out");
 				}).catch(function(err)  {
