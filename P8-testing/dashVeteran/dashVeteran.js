@@ -18,7 +18,7 @@ face[0] = {
         this.btn(euc.dash.light,"LIGHT",28,60,35,1453,1365,0,0,119,97);
 		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,1453,1365,122,0,239,97,"ALERTS",22,185,55);		
         this.btn(1,"CLEAR",25,60,115,1365,1365,0,100,119,195,"METER",22,60,155);
-		let md={1:"SOFT",2:"MEDIUM",3:"HARD"};
+		let md={"1":"SOFT","2":"MEDIUM","3":"HARD"};
         this.btn(1,"RIDE",25,185,115,col("olive"),0,122,100,239,195,md[euc.dash.mode],25,185,155);
 		this.run=true;
 	},
@@ -131,7 +131,7 @@ touchHandler[0]=function(e,x,y){
 				if (euc.dash.mode==1) {euc.dash.mode=2;euc.wri("rideMed");}
 				else if (euc.dash.mode==2) {euc.dash.mode=3;euc.wri("rideHard"); }
 				else if (euc.dash.mode==3) {euc.dash.mode=1;euc.wri("rideSoft");}
-				let md={1:"SOFT",2:"MEDIUM",3:"HARD"};
+				let md={"1":"SOFT","2¨":"MEDIUM","3":"HARD"};
 				face[0].btn(1,"RIDE",25,185,115,col("olive"),0,122,100,239,195,md[euc.dash.mode],25,185,155);
 				digitalPulse(D16,1,[30,50,30]);						
 			}else digitalPulse(D16,1,[30,50,30]);

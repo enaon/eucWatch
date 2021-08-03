@@ -117,7 +117,8 @@ euc.conn=function(mac){
 		digitalPulse(D16,1,[90,40,150,40,90]);
 		euc.wri= function(n) {
             //console.log("got :", n);
-			if (euc.busy) {print(1); clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},500);return;} euc.busy=euc.busy=setTimeout(()=>{euc.busy=0;},500);
+			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},150);return;} 
+			euc.busy=setTimeout(()=>{euc.busy=0;},1000);
             //end
 			if (euc.state=="OFF"||n=="end") {
                c.stopNotifications(); 
@@ -196,8 +197,8 @@ euc.off=function(err){
 	} else {
 		if (set.def.cli) 
 			console.log("EUC OUT:",err);
-		global["\xFF"].bleHdl=[];
-			clearTimeout(euc.busy);euc.busy=0;
+			global["\xFF"].bleHdl=[];
+			if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 			euc.off=function(err){if (set.def.cli) console.log("EUC off, not connected",err);};
 			euc.wri=function(err){if (set.def.cli) console.log("EUC write, not connected",err);};
 			//delete euc.off;
