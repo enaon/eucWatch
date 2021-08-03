@@ -26,7 +26,7 @@ face[0] = {
 		this.g.flip(); 
 		//ride mode
 		this.b1=euc.dash.mode;
-		if (this.b1==0) {
+		if (!this.b1) {
 			this.b1t="HARD";this.b1c=col("raf4");
 		}else if (this.b1==1) {
 			this.b1t="MED";this.b1c=col("raf2");

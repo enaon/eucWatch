@@ -15,10 +15,12 @@ face[0] = {
 		this.g.drawString("SHERMAN",120-(this.g.stringWidth("SHERMAN")/2),217); 
 		this.g.flip();
 		//
-        this.btn(euc.dash.aLck,"",18,60,15,1365,1365,0,0,119,97,"",28,60,50);
+        this.btn(euc.dash.light,"LIGHT",28,60,35,1453,1365,0,0,119,97);
 		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,1453,1365,122,0,239,97,"ALERTS",22,185,55);		
         this.btn(1,"CLEAR",25,60,115,1365,1365,0,100,119,195,"METER",22,60,155);
-        this.btn(1,"MODE:"+euc.dash.mode,25,185,136,col("olive"),0,122,100,239,195);
+		let md={1:"SOFT",2:"MEDIUM",3:"HARD"};
+		print("mode : ",md[1]);
+        this.btn(1,"RIDE",25,185,115,col("olive"),0,122,100,239,195,md[euc.dash.mode],25,185,155);
 		this.run=true;
 	},
 	show : function(){
@@ -97,6 +99,7 @@ touchHandler[0]=function(e,x,y){
               w.gfx.flip();
               face[0].init();return;
             }
+			/*
 			else if ( x<=120 && y<100 ) { //decrease
 				if (euc.dash.mode==3) {euc.dash.mode=2;euc.wri("rideMed");face[0].btn("MODE",18,60,15,col("raf2"),0,0,119,97,"MED",30,60,50);}
 				else if (euc.dash.mode==1) {euc.dash.mode=3;euc.wri("rideHard");face[0].btn("MODE",18,60,15,col("raf4"),0,0,119,97,"HARD",30,60,50);}
@@ -106,11 +109,17 @@ touchHandler[0]=function(e,x,y){
 				else if (euc.dash.mode==2) {euc.dash.mode=3;euc.wri("rideHard");face[0].btn("MODE",18,60,15,col("raf4"),0,0,119,97,"HARD",30,60,50);}
 				else if (euc.dash.mode==3) {euc.dash.mode=1;euc.wri("rideSoft");face[0].btn("MODE",18,60,15,col("raf3"),0,0,119,97,"SOFT",30,60,50);}
 			}	
-			digitalPulse(D16,1,[30,50,30]);
 			face[0].btn(1,"SET RIDE MODE",20,120,5,1453,0,0,0,239,97,euc.dash.mode.toString(),60,120,37);
+			*/
+//			digitalPulse(D16,1,[30,50,30]);
+			digitalPulse(D16,1,40);
 		}
 		else {
 			if ( x<=120 && y<100 ) { 
+				euc.dash.light= 1- euc.dash.light;
+				face[0].btn(euc.dash.light,"LIGHT",28,60,35,1453,1365,0,0,119,97);
+				euc.wri((euc.dash.light)?"setLightOn":"setLightOff");
+			face[0].ntfy("LIGHT ON","LIGHT OFF",22,1365,euc.dash.light);
 				digitalPulse(D16,1,[30,50,30]);
 			}else if ( 120<=x && y<=100 ) { //watch alerts
 				digitalPulse(D16,1,[30,50,30]);						
@@ -120,8 +129,11 @@ touchHandler[0]=function(e,x,y){
 	            face[0].ntfy("HOLD -> CLEAR METER","",19,1365,1);
 				digitalPulse(D16,1,[30,50,30]);	
 			}else if ( 120<=x && 100<=y ) { //mode
-				face[0].set=1;
-				face[0].btn(1,"SET RIDE MODE",20,120,5,col("olive"),0,0,0,239,97,euc.dash.mode.toString(),60,120,37);
+				if (euc.dash.mode==1) {euc.dash.mode=2;euc.wri("rideMed");}
+				else if (euc.dash.mode==2) {euc.dash.mode=3;euc.wri("rideHard"); }
+				else if (euc.dash.mode==3) {euc.dash.mode=1;euc.wri("rideSoft");}
+				let md={1:"SOFT",2:"MEDIUM",3:"HARD"};
+				face[0].btn(1,"RIDE",25,185,115,col("olive"),0,122,100,239,195,md[euc.dash.mode],25,185,155);
 				digitalPulse(D16,1,[30,50,30]);						
 			}else digitalPulse(D16,1,[30,50,30]);
 		}
@@ -160,7 +172,12 @@ touchHandler[0]=function(e,x,y){
 		if (face[0].set) { 
 			face[0].set=0;face[0].init();
 			digitalPulse(D16,1,[30,50,30]);	
-        }else if ( x<=120 && y<100 ) { //
+        }else if ( x<=120 && y<100 ) { // light
+			euc.dash.light= 1- euc.dash.light;
+			face[0].btn(euc.dash.light,"LIGHT",28,60,35,1453,1365,0,0,119,97);
+			euc.wri((euc.dash.light)?"setLightOn":"setLightOff");
+			face[0].ntfy("LIGHT ON","LIGHT OFF",22,1365,euc.dash.light);
+			digitalPulse(D16,1,[30,50,30]);
 			digitalPulse(D16,1,[30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //watch alerts
 			if (euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB) {euc.dash.hapS=0;euc.dash.hapA=0;euc.dash.hapT=0;euc.dash.hapB=0;}
@@ -173,8 +190,11 @@ touchHandler[0]=function(e,x,y){
 			euc.wri("clearMeter");
 			digitalPulse(D16,1,[30,50,30]);		
 		}else if ( 120<=x && 100<=y ) { //mode
-			face[0].set=1;
-			face[0].btn(1,"SET RIDE MODE",20,120,5,col("olive"),0,0,0,239,97,euc.dash.mode.toString(),60,120,37);
+			if (euc.dash.mode==1) {euc.dash.mode=2;euc.wri("rideMed");}
+			else if (euc.dash.mode==2) {euc.dash.mode=3;euc.wri("rideHard"); }
+			else if (euc.dash.mode==3) {euc.dash.mode=1;euc.wri("rideSoft");}
+			let md={1:"SOFT",2:"MEDIUM",3:"HARD"};
+			face[0].btn(1,"RIDE",25,185,115,col("olive"),0,122,100,239,195,md[euc.dash.mode],25,185,155);
 			digitalPulse(D16,1,[30,50,30]);	
 		}else digitalPulse(D16,1,[30,50,30]);
 		this.timeout();
