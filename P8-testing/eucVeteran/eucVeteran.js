@@ -3,10 +3,14 @@
 //euc.wri("lightsOn")
 //commands
 euc.cmd=function(no){
-	
 	switch (no) {
-		//case "serial":return[85,170,3,9,1,38,2,202,255];
+		case "beep":return [98]; 
+		case "rideSoft":return  [0x53,0x45,0x54,0x73]; 
+		case "rideMed":return  [0x53,0x45,0x54,0x6d]; 
+		case "rideHard":return [0x53,0x45,0x54,0x68];
+		case "clearMeter":return [0x43,0x4c,0x45,0x41,0x52,0x4d,0x45,0x54,0x45,0x52];
 		case "serial":return [0xAA,0x55,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x9B,0x14,0x5A,0x5A]; 
+
     }
 	
 };
@@ -92,10 +96,6 @@ euc.conn=function(mac){
 		if ((1<euc.dash.spdC||1<euc.dash.ampC||euc.dash.alrm)&&!w.gfx.isOn ){
 			face.go(set.dash[set.def.dash.face],0);
 		}
-			
-			
-			
-			
 		});
 		//on disconnect
 		global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
@@ -113,7 +113,13 @@ euc.conn=function(mac){
 			if (euc.state=="OFF") {
                c.stopNotifications(); 
 				if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
-				setTimeout(()=>{global["\xFF"].BLE_GATTS.disconnect();if (set.def.cli) console.log("EUC Veteran out");},300);
+				//setTimeout(()=>{
+				c.writeValue(euc.cmd("beep")).then(function() {
+					global["\xFF"].BLE_GATTS.disconnect();if (set.def.cli) console.log("EUC Veteran out");
+				}).catch(function(err)  {
+					global["\xFF"].BLE_GATTS.disconnect();if (set.def.cli) console.log("EUC Veteran out");
+				});
+				//},300);
             }else{
 				c.writeValue(euc.cmd(n)).then(function() {
 					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
@@ -128,7 +134,7 @@ euc.conn=function(mac){
 			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 			set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
 		}
-		setTimeout(() => {euc.wri("serial");euc.state="READY";}, 500);
+		setTimeout(() => {euc.wri("beep");euc.state="READY";}, 500);
 
 	//reconect
 	}).catch(function(err)  {
