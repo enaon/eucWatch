@@ -198,8 +198,8 @@ euc.off=function(err){
 			console.log("EUC OUT:",err);
 		global["\xFF"].bleHdl=[];
 			clearTimeout(euc.busy);euc.busy=0;
-			off:function(err){if (set.def.cli) console.log("EUC off, not connected",err);},
-			wri:function(err){if (set.def.cli) console.log("EUC write, not connected",err);},
+			euc.off=function(err){if (set.def.cli) console.log("EUC off, not connected",err);};
+			euc.wri=function(err){if (set.def.cli) console.log("EUC write, not connected",err);};
 			//delete euc.off;
 			//delete euc.conn;
 			//delete euc.wri;
