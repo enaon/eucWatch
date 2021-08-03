@@ -9,10 +9,10 @@ euc.cmd=function(no){
 		case "rideMed":return  "SETm"; 
 		case "rideHard":return "SETh";
 		case "clearMeter":return "CLEARMETER";
-		case "SetlightOn":return "SetlightOn";
-		case "SetlightOff":return "SetlightOff";
-		case "SetVolUp":return "SetFctVol+";
-		case "SetVolDn":return "SetFctVol-";
+		case "setlightOn":return "SetlightOn";
+		case "setlightOff":return "SetlightOff";
+		case "setVolUp":return "SetFctVol+";
+		case "setVolDn":return "SetFctVol-";
 		//case "rideSoft":return  [0x53,0x45,0x54,0x73]; 
 		//case "rideMed":return  [0x53,0x45,0x54,0x6d]; 
 		//case "rideHard":return [0x53,0x45,0x54,0x68];
@@ -124,7 +124,7 @@ euc.conn=function(mac){
 				if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
 				//setTimeout(()=>{
 				c.writeValue(euc.cmd("beep")).then(function() {
-					return c.writeValue(euc.cmd("SetlightOff"));
+					return c.writeValue(euc.cmd("setlightOff"));
 				}).then(function()  {
 					global["\xFF"].BLE_GATTS.disconnect();if (set.def.cli) console.log("EUC Veteran out");
 				}).catch(function(err)  {
@@ -145,7 +145,7 @@ euc.conn=function(mac){
 			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 			set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
 		}
-		setTimeout(() => {euc.wri((euc.dash.light)?"SetlightOn":"beep");euc.state="READY";}, 500);
+		setTimeout(() => {euc.wri((euc.dash.light)?"setlightOn":"beep");euc.state="READY";}, 500);
 
 	//reconect
 	}).catch(function(err)  {
