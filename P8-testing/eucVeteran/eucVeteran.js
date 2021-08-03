@@ -134,18 +134,22 @@ euc.conn=function(mac){
             }else if (euc.cmd(n)) {
 				c.writeValue(euc.cmd(n)).then(function() {
 					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-					c.startNotifications();
 				}).catch(function(err)  {
-					clearTimeout(euc.busy);euc.busy=0;euc.off("err");
+					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+					euc.off("err");
 				});
-			}else if (set.def.cli) console.log("no command :",n);
+			}else if (set.def.cli) {
+				if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+				console.log("no command :",n);
+			}
 		};
 		if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {
 			euc.dash.mac=euc.mac; 
 			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 			set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
 		}
-		setTimeout(() => {euc.wri((euc.dash.light)?"setLightOn":"beep");euc.state="READY";}, 500);
+		c.startNotifications();
+		setTimeout(() => {euc.busy=0;euc.state="READY";euc.wri((euc.dash.light)?"setLightOn":"beep");}, 500);
 		//setTimeout(() => {euc.wri("beep");euc.state="READY";}, 500);
 
 	//reconect
