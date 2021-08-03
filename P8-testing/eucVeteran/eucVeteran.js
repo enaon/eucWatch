@@ -4,7 +4,7 @@
 //commands
 euc.cmd=function(no){
 	switch (no) {
-		case "beep":return 152; 
+		case "beep":return [98]; 
 		case "rideSoft":return "SETs"; 
 		case "rideMed":return  "SETm"; 
 		case "rideHard":return "SETh";
