@@ -9,8 +9,8 @@ euc.cmd=function(no){
 		case "rideMed":return  "SETm"; 
 		case "rideHard":return "SETh";
 		case "clearMeter":return "CLEARMETER";
-		case "setLightOn":return "SetLightOn";
-		case "setLightOff":return "SetLightOff";
+		case "setLightOn":return "SetLightON";
+		case "setLightOff":return "SetLightOFF";
 		case "setVolUp":return "SetFctVol+";
 		case "setVolDn":return "SetFctVol-";
 		//case "rideSoft":return  [0x53,0x45,0x54,0x73]; 
