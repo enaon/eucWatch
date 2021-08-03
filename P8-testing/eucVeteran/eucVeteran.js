@@ -145,7 +145,7 @@ euc.conn=function(mac){
 			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 			set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
 		}
-		setTimeout(() => {euc.wri((euc.dash.light)?`"setlightOn"`:`"beep"`);euc.state="READY";}, 500);
+		setTimeout(() => {euc.wri(((euc.dash.light)?`"setlightOn"`:`"beep"`));euc.state="READY";}, 500);
 
 	//reconect
 	}).catch(function(err)  {
@@ -193,11 +193,13 @@ euc.off=function(err){
 			console.log("EUC OUT:",err);
 		global["\xFF"].bleHdl=[];
 			clearTimeout(euc.busy);euc.busy=0;
-			delete euc.off;
-			delete euc.conn;
-			delete euc.wri;
-			delete euc.cmd;
-			delete euc.unpk;
+			off:function(err){if (set.def.cli) console.log("EUC off, not connected",err);},
+			wri:function(err){if (set.def.cli) console.log("EUC write, not connected",err);},
+			//delete euc.off;
+			//delete euc.conn;
+			//delete euc.wri;
+			//delete euc.cmd;
+			//delete euc.unpk;
 			NRF.setTxPower(set.def.rfTX);	
     }
 };

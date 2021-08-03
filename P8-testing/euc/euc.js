@@ -11,8 +11,8 @@ global.euc= {
 		trp:[0,0,0]//hour/day/month
 	},
 	updateDash:function(slot){require('Storage').write('eucSlot'+slot+'.json', euc.dash);},
-	off:function(err){if (set.def.cli) console.log("EUC off, not connected");},
-	wri:function(err){if (set.def.cli) console.log("EUC write, not connected");},
+	off:function(err){if (set.def.cli) console.log("EUC off, not connected",err);},
+	wri:function(err){if (set.def.cli) console.log("EUC write, not connected",err);},
 	tgl:function(){ 
 		face.off();
 		if (this.reconnect) {clearTimeout(this.reconnect); this.reconnect=0;}
