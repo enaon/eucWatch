@@ -118,7 +118,7 @@ touchHandler[0]=function(e,x,y){
 			if ( x<=120 && y<100 ) { 
 				euc.dash.light= 1- euc.dash.light;
 				face[0].btn(euc.dash.light,"LIGHT",28,60,35,1453,1365,0,0,119,97);
-				euc.wri(((euc.dash.light)?"setLightOn":"setLightOff"));
+				euc.wri((euc.dash.light)?`"setLightOn"`:`"setLightOff"`);
 			face[0].ntfy("LIGHT ON","LIGHT OFF",22,1365,euc.dash.light);
 				digitalPulse(D16,1,[30,50,30]);
 			}else if ( 120<=x && y<=100 ) { //watch alerts
@@ -175,7 +175,7 @@ touchHandler[0]=function(e,x,y){
         }else if ( x<=120 && y<100 ) { // light
 			euc.dash.light= 1- euc.dash.light;
 			face[0].btn(euc.dash.light,"LIGHT",28,60,35,1453,1365,0,0,119,97);
-			euc.wri(((euc.dash.light)?"setLightOn":"setLightOff"));
+			euc.wri((euc.dash.light)?`"setLightOn"`:`"setLightOff"`);
 			face[0].ntfy("LIGHT ON","LIGHT OFF",22,1365,euc.dash.light);
 			digitalPulse(D16,1,[30,50,30]);
 			digitalPulse(D16,1,[30,50,30]);
