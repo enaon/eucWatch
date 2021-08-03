@@ -129,7 +129,7 @@ touchHandler[0]=function(e,x,y){
 				if (euc.dash.mode==1) {euc.dash.mode=2;euc.wri("rideMed");}
 				else if (euc.dash.mode==2) {euc.dash.mode=3;euc.wri("rideHard"); }
 				else if (euc.dash.mode==3) {euc.dash.mode=1;euc.wri("rideSoft");}
-				let md={"1":"SOFT","2¨":"MEDIUM","3":"HARD"};
+				let md={"1":"SOFT","2":"MEDIUM","3":"HARD"};
 				face[0].btn(1,"RIDE",25,185,115,col("olive"),0,122,100,239,195,md[euc.dash.mode],25,185,155);
 				digitalPulse(D16,1,[30,50,30]);						
 			}else digitalPulse(D16,1,[30,50,30]);
@@ -189,7 +189,7 @@ touchHandler[0]=function(e,x,y){
 			if (euc.dash.mode==1) {euc.dash.mode=2;euc.wri("rideMed");}
 			else if (euc.dash.mode==2) {euc.dash.mode=3;euc.wri("rideHard"); }
 			else if (euc.dash.mode==3) {euc.dash.mode=1;euc.wri("rideSoft");}
-			let md={1:"SOFT",2:"MEDIUM",3:"HARD"};
+			let md={"1":"SOFT","2":"MEDIUM","3":"HARD"};
 			face[0].btn(1,"RIDE",25,185,115,col("olive"),0,122,100,239,195,md[euc.dash.mode],25,185,155);
 			digitalPulse(D16,1,[30,50,30]);	
 		}else digitalPulse(D16,1,[30,50,30]);
