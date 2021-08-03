@@ -3,7 +3,6 @@ face[0] = {
 	offms: 5000,
 	g:w.gfx,
 	init: function(){
-		euc.busy=1;//stop bt loop-accept commands.
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
  		if (!this.set&&(face.appPrev.startsWith("dash_")||face.appPrev==="settings")) this.g.clear();
         this.set=0;
