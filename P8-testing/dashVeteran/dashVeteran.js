@@ -8,7 +8,6 @@ face[0] = {
         this.set=0;
         this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,239);
-		//this.g.fillRect(0,0,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
 		this.g.drawString("SHERMAN",120-(this.g.stringWidth("SHERMAN")/2),217); 
