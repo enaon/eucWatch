@@ -176,7 +176,6 @@ touchHandler[0]=function(e,x,y){
 			euc.wri((euc.dash.light)?"setLightOn":"setLightOff");
 			face[0].ntfy("LIGHT ON","LIGHT OFF",22,1365,euc.dash.light);
 			digitalPulse(D16,1,[30,50,30]);
-			digitalPulse(D16,1,[30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //watch alerts
 			if (euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB) {euc.dash.hapS=0;euc.dash.hapA=0;euc.dash.hapT=0;euc.dash.hapB=0;}
 			else {euc.dash.hapS=1;euc.dash.hapA=1;euc.dash.hapT=1;euc.dash.hapB=1;}
