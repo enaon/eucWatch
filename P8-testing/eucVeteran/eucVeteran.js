@@ -145,7 +145,7 @@ euc.conn=function(mac){
 			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 			set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
 		}
-		setTimeout(() => {euc.wri(((euc.dash.light)?`"setLightOn"`:`"beep"`));euc.state="READY";}, 500);
+		setTimeout(() => {euc.wri((euc.dash.light)?"setLightOn":"beep");euc.state="READY";}, 500);
 		//setTimeout(() => {euc.wri("beep");euc.state="READY";}, 500);
 
 	//reconect
