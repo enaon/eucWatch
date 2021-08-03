@@ -192,7 +192,7 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.fillRect(0,51,239,239); 
 				w.gfx.setColor(1,col("white"));
 				w.gfx.setFontVector(30);
-				w.gfx.drawString((euc.dash.name)?euc.dash.name:euc.dash.maker,120-w.gfx.stringWidth((euc.dash.name)?euc.dash.name:euc.dash.maker)/2,62);
+				w.gfx.drawString(((euc.dash.name)?euc.dash.name:euc.dash.maker)+" "+euc.dash.bat+" %",120-w.gfx.stringWidth(((euc.dash.name)?euc.dash.name:euc.dash.maker)+" "+euc.dash.bat+" %")/2,62);
 				w.gfx.setFontVector(28);
 				w.gfx.drawString(euc.dash.spdM*((set.def.dash.mph)?0.625:1)*euc.dash.spdF,185-w.gfx.stringWidth(euc.dash.spdM*((set.def.dash.mph)?0.625:1)*euc.dash.spdF),99);
 				w.gfx.drawString(euc.dash.time,185-w.gfx.stringWidth(euc.dash.time),139); 
