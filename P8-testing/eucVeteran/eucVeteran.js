@@ -116,10 +116,10 @@ euc.conn=function(mac){
 		console.log("EUC Veteran connected!!"); 
 		digitalPulse(D16,1,[90,40,150,40,90]);
 		euc.wri= function(n) {
-            console.log("got :", n);
+            //console.log("got :", n);
 			if (euc.busy) {print(1); clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},500);return;} euc.busy=euc.busy=setTimeout(()=>{euc.busy=0;},500);
             //end
-			if (euc.state=="OFF") {
+			if (euc.state=="OFF"||n=="end") {
                c.stopNotifications(); 
 				if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
 				//setTimeout(()=>{
