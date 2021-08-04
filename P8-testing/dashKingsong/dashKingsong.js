@@ -25,7 +25,7 @@ face[0] = {
 		this.g.flip(); 
 		this.btn("LIGHTS",18,60,15,(euc.dash.aLight==="lightsOff")?col("black"):(euc.dash.aLight==="lightsOn")?col("raf2"):(euc.dash.aLight=="lightsAuto"||euc.dash.aLight==0)?col("raf3"):col("raf4"),0,0,119,97,(euc.dash.aLight==="lightsOff")?"OFF":(euc.dash.aLight==="lightsOn")?"ON":(euc.dash.aLight==="lightsAuto"||euc.dash.aLight==0)?"AUTO":"CITY",28,60,50); //1
 		this.btn("STROBE",25,185,35,(euc.dash.strb)?col("red"):col("dgray"),122,0,239,97);//2
-        this.btn("TPMS",25,60,115,1365,0,100,119,195,"",22,60,155); //3
+        this.btn("TPMS",25,60,135,1365,0,100,119,195,"",22,60,155); //3
    		this.btn("LOCK",25,185,135,(euc.dash.lock)?col("red"):col("dgray"),122,100,239,195); //4
 		this.run=true;
 	},
