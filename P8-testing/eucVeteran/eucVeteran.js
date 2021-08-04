@@ -15,7 +15,6 @@ euc.cmd=function(no){
 		case "setVolDn":return "SetFctVol-";
 		case "clearMeter":return "CLEARMETER";
     }
-	
 };
 //start
 euc.conn=function(mac){
@@ -69,36 +68,35 @@ euc.conn=function(mac){
 				euc.dash.tmpC=(euc.dash.tmpH - 5 <= euc.dash.tmp )? (euc.dash.tmpH <= euc.dash.tmp )?2:1:0;
 				if (euc.dash.hapT && euc.dash.tmpC==2) euc.alert++;
 			} else {
-				
 				//print("secondary packet");
-				euc.dash.off=(this.event[0] << 8 | this.event[1]);
-				euc.dash.chrg=(this.event[2] << 8 | this.event[3]);
+				//euc.dash.off=(this.event[0] << 8 | this.event[1]);
+				//euc.dash.chrg=(this.event[2] << 8 | this.event[3]);
 				//euc.dash.spd1=((this.event[4] << 8 | this.event[5]) / 10)|0;
-				euc.dash.spdT=((this.event[6] << 8 | this.event[7]) / 10)|0;
-				euc.dash.model=(this.event[8] << 8 | this.event[9]);
+				//euc.dash.spdT=((this.event[6] << 8 | this.event[7]) / 10)|0;
+				if (!euc.dash.model) euc.dash.model=(this.event[8] << 8 | this.event[9]);
 				euc.dash.mode=(this.event[10] << 8 | this.event[11]);
 			}
-			
+			//alerts
 			if (euc.alert && !euc.buzz) {  
-			euc.buzz=1;
-			if (w.gfx.isOn) face.off(10000);
-            if (20<=euc.alert) euc.alert=20;
-			var a=[];
-			while (5 <= euc.alert) {
-				a.push(150,500);
-				euc.alert=euc.alert-5;
+				euc.buzz=1;
+				if (w.gfx.isOn) face.off(10000);
+				if (20<=euc.alert) euc.alert=20;
+				var a=[];
+				while (5 <= euc.alert) {
+					a.push(150,500);
+					euc.alert=euc.alert-5;
+				}
+				var i;
+				for (i = 0; i < euc.alert ; i++) {
+					a.push(150,150);
+				}
+				digitalPulse(D16,0,a);  
+				setTimeout(() => {euc.buzz=0; }, 3000);
 			}
-			var i;
-			for (i = 0; i < euc.alert ; i++) {
-				a.push(150,150);
+			//screen on
+			if ((1<euc.dash.spdC||1<euc.dash.ampC||euc.dash.alrm)&&!w.gfx.isOn ){
+				face.go(set.dash[set.def.dash.face],0);
 			}
-			digitalPulse(D16,0,a);  
-			setTimeout(() => {euc.buzz=0; }, 3000);
-		}
-		//screen on
-		if ((1<euc.dash.spdC||1<euc.dash.ampC||euc.dash.alrm)&&!w.gfx.isOn ){
-			face.go(set.dash[set.def.dash.face],0);
-		}
 		});
 		//on disconnect
 		global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
