@@ -296,7 +296,7 @@ euc.conn=function(mac){
 			euc.state="READY";
 			setTimeout(()=>{ 
 				//console.log(global["\xFF"].bleHdl[54].value.buffer[0]);
-				if (global["\xFF"]&& (global["\xFF"].bleHdl[54].value.buffer[0]==65 ||global["\xFF"].bleHdl[54].value.buffer[0]==188)){
+				if (global["\xFF"].bleHdl[54]&& (global["\xFF"].bleHdl[54].value.buffer[0]==65 ||global["\xFF"].bleHdl[54].value.buffer[0]==188)){
 					euc.wri("start");
 				} else c.startNotifications();
 			},500);
