@@ -99,17 +99,18 @@ touchHandler[0]=function(e,x,y){
 			if (face[0].set=="spd") { 
 				if (y<=120){ //spd
 					//if (require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]!="Kingsong") {
-					if (set.read("dash","slot"+set.read("dash","slot")+"Maker")!="Kingsong") {
+					//if (set.read("dash","slot"+set.read("dash","slot")+"Maker")!="Kingsong") {
 						if (x<=120){ if (1<euc.dash.spd1) euc.dash.spd1--;
 						}else if (euc.dash.spd1<99) euc.dash.spd1++;
                         euc.dash.haSv="spd1";
 						face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,1453,0,0,0,239,97,(set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv],50,120,40);
-					}else {
+					/*}else {
 						if (euc.dash.haSv==0) euc.dash.haSv=1;
 						else if (euc.dash.haSv==1) euc.dash.haSv=2;
 						else euc.dash.haSv=0;
 	                    face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,1453,0,0,0,239,97,(set.def.dash.mph)?(euc.dash.lim[euc.dash.haSv]*0.625).toFixed(1):euc.dash.lim[euc.dash.haSv],50,120,40);
 					}
+					*/
 					face[0].btn(1,"RESOLUTION:",18,120,110,col("dgray"),0,0,100,239,195,euc.dash.spdS,50,120,140);
 					face[0].ntfy("ALERT IF OVER "+((set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv]) +((set.def.dash.mph)?" MPH":" Km/h"),"",18,1453,1);
 				}else{ //RESOLUTION
@@ -252,7 +253,8 @@ touchHandler[0]=function(e,x,y){
             w.gfx.flip();	
   			face[0].set=0;face[0].init();
         }else if (euc.state=="READY")
-			face.go("dash"+euc.dash.maker,0);
+			face.go(face.appPrev,0);
+			//face.go("dash"+euc.dash.maker,0);
 		else
 			face.go("dashGarage",0);
 		return;
