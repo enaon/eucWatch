@@ -10,10 +10,10 @@ face[0] = {
 			this.g.fillRect(0,51,239,239);
 			this.g.flip();	
 		}else this.g.clear();
-		this.spdC=new Uint16Array([0,0,3840,3840]);
-		this.ampC=new Uint16Array([1365,4095,3840,3840]);
-		this.tmpC=[1365,1365,3840,3840];
-		this.batC=new Uint16Array([1453,1453,1365,3840]);
+		this.spdC=[0,0,3840,3840];
+		this.ampC=[1365,2992,3840,3840];
+		this.tmpC=[1365,2992,3840,3840];
+		this.batC=[1453,1365,3840,3840];
 		this.spd=-1;
 		this.spdL=-1;
 		this.spdM=-1;

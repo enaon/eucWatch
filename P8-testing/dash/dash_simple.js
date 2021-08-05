@@ -8,12 +8,12 @@ face[0] = {
         if (face.appPrev.startsWith("dash_")) {
 			this.g.setColor(0,0);
 			this.g.fillRect(0,51,239,239);
-		this.g.flip();	
+			this.g.flip();	
 		}else this.g.clear();
 		this.spdC=[0,0,3840,3840];
-		this.ampC=[1365,4095,3840,3840];
-		this.tmpC=[1365,1365,3840,3840];
-		this.batC=[1453,1453,1365,3840];
+		this.ampC=[1365,2992,3840,3840];
+		this.tmpC=[1365,2992,3840,3840];
+		this.batC=[1453,1365,3840,3840];
 		this.spd=-1;
 		this.amp=-1;
 		this.tmp=-1;

@@ -66,35 +66,31 @@ euc.conn=function(mac){
 				case  169:
 					//speed
 					euc.dash.spd=Math.round((inpk[5] << 8 | inpk[4])/100); 
-					euc.dash.spdC = ( euc.dash.spd <= euc.dash.lim[0] )? 0 : ( euc.dash.spd <= euc.dash.lim[1] )? 1 : ( euc.dash.spd <= euc.dash.lim[2] )? 2 : 3 ;	
-					if ( euc.dash.hapS && euc.dash[euc.dash.haSv]  <= euc.dash.spd ) 
-						euc.alert = ( 1 + ((euc.dash.spd-euc.dash.lim[euc.dash.haSv]) / euc.dash.spdS | 0 ) );  
+					//euc.dash.spdC = ( euc.dash.spd <= euc.dash.lim[0] )? 0 : ( euc.dash.spd <= euc.dash.lim[1] )? 1 : ( euc.dash.spd <= euc.dash.lim[2] )? 2 : 3 ;	
+					//if ( euc.dash.hapS && euc.dash[euc.dash.haSv]  <= euc.dash.spd ) 
+					//	euc.alert = ( 1 + ((euc.dash.spd-euc.dash.lim[euc.dash.haSv]) / euc.dash.spdS | 0 ) );  
+					euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd2 <= euc.dash.spd )? 2 : 1 ;	
+					if ( euc.dash.hapS && euc.dash.spdC == 2 ) euc.alert = 1 + Math.round((euc.dash.spd-euc.dash.spd2) / euc.dash.ampS) ; 	
 					//amp
 					this.amp=inpk[11] << 8 | inpk[10];
 					if ( 32767 < this.amp ) this.amp = this.amp - 65536;
 					euc.dash.amp = ( this.amp / 100 );
-					euc.dash.ampC = ( euc.dash.ampH+10 <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL - 5 )? 3 : ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp < 0 )? 1 : 0;
-					if ( euc.dash.ampH <= euc.dash.amp ){
-						if (euc.dash.hapA) euc.alert = Math.round( euc.alert + 1 + ((euc.dash.amp - euc.dash.ampH) / euc.dash.ampS) );
-					}else if ( euc.dash.amp <= euc.dash.ampL )  {
-						//euc.dash.spdC = (euc.dash.ampC === 3)? 3 : (euc.dash.spdC === 3)? 3 : 2;
-						if (euc.dash.hapA) euc.alert = Math.round(euc.alert + 1 + ((-(euc.dash.amp - euc.dash.ampL)) / euc.dash.ampS));  				
-					}
+					euc.dash.ampC = ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp  <= 0 || 15 <= euc.dash.amp)? 1 : 0;
+					if (euc.dash.hapA) euc.alert =  euc.alert + 1 + Math.round( (euc.dash.amp - euc.dash.ampH) / euc.dash.ampS) 
 					//log
 					ampL.unshift(Math.round(euc.dash.amp));
 					if (20<ampL.length) ampL.pop();
 					//volt
 					euc.dash.volt=(inpk[3] << 8 | inpk[2])/100;
 					euc.dash.bat=Math.round(((euc.dash.volt*euc.dash.batF) - euc.dash.batE ) * (100/(420-euc.dash.batE)));
-					//log
 					batL.unshift(euc.dash.bat);
 					if (20<batL.length) batL.pop();
-					euc.dash.batC = (euc.dash.batH <= euc.dash.bat)? 0 : (euc.dash.batM <= euc.dash.bat)? 1 : (euc.dash.batL <= euc.dash.bat)? 2 : 3;	
-					if ( euc.dash.hapB && euc.dash.bat <= euc.dash.batL ) { euc.alert ++; }  
+					euc.dash.batC = (50 <= euc.dash.bat)? 0 : (euc.dash.bat <= euc.dash.batL)? 2 : 1;	
+					if ( euc.dash.hapB && euc.dash.batC ==2 )  euc.alert ++; 
 					//temp
 					euc.dash.tmp = (inpk[13] << 8 | inpk[12])/100;
-					euc.dash.tmpC = (euc.dash.tmp <= euc.dash.tmpH)? 0 : (euc.dash.tmp <= euc.dash.tmpH+5)? 2 : 3;	
-					if (euc.dash.tmpH <= euc.dash.tmp) {euc.alert++; euc.dash.spdC = 3;}     
+					euc.dash.tmpC=(euc.dash.tmpH - 5 <= euc.dash.tmp )? (euc.dash.tmpH <= euc.dash.tmp )?2:1:0;
+					if (euc.dash.hapT && euc.dash.tmpC==2) euc.alert++; 
 					//total mileage
 					euc.dash.trpT = (((inpk[6] << 16) + (inpk[7] << 24) + inpk[8] + (inpk[9] << 8)) / 1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1);
 					euc.log.trp.forEach(function(val,pos){ if (!val) euc.log.trp[pos]=euc.dash.trpT;});
