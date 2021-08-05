@@ -296,7 +296,7 @@ euc.conn=function(mac){
 			euc.state="READY";
 			setTimeout(()=>{ 
 				//console.log(global["\xFF"].bleHdl[54].value.buffer[0]);
-				if (global["\xFF"].bleHdl[54].value.buffer[0]==65 ||global["\xFF"].bleHdl[54].value.buffer[0]==188){
+				if (global["\xFF"]&& (global["\xFF"].bleHdl[54].value.buffer[0]==65 ||global["\xFF"].bleHdl[54].value.buffer[0]==188)){
 					euc.wri("start");
 				} else c.startNotifications();
 			},500);
@@ -339,7 +339,7 @@ euc.off=function(err){
 	} else {
 			if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
 				if (set.def.cli) console.log("ble still connected"); 
-				global["\xFF"].BLE_GATTS.disconnect();return;
+				global["\xFF"].BLE_GATTS.disconnect();
 			}
 			//global["\xFF"].bleHdl=[];
 			if ( euc.aOff==0 || euc.aOff==1 ) {euc.dash.aOff=euc.aOff;	delete euc.aOff;}
