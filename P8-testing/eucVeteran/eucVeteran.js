@@ -187,18 +187,14 @@ euc.off=function(err){
 			}, 1000);
 		}
 	} else {
-		if (set.def.cli) 
-			console.log("EUC OUT:",err);
-			global["\xFF"].bleHdl=[];
-			if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-			euc.off=function(err){if (set.def.cli) console.log("EUC off, not connected",err);};
-			euc.wri=function(err){if (set.def.cli) console.log("EUC write, not connected",err);};
-			//delete euc.off;
-			//delete euc.conn;
-			//delete euc.wri;
-			//delete euc.cmd;
-			//delete euc.unpk;
-			NRF.setTxPower(set.def.rfTX);	
+		if (set.def.cli) console.log("EUC OUT:",err);
+		global["\xFF"].bleHdl=[];
+		if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+		euc.off=function(err){if (set.def.cli) console.log("EUC off, not connected",err);};
+		euc.wri=function(err){if (set.def.cli) console.log("EUC write, not connected",err);};
+		euc.conn=function(err){if (set.def.cli) console.log("EUC conn, not connected",err);};
+		euc.cmd=function(err){if (set.def.cli) console.log("EUC cmd, not connected",err);};
+		NRF.setTxPower(set.def.rfTX);	
     }
 };
 

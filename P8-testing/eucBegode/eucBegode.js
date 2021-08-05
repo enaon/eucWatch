@@ -141,10 +141,12 @@ euc.conn=function(mac){
 					if (!euc.run){
 						c.writeValue(euc.cmd("beep")).then(function() {
 							euc.run=1;
-							clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
+							if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+							c.startNotifications();
 						});
 					}else {
-						clearTimeout(euc.busy);euc.busy=0;c.startNotifications();
+						if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+						c.startNotifications();
 					}
 				}).catch(function(err)  {
 			    	if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
@@ -159,7 +161,7 @@ euc.conn=function(mac){
 							c.writeValue(48+Number(tilt[1])).then(function() {
 								c.writeValue((euc.dash.spd2E)?(euc.dash.spd1E)?111:117:105).then(function() {
 									c.writeValue(98);
-									clearTimeout(euc.busy);euc.busy=0;
+									if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 								});	
 							});	
 						});	
@@ -170,18 +172,18 @@ euc.conn=function(mac){
 				});  
 			}else if (n=="calibrate") {
 				c.writeValue(99);
-				setTimeout(()=>{c.writeValue(121);clearTimeout(euc.busy);euc.busy=0;},500);
+				setTimeout(()=>{c.writeValue(121);if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}},500);
 			}else if (n=="hornOn") {
 				c.writeValue(euc.cmd("lightsStrobe")).then(function() {
 					c.writeValue(euc.cmd("beep"));
-   					clearTimeout(euc.busy);euc.busy=0;
+   					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 				}).catch(function(err)  {
 			    	if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
 			    	global["\xFF"].BLE_GATTS.disconnect();  
 				});  
 			}else if (n=="hornOff") {
 				c.writeValue(euc.cmd(euc.dash.aLight)).then(function() {
-   					clearTimeout(euc.busy);euc.busy=0;
+   					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 				}).catch(function(err)  {
 			    	if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
 			    	global["\xFF"].BLE_GATTS.disconnect();  
@@ -190,13 +192,15 @@ euc.conn=function(mac){
 			} else if (!euc.cmd(n)) {
 				c.writeValue(n).then(function() {
 				}).catch(function(err)  {
-					clearTimeout(euc.busy);euc.busy=0;euc.off("err");
+					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+					euc.off("err");
 				});   
 			}else{
 				c.writeValue(euc.cmd(n)).then(function() {
-					clearTimeout(euc.busy);euc.busy=0;
+					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 				}).catch(function(err)  {
-					clearTimeout(euc.busy);euc.busy=0;euc.off("err");
+					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+					euc.off("err");
 				});
 			}
 		};
@@ -213,10 +217,7 @@ euc.conn=function(mac){
 };
 //catch
 euc.off=function(err){
-	if (euc.reconnect) {
-		clearTimeout(euc.reconnect);
-		euc.reconnect=0;
-	}
+	if (euc.reconnect) {clearTimeout(euc.reconnect);euc.reconnect=0;}
 	if (euc.state!="OFF") {
         euc.seq=1;
 		if (set.def.cli) 
@@ -248,16 +249,14 @@ euc.off=function(err){
 			}, 1000);
 		}
 	} else {
-		if (set.def.cli) 
-			console.log("EUC OUT:",err);
-	  	global["\xFF"].bleHdl=[];
-			clearTimeout(euc.busy);euc.busy=0;
-			delete euc.off;
-			delete euc.conn;
-			delete euc.wri;
-			delete euc.cmd;
-			euc.run=0;
-			NRF.setTxPower(set.def.rfTX);	
+		if (set.def.cli) console.log("EUC OUT:",err);
+		global["\xFF"].bleHdl=[];
+		if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+		euc.off=function(err){if (set.def.cli) console.log("EUC off, not connected",err);};
+		euc.wri=function(err){if (set.def.cli) console.log("EUC write, not connected",err);};
+		euc.conn=function(err){if (set.def.cli) console.log("EUC conn, not connected",err);};
+		euc.cmd=function(err){if (set.def.cli) console.log("EUC cmd, not connected",err);};
+		NRF.setTxPower(set.def.rfTX);
     }
 };
 
