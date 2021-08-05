@@ -28,6 +28,9 @@ face[0] = {
 	show : function(o){
 		if (!this.run) return;
 		if (euc.state=="READY") {
+			this.g.setColor(0,0);
+			this.g.fillRect(0,0,0,0);
+			this.g.flip();
 			if (euc.dash.spd|0!=this.spd) this.spdf();
 			if (!set.def.dash.clkS){	if (this.tmp!=euc.dash.tmp)	this.tmpf();}
 			else if (60 < getTime()-this.time )	this.clkf();
