@@ -76,7 +76,7 @@ euc.conn=function(mac){
 					if ( 32767 < this.amp ) this.amp = this.amp - 65536;
 					euc.dash.amp = ( this.amp / 100 );
 					euc.dash.ampC = ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp  <= 0 || 15 <= euc.dash.amp)? 1 : 0;
-					if (euc.dash.hapA) euc.alert =  euc.alert + 1 + Math.round( (euc.dash.amp - euc.dash.ampH) / euc.dash.ampS) 
+					if (euc.dash.hapA) euc.alert =  euc.alert + 1 + Math.round( (euc.dash.amp - euc.dash.ampH) / euc.dash.ampS);
 					//log
 					ampL.unshift(Math.round(euc.dash.amp));
 					if (20<ampL.length) ampL.pop();

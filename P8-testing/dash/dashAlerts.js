@@ -172,12 +172,11 @@ touchHandler[0]=function(e,x,y){
         }else if (x<=120&&y<100) { //spd
 			face[0].set="spd";
             digitalPulse(D16,1,[30,50,30]);
-			if (set.read("dash","slot"+set.read("dash","slot")+"Maker")!="Kingsong") 
-				face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,col("dgray"),0,0,0,239,97,(set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv],50,120,40);
-			else 
+			//if (set.read("dash","slot"+set.read("dash","slot")+"Maker")!="Kingsong") 
+			//	face[0].btn(1,"SPEED (in //"+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,col("dgray"),0,0,0,239,97,(set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv],50,120,40);
+			//else 
 				face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,col("dgray"),0,0,0,239,97,(set.def.dash.mph)?(euc.dash.lim[euc.dash.haSv]*0.625).toFixed(1):euc.dash.lim[euc.dash.haSv],50,120,40);
 			face[0].btn(1,"RESOLUTION:",18,120,110,col("gray"),0,0,100,239,195,euc.dash.spdS,50,120,140);
-
 		}else if (120<=x&&y<=100) { //amp
 			face[0].set="amp";
 			digitalPulse(D16,1,[30,50,30]);
