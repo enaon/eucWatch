@@ -204,7 +204,7 @@ face[0] = {
 						tot=tot.toFixed(0);
 						tot=tot.substring(0,tot.length-3)+","+tot.substring(tot.length-3, tot.length)
 						this.g.setFont("Vector",40);
-						this.g.drawString(tot+" "+(set.def.mph)?"mi":"Km",119-(this.g.stringWidth(tot+" "+(set.def.mph)?"mi":"Km")/2),200); 
+						this.g.drawString(tot+" "+((set.def.mph)?"mi":"Km"),119-(this.g.stringWidth(tot+" "+((set.def.mph)?"mi":"Km"))/2),200); 
 					}
 					this.g.flip();
 				}
