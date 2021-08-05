@@ -188,13 +188,21 @@ face[0] = {
 				}else {
 					this.g.setFont("Vector",35);
 					//this.g.drawString(euc.dash.maker,119-(this.g.stringWidth(euc.dash.maker)/2),170); 
-					this.g.drawString(set.def.name,119-(this.g.stringWidth(set.def.name)/2),150);
+					this.g.drawString(set.def.name,119-(this.g.stringWidth(set.def.name)/2),155);
 					this.g.setFont("Vector",30);
 					if (euc.state !== "OFF") {
 						this.g.drawString(euc.state,119-(this.g.stringWidth(euc.state)/2),215); //
-					} else 	this.g.drawString("12,343.23 Km",119-(this.g.stringWidth("12,343.23 Km")/2),215); 
-
-					//this.g.drawString(euc.dash.bat+"%",240-(this.g.stringWidth(euc.dash.bat+"%")),215); //
+					} else 	{
+						let tot=0;
+						require('Storage').list(/logYearSlot/).forEach(logfile=>{
+							let log=require("Storage").readJSON(logfile,1);
+							for (var key in log) {
+							tot += log[key];
+							};
+						});
+						if (set.def.tot) tot += set.def.tot;
+						this.g.drawString(tot+" Km",119-(this.g.stringWidth(tot+" Km")/2),215); 
+					}
 					this.g.flip();
 				}
 			}
