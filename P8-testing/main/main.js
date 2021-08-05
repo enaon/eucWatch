@@ -189,7 +189,7 @@ face[0] = {
 					this.g.setFont("Vector",35);
 					//this.g.drawString(euc.dash.maker,119-(this.g.stringWidth(euc.dash.maker)/2),170); 
 					this.g.drawString(set.def.name,119-(this.g.stringWidth(set.def.name)/2),155);
-					this.g.setFont("Vector",30);
+					this.g.setFont("Vector",50);
 					if (euc.state !== "OFF") {
 						this.g.drawString(euc.state,119-(this.g.stringWidth(euc.state)/2),215); //
 					} else 	{
@@ -201,6 +201,8 @@ face[0] = {
 							};
 						});
 						if (set.def.tot) tot += set.def.tot;
+						tot=tot.toFixed(0);
+						tot=tot.substring(0,tot.length-3)+","+tot.substring(tot.length-3, tot.length)
 						this.g.drawString(tot+" Km",119-(this.g.stringWidth(tot+" Km")/2),215); 
 					}
 					this.g.flip();
