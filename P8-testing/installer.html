@@ -18,8 +18,8 @@
 			let element = document.getElementById(id);
 			element.value = valueToSelect;
 		}
-		selectElement('touchtype', localStorage.p8touch);
-		selectElement('devname', localStorage.p8name);
+		selectElement('touchtype', (localStorage.p8touch)?localStorage.p8touch:"816");
+		selectElement('devname', (localStorage.p8name)?localStorage.p8name:"eucWatch");
 		selectElement('riderdist', 0);
 
       // When the 'upload' button is clicked...
@@ -30,7 +30,7 @@
 		var name = document.getElementById("devname").value;
 		var dist = document.getElementById("riderdist").value;
 		if (!dist) dist=0;
-		if (!name) name="eucWatch";
+		if (!name || name=="undefined") name="eucWatch";
 		if (!touch) touch="816";
 		if (touch!="816"&&touch!="716"&&touch!="816s") {
           alert("Touch controler type needs to be 716 or 816 or 816s");
