@@ -110,7 +110,7 @@ touchHandler[0]=function(e,x,y){
 		if ( x<=120 && y<=100 ) { //lights
 			if (euc.dash.aLight=="lightsOff") { euc.dash.aLight="lightsOn"; euc.wri("lightsOn"); face[0].btn("LIGHTS",18,60,15,col("raf2"),0,0,119,97,"ON",28,60,50); }
 			else if (euc.dash.aLight=="lightsOn") { euc.dash.aLight="lightsAuto"; euc.wri("lightsAuto"); face[0].btn("LIGHTS",18,60,15,col("raf3"),0,0,119,97,"AUTO",28,60,50); }
-			else if (euc.dash.aLight=="lightsAuto") { euc.dash.aLight="lightsCity"; face[0].btn("LIGHTS",18,60,15,col("raf4"),0,0,119,97,"CITY",28,60,50); }
+			else if (euc.dash.aLight=="lightsAuto") { euc.dash.aLight="lightsCity"; face[0].btn("LIGHTS",18,60,15,col("raf"),0,0,119,97,"CITY",28,60,50); }
 			else if (euc.dash.aLight=="lightsCity") { euc.dash.aLight="lightsOn"; euc.wri("lightsOn"); face[0].btn("LIGHTS",18,60,15,col("raf2"),0,0,119,97,"ON",28,60,50); }
 			else  { euc.dash.aLight="lightsOn"; euc.wri("lightsOn"); face[0].btn("LIGHTS",18,60,15,col("raf2"),0,0,119,97,"ON",28,60,50); }
             face[0].ntfy("HOLD -> LIGHTS OFF",col("dgray"));
