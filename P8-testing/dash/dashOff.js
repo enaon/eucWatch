@@ -186,7 +186,7 @@ touchHandler[0]=function(e,x,y){
 				if (face[0].info) return;
 				face[0].info=1;
 				let btC=[1453,1365,3840,3840];
-				face[0].btn(1,euc.dash.bat,50,220,3,btC[euc.dash.batC],0,120,0,239,50,"%",20,224,8);
+				face[0].btn(1,euc.dash.bat,50,180,3,btC[euc.dash.batC],0,120,0,239,50,"%",20,235,8);
 				face[0].btn(1,"DAY",30,60,13,0,0,0,0,119,50);
 				face[0].page=2;	
 				w.gfx.setColor(0,0);
