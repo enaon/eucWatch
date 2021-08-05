@@ -49,7 +49,7 @@ euc.conn=function(mac){
 				if (20<batL.length) batL.pop();
 				euc.dash.batC = (50 <= euc.dash.bat)? 0 : (euc.dash.bat <= euc.dash.batL)? 2 : 1;	
 				if ( euc.dash.hapB && euc.dash.batC ==2 )  euc.alert ++;   
-				//trip
+				//trip last
 				euc.dash.trpL=(event.target.value.getUint32(6)/1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1);
 				//amp
 				euc.dash.amp=event.target.value.getInt16(10)/1000;
@@ -65,6 +65,7 @@ euc.conn=function(mac){
 				euc.dash.tmpC=(euc.dash.tmpH - 5 <= euc.dash.tmp )? (euc.dash.tmpH <= euc.dash.tmp )?2:1:0;
 				if (euc.dash.hapT && euc.dash.tmpC==2) euc.alert++;
 			} else if ( event.target.value.buffer[0]==90 && event.target.value.buffer[1]==90 && event.target.value.buffer[4]==85 && event.target.value.buffer[5]==170) {
+				//trip Total
 				//euc.dash.trpT=((event.target.value.getUint32(6)/1000)*1.2).toFixed(1);
 				euc.dash.trpT=((event.target.value.getUint32(6)/1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1));
 				euc.log.trp.forEach(function(val,pos){ if (!val) euc.log.trp[pos]=euc.dash.trpT;});
