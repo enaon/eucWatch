@@ -174,7 +174,7 @@ set.emuD=0;
 function ccon(l){ 
 	//"ram"
 	if (set.def.emuZ) {
-		if (set.emuD) return;
+		//if (set.emuD) return;
 		emuZ.cmd(l);
 		return;
 	}else {

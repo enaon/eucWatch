@@ -111,9 +111,9 @@ face[0] = {
 		this.g.drawString(Math.round(this.spd*this.fact),129-(this.g.stringWidth(Math.round(this.spd*this.fact))/2),57); 
 		this.g.flip();
 		if (this.spd==0) { 
-			this.g.flip();
+			//this.g.flip();
 			this.bar();
-			this.g.setColor(0,0);
+			//this.g.setColor(0,0);
 		}
 	},
 	alF: function(){
