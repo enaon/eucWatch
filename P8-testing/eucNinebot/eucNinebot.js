@@ -53,10 +53,10 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 		euc.alert=0;
 		switch (this.var) {
 		case 38://speed
-			euc.dash.spd=Math.round((this.in16/1000)*euc.dash.spdF*((set.def.dash.mph)?0.625:1));
-			euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd1+5 <= euc.dash.spd )? 3 : ( euc.dash.spd1+2 <= euc.dash.spd )? 2 : 1 ;	
-			if ( euc.dash.hapS && euc.dash.spd >= euc.dash.spd1 ) 
-				euc.alert = 1 + ((euc.dash.spd-euc.dash.spd1) / euc.dash.ampS|0) ;
+			//euc.dash.spd=Math.round((this.in16/1000)*euc.dash.spdF*((set.def.dash.mph)?0.625:1));
+			euc.dash.spd=this.in16/1000;
+			euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd2 <= euc.dash.spd )? 2 : 1 ;	
+				if ( euc.dash.hapS && euc.dash.spdC == 2 ) euc.alert = 1 + Math.round((euc.dash.spd-euc.dash.spd2) / euc.dash.ampS) ; 	
 			break;
 		case 80://amp
 			if ( 32768 < this.in16 ) 
@@ -65,55 +65,31 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 				euc.dash.amp = this.in16 / 100;
 			ampL.unshift(Math.round(euc.dash.amp));
 			if (20<ampL.length) ampL.pop();
-			euc.dash.ampC = ( euc.dash.ampH+10 <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL - 5 )? 3 : ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp < 0 )? 1 : 0;
-			if ( euc.dash.ampH <= euc.dash.amp ){
-				euc.dash.spdC = ( euc.dash.ampC === 3 )? 3 : ( euc.dash.spdC === 3 )? 3 : 2;
-				if (euc.dash.hapA) euc.alert = ( euc.alert + 1 + ((euc.dash.amp - euc.dash.ampH) / euc.dash.ampS|0) );
-			}else if ( euc.dash.amp <= euc.dash.ampL )  {
-				euc.dash.spdC = (euc.dash.ampC === 3)? 3 : (euc.dash.spdC === 3)? 3 : 2;
-				if (euc.dash.hapA) euc.alert = (euc.alert + 1 + ((-(euc.dash.amp - euc.dash.ampL)) / euc.dash.ampS|0));  				
-			}
-			euc.new=1;
+			euc.dash.ampC = ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp  <= 0 || 15 <= euc.dash.amp)? 1 : 0;
+				if (euc.dash.hapA) euc.alert =  euc.alert + 1 + Math.round( (euc.dash.amp - euc.dash.ampH) / euc.dash.ampS);
 			break;
 		case 41://total distance
-			euc.dash.trpT=(event.target.value.getUint32(6, true)/1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1);
+			euc.dash.trpT=event.target.value.getUint32(6, true)/1000;
 			euc.log.trp.forEach(function(val,pos){ if (!val) euc.log.trp[pos]=euc.dash.trpT;});
 			break;
 		case 185://trip
-			// if (euc.dash.trpN > (euc.tmp[this.var]/100).toFixed(1)) {
-			//   euc.dash.trpL=Number(euc.dash.trpL)+Number(euc.dash.trpN);
-			//   if (set.def.cli) console.log("EUC_trip new :",euc.dash.trpL);
-			// } 
-			euc.dash.trpL=(this.in16/100)*euc.dash.trpF*((set.def.dash.mph)?0.625:1);
-			//euc.dash.trpT=(this.in16/100).toFixed(1);
-			//euc.dash.trpT=Number(euc.dash.trpL)+Number(euc.dash.trpN);
-			//tt=euc.tmp[this.var];
+			euc.dash.trpL=this.in16/100;
 			break;
 		case 71://battery fixed/voltage
 			euc.dash.volt=this.in16/100;
 			euc.dash.bat=(((this.in16/100)-51.5)*10|0); 
 			batL.unshift(euc.dash.bat);
 			if (20<batL.length) batL.pop();
-			if ((euc.dash.bat) >= euc.dash.batH) euc.dash.batC=0;
-			else  if ((euc.dash.bat) >= euc.dash.batM) euc.dash.batC=1;
-			else  if ((euc.dash.bat) >= euc.dash.batL) euc.dash.batC=2;
-			else  {
-				euc.dash.batC=3;
-				if (euc.dash.hapB) euc.alert++;
-			}
-			euc.new=1;
+			euc.dash.batC = (50 <= euc.dash.bat)? 0 : (euc.dash.bat <= euc.dash.batL)? 2 : 1;	
+				if ( euc.dash.hapB && euc.dash.batC ==2 )  euc.alert ++; 
 			break;
 		case 37: //remaining
-			euc.dash.trpR=(this.in16/100)*euc.dash.trpF*((set.def.dash.mph)?0.625:1);
+			euc.dash.trpR=this.in16/100;
 			break;
 		case 62: //temp
 			euc.dash.tmp=(this.in16/10).toFixed(1);
-			if (euc.dash.tmp>=euc.dash.tmpH ) {
-				if (euc.dash.tmp>=65) euc.dash.tmpC=3;
-				else euc.dash.tmpC=2;
-				if (euc.dash.hapT) euc.alert++;
-			} else if (euc.dash.tmp>=50 ) euc.dash.tmpC=1; 
-			else euc.dash.tmpC=0;	  
+			euc.dash.tmpC=(euc.dash.tmpH - 5 <= euc.dash.tmp )? (euc.dash.tmpH <= euc.dash.tmp )?2:1:0;
+			if (euc.dash.hapT && euc.dash.tmpC==2) euc.alert++; 	  
 			break;
 		case 182: //average
 			euc.dash.spdA=(this.in16/1000).toFixed(1);

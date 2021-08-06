@@ -109,8 +109,9 @@ euc.conn=function(mac){
 				euc.dash.batC = (50 <= euc.dash.bat)? 0 : (euc.dash.bat <= euc.dash.batL)? 2 : 1;	
 				if ( euc.dash.hapB && euc.dash.batC ==2 )  euc.alert ++;
 				//trip 
-				euc.dash.trpL=((event.target.value.getUint16(17, true))/100)*euc.dash.trpF*((set.def.dash.mph)?0.625:1); //trip
-				//euc.dash.trpL=(event.target.value.getUint16(19, true))*10; //remain
+				euc.dash.trpL=event.target.value.getUint16(17, true)/100;
+				//euc.dash.trpL=((event.target.value.getUint16(17, true))/100)*euc.dash.trpF*((set.def.dash.mph)?0.625:1); //trip
+				//euc.dash.trpR=(event.target.value.getUint16(19, true))*10; //remain
 				//euc.dash.time=(event.target.value.getUint16(7, true)/60)|0;
 				//temp
 				euc.dash.tmp=((event.target.value.buffer[22] & 0xff) + 80 - 256).toFixed(1);
@@ -132,7 +133,7 @@ euc.conn=function(mac){
 				if (euc.dash.alrm) euc.alert=20;
 				//speed
 				//euc.dash.spd=Math.round((event.target.value.getInt16(9, true) / 100)*euc.dash.spdF*((set.def.dash.mph)?0.625:1));
-				euc.dash.spd=Math.round(event.target.value.getInt16(9, true) / 100);
+				euc.dash.spd=event.target.value.getInt16(9, true) / 100;
 				if (euc.dash.spd<0) euc.dash.spd=-euc.dash.spd;
 				euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd2 <= euc.dash.spd )? 2 : 1 ;	
 				if ( euc.dash.hapS && euc.dash.spdC == 2 ) 

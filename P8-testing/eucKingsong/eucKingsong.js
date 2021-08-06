@@ -62,7 +62,7 @@ euc.conn=function(mac){
 			switch (inpk[16]){				
 				case  169:
 					//speed
-					euc.dash.spd=Math.round((inpk[5] << 8 | inpk[4])/100); 
+					euc.dash.spd=(inpk[5] << 8 | inpk[4])/100; 
 					euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd2 <= euc.dash.spd )? 2 : 1 ;	
 					if ( euc.dash.hapS && euc.dash.spdC == 2 ) euc.alert = 1 + Math.round((euc.dash.spd-euc.dash.spd2) / euc.dash.ampS) ; 	
 					//amp
@@ -71,7 +71,6 @@ euc.conn=function(mac){
 					euc.dash.amp = ( this.amp / 100 );
 					euc.dash.ampC = ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp  <= 0 || 15 <= euc.dash.amp)? 1 : 0;
 					if (euc.dash.hapA) euc.alert =  euc.alert + 1 + Math.round( (euc.dash.amp - euc.dash.ampH) / euc.dash.ampS);
-					//log
 					ampL.unshift(Math.round(euc.dash.amp));
 					if (20<ampL.length) ampL.pop();
 					//volt
@@ -113,7 +112,8 @@ euc.conn=function(mac){
 					}
 					break;
 				case 185://trip-time-max_speed
-					euc.dash.trpL=(((inpk[2] << 16) + (inpk[3] << 24) + inpk[4] + (inpk[5] << 8)) / 1000.0)*euc.dash.trpF*((set.def.dash.mph)?0.625:1);
+					euc.dash.trpL=((inpk[2] << 16) + (inpk[3] << 24) + inpk[4] + (inpk[5] << 8)) / 1000;
+					//euc.dash.trpL=(((inpk[2] << 16) + (inpk[3] << 24) + inpk[4] + (inpk[5] << 8)) / 1000.0)*euc.dash.trpF*((set.def.dash.mph)?0.625:1);
 					euc.dash.time=Math.round((inpk[7] << 8 | inpk[6])/60);
 					euc.dash.spdM=Math.round((inpk[9] << 8 | inpk[8])/100) ;
 					euc.dash.fan=inpk[12];

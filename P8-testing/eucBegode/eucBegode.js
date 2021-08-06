@@ -37,7 +37,7 @@ euc.conn=function(mac){
 				//print( event.target.value.buffer);
 				euc.alert=0;
 				//speed
-				euc.dash.spd = Math.round(Math.abs((event.target.value.getInt16(4) * 3.6)/100)); 
+				euc.dash.spd = Math.abs((event.target.value.getInt16(4) * 3.6)/100); 
 				if ( (euc.dash.spdM < euc.dash.spd)&& euc.dash.spd < 100 ) euc.dash.spdM=euc.dash.spd;
 				euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd2 <= euc.dash.spd )? 2 : 1 ;	
 				if ( euc.dash.hapS && euc.dash.spdC == 2 ) 
@@ -50,7 +50,8 @@ euc.conn=function(mac){
 				euc.dash.batC = (50 <= euc.dash.bat)? 0 : (euc.dash.bat <= euc.dash.batL)? 2 : 1;	
 				if ( euc.dash.hapB && euc.dash.batC ==2 )  euc.alert ++;   
 				//trip last
-				euc.dash.trpL=(event.target.value.getUint32(6)/1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1);
+				euc.dash.trpL=event.target.value.getUint32(6)/1000;
+				//euc.dash.trpL=(event.target.value.getUint32(6)/1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1);
 				//amp
 				euc.dash.amp=event.target.value.getInt16(10)/1000;
 				if (euc.dash.ampR) euc.dash.amp=-euc.dash.amp;

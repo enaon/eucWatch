@@ -47,7 +47,7 @@ euc.conn=function(mac){
 				euc.dash.batC = (50 <= euc.dash.bat)? 0 : (euc.dash.bat <= euc.dash.batL)? 2 : 1;	
 				if ( euc.dash.hapB && euc.dash.batC ==2 )  euc.alert ++;   
 				//spd
-				euc.dash.spd=Math.round((this.event[6] << 8 | this.event[7]) / 10);
+				euc.dash.spd=(this.event[6] << 8 | this.event[7]) / 10;
 				if (euc.dash.spdM < euc.dash.spd) euc.dash.spdM = euc.dash.spd;
 				euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd2 <= euc.dash.spd )? 2 : 1 ;	
 				if ( euc.dash.hapS && euc.dash.spdC == 2 ) 
