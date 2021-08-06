@@ -67,7 +67,8 @@ euc.conn=function(mac){
 			} else if ( event.target.value.buffer[0]==90 && event.target.value.buffer[1]==90 && event.target.value.buffer[4]==85 && event.target.value.buffer[5]==170) {
 				//trip Total
 				//euc.dash.trpT=((event.target.value.getUint32(6)/1000)*1.2).toFixed(1);
-				euc.dash.trpT=((event.target.value.getUint32(6)/1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1));
+				//euc.dash.trpT=((event.target.value.getUint32(6)/1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1));
+				euc.dash.trpT=event.target.value.getUint32(6)/1000;
 				euc.log.trp.forEach(function(val,pos){ if (!val) euc.log.trp[pos]=euc.dash.trpT;});
 				euc.dash.mode = (event.target.value.getUint8(10) >> 4) & 0x0F;
 				//euc.dash.alrm = event.target.value.getUint8(10) & 0x0F;
@@ -78,7 +79,7 @@ euc.conn=function(mac){
 				almL.unshift(euc.dash.alrm);
 				if (20<almL.length) almL.pop();		
 				//haptic
-				if (euc.dash.alrm) euc.alert=20;
+				if (euc.dash.alrm && 10 < euc.dash.spd) euc.alert=20;
 				//print("alarm :"euc.dash.alrm);
 			}
 			//haptic
