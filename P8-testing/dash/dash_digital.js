@@ -32,7 +32,8 @@ face[0] = {
 		this.lock=2;
 		this.spdL=-1;
 		this.trpL=-1;
-		this.fact=euc.dash.spdF*((set.def.dash.mph)?0.625:1);
+		this.fact=euc.dash.spdF*((set.def.dash.mph)?0.625:1);		
+		this.trpF=euc.dash.trpF*((set.def.dash.mph)?0.625:1);
 		this.run=true;
 	},
 	show : function(o){
@@ -278,14 +279,14 @@ face[0] = {
 		this.g.fillRect(0,203,239,239);
 		this.g.setColor(1,1535);
 		this.g.setFontVector(35);
-		this.g.drawString(this.trpL,0,208); 
+		this.g.drawString((this.trpL*this.trpF).toFixed(2),0,208); 
 		if (!set.def.dash.clck) {//clock
 			let d=(Date()).toString().split(' ');
 			let t=(d[4]).toString().split(':');
 			this.time=(t[0]+":"+t[1]);
 			this.g.drawString(this.time, 240-(this.g.stringWidth(this.time)),208); //temp
 		}else 	
-			this.g.drawString(Math.round(euc.dash.trpT),240-(this.g.stringWidth(Math.round(euc.dash.trpT))),208); 
+			this.g.drawString(Math.round(euc.dash.trpT*this.trpF),240-(this.g.stringWidth(Math.round(euc.dash.trpT*this.trpF))),208); 
 		//}
 		this.g.flip();
 	},
