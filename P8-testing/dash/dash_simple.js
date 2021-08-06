@@ -30,7 +30,7 @@ face[0] = {
 		if (!this.run) return;
 		if (euc.state=="READY") {
 			this.g.setColor(0,0);
-			this.g.fillRect(0,0,0,0);
+			//this.g.fillRect(0,0,0,0);
 			this.g.flip();
 			if (this.spd!=Math.round(euc.dash.spd)) this.spdf();
 			if (!set.def.dash.clkS){	if (this.tmp!=euc.dash.tmp.toFixed(1))	this.tmpf();}
