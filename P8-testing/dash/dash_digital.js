@@ -41,18 +41,18 @@ face[0] = {
 				this.g.setColor(0,0);
 				this.g.fillRect(0,0,0,0);
 				this.g.flip();
-			if (euc.dash.spd!=this.spd) this.spdF();
+			if (this.spd != Math.round(euc.dash.spd)) this.spdF();
 			// alarm events time graph
 			if (this.spd!=0&&this.al!=almL) this.alF();
 			//tmp/amp block
 			if (!set.def.dash.amp) {
-				if (this.amp!=euc.dash.amp) this.ampF();
+				if (this.amp!=Math.round(euc.dash.amp)) this.ampF();
 			}else 
-				if (this.tmp!=euc.dash.tmp)	this.tmpF();
+				if (this.tmp!=Math.round(euc.dash.tmp))	this.tmpF();
 			//alarm block
 			if (this.buzz!=euc.buzz) this.buzF(); 
 			//spdMspeed block
-			if (euc.dash.spdM!=this.spdM) this.spMF(); 
+			if (this.spdM!=euc.dash.spdM.toFixed(1)) this.spMF(); 
 			//buzzer/health block
 			if (euc.dash.maker=="Kingsong") {
 				if (this.spdL!=euc.dash.spdL) this.spLF();
@@ -62,15 +62,15 @@ face[0] = {
 				if (this.pwrL!=pwrL) this.pwrF();
 			}else if (set.def.dash.amp){
 				if (this.ampL!=ampL) this.amLF();				
-			}else if (this.tmp!=euc.dash.tmp) this.tmFF();
+			}else if (this.tmp!=euc.dash.tmp.toFixed(1)) this.tmFF();
 			//batery field
 			if (!set.def.dash.bat){
-				if (this.volt!=euc.dash.volt) this.vltF();
+				if (this.volt!=euc.dash.volt.toFixed(2)) this.vltF();
 			}else if (set.def.dash.bat==1) {
 				if (euc.dash.bat!=this.bat) this.batF();
 			}else if (this.batL!=batL) this.baLF();			
 			//Mileage
-			if (this.trpL!=euc.dash.trpL) this.mileage();    
+			if (this.trpL!=euc.dash.trpL.toFixed(2)) this.mileage();    
 		//off
 		} else if (euc.state=="OFF")  {
 			setTimeout(function(){
@@ -98,7 +98,7 @@ face[0] = {
 		},100,this);
 	},
 	spdF: function(){
-		this.spd=euc.dash.spd;
+		this.spd=Math.round(euc.dash.spd);
 		this.g.setColor(0,this.spdC[euc.dash.spdC]);
 		this.g.fillRect(41,54,199,170);
 		this.g.setColor(1,4095);
@@ -130,7 +130,7 @@ face[0] = {
 		this.g.flip();
 	},
 	ampF: function(){
-		this.amp=euc.dash.amp;
+		this.amp=Math.round(euc.dash.amp);
 		this.g.setColor(0,this.ampC[euc.dash.ampC]);
 		this.g.fillRect(0,55,40,112);
 		this.g.setColor(1,(euc.dash.ampC==1||euc.dash.ampC==2)?0:4095);
@@ -141,7 +141,7 @@ face[0] = {
 		this.g.flip();
 	},
 	tmpF: function(){
-		this.tmp=euc.dash.tmp;
+		this.tmp=Math.round(euc.dash.tmp);
 		this.g.setColor(0,this.tmpC[euc.dash.tmpC]);
 		this.g.fillRect(0,53,40,112);
 		this.g.setColor(1,4095);
@@ -163,7 +163,7 @@ face[0] = {
 		this.g.flip();
 	},
 	spMF: function(){
-		this.spdM=euc.dash.spdM;
+		this.spdM=euc.dash.spdM.toFixed(1);
 		this.g.setColor(0,1365);
 		this.g.fillRect(200,53,239,112); 
 		this.g.setColor(1,4095);
@@ -194,7 +194,7 @@ face[0] = {
 		this.g.flip();
 	},	
 	tmFF: function(){
-		this.tmp=euc.dash.tmp;
+		this.tmp=euc.dash.tmp.toFixed(1);
 		this.g.setColor(0,this.tmpC[euc.dash.tmpC]);
 		this.g.fillRect(0,0,119,50);       
 		this.g.setColor(1,4095);
@@ -238,12 +238,12 @@ face[0] = {
 		});
 	},
 	vltF: function(){
-		this.volt=euc.dash.volt;
+		this.volt=euc.dash.volt.toFixed(2);
 		this.g.setColor(0,this.batC[euc.dash.batC]);
 		this.g.fillRect(122,0,239,50);
 		this.g.setColor(1,4095);
 		this.g.setFontVector((this.volt<100)?40:35);
-		this.g.drawString(this.volt.toFixed(2),(this.volt<100)?135:125,0); 
+		this.g.drawString(this.volt,(this.volt<100)?135:125,0); 
 		this.g.setFontVector(13);
 		this.g.drawString("VOLT",202,40);
 		this.g.flip();
@@ -273,12 +273,12 @@ face[0] = {
 		this.g.flip();
 	},	
 	mileage: function(){
-		this.trpL=euc.dash.trpL;
+		this.trpL=euc.dash.trpL.toFixed(2);
 		this.g.setColor(0,0);
 		this.g.fillRect(0,203,239,239);
 		this.g.setColor(1,1535);
 		this.g.setFontVector(35);
-		this.g.drawString(euc.dash.trpL.toFixed(2),0,208); 
+		this.g.drawString(this.trpL,0,208); 
 		if (!set.def.dash.clck) {//clock
 			let d=(Date()).toString().split(' ');
 			let t=(d[4]).toString().split(':');
