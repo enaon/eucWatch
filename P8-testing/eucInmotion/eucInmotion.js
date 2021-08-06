@@ -114,7 +114,7 @@ euc.conn=function(mac){
 				//euc.dash.trpR=(event.target.value.getUint16(19, true))*10; //remain
 				//euc.dash.time=(event.target.value.getUint16(7, true)/60)|0;
 				//temp
-				euc.dash.tmp=((event.target.value.buffer[22] & 0xff) + 80 - 256).toFixed(1);
+				euc.dash.tmp=(event.target.value.buffer[22] & 0xff) + 80 - 256;
 				euc.dash.tmpC=(euc.dash.tmpH - 5 <= euc.dash.tmp )? (euc.dash.tmpH <= euc.dash.tmp )?2:1:0;
 				if (euc.dash.hapT && euc.dash.tmpC==2) euc.alert++;
 				//amp
@@ -134,13 +134,14 @@ euc.conn=function(mac){
 				//speed
 				//euc.dash.spd=Math.round((event.target.value.getInt16(9, true) / 100)*euc.dash.spdF*((set.def.dash.mph)?0.625:1));
 				euc.dash.spd=event.target.value.getInt16(9, true) / 100;
+				if (euc.dash.spdM < euc.dash.spd) euc.dash.spdM = euc.dash.spd;
 				if (euc.dash.spd<0) euc.dash.spd=-euc.dash.spd;
 				euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd2 <= euc.dash.spd )? 2 : 1 ;	
 				if ( euc.dash.hapS && euc.dash.spdC == 2 ) 
 					euc.alert = 1 + Math.round((euc.dash.spd-euc.dash.spd2) / euc.dash.ampS) ; 
 				//average
-				//euc.dash.spdA=((event.target.value.getUint16(17, true))/100).toFixed(1);
-				//euc.dash.spdM=((event.target.value.getUint16(19, true))/100).toFixed(1);
+				//euc.dash.spdA=(event.target.value.getUint16(17, true))/100;
+				//euc.dash.spdM=(event.target.value.getUint16(19, true))/100;
 				//haptic
 				//euc.new=1;
 				if (!euc.buzz && euc.alert) {  

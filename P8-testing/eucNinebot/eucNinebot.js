@@ -55,6 +55,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 		case 38://speed
 			//euc.dash.spd=Math.round((this.in16/1000)*euc.dash.spdF*((set.def.dash.mph)?0.625:1));
 			euc.dash.spd=this.in16/1000;
+			if (euc.dash.spdM < euc.dash.spd) euc.dash.spdM = euc.dash.spd;
 			euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd2 <= euc.dash.spd )? 2 : 1 ;	
 				if ( euc.dash.hapS && euc.dash.spdC == 2 ) euc.alert = 1 + Math.round((euc.dash.spd-euc.dash.spd2) / euc.dash.ampS) ; 	
 			break;
@@ -87,7 +88,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			euc.dash.trpR=this.in16/100;
 			break;
 		case 62: //temp
-			euc.dash.tmp=(this.in16/10).toFixed(1);
+			euc.dash.tmp=this.in16/10;
 			euc.dash.tmpC=(euc.dash.tmpH - 5 <= euc.dash.tmp )? (euc.dash.tmpH <= euc.dash.tmp )?2:1:0;
 			if (euc.dash.hapT && euc.dash.tmpC==2) euc.alert++; 	  
 			break;
@@ -95,7 +96,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			euc.dash.spdA=(this.in16/1000).toFixed(1);
 			break;
 		case 58: //runtime
-			euc.dash.time=(this.in16/60).toFixed(0);
+			euc.dash.time=Math.round(this.in16/60);
 			break;
 		case 210: //riding Mode
 			if (this.in16 >=10)  {

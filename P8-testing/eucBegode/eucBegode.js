@@ -38,7 +38,7 @@ euc.conn=function(mac){
 				euc.alert=0;
 				//speed
 				euc.dash.spd = Math.abs((event.target.value.getInt16(4) * 3.6)/100); 
-				if ( (euc.dash.spdM < euc.dash.spd)&& euc.dash.spd < 100 ) euc.dash.spdM=euc.dash.spd;
+				if (euc.dash.spdM < euc.dash.spd) euc.dash.spdM = euc.dash.spd;
 				euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd2 <= euc.dash.spd )? 2 : 1 ;	
 				if ( euc.dash.hapS && euc.dash.spdC == 2 ) 
 					euc.alert = 1 + Math.round((euc.dash.spd-euc.dash.spd2) / euc.dash.ampS) ; 
@@ -61,14 +61,12 @@ euc.conn=function(mac){
 				if (euc.dash.hapA) euc.alert =  euc.alert + 1 + Math.round( (euc.dash.amp - euc.dash.ampH) / euc.dash.ampS) ;
 				//temp
 				//euc.dash.tmp=Math.round((event.target.value.getUint16(12)/340)+102)/10;
-				euc.dash.tmp=((event.target.value.getInt16(12) /340.0)+36.53).toFixed(1);
+				euc.dash.tmp=(event.target.value.getInt16(12) /340.0)+36.53;
 				//print(euc.dash.tmp,euc.dash.tmp1);
 				euc.dash.tmpC=(euc.dash.tmpH - 5 <= euc.dash.tmp )? (euc.dash.tmpH <= euc.dash.tmp )?2:1:0;
 				if (euc.dash.hapT && euc.dash.tmpC==2) euc.alert++;
 			} else if ( event.target.value.buffer[0]==90 && event.target.value.buffer[1]==90 && event.target.value.buffer[4]==85 && event.target.value.buffer[5]==170) {
 				//trip Total
-				//euc.dash.trpT=((event.target.value.getUint32(6)/1000)*1.2).toFixed(1);
-				//euc.dash.trpT=((event.target.value.getUint32(6)/1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1));
 				euc.dash.trpT=event.target.value.getUint32(6)/1000;
 				euc.log.trp.forEach(function(val,pos){ if (!val) euc.log.trp[pos]=euc.dash.trpT;});
 				euc.dash.mode = (event.target.value.getUint8(10) >> 4) & 0x0F;
