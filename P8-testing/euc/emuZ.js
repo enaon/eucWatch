@@ -24,7 +24,7 @@ global.emuZ={
 		//	setTimeout(()=>{
 		//		set.emuD=0;
 		//	},10);
-		}
+		//}
 	},
 	d2h:function(c,f,l,p){ 
 		"ram";
