@@ -342,5 +342,6 @@ euc.off=function(err){
 			delete euc.conn;
 			delete euc.cmd;
 			euc.run=0;
+			NRF.setTxPower(set.def.rfTX);
     }
 };

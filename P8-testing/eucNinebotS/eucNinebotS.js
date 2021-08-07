@@ -238,5 +238,6 @@ euc.off=function(err){
 		euc.wri=function(err){if (set.def.cli) console.log("EUC write, not connected");};
 		delete euc.conn;
 		delete euc.cmd;
+		NRF.setTxPower(set.def.rfTX);
     }
 };

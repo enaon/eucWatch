@@ -36,7 +36,7 @@ global.euc= {
 				if (this.log.trp[2]&& 0<this.dash.trpT-this.log.trp[2] ) {
 					set.write("logYearSlot"+set.def.dash.slot,Date().getMonth(),(euc.dash.trpT-this.log.trp[2])+( (set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()))?set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()):0));	
 				}
-				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);NRF.setTxPower(set.def.rfTX);
+				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 				this.log.trp=[0,0,0];
 				if (face.appCurr!=="dashOff") face.go('dashOff',0);
 			},1000);
