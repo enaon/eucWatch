@@ -197,10 +197,11 @@ face[0] = {
 						require('Storage').list(/logYearSlot/).forEach(logfile=>{
 							let log=require("Storage").readJSON(logfile,1);
 							for (var key in log) {
-							tot += log[key];
+								tot += log[key];
 							};
 						});
-						if (set.def.dash.tot) tot += set.def.dash.tot;
+						print(tot);
+						if (set.def.dash.tot) tot += Number(set.def.dash.tot);
 						tot=Math.round(tot);
 						if (3<tot.toString().length) tot=tot.toString().substring(0,tot.toString().length-3)+","+tot.toString().substring(tot.toString().length-3, tot.toString().length)
 						this.g.setFont("Vector",40);
