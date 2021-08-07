@@ -121,9 +121,9 @@ euc.conn=function(mac){
 				case 245:
 				    //print ("245 :",inpk);
 					//euc.dash.cpu=inpk[14];
-					euc.dash.out=inpk[15];
-					pwrL.unshift(euc.dash.pwr);
-					if (20<pwrL.length) pwrL.pop();
+					euc.dash.pwr=inpk[15];
+					//pwrL.unshift(euc.dash.pwr);
+					//if (20<pwrL.length) pwrL.pop();
 					break;
 				case 246:
 					euc.dash.spdL=(inpk[3] << 8 | inpk[2])/100;

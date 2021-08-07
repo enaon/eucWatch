@@ -21,7 +21,6 @@ face[0] = {
 		this.tmp=-1;
 		this.bat=-1;
 		this.batL=new Uint8Array(20);
-		this.pwrL=new Uint8Array(20);
 		this.ampL = new Uint8Array(20);
 		this.al=new Uint8Array(20);
 		this.ampL.fill(1,0,1)
@@ -45,7 +44,8 @@ face[0] = {
 			this.g.flip();
 			if (this.spd != Math.round(euc.dash.spd)) this.spdF();
 			// alarm events time graph
-			if (this.spd!=0&&this.al!=almL) this.alF();
+			if (5<=this.spd&&this.al!=almL) this.alF();
+			else if (euc.dash.maker=="Kingsong") this.pwrF();
 			//tmp/amp block
 			if (!set.def.dash.amp) {
 				if (this.amp!=Math.round(euc.dash.amp)) this.ampF();
@@ -224,18 +224,11 @@ face[0] = {
 		this.g.flip();
 	},	
 	pwrF: function(){
-		this.pwrL.set(pwrL);
-		this.g.setColor(1,1365);
-		this.g.fillRect(0,0,119,50);       
-		//graph
-		let i=0;
-		this.pwrL.forEach(function(val){
-			w.gfx.setColor(0,(10<val)?4080:4095);
-			//w.gfx.fillRect(118-(i*8),(0<=val)?50-(val*1.2):1,118-(i*8)-3,(0<=val)?50:1-(val*2));
-			w.gfx.fillRect(118-(i*6),(val<200)?50-(val*1.2):1,118-(i*6)-1,(val<200)?50:(255-val)*2);
-			i++;
-			w.gfx.flip();
-		});
+		this.g.setColor(0,1365);
+		this.g.fillRect(euc.dash.pwr*2.4,176,239,197); 
+		this.g.setColor(0,4095);
+		this.g.fillRect(0,176,euc.dash.pwr*2.4,197); 
+		w.gfx.flip();
 	},
 	vltF: function(){
 		this.volt=euc.dash.volt.toFixed(2);
