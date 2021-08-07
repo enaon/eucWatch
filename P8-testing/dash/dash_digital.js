@@ -132,7 +132,7 @@ face[0] = {
 	ampF: function(){
 		this.amp=Math.round(euc.dash.amp);
 		this.g.setColor(0,this.ampC[euc.dash.ampC]);
-		this.g.fillRect(0,55,40,112);
+		this.g.fillRect(0,53,40,112);
 		this.g.setColor(1,4095);
 		this.g.setFontVector(12);
 		this.g.drawString("AMP", 8,59);
@@ -242,7 +242,7 @@ face[0] = {
 		this.g.setFontVector((this.volt<100)?40:35);
 		this.g.drawString(this.volt,(this.volt<100)?135:125,0); 
 		this.g.setFontVector(13);
-		this.g.drawString("VOLT",202,40);
+		this.g.drawString("VOLT",202,39);
 		this.g.flip();
 	},	
 	batF: function(){

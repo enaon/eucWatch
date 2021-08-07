@@ -200,7 +200,6 @@ face[0] = {
 								tot += log[key];
 							};
 						});
-						print(tot);
 						if (set.def.dash.tot) tot += Number(set.def.dash.tot);
 						tot=Math.round(tot);
 						if (3<tot.toString().length) tot=tot.toString().substring(0,tot.toString().length-3)+","+tot.toString().substring(tot.toString().length-3, tot.toString().length)
