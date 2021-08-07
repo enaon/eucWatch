@@ -100,7 +100,7 @@ face[0] = {
 	spdF: function(){
 		this.spd=Math.round(euc.dash.spd);
 		this.g.setColor(0,this.spdC[euc.dash.spdC]);
-		this.g.fillRect(41,54,199,170);
+		this.g.fillRect(43,54,197,170);
 		this.g.setColor(1,4095);
 		if (100 <= this.spd) {
 			if (150 < this.spd)  this.spd=150;
@@ -224,12 +224,14 @@ face[0] = {
 		this.g.flip();
 	},	
 	pwrF: function(){
-		this.g.setColor(0,1365);
-		this.g.fillRect(euc.dash.pwr*2.4,176,239,197); 
+//		this.g.setColor(0,1365);
+		this.g.setColor(0,col("red"));
+		this.g.fillRect(0,176,239,197); 
+//		this.g.fillRect(euc.dash.pwr*2.4,176,239,197); 
 		this.g.setColor(1,4095);
-		this.g.setFontVector(16);
-		this.g.drawString(euc.dash.pwr+"%",euc.dash.pwr*2.4,180);
-		this.g.fillRect(0,176,euc.dash.pwr*2.4,197); 
+		//this.g.setFontVector(16);
+		//this.g.drawString(euc.dash.pwr+"%",euc.dash.pwr*2.4,180);
+		this.g.fillRect(0,180,euc.dash.pwr*2.4,193); 
 		w.gfx.flip();
 	},
 	vltF: function(){
