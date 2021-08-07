@@ -133,7 +133,7 @@ face[0] = {
 		this.amp=Math.round(euc.dash.amp);
 		this.g.setColor(0,this.ampC[euc.dash.ampC]);
 		this.g.fillRect(0,55,40,112);
-		this.g.setColor(1,(euc.dash.ampC==1||euc.dash.ampC==2)?0:4095);
+		this.g.setColor(1,4095);
 		this.g.setFontVector(12);
 		this.g.drawString("AMP", 8,59);
 		this.g.setFontVector(32);
@@ -226,7 +226,9 @@ face[0] = {
 	pwrF: function(){
 		this.g.setColor(0,1365);
 		this.g.fillRect(euc.dash.pwr*2.4,176,239,197); 
-		this.g.setColor(0,4095);
+		this.g.setColor(1,4095);
+		this.g.setFontVector(16);
+		this.g.drawString(euc.dash.pwr+"%",euc.dash.pwr*2.4,180);
 		this.g.fillRect(0,176,euc.dash.pwr*2.4,197); 
 		w.gfx.flip();
 	},
