@@ -200,9 +200,9 @@ face[0] = {
 							tot += log[key];
 							};
 						});
-						if (set.def.tot) tot += set.def.tot;
-						tot=tot.toFixed(0);
-						tot=tot.substring(0,tot.length-3)+","+tot.substring(tot.length-3, tot.length)
+						if (set.def.dash.tot) tot += set.def.dash.tot;
+						tot=Math.round(tot);
+						if (3<tot.toString().length) tot=tot.toString().substring(0,tot.toString().length-3)+","+tot.toString().substring(tot.toString().length-3, tot.toString().length)
 						this.g.setFont("Vector",40);
 						this.g.drawString(tot+" "+((set.def.dash.mph)?"mi":"Km"),119-(this.g.stringWidth(tot+" "+((set.def.dash.mph)?"mi":"Km"))/2),200); 
 					}
