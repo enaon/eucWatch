@@ -30,7 +30,6 @@ face[0] = {
 		this.alrm=-1;
 		this.conn="OFF";
 		this.lock=2;
-		this.spdL=-1;
 		this.trpL=-1;
 		this.fact=euc.dash.spdF*((set.def.dash.mph)?0.625:1);		
 		this.trpF=euc.dash.trpF*((set.def.dash.mph)?0.625:1);
@@ -87,7 +86,10 @@ face[0] = {
 				this.g.setFont("Vector",50);
 				this.g.drawString(euc.state,(125-this.g.stringWidth(euc.state)/2),95);
 				this.g.flip();
-				if (euc.state=="WAIT"||euc.state=="RETRY"){this.spd=-1;this.time=0;this.amp=-1;this.tmp=-1;this.bat=-1;this.trpL=-1;this.conn=0;this.lock=2;this.run=true;}
+				this.spd=-1;this.amp=-1;this.tmp=-1;this.bat=-1;this.trpL=-1;this.conn=0;this.lock=2;
+				this.buzz=-1;this.volt=-1;this.spdM=-1;this.alrm=-1;this.spdL=-1;this.spdM=-1;
+				this.ampL.fill(1,0,1);this.batL.fill(1,0,1);
+				this.run=true;
 			}
 		}
 		euc.new=0;
