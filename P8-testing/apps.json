@@ -31,7 +31,9 @@
 		"tags": "apps",
 		"type":"main",
 		"storage": [
-			{"name":"main","url":"main.js"}
+			{"name":"main","url":"main.js"}.
+			{"name":"mainOptions","url":"mainOptions.js"}
+
 		]
 	},  
 	{ "id": "settings",

@@ -13,7 +13,7 @@ face[0] = {
 		this.g.drawString("SET TIME",120-(this.g.stringWidth("SET TIME")/2),217); 
 		this.g.flip(); 
 		leth=Date().getHours();
-		this.btn(1,(set.def.24h)?h:(12 <= h)?() :h+ "AM",30,40,25,2220,0,0,0,75,75);//1
+		//this.btn(1,(set.def.hr24)?h:(12 <= h)?1:"AM",30,40,25,2220,0,0,0,75,75);//1
 			
         //this.run=true;
 	},
