@@ -43,9 +43,9 @@ global.euc= {
 			
 			return;
 		}else {
+			digitalPulse(D16,1,100); 
 			this.log.trp=[0,0,0];
 			NRF.setTxPower(4);
-			digitalPulse(D16,1,100); 
 			this.mac=(this.mac)?this.mac:set.read("dash","slot"+set.read("dash","slot")+"Mac");
 			if(!this.mac) {
 				face.go('dashScan',0);return;

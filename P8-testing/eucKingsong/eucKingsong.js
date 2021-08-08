@@ -202,7 +202,7 @@ euc.conn=function(mac){
 	//write
 	}).then(function(c) {
 		//if (set.def.cli) console.log("EUC connected"); 
-		digitalPulse(D16,1,[90,40,150]);
+//		digitalPulse(D16,1,[90,40,150]);
 		euc.wri= function(n) {
 			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},100);return;} 
 			euc.busy=setTimeout(()=>{euc.busy=0;},1000);
@@ -243,6 +243,7 @@ euc.conn=function(mac){
 				}).then(function() {
 					return ((euc.dash.aLck&&euc.dash.passSend)?c.writeValue(euc.cmd("rideLedOn")):"ok");
 				}).then(function() {
+					digitalPulse(D16,1,[90,40,150]);
 					return c.startNotifications();
 				}).then(function() {
 					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}

@@ -43,8 +43,10 @@ face[0] = {
 			this.g.flip();
 			if (this.spd != Math.round(euc.dash.spd)) this.spdF();
 			// alarm events time graph
-			if (5<=this.spd&&this.al!=almL) this.alF();
-			else if (euc.dash.maker=="Kingsong") this.pwrF();
+			if (5<=this.spd) {
+				if (this.al!=almL) this.alF();
+				else if (euc.dash.maker=="Kingsong") this.pwrF();
+			}
 			//tmp/amp block
 			if (!set.def.dash.amp) {
 				if (this.amp!=Math.round(euc.dash.amp)) this.ampF();
@@ -226,11 +228,11 @@ face[0] = {
 		this.g.flip();
 	},	
 	pwrF: function(){
-//		this.g.setColor(0,1365);
-		this.g.setColor(0,col("red"));
-		this.g.fillRect(0,176,239,197); 
-//		this.g.fillRect(euc.dash.pwr*2.4,176,239,197); 
-		this.g.setColor(1,4095);
+		this.g.setColor(0,1365);
+		//this.g.setColor(0,col("red"));
+		//this.g.fillRect(0,176,239,197); 
+		this.g.fillRect(euc.dash.pwr*2.4,176,239,197); 
+		this.g.setColor(1,(50<=euc.dash.pwr)?(80<=euc.dash.pwr)?3840:4080:4095);
 		//this.g.setFontVector(16);
 		//this.g.drawString(euc.dash.pwr+"%",euc.dash.pwr*2.4,180);
 		this.g.fillRect(0,180,euc.dash.pwr*2.4,193); 
@@ -244,7 +246,7 @@ face[0] = {
 		this.g.setFontVector((this.volt<100)?40:35);
 		this.g.drawString(this.volt,(this.volt<100)?135:125,0); 
 		this.g.setFontVector(13);
-		this.g.drawString("VOLT",202,39);
+		this.g.drawString("VOLT",202,38);
 		this.g.flip();
 	},	
 	batF: function(){
@@ -253,9 +255,9 @@ face[0] = {
 		this.g.fillRect(122,0,239,50);
 		this.g.setColor(1,4095);
 		this.g.setFontVector(50);
-		this.g.drawString(this.bat,220-(this.g.stringWidth(this.bat)),3);
+		this.g.drawString(this.bat,225-(this.g.stringWidth(this.bat)),3);
 		this.g.setFontVector(20);
-		this.g.drawString("%",224,8);
+		this.g.drawString("%",227,8);
 		this.g.flip();
 	},
 	baLF: function(){

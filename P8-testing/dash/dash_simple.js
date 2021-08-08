@@ -97,9 +97,9 @@ face[0] = {
 //		this.g.setColor(1,4095);
 		this.g.setColor(1,4095);
 		this.g.setFontVector(50);
-		this.g.drawString(this.bat,220-(this.g.stringWidth(this.bat)),3);
+		this.g.drawString(this.bat,225-(this.g.stringWidth(this.bat)),3);
 		this.g.setFontVector(20);
-		this.g.drawString("%",224,8);
+		this.g.drawString("%",227,8);
 		this.g.flip();
 	},
 	vltf: function(){
