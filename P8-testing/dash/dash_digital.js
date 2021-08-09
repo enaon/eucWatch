@@ -33,6 +33,7 @@ face[0] = {
 		this.trpL=-1;
 		this.fact=euc.dash.spdF*((set.def.dash.mph)?0.625:1);		
 		this.trpF=euc.dash.trpF*((set.def.dash.mph)?0.625:1);
+		this.bar();
 		this.run=true;
 	},
 	show : function(o){
@@ -230,12 +231,12 @@ face[0] = {
 	pwrF: function(){
 		this.g.setColor(0,1365);
 		//this.g.setColor(0,col("red"));
-		//this.g.fillRect(0,176,239,197); 
-		this.g.fillRect(euc.dash.pwr*2.4,176,239,197); 
+		this.g.fillRect(0,176,239,197); 
+		//this.g.fillRect(euc.dash.pwr*2.4,176,239,197); 
 		this.g.setColor(1,(50<=euc.dash.pwr)?(80<=euc.dash.pwr)?3840:4080:4095);
 		//this.g.setFontVector(16);
-		//this.g.drawString(euc.dash.pwr+"%",euc.dash.pwr*2.4,180);
-		this.g.fillRect(0,180,euc.dash.pwr*2.4,193); 
+		//this.g.drawString(euc.dash.pwr+"%",1,180);
+		this.g.fillRect(0,182,40+euc.dash.pwr*2.4,192); 
 		w.gfx.flip();
 	},
 	vltF: function(){
