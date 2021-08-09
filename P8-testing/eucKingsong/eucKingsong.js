@@ -239,21 +239,21 @@ euc.conn=function(mac){
 				});
 			} else if (n==="start") {
 				c.writeValue(euc.cmd((euc.dash.passSend)?"passSend":(euc.dash.aLck)?"unlock":(euc.dash.aLight)?euc.dash.aLight:"lightsAuto")).then(function() {
+					digitalPulse(D16,1,[90,40,150]);					
 					return c.writeValue(euc.cmd((euc.dash.aLck&&euc.dash.passSend)?"unlock":(euc.seq==0)?"rideLedOn":(euc.dash.aLight)?euc.dash.aLight:"lightsAuto"));
 				}).then(function() {
 					return (euc.seq==0)?(euc.dash.aLck^euc.dash.passSend)?c.writeValue(euc.cmd("rideLedOn")):"ok":c.writeValue(euc.cmd((euc.dash.aLight)?euc.dash.aLight:"lightsAuto"));
 				}).then(function() {
 					return ((euc.dash.aLck&&euc.dash.passSend)?c.writeValue(euc.cmd("rideLedOn")):"ok");
 				}).then(function() {
-					digitalPulse(D16,1,[90,40,150]);
 					return c.startNotifications();
 				}).then(function() {
 					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-					return c.writeValue(euc.cmd("alarms"));					
+					return c.writeValue(euc.cmd("alarms"));	
 				}).then(function() {
 					euc.run=1;
 					euc.state="READY";
-					if (!euc.dash.model) c.writeValue(euc.cmd("model"));
+					return c.writeValue(euc.cmd("model"));
 				}).catch(function(err)  {
 					if (global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected) global["\xFF"].BLE_GATTS.disconnect();
 					else euc.off("err-start");
