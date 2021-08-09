@@ -100,7 +100,7 @@ face[0] = {
 		this.tid=setTimeout(function(t){
 			t.tid=-1;
 			t.show();
-		},125,this);
+		},100,this);
 	},
 	spdF: function(){
 		this.spd=Math.round(euc.dash.spd);
@@ -233,8 +233,8 @@ face[0] = {
 		this.g.fillRect(0,176,239,197); 
 		//this.g.fillRect(euc.dash.pwr*2.4,176,239,197); 
 		this.g.setColor(1,(50<=euc.dash.pwr)?(80<=euc.dash.pwr)?3840:4080:4095);
-		this.g.setFontVector(20);
-		this.g.drawString(euc.dash.pwr,1,180);
+		this.g.setFontVector(25);
+		this.g.drawString(euc.dash.pwr,3,177);
 		this.g.fillRect(40,182,40+euc.dash.pwr*2,192); 
 		w.gfx.flip();
 	},
