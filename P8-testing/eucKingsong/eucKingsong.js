@@ -173,8 +173,9 @@ euc.conn=function(mac){
 				    //console.log (this.var); //else console.log(inpk); 
 			}
 			//haptic
-			if (!euc.buzz && euc.alert) {  
-				face.off(6000);
+			if (!euc.buzz && euc.alert) { 
+				if (!w.gfx.isOn&&(euc.dash.spdC||euc.dash.ampC)) face.go(set.dash[set.def.dash.face],0);
+				else face.off(6000);
 				euc.buzz=1;
 				if (20 <= euc.alert) euc.alert = 20;
 				var a=[];
