@@ -17,7 +17,7 @@ face[0] = {
 		this.spd=-1;
 		this.amp=-1;
 		this.tmp=-1;
-		this.time=-1;
+		this.time-1;
 		this.bat=-1;
 		this.volt=-1;
 		this.conn=0;

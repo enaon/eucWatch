@@ -31,9 +31,9 @@ face[0] = {
 		this.conn="OFF";
 		this.lock=2;
 		this.trpL=-1;
+		this.bar=0;
 		this.fact=euc.dash.spdF*((set.def.dash.mph)?0.625:1);		
 		this.trpF=euc.dash.trpF*((set.def.dash.mph)?0.625:1);
-		this.bar();
 		this.run=true;
 	},
 	show : function(o){
@@ -47,7 +47,7 @@ face[0] = {
 			if (5<=this.spd) {
 				if (this.al!=almL) this.alF();
 				else if (euc.dash.maker=="Kingsong") this.pwrF();
-			}
+			} else if (!this.bar) { this.bar=1; this.barF();}
 			//tmp/amp block
 			if (!set.def.dash.amp) {
 				if (this.amp!=Math.round(euc.dash.amp)) this.ampF();
@@ -90,7 +90,7 @@ face[0] = {
 				this.g.drawString(euc.state,(125-this.g.stringWidth(euc.state)/2),95);
 				this.g.flip();
 				this.spd=-1;this.amp=-1;this.tmp=-1;this.bat=-1;this.trpL=-1;this.conn=0;this.lock=2;
-				this.buzz=-1;this.volt=-1;this.spdM=-1;this.alrm=-1;this.spdL=-1;this.spdM=-1;
+				this.buzz=-1;this.volt=-1;this.spdM=-1;this.alrm=-1;this.spdL=-1;this.spdM=-1;this.bar=0;
 				this.ampL.fill(1,0,1);this.batL.fill(1,0,1);
 				this.run=true;
 			}
@@ -116,9 +116,8 @@ face[0] = {
 		this.g.drawString(Math.round(this.spd*this.fact),129-(this.g.stringWidth(Math.round(this.spd*this.fact))/2),57); 
 		this.g.flip();
 		if (this.spd==0) { 
-			//this.g.flip();
-			this.bar();
-			//this.g.setColor(0,0);
+			this.bar=1;
+			this.barF();
 		}
 	},
 	alF: function(){
@@ -291,7 +290,7 @@ face[0] = {
 		//}
 		this.g.flip();
 	},
-	bar: function(){
+	barF: function(){
 		this.g.setColor(1,1365);
 		this.g.fillRect(0,176,239,197); //mileage
 		this.g.setColor(0,4095);
@@ -357,7 +356,7 @@ touchHandler[0]=function(e,x,y){
 		}else if (190<y){//mileage/time
 			if (set.def.dash.clck==undefined) set.def.dash.clck=0;
 			set.def.dash.clck=1-set.def.dash.clck;
- 			face[0].trpL=-1;face[0].bar();
+ 			face[0].trpL=-1;face[0].barF();
 			digitalPulse(D16,1,[30,50,30]);
 		}else
 			digitalPulse(D16,1,40);
