@@ -185,7 +185,8 @@ euc.conn=function(mac){
 				for (i = 0; i < euc.alert ; i++) {
 					a.push(200,150);
 				}
-				digitalPulse(D16,0,a);  
+				digitalPulse(D16,0,a); 
+				face.off(6000);
 				setTimeout(() => { euc.buzz = 0; }, 3000);
 			}
 			/*//screen on
