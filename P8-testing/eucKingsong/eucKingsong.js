@@ -253,7 +253,7 @@ euc.conn=function(mac){
 				}).then(function() {
 					euc.run=1;
 					euc.state="READY";
-					return c.writeValue(euc.cmd("model"));
+					if (!euc.dash.model) c.writeValue(euc.cmd("model"));
 				}).catch(function(err)  {
 					if (global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected) global["\xFF"].BLE_GATTS.disconnect();
 					else euc.off("err-start");
