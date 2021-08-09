@@ -704,23 +704,29 @@ cron={
 					if (Date().getDate()==1) cron.emit('month',Date().getMonth());
 				}
 				let pr=(!x)?23:x-1;
-				let v=set.read("logDaySlot"+set.def.dash.slot,pr);
-				if (euc.log.trp[0]) set.write("logDaySlot"+set.def.dash.slot,pr,((euc.log.trp[0])?euc.dash.trpT-euc.log.trp[0]:0)+((v)?v:0));
-				set.write("logDaySlot"+set.def.dash.slot,x,0); 
+				if (euc.log.trp[0]) {
+					let v=set.read("logDaySlot"+set.def.dash.slot,pr);
+					set.write("logDaySlot"+set.def.dash.slot,pr,((euc.log.trp[0])?euc.dash.trpT-euc.log.trp[0]:0)+((v)?v:0));
+				}
+				require('Storage').list(/logDaySlot/).forEach(logfile=>{set.write(logfile,x,0);});
 				euc.log.trp[0]=0;
 			},
 			day:x=>{
 				let pr=(!x)?6:x-1;
-				let v=set.read("logWeekSlot"+set.def.dash.slot,pr);
-				if (euc.log.trp[1]) set.write("logWeekSlot"+set.def.dash.slot,pr,((euc.log.trp[1])?euc.dash.trpT-euc.log.trp[1]:0)+((v)?v:0));
-				set.write("logWeekSlot"+set.def.dash.slot,x,0); 
+				if (euc.log.trp[1]) {
+					let v=set.read("logWeekSlot"+set.def.dash.slot,pr);
+					set.write("logWeekSlot"+set.def.dash.slot,pr,((euc.log.trp[1])?euc.dash.trpT-euc.log.trp[1]:0)+((v)?v:0));
+				}
+				require('Storage').list(/logWeekSlot/).forEach(logfile=>{set.write(logfile,x,0);});
 				euc.log.trp[1]=0;
 			},
 			month:x=>{
 				let pr=(!x)?11:x-1;
-				let v=set.read("logYearSlot"+set.def.dash.slot,pr);
-				if (euc.log.trp[2]) set.write("logYearSlot"+set.def.dash.slot,pr,((euc.log.trp[2])?euc.dash.trpT-euc.log.trp[2]:0)+((v)?v:0));
-				set.write("logYearSlot"+set.def.dash.slot,x,0); 
+				if (euc.log.trp[2]) {
+					let v=set.read("logYearSlot"+set.def.dash.slot,pr);
+					set.write("logYearSlot"+set.def.dash.slot,pr,((euc.log.trp[2])?euc.dash.trpT-euc.log.trp[2]:0)+((v)?v:0));
+				}
+				require('Storage').list(/logYearSlot/).forEach(logfile=>{set.write(logfile,x,0);});
 				euc.log.trp[2]=0;
 			}
 		}
