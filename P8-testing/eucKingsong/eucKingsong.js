@@ -174,6 +174,7 @@ euc.conn=function(mac){
 			}
 			//haptic
 			if (!euc.buzz && euc.alert) {  
+				face.off(6000);
 				euc.buzz=1;
 				if (20 <= euc.alert) euc.alert = 20;
 				var a=[];
@@ -186,7 +187,6 @@ euc.conn=function(mac){
 					a.push(200,150);
 				}
 				digitalPulse(D16,0,a); 
-				face.off(6000);
 				setTimeout(() => { euc.buzz = 0; }, 3000);
 			}
 			/*//screen on
