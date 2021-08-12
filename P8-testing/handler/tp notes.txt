@@ -1,0 +1,78 @@
+//tp notes
+//setup
+var i2c=new I2C();
+i2c.setup({scl:D7, sda:D6, bitrate:100000});
+digitalPulse(D13,1,[5,50]);
+
+//interupt monitor
+lala=setWatch(function(s){
+		i2c.writeTo(0x15,0);
+		var tp=i2c.readFrom(0x15,7);
+		print("touch816 :",tp);
+},D28,{repeat:true, edge:"rising"});
+
+read=function(){
+	//read all non 0 registers
+	i2c.writeTo(0x15,0);
+	var reg=i2c.readFrom(0x15,300);
+	var i=0;
+	while (i<=300) {
+		if (reg[i]!=0) console.log(i+"="+reg[i]);
+		i++;
+	}
+}
+
+//check version
+drv_Touch_Read(0xA7, &chip_id, 1); //Value cst816s: 0xB4 cst716: 0x20
+i2c.writeTo(0x15,0xA7)  //a7=167
+i2c.readFrom(0x15,1)
+B5== 816s // b4=180
+20== 716  // 20=32 
+
+
+//check revision
+drv_Touch_Read(0xA9, &g_tp_version, 1); //Each firmware update, the version number is incremented by 1 
+i2c.writeTo(0x15,0xA9)  //a7=169
+i2c.readFrom(0x15,1)
+
+//Set report rate, pull interrupt time interval
+data[0] = 0x02; //Unit 10ms, setting time = data[0]*10ms 
+drv_Touch_Write(0xEE, data, 1); //The default reporting rate is 100HZ, with an interrupt in 10ms,
+i2c.writeTo(0x15,0xEE,0x10)  //
+
+..
+//set mode
+i2c.writeTo(0x15,0xFA,0x60)  //Pull an interrupt every 10ms or so when touching TP. Report coordinates from time to time
+i2c.writeTo(0x15,0xFA,0x11)  //Pull an interrupt after the gesture is generated.
+i2c.writeTo(0x15,0xFB,0x71)  //Set to report point + gesture mode
+
+//auto low power
+drv_Touch_Write(0xFE, data, 1); // The default is 0, enable automatic entry into low power mode //fe=254
+//auto reset
+drv_Touch_Write(0xFD, data, 1); // Automatically reset after pressing for x seconds //fd=253
+//auto reset
+drv_Touch_Write(0xFC, data, 1); // When there is a touch within x seconds but there is no valid gesture, it will automatically reset //fc=252
+
+
+i2c.writeTo(0x15,166,10)  //test
+
+
+
+
+//read all non 0 registers
+i2c.writeTo(0x15,0);
+var reg=i2c.readFrom(0x15,255);
+var i=0;
+while (i<=254) {
+  if (reg[i]!=0) console.log(i+"="+reg[i]);
+  i++;
+}
+
+136=10
+166=1
+167=32
+168=108
+169=5
+
+
+i2c.writeTo(0x15,165,10)  //test
