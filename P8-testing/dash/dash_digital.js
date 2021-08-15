@@ -234,8 +234,8 @@ face[0] = {
 		//this.g.fillRect(euc.dash.pwr*2.4,176,239,197); 
 		this.g.setColor(1,(50<=euc.dash.pwr)?(80<=euc.dash.pwr)?3840:4080:4095);
 		this.g.setFontVector(25);
-		this.g.drawString(euc.dash.pwr,3,177);
-		this.g.fillRect(40,182,40+euc.dash.pwr*2,192); 
+		this.g.drawString(((euc.dash.pwr/euc.dash.spd)*10).toFixed(1),3,177);
+		this.g.fillRect(80,182,80+euc.dash.pwr*1.6,192); 
 		w.gfx.flip();
 	},
 	vltF: function(){

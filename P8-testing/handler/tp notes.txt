@@ -1,8 +1,18 @@
 //tp notes
 //setup
 var i2c=new I2C();
+
+
+var i2c=I2C1;
 i2c.setup({scl:D7, sda:D6, bitrate:100000});
+
 digitalPulse(D13,1,[5,50]);
+
+for (let i = 0; i < 0x80; i++) {
+  try { I2C1.readFrom(i, 1); console.log(i); } catch (e) {}
+}
+
+
 
 //interupt monitor
 lala=setWatch(function(s){
@@ -14,9 +24,9 @@ lala=setWatch(function(s){
 read=function(){
 	//read all non 0 registers
 	i2c.writeTo(0x15,0);
-	var reg=i2c.readFrom(0x15,300);
+	var reg=i2c.readFrom(0x15,255);
 	var i=0;
-	while (i<=300) {
+	while (i<=255) {
 		if (reg[i]!=0) console.log(i+"="+reg[i]);
 		i++;
 	}
