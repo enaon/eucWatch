@@ -32,7 +32,6 @@
 		"type":"main",
 		"storage": [
 			{"name":"main","url":"main.js"}
-			
 		]
 	},  
 	{ "id": "settings",

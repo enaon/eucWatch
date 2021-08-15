@@ -256,14 +256,14 @@ var face={
 				if (this.appCurr==="main") {
 					if (face[c].off) {
 						if (set.def.touchtype=="716") tfk.exit();	
-						else digitalPulse(D10,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100); 
+						else digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100); 
 						face[c].off();this.pageCurr=-1;face.pagePrev=c;
 					}
 				}else face.go(this.appCurr,1);
 			}else if (face.appPrev=="off") {
 				if (face[c].off) {
 					if (set.def.touchtype=="716") tfk.exit();	
-					else digitalPulse(D10,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100); 
+					else digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100); 
 					face.go("main",-1);face.pagePrev=c;
 				}
 			}else if (c>1) face.go(this.appCurr,0);
@@ -282,7 +282,7 @@ var face={
 		if (this.pageCurr==-1 && this.pagePrev!=-1) {
 			//if (set.def.touchtype=="716")tfk.loop=100;
 			if (set.def.touchtype=="716") tfk.exit();	
-			else digitalPulse(D10,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100); 
+			else digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100); 
 			acc.go=0;
 			face[this.pagePrev].off();
 			if (this.offid) {clearTimeout(this.offid); this.offid=0;}
@@ -297,10 +297,10 @@ var face={
 		this.off();
 		face[page].init(arg);	
 		if(!w.gfx.isOn) {
-			//digitalPulse(D10,1,[10,50]); //touch wake
+			//digitalPulse(D13,1,[10,50]); //touch wake
 			if (set.def.touchtype=="716") tfk.start();
 			//{tfk.loop=10;if(!tfk.tid) tfk.start();}
-			else digitalPulse(D10,1,[5,50]);
+			else digitalPulse(D13,1,[5,50]);
 			w.gfx.on();
 		}
 		face[page].show(arg);
@@ -381,7 +381,7 @@ btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
 //var i2c=I2C1;
 var i2c=new I2C();
 i2c.setup({scl:D7, sda:D6, bitrate:100000});
-digitalPulse(D10,1,[5,50]);
+digitalPulse(D13,1,[5,50]);
 var c;
 if (set.def.touchtype=="816"){ //816
 	setWatch(function(s){
@@ -510,7 +510,7 @@ if (set.def.touchtype=="816"){ //816
 	},
 	start:function(){ 
 		if (this.tid) clearInterval(this.tid);
-		digitalPulse(D10,1,[10,50]); //touch wake
+		digitalPulse(D13,1,[10,50]); //touch wake
         this.st=1;
 		this.tid=setInterval(function(){
 			tfk.init();
@@ -518,7 +518,7 @@ if (set.def.touchtype=="816"){ //816
 	},
 	exit:function(){
 		if (this.tid) clearInterval(this.tid);this.tid=0;
-	    digitalPulse(D10,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100);
+	    digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100);
 		this.aLast=0;
 		this.st = 1;
 		this.time = 0;
