@@ -1,9 +1,7 @@
 //tp notes
 //setup
 var i2c=new I2C();
-
-
-var i2c=I2C1;
+//var i2c=I2C1;
 i2c.setup({scl:D7, sda:D6, bitrate:100000});
 
 digitalPulse(D10,1,[5,50]);
