@@ -390,7 +390,7 @@ if (set.def.touchtype=="816"){ //816
 		print("touch816 :",tp);
 		if (face.pageCurr>=0) {
 			if (tp[1]==0 && tp[3]==64) tp[1]=5;
-			if (tp[1]==12) tp[6]=tp[6]+25;
+			if (tp[1]==12) {tp[6]=tp[6]+25; print("touch816 event 12 new y:",tp[6]);}
 			touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);}
 		else if (tp[1]==1) {
 			face.go(face.appCurr,0);
