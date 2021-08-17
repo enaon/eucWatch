@@ -216,6 +216,7 @@ euc.conn=function(mac){
 				return c.writeValue(euc.cmd("strobeOn"));
 				}).then(function() {
 					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+					if (euc.horn) {clearTimeout(euc.horn);euc.horn=0;}
 					euc.dash.strb=1;
 					euc.horn=setTimeout(() => {
 						if (!BTN1.read()){
@@ -225,7 +226,8 @@ euc.conn=function(mac){
 								return c.writeValue(euc.cmd("strobeOff"));
 							});
 						}
-					}, 50); 
+						euc.horn=0;
+					}, 100); 
 				
 				});
 			} else if (n=="hornOff") {
