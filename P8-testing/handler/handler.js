@@ -159,6 +159,7 @@ var set={
 
 set.def = require('Storage').readJSON('setting.json', 1);
 if (!set.def) {set.resetSettings();set.updateSettings();}
+if (!set.def.rstP) set.def.rstP="D13";
 //dash
 require('Storage').list(/dash_/).forEach(dashfile=>{
 	set.dash.push(dashfile);
