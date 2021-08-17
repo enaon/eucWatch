@@ -392,7 +392,7 @@ if ( set.def.touchtype == "0" ) {
 		if ( tp != 255 ) {
 			i2c.writeTo(0x15,0x80);
 			tp=i2c.readFrom(0x15,1);
-			set.def.touchtype=( tp !== 1 )?"816":"716";
+			set.def.touchtype=( tp !== 0 )?"816":"716";
 			set.updateSettings();
 			setTimeout(()=> {reset();},800);
 		}
