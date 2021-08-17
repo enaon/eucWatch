@@ -389,8 +389,11 @@ if ( set.def.touchtype == 0 ) {
 		i2c.writeTo(0x15,0xA7);
 		let tp=i2c.readFrom(0x15,1);
 		if ( tp != 255 ) {
-			set.def.touchtype=( tp == 180 )?"816":( tp == 32 )?"716":"816s";
+			i2c.writeTo(0x15,0x80);
+			tp=i2c.readFrom(0x15,1);
+			set.def.touchtype=( tp !== 1 )?"816":"716";
 			set.updateSettings();
+			reset();
 		}
 		else{
 			set.def.rstP="D10";
@@ -399,8 +402,9 @@ if ( set.def.touchtype == 0 ) {
 				i2c.writeTo(0x15,0xA7);
 				let tp=i2c.readFrom(0x15,1);
 				if ( tp != 255 ) {
-					set.def.touchtype=( tp == 180 )?"816":( tp == 32 )?"716":"816s";	
+					set.def.touchtype="816";
 					set.updateSettings();
+					reset();
 				}
 			},100);
 		}	
