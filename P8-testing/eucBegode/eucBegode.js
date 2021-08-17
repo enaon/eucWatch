@@ -171,7 +171,6 @@ euc.conn=function(mac){
 					if (euc.horn) {clearInterval(euc.horn);}
 					euc.horn=setInterval(() => {
 						c.writeValue(euc.cmd("beep"));
-						if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 					}, 200); 
    					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 				}).catch(function(err)  {
