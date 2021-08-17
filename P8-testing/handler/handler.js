@@ -401,6 +401,7 @@ if ( set.def.touchtype == 0 ) {
 			},100);
 		}	
 	},100);
+	set.updateSettings();
 }
 
 if (set.def.touchtype=="816"){ //816
