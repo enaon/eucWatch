@@ -388,20 +388,23 @@ if ( set.def.touchtype == 0 ) {
 	setTimeout(()=>{ 
 		i2c.writeTo(0x15,0xA7);
 		let tp=i2c.readFrom(0x15,1);
-		if ( tp != 255 ) 
+		if ( tp != 255 ) {
 			set.def.touchtype=( tp == 180 )?"816":( tp == 32 )?"716":"816s";
+			set.updateSettings();
+		}
 		else{
 			set.def.rstP="D10";
 			digitalPulse(set.def.rstP,1,[5,50]);
 			setTimeout(()=>{ 
 				i2c.writeTo(0x15,0xA7);
 				let tp=i2c.readFrom(0x15,1);
-				if ( tp != 255 ) 
+				if ( tp != 255 ) {
 					set.def.touchtype=( tp == 180 )?"816":( tp == 32 )?"716":"816s";	
+					set.updateSettings();
+				}
 			},100);
 		}	
 	},100);
-	set.updateSettings();
 }
 
 if (set.def.touchtype=="816"){ //816
