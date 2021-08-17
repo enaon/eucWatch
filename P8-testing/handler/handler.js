@@ -85,7 +85,7 @@ var set={
 		hidT:"media", //joy/kb/media
 		bri:2, //Screen brightness 1..7
 		acctype:"0",
-		touchtype:"716"
+		touchtype:"0"
 		};
 		set.updateSettings();
 	},
@@ -256,14 +256,14 @@ var face={
 				if (this.appCurr==="main") {
 					if (face[c].off) {
 						if (set.def.touchtype=="716") tfk.exit();	
-						else digitalPulse(D10,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100); 
+						else digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100); 
 						face[c].off();this.pageCurr=-1;face.pagePrev=c;
 					}
 				}else face.go(this.appCurr,1);
 			}else if (face.appPrev=="off") {
 				if (face[c].off) {
 					if (set.def.touchtype=="716") tfk.exit();	
-					else digitalPulse(D10,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100); 
+					else digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100); 
 					face.go("main",-1);face.pagePrev=c;
 				}
 			}else if (c>1) face.go(this.appCurr,0);
@@ -282,7 +282,7 @@ var face={
 		if (this.pageCurr==-1 && this.pagePrev!=-1) {
 			//if (set.def.touchtype=="716")tfk.loop=100;
 			if (set.def.touchtype=="716") tfk.exit();	
-			else digitalPulse(D10,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100); 
+			else digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100); 
 			acc.go=0;
 			face[this.pagePrev].off();
 			if (this.offid) {clearTimeout(this.offid); this.offid=0;}
@@ -297,10 +297,10 @@ var face={
 		this.off();
 		face[page].init(arg);	
 		if(!w.gfx.isOn) {
-			//digitalPulse(D10,1,[10,50]); //touch wake
+			//digitalPulse(set.def.rstP,1,[10,50]); //touch wake
 			if (set.def.touchtype=="716") tfk.start();
 			//{tfk.loop=10;if(!tfk.tid) tfk.start();}
-			else digitalPulse(D10,1,[5,50]);
+			else digitalPulse(set.def.rstP,1,[5,50]);
 			w.gfx.on();
 		}
 		face[page].show(arg);
@@ -381,8 +381,28 @@ btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
 //var i2c=I2C1;
 var i2c=new I2C();
 i2c.setup({scl:D7, sda:D6, bitrate:100000});
-digitalPulse(D10,1,[5,50]);
-var c;
+//find touch
+if ( set.def.touchtype == 0 ) {
+	set.def.rstP="D13";
+	digitalPulse(set.def.rstP,1,[5,50]);
+	setTimeout(()=>{ 
+		i2c.writeTo(0x15,0xA7);
+		let tp=i2c.readFrom(0x15,1);
+		if ( tp != 255 ) 
+			set.def.touchtype=( tp == 180 )?"816":( tp == 32 )?"716":"816s";
+		else{
+			set.def.rstP="D10";
+			digitalPulse(set.def.rstP,1,[5,50]);
+			setTimeout(()=>{ 
+				i2c.writeTo(0x15,0xA7);
+				let tp=i2c.readFrom(0x15,1);
+				if ( tp != 255 ) 
+					set.def.touchtype=( tp == 180 )?"816":( tp == 32 )?"716":"816s";	
+			},100);
+		}	
+	},100);
+}
+
 if (set.def.touchtype=="816"){ //816
 	setWatch(function(s){
 		i2c.writeTo(0x15,0);
@@ -397,7 +417,7 @@ if (set.def.touchtype=="816"){ //816
 		}
 	},D28,{repeat:true, edge:"rising"}); 
 }else if (set.def.touchtype=="816s"){//816s
-	var lt,xt,yt,tt,tf;
+	var lt,xt,yt,tt,tf,c;
 	//var ct=0;
 	setWatch(function(s){
 	var tp=i2c.readFrom(0x15,7);
@@ -511,7 +531,7 @@ if (set.def.touchtype=="816"){ //816
 	},
 	start:function(){ 
 		if (this.tid) clearInterval(this.tid);
-		digitalPulse(D10,1,[10,50]); //touch wake
+		digitalPulse(set.def.rstP,1,[10,50]); //touch wake
         this.st=1;
 		this.tid=setInterval(function(){
 			tfk.init();
@@ -519,7 +539,7 @@ if (set.def.touchtype=="816"){ //816
 	},
 	exit:function(){
 		if (this.tid) clearInterval(this.tid);this.tid=0;
-	    digitalPulse(D10,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100);
+	    digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100);
 		this.aLast=0;
 		this.st = 1;
 		this.time = 0;

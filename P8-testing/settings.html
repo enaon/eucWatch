@@ -9,8 +9,8 @@
 	<p>Accelerator type: <select type="text" id="acctype" value=localStorage.p8acc class="form-select"><option>BMA421</option><option>SC7A20</option></select></p>
     <p><button id="set" class="btn btn-primary">Set</button></p>
 	<h6>This will change drivers, tap the side button to boot eucWatch with new drivers.</h6>
-	<h7>Choose a accelerator driver that works with your watch variant.</h7>
-	<h7>Choose a controller driver that works best with your watch variant .</h7>
+	<h7>Choose a accelerator driver that works with your watch variant. ( 0 for auto recognition )</h7>
+	<h7>Choose a controller driver that works best with your watch variant . ( 0 for auto recognition ) </h7>
 
     <script>
 		function selectElement(id, valueToSelect) {    
@@ -28,12 +28,12 @@
         var touch = document.getElementById("touchtype").value;
 		var name = document.getElementById("devname").value;
 
-        if (acc!="BMA421"&&acc!="SC7A20") {
+        if (acc!="BMA421"&&acc!="SC7A20"&&&&acc!="0") {
           alert("Accelerator type needs to be BMA421 or SC7A20");
           return;
         }
-		if (touch!="816"&&touch!="716"&&touch!="816s") {
-          alert("Touch controler type needs to be 716 or 816 or 816s");
+		if (touch!="816"&&touch!="716"&&touch!="816s"&&(touch!="0") {
+          alert("Touch controler type needs to be 716 or 816 or 816s or 0");
           return;
         }
 		localStorage.setItem("p8acc", acc);

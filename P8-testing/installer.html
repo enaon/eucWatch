@@ -6,10 +6,9 @@
 
     <p>Rider Name: (Will be used as the watch's BT name) <input type="text" id="devname" class="form-input" value="eucWatch"></p>
     <p>Total Distance: (Rider total distance traveled in Km or mi - optional) <input type="text" id="riderdist" class="form-input" value="0"></p>
-	<p>Touch controler type: <select type="text" id="touchtype" value="716" class="form-select"><option>716</option><option>816</option><option>816s</option></select></p>
     <p><button id="upload" class="btn btn-primary">Upload</button></p>
 	<h6>This proccess will erase the Watch</h6>
-	<h7>The accelerator type is auto recognized, you can change it after installation using the "Change Settings" button.</h7>
+	<h7>The touch/accelerator type are auto recognized, you can change them after installation using the "Change Settings" button.</h7>
 	<h7></h7>
 	<h6>Press the "Disconnect" button when then last file is finished uploading to start using the Watch.</h6>
 
@@ -19,7 +18,6 @@
 			let element = document.getElementById(id);
 			element.value = valueToSelect;
 		}
-		selectElement('touchtype', (localStorage.p8touch)?localStorage.p8touch:"816");
 		selectElement('devname', (localStorage.p8name)?localStorage.p8name:"eucWatch");
 		selectElement('riderdist', 0);
 
@@ -27,22 +25,16 @@
       document.getElementById("upload").addEventListener("click", function() {
 
         // get the text to add
-        var touch = document.getElementById("touchtype").value;
 		var name = document.getElementById("devname").value;
 		var dist = document.getElementById("riderdist").value;
 		if (!dist) dist=0;
 		if (!name || name=="undefined") name="eucWatch";
-		if (!touch) touch="816";
-		if (touch!="816"&&touch!="716"&&touch!="816s") {
-          alert("Touch controler type needs to be 716 or 816 or 816s");
-          return;
-        }
         // build the app's text using a templated String
 		//require("handler").advertise(${JSON.stringify(acc)});
 		localStorage.setItem("p8touch", touch);
 		localStorage.setItem("p8name", name);
 		localStorage.setItem("p8ndist", dist);
-        var app = ` {dash:{"tot":${JSON.stringify(dist)},"mph":0,"amp":0,"bat":0,"batS":0,"face":0,"accE":0,"clck":0,"clkS":0,"farn":0},"name":${JSON.stringify(name)},"touchtype":${JSON.stringify(touch)},"acctype":0,"hr24":1,"emuZ":0,"timezone":"0","woe":1,"wob":1,"rfTX":-4,"cli":1,"hid":0,"gb":0,"atc":0,"acc":0,"dnd":1,"hidT":"media","bri":2}
+        var app = ` {dash:{"tot":${JSON.stringify(dist)},"mph":0,"amp":0,"bat":0,"batS":0,"face":0,"accE":0,"clck":0,"clkS":0,"farn":0},"name":${JSON.stringify(name)},"touchtype":"0","acctype":0,"hr24":1,"emuZ":0,"timezone":"0","woe":1,"wob":1,"rfTX":-4,"cli":1,"hid":0,"gb":0,"atc":0,"acc":0,"dnd":1,"hidT":"media","bri":2}
 `;
 		window.postMessage(app);
 		// send finished app
