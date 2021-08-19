@@ -360,7 +360,7 @@ function buttonHandler(s){
 		}, 1000);
    }else if (this.press && !s.state)  { 
 		this.press=false;
-		if (global.euc&&euc.state=="READY"&&2<=euc.dash.spd&&euc.dash.horn) {euc.wri("hornOff");return;}
+		if (global.euc&&euc.state=="READY"&&euc.horn&&euc.dash.horn) {euc.wri("hornOff");return;}
 		if (face.pageCurr==-1) {
 			digitalPulse(D16,1,[60,40,60]);
 			face.go((global.euc&&euc.state!="OFF")?set.dash[set.def.dash.face]:face.appCurr,0);
@@ -374,7 +374,7 @@ function buttonHandler(s){
 				face.go(face.appCurr,to);
 			}
 		}
-	}else if (this.press&&global.euc&&2<=euc.dash.spd&&euc.state==="READY"&&euc.dash.horn) {euc.wri("hornOff");return;
+	}else if (this.press&&global.euc&&euc.state==="READY"&&euc.horn&&euc.dash.horn) {euc.wri("hornOff");return;
 	}else face.off();
 }
 btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});

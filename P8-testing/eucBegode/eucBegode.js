@@ -116,7 +116,27 @@ euc.conn=function(mac){
 			//print(n);
 			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},500);return;} euc.busy=euc.busy=setTimeout(()=>{euc.busy=0;},500);
 			//end
-			if (n=="end") {
+			if (n=="hornOn") {
+				c.writeValue(euc.cmd("beep")).then(function() {
+					c.writeValue(euc.cmd("lightsStrobe"));
+					if (euc.horn) {clearInterval(euc.horn);}
+					euc.horn=setInterval(() => {
+						c.writeValue(euc.cmd("beep"));
+					}, 200); 
+   					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+				}).catch(function(err)  {
+			    	if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
+			    	global["\xFF"].BLE_GATTS.disconnect();  
+				});  
+			}else if (n=="hornOff") {
+				if (euc.horn) {clearInterval(euc.horn);euc.horn=0;}
+				c.writeValue(euc.cmd(euc.dash.aLight)).then(function() {
+   					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+				}).catch(function(err)  {
+			    	if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
+			    	global["\xFF"].BLE_GATTS.disconnect();  
+				}); 
+			}else if (n=="end") {
 				c.writeValue(euc.cmd("lightsOff")).then(function() {
 					c.writeValue(euc.cmd("beep")).then(function() {
 						c.stopNotifications(); 
@@ -165,26 +185,6 @@ euc.conn=function(mac){
 			}else if (n=="calibrate") {
 				c.writeValue(99);
 				setTimeout(()=>{c.writeValue(121);if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}},500);
-			}else if (n=="hornOn") {
-				c.writeValue(euc.cmd("beep")).then(function() {
-					c.writeValue(euc.cmd("lightsStrobe"));
-					if (euc.horn) {clearInterval(euc.horn);}
-					euc.horn=setInterval(() => {
-						c.writeValue(euc.cmd("beep"));
-					}, 200); 
-   					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-				}).catch(function(err)  {
-			    	if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
-			    	global["\xFF"].BLE_GATTS.disconnect();  
-				});  
-			}else if (n=="hornOff") {
-				if (euc.horn) {clearInterval(euc.horn);euc.horn=0;}
-				c.writeValue(euc.cmd(euc.dash.aLight)).then(function() {
-   					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-				}).catch(function(err)  {
-			    	if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
-			    	global["\xFF"].BLE_GATTS.disconnect();  
-				}); 
 			/*//rest
 			} else if (!euc.cmd(n)) {
 				c.writeValue(n).then(function() {
