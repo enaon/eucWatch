@@ -174,7 +174,9 @@
 		"description": "EUC dashboard, Veteran settings gui files.",
 		"tags": "euc",
 		"storage": [
-			{"name":"dashVeteran","url":"dashVeteran.js"}
+			{"name":"dashVeteran","url":"dashVeteran.js"},
+			{"name":"dashVeteranOptions","url":"dashVeteranOptions.js"}
+
 		]
 	}, 
 	{ "id": "dashBegode",
