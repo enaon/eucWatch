@@ -123,18 +123,22 @@ euc.conn=function(mac){
 							euc.tmp++;
 							euc.horn=0;
 							euc.wri("hornOn");
-						},400);
+						},350);
+						else euc.tmp=0;
 					});
 				else if (euc.tmp<=3) {
-					c.writeValue("SetLightON").then(function() {
-						return c.writeValue("SetLightOFF");
-					}).then(function() {
-						if (BTN1.read()) euc.horn=setTimeout(() => {
-							if (euc.busy) { clearTimeout(euc.busy);euc.busy=0;} 
-							euc.tmp++;
-							euc.horn=0;
-							euc.wri("hornOn");
-						},70); 
+					c.writeValue((euc.dash.light)?"SetLightOFF":"SetLightON").then(function() {
+						setTimeout(() => { 
+							c.writeValue((euc.dash.light)?"SetLightON":"SetLightOFF").then(function() {
+								if (BTN1.read()) euc.horn=setTimeout(() => {
+									if (euc.busy) { clearTimeout(euc.busy);euc.busy=0;} 
+									euc.tmp++;
+									euc.horn=0;
+									euc.wri("hornOn");
+								},40); 
+								else euc.tmp=0;
+							});
+						},40);
 					});
 				}else{
 					euc.tmp=0;
@@ -145,6 +149,7 @@ euc.conn=function(mac){
 							euc.horn=0;
 							euc.wri("hornOn");
 						},400); 
+						else euc.tmp=0;
 					});
 				}
 			}else if (n=="hornOff") {
