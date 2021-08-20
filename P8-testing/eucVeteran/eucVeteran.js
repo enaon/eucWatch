@@ -108,7 +108,6 @@ euc.conn=function(mac){
 	//write
 	}).then(function(c) {
 		console.log("EUC Veteran connected!!"); 
-		euc.tmp=0;
 		euc.wri= function(n) {
             //console.log("got :", n);
 			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},150);return;} 
@@ -116,52 +115,40 @@ euc.conn=function(mac){
             //end
 			if (n=="hornOn") {
 				euc.horn=1;
-				//if (euc.horn) {clearTimeout(euc.horn);euc.horn=0;}
-				if (euc.tmp==0) {
-					c.writeValue(98).then(function() { 
-						if (BTN1.read()){
-							setTimeout(() => {
-								if (euc.busy) { clearTimeout(euc.busy);euc.busy=0;}
-								euc.tmp++;
-								euc.horn=0;
-								if (BTN1.read()) euc.wri("hornOn");
-								else euc.tmp=0;
-							},350);
-						}else euc.tmp=0;
-					});
-				}else if (euc.tmp<=3) {
-					c.writeValue((euc.dash.light)?"SetLightOFF":"SetLightON").then(function() {
-						setTimeout(() => { 
-							c.writeValue((euc.dash.light)?"SetLightON":"SetLightOFF").then(function() {
-								if (BTN1.read()) {
-									setTimeout(() => {
-										if (euc.busy) { clearTimeout(euc.busy);euc.busy=0;} 
-										euc.tmp++;
-										euc.horn=0;
-										if (BTN1.read()) euc.wri("hornOn");
-										else euc.tmp=0;
-									},30); 
-								}else euc.tmp=0;
-							});
-						},60);
-					});
-				}else{
-					euc.tmp=0;
-					c.writeValue(98).then(function() {
-						if (BTN1.read()){
-							setTimeout(() => {
-								if (euc.busy) { clearTimeout(euc.busy);euc.busy=0;} 
-								euc.tmp++;
-								euc.horn=0;
-								if (BTN1.read()) euc.wri("hornOn");
-								else euc.tmp=0;
-							},350); 
-						}else euc.tmp=0;
-					});
-				}
+				c.writeValue(98).then(function() { 
+					c.stopNotifications();
+					setTimeout(() => {
+						c.writeValue((euc.dash.light)?"SetLightOFF":"SetLightON").then(function() {
+							setTimeout(() => { 
+								c.writeValue((euc.dash.light)?"SetLightON":"SetLightOFF").then(function() {	
+									setTimeout(() => { 
+										c.writeValue((euc.dash.light)?"SetLightOFF":"SetLightON").then(function() {
+											setTimeout(() => { 
+												c.writeValue((euc.dash.light)?"SetLightON":"SetLightOFF").then(function() {
+													//setTimeout(() => { 
+														//c.writeValue((euc.dash.light)?"SetLightOFF":"SetLightON").then(function() {
+														//	setTimeout(() => { 
+																//c.writeValue((euc.dash.light)?"SetLightON":"SetLightOFF").then(function() {
+																	setTimeout(() => {
+																		if (euc.busy) { clearTimeout(euc.busy);euc.busy=0;} 
+																		if (BTN1.read()) euc.wri("hornOn");
+																		else {euc.horn=0;c.startNotifications();}
+																	},50); 	
+																//});
+															//},40);
+														//});
+													//},40);
+												});
+											},40);
+										});
+									},40);
+								});
+							},40);
+						});	
+					},250);
+				});
 			}else if (n=="hornOff") {
 				euc.horn=0;
-				//if (euc.horn) {clearTimeout(euc.horn);euc.horn=0;}
 			}else if (euc.state=="OFF"||n=="end") {
                c.stopNotifications(); 
 				if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
