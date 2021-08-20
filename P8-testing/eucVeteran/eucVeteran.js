@@ -115,34 +115,17 @@ euc.conn=function(mac){
 			if (n=="hornOn") {
 				euc.horn=1;
 				let md={"1":"SETs","2":"SETm","3":"SETh"};
-
 				c.writeValue(md[euc.dash.mode]).then(function() { 
 					c.stopNotifications();
 					setTimeout(() => {
 						c.writeValue((euc.dash.light)?"SetLightOFF":"SetLightON").then(function() {
 							setTimeout(() => { 
 								c.writeValue((euc.dash.light)?"SetLightON":"SetLightOFF").then(function() {	
-									//setTimeout(() => { 
-										//c.writeValue((euc.dash.light)?"SetLightOFF":"SetLightON").then(function() {
-										//	setTimeout(() => { 
-												//c.writeValue((euc.dash.light)?"SetLightON":"SetLightOFF").then(function() {
-													//setTimeout(() => { 
-														//c.writeValue((euc.dash.light)?"SetLightOFF":"SetLightON").then(function() {
-														//	setTimeout(() => { 
-																//c.writeValue((euc.dash.light)?"SetLightON":"SetLightOFF").then(function() {
-																	setTimeout(() => {
-																		if (euc.busy) { clearTimeout(euc.busy);euc.busy=0;} 
-																		if (BTN1.read()) euc.wri("hornOn");
-																		else {euc.horn=0;c.startNotifications();}
-																	},30); 	
-																//});
-															//},40);
-														//});
-													//},40);
-											//	});
-											//},40);
-										//});
-									//},40);
+									setTimeout(() => {
+										if (euc.busy) { clearTimeout(euc.busy);euc.busy=0;} 
+										if (BTN1.read()) euc.wri("hornOn");
+										else {euc.horn=0;c.startNotifications();}
+									},30); 	
 								});
 							},30);
 						});	
