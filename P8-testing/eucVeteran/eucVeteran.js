@@ -8,7 +8,6 @@ euc.cmd=function(no){
 		case "rideSoft":return "SETs"; 
 		case "rideMed":return  "SETm"; 
 		case "rideHard":return "SETh";
-		case "clearMeter":return "CLEARMETER";
 		case "setLightOn":return "SetLightON";
 		case "setLightOff":return "SetLightOFF";
 		case "setVolUp":return "SetFctVol+";
@@ -115,16 +114,18 @@ euc.conn=function(mac){
             //end
 			if (n=="hornOn") {
 				euc.horn=1;
-				c.writeValue(98).then(function() { 
+				let md={"1":"SETs","2":"SETm","3":"SETh"};
+
+				c.writeValue(md[euc.dash.mode]).then(function() { 
 					c.stopNotifications();
 					setTimeout(() => {
 						c.writeValue((euc.dash.light)?"SetLightOFF":"SetLightON").then(function() {
 							setTimeout(() => { 
 								c.writeValue((euc.dash.light)?"SetLightON":"SetLightOFF").then(function() {	
-									setTimeout(() => { 
-										c.writeValue((euc.dash.light)?"SetLightOFF":"SetLightON").then(function() {
-											setTimeout(() => { 
-												c.writeValue((euc.dash.light)?"SetLightON":"SetLightOFF").then(function() {
+									//setTimeout(() => { 
+										//c.writeValue((euc.dash.light)?"SetLightOFF":"SetLightON").then(function() {
+										//	setTimeout(() => { 
+												//c.writeValue((euc.dash.light)?"SetLightON":"SetLightOFF").then(function() {
 													//setTimeout(() => { 
 														//c.writeValue((euc.dash.light)?"SetLightOFF":"SetLightON").then(function() {
 														//	setTimeout(() => { 
@@ -133,19 +134,19 @@ euc.conn=function(mac){
 																		if (euc.busy) { clearTimeout(euc.busy);euc.busy=0;} 
 																		if (BTN1.read()) euc.wri("hornOn");
 																		else {euc.horn=0;c.startNotifications();}
-																	},50); 	
+																	},30); 	
 																//});
 															//},40);
 														//});
 													//},40);
-												});
-											},40);
-										});
-									},40);
+											//	});
+											//},40);
+										//});
+									//},40);
 								});
-							},40);
+							},30);
 						});	
-					},250);
+					},30);
 				});
 			}else if (n=="hornOff") {
 				euc.horn=0;
