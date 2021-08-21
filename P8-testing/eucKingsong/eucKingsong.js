@@ -119,15 +119,13 @@ euc.conn=function(mac){
 					euc.dash.fan=inpk[12];
 					break;
 				case 245:
-				    print ("245 :",inpk);
+				   // print ("245 :",inpk);
 					//euc.dash.cpu=inpk[14];
 					euc.dash.pwr=inpk[15];
 					//pwrL.unshift(euc.dash.pwr);
 					//if (20<pwrL.length) pwrL.pop();
 					break;
 				case 246:
-				    print ("246 :",inpk);
-
 					euc.dash.spdL=(inpk[3] << 8 | inpk[2])/100;
 					//euc.dash.watt=(inpk[13] << 8 | inpk[12])/100;
 					//print("watt :", euc.dash.watt);
@@ -139,8 +137,6 @@ euc.conn=function(mac){
 					if (euc.dash.alrm) euc.alert=20;
 					break;	
 				case 181:
-				    print ("181 :",inpk);
-
 					if (inpk[4]==0||inpk[4]==255) euc.dash.limE[0]=0;
 					else {
 						euc.dash.lim[0]=inpk[4];
