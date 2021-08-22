@@ -1,0 +1,124 @@
+<html>
+	<body>
+
+		<div id="select">
+			<button onclick="ui_connect()">Select Ninebot</button>
+		</div>
+
+		<div id="menu" style="display: none;">
+			Offset: <input id="offset" type="text" value="0x22" /><br />
+			Size: <input  id="size" type="number" value="2" /><br />
+			Value: <input  id="value" type="text" value="" /><br />
+			Sent: <input  id="Sent" type="text" value="" /><br />
+			Recv: <input  id="Recv" type="text" value="" /><br />
+			<button onclick="ui_read_register()">Read</button>
+			<button onclick="ui_write_register()">Write</button><br />
+			<button onclick="ui_disconnect()">Disconnect</button>
+		</div>
+
+		<p>
+			34	Batery Level in %<br />
+			37	Remaining Milieage in Km*100<br />
+			38	Current Speed in Km/h*1000<br />
+			42	Total Mileage	numeric positive		v[42] * 65536 + v[41] in meters<br />
+			51	Total Runtime	numeric positive		v[51] * 65536 + v[50] in seconds<br />
+			58	Single Runtime	numeric positive		seconds<br />
+			62	Temperature	numeric positive		ºC * 10<br />
+			71	Voltage	numeric positive		V * 100<br />
+			80	Current	numeric with sign		if v[80] > 32768 I = v[80] - 65536 else I = v[80] in Amperes * 100<br />
+			97	Pitch Angle	numeric with sign		if v[97] > 32768 pitch = v[97] - 65536 else pithc = v[97] in º * 100<br />
+			98	Roll Angle	numeric with sign		if v[98] > 32768 roll = v[98] - 65536 else pitch = v[98] in º * 100	<br />
+			99	Pitch Angle Velocity	numeric with sign		if v[99] > 32768 vpitch = v[99] - 65536 else vpithch = v[99] in º * 100 / s but need to confirm<br />
+			100	Roll Angle Velocity	numeric with sign		if v[100] > 32768 roll = v[100] - 65536 else vpitch = v[100] in º * 100 / s but need to confirm	<br />
+			112	Enable / Disable Lock		01 -> Enable 00 .> Disable<br />
+			114	Enable/Disable Speed Limit		01 -> Enable, 00 -> Disable<br />
+			116	Speed Limit (setteable)	numeric positive   m/h<br />
+			178	Flags		bit 0 -> Limit Speed, bit 1 -> Lock , bit 2 -> Beep,  bit 11 -> Activation. Bits from lower significance<br />
+			182	Average speed	numeric positive		m/h<br />
+			185	Single Mileage	numeric positive		in meters<br />
+			210	Ride Mode	numeric positive	0-9<br />
+			191	191	Max Speed<br />
+		</p>
+
+	
+
+		<script type="text/javascript" src="9BotONE.js"></script>
+		<script type="text/javascript">
+
+			var funcs = (function() {
+
+				var device_select = document.getElementById("select");
+				var device_menu = document.getElementById("menu");
+				var offset = document.getElementById("offset");
+				var size = document.getElementById("size");
+				var value = document.getElementById("value");
+				var sent = document.getElementById("Sent");
+				var recv = document.getElementById("Recv");
+
+				function getValue(element)
+				{
+					var val = parseInt(element.value, 0);
+
+					if(val === 0)
+						element.value = "0";
+					return val;
+				}
+
+				function handleErr(err)
+				{
+					disconnect();
+					alert(err);
+				}
+
+				function connect()
+				{
+					navigator.bluetooth.requestDevice({
+						filters: [{services: [0xffe0]}],
+					})
+						.then(device => device.gatt.connect())
+						.then(initialize_device)
+						.then(() => {
+
+							device_select.style = "display: none;";
+							device_menu.style = "";
+
+						})
+						.catch(handleErr);
+				}
+
+				function disconnect()
+				{
+					device.disconnect();
+					device_menu.style = "display: none;";
+					device_select.style = "";
+				}
+
+				function read()
+				{
+					read_register(getValue(offset), getValue(size))
+						.then(val => value.value = val)
+						.then(val => sent.value = Sent)
+						.then(val => recv.value = Recv)
+						.catch(handleErr);
+				}
+
+				function write()
+				{
+					write_register(getValue(offset), getValue(value), getValue(size))
+					.then(val => sent.value = Sent)
+					.then(val => recv.value = Recv)
+					.catch(handleErr);
+				}
+
+				return {connect, disconnect, read, write};
+
+			})();
+
+			var ui_connect = funcs.connect;
+			var ui_disconnect = funcs.disconnect;
+			var ui_read_register = funcs.read;
+			var ui_write_register = funcs.write;
+
+		</script>
+	</body>
+</html>
