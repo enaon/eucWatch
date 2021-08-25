@@ -64,8 +64,16 @@ face[0] = {
 				t.g.setColor(0,0);
 				t.g.fillRect(0,196,239,239);
 				t.g.setColor(1,col("white"));
-				t.g.setFont("Vector",22);
-		        t.g.drawString("SETTINGS",120-(t.g.stringWidth("SETTINGS")/2),217); 
+				t.g.setFont("Vector",24);
+				t.g.drawString("SHERMAN",120-(t.g.stringWidth("SHERMAN")/2),217); 
+				t.g.flip();
+				t.g.setColor(0,col("black"));
+				t.g.fillRect(0,196,239,204);
+				t.g.setColor(1,col("lgray"));
+				t.g.fillRect(106,200,165,204);
+				t.g.flip();
+				t.g.setColor(1,col("white"));
+				t.g.fillRect(75,200,120,204);
 				t.g.flip();
 			},1000,this);
     },

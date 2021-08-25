@@ -63,8 +63,16 @@ face[0] = {
 				t.g.setColor(0,0);
 				t.g.fillRect(0,196,239,239);
 				t.g.setColor(1,col("white"));
-				t.g.setFont("Vector",22);
-		        t.g.drawString("SETTINGS",120-(t.g.stringWidth("SETTINGS")/2),217); 
+				t.g.setFont("Vector",24);
+				t.g.drawString("SHERMAN",120-(t.g.stringWidth("SHERMAN")/2),217); 
+				t.g.flip();
+				t.g.setColor(0,col("black"));
+				t.g.fillRect(0,196,239,204);
+				t.g.setColor(1,col("lgray"));
+				t.g.fillRect(75,200,120,204);
+				t.g.flip();
+				t.g.setColor(1,col("white"));
+				t.g.fillRect(121,200,165,204);
 				t.g.flip();
 			},1000,this);
     },
@@ -125,8 +133,7 @@ touchHandler[0]=function(e,x,y){
 			}else if ( 120<=x && 100<=y ) { //horn        
 				euc.dash.horn=1-euc.dash.horn;
 				face[0].btn(euc.dash.horn,"HORN",25,185,135,1453,1365,122,100,239,195);
-	            face[0].ntfy("HOLD -> CLEAR METER","",19,1365,1);
-				face[0].ntfy("BUTTON IS HORN >2KPH","HORN DISABLED",22,(euc.dash.horn)?1453:1365,euc.dash.horn);
+				face[0].ntfy("BUTTON IS HORN >2KPH","HORN DISABLED",(euc.dash.horn)?18:20,(euc.dash.horn)?1453:1365,euc.dash.horn);
 				digitalPulse(D16,1,[30,50,30]);						
 			}else digitalPulse(D16,1,[30,50,30]);
 		}

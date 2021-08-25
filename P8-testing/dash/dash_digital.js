@@ -104,9 +104,9 @@ face[0] = {
 	},
 	spdF: function(){
 		this.spd=Math.round(euc.dash.spd);
-		this.g.setColor(0,this.spdC[euc.dash.spdC]);
+		this.g.setColor(0,(euc.dash.spdC==1)?0:this.spdC[euc.dash.spdC]);
 		this.g.fillRect(43,54,197,170);
-		this.g.setColor(1,4095);
+		this.g.setColor(1,(euc.dash.spdC==1)?4080:4095);
 		if (100 <= this.spd) {
 			if (150 < this.spd)  this.spd=150;
 			this.g.setFontVector(80);
