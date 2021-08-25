@@ -216,7 +216,7 @@ face[0] = {
 	amLF: function(){
 		this.ampL.set(ampL);
 		print(1);
-		this.g.setColor(1,(1<euc.dash.ampC)?col("red"),1365);
+		this.g.setColor(1,(1<euc.dash.ampC)?col("red"):1365);
 		this.g.fillRect(0,0,119,50);       
 		this.g.setColor(0,4095);
 		let i=0;

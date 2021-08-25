@@ -14,13 +14,21 @@ face[0] = {
         this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,239);
 		this.g.setColor(1,col("white"));
-		this.g.setFont("Vector",20);
+		this.g.setFont("Vector",24);
 		this.g.drawString("SHERMAN",120-(this.g.stringWidth("SHERMAN")/2),217); 
+		this.g.flip();
+		this.g.setColor(0,col("black"));
+		this.g.fillRect(0,196,239,204);
+		this.g.setColor(1,col("lgray"));
+      	this.g.fillRect(106,200,165,204);
+		this.g.flip();
+        this.g.setColor(1,col("white"));
+      	this.g.fillRect(75,200,120,204);
 		this.g.flip();
 		//
         this.btn(euc.dash.light,"LIGHT",28,60,35,1453,1365,0,0,119,97);
 		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,1453,1365,122,0,239,97,"ALERTS",22,185,55);		
-        this.btn("TPMS",25,60,135,1365,0,100,119,195,"",22,60,155); //3
+        this.btn(1,"TPMS",25,60,135,1365,1365,0,100,119,195); //3
 		let md={"1":"SOFT","2":"MEDIUM","3":"HARD"};
         this.btn(1,"RIDE",25,185,115,col("olive"),0,122,100,239,195,md[euc.dash.mode],25,185,155);
 		this.run=true;
@@ -101,19 +109,6 @@ touchHandler[0]=function(e,x,y){
               w.gfx.flip();
               face[0].init();return;
             }
-			/*
-			else if ( x<=120 && y<100 ) { //decrease
-				if (euc.dash.mode==3) {euc.dash.mode=2;euc.wri("rideMed");face[0].btn("MODE",18,60,15,col("raf2"),0,0,119,97,"MED",30,60,50);}
-				else if (euc.dash.mode==1) {euc.dash.mode=3;euc.wri("rideHard");face[0].btn("MODE",18,60,15,col("raf4"),0,0,119,97,"HARD",30,60,50);}
-				else if (euc.dash.mode==2) {euc.dash.mode=1;euc.wri("rideSoft");face[0].btn("MODE",18,60,15,col("raf3"),0,0,119,97,"SOFT",30,60,50);}
-			}else if (euc.dash.mode<9) {
-				if (euc.dash.mode==1) {euc.dash.mode=2;euc.wri("rideMed");face[0].btn("MODE",18,60,15,col("raf2"),0,0,119,97,"MED",30,60,50);}
-				else if (euc.dash.mode==2) {euc.dash.mode=3;euc.wri("rideHard");face[0].btn("MODE",18,60,15,col("raf4"),0,0,119,97,"HARD",30,60,50);}
-				else if (euc.dash.mode==3) {euc.dash.mode=1;euc.wri("rideSoft");face[0].btn("MODE",18,60,15,col("raf3"),0,0,119,97,"SOFT",30,60,50);}
-			}	
-			face[0].btn(1,"SET RIDE MODE",20,120,5,1453,0,0,0,239,97,euc.dash.mode.toString(),60,120,37);
-			*/
-//			digitalPulse(D16,1,[30,50,30]);
 			digitalPulse(D16,1,40);
 		}
 		else {
@@ -127,8 +122,8 @@ touchHandler[0]=function(e,x,y){
 				digitalPulse(D16,1,[30,50,30]);						
 				face.go("dashAlerts",0);
 				return;	
-			}else if ( x<=120 && 100<=y ) { 
-				face[0].ntfy("NOT YET",col("red"));
+			}else if ( x<=120 && 100<=y ) { //tpms
+				face[0].ntfy("NOT YET","",22,col("red"),1);
 				digitalPulse(D16,1,[30,50,30]);	
 			}else if ( 120<=x && 100<=y ) { //mode
 				if (euc.dash.mode==1) {euc.dash.mode=2;euc.wri("rideMed");}
