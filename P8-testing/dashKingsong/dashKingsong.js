@@ -156,7 +156,7 @@ touchHandler[0]=function(e,x,y){
 			euc.dash.aLight="lightsOff";
 			euc.wri("lightsOff");
 			digitalPulse(D16,1,[30,50,30]);
-		}else if  (x<=120 && 100<=y ) { //bridge
+		}else if  (x<=120 && 100<=y ) { //tpms
 			digitalPulse(D16,1,40);
 			face[0].ntfy("NOT YET",col("red"));
 		}else if ( 120<=x && 100<=y ) { //off

@@ -18,8 +18,8 @@ face[0] = {
 		this.g.drawString("SHERMAN",120-(this.g.stringWidth("SHERMAN")/2),217); 
 		this.g.flip();
 		//
-        this.btn(euc.dash.light,"LIGHT",28,60,35,1453,1365,0,0,119,97);
-		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,1453,1365,122,0,239,97,"ALERTS",22,185,55);		
+        this.btn(euc.dash.lock,"BEEP",28,60,35,1453,1365,0,0,119,97);
+		this.btn((1,"",22,185,17,1453,1365,122,0,239,97,);		
         this.btn(1,"CLEAR",25,60,115,1365,1365,0,100,119,195,"METER",22,60,155);
         this.btn(euc.dash.horn,"HORN",25,185,135,1453,1365,122,100,239,195);
 		this.run=true;
@@ -104,14 +104,13 @@ touchHandler[0]=function(e,x,y){
 		}
 		else {
 			if ( x<=120 && y<100 ) { 
-				euc.dash.light= 1- euc.dash.light;
-				face[0].btn(euc.dash.light,"LIGHT",28,60,35,1453,1365,0,0,119,97);
-				euc.wri((euc.dash.light)?"setLightOn":"setLightOff");
-			face[0].ntfy("LIGHT ON","LIGHT OFF",22,1365,euc.dash.light);
+				euc.dash.lock= 1- euc.dash.lock;
+				face[0].btn(euc.dash.lock,"BEEP",28,60,35,1453,1365,0,0,119,97);
+				face[0].ntfy("BEEP ON CON/DIS","NO BEEP ON CON/DIS",22,1365,euc.dash.lock);
 				digitalPulse(D16,1,[30,50,30]);
-			}else if ( 120<=x && y<=100 ) { //watch alerts
-				digitalPulse(D16,1,[30,50,30]);						
-				face.go("dashAlerts",0);
+			}else if ( 120<=x && y<=100 ) { //
+				digitalPulse(D16,1,40);						
+				//face.go("dashAlerts",0);
 				return;	
 			}else if ( x<=120 && 100<=y ) { 
 	            face[0].ntfy("HOLD -> CLEAR METER","",19,1365,1);

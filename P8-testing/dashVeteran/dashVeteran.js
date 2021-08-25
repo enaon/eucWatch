@@ -20,7 +20,7 @@ face[0] = {
 		//
         this.btn(euc.dash.light,"LIGHT",28,60,35,1453,1365,0,0,119,97);
 		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,1453,1365,122,0,239,97,"ALERTS",22,185,55);		
-        this.btn(1,"CLEAR",25,60,115,1365,1365,0,100,119,195,"METER",22,60,155);
+        this.btn("TPMS",25,60,135,1365,0,100,119,195,"",22,60,155); //3
 		let md={"1":"SOFT","2":"MEDIUM","3":"HARD"};
         this.btn(1,"RIDE",25,185,115,col("olive"),0,122,100,239,195,md[euc.dash.mode],25,185,155);
 		this.run=true;
@@ -128,7 +128,7 @@ touchHandler[0]=function(e,x,y){
 				face.go("dashAlerts",0);
 				return;	
 			}else if ( x<=120 && 100<=y ) { 
-	            face[0].ntfy("HOLD -> CLEAR METER","",19,1365,1);
+				face[0].ntfy("NOT YET",col("red"));
 				digitalPulse(D16,1,[30,50,30]);	
 			}else if ( 120<=x && 100<=y ) { //mode
 				if (euc.dash.mode==1) {euc.dash.mode=2;euc.wri("rideMed");}
