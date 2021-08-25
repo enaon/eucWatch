@@ -110,6 +110,8 @@ euc.conn=function(mac){
 				if ( euc.dash.hapB && euc.dash.batC ==2 )  euc.alert ++;
 				//trip 
 				euc.dash.trpL=event.target.value.getUint16(17, true)/100;
+				euc.dash.trpT=euc.dash.trpL;
+				euc.log.trp.forEach(function(val,pos){ if (!val) euc.log.trp[pos]=euc.dash.trpT;});
 				//euc.dash.trpL=((event.target.value.getUint16(17, true))/100)*euc.dash.trpF*((set.def.dash.mph)?0.625:1); //trip
 				//euc.dash.trpR=(event.target.value.getUint16(19, true))*10; //remain
 				//euc.dash.time=(event.target.value.getUint16(7, true)/60)|0;

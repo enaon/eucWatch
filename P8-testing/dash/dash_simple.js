@@ -10,14 +10,14 @@ face[0] = {
 			this.g.fillRect(0,51,239,239);
 			this.g.flip();	
 		}else this.g.clear();
-		this.spdC=[0,0,3840,3840];
+		this.spdC=[0,4080,3840,3840];
 		this.ampC=[1365,2992,3840,3840];
 		this.tmpC=[1365,2992,3840,3840];
 		this.batC=[1453,1365,3840,3840];
 		this.spd=-1;
 		this.amp=-1;
 		this.tmp=-1;
-		this.time-1;
+		this.time=-1;
 		this.bat=-1;
 		this.volt=-1;
 		this.conn=0;
@@ -33,14 +33,16 @@ face[0] = {
 			//this.g.fillRect(0,0,0,0);
 			this.g.flip();
 			if (this.spd!=Math.round(euc.dash.spd)) this.spdf();
-			if (!set.def.dash.clkS){	if (this.tmp!=euc.dash.tmp.toFixed(1))	this.tmpf();}
-			else if (60 < getTime()-this.time )	this.clkf();
+			if (!set.def.dash.clkS){	
+				if (this.tmp!=euc.dash.tmp.toFixed(1))	this.tmpf();}
+			else if (60 < getTime()-this.time )	
+				this.clkf();
 			if (set.def.dash.batS){	if (this.bat!=euc.dash.bat)	this.batf();}
 			else  if (this.volt!=euc.dash.volt.toFixed(1)) this.vltf();
 		} else if (euc.state=="OFF")  {
 			setTimeout(function(){
 				face.go("dashOff",0);
-			},250);
+			},150);
 			return;
 		//rest
 		} else  {
@@ -117,9 +119,9 @@ face[0] = {
 	spdf: function(){
 		//"ram";
 		this.spd=Math.round(euc.dash.spd);
-		this.g.setColor(0,this.spdC[euc.dash.spdC]);
+		this.g.setColor(0,(euc.dash.spdC==1)?0:this.spdC[euc.dash.spdC]);
 		this.g.fillRect(0,55,239,220);
-		this.g.setColor(1,4095);
+		this.g.setColor(1,(euc.dash.spdC==1)?4080:4095);
 		if (100 <= this.spd) {
 			if (120 < this.spd)  this.spd=120;
 			this.g.setFontVector(140);
