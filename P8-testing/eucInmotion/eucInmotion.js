@@ -148,6 +148,8 @@ euc.conn=function(mac){
 				//haptic
 				//euc.new=1;
 				if (!euc.buzz && euc.alert) {  
+					if (!w.gfx.isOn&&(euc.dash.spdC||euc.dash.ampC||euc.dash.alrm)) face.go(set.dash[set.def.dash.face],0);
+					else face.off(6000);
 					euc.buzz=1;
 					if (20 <= euc.alert) euc.alert = 20;
 					var a=[];
@@ -162,11 +164,6 @@ euc.conn=function(mac){
 					digitalPulse(D16,0,a);  
 					setTimeout(() => { euc.buzz = 0; }, 3000);
 				}
-				//screen on
-				/*if ((1<euc.dash.spdC||1<euc.dash.ampC||euc.dash.alrm)&&!w.gfx.isOn ){
-					face.go(set.dash[set.def.dash],0);
-				}
-				*/
 			});
 			//on disconnect
 			global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {

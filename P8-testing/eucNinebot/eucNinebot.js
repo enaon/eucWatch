@@ -114,8 +114,9 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 		}
     	//buzz
 		if (euc.alert && !euc.buzz) {  
+			if (!w.gfx.isOn&&(euc.dash.spdC||euc.dash.ampC||euc.dash.alrm)) face.go(set.dash[set.def.dash.face],0);
+			else face.off(6000);
 			euc.buzz=1;
-			if (w.gfx.isOn) face.off(10000);
             if (20<=euc.alert) euc.alert=20;
 			var a=[];
 			while (5 <= euc.alert) {
@@ -128,10 +129,6 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			}
 			digitalPulse(D16,0,a);  
 			setTimeout(() => {euc.buzz=0; }, 3000);
-		}
-		//screen on
-		if ((1<euc.dash.spdC||1<euc.dash.ampC||euc.dash.alrm)&&!w.gfx.isOn ){
-			face.go(set.dash[set.def.dash.face],0);
 		}
 	});
 	//on disconnect
