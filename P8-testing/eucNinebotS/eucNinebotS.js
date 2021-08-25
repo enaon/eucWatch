@@ -64,8 +64,9 @@ euc.conn=function(mac){
 					case 38://speed
 						euc.dash.spd=this.in16/1000;
 						if (euc.dash.spdM < euc.dash.spd) euc.dash.spdM = euc.dash.spd;
-						euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd2 <= euc.dash.spd )? 2 : 1 ;	
-							if ( euc.dash.hapS && euc.dash.spdC == 2 ) euc.alert = 1 + Math.round((euc.dash.spd-euc.dash.spd2) / euc.dash.ampS) ; 	
+						euc.dash.spdC = ( euc.dash.spd1 <= euc.dash.spd )? 2 : ( euc.dash.spd2 <= euc.dash.spd )? 1 : 0 ;	
+						if ( euc.dash.hapS && euc.dash.spdC == 2 ) 
+							euc.alert = 1 + Math.round((euc.dash.spd-euc.dash.spd1) / euc.dash.spdS) ; 	
 						break;
 					case 80://amp
 						if ( 32768 < this.in16 ) 
@@ -74,8 +75,11 @@ euc.conn=function(mac){
 							euc.dash.amp = this.in16 / 100;
 						ampL.unshift(Math.round(euc.dash.amp));
 						if (20<ampL.length) ampL.pop();
-						euc.dash.ampC = ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp  <= 0 || 10 <= euc.dash.amp)? 1 : 0;
-							if (euc.dash.hapA) euc.alert =  euc.alert + 1 + Math.round( (euc.dash.amp - euc.dash.ampH) / euc.dash.ampS);
+						euc.dash.ampC = ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp  <= -0.5 || 15 <= euc.dash.amp)? 1 : 0;
+						if (euc.dash.hapA && euc.dash.ampC==2) {
+							if (euc.dash.ampH<=euc.dash.amp)	euc.alert =  euc.alert + 1 + Math.round( (euc.dash.amp - euc.dash.ampH) / euc.dash.ampS) ;
+							else euc.alert =  euc.alert + 1 + Math.round(-(euc.dash.amp - euc.dash.ampL) / euc.dash.ampS) ;
+						}
 						break;
 					case 41://total trip
 						euc.dash.trpT=event.target.value.getUint32(6, true)/1000; 
@@ -89,14 +93,8 @@ euc.conn=function(mac){
 						euc.dash.bat=(((this.in16/100)-51.5)*10|0); 
 						batL.unshift(euc.dash.bat);
 						if (20<batL.length) batL.pop();
-						if ((euc.dash.bat) >= euc.dash.batH) euc.dash.batC=0;
-						else  if ((euc.dash.bat) >= euc.dash.batM) euc.dash.batC=1;
-						else  if ((euc.dash.bat) >= euc.dash.batL) euc.dash.batC=2;
-						else  {
-							euc.dash.batC=3;
-							if (euc.dash.hapB) euc.alert++;
-						}
-						euc.new=1;
+						euc.dash.batC = (50 <= euc.dash.bat)? 0 : (euc.dash.bat <= euc.dash.batL)? 2 : 1;	
+						if ( euc.dash.hapB && euc.dash.batC ==2 )  euc.alert ++;   
 						break;
 					case 37: //remaining
 						euc.dash.trpR=this.in16/100;

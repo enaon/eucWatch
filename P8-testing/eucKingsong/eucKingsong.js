@@ -63,16 +63,21 @@ euc.conn=function(mac){
 				case  169:
 					//speed
 					euc.dash.spd=(inpk[5] << 8 | inpk[4])/100; 
-					euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd2 <= euc.dash.spd )? 2 : 1 ;	
-					if ( euc.dash.hapS && euc.dash.spdC == 2 ) euc.alert = 1 + Math.round((euc.dash.spd-euc.dash.spd2) / euc.dash.ampS) ; 	
+					euc.dash.spdC = ( euc.dash.spd1 <= euc.dash.spd )? 2 : ( euc.dash.spd2 <= euc.dash.spd )? 1 : 0 ;	
+					if ( euc.dash.hapS && euc.dash.spdC == 2 ) 
+	 					euc.alert = 1 + Math.round((euc.dash.spd-euc.dash.spd1) / euc.dash.spdS) ; 	
 					//amp
 					this.amp=inpk[11] << 8 | inpk[10];
 					if ( 32767 < this.amp ) this.amp = this.amp - 65536;
 					euc.dash.amp = ( this.amp / 100 );
 					euc.dash.ampC = ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp  <= 0 || 15 <= euc.dash.amp)? 1 : 0;
-					if (euc.dash.hapA) euc.alert =  euc.alert + 1 + Math.round( (euc.dash.amp - euc.dash.ampH) / euc.dash.ampS);
 					ampL.unshift(Math.round(euc.dash.amp));
 					if (20<ampL.length) ampL.pop();
+					euc.dash.ampC = ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp  <= -0.5 || 15 <= euc.dash.amp)? 1 : 0;
+					if (euc.dash.hapA && euc.dash.ampC==2) {
+						if (euc.dash.ampH<=euc.dash.amp)	euc.alert =  euc.alert + 1 + Math.round( (euc.dash.amp - euc.dash.ampH) / euc.dash.ampS) ;
+						else euc.alert =  euc.alert + 1 + Math.round(-(euc.dash.amp - euc.dash.ampL) / euc.dash.ampS) ;
+					}
 					//volt
 					euc.dash.volt=(inpk[3] << 8 | inpk[2])/100;
 					euc.dash.bat=Math.round(((euc.dash.volt*euc.dash.batF) - euc.dash.batE ) * (100/(420-euc.dash.batE)));

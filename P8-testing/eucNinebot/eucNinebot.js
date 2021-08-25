@@ -56,8 +56,9 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			//euc.dash.spd=Math.round((this.in16/1000)*euc.dash.spdF*((set.def.dash.mph)?0.625:1));
 			euc.dash.spd=this.in16/1000;
 			if (euc.dash.spdM < euc.dash.spd) euc.dash.spdM = euc.dash.spd;
-			euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd2 <= euc.dash.spd )? 2 : 1 ;	
-				if ( euc.dash.hapS && euc.dash.spdC == 2 ) euc.alert = 1 + Math.round((euc.dash.spd-euc.dash.spd2) / euc.dash.ampS) ; 	
+				euc.dash.spdC = ( euc.dash.spd1 <= euc.dash.spd )? 2 : ( euc.dash.spd2 <= euc.dash.spd )? 1 : 0 ;	
+				if ( euc.dash.hapS && euc.dash.spdC == 2 ) 
+					euc.alert = 1 + Math.round((euc.dash.spd-euc.dash.spd1) / euc.dash.spdS) ; 	
 			break;
 		case 80://amp
 			if ( 32768 < this.in16 ) 
@@ -66,8 +67,11 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 				euc.dash.amp = this.in16 / 100;
 			ampL.unshift(Math.round(euc.dash.amp));
 			if (20<ampL.length) ampL.pop();
-			euc.dash.ampC = ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp  <= 0 || 15 <= euc.dash.amp)? 1 : 0;
-				if (euc.dash.hapA) euc.alert =  euc.alert + 1 + Math.round( (euc.dash.amp - euc.dash.ampH) / euc.dash.ampS);
+			euc.dash.ampC = ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp  <= -0.5 || 15 <= euc.dash.amp)? 1 : 0;
+			if (euc.dash.hapA && euc.dash.ampC==2) {
+				if (euc.dash.ampH<=euc.dash.amp)	euc.alert =  euc.alert + 1 + Math.round( (euc.dash.amp - euc.dash.ampH) / euc.dash.ampS) ;
+				else euc.alert =  euc.alert + 1 + Math.round(-(euc.dash.amp - euc.dash.ampL) / euc.dash.ampS) ;
+			}
 			break;
 		case 41://total distance
 			euc.dash.trpT=event.target.value.getUint32(6, true)/1000;
@@ -82,7 +86,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			batL.unshift(euc.dash.bat);
 			if (20<batL.length) batL.pop();
 			euc.dash.batC = (50 <= euc.dash.bat)? 0 : (euc.dash.bat <= euc.dash.batL)? 2 : 1;	
-				if ( euc.dash.hapB && euc.dash.batC ==2 )  euc.alert ++; 
+			if ( euc.dash.hapB && euc.dash.batC ==2 )  euc.alert ++; 
 			break;
 		case 37: //remaining
 			euc.dash.trpR=this.in16/100;

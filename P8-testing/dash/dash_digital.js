@@ -215,13 +215,12 @@ face[0] = {
 	},	
 	amLF: function(){
 		this.ampL.set(ampL);
-		this.g.setColor(1,1365);
+		print(1);
+		this.g.setColor(1,(1<euc.dash.ampC)?col("red"),1365);
 		this.g.fillRect(0,0,119,50);       
-		this.g.setColor(0,(1<euc.dash.ampC)?4080:4095);
-		//graph
+		this.g.setColor(0,4095);
 		let i=0;
 		this.ampL.forEach(function(val){
-			//w.gfx.fillRect(118-(i*8),(0<=val)?50-(val*1.2):1,118-(i*8)-3,(0<=val)?50:1-(val*2));
 			w.gfx.fillRect(118-(i*6),(val<200)?50-(val*1.2):1,118-(i*6)-1,(val<200)?50:(255-val)*2);
 			i++;
 		});

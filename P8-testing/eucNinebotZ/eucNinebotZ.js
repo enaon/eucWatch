@@ -44,9 +44,9 @@ euc.conn=function(mac){
 					if ( euc.dash.hapB && euc.dash.batC ==2 )  euc.alert ++; 
 					//speed
 					euc.dash.spd=event.target.value.getUint16(17, true)/100;
-					euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd <= euc.dash.spd1+5 )? 1 : ( euc.dash.spd <= euc.dash.spd1+10 )? 2 : 3 ;	
-					if ( euc.dash.hapS && euc.dash.spd >= euc.dash.spd1 ) 
-						euc.alert = 1 + ((euc.dash.spd-euc.dash.spd1) / euc.dash.ampS|0) ;
+					euc.dash.spdC = ( euc.dash.spd1 <= euc.dash.spd )? 2 : ( euc.dash.spd2 <= euc.dash.spd )? 1 : 0 ;	
+					if ( euc.dash.hapS && euc.dash.spdC == 2 ) 
+						euc.alert = 1 + Math.round((euc.dash.spd-euc.dash.spd1) / euc.dash.spdS) ; 	
 				}else  if (event.target.value.buffer[1] && event.target.value.buffer.length==20){
 					//print("l",event.target.value.buffer);
 					euc.dash.trpT=event.target.value.getUint32(1, true)/1000;
@@ -64,9 +64,11 @@ euc.conn=function(mac){
 					euc.dash.amp=event.target.value.getInt16(13, true)/100;
 					ampL.unshift(Math.round(euc.dash.amp));
 					if (20<ampL.length) ampL.pop();
-					euc.dash.ampC = ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp  <= 0 || 15 <= euc.dash.amp)? 1 : 0;
-					if (euc.dash.hapA) euc.alert =  euc.alert + 1 + Math.round( (euc.dash.amp - euc.dash.ampH) / euc.dash.ampS);
-					//speed
+					euc.dash.ampC = ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp  <= -0.5 || 15 <= euc.dash.amp)? 1 : 0;
+					if (euc.dash.hapA && euc.dash.ampC==2) {
+						if (euc.dash.ampH<=euc.dash.amp)	euc.alert =  euc.alert + 1 + Math.round( (euc.dash.amp - euc.dash.ampH) / euc.dash.ampS) ;
+						else euc.alert =  euc.alert + 1 + Math.round(-(euc.dash.amp - euc.dash.ampL) / euc.dash.ampS) ;
+					}
 					euc.dash.spd=event.target.value.getUint16(15, true)/100;
 					if (euc.dash.spdM < euc.dash.spd) euc.dash.spdM = euc.dash.spd;
 					euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd2 <= euc.dash.spd )? 2 : 1 ;	

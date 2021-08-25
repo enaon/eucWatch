@@ -39,9 +39,9 @@ euc.conn=function(mac){
 				//speed
 				euc.dash.spd = Math.abs((event.target.value.getInt16(4) * 3.6)/100); 
 				if (euc.dash.spdM < euc.dash.spd) euc.dash.spdM = euc.dash.spd;
-				euc.dash.spdC = ( euc.dash.spd <= euc.dash.spd1 )? 0 : ( euc.dash.spd2 <= euc.dash.spd )? 2 : 1 ;	
+				euc.dash.spdC = ( euc.dash.spd1 <= euc.dash.spd )? 2 : ( euc.dash.spd2 <= euc.dash.spd )? 1 : 0 ;	
 				if ( euc.dash.hapS && euc.dash.spdC == 2 ) 
-					euc.alert = 1 + Math.round((euc.dash.spd-euc.dash.spd2) / euc.dash.ampS) ; 
+					euc.alert = 1 + Math.round((euc.dash.spd-euc.dash.spd1) / euc.dash.spdS) ; 	
 				//battery
 				euc.dash.volt=(event.target.value.getUint16(2)*euc.dash.bms)/100; //bms=1 67.2 ,2 84, 3 100,8
 				euc.dash.bat = Math.round(((euc.dash.volt / (16*euc.dash.bms)) * 100 - 310 ) * 0.909);
@@ -57,12 +57,13 @@ euc.conn=function(mac){
 				if (euc.dash.ampR) euc.dash.amp=-euc.dash.amp;
 				ampL.unshift(Math.round(euc.dash.amp));
 				if (20<ampL.length) ampL.pop();
-				euc.dash.ampC = ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp  <= 0 || 15 <= euc.dash.amp)? 1 : 0;
-				if (euc.dash.hapA) euc.alert =  euc.alert + 1 + Math.round( (euc.dash.amp - euc.dash.ampH) / euc.dash.ampS) ;
+				euc.dash.ampC = ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp  <= -0.5 || 15 <= euc.dash.amp)? 1 : 0;
+				if (euc.dash.hapA && euc.dash.ampC==2) {
+					if (euc.dash.ampH<=euc.dash.amp)	euc.alert =  euc.alert + 1 + Math.round( (euc.dash.amp - euc.dash.ampH) / euc.dash.ampS) ;
+					else euc.alert =  euc.alert + 1 + Math.round(-(euc.dash.amp - euc.dash.ampL) / euc.dash.ampS) ;
+				}
 				//temp
-				//euc.dash.tmp=Math.round((event.target.value.getUint16(12)/340)+102)/10;
 				euc.dash.tmp=(event.target.value.getInt16(12) /340.0)+36.53;
-				//print(euc.dash.tmp,euc.dash.tmp1);
 				euc.dash.tmpC=(euc.dash.tmpH - 5 <= euc.dash.tmp )? (euc.dash.tmpH <= euc.dash.tmp )?2:1:0;
 				if (euc.dash.hapT && euc.dash.tmpC==2) euc.alert++;
 			} else if ( event.target.value.buffer[0]==90 && event.target.value.buffer[1]==90 && event.target.value.buffer[4]==85 && event.target.value.buffer[5]==170) {
