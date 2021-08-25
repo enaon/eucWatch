@@ -210,28 +210,30 @@ euc.conn=function(mac){
 			euc.busy=setTimeout(()=>{euc.busy=0;},1000);
 			if (n=="end") c.stopNotifications();
 			if (n=="hornOn"){
-				if (euc.horn) {clearTimeout(euc.horn);euc.horn=0;}
+				euc.horn=1;
+				if (euc.tmp) {clearTimeout(euc.tmp);euc.tmp=0;}
 				c.writeValue(euc.cmd("lock")).then(function() {
 				euc.dash.lock=1;
 				return c.writeValue(euc.cmd("strobeOn"));
 				}).then(function() {
 					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-					if (euc.horn) {clearTimeout(euc.horn);euc.horn=0;}
+					if (euc.tmp) {clearTimeout(euc.tmp);euc.tmp=0;}
 					euc.dash.strb=1;
-					euc.horn=setTimeout(() => {
+					euc.tmp=setTimeout(() => {
 						if (!BTN1.read()){
 							c.writeValue(euc.cmd("unlock")).then(function() {		
 								euc.dash.lock=0;
 								euc.dash.strb=0;
+								euc.horn=0;
 								return c.writeValue(euc.cmd("strobeOff"));
 							});
 						}
-						euc.horn=0;
 					}, 100); 
 				
 				});
 			} else if (n=="hornOff") {
-				if (euc.horn) {clearTimeout(euc.horn);euc.horn=0;}
+				if (euc.tmp) {clearTimeout(euc.tmp);euc.tmp=0;}
+				euc.horn=0;
 				c.writeValue(euc.cmd("unlock")).then(function() {
 					euc.dash.lock=0;
 					return c.writeValue(euc.cmd("strobeOff"));
