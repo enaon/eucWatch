@@ -160,6 +160,8 @@ var set={
 set.def = require('Storage').readJSON('setting.json', 1);
 if (!set.def) {set.resetSettings();set.updateSettings();}
 if (!set.def.rstP) set.def.rstP="D13";
+if (!set.def.rstR) set.def.rstR=0xA5;
+
 //dash
 require('Storage').list(/dash_/).forEach(dashfile=>{
 	set.dash.push(dashfile);
@@ -171,7 +173,7 @@ if (!Boolean(require("Storage").read("dash.json"))) {
 //
 E.setTimeZone(set.def.timezone);
 //nrf
-set.emuD=0;
+//set.emuD=0;
 function ccon(l){ 
 	//"ram"
 	if (set.def.emuZ) {
@@ -257,14 +259,14 @@ var face={
 				if (this.appCurr==="main") {
 					if (face[c].off) {
 						if (set.def.touchtype=="716") tfk.exit();	
-						else digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xE5,3);},100); 
+						else digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100); 
 						face[c].off();this.pageCurr=-1;face.pagePrev=c;
 					}
 				}else face.go(this.appCurr,1);
 			}else if (face.appPrev=="off") {
 				if (face[c].off) {
 					if (set.def.touchtype=="716") tfk.exit();	
-					else digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xE5,3);},100); 
+					else digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100); 
 					face.go("main",-1);face.pagePrev=c;
 				}
 			}else if (c>1) face.go(this.appCurr,0);
@@ -283,7 +285,7 @@ var face={
 		if (this.pageCurr==-1 && this.pagePrev!=-1) {
 			//if (set.def.touchtype=="716")tfk.loop=100;
 			if (set.def.touchtype=="716") tfk.exit();	
-			else digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xE5,3);},100); 
+			else digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100); 
 			acc.go=0;
 			face[this.pagePrev].off();
 			if (this.offid) {clearTimeout(this.offid); this.offid=0;}
@@ -418,8 +420,8 @@ if (set.def.touchtype=="816"){ //816
 		var tp=i2c.readFrom(0x15,7);
 		//print("touch816 :",tp);
 		if (face.pageCurr>=0) {
-			if (tp[1]== 0 && tp[3]==64) {tp[1]=5; set.p22=1;}
-			if (set.p22 && tp[1]== 12 ) tp[6]=tp[6]+25;
+			if (tp[1]== 0 && tp[3]==64) {tp[1]=5; set.def.rstR=0xE5;}
+			if (set.def.rstR==0xE5 && tp[1]== 12 ) tp[6]=tp[6]+25;
 			touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);}
 		else if (tp[1]==1) {
 			face.go(face.appCurr,0);

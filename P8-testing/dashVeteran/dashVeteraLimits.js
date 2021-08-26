@@ -1,4 +1,4 @@
-//Begode  set adv limits
+//Veteran  set adv limits
 
 face[0] = {
 	offms: 5000,
@@ -97,7 +97,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		face.go("dashBegode",0);
+		face.go("dashVeteran",0);
 		return true;
 	},
 	clear: function(){
@@ -183,7 +183,7 @@ touchHandler[0]=function(e,x,y){
           face[0].init();
         } else {
         euc.wri("setAlarms");
-		face.go("dashBegodeAdv",0);
+		face.go("dashVeteranOptions",0);
 		return;
         }
         break;

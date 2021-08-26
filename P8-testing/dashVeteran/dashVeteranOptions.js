@@ -27,7 +27,7 @@ face[0] = {
 		this.g.flip();
 		//
         this.btn(euc.dash.lock,"BEEP",28,60,35,1453,1365,0,0,119,97);
-		    this.btn(1,"",22,185,17,1453,1365,122,0,239,97);		
+		this.btn(1,"WHEEL",22,185,17,1453,1365,122,0,239,97,"ALERTS",22,185,55);		
         this.btn(1,"CLEAR",25,60,115,1365,1365,0,100,119,195,"METER",22,60,155);
         this.btn(euc.dash.horn,"HORN",25,185,135,1453,1365,122,100,239,195);
 		this.run=true;
@@ -125,8 +125,10 @@ touchHandler[0]=function(e,x,y){
 				face[0].ntfy("BEEP ON CON/DIS","NO BEEP",22,(euc.dash.lock)?1453:1365,euc.dash.lock);
 				digitalPulse(D16,1,[30,50,30]);
 			}else if ( 120<=x && y<=100 ) { //
-				digitalPulse(D16,1,40);						
-				return;	
+				digitalPulse(D16,1,40);	
+				face[0].ntfy("NOT YET","",19,3840,1);
+				//face.go("dashVeteranLimits",0);
+				//return;	
 			}else if ( x<=120 && 100<=y ) { 
 	            face[0].ntfy("HOLD -> CLEAR METER","",19,1365,1);
 				digitalPulse(D16,1,[30,50,30]);	
