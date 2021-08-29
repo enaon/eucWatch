@@ -38,7 +38,7 @@
 		"name": "Settings",
 		"icon": "icon.png",
 		"version":"0.70",
-		"description": "global Settings face",
+		"description": "Settings face",
 		"tags": "apps",
 		"type":"main",
 		"readme": "README.md",
