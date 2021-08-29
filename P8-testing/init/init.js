@@ -294,7 +294,6 @@ module.exports = {
 };
 });
 w=require("P8");
-buzz=digitalPulse;
 //load
 //w.gfx.init();
 eval(require('Storage').read('handler'));

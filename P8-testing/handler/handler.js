@@ -161,7 +161,8 @@ set.def = require('Storage').readJSON('setting.json', 1);
 if (!set.def) {set.resetSettings();set.updateSettings();}
 if (!set.def.rstP) set.def.rstP="D13";
 if (!set.def.rstR) set.def.rstR=0xA5;
-
+if (set.def.buzz) buzz=function(){};
+else buzz=digitalPulse;
 //dash
 require('Storage').list(/dash_/).forEach(dashfile=>{
 	set.dash.push(dashfile);
