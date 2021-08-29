@@ -5,7 +5,7 @@ face[0] = {
   init: function(){ 
 	face.mode=0;
 	if (face.faceSave==-1) face.faceSave=[face.appPrev,face.pagePrev,face.pageArg];
-    this.cli=-1;this.bt=-1;this.gb=-1;this.hid=-1;this.emuZ=-1;this.bri=-1;this.acc=-1;this.dnd=-1;this.sys=1;this.btn2=1;this.fmp=-1;
+    this.cli=-1;this.bt=-1;this.gb=-1;this.hid=-1;this.emuZ=-1;this.bri=-1;this.acc=-1;this.buzz=-1;this.sys=1;this.btn2=1;this.fmp=-1;
     face[0].btSetOn=1;
     var d=(Date()).toString().split(' ');
     var t=(d[4]).toString().split(':');	
@@ -102,10 +102,10 @@ face[0] = {
         this.g.drawImage(require("heatshrink").decompress(atob("mEwwIHEgfwAocH/AFDh/8Aocf/wFDn//Aod/Aon//8PAQPBAomDAQMfAQMH//+AoP+BwIFC/gCE+AuB/Ef4AuC+EfwAuC8AFBgIFB4AFBgYFBwAFBFwJGBAoIuCAoQuCAoQuCAonwoAFBGgPgFIQLB4IFBQIJgB4EeRoJgB4Ecg+D/wFBjE/8P8h5XC+H4AoQzB+AFD/lAAoJdBIoIFDKIIFfQIIpDApB+BAoZsBAoX4PAPANIPwAoR1B+CtDcQaHCYAL3CTwIAC")),95,15);
         this.g.flip();
     }
-    //dnd on/off
-    if (set.def.dnd!=this.dnd) {
-      this.dnd=set.def.dnd;
-    this.btn(this.dnd,160,0,239,75,(this.dnd)?require("heatshrink").decompress(atob("mEwwIdag/gApMOuAFDn18Aof4j4ECgPAgeAAoIDBA4IiCAQIkChwCBEgUMKoQCBjACKBwUcAogaFAv4FEsACBgx8BPQQDBQwaMCTAYFH/4ACAozRNjCOCAo8MJITdHJIYAXA")):require("heatshrink").decompress(atob("mEwwIdag/gEAIFEuAFBhwDBA4MAn18gPAAoP4j8DwEABAMDw4KBBAMBxwiCAQMcEQQCBnACBhgCBFwUYEoQFDgPYMgQlBzAFDg4aCAoMOAokcAok4AolwAongAoZUBAoZUBAoZUBAoZUBAoZdBAoZdBAoZdBAoVgRgMGKwPBRgMDQwODRgiDCgAFBQYQFCj//AAIaBn4FERgQACXYQABEoMYS4RdBAoZdCbYQuBboRPCIoL/TAAo")),176,15,col("lblue"),col("dblue"),0,col("gray"));//btn3
+    //buzz on/off
+    if (set.def.buzz!=this.buzz) {
+      this.buzz=set.def.buzz;
+    this.btn(this.buzz,160,0,239,75,(this.buzz)?require("heatshrink").decompress(atob("mEwwIdag/gApMOuAFDn18Aof4j4ECgPAgeAAoIDBA4IiCAQIkChwCBEgUMKoQCBjACKBwUcAogaFAv4FEsACBgx8BPQQDBQwaMCTAYFH/4ACAozRNjCOCAo8MJITdHJIYAXA")):require("heatshrink").decompress(atob("mEwwIdag/gEAIFEuAFBhwDBA4MAn18gPAAoP4j8DwEABAMDw4KBBAMBxwiCAQMcEQQCBnACBhgCBFwUYEoQFDgPYMgQlBzAFDg4aCAoMOAokcAok4AolwAongAoZUBAoZUBAoZUBAoZUBAoZdBAoZdBAoZdBAoVgRgMGKwPBRgMDQwODRgiDCgAFBQYQFCj//AAIaBn4FERgQACXYQABEoMYS4RdBAoZdCbYQuBboRPCIoL/TAAo")),176,15,col("lblue"),col("dblue"),0,col("gray"));//btn3
 
     }
     //find my phone
@@ -253,15 +253,15 @@ touchHandler[0]=function(e,x,y){
       if(x<77&&y<75){//btn1
         if (face[0].btSet) {
           buzz(D16,1,[30,50,30]);face[0].btSet=0;
-          face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].dnd=-1;face[0].sys=1;this.btn2=1;face[0].fmp=-1;
+          face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;this.btn2=1;face[0].fmp=-1;
         }else if (face.mode) {if (face[0].appDo1) {buzz(D16,1,[30,50,30]);eval(face[0].appDo1);return;} else buzz(D16,1,40);
         }else {face[0].btSetOn=1;face[0].btSet=1;buzz(D16,1,[30,50,30]);
-			face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].dnd=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
+			face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
         }
 	  }else if(77<x&&x<158&&y<75){//btn2
         if (face[0].btSet) {
           buzz(D16,1,[30,50,30]);face[0].btSet=0;
-          face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].dnd=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
+          face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
         }else if (face.mode) {
 			if (face[0].appDo2) {buzz(D16,1,[30,50,30]);eval(face[0].appDo2);return;} 
 			else buzz(D16,1,40);
@@ -352,7 +352,7 @@ touchHandler[0]=function(e,x,y){
 		buzz(D16,1,[30,50,30]);
 	  }else if (face[0].btSet) {
         face[0].btSet=0;
-        face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].dnd=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
+        face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
       }else if(158<x&&x<239&&60<y&&y<180&&!face.mode) {
         face[0].cbri=w.gfx.bri.lv+1;
         if (face[0].cbri>7) face[0].cbri=7;
@@ -372,7 +372,7 @@ touchHandler[0]=function(e,x,y){
       }else if (Boolean(require('Storage').read('w_apps'))){
         face.mode=1-face.mode;
         face[0].btSet=0;
-        face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].dnd=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
+        face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
    		buzz(D16,1,[30,50,30]);
       } else buzz(D16,1,40);
     }else if  (e==4){
@@ -388,7 +388,7 @@ touchHandler[0]=function(e,x,y){
 	/*	
       if (face[0].btSet) {
         face[0].btSet=0;
-        face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].dnd=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
+        face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
       }else if (face.faceSave!=-1) {
           face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
 		  //set.updateSettings();
