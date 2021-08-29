@@ -81,7 +81,6 @@ var set={
 		atc:0, //Notifications service. Enables/disables support for "d6 notification" playstore app from ATC1441.
 		emuZ:0, //emulator service. Enables/disables bridge support for euc world, wheelog, darknessbot emulating a z10 .
 		acc:0, //enables/disables wake-screen on wrist-turn. 
-		dnd:0, //Do not disturb mode, if ebabled vibrations are on.
 		hidT:"media", //joy/kb/media
 		bri:2, //Screen brightness 1..7
 		acctype:"0",
