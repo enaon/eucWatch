@@ -110,22 +110,22 @@ touchHandler[0]=function(e,x,y){
 			euc.dash.aLck=1-euc.dash.aLck;
             face[0].btn(euc.dash.aLck,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
             face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,col("dgray"),euc.dash.aLck);
-			digitalPulse(D16,1,[30,50,30]);
+			buzz(D16,1,[30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //watch alerts
-			digitalPulse(D16,1,[30,50,30]);						
+			buzz(D16,1,[30,50,30]);						
 			face.go("dashAlerts",0);
 			return;		
 		}else if ( x<=120 && 100<=y ) { //auto off
 			euc.dash.aOff=1-euc.dash.aOff;
             face[0].btn(euc.dash.aOff,"AUTO",18,60,115,col("red"),col("dgray"),0,100,119,195,"OFF",30,60,150);
             face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",16,col("dgray"),euc.dash.aOff);
-			digitalPulse(D16,1,[30,50,30]);		
+			buzz(D16,1,[30,50,30]);		
 		}else if  (120<=x && 100<=y ) { //lock
 			euc.dash.horn=1-euc.dash.horn;
             face[0].btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("raf4"),122,100,239,195);
             face[0].ntfy("BUTTON IS HORN >2KPH","HORN DISABLED",18,col("dgray"),euc.dash.horn);
-			digitalPulse(D16,1,[30,50,30]);						
-		}else digitalPulse(D16,1,[30,50,30]);
+			buzz(D16,1,[30,50,30]);						
+		}else buzz(D16,1,[30,50,30]);
 		this.timeout();
 		break;
 	case 1: //slide down event
@@ -136,10 +136,10 @@ touchHandler[0]=function(e,x,y){
 		if ( 200<=y && x<=50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			digitalPulse(D16,1,[30,50,30]);
+			buzz(D16,1,[30,50,30]);
 		}else //if (y>100) {
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		//} else {digitalPulse(D16,1,40);}
+		//} else {buzz(D16,1,40);}
 		this.timeout();
 		break;
 	case 3: //slide left event
@@ -153,24 +153,24 @@ touchHandler[0]=function(e,x,y){
 			euc.dash.aLck=1-euc.dash.aLck;
             face[0].btn(euc.dash.aLck,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
             face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,col("dgray"),euc.dash.aLck);
-			digitalPulse(D16,1,[30,50,30]);
+			buzz(D16,1,[30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //haptic
 			if (euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB) {euc.dash.hapS=0;euc.dash.hapA=0;euc.dash.hapT=0;euc.dash.hapB=0;}
 			else {euc.dash.hapS=1;euc.dash.hapA=1;euc.dash.hapT=1;euc.dash.hapB=1;}
 			face[0].btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("raf4"),122,0,239,97,"ALERTS",22,185,55);		
 			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",19,col("dgray"),(euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB));
-			digitalPulse(D16,1,[30,50,30]);
+			buzz(D16,1,[30,50,30]);
 		}else if ( x<=120 && 100<=y ) { //auto off
 			euc.dash.aOff=1-euc.dash.aOff;
             face[0].btn(euc.dash.aOff,"AUTO",18,60,115,col("red"),col("dgray"),0,100,119,195,"OFF",30,60,150);
             face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",16,col("dgray"),euc.dash.aOff);
-			digitalPulse(D16,1,[30,50,30]);		
+			buzz(D16,1,[30,50,30]);		
 		}else if (120<=x && 100<=y ) { //lock
 			euc.dash.horn=1-euc.dash.horn;
             face[0].btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("raf4"),122,100,239,195);
             face[0].ntfy("BUTTON IS HORN >2KPH","HORN DISABLED",18,col("dgray"),euc.dash.horn);
-			digitalPulse(D16,1,[30,50,30]);						
-		}else digitalPulse(D16,1,[30,50,30]);
+			buzz(D16,1,[30,50,30]);						
+		}else buzz(D16,1,[30,50,30]);
 		this.timeout();
 		break;
   }

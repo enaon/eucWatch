@@ -204,7 +204,7 @@ euc.conn=function(mac){
 	//write
 	}).then(function(c) {
 		//if (set.def.cli) console.log("EUC connected"); 
-//		digitalPulse(D16,1,[90,40,150]);
+//		buzz(D16,1,[90,40,150]);
 		euc.wri= function(n) {
 			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},100);return;} 
 			euc.busy=setTimeout(()=>{euc.busy=0;},1000);
@@ -243,7 +243,7 @@ euc.conn=function(mac){
 				});
 			} else if (n==="start") {
 				c.writeValue(euc.cmd((euc.dash.passSend)?"passSend":(euc.dash.aLck)?"unlock":(euc.dash.aLight)?euc.dash.aLight:"lightsAuto")).then(function() {
-					digitalPulse(D16,1,[90,40,150]);					
+					buzz(D16,1,[90,40,150]);					
 					return c.writeValue(euc.cmd((euc.dash.aLck&&euc.dash.passSend)?"unlock":(euc.seq==0)?"rideLedOn":(euc.dash.aLight)?euc.dash.aLight:"lightsAuto"));
 				}).then(function() {
 					return (euc.seq==0)?(euc.dash.aLck^euc.dash.passSend)?c.writeValue(euc.cmd("rideLedOn")):"ok":c.writeValue(euc.cmd((euc.dash.aLight)?euc.dash.aLight:"lightsAuto"));
@@ -315,8 +315,8 @@ euc.off=function(err){
 		if ( err==="Connection Timeout"  )  {
 			//if (set.def.cli) console.log("reason :timeout");
 			euc.state="LOST";
-			if (euc.dash.lock==1) digitalPulse(D16,1,250);
-			else digitalPulse(D16,1,[250,200,250,200,250]);
+			if (euc.dash.lock==1) buzz(D16,1,250);
+			else buzz(D16,1,[250,200,250,200,250]);
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
 				if (euc.state!="OFF") euc.conn(euc.mac); 

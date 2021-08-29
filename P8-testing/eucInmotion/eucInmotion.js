@@ -177,7 +177,7 @@ euc.conn=function(mac){
 			//connected 
 			if (set.def.cli) console.log("EUC: Connected"); 
 			euc.state="READY"; //connected
-			digitalPulse(D16,1,[90,40,150,40,90]);
+			buzz(D16,1,[90,40,150,40,90]);
 			euc.dash.lock=0;
 			//write function
 			euc.wri=function(cmd,value){
@@ -221,8 +221,8 @@ euc.off=function(err){
 		if ( err==="Connection Timeout"  )  {
 			if (set.def.cli) console.log("reason :timeout");
 			euc.state="LOST";
-			if (euc.dash.lock==1) digitalPulse(D16,1,250);
-			else digitalPulse(D16,1,[250,200,250,200,250]);
+			if (euc.dash.lock==1) buzz(D16,1,250);
+			else buzz(D16,1,[250,200,250,200,250]);
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
 				euc.conn(euc.mac); 
@@ -230,8 +230,8 @@ euc.off=function(err){
 		}else if ( err==="Disconnected"|| err==="Not connected")  {
 			if (set.def.cli) console.log("reason :",err);
 			euc.state="FAR";
-			// if (euc.dash.lock==1) digitalPulse(D16,1,100);
-			// else digitalPulse(D16,1,[100,150,100]);
+			// if (euc.dash.lock==1) buzz(D16,1,100);
+			// else buzz(D16,1,[100,150,100]);
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
 				euc.conn(euc.mac); 

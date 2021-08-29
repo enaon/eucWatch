@@ -20,7 +20,7 @@ global.euc= {
 		this.seq=1;
 		ampL=[];batL=[];almL=[];
 		if (this.state!="OFF" ) {
-			digitalPulse(D16,1,[90,60,90]); 
+			buzz(D16,1,[90,60,90]); 
 			//log
 			if (this.log.trp[0]&& 0<this.dash.trpT-this.log.trp[0] ) 
 				set.write("logDaySlot"+set.def.dash.slot,Date().getHours(),(this.dash.trpT-this.log.trp[0])+((set.read("logDaySlot"+set.def.dash.slot,Date().getHours()))?set.read("logDaySlot"+set.def.dash.slot,Date().getHours()):0));
@@ -43,7 +43,7 @@ global.euc= {
 			
 			return;
 		}else {
-			digitalPulse(D16,1,100); 
+			buzz(D16,1,100); 
 			this.log.trp=[0,0,0];
 			NRF.setTxPower(4);
 			this.mac=(this.mac)?this.mac:set.read("dash","slot"+set.read("dash","slot")+"Mac");

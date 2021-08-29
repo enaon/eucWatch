@@ -85,7 +85,8 @@ var set={
 		hidT:"media", //joy/kb/media
 		bri:2, //Screen brightness 1..7
 		acctype:"0",
-		touchtype:"0"
+		touchtype:"0";
+		buzz:1
 		};
 		set.updateSettings();
 	},
@@ -364,12 +365,12 @@ function buttonHandler(s){
 		this.press=false;
 		if (global.euc&&euc.state=="READY"&&euc.horn&&euc.dash.horn) {euc.wri("hornOff");return;}
 		if (face.pageCurr==-1) {
-			digitalPulse(D16,1,[60,40,60]);
+			buzz(D16,1,[60,40,60]);
 			face.go((global.euc&&euc.state!="OFF")?set.dash[set.def.dash.face]:face.appCurr,0);
 		}else { 
 			if (face.appCurr=="main"&&face.pagePrev!=-1&&face.pagePrev!=2) {
 				face.go("main",-1);
-				digitalPulse(D16,1,100);
+				buzz(D16,1,100);
 			}else{
 				let to=face.pageCurr+1;
 				if (to>=2) to=0;

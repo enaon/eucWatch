@@ -114,20 +114,20 @@ touchHandler[0] = function(e, x, y) {
         if (e == 5) {
             if (59 < x && x < 180 && 142 < y && y < 239) {
                 set.hidM.playpause();
-                digitalPulse(D16, 1, [30, 50, 30]);
+                buzz(D16, 1, [30, 50, 30]);
             } else if (0 < x && x < 58 && 192 < y && y < 239) {//prev
                 set.hidM.prev();
-                digitalPulse(D16, 1, [30, 50, 30]);
+                buzz(D16, 1, [30, 50, 30]);
             } else if (181 < x && x < 239 && 192 < y && y < 239) { //next
                 set.hidM.next();
-                digitalPulse(D16, 1, [30, 50, 30]);
+                buzz(D16, 1, [30, 50, 30]);
             } else if (181 < x && x < 239 && 142 < y && y < 191) {//vol_up
                 set.hidM.volumeUp();
-                digitalPulse(D16, 1, [30, 50, 30]);
+                buzz(D16, 1, [30, 50, 30]);
             } else if (0 < x && x < 58 && 142 < y && y < 191) {//vol_down
                 set.hidM.volumeDown();
-                digitalPulse(D16, 1, [30, 50, 30]);
-            } else digitalPulse(D16, 1, 40);
+                buzz(D16, 1, [30, 50, 30]);
+            } else buzz(D16, 1, 40);
         }
     }
     if (e == 1) {
@@ -139,18 +139,18 @@ touchHandler[0] = function(e, x, y) {
                 this.bri = w.gfx.bri.lv;
                 w.gfx.bri.set(7);
             } else w.gfx.bri.set(this.bri);
-            digitalPulse(D16, 1, [30, 50, 30]);
+            buzz(D16, 1, [30, 50, 30]);
         } else {
             face.go("settings", 0);
             return;
         } 
     } else if (e == 3) {
-        digitalPulse(D16, 1, 40);
+        buzz(D16, 1, 40);
     } else if (e == 4) {
         face.go("main", -0);
         return;
     } else if (e == 12) {
-        digitalPulse(D16, 1, 40);
+        buzz(D16, 1, 40);
     }
     this.timeout();
 

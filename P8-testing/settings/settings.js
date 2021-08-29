@@ -252,47 +252,52 @@ touchHandler[0]=function(e,x,y){
     }else if (e==5){
       if(x<77&&y<75){//btn1
         if (face[0].btSet) {
-          digitalPulse(D16,1,[30,50,30]);face[0].btSet=0;
+          buzz(D16,1,[30,50,30]);face[0].btSet=0;
           face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].dnd=-1;face[0].sys=1;this.btn2=1;face[0].fmp=-1;
-        }else if (face.mode) {if (face[0].appDo1) {digitalPulse(D16,1,[30,50,30]);eval(face[0].appDo1);return;} else digitalPulse(D16,1,40);
-        }else {face[0].btSetOn=1;face[0].btSet=1;digitalPulse(D16,1,[30,50,30]);
-        face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].dnd=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
+        }else if (face.mode) {if (face[0].appDo1) {buzz(D16,1,[30,50,30]);eval(face[0].appDo1);return;} else buzz(D16,1,40);
+        }else {face[0].btSetOn=1;face[0].btSet=1;buzz(D16,1,[30,50,30]);
+			face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].dnd=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
         }
 	  }else if(77<x&&x<158&&y<75){//btn2
         if (face[0].btSet) {
-          digitalPulse(D16,1,[30,50,30]);face[0].btSet=0;
+          buzz(D16,1,[30,50,30]);face[0].btSet=0;
           face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].dnd=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
-        }else if (face.mode) {if (face[0].appDo2) {digitalPulse(D16,1,[30,50,30]);eval(face[0].appDo2);return;} else digitalPulse(D16,1,40);
-        }else digitalPulse(D16,1,40);
+        }else if (face.mode) {if (face[0].appDo2) {buzz(D16,1,[30,50,30]);eval(face[0].appDo2);return;} else buzz(D16,1,40);
+        }else {
+			set.def.buzz=set.def.buzz-1;
+			if (set.def.buzz) buzz=digitalPulse;
+			else buzz=function(){};
+			buzz(D16,1,[30,50,30]);
+		}
       }else if(158<x&&x<239&&y<75){//btn3
-        if (face.mode) {if (face[0].appDo3) {digitalPulse(D16,1,[30,50,30]);eval(face[0].appDo3);return;} else digitalPulse(D16,1,40);
+        if (face.mode) {if (face[0].appDo3) {buzz(D16,1,[30,50,30]);eval(face[0].appDo3);return;} else buzz(D16,1,40);
         }else if (face[0].btSet) {
-          set.def.cli=1-set.def.cli;set.upd();digitalPulse(D16,1,[30,50,30]);
-        }else {set.def.dnd=1-set.def.dnd;digitalPulse(D16,1,[30,50,30]);}
+          set.def.cli=1-set.def.cli;set.upd();buzz(D16,1,[30,50,30]);
+        }else {set.def.dnd=1-set.def.dnd;buzz(D16,1,[30,50,30]);}
       }else if(77>x&&77<y&&y<159){//btn4
-        if (face.mode) {if (face[0].appDo4) {digitalPulse(D16,1,[30,50,30]);eval(face[0].appDo4);return;} else digitalPulse(D16,1,40);
+        if (face.mode) {if (face[0].appDo4) {buzz(D16,1,[30,50,30]);eval(face[0].appDo4);return;} else buzz(D16,1,40);
         }else if (face[0].btSet) {
-          set.def.gb=1-set.def.gb;set.upd();digitalPulse(D16,1,[30,50,30]);
+          set.def.gb=1-set.def.gb;set.upd();buzz(D16,1,[30,50,30]);
         }else if (set.bt==3){
-			digitalPulse(D16,1,[30,50,30]);
+			buzz(D16,1,[30,50,30]);
 			set.fmp=1-set.fmp;
 			if (set.fmp) set.gbSend({ "t": "findPhone", "n": true });else set.gbSend({ "t": "findPhone", "n": false });
 //			face.go("settings",5);return;
-		} else digitalPulse(D16,1,40);
+		} else buzz(D16,1,40);
       }else if(77<x&&x<157&&77<y&&y<159){//btn5
-        if (face.mode) {if (face[0].appDo5) {digitalPulse(D16,1,[30,50,30]);eval(face[0].appDo5);return;} else digitalPulse(D16,1,40);
+        if (face.mode) {if (face[0].appDo5) {buzz(D16,1,[30,50,30]);eval(face[0].appDo5);return;} else buzz(D16,1,40);
         }else if (face[0].btSet) {
-          set.def.emuZ=1-set.def.emuZ;set.upd();digitalPulse(D16,1,[30,50,30]);
-        }else {set.def.acc=1-set.def.acc;set.accR();digitalPulse(D16,1,[30,50,30]);}
+          set.def.emuZ=1-set.def.emuZ;set.upd();buzz(D16,1,[30,50,30]);
+        }else {set.def.acc=1-set.def.acc;set.accR();buzz(D16,1,[30,50,30]);}
       }else if(158<x&&x<239&&77<y&&y<159) {//btn6
-        if (face.mode) {if (face[0].appDo6) {digitalPulse(D16,1,[30,50,30]);eval(face[0].appDo6);return;} else digitalPulse(D16,1,40);
+        if (face.mode) {if (face[0].appDo6) {buzz(D16,1,[30,50,30]);eval(face[0].appDo6);return;} else buzz(D16,1,40);
         }else if (face[0].btSet) {
-          set.def.hid=1-set.def.hid;set.upd();digitalPulse(D16,1,[30,50,30]);
+          set.def.hid=1-set.def.hid;set.upd();buzz(D16,1,[30,50,30]);
         }else {
         face[0].cbri=w.gfx.bri.lv+1;
         if (face[0].cbri>7) face[0].cbri=1;
         w.gfx.bri.set(face[0].cbri);   
-   		digitalPulse(D16,1,[30,50,30]);
+   		buzz(D16,1,[30,50,30]);
         }
       }else if(0<x&&x<75&&158<y&&y<239){//btn7
         set.tor=1;
@@ -307,19 +312,19 @@ touchHandler[0]=function(e,x,y){
 		  if (f>=0 && face[f].off) face[f].off();
           face.offid=-1;face.pageCurr=-1;face.appPrev="main";
         },25000,face.pageCurr);
-   		digitalPulse(D16,1,[30,50,30]);
+   		buzz(D16,1,[30,50,30]);
         return;  
       }else if(77<x&&x<157&&158<y&&y<239){//btn8	
-   		digitalPulse(D16,1,[30,50,30]);
+   		buzz(D16,1,[30,50,30]);
 		if (Boolean(require("Storage").read(face.faceSave[0].substring(0,4)+"Options"))){
 			face.go(face.faceSave[0].substring(0,4)+"Options",0);
     }else face.go("settings",5);
 		return;
       }else if(158<x&&x<239&&160<y&&y<239){//btn9
-		digitalPulse(D16,1,[30,50,30]);
+		buzz(D16,1,[30,50,30]);
 		if (Boolean(require("Storage").read("alarm"))) {
           face.go("alarm",0);return;}
-      } else digitalPulse(D16,1,40);
+      } else buzz(D16,1,40);
     }else if  (e==1){
 	  if (face[0].btSet) {
 	        face[0].btSet=0;
@@ -327,7 +332,7 @@ touchHandler[0]=function(e,x,y){
         face[0].cbri=w.gfx.bri.lv-1;
         if (face[0].cbri<1) face[0].cbri=1;
         w.gfx.bri.set(face[0].cbri);
-   		digitalPulse(D16,1,[30,50,30]);
+   		buzz(D16,1,[30,50,30]);
       }else { 
 		//set.updateSettings();
         if (face.faceSave!=-1) {
@@ -341,7 +346,7 @@ touchHandler[0]=function(e,x,y){
 	  if (y>160&&x<50) {
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
         else w.gfx.bri.set(this.bri);
-		digitalPulse(D16,1,[30,50,30]);
+		buzz(D16,1,[30,50,30]);
 	  }else if (face[0].btSet) {
         face[0].btSet=0;
         face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].dnd=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
@@ -349,7 +354,7 @@ touchHandler[0]=function(e,x,y){
         face[0].cbri=w.gfx.bri.lv+1;
         if (face[0].cbri>7) face[0].cbri=7;
         w.gfx.bri.set(face[0].cbri);
-   		digitalPulse(D16,1,[30,50,30]);
+   		buzz(D16,1,[30,50,30]);
 	  }else if (face.faceSave!=-1) {
           face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
 		  //set.updateSettings();
@@ -365,8 +370,8 @@ touchHandler[0]=function(e,x,y){
         face.mode=1-face.mode;
         face[0].btSet=0;
         face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].dnd=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
-   		digitalPulse(D16,1,[30,50,30]);
-      } else digitalPulse(D16,1,40);
+   		buzz(D16,1,[30,50,30]);
+      } else buzz(D16,1,40);
     }else if  (e==4){
 	    if (face[0].btSet) {
 	        face[0].btSet=0;
@@ -393,14 +398,14 @@ touchHandler[0]=function(e,x,y){
     }else if  (e==12){
 	  if (face[0].btSet) {
 		if(x<160&&y<77){//bt toggle tx
-	   		digitalPulse(D16,1,[30,50,30]);
+	   		buzz(D16,1,[30,50,30]);
 			if (set.def.rfTX===-4) set.def.rfTX=0;
 			else if (set.def.rfTX===0) set.def.rfTX=4;
 			else if (set.def.rfTX===4) set.def.rfTX=-4;
 			NRF.setTxPower(set.def.rfTX);
 			face[0].btSetOn=1;
-		} else digitalPulse(D16,1,40);
-      } else digitalPulse(D16,1,40);
+		} else buzz(D16,1,40);
+      } else buzz(D16,1,40);
     }
    this.timeout();
 };
@@ -413,7 +418,7 @@ touchHandler[5]=function(e,x,y){
 			NRF.disconnect();
 			w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
 			reset();
-		} else  digitalPulse(D16,1,40);
+		} else  buzz(D16,1,40);
     }else if  (e==1){
 		face[0].btSetOn=1;
 		face.go("settings",0);return;
@@ -421,10 +426,10 @@ touchHandler[5]=function(e,x,y){
 		if (y>160&&x<50) {
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			digitalPulse(D16,1,[30,50,30]);
-		} else digitalPulse(D16,1,40);
+			buzz(D16,1,[30,50,30]);
+		} else buzz(D16,1,40);
     }else if  (e==3){
-		digitalPulse(D16,1,40);
+		buzz(D16,1,40);
     }else if  (e==4){
 		face[0].btSetOn=1;
 		face.go("settings",0);return;
@@ -443,7 +448,7 @@ touchHandler[5]=function(e,x,y){
 			require("Storage").write("devmode","dev");
 			w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
 			E.reboot();
-		}else digitalPulse(D16,1,40);
+		}else buzz(D16,1,40);
     }
    this.timeout();
 };

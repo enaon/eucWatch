@@ -109,7 +109,7 @@ euc.conn=function(mac){
 	//write
 	}).then(function(c) {
 		console.log("EUC Begode connected!!"); 
-		digitalPulse(D16,1,[90,40,150,40,90]);
+		buzz(D16,1,[90,40,150,40,90]);
 		euc.wri= function(n) {
 			//print(n);
 			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},500);return;} euc.busy=euc.busy=setTimeout(()=>{euc.busy=0;},500);
@@ -220,8 +220,8 @@ euc.off=function(err){
 		if ( err==="Connection Timeout"  )  {
 			if (set.def.cli) console.log("reason :timeout");
 			euc.state="LOST";
-			if (euc.dash.lock==1) digitalPulse(D16,1,250);
-			else digitalPulse(D16,1,[250,200,250,200,250]);
+			if (euc.dash.lock==1) buzz(D16,1,250);
+			else buzz(D16,1,[250,200,250,200,250]);
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
 				euc.conn(euc.mac); 

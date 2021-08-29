@@ -118,7 +118,7 @@ touchHandler[0]=function(e,x,y){
   case 5: case 12: //tap event//long press event
 	this.timeout();
     if(0<y&&y<100) {
-		digitalPulse(D16,1,[30,50,30]);
+		buzz(D16,1,[30,50,30]);
 		if ( face[0].set === 1 ) { //kingsong
 			if (!Boolean(require("Storage").read('eucKingsong'))) {face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Kingsong");
@@ -151,7 +151,7 @@ touchHandler[0]=function(e,x,y){
 			face.go('w_scan',0,'e7fe');
 		}
 	}else if(100<y&&y<200) {
-		digitalPulse(D16,1,[30,50,30]);
+		buzz(D16,1,[30,50,30]);
 		if ( face[0].set === 1 ) {
 			if (!Boolean(require("Storage").read('eucInmotion'))) {face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Inmotion");
@@ -175,7 +175,7 @@ touchHandler[0]=function(e,x,y){
 			euc.dash.maker="Ninebot";
 			face.go('w_scan',0,'ffe0'); return;
 		}
-    }else digitalPulse(D16,1,40); 
+    }else buzz(D16,1,40); 
     break;
   case 1: //slide down event
     face.go(set.dash[set.def.dash.face],0);
@@ -184,7 +184,7 @@ touchHandler[0]=function(e,x,y){
     if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
       if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
       else w.gfx.bri.set(this.bri);
-      digitalPulse(D16,1,[30,50,30]);
+      buzz(D16,1,[30,50,30]);
       this.timeout();
     }else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 	this.timeout();
@@ -194,7 +194,7 @@ touchHandler[0]=function(e,x,y){
 		if (face[0].ntid) clearTimeout(face[0].ntid); face[0].ntid=0;
 		face[0].set ++ ;
 		face[0].page(face[0].set);
-    }else digitalPulse(D16,1,40);    
+    }else buzz(D16,1,40);    
 	this.timeout();
     break;
   case 4: //slide right event (back action)
