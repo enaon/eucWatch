@@ -111,7 +111,7 @@ face[0] = {
     //find my phone
     if (set.fmp!=this.fmp) {
       this.fmp=set.fmp;
-	  this.btn(this.fmp,0,80,75,155,require("heatshrink").decompress(atob("mEwwILIv/+AgUD///4AFBg8//HgAoMGj/4sAFCAQIFfgYFD4EPAofghwFDuEcAoc4nAFDjkw4wFBscMuIFDx1hwwFBAYPjAofG8YdD4/HApPjAqIjEAovHsY1D45BFJopZFMopxFPosHAofwSoq/jAo0HAQL1Cgf//40BAAM87wECAAg")),13,94,col("white"),col("red"),(set.bt==3)?col("white"):0,(set.bt==3)?col("dgray"):col("gray"));//btn3
+	  this.btn(this.fmp,0,80,75,155,require("heatshrink").decompress(atob("mEwwILIv/+AgUD///4AFBg8//HgAoMGj/4sAFCAQIFfgYFD4EPAofghwFDuEcAoc4nAFDjkw4wFBscMuIFDx1hwwFBAYPjAofG8YdD4/HApPjAqIjEAovHsY1D45BFJopZFMopxFPosHAofwSoq/jAo0HAQL1Cgf//40BAAM87wECAAg")),13,94,col("white"),col("red"),(set.bt==3)?col("white"):0,(set.bt==3)?col("dgray"):col("gray"));//btn4
       }
     //acc on/off
     if (set.def.acc!=this.acc) {
@@ -273,8 +273,8 @@ touchHandler[0]=function(e,x,y){
           set.def.cli=1-set.def.cli;set.upd();buzz(D16,1,[30,50,30]);
         }else {
 			set.def.buzz=1-set.def.buzz;
-			if (set.def.buzz) buzz=function(){};
-			else buzz=digitalPulse;
+			if (set.def.buzz) buzz=digitalPulse;
+			else buzz=function(){};
 			buzz(D16,1,[30,50,30]);
 		}
       }else if(77>x&&77<y&&y<159){//btn4
