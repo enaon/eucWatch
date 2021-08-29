@@ -84,7 +84,7 @@ var set={
 		hidT:"media", //joy/kb/media
 		bri:2, //Screen brightness 1..7
 		acctype:"0",
-		touchtype:"0";
+		touchtype:"0",
 		buzz:1
 		};
 		set.updateSettings();
