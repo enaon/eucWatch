@@ -116,28 +116,28 @@ touchHandler[0]=function(e,x,y){
               w.gfx.flip();
               face[0].init();return;
             }
-			buzz(D16,1,40);
+			buzzer(D16,1,40);
 		}
 		else {
 			if ( x<=120 && y<100 ) { 
 				euc.dash.lock= 1- euc.dash.lock;
 				face[0].btn(euc.dash.lock,"BEEP",28,60,35,1453,1365,0,0,119,97);
 				face[0].ntfy("BEEP ON CON/DIS","NO BEEP",22,(euc.dash.lock)?1453:1365,euc.dash.lock);
-				buzz(D16,1,[30,50,30]);
+				buzzer(D16,1,[30,50,30]);
 			}else if ( 120<=x && y<=100 ) { //
-				buzz(D16,1,40);	
+				buzzer(D16,1,40);	
 				face[0].ntfy("NOT YET","",19,3840,1);
 				//face.go("dashVeteranLimits",0);
 				//return;	
 			}else if ( x<=120 && 100<=y ) { 
 	            face[0].ntfy("HOLD -> CLEAR METER","",19,1365,1);
-				buzz(D16,1,[30,50,30]);	
+				buzzer(D16,1,[30,50,30]);	
 			}else if ( 120<=x && 100<=y ) { //horn        
 				euc.dash.horn=1-euc.dash.horn;
 				face[0].btn(euc.dash.horn,"HORN",25,185,135,1453,1365,122,100,239,195);
 				face[0].ntfy("BUTTON IS HORN >2KPH","HORN DISABLED",(euc.dash.horn)?18:20,(euc.dash.horn)?1453:1365,euc.dash.horn);
-				buzz(D16,1,[30,50,30]);						
-			}else buzz(D16,1,[30,50,30]);
+				buzzer(D16,1,[30,50,30]);						
+			}else buzzer(D16,1,[30,50,30]);
 		}
 		this.timeout();
 		break;
@@ -149,12 +149,12 @@ touchHandler[0]=function(e,x,y){
 		if ( 200<=y && x<=50 ) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzz(D16,1,[30,50,30]);
+			buzzer(D16,1,[30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		this.timeout();
 		break;
 	case 3: //slide left event
-		buzz(D16,1,40);
+		buzzer(D16,1,40);
 		this.timeout();
 		break;
 	case 4: //slide right event (back action)
@@ -163,12 +163,12 @@ touchHandler[0]=function(e,x,y){
 	case 12: //long press event
 		if (face[0].set) { 
 			face[0].set=0;face[0].init();
-			buzz(D16,1,[30,50,30]);	
+			buzzer(D16,1,[30,50,30]);	
 		}else if ( x<=120 && 100<=y ) { 
             face[0].ntfy("METER CLEARED","",19,1453,1);
 			euc.wri("clearMeter");
-			buzz(D16,1,[30,50,30]);		
-		}else buzz(D16,1,40);
+			buzzer(D16,1,[30,50,30]);		
+		}else buzzer(D16,1,40);
 		this.timeout();
 		break;
   }

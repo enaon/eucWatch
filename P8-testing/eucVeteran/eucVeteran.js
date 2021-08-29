@@ -143,7 +143,7 @@ euc.conn=function(mac){
 				euc.horn=0;
 			}else if (n=="start") {
 				c.writeValue(euc.cmd((euc.dash.light)?"setLightOn":"setLightOff")).then(function() {
-					buzz(D16,1,[100,100,150,]);
+					buzzer(D16,1,[100,100,150,]);
 					return c.startNotifications(); 
 				}).then(function()  {
 					let md={"1":"SETs","2":"SETm","3":"SETh"};
@@ -200,8 +200,8 @@ euc.off=function(err){
 		if ( err==="Connection Timeout"  )  {
 			if (set.def.cli) console.log("reason :timeout");
 			euc.state="LOST";
-			if (euc.dash.lock==1) buzz(D16,1,250);
-			else buzz(D16,1,[250,200,250,200,250]);
+			if (euc.dash.lock==1) buzzer(D16,1,250);
+			else buzzer(D16,1,[250,200,250,200,250]);
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
 				euc.conn(euc.mac); 

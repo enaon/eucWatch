@@ -83,12 +83,12 @@ touchHandler[0]=function(e,x,y){
   switch (e) {
   case 5: //tap event
     if(30<x&&x<115&&130<y&&y<200) {
-	  buzz(D16,1,[30,50,30]);//send double buzz pulse to indicate tap was acknowledged.
+	  buzzer(D16,1,[30,50,30]);//send double buzz pulse to indicate tap was acknowledged.
       face[0].btn=1-face[0].btn;
     }else if(125<x&&x<210&&130<y&&y<200) {
-	  buzz(D16,1,[30,50,30]);
+	  buzzer(D16,1,[30,50,30]);
       face.go("alarm",0);return;
-    }else buzz(D16,1,40); //send short buzz pulse to indicate tap was not acknowledged.
+    }else buzzer(D16,1,40); //send short buzz pulse to indicate tap was not acknowledged.
     break;
   case 1: //slide down event-on directional swipes the x,y indicate the point of starting the swipe, so one can swipe up/dn on buttons like on the brightenss button at the main settings face. 
     //face.go(face.appPrev,face.pagePrev);return; //return when changing faces, so that this action will not reset this face timeout. 
@@ -98,17 +98,17 @@ touchHandler[0]=function(e,x,y){
     if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
       if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
       else w.gfx.bri.set(this.bri);
-      buzz(D16,1,[30,50,30]);
-    } else buzz(D16,1,40);
+      buzzer(D16,1,[30,50,30]);
+    } else buzzer(D16,1,40);
     break;
   case 3: //slide left event
-    buzz(D16,1,40);    
+    buzzer(D16,1,40);    
     break;
   case 4: //slide right event (back action)
     face.go(face.appPrev,face.pagePrev);return;
     //break;
   case 12: //touch and hold(long press) event
-    buzz(D16,1,40);  
+    buzzer(D16,1,40);  
     break;
   default: //reset face timeout on every touch action, this function is in the handler file. 
     this.timeout();

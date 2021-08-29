@@ -161,8 +161,8 @@ set.def = require('Storage').readJSON('setting.json', 1);
 if (!set.def) {set.resetSettings();set.updateSettings();}
 if (!set.def.rstP) set.def.rstP="D13";
 if (!set.def.rstR) set.def.rstR=0xA5;
-if (set.def.buzz) buzz=digitalPulse;
-else buzz=function(){};
+if (set.def.buzz) buzzer=digitalPulse;
+else buzzer=function(){};
 //dash
 require('Storage').list(/dash_/).forEach(dashfile=>{
 	set.dash.push(dashfile);
@@ -365,12 +365,12 @@ function buttonHandler(s){
 		this.press=false;
 		if (global.euc&&euc.state=="READY"&&euc.horn&&euc.dash.horn) {euc.wri("hornOff");return;}
 		if (face.pageCurr==-1) {
-			buzz(D16,1,[60,40,60]);
+			buzzer(D16,1,[60,40,60]);
 			face.go((global.euc&&euc.state!="OFF")?set.dash[set.def.dash.face]:face.appCurr,0);
 		}else { 
 			if (face.appCurr=="main"&&face.pagePrev!=-1&&face.pagePrev!=2) {
 				face.go("main",-1);
-				buzz(D16,1,100);
+				buzzer(D16,1,100);
 			}else{
 				let to=face.pageCurr+1;
 				if (to>=2) to=0;

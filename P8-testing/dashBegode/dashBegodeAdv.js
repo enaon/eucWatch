@@ -124,23 +124,23 @@ touchHandler[0]=function(e,x,y){
 			if (euc.dash.mode==0) {euc.dash.mode=2;euc.wri("rideMed");face[0].btn("MODE",18,60,15,col("raf2"),0,0,119,97,"MED",30,60,50);}
 			else if (euc.dash.mode==2) {euc.dash.mode=4;euc.wri("rideHard");face[0].btn("MODE",18,60,15,col("raf4"),0,0,119,97,"HARD",30,60,50);}
 			else if (euc.dash.mode==4) {euc.dash.mode=0;euc.wri("rideSoft");face[0].btn("MODE",18,60,15,col("raf3"),0,0,119,97,"SOFT",30,60,50);}
-			buzz(D16,1,[30,50,30]);		
+			buzzer(D16,1,[30,50,30]);		
 		}else if ( 120<=x  && y<=100 ) { //calibrate
-            buzz(D16,1,[30,50,30]);
+            buzzer(D16,1,[30,50,30]);
 			face.go("dashBegodeCalibrate",0);
 			return;
 		}else if ( x<=120 && 100<=y ) {   //limits
 			euc.dash.spd3=euc.dash.spdT;
 			if (99 < euc.dash.spd3 ) euc.dash.spd3=99;
-			buzz(D16,1,[30,50,30]);		
+			buzzer(D16,1,[30,50,30]);		
 			face.go("dashBegodeLimits",0);
 			return;
 /*		}else if ( 120<=x && 100<=y ) { //pass
-			buzz(D16,1,[30,50,30]);		
+			buzzer(D16,1,[30,50,30]);		
 			if (euc.dash.pass.length>=4) face.go("dashBegodePass",5);
 			else face.go("dashBegodePass",0);
 			return;
-*/		}else buzz(D16,1,[30,50,30]);
+*/		}else buzzer(D16,1,[30,50,30]);
 		this.timeout();
 		break;
 	case 1: //slide down event
@@ -151,12 +151,12 @@ touchHandler[0]=function(e,x,y){
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzz(D16,1,[30,50,30]);
+			buzzer(D16,1,[30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		this.timeout();
 		break;
 	case 3: //slide left event
-		buzz(D16,1,40);    
+		buzzer(D16,1,40);    
 		this.timeout();
 		break;
 	case 4: //slide right event (back action)
