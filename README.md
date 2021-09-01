@@ -8,7 +8,7 @@
 
 
 
-#### Espruino Installation on P8/P22(B) [how-to](https://enaon.github.io/eucWatch/tools/hackme/)
+#### Espruino Installation on P8/P22(B/C) [how-to](https://enaon.github.io/eucWatch/tools/hackme/)
 
 ### Loader version:
 
