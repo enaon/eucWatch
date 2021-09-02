@@ -145,7 +145,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 	euc.dash.lock=0;
 	//write function
 	euc.wri=function(i){
-		if (i==="end") {
+		if (euc.state==="OFF"||l=="end") {
 			euc.busy=1;
 			if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 			euc.loop=setTimeout( function(){ 
@@ -165,7 +165,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 					euc.tmp.count++;
 					if (euc.tmp.count>=21)euc.tmp.count=0;
 					euc.wri(euc.tmp.count);
-				},50);	
+				},100);	
 			}).catch(function(err)  {
 				euc.off("write fail");	
 			});
@@ -204,7 +204,7 @@ euc.off=function(err){
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
 				if (euc.state!="OFF") euc.conn(euc.mac); 
-			}, 500);
+			}, 1000);
 		} else {
 			if (set.def.cli) console.log("reason :",err);
 			euc.state="RETRY";

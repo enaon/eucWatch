@@ -164,7 +164,7 @@ if (!set.def.rstR) set.def.rstR=0xA5;
 if (set.def.buzz) buzzer=digitalPulse;
 else buzzer=function(){};
 //dash
-require('Storage').list(/dash_/).forEach(dashfile=>{
+require('Storage').list("dash_").forEach(dashfile=>{
 	set.dash.push(dashfile);
 });
 if (!Boolean(require("Storage").read("dash.json"))) { 
@@ -741,7 +741,7 @@ cron={
 					let v=set.read("logDaySlot"+set.def.dash.slot,pr);
 					set.write("logDaySlot"+set.def.dash.slot,pr,((euc.log.trp[0])?euc.dash.trpT-euc.log.trp[0]:0)+((v)?v:0));
 				}
-				require('Storage').list(/logDaySlot/).forEach(logfile=>{set.write(logfile.split(".")[0],x);});
+				require('Storage').list("logDaySlot").forEach(logfile=>{set.write(logfile.split(".")[0],x);});
 				euc.log.trp[0]=0;
 			},
 			day:x=>{
@@ -750,7 +750,7 @@ cron={
 					let v=set.read("logWeekSlot"+set.def.dash.slot,pr);
 					set.write("logWeekSlot"+set.def.dash.slot,pr,((euc.log.trp[1])?euc.dash.trpT-euc.log.trp[1]:0)+((v)?v:0));
 				}
-				require('Storage').list(/logWeekSlot/).forEach(logfile=>{set.write(logfile.split(".")[0],x);});
+				require('Storage').list("logWeekSlot").forEach(logfile=>{set.write(logfile.split(".")[0],x);});
 				euc.log.trp[1]=0;
 			},
 			month:x=>{
@@ -759,7 +759,7 @@ cron={
 					let v=set.read("logYearSlot"+set.def.dash.slot,pr);
 					set.write("logYearSlot"+set.def.dash.slot,pr,((euc.log.trp[2])?euc.dash.trpT-euc.log.trp[2]:0)+((v)?v:0));
 				}
-				require('Storage').list(/logYearSlot/).forEach(logfile=>{set.write(logfile.split(".")[0],x);});
+				require('Storage').list("logYearSlot").forEach(logfile=>{set.write(logfile.split(".")[0],x);});
 				euc.log.trp[2]=0;
 			}
 		}

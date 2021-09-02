@@ -94,6 +94,7 @@ euc.conn=function(mac){
 			//read
 			euc.rCha.on('characteristicvaluechanged', function(event) {
 				//let data=event.target.value;
+				if (euc.busy) return;
 				if (event.target.value.buffer[3] != 51 || !validateChecksum(event.target.value.buffer)) {
 					//print ("packet dropped: ",event.target.value.buffer);
 					return;
@@ -171,7 +172,6 @@ euc.conn=function(mac){
 			global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
 				euc.off(reason);
 			});
-			euc.rCha.startNotifications();	
 			return  rc;
 		}).then(function(c) {
 			//connected 
@@ -182,17 +182,52 @@ euc.conn=function(mac){
 			//write function
 			euc.wri=function(cmd,value){
 				if (euc.state==="OFF"||cmd=="end") {
+					euc.busy=1;
 					if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
-					setTimeout(()=>{global["\xFF"].BLE_GATTS.disconnect().catch(function(err)  {if (set.def.cli) console.log("EUC OUT disconnect failed:", err);});},200);
+					euc.loop=setTimeout(function(){ 
+						euc.loop=0;
+						c.writeValue(euc.cmd("lightsOff")).then(function() {
+							global["\xFF"].BLE_GATTS.disconnect(); 
+						}).catch(function(err)  {
+							euc.off("end fail");	
+						});
+					},500);	
+				}else if (cmd=="start") {
+					euc.busy=0;
+					c.writeValue(euc.cmd((euc.dash.light)?"lightsOn":"lightsOff")).then(function() {
+						euc.rCha.startNotifications();	
+						if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
+						euc.loop=setTimeout(function(){ 
+							euc.loop=0;
+							euc.busy=0;
+							euc.wri("live");
+						},300);	
+					}).catch(function(err)  {
+						euc.off("end fail");	
+					});
+				}else if (cmd=="hornOn") {
+					euc.busy=1;euc.horn=1;
+					c.writeValue(euc.cmd("playSound",24)).then(function() { 
+						euc.horn=0;
+						if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
+						euc.loop=setTimeout(function(){
+							euc.loop=0;
+							euc.busy=0;
+							euc.wri("live");	
+						},125);
+					});
+				}else if (cmd=="hornOff") {
+					euc.horn=0;					
 				} else {
+					if (euc.busy) return; 
 					euc.wCha.writeValue(euc.cmd(cmd,value)).then(function() {
-						if (!euc.busy) { 
-							euc.loop=setTimeout(function(t,o){
+						if (euc.busy) return; 
+						if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
+						euc.loop=setTimeout(function(){
 								euc.loop=0;
 								euc.wri("live");	
 								//print("loop");
-							},125);
-						}
+						},125);
 					}).catch(function(err)  {
 						euc.off("writefail");	
 					});
@@ -203,8 +238,7 @@ euc.conn=function(mac){
 				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 				set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
 			}			
-			euc.busy=0;
-			setTimeout(() => {euc.wri("live");}, 500);
+			setTimeout(() => {euc.wri("start");}, 200);
 		//reconnect
 		}).catch(function(err)  {
 			euc.off(err);
@@ -225,34 +259,35 @@ euc.off=function(err){
 			else buzzer(D16,1,[250,200,250,200,250]);
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
+				if (euc.state=="OFF") return;
 				euc.conn(euc.mac); 
 			}, 5000);
 		}else if ( err==="Disconnected"|| err==="Not connected")  {
 			if (set.def.cli) console.log("reason :",err);
 			euc.state="FAR";
-			// if (euc.dash.lock==1) buzzer(D16,1,100);
-			// else buzzer(D16,1,[100,150,100]);
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
+				if (euc.state=="OFF") return;
 				euc.conn(euc.mac); 
-			}, 500);
+			}, 1000);
 		} else {
 			if (set.def.cli) console.log("reason :",err);
 			euc.state="RETRY";
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
+				if (euc.state=="OFF") return;
 				euc.conn(euc.mac); 
 			}, 1500);
 		}
 	} else {
-		if (set.def.cli) console.log("EUC: OUT");
+		if (set.def.cli) console.log("EUC OUT:",err);
+		if (euc.horn) {clearInterval(euc.horn);euc.horn=0;}
 		global["\xFF"].bleHdl=[];
-		delete euc.off;
-		delete euc.conn;
-		delete euc.wri;
-		delete euc.tmp;
-		delete euc.cmd;
-		//delete euc.dash.trpS;
+		if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+		euc.off=function(err){if (set.def.cli) console.log("EUC off, not connected",err);};
+		euc.wri=function(err){if (set.def.cli) console.log("EUC write, not connected",err);};
+		euc.conn=function(err){if (set.def.cli) console.log("EUC conn, not connected",err);};
+		euc.cmd=function(err){if (set.def.cli) console.log("EUC cmd, not connected",err);};
 		delete euc.serv;
 		delete euc.wCha;
 		delete euc.rCha;

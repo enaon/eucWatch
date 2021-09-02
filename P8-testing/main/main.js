@@ -193,18 +193,19 @@ face[0] = {
 					if (euc.state !== "OFF") {
 						this.g.drawString(euc.state,119-(this.g.stringWidth(euc.state)/2),215); //
 					} else 	{
-						let tot=0;
-						require('Storage').list(/logYearSlot/).forEach(logfile=>{
-							let log=require("Storage").readJSON(logfile,1);
-							for (var key in log) {
-								tot += log[key];
-							};
+						this.tot=0;
+						require('Storage').list("logYearSlot").forEach(logfile=>{
+							this.log=require("Storage").readJSON(logfile,1);
+							for (var key in this.log) {
+								this.tot += this.log[key];
+							}
 						});
-						if (set.def.dash.tot) tot += Number(set.def.dash.tot);
-						tot=Math.round(tot);
-						if (3<tot.toString().length) tot=tot.toString().substring(0,tot.toString().length-3)+","+tot.toString().substring(tot.toString().length-3, tot.toString().length)
+						if (set.def.dash.tot) this.tot += Number(set.def.dash.tot);
+						this.tot=Math.round(this.tot);
+						if (3<this.tot.toString().length) 
+                this.tot=this.tot.toString().substring(0,this.tot.toString().length-3)+","+this.tot.toString().substring(this.tot.toString().length-3, this.tot.toString().length);
 						this.g.setFont("Vector",40);
-						this.g.drawString(tot+" "+((set.def.dash.mph)?"mi":"Km"),119-(this.g.stringWidth(tot+" "+((set.def.dash.mph)?"mi":"Km"))/2),200); 
+						this.g.drawString(this.tot+" "+((set.def.dash.mph)?"mi":"Km"),119-(this.g.stringWidth(this.tot+" "+((set.def.dash.mph)?"mi":"Km"))/2),200); 
 					}
 					this.g.flip();
 				}
@@ -237,7 +238,7 @@ face[0] = {
 		this.g.fillRect(203,55,240,150);
 		this.g.setColor(1,this.fsec);//
 		this.g.setFont("Vector",18);
-		let sec=(set.def.hr24)?"24H":(this.t[0]<12)?"AM":"PM"
+		let sec=(set.def.hr24)?"24H":(this.t[0]<12)?"AM":"PM";
 		this.g.drawString(sec,241-(this.g.stringWidth(sec)),74); //hours mode
 		this.g.setFont("Vector",30);
 		this.g.drawString(this.s[0]+this.s[1],206,101); //seconds
