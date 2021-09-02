@@ -145,7 +145,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 	euc.dash.lock=0;
 	//write function
 	euc.wri=function(i){
-		if (euc.state==="OFF"||l=="end") {
+		if (euc.state==="OFF"||i=="end") {
 			euc.busy=1;
 			if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 			euc.loop=setTimeout( function(){ 
