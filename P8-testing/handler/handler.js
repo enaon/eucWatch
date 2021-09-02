@@ -560,7 +560,7 @@ if (set.def.touchtype=="816"){ //816
 }
 //find acc
 if (set.def.acctype==0) {
- i2c.writeTo(0x18,0x0F)
+ i2c.writeTo(0x18,0x0F);
 	set.def.acctype=( i2c.readFrom(0x18,1)==17)?"SC7A20":"BMA421";
 }
 //accelerometer(wake on wrist turn)
