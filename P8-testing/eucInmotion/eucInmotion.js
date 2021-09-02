@@ -207,6 +207,7 @@ euc.conn=function(mac){
 					});
 				}else if (cmd=="hornOn") {
 					euc.busy=1;euc.horn=1;
+					if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 					c.writeValue(euc.cmd("playSound",24)).then(function() { 
 						euc.horn=0;
 						if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
