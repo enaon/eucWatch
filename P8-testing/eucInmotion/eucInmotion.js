@@ -228,7 +228,6 @@ euc.conn=function(mac){
 						euc.loop=setTimeout(function(){
 								euc.loop=0;
 								euc.wri("live");	
-								//print("loop");
 						},125);
 					}).catch(function(err)  {
 						euc.off("writefail");	
