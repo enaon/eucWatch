@@ -138,17 +138,17 @@ face[0] = {
 face[1] = {
 	offms:1000,
 	init: function(){
-	return true;
+	return;
 	},
 	show : function(){
 		face.go("main",0);
-		return true;
+		return;
 	},
 	clear: function(){
-		return true;
+		return;
 	},
 	off: function(){
-		return true;
+		return;
 	},
 };	
 

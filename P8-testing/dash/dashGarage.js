@@ -180,14 +180,14 @@ face[0] = {
 face[1] = {
   offms:1000,
   init: function(){
-  return true;
+  return;
   },
   show : function(){
-	(euc.state=="OFF")?face.go("dashOff",0):face.go(set.dash[set.def.dash.face],0);
-    return true;
+ 	(euc.state=="OFF")?face.go("dashOff",0):face.go(set.dash[set.def.dash.face],0);
+    return;
   },
    clear: function(){
-   return true;
+   return;
   },
    off: function(){
    this.clear();
