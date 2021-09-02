@@ -181,7 +181,7 @@ euc.conn=function(mac){
 			euc.dash.lock=0;
 			//write function
 			euc.wri=function(cmd,value){
-				if (euc.state==="OFF"||cmd=="end") {
+				if (euc.state==="OFF"||cmd==="end") {
 					euc.busy=1;
 					if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 					euc.loop=setTimeout(function(){ 
@@ -192,7 +192,7 @@ euc.conn=function(mac){
 							euc.off("end fail");	
 						});
 					},500);	
-				}else if (cmd=="start") {
+				}else if (cmd==="start") {
 					euc.busy=0;
 					c.writeValue(euc.cmd((euc.dash.light)?"lightsOn":"lightsOff")).then(function() {
 						euc.rCha.startNotifications();	
@@ -205,7 +205,7 @@ euc.conn=function(mac){
 					}).catch(function(err)  {
 						euc.off("end fail");	
 					});
-				}else if (cmd=="hornOn") {
+				}else if (cmd==="hornOn") {
 					euc.busy=1;euc.horn=1;
 					if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 					c.writeValue(euc.cmd("playSound",24)).then(function() { 
@@ -217,7 +217,7 @@ euc.conn=function(mac){
 							euc.wri("live");	
 						},125);
 					});
-				}else if (cmd=="hornOff") {
+				}else if (cmd==="hornOff") {
 					euc.horn=0;					
 				} else {
 					if (euc.busy) return; 
