@@ -239,25 +239,25 @@ touchHandler[0]=function(e,x,y){
 				}
 			}else if (face[0].set=="setTime") {
 				if ( x <=120 && y <= 120) { //hour up
+					buzzer(D16,1,[30,50,30]);
 					setTime(Date().setHours(Date().getHours()+1)/1000);
 					if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;
 					face[0].setTime();
-					buzzer(D16,1,[30,50,30]);
 				}else if ( x <=120 && 120 <= y) {//hour dn
+					buzzer(D16,1,[30,50,30]);
 					setTime(Date().setHours(Date().getHours()-1)/1000);
 					if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;
 					face[0].setTime();
-					buzzer(D16,1,[30,50,30]);
 				}else if ( 120 <= x && y <= 120) { //min up
+					buzzer(D16,1,[30,50,30]);
 					setTime(Date().setMinutes(Date().getMinutes()+1)/1000);
 					if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;
 					face[0].setTime();
-					buzzer(D16,1,[30,50,30]);
 				}else if ( 120 <= x && 120 <= y) {//min dn
+					buzzer(D16,1,[30,50,30]);
 					setTime(Date().setMinutes(Date().getMinutes()-1)/1000);
 					if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;
 					face[0].setTime();
-					buzzer(D16,1,[30,50,30]);				
 				}else {
 					face[0].set=0;
 					w.gfx.clear();
@@ -266,29 +266,29 @@ touchHandler[0]=function(e,x,y){
 				}
 			}else if (face[0].set=="setDate") {
 				if ( x <=80 &&  y <= 120) { //date up
+					buzzer(D16,1,[30,50,30]);
 					setTime(Date().setDate(Date().getDate()+1)/1000)
 					face[0].setDate();
-					buzzer(D16,1,[30,50,30]);
 				}else if ( x <=80 && 120 <= y) {//date dn
+					buzzer(D16,1,[30,50,30]);
 					setTime(Date().setDate(Date().getDate()-1)/1000)
 					face[0].setDate();
-					buzzer(D16,1,[30,50,30]);
 				}else if ( 80 <= x && x <=160 && y <= 120) { //month up
+					buzzer(D16,1,[30,50,30]);
 					setTime(Date().setMonth(Date().getMonth()+1)/1000)
 					face[0].setDate();
-					buzzer(D16,1,[30,50,30]);
 				}else if ( 80 <= x && x <=160 && 120 <= y) {//month dn
+					buzzer(D16,1,[30,50,30]);
 					setTime(Date().setMonth(Date().getMonth()-1)/1000)
 					face[0].setDate();
-					buzzer(D16,1,[30,50,30]);
 				}else if ( 160 <= x && y <= 120) { //year up
+					buzzer(D16,1,[30,50,30]);
 					setTime(Date().setFullYear(Date().getFullYear()+1)/1000)
 					face[0].setDate();
-					buzzer(D16,1,[30,50,30]);
 				}else if ( 160 <= x && 120 <= y) {//year dn
+					buzzer(D16,1,[30,50,30]);
 					setTime(Date().setFullYear(Date().getFullYear()-1)/1000)
 					face[0].setDate();
-					buzzer(D16,1,[30,50,30]);						
 				}else {
 					face[0].set=0;
 					w.gfx.clear();
