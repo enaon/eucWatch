@@ -194,7 +194,12 @@ touchHandler[0]=function(e,x,y){
 		return;
 	case 1: //slide down event
 		euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
-		face.go(face.appPrev,0);
+		if (face.faceSave!=-1) {
+			face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
+		}else{
+			if (face.appPrev=="settings") {face.appPrev="main";face.pagePrev=0;}
+			face.go(face.appPrev,face.pagePrev,face.pageArg);return;
+		}
 		return; 
 	case 2: //slide up event
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 

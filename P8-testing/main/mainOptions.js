@@ -322,7 +322,12 @@ touchHandler[0]=function(e,x,y){
 			w.gfx.clear();
 			face[0].init();
 		}else {
-			face.go(face.appPrev,0);
+			if (face.faceSave!=-1) {
+				face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
+			}else{
+				if (face.appPrev=="settings") {face.appPrev="main";face.pagePrev=0;}
+				face.go(face.appPrev,face.pagePrev,face.pageArg);return;
+			}
 			return; 
 		}break;
 	case 2: //slide up event
