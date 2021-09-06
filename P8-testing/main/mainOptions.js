@@ -297,21 +297,21 @@ touchHandler[0]=function(e,x,y){
 				}
 			}
 		}else if (  x <=120 &&  y <= 80 ) {//setTime
+			buzzer(D16,1,[30,50,30]);
 			face[0].set="setTime";
 			face[0].setTime();			
-			buzzer(D16,1,[30,50,30]);
 		}else if ( 120 <= x && y <= 80 ) {//12/24 hour mode
+			buzzer(D16,1,[30,50,30]);
 			set.def.hr24=1-set.def.hr24;
 			face[0].btn(1,(set.def.hr24)?"24 H":"12 H",26,180,25,1453,0,120,0,239,79);//2
-			buzzer(D16,1,[30,50,30]);
 		}else if ( x <=160 && 80 <= y && y <= 160 ) { //setDate
+			buzzer(D16,1,[30,50,30]);	
 			face[0].set="setDate";
 			face[0].setDate();
-			buzzer(D16,1,[30,50,30]);	
 		}else if (  80 <= y && y <= 160 ) { //about
+			buzzer(D16,1,[30,50,30]);
 			face[0].set="info";
 			face[0].info();
-			buzzer(D16,1,[30,50,30]);
 		}else buzzer(D16,1,40);	
 		this.timeout();
 		return;
