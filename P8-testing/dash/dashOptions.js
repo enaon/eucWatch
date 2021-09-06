@@ -14,16 +14,13 @@ face[0] = {
 		this.g.setFont("Vector",25);
 		this.g.drawString("DASH OPTIONS",120-(this.g.stringWidth("DASH OPTIONS")/2),217); 
 		this.g.flip(); 
-		this.btn(1,(set.def.dash.mph)?"MPH":"KPH",30,40,25,2220,0,0,0,75,75);//1
-		this.btn(1,"o",20,100,20,2220,0,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);//2
-		//this.btn(set.def.dash.mph,(set.def.dash.mph)?"MPH":"KPH",30,40,25,col("olive"),1453,0,0,75,75);//1
-		//this.btn(set.def.dash.farn,"o",20,100,20,col("olive"),1453,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);//2
+		this.btn(1,(set.def.dash.mph)?"MPH":"KPH",30,40,25,1453,0,0,0,75,75);//1
+		this.btn(1,"o",20,100,20,1453,0,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);//2
 		let makr=set.read("dash","slot"+set.read("dash","slot")+"Maker"); 
 		if (makr) {
 			//if (makr=="Begode"){
 				this.btn(euc.dash.ampR,"AMP",15,200,10,1365,1365,160,0,239,75,(euc.dash.ampR)?"R":"N",30,200,35); //3
 				this.btn(1,"PACK",15,200,90,1365,col("olive"),160,80,239,155,euc.dash.bms*67.2|0,30,200,120); //6
-
 			//}else {
 			//	this.g.fillRect(160,0,239,75); //3
 			//}
@@ -163,18 +160,18 @@ touchHandler[0]=function(e,x,y){
 			//face[0].set="mph";
             buzzer(D16,1,[30,50,30]);
 			set.def.dash.mph=1-set.def.dash.mph;
-			face[0].btn(1,(set.def.dash.mph)?"MPH":"KPH",30,40,25,2220,0,0,0,75,75);
-			face[0].ntfy("SPEED & DISTANCE IN",(set.def.dash.mph)?"MILES":"KILOMETERS",30,1,1365,1500);
+			face[0].btn(1,(set.def.dash.mph)?"MPH":"KPH",30,40,25,1453,0,0,0,75,75);
+			face[0].ntfy("SPEED & DISTANCE IN",(set.def.dash.mph)?"MILES":"KILOMETERS",30,1,1453,1500);
 		}else if (75<= x && x < 155 && y < 75) { //2
 			//face[0].set="far";
 			buzzer(D16,1,[30,50,30]);
             set.def.dash.farn=1-set.def.dash.farn;
-			face[0].btn(1,"o",20,100,20,2220,0,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);
-			face[0].ntfy("TEMPERATURE IN",(set.def.dash.farn)?"FAHRENHEIT":"CELSIUS",30,1,1365,1500);
+			face[0].btn(1,"o",20,100,20,1453,0,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);
+			face[0].ntfy("TEMPERATURE IN",(set.def.dash.farn)?"FAHRENHEIT":"CELSIUS",30,1,1453,1500);
 		}else if (155 <= x && y < 75) { //3
 			euc.dash.ampR=1-euc.dash.ampR;
 			face[0].btn(euc.dash.ampR,"AMP",15,200,10,1365,1365,160,0,239,75,(euc.dash.ampR)?"R":"N",30,200,35); //3
-			face[0].ntfy("AMPERAGE REPORT",(euc.dash.ampR)?"REVERSED":"NORMAL",30,1,1365,1500);
+			face[0].ntfy("AMPERAGE REPORT",(euc.dash.ampR)?"REVERSED":"NORMAL",30,1,1453,1500);
             buzzer(D16,1,[30,50,30]);
 		}else if (x<75 && 75 <y && y < 155) { //4
 			face[0].set="spdF";
