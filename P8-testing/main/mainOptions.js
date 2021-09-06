@@ -117,7 +117,7 @@ face[0] = {
 			this.g.setColor(0,1365);
 			this.g.fillRect(100,55,203,150);
 			this.g.setColor(1,1535);
-			this.g.drawString(this.t[1],107,69);
+			this.g.drawString(this.t[1],107,75);
 			this.g.flip();
 		}
 		//seconds
@@ -126,9 +126,9 @@ face[0] = {
 		this.g.setColor(1,4095);//
 		this.g.setFont("Vector",18);
 		let sec=(set.def.hr24)?"24H":(this.t[0]<12)?"AM":"PM";
-		this.g.drawString(sec,241-(this.g.stringWidth(sec)),74); //hours mode
+		this.g.drawString(sec,241-(this.g.stringWidth(sec)),79); //hours mode
 		this.g.setFont("Vector",30);
-		this.g.drawString(this.s[0]+this.s[1],206,101); //seconds
+		this.g.drawString(this.s[0]+this.s[1],206,106); //seconds
 		this.g.flip(); 
 		//hours
 		if (this.t[0]!=this.hour){
@@ -148,10 +148,10 @@ face[0] = {
 			this.g.setColor(1,4095);
 			this.g.setFont("Vector",73);
 			if (set.def.hr24) {
-				this.g.drawString(this.hour,0,69); //hours
+				this.g.drawString(this.hour,0,74); //hours
 			} else {	
 				this.hour=(this.hour<10)?(this.hour=="00")?12:this.hour[1]:(this.hour<13)?this.hour:this.hour-12;
-				this.g.drawString(this.hour,(this.hour<10)?45:0,69); //hours
+				this.g.drawString(this.hour,(this.hour<10)?45:0,74); //hours
 			}
 			this.g.fillRect(91,90,95,94);
 			this.g.fillRect(91,110,95,114);
