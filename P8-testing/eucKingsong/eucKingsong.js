@@ -135,7 +135,7 @@ euc.conn=function(mac){
 					//euc.dash.watt=(inpk[13] << 8 | inpk[12])/100;
 					//print("watt :", euc.dash.watt);
 					//alarms
-					euc.dash.alrm=(euc.dash.spdL < euc.dash.spdT && euc.dash.spdL-4 < euc.dash.spd)?1:0;
+					euc.dash.alrm=(euc.dash.spdL < euc.dash.spdT && euc.dash.spdL-5 < euc.dash.spd)?1:0;
 					almL.unshift(euc.dash.alrm);
 					if (20<almL.length) almL.pop();
 					//haptic
