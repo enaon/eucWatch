@@ -11,9 +11,12 @@ face[0] = {
 		this.g.setFont("Vector",25);
 		this.g.drawString("MAIN OPTIONS",120-(this.g.stringWidth("MAIN OPTIONS")/2),217); 
 		this.g.flip(); 
-		this.btn(1,(set.def.hr24)?"24 HOUR MODE":"12 HOUR MODE",24,120,25,1453,0,0,0,239,75);//1
-		this.btn(1,"SET TIME",24,80,107,1365,0,0,80,155,155);//1
-		this.btn(1,"INFO",24,205,107,1365,0,160,80,239,155);//1
+		this.btn(1,"SET",20,60,15,1365,0,0,0,119,79,"TIME",26,60,45);//1
+		this.btn(1,(set.def.hr24)?"24 H":"12 H",26,180,25,1453,0,120,0,239,79);//2
+		this.btn(1,"SET",20,60,90,1365,0,0,80,119,155,"DATE",26,60,120);//3
+		this.btn(1,"ABOUT",24,180,107,1365,0,120,80,239,155);//4
+		this.min=-1;
+		this.hour=-1;
 		//this.run=true;
 	},
 	show : function(i){
@@ -103,23 +106,83 @@ face[0] = {
 		this.g.drawString("DEVMODE",136,210);
 		this.g.flip();		
 	},
-	setTime: function(){
-                
-		this.g.setColor(0,0);
-		this.g.fillRect(0,0,239,200); //all
-		this.g.setColor(1,col("lblue"));
+	setTime:function(){
+		//minutes
+		this.d=(Date()).toString().split(' ');
+		this.t=(this.d[4]).toString().split(':');
+		this.s=(this.t[2]).toString().split('');
+		if (this.t[1]!=this.min ){
+			this.min=this.t[1];
+			this.g.setFont("Vector",73);
+			this.g.setColor(0,1365);
+			this.g.fillRect(100,55,203,150);
+			this.g.setColor(1,1535);
+			this.g.drawString(this.t[1],107,69);
+			this.g.flip();
+		}
+		//seconds
+		this.g.setColor(0,1365);
+		this.g.fillRect(203,55,240,150);
+		this.g.setColor(1,4095);//
 		this.g.setFont("Vector",18);
-		this.g.drawString("MEMORY: "+process.memory().free+"/"+process.memory().total,120-(this.g.stringWidth("MEMORY: "+process.memory().free+"/"+process.memory().total)/2),0);  
-		this.g.drawString("IMAGE: "+process.version,120-(this.g.stringWidth("IMAGE: "+process.version)/2),25);  
-		this.g.drawString("ACC TYPE: "+set.def.acctype,120-(this.g.stringWidth("ACC TYPE: "+set.def.acctype)/2),50);  
-		this.g.drawString("TOUCH TYPE: "+set.def.touchtype,120-(this.g.stringWidth("TOUCH TYPE: "+set.def.touchtype)/2),75);  
-		
-		this.g.drawString("UPTIME: "+d+"D-"+h+"H-"+m+"M",120-(this.g.stringWidth("UPTIME: "+d+"D-"+h+"H-"+m+"M")/2),100);  
-		this.g.drawString("FLASH: "+require("Storage").getFree(),120-(this.g.stringWidth("FLASH: "+require("Storage").getFree())/2),125); 
-		this.g.drawString("TEMPERATURE: "+E.getTemperature(),120-(this.g.stringWidth("TEMPERATURE: "+E.getTemperature())/2),150);  
-		this.g.drawString("NAME: "+set.def.name,120-(this.g.stringWidth("NAME: "+set.def.name)/2),175);  
+		let sec=(set.def.hr24)?"24H":(this.t[0]<12)?"AM":"PM";
+		this.g.drawString(sec,241-(this.g.stringWidth(sec)),74); //hours mode
+		this.g.setFont("Vector",30);
+		this.g.drawString(this.s[0]+this.s[1],206,101); //seconds
+		this.g.flip(); 
+		//hours
+		if (this.t[0]!=this.hour){
+			this.g.setColor(0,0);
+			this.g.fillRect(0,0,239,54);
+			//this.g.setColor(0,1365);
+			this.g.flip();
+			this.g.setColor(0,0);
+			this.g.fillRect(0,161,239,239);
+			this.g.setColor(1,4095);
+			this.g.setFont("Vector",25);
+			this.g.drawString("SET TIME",120-(this.g.stringWidth("SET TIME")/2),217); 
+			this.g.flip();
+			this.hour=this.t[0];
+			this.g.setColor(0,1365);
+			this.g.fillRect(0,55,99,150);
+			this.g.setColor(1,4095);
+			this.g.setFont("Vector",73);
+			if (set.def.hr24) {
+				this.g.drawString(this.hour,0,69); //hours
+			} else {	
+				this.hour=(this.hour<10)?(this.hour=="00")?12:this.hour[1]:(this.hour<13)?this.hour:this.hour-12;
+				this.g.drawString(this.hour,(this.hour<10)?45:0,69); //hours
+			}
+			this.g.fillRect(91,90,95,94);
+			this.g.fillRect(91,110,95,114);
+			this.g.flip();
+		}
+		this.ntid=setTimeout(function(t,o){
+		  t.ntid=0;
+		  t.setTime();
+        },1000,this);
+	},
+	setDate:function(){
+		this.g.setColor(0,0);
+		this.g.fillRect(0,0,239,54);
+		this.g.flip();		
+		this.d=(Date()).toString().split(' ');
+		this.g.setColor(0,1365);
+		this.g.fillRect(0,55,239,160);
+		this.g.setColor(1,1535);
+		this.g.setFont("Vector",40);
+		this.g.drawString(this.d[2],25-(this.g.stringWidth(this.d[2])/2),90); 
+		//this.g.setFont("Vector",35);
+		this.g.drawString(this.d[1],95-(this.g.stringWidth(this.d[1])/2),90); 
+		//this.g.setFont("Vector",35);
+		this.g.drawString(this.d[3],195-(this.g.stringWidth(this.d[3])/2),90); 
 		this.g.flip();
-
+		this.g.setColor(0,0);
+		this.g.fillRect(0,161,239,239);
+		this.g.setColor(1,4095);
+		this.g.setFont("Vector",25);
+		this.g.drawString("SET DATE",120-(this.g.stringWidth("SET DATE")/2),217); 
+		this.g.flip();
 	},
 	tid:-1,
 	run:false,
@@ -169,31 +232,93 @@ touchHandler[0]=function(e,x,y){
 					E.reboot();
 				}else {
 					face[0].set=0;
+			   		if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;
 					w.gfx.clear();
 					face[0].init();
 					buzzer(D16,1,[30,50,30]);
 				}
+			}else if (face[0].set=="setTime") {
+				if ( x <=120 && y <= 120) { //hour up
+					setTime(Date().setHours(Date().getHours()+1)/1000);
+					if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;
+					face[0].setTime();
+					buzzer(D16,1,[30,50,30]);
+				}else if ( x <=120 && 120 <= y) {//hour dn
+					setTime(Date().setHours(Date().getHours()-1)/1000);
+					if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;
+					face[0].setTime();
+					buzzer(D16,1,[30,50,30]);
+				}else if ( 120 <= x && y <= 120) { //min up
+					setTime(Date().setMinutes(Date().getMinutes()+1)/1000);
+					if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;
+					face[0].setTime();
+					buzzer(D16,1,[30,50,30]);
+				}else if ( 120 <= x && 120 <= y) {//min dn
+					setTime(Date().setMinutes(Date().getMinutes()-1)/1000);
+					if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;
+					face[0].setTime();
+					buzzer(D16,1,[30,50,30]);				
+				}else {
+					face[0].set=0;
+					w.gfx.clear();
+					face[0].init();
+					buzzer(D16,1,40);
+				}
+			}else if (face[0].set=="setDate") {
+				if ( x <=80 &&  y <= 120) { //date up
+					setTime(Date().setDate(Date().getDate()+1)/1000)
+					face[0].setDate();
+					buzzer(D16,1,[30,50,30]);
+				}else if ( x <=80 && 120 <= y) {//date dn
+					setTime(Date().setDate(Date().getDate()-1)/1000)
+					face[0].setDate();
+					buzzer(D16,1,[30,50,30]);
+				}else if ( 80 <= x && x <=160 && y <= 120) { //month up
+					setTime(Date().setMonth(Date().getMonth()+1)/1000)
+					face[0].setDate();
+					buzzer(D16,1,[30,50,30]);
+				}else if ( 80 <= x && x <=160 && 120 <= y) {//month dn
+					setTime(Date().setMonth(Date().getMonth()-1)/1000)
+					face[0].setDate();
+					buzzer(D16,1,[30,50,30]);
+				}else if ( 160 <= x && y <= 120) { //year up
+					setTime(Date().setFullYear(Date().getFullYear()+1)/1000)
+					face[0].setDate();
+					buzzer(D16,1,[30,50,30]);
+				}else if ( 160 <= x && 120 <= y) {//year dn
+					setTime(Date().setFullYear(Date().getFullYear()-1)/1000)
+					face[0].setDate();
+					buzzer(D16,1,[30,50,30]);						
+				}else {
+					face[0].set=0;
+					w.gfx.clear();
+					face[0].init();
+					buzzer(D16,1,40);
+				}
 			}
-
-		}else if ( y <=80 ) {
-			set.def.hr24=1-set.def.hr24;
- 			face[0].btn(1,(set.def.hr24)?"24 HOUR MODE":"12 HOUR MODE",24,120,25,1453,0,0,0,239,75);//1
+		}else if (  x <=120 &&  y <= 80 ) {//setTime
+			face[0].set="setTime";
+			face[0].setTime();			
 			buzzer(D16,1,[30,50,30]);
-		}else if ( x <=160 && 80 <= y && y <= 160 ) { //setTime
-			face[0].set=1;
+		}else if ( 120 <= x && y <= 80 ) {//12/24 hour mode
+			set.def.hr24=1-set.def.hr24;
+			face[0].btn(1,(set.def.hr24)?"24 H":"12 H",26,180,25,1453,0,120,0,239,79);//2
+			buzzer(D16,1,[30,50,30]);
+		}else if ( x <=160 && 80 <= y && y <= 160 ) { //setDate
+			face[0].set="setDate";
+			face[0].setDate();
 			buzzer(D16,1,[30,50,30]);	
-		}else if (  80 <= y && y <= 160 ) { //info
+		}else if (  80 <= y && y <= 160 ) { //about
 			face[0].set="info";
 			face[0].info();
 			buzzer(D16,1,[30,50,30]);
 		}else buzzer(D16,1,40);	
-		
-		
 		this.timeout();
 		return;
 	case 1: //slide down event
 		if (face[0].set) {
 			face[0].set=0;
+	   		if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;
 			w.gfx.clear();
 			face[0].init();
 		}else {
@@ -214,6 +339,7 @@ touchHandler[0]=function(e,x,y){
 	case 4: //slide right event (back action)
 		if (face[0].set) {
 			face[0].set=0;
+			if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;
 			w.gfx.clear();
 			face[0].init();
 		}else {

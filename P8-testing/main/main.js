@@ -303,9 +303,9 @@ touchHandler[0]=function(e,x,y){
     if (e==5){
 	  if (x<158 && y<50){//date
 		if (notify.ring){
-			buzz(p,1,[30,50,30]);
+			buzzer(p,1,[30,50,30]);
 			set.gbSend({t:"call",n:"ignore"});notify.ring=0;
-		}else  buzz(p,1,40);
+		}else  buzzer(p,1,40);
 	  //batt notifications dismiss
 	  }else if (x>158 && y<50){//batt
 	  

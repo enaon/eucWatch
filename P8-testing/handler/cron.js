@@ -88,9 +88,9 @@ setTime(Date().setMonth(Date().getMonth()+1)/1000)
 month dn
 setTime(Date().setMonth(Date().getMonth()-1)/1000)
 year up
-setTime(Date().setgetFullYear(Date().getFullYear()+1)/1000)
+setTime(Date().setFullYear(Date().getFullYear()+1)/1000)
 yesr dn
-setTime(Date().setgetFullYear(Date().getFullYear()-1)/1000)
+setTime(Date().setFullYear(Date().getFullYear()-1)/1000)
 
 
 
