@@ -60,7 +60,7 @@ face[0]= {
     var t=(d[4]).toString().split(':');
     this.g.setColor(0,0);//header bck
     this.g.fillRect(0,0,239,38); 
-    this.g.setColor(1,col("lblue"));//header txt
+    this.g.setColor(1,1535);//header txt
     this.g.setFont("Vector",25);
 	this.g.drawString("ALARMS",4,6); 
     this.g.setFont("Vector",32);
@@ -76,9 +76,9 @@ face[0]= {
     this.g.setFont("Vector",55);  
     if (alrm[1].tmr!=this.al1) {
       this.al1=alrm[1].tmr;
-      this.c=col("white");
-      if (this.al1!==-1) this.g.setColor(1,col("dblue"));
-      else { this.g.setColor(1,col("lgray")); this.c=0;}
+      this.c=4095;
+      if (this.al1!==-1) this.g.setColor(1,1453);
+      else { this.g.setColor(1,2730); this.c=0;}
       if (alrm[1].on===1)  this.c=col("yellow");
       this.g.fillRect(0,39,239,104); //1
       this.g.setColor(0,this.c);
@@ -91,9 +91,9 @@ face[0]= {
     }
     if (alrm[2].tmr!=this.al2) {
       this.al2=alrm[2].tmr;
-	  this.c=col("white");
-      if (this.al2!==-1) this.g.setColor(1,col("dblue"));
-      else { this.g.setColor(1,col("gray")); this.c=0;}
+	  this.c=4095;
+      if (this.al2!==-1) this.g.setColor(1,1453);
+      else { this.g.setColor(1,2730); this.c=0;}
       if (alrm[2].on===1)  this.c=col("yellow");
       this.g.fillRect(0,107,239,172); //2
       this.g.setColor(0,this.c);
@@ -107,10 +107,10 @@ face[0]= {
     } 
     if (alrm[3].tmr!=this.al3) {
       this.al3=alrm[3].tmr;
-      this.c=col("white");
-      if (this.al3!==-1) this.g.setColor(1,col("dblue"));
-      else { this.g.setColor(1,col("lgray")); this.c=0;}
-      if (alrm[3].on===1)  this.c=col("yellow");
+      this.c=4095;
+      if (this.al3!==-1) this.g.setColor(1,1453);
+      else { this.g.setColor(1,2730); this.c=0;}
+      if (alrm[3].on===1)  this.c=4080;
       this.g.fillRect(0,175,239,239); //3
       this.g.setColor(0,this.c);
       this.g.drawString(this.pad(alrm[3].hour)+":"+this.pad(alrm[3].min),120-(this.g.stringWidth(this.pad(alrm[3].hour)+":"+this.pad(alrm[3].min)))/2,186); 
@@ -171,7 +171,7 @@ face[5] = {
 		var t=(d[4]).toString().split(':');
 		this.g.setColor(0,0); //header
 		this.g.fillRect(0,0,239,35); 
-		this.g.setColor(1,col("lblue"));
+		this.g.setColor(1,1535);
 		this.g.setFont("Vector",25);
 		this.g.drawString("SET AL"+this.al.curr,4,6); 
 		this.g.setFont("Vector",32);
@@ -183,9 +183,9 @@ face[5] = {
     if (!this.run) return;
     if (alrm[o].hour!=this.al[o].hour) {
 		this.al[o].hour=alrm[o].hour;
-		this.g.setColor(0,col("lgray"));
+		this.g.setColor(0,2730);
 		this.g.fillRect(0,39,121,181);//hour
-		if (alrm[o].tmr!=-1) this.g.setColor(1,col("lblue"));else this.g.setColor(1,col("white"));
+		if (alrm[o].tmr!=-1) this.g.setColor(1,1535);else this.g.setColor(1,4095);
 		this.g.setFont("Vector",75);  
 		this.g.drawString(this.pad(this.al[o].hour),66-(this.g.stringWidth(this.pad(this.al[o].hour)))/2,70); 
 		this.g.flip();
@@ -193,13 +193,13 @@ face[5] = {
     if (alrm[o].min!=this.al[o].min) {
 		this.al[o].min=alrm[o].min;
 		if (alrm[o].tmr!=-1){
-			this.g.setColor(0,col("raf2"));
+			this.g.setColor(0,1453);
 			this.g.fillRect(122,39,239,181);//min
-			this.g.setColor(1,col("lblue"));
+			this.g.setColor(1,1535);
 		}else {
-			this.g.setColor(0,col("gray"));
+			this.g.setColor(0,2730);
 			this.g.fillRect(122,39,239,181);//min
-			this.g.setColor(1,col("white"));
+			this.g.setColor(1,4095);
 		}
 	this.g.setFont("Vector",75);  
 	this.g.drawString(this.pad(this.al[o].min),190-(this.g.stringWidth(this.pad(this.al[o].min)))/2,70); 
@@ -208,22 +208,22 @@ face[5] = {
     if (alrm[o].snz!=this.al[o].snz) {
 		this.al[o].snz=alrm[o].snz;
 		this.c=0;
-		if (this.al[o].snz===1)  { this.g.setColor(0,col("dblue"));this.c=col("white");}
-		else this.g.setColor(0,col("gray")); 
+		if (this.al[o].snz===1)  { this.g.setColor(0,1453);this.c=4095;}
+		else this.g.setColor(0,2730); 
 		this.g.fillRect(0,185,120,239);//snooze
 		this.g.setColor(1,this.c);
 		this.g.setFont("Vector",25);  
 		this.g.drawString("SNOOZE",4,202); 
 		this.g.flip();
-		this.g.setColor(0,col("gray"));
+		this.g.setColor(0,2730);
 		this.g.drawLine (121,185,121,239);
 		this.g.flip();
     }
     if (alrm[o].rep!=this.al[o].rep) {
 		this.al[o].rep=alrm[o].rep;
 		this.c=0;
-		if (this.al[o].rep===1) { this.g.setColor(0,col("dblue"));this.c=col("white");}
-		else this.g.setColor(0,col("gray")); 
+		if (this.al[o].rep===1) { this.g.setColor(0,1453);this.c=4095;}
+		else this.g.setColor(0,2730); 
 		this.g.fillRect(122,185,239,239);//repeat
 		this.g.setColor(1,this.c);
 		this.g.setFont("Vector",25);  

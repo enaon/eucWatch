@@ -11,8 +11,8 @@ face[0] = {
     var t=(d[4]).toString().split(':');	
       this.g.setColor(0,0);
 	  this.g.fillRect(0,0,239,155);
-  	  this.g.setColor(1,col("dgray"));
-      //if(!face.mode) this.g.setColor(1,col("dgray")); else this.g.setColor(1,col("dgray1"));
+  	  this.g.setColor(1,1365);
+      //if(!face.mode) this.g.setColor(1,1365); else this.g.setColor(1,col("dgray1"));
       this.g.fillRect(0,0,75,75);//1
       this.g.fillRect(80,0,155,75); //2
       this.g.fillRect(160,0,239,75); //3
@@ -51,8 +51,8 @@ face[0] = {
 	}else if(this.btSet){
       if(this.btSetOn){
         this.btSetOn=0;
-        //this.g.setColor(1,(set.def.cli||set.def.gb||set.def.emuZ||set.def.hid)?col("dblue"):col("dgray"));
-        this.g.setColor(1,col("dgray"));
+        //this.g.setColor(1,(set.def.cli||set.def.gb||set.def.emuZ||set.def.hid)?col("dblue"):1365);
+        this.g.setColor(1,1365);
         this.g.fillRect(0,0,155,75);//title
         this.g.setColor(0,col("white"));
         //bt
@@ -88,7 +88,7 @@ face[0] = {
         var state=(set.def.cli||set.def.gb||set.def.emuZ||set.def.hid)?1:0;
 //bt btn
         this.img=require("heatshrink").decompress(atob("lkwwIPMg4FE/AKE4AFDtwEDg1gAocjAgcDnAFDmOAAgUBxgKDjAbChkBwwJC8EMmAEBh8A4IbC+EEjAKDsBCC7/+g//4EN//gv//wFAEgUMgw0DsBQDgQKEkAKDg0EBQfgFYf4FYf8IIMGhhBDoJMDhhMCh0A4YhC4BtDPAOOPAifDgYaCAAMzRwcCPoQABsyvEXQl8AgcPDQcAuD/XABYA="));
-        this.btn(state,0,0,75,75,(state)?require("heatshrink").decompress(atob("mEwwIXUgYFFwAFE4AFE8AFE/AFE/gFE/wFE/4FE74qCgUD54qCg8D44qCh+D4fwAoXDAocD8YRDgPzDocA/YpDgF/Gok/IIkfJokPLIkHFwQFHCIodFFIo1FIIhNFLIplFOIp9FRIqVFUI6tFXIrFFaIrdFdIr/IABY=")):this.img,13,15,col("lblue"),col("dgray"),col("white"),col("dgray"));this.img=0;
+        this.btn(state,0,0,75,75,(state)?require("heatshrink").decompress(atob("mEwwIXUgYFFwAFE4AFE8AFE/AFE/gFE/wFE/4FE74qCgUD54qCg8D44qCh+D4fwAoXDAocD8YRDgPzDocA/YpDgF/Gok/IIkfJokPLIkHFwQFHCIodFFIo1FIIhNFLIplFOIp9FRIqVFUI6tFXIrFFaIrdFdIr/IABY=")):this.img,13,15,col("lblue"),1365,col("white"),1365);this.img=0;
       }
     //themes 
     if (this.btn2) {
@@ -111,7 +111,7 @@ face[0] = {
     //find my phone
     if (set.fmp!=this.fmp) {
       this.fmp=set.fmp;
-	  this.btn(this.fmp,0,80,75,155,require("heatshrink").decompress(atob("mEwwILIv/+AgUD///4AFBg8//HgAoMGj/4sAFCAQIFfgYFD4EPAofghwFDuEcAoc4nAFDjkw4wFBscMuIFDx1hwwFBAYPjAofG8YdD4/HApPjAqIjEAovHsY1D45BFJopZFMopxFPosHAofwSoq/jAo0HAQL1Cgf//40BAAM87wECAAg")),13,94,col("white"),col("red"),(set.bt==3)?col("white"):0,(set.bt==3)?col("dgray"):col("gray"));//btn4
+	  this.btn(this.fmp,0,80,75,155,require("heatshrink").decompress(atob("mEwwILIv/+AgUD///4AFBg8//HgAoMGj/4sAFCAQIFfgYFD4EPAofghwFDuEcAoc4nAFDjkw4wFBscMuIFDx1hwwFBAYPjAofG8YdD4/HApPjAqIjEAovHsY1D45BFJopZFMopxFPosHAofwSoq/jAo0HAQL1Cgf//40BAAM87wECAAg")),13,94,col("white"),col("red"),(set.bt==3)?col("white"):0,(set.bt==3)?1365:col("gray"));//btn4
       }
     //acc on/off
     if (set.def.acc!=this.acc) {
@@ -122,7 +122,7 @@ face[0] = {
     if (this.g.bri.lv!=this.bri) {
       this.bri=this.g.bri.lv;
       this.c=col("white");
-      this.g.setColor(0,col("dgray"));
+      this.g.setColor(0,1365);
       this.g.clearRect(160,80,239,155);//brightness
       this.g.setColor(1,this.c);
       this.g.setFont("Vector",30);
@@ -159,7 +159,7 @@ face[0] = {
   },
    btn:function(state,rectx0,recty0,rectx1,recty1,Img,ImgX,ImgY,efCol,ebCol,dfCol,dbCol){
 	  if (state) {this.colf=(efCol)?efCol:col("white");this.colb=(ebCol)?ebCol:col("dblue");}
-	  else {this.colf=(dfCol)?dfCol:0;this.colb=(dbCol)?dbCol:col("dgray");}
+	  else {this.colf=(dfCol)?dfCol:0;this.colb=(dbCol)?dbCol:1365;}
 	  
       this.g.setColor(1,this.colb);
       this.g.fillRect(rectx0,recty0,rectx1,recty1);
