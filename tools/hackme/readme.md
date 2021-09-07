@@ -79,7 +79,7 @@ Go back or kill/start Daflasher. and this time look for a device called dfutarg,
 Select it,  select **Toggle Bluetooth** and **Use Nordic Bootloader** option, then press the **Select DFU file** button, and choose the file step4-xxx. 
 >**Note** please make sure you have the correct step4 file for your watch, look for P8 or P22 in the filename.
 
-This step will take up to 5 minutes, and when done the watch will remain blank. 
+This step will take up to 5 minutes, and when done the watch screen will remain black/off. 
 
 ### EucWatch Installation:
 
