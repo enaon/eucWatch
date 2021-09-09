@@ -216,12 +216,12 @@ euc.conn=function(mac){
 							euc.loop=0;
 							euc.busy=0;
 							euc.wri("live");	
-						},300);
+						},500);
 					});
 				}else if (cmd==="hornOff") {
 					euc.horn=0;					
 				} else {
-					if (euc.busy) return; 
+					//if (euc.busy) return; 
 					euc.wCha.writeValue(euc.cmd(cmd,value)).then(function() {
 						if (euc.busy) return; 
 						if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
