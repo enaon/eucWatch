@@ -208,7 +208,7 @@ euc.conn=function(mac){
 		euc.wri= function(n) {
 			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},100);return;} 
 			euc.busy=setTimeout(()=>{euc.busy=0;},1000);
-			if (n=="end") c.stopNotifications();
+			//if (n=="end") c.stopNotifications();
 			if (n=="hornOn"){
 				euc.horn=1;
 				if (euc.tmp) {clearTimeout(euc.tmp);euc.tmp=0;}
@@ -263,7 +263,7 @@ euc.conn=function(mac){
 					else euc.off("err-start");
 				});
 			}else if (n==="end") {
-				if (!global["\xFF"].BLE_GATTS)  {euc.off("not found");return;}
+				if (!global["\xFF"].BLE_GATTS)  {euc.off("not connected");return;}
 				c.writeValue(euc.cmd((euc.dash.aOff)?"off":"rideLedOff")).then(function() {
 					return c.writeValue(euc.cmd((euc.dash.aLck)?"lock":"lightsOff"));
 				}).then(function() {
