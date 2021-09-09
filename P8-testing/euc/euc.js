@@ -30,7 +30,9 @@ global.euc= {
 			this.state="OFF";
 			this.wri("end");
 			setTimeout(()=>{
+				print("log");
 				if (this.log.trp[1]&& 0<this.dash.trpT-this.log.trp[1] ) {
+					print("week");
 					set.write("logWeekSlot"+set.def.dash.slot,Date().getDay(),(euc.dash.trpT-this.log.trp[1])+( (set.read("logWeekSlot"+set.def.dash.slot,Date().getDay()))?set.read("logWeekSlot"+set.def.dash.slot,Date().getDay()):0));
 				}
 				if (this.log.trp[2]&& 0<this.dash.trpT-this.log.trp[2] ) {
