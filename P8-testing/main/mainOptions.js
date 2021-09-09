@@ -304,7 +304,7 @@ touchHandler[0]=function(e,x,y){
 			buzzer(D16,1,[30,50,30]);
 			set.def.hr24=1-set.def.hr24;
 			face[0].btn(1,(set.def.hr24)?"24 H":"12 H",26,180,25,1453,0,120,0,239,79);//2
-		}else if ( x <=160 && 80 <= y && y <= 160 ) { //setDate
+		}else if ( x <=120 && 80 <= y && y <= 160 ) { //setDate
 			buzzer(D16,1,[30,50,30]);	
 			face[0].set="setDate";
 			face[0].setDate();
