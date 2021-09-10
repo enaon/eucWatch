@@ -207,7 +207,7 @@ euc.conn=function(mac){
 						euc.off("end fail");	
 					});
 				}else if (cmd==="hornOn") {
-					if (euc.busy) return;
+					//if (euc.busy) return;
 					euc.busy=1;euc.horn=1;
 					if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 					euc.wCha.writeValue(euc.cmd("playSound",24)).then(function() { 
