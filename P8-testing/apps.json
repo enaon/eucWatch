@@ -255,7 +255,7 @@
 	{ "id": "eucInmotion",
 		"name": "Inmotion V11 module",
 		"icon": "icon.png",
-		"version":"0.71",
+		"version":"0.72",
 		"description": "EUC module for Inmotion V11.",
 		"tags": "euc",
 		"type": "euc",

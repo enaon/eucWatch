@@ -184,9 +184,10 @@ euc.conn=function(mac){
 				if (euc.state==="OFF"||cmd==="end") {
 					euc.busy=1;
 					if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
+					if (!global["\xFF"].BLE_GATTS)  {euc.off("not connected");return;}
 					euc.loop=setTimeout(function(){ 
 						euc.loop=0;
-						c.writeValue(euc.cmd("lightsOff")).then(function() {
+						euc.wCha.writeValue(euc.cmd("lightsOff")).then(function() {
 							global["\xFF"].BLE_GATTS.disconnect(); 
 						}).catch(function(err)  {
 							euc.off("end fail");	
@@ -194,7 +195,7 @@ euc.conn=function(mac){
 					},500);	
 				}else if (cmd==="start") {
 					euc.busy=0;
-					c.writeValue(euc.cmd((euc.dash.light)?"lightsOn":"lightsOff")).then(function() {
+					euc.wCha.writeValue(euc.cmd((euc.dash.light)?"lightsOn":"lightsOff")).then(function() {
 						euc.rCha.startNotifications();	
 						if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 						euc.loop=setTimeout(function(){ 
@@ -209,7 +210,7 @@ euc.conn=function(mac){
 					if (euc.busy) return;
 					euc.busy=1;euc.horn=1;
 					if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
-					c.writeValue(euc.cmd("playSound",24)).then(function() { 
+					euc.wCha.writeValue(euc.cmd("playSound",24)).then(function() { 
 						euc.horn=0;
 						if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 						euc.loop=setTimeout(function(){
