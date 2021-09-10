@@ -161,7 +161,7 @@
 	{ "id": "dashInmotion",
 		"name": "Inmotion V11 Settings",
 		"icon": "icon.png",
-		"version":"0.71",
+		"version":"0.72",
 		"description": "EUC dashboard, Inmotion V11 settings gui files.",
 		"tags": "euc",
 		"readme": "README.md",

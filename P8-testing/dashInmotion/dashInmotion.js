@@ -14,7 +14,7 @@ face[0] = {
 		this.g.drawString("SETTINGS",120-(this.g.stringWidth("SETTINGS")/2),217); 
 		this.g.flip();
 		//
-        this.btn(1,"LIGHT",18,60,15,1453,1365,0,0,119,97,(euc.dash.light)?"ON":"OFF",28,60,50);
+        this.btn(euc.dash.light,"LIGHT",18,60,15,1453,1365,0,0,119,97,(euc.dash.light)?"ON":"OFF",28,60,50);
 		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,1453,1365,122,0,239,97,"ALERTS",22,185,55);		
         this.btn(0,"TPMS",25,60,136,1453,1365,0,100,119,195);
         this.btn(euc.dash.horn,"HORN",25,185,136,1453,1365,122,100,239,195);	
@@ -103,7 +103,7 @@ touchHandler[0]=function(e,x,y){
 			if ( x<=120 && y<100 ) { //Light
 				euc.dash.light=1-euc.dash.light;
 				euc.wri((euc.dash.light)?"lightsOn":"lightsOff");
-		        face[0].btn(1,"LIGHT",18,60,15,1453,1365,0,0,119,97,(euc.dash.light)?"ON":"OFF",28,60,50);
+		        face[0].btn(euc.dash.light,"LIGHT",18,60,15,1453,1365,0,0,119,97,(euc.dash.light)?"ON":"OFF",28,60,50);
 				face[0].ntfy("LIGHT ON","LIGHT OFF",20,(euc.dash.light)?1453:1365,euc.dash.light);
 				buzzer(D16,1,[30,50,30]);
 			}else if ( 120<=x && y<=100 ) { //watch alerts
