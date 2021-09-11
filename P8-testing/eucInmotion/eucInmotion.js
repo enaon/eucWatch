@@ -217,7 +217,7 @@ euc.conn=function(mac){
 							euc.loop=0;
 							euc.busy=0;
 							euc.wri("live");	
-						},50);
+						},150);
 					});
 					},350);
 				}else if (cmd==="hornOff") {
