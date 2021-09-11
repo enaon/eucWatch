@@ -207,18 +207,19 @@ euc.conn=function(mac){
 						euc.off("end fail");	
 					});
 				}else if (cmd==="hornOn") {
-					if (euc.horn) return;
+					//if (euc.horn) return;
 					euc.busy=1;euc.horn=1;
 					if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
-					euc.wCha.writeValue(euc.cmd("playSound",24)).then(function() { 
-						euc.horn=0;
-						if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
+					euc.loop=setTimeout(function(){
+						euc.wCha.writeValue(euc.cmd("playSound",24)).then(function() { 
+						euc.horn=0;euc.loop=0;
 						euc.loop=setTimeout(function(){
 							euc.loop=0;
 							euc.busy=0;
 							euc.wri("live");	
-						},500);
+						},50);
 					});
+					},350);
 				}else if (cmd==="hornOff") {
 					euc.horn=0;					
 				} else {
