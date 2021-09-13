@@ -15,8 +15,9 @@ function handleInfoEvent(event) {
     let ti=(""+d[4]+" "+d[0]+" "+d[2]);
 	notify.info.unshift("{\"src\":\""+event.src+"\",\"title\":\""+event.title+"\",\"body\":\""+event.body+"\",\"time\":\""+ti+"\"}");
 	if (notify.info.length>10) notify.info.pop();
-	if (set.def.dnd&&!notify.ring) {
-		digitalPulse(D16,1,[80,50,80]);
+	if (set.def.buzz&&!notify.ring) {
+		//digitalPulse(D16,1,[80,50,80]);
+		buzzer(D16,1,[80,50,80]);
 		if (face.appCurr!="main"||face.pageCurr!=0) {
 			face.go("main",0);
 			face.appPrev="main";face.pagePrev=-1;
@@ -162,7 +163,7 @@ if (!set.def) {set.resetSettings();set.updateSettings();}
 if (!set.def.rstP) set.def.rstP="D13";
 if (!set.def.rstR) set.def.rstR=0xA5;
 if (set.def.buzz) buzzer=digitalPulse;
-else buzzer=function(){};
+else buzzer=function(){return true;};
 //dash
 require('Storage').list("dash_").forEach(dashfile=>{
 	set.dash.push(dashfile);
