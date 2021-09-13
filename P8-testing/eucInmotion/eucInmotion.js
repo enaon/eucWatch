@@ -292,7 +292,6 @@ euc.off=function(err){
 		if (set.def.cli) console.log("EUC OUT:",err);
 		if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 		global["\xFF"].bleHdl=[];
-		euc.off=function(err){if (set.def.cli) console.log("EUC off, not connected",err);};
 		euc.wri=function(err){if (set.def.cli) console.log("EUC write, not connected",err);};
 		euc.conn=function(err){if (set.def.cli) console.log("EUC conn, not connected",err);};
 		euc.cmd=function(err){if (set.def.cli) console.log("EUC cmd, not connected",err);};
@@ -301,5 +300,6 @@ euc.off=function(err){
 		delete euc.rCha;
 		euc.busy=0;
 		NRF.setTxPower(set.def.rfTX);	
+		euc.off=function(err){if (set.def.cli) console.log("EUC off, not connected",err);};
     }
 };
