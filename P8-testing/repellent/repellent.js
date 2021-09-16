@@ -44,7 +44,7 @@ if (!global.rep.read)
 };
 //rep face
 face[0]= {
-  offms: 20000,
+	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:20000,
   init: function(){
 	rep.mac=(require("Storage").readJSON("setting.json",1)||{}).repellentMac;
 	rep.go=(require("Storage").readJSON("setting.json",1)||{}).repellentGo;

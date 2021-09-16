@@ -1,7 +1,7 @@
 //Begode  set adv limits
 
 face[0] = {
-	offms: 5000,
+	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
 	g:w.gfx,
 	init: function(){
         this.g.setColor(0,0);

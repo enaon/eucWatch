@@ -1,6 +1,6 @@
 //Inmotion V11settings
 face[0] = {
-	offms: 5000,
+	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
 	g:w.gfx,
 	init: function(){
 		euc.busy=1;//stop bt loop-accept commands.

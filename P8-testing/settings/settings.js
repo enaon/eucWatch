@@ -1,6 +1,6 @@
 //settings	
 face[0] = {
-	offms: 5000,
+	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
 	g:w.gfx,
 		init: function(){ 
 		face.mode=0;

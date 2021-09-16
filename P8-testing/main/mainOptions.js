@@ -1,6 +1,6 @@
 //clock  Options
 face[0] = {
-	offms: 8000,
+	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
 	g:w.gfx,
 	init: function(){
 		if (this.ntid) {clearTimeout(this.ntid); this.ntid=0;}

@@ -610,18 +610,21 @@ if (set.def.acctype==="BMA421"){
 							}
 							this.loop=500;
 					}else if (w.gfx.isOn&&face.pageCurr!=-1) {
-						if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off(1000);
+						if (set.tor==1)w.gfx.bri.set(face[0].cbri); 
+						else if ( !set.def.off[face.appCurr] || ( set.def.off[face.appCurr] &&  set.def.off[face.appCurr] <= 60000))
+							face.off(1500);		
 						this.loop=200;
 					} 
 					this.up=1;
 				}
 			}else if (this.up && data[3] < 220 ) {
-				this.loop=300;
-				this.up=0;
 				if (set.tor==1)
-					w.gfx.bri.set(7);
-				else 
-					face.off(1500);
+					w.gfx.bri.set(7);	
+				else if ( !set.def.off[face.appCurr] || ( set.def.off[face.appCurr] &&  set.def.off[face.appCurr] <= 60000)) {
+					face.off(1500);	
+					this.loop=300;
+				}	
+				this.up=0;
 			}
 			
 		}
@@ -672,7 +675,9 @@ if (set.def.acctype==="BMA421"){
 									else face.go(face.appCurr,0);
 								}
 						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
-							if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off(1000);
+							if (set.tor==1)w.gfx.bri.set(face[0].cbri); 
+							else if ( !set.def.off[face.appCurr] || ( set.def.off[face.appCurr] &&  set.def.off[face.appCurr] <= 60000)) 
+								face.off(1500);
 						}
 						this.up=0;
 					} else this.up=1;

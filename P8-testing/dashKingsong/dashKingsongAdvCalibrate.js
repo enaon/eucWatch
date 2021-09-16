@@ -1,6 +1,6 @@
 //kingsong  set adv calibrate
 face[0] = {
-	offms: 30000,
+	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:30000,
 	g:w.gfx,
 	init: function(){
 		this.g.setColor(0,col("dgray"));
