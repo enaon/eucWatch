@@ -1,7 +1,7 @@
 //dash  Options
 //dash options  
 face[0] = {
-	offms: 15000,
+	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:15000,
 	g:w.gfx,
 	init: function(){
 		//if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.faceSave=-1;face.go(set.dash[set.def.dash.face],0);return;}

@@ -1,6 +1,6 @@
 //dash digital
 face[0] = {
-	offms: 10000, //15 sec timeout
+	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
 	g:w.gfx,
 	spd:[],
 	init: function(){

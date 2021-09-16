@@ -1,6 +1,6 @@
 //main
 face[0] = {
-	offms: 10000,
+	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
 	g:w.gfx,
 	init: function(){
 		this.g.clear();

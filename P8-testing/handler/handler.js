@@ -70,6 +70,8 @@ var set={
 			clkS:0,	
 			farn:0
 		},
+		off:{ //face timeout 
+		},
 		name:"eucWatch", //Set the name to be broadcasted by the Bluetooth module. 
 		timezone:0, //Timezone
 		hr24:1, //24 hour mode
@@ -164,6 +166,7 @@ if (!set.def.rstP) set.def.rstP="D13";
 if (!set.def.rstR) set.def.rstR=0xA5;
 if (set.def.buzz) buzzer=digitalPulse;
 else buzzer=function(){return true;};
+if (!set.def.off) set.def.off={};
 //dash
 require('Storage').list("dash_").forEach(dashfile=>{
 	set.dash.push(dashfile);

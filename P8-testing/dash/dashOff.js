@@ -1,6 +1,6 @@
 //dash off 
 face[0] = {
-	offms: 10000, //5 sec timeout
+	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
 	g:w.gfx,
 	spd:[],
 	init: function(){
