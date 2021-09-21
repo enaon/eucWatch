@@ -36,7 +36,7 @@
 		]
 	},  
 	{ "id": "handler_pt",
-		"name": "Handler",
+		"name": "Pinetime Handler",
 		"icon": "icon.png",
 		"version":"0.84",
 		"description": "Pinetime functions handler",
