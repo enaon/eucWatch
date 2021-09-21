@@ -111,10 +111,19 @@ euc.conn=function(mac){
 			//write function
 			euc.wri=function(cmd){
 			//print ("lala",cmd,euc.cmd(cmd));
-				if (euc.state==="OFF") {
+				if (euc.state=="OFF"||cmd=="end") {
 					euc.busy=1;
 					if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
-					euc.loop=setTimeout(()=>{euc.loop=0;global["\xFF"].BLE_GATTS.disconnect().catch(function(err)  {if (set.def.cli) console.log("EUC OUT disconnect failed:", err);});},300);
+					if (global['\xFF'].BLE_GATTS && global['\xFF'].BLE_GATTS.connected) {
+						euc.loop=setTimeout(()=>{
+							euc.loop=0;
+							global["\xFF"].BLE_GATTS.disconnect().catch(function(err)  {
+								if (set.def.cli) console.log("EUC OUT disconnect failed:", err);
+							});
+						},300);
+					}else {
+						euc.off("not connected");
+					}
 				} else {
 					euc.wCha.writeValue(euc.cmd(cmd)).then(function() {
 						if (!euc.busy) { 

@@ -24,6 +24,7 @@ global.euc= {
 			//log
 			if (this.log.trp[0]&& 0<this.dash.trpT-this.log.trp[0] ) 
 				set.write("logDaySlot"+set.def.dash.slot,Date().getHours(),(this.dash.trpT-this.log.trp[0])+((set.read("logDaySlot"+set.def.dash.slot,Date().getHours()))?set.read("logDaySlot"+set.def.dash.slot,Date().getHours()):0));
+			this.log.trp[0]=0;
 			set.def.dash.accE=0;
 			if (!set.def.acc) {acc.off();}
 			this.mac=0;

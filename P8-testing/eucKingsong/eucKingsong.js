@@ -262,20 +262,24 @@ euc.conn=function(mac){
 					if (global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected) global["\xFF"].BLE_GATTS.disconnect();
 					else euc.off("err-start");
 				});
-			}else if (n==="end") {
-				if (!global["\xFF"].BLE_GATTS)  {euc.off("not connected");return;}
-				c.writeValue(euc.cmd((euc.dash.aOff)?"off":"rideLedOff")).then(function() {
-					return c.writeValue(euc.cmd((euc.dash.aLck)?"lock":"lightsOff"));
-				}).then(function() {
-					return ((euc.seq==0)?"ok":c.writeValue(euc.cmd("lightsOff")));
-				}).then(function() {
-					euc.run=0;
-					return global["\xFF"].BLE_GATTS.disconnect();	
-				}).catch(function(err)  {
+			}else if (euc.state=="OFF"||n=="end") {
+				if (global['\xFF'].BLE_GATTS && global['\xFF'].BLE_GATTS.connected) {
+					c.writeValue(euc.cmd((euc.dash.aOff)?"off":"rideLedOff")).then(function() {
+						return c.writeValue(euc.cmd((euc.dash.aLck)?"lock":"lightsOff"));
+					}).then(function() {
+						return ((euc.seq==0)?"ok":c.writeValue(euc.cmd("lightsOff")));
+					}).then(function() {
+						euc.run=0;
+						return global["\xFF"].BLE_GATTS.disconnect();	
+					}).catch(function(err)  {
+						if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+						if (global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected) global["\xFF"].BLE_GATTS.disconnect();
+						else euc.off("err-off");
+					});
+				}else {
 					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-					if (global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected) global["\xFF"].BLE_GATTS.disconnect();
-					else euc.off("err-off");
-				});
+					euc.off("not connected");
+				}
 			}else { 
 				c.writeValue(euc.cmd(n)).then(function() {
 					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}

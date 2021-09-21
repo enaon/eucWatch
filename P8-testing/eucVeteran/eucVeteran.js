@@ -7,7 +7,7 @@ euc.cmd=function(no){
 		case "beep":return [98]; 
 		case "rideSoft":return "SETs"; 
 		case "rideMed":return  "SETm"; 
-		case "rideHard":return "SETh";
+		case "rideStrong":return "SETh";
 		case "setLightOn":return "SetLightON";
 		case "setLightOff":return "SetLightOFF";
 		case "setVolUp":return "SetFctVol+";
@@ -154,14 +154,19 @@ euc.conn=function(mac){
 				});
 			}else if (euc.state=="OFF"||n=="end") {
 				if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
-				c.writeValue(euc.cmd("setLightOff")).then(function() {
-					let md={"1":"SETs","2":"SETm","3":"SETh"};
-					return ((euc.dash.lock)?c.writeValue(md[euc.dash.mode]):"ok");
-				}).then(function()  {
-					global["\xFF"].BLE_GATTS.disconnect();if (set.def.cli) console.log("EUC Veteran out");
-				}).catch(function(err)  {
-					global["\xFF"].BLE_GATTS.disconnect();if (set.def.cli) console.log("EUC Veteran out catch");
-				});
+				if (global['\xFF'].BLE_GATTS && global['\xFF'].BLE_GATTS.connected) {
+					c.writeValue(euc.cmd("setLightOff")).then(function() {
+						let md={"1":"SETs","2":"SETm","3":"SETh"};
+						return ((euc.dash.lock)?c.writeValue(md[euc.dash.mode]):"ok");
+					}).then(function()  {
+						global["\xFF"].BLE_GATTS.disconnect();if (set.def.cli) console.log("EUC Veteran out");
+					}).catch(function(err)  {
+						global["\xFF"].BLE_GATTS.disconnect();if (set.def.cli) console.log("EUC Veteran out catch");
+					});
+				}else {
+					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+					euc.off("not connected");
+				}
             }else if (euc.cmd(n)) {
 				c.writeValue(euc.cmd(n)).then(function() {
 					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}

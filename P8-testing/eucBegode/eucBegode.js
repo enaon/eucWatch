@@ -134,17 +134,22 @@ euc.conn=function(mac){
 			    	if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
 			    	global["\xFF"].BLE_GATTS.disconnect();  
 				}); 
-			}else if (n=="end") {
-				c.writeValue(euc.cmd("lightsOff")).then(function() {
-					c.writeValue(euc.cmd("beep")).then(function() {
-						c.stopNotifications(); 
+			}else if (euc.state=="OFF"||n=="end") {
+				if (global['\xFF'].BLE_GATTS && global['\xFF'].BLE_GATTS.connected) {
+					c.writeValue(euc.cmd("lightsOff")).then(function() {
+						c.writeValue(euc.cmd("beep")).then(function() {
+							c.stopNotifications(); 
+							if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
+							global["\xFF"].BLE_GATTS.disconnect();         
+						});
+					}).catch(function(err)  {
 						if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
-						global["\xFF"].BLE_GATTS.disconnect();         
-					});
-				}).catch(function(err)  {
-			    	if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
-			    	global["\xFF"].BLE_GATTS.disconnect();  
-				});  
+						global["\xFF"].BLE_GATTS.disconnect();  
+					});  
+				}else {
+					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+					euc.off("not connected");
+				}
 			}else if (n=="start") {
 				if (euc.dash.aLight!="lightsOn"||euc.dash.aLight!="lightsOff"||euc.dash.aLight!="lightsStrobe") euc.dash.aLight="lightsOn";
 				c.writeValue(euc.cmd(euc.dash.aLight)).then(function() {
