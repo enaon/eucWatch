@@ -143,6 +143,11 @@ function cmds(arr){
 RST.set();
 
 function init(){
+	RST.reset();
+	delayms(20);
+	RST.set();
+	delayms(20);
+
   cmd(0x11); // sleep out
   delayms(20);
   
@@ -152,6 +157,8 @@ function init(){
   //[0x36,0xC0],     // MADCTL
   //[0x37,0,80],   // VSCSAD (37h): Vertical Scroll Start Address of RAM
   cmd([0x3A, 0x03]);  // COLMOD - interface pixel format - 03 - 12bpp, 05 - 16bpp
+   delayms(20);
+
   cmd([0xB2, 0xC, 0xC, 0, 0x33, 0x33]); // PORCTRL (B2h): Porch Setting
   cmd([0xB7, 0]);     // GCTRL (B7h): Gate Control
   cmd([0xBB, 0x3E]);  // VCOMS (BBh): VCOM Setting 
@@ -163,7 +170,11 @@ function init(){
   cmd([0xe0, 0x70, 0x15, 0x20, 0x15, 0x10, 0x09, 0x48, 0x33, 0x53, 0x0B, 0x19, 0x15, 0x2a, 0x2f]);   // PVGAMCTRL (E0h): Positive Voltage Gamma Control
   cmd([0xe1, 0x70, 0x15, 0x20, 0x15, 0x10, 0x09, 0x48, 0x33, 0x53, 0x0B, 0x19, 0x15, 0x2a, 0x2f]);   // NVGAMCTRL (E1h): Negative Voltage Gamma Contro
   cmd(0x29); // DISPON (29h): Display On 
+    delayms(20);
+
   cmd(0x21); // INVON (21h): Display Inversion On
+    delayms(20);
+
   //cmd([0x2a,0,0,0,239]);
   //cmd([0x2b,0,0,0,239]);
   //cmd([0x2c]);
@@ -268,7 +279,14 @@ init();
 
 g.on=function(){
   if (this.isOn) return;
-  cmd(0x11);
+	////RST.reset();
+	//delayms(20);
+	//RST.set();
+	init();
+	delayms(20);
+	cmd(0x11);
+	delayms(20);
+
 //  g.flip();
   //cmd(0x13); //ST7735_NORON: Set Normal display on, no args, w/delay: 10 ms delay
   //cmd(0x29); //ST7735_DISPON: Set Main screen turn on, no args w/delay: 100 ms delay
