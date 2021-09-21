@@ -308,7 +308,8 @@ g.off=function(){
 module.exports = {
 //  pin: pin,
   battVoltage: battVoltage,
-  gfx: g
+  gfx: g,
+  cmd: cmd
 };
 });
 w=require("P8");
