@@ -1,6 +1,6 @@
 [
 	{ "id": "init",
-		"name": "P8/P22 core",
+		"name": "P8-P22A/B/C core",
 		"icon": "icon.png",
 		"version":"0.81",
 		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
@@ -13,6 +13,18 @@
 	},
 	{ "id": "init_pt",
 		"name": "Pinetime core",
+		"icon": "icon.png",
+		"version":"0.81",
+		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
+		"tags": "core",
+		"type":"core",
+		"readme": "README.md",
+		"storage": [
+			{"name":".bootrst","url":"init.js"}
+		]
+	},
+	{ "id": "init_r_d",
+		"name": "P22D/B1 core",
 		"icon": "icon.png",
 		"version":"0.81",
 		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
