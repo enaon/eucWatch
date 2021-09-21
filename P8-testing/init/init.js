@@ -3,7 +3,7 @@
 E.kickWatchdog();
 function P8KickWd(){
 	"ram";
-  if(!D13.read())E.kickWatchdog();
+  if(!BTN1.read())E.kickWatchdog();
 }
 var wdint=setInterval(P8KickWd,3000);
 E.enableWatchdog(30, false);
@@ -17,7 +17,7 @@ global.save = function() { throw new Error("You don't need to use save() on P8!"
 //spi.send([0x9f,0,0,0],D5); //check status
 //errata 108 fix // poke32(0x40000EE4,0x4f) //obsolete
 //load in devmode
-if (D13.read() || Boolean(require("Storage").read("devmode"))) { 
+if (BTN1.read() || Boolean(require("Storage").read("devmode"))) { 
   let mode=(require("Storage").read("devmode"));
   if ( mode=="loader"){ 
     //require("Storage").write("devmode","done");
@@ -42,7 +42,7 @@ if (D13.read() || Boolean(require("Storage").read("devmode"))) {
     setTimeout(() => {
 	 reset();
     }, 500);
-  },D13,{repeat:false, edge:"rising"}); 
+  },BTN1,{repeat:false, edge:"rising"}); 
 }else{ //load in working mode
 var w;
 var pal=[];

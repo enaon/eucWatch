@@ -384,7 +384,7 @@ function buttonHandler(s){
 	}else if (this.press&&global.euc&&euc.state==="READY"&&euc.horn&&euc.dash.horn) {euc.wri("hornOff");return;
 	}else face.off();
 }
-btn=setWatch(buttonHandler,D13, {repeat:true, debounce:10,edge:0});
+btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
 //touch controller
 //var i2c=I2C1;
 var i2c=new I2C();
