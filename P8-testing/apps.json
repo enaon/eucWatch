@@ -1,9 +1,21 @@
 [
 	{ "id": "init",
-		"name": "P8 core",
+		"name": "P8/P22 core",
 		"icon": "icon.png",
 		"version":"0.81",
-		"description": "P8 Screen driver and init functions. For use with the [flash enabled](https://github.com/fanoush/ds-d6/blob/master/espruino/DFU/P8/espruino_2v07.60_p8_SDK11_SD20_SPIFLASH.zip) or the  the [not flash enabled](https://github.com/fanoush/ds-d6/blob/master/espruino/DFU/P8/espruino_2v07.60_p8_SDK11_SD20.zip) Espruino image  build by fanoush. ",
+		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
+		"tags": "core",
+		"type":"core",
+		"readme": "README.md",
+		"storage": [
+			{"name":".bootrst","url":"init.js"}
+		]
+	},
+	{ "id": "init_pt",
+		"name": "Pinetime core",
+		"icon": "icon.png",
+		"version":"0.81",
+		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
 		"tags": "core",
 		"type":"core",
 		"readme": "README.md",
@@ -15,7 +27,7 @@
 		"name": "Handler",
 		"icon": "icon.png",
 		"version":"0.84",
-		"description": "P8 functions handler",
+		"description": "P8/P22 functions handler",
 		"tags": "core",
 		"type":"core",
 		"readme": "README.md",
@@ -23,6 +35,18 @@
 			{"name":"handler","url":"handler.js"}
 		]
 	},  
+	{ "id": "handler_pt",
+		"name": "Handler",
+		"icon": "icon.png",
+		"version":"0.84",
+		"description": "Pinetime functions handler",
+		"tags": "core",
+		"type":"core",
+		"readme": "README.md",
+		"storage": [
+			{"name":"handler","url":"handler.js"}
+		]
+	}, 
 	{ "id": "main",
 		"name": "Clock",
 		"icon": "icon.png",
