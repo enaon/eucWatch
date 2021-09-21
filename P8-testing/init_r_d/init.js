@@ -284,8 +284,8 @@ g.on=function(){
 	//RST.set();
 	init();
 	delayms(20);
-	cmd(0x11);
-	delayms(20);
+	//cmd(0x11);
+	//delayms(20);
 
 //  g.flip();
   //cmd(0x13); //ST7735_NORON: Set Normal display on, no args, w/delay: 10 ms delay
