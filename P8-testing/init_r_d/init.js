@@ -107,7 +107,7 @@ RST.reset();
 // CLK,MOSI,CS,DC
 D2.write(0);D3.write(0);CS.write(1);DC.write(1);
 SPI2.setpins(SCK,MOSI,CS,DC);
-SPI2.enable(0x80,2); //8MBit, mode 0
+SPI2.enable(0x80,0); //8MBit, mode 0
 
 function delayms(ms){
   digitalPulse(DC,0,ms); // just to wait 10ms
