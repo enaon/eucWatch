@@ -174,8 +174,8 @@ function init(){
 
 
 //	NormalModeOn();  // NormalModeOn = 0x13,
-//	cmd(0x13); 		//   WriteCommand(static_cast<uint8_t>(Commands::NormalModeOn));
-//	delayms(20);		//  nrf_delay_ms(10);
+	cmd(0x13); 		//   WriteCommand(static_cast<uint8_t>(Commands::NormalModeOn));
+	delayms(20);		//  nrf_delay_ms(10);
 //	DisplayOn();  //DisplayOn = 0x29,
 	cmd(0x29); 		//     WriteCommand(static_cast<uint8_t>(Commands::DisplayOn));
 /*	
