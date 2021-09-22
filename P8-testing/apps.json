@@ -1,6 +1,6 @@
 [
 	{ "id": "init",
-		"name": "P8-P22A/B/C core",
+		"name": "core - P8-P22A/B/C/C1",
 		"icon": "icon.png",
 		"version":"0.81",
 		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
@@ -12,7 +12,7 @@
 		]
 	},
 	{ "id": "init_pt",
-		"name": "Pinetime core",
+		"name": "core - Pinetime",
 		"icon": "icon.png",
 		"version":"0.81",
 		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
@@ -24,7 +24,7 @@
 		]
 	},
 	{ "id": "init_r_d",
-		"name": "P22D/B1 core",
+		"name": "core - P22D/B1",
 		"icon": "icon.png",
 		"version":"0.81",
 		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
@@ -36,7 +36,7 @@
 		]
 	},
 	{ "id": "handler",
-		"name": "Handler",
+		"name": "Handler - P8-P22A/B/C/C1",
 		"icon": "icon.png",
 		"version":"0.84",
 		"description": "P8/P22 functions handler",
@@ -48,7 +48,7 @@
 		]
 	},  
 	{ "id": "handler_pt",
-		"name": "Pinetime Handler",
+		"name": "Handler - Pinetime",
 		"icon": "icon.png",
 		"version":"0.84",
 		"description": "Pinetime functions handler",
@@ -60,7 +60,7 @@
 		]
 	}, 
 	{ "id": "handler_p22b1",
-		"name": "P22B1 Handler",
+		"name": "Handler - P22B1",
 		"icon": "icon.png",
 		"version":"0.84",
 		"description": "P22B1 functions handler",
