@@ -59,6 +59,18 @@
 			{"name":"handler","url":"handler.js"}
 		]
 	}, 
+	{ "id": "handler_p22b1",
+		"name": "P22B1 Handler",
+		"icon": "icon.png",
+		"version":"0.84",
+		"description": "P22B1 functions handler",
+		"tags": "core",
+		"type":"core",
+		"readme": "README.md",
+		"storage": [
+			{"name":"handler","url":"handler.js"}
+		]
+	}, 
 	{ "id": "main",
 		"name": "Clock",
 		"icon": "icon.png",
