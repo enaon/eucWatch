@@ -165,7 +165,7 @@ function init(){
 // 	ColumnAddressSet();  WriteCommand(static_cast<uint8_t>(Commands::ColumnAddressSet));  ColumnAddressSet = 0x2a,
 	cmd([0x2a,0,0,0,239]); 	// WriteData(0x00);WriteData(0x00);WriteData(Width >> 8u);WriteData(Width & 0xffu);
 //  RowAddressSet();   WriteCommand(static_cast<uint8_t>(Commands::RowAddressSet));  RowAddressSet = 0x2b,
-	cmd([0x2b,0,0,0,320]);	// WriteData(0x00);WriteData(0x00);WriteData(320u >> 8u);WriteData(320u & 0xffu);
+	cmd([0x2b,0,0,0,319]);	// WriteData(0x00);WriteData(0x00);WriteData(320u >> 8u);WriteData(320u & 0xffu);
 // 	DisplayInversionOn();  DisplayInversionOn = 0x21, (0x20 no invertion)
 	cmd(0x21); 		// WriteCommand(static_cast<uint8_t>(Commands::DisplayInversionOn));
 	delayms(20);  	// nrf_delay_ms(10);
