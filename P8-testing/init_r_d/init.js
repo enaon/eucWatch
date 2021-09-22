@@ -143,43 +143,81 @@ function cmds(arr){
 RST.set();
 
 function init(){
-	RST.reset();
-	delayms(20);
-	RST.set();
-	delayms(20);
+	DC.write(1); 			//spi.Init();
+//	pinMode(D18,"output");  //nrf_gpio_cfg_output(pinDataCommand);
+	pinMode(D26,"output");	//nrf_gpio_cfg_output(26);
+	digitalWrite(D26,HIGH); 	//nrf_gpio_pin_set(26);
+//
+	digitalWrite(D26,LOW); 	//HardwareReset() //nrf_gpio_pin_clear(26);
+	delayms(20);			//nrf_delay_ms(10);
+	digitalWrite(D26,HIGH);	//nrf_gpio_pin_set(26);
+//
+	cmd(0x01); 		// SoftwareReset() WriteCommand(static_cast<uint8_t>(Commands::SoftwareReset)); //SoftwareReset = 0x01,
+	delayms(200);	//nrf_delay_ms(150);
+//  
+	cmd(0x11); 		//SleepOut() // WriteCommand(static_cast<uint8_t>(Commands::SleepOut)); //SleepOut = 0x11,
+// COLMOD - interface pixel format - 03 - 12bpp, 05 - 16bpp
+	cmd([0x3A, 0x03]); 	// ColMod();  WriteCommand(static_cast<uint8_t>(Commands::ColMod));WriteData(0x55);//ColMod = 0x3a
+	delayms(20);		// nrf_delay_ms(10);
+// MADCTL  //MemoryDataAccessControl = 0x36, (0 - This is an unrotated screen)
+	cmd([0x36, 0]); 	// MemoryDataAccessControl(); WriteCommand(static_cast<uint8_t>(Commands::MemoryDataAccessControl));WriteData(0x00); 
+	delayms(20);		// nrf_delay_ms(10);
+// 	ColumnAddressSet();  WriteCommand(static_cast<uint8_t>(Commands::ColumnAddressSet));  ColumnAddressSet = 0x2a,
+	cmd([0x2a,0,0,0,239]); 	// WriteData(0x00);WriteData(0x00);WriteData(Width >> 8u);WriteData(Width & 0xffu);
+//  RowAddressSet();   WriteCommand(static_cast<uint8_t>(Commands::RowAddressSet));  RowAddressSet = 0x2b,
+	cmd([0x2b,0,0,0,239]);	// WriteData(0x00);WriteData(0x00);WriteData(320u >> 8u);WriteData(320u & 0xffu);
+// 	DisplayInversionOn();  DisplayInversionOn = 0x21, (0x20 no invertion)
+	cmd(0x21); 		// WriteCommand(static_cast<uint8_t>(Commands::DisplayInversionOn));
+	delayms(20);  	// nrf_delay_ms(10);
+//test
+//	cmd([0x37,0,0]);
 
-  cmd(0x11); // sleep out
-  delayms(20);
-  
-  cmd([0x36, 0]);     // MADCTL - This is an unrotated screen
-  cmd([0x37,0,0]);
-  // These 2 rotate the screen by 180 degrees
-  //[0x36,0xC0],     // MADCTL
-  //[0x37,0,80],   // VSCSAD (37h): Vertical Scroll Start Address of RAM
-  cmd([0x3A, 0x03]);  // COLMOD - interface pixel format - 03 - 12bpp, 05 - 16bpp
-   delayms(20);
 
-  cmd([0xB2, 0xC, 0xC, 0, 0x33, 0x33]); // PORCTRL (B2h): Porch Setting
-  cmd([0xB7, 0]);     // GCTRL (B7h): Gate Control
-  cmd([0xBB, 0x3E]);  // VCOMS (BBh): VCOM Setting 
-  cmd([0xC2, 1]);     // VDVVRHEN (C2h): VDV and VRH Command Enable
-  cmd([0xC3, 0x19]);  // VRHS (C3h): VRH Set 
-  cmd([0xC4, 0x20]);  // VDVS (C4h): VDV Set
-  cmd([0xC5, 0xF]);   // VCMOFSET (C5h): VCOM Offset Set .
-  cmd([0xD0, 0xA4, 0xA1]);   // PWCTRL1 (D0h): Power Control 1 
-  cmd([0xe0, 0x70, 0x15, 0x20, 0x15, 0x10, 0x09, 0x48, 0x33, 0x53, 0x0B, 0x19, 0x15, 0x2a, 0x2f]);   // PVGAMCTRL (E0h): Positive Voltage Gamma Control
-  cmd([0xe1, 0x70, 0x15, 0x20, 0x15, 0x10, 0x09, 0x48, 0x33, 0x53, 0x0B, 0x19, 0x15, 0x2a, 0x2f]);   // NVGAMCTRL (E1h): Negative Voltage Gamma Contro
+//	NormalModeOn();  // NormalModeOn = 0x13,
+//	cmd(0x13); 		//   WriteCommand(static_cast<uint8_t>(Commands::NormalModeOn));
+//	delayms(20);		//  nrf_delay_ms(10);
+//	DisplayOn();  //DisplayOn = 0x29,
+	cmd(0x29); 		//     WriteCommand(static_cast<uint8_t>(Commands::DisplayOn));
+/*	
+// 
+	cmd([0x36, 0]); 	// ColumnAddressSet();
+	delayms(20);		//WriteData(0x00);
+// 
+	cmd([0x36, 0]); 	// ColumnAddressSet();
+	delayms(20);		//WriteData(0x00);
+												
+	
+	//cmd([0x36, 0]);     // MADCTL - This is an unrotated screen
+	cmd([0x37,0,0]);
+	// These 2 rotate the screen by 180 degrees
+	//[0x36,0xC0],     // MADCTL
+	//[0x37,0,80],   // VSCSAD (37h): Vertical Scroll Start Address of RAM
+	//cmd([0x3A, 0x03]);  // COLMOD - interface pixel format - 03 - 12bpp, 05 - 16bpp
+	//delayms(20);
+
+	cmd([0xB2, 0xC, 0xC, 0, 0x33, 0x33]); // PORCTRL (B2h): Porch Setting
+	cmd([0xB7, 0]);     // GCTRL (B7h): Gate Control
+	cmd([0xBB, 0x3E]);  // VCOMS (BBh): VCOM Setting 
+	cmd([0xC2, 1]);     // VDVVRHEN (C2h): VDV and VRH Command Enable
+	cmd([0xC3, 0x19]);  // VRHS (C3h): VRH Set 
+	cmd([0xC4, 0x20]);  // VDVS (C4h): VDV Set
+	cmd([0xC5, 0xF]);   // VCMOFSET (C5h): VCOM Offset Set .
+	cmd([0xD0, 0xA4, 0xA1]);   // PWCTRL1 (D0h): Power Control 1 
+	cmd([0xe0, 0x70, 0x15, 0x20, 0x15, 0x10, 0x09, 0x48, 0x33, 0x53, 0x0B, 0x19, 0x15, 0x2a, 0x2f]);   // PVGAMCTRL (E0h): Positive Voltage Gamma Control
+	cmd([0xe1, 0x70, 0x15, 0x20, 0x15, 0x10, 0x09, 0x48, 0x33, 0x53, 0x0B, 0x19, 0x15, 0x2a, 0x2f]);   // NVGAMCTRL (E1h): Negative Voltage Gamma Contro
     delayms(20);
 	cmd(0x13); //ST7735_NORON: Set Normal display on, no args, w/delay: 10 ms delay
     delayms(20);
-  cmd(0x29); // DISPON (29h): Display On 
+	cmd(0x29); // DISPON (29h): Display On 
     delayms(20);
-  cmd(0x21); // INVON (21h): Display Inversion On
+	cmd(0x21); // INVON (21h): Display Inversion On
     delayms(20);
 
-  //cmd([0x2a,0,0,0,239]);
-  //cmd([0x2b,0,0,0,239]);
-  //cmd([0x2c]);
+	//cmd([0x2a,0,0,0,239]);
+	//cmd([0x2b,0,0,0,239]);
+	//cmd([0x2c]);
+	//cmd([0x2a,0,0,0,239]);cmd([0x2b,0,0,0,239]);cmd([0x2c]);
+*/
 }
 
 bpp=1; // powers of two work, 3=8 colors would be nice
