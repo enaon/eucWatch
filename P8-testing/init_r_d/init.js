@@ -177,8 +177,8 @@ function init(){
 // COLMOD - interface pixel format - 03 - 12bpp, 05 - 16bpp //ColMod = 0x3a
 	cmd([0x3A, 0x55]); 	// ColMod();  WriteCommand(static_cast<uint8_t>(Commands::ColMod));WriteData(0x55);
 	delayms(20);		// nrf_delay_ms(10);
-// MADCTL  //MemoryDataAccessControl = 0x36, (0 - This is an unrotated screen)
-	cmd([0x36, 0]); 	// MemoryDataAccessControl(); WriteCommand(static_cast<uint8_t>(Commands::MemoryDataAccessControl));WriteData(0x00); 
+// MADCTL  //MemoryDataAccessControl = 0x36, (0 - This is an unrotated screen, 0x48 is for flipping the Column Address Order (X Axis) AND changing RGB order; only X Axis to be flipped its  0x40" ) 
+	cmd([0x36, 0x48]); 	// MemoryDataAccessControl(); WriteCommand(static_cast<uint8_t>(Commands::MemoryDataAccessControl));WriteData(0x00); 
 	delayms(20);		// nrf_delay_ms(10);
 // 	ColumnAddressSet();  WriteCommand(static_cast<uint8_t>(Commands::ColumnAddressSet));  ColumnAddressSet = 0x2a,
 	cmd([0x2a,0,0,0,239]); 	// WriteData(0x00);WriteData(0x00);WriteData(Width >> 8u);WriteData(Width & 0xffu);
