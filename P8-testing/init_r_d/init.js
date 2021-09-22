@@ -156,8 +156,8 @@ function init(){
 	delayms(200);	//nrf_delay_ms(150);
 //  
 	cmd(0x11); 		//SleepOut() // WriteCommand(static_cast<uint8_t>(Commands::SleepOut)); //SleepOut = 0x11,
-// COLMOD - interface pixel format - 03 - 12bpp, 05 - 16bpp
-	cmd([0x3A, 0x55]); 	// ColMod();  WriteCommand(static_cast<uint8_t>(Commands::ColMod));WriteData(0x55);//ColMod = 0x3a
+// COLMOD - interface pixel format - 03 - 12bpp, 05 - 16bpp //ColMod = 0x3a
+	cmd([0x3A, 0x55]); 	// ColMod();  WriteCommand(static_cast<uint8_t>(Commands::ColMod));WriteData(0x55);
 	delayms(20);		// nrf_delay_ms(10);
 // MADCTL  //MemoryDataAccessControl = 0x36, (0 - This is an unrotated screen)
 	cmd([0x36, 0]); 	// MemoryDataAccessControl(); WriteCommand(static_cast<uint8_t>(Commands::MemoryDataAccessControl));WriteData(0x00); 
@@ -165,10 +165,15 @@ function init(){
 // 	ColumnAddressSet();  WriteCommand(static_cast<uint8_t>(Commands::ColumnAddressSet));  ColumnAddressSet = 0x2a,
 	cmd([0x2a,0,0,0,239]); 	// WriteData(0x00);WriteData(0x00);WriteData(Width >> 8u);WriteData(Width & 0xffu);
 //  RowAddressSet();   WriteCommand(static_cast<uint8_t>(Commands::RowAddressSet));  RowAddressSet = 0x2b,
-	cmd([0x2b,0,0,0,239]);	// WriteData(0x00);WriteData(0x00);WriteData(320u >> 8u);WriteData(320u & 0xffu);
+	cmd([0x2b,0,0,0,320]);	// WriteData(0x00);WriteData(0x00);WriteData(320u >> 8u);WriteData(320u & 0xffu);
 // 	DisplayInversionOn();  DisplayInversionOn = 0x21, (0x20 no invertion)
-	cmd(0x20); 		// WriteCommand(static_cast<uint8_t>(Commands::DisplayInversionOn));
+	cmd(0x21); 		// WriteCommand(static_cast<uint8_t>(Commands::DisplayInversionOn));
 	delayms(20);  	// nrf_delay_ms(10);
+//	NormalModeOn();  // NormalModeOn = 0x13,
+	cmd(0x13); 		//   WriteCommand(static_cast<uint8_t>(Commands::NormalModeOn));
+	delayms(20);		//  nrf_delay_ms(10);
+//	DisplayOn();  //DisplayOn = 0x29,
+	cmd(0x29); 		//     WriteCommand(static_cast<uint8_t>(Commands::DisplayOn));
 //test
 //	cmd([0x37,0,0]);
 //	cmd([0xB2, 0xC, 0xC, 0, 0x33, 0x33]); // PORCTRL (B2h): Porch Setting
@@ -182,11 +187,8 @@ function init(){
 //	cmd([0xe0, 0x70, 0x15, 0x20, 0x15, 0x10, 0x09, 0x48, 0x33, 0x53, 0x0B, 0x19, 0x15, 0x2a, 0x2f]);   // PVGAMCTRL (E0h): Positive Voltage Gamma Control
 //	cmd([0xe1, 0x70, 0x15, 0x20, 0x15, 0x10, 0x09, 0x48, 0x33, 0x53, 0x0B, 0x19, 0x15, 0x2a, 0x2f]);   // NVGAMCTRL (E1h): Negative Voltage Gamma Contro
 
-//	NormalModeOn();  // NormalModeOn = 0x13,
-	cmd(0x13); 		//   WriteCommand(static_cast<uint8_t>(Commands::NormalModeOn));
-	delayms(20);		//  nrf_delay_ms(10);
-//	DisplayOn();  //DisplayOn = 0x29,
-	cmd(0x29); 		//     WriteCommand(static_cast<uint8_t>(Commands::DisplayOn));
+
+
 /*	
 // 
 	cmd([0x36, 0]); 	// ColumnAddressSet();
