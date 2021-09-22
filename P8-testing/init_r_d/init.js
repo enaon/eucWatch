@@ -157,7 +157,7 @@ function init(){
 //  
 	cmd(0x11); 		//SleepOut() // WriteCommand(static_cast<uint8_t>(Commands::SleepOut)); //SleepOut = 0x11,
 // COLMOD - interface pixel format - 03 - 12bpp, 05 - 16bpp
-	cmd([0x3A, 0x03]); 	// ColMod();  WriteCommand(static_cast<uint8_t>(Commands::ColMod));WriteData(0x55);//ColMod = 0x3a
+	cmd([0x3A, 0x55]); 	// ColMod();  WriteCommand(static_cast<uint8_t>(Commands::ColMod));WriteData(0x55);//ColMod = 0x3a
 	delayms(20);		// nrf_delay_ms(10);
 // MADCTL  //MemoryDataAccessControl = 0x36, (0 - This is an unrotated screen)
 	cmd([0x36, 0]); 	// MemoryDataAccessControl(); WriteCommand(static_cast<uint8_t>(Commands::MemoryDataAccessControl));WriteData(0x00); 
@@ -167,11 +167,20 @@ function init(){
 //  RowAddressSet();   WriteCommand(static_cast<uint8_t>(Commands::RowAddressSet));  RowAddressSet = 0x2b,
 	cmd([0x2b,0,0,0,239]);	// WriteData(0x00);WriteData(0x00);WriteData(320u >> 8u);WriteData(320u & 0xffu);
 // 	DisplayInversionOn();  DisplayInversionOn = 0x21, (0x20 no invertion)
-	cmd(0x21); 		// WriteCommand(static_cast<uint8_t>(Commands::DisplayInversionOn));
+	cmd(0x20); 		// WriteCommand(static_cast<uint8_t>(Commands::DisplayInversionOn));
 	delayms(20);  	// nrf_delay_ms(10);
 //test
 //	cmd([0x37,0,0]);
-
+//	cmd([0xB2, 0xC, 0xC, 0, 0x33, 0x33]); // PORCTRL (B2h): Porch Setting
+//	cmd([0xB7, 0]);     // GCTRL (B7h): Gate Control
+//	cmd([0xBB, 0x3E]);  // VCOMS (BBh): VCOM Setting 
+//	cmd([0xC2, 1]);     // VDVVRHEN (C2h): VDV and VRH Command Enable
+//	cmd([0xC3, 0x19]);  // VRHS (C3h): VRH Set 
+//	cmd([0xC4, 0x20]);  // VDVS (C4h): VDV Set
+//	cmd([0xC5, 0xF]);   // VCMOFSET (C5h): VCOM Offset Set .
+//	cmd([0xD0, 0xA4, 0xA1]);   // PWCTRL1 (D0h): Power Control 1 
+//	cmd([0xe0, 0x70, 0x15, 0x20, 0x15, 0x10, 0x09, 0x48, 0x33, 0x53, 0x0B, 0x19, 0x15, 0x2a, 0x2f]);   // PVGAMCTRL (E0h): Positive Voltage Gamma Control
+//	cmd([0xe1, 0x70, 0x15, 0x20, 0x15, 0x10, 0x09, 0x48, 0x33, 0x53, 0x0B, 0x19, 0x15, 0x2a, 0x2f]);   // NVGAMCTRL (E1h): Negative Voltage Gamma Contro
 
 //	NormalModeOn();  // NormalModeOn = 0x13,
 	cmd(0x13); 		//   WriteCommand(static_cast<uint8_t>(Commands::NormalModeOn));
