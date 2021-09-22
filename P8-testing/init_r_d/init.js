@@ -168,7 +168,7 @@ function init(){
 //  RowAddressSet();   WriteCommand(static_cast<uint8_t>(Commands::RowAddressSet));  RowAddressSet = 0x2b,
 	cmd([0x2b,0,0,0,319]);	// WriteData(0x00);WriteData(0x00);WriteData(320u >> 8u);WriteData(320u & 0xffu);
 // 	DisplayInversionOn();  DisplayInversionOn = 0x21, (0x20 no invertion)
-	cmd(0x21); 		// WriteCommand(static_cast<uint8_t>(Commands::DisplayInversionOn));
+	cmd(0x20); 		// WriteCommand(static_cast<uint8_t>(Commands::DisplayInversionOn));
 	delayms(20);  	// nrf_delay_ms(10);
 //	NormalModeOn();  // NormalModeOn = 0x13,
 	cmd(0x13); 		//   WriteCommand(static_cast<uint8_t>(Commands::NormalModeOn));
