@@ -163,7 +163,7 @@ var set={
 set.def = require('Storage').readJSON('setting.json', 1);
 if (!set.def) {set.resetSettings();set.updateSettings();}
 if (!set.def.rstP) set.def.rstP="D13";
-set.def.rstP="D13";
+set.def.rstP="D10";
 if (!set.def.rstR) set.def.rstR=0xA5;
 if (set.def.buzz) buzzer=digitalPulse;
 else buzzer=function(){return true;};
@@ -392,7 +392,7 @@ var i2c=new I2C();
 i2c.setup({scl:D7, sda:D6, bitrate:100000});
 //find touch
 if ( set.def.touchtype == "0" ) {
-	set.def.rstP="D13";
+	set.def.rstP="D10";
 	digitalPulse(set.def.rstP,1,[5,50]);
 	setTimeout(()=>{ 
 		i2c.writeTo(0x15,0xA7);
@@ -405,7 +405,7 @@ if ( set.def.touchtype == "0" ) {
 			setTimeout(()=> {reset();},800);
 		}
 		else{
-			set.def.rstP="D13";
+			set.def.rstP="D10";
 			digitalPulse(set.def.rstP,1,[5,50]);
 			setTimeout(()=>{ 
 				i2c.writeTo(0x15,0xA7);
