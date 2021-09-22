@@ -144,7 +144,7 @@ RST.set();
 
 function init(){
 	DC.write(1); 			//spi.Init();
-//	pinMode(D18,"output");  //nrf_gpio_cfg_output(pinDataCommand);
+	pinMode(D18,"output");  //nrf_gpio_cfg_output(pinDataCommand);
 	pinMode(D26,"output");	//nrf_gpio_cfg_output(26);
 	digitalWrite(D26,HIGH); 	//nrf_gpio_pin_set(26);
 //
