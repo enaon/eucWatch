@@ -156,6 +156,7 @@ function init(){
 	delayms(200);	//nrf_delay_ms(150);
 //  
 	cmd(0x11); 		//SleepOut() // WriteCommand(static_cast<uint8_t>(Commands::SleepOut)); //SleepOut = 0x11,
+	delayms(20);	//nrf_delay_ms(150);
 // COLMOD - interface pixel format - 03 - 12bpp, 05 - 16bpp //ColMod = 0x3a
 	cmd([0x3A, 0x55]); 	// ColMod();  WriteCommand(static_cast<uint8_t>(Commands::ColMod));WriteData(0x55);
 	delayms(20);		// nrf_delay_ms(10);
