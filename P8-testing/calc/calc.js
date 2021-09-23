@@ -50,12 +50,12 @@ face[0] = {
 	this.g.drawString("0",80,202);
     this.g.flip();
 //side   
-    this.g.setColor(1,col("blue"));
+    this.g.setColor(1,col("raf"));
     this.g.fillRect(120,193,179,239);//=
     this.g.setColor(0,col("white"));
 	this.g.drawString("=",140,204);
     this.g.flip();
-    this.g.setColor(0,col("raf3"));
+    this.g.setColor(0,col("dgray"));
     this.g.fillRect(181,40,239,90);///
     this.g.fillRect(182,93,239,140);//*
     this.g.fillRect(182,143,239,190);//-
@@ -80,11 +80,11 @@ face[0] = {
       if (calc.disp==""){
         if (calc.val!=""){
           if (calc.val!="-"){
-          this.g.setColor(1,col("purple"));
+          this.g.setColor(1,col("yellow"));
           this.out=this.comf(eval(calc.val.substring(0,calc.val.length-1)))+calc.val.substring(calc.val.length-1);
           }else {this.out="-"; this.g.setColor(1,col("white"));}
         }else if (calc.sum!=""){
-          this.g.setColor(1,col("blue"));
+          this.g.setColor(1,col("lblue"));
           this.out=this.comf(Number(calc.sum));
         }else {this.g.setColor(1,col("lgray"));this.out=0;}
       }else {this.g.setColor(1,col("white"));
@@ -106,7 +106,7 @@ face[0] = {
       this.g.flip();
     }
     if (this.key!=-1) {
-      this.act(this.key,col("white"),col("blue"));
+      this.act(this.key,col("white"),col("raf"));
       if (this.tim[this.key]>=0) clearTimeout(this.tim[this.key]);
       this.tim[this.key]=setTimeout(function(k,a,t){
         a(k,col("black"),col("lgray"));
@@ -255,7 +255,7 @@ face[5] = {
     this.g.flip();
     this.g.setColor(0,col("dgray")); //header
     this.g.fillRect(0,196,239,239);
-    this.g.setColor(1,col("blue"));
+    this.g.setColor(1,col("lblue"));
     this.g.drawLine(10,200,229,200);
     this.g.setFont("Vector",30);
 //    this.g.drawString('=',2,210);
