@@ -26,9 +26,9 @@ face[0] = {
       	this.g.fillRect(75,200,120,204);
 		this.g.flip();
 		//
-        this.btn(euc.dash.light,"LIGHT",28,60,35,1453,1365,0,0,119,97);
-		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,1453,1365,122,0,239,97,"ALERTS",22,185,55);		
-        this.btn(1,"TPMS",25,60,135,1365,1365,0,100,119,195); //3
+        this.btn(euc.dash.light,"LIGHT",28,60,35,col("raf"),col("dgray"),0,0,119,97);
+		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("dgray"),122,0,239,97,"ALERTS",22,185,55);		
+        this.btn(1,"TPMS",25,60,135,col("dgray"),col("dgray"),0,100,119,195); //3
 		let md={"1":"SOFT","2":"MEDIUM","3":"STRONG"};
         this.btn(1,"RIDE",25,185,115,col("olive"),0,122,100,239,195,md[euc.dash.mode],25,185,155);
 		this.run=true;
@@ -122,9 +122,9 @@ touchHandler[0]=function(e,x,y){
 		else {
 			if ( x<=120 && y<100 ) { 
 				euc.dash.light= 1- euc.dash.light;
-				face[0].btn(euc.dash.light,"LIGHT",28,60,35,1453,1365,0,0,119,97);
+				face[0].btn(euc.dash.light,"LIGHT",28,60,35,col("raf"),col("dgray"),0,0,119,97);
 				euc.wri((euc.dash.light)?"setLightOn":"setLightOff");
-			face[0].ntfy("LIGHT ON","LIGHT OFF",22,(euc.dash.light)?1453:1365,euc.dash.light);
+			face[0].ntfy("LIGHT ON","LIGHT OFF",22,(euc.dash.light)?col("raf"):col("dgray"),euc.dash.light);
 				buzzer(D16,1,[30,50,30]);
 			}else if ( 120<=x && y<=100 ) { //watch alerts
 				buzzer(D16,1,[30,50,30]);						
@@ -178,18 +178,18 @@ touchHandler[0]=function(e,x,y){
 			buzzer(D16,1,[30,50,30]);	
         }else if ( x<=120 && y<100 ) { // light
 			euc.dash.light= 1- euc.dash.light;
-			face[0].btn(euc.dash.light,"LIGHT",28,60,35,1453,1365,0,0,119,97);
+			face[0].btn(euc.dash.light,"LIGHT",28,60,35,col("raf"),col("dgray"),0,0,119,97);
 			euc.wri((euc.dash.light)?"setLightOn":"setLightOff");
-			face[0].ntfy("LIGHT ON","LIGHT OFF",22,1365,euc.dash.light);
+			face[0].ntfy("LIGHT ON","LIGHT OFF",22,col("dgray"),euc.dash.light);
 			buzzer(D16,1,[30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //watch alerts
 			if (euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB) {euc.dash.hapS=0;euc.dash.hapA=0;euc.dash.hapT=0;euc.dash.hapB=0;}
 			else {euc.dash.hapS=1;euc.dash.hapA=1;euc.dash.hapT=1;euc.dash.hapB=1;}
-			face[0].btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,1453,1365,122,0,239,97,"ALERTS",22,185,55);		
+			face[0].btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("dgray"),122,0,239,97,"ALERTS",22,185,55);		
             face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",19,col("dgray"),(euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB));
 			buzzer(D16,1,[30,50,30]);
 		}else if ( x<=120 && 100<=y ) { 
-            face[0].ntfy("METER CLEARED","",19,1453,1);
+            face[0].ntfy("METER CLEARED","",19,col("raf"),1);
 			euc.wri("clearMeter");
 			buzzer(D16,1,[30,50,30]);		
 		}else if ( 120<=x && 100<=y ) { //mode

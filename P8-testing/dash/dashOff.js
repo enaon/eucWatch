@@ -12,8 +12,8 @@ face[0] = {
 		this.len=24;
 		this.pos=this.ref;
 		this.disp=0;
-		this.btn(1,"DAY",30,60,13,1453,1453,0,0,119,50);
-		this.btn(1,"INFO",30,185,10,0,1453,120,0,239,50);
+		this.btn(1,"DAY",30,60,13,col("raf"),col("raf"),0,0,119,50);
+		this.btn(1,"INFO",30,185,10,0,col("raf"),120,0,239,50);
 		this.sc();
 		this.sel(this.comf((this.totD*((set.def.dash.mph)?0.625:1)).toFixed((this.page)?(this.page==1)?1:0:2)),"<   TOTAL   >");
 		this.lg();
@@ -65,9 +65,9 @@ face[0] = {
 		this.g.flip();
     },
 	sel: function(txt1,txt2){
-		this.g.setColor(0,1365);
+		this.g.setColor(0,col("dgray"));
 		this.g.fillRect(0,51,239,175);
-		this.g.setColor(1,4095);
+		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",53);	
 		let size=this.g.stringWidth(txt1);
 		this.g.drawString(txt1,105-(this.g.stringWidth(txt1)/2),68); 
@@ -93,7 +93,7 @@ face[0] = {
 		pos=pos-1;
 		this.g.setColor(0,0);
 		this.g.fillRect(0,176,239,178);
-		this.g.setColor(1,4080);
+		this.g.setColor(1,col("yellow"));
 		this.g.fillRect(pos,176,pos+(240/this.len),178);
 		this.g.flip();
     },
@@ -187,7 +187,7 @@ touchHandler[0]=function(e,x,y){
 			if  ( 120 < x ) { //info
 				if (face[0].info) return;
 				face[0].info=1;
-				let btC=[1453,1365,3840,3840];
+				let btC=[col("raf"),col("dgray"),col("red"),col("red")];
 				face[0].btn(1,euc.dash.bat,50,180,3,btC[euc.dash.batC],0,120,0,239,50,"%",20,235,8);
 				face[0].btn(1,"DAY",30,60,13,0,0,0,0,119,50);
 				face[0].page=2;	
@@ -225,7 +225,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].len=7;
 					face[0].ref=Date().getDay();
 					face[0].pos=face[0].ref;
-					face[0].btn(1,"WEEK",30,60,13,1453,1453,0,0,119,50);
+					face[0].btn(1,"WEEK",30,60,13,col("raf"),col("raf"),0,0,119,50);
 					face[0].log=require("Storage").readJSON("logWeekSlot"+set.def.dash.slot+".json",1);
 					face[0].id=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
 					face[0].id[face[0].ref]="Today";
@@ -234,7 +234,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].len=12;
 					face[0].ref=Date().getMonth();
 					face[0].pos=face[0].ref;
-					face[0].btn(1,"YEAR",30,60,13,1453,1453,0,0,119,50);
+					face[0].btn(1,"YEAR",30,60,13,col("raf"),col("raf"),0,0,119,50);
 					face[0].log=require("Storage").readJSON("logYearSlot"+set.def.dash.slot+".json",1);
 					face[0].id=["January","February","March","April","May","June","July","August","September","October","November","December"];
 					//face[0].id[face[0].ref]="running Month";
@@ -243,7 +243,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].len=24;
 					face[0].ref=Date().getHours();
 					face[0].pos=face[0].ref;
-					face[0].btn(1,"DAY",30,60,13,1453,1453,0,0,119,50);
+					face[0].btn(1,"DAY",30,60,13,col("raf"),col("raf"),0,0,119,50);
 					face[0].log=require("Storage").readJSON("logDaySlot"+set.def.dash.slot+".json",1);
 					face[0].id=(set.def.hr24)?["00:00 - 01:00","01:00 - 02:00","02:00 - 03:00","03:00 - 04:00","04:00 - 05:00","05:00 - 06:00","06:00 - 07:00","07:00 - 08:00","08:00 - 09:00","09:00 - 10:00","10:00 - 11:00","11:00 - 12:00","12:00 - 13:00","13:00 - 14:00","14:00 - 15:00","15:00 - 16:00","16:00 - 17:00","17:00 - 18:00","18:00 - 19:00","19:00 - 20:00","20:00 - 21:00","21:00 - 22:00","22:00 - 23:00","23:00 - 00:00"]
 		:["12:00 - 1:00 AM","1:00 - 2:00 AM","2:00 - 3:00 AM","3:00 - 4:00 AM","4:00 - 5:00 AM","5:00 - 6:00 AM","6:00 - 7:00 AM","7:00 - 8:00 AM","8:00 - 9:00 AM","9:00 - 10:00 AM","10:00 - 11:00 AM","11:00 - 11:59 AM","12:00 - 1:00 PM","1:00 - 2:00 PM","2:00 - 3:00 PM","3:00 - 4:00 PM","4:00 - 5:00 PM","5:00 - 6:00 PM","6:00 - 7:00 PM","7:00 - 8:00 PM","8:00 - 9:00 PM","9:00 - 10:00 PM","10:00 - 11:00 PM","11:00 - 11:59 PM"];

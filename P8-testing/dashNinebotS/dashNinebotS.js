@@ -15,8 +15,8 @@ face[0] = {
 		this.g.flip();
 		//
         this.btn(euc.dash.aLck,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
-		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,1453,1365,122,0,239,97,"ALERTS",22,185,55);		
-        this.btn(euc.dash.light,"RING",25,60,136,1453,col("dgray"),0,100,119,195);
+		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("dgray"),122,0,239,97,"ALERTS",22,185,55);		
+        this.btn(euc.dash.light,"RING",25,60,136,col("raf"),col("dgray"),0,100,119,195);
         this.btn(1,"MODE:"+euc.dash.mode,25,185,136,col("olive"),0,122,100,239,195);
 		this.run=true;
 	},
@@ -102,7 +102,7 @@ touchHandler[0]=function(e,x,y){
 				if (0<euc.dash.mode) euc.dash.mode--;
 			}else if (euc.dash.mode<9) euc.dash.mode++;
 			buzzer(D16,1,[30,50,30]);
-			face[0].btn(1,"SET RIDE MODE",20,120,5,1453,0,0,0,239,97,euc.dash.mode.toString(),60,120,37);
+			face[0].btn(1,"SET RIDE MODE",20,120,5,col("raf"),0,0,0,239,97,euc.dash.mode.toString(),60,120,37);
 		}
 		else {
 			if ( x<=120 && y<100 ) { //auto lock
@@ -116,7 +116,7 @@ touchHandler[0]=function(e,x,y){
 				return;	
 			}else if ( x<=120 && 100<=y ) { //ring lights
 				euc.dash.light=1-euc.dash.light;
-				face[0].btn(euc.dash.light,"RING",25,60,136,1453,col("dgray"),0,100,119,195);
+				face[0].btn(euc.dash.light,"RING",25,60,136,col("raf"),col("dgray"),0,100,119,195);
 				face[0].ntfy("RING ON","RING OFF",20,col("dgray"),euc.dash.light);
                 euc.wri(25+euc.dash.light);
 				buzzer(D16,1,[30,50,30]);	
@@ -171,7 +171,7 @@ touchHandler[0]=function(e,x,y){
 		}else if ( 120<=x && y<=100 ) { //watch alerts
 			if (euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB) {euc.dash.hapS=0;euc.dash.hapA=0;euc.dash.hapT=0;euc.dash.hapB=0;}
 			else {euc.dash.hapS=1;euc.dash.hapA=1;euc.dash.hapT=1;euc.dash.hapB=1;}
-			face[0].btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,1453,1365,122,0,239,97,"ALERTS",22,185,55);		
+			face[0].btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("dgray"),122,0,239,97,"ALERTS",22,185,55);		
             face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",19,col("dgray"),(euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB));
 			buzzer(D16,1,[30,50,30]);
 		}else if ( x<=120 && 100<=y ) { //ring lights

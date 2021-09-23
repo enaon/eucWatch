@@ -14,18 +14,18 @@ face[0] = {
 		this.g.setFont("Vector",25);
 		this.g.drawString("DASH OPTIONS",120-(this.g.stringWidth("DASH OPTIONS")/2),217); 
 		this.g.flip(); 
-		this.btn(1,(set.def.dash.mph)?"MPH":"KPH",30,40,25,1453,0,0,0,75,75);//1
-		this.btn(1,"o",20,100,20,1453,0,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);//2
+		this.btn(1,(set.def.dash.mph)?"MPH":"KPH",30,40,25,col("raf"),0,0,0,75,75);//1
+		this.btn(1,"o",20,100,20,col("raf"),0,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);//2
 		let makr=set.read("dash","slot"+set.read("dash","slot")+"Maker"); 
 		if (makr) {
 			//if (makr=="Begode"){
-				this.btn(euc.dash.ampR,"AMP",15,200,10,1365,1365,160,0,239,75,(euc.dash.ampR)?"R":"N",30,200,35); //3
-				this.btn(1,"PACK",15,200,90,1365,col("olive"),160,80,239,155,euc.dash.bms*67.2|0,30,200,120); //6
+				this.btn(euc.dash.ampR,"AMP",15,200,10,col("dgray"),col("dgray"),160,0,239,75,(euc.dash.ampR)?"R":"N",30,200,35); //3
+				this.btn(1,"PACK",15,200,90,col("dgray"),col("olive"),160,80,239,155,euc.dash.bms*67.2|0,30,200,120); //6
 			//}else {
 			//	this.g.fillRect(160,0,239,75); //3
 			//}
-			this.btn(1,"SPEED X",15,40,90,1365,1453,0,80,75,155,euc.dash.spdF,30,40,120); //4
-			this.btn(1,"DIST X",15,120,90,1365,1453,80,80,155,155,euc.dash.trpF,30,120,120); //5
+			this.btn(1,"SPEED X",15,40,90,col("dgray"),col("raf"),0,80,75,155,euc.dash.spdF,30,40,120); //4
+			this.btn(1,"DIST X",15,120,90,col("dgray"),col("raf"),80,80,155,155,euc.dash.trpF,30,120,120); //5
 		} else {
 			this.g.fillRect(160,0,239,75);//3
 			this.g.fillRect(0,80,75,155); //4
@@ -57,7 +57,7 @@ face[0] = {
 			if (this.ntid) {clearTimeout(this.ntid); this.ntid=0;}
             this.g.setColor(0,col);
 			this.g.fillRect(0,160,239,239);
-			this.g.setColor(1,4095);
+			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",18);
      		this.g.drawString(txt0,120-(this.g.stringWidth(txt0)/2),165); 
 			if (s) {this.g.setFont("Vector",50);this.g.drawString("<",5,200);this.g.drawString(">",215,200);}
@@ -69,7 +69,7 @@ face[0] = {
 				face[0].set=0;
 				t.g.setColor(0,0);
 				t.g.fillRect(0,156,239,239);
-				t.g.setColor(1,4095);
+				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",25);
 				t.g.drawString("DASH OPTIONS",120-(t.g.stringWidth("DASH OPTIONS")/2),217); 
 				t.g.flip();
@@ -111,8 +111,8 @@ touchHandler[0]=function(e,x,y){
 		if (face[0].set) { 
 			if (y < 155) {
 				face[0].set=0;
-				face[0].btn(1,"SPEED X",15,40,90,1365,1453,0,80,75,155,euc.dash.spdF,30,40,120); //4
-				face[0].btn(1,"DIST X",15,120,90,1365,1453,80,80,155,155,euc.dash.trpF,30,120,120); //5
+				face[0].btn(1,"SPEED X",15,40,90,col("dgray"),col("raf"),0,80,75,155,euc.dash.spdF,30,40,120); //4
+				face[0].btn(1,"DIST X",15,120,90,col("dgray"),col("raf"),80,80,155,155,euc.dash.trpF,30,120,120); //5
 				touchHandler[0](e,x,y);
 				return;
 			} else{
@@ -125,8 +125,8 @@ touchHandler[0]=function(e,x,y){
 						euc.dash.spdF=(euc.dash.spdF + 0.01);
 						if (1.5 <euc.dash.spdF)  euc.dash.spdF=1.5;
 					}
-					face[0].btn(1,"SPEED X",15,40,90,170,0,0,80,75,155,euc.dash.spdF,30,40,120); //4
-					face[0].ntfy("SPEED FACTOR",euc.dash.spdF,40,1,170,5000,1);
+					face[0].btn(1,"SPEED X",15,40,90,col("olive"),0,0,80,75,155,euc.dash.spdF,30,40,120); //4
+					face[0].ntfy("SPEED FACTOR",euc.dash.spdF,40,1,col("olive"),5000,1);
 				}else if (face[0].set=="trpF") { 
 					if (x<120){ //spd
 						euc.dash.trpF=(euc.dash.trpF - 0.01);
@@ -135,8 +135,8 @@ touchHandler[0]=function(e,x,y){
 						euc.dash.trpF=(euc.dash.trpF + 0.01);
 						if (1.5 <euc.dash.trpF)  euc.dash.trpF=1.5;
 					}
-					face[0].btn(1,"DIST X",15,120,90,170,0,80,80,155,155,euc.dash.trpF,30,120,120); //5
-					face[0].ntfy("DISTANCE FACTOR",euc.dash.trpF,40,1,170,5000,1);
+					face[0].btn(1,"DIST X",15,120,90,col("olive"),0,80,80,155,155,euc.dash.trpF,30,120,120); //5
+					face[0].ntfy("DISTANCE FACTOR",euc.dash.trpF,40,1,col("olive"),5000,1);
 				}else if (face[0].set=="temp") { //temp
 				  if (x<120){ //
 
@@ -152,42 +152,42 @@ touchHandler[0]=function(e,x,y){
 				}else  {
 					buzzer(D16,1,40);
 					face[0].set=0;
-					face[0].btn(1,"SPEED X",15,40,90,1365,1453,0,80,75,155,euc.dash.spdF,30,40,120); //4
-					face[0].btn(1,"DIST X",15,120,90,1365,1453,80,80,155,155,euc.dash.trpF,30,120,120); //5
+					face[0].btn(1,"SPEED X",15,40,90,col("dgray"),col("raf"),0,80,75,155,euc.dash.spdF,30,40,120); //4
+					face[0].btn(1,"DIST X",15,120,90,col("dgray"),col("raf"),80,80,155,155,euc.dash.trpF,30,120,120); //5
 				}
 			}
         }else if (x<75 && y<75) { //1
 			//face[0].set="mph";
             buzzer(D16,1,[30,50,30]);
 			set.def.dash.mph=1-set.def.dash.mph;
-			face[0].btn(1,(set.def.dash.mph)?"MPH":"KPH",30,40,25,1453,0,0,0,75,75);
-			face[0].ntfy("SPEED & DISTANCE IN",(set.def.dash.mph)?"MILES":"KILOMETERS",30,1,1453,1500);
+			face[0].btn(1,(set.def.dash.mph)?"MPH":"KPH",30,40,25,col("raf"),0,0,0,75,75);
+			face[0].ntfy("SPEED & DISTANCE IN",(set.def.dash.mph)?"MILES":"KILOMETERS",30,1,col("raf"),1500);
 		}else if (75<= x && x < 155 && y < 75) { //2
 			//face[0].set="far";
 			buzzer(D16,1,[30,50,30]);
             set.def.dash.farn=1-set.def.dash.farn;
-			face[0].btn(1,"o",20,100,20,1453,0,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);
-			face[0].ntfy("TEMPERATURE IN",(set.def.dash.farn)?"FAHRENHEIT":"CELSIUS",30,1,1453,1500);
+			face[0].btn(1,"o",20,100,20,col("raf"),0,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);
+			face[0].ntfy("TEMPERATURE IN",(set.def.dash.farn)?"FAHRENHEIT":"CELSIUS",30,1,col("raf"),1500);
 		}else if (155 <= x && y < 75) { //3
 			euc.dash.ampR=1-euc.dash.ampR;
-			face[0].btn(euc.dash.ampR,"AMP",15,200,10,1365,1365,160,0,239,75,(euc.dash.ampR)?"R":"N",30,200,35); //3
-			face[0].ntfy("AMPERAGE REPORT",(euc.dash.ampR)?"REVERSED":"NORMAL",30,1,1453,1500);
+			face[0].btn(euc.dash.ampR,"AMP",15,200,10,col("dgray"),col("dgray"),160,0,239,75,(euc.dash.ampR)?"R":"N",30,200,35); //3
+			face[0].ntfy("AMPERAGE REPORT",(euc.dash.ampR)?"REVERSED":"NORMAL",30,1,col("raf"),1500);
             buzzer(D16,1,[30,50,30]);
 		}else if (x<75 && 75 <y && y < 155) { //4
 			face[0].set="spdF";
             buzzer(D16,1,[30,50,30]);
-			//face[0].btn(1,"SPEED X",15,40,90,1453,0,0,80,75,155,euc.dash.spdF,30,40,120); //4
-			face[0].ntfy("SPEED FACTOR",euc.dash.spdF,40,1,170,5000,1);
+			//face[0].btn(1,"SPEED X",15,40,90,col("raf"),0,0,80,75,155,euc.dash.spdF,30,40,120); //4
+			face[0].ntfy("SPEED FACTOR",euc.dash.spdF,40,1,col("olive"),5000,1);
 		}else if (75<= x && x < 155 && 75 <y && y < 155) { //5
 			face[0].set="trpF";
             buzzer(D16,1,[30,50,30]);
-			//face[0].btn(1,"DIST X",15,120,90,1453,0,80,80,155,155,euc.dash.trpF,30,120,120); //5
-			face[0].ntfy("DISTANCE FACTOR",euc.dash.trpF,40,1,170,5000,1);
+			//face[0].btn(1,"DIST X",15,120,90,col("raf"),0,80,80,155,155,euc.dash.trpF,30,120,120); //5
+			face[0].ntfy("DISTANCE FACTOR",euc.dash.trpF,40,1,col("olive"),5000,1);
 		}else if (155 <= x && 75 <y && y < 155) { //6
 			if (1.5<=euc.dash.bms) euc.dash.bms=1;
 			else euc.dash.bms=euc.dash.bms+0.25;
-			face[0].btn(1,"PACK",15,200,90,1365,col("olive"),160,80,239,155,euc.dash.bms*67.2|0,30,200,120); //6
-			face[0].ntfy("BATTERY VOLTAGE",euc.dash.bms*67.2,40,1,1365,1500);
+			face[0].btn(1,"PACK",15,200,90,col("dgray"),col("olive"),160,80,239,155,euc.dash.bms*67.2|0,30,200,120); //6
+			face[0].ntfy("BATTERY VOLTAGE",euc.dash.bms*67.2,40,1,col("dgray"),1500);
             buzzer(D16,1,[30,50,30]);   
 		}else buzzer(D16,1,40);		
 		this.timeout();

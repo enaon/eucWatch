@@ -27,7 +27,7 @@ face[0] = {
 	if (this.nCall!=notify.nCall){
 		this.nCall=notify.nCall;
 		this.g.setColor(1,(this.nCall)?col("red"):col("dgray"));
-		this.g.fillRect(0,0,170,77);
+		this.g.fillRect(0,0,col("olive"),77);
 		this.g.setColor(0,col("white"));
 		this.g.setFont("Vector",25);
 		this.g.drawString((notify.nCall)?notify.nCall+" / "+notify.call.length:(notify.call.length)?notify.call.length+" OLD":"-",100-(this.g.stringWidth((notify.nCall)?notify.nCall+" / "+notify.call.length:(notify.call.length)?notify.call.length+" OLD":"-")/2),30);
@@ -39,7 +39,7 @@ face[0] = {
 	if (this.nIm!=notify.nIm){
 		this.nIm=notify.nIm;
 		this.g.setColor(1,(this.nIm)?col("raf"):col("dgray"));
-		this.g.fillRect(0,83,170,157);
+		this.g.fillRect(0,83,col("olive"),157);
 		this.g.setColor(0,col("white"));
 		this.g.setFont("Vector",25);
 		this.g.drawString((notify.nIm)?notify.nIm+" / "+notify.im.length:(notify.im.length)?notify.im.length+" OLD":"-",100-(this.g.stringWidth((notify.nIm)?notify.nIm+" / "+notify.im.length:(notify.im.length)?notify.im.length+" OLD":"-")/2),110);

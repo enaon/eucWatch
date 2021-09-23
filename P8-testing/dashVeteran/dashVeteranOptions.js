@@ -26,10 +26,10 @@ face[0] = {
       	this.g.fillRect(121,200,165,204);
 		this.g.flip();
 		//
-        this.btn(euc.dash.lock,"BEEP",28,60,35,1453,1365,0,0,119,97);
-		this.btn(1,"WHEEL",22,185,17,1453,1365,122,0,239,97,"ALERTS",22,185,55);		
-        this.btn(1,"CLEAR",25,60,115,1365,1365,0,100,119,195,"METER",22,60,155);
-        this.btn(euc.dash.horn,"HORN",25,185,135,1453,1365,122,100,239,195);
+        this.btn(euc.dash.lock,"BEEP",28,60,35,col("raf"),col("dgray"),0,0,119,97);
+		this.btn(1,"WHEEL",22,185,17,col("raf"),col("dgray"),122,0,239,97,"ALERTS",22,185,55);		
+        this.btn(1,"CLEAR",25,60,115,col("dgray"),col("dgray"),0,100,119,195,"METER",22,60,155);
+        this.btn(euc.dash.horn,"HORN",25,185,135,col("raf"),col("dgray"),122,100,239,195);
 		this.run=true;
 	},
 	show : function(){
@@ -121,21 +121,21 @@ touchHandler[0]=function(e,x,y){
 		else {
 			if ( x<=120 && y<100 ) { 
 				euc.dash.lock= 1- euc.dash.lock;
-				face[0].btn(euc.dash.lock,"BEEP",28,60,35,1453,1365,0,0,119,97);
-				face[0].ntfy("BEEP ON CON/DIS","NO BEEP",22,(euc.dash.lock)?1453:1365,euc.dash.lock);
+				face[0].btn(euc.dash.lock,"BEEP",28,60,35,col("raf"),col("dgray"),0,0,119,97);
+				face[0].ntfy("BEEP ON CON/DIS","NO BEEP",22,(euc.dash.lock)?col("raf"):col("dgray"),euc.dash.lock);
 				buzzer(D16,1,[30,50,30]);
 			}else if ( 120<=x && y<=100 ) { //
 				buzzer(D16,1,40);	
-				face[0].ntfy("NOT YET","",19,3840,1);
+				face[0].ntfy("NOT YET","",19,col("red"),1);
 				//face.go("dashVeteranLimits",0);
 				//return;	
 			}else if ( x<=120 && 100<=y ) { 
-	            face[0].ntfy("HOLD -> CLEAR METER","",19,1365,1);
+	            face[0].ntfy("HOLD -> CLEAR METER","",19,col("dgray"),1);
 				buzzer(D16,1,[30,50,30]);	
 			}else if ( 120<=x && 100<=y ) { //horn        
 				euc.dash.horn=1-euc.dash.horn;
-				face[0].btn(euc.dash.horn,"HORN",25,185,135,1453,1365,122,100,239,195);
-				face[0].ntfy("BUTTON IS HORN >2KPH","HORN DISABLED",(euc.dash.horn)?18:20,(euc.dash.horn)?1453:1365,euc.dash.horn);
+				face[0].btn(euc.dash.horn,"HORN",25,185,135,col("raf"),col("dgray"),122,100,239,195);
+				face[0].ntfy("BUTTON IS HORN >2KPH","HORN DISABLED",(euc.dash.horn)?18:20,(euc.dash.horn)?col("raf"):col("dgray"),euc.dash.horn);
 				buzzer(D16,1,[30,50,30]);						
 			}else buzzer(D16,1,[30,50,30]);
 		}
@@ -165,7 +165,7 @@ touchHandler[0]=function(e,x,y){
 			face[0].set=0;face[0].init();
 			buzzer(D16,1,[30,50,30]);	
 		}else if ( x<=120 && 100<=y ) { 
-            face[0].ntfy("METER CLEARED","",19,1453,1);
+            face[0].ntfy("METER CLEARED","",19,col("raf"),1);
 			euc.wri("clearMeter");
 			buzzer(D16,1,[30,50,30]);		
 		}else buzzer(D16,1,40);

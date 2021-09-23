@@ -113,13 +113,13 @@ touchHandler[0]=function(e,x,y){
 			if (x<=120&&y<100) { //alarm 1
                 if (euc.dash.spd1E){
 					euc.dash.spd1E=0;
-					face[0].btn(euc.dash.spd1E,"ALARM 1",18,60,15,col("red"),1365,0,0,119,97,(euc.dash.spd1E)?"ON":"OFF",28,60,50);
+					face[0].btn(euc.dash.spd1E,"ALARM 1",18,60,15,col("red"),col("dgray"),0,0,119,97,(euc.dash.spd1E)?"ON":"OFF",28,60,50);
 					face[0].ntfy("ALARM 1-> DISABLED","",20,col("dgray"),1);
 					buzzer(D16,1,[30,50,30]);
 				}else {
 					if (euc.dash.spd2E){
 						euc.dash.spd1E=1;
-						face[0].btn(euc.dash.spd1E,"ALARM 1",18,60,15,col("red"),1365,0,0,119,97,(euc.dash.spd1E)?"ON":"OFF",28,60,50);
+						face[0].btn(euc.dash.spd1E,"ALARM 1",18,60,15,col("red"),col("dgray"),0,0,119,97,(euc.dash.spd1E)?"ON":"OFF",28,60,50);
 						face[0].ntfy("ALARM 1-> ENABLED","",20,col("dgray"),1);
 						buzzer(D16,1,[30,50,30]);
                     }else {face[0].ntfy("ENABLE ALARM 2","",20,col("red"),1);buzzer(D16,1,40);}

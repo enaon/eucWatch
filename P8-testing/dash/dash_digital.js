@@ -10,10 +10,10 @@ face[0] = {
 			this.g.fillRect(0,51,239,239);
 			this.g.flip();	
 		}else this.g.clear();
-		this.spdC=[0,0,3840,3840];
-		this.ampC=[1365,2992,3840,3840];
-		this.tmpC=[1365,2992,3840,3840];
-		this.batC=[1453,1365,3840,3840];
+		this.spdC=[0,0,col("red"),col("red")];
+		this.ampC=[col("dgray"),2992,col("red"),col("red")];
+		this.tmpC=[col("dgray"),2992,col("red"),col("red")];
+		this.batC=[col("raf"),col("dgray"),col("red"),col("red")];
 		this.spd=-1;
 		this.spdL=-1;
 		this.spdM=-1;
@@ -85,7 +85,7 @@ face[0] = {
 				this.conn=euc.state;
 				this.g.setColor(0,0);
 				this.g.fillRect(0,0,239,239);
-				this.g.setColor(1,4095);
+				this.g.setColor(1,col("white"));
 				this.g.setFont("Vector",50);
 				this.g.drawString(euc.state,(125-this.g.stringWidth(euc.state)/2),95);
 				this.g.flip();
@@ -106,7 +106,7 @@ face[0] = {
 		this.spd=Math.round(euc.dash.spd);
 		this.g.setColor(0,(euc.dash.spdC==1)?0:this.spdC[euc.dash.spdC]);
 		this.g.fillRect(43,54,197,170);
-		this.g.setColor(1,(euc.dash.spdC==1)?4080:4095);
+		this.g.setColor(1,(euc.dash.spdC==1)?col("yellow"):col("white"));
 		if (100 <= this.spd) {
 			if (150 < this.spd)  this.spd=150;
 			this.g.setFontVector(80);
@@ -122,9 +122,9 @@ face[0] = {
 	},
 	alF: function(){
 		this.al.set(almL);
-		this.g.setColor(0,1365);
+		this.g.setColor(0,col("dgray"));
 		this.g.clearRect(0,176,239,197);
-		this.g.setColor(1,4095);
+		this.g.setColor(1,col("white"));
 		//graph
 		let i=0;
 		this.al.forEach(function(val){
@@ -137,7 +137,7 @@ face[0] = {
 		this.amp=Math.round(euc.dash.amp);
 		this.g.setColor(0,this.ampC[euc.dash.ampC]);
 		this.g.fillRect(0,53,40,112);
-		this.g.setColor(1,4095);
+		this.g.setColor(1,col("white"));
 		this.g.setFontVector(12);
 		this.g.drawString("AMP", 8,59);
 		this.g.setFontVector(32);
@@ -148,7 +148,7 @@ face[0] = {
 		this.tmp=Math.round(euc.dash.tmp);
 		this.g.setColor(0,this.tmpC[euc.dash.tmpC]);
 		this.g.fillRect(0,53,40,112);
-		this.g.setColor(1,4095);
+		this.g.setColor(1,col("white"));
 		this.g.setFontVector(11);
 		this.g.drawString("TEMP", 6,59);
 		let temp=(set.def.dash.farn)?Math.round(this.tmp*1.8+32):Math.round(this.tmp);
@@ -160,17 +160,17 @@ face[0] = {
 	buzF: function(){
 		this.buzz=euc.buzz;
 		this.g.setFontVector(35);
-		this.g.setColor(0,(this.buzz)?3840:1365);
+		this.g.setColor(0,(this.buzz)?col("red"):col("dgray"));
 		this.g.fillRect(0,115,40,173); 
-		this.g.setColor(1,(this.buzz)?4095:0);
+		this.g.setColor(1,(this.buzz)?col("white"):0);
 		this.g.drawString("!", 19,130); 
 		this.g.flip();
 	},
 	spMF: function(){
 		this.spdM=euc.dash.spdM.toFixed(1);
-		this.g.setColor(0,1365);
+		this.g.setColor(0,col("dgray"));
 		this.g.fillRect(200,53,239,112); 
-		this.g.setColor(1,4095);
+		this.g.setColor(1,col("white"));
 		this.g.setFontVector(12);
 		this.g.drawString("TOP", 208,59);
 		this.g.setFontVector(32);
@@ -179,9 +179,9 @@ face[0] = {
 	},	
 	spLF: function(){
 		this.spdL=euc.dash.spdL;
-		this.g.setColor(0,(euc.dash.lim[3]<=this.spdL)?1365:3840);	
+		this.g.setColor(0,(euc.dash.lim[3]<=this.spdL)?col("dgray"):col("red"));	
 		this.g.fillRect(200,115,239,173); 
-		this.g.setColor(1,4095);
+		this.g.setColor(1,col("white"));
 		this.g.setFontVector(11);
 		this.g.drawString("LIMIT", 205,120);
 		this.g.setFontVector(32);
@@ -190,7 +190,7 @@ face[0] = {
 	},	
 	alrF: function(){
 		this.alrm=euc.dash.alrm;
-		this.g.setColor(0,1365);
+		this.g.setColor(0,col("dgray"));
 		this.g.fillRect(200,115,239,173); 
 		this.g.setColor(1,0);
 		this.g.setFontVector(35);
@@ -201,7 +201,7 @@ face[0] = {
 		this.tmp=euc.dash.tmp.toFixed(1);
 		this.g.setColor(0,this.tmpC[euc.dash.tmpC]);
 		this.g.fillRect(0,0,119,50);       
-		this.g.setColor(1,4095);
+		this.g.setColor(1,col("white"));
 		this.g.setFontVector(50);
 		let temp=(set.def.dash.farn)?this.tmp*1.8+32:this.tmp;
 		temp=(temp<100)?Number(temp).toFixed(1):Math.round(temp);
@@ -216,9 +216,9 @@ face[0] = {
 	amLF: function(){
 		this.ampL.set(ampL);
 		print(1);
-		this.g.setColor(1,(1<euc.dash.ampC)?col("red"):1365);
+		this.g.setColor(1,(1<euc.dash.ampC)?col("red"):col("dgray"));
 		this.g.fillRect(0,0,119,50);       
-		this.g.setColor(0,4095);
+		this.g.setColor(0,col("white"));
 		let i=0;
 		this.ampL.forEach(function(val){
 			w.gfx.fillRect(118-(i*6),(val<200)?50-(val*1.2):1,118-(i*6)-1,(val<200)?50:(255-val)*2);
@@ -227,11 +227,11 @@ face[0] = {
 		this.g.flip();
 	},	
 	pwrF: function(){
-		this.g.setColor(0,1365);
+		this.g.setColor(0,col("dgray"));
 		//this.g.setColor(0,col("red"));
 		this.g.fillRect(0,176,239,197); 
 		//this.g.fillRect(euc.dash.pwr*2.4,176,239,197); 
-		this.g.setColor(1,(50<=euc.dash.pwr)?(80<=euc.dash.pwr)?3840:4080:4095);
+		this.g.setColor(1,(50<=euc.dash.pwr)?(80<=euc.dash.pwr)?col("red"):col("yellow"):col("white"));
 		this.g.setFontVector(25);
 		this.g.drawString(((euc.dash.pwr/euc.dash.spd)*10).toFixed(1),3,177);
 		this.g.fillRect(80,182,80+euc.dash.pwr*1.6,192); 
@@ -241,7 +241,7 @@ face[0] = {
 		this.volt=euc.dash.volt.toFixed(2);
 		this.g.setColor(0,this.batC[euc.dash.batC]);
 		this.g.fillRect(122,0,239,50);
-		this.g.setColor(1,4095);
+		this.g.setColor(1,col("white"));
 		this.g.setFontVector((this.volt<100)?40:35);
 		this.g.drawString(this.volt,(this.volt<100)?135:125,0); 
 		this.g.setFontVector(13);
@@ -252,7 +252,7 @@ face[0] = {
 		this.bat=euc.dash.bat;
 		this.g.setColor(0,this.batC[euc.dash.batC]);
 		this.g.fillRect(122,0,239,50);
-		this.g.setColor(1,4095);
+		this.g.setColor(1,col("white"));
 		this.g.setFontVector(50);
 		this.g.drawString(this.bat,225-(this.g.stringWidth(this.bat)),3);
 		this.g.setFontVector(20);
@@ -261,9 +261,9 @@ face[0] = {
 	},
 	baLF: function(){
 		this.batL.set(batL);
-		this.g.setColor(1,(euc.dash.batC==3)?3840:1453);
+		this.g.setColor(1,(euc.dash.batC==3)?col("red"):col("raf"));
 		this.g.fillRect(122,0,239,50);       
-		this.g.setColor(0,4095);
+		this.g.setColor(0,col("white"));
 		//graph
 		let i=0;
 		this.batL.forEach(function(val){
@@ -276,7 +276,7 @@ face[0] = {
 		this.trpL=euc.dash.trpL.toFixed(2);
 		this.g.setColor(0,0);
 		this.g.fillRect(0,203,239,239);
-		this.g.setColor(1,1535);
+		this.g.setColor(1,col("lblue"));
 		this.g.setFontVector(35);
 		this.g.drawString((this.trpL*this.trpF).toFixed(2),0,208); 
 		if (!set.def.dash.clck) {//clock
@@ -290,9 +290,9 @@ face[0] = {
 		this.g.flip();
 	},
 	barF: function(){
-		this.g.setColor(1,1365);
+		this.g.setColor(1,col("dgray"));
 		this.g.fillRect(0,176,239,197); //mileage
-		this.g.setColor(0,4095);
+		this.g.setColor(0,col("white"));
 		this.g.setFont("7x11Numeric7Seg",4);
 		this.g.setFontVector(16); //mileage
 		//if (euc.dash.maker=="Ninebot") {

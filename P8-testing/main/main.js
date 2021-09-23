@@ -49,7 +49,7 @@ face[0] = {
 			this.ring=0;
 			var colbt=col("dgray");
 			if (this.bt==3)  colbt=col("raf2");
-			else if (this.bt==4)  colbt=143;
+			else if (this.bt==4)  colbt=col("blue");
 			else if (this.bt==2)  colbt=col("purple");
 			this.g.setColor(0,colbt);
 			this.g.fillRect(0,0,158,50); //date
@@ -64,8 +64,8 @@ face[0] = {
 				this.g.flip();
 				this.g.setColor(0,colbt);
 				this.g.fillRect(0,0,15,50); //date
-				var colbtf=4095;
-				if (set.bt==0) colbtf=3003;
+				var colbtf=col("white");
+				if (set.bt==0) colbtf=col("lgray");
 				this.g.setColor(1,colbtf);
 				this.g.drawImage(E.toArrayBuffer(atob("CxQBBgDgFgJgR4jZMawfAcA4D4NYybEYIwTAsBwDAA==")),3,13);
 				this.g.flip();
@@ -187,7 +187,7 @@ face[0] = {
 						this.g.flip();
 				}else {
 					this.g.setFont("Vector",35);
-					//this.g.drawString(euc.dash.maker,119-(this.g.stringWidth(euc.dash.maker)/2),170); 
+					//this.g.drawString(euc.dash.maker,119-(this.g.stringWidth(euc.dash.maker)/2),170)); 
 					this.g.drawString(set.def.name,119-(this.g.stringWidth(set.def.name)/2),155);
 					this.g.setFont("Vector",30);
 					if (euc.state !== "OFF") {
