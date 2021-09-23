@@ -301,7 +301,6 @@ touchHandler[0]=function(e,x,y){
         face[0].num(1);
       }else if(59<x&&x<118&&42<y&&y<91){
         face[0].num(2);
-		buzzer(D16,1,[30,50,30]);
       }else if(119<x&&x<180&&42<y&&y<91){
         face[0].num(3);
       }else if(181<x&&x<239&&42<y&&y<91){ // /
