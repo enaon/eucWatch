@@ -12,11 +12,11 @@
 
 ### Loader version:
 
-[**Web loader**](https://enaon.github.io/eucWatch/p8)  for the P8/P22 watch
+[**Web loader**](https://enaon.github.io/eucWatch/p8)  for the P8 - P22A/B/C/D/B1/C1 - pinetime
 
-[**Web loader**](https://enaon.github.io/eucWatch/dk08) for the DK08 watch
+[**Web loader**](https://enaon.github.io/eucWatch/dk08) for the DK08 (old)
 
-[**Web loader**](https://enaon.github.io/eucWatch/dsd6) for the DSD6 band
+[**Web loader**](https://enaon.github.io/eucWatch/dsd6) for the DSD6 (old)
 
 ### Manual scripts install:
 
