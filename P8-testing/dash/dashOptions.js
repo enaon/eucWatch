@@ -53,9 +53,9 @@ face[0] = {
             this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);}
 			this.g.flip();
     },
-    ntfy: function(txt0,txt1,size,bt,col,tm,s){
+    ntfy: function(txt0,txt1,size,bt,clr,tm,s){
 			if (this.ntid) {clearTimeout(this.ntid); this.ntid=0;}
-            this.g.setColor(0,col);
+            this.g.setColor(0,clr);
 			this.g.fillRect(0,160,239,239);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",18);
