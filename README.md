@@ -1,22 +1,22 @@
 
 >**Notice**:
->There are two problems one might face when buying a P8 watch to use with this git. 
->1. The p8 line is changing the CPU used, there is a model called GAM that no longer uses the NRF. P22B/P22C is a valid replacement. (P22D is NOT compatible yet)
->2. The antenna of the p8 might not be good enouph for a solid connection to the EUC. It will work but is a bit random, <del> only 3 out of 10 that I got my hand on were good enough to not need an antenna change.</del>, if not perfect you may need to order another one or change the antenna. That requires opening up the watch, and if done carefully it barelly leaves any visible marks. 
->3. Some watches, version TON5, are mising a crystal, <del> that makes them currently incompatible with daFlasher. They can still be flashed, but that requires opening up the watch.</del>.  <del> @fanoush made an TON5 compatible 1st step bootloader, use the file step1-TON5-xx at the first step. </del>.    Atc1441 made the 1st step file compatible with all models, so this is no longer an issue. 
+>There are two problems one might face when buying a watch to use with this git. 
+>1. The p8 line is changing the CPU used, there is a model called GAM that no longer uses the NRF. P22A/P22B/P22C/P22C1/Pinetime are valid replacements. <del>(P22D is NOT compatible yet)</del>. P22D and P22B1 are now compatible, but need loading extra core and handler files after installation is done for the display to work.  For pinetime use the p22 step4 image, and load the pinetime core and handler files after installation is done to enable the side button. 
+>2. The antenna of the p8 might not be good enouph for a solid connection to the EUC. It will work but is a bit random, <del> only 3 out of 10 that I got my hand on were good enough to not need an antenna change.</del>, if not perfect you may need to order another one or change the antenna. That requires opening up the watch, and if done carefully it barelly leaves any visible marks. P22C has a better signal than the p8. 
+>3. Some P8 watches, version TON5, are mising a crystal, <del> that makes them currently incompatible with daFlasher. They can still be flashed, but that requires opening up the watch.</del>.  <del> @fanoush made an TON5 compatible 1st step bootloader, use the file step1-TON5-xx at the first step. </del>.    Atc1441 made the 1st step file compatible with all models, so this is no longer an issue. 
 
 
 
 
-#### Espruino Installation on P8/P22(B/C) [how-to](https://enaon.github.io/eucWatch/tools/hackme/)
+#### Espruino Installation on P8 - P22A/B/C/D/B1/C1 - pinetime  [how-to](https://enaon.github.io/eucWatch/tools/hackme/)
 
 ### Loader version:
 
-[**Web loader**](https://enaon.github.io/eucWatch/p8)  for the P8/P22 watch
+[**Web loader**](https://enaon.github.io/eucWatch/p8)  for the P8 - P22A/B/C/D/B1/C1 - pinetime
 
-[**Web loader**](https://enaon.github.io/eucWatch/dk08) for the DK08 watch
+[**Web loader**](https://enaon.github.io/eucWatch/dk08) for the DK08 (old)
 
-[**Web loader**](https://enaon.github.io/eucWatch/dsd6) for the DSD6 band
+[**Web loader**](https://enaon.github.io/eucWatch/dsd6) for the DSD6 (old)
 
 ### Manual scripts install:
 
