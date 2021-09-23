@@ -319,17 +319,18 @@ touchHandler[0]=function(e,x,y){
 		if (face[0].set) {
 			face[0].set=0;
 	   		if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;
-			w.gfx.clear();
-			face[0].init();
-		}else {
+			//w.gfx.clear();
+			//face[0].init();
+		}//else {
 			if (face.faceSave!=-1) {
 				face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
 			}else{
 				if (face.appPrev=="settings") {face.appPrev="main";face.pagePrev=0;}
 				face.go(face.appPrev,face.pagePrev,face.pageArg);return;
 			}
-			return; 
-		}break;
+			//return; 
+		//}
+		break;
 	case 2: //slide up event
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}

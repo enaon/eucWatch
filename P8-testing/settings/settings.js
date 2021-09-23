@@ -204,8 +204,10 @@ face[1] = {
   },
   show : function(){
   	//set.updateSettings();
-    face.go("main",0);
 	face[0].btSetOn=1;
+	if (face.faceSave!=-1) {
+		  face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
+    }else face.go("main",0);
     return true;
   },
   clear: function(){
@@ -323,6 +325,7 @@ touchHandler[0]=function(e,x,y){
 			}else if (face[0].themeSet) {
 				if ( 1000 < face[0].tout && face[0].tout <= 60000 ){
 				  set.def.off[face.appRoot[0]]=face[0].tout-3000;
+				  if (set.def.off[face.appRoot[0]] < 3000  )  set.def.off[face.appRoot[0]]=3000;
 				}else if (60000 < face[0].tout && face[0].tout <= 3600000 ){					
 				  set.def.off[face.appRoot[0]]=face[0].tout-600000; 
 				  if (set.def.off[face.appRoot[0]] < 60000)  set.def.off[face.appRoot[0]]=60000;
@@ -394,9 +397,10 @@ touchHandler[0]=function(e,x,y){
 			face.go("alarm",0);return;
 		} else buzzer(D16,1,40);
 	}else if  (e==1){
-		if (face[0].btSet) {
-			face[0].btSet=0;
-		}else if(158<x&&x<239&&60<y&&y<180&&!face.mode) {
+		//if (face[0].btSet) {
+		//	face[0].btSet=0;
+		//}else 
+		if(158<x&&x<239&&60<y&&y<180&&!face.mode) {
 			face[0].cbri=w.gfx.bri.lv-1;
 			if (face[0].cbri<1) face[0].cbri=1;
 			w.gfx.bri.set(face[0].cbri);
@@ -406,7 +410,7 @@ touchHandler[0]=function(e,x,y){
 			if (face.faceSave!=-1) {
 			  face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
 			}else{
-			  if (face.appPrev=="settings") {face.appPrev="main";face.pagePrev=0;}
+			  if (face.appPrev=="settings"||face.appPrev==face.faceSave[0].substring(0,4)+"Options") {face.appPrev="main";face.pagePrev=0;}
 			  face.go(face.appPrev,face.pagePrev,face.pageArg);return;
 			}
 		}  
@@ -450,6 +454,11 @@ touchHandler[0]=function(e,x,y){
 			face[0].btSet=0;
 			//set.updateSettings();
 		}else if (face[0].themeSet) {
+			w.gfx.setColor(0,0);
+			w.gfx.fillRect(76,0,79,160);
+			w.gfx.flip();	
+			w.gfx.fillRect(156,0,159,160);
+			w.gfx.flip();
 			face[0].themeSet=0;
 		}else if (face.faceSave!=-1) {
 			face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
