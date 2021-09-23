@@ -1,6 +1,6 @@
 
 >**Notice**:
->There are two problems one might face when buying a P8 watch to use with this git. 
+>There are two problems one might face when buying a watch to use with this git. 
 >1. The p8 line is changing the CPU used, there is a model called GAM that no longer uses the NRF. P22A/P22B/P22C/P22C1 are valid replacements. <del>(P22D is NOT compatible yet)</del>. P22D and P22B1 are now compatible, but need loading extra core and handler files after installation is done for the display to work. 
 If possible avoid P22D/P22B1, they can only be run at 16bit color mode, this makes them a bit slower. 
 >2. The antenna of the p8 might not be good enouph for a solid connection to the EUC. It will work but is a bit random, <del> only 3 out of 10 that I got my hand on were good enough to not need an antenna change.</del>, if not perfect you may need to order another one or change the antenna. That requires opening up the watch, and if done carefully it barelly leaves any visible marks. P22C has a better signal than the p8. 
