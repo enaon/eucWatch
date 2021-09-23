@@ -297,6 +297,7 @@ module.exports = {
 w=require("P8");
 //load
 //w.gfx.init();
+require("Storage").erase("colmode16");
 eval(require('Storage').read('handler'));
 eval(require('Storage').read('main'));
 eval(require('Storage').read('euc'));

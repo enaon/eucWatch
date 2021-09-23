@@ -11,10 +11,10 @@ face[0] = {
 		this.g.setFont("Vector",25);
 		this.g.drawString("MAIN OPTIONS",120-(this.g.stringWidth("MAIN OPTIONS")/2),217); 
 		this.g.flip(); 
-		this.btn(1,"SET",20,60,15,col('dgray"),0,0,0,119,79,"TIME",26,60,45);//1
-		this.btn(1,(set.def.hr24)?"24 H":"12 H",26,180,25,col('raf"),0,120,0,239,79);//2
-		this.btn(1,"SET",20,60,90,col('dgray"),0,0,80,119,155,"DATE",26,60,120);//3
-		this.btn(1,"ABOUT",24,180,107,col('dgray"),0,120,80,239,155);//4
+		this.btn(1,"SET",20,60,15,col("dgray"),0,0,0,119,79,"TIME",26,60,45);//1
+		this.btn(1,(set.def.hr24)?"24 H":"12 H",26,180,25,col("raf"),0,120,0,239,79);//2
+		this.btn(1,"SET",20,60,90,col("dgray"),0,0,80,119,155,"DATE",26,60,120);//3
+		this.btn(1,"ABOUT",24,180,107,col("dgray"),0,120,80,239,155);//4
 		this.min=-1;
 		this.hour=-1;
 		//this.run=true;
@@ -23,9 +23,9 @@ face[0] = {
 		if (!this.run) return; 
 		if (!i) {
 			//let h=Date().getHours();
-			this.btn(1,(set.def.hr24)?"24 HOUR MODE":"12 HOUR MODE",24,120,25,col('raf"),0,0,0,239,75);//1
-			this.btn(1,"SET TIME",24,80,107,col('dgray"),0,0,80,155,155);//1
-			this.btn(1,"INFO",24,205,107,col('dgray"),0,160,80,239,155);//1
+			this.btn(1,(set.def.hr24)?"24 HOUR MODE":"12 HOUR MODE",24,120,25,col("raf"),0,0,0,239,75);//1
+			this.btn(1,"SET TIME",24,80,107,col("dgray"),0,0,80,155,155);//1
+			this.btn(1,"INFO",24,205,107,col("dgray"),0,160,80,239,155);//1
 
 			
 		}else{
@@ -53,7 +53,7 @@ face[0] = {
 			if (this.ntid) {clearTimeout(this.ntid); this.ntid=0;}
             this.g.setColor(0,col);
 			this.g.fillRect(0,160,239,239);
-			this.g.setColor(1,col('white"));
+			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",18);
      		this.g.drawString(txt0,120-(this.g.stringWidth(txt0)/2),165); 
 			if (s) {this.g.setFont("Vector",50);this.g.drawString("<",5,200);this.g.drawString(">",215,200);}
@@ -65,7 +65,7 @@ face[0] = {
 				face[0].set=0;
 				t.g.setColor(0,0);
 				t.g.fillRect(0,156,239,239);
-				t.g.setColor(1,col('white"));
+				t.g.setColor(1,col("white"));
 				t.g.setFont("Vector",25);
 				t.g.drawString("MAIN OPTIONS",120-(t.g.stringWidth("MAIN OPTIONS")/2),217); 
 				t.g.flip();
@@ -114,16 +114,16 @@ face[0] = {
 		if (this.t[1]!=this.min ){
 			this.min=this.t[1];
 			this.g.setFont("Vector",73);
-			this.g.setColor(0,col('dgray"));
+			this.g.setColor(0,col("dgray"));
 			this.g.fillRect(100,55,203,150);
-			this.g.setColor(1,col('lblue"));
+			this.g.setColor(1,col("lblue"));
 			this.g.drawString(this.t[1],107,75);
 			this.g.flip();
 		}
 		//seconds
-		this.g.setColor(0,col('dgray"));
+		this.g.setColor(0,col("dgray"));
 		this.g.fillRect(203,55,240,150);
-		this.g.setColor(1,col('white"));//
+		this.g.setColor(1,col("white"));//
 		this.g.setFont("Vector",18);
 		let sec=(set.def.hr24)?"24H":(this.t[0]<12)?"AM":"PM";
 		this.g.drawString(sec,241-(this.g.stringWidth(sec)),79); //hours mode
@@ -134,18 +134,18 @@ face[0] = {
 		if (this.t[0]!=this.hour){
 			this.g.setColor(0,0);
 			this.g.fillRect(0,0,239,54);
-			//this.g.setColor(0,col('dgray"));
+			//this.g.setColor(0,col("dgray"));
 			this.g.flip();
 			this.g.setColor(0,0);
 			this.g.fillRect(0,161,239,239);
-			this.g.setColor(1,col('white"));
+			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",25);
 			this.g.drawString("SET TIME",120-(this.g.stringWidth("SET TIME")/2),217); 
 			this.g.flip();
 			this.hour=this.t[0];
-			this.g.setColor(0,col('dgray"));
+			this.g.setColor(0,col("dgray"));
 			this.g.fillRect(0,55,99,150);
-			this.g.setColor(1,col('white"));
+			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",73);
 			if (set.def.hr24) {
 				this.g.drawString(this.hour,0,74); //hours
@@ -167,9 +167,9 @@ face[0] = {
 		this.g.fillRect(0,0,239,54);
 		this.g.flip();		
 		this.d=(Date()).toString().split(' ');
-		this.g.setColor(0,col('dgray"));
+		this.g.setColor(0,col("dgray"));
 		this.g.fillRect(0,55,239,160);
-		this.g.setColor(1,col('lblue"));
+		this.g.setColor(1,col("lblue"));
 		this.g.setFont("Vector",40);
 		this.g.drawString(this.d[2],25-(this.g.stringWidth(this.d[2])/2),90); 
 		//this.g.setFont("Vector",35);
@@ -179,7 +179,7 @@ face[0] = {
 		this.g.flip();
 		this.g.setColor(0,0);
 		this.g.fillRect(0,161,239,239);
-		this.g.setColor(1,col('white"));
+		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",25);
 		this.g.drawString("SET DATE",120-(this.g.stringWidth("SET DATE")/2),217); 
 		this.g.flip();
@@ -267,27 +267,27 @@ touchHandler[0]=function(e,x,y){
 			}else if (face[0].set=="setDate") {
 				if ( x <=80 &&  y <= 120) { //date up
 					buzzer(D16,1,[30,50,30]);
-					setTime(Date().setDate(Date().getDate()+1)/1000)
+					setTime(Date().setDate(Date().getDate()+1)/1000);
 					face[0].setDate();
 				}else if ( x <=80 && 120 <= y) {//date dn
 					buzzer(D16,1,[30,50,30]);
-					setTime(Date().setDate(Date().getDate()-1)/1000)
+					setTime(Date().setDate(Date().getDate()-1)/1000);
 					face[0].setDate();
 				}else if ( 80 <= x && x <=160 && y <= 120) { //month up
 					buzzer(D16,1,[30,50,30]);
-					setTime(Date().setMonth(Date().getMonth()+1)/1000)
+					setTime(Date().setMonth(Date().getMonth()+1)/1000);
 					face[0].setDate();
 				}else if ( 80 <= x && x <=160 && 120 <= y) {//month dn
 					buzzer(D16,1,[30,50,30]);
-					setTime(Date().setMonth(Date().getMonth()-1)/1000)
+					setTime(Date().setMonth(Date().getMonth()-1)/1000);
 					face[0].setDate();
 				}else if ( 160 <= x && y <= 120) { //year up
 					buzzer(D16,1,[30,50,30]);
-					setTime(Date().setFullYear(Date().getFullYear()+1)/1000)
+					setTime(Date().setFullYear(Date().getFullYear()+1)/1000);
 					face[0].setDate();
 				}else if ( 160 <= x && 120 <= y) {//year dn
 					buzzer(D16,1,[30,50,30]);
-					setTime(Date().setFullYear(Date().getFullYear()-1)/1000)
+					setTime(Date().setFullYear(Date().getFullYear()-1)/1000);
 					face[0].setDate();
 				}else {
 					face[0].set=0;
@@ -303,7 +303,7 @@ touchHandler[0]=function(e,x,y){
 		}else if ( 120 <= x && y <= 80 ) {//12/24 hour mode
 			buzzer(D16,1,[30,50,30]);
 			set.def.hr24=1-set.def.hr24;
-			face[0].btn(1,(set.def.hr24)?"24 H":"12 H",26,180,25,col('raf"),0,120,0,239,79);//2
+			face[0].btn(1,(set.def.hr24)?"24 H":"12 H",26,180,25,col("raf"),0,120,0,239,79);//2
 		}else if ( x <=120 && 80 <= y && y <= 160 ) { //setDate
 			buzzer(D16,1,[30,50,30]);	
 			face[0].set="setDate";
