@@ -163,7 +163,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].ntfy("DISTANCE FACTOR",euc.dash.trpF,40,1,col("olive"),5000,1);
 				}else if (face[0].set=="rtr") { //temp
 				  if (x<120){ //
-						set.def.dash.rtr--; if ( set.def.dash.rtr <= 1 ) set.def.dash.rtr = 1;
+						set.def.dash.rtr--; if ( set.def.dash.rtr <= 0 ) set.def.dash.rtr = 0;
 					}else{ //back
 						set.def.dash.rtr++; if (20 <= set.def.dash.rtr) set.def.dash.rtr = 20;
 					}
