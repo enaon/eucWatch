@@ -29,7 +29,7 @@ face[0] = {
 		//let makr=set.read("dash","slot"+set.read("dash","slot")+"Maker"); 
 		//if (makr) {
 			//if (makr=="Begode"){
-			this.btn(euc.dash.ampR,"AMP",15,200,10,col("dgray"),col("dgray"),160,0,239,75,(euc.dash.ampR)?"R":"N",30,200,35); //3
+			this.btn(1,"EMPTY",15,200,10,col("dgray"),0,160,0,239,75,euc.dash.batE/100,30,200,35); //3
 			this.btn(1,"RETRY",15,200,90,col("dgray"),0,160,80,239,155,set.def.dash.rtr,30,200,120); //6
 			//}else {
 			//	this.g.fillRect(160,0,239,75); //3
@@ -134,9 +134,12 @@ touchHandler[0]=function(e,x,y){
 		if (face[0].set) { 
 			if (y < 155) {
 				face[0].set=0;
-				face[0].btn(1,"SPEED X",15,40,90,col("dgray"),0,0,80,75,155,euc.dash.spdF,30,40,120); //4
-				face[0].btn(1,"DIST X",15,120,90,col("dgray"),0,80,80,155,155,euc.dash.trpF,30,120,120); //5
-				face[0].btn(1,"RETRY",15,200,90,col("dgray"),0,160,80,239,155,set.def.dash.rtr,30,200,120); //6
+				if (!face[0].page){
+					face[0].btn(1,"EMPTY",15,200,10,col("dgray"),0,160,0,239,75,euc.dash.batE/100,30,200,35); //3
+					face[0].btn(1,"SPEED X",15,40,90,col("dgray"),0,0,80,75,155,euc.dash.spdF,30,40,120); //4
+					face[0].btn(1,"DIST X",15,120,90,col("dgray"),0,80,80,155,155,euc.dash.trpF,30,120,120); //5
+					face[0].btn(1,"RETRY",15,200,90,col("dgray"),0,160,80,239,155,set.def.dash.rtr,30,200,120); //6
+				}
 				touchHandler[0](e,x,y);
 				return;
 			} else{
@@ -163,7 +166,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].ntfy("DISTANCE FACTOR",euc.dash.trpF,40,1,col("olive"),5000,1);
 				}else if (face[0].set=="rtr") { //temp
 				  if (x<120){ //
-						set.def.dash.rtr--; if ( set.def.dash.rtr <= 0 ) set.def.dash.rtr = 0;
+						set.def.dash.rtr--; if ( set.def.dash.rtr <= 1 ) set.def.dash.rtr = 1;
 					}else{ //back
 						set.def.dash.rtr++; if (20 <= set.def.dash.rtr) set.def.dash.rtr = 20;
 					}
@@ -171,10 +174,12 @@ touchHandler[0]=function(e,x,y){
 					face[0].ntfy("NUMBER OF RETRIES",set.def.dash.rtr,40,1,col("olive"),5000,1);
 				}else if (face[0].set=="batt") { //bat
 				  if (x<120){ //
-						
-					}else{ //back
-
+						euc.dash.batE--; if ( euc.dash.batE <= 300 ) euc.dash.batE = 300;
+				}else{ //back
+						euc.dash.batE++; if (340 <= euc.dash.batE) euc.dash.batE = 340;
 					}
+					face[0].btn(1,"EMPTY",15,200,10,col("olive"),0,160,0,239,75,euc.dash.batE/100,30,200,35); //3
+					face[0].ntfy("0% WHEN CELL IS AT",euc.dash.batE/100 + " Volt",30,1,col("olive"),3000,1);
 				}else  {
 					buzzer(D16,1,40);
 					face[0].set=0;
@@ -196,25 +201,25 @@ touchHandler[0]=function(e,x,y){
 				face[0].btn(1,"o",20,100,20,col("raf"),0,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);
 				face[0].ntfy("TEMPERATURE IN",(set.def.dash.farn)?"FAHRENHEIT":"CELSIUS",30,1,col("raf"),1500);
 			}else if (155 <= x && y < 75) { //3
-				euc.dash.ampR=1-euc.dash.ampR;
-				face[0].btn(euc.dash.ampR,"AMP",15,200,10,col("dgray"),col("dgray"),160,0,239,75,(euc.dash.ampR)?"R":"N",30,200,35); //3
-				face[0].ntfy("AMPERAGE REPORT",(euc.dash.ampR)?"REVERSED":"NORMAL",30,1,col("raf"),1500);
 				buzzer(D16,1,[30,50,30]);
+				face[0].set="batt";
+				face[0].btn(1,"EMPTY",15,200,10,col("olive"),0,160,0,239,75,euc.dash.batE/100,30,200,35); //3
+				face[0].ntfy("0% WHEN CELL IS AT",euc.dash.batE/100 + " Volt",30,1,col("olive"),3000,1);
 			}else if (x<75 && 75 <y && y < 155) { //4
-				face[0].set="spdF";
 				buzzer(D16,1,[30,50,30]);
+				face[0].set="spdF";
 				face[0].btn(1,"SPEED X",15,40,90,col("olive"),0,0,80,75,155,euc.dash.spdF,30,40,120); //4
 				face[0].ntfy("SPEED FACTOR",euc.dash.spdF,40,1,col("olive"),3000,1);
 			}else if (75<= x && x < 155 && 75 <y && y < 155) { //5
-				face[0].set="trpF";
 				buzzer(D16,1,[30,50,30]);
+				face[0].set="trpF";
 				face[0].btn(1,"DIST X",15,120,90,col("olive"),0,80,80,155,155,euc.dash.trpF,30,120,120); //5
 				face[0].ntfy("DISTANCE FACTOR",euc.dash.trpF,40,1,col("olive"),3000,1);
 			}else if (155 <= x && 75 <y && y < 155) { //6
+				buzzer(D16,1,[30,50,30]);
 				face[0].set="rtr";
 				face[0].btn(1,"RETRY",15,200,90,col("olive"),0,160,80,239,155,set.def.dash.rtr,30,200,120); //6
 				face[0].ntfy("NUMBER OF RETRIES",set.def.dash.rtr,40,1,col("olive"),3000,1);
-				buzzer(D16,1,[30,50,30]);   
 			}else buzzer(D16,1,40);		
 		}else {
 			if (x<75 && y<75) { //1
@@ -307,7 +312,7 @@ touchHandler[0]=function(e,x,y){
 			face[0].page=0;
 			face[0].btn(1,(set.def.dash.mph)?"MPH":"KPH",30,40,25,col("raf"),0,0,0,75,75);//1
 			face[0].btn(1,"o",20,100,20,col("raf"),0,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);//2
-			face[0].btn(euc.dash.ampR,"AMP",15,200,10,col("dgray"),0,160,0,239,75,(euc.dash.ampR)?"R":"N",30,200,35); //3
+			face[0].btn(1,"EMPTY",15,200,10,col("dgray"),0,160,0,239,75,euc.dash.batE/100,30,200,35); //3
 			face[0].btn(1,"SPEED X",15,40,90,col("dgray"),0,0,80,75,155,euc.dash.spdF,30,40,120); //4
 			face[0].btn(1,"DIST X",15,120,90,col("dgray"),0,80,80,155,155,euc.dash.trpF,30,120,120); //5
 			face[0].btn(1,"RETRY",15,200,90,col("dgray"),0,160,80,239,155,set.def.dash.rtr,30,200,120); //6
