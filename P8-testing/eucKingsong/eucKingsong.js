@@ -278,7 +278,9 @@ euc.conn=function(mac){
 					});
 				}else {
 					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+					euc.state="OFF";
 					euc.off("not connected");
+					return;
 				}
 			}else { 
 				c.writeValue(euc.cmd(n)).then(function() {
@@ -295,15 +297,16 @@ euc.conn=function(mac){
 			set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
 		}
 		if (!euc.run) { 
-			
 			euc.wri("start");
 		} else {
-			euc.state="READY";
 			setTimeout(()=>{ 
 				//console.log(global["\xFF"].bleHdl[54].value.buffer[0]);
 				if (global["\xFF"].bleHdl[54]&& (global["\xFF"].bleHdl[54].value.buffer[0]==65 ||global["\xFF"].bleHdl[54].value.buffer[0]==188)){
 					euc.wri("start");
-				} else c.startNotifications();
+				} else {
+					euc.state="READY";
+					c.startNotifications();
+				}
 			},500);
 		}
 	//reconect
@@ -320,6 +323,13 @@ euc.off=function(err){
 		if ( err==="Connection Timeout"  )  {
 			//if (set.def.cli) console.log("reason :timeout");
 			euc.state="LOST";
+			euc.run=euc.run+1;
+			if ( set.def.dash.rtr < euc.run) {
+				euc.tgl();
+				//euc.state="OFF";
+				//euc.off("retry end");
+				return;
+			}
 			if (euc.dash.lock==1) buzzer(D16,1,250);
 			else buzzer(D16,1,[250,200,250,200,250]);
 			euc.reconnect=setTimeout(() => {
@@ -342,10 +352,7 @@ euc.off=function(err){
 			}, 2000);
 		}
 	} else {
-			if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
-				if (set.def.cli) console.log("ble still connected"); 
-				global["\xFF"].BLE_GATTS.disconnect();
-			}
+			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},100);return;} 
 			//global["\xFF"].bleHdl=[];
 			if ( euc.aOff==0 || euc.aOff==1 ) {euc.dash.aOff=euc.aOff;	delete euc.aOff;}
 			if ( euc.aLck==0 || euc.aLck==1 )  {euc.dash.aLck=euc.aLck;	delete euc.aLck;}
@@ -354,6 +361,10 @@ euc.off=function(err){
 			delete euc.conn;
 			delete euc.cmd;
 			euc.run=0;
+			if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
+				if (set.def.cli) console.log("ble still connected"); 
+				global["\xFF"].BLE_GATTS.disconnect();
+			}
 			NRF.setTxPower(set.def.rfTX);
     }
 };

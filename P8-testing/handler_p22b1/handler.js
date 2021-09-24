@@ -68,7 +68,8 @@ var set={
 			accE:0,//euc acc on/off
 			clck:0,
 			clkS:0,	
-			farn:0
+			farn:0,
+			rtr:5
 		},
 		off:{ //face timeout 
 		},

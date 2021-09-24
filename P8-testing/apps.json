@@ -87,7 +87,7 @@
 	{ "id": "settings",
 		"name": "Settings",
 		"icon": "icon.png",
-		"version":"0.93",
+		"version":"0.94",
 		"description": "Settings face",
 		"tags": "apps",
 		"type":"main",
