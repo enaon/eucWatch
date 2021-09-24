@@ -209,10 +209,9 @@ euc.off=function(err){
 			euc.state="LOST";
 			if ( set.def.dash.rtr < euc.run) {
 				euc.tgl();
-				//euc.state="OFF";
-				//euc.off("retry end");
 				return;
 			}
+			euc.run=euc.run+1;
 			if (euc.dash.lock==1) buzzer(D16,1,250);
 			else buzzer(D16,1,[250,200,250,200,250]);
 			euc.reconnect=setTimeout(() => {

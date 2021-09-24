@@ -8,6 +8,7 @@ face[0] = {
         //this.g.clear();
 		if (this.ntid) {clearTimeout(this.ntid); this.ntid=0;}
         //this.g.clear();
+		if (!set.def.dash.rtr) set.def.dash.rtr=5;
 		this.page=0;
 		this.g.setColor(0,0);
 		this.g.fillRect(0,160,239,239);
@@ -25,8 +26,8 @@ face[0] = {
 		this.g.flip(); 
 		this.btn(1,(set.def.dash.mph)?"MPH":"KPH",30,40,25,col("raf"),0,0,0,75,75);//1
 		this.btn(1,"o",20,100,20,col("raf"),0,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);//2
-		let makr=set.read("dash","slot"+set.read("dash","slot")+"Maker"); 
-		if (makr) {
+		//let makr=set.read("dash","slot"+set.read("dash","slot")+"Maker"); 
+		//if (makr) {
 			//if (makr=="Begode"){
 			this.btn(euc.dash.ampR,"AMP",15,200,10,col("dgray"),col("dgray"),160,0,239,75,(euc.dash.ampR)?"R":"N",30,200,35); //3
 			this.btn(1,"RETRY",15,200,90,col("dgray"),0,160,80,239,155,set.def.dash.rtr,30,200,120); //6
@@ -35,12 +36,12 @@ face[0] = {
 			//}
 			this.btn(1,"SPEED X",15,40,90,col("dgray"),col("raf"),0,80,75,155,euc.dash.spdF,30,40,120); //4
 			this.btn(1,"DIST X",15,120,90,col("dgray"),col("raf"),80,80,155,155,euc.dash.trpF,30,120,120); //5
-		} else {
-			this.g.fillRect(160,0,239,75);//3
-			this.g.fillRect(0,80,75,155); //4
-			this.g.fillRect(80,80,155,155); //5
-			this.g.fillRect(160,80,239,155);//6
-		}
+		//} else {
+		///	this.g.fillRect(160,0,239,75);//3
+		//	this.g.fillRect(0,80,75,155); //4
+		//	this.g.fillRect(80,80,155,155); //5
+		//	this.g.fillRect(160,80,239,155);//6
+		//}
 	
         //this.run=true;
 	},

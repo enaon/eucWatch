@@ -167,8 +167,9 @@ euc.conn=function(mac){
 							});
 						},500);
 					}else {
+						euc.state="OFF";
 						euc.off("not connected");
-					}
+						return;					}
 				}else{
 					euc.wCha.writeValue(euc.cmd(i)).then(function() {
 						if (euc.busy==1) return;
@@ -189,7 +190,7 @@ euc.conn=function(mac){
 				set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
 			}
 			euc.busy=0;
-			setTimeout(() => {euc.wri((euc.dash.aLck)?22:26);}, 500);
+			setTimeout(() => {euc.wri((euc.dash.aLck)?22:26);euc.run=1;}, 500);
 		//reconnect
 		}).catch(function(err)  {
 			euc.off(err);
@@ -204,6 +205,11 @@ euc.off=function(err){
 		if ( err==="Connection Timeout"  )  {
 			if (set.def.cli) console.log("reason :timeout");
 			euc.state="LOST";
+			if ( set.def.dash.rtr < euc.run) {
+				euc.tgl();
+				return;
+			}
+			euc.run=euc.run+1;
 			if (euc.dash.lock==1) buzzer(D16,1,250);
 			else buzzer(D16,1,[250,200,250,200,250]);
 			euc.reconnect=setTimeout(() => {
@@ -232,7 +238,7 @@ euc.off=function(err){
 		}
 		if (set.def.cli) console.log("EUC OUT:",err);
 		//global["\xFF"].bleHdl=[];
-		euc.busy=0;
+		euc.busy=0;euc.run=0;
 		euc.off=function(err){if (set.def.cli) console.log("EUC stoped at:",err);};
 		euc.wri=function(err){if (set.def.cli) console.log("EUC write, not connected");};
 		delete euc.conn;

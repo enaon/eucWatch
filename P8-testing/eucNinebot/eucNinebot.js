@@ -155,11 +155,15 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 					c.writeValue(euc.cmd((euc.dash.aLck)?21:25)).then(function() {
 						global["\xFF"].BLE_GATTS.disconnect().catch(function(err){if (set.def.cli)console.log("EUC OUT disconnect failed:", err);});
 					}).catch(function(err)  {
-						euc.off("end fail");	
+						euc.state="OFF";
+						euc.off("end fail");
+						return;
 					});
 				},500);
 			}else {
+				euc.state="OFF";
 				euc.off("not connected");
+				return;
 			}
 		}else{
 			c.writeValue(euc.cmd(i)).then(function() {
@@ -181,7 +185,10 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 		set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
 	}
     euc.busy=0;
-	setTimeout(() => {euc.wri((euc.dash.aLck)?22:26);}, 500);
+	setTimeout(() => {
+		euc.wri((euc.dash.aLck)?22:26);
+		euc.run=1;
+	}, 500);
 //reconnect
 }).catch(function(err)  {
 	euc.off(err);
@@ -196,6 +203,11 @@ euc.off=function(err){
 		if ( err==="Connection Timeout"  )  {
 			if (set.def.cli) console.log("reason :timeout");
 			euc.state="LOST";
+			if ( set.def.dash.rtr < euc.run) {
+				euc.tgl();
+				return;
+			}
+			euc.run=euc.run+1;
 			if (euc.dash.lock==1) buzzer(D16,1,250);
 			else buzzer(D16,1,[250,200,250,200,250]);
 			euc.reconnect=setTimeout(() => {
@@ -224,7 +236,7 @@ euc.off=function(err){
 		}
 		if (set.def.cli) console.log("EUC OUT:",err);
 		//global["\xFF"].bleHdl=[];
-		euc.busy=0;
+		euc.busy=0;euc.run=0;
 		euc.off=function(err){if (set.def.cli) console.log("EUC stoped at:",err);};
 		euc.wri=function(err){if (set.def.cli) console.log("EUC write, not connected");};
 		delete euc.conn;

@@ -191,12 +191,16 @@ euc.conn=function(mac){
 							euc.wCha.writeValue(euc.cmd("lightsOff")).then(function() {
 								global["\xFF"].BLE_GATTS.disconnect(); 
 							}).catch(function(err)  {
+								euc.state="OFF";
 								euc.off("end fail");	
+								return;
 							});
 						},500);
 					}else {
+						euc.state="OFF";
 						euc.off("not connected");
 						euc.busy=0;euc.horn=0;
+						return;
 					}
 					
 				}else if (cmd==="start") {
@@ -207,6 +211,7 @@ euc.conn=function(mac){
 						euc.loop=setTimeout(function(){ 
 							euc.loop=0;
 							euc.busy=0;
+							euc.run=1;
 							euc.wri("live");
 						},300);	
 					}).catch(function(err)  {
@@ -264,6 +269,11 @@ euc.off=function(err){
 		if ( err==="Connection Timeout"  )  {
 			if (set.def.cli) console.log("reason :timeout");
 			euc.state="LOST";
+			if ( set.def.dash.rtr < euc.run) {
+				euc.tgl();
+				return;
+			}
+			euc.run=euc.run+1;
 			if (euc.dash.lock==1) buzzer(D16,1,250);
 			else buzzer(D16,1,[250,200,250,200,250]);
 			euc.reconnect=setTimeout(() => {
@@ -298,7 +308,7 @@ euc.off=function(err){
 		delete euc.serv;
 		delete euc.wCha;
 		delete euc.rCha;
-		euc.busy=0;
+		euc.busy=0;euc.run=0;
 		NRF.setTxPower(set.def.rfTX);	
 		euc.off=function(err){if (set.def.cli) console.log("EUC off, not connected",err);};
     }

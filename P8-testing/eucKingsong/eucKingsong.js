@@ -272,6 +272,7 @@ euc.conn=function(mac){
 						euc.run=0;
 						return global["\xFF"].BLE_GATTS.disconnect();	
 					}).catch(function(err)  {
+						euc.state="OFF";
 						if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 						if (global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected) global["\xFF"].BLE_GATTS.disconnect();
 						else euc.off("err-off");
@@ -323,13 +324,11 @@ euc.off=function(err){
 		if ( err==="Connection Timeout"  )  {
 			//if (set.def.cli) console.log("reason :timeout");
 			euc.state="LOST";
-			euc.run=euc.run+1;
 			if ( set.def.dash.rtr < euc.run) {
 				euc.tgl();
-				//euc.state="OFF";
-				//euc.off("retry end");
 				return;
 			}
+			euc.run=euc.run+1;
 			if (euc.dash.lock==1) buzzer(D16,1,250);
 			else buzzer(D16,1,[250,200,250,200,250]);
 			euc.reconnect=setTimeout(() => {

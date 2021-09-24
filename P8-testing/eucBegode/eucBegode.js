@@ -148,7 +148,9 @@ euc.conn=function(mac){
 					});  
 				}else {
 					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+					euc.state="OFF";
 					euc.off("not connected");
+					return;
 				}
 			}else if (n=="start") {
 				if (euc.dash.aLight!="lightsOn"||euc.dash.aLight!="lightsOff"||euc.dash.aLight!="lightsStrobe") euc.dash.aLight="lightsOn";
@@ -225,6 +227,11 @@ euc.off=function(err){
 		if ( err==="Connection Timeout"  )  {
 			if (set.def.cli) console.log("reason :timeout");
 			euc.state="LOST";
+			if ( set.def.dash.rtr < euc.run) {
+				euc.tgl();
+				return;
+			}
+			euc.run=euc.run+1;
 			if (euc.dash.lock==1) buzzer(D16,1,250);
 			else buzzer(D16,1,[250,200,250,200,250]);
 			euc.reconnect=setTimeout(() => {
@@ -251,6 +258,7 @@ euc.off=function(err){
 	} else {
 		if (set.def.cli) console.log("EUC OUT:",err);
 		global["\xFF"].bleHdl=[];
+		euc.run=0;
 		if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 		euc.off=function(err){if (set.def.cli) console.log("EUC off, not connected",err);};
 		euc.wri=function(err){if (set.def.cli) console.log("EUC write, not connected",err);};
