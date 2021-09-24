@@ -4,10 +4,7 @@ face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:15000,
 	g:w.gfx,
 	init: function(){
-		//if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.faceSave=-1;face.go(set.dash[set.def.dash.face],0);return;}
-        //this.g.clear();
 		if (this.ntid) {clearTimeout(this.ntid); this.ntid=0;}
-        //this.g.clear();
 		if (!set.def.dash.rtr) set.def.dash.rtr=5;
 		this.page=0;
 		this.g.setColor(0,0);

@@ -37,11 +37,12 @@ euc.conn=function(mac){
 				if (event.target.value.buffer[0]==90 && event.target.value.buffer.length==20) {
 					//print("o",event.target.value.buffer);
 					//batt
-					euc.dash.bat=event.target.value.getUint16(15, true);
+					/*euc.dash.bat=event.target.value.getUint16(15, true);
 					batL.unshift(euc.dash.bat);
 					if (20<batL.length) batL.pop();
 					euc.dash.batC = (50 <= euc.dash.bat)? 0 : (euc.dash.bat <= euc.dash.batL)? 2 : 1;	
 					if ( euc.dash.hapB && euc.dash.batC ==2 )  euc.alert ++; 
+					*/
 					//speed
 					euc.dash.spd=event.target.value.getUint16(17, true)/100;
 					euc.dash.spdC = ( euc.dash.spd1 <= euc.dash.spd )? 2 : ( euc.dash.spd2 <= euc.dash.spd )? 1 : 0 ;	
@@ -59,6 +60,11 @@ euc.conn=function(mac){
 					if (euc.dash.hapT && euc.dash.tmpC==2) euc.alert++; 	
 					//volt
 					euc.dash.volt=(event.target.value.getUint16(11, true)/100);
+					euc.dash.bat=Math.round(((euc.dash.volt*7.13) - euc.dash.batE ) * (100/(414-euc.dash.batE)));
+					batL.unshift(euc.dash.bat);
+					if (20<batL.length) batL.pop();
+					euc.dash.batC = (50 <= euc.dash.bat)? 0 : (euc.dash.bat <= euc.dash.batL)? 2 : 1;	
+					if ( euc.dash.hapB && euc.dash.batC ==2 )  euc.alert ++; 
 					//print(euc.dash.volt);
 					//amp
 					euc.dash.amp=event.target.value.getInt16(13, true)/100;

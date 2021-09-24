@@ -41,7 +41,8 @@ euc.conn=function(mac){
 			if  ( ev[0]===220 && ev[1]===90 && ev[2]===92 ) {
 				//volt-bat
 				euc.dash.volt=(ev[4]  << 8 | ev[5] )/100;
-				euc.dash.bat = Math.round(((euc.dash.volt / 24) * 100 - 310 ) * 0.905);
+				euc.dash.bat=Math.round(((euc.dash.volt*4.166) - euc.dash.batE ) * (100/(420-euc.dash.batE)));
+				//euc.dash.bat = Math.round(((euc.dash.volt / 24) * 100 - 310 ) * 0.905);
 				batL.unshift(euc.dash.bat);
 				if (20<batL.length) batL.pop();
 				euc.dash.batC = (50 <= euc.dash.bat)? 0 : (euc.dash.bat <= euc.dash.batL)? 2 : 1;	
