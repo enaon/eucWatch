@@ -23,11 +23,11 @@ face[0] = {
         this.g.setColor(1,col("white"));
       	this.g.fillRect(105,200,135,204);
 		this.g.flip(); 
-        this.btn(euc.dash.aLck,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
+        this.btn(euc.dash.aLck,"AUTO",18,60,15,col("red"),col("gray"),0,0,119,97,"LOCK",28,60,50);
         //this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"HAPTIC",25,185,37,col("raf"),col("raf4"),122,0,239,97);	
-		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("raf4"),122,0,239,97,"ALERTS",22,185,55);		
-        this.btn(euc.dash.aOff,"AUTO",18,60,115,col("red"),col("dgray"),0,100,119,195,"OFF",30,60,150);
-        this.btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("raf4"),122,100,239,195);		
+		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("dgray"),122,0,239,97,"ALERTS",22,185,55);		
+        this.btn(euc.dash.aOff,"AUTO",18,60,115,col("red"),col("gray"),0,100,119,195,"OFF",30,60,150);
+        this.btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("dgray"),122,100,239,195);		
         this.run=true;
 	},
 	show : function(){
@@ -108,7 +108,7 @@ touchHandler[0]=function(e,x,y){
       case 5: //tap event
 		if ( x<=120 && y<100 ) { //auto lock
 			euc.dash.aLck=1-euc.dash.aLck;
-            face[0].btn(euc.dash.aLck,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
+            face[0].btn(euc.dash.aLck,"AUTO",18,60,15,col("red"),col("gray"),0,0,119,97,"LOCK",28,60,50);
             face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,col("dgray"),euc.dash.aLck);
 			buzzer(D16,1,[30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //watch alerts
@@ -117,12 +117,12 @@ touchHandler[0]=function(e,x,y){
 			return;		
 		}else if ( x<=120 && 100<=y ) { //auto off
 			euc.dash.aOff=1-euc.dash.aOff;
-            face[0].btn(euc.dash.aOff,"AUTO",18,60,115,col("red"),col("dgray"),0,100,119,195,"OFF",30,60,150);
+            face[0].btn(euc.dash.aOff,"AUTO",18,60,115,col("red"),col("gray"),0,100,119,195,"OFF",30,60,150);
             face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",16,col("dgray"),euc.dash.aOff);
 			buzzer(D16,1,[30,50,30]);		
 		}else if  (120<=x && 100<=y ) { //lock
 			euc.dash.horn=1-euc.dash.horn;
-            face[0].btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("raf4"),122,100,239,195);
+            face[0].btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("dgray"),122,100,239,195);
             face[0].ntfy("BUTTON IS HORN >2KPH","HORN DISABLED",18,col("dgray"),euc.dash.horn);
 			buzzer(D16,1,[30,50,30]);						
 		}else buzzer(D16,1,[30,50,30]);
@@ -151,23 +151,23 @@ touchHandler[0]=function(e,x,y){
 	case 12: //hold event
 		if ( x<=120 && y<100 ) { //auto lock
 			euc.dash.aLck=1-euc.dash.aLck;
-            face[0].btn(euc.dash.aLck,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
+            face[0].btn(euc.dash.aLck,"AUTO",18,60,15,col("red"),col("gray"),0,0,119,97,"LOCK",28,60,50);
             face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,col("dgray"),euc.dash.aLck);
 			buzzer(D16,1,[30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //haptic
 			if (euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB) {euc.dash.hapS=0;euc.dash.hapA=0;euc.dash.hapT=0;euc.dash.hapB=0;}
 			else {euc.dash.hapS=1;euc.dash.hapA=1;euc.dash.hapT=1;euc.dash.hapB=1;}
-			face[0].btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("raf4"),122,0,239,97,"ALERTS",22,185,55);		
+			face[0].btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("dgray"),122,0,239,97,"ALERTS",22,185,55);		
 			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",19,col("dgray"),(euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB));
 			buzzer(D16,1,[30,50,30]);
 		}else if ( x<=120 && 100<=y ) { //auto off
 			euc.dash.aOff=1-euc.dash.aOff;
-            face[0].btn(euc.dash.aOff,"AUTO",18,60,115,col("red"),col("dgray"),0,100,119,195,"OFF",30,60,150);
+            face[0].btn(euc.dash.aOff,"AUTO",18,60,115,col("red"),col("gray"),0,100,119,195,"OFF",30,60,150);
             face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",16,col("dgray"),euc.dash.aOff);
 			buzzer(D16,1,[30,50,30]);		
 		}else if (120<=x && 100<=y ) { //lock
 			euc.dash.horn=1-euc.dash.horn;
-            face[0].btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("raf4"),122,100,239,195);
+            face[0].btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("dgray"),122,100,239,195);
             face[0].ntfy("BUTTON IS HORN >2KPH","HORN DISABLED",18,col("dgray"),euc.dash.horn);
 			buzzer(D16,1,[30,50,30]);						
 		}else buzzer(D16,1,[30,50,30]);
