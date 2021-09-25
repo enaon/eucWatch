@@ -54,10 +54,10 @@ global.euc= {
 				face.go('dashScan',0);return;
 			}else {
 				eval(require('Storage').read('euc'+require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]));
+				this.state="ON";
 				if (!set.def.acc) {set.def.dash.accE=1;acc.on();}
 				if (this.dash.bms==undefined) this.dash.bms=1.5;
 				if (this.dash.maker!=="Kingsong"||this.dash.maker!=="inmotionV11") this.dash.spdM=0;
-				this.state="ON";
 				this.conn(this.mac);
 				face.go(set.dash[set.def.dash.face],0);
 				return;
