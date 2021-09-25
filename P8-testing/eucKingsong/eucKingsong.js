@@ -352,7 +352,7 @@ euc.off=function(err){
 		}
 	} else {
 			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},100);return;} 
-			//global["\xFF"].bleHdl=[];
+			global["\xFF"].bleHdl=[];
 			if ( euc.aOff==0 || euc.aOff==1 ) {euc.dash.aOff=euc.aOff;	delete euc.aOff;}
 			if ( euc.aLck==0 || euc.aLck==1 )  {euc.dash.aLck=euc.aLck;	delete euc.aLck;}
 			euc.off=function(err){if (set.def.cli) console.log("EUC stoped at:",err);};
