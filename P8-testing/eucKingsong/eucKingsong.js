@@ -352,18 +352,18 @@ euc.off=function(err){
 		}
 	} else {
 			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},100);return;} 
-			global["\xFF"].bleHdl=[];
 			if ( euc.aOff==0 || euc.aOff==1 ) {euc.dash.aOff=euc.aOff;	delete euc.aOff;}
 			if ( euc.aLck==0 || euc.aLck==1 )  {euc.dash.aLck=euc.aLck;	delete euc.aLck;}
 			euc.off=function(err){if (set.def.cli) console.log("EUC stoped at:",err);};
 			euc.wri=function(err){if (set.def.cli) console.log("EUC write, not connected");};
-			delete euc.conn;
-			delete euc.cmd;
+			euc.conn=function(err){if (set.def.cli) console.log("EUC write, not connected");};
+			euc.cmd=function(err){if (set.def.cli) console.log("EUC write, not connected");};
 			euc.run=0;
 			if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
 				if (set.def.cli) console.log("ble still connected"); 
 				global["\xFF"].BLE_GATTS.disconnect();
 			}
+			global["\xFF"].bleHdl=[];
 			NRF.setTxPower(set.def.rfTX);
     }
 };
