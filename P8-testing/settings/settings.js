@@ -424,8 +424,12 @@ touchHandler[0]=function(e,x,y){
 			face[0].btSet=0;
 			face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
 		}else if (face[0].themeSet) {
+			w.gfx.setColor(0,0);
+			w.gfx.fillRect(76,0,79,160);
+			w.gfx.flip();	
+			w.gfx.fillRect(156,0,159,160);
+			w.gfx.flip();
 			face[0].themeSet=0;
-			face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
 		}else if(158<x&&x<239&&60<y&&y<180&&!face.mode) {
 			face[0].cbri=w.gfx.bri.lv+1;
 			if (face[0].cbri>7) face[0].cbri=7;
@@ -443,6 +447,11 @@ touchHandler[0]=function(e,x,y){
 		if (face[0].btSet) {
 			face[0].btSet=0;
 		}else if (face[0].themeSet) {
+			w.gfx.setColor(0,0);
+			w.gfx.fillRect(76,0,79,160);
+			w.gfx.flip();	
+			w.gfx.fillRect(156,0,159,160);
+			w.gfx.flip();
 			face[0].themeSet=0;
 		}else if (Boolean(require('Storage').read('w_apps'))){
 			face.mode=1-face.mode;
