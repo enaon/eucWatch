@@ -122,7 +122,7 @@ touchHandler[0]=function(e,x,y){
 		}else if  (120<=x && 100<=y ) { //auto lift
 			euc.dash.ks.aLift=1-euc.dash.ks.aLift;
             face[0].btn(euc.dash.ks.aLift,"AUTO",18,185,115,col("red"),col("dgray"),122,100,239,195,"LIFT",30,185,150);	
-            face[0].ntfy("DISCONNECT -> LIFT ON","AUTO LIFT DISABLED",18,col("dgray"),euc.dash.ks.aLift);
+            face[0].ntfy("CONNECT -> LIFT OFF","AUTO LIFT DISABLED",18,col("dgray"),euc.dash.ks.aLift);
 			buzzer(D16,1,[30,50,30]);						
 		}else buzzer(D16,1,[30,50,30]);
 		this.timeout();
@@ -164,7 +164,7 @@ touchHandler[0]=function(e,x,y){
 		}else if  (120<=x && 100<=y ) { //auto lift
 			euc.dash.ks.aLift=1-euc.dash.ks.aLift;
             face[0].btn(euc.dash.ks.aLift,"AUTO",18,185,115,col("red"),col("dgray"),122,100,239,195,"LIFT",30,185,150);	
-            face[0].ntfy("DISCONNECT -> LIFT ON","AUTO LIFT DISABLED",18,col("dgray"),euc.dash.ks.aLift);
+            face[0].ntfy("CONNECT -> LIFT OFF","AUTO LIFT DISABLED",18,col("dgray"),euc.dash.ks.aLift);
 			buzzer(D16,1,[30,50,30]);						
 		}else buzzer(D16,1,[30,50,30]);
 		this.timeout();
