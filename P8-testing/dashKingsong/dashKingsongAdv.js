@@ -19,7 +19,7 @@ face[0] = {
 		this.g.setColor(0,col("black"));
 		this.g.fillRect(0,196,239,204);
 		this.g.setColor(1,col("lgray"));
-      	this.g.fillRect(75,200,142,204);
+      	this.g.fillRect(75,200,165,204);
 		this.g.flip();
         this.g.setColor(1,col("white"));
       	this.g.fillRect(143,200,165,204);
