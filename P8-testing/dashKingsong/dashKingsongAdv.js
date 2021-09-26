@@ -19,7 +19,7 @@ face[0] = {
 		this.g.setColor(0,col("black"));
 		this.g.fillRect(0,196,239,204);
 		this.g.setColor(1,col("lgray"));
-      	this.g.fillRect(75,200,135,204);
+      	this.g.fillRect(75,200,142,204);
 		this.g.flip();
         this.g.setColor(1,col("white"));
       	this.g.fillRect(143,200,165,204);
@@ -158,7 +158,7 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
 	case 4: //slide right event (back action)
-		face.go("dashKingsongOpt",0);
+		face.go("dashKingsongOpt2",0);
 		return;
   }
 };

@@ -27,7 +27,7 @@ face[0] = {
 		this.g.flip(); 
         this.btn(euc.dash.lght.ride,"RIDE",18,60,15,col("raf"),col("gray"),0,0,119,97,"LED",28,60,50);//1
 		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("dgray"),122,0,239,97,"ALERTS",22,185,55);		
-        this.btn(euc.dash.ks.lift,"LIFT",18,60,115,col("red"),col("gray"),0,100,119,195,"SENSOR",30,60,150);
+        this.btn(euc.dash.ks.lift,"SENSOR",18,60,115,col("raf"),col("gray"),0,100,119,195,"LIFT",30,60,150);
         this.btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("dgray"),122,100,239,195);		
         this.run=true;
 	},
@@ -120,7 +120,7 @@ touchHandler[0]=function(e,x,y){
 		}else if ( x<=120 && 100<=y ) { //lift sensor
 			euc.dash.ks.lift=1-euc.dash.ks.lift;
 			buzzer(D16,1,[30,50,30]);		
-            face[0].btn(euc.dash.ks.lift,"LIFT",18,60,115,col("red"),col("gray"),0,100,119,195,"SENSOR",30,60,150);
+            face[0].btn(euc.dash.ks.lift,"SENSOR",18,60,115,col("red"),col("gray"),0,100,119,195,"LIFT",30,60,150);
             face[0].ntfy("LIFT SENSOR ENABLED","LIFT SENSOR DISABLED",16,col("dgray"),euc.dash.aOff);
 			euc.wri((euc.dash.ks.lift)?"liftOn":"liftOff");
 		}else if  (120<=x && 100<=y ) { //lock
@@ -167,7 +167,7 @@ touchHandler[0]=function(e,x,y){
 		}else if ( x<=120 && 100<=y ) { //lift sensor
 			euc.dash.ks.lift=1-euc.dash.ks.lift;
 			buzzer(D16,1,[30,50,30]);		
-            face[0].btn(euc.dash.ks.lift,"LIFT",18,60,115,col("red"),col("gray"),0,100,119,195,"SENSOR",30,60,150);
+            face[0].btn(euc.dash.ks.lift,"SENSOR",18,60,115,col("raf"),col("gray"),0,100,119,195,"LIFT",30,60,150);
             face[0].ntfy("LIFT SENSOR ENABLED","LIFT SENSOR DISABLED",16,col("dgray"),euc.dash.aOff);
 			euc.wri((euc.dash.ks.lift)?"liftOn":"liftOff");
 		}else if  (120<=x && 100<=y ) { //lock
