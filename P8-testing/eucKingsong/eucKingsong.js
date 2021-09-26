@@ -1,6 +1,9 @@
 //kingsong euc module 
 //euc.conn(euc.mac);
 //euc.wri("lightsOn")
+//temp
+if (!euc.dash.lght) euc.dash.lght={"ride":0};
+if (!euc.dash.ks) euc.dash.ks={"lift":1};
 //commands
 euc.wri=function() {if (set.def.cli) console.log("not connected yet");return false;};
 euc.cmd=function(no){

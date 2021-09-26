@@ -4,8 +4,6 @@ face[0] = {
 	g:w.gfx,
 	init: function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
-		if (!euc.dash.lght) euc.dash.lght={"ride":0};
-		if (!euc.dash.ks) euc.dash.ks={"lift":1};
 		this.g.setColor(0,0);
 		this.g.fillRect(0,98,239,99);
         this.g.flip();	
