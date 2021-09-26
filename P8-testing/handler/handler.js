@@ -786,6 +786,7 @@ cron.on('month',cron.task.euc.month);
 //themes -todo
 if (!Boolean(require("Storage").read("colmode16"))){
 	col=function (no){
+		"ram";
 		switch (no) {
 			case "black":return 0;case "white":return 4095;case "lblue":return 1535;case "blue":return 143;case "dblue":return 1375;case "blue1":return 1708;
 			case "raf":return 1453;case "raf1":return 1708;case "raf2":return 1963;case "raf3":return 2220;case "raf4":return 2474;case "raf5":return 3005;
