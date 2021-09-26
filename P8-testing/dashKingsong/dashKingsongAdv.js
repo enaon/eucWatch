@@ -22,7 +22,7 @@ face[0] = {
       	this.g.fillRect(75,200,135,204);
 		this.g.flip();
         this.g.setColor(1,col("white"));
-      	this.g.fillRect(135,200,165,204);
+      	this.g.fillRect(143,200,165,204);
 		this.g.flip(); 
 		//ride mode
 		this.b1=euc.dash.mode;
