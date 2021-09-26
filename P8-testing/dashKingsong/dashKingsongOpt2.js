@@ -25,7 +25,7 @@ face[0] = {
 		this.g.flip(); 
         this.btn(euc.dash.aLck,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
         //this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"HAPTIC",25,185,37,col("raf"),col("raf4"),122,0,239,97);	
-		this.btn(1,"",22,185,17,col("raf"),col("dgray"),122,0,239,97,"",22,185,55);		
+		this.btn(0,"",22,185,17,col("raf"),col("dgray"),122,0,239,97,"",22,185,55);		
         this.btn(euc.dash.aOff,"AUTO",18,60,115,col("red"),col("dgray"),0,100,119,195,"OFF",30,60,150);
         this.btn(euc.dash.ks.aLift,"AUTO",18,185,115,col("red"),col("dgray"),122,100,239,195,"LIFT",30,185,150);		
         this.run=true;
