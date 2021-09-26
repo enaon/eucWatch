@@ -248,11 +248,11 @@ euc.conn=function(mac){
 				euc.state="READY";
 				buzzer(D16,1,[90,40,150]);
 				c.writeValue(euc.cmd((euc.dash.passSend)?"passSend":(euc.dash.aLck)?"unlock":(euc.dash.aLight)?euc.dash.aLight:"lightsAuto")).then(function() {	
-					return c.writeValue(euc.cmd((euc.dash.aLck&&euc.dash.passSend)?"unlock":(euc.seq==0)?"rideLedOn":(euc.dash.aLight)?euc.dash.aLight:"lightsAuto"));
+					return c.writeValue(euc.cmd((euc.dash.aLck&&euc.dash.passSend)?"unlock":(euc.seq==0)?(euc.dash.lght.ride)?"rideLedOn":"rideLedOff":(euc.dash.aLight)?euc.dash.aLight:"lightsAuto"));
 				}).then(function() {
-					return (euc.seq==0)?(euc.dash.aLck||euc.dash.passSend)?c.writeValue(euc.cmd("rideLedOn")):"ok":c.writeValue(euc.cmd((euc.dash.aLight)?euc.dash.aLight:"lightsAuto"));
+					return (euc.seq==0)?(euc.dash.aLck||euc.dash.passSend)?c.writeValue(euc.cmd((euc.dash.lght.ride)?"rideLedOn":"rideLedOff")):"ok":c.writeValue(euc.cmd((euc.dash.aLight)?euc.dash.aLight:"lightsAuto"));
 				}).then(function() {
-					return ((euc.dash.aLck&&euc.dash.passSend)?c.writeValue(euc.cmd("rideLedOn")):"ok");
+					return ((euc.dash.aLck&&euc.dash.passSend)?c.writeValue(euc.cmd((euc.dash.lght.ride)?"rideLedOn":"rideLedOff")):"ok");
 				}).then(function() {
 					return c.startNotifications();
 				}).then(function() {
@@ -261,6 +261,9 @@ euc.conn=function(mac){
 				}).then(function() {
 					euc.run=1;
 					return c.writeValue(euc.cmd("model"));
+				}).then(function() {
+					if (euc.dash.ks.aLift) euc.dash.ks.lift=0;
+					return ((euc.dash.ks.aLift)?c.writeValue(euc.cmd("liftOff")):"ok");
 				}).catch(function(err)  {
 					if (global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected) global["\xFF"].BLE_GATTS.disconnect();
 					else euc.off("err-start");
@@ -271,6 +274,8 @@ euc.conn=function(mac){
 						return c.writeValue(euc.cmd((euc.dash.aLck)?"lock":"lightsOff"));
 					}).then(function() {
 						return ((euc.seq==0)?"ok":c.writeValue(euc.cmd("lightsOff")));
+					}).then(function() {
+						return ((euc.dash.ks.aLift)?c.writeValue(euc.cmd("liftOn")):"ok");
 					}).then(function() {
 						euc.run=0;
 						return global["\xFF"].BLE_GATTS.disconnect();	
