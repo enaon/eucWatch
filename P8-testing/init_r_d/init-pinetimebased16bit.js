@@ -82,6 +82,23 @@ const battVoltage=function(s){
 // MIT License (c) 2020 fanoush https://github.com/fanoush
 // see full license text at https://choosealicense.com/licenses/mit/
 // compiled with options LCD_BPP=12,SHARED_SPIFLASH,SPIFLASH_CS=(1<<5)
+/*
+var SPI2 = (function(){
+  var bin=atob("AAAAAAAAAAAAAAAAAAAAAAAAAAD///////////////8QtQNMfEQigGCAoYDjgBC92P///wdLe0QbiUOxBEoTaAAr/NAAIxNgA0p6RBOBcEcYMQJAxv///7L///8t6fBHkEYZTBlO//fl/xlK3/hkwAAjASUTYE/w/w5TYKlGI2AQMh9G/ykA6wMKwvgAoIu//zMxYMb4AOAAIYi//znM+ACQuPEADwbQKbkLS3tEHYEAIL3o8IfU+ACguvEAD/rQJ2AAKd7R8+cYMQJASDUCQDQ1AkAQMAJAUP///y3p8E+dsM3pARJWSnpEBkaS+ACQACgA8JuAACkA8JiACfH/MwcrAPKTgAEjA/oJ8wE727IEeAOTQ3hHSZeIROoDJAKbAPECC0RIHEEgIwNgByMLYNNopLLN6QYBC7FAShNgT+pJA9uyBJM/S3tEE6gFkwqrzekIME/wAAhBRgWbAp2z+AKgA5sBmiNARPoJ9DL4E8ADmyNARPoJ9DL4EyAEmx1E7bIHLULYpLJP6iwTQ1QTEgHxAg5D6gwcQxgDMarxAgojKYP4AcAf+or6APgOIAndASL/91P/2PEBCAu/CZgImEFGACG68QAPy9EfS3tEAT/biB5Ev7JzeDR4ROoDJAKbHEEG8QILpLIAL7bR2bE6Rv/3NP8VS3tE22gLsQaaE2AHmwAgGGAdsL3o8I/eRgg9HvgBO+2yxfEICwP6C/McQ6Sy80aw5//3Bf/j50/w/zDp5wC/ADUCQAgFAFAMBQBQFP///7T+//8w/v//Bv7//xlKekT4tQZGEGkPRhCzE0wTTSAjI2AHIytgEksYYNJoArEaYAAiASEwRv/37/4PS3tEAS8baSNgBN0AInkecBz/9+T+Ckt7RNtoA7EjYAAgKGD4vU/w/zD75wC/CAUAUAA1AkAMBQBQqv3//3z9//9m/f//E7UAKB7bACmmv434BRACJAEkACqkvwKpCRmN+AQApL8BNAH4BCwAK6K/AqoSGQE0IUYBqKi/AvgEPP/3p/8gRgKwEL0AJPrncLUFRoixRhgAJChGEPgBGxmxRRi1QgLZZEIgRnC9//eR/wAo+dEBNO/nBEb15wAADUsbaBC1o7kMSxtoC7EMShNgDksLSntEAAZcaRRgnGlUYNppCEtJABpgWGFZZAEgEL1P8P8w++cANQJABDMCQAgzAkAINQJAEDUCQKr8//8FSgAjE2Ci9X5yE2ADSxtoC7HC+AAycEcANQJABDMCQBC1Bkx8RMTpBQEBIQH6AvIB+gPz4mAjYRC9AL9M/P//");
+  return {
+    cmd:E.nativeCall(593, "int(int,int)", bin),
+    cmds:E.nativeCall(781, "int(int,int)", bin),
+    cmd4:E.nativeCall(709, "int(int,int,int,int)", bin),
+    setpins:E.nativeCall(941, "void(int,int,int,int)", bin),
+    enable:E.nativeCall(829, "int(int,int)", bin),
+    disable:E.nativeCall(909, "void()", bin),
+    blit_setup:E.nativeCall(33, "void(int,int,int,int)", bin),
+    blt_pal:E.nativeCall(221, "int(int,int,int)", bin),
+  };
+})();
+*/
+// slower 16bit mode version
+// compiled with options LCD_BPP=16,SHARED_SPIFLASH,SPIFLASH_CS=(1<<5)
 var SPI2 = (function(){
   var bin=atob("AAAAAAAAAAAAAAAAAAAAAAAAAAD///////////////8QtQNMfEQigGCAoYDjgBC92P///wdLe0QbiUOxBEoTaAAr/NAAIxNgA0p6RBOBcEcYMQJAxv///7L///8t6fBHkEYZTBlO//fl/xlK3/hkwAAjASUTYE/w/w5TYKlGI2AQMh9G/ykA6wMKwvgAoIu//zMxYMb4AOAAIYi//znM+ACQuPEADwbQKbkLS3tEHYEAIL3o8IfU+ACguvEAD/rQJ2AAKd7R8+cYMQJASDUCQDQ1AkAQMAJAUP///y3p8E+bsBNGAJFOSXlEBkaR+ACwACgA8IyAAJoAKgDwiIAL8f8yByoA8oOAASIC+gvyATrSsgR4AZJCeD5NsfgEgETqAiSHHCAiPEgqYAciAmDKaBxBpLLN6QNQCrE4SQpgOUp6RBGoApIIqs3pBSBP8AAJSUYCmrL4AqAdRgGaXUTtsgctAuoEDACaiL8IPTL4HMCBvxf4ASvtssXxCA4C+g7yRPoL9E/qLC6IvxRDAPgB4EocAjEK8f86IymksgD4AsAf+or6C90BIgeT//dX/9nxAQkHmwu/BpgFmElGACG68QAPytEYSnpECPH/ONKIFkQf+oj4cng0eETqAiQcQbccpLK48QAPtNFxsUJG//c2/w5Le0TbaAuxA5oTYASbACAYYBuwvejwj//3FP/w50/w/zD25wgFAFAANQJADAUAUBT///+8/v//Nv7//wr+//8ZSnpE+LUGRhBpD0YQsxNME00gIyNgByMrYBJLGGDSaAKxGmAAIgEhMEb/9//+D0t7RAEvG2kjYATdACJ5HnAc//f0/gpLe0TbaAOxI2AAIChg+L1P8P8w++cAvwgFAFAANQJADAUAUMr9//+c/f//hv3//xO1ACge2wAppr+N+AUQAiQBJAAqpL8CqQkZjfgEAKS/ATQB+AQsACuivwKqEhkBNCFGAaiovwL4BDz/96f/IEYCsBC9ACT653C1BUaIsUYYACQoRhD4ARsZsUUYtUIC2WRCIEZwvf/3kf8AKPnRATTv5wRG9ecAAA1LG2gQtaO5DEsbaAuxDEoTYA5LC0p7RAAGXGkUYJxpVGDaaQhLSQAaYFhhWWQBIBC9T/D/MPvnADUCQAQzAkAIMwJACDUCQBA1AkDK/P//BUoAIxNgovV+chNgA0sbaAuxwvgAMnBHADUCQAQzAkAQtQZMfETE6QUBASEB+gLyAfoD8+JgI2EQvQC/bPz//w==");
   return {
@@ -143,15 +160,41 @@ function cmds(arr){
 RST.set();
 
 function init(){
-	cmd(0x11); // sleep out
-	delayms(20);
-//	cmd([0x36, 0]);     // MADCTL - This is an unrotated screen
-	cmd([0x36, 0x48]); 	
+	DC.write(1); 			//spi.Init();
+	pinMode(D18,"output");  //nrf_gpio_cfg_output(pinDataCommand);
+	pinMode(D26,"output");	//nrf_gpio_cfg_output(26);
+	digitalWrite(D26,HIGH); 	//nrf_gpio_pin_set(26);
+//
+	digitalWrite(D26,LOW); 	//HardwareReset() //nrf_gpio_pin_clear(26);
+	delayms(20);			//nrf_delay_ms(10);
+	digitalWrite(D26,HIGH);	//nrf_gpio_pin_set(26);
+//
+	cmd(0x01); 		// SoftwareReset() WriteCommand(static_cast<uint8_t>(Commands::SoftwareReset)); //SoftwareReset = 0x01,
+	delayms(200);	//nrf_delay_ms(150);
+//  
+	cmd(0x11); 		//SleepOut() // WriteCommand(static_cast<uint8_t>(Commands::SleepOut)); //SleepOut = 0x11,
+	delayms(20);	//nrf_delay_ms(10);
+// COLMOD - interface pixel format - 03 - 12bpp, 05 - 16bpp //ColMod = 0x3a
+	cmd([0x3A, 0x55]); 	// ColMod();  WriteCommand(static_cast<uint8_t>(Commands::ColMod));WriteData(0x55);
+	delayms(20);		// nrf_delay_ms(10);
+// MADCTL  //MemoryDataAccessControl = 0x36, (0 - This is an unrotated screen, 0x48 is for flipping the Column Address Order (X Axis) AND changing RGB order; only X Axis to be flipped its  0x40" ) 
+	cmd([0x36, 0x48]); 	// MemoryDataAccessControl(); WriteCommand(static_cast<uint8_t>(Commands::MemoryDataAccessControl));WriteData(0x00); 
+//	cmd([0x36, 0x0]); 	// MemoryDataAccessControl(); WriteCommand(static_cast<uint8_t>(Commands::MemoryDataAccessControl));WriteData(0x00); 
+	delayms(20);		// nrf_delay_ms(10);
+// 	ColumnAddressSet();  WriteCommand(static_cast<uint8_t>(Commands::ColumnAddressSet));  ColumnAddressSet = 0x2a,
+	cmd([0x2a,0,0,0,239]); 	// WriteData(0x00);WriteData(0x00);WriteData(Width >> 8u);WriteData(Width & 0xffu);
+//  RowAddressSet();   WriteCommand(static_cast<uint8_t>(Commands::RowAddressSet));  RowAddressSet = 0x2b,
+	cmd([0x2b,0,0,0,319]);	// WriteData(0x00);WriteData(0x00);WriteData(320u >> 8u);WriteData(320u & 0xffu);
+// 	DisplayInversionOn();  DisplayInversionOn = 0x21, (0x20 no invertion)
+	cmd(0x20); 		// WriteCommand(static_cast<uint8_t>(Commands::DisplayInversionOn));
+//	cmd(0x21); 		// WriteCommand(static_cast<uint8_t>(Commands::DisplayInversionOn));
+	delayms(20);  	// nrf_delay_ms(10);
+//	NormalModeOn();  // NormalModeOn = 0x13,
+	cmd(0x13); 		//   WriteCommand(static_cast<uint8_t>(Commands::NormalModeOn));
+	delayms(20);		//  nrf_delay_ms(10);
+/*
+//test
 	cmd([0x37,0,0]);
-	// These 2 rotate the screen by 180 degrees
-	//[0x36,0xC0],     // MADCTL
-	//[0x37,0,80],   // VSCSAD (37h): Vertical Scroll Start Address of RAM
-	cmd([0x3A, 0x55]);  // COLMOD - interface pixel format - 03 - 12bpp, 05 - 16bpp
 	cmd([0xB2, 0xC, 0xC, 0, 0x33, 0x33]); // PORCTRL (B2h): Porch Setting
 	cmd([0xB7, 0]);     // GCTRL (B7h): Gate Control
 	cmd([0xBB, 0x3E]);  // VCOMS (BBh): VCOM Setting 
@@ -162,12 +205,50 @@ function init(){
 	cmd([0xD0, 0xA4, 0xA1]);   // PWCTRL1 (D0h): Power Control 1 
 	cmd([0xe0, 0x70, 0x15, 0x20, 0x15, 0x10, 0x09, 0x48, 0x33, 0x53, 0x0B, 0x19, 0x15, 0x2a, 0x2f]);   // PVGAMCTRL (E0h): Positive Voltage Gamma Control
 	cmd([0xe1, 0x70, 0x15, 0x20, 0x15, 0x10, 0x09, 0x48, 0x33, 0x53, 0x0B, 0x19, 0x15, 0x2a, 0x2f]);   // NVGAMCTRL (E1h): Negative Voltage Gamma Contro
+*/
+//	DisplayOn();  //DisplayOn = 0x29,
+	cmd(0x29); 		//     WriteCommand(static_cast<uint8_t>(Commands::DisplayOn));
+
+/*	
+// 
+	cmd([0x36, 0]); 	// ColumnAddressSet();
+	delayms(20);		//WriteData(0x00);
+// 
+	cmd([0x36, 0]); 	// ColumnAddressSet();
+	delayms(20);		//WriteData(0x00);
+												
+	
+	//cmd([0x36, 0]);     // MADCTL - This is an unrotated screen
+	cmd([0x37,0,0]);
+	// These 2 rotate the screen by 180 degrees
+	//[0x36,0xC0],     // MADCTL
+	//[0x37,0,80],   // VSCSAD (37h): Vertical Scroll Start Address of RAM
+	//cmd([0x3A, 0x03]);  // COLMOD - interface pixel format - 03 - 12bpp, 05 - 16bpp
+	//delayms(20);
+
+	cmd([0xB2, 0xC, 0xC, 0, 0x33, 0x33]); // PORCTRL (B2h): Porch Setting
+	cmd([0xB7, 0]);     // GCTRL (B7h): Gate Control
+	cmd([0xBB, 0x3E]);  // VCOMS (BBh): VCOM Setting 
+	cmd([0xC2, 1]);     // VDVVRHEN (C2h): VDV and VRH Command Enable
+	cmd([0xC3, 0x19]);  // VRHS (C3h): VRH Set 
+	cmd([0xC4, 0x20]);  // VDVS (C4h): VDV Set
+	cmd([0xC5, 0xF]);   // VCMOFSET (C5h): VCOM Offset Set .
+	cmd([0xD0, 0xA4, 0xA1]);   // PWCTRL1 (D0h): Power Control 1 
+	cmd([0xe0, 0x70, 0x15, 0x20, 0x15, 0x10, 0x09, 0x48, 0x33, 0x53, 0x0B, 0x19, 0x15, 0x2a, 0x2f]);   // PVGAMCTRL (E0h): Positive Voltage Gamma Control
+	cmd([0xe1, 0x70, 0x15, 0x20, 0x15, 0x10, 0x09, 0x48, 0x33, 0x53, 0x0B, 0x19, 0x15, 0x2a, 0x2f]);   // NVGAMCTRL (E1h): Negative Voltage Gamma Contro
+    delayms(20);
+	cmd(0x13); //ST7735_NORON: Set Normal display on, no args, w/delay: 10 ms delay
+    delayms(20);
 	cmd(0x29); // DISPON (29h): Display On 
-//	cmd(0x21); // INVON (21h): Display Inversion On
-	cmd(0x20); // INVON (21h): Display Inversion On
+    delayms(20);
+	cmd(0x21); // INVON (21h): Display Inversion On
+    delayms(20);
+
 	//cmd([0x2a,0,0,0,239]);
 	//cmd([0x2b,0,0,0,239]);
 	//cmd([0x2c]);
+	//cmd([0x2a,0,0,0,239]);cmd([0x2b,0,0,0,239]);cmd([0x2c]);
+*/
 }
 
 bpp=1; // powers of two work, 3=8 colors would be nice
@@ -182,6 +263,37 @@ g.setColor=function(c,v){
   if (c==1) pal[1]=v; else pal[0]=v;
   g.sc(c);
 };
+/*
+switch(bpp){
+  case 2: pal= Uint16Array([0x000,0xf00,0x0f0,0x00f]);break; // white won't fit
+//  case 1: pal= Uint16Array([0x000,0xfff]);break;
+  case 1:
+  pal= Uint16Array( // same as 16color below, use for dynamic colors
+    [ 0x000,0x00a,0x0a0,0x0aa,0xa00,0xa0a,0xa50,0xaaa,
+      0x555,0x55f,0x5f5,0x5ff,0xf55,0xf5f,0xff5,0xfff ]);
+  g.sc=g.setColor;
+  c1=pal[1]; //save color 1
+  g.setColor=function(c){ //change color 1 dynamically
+    c=Math.floor(c);
+    if (c > 1) {
+      pal[1]=pal[c]; g.sc(1);
+    } else if (c==1) {
+      pal[1]=c1; g.sc(1);
+    } else g.sc(c);
+  }; break;
+  case 4: pal= Uint16Array( // CGA
+    [
+// 12bit RGB444
+      0x000,0x00a,0x0a0,0x0aa,0xa00,0xa0a,0xa50,0xaaa,
+     0x555,0x55f,0x5f5,0x5ff,0xf55,0xf5f,0xff5,0xfff
+//16bit RGB565
+//      0x0000,0x00a8,0x0540,0x0555,0xa800,0xa815,0xaaa0,0xad55,
+//      0x52aa,0x52bf,0x57ea,0x57ff,0xfaaa,0xfabf,0xffea,0xffff
+
+    ]);break;
+}
+
+*/
 
 // preallocate setwindow command buffer for flip
 g.winCmd=toFlatBuffer([
@@ -238,7 +350,14 @@ init();
 
 g.on=function(){
   if (this.isOn) return;
-  cmd(0x11);
+	////RST.reset();
+	//delayms(20);
+	//RST.set();
+	//init();
+	//delayms(20);
+	cmd(0x11);
+	//delayms(20);
+
 //  g.flip();
   //cmd(0x13); //ST7735_NORON: Set Normal display on, no args, w/delay: 10 ms delay
   //cmd(0x29); //ST7735_DISPON: Set Main screen turn on, no args w/delay: 100 ms delay
@@ -260,7 +379,8 @@ g.off=function(){
 module.exports = {
 //  pin: pin,
   battVoltage: battVoltage,
-  gfx: g
+  gfx: g,
+  cmd: cmd
 };
 });
 w=require("P8");
