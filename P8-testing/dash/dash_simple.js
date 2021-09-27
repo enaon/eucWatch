@@ -83,13 +83,13 @@ face[0] = {
 		this.g.setColor(0,col("dgray"));
 		this.g.fillRect(0,0,119,50);       
 		this.g.setColor(1,col("lblue"));
-		this.g.setFontVector(40);
+		this.g.setFontVector(45);
 		let d=(Date()).toString().split(' ');
 		let t=(d[4]).toString().split(':');
 		this.time=(t[0]+":"+t[1]);
-		this.g.drawString(this.time,0,0); 
-		this.g.setFontVector(13);
-		this.g.drawString("CLOCK",1,40);
+		this.g.drawString(this.time,0,5); 
+		//this.g.setFontVector(13);
+		//this.g.drawString("CLOCK",1,40);
 		this.g.flip();
 	},
 	batf: function(){

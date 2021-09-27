@@ -37,6 +37,7 @@ face[0] = {
 		this.run=true;
 	},
 	show : function(o){
+		"ram";
 		if (!this.run) return;
 		if (euc.state=="READY") {
 			this.g.setColor(0,0);
@@ -100,7 +101,7 @@ face[0] = {
 		this.tid=setTimeout(function(t){
 			t.tid=-1;
 			t.show();
-		},100,this);
+		},150,this);
 	},
 	spdF: function(){
 		this.spd=Math.round(euc.dash.spd);

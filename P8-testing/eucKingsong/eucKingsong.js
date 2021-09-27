@@ -5,7 +5,7 @@
 if (!euc.dash.lght) euc.dash.lght={"ride":0};
 if (!euc.dash.ks) euc.dash.ks={"lift":1,"aLift":0};
 //commands
-euc.wri=function() {if (set.def.cli) console.log("not connected yet");return false;};
+euc.wri=function(i) {if (set.def.cli) console.log("not connected yet"); if (i=="end") euc.off(); return;};
 euc.cmd=function(no){
 	switch (no) {
 		case "model":return [0xAA,0x55,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x9B,0x14,0x5A,0x5A]; 

@@ -18,6 +18,7 @@ euc.cmd=function(no){
     }
 };
 //start
+euc.wri=function(i) {if (set.def.cli) console.log("not connected yet"); if (i=="end") euc.off(); return;};
 euc.conn=function(mac){
 	//check
 	if ( global["\xFF"].BLE_GATTS!="undefined") {

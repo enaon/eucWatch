@@ -75,6 +75,7 @@ function validateChecksum(buffer) {
 	return receivedChecksum == calculatedChecksum;
 }
 //
+euc.wri=function(i) {if (set.def.cli) console.log("not connected yet"); if (i=="end") euc.off(); return;};
 euc.conn=function(mac){
 	if (global['\xFF'].BLE_GATTS && global['\xFF'].BLE_GATTS.connected) {
 		return global['\xFF'].BLE_GATTS.disconnect();

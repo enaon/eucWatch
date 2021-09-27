@@ -32,6 +32,7 @@ euc.cmd=function(no){
 	case 39:return [85,170,3,17,2,210,9,14,255]; //set Riding Mode 9
     }
 };
+euc.wri=function(i) {if (set.def.cli) console.log("not connected yet"); if (i=="end") euc.off(); return;};
 euc.conn=function(mac){
 
     if ( global["\xFF"].BLE_GATTS!="undefined") {
