@@ -37,7 +37,6 @@ face[0] = {
 		this.run=true;
 	},
 	show : function(o){
-		"ram";
 		if (!this.run) return;
 		if (euc.state=="READY") {
 			this.g.setColor(0,0);
