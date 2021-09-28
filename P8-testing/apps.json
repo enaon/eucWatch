@@ -233,7 +233,7 @@
 	{ "id": "dashBegode",
 		"name": "Begode Settings",
 		"icon": "icon.png",
-		"version":"0.91",
+		"version":"0.92",
 		"description": "EUC dashboard, Begode settings gui files.",
 		"tags": "euc",
 		"readme": "README.md",
