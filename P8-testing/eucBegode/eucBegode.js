@@ -138,6 +138,7 @@ euc.conn=function(mac){
 				}); 
 			}else if (euc.state=="OFF"||n=="end") {
 				if (global['\xFF'].BLE_GATTS && global['\xFF'].BLE_GATTS.connected) {
+					
 					c.writeValue(euc.cmd("lightsOff")).then(function() {
 						c.writeValue(euc.cmd("beep")).then(function() {
 							c.stopNotifications(); 
@@ -155,7 +156,7 @@ euc.conn=function(mac){
 					return;
 				}
 			}else if (n=="start") {
-				if (euc.dash.aLight!="lightsOn"||euc.dash.aLight!="lightsOff"||euc.dash.aLight!="lightsStrobe") euc.dash.aLight="lightsOn";
+				if (!euc.dash.aLight) euc.dash.aLight="lightsOn";
 				c.writeValue(euc.cmd(euc.dash.aLight)).then(function() {
 					if (!euc.run){
 						c.writeValue(euc.cmd("beep")).then(function() {
