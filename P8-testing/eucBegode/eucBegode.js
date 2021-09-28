@@ -130,7 +130,7 @@ euc.conn=function(mac){
 							euc.horn=0;
 							return c.writeValue(euc.cmd(euc.dash.aLight));
 						}else
-							return c.writeValue("beep");
+							return c.writeValue(euc.cmd("beep"));
 					}, 300); 
 				});
 			}else if (n=="hornOff") {
