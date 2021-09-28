@@ -26,7 +26,8 @@ global.euc= {
 				set.write("logDaySlot"+set.def.dash.slot,Date().getHours(),(this.dash.trpT-this.log.trp[0])+((set.read("logDaySlot"+set.def.dash.slot,Date().getHours()))?set.read("logDaySlot"+set.def.dash.slot,Date().getHours()):0));
 			this.log.trp[0]=0;
 			set.def.dash.accE=0;
-			if (!set.def.acc) {acc.off();}
+			acc.off();
+			if (set.def.acc) {setTimeout(()=>{acc.on(1); },1000);}
 			this.mac=0;
 			this.state="OFF";
 			this.wri("end");
@@ -55,7 +56,11 @@ global.euc= {
 			}else {
 				eval(require('Storage').read('euc'+require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]));
 				this.state="ON";
-				if (!set.def.acc) {set.def.dash.accE=1;acc.on();}
+				if (!set.def.acc) {set.def.dash.accE=1;acc.on(2);
+				}else {
+					acc.off();
+					setTimeout(()=>{acc.on(2); },1000);
+				}
 				if (this.dash.bms==undefined) this.dash.bms=1.5;
 				if (this.dash.maker!=="Kingsong"||this.dash.maker!=="inmotionV11") this.dash.spdM=0;
 				this.conn(this.mac);

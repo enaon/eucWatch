@@ -634,7 +634,8 @@ if (set.def.acctype==="BMA421"){
 }else if (set.def.acctype==="SC7A20"){ //based on work from jeffmer
 	acc={
 		up:0,
-		ori:[65,66],
+		//ori:[65,66],
+		ori:[69,72],
 		loop:0,
 		tid:0,
 		on:function(v){
@@ -662,8 +663,10 @@ if (set.def.acctype==="BMA421"){
 			return true;
 		},
 		init:function(v){
-			v=2;
+			//v=2;
 			if (v==2) {
+				i2c.writeTo(0x18,0x32,5); //int1_ths-threshold = 250 milli g's
+				i2c.writeTo(0x18,0x33,15); //duration = 1 * 20ms
 				if (this.loop) { clearInterval(this.loop); this.loop=0;}
 				this.loop= setInterval(()=>{	
 					let cor=acc.read();
@@ -684,39 +687,30 @@ if (set.def.acctype==="BMA421"){
 						this.up=0;
 					} else this.up=1;
 				},500);
+				return true;
 			}else if (!this.tid) {
+				i2c.writeTo(0x18,0x32,30); //int1_ths-threshold = 250 milli g's
+				i2c.writeTo(0x18,0x33,1); //duration = 1 * 20ms
 				this.tid=setWatch(()=>{
-					if (this.up) { 
-						i2c.writeTo(0x18,0x30,this.ori[1]);
-						this.up=0;
-						print("up");
+					//"ram";
+					i2c.writeTo(0x18,0x1);
+					//let val=i2c.readFrom(0x18,1)[0];
+					//print (val);
+					if ( 192 < i2c.readFrom(0x18,1)[0] ) {
 						if (!w.gfx.isOn&&face.appCurr!=""){  
 							if  (global.euc) {
-								if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash.face],0);
+								if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash],0);
 								else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
 							}else{ 
 								if (face.appCurr=="main") face.go("main",0);
 								else face.go(face.appCurr,0);
 							}
 						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
-							if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off();
+							if (face.appCurr=="main" && face.pageCurr==2) face.go("main",0);
+							else { if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off(); }
 						} 
-						if (this.loop) { clearInterval(this.loop); this.loop=0; }
-						this.loop= setInterval(()=>{	
-							let cor=acc.read();
-							print(cor);
-						},500);
-					}else {
-						if (this.loop) { clearInterval(this.loop); this.loop=0; }
-						i2c.writeTo(0x18,0x30,this.ori[0]); 
-						this.up=1;   
-						print("dn");
-						if (set.tor==1)
-							w.gfx.bri.set(7);
-						else 
-							face.off(1200);
 					}
-				},D8,{repeat:true,edge:"rising"});
+				},D8,{repeat:true,edge:"rising",debounce:50});
 				return true;
 			} else return false;
 		},
