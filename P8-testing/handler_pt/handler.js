@@ -671,13 +671,8 @@ if (set.def.acctype==="BMA421"){
 					let cor=acc.read();
 					if (-1000<=cor.ax && cor.ax<=0  && cor.az<=-300 ) {
 						if (!w.gfx.isOn&&face.appCurr!=""&&this.up){  
-								if  (global.euc) {
-									if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash.face],0);
-									else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
-								}else{ 
-									if (face.appCurr=="main") face.go("main",0);
-									else face.go(face.appCurr,0);
-								}
+								if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash.face],0);
+								else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
 						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
 							if (set.tor==1)w.gfx.bri.set(face[0].cbri); 
 							else if ( !set.def.off[face.appCurr] || ( set.def.off[face.appCurr] &&  set.def.off[face.appCurr] <= 60000)) 
@@ -691,19 +686,12 @@ if (set.def.acctype==="BMA421"){
 				i2c.writeTo(0x18,0x32,30); //int1_ths-threshold = 250 milli g's
 				i2c.writeTo(0x18,0x33,1); //duration = 1 * 20ms
 				this.tid=setWatch(()=>{
-					//"ram";
+					"ram";
 					i2c.writeTo(0x18,0x1);
-					//let val=i2c.readFrom(0x18,1)[0];
-					//print (val);
 					if ( 192 < i2c.readFrom(0x18,1)[0] ) {
 						if (!w.gfx.isOn&&face.appCurr!=""){  
-							if  (global.euc) {
-								if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash],0);
-								else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
-							}else{ 
-								if (face.appCurr=="main") face.go("main",0);
-								else face.go(face.appCurr,0);
-							}
+							if (face.appCurr=="main") face.go("main",0);
+							else face.go(face.appCurr,0);
 						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
 							if (face.appCurr=="main" && face.pageCurr==2) face.go("main",0);
 							else { if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off(); }
