@@ -635,7 +635,7 @@ if (set.def.acctype==="BMA421"){
 	acc={
 		up:0,
 		//ori:[65,66],
-		ori:[69,72],
+		ori:[65,66],
 		loop:0,
 		tid:0,
 		on:function(v){
@@ -648,10 +648,15 @@ if (set.def.acctype==="BMA421"){
 			i2c.writeTo(0x18,0x32,5); //int1_ths-threshold = 250 milli g's
 			i2c.writeTo(0x18,0x33,15); //duration = 1 * 20ms
 			i2c.writeTo(0x18,0x30,0x02); //int1 to xh
-			if (v) {
-				if (v==1) { this.ori=[68,72]; i2c.writeTo(0x18,0x30,0x44);
-			}else {this.ori=[65,66];i2c.writeTo(0x18,0x30,0x41);}
-			}
+			/*if (v) {
+				if (v==1) { 
+				  this.ori=[68,72];
+				  i2c.writeTo(0x18,0x30,0x44);
+				}else {
+				    this.ori=[65,66];
+					i2c.writeTo(0x18,0x30,0x41);
+				}
+			} */
 			this.init(v);
 		},
 		off:function(){
@@ -672,8 +677,7 @@ if (set.def.acctype==="BMA421"){
 					let cor=acc.read();
 					if (-1000<=cor.ax && cor.ax<=0  && cor.az<=-300 ) {
 						if (!w.gfx.isOn&&face.appCurr!=""&&this.up){  
-								if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash.face],0);
-								else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
+								face.go(set.dash[set.def.dash.face],0);
 						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
 							if (set.tor==1)w.gfx.bri.set(face[0].cbri); 
 							else if ( !set.def.off[face.appCurr] || ( set.def.off[face.appCurr] &&  set.def.off[face.appCurr] <= 60000)) 
