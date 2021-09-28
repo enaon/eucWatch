@@ -110,32 +110,33 @@ euc.conn=function(mac){
 		return  c;
 	//write
 	}).then(function(c) {
-		console.log("EUC Begode connected!!"); 
+		console.log("EUC Begode connected!"); 
 		buzzer(D16,1,[90,40,150,40,90]);
 		euc.wri= function(n) {
 			//print(n);
 			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},500);return;} euc.busy=euc.busy=setTimeout(()=>{euc.busy=0;},500);
 			//end
 			if (n=="hornOn") {
+				euc.horn=1;
+				if (euc.tmp) {clearTimeout(euc.tmp);euc.tmp=0;}
 				c.writeValue(euc.cmd("beep")).then(function() {
-					c.writeValue(euc.cmd("lightsStrobe"));
-					if (euc.horn) {clearInterval(euc.horn);}
-					euc.horn=setInterval(() => {
-						c.writeValue(euc.cmd("beep"));
-					}, 200); 
-   					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-				}).catch(function(err)  {
-			    	if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
-			    	global["\xFF"].BLE_GATTS.disconnect();  
-				});  
+					return c.writeValue(euc.cmd("lightsStrobe"));
+				}).then(function() {
+					if (euc.tmp) {clearInterval(euc.tmp);euc.tmp=0;}
+					euc.tmp=setInterval(() => {
+						if (!BTN1.read()){
+							if (euc.tmp) {clearInterval(euc.tmp);euc.tmp=0;}
+							if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+							euc.horn=0;
+							return c.writeValue(euc.cmd(euc.dash.aLight));
+						}else
+							return c.writeValue("beep");
+					}, 300); 
+				});
 			}else if (n=="hornOff") {
-				if (euc.horn) {clearInterval(euc.horn);euc.horn=0;}
-				c.writeValue(euc.cmd(euc.dash.aLight)).then(function() {
-   					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-				}).catch(function(err)  {
-			    	if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
-			    	global["\xFF"].BLE_GATTS.disconnect();  
-				}); 
+				euc.horn=0;
+				if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+				return;
 			}else if (euc.state=="OFF"||n=="end") {
 				if (global['\xFF'].BLE_GATTS && global['\xFF'].BLE_GATTS.connected) {
 					

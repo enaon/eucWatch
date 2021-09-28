@@ -43,7 +43,6 @@ euc.conn=function(mac){
 				//volt-bat
 				euc.dash.volt=(ev[4]  << 8 | ev[5] )/100;
 				euc.dash.bat=Math.round(((euc.dash.volt*4.166) - euc.dash.batE ) * (100/(420-euc.dash.batE)));
-				//euc.dash.bat = Math.round(((euc.dash.volt / 24) * 100 - 310 ) * 0.905);
 				batL.unshift(euc.dash.bat);
 				if (20<batL.length) batL.pop();
 				euc.dash.batC = (50 <= euc.dash.bat)? 0 : (euc.dash.bat <= euc.dash.batL)? 2 : 1;	
@@ -60,8 +59,6 @@ euc.conn=function(mac){
 				euc.log.trp.forEach(function(val,pos){ if (!val) euc.log.trp[pos]=euc.dash.trpT;});
 				//amp
 				euc.dash.amp=(32766<(ev[16]<<8|ev[17]))?((ev[16]<<8|ev[17])-65535)/100:(ev[16]<<8|ev[17])/100 ;
-				//euc.dash.test2=event.target.value.getInt16(16)/100;
-				//euc.dash.amp=event.target.value.getInt16(16)/100;
 				if (euc.dash.ampR) euc.dash.amp=-euc.dash.amp;				
 				ampL.unshift(euc.dash.amp);
 				if (20<ampL.length) ampL.pop();
@@ -75,14 +72,9 @@ euc.conn=function(mac){
 				euc.dash.tmpC=(euc.dash.tmpH - 5 <= euc.dash.tmp )? (euc.dash.tmpH <= euc.dash.tmp )?2:1:0;
 				if (euc.dash.hapT && euc.dash.tmpC==2) euc.alert++;
 			} else {
-				//print(ev);
-				//euc.dash.off=(ev[0] << 8 | ev[1]);
-				//euc.dash.chrg=(ev[2] << 8 | ev[3]);
 				euc.dash.spdA=((ev[4] << 8 | ev[5]) / 10)|0;
-				//euc.dash.spdT=((ev[6] << 8 | ev[7]) / 10)|0;
 				if (!euc.dash.model) euc.dash.model=(ev[8] << 8 | ev[9]);
 				euc.dash.mode=(ev[10] << 8 | ev[11]);
-				//euc.dash.test=(ev[12] << 8 | ev[13]);
 				euc.dash.pwm=event.target.value.getInt16(12)/100;
 			}
 			//alerts
