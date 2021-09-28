@@ -119,8 +119,8 @@ euc.conn=function(mac){
 			if (n=="hornOn") {
 				euc.horn=1;
 				if (euc.tmp) {clearTimeout(euc.tmp);euc.tmp=0;}
-				c.writeValue(euc.cmd("lightsStrobe")).then(function() {
-					return c.writeValue(euc.cmd("beep"));
+				c.writeValue(euc.cmd("beep")).then(function() {
+					return c.writeValue(euc.cmd("lightsStrobe"));
 				}).then(function() {
 					if (euc.tmp) {clearInterval(euc.tmp);euc.tmp=0;}
 					euc.tmp=setInterval(() => {
