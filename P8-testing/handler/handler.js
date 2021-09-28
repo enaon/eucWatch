@@ -669,6 +669,8 @@ if (set.def.acctype==="BMA421"){
 		init:function(v){
 			//v=2;
 			if (v==2) {
+				i2c.writeTo(0x18,0x22,0x00); //ia1 interrupt to INT1
+				i2c.writeTo(0x18,0x30,0x00); //int1 to xh
 				i2c.writeTo(0x18,0x32,5); //int1_ths-threshold = 250 milli g's
 				i2c.writeTo(0x18,0x33,15); //duration = 1 * 20ms
 				if (this.loop) { clearInterval(this.loop); this.loop=0;}
