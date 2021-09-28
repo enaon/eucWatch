@@ -690,7 +690,7 @@ if (set.def.acctype==="BMA421"){
 				},500);
 				return true;
 			}else if (!this.tid) {
-				i2c.writeTo(0x18,0x32,30); //int1_ths-threshold = 250 milli g's
+				i2c.writeTo(0x18,0x32,20); //int1_ths-threshold = 250 milli g's
 				i2c.writeTo(0x18,0x33,1); //duration = 1 * 20ms
 				this.tid=setWatch(()=>{
 					"ram";
@@ -720,7 +720,6 @@ if (set.def.acctype==="BMA421"){
 		},
 	};	
 }
-
 cron={
 	event:{
 		//date:()=>{ setTimeout(() =>{ cron.emit('dateChange',Date().getDate());cron.event.date();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate()+1)-Date()));},
