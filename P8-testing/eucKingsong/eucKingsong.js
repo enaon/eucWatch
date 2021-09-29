@@ -45,7 +45,7 @@ euc.cmd=function(no){
 };
 
 euc.tmp.one=function(inpk){
-  "ram";
+  //"ram";
 	//speed
 	euc.dash.spd=(inpk[5] << 8 | inpk[4])/100; 
 	euc.dash.spdC = ( euc.dash.spd1 <= euc.dash.spd )? 2 : ( euc.dash.spd2 <= euc.dash.spd )? 1 : 0 ;	
