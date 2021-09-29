@@ -110,17 +110,10 @@ var set={
 		exports.volumeUp=function(a){b(32,a);};
 		exports.volumeDown=function(a){b(64,a);};});
 		this.hidM=require("ble_hid_controls");
-		/*		if (this.def.hidT=="joy") this.hidM = E.toUint8Array(atob("BQEJBKEBCQGhAAUJGQEpBRUAJQGVBXUBgQKVA3UBgQMFAQkwCTEVgSV/dQiVAoECwMA="));
-		else if (this.def.hidT=="kb") this.hidM = E.toUint8Array(atob("BQEJBqEBBQcZ4CnnFQAlAXUBlQiBApUBdQiBAZUFdQEFCBkBKQWRApUBdQORAZUGdQgVACVzBQcZAClzgQAJBRUAJv8AdQiVArECwA=="));
-		else this.def.hidM = E.toUint8Array(atob("BQEJBqEBhQIFBxngKecVACUBdQGVCIEClQF1CIEBlQV1AQUIGQEpBZEClQF1A5EBlQZ1CBUAJXMFBxkAKXOBAAkFFQAm/wB1CJUCsQLABQwJAaEBhQEVACUBdQGVAQm1gQIJtoECCbeBAgm4gQIJzYECCeKBAgnpgQIJ6oECwA=="));
-		*/
 	}else if (this.def.hid==0 &&this.hidM!=undefined) {
 		this.hidM=undefined;
 		if (global["\xFF"].modules.ble_hid_controls) Modules.removeCached("ble_hid_controls");
 	}
-	//if (!Boolean(require('Storage').read('atc'))) this.def.atc=0;
-	//if (!Boolean(require('Storage').read('eucEmu'))||!global.euc) this.def.atc=0;
-	//if (this.def.atc) eval(require('Storage').read('atc'));
 	if (this.def.emuZ){
 		this.def.cli=0;
 		this.def.gb=0;
@@ -144,15 +137,7 @@ var set={
 	}
 	if (this.def.gb) eval(require('Storage').read('m_gb'));
 	else {
-		//this.handleNotificationEvent=function(){return;};
-		//this.handleFindEvent=function(){return;};
-		//this.handleWeatherEvent=function(){return;};
-		//this.handleCallEvent=function(){return;};
-		//this.handleFindEvent=function(){return;};
-		//global.GB=function(){return;};
-		//this.sendBattery=undefined;
 		this.gbSend=function(){return;};
-		//global.GB=undefined;
 		this.handleNotificationEvent=0;this.handleFindEvent=0;handleWeatherEvent=0;handleCallEvent=0;handleFindEvent=0;sendBattery=0;global.GB=0;
 	}		
 	if (!this.def.cli&&!this.def.gb&&!this.def.emuZ&&!this.def.hid) { if (this.bt) NRF.disconnect(); else{ NRF.sleep();this.btsl=1;}}
@@ -192,15 +177,11 @@ function ccon(l){
 		var gb="\x20\x03";
 		 if (l.startsWith(loa)) {
 			Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
-			//print("OK\n");
-			//require("Storage").write("devmode","loader");
 			return; 
 		}else {
 		if (set.def.cli) {
 			if (l.startsWith(cli)) {
 				set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
-				//print("Welcome.\n** Working mode **\nUse devmode (Settings-Info-long press on Restart) for uploading files."); 
-				//handleInfoEvent({"src":"BT","title":"IDE","body":"Connected"});
 			}
 		}
 		if (set.def.gb) {
@@ -255,12 +236,10 @@ var face={
 		if (this.pageCurr===-1) return;
 		if (this.offid) {clearTimeout(this.offid); this.offid=0;}
 		if (face[this.pageCurr]!=-1){
-			//print("page: ",this.pageCurr);
 			this.offms=(t)?t:face[this.pageCurr].offms;
 		}
 		this.offid=setTimeout((c)=>{
 			this.offid=0;
-			//if (set.def.acc&&acc.tid==-1) acc.on();
 			if (c===0||c===2) {
 				if (this.appCurr==="main") {
 					if (face[c].off) {
@@ -279,7 +258,6 @@ var face={
 		},this.offms,this.pageCurr);
 	},
 	go:function(app,page,arg){
-	 	//if (this.appCurr.startsWith("dash")&&app=="settings") app="dashOptions"; //temporary
 		this.appPrev=this.appCurr;
 		this.pagePrev=this.pageCurr;
 		this.appCurr=app;
@@ -289,7 +267,6 @@ var face={
 			face[this.pagePrev].clear();
 		}
 		if (this.pageCurr==-1 && this.pagePrev!=-1) {
-			//if (set.def.touchtype=="716")tfk.loop=100;
 			if (set.def.touchtype=="716") tfk.exit();	
 			else digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100); 
 			acc.go=0;
@@ -306,9 +283,7 @@ var face={
 		this.off();
 		face[page].init(arg);	
 		if(!w.gfx.isOn) {
-			//digitalPulse(set.def.rstP,1,[10,50]); //touch wake
 			if (set.def.touchtype=="716") tfk.start();
-			//{tfk.loop=10;if(!tfk.tid) tfk.start();}
 			else digitalPulse(set.def.rstP,1,[5,50]);
 			w.gfx.on();
 		}
@@ -628,7 +603,6 @@ if (set.def.acctype==="BMA421"){
 				}	
 				this.up=0;
 			}
-			
 		}
 	};	
 }else if (set.def.acctype==="SC7A20"){ //based on work from jeffmer
@@ -648,15 +622,6 @@ if (set.def.acctype==="BMA421"){
 			i2c.writeTo(0x18,0x32,5); //int1_ths-threshold = 250 milli g's
 			i2c.writeTo(0x18,0x33,15); //duration = 1 * 20ms
 			i2c.writeTo(0x18,0x30,0x02); //int1 to xh
-			/*if (v) {
-				if (v==1) { 
-				  this.ori=[68,72];
-				  i2c.writeTo(0x18,0x30,0x44);
-				}else {
-				    this.ori=[65,66];
-					i2c.writeTo(0x18,0x30,0x41);
-				}
-			} */
 			this.init(v);
 		},
 		off:function(){
@@ -668,7 +633,6 @@ if (set.def.acctype==="BMA421"){
 			return true;
 		},
 		init:function(v){
-			//v=2;
 			//"ram";
 			if (v==2) {
 				i2c.writeTo(0x18,0x22,0x00); //ia1 interrupt to INT1
