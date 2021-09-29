@@ -723,7 +723,7 @@ cron.on('month',cron.task.euc.month);
 //themes -todo
 if (!Boolean(require("Storage").read("colmode16"))){
 	col=function (no){
-		//"ram";
+		"ram";
 		switch (no) {
 			case "black":return 0;case "white":return 4095;case "lblue":return 1535;case "blue":return 143;case "dblue":return 1375;case "blue1":return 1708;
 			case "raf":return 1453;case "raf1":return 1708;case "raf2":return 1963;case "raf3":return 2220;case "raf4":return 2474;case "raf5":return 3005;
@@ -734,7 +734,7 @@ if (!Boolean(require("Storage").read("colmode16"))){
 	};
 }else {
 	col=function(no){
-			//"ram";
+			"ram";
 		switch (no) {
 			case "black":return 0x0000;case "white":return 0xFFFF;case "lblue":return 0xD7BF;case "blue":return 0xEFBF;case "dblue":return 0x0819;case "blue1":return 0x319B;
 			case "raf":return 0x3276;case "raf1":return 0x4B16;case "raf2":return 0x3ADC;case "raf3":return 0x2A16;case "raf4":return 0x6396;case "raf5":return 0x5332;
