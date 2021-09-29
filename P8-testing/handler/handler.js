@@ -98,22 +98,6 @@ var set={
 	clin:0,//not settable
 	upd:function(){ //run this for settings changes to take effect.
 	if (this.def.hid===1) {this.def.hid=0; return;}
-	if (this.def.hid===1&&this.hidM==undefined) {
-		Modules.addCached("ble_hid_controls",function(){
-		function b(a,b){NRF.sendHIDReport(a,function(){NRF.sendHIDReport(0,b);});}
-		exports.report=new Uint8Array([5,12,9,1,161,1,21,0,37,1,117,1,149,5,9,181,9,182,9,183,9,205,9,226,129,6,149,2,9,233,9,234,129,2,149,1,129,1,192]);
-		exports.next=function(a){b(1,a);};
-		exports.prev=function(a){b(2,a);};
-		exports.stop=function(a){b(4,a);};
-		exports.playpause=function(a){b(8,a);};
-		exports.mute=function(a){b(16,a);};
-		exports.volumeUp=function(a){b(32,a);};
-		exports.volumeDown=function(a){b(64,a);};});
-		this.hidM=require("ble_hid_controls");
-	}else if (this.def.hid==0 &&this.hidM!=undefined) {
-		this.hidM=undefined;
-		if (global["\xFF"].modules.ble_hid_controls) Modules.removeCached("ble_hid_controls");
-	}
 	if (this.def.emuZ){
 		this.def.cli=0;
 		this.def.gb=0;
