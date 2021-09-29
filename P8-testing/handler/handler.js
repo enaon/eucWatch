@@ -381,7 +381,7 @@ if ( set.def.touchtype == "0" ) {
 
 if (set.def.touchtype=="816"){ //816
 	setWatch(function(s){
-		//"ram";
+		"ram";
 		i2c.writeTo(0x15,0);
 		var tp=i2c.readFrom(0x15,7);
 		//print("touch816 :",tp);
@@ -553,7 +553,7 @@ if (set.def.acctype==="BMA421"){
 			this.run=0;
 		},
 		init:function(){
-			//"ram";
+			"ram";
 			if(!this.run) return;
 			var data;
 			data=i2c.readFrom(0x18,6);
@@ -617,7 +617,6 @@ if (set.def.acctype==="BMA421"){
 			return true;
 		},
 		init:function(v){
-			//"ram";
 			if (v==2) {
 				i2c.writeTo(0x18,0x22,0x00); //ia1 interrupt to INT1
 				i2c.writeTo(0x18,0x30,0x00); //int1 to xh
@@ -642,7 +641,7 @@ if (set.def.acctype==="BMA421"){
 				i2c.writeTo(0x18,0x32,20); //int1_ths-threshold = 250 milli g's
 				i2c.writeTo(0x18,0x33,1); //duration = 1 * 20ms
 				this.tid=setWatch(()=>{
-					//"ram";
+					"ram";
 					i2c.writeTo(0x18,0x1);
 					if ( 192 < i2c.readFrom(0x18,1)[0] ) {
 						if (!w.gfx.isOn&&face.appCurr!=""){  
