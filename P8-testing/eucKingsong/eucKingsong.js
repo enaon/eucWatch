@@ -108,6 +108,14 @@ euc.tmp.two=function(inpk){
 	euc.dash.fan=inpk[12];
 					
 };
+euc.tmp.thre=function(inpk){
+	euc.dash.spdL=(inpk[3] << 8 | inpk[2])/100;
+	euc.dash.alrm=(euc.dash.spdL < euc.dash.spdT && euc.dash.spdL-5 < euc.dash.spd)?1:0;
+	almL.unshift(euc.dash.alrm);
+	if (20<almL.length) almL.pop();
+	//haptic
+	if (euc.dash.alrm) euc.alert=20;
+};
 //start
 euc.conn=function(mac){
 	if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
@@ -136,16 +144,10 @@ euc.conn=function(mac){
 					euc.tmp.two(inpk);
 					break;
 				case 245:
-
 					euc.dash.pwr=inpk[15];
 					break;
 				case 246:
-					euc.dash.spdL=(inpk[3] << 8 | inpk[2])/100;
-					euc.dash.alrm=(euc.dash.spdL < euc.dash.spdT && euc.dash.spdL-5 < euc.dash.spd)?1:0;
-					almL.unshift(euc.dash.alrm);
-					if (20<almL.length) almL.pop();
-					//haptic
-					if (euc.dash.alrm) euc.alert=20;
+					euc.tmp.thre(inpk);
 					break;	
 				case 181:
 					if (inpk[4]==0||inpk[4]==255) euc.dash.limE[0]=0;
