@@ -366,6 +366,7 @@ euc.off=function(err){
 			euc.conn=function(err){if (set.def.cli) console.log("EUC conn, not connected");};
 			euc.cmd=function(err){if (set.def.cli) console.log("EUC cmd, not connected");};
 			euc.run=0;
+			euc.tmp={};
 			if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
 				if (set.def.cli) console.log("ble still connected"); 
 				global["\xFF"].BLE_GATTS.disconnect();
