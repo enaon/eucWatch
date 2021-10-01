@@ -199,7 +199,7 @@
 	{ "id": "dashNinebotS",
 		"name": "Ninebot S2/A1 Settings",
 		"icon": "icon.png",
-		"version":"0.91",
+		"version":"0.92",
 		"description": "EUC dashboard, NinebotS settings gui files.",
 		"tags": "euc",
 		"readme": "README.md",
