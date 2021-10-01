@@ -83,13 +83,16 @@ euc.conn=function(mac){
 	if (euc.reconnect) {clearTimeout(euc.reconnect); euc.reconnect=0;}
 	NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 		.then(function(g) {
-			return g.getPrimaryService("6e400001-b5a3-f393-e0a9-e50e24dcca9e");
+			//return g.getPrimaryService("6e400001-b5a3-f393-e0a9-e50e24dcca9e");
+			return g.getPrimaryService(0xffb0);
 		}).then(function(s) {
 			euc.serv=s;
-			return euc.serv.getCharacteristic("6e400002-b5a3-f393-e0a9-e50e24dcca9e"); // write
+			//return euc.serv.getCharacteristic("6e400002-b5a3-f393-e0a9-e50e24dcca9e"); // write
+			return euc.serv.getCharacteristic(0xffb1); // write
 		}).then(function(wc) {
 			euc.wCha=wc;//write
-			return euc.serv.getCharacteristic("6e400003-b5a3-f393-e0a9-e50e24dcca9e");//read
+			//return euc.serv.getCharacteristic("6e400003-b5a3-f393-e0a9-e50e24dcca9e");//read
+			return euc.serv.getCharacteristic(0xffb2);//read
 		}).then(function(rc) {
 			euc.rCha=rc;
 			//read
@@ -267,7 +270,7 @@ euc.off=function(err){
 	if (euc.tmp.loop) {clearInterval(euc.tmp.loop);euc.tmp.loop=0;}
 	if (euc.reconnect) {clearTimeout(euc.reconnect); euc.reconnect=0;}
 	if (euc.state!="OFF") {
-		if (set.def.cli) console.log("EUC: Restarting");
+		if (set.def.cli) console.log("EUC imV1: Restarting");
 		if ( err==="Connection Timeout"  )  {
 			if (set.def.cli) console.log("reason :timeout");
 			euc.state="LOST";
