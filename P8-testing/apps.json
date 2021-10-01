@@ -218,6 +218,17 @@
 			{"name":"dashInmotion","url":"dashInmotion.js"}
     ]
 	}, 
+	{ "id": "dashInmotionV1",
+		"name": "Inmotion V5/8/10 Settings",
+		"icon": "icon.png",
+		"version":"0.92",
+		"description": "EUC dashboard, Inmotion V5/8/10 settings gui files.",
+		"tags": "euc",
+		"readme": "README.md",
+		"storage": [
+			{"name":"dashInmotionV1","url":"dashInmotionV1.js"}
+    ]
+	}, 
 	{ "id": "dashVeteran",
 		"name": "Veteran Settings",
 		"icon": "icon.png",
@@ -310,6 +321,17 @@
 		"type": "euc",
 		"storage": [
 			{"name":"eucInmotion","url":"eucInmotion.js"}
+		]
+	},
+	{ "id": "eucInmotionV1",
+		"name": "Inmotion V5/8/10 module",
+		"icon": "icon.png",
+		"version":"0.97",
+		"description": "EUC module for Inmotion V5/8/10.",
+		"tags": "euc",
+		"type": "euc",
+		"storage": [
+			{"name":"eucInmotionV1","url":"eucInmotionV1.js"}
 		]
 	},
    { "id": "eucVeteran",

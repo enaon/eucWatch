@@ -21,9 +21,9 @@ face[0] = {
     this.g.fillRect(0,0,239,96);
     this.g.setColor(1,col("white"));
 	this.g.setFont("Vector",26);
-  	this.g.drawString((n==1)?"KINGSONG":(n==2)?"BEGODE":(n==3)?"NINEBOT":"NINEBOT",120-(this.g.stringWidth((n==1)?"KINGSONG":(n==2)?"BEGODE":(n==3)?"NINEBOT":"NINEBOT")/2),38); 
+  	this.g.drawString((n==1)?"INMOTION":(n==2)?"BEGODE":(n==3)?"NINEBOT":"NINEBOT",120-(this.g.stringWidth((n==1)?"INMOTION":(n==2)?"BEGODE":(n==3)?"NINEBOT":"NINEBOT")/2),38); 
 	this.g.setFont("Vector",14);
-    this.g.drawString((n==1)?"":(n==2)?"":(n==3)?"ONE Z10":"ONE S2",120-(this.g.stringWidth((n==1)?"":(n==2)?"":(n==3)?"ONE Z10":"ONE S2")/2),73);
+    this.g.drawString((n==1)?"V5/V8/V10":(n==2)?"":(n==3)?"ONE Z10":"ONE S2",120-(this.g.stringWidth((n==1)?"V5/V8/V10":(n==2)?"":(n==3)?"ONE Z10":"ONE S2")/2),73);
     this.g.flip();
 	this.g.setColor(0,0);	
 	this.g.drawLine(0,97,239,97);
@@ -33,7 +33,7 @@ face[0] = {
     this.g.fillRect(0,99,239,195);
     this.g.setColor(1,col("white"));
 	this.g.setFont("Vector",26);
-    this.g.drawString((n==1)?"INMOTION V11":(n==2)?"VETERAN":(n==3)?"NINEBOT":"",120-(this.g.stringWidth((n==1)?"INMOTION V11":(n==2)?"VETERAN":(n==3)?"NINEBOT":"")/2),130);
+    this.g.drawString((n==1)?"INMOTION V11":(n==2)?"VETERAN":(n==3)?"NINEBOT":"KINGSONG",120-(this.g.stringWidth((n==1)?"INMOTION V11":(n==2)?"VETERAN":(n==3)?"NINEBOT":"KINGSONG")/2),130);
 	this.g.setFont("Vector",14);
     this.g.drawString((n==1)?"":(n==2)?"":(n==3)?"ONE C/E/P":"",120-(this.g.stringWidth((n==1)?"":(n==2)?"":(n==3)?"ONE C/E/P":"")/2),165);
     this.g.flip();
@@ -119,13 +119,13 @@ touchHandler[0]=function(e,x,y){
 	this.timeout();
     if(0<y&&y<100) {
 		buzzer(D16,1,[30,50,30]);
-		if ( face[0].set === 1 ) { //kingsong
-			if (!Boolean(require("Storage").read('eucKingsong'))) {face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
-			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Kingsong");
-			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","KS-NO NAME");
+		if ( face[0].set === 1 ) { //Inmotiion V5/8/10
+			if (!Boolean(require("Storage").read('eucInmotionV1'))) {face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
+			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","InmotionV1");
+			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","V5/8/10");
 			euc.dash.name=0;
-			euc.dash.maker="Kingsong"; 
-			face.go('w_scan',0,'fff0'); 
+			euc.dash.maker="InmotionV1";
+			face.go('w_scan',0,'ffb0');
 			return;
 		}else if ( face[0].set === 2 ) { //begode
 			if (!Boolean(require("Storage").read('eucBegode'))) {face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
@@ -174,6 +174,13 @@ touchHandler[0]=function(e,x,y){
 			euc.dash.name=0;
 			euc.dash.maker="Ninebot";
 			face.go('w_scan',0,'ffe0'); return;
+		}else if ( face[0].set === 4 ) { //Kingsong
+			if (!Boolean(require("Storage").read('eucKingsong'))) {face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
+			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Kingsong");
+			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","KS-NO NAME");
+			euc.dash.name=0;
+			euc.dash.maker="Kingsong"; 
+			face.go('w_scan',0,'fff0'); 
 		}
     }else buzzer(D16,1,40); 
     break;
