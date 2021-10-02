@@ -3,11 +3,19 @@ euc.tmp={count:0,loop:0};
 euc.cmd=function(no,val){
 	let cmd;
 	switch (no) {
-		case "live": return  		  [170, 170, 20, 1, 4, 17];
+aa aa 13 01 a5 55 0f ff ff ff ff ff ff ff ff 08 05 00 00 7d
+
+		case "live1": return  		  [170, 170, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127];
+		case "live2": return  		  [85, 85, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127];
+		case "live3": return  		  [170, 170, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
+		case "live4": return  		  [85, 85, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
+		case "live": return  		  [85, 85, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
 		case "drlOn": return          [170, 170, 20, 3, 96, 45, 1, 91];
 		case "drlOff": return         [170, 170, 20, 3, 96, 45, 0, 90];
-		case "lightsOn": return       [170, 170, 20, 3, 96, 64, 1, 54];
-		case "lightsOff": return      [170, 170, 20, 3, 96, 64, 0, 55];
+		case "lightsOn": return       [170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
+		case "lightsOff": return      [170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
+//		case "lightsOn": return       [170, 170, 20, 3, 96, 64, 1, 54];
+//		case "lightsOff": return      [170, 170, 20, 3, 96, 64, 0, 55];
 		case "fanOn": return          [170, 170, 20, 3, 96, 67, 1, 53];
 		case "fanOff": return         [170, 170, 20, 3, 96, 67, 0, 52];
 		case "fanQuietOn": return     [170, 170, 20, 3, 96, 56, 1, 78];
@@ -83,27 +91,37 @@ euc.conn=function(mac){
 	if (euc.reconnect) {clearTimeout(euc.reconnect); euc.reconnect=0;}
 	NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 		.then(function(g) {
+			euc.gatt=g;
 			//return g.getPrimaryService("6e400001-b5a3-f393-e0a9-e50e24dcca9e");
-			return g.getPrimaryService(0xffb0);
+			return euc.gatt.getPrimaryService(0xffe5);
 		}).then(function(s) {
 			euc.serv=s;
 			//return euc.serv.getCharacteristic("6e400002-b5a3-f393-e0a9-e50e24dcca9e"); // write
-			return euc.serv.getCharacteristic(0xffb1); // write
+			return euc.serv.getCharacteristic(0xffe9); // write
 		}).then(function(wc) {
 			euc.wCha=wc;//write
+			return euc.gatt.getPrimaryService(0xffe0);
+		}).then(function(s) {
+			euc.serv=s;			
 			//return euc.serv.getCharacteristic("6e400003-b5a3-f393-e0a9-e50e24dcca9e");//read
-			return euc.serv.getCharacteristic(0xffb2);//read
+			return euc.serv.getCharacteristic(0xffe4);//read
 		}).then(function(rc) {
 			euc.rCha=rc;
 			//read
 			euc.rCha.on('characteristicvaluechanged', function(event) {
+				//print ("packet: ",event.target.value.buffer);
 				//let data=event.target.value;
 				if (euc.busy) return;
 				if (event.target.value.buffer[3] != 51 || !validateChecksum(event.target.value.buffer)) {
+					print ("packet: ",event.target.value.buffer);
 					//print ("packet dropped: ",event.target.value.buffer);
+					if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
+					euc.loop=setTimeout(function(){ 
+						print("live3");
+						euc.wri("live3");
+					},30);	
 					return;
 				}
-				//print ("packet: ",event.target.value.buffer);
 				euc.alert=0;			
 				//volt
 				euc.dash.volt=event.target.value.getUint16(5, true)/100;
@@ -217,6 +235,7 @@ euc.conn=function(mac){
 							euc.loop=0;
 							euc.busy=0;
 							euc.run=1;
+							print("live");
 							euc.wri("live");
 						},300);	
 					}).catch(function(err)  {
