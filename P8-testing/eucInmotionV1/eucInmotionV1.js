@@ -75,6 +75,10 @@ function appendBuffer(buffer1, buffer2) {
 
 function eucin (inc){
 	print(inc.buffer);
+	if (inc.buffer[0]==85&&inc.buffer[1]==85) {
+			euc.wri("live3");
+			return;
+	}
 	if (inc.buffer[9]==255&&inc.buffer[10]==255&&inc.buffer[11]==255){
 			print("ok");
 			inc=new Uint8Array(inc.slice(1));
@@ -159,7 +163,7 @@ euc.conn=function(mac){
 			euc.rCha.on('characteristicvaluechanged', function(event) {
 				if (euc.busy) return;
 				if (event.target.value.buffer[0]==170 && event.target.value.buffer[5]==85) return;
-=				if (event.target.value.buffer[event.target.value.buffer.length - 1]==85 ) {
+				if (event.target.value.buffer[event.target.value.buffer.length - 1]==85 ) {
 					if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 					print("end");
 					eucin( euc.tmp.tot);
