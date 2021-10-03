@@ -75,14 +75,14 @@ function appendBuffer(buffer1, buffer2) {
 
 function eucin (inc){
 	if ((inc.buffer[0]==85&&inc.buffer[1]==85)||inc.buffer.length==0||(inc.buffer[78]==255&&inc.buffer[79]==255) ) {
-			print("drop");
+			//print("drop");
 			euc.wri("live3");
 			//setTimeout(function(){ euc.wri("live3");},250);	
 			return;
 	}
 	
 	if (inc.buffer[9]==255&&inc.buffer[10]==255&&inc.buffer[11]==255){
-			print("ok");
+			//print("ok");
 			inc=new Uint8Array(inc.slice(1));
 	}
 
@@ -90,11 +90,11 @@ function eucin (inc){
 	//values
 	//spd
 	euc.dash.spd=(lala.getInt32(11, true)+lala.getInt32(15, true))/2000;
-	print("spd :",euc.dash.spd);
-	if (30<=euc.dash.spd||euc.dash.spd<= -30) {
-	print(inc.buffer);
-	print("length",inc.buffer.length)
-	}
+	//print("spd :",euc.dash.spd);
+	//if (30<=euc.dash.spd||euc.dash.spd<= -30) {
+	//print(inc.buffer);
+	//print("length",inc.buffer.length)
+	//}
 	if (euc.dash.spdM < euc.dash.spd) euc.dash.spdM = euc.dash.spd;
 	if (euc.dash.spd<0) euc.dash.spd=-euc.dash.spd;
 	euc.dash.spdC = ( euc.dash.spd1 <= euc.dash.spd )? 2 : ( euc.dash.spd2 <= euc.dash.spd )? 1 : 0 ;	
@@ -170,7 +170,7 @@ euc.conn=function(mac){
 				if ((event.target.value.buffer[0]==170 && event.target.value.buffer[5]==85)||(event.target.value.buffer[0]==85 && event.target.value.buffer[1]==85) ) return;
 				if (event.target.value.buffer[event.target.value.buffer.length - 1]==85 ) {
 					if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
-					print("end");
+					//print("end");
 					//eucin( euc.tmp.tot);
 					euc.loop=setTimeout(function(v){ euc.loop=0;eucin(v);},50,euc.tmp.tot);	
 
@@ -187,15 +187,14 @@ euc.conn=function(mac){
 				//euc.tmp.tot=appendBuffer(euc.tmp.last,event.target.value.buffer);
 				//euc.tmp.last=euc.tmp.tot;
 				//
-				/*if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
+				if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 				euc.loop=setTimeout(function(){ 
 					euc.loop=0;
 					eucin( euc.tmp.tot);
 					euc.tmp.last=new Uint8Array(0);
-					euc.tmp.tot=0;
+					euc.tmp.tot=new Uint8Array(0);
 				},100);	
-				*/
-					
+									
 				if (!euc.buzz && euc.alert) {  
 					if (!w.gfx.isOn&&(euc.dash.spdC||euc.dash.ampC||euc.dash.alrm)) face.go(set.dash[set.def.dash.face],0);
 					else face.off(6000);
@@ -258,7 +257,7 @@ euc.conn=function(mac){
 							euc.loop=0;
 							euc.busy=0;
 							euc.run=1;
-							print("live");
+							//print("live");
 							euc.wri("live");
 						},300);	
 					}).catch(function(err)  {
