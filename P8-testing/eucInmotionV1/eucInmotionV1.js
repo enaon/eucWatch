@@ -74,11 +74,13 @@ function appendBuffer(buffer1, buffer2) {
 }
 
 function eucin (inc){
-	print(inc.buffer);
-	if (inc.buffer[0]==85&&inc.buffer[1]==85) {
+	if ((inc.buffer[0]==85&&inc.buffer[1]==85)||inc.buffer.length==0||(inc.buffer[78]==255&&inc.buffer[79]==255) ) {
+			print("drop");
 			euc.wri("live3");
+			//setTimeout(function(){ euc.wri("live3");},250);	
 			return;
 	}
+	
 	if (inc.buffer[9]==255&&inc.buffer[10]==255&&inc.buffer[11]==255){
 			print("ok");
 			inc=new Uint8Array(inc.slice(1));
@@ -89,7 +91,10 @@ function eucin (inc){
 	//spd
 	euc.dash.spd=(lala.getInt32(11, true)+lala.getInt32(15, true))/2000;
 	print("spd :",euc.dash.spd);
-	if (30<=euc.dash.spd) print(inc.buffer);
+	if (30<=euc.dash.spd||euc.dash.spd<= -30) {
+	print(inc.buffer);
+	print("length",inc.buffer.length)
+	}
 	if (euc.dash.spdM < euc.dash.spd) euc.dash.spdM = euc.dash.spd;
 	if (euc.dash.spd<0) euc.dash.spd=-euc.dash.spd;
 	euc.dash.spdC = ( euc.dash.spd1 <= euc.dash.spd )? 2 : ( euc.dash.spd2 <= euc.dash.spd )? 1 : 0 ;	
@@ -128,7 +133,7 @@ function eucin (inc){
 	
 	
 	//loop
- 	//setTimeout(function(){ euc.wri("live3");},50);	
+ 	//setTimeout(function(){ euc.wri("live4");},250);	
 	euc.wri("live3");
 }					
 						
@@ -162,11 +167,14 @@ euc.conn=function(mac){
 			euc.tmp.tot=new Uint8Array(0);
 			euc.rCha.on('characteristicvaluechanged', function(event) {
 				if (euc.busy) return;
-				if (event.target.value.buffer[0]==170 && event.target.value.buffer[5]==85) return;
+				if ((event.target.value.buffer[0]==170 && event.target.value.buffer[5]==85)||(event.target.value.buffer[0]==85 && event.target.value.buffer[1]==85) ) return;
 				if (event.target.value.buffer[event.target.value.buffer.length - 1]==85 ) {
 					if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 					print("end");
-					eucin( euc.tmp.tot);
+					//eucin( euc.tmp.tot);
+					euc.loop=setTimeout(function(v){ euc.loop=0;eucin(v);},50,euc.tmp.tot);	
+
+					//setTimeout(function(){ euc.wri( euc.tmp.tot);},50);	
 					euc.tmp.last=new Uint8Array(0);
 					euc.tmp.tot=new Uint8Array(0);
 					return;
@@ -187,7 +195,6 @@ euc.conn=function(mac){
 					euc.tmp.tot=0;
 				},100);	
 				*/
-				return;
 					
 				if (!euc.buzz && euc.alert) {  
 					if (!w.gfx.isOn&&(euc.dash.spdC||euc.dash.ampC||euc.dash.alrm)) face.go(set.dash[set.def.dash.face],0);
