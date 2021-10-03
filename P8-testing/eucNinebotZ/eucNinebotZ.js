@@ -118,7 +118,7 @@ euc.conn=function(mac){
 			//write function
 			euc.wri=function(cmd){
 			//print ("lala",cmd,euc.cmd(cmd));
-				if (euc.state=="OFF"||cmd=="end") {
+				if (euc.state==="OFF"||cmd==="end") {
 					euc.busy=1;
 					if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 					if (global['\xFF'].BLE_GATTS && global['\xFF'].BLE_GATTS.connected) {

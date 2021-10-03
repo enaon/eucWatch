@@ -155,7 +155,7 @@ euc.conn=function(mac){
 			euc.dash.lock=0;
 			//write function
 			euc.wri=function(i){
-				if ( euc.state=="OFF" || i=="end" ) {
+				if ( euc.state==="OFF"||i==="end") {
 					euc.busy=1;
 					if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 					if (global['\xFF'].BLE_GATTS && global['\xFF'].BLE_GATTS.connected) {
