@@ -5,13 +5,13 @@ euc.cmd=function(no,val){
 	switch (no) {
 		case "live1": return  		  [170, 170, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127];
 		case "live2": return  		  [85, 85, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127];
-		case "live4": return  		  [170, 170, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
-		case "live3": return  		  [85, 85, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
-		case "live": return  		  [170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
+		case "live3": return  		  [170, 170, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
+		case "live4": return  		  [85, 85, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
+		case "live": return  		  [85, 85, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
 		case "drlOn": return          [170, 170, 20, 3, 96, 45, 1, 91];
 		case "drlOff": return         [170, 170, 20, 3, 96, 45, 0, 90];
-		case "lightsOn": return       [85, 85, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
-		case "lightsOff": return      [85, 85, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
+		case "lightsOn": return       [170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
+		case "lightsOff": return      [170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
 		case "liftOn": return         [170, 170, 20, 3, 96, 46, 1, 88];
 		case "liftOff": return        [170, 170, 20, 3, 96, 46, 0, 89];
 		case "lock": return           [170, 170, 20, 3, 96, 49, 1, 71];
@@ -167,12 +167,13 @@ euc.conn=function(mac){
 			euc.tmp.tot=new Uint8Array(0);
 			euc.rCha.on('characteristicvaluechanged', function(event) {
 				if (euc.busy) return;
-				if ((event.target.value.buffer[0]==170 && event.target.value.buffer[5]==85)||(event.target.value.buffer[0]==85 ) ) return;
+				if ((event.target.value.buffer[0]==170 && event.target.value.buffer[5]==85)||(event.target.value.buffer[0]==85 && event.target.value.buffer[1]==85) ) return;
 				if (event.target.value.buffer[event.target.value.buffer.length - 1]==85 ) {
 					if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 					//print("end");
 					//eucin( euc.tmp.tot);
 					euc.loop=setTimeout(function(v){ euc.loop=0;eucin(v);},50,euc.tmp.tot);	
+
 					//setTimeout(function(){ euc.wri( euc.tmp.tot);},50);	
 					euc.tmp.last=new Uint8Array(0);
 					euc.tmp.tot=new Uint8Array(0);
