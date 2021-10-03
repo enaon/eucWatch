@@ -124,8 +124,8 @@ function eucin (inc){
 	
 	
 	//loop
- 	setTimeout(function(){ euc.wri("live3");},50);	
-	//euc.wri("live3");
+ 	//setTimeout(function(){ euc.wri("live3");},50);	
+	euc.wri("live3");
 }					
 						
 //
