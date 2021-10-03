@@ -85,6 +85,7 @@ function eucin (inc){
 	//spd
 	euc.dash.spd=(lala.getInt32(11, true)+lala.getInt32(15, true))/2000;
 	print("spd :",euc.dash.spd);
+	if (30<=euc.dash.spd) print(inc.buffer);
 	if (euc.dash.spdM < euc.dash.spd) euc.dash.spdM = euc.dash.spd;
 	if (euc.dash.spd<0) euc.dash.spd=-euc.dash.spd;
 	euc.dash.spdC = ( euc.dash.spd1 <= euc.dash.spd )? 2 : ( euc.dash.spd2 <= euc.dash.spd )? 1 : 0 ;	
@@ -154,15 +155,16 @@ euc.conn=function(mac){
 			euc.rCha=rc;
 			//read
 			euc.tmp.last= new Uint8Array(0);
+			euc.tmp.tot=new Uint8Array(0);
 			euc.rCha.on('characteristicvaluechanged', function(event) {
 				if (euc.busy) return;
 				if (event.target.value.buffer[0]==170 && event.target.value.buffer[5]==85) return;
-				if (event.target.value.buffer[16]==85 && event.target.value.buffer[17]==85) {
+=				if (event.target.value.buffer[event.target.value.buffer.length - 1]==85 ) {
 					if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 					print("end");
 					eucin( euc.tmp.tot);
 					euc.tmp.last=new Uint8Array(0);
-					euc.tmp.tot=0;
+					euc.tmp.tot=new Uint8Array(0);
 					return;
 				}
 				euc.tmp.tot= new Uint8Array(euc.tmp.last.length + event.target.value.buffer.length);
@@ -173,14 +175,14 @@ euc.conn=function(mac){
 				//euc.tmp.tot=appendBuffer(euc.tmp.last,event.target.value.buffer);
 				//euc.tmp.last=euc.tmp.tot;
 				//
-				if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
+				/*if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 				euc.loop=setTimeout(function(){ 
 					euc.loop=0;
 					eucin( euc.tmp.tot);
 					euc.tmp.last=new Uint8Array(0);
 					euc.tmp.tot=0;
 				},100);	
-			
+				*/
 				return;
 					
 				if (!euc.buzz && euc.alert) {  
