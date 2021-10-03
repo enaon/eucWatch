@@ -304,7 +304,7 @@
 	{ "id": "eucNinebotS",
 		"name": "Ninebot S2/A1 module",
 		"icon": "icon.png",
-		"version":"0.93",
+		"version":"0.94",
 		"description": "EUC module for Ninebot S2/A1",
 		"tags": "euc",
 		"type": "euc",
