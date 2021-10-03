@@ -74,7 +74,7 @@ function appendBuffer(buffer1, buffer2) {
 }
 
 function eucin (inc){
-	//print(inc.buffer);
+	print(inc.buffer);
 	if (inc.buffer[9]==255&&inc.buffer[10]==255&&inc.buffer[11]==255){
 			print("ok");
 			inc=new Uint8Array(inc.slice(1));
