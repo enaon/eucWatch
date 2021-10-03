@@ -122,7 +122,7 @@ touchHandler[0]=function(e,x,y){
 		if ( face[0].set === 1 ) { //Inmotiion V5/8/10
 			if (!Boolean(require("Storage").read('eucInmotionV1'))) {face[0].ntfy("INSTALL MODULE","",20,col("red"),1); return; }
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","InmotionV1");
-			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","V5/8/10");
+			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","V?");
 			euc.dash.name=0;
 			euc.dash.maker="InmotionV1";
 			face.go('w_scan',0,'ffb0');

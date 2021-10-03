@@ -3,8 +3,6 @@ euc.tmp={count:0,loop:0};
 euc.cmd=function(no,val){
 	let cmd;
 	switch (no) {
-aa aa 13 01 a5 55 0f ff ff ff ff ff ff ff ff 08 05 00 00 7d
-
 		case "live1": return  		  [170, 170, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127];
 		case "live2": return  		  [85, 85, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127];
 		case "live3": return  		  [170, 170, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
@@ -82,6 +80,70 @@ function validateChecksum(buffer) {
 	calculatedChecksum = array.reduce(checksum);
 	return receivedChecksum == calculatedChecksum;
 }
+function appendBuffer(buffer1, buffer2) {
+  var tmp = new Uint8Array(buffer1.byteLength + buffer2.byteLength);
+  tmp.set(new Uint8Array(buffer1), 0);
+  tmp.set(new Uint8Array(buffer2), buffer1.byteLength);
+  return tmp.buffer;
+}
+
+function eucin (inc){
+	let lala = new DataView(inc.buffer);
+
+	//let lala = new DataView(euc.tmp.tot.buffer)
+	//let lala = new DataView(euc.tmp.tot)
+	//print("live3, speed :", lala.getInt32(31, true)/1000);
+	//print ("got :",lala);
+	euc.tmp.last=new Uint8Array(0);
+	print ("got :",euc.tmp.tot);
+	euc.tmp.tot=0;
+	
+	//values
+	//spd
+	euc.dash.spd=(lala.getInt32(11, true)+lala.getInt32(15, true))/2000;
+	if (euc.dash.spdM < euc.dash.spd) euc.dash.spdM = euc.dash.spd;
+	if (euc.dash.spd<0) euc.dash.spd=-euc.dash.spd;
+	euc.dash.spdC = ( euc.dash.spd1 <= euc.dash.spd )? 2 : ( euc.dash.spd2 <= euc.dash.spd )? 1 : 0 ;	
+	if ( euc.dash.hapS && euc.dash.spdC == 2 ) 
+	euc.alert = 1 + Math.round((euc.dash.spd-euc.dash.spd1) / euc.dash.spdS) ; 
+	//volt
+	euc.dash.volt=lala.getUint32(23, true)/100;
+	//batt
+	//euc.dash.bat=Math.round(((euc.dash.volt*5) - euc.dash.batE ) * (100/(420-euc.dash.batE)));
+	euc.dash.bat=Math.round(((euc.dash.volt*( 100/(16*euc.dash.bms))) - euc.dash.batE ) * (100/(420-euc.dash.batE)));
+	//euc.dash.bat = Math.round(((euc.dash.volt - 60) * 100) / (84 - 60));
+	batL.unshift(euc.dash.bat);
+	if (20<batL.length) batL.pop();
+	euc.dash.batC = (50 <= euc.dash.bat)? 0 : (euc.dash.bat <= euc.dash.batL)? 2 : 1;	
+	if ( euc.dash.hapB && euc.dash.batC ==2 )  euc.alert ++;
+	//temp
+	euc.dash.tmp=(lala.buffer[31] & 0xff);
+	//euc.dash.tmp=(lala.buffer[53] & 0xff); //alt temp 2
+	euc.dash.tmpC=(euc.dash.tmpH - 5 <= euc.dash.tmp )? (euc.dash.tmpH <= euc.dash.tmp )?2:1:0;
+	if (euc.dash.hapT && euc.dash.tmpC==2) euc.alert++;
+	//amp
+	euc.dash.amp= lala.getInt16(19, true) / 100;
+	//log
+	ampL.unshift(Math.round(euc.dash.amp));
+	if (20<ampL.length) ampL.pop();
+	euc.dash.ampC = ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp  <= -0.5 || 15 <= euc.dash.amp)? 1 : 0;
+	if (euc.dash.hapA && euc.dash.ampC==2) {
+		if (euc.dash.ampH<=euc.dash.amp)	euc.alert =  euc.alert + 1 + Math.round( (euc.dash.amp - euc.dash.ampH) / euc.dash.ampS) ;
+		else euc.alert =  euc.alert + 1 + Math.round(-(euc.dash.amp - euc.dash.ampL) / euc.dash.ampS) ;
+	}
+	//trip 
+	euc.dash.trpL=lala.getInt32(47, true);
+	print(euc.dash.trpL);
+	euc.dash.trpT=lala.getUint32(43, true)/1000;
+	euc.log.trp.forEach(function(val,pos){ if (!val) euc.log.trp[pos]=euc.dash.trpT;});
+	
+	
+	//loop
+	setTimeout(function(){ euc.wri("live3");},50);	
+					
+}						
+						
+						
 //
 euc.wri=function(i) {if (set.def.cli) console.log("not connected yet"); if (i=="end") euc.off(); return;};
 euc.conn=function(mac){
@@ -108,71 +170,33 @@ euc.conn=function(mac){
 		}).then(function(rc) {
 			euc.rCha=rc;
 			//read
+			euc.tmp.last= new Uint8Array(0);
 			euc.rCha.on('characteristicvaluechanged', function(event) {
 				//print ("packet: ",event.target.value.buffer);
 				//let data=event.target.value;
+				//print (1)
+				//return;
 				if (euc.busy) return;
-				if (event.target.value.buffer[3] != 51 || !validateChecksum(event.target.value.buffer)) {
-					print ("packet: ",event.target.value.buffer);
-					//print ("packet dropped: ",event.target.value.buffer);
+				//if (event.target.value.buffer[3] != 51 || !validateChecksum(event.target.value.buffer)) {
+					
+					if (event.target.value.buffer[0]==170 && event.target.value.buffer[5]==85) {print ("init, return");return;}
+					if (event.target.value.buffer[16]==85 && event.target.value.buffer[17]==85) {print ("end, return");return;}
+
+					euc.tmp.tot= new Uint8Array(euc.tmp.last.length + event.target.value.buffer.length);
+					euc.tmp.tot.set(new Uint8Array(euc.tmp.last));
+					euc.tmp.tot.set(new Uint8Array(event.target.value.buffer),euc.tmp.last.length);
+					euc.tmp.last=euc.tmp.tot;
+					//
+					//euc.tmp.tot=appendBuffer(euc.tmp.last,event.target.value.buffer);
+					//euc.tmp.last=euc.tmp.tot;
+					//
 					if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 					euc.loop=setTimeout(function(){ 
-						print("live3");
-						euc.wri("live3");
-					},30);	
+						euc.in( euc.tmp.tot);
+					},50);	
+				
 					return;
-				}
-				euc.alert=0;			
-				//volt
-				euc.dash.volt=event.target.value.getUint16(5, true)/100;
-				//batt
-				euc.dash.bat=Math.round(((euc.dash.volt*5) - euc.dash.batE ) * (100/(420-euc.dash.batE)));
-				//euc.dash.bat = Math.round(((euc.dash.volt - 60) * 100) / (84 - 60));
-				batL.unshift(euc.dash.bat);
-				if (20<batL.length) batL.pop();
-				euc.dash.batC = (50 <= euc.dash.bat)? 0 : (euc.dash.bat <= euc.dash.batL)? 2 : 1;	
-				if ( euc.dash.hapB && euc.dash.batC ==2 )  euc.alert ++;
-				//trip 
-				euc.dash.trpL=event.target.value.getUint16(17, true)/100;
-				euc.dash.trpT=euc.dash.trpL;
-				euc.log.trp.forEach(function(val,pos){ if (!val) euc.log.trp[pos]=euc.dash.trpT;});
-				//euc.dash.trpL=((event.target.value.getUint16(17, true))/100)*euc.dash.trpF*((set.def.dash.mph)?0.625:1); //trip
-				//euc.dash.trpR=(event.target.value.getUint16(19, true))*10; //remain
-				//euc.dash.time=(event.target.value.getUint16(7, true)/60)|0;
-				//temp
-				euc.dash.tmp=(event.target.value.buffer[22] & 0xff) + 80 - 256;
-				euc.dash.tmpC=(euc.dash.tmpH - 5 <= euc.dash.tmp )? (euc.dash.tmpH <= euc.dash.tmp )?2:1:0;
-				if (euc.dash.hapT && euc.dash.tmpC==2) euc.alert++;
-				//amp
-				euc.dash.amp= event.target.value.getInt16(7, true) / 100;
-				//log
-				ampL.unshift(Math.round(euc.dash.amp));
-				if (20<ampL.length) ampL.pop();
-				euc.dash.ampC = ( euc.dash.ampH <= euc.dash.amp || euc.dash.amp <= euc.dash.ampL )? 2 : ( euc.dash.amp  <= -0.5 || 15 <= euc.dash.amp)? 1 : 0;
-				if (euc.dash.hapA && euc.dash.ampC==2) {
-					if (euc.dash.ampH<=euc.dash.amp)	euc.alert =  euc.alert + 1 + Math.round( (euc.dash.amp - euc.dash.ampH) / euc.dash.ampS) ;
-					else euc.alert =  euc.alert + 1 + Math.round(-(euc.dash.amp - euc.dash.ampL) / euc.dash.ampS) ;
-				}
-				//alarm
-				euc.dash.alrm=event.target.value.buffer[52];
-				//log
-				almL.unshift(euc.dash.alrm);
-				if (20<almL.length) almL.pop();		
-				//haptic
-				if (euc.dash.alrm) euc.alert=20;
-				//speed
-				//euc.dash.spd=Math.round((event.target.value.getInt16(9, true) / 100)*euc.dash.spdF*((set.def.dash.mph)?0.625:1));
-				euc.dash.spd=event.target.value.getInt16(9, true) / 100;
-				if (euc.dash.spdM < euc.dash.spd) euc.dash.spdM = euc.dash.spd;
-				if (euc.dash.spd<0) euc.dash.spd=-euc.dash.spd;
-				euc.dash.spdC = ( euc.dash.spd1 <= euc.dash.spd )? 2 : ( euc.dash.spd2 <= euc.dash.spd )? 1 : 0 ;	
-				if ( euc.dash.hapS && euc.dash.spdC == 2 ) 
-					euc.alert = 1 + Math.round((euc.dash.spd-euc.dash.spd1) / euc.dash.spdS) ; 	
-				//average
-				//euc.dash.spdA=(event.target.value.getUint16(17, true))/100;
-				//euc.dash.spdM=(event.target.value.getUint16(19, true))/100;
-				//haptic
-				//euc.new=1;
+					
 				if (!euc.buzz && euc.alert) {  
 					if (!w.gfx.isOn&&(euc.dash.spdC||euc.dash.ampC||euc.dash.alrm)) face.go(set.dash[set.def.dash.face],0);
 					else face.off(6000);
