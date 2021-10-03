@@ -12,12 +12,6 @@ euc.cmd=function(no,val){
 		case "drlOff": return         [170, 170, 20, 3, 96, 45, 0, 90];
 		case "lightsOn": return       [170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
 		case "lightsOff": return      [170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
-//		case "lightsOn": return       [170, 170, 20, 3, 96, 64, 1, 54];
-//		case "lightsOff": return      [170, 170, 20, 3, 96, 64, 0, 55];
-		case "fanOn": return          [170, 170, 20, 3, 96, 67, 1, 53];
-		case "fanOff": return         [170, 170, 20, 3, 96, 67, 0, 52];
-		case "fanQuietOn": return     [170, 170, 20, 3, 96, 56, 1, 78];
-		case "fanQuietOff": return    [170, 170, 20, 3, 96, 56, 0, 79];
 		case "liftOn": return         [170, 170, 20, 3, 96, 46, 1, 88];
 		case "liftOff": return        [170, 170, 20, 3, 96, 46, 0, 89];
 		case "lock": return           [170, 170, 20, 3, 96, 49, 1, 71];
@@ -26,16 +20,8 @@ euc.cmd=function(no,val){
 		case "transportOff": return   [170, 170, 20, 3, 96, 50, 0, 69];
 		case "rideComfort": return    [170, 170, 20, 3, 96, 35, 0, 84];
 		case "rideSport": return      [170, 170, 20, 3, 96, 35, 1, 85];
-		case "performanceOn": return  [170, 170, 20, 3, 96, 36, 1, 82];
-		case "performanceOff": return [170, 170, 20, 3, 96, 36, 0, 83];
 		case "remainderReal": return  [170, 170, 20, 3, 96, 61, 1, 75];
 		case "remainderEst": return   [170, 170, 20, 3, 96, 61, 0, 74];
-		case "lowBatLimitOn": return  [170, 170, 20, 3, 96, 55, 1, 65];
-		case "lowBatLimitOff": return [170, 170, 20, 3, 96, 55, 0, 64];
-		case "usbOn": return          [170, 170, 20, 3, 96, 60, 1, 74];
-		case "usbOff": return         [170, 170, 20, 3, 96, 60, 0, 75];
-		case "loadDetectOn": return   [170, 170, 20, 3, 96, 54, 1, 64];
-		case "loadDetectOff": return  [170, 170, 20, 3, 96, 54, 0, 65];
 		case "mute": return           [170, 170, 20, 3, 96, 44, 0, 91];
 		case "unmute": return         [170, 170, 20, 3, 96, 44, 1, 90];
 		case "calibration": return    [170, 170, 20, 5, 96, 66, 1, 0, 1, 51];
@@ -88,15 +74,29 @@ function appendBuffer(buffer1, buffer2) {
 }
 
 function eucin (inc){
-	let lala = new DataView(inc.buffer);
+	//print(inc.buffer);
+	if (inc.buffer[8]!=255||inc.buffer[9]!=255||inc.buffer[10]!=255)  {
+		print("drop");
+		if (inc.buffer[9]==255&&inc.buffer[10]==255&&inc.buffer[11]==255){
+			print("ok");
+			inc=new Uint8Array(inc.slice(1));
+			lala = new DataView(inc.buffer);
+		}else{
+      //print(inc);
+			//euc.tmp.last=new Uint8Array(0);
+			//euc.tmp.tot=0;
+	//		euc.wri("live3");
+			setTimeout(function(){ euc.wri("live3");},100);	
+			return;
+		}
+	}else
+		lala = new DataView(inc.buffer);
 
 	//let lala = new DataView(euc.tmp.tot.buffer)
 	//let lala = new DataView(euc.tmp.tot)
 	//print("live3, speed :", lala.getInt32(31, true)/1000);
-	//print ("got :",lala);
-	euc.tmp.last=new Uint8Array(0);
-	print ("got :",euc.tmp.tot);
-	euc.tmp.tot=0;
+	print ("got :",lala);
+
 	
 	//values
 	//spd
@@ -133,16 +133,15 @@ function eucin (inc){
 	}
 	//trip 
 	euc.dash.trpL=lala.getInt32(47, true);
-	print(euc.dash.trpL);
+	//print(euc.dash.trpL);
 	euc.dash.trpT=lala.getUint32(43, true)/1000;
 	euc.log.trp.forEach(function(val,pos){ if (!val) euc.log.trp[pos]=euc.dash.trpT;});
 	
 	
 	//loop
-	setTimeout(function(){ euc.wri("live3");},50);	
-					
-}						
-						
+ 	//setTimeout(function(){ euc.wri("live3");},100);	
+	euc.wri("live3");
+}					
 						
 //
 euc.wri=function(i) {if (set.def.cli) console.log("not connected yet"); if (i=="end") euc.off(); return;};
@@ -172,30 +171,25 @@ euc.conn=function(mac){
 			//read
 			euc.tmp.last= new Uint8Array(0);
 			euc.rCha.on('characteristicvaluechanged', function(event) {
-				//print ("packet: ",event.target.value.buffer);
-				//let data=event.target.value;
-				//print (1)
-				//return;
 				if (euc.busy) return;
-				//if (event.target.value.buffer[3] != 51 || !validateChecksum(event.target.value.buffer)) {
-					
-					if (event.target.value.buffer[0]==170 && event.target.value.buffer[5]==85) {print ("init, return");return;}
-					if (event.target.value.buffer[16]==85 && event.target.value.buffer[17]==85) {print ("end, return");return;}
-
-					euc.tmp.tot= new Uint8Array(euc.tmp.last.length + event.target.value.buffer.length);
-					euc.tmp.tot.set(new Uint8Array(euc.tmp.last));
-					euc.tmp.tot.set(new Uint8Array(event.target.value.buffer),euc.tmp.last.length);
-					euc.tmp.last=euc.tmp.tot;
-					//
-					//euc.tmp.tot=appendBuffer(euc.tmp.last,event.target.value.buffer);
-					//euc.tmp.last=euc.tmp.tot;
-					//
-					if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
-					euc.loop=setTimeout(function(){ 
-						euc.in( euc.tmp.tot);
-					},50);	
-				
-					return;
+				if (event.target.value.buffer[0]==170 && event.target.value.buffer[5]==85) return;
+				if (event.target.value.buffer[16]==85 && event.target.value.buffer[17]==85) return;
+				euc.tmp.tot= new Uint8Array(euc.tmp.last.length + event.target.value.buffer.length);
+				euc.tmp.tot.set(new Uint8Array(euc.tmp.last));
+				euc.tmp.tot.set(new Uint8Array(event.target.value.buffer),euc.tmp.last.length);
+				euc.tmp.last=euc.tmp.tot;
+				//
+				//euc.tmp.tot=appendBuffer(euc.tmp.last,event.target.value.buffer);
+				//euc.tmp.last=euc.tmp.tot;
+				//
+				if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
+				euc.loop=setTimeout(function(){ 
+					eucin( euc.tmp.tot);
+					euc.tmp.last=new Uint8Array(0);
+					euc.tmp.tot=0;
+				},50);	
+			
+				return;
 					
 				if (!euc.buzz && euc.alert) {  
 					if (!w.gfx.isOn&&(euc.dash.spdC||euc.dash.ampC||euc.dash.alrm)) face.go(set.dash[set.def.dash.face],0);
