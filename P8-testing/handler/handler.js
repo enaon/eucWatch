@@ -381,7 +381,7 @@ if ( set.def.touchtype == "0" ) {
 
 if (set.def.touchtype=="816"){ //816
 	setWatch(function(s){
-		"ram";
+		//"ram";
 		i2c.writeTo(0x15,0);
 		var tp=i2c.readFrom(0x15,7);
 		//print("touch816 :",tp);
@@ -553,7 +553,7 @@ if (set.def.acctype==="BMA421"){
 			this.run=0;
 		},
 		init:function(){
-			"ram";
+			//"ram";
 			if(!this.run) return;
 			var data;
 			data=i2c.readFrom(0x18,6);
@@ -641,7 +641,7 @@ if (set.def.acctype==="BMA421"){
 				i2c.writeTo(0x18,0x32,20); //int1_ths-threshold = 250 milli g's
 				i2c.writeTo(0x18,0x33,1); //duration = 1 * 20ms
 				this.tid=setWatch(()=>{
-					"ram";
+					//"ram";
 					i2c.writeTo(0x18,0x1);
 					if ( 192 < i2c.readFrom(0x18,1)[0] ) {
 						if (!w.gfx.isOn&&face.appCurr!=""){  
@@ -723,7 +723,7 @@ cron.on('month',cron.task.euc.month);
 //themes -todo
 if (!Boolean(require("Storage").read("colmode16"))){
 	col=function (no){
-		"ram";
+		//"ram";
 		switch (no) {
 			case "black":return 0;case "white":return 4095;case "lblue":return 1535;case "blue":return 143;case "dblue":return 1375;case "blue1":return 1708;
 			case "raf":return 1453;case "raf1":return 1708;case "raf2":return 1963;case "raf3":return 2220;case "raf4":return 2474;case "raf5":return 3005;
@@ -734,7 +734,7 @@ if (!Boolean(require("Storage").read("colmode16"))){
 	};
 }else {
 	col=function(no){
-			"ram";
+			//"ram";
 		switch (no) {
 			case "black":return 0x0000;case "white":return 0xFFFF;case "lblue":return 0xD7BF;case "blue":return 0xEFBF;case "dblue":return 0x0819;case "blue1":return 0x319B;
 			case "raf":return 0x3276;case "raf1":return 0x4B16;case "raf2":return 0x3ADC;case "raf3":return 0x2A16;case "raf4":return 0x6396;case "raf5":return 0x5332;
