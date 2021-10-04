@@ -150,7 +150,6 @@ E.setTimeZone(set.def.timezone);
 //nrf
 //set.emuD=0;
 function ccon(l){ 
-	////"ram"
 	if (set.def.emuZ) {
 		//if (set.emuD) return;
 		emuZ.cmd(l);
@@ -381,7 +380,6 @@ if ( set.def.touchtype == "0" ) {
 
 if (set.def.touchtype=="816"){ //816
 	setWatch(function(s){
-		//"ram";
 		i2c.writeTo(0x15,0);
 		var tp=i2c.readFrom(0x15,7);
 		//print("touch816 :",tp);
