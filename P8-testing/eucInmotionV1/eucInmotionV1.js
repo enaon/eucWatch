@@ -5,21 +5,16 @@ euc.cmd=function(no,val){
 	if (set.bt===2) console.log("inmotion: send cmd :",no);
 	let cmd;
 	switch (no) {
-		//lights on: aa aa 0d 01 a5 55 0f 01 00 00 00 00 00 00 00 08 05 00 00 80
-		//lights off:55 55 0d 01 a5 55 0f 00 00 00 00 00 00 00 00 08 05 00 00 7f
-		//off: 55 55 16 01 a5 55 0f b2 00 00 00 05 00 00 00 08 05 00 00 3f
-		case "infoV10" :	return		[170, 170, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127]; 
-		case "infoV5":		return		[85, 85, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127];
-		case "liveV10":		return 		[170, 170, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
-		case "liveV5":		return  	[85, 85, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
-		case "init1":		return 		[170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
-		case "init2":		return      [85, 85, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
+		case "info" :		return		[170, 170, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127]; 
+		case "infoR":		return		[85, 85, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127];
+		case "live":		return 		[170, 170, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
+		case "liveR":		return  	[85, 85, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
+		case "init":		return 		[170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
+		case "initR":		return      [85, 85, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
 		case "lightsOn":	return      [170, 170, 13, 1, 165, 85, 15, 1, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 128];
-		case "lightsOn1":	return      [85, 85, 13, 1, 165, 85, 15, 1, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 128];
+		case "lightsOnR":	return      [85, 85, 13, 1, 165, 85, 15, 1, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 128];
 		case "lightsOff":	return    	[170, 170, 13, 1, 165, 85, 15, 0, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 127];
-		case "lightsOff1":	return    	[85, 85, 13, 1, 165, 85, 15, 0, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 127];
-//		case "lightsOn":	return      [170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
-//		case "lightsOff":	return      [170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
+		case "lightsOffR":	return    	[85, 85, 13, 1, 165, 85, 15, 0, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 127];
 		case "liftOn": 		return		[170, 170, 20, 3, 96, 46, 1, 88];
 		case "liftOff": 	return		[170, 170, 20, 3, 96, 46, 0, 89];
 		case "lock":		return    	[170, 170, 20, 3, 96, 49, 1, 71];
@@ -85,8 +80,8 @@ function eucin (inc){
 	if (set.bt===2) console.log("inmotion: packet :",inc.buffer);
 	if ((inc.buffer[0]==85&&inc.buffer[1]==85)||inc.buffer.length==0||(inc.buffer[78]==255&&inc.buffer[79]==255) ) {
 			if (set.bt===2) console.log("inmotion: packet dropped.");
-			euc.wri("live"+euc.dash.model);
-			//setTimeout(function(){ euc.wri("live"+euc.dash.model);},250);	
+			euc.wri("live");
+			//setTimeout(function(){ euc.wri("live";},250);	
 			return;
 	}
 	if (inc.buffer[9]==255&&inc.buffer[10]==255&&inc.buffer[11]==255){
@@ -138,8 +133,8 @@ function eucin (inc){
 	euc.dash.trpT=lala.getUint32(43, true)/1000;
 	euc.log.trp.forEach(function(val,pos){ if (!val) euc.log.trp[pos]=euc.dash.trpT;});
 	//loop
- 	//setTimeout(function(){ euc.wri("live"+euc.dash.model);},250);	
-	euc.wri("live"+euc.dash.model);
+ 	//setTimeout(function(){ euc.wri("live";},250);	
+	euc.wri("live");
 }					
 						
 //
@@ -252,12 +247,12 @@ euc.conn=function(mac){
 					}
 				}else if (cmd==="start") {
 					euc.busy=0;
-					euc.wCha.writeValue(euc.cmd("init1")).then(function() {
+					euc.wCha.writeValue(euc.cmd("init")).then(function() {
 						euc.rCha.startNotifications();	
 						if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
 						euc.tmp.loop=setTimeout(function(){ 
-							euc.wCha.writeValue(euc.cmd("init2")).then(function() {
-								return euc.wCha.writeValue(euc.cmd("init1"))
+							euc.wCha.writeValue(euc.cmd("initR")).then(function() {
+								return euc.wCha.writeValue(euc.cmd("init"))
 							}).then(function()  {
 								euc.tmp.loop=0;
 								euc.busy=0;
@@ -278,7 +273,7 @@ euc.conn=function(mac){
 						euc.tmp.loop=setTimeout(function(){
 							euc.tmp.loop=0;
 							euc.busy=0;
-							euc.wri("live"+euc.dash.model);	
+							euc.wri("live");	
 						},150);
 					});
 					},350);
@@ -287,12 +282,14 @@ euc.conn=function(mac){
 				} else {
 					//if (euc.busy) return; 
 					euc.wCha.writeValue(euc.cmd(cmd,value)).then(function() {
-						if (euc.busy) return; 
-						if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
-						euc.tmp.loop=setTimeout(function(){
-								euc.tmp.loop=0;
-								euc.wri("live"+euc.dash.model);	
-						},125);
+						return euc.wCha.writeValue(euc.cmd(cmd+"R",value))
+						
+						//if (euc.busy) return; 
+						//if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
+						//euc.tmp.loop=setTimeout(function(){
+						//		euc.tmp.loop=0;
+						//		euc.wri("live");	
+						//},125);
 					}).catch(function(err)  {
 						euc.off("writefail");	
 					});

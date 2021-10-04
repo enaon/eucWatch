@@ -76,7 +76,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		euc.busy=0;euc.wri("live"+euc.dash.model);
+		euc.busy=0;euc.wri("live");
 		face.go(set.dash[set.def.dash.face],0);
 		return;
 	},
@@ -146,7 +146,7 @@ touchHandler[0]=function(e,x,y){
 			w.gfx.flip();
 			face[0].init();
         } else {
-			euc.busy=0;euc.wri("live"+euc.dash.model);
+			euc.busy=0;euc.wri("live");
 			face.go(set.dash[set.def.dash.face],0);
 			return;
         }
