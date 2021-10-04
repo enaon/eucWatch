@@ -12,8 +12,8 @@ euc.cmd=function(no,val){
 		case "infoV5":		return		[85, 85, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127];
 		case "liveV10":		return 		[170, 170, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
 		case "liveV5":		return  	[85, 85, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
-		case "initV5":		return  	[170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
-		case "initV10":		return      [85, 85, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
+		case "init1":		return 		[170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
+		case "init2":		return      [170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
 		case "lightsOn":	return      [170, 170, 13, 1, 165, 85, 15, 1, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 128];
 		case "lightsOn1":	return      [85, 85, 13, 1, 165, 85, 15, 1, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 128];
 		case "lightsOff":	return    	[170, 170, 13, 1, 165, 85, 15, 0, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 127];
@@ -249,18 +249,18 @@ euc.conn=function(mac){
 						euc.off("not connected");
 						return;
 					}
-					
 				}else if (cmd==="start") {
 					euc.busy=0;
-					euc.wCha.writeValue(euc.cmd("init"+euc.dash.model)).then(function() {
+					euc.wCha.writeValue(euc.cmd("init1")).then(function() {
 						euc.rCha.startNotifications();	
 						if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 						euc.loop=setTimeout(function(){ 
-							euc.loop=0;
-							euc.busy=0;
-							euc.run=1;
-							if (euc.dash.light) euc.wri("lightsOn");
-							else euc.wri("initV10");
+							euc.wCha.writeValue(euc.cmd("init2")).then(function() {
+								euc.loop=0;
+								euc.busy=0;
+								euc.run=1;
+								if (euc.dash.light) euc.wri("lightsOn");
+							});
 						},300);	
 					}).catch(function(err)  {
 						euc.off("start fail");	
