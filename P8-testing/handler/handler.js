@@ -722,8 +722,8 @@ cron.on('month',cron.task.euc.month);
 
 //themes -todo
 if (!Boolean(require("Storage").read("colmode16"))){
-	col=function (no){
-		"ram";
+	function col(no){
+		//"ram";
 		switch (no) {
 			case "black":return 0;case "white":return 4095;case "lblue":return 1535;case "blue":return 143;case "dblue":return 1375;case "blue1":return 1708;
 			case "raf":return 1453;case "raf1":return 1708;case "raf2":return 1963;case "raf3":return 2220;case "raf4":return 2474;case "raf5":return 3005;
@@ -731,10 +731,10 @@ if (!Boolean(require("Storage").read("colmode16"))){
 			case "dred":return 3925;case "dred1":return 3888;case "purple":return 3935;case "lyellow":return 4085;case "dyellow":return 4064;case "yellow":return 4080;
 			case "olive":return 170;
 		}
-	};
+	}
 }else {
-	col=function(no){
-			"ram";
+	function col(no){
+			//"ram";
 		switch (no) {
 			case "black":return 0x0000;case "white":return 0xFFFF;case "lblue":return 0xD7BF;case "blue":return 0xEFBF;case "dblue":return 0x0819;case "blue1":return 0x319B;
 			case "raf":return 0x3276;case "raf1":return 0x4B16;case "raf2":return 0x3ADC;case "raf3":return 0x2A16;case "raf4":return 0x6396;case "raf5":return 0x5332;
@@ -742,7 +742,7 @@ if (!Boolean(require("Storage").read("colmode16"))){
 			case "red":return 0xF165;case "dred":return 0xA000;case "dred1":return 0x8904;case "purple":return 0xA815;case "lyellow":return 0xFFEA;case "dyellow":return 0xCEE0;
 			case "yellow":return 0xFFE0;case "olive":return 0x3C0C;
 		}
-	};
+	}
 }
 //end
 
