@@ -77,11 +77,11 @@ function appendBuffer(buffer1, buffer2) {
 }
 
 function eucin (inc){
-	if (set.bt===2) console.log("inmotion: packet :",inc.buffer);
+	//if (set.bt===2) console.log("inmotion: packet :",inc.buffer);
 	if ((inc.buffer[0]==85&&inc.buffer[1]==85)||inc.buffer.length==0||(inc.buffer[78]==255&&inc.buffer[79]==255) ) {
 			if (set.bt===2) console.log("inmotion: packet dropped.");
-			euc.wri("live");
-			//setTimeout(function(){ euc.wri("live";},250);	
+			//euc.wri("live");
+			setTimeout(function(){ euc.wri("live");},50);	
 			return;
 	}
 	if (inc.buffer[9]==255&&inc.buffer[10]==255&&inc.buffer[11]==255){
@@ -222,42 +222,45 @@ euc.conn=function(mac){
 			euc.dash.lock=0;
 			//write function
 			euc.wri=function(cmd,value){
+				if (set.bt===2) console.log("Inmotion cmd: ", cmd);
 				if (euc.state==="OFF"||cmd==="end") {
 					euc.busy=1;
 					if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
 					if (global['\xFF'].BLE_GATTS && global['\xFF'].BLE_GATTS.connected) {
-						euc.rCha.stopNotifications();	
-						if (euc.tmp.loop) {clearInterval(euc.tmp.loop);euc.tmp.loop=0;}
+//						euc.rCha.stopNotifications();	
+						if (euc.tmp.loop) {clearTimeout(euc.tmp.loop);euc.tmp.loop=0;}
 						euc.tmp.loop=setTimeout(function(){ 
 							euc.tmp.loop=0;
 							euc.wCha.writeValue(euc.cmd("lightsOff")).then(function() {
+								return euc.wCha.writeValue(euc.cmd("lightsOffR"));
+							}).then(function(err)  {
+								return euc.wCha.writeValue(euc.cmd("lightsOff"));
+							}).then(function(err)  {
 								euc.state="OFF";
-								global["\xFF"].BLE_GATTS.disconnect(); 
-								return;
+								euc.off("end");
 							}).catch(function(err)  {
 								euc.state="OFF";
 								euc.off("end fail");	
-								return;
 							});
-						},1000);
+						},500);
 					}else {
 						euc.state="OFF";
 						euc.off("not connected");
 						return;
 					}
 				}else if (cmd==="start") {
-					euc.busy=0;
+					//euc.busy=0;
 					euc.wCha.writeValue(euc.cmd("init")).then(function() {
 						euc.rCha.startNotifications();	
 						if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
 						euc.tmp.loop=setTimeout(function(){ 
+							euc.tmp.loop=0;
 							euc.wCha.writeValue(euc.cmd("initR")).then(function() {
-								return euc.wCha.writeValue(euc.cmd("init"))
+								return euc.wCha.writeValue(euc.cmd("init"));
 							}).then(function()  {
-								euc.tmp.loop=0;
+								if (euc.dash.light) euc.wri("lightsOn");
 								euc.busy=0;
 								euc.run=1;
-								if (euc.dash.light) euc.wri("lightsOn");
 							});
 						},300);	
 					}).catch(function(err)  {
@@ -282,14 +285,9 @@ euc.conn=function(mac){
 				} else {
 					//if (euc.busy) return; 
 					euc.wCha.writeValue(euc.cmd(cmd,value)).then(function() {
-						return euc.wCha.writeValue(euc.cmd(cmd+"R",value))
-						
-						//if (euc.busy) return; 
-						//if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
-						//euc.tmp.loop=setTimeout(function(){
-						//		euc.tmp.loop=0;
-						//		euc.wri("live");	
-						//},125);
+						return euc.wCha.writeValue(euc.cmd(cmd+"R",value));
+					}).then(function(err)  {
+						return euc.wCha.writeValue(euc.cmd(cmd,value));
 					}).catch(function(err)  {
 						euc.off("writefail");	
 					});
@@ -299,8 +297,9 @@ euc.conn=function(mac){
 				euc.dash.mac=euc.mac; 
 				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 				set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
-			}			
-			setTimeout(() => {euc.wri("start");}, 200);
+			}		
+			euc.wri("start");			
+			//setTimeout(() => {euc.wri("start");}, 200);
 		//reconnect
 		}).catch(function(err)  {
 			euc.off(err);
@@ -310,7 +309,7 @@ euc.conn=function(mac){
 euc.off=function(err){
 	//if (set.bt===2) console.log("EUC:", err);
 	//  global.error.push("EUC :"+err);
-	if (euc.tmp.loop) {clearInterval(euc.tmp.loop);euc.tmp.loop=0;}
+	if (euc.tmp.loop) {clearTimeout(euc.tmp.loop);euc.tmp.loop=0;}
 	if (euc.reconnect) {clearTimeout(euc.reconnect); euc.reconnect=0;}
 	if (euc.state!="OFF") {
 		if (set.bt===2) console.log("EUC imV1: Restarting");
@@ -348,6 +347,9 @@ euc.off=function(err){
 		}
 	} else {
 		if (set.bt===2) console.log("EUC OUT:",err);
+		if (global['\xFF'].BLE_GATTS && global['\xFF'].BLE_GATTS.connected) {
+			return global['\xFF'].BLE_GATTS.disconnect();
+		}	
 		if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
 		global["\xFF"].bleHdl=[];
 		euc.wri=function(err){if (set.bt===2) console.log("EUC write, not connected",err);};
