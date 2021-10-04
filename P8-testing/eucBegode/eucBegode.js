@@ -18,7 +18,7 @@ euc.cmd=function(no){
     }
 };
 //start
-euc.wri=function(i) {if (set.def.cli) console.log("not connected yet"); if (i=="end") euc.off(); return;};
+euc.wri=function(i) {if (set.bt===2) console.log("not connected yet"); if (i=="end") euc.off(); return;};
 euc.conn=function(mac){
 	//check
 	if ( global["\xFF"].BLE_GATTS!="undefined") {
@@ -229,7 +229,7 @@ euc.off=function(err){
 		if (set.def.cli) 
 			console.log("EUC: Restarting");
 		if ( err==="Connection Timeout"  )  {
-			if (set.def.cli) console.log("reason :timeout");
+			if (set.bt===2) console.log("reason :timeout");
 			euc.state="LOST";
 			if ( set.def.dash.rtr < euc.run) {
 				euc.tgl();
@@ -244,7 +244,7 @@ euc.off=function(err){
 			}, 5000);
 		}
 		else if ( err==="Disconnected"|| err==="Not connected")  {
-			if (set.def.cli) console.log("reason :",err);
+			if (set.bt===2) console.log("reason :",err);
 			euc.state="FAR";
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
@@ -252,7 +252,7 @@ euc.off=function(err){
 			}, 500);
 		}
 		else {
-			if (set.def.cli) console.log("reason :",err);
+			if (set.bt===2) console.log("reason :",err);
 			euc.state="RETRY";
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
@@ -260,14 +260,14 @@ euc.off=function(err){
 			}, 1000);
 		}
 	} else {
-		if (set.def.cli) console.log("EUC OUT:",err);
+		if (set.bt===2) console.log("EUC OUT:",err);
 		global["\xFF"].bleHdl=[];
 		euc.run=0;
 		if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-		euc.off=function(err){if (set.def.cli) console.log("EUC off, not connected",err);};
-		euc.wri=function(err){if (set.def.cli) console.log("EUC write, not connected",err);};
-		euc.conn=function(err){if (set.def.cli) console.log("EUC conn, not connected",err);};
-		euc.cmd=function(err){if (set.def.cli) console.log("EUC cmd, not connected",err);};
+		euc.off=function(err){if (set.bt===2) console.log("EUC off, not connected",err);};
+		euc.wri=function(err){if (set.bt===2) console.log("EUC write, not connected",err);};
+		euc.conn=function(err){if (set.bt===2) console.log("EUC conn, not connected",err);};
+		euc.cmd=function(err){if (set.bt===2) console.log("EUC cmd, not connected",err);};
 		NRF.setTxPower(set.def.rfTX);
     }
 };
