@@ -3,7 +3,7 @@ face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
 	g:w.gfx,
 	init: function(){
-		//euc.busy=1;//stop bt loop-accept commands.
+		euc.busy=1;//stop bt loop-accept commands.
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
  		if (!this.set&&(face.appPrev.startsWith("dash_")||face.appPrev==="settings")) this.g.clear();
         this.set=0;
@@ -76,7 +76,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		euc.busy=0;//euc.wri("live");
+		euc.busy=0;euc.wri("live"+euc.dash.model);
 		face.go(set.dash[set.def.dash.face],0);
 		return;
 	},
@@ -101,11 +101,10 @@ touchHandler[0]=function(e,x,y){
 		}
 		else {
 			if ( x<=120 && y<100 ) { //Light
-				//euc.dash.light=1-euc.dash.light;
-				//euc.wri((euc.dash.light)?"lightsOn":"lightsOff");
-		       // face[0].btn(euc.dash.light,"LIGHT",18,60,15,col("raf"),col("dgray"),0,0,119,97,(euc.dash.light)?"ON":"OFF",28,60,50);
-				//face[0].ntfy("LIGHT ON","LIGHT OFF",20,(euc.dash.light)?col("raf"):col("dgray"),euc.dash.light);
-				face[0].ntfy("NOT YET","NOT YET",18,col("red"),1);
+				euc.dash.light=1-euc.dash.light;
+				euc.wri((euc.dash.light)?"lightsOn":"lightsOff");
+		        face[0].btn(euc.dash.light,"LIGHT",18,60,15,col("raf"),col("dgray"),0,0,119,97,(euc.dash.light)?"ON":"OFF",28,60,50);
+				face[0].ntfy("LIGHT ON","LIGHT OFF",20,(euc.dash.light)?col("raf"):col("dgray"),euc.dash.light);
 				buzzer(D16,1,[30,50,30]);
 			}else if ( 120<=x && y<=100 ) { //watch alerts
 				buzzer(D16,1,[30,50,30]);						
@@ -147,7 +146,7 @@ touchHandler[0]=function(e,x,y){
 			w.gfx.flip();
 			face[0].init();
         } else {
-			euc.busy=0;//euc.wri("live");
+			euc.busy=0;euc.wri("live"+euc.dash.model);
 			face.go(set.dash[set.def.dash.face],0);
 			return;
         }
