@@ -8,14 +8,14 @@ euc.cmd=function(no,val){
 		//lights on: aa aa 0d 01 a5 55 0f 01 00 00 00 00 00 00 00 08 05 00 00 80
 		//lights off:55 55 0d 01 a5 55 0f 00 00 00 00 00 00 00 00 08 05 00 00 7f
 		//off: 55 55 16 01 a5 55 0f b2 00 00 00 05 00 00 00 08 05 00 00 3f
-		case "infoV5" :		return		[170, 170, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127]; 
-		case "infoV10":		return		[85, 85, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127];
-		case "liveV5":		return 		[170, 170, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
-		case "liveV10":		return  	[85, 85, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
-		case "initV5":		return  	[170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
-		case "live":		return      [85, 85, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
-		case "lightsOn":	return      [85, 85, 13, 1, 165, 85, 15, 1, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 128];
-		case "lightsOff":	return    	[85, 85, 13, 1, 165, 85, 15, 0, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 127];
+		case "infoV10" :	return		[170, 170, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127]; 
+		case "infoV5":		return		[85, 85, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127];
+		case "liveV10":		return 		[170, 170, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
+		case "liveV5":		return  	[85, 85, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
+		case "initV10":		return  	[170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
+		case "initV5":		return      [85, 85, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
+		case "lightsOn":	return      [170, 170, 13, 1, 165, 85, 15, 1, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 128];
+		case "lightsOff":	return    	[170, 170, 13, 1, 165, 85, 15, 0, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 127];
 //		case "lightsOn":	return      [170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
 //		case "lightsOff":	return      [170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
 		case "liftOn": 		return		[170, 170, 20, 3, 96, 46, 1, 88];
@@ -166,6 +166,7 @@ euc.conn=function(mac){
 			euc.tmp.last= new Uint8Array(0);
 			euc.tmp.tot=new Uint8Array(0);
 			euc.rCha.on('characteristicvaluechanged', function(event) {
+				if (set.bt===2) console.log("Inmotion: packet in ",event.target.value.buffer); 
 				if (euc.busy) return;
 				if ((event.target.value.buffer[0]==170 && event.target.value.buffer[5]==85)||(event.target.value.buffer[0]==85 ) ) return;
 				if (event.target.value.buffer[event.target.value.buffer.length - 1]==85 ) {
@@ -256,8 +257,6 @@ euc.conn=function(mac){
 							euc.loop=0;
 							euc.busy=0;
 							euc.run=1;
-							//print("live");
-							//euc.wCha.writeValue(euc.cmd((euc.dash.light)?"lightsOn":"lightsOff")).then(function() {
 							if (euc.dash.light) euc.wri("lightsOn"");
 							else euc.wri("lightsOn"");
 						},300);	
