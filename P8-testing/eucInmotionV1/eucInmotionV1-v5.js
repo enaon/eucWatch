@@ -1,30 +1,38 @@
 //code by freestyl3r
 euc.tmp={count:0,loop:0};
+
 euc.cmd=function(no,val){
+	if (set.bt===2) console.log("inmotion: send cmd :",no);
 	let cmd;
 	switch (no) {
-		case "live1": return  		  [170, 170, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127];
-		case "live2": return  		  [85, 85, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127];
-		case "live3": return  		  [170, 170, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
-		case "live4": return  		  [85, 85, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
-		case "live": return  		  [85, 85, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
-		case "drlOn": return          [170, 170, 20, 3, 96, 45, 1, 91];
-		case "drlOff": return         [170, 170, 20, 3, 96, 45, 0, 90];
-		case "lightsOn": return       [170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
-		case "lightsOff": return      [170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
-		case "liftOn": return         [170, 170, 20, 3, 96, 46, 1, 88];
-		case "liftOff": return        [170, 170, 20, 3, 96, 46, 0, 89];
-		case "lock": return           [170, 170, 20, 3, 96, 49, 1, 71];
-		case "unlock": return         [170, 170, 20, 3, 96, 49, 0, 70];
-		case "transportOn": return    [170, 170, 20, 3, 96, 50, 1, 68];
-		case "transportOff": return   [170, 170, 20, 3, 96, 50, 0, 69];
-		case "rideComfort": return    [170, 170, 20, 3, 96, 35, 0, 84];
-		case "rideSport": return      [170, 170, 20, 3, 96, 35, 1, 85];
-		case "remainderReal": return  [170, 170, 20, 3, 96, 61, 1, 75];
-		case "remainderEst": return   [170, 170, 20, 3, 96, 61, 0, 74];
-		case "mute": return           [170, 170, 20, 3, 96, 44, 0, 91];
-		case "unmute": return         [170, 170, 20, 3, 96, 44, 1, 90];
-		case "calibration": return    [170, 170, 20, 5, 96, 66, 1, 0, 1, 51];
+		//lights on: aa aa 0d 01 a5 55 0f 01 00 00 00 00 00 00 00 08 05 00 00 80
+		//lights off:55 55 0d 01 a5 55 0f 00 00 00 00 00 00 00 00 08 05 00 00 7f
+		//off: 55 55 16 01 a5 55 0f b2 00 00 00 05 00 00 00 08 05 00 00 3f
+		case "infoV10" :	return		[170, 170, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127]; 
+		case "infoV5":		return		[85, 85, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127];
+		case "liveV10":		return 		[170, 170, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
+		case "liveV5":		return  	[85, 85, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
+		case "initV5":		return  	[170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
+		case "initV10":		return      [85, 85, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
+		case "lightsOn":	return      [170, 170, 13, 1, 165, 85, 15, 1, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 128];
+		case "lightsOn1":	return      [85, 85, 13, 1, 165, 85, 15, 1, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 128];
+		case "lightsOff":	return    	[170, 170, 13, 1, 165, 85, 15, 0, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 127];
+		case "lightsOff1":	return    	[85, 85, 13, 1, 165, 85, 15, 0, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 127];
+//		case "lightsOn":	return      [170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
+//		case "lightsOff":	return      [170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
+		case "liftOn": 		return		[170, 170, 20, 3, 96, 46, 1, 88];
+		case "liftOff": 	return		[170, 170, 20, 3, 96, 46, 0, 89];
+		case "lock":		return    	[170, 170, 20, 3, 96, 49, 1, 71];
+		case "unlock":		return		[170, 170, 20, 3, 96, 49, 0, 70];
+		case "transportOn": return		[170, 170, 20, 3, 96, 50, 1, 68];
+		case "transportOff":return   	[170, 170, 20, 3, 96, 50, 0, 69];
+		case "rideComfort": return    	[170, 170, 20, 3, 96, 35, 0, 84];
+		case "rideSport":	return     	[170, 170, 20, 3, 96, 35, 1, 85];
+		case "remainderReal":return  	[170, 170, 20, 3, 96, 61, 1, 75];
+		case "remainderEst":return   	[170, 170, 20, 3, 96, 61, 0, 74];
+		case "mute":		return		[170, 170, 20, 3, 96, 44, 0, 91];
+		case "unmute":		return		[170, 170, 20, 3, 96, 44, 1, 90];
+		case "calibration":	return		[170, 170, 20, 5, 96, 66, 1, 0, 1, 51];
 		case "speedLimit":
 			cmd = [170, 170, 20, 4, 96, 33];
 			cmd.push((val * 100) & 0xFF);
@@ -74,27 +82,26 @@ function appendBuffer(buffer1, buffer2) {
 }
 
 function eucin (inc){
+	if (set.bt===2) console.log("inmotion: packet :",inc.buffer);
 	if ((inc.buffer[0]==85&&inc.buffer[1]==85)||inc.buffer.length==0||(inc.buffer[78]==255&&inc.buffer[79]==255) ) {
-			//print("drop");
-			euc.wri("live3");
-			//setTimeout(function(){ euc.wri("live3");},250);	
+			if (set.bt===2) console.log("inmotion: packet dropped.");
+			euc.wri("live"+euc.dash.model);
+			//setTimeout(function(){ euc.wri("live"+euc.dash.model);},250);	
 			return;
 	}
-	
 	if (inc.buffer[9]==255&&inc.buffer[10]==255&&inc.buffer[11]==255){
-			//print("ok");
+			if (set.bt===2) console.log("inmotion: packet corrected.");
 			inc=new Uint8Array(inc.slice(1));
 	}
-
 	let lala = new DataView(inc.buffer);
 	//values
 	//spd
 	euc.dash.spd=(lala.getInt32(11, true)+lala.getInt32(15, true))/2000;
-	//print("spd :",euc.dash.spd);
-	//if (30<=euc.dash.spd||euc.dash.spd<= -30) {
-	//print(inc.buffer);
-	//print("length",inc.buffer.length)
-	//}
+	if (set.bt===2) console.log("inmotion: speed: ",euc.dash.spd );
+	if (30<=euc.dash.spd||euc.dash.spd<= -30) {
+		print(inc.buffer);
+		if (set.bt===2) console.log("inmotion: packet length : ",inc.buffer.length );
+	}
 	if (euc.dash.spdM < euc.dash.spd) euc.dash.spdM = euc.dash.spd;
 	if (euc.dash.spd<0) euc.dash.spd=-euc.dash.spd;
 	euc.dash.spdC = ( euc.dash.spd1 <= euc.dash.spd )? 2 : ( euc.dash.spd2 <= euc.dash.spd )? 1 : 0 ;	
@@ -130,11 +137,9 @@ function eucin (inc){
 	//print(euc.dash.trpL);
 	euc.dash.trpT=lala.getUint32(43, true)/1000;
 	euc.log.trp.forEach(function(val,pos){ if (!val) euc.log.trp[pos]=euc.dash.trpT;});
-	
-	
 	//loop
- 	//setTimeout(function(){ euc.wri("live4");},250);	
-	euc.wri("live3");
+ 	//setTimeout(function(){ euc.wri("live"+euc.dash.model);},250);	
+	euc.wri("live"+euc.dash.model);
 }					
 						
 //
@@ -147,18 +152,15 @@ euc.conn=function(mac){
 	NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 		.then(function(g) {
 			euc.gatt=g;
-			//return g.getPrimaryService("6e400001-b5a3-f393-e0a9-e50e24dcca9e");
 			return euc.gatt.getPrimaryService(0xffe5);
 		}).then(function(s) {
 			euc.serv=s;
-			//return euc.serv.getCharacteristic("6e400002-b5a3-f393-e0a9-e50e24dcca9e"); // write
 			return euc.serv.getCharacteristic(0xffe9); // write
 		}).then(function(wc) {
 			euc.wCha=wc;//write
 			return euc.gatt.getPrimaryService(0xffe0);
 		}).then(function(s) {
 			euc.serv=s;			
-			//return euc.serv.getCharacteristic("6e400003-b5a3-f393-e0a9-e50e24dcca9e");//read
 			return euc.serv.getCharacteristic(0xffe4);//read
 		}).then(function(rc) {
 			euc.rCha=rc;
@@ -166,15 +168,14 @@ euc.conn=function(mac){
 			euc.tmp.last= new Uint8Array(0);
 			euc.tmp.tot=new Uint8Array(0);
 			euc.rCha.on('characteristicvaluechanged', function(event) {
+				if (set.bt===2) console.log("Inmotion: packet in ",event.target.value.buffer); 
 				if (euc.busy) return;
-				if ((event.target.value.buffer[0]==170 && event.target.value.buffer[5]==85)||(event.target.value.buffer[0]==85 && event.target.value.buffer[1]==85) ) return;
+				if ((event.target.value.buffer[0]==170 && event.target.value.buffer[5]==85)||(event.target.value.buffer[0]==85 ) ) return;
 				if (event.target.value.buffer[event.target.value.buffer.length - 1]==85 ) {
 					if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
-					//print("end");
+					if (set.bt===2) console.log("Inmotion: packet end"); 
 					//eucin( euc.tmp.tot);
 					euc.loop=setTimeout(function(v){ euc.loop=0;eucin(v);},50,euc.tmp.tot);	
-
-					//setTimeout(function(){ euc.wri( euc.tmp.tot);},50);	
 					euc.tmp.last=new Uint8Array(0);
 					euc.tmp.tot=new Uint8Array(0);
 					return;
@@ -234,7 +235,9 @@ euc.conn=function(mac){
 							euc.loop=0;
 							if (global['\xFF'].BLE_GATTS && !global['\xFF'].BLE_GATTS.connected)  {euc.off("not connected");return;}
 							euc.wCha.writeValue(euc.cmd("lightsOff")).then(function() {
+								euc.state="OFF";
 								global["\xFF"].BLE_GATTS.disconnect(); 
+								return;
 							}).catch(function(err)  {
 								euc.state="OFF";
 								euc.off("end fail");	
@@ -244,24 +247,23 @@ euc.conn=function(mac){
 					}else {
 						euc.state="OFF";
 						euc.off("not connected");
-						euc.busy=0;euc.horn=0;
 						return;
 					}
 					
 				}else if (cmd==="start") {
 					euc.busy=0;
-					euc.wCha.writeValue(euc.cmd((euc.dash.light)?"lightsOn":"lightsOff")).then(function() {
+					euc.wCha.writeValue(euc.cmd("init"+euc.dash.model)).then(function() {
 						euc.rCha.startNotifications();	
 						if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 						euc.loop=setTimeout(function(){ 
 							euc.loop=0;
 							euc.busy=0;
 							euc.run=1;
-							//print("live");
-							euc.wri("live");
+							if (euc.dash.light) euc.wri("lightsOn");
+							else euc.wri("initV10");
 						},300);	
 					}).catch(function(err)  {
-						euc.off("end fail");	
+						euc.off("start fail");	
 					});
 				}else if (cmd==="hornOn") {
 					//if (euc.horn) return;
@@ -273,7 +275,7 @@ euc.conn=function(mac){
 						euc.loop=setTimeout(function(){
 							euc.loop=0;
 							euc.busy=0;
-							euc.wri("live");	
+							euc.wri("live"+euc.dash.model);	
 						},150);
 					});
 					},350);
@@ -286,7 +288,7 @@ euc.conn=function(mac){
 						if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 						euc.loop=setTimeout(function(){
 								euc.loop=0;
-								euc.wri("live");	
+								euc.wri("live"+euc.dash.model);	
 						},125);
 					}).catch(function(err)  {
 						euc.off("writefail");	
@@ -354,7 +356,7 @@ euc.off=function(err){
 		delete euc.serv;
 		delete euc.wCha;
 		delete euc.rCha;
-		euc.busy=0;euc.run=0;
+		euc.busy=0;euc.run=0;euc.horn=0;
 		NRF.setTxPower(set.def.rfTX);	
 		euc.off=function(err){if (set.bt===2) console.log("EUC off, not connected",err);};
     }
