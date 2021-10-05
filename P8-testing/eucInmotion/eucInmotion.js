@@ -6,7 +6,7 @@
 	info=2,
 	Diagnostic=3,
 	live=4,
-	bms=4,
+	bms=5,
 	Something1=16,
 	stats=17,
 	Settings=32,
