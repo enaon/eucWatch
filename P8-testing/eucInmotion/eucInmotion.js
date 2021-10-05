@@ -1,9 +1,24 @@
 //code by freestyl3r
-euc.tmp={count:0,loop:0};
+/*
+	//info type:
+	NoOp(0),
+	Version=1,
+	info=2,
+	Diagnostic=3,
+	live=4,
+	bms=4,
+	Something1=16,
+	stats=17,
+	Settings=32,
+	control=96;
+*/
+euc.tmp={count:0,loop:0,last:0};
 euc.cmd=function(no,val){
 	let cmd;
+	euc.tmp.last=no;
 	switch (no) {
 		case "live": return  		  [170, 170, 20, 1, 4, 17];
+		case "stats": return  		  [170, 170, 20, 1, 17, 17];
 		case "drlOn": return          [170, 170, 20, 3, 96, 45, 1, 91];
 		case "drlOff": return         [170, 170, 20, 3, 96, 45, 0, 90];
 		case "lightsOn": return       [170, 170, 20, 3, 96, 64, 1, 54];
@@ -96,8 +111,22 @@ euc.conn=function(mac){
 			euc.rCha.on('characteristicvaluechanged', function(event) {
 				if (set.bt===2) print("responce packet: ", event.target.value.buffer);
 				if (euc.busy) return;
+				if ( euc.tmp.last === "stats" ) {
+					//trip total
+					euc.dash.trpT=event.target.value.getUint32(5, true)/100;
+						euc.log.trp.forEach(function(val,pos){ if (!val) euc.log.trp[pos]=euc.dash.trpT;});
+					//time
+					euc.dash.time=(event.target.value.getUint32(17, true)/60)|0;
+					euc.dash.timR=(event.target.value.getUint32(21, true)/60)|0;
+					//deb
+					if (set.bt===2) print("trip total :", euc.dash.trpT);
+					if (set.bt===2) print("on time :", euc.dash.time);
+					if (set.bt===2) print("ride time :", euc.dash.timR);
+
+					return;
+				}
 				if (event.target.value.buffer[3] != 51 || !validateChecksum(event.target.value.buffer)) {
-					//print ("packet dropped: ",event.target.value.buffer);
+					if (set.bt===2) print ("packet dropped: ",event.target.value.buffer);
 					return;
 				}
 				//print ("packet: ",event.target.value.buffer);
@@ -113,11 +142,7 @@ euc.conn=function(mac){
 				if ( euc.dash.hapB && euc.dash.batC ==2 )  euc.alert ++;
 				//trip 
 				euc.dash.trpL=event.target.value.getUint16(17, true)/100;
-				euc.dash.trpT=euc.dash.trpL;
-				euc.log.trp.forEach(function(val,pos){ if (!val) euc.log.trp[pos]=euc.dash.trpT;});
-				//euc.dash.trpL=((event.target.value.getUint16(17, true))/100)*euc.dash.trpF*((set.def.dash.mph)?0.625:1); //trip
-				//euc.dash.trpR=(event.target.value.getUint16(19, true))*10; //remain
-				//euc.dash.time=(event.target.value.getUint16(7, true)/60)|0;
+				euc.dash.trpR=(event.target.value.getUint16(19, true))*10; //remain
 				//temp
 				euc.dash.tmp=(event.target.value.buffer[22] & 0xff) + 80 - 256;
 				euc.dash.tmpC=(euc.dash.tmpH - 5 <= euc.dash.tmp )? (euc.dash.tmpH <= euc.dash.tmp )?2:1:0;
