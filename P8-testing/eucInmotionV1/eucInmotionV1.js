@@ -4,6 +4,7 @@ euc.tmp={count:0,loop:0};
 euc.cmd=function(no,val){
 	if (set.bt===2) console.log("inmotion: send cmd :",no);
 	let cmd;
+		switch (no) {
 		// aa aa 2e 01 a5 55 0f 00 00 00 00 00 00 00 00 08 05 00 00 a0 handle
 		//aaaa2e01a5550f010000000000000008050000a1
 		//aaaa2e01a5550f010000000000000008050000a1 off
