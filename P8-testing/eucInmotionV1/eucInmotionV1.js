@@ -82,17 +82,7 @@ function appendBuffer(buffer1, buffer2) {
 }
 
 function eucin (inc){
-	//if (set.bt===2) console.log("inmotion: packet :",inc.buffer);
-	if ((inc.buffer[0]==85&&inc.buffer[1]==85)||inc.buffer.length==0||(inc.buffer[78]==255&&inc.buffer[79]==255) ) {
-			if (set.bt===2) console.log("inmotion: packet dropped.");
-			//euc.wri("live");
-			setTimeout(function(){ euc.wri("live");},50);	
-			return;
-	}
-	if (inc.buffer[9]==255&&inc.buffer[10]==255&&inc.buffer[11]==255){
-			if (set.bt===2) console.log("inmotion: packet corrected.");
-			inc=new Uint8Array(inc.slice(1));
-	}
+	if (set.bt===2) console.log("inmotion: packet :",inc.buffer);
 	let lala = new DataView(inc.buffer);
 	//values
 	//spd
@@ -100,6 +90,7 @@ function eucin (inc){
 	if (set.bt===2) console.log("inmotion: speed: ",euc.dash.spd );
 	if (30<=euc.dash.spd||euc.dash.spd<= -30) {
 		print(inc.buffer);
+		console.log("inmotion: packet length : ",inc.buffer.length );
 		if (set.bt===2) console.log("inmotion: packet length : ",inc.buffer.length );
 	}
 	if (euc.dash.spdM < euc.dash.spd) euc.dash.spdM = euc.dash.spd;
@@ -138,7 +129,8 @@ function eucin (inc){
 	euc.dash.trpT=lala.getUint32(43, true)/1000;
 	euc.log.trp.forEach(function(val,pos){ if (!val) euc.log.trp[pos]=euc.dash.trpT;});
 	//loop
- 	//setTimeout(function(){ euc.wri("live";},250);	
+ 	//setTimeout(function(){ euc.wri("live");},100);
+
 	euc.wri("live");
 }					
 						
@@ -170,32 +162,30 @@ euc.conn=function(mac){
 			euc.rCha.on('characteristicvaluechanged', function(event) {
 				if (set.bt===2) console.log("Inmotion: packet in ",event.target.value.buffer); 
 				if (euc.busy) return;
-				if ((event.target.value.buffer[0]==170 && event.target.value.buffer[5]==85)||(event.target.value.buffer[0]==85 ) ) return;
-				if (event.target.value.buffer[event.target.value.buffer.length - 1]==85 ) {
+				if (event.target.value.buffer[0]==170 && event.target.value.buffer[1]==170 && event.target.value.buffer[5]==85  ) return;
+				if ( 2 <= event.target.value.buffer.length && event.target.value.buffer[event.target.value.buffer.length - 1]==85 && event.target.value.buffer[event.target.value.buffer.length - 1]==85 ) {
 					if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
 					if (set.bt===2) console.log("Inmotion: packet end"); 
+					if ( 18 != event.target.value.buffer.length || 80 != euc.tmp.tot.buffer.length ) {
+						euc.tmp.tot=new Uint8Array(0);
+						console.log("Inmotion: packet correct");
+						euc.tmp.last=new Uint8Array(0);
+						euc.tmp.tot=new Uint8Array(0);	
+						euc.tmp.loop=setTimeout(function(v){ euc.tmp.loop=0;euc.wri("live");},150,euc.tmp.tot);	
+						//euc.wri("live");
+						return;
+						//euc.tmp.tot=new Uint8Array(euc.tmp.tot.slice(1));
+					}
 					//eucin( euc.tmp.tot);
-					euc.tmp.loop=setTimeout(function(v){ euc.tmp.loop=0;eucin(v);},50,euc.tmp.tot);	
+					euc.tmp.loop=setTimeout(function(v){ euc.tmp.loop=0;eucin(v);},150,euc.tmp.tot);	
 					euc.tmp.last=new Uint8Array(0);
-					euc.tmp.tot=new Uint8Array(0);
+					euc.tmp.tot=new Uint8Array(0);	
 					return;
 				}
-				euc.tmp.tot= new Uint8Array(euc.tmp.last.length + event.target.value.buffer.length);
+				euc.tmp.tot=new Uint8Array(euc.tmp.last.length + event.target.value.buffer.length);
 				euc.tmp.tot.set(new Uint8Array(euc.tmp.last));
 				euc.tmp.tot.set(new Uint8Array(event.target.value.buffer),euc.tmp.last.length);
 				euc.tmp.last=euc.tmp.tot;
-				//
-				//euc.tmp.tot=appendBuffer(euc.tmp.last,event.target.value.buffer);
-				//euc.tmp.last=euc.tmp.tot;
-				//
-				if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
-				euc.tmp.loop=setTimeout(function(){ 
-					euc.tmp.loop=0;
-					eucin( euc.tmp.tot);
-					euc.tmp.last=new Uint8Array(0);
-					euc.tmp.tot=new Uint8Array(0);
-				},100);	
-									
 				if (!euc.buzz && euc.alert) {  
 					if (!w.gfx.isOn&&(euc.dash.spdC||euc.dash.ampC||euc.dash.alrm)) face.go(set.dash[set.def.dash.face],0);
 					else face.off(6000);
@@ -241,8 +231,9 @@ euc.conn=function(mac){
 							}).then(function(err)  {
 								return euc.wCha.writeValue(euc.cmd("lightsOff"));
 							}).then(function(err)  {
-								euc.state="OFF";
-								euc.off("end");
+								global['\xFF'].BLE_GATTS.disconnect();
+								//euc.state="OFF";
+								//euc.off("end");
 							}).catch(function(err)  {
 								euc.state="OFF";
 								euc.off("end fail");	
@@ -303,8 +294,8 @@ euc.conn=function(mac){
 				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 				set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
 			}		
-			euc.wri("start");			
-			//setTimeout(() => {euc.wri("start");}, 200);
+			//euc.wri("start");			
+			setTimeout(() => {euc.wri("start");}, 200);
 		//reconnect
 		}).catch(function(err)  {
 			euc.off(err);
