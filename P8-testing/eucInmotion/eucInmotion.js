@@ -94,7 +94,7 @@ euc.conn=function(mac){
 			euc.rCha=rc;
 			//read
 			euc.rCha.on('characteristicvaluechanged', function(event) {
-				if (set.bt===2) ("responce packet: ",event.target.value.buffer);
+				if (set.bt===2) print("responce packet: ", event.target.value.buffer);
 				if (euc.busy) return;
 				if (event.target.value.buffer[3] != 51 || !validateChecksum(event.target.value.buffer)) {
 					//print ("packet dropped: ",event.target.value.buffer);
