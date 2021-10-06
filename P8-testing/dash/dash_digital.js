@@ -215,7 +215,6 @@ face[0] = {
 	},	
 	amLF: function(){
 		this.ampL.set(ampL);
-		print(1);
 		this.g.setColor(1,(1<euc.dash.ampC)?col("red"):col("dgray"));
 		this.g.fillRect(0,0,119,50);       
 		this.g.setColor(0,col("white"));
@@ -261,9 +260,9 @@ face[0] = {
 	},
 	baLF: function(){
 		this.batL.set(batL);
-		this.g.setColor(1,(euc.dash.batC==3)?col("red"):col("raf"));
+		this.g.setColor(0,this.batC[euc.dash.batC]);
 		this.g.fillRect(122,0,239,50);       
-		this.g.setColor(0,col("white"));
+		this.g.setColor(1,col("white"));
 		//graph
 		let i=0;
 		this.batL.forEach(function(val){

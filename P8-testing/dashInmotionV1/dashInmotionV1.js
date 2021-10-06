@@ -76,7 +76,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		euc.busy=0;euc.wri("live");
+		setTimeout(function(){euc.busy=0;euc.tmp.live();},500);
 		face.go(set.dash[set.def.dash.face],0);
 		return;
 	},
@@ -124,6 +124,7 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
 	case 1: //slide down event
+		setTimeout(function(){euc.busy=0;euc.tmp.live();},500);
 		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
@@ -146,7 +147,7 @@ touchHandler[0]=function(e,x,y){
 			w.gfx.flip();
 			face[0].init();
         } else {
-			euc.busy=0;euc.wri("live");
+			setTimeout(function(){euc.busy=0;euc.tmp.live();},500);
 			face.go(set.dash[set.def.dash.face],0);
 			return;
         }

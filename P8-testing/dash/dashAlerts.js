@@ -203,6 +203,13 @@ touchHandler[0]=function(e,x,y){
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
+			w.gfx.setColor(0,0);
+		    w.gfx.drawLine (0,98,239,98);
+		    w.gfx.drawLine (0,99,239,99);
+            w.gfx.flip();
+		    w.gfx.drawLine (120,0,120,195);
+          	w.gfx.drawLine (121,0,121,195);
+            w.gfx.flip();	
 		if (face.appPrev=="dashGarage") euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 		face.go(face.appPrev,0);
 		return;	 
