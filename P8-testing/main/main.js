@@ -349,6 +349,7 @@ touchHandler[0]=function(e,x,y){
 		}else if (Boolean(require("Storage").read("alarm"))) {face.go("alarm",0);return;}
     }else if  (e==4){
 		if (Boolean(require("Storage").read("notify"))) {face.go("notify",0);return;}
+		else buzzer(D16,1,40);
     }else if  (e==12){
 	if (150<y&&y<200){ 	
 		buzzer(D16,1,180);
