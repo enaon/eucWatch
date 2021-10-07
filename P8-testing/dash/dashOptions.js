@@ -56,7 +56,7 @@ face[0] = {
 			this.g.fillRect(0,160,239,239);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",18);
-     		this.g.drawString(txt0,120-(this.g.stringWidth(txt0)/2),165); 
+     		this.g.drawString(txt0,120-(this.g.stringWidth(txt0)/2),170); 
 			if (s) {this.g.setFont("Vector",50);this.g.drawString("<",5,200);this.g.drawString(">",215,200);}
 			this.g.setFont("Vector",size);
      		this.g.drawString(txt1,120-(this.g.stringWidth(txt1)/2),205); 

@@ -44,8 +44,8 @@ face[0] = {
 			this.g.flip();
 			if (this.spd != Math.round(euc.dash.spd)) this.spdF();
 			// alarm events time graph
-			if (5<=this.spd && this.al && this.al!=almL) this.alF();
-			else if (5<=this.spd && euc.dash.maker=="Kingsong") this.pwrF();
+			if (5<=this.spd && this.al!=almL) this.alF();
+			else if (5<=this.spd && !euc.buzz && euc.dash.maker=="Kingsong") this.pwrF();
 			else if (!this.bar) { this.bar=1; this.barF();}
 			//tmp/amp block
 			if (!set.def.dash.amp) {
