@@ -44,10 +44,9 @@ face[0] = {
 			this.g.flip();
 			if (this.spd != Math.round(euc.dash.spd)) this.spdF();
 			// alarm events time graph
-			if (5<=this.spd) {
-				if (this.al!=almL) this.alF();
-				else if (euc.dash.maker=="Kingsong") this.pwrF();
-			} else if (!this.bar) { this.bar=1; this.barF();}
+			if (5<=this.spd && this.al && this.al!=almL) this.alF();
+			else if (5<=this.spd && euc.dash.maker=="Kingsong") this.pwrF();
+			else if (!this.bar) { this.bar=1; this.barF();}
 			//tmp/amp block
 			if (!set.def.dash.amp) {
 				if (this.amp!=Math.round(euc.dash.amp)) this.ampF();
@@ -61,7 +60,7 @@ face[0] = {
 			if (euc.dash.maker=="Kingsong") {
 				if (this.spdL!=euc.dash.spdL) this.spLF();
 			}else if (this.alrm!=euc.dash.alrm) this.alrF();	
-			//tmp/amp/pwr field
+			//tmp/amp field
 			if (set.def.dash.amp){
 				if (this.ampL!=ampL) this.amLF();				
 			}else if (this.tmp!=euc.dash.tmp.toFixed(1)) this.tmFF();
@@ -122,6 +121,7 @@ face[0] = {
 	},
 	alF: function(){
 		this.al.set(almL);
+		print(this.al,almL);
 		this.g.setColor(0,col("dgray"));
 		this.g.clearRect(0,176,239,197);
 		this.g.setColor(1,col("white"));
