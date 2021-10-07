@@ -308,7 +308,6 @@ touchHandler[0]=function(e,x,y){
 		}else  buzzer(p,1,40);
 	  //batt notifications dismiss
 	  }else if (x>158 && y<50){//batt
-	  
 		if (notify.ring){
 			buzzer(D16,1,[30,50,30]);
 			set.gbSend({t:"call",n:"accept"});notify.ring=0;
@@ -321,14 +320,10 @@ touchHandler[0]=function(e,x,y){
 			buzzer(D16,1,[30,50,30]);
 			if (Boolean(require("Storage").read("hid"))) {face.go("hid",0);return;}
 		}else buzzer(D16,1,40);
-		
-		
 	  }else if (y>151&&face[0].bs){ 
-		if (Boolean(require("Storage").read("notify"))) {
 			notify[face[0].bs]=0;
 			if (!notify.nInfo&&!notify.nCall&&!notify.nIm) {face[0].batt=-1;face[0].bs=0;notify.New=0;}
 			buzzer(D16,1,[30,50,30]);
-		}else buzzer(D16,1,40);
 	  }else buzzer(D16,1,40);
 	  
     }else if  (e==1){

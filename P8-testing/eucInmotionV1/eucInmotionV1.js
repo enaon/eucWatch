@@ -4,123 +4,84 @@ euc.tmp={count:0,loop:0};
 euc.cmd=function(no,val){
 	if (set.bt===2) console.log("inmotion: send cmd :",no);
 	let cmd;
-	
-	//55551501a5550f01000000e880000008050000f0 tilt
-	//55551501a5550f01000000d859000008050000b9
-	//aaaa1501a5550f010000001027000008050000bf
-	//RideMode(0x0F550115),
-	
-	//55550a06a5550f501400000000000008050000e5
-	//aaaa0a06a5550f102700000000000008050000b8
-	//SpeakerVolume(0x0F55060A)
-	
-	//55550a06a5550f00000000000000000805000081
-	//calibration  msg.data = new byte[]{(byte) 0x32, (byte) 0x54, (byte) 0x76, (byte) 0x98, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00};
-	//beep msg.data = new byte[]{(byte) 0xB2, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x11, (byte) 0x00, (byte) 0x00, (byte) 0x00};
-	// pedal sensitibity msg.data = new byte[]{(byte) 0x06, (byte) 0x00, (byte) 0x00, (byte) 0x00, value[1], value[0] , (byte) 0x00, (byte) 0x00};
-	//speaker vol msg.data = new byte[]{(byte) lowByte, (byte) highByte, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00};
-	//tilt horizon msg.data = new byte[]{0, 0, 0, 0, t[3], t[2], t[1], t[0]};
-	// bat version msg.data = new byte[]{0, 0, 0, 15, 0, 0, 0, 0};
-	//version msg.data = new byte[]{32, 0, 0, 0, 0, 0, 0, 0};
-	//password msg.data = new byte[]{pass[0], pass[1], pass[2], pass[3], pass[4], pass[5], 0, 0};
-	//mode  msg.data = new byte[]{(byte) 0xB2, 0, 0, 0, (byte) mode, 0, 0, 0};
-	
-	//55551501a5550f00000000000000000805000087
-	//55551501a5550f0000000000000800080500008f
-	//aaaa1501a5550f0000000000000800080500008f
-	
-	//55 55 09 06 a5 55 0f 04 00 00 00 00 00 00 00 08 05 00 00 84//horn -danger sound
-	//PlaySound(0x0F 5 5 06 09),
-
-	//info 55 55 14 01 a5 55 0f ff ff ff ff ff ff ff ff 08 05 00 01 7f
 		switch (no) {
 		case "info" :		return		[170, 170, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127]; 
-		case "infoR":		return		[85, 85, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127];
+		case "batLevelData":return 		[170, 170, 20, 1, 165, 85, 15, 0, 0, 0, 21, 0, 0, 0, 0, 8, 5, 0, 1, 156];
 		case "live":		return 		[170, 170, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
+		case "liveS":		return 		[170, 170, 19, 1, 165, 85, 15, -1, -1, -1, -1, -1, -1, -1, -1, 8, 5, 0, 1, 126];
+		case "liveS1":		return 		[170, 170, 19, 1, 165, 85, 15, -1, -1, -1, -1, -1, -1, -1, -1, 8, 5, 0, 1, 125];
 		case "init":		return 		[170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
-		case "lightsOn":	return      [170, 170, 13, 1, 165, 85, 15, 1, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 128];
-		case "lightsOff":	return    	[170, 170, 13, 1, 165, 85, 15, 0, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 127];
-		case "liftOff": 	return		[170, 170, 46, 1, 165, 85, 15, 0, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 160];
-		case "liftOn": 		return		[170, 170, 46, 1, 165, 85, 15, 1, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 161];
-		case "powerOff": 	return		[170, 170, 22, 1, 165, 85, 15, 178, 0, 0, 0, 5, 0, 0, 0, 8, 5, 0, 0, 63];
-		case "calibration": 	return		[85, 85, 22, 1, 165, 85, 15, 50, 84, 118, 152, 0, 0, 0, 0, 8, 5, 0, 0, 63];
+		case "calibration": return 		[170, 170, 22, 1, 165, 85, 15, 50, 84, 118, 152, 0, 0, 0, 0, 8, 5, 0, 0, 63];
 		case "horn": 		return		[170, 170, 9, 6, 165, 85, 15, 4, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 132];
-		case "horn1": 		return		[170, 170, 9, 6, 165, 85, 15, 5, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 132];
-		case "rideComfort": return    	[170, 170, 20, 3, 96, 35, 0, 84];
-		case "rideSport":	return     	[170, 170, 20, 3, 96, 35, 1, 85];
+		case "beep":		return 		[170, 170, 9, 6, 165, 85, 15, 21, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 149];
+		case "led":			return 		[170, 170, 9, 6, 165, 85, 15, 21, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 149];
 		case "end":			return      [85, 85];
 
-/*
-		case "info" :		return		[170, 170, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127]; 
-		case "infoR":		return		[85, 85, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127];
-		case "live":		return 		[170, 170, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
-		case "liveR":		return  	[85, 85, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
-		case "init":		return 		[170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
-		case "initR":		return      [85, 85, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
-		case "lightsOn":	return      [170, 170, 13, 1, 165, 85, 15, 1, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 128];
-		case "lightsOnR":	return      [85, 85, 13, 1, 165, 85, 15, 1, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 128];
-		case "lightsOff":	return    	[170, 170, 13, 1, 165, 85, 15, 0, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 127];
-		case "lightsOffR":	return    	[85, 85, 13, 1, 165, 85, 15, 0, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 127];
-		case "liftOff": 	return		[170, 170, 46, 1, 165, 85, 15, 0, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 160];
-		case "liftOffR": 	return		[85, 85, 46, 1, 165, 85, 15, 0, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 160];
-		case "liftOn": 		return		[170, 170, 46, 1, 165, 85, 15, 1, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 161];
-		case "liftOnR": 	return		[85, 85, 46, 1, 165, 85, 15, 1, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 161];
-		case "powerOff": 	return		[170, 170, 22, 1, 165, 85, 15, 178, 0, 0, 0, 5, 0, 0, 0, 8, 5, 0, 0, 63];
-		case "powerOffR": 	return		[85, 85, 22, 1, 165, 85, 15, 178, 0, 0, 0, 5, 0, 0, 0, 8, 5, 0, 0, 63];
-		case "calibration": 	return		[85, 85, 22, 1, 165, 85, 15, 50, 84, 118, 152, 0, 0, 0, 0, 8, 5, 0, 0, 63];
-		case "lightsOn":	return      [170, 170, 13, 1, 165, 85, 15, 1, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 128, 85, 85];
-		case "lightsOff":	return    	[170, 170, 13, 1, 165, 85, 15, 0, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 127, 85, 85];
-		case "end":			return      [85, 85];
-		case "horn": 		return		[170, 170, 9, 6, 165, 85, 15, 4, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 132];
-		case "hornR": 		return		[85, 85,  9, 6, 165, 85, 15, 4, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 132];
-		case "horn1": 		return		[170, 170, 9, 6, 165, 85, 15, 5, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 132];
-		case "horn1R": 		return		[85, 85, 9, 6, 165, 85, 15, 5, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 132];	
-		case "rideComfort": return    	[170, 170, 20, 3, 96, 35, 0, 84];
-		case "rideSport":	return     	[170, 170, 20, 3, 96, 35, 1, 85];
-*/
-		case "speedLimit":
-			cmd = [170, 170, 20, 4, 96, 33];
-			cmd.push((val * 100) & 0xFF);
-			cmd.push(((val * 100) >> 8) & 0xFF);
-			cmd.push(cmd.reduce(checksum));
+		case "playSound"://cmd=0-23
+			cmd = [170, 170, 9, 6, 165, 85, 15, val, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0];
+			cmd.push(7+cmd.reduce(checksum));
 			return cmd;
-		case "pedalTilt":
-			cmd = [170, 170, 20, 4, 96, 34];
-			cmd.push((val * 100) & 0xFF);
-			cmd.push(((val * 100) >> 8) & 0xFF);
-			cmd.push(cmd.reduce(checksum));
+		case "setVolume"://cmd=0-100
+			cmd = [170, 170, 10, 6, 165, 85, 15, (val * 100) & 0xFF, ((val * 100) / 0x100) & 0xFF, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0];
+			cmd.push(7+cmd.reduce(checksum));
 			return cmd;
-		case "pedalSensitivity":
-			cmd = [170, 170, 20, 4, 96, 37, val, 100];
-			cmd.push(cmd.reduce(checksum));
+		case "setLights"://val=0|1
+			if (val!=0 && val!=1) return [0];
+			cmd = [170, 170, 13, 1, 165, 85, 15, val, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0];
+			cmd.push(7+cmd.reduce(checksum));
 			return cmd;
 		case "setBrightness": 
 			cmd = [170, 170, 20, 3, 96, 43, val];
-			cmd.push(cmd.reduce(checksum));
+			cmd.push(7+cmd.reduce(checksum));
 			return cmd;
-		case "setVolume":
-			cmd = [170, 170, 20, 3, 96, 38, val];
-			cmd.push(cmd.reduce(checksum));
+		case "setRideMode"://val=0=clasic|1=comfort
+			if (val!=0 && val!=1) return [0];
+			cmd = [170, 170, 21, 1, 165, 85, 15, 0, 0, 0, 0, val, 0, 0, 0, 8, 5, 0, 0];
+			cmd.push(7+cmd.reduce(checksum));
 			return cmd;
-		case "playSound":   
-			cmd = [170, 170, 9, 6, 165, 85, 15, val, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0];
-			cmd.push(cmd.reduce(checksum));
+		case "setPpedalTilt": //val=-80-+80
+			viw = new DataView(new Int8Array(4).buffer); //to int32 BI.
+			viw.setInt32( 0, val * 65536 / 10  );
+			cmd = [170, 170, 21, 1, 165, 85, 15, 0, 0, 0, 0, viw.buffer[3], viw.buffer[2], viw.buffer[1], viw.buffer[0], 8, 5, 0, 0];
+			cmd.push(7+cmd.reduce(checksum));
 			return cmd;
-		case "playSound":   
-			[9, 6, 165, 85, 15, val, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0].reduce(checksum)
-			cmd.push(cmd.reduce(checksum));
+		case "setPedalSensitivity": //val=-80-+80
+			viw = new DataView(new Int8Array(4).buffer); //to int32 BI.
+			viw.setInt32( 0, val * 65536 / 10  );
+			cmd = [170, 170, 21, 1, 165, 85, 15, 0, 0, 0, 0, viw.buffer[3], viw.buffer[2], viw.buffer[1], viw.buffer[0], 8, 5, 0, 0];
+			cmd.push(7+cmd.reduce(checksum));
 			return cmd;
-		case "playSound":   
-			cmd = [170, 170, 9, 6, 165, 85, 15, val, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0];
-			cmd.push(cmd.reduce(checksum));
+		case "speedLimit":
+			viw = new DataView(new Int8Array(2).buffer); //to int16 BI.
+			viw.setInt16( 0, val*1000 );
+			cmd = [170, 170, 21, 1, 165, 85, 15, 1, 0, 0, 0, viw.buffer[1], viw.buffer[0], 0, 0, 8, 5, 0, 0];
+			cmd.push(7+cmd.reduce(checksum));
+			return cmd;
+		case "control"://15=ledOn|16=ledOff|5=powerOff|17=beep|
+			cmd = [170, 170, 22, 1, 165, 85, 15, 178, 0, 0, 0, val, 0, 0, 0, 8, 5, 0, 0];
+			cmd.push(7+cmd.reduce(checksum));
+			return cmd;
+		case "pincode"://
+			cmd = [170, 170, 7, 3, 165, 85, 15, val, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0];
+			cmd.push(7+cmd.reduce(checksum));
+			return cmd;
+		case "alert"://
+			cmd = [170, 170, 1, 1, 165, 85, 15, val, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0];
+			cmd.push(7+cmd.reduce(checksum));
+			return cmd;
+		case "handleButton"://val=0|1
+			if (val!=0 && val!=1) return [0];
+			cmd = [170, 170, 46, 1, 165, 85, 15, val, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0];
+			cmd.push(7+cmd.reduce(checksum));
 			return cmd;
 	}
 };
 //
 function checksum(check, val) {
-	return (check ^ val) & 0xFF;
+	return (check + val) & 255;
 }
-//
+//cmd=[[170, 170, 19, 1, 165, 85, 15, -1, -1, -1, -1, -1, -1, -1, -1, 8, 5, 0, 1]
+//cmd.push(cmd.reduce(checksum));
 function validateChecksum(buffer) {
 	receivedChecksum = buffer[buffer.length - 1];
 	array = new Uint8Array(buffer, 0, buffer.length - 1);
@@ -139,20 +100,14 @@ function eucin (inc){
 	let lala = new DataView(inc.buffer);
 	//values
 	//spd
-	euc.dash.spd=(lala.getInt32(11, true)+lala.getInt32(15, true))/2000;
-	if (set.bt===2) console.log("inmotion: speed: ",euc.dash.spd );
-	if (30<=euc.dash.spd||euc.dash.spd<= -30) {
-		print("Problem : ppacket :",inc.buffer);
-		console.log("Problem: packet length : ",inc.buffer.length );
-		if (set.bt===2) console.log("inmotion: packet length : ",inc.buffer.length );
-	}
+	euc.dash.spd=(lala.getInt32(31, true)+lala.getInt32(35, true))/2000;
 	if (euc.dash.spdM < euc.dash.spd) euc.dash.spdM = euc.dash.spd;
 	if (euc.dash.spd<0) euc.dash.spd=-euc.dash.spd;
 	euc.dash.spdC = ( euc.dash.spd1 <= euc.dash.spd )? 2 : ( euc.dash.spd2 <= euc.dash.spd )? 1 : 0 ;	
 	if ( euc.dash.hapS && euc.dash.spdC == 2 ) 
 	euc.alert = 1 + Math.round((euc.dash.spd-euc.dash.spd1) / euc.dash.spdS) ; 
 	//volt
-	euc.dash.volt=lala.getUint32(23, true)/100;
+	euc.dash.volt=lala.getUint32(43, true)/100;
 	//batt
 	//euc.dash.bat=Math.round(((euc.dash.volt*5) - euc.dash.batE ) * (100/(420-euc.dash.batE)));
 	euc.dash.bat=Math.round(((euc.dash.volt*( 100/(16*euc.dash.bms))) - euc.dash.batE ) * (100/(420-euc.dash.batE)));
@@ -162,12 +117,12 @@ function eucin (inc){
 	euc.dash.batC = (50 <= euc.dash.bat)? 0 : (euc.dash.bat <= euc.dash.batL)? 2 : 1;	
 	if ( euc.dash.hapB && euc.dash.batC ==2 )  euc.alert ++;
 	//temp
-	euc.dash.tmp=(lala.buffer[31] & 0xff);
+	euc.dash.tmp=(lala.buffer[51] & 0xff);
 	//euc.dash.tmp=(lala.buffer[53] & 0xff); //alt temp 2
 	euc.dash.tmpC=(euc.dash.tmpH - 5 <= euc.dash.tmp )? (euc.dash.tmpH <= euc.dash.tmp )?2:1:0;
 	if (euc.dash.hapT && euc.dash.tmpC==2) euc.alert++;
 	//amp
-	euc.dash.amp= lala.getInt16(19, true) / 100;
+	euc.dash.amp= lala.getInt16(39, true) / 100;
 	//log
 	ampL.unshift(Math.round(euc.dash.amp));
 	if (20<ampL.length) ampL.pop();
@@ -177,16 +132,30 @@ function eucin (inc){
 		else euc.alert =  euc.alert + 1 + Math.round(-(euc.dash.amp - euc.dash.ampL) / euc.dash.ampS) ;
 	}
 	//trip 
-	euc.dash.trpL=lala.getInt32(47, true);
+	euc.dash.trpL=lala.getInt32(67, true);
 	//print(euc.dash.trpL);
-	euc.dash.trpT=lala.getUint32(43, true)/1000;
+	euc.dash.trpT=lala.getUint32(63, true)/1000;
 	euc.log.trp.forEach(function(val,pos){ if (!val) euc.log.trp[pos]=euc.dash.trpT;});
 	//mode
-	euc.dash.mode=lala.getInt32(61, true);
-
-	//loop
- 	//setTimeout(function(){ euc.wri("live");},100);
-
+	euc.dash.mode=lala.getInt32(81, true);
+	//haptic
+	if (!euc.buzz && euc.alert) {  
+		if (!w.gfx.isOn&&(euc.dash.spdC||euc.dash.ampC||euc.dash.alrm)) face.go(set.dash[set.def.dash.face],0);
+		else face.off(6000);
+		euc.buzz=1;
+		if (20 <= euc.alert) euc.alert = 20;
+		var a=[];
+		while (5 <= euc.alert) {
+			a.push(200,500);
+			euc.alert = euc.alert - 5;
+		}
+		let i;
+		for (i = 0; i < euc.alert ; i++) {
+			a.push(200,150);
+		}
+		digitalPulse(D16,0,a);  
+		setTimeout(() => { euc.buzz = 0; }, 3000);
+	}
 	euc.tmp.live();
 }					
 						
@@ -216,50 +185,37 @@ euc.conn=function(mac){
 			//read
 			euc.tmp.last= new Uint8Array(0);
 			euc.tmp.tot=new Uint8Array(0);
+			euc.tmp.chk=new Uint8Array(0);
 			euc.rCha.on('characteristicvaluechanged', function(event) {
 				if (set.bt===2) console.log("Inmotion: packet in ",event.target.value.buffer); 
 				if (euc.busy) return;
-				if (event.target.value.buffer[0]==170 && event.target.value.buffer[1]==170 && event.target.value.buffer[5]==85  ) return;
-				if ( 2 <= event.target.value.buffer.length && event.target.value.buffer[event.target.value.buffer.length - 1]==85 && event.target.value.buffer[event.target.value.buffer.length - 1]==85 ) {
-					if (set.bt===2) console.log("Inmotion: packet end"); 
-					if ( 18 != event.target.value.buffer.length || 80 != euc.tmp.tot.buffer.length ) {
-						euc.tmp.tot=new Uint8Array(0);
-						console.log("Inmotion: packet dropped");
-						euc.tmp.last=new Uint8Array(0);
-						euc.tmp.tot=new Uint8Array(0);	
-						//euc.tmp.loop=setTimeout(function(v){ euc.tmp.loop=0;euc.tmp.live();},50,euc.tmp.tot);	
+				//if (event.target.value.buffer[0]==170 && event.target.value.buffer[1]==170 && event.target.value.buffer[5]==85  ) return;
+				euc.tmp.tot=new Uint8Array(euc.tmp.last.length + event.target.value.buffer.length);
+				//euc.tmp.tot.set(new Uint8Array(euc.tmp.last));
+				euc.tmp.tot.set(euc.tmp.last);
+				//euc.tmp.tot.set(new Uint8Array(event.target.value.buffer),euc.tmp.last.length);
+				euc.tmp.tot.set(event.target.value.buffer,euc.tmp.last.length);
+				euc.tmp.last=euc.tmp.tot;
+				if ( (event.target.value.buffer.length==1 && event.target.value.buffer[0]==85) || (event.target.value.buffer[event.target.value.buffer.length - 2]==85 && event.target.value.buffer[event.target.value.buffer.length - 1]==85) ) {
+					if (set.bt===2) console.log("Inmotion: packet got :",euc.tmp.tot); 
+					if (set.bt===2) console.log("Inmotion: packet length :",euc.tmp.tot.buffer.length); 
+					euc.tmp.chk=new Uint8Array(euc.tmp.tot.length -3);
+					euc.tmp.chk.set(euc.tmp.tot);
+					if ( euc.tmp.chk.reduce(checksum) + 7 == euc.tmp.tot.buffer[euc.tmp.tot.length - 3] ){
+						if (set.bt===2) console.log("Inmotion: checksum ok :"); 
+						if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
+						euc.tmp.loop=setTimeout(function(v){ euc.tmp.loop=0;eucin(v);},50,euc.tmp.tot);
+						//eucin(euc.tmp.tot);
+					}else {
+						if (set.bt===2) console.log("Inmotion: checksum FAIL : packet droped");
 						euc.tmp.live();
-						return;
-						//euc.tmp.tot=new Uint8Array(euc.tmp.tot.slice(1));
 					}
-					//eucin( euc.tmp.tot);
-					if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
-					euc.tmp.loop=setTimeout(function(v){ euc.tmp.loop=0;eucin(v);},150,euc.tmp.tot);	
 					euc.tmp.last=new Uint8Array(0);
 					euc.tmp.tot=new Uint8Array(0);	
 					return;
 				}
-				euc.tmp.tot=new Uint8Array(euc.tmp.last.length + event.target.value.buffer.length);
-				euc.tmp.tot.set(new Uint8Array(euc.tmp.last));
-				euc.tmp.tot.set(new Uint8Array(event.target.value.buffer),euc.tmp.last.length);
-				euc.tmp.last=euc.tmp.tot;
-				if (!euc.buzz && euc.alert) {  
-					if (!w.gfx.isOn&&(euc.dash.spdC||euc.dash.ampC||euc.dash.alrm)) face.go(set.dash[set.def.dash.face],0);
-					else face.off(6000);
-					euc.buzz=1;
-					if (20 <= euc.alert) euc.alert = 20;
-					var a=[];
-					while (5 <= euc.alert) {
-						a.push(200,500);
-						euc.alert = euc.alert - 5;
-					}
-					let i;
-					for (i = 0; i < euc.alert ; i++) {
-						a.push(200,150);
-					}
-					digitalPulse(D16,0,a);  
-					setTimeout(() => { euc.buzz = 0; }, 3000);
-				}
+				
+				
 			});
 			//on disconnect
 			global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
@@ -292,7 +248,7 @@ euc.conn=function(mac){
 						euc.tmp.loop=setTimeout(function(){ 
 							euc.tmp.loop=0;
 							if (euc.dash.aOff) {
-								euc.wCha.writeValue(euc.cmd("powerOff")).then(function() {
+								euc.wCha.writeValue(euc.cmd("control",5)).then(function() {
 									return euc.wCha.writeValue(euc.cmd("end"));
 								}).then(function(err)  {
 									euc.off("power off");
@@ -303,7 +259,7 @@ euc.conn=function(mac){
 								return;
 							}	
 							euc.tmp.loop=0;
-							euc.wCha.writeValue(euc.cmd("lightsOff")).then(function() {
+							euc.wCha.writeValue(euc.cmd("setLights",0)).then(function() {
 								return euc.wCha.writeValue(euc.cmd("end"));
 							}).then(function()  {
 								global['\xFF'].BLE_GATTS.disconnect();
@@ -323,7 +279,7 @@ euc.conn=function(mac){
 					euc.wCha.writeValue(euc.cmd("init")).then(function() {
 						return euc.wCha.writeValue(euc.cmd("end"));
 					}).then(function()  {	
-						return (euc.dash.light)?euc.wCha.writeValue(euc.cmd("lightsOn")):"ok";
+						return (euc.dash.light)?euc.wCha.writeValue(euc.cmd("setLights",1)):"ok";
 					}).then(function()  {
 						return (euc.dash.light)?euc.wCha.writeValue(euc.cmd("end")):"ok";
 					}).then(function()  {

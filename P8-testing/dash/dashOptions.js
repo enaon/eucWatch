@@ -247,8 +247,39 @@ touchHandler[0]=function(e,x,y){
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 			buzzer(D16,1,[30,50,30]);
-		}else buzzer(D16,1,40);
-		this.timeout();
+			this.timeout();
+			return;
+		}
+		if (face[0].page) {
+			this.timeout();
+			face[0].page=0;
+			face[0].btn(1,(set.def.dash.mph)?"MPH":"KPH",30,40,25,col("raf"),0,0,0,75,75);//1
+			face[0].btn(1,"o",20,100,20,col("raf"),0,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);//2
+			face[0].btn(1,"EMPTY",15,200,10,col("dgray"),0,160,0,239,75,euc.dash.batE/100,30,200,35); //3
+			face[0].btn(1,"SPEED X",15,40,90,col("dgray"),0,0,80,75,155,euc.dash.spdF,30,40,120); //4
+			face[0].btn(1,"DIST X",15,120,90,col("dgray"),0,80,80,155,155,euc.dash.trpF,30,120,120); //5
+			face[0].btn(1,"RETRY",15,200,90,col("dgray"),0,160,80,239,155,set.def.dash.rtr,30,200,120); //6
+			if (face[0].ntid) {
+				clearTimeout(face[0].ntid);face[0].ntid=0;
+				w.gfx.setColor(0,0);
+				w.gfx.fillRect(0,156,239,239);
+				w.gfx.setColor(1,col("white"));
+				w.gfx.setFont("Vector",25);
+				w.gfx.drawString("DASH OPTIONS",120-(w.gfx.stringWidth("DASH OPTIONS")/2),217); 
+				w.gfx.flip();				
+			}
+			w.gfx.setColor(0,col("black"));
+			w.gfx.fillRect(75,180,165,184);
+			w.gfx.setColor(1,col("white"));
+			w.gfx.fillRect(75,180,120,184);
+			w.gfx.flip();
+			w.gfx.setColor(1,col("gray"));
+			w.gfx.fillRect(120,180,165,184);
+			w.gfx.flip(); 
+		}else {
+			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
+			face.go(face.appPrev,0);
+		}
 		break;
 	case 3: //slide left event
 		this.timeout();

@@ -336,7 +336,15 @@ touchHandler[0]=function(e,x,y){
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 			buzzer(D16,1,[30,50,30]);
-		}else buzzer(D16,1,40);
+		}else if (face[0].set) {
+			face[0].set=0;
+			if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;
+			w.gfx.clear();
+			face[0].init();
+		}else {
+			face.go(face.appPrev,0);
+			return; 
+		}
 		this.timeout();
 		break;
 	case 3: //slide left event

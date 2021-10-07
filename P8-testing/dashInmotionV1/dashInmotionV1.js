@@ -102,7 +102,7 @@ touchHandler[0]=function(e,x,y){
 		else {
 			if ( x<=120 && y<100 ) { //Light
 				euc.dash.light=1-euc.dash.light;
-				euc.wri((euc.dash.light)?"lightsOn":"lightsOff");
+				euc.wri("setLights",(euc.dash.light)?1:0);
 		        face[0].btn(euc.dash.light,"LIGHT",18,60,15,col("raf"),col("dgray"),0,0,119,97,(euc.dash.light)?"ON":"OFF",28,60,50);
 				face[0].ntfy("LIGHT ON","LIGHT OFF",20,(euc.dash.light)?col("raf"):col("dgray"),euc.dash.light);
 				buzzer(D16,1,[30,50,30]);
