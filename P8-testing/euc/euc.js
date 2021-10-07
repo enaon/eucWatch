@@ -18,7 +18,7 @@ global.euc= {
 		if (this.reconnect) {clearTimeout(this.reconnect); this.reconnect=0;}
 		if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 		this.seq=1;
-		ampL=[];batL=[];almL=[0];
+		ampL=[];batL=[];almL=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 		if (this.state!="OFF" ) {
 			buzzer(D16,1,[90,60,90]); 
 			//log
