@@ -271,6 +271,9 @@ touchHandler[0]=function(e,x,y){
                 set.write("dash", "slot"+set.read("dash","slot")+"Mac"  );
                 set.write("dash","slot"+set.read("dash","slot")+"Maker");
                 set.write("dash","slot"+set.read("dash","slot")+"Name");
+				require("Storage").erase('logDaySlot'+set.read("dash","slot")+'.json');
+				require("Storage").erase('logWeekSlot'+set.read("dash","slot")+'.json');
+				require("Storage").erase('logYearSlot'+set.read("dash","slot")+'.json');
 				set.def.dash.slot=0;
 				require("Storage").erase('eucSlot'+set.read("dash","slot")+'.json');
 				euc.dash=require("Storage").readJSON("eucSlot.json",1);				

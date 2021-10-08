@@ -96,7 +96,6 @@ function appendBuffer(buffer1, buffer2) {
 }
 
 function eucin (inc){
-	if (set.bt===2) console.log("inmotion: packet :",inc.buffer);
 	let lala = new DataView(inc.buffer);
 	//values
 	//spd
@@ -187,13 +186,10 @@ euc.conn=function(mac){
 			euc.tmp.tot=new Uint8Array(0);
 			euc.tmp.chk=new Uint8Array(0);
 			euc.rCha.on('characteristicvaluechanged', function(event) {
-				if (set.bt===2) console.log("Inmotion: packet in ",event.target.value.buffer); 
+				//if (set.bt===2) console.log("Inmotion: packet in ",event.target.value.buffer); 
 				if (euc.busy) return;
-				//if (event.target.value.buffer[0]==170 && event.target.value.buffer[1]==170 && event.target.value.buffer[5]==85  ) return;
 				euc.tmp.tot=new Uint8Array(euc.tmp.last.length + event.target.value.buffer.length);
-				//euc.tmp.tot.set(new Uint8Array(euc.tmp.last));
 				euc.tmp.tot.set(euc.tmp.last);
-				//euc.tmp.tot.set(new Uint8Array(event.target.value.buffer),euc.tmp.last.length);
 				euc.tmp.tot.set(event.target.value.buffer,euc.tmp.last.length);
 				euc.tmp.last=euc.tmp.tot;
 				if ( (event.target.value.buffer.length==1 && event.target.value.buffer[0]==85) || (event.target.value.buffer[event.target.value.buffer.length - 2]==85 && event.target.value.buffer[event.target.value.buffer.length - 1]==85) ) {
@@ -202,13 +198,33 @@ euc.conn=function(mac){
 					euc.tmp.chk=new Uint8Array(euc.tmp.tot.length -3);
 					euc.tmp.chk.set(euc.tmp.tot);
 					if ( euc.tmp.chk.reduce(checksum) + 7 == euc.tmp.tot.buffer[euc.tmp.tot.length - 3] ){
-						if (set.bt===2) console.log("Inmotion: checksum ok :"); 
-						if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
-						euc.tmp.loop=setTimeout(function(v){ euc.tmp.loop=0;eucin(v);},50,euc.tmp.tot);
+						if (100 <= euc.tmp.tot.length && euc.tmp.tot.buffer[2]===19) {
+							if (set.bt===2) console.log("Inmotion: checksum ok :"); 
+							if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
+							euc.tmp.loop=setTimeout(function(v){ euc.tmp.loop=0;eucin(v);},50,euc.tmp.tot);
 						//eucin(euc.tmp.tot);
+						}else{
+							if (set.bt===2) console.log("Inmotion: not live: packet droped");
+							console.log("Inmotion: not live: packet droped");
+							euc.busy=1;
+							if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
+							euc.tmp.loop=setTimeout(function(){ euc.tmp.loop=0;euc.busy=0;euc.tmp.live();},300);
+							//euc.tmp.live();
+						}
+						
 					}else {
 						if (set.bt===2) console.log("Inmotion: checksum FAIL : packet droped");
-						euc.tmp.live();
+						if (euc.tmp.tot.buffer[2]!=19) {
+							if (set.bt===2) console.log("Inmotion: not live: packet droped");
+							console.log("Inmotion: not live: packet droped");
+							euc.busy=1;
+							if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
+							euc.tmp.loop=setTimeout(function(){ euc.tmp.loop=0;euc.busy=0;euc.tmp.live();},300);
+							//euc.tmp.live();
+						}else{
+							console.log("Inmotion packet invalis check: droped");
+							euc.tmp.live();
+						}
 					}
 					euc.tmp.last=new Uint8Array(0);
 					euc.tmp.tot=new Uint8Array(0);	
