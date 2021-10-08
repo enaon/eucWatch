@@ -98,7 +98,7 @@ for (let i = 0; i < lala.length; i=i+1){
 lala=[1,2,165,4,2,165,7,8,9,10]
 for (let i in lala ){
 	if (lala[i]===165 && lala[i-1]!=1) { 
-		lala.splice(i,1); i--;
+		lala.splice(i,1); i++;
 	}
 }
 

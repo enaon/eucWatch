@@ -96,7 +96,7 @@ function appendBuffer(buffer1, buffer2) {
 }
 
 function eucin (inc){
-	let lala = new DataView(inc.buffer);
+	let lala = new DataView(inc);
 	//values
 	//spd
 	euc.dash.spd=(lala.getInt32(31, true)+lala.getInt32(35, true))/2000;
@@ -155,7 +155,9 @@ function eucin (inc){
 		digitalPulse(D16,0,a);  
 		setTimeout(() => { euc.buzz = 0; }, 3000);
 	}
-	euc.tmp.live();
+	if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
+	euc.tmp.loop=setTimeout(function(v){ euc.tmp.loop=0;euc.tmp.live();;},50);
+	//euc.tmp.live();
 }					
 						
 //
@@ -194,36 +196,31 @@ euc.conn=function(mac){
 				//got package	
 				if ( (inc.length==1 && inc[0]==85) || (inc[inc.length - 2]==85 && inc[inc.length - 1]==85) ) {	
 					if (set.bt===2) console.log("Inmotion: in: length:",euc.tmp.tot.buffer.length," data :",euc.tmp.tot); 
-					//euc.tmp.chk=new Uint8Array(euc.tmp.tot.length -3);
-					//euc.tmp.chk.set(euc.tmp.tot);
-					//euc.tmp.chk=( euc.tmp.chk.reduce(checksum) + 7 == euc.tmp.tot.buffer[euc.tmp.tot.length - 3] )?1:0;
 					//live pckg
 					if (euc.tmp.tot.buffer[2]===19) {
 						if (118 == euc.tmp.tot.length) {
+							euc.tmp.last=[];
 							if (set.bt===2) console.log("Inmotion: live in, check:",euc.tmp.chk); 
-							if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
-							euc.tmp.loop=setTimeout(function(v){ euc.tmp.loop=0;eucin(v);},50,euc.tmp.tot);
+							eucin(euc.tmp.tot.buffer);
+							return;
 						}else if (119 <= euc.tmp.tot.length) {
 							if (set.bt===2) console.log("Inmotion: live in : length: :", euc.tmp.tot.buffer.length,". check:",euc.tmp.chk); 
-								let temp=JSON.parse(JSON.stringify(euc.tmp.tot.buffer));
-								for (let i = 0; i < temp.length; i++){
-									if (temp[i]===165 && 15<=i) { 
-										temp.splice(i,1); 
-										//if (set.bt===2) console.log("Inmotion: packet index :",i, " removed"); 
-										console.log("Inmotion: packet index :",i, " removed1"); 
-									}
-								}
-							euc.tmp.tot=E.toUint8Array(temp);	
-							//euc.tmp.chk=new Uint8Array(euc.tmp.tot.length -3);
-							//euc.tmp.chk.set(euc.tmp.tot);
-							//euc.tmp.chk=( euc.tmp.chk.reduce(checksum) + 7 == euc.tmp.tot.buffer[euc.tmp.tot.length - 3] )?1:0;
-							if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
-							euc.tmp.loop=setTimeout(function(v){ euc.tmp.loop=0;eucin(v);},50,euc.tmp.tot);
-							if (!euc.tmp.chk) console.log( euc.tmp.tot.buffer);
+							let temp=JSON.parse(JSON.stringify(euc.tmp.tot.buffer));
+							for (let i = 0; i < temp.length; i++){ if (temp[i]===165 && 15<=i) temp.splice(i,1);}
+							/*euc.tmp.chk=new Uint8Array(euc.tmp.tot.length -3);
+							euc.tmp.chk.set(euc.tmp.tot);
+							euc.tmp.chk=( euc.tmp.chk.reduce(checksum) + 7 == euc.tmp.tot.buffer[euc.tmp.tot.length - 3] )?1:0;
+							if (!euc.tmp.chk) {
+								console.log( "problem:", temp, " length:", temp.length);
+								euc.tmp.live();
+								euc.tmp.last=[];
+								return;
+							}
+							*/
+							eucin(E.toUint8Array(temp).buffer);
 						}else {
 							if (set.bt===2) console.log("Inmotion: live in, length :",euc.tmp.tot.length,", check:",euc.tmp.chk); 
-							if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
-							euc.tmp.loop=setTimeout(function(){ euc.tmp.loop=0;euc.tmp.live();},50);
+							euc.tmp.last=[];euc.tmp.live();return;
 						}
 					//rest
 					}else {
