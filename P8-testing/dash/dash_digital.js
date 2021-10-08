@@ -126,11 +126,11 @@ face[0] = {
 		this.g.clearRect(0,176,239,197);
 		this.g.setColor(1,col("white"));
 		//graph
-		let i=0;
-		this.al.forEach(function(val){
-			w.gfx.fillRect(237-(i*12),(val)?181:191,237-((i*12)+8),191);
-			i++;
-		});
+		//this.al.forEach(function(val,i){
+		for (let i in this.al ){
+			w.gfx.fillRect(237-(i*12),(this.al[i])?181:191,237-((i*12)+8),191);
+		}
+		//});
 		this.g.flip();
 	},
 	ampF: function(){
@@ -218,11 +218,12 @@ face[0] = {
 		this.g.setColor(1,(1<euc.dash.ampC)?col("red"):col("dgray"));
 		this.g.fillRect(0,0,119,50);       
 		this.g.setColor(0,col("white"));
-		let i=0;
-		this.ampL.forEach(function(val){
-			w.gfx.fillRect(118-(i*6),(val<200)?50-(val*1.2):1,118-(i*6)-1,(val<200)?50:(255-val)*2);
-			i++;
-		});
+		//this.ampL.forEach(function(val,i){
+		for (let i in this.ampL ){
+			w.gfx.fillRect(118-(i*6),(this.ampL[i]<200)?50-(this.ampL[i]*1.2):1,118-(i*6)-1,(this.ampL[i]<200)?50:(255-this.ampL[i])*2);
+		}
+		//w.gfx.fillRect(118-(i*6),(val<200)?50-(val*1.2):1,118-(i*6)-1,(val<200)?50:(255-val)*2);
+		//});
 		this.g.flip();
 	},	
 	pwrF: function(){
@@ -264,11 +265,12 @@ face[0] = {
 		this.g.fillRect(122,0,239,50);       
 		this.g.setColor(1,col("white"));
 		//graph
-		let i=0;
-		this.batL.forEach(function(val){
-			w.gfx.fillRect(238-(i*6),50-(val/2),238-(i*6)-1,50);
-			i++;
-		});
+		//this.batL.forEach(function(val,i){
+		for (let i in this.batL ){
+			w.gfx.fillRect(238-(i*6),50-(this.batL[i]/2),238-(i*6)-1,50);
+		}
+		//	w.gfx.fillRect(238-(i*6),50-(val/2),238-(i*6)-1,50);
+		//});
 		this.g.flip();
 	},	
 	mileage: function(){

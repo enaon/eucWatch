@@ -182,56 +182,56 @@ euc.conn=function(mac){
 		}).then(function(rc) {
 			euc.rCha=rc;
 			//read
-			euc.tmp.last= new Uint8Array(0);
-			euc.tmp.tot=new Uint8Array(0);
-			euc.tmp.chk=new Uint8Array(0);
+			euc.tmp.last= [];
+			euc.tmp.chk= [];
 			euc.rCha.on('characteristicvaluechanged', function(event) {
-				//if (set.bt===2) console.log("Inmotion: packet in ",event.target.value.buffer); 
-				if (euc.busy) return;
-				euc.tmp.tot=new Uint8Array(euc.tmp.last.length + event.target.value.buffer.length);
-				euc.tmp.tot.set(euc.tmp.last);
-				euc.tmp.tot.set(event.target.value.buffer,euc.tmp.last.length);
-				euc.tmp.last=euc.tmp.tot;
-				if ( (event.target.value.buffer.length==1 && event.target.value.buffer[0]==85) || (event.target.value.buffer[event.target.value.buffer.length - 2]==85 && event.target.value.buffer[event.target.value.buffer.length - 1]==85) ) {
-					if (set.bt===2) console.log("Inmotion: packet got :",euc.tmp.tot); 
-					if (set.bt===2) console.log("Inmotion: packet length :",euc.tmp.tot.buffer.length); 
-					euc.tmp.chk=new Uint8Array(euc.tmp.tot.length -3);
-					euc.tmp.chk.set(euc.tmp.tot);
-					if ( euc.tmp.chk.reduce(checksum) + 7 == euc.tmp.tot.buffer[euc.tmp.tot.length - 3] ){
-						if (100 <= euc.tmp.tot.length && euc.tmp.tot.buffer[2]===19) {
-							if (set.bt===2) console.log("Inmotion: checksum ok :"); 
+				if (set.bt===2&&set.dbg==3) console.log("Inmotion: packet in ",event.target.value.buffer); 
+				//if (euc.busy) return;
+				//gather package
+				let inc=event.target.value.buffer;
+				euc.tmp.tot=E.toUint8Array(euc.tmp.last,inc)
+				euc.tmp.last=E.toUint8Array(euc.tmp.tot.buffer);
+				//got package	
+				if ( (inc.length==1 && inc[0]==85) || (inc[inc.length - 2]==85 && inc[inc.length - 1]==85) ) {	
+					if (set.bt===2) console.log("Inmotion: in: length:",euc.tmp.tot.buffer.length," data :",euc.tmp.tot); 
+					//euc.tmp.chk=new Uint8Array(euc.tmp.tot.length -3);
+					//euc.tmp.chk.set(euc.tmp.tot);
+					//euc.tmp.chk=( euc.tmp.chk.reduce(checksum) + 7 == euc.tmp.tot.buffer[euc.tmp.tot.length - 3] )?1:0;
+					//live pckg
+					if (euc.tmp.tot.buffer[2]===19) {
+						if (118 == euc.tmp.tot.length) {
+							if (set.bt===2) console.log("Inmotion: live in, check:",euc.tmp.chk); 
 							if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
 							euc.tmp.loop=setTimeout(function(v){ euc.tmp.loop=0;eucin(v);},50,euc.tmp.tot);
-						//eucin(euc.tmp.tot);
-						}else{
-							if (set.bt===2) console.log("Inmotion: not live: packet droped");
-							console.log("Inmotion: not live: packet droped");
-							euc.busy=1;
+						}else if (119 <= euc.tmp.tot.length) {
+							if (set.bt===2) console.log("Inmotion: live in : length: :", euc.tmp.tot.buffer.length,". check:",euc.tmp.chk); 
+								let temp=JSON.parse(JSON.stringify(euc.tmp.tot.buffer));
+								for (let i = 0; i < temp.length; i++){
+									if (temp[i]===165 && 15<=i) { 
+										temp.splice(i,1); 
+										//if (set.bt===2) console.log("Inmotion: packet index :",i, " removed"); 
+										console.log("Inmotion: packet index :",i, " removed1"); 
+									}
+								}
+							euc.tmp.tot=E.toUint8Array(temp);	
+							//euc.tmp.chk=new Uint8Array(euc.tmp.tot.length -3);
+							//euc.tmp.chk.set(euc.tmp.tot);
+							//euc.tmp.chk=( euc.tmp.chk.reduce(checksum) + 7 == euc.tmp.tot.buffer[euc.tmp.tot.length - 3] )?1:0;
 							if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
-							euc.tmp.loop=setTimeout(function(){ euc.tmp.loop=0;euc.busy=0;euc.tmp.live();},300);
-							//euc.tmp.live();
+							euc.tmp.loop=setTimeout(function(v){ euc.tmp.loop=0;eucin(v);},50,euc.tmp.tot);
+							if (!euc.tmp.chk) console.log( euc.tmp.tot.buffer);
+						}else {
+							if (set.bt===2) console.log("Inmotion: live in, length :",euc.tmp.tot.length,", check:",euc.tmp.chk); 
+							if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
+							euc.tmp.loop=setTimeout(function(){ euc.tmp.loop=0;euc.tmp.live();},50);
 						}
-						
+					//rest
 					}else {
-						if (set.bt===2) console.log("Inmotion: checksum FAIL : packet droped");
-						if (euc.tmp.tot.buffer[2]!=19) {
-							if (set.bt===2) console.log("Inmotion: not live: packet droped");
-							console.log("Inmotion: not live: packet droped");
-							euc.busy=1;
-							if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
-							euc.tmp.loop=setTimeout(function(){ euc.tmp.loop=0;euc.busy=0;euc.tmp.live();},300);
-							//euc.tmp.live();
-						}else{
-							console.log("Inmotion packet invalis check: droped");
-							euc.tmp.live();
-						}
+							if (set.bt===2) console.log("Inmotion: unknown in, length :",euc.tmp.tot.buffer.length,", check:",euc.tmp.chk); 
 					}
-					euc.tmp.last=new Uint8Array(0);
-					euc.tmp.tot=new Uint8Array(0);	
+					euc.tmp.last=[];
 					return;
 				}
-				
-				
 			});
 			//on disconnect
 			global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
@@ -260,6 +260,11 @@ euc.conn=function(mac){
 				//off
 				if (euc.state==="OFF"||cmd==="end") {
 					if (global['\xFF'].BLE_GATTS && global['\xFF'].BLE_GATTS.connected) {
+						if (euc.tmp.loopEnd) {clearTimeout(euc.tmp.loopEnd); euc.tmp.loopEnd=0;}
+						euc.tmp.loopEnd=setTimeout(function(){
+							euc.tmp.loopEnd=0;
+							global['\xFF'].BLE_GATTS.disconnect();
+						},1000);	
 						if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
 						euc.tmp.loop=setTimeout(function(){ 
 							euc.tmp.loop=0;
@@ -274,10 +279,10 @@ euc.conn=function(mac){
 								});	
 								return;
 							}	
-							euc.tmp.loop=0;
 							euc.wCha.writeValue(euc.cmd("setLights",0)).then(function() {
 								return euc.wCha.writeValue(euc.cmd("end"));
 							}).then(function()  {
+								if (euc.tmp.loopEnd) {clearTimeout(euc.tmp.loopEnd); euc.tmp.loopEnd=0;}
 								global['\xFF'].BLE_GATTS.disconnect();
 								//euc.state="OFF";
 								//euc.off("end");
