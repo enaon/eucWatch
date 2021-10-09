@@ -1,23 +1,32 @@
-//Inmotion V11settings
+//inmotionV1set actions
 face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
 	g:w.gfx,
 	init: function(){
-		euc.busy=1;//stop bt loop-accept commands.
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
- 		if (!this.set&&(face.appPrev.startsWith("dash_")||face.appPrev==="settings")) this.g.clear();
-        this.set=0;
+		this.g.setColor(0,0);
+		this.g.fillRect(0,98,239,99);
+        this.g.flip();	
+		this.g.fillRect(120,0,121,195);
+        this.g.flip();	
         this.g.setColor(0,0);
-		this.g.fillRect(0,196,239,239);
+		this.g.fillRect(0,205,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
-		this.g.drawString("SETTINGS",120-(this.g.stringWidth("SETTINGS")/2),217); 
+		this.g.drawString("ACTIONS",120-(this.g.stringWidth("ACTIONS")/2),217); 
 		this.g.flip();
-		//
+		this.g.setColor(0,col("black"));
+		this.g.fillRect(0,196,239,204);
+		this.g.setColor(1,col("lgray"));
+      	this.g.fillRect(75,200,165,204);
+		this.g.flip();
+        this.g.setColor(1,col("white"));
+      	this.g.fillRect(75,200,98,204);
+		this.g.flip(); 
         this.btn(euc.dash.light,"LIGHT",18,60,15,col("raf"),col("dgray"),0,0,119,97,(euc.dash.light)?"ON":"OFF",28,60,50);
-		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("dgray"),122,0,239,97,"ALERTS",22,185,55);		
-        this.btn(0,"TPMS",25,60,136,col("raf"),col("dgray"),0,100,119,195);
-        this.btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("dgray"),122,100,239,195);	
+		this.btn("STROBE",25,185,35,(euc.dash.strb)?col("red"):col("dgray"),122,0,239,97);//2
+        this.btn("TPMS",25,60,135,col("dgray"),0,100,119,195,"",22,60,155); //3
+   		this.btn("LOCK",25,185,135,(euc.dash.lock)?col("red"):col("dgray"),122,100,239,195); //4
 		this.run=true;
 	},
 	show : function(){
@@ -28,32 +37,43 @@ face[0] = {
 		  t.show();
         },1000,this);
 	},
-    btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
-			this.g.setColor(0,(bt)?clr1:clr0);
+    btn: function(txt,size,x,y,clr,rx1,ry1,rx2,ry2,txt1,size1,x1,y1){
+			this.g.setColor(0,clr);
 			this.g.fillRect(rx1,ry1,rx2,ry2);
 			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",size1);	
-			this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1); 
-   			if (txt2){this.g.setFont("Vector",size2);	
-            this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);}
+			this.g.setFont("Vector",size);	
+            this.g.drawString(txt,x-(this.g.stringWidth(txt)/2),y); 
+   			if (txt1){
+            this.g.setFont("Vector",size1);	
+            this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1);
+            }
 			this.g.flip();
     },
-    ntfy: function(txt1,txt0,size,clr,bt){
+    ntfy: function(txt,clr){
+			this.info=1;
             this.g.setColor(0,clr);
 			this.g.fillRect(0,198,239,239);
 			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",size);
-     		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
+			this.g.setFont("Vector",20);
+			this.g.drawString(txt,122-(this.g.stringWidth(txt)/2),214); 
 			this.g.flip();
 			if (this.ntid) clearTimeout(this.ntid);
 			this.ntid=setTimeout(function(t){
                 t.ntid=0;
 				t.g.setColor(0,0);
-				t.g.fillRect(0,196,239,239);
+				t.g.fillRect(0,205,239,239);
 				t.g.setColor(1,col("white"));
-				t.g.setFont("Vector",22);
-		        t.g.drawString("SETTINGS",120-(t.g.stringWidth("SETTINGS")/2),217); 
+				t.g.setFont("Vector",20);
+		        t.g.drawString("ACTIONS",122-(t.g.stringWidth("ACTIONS")/2),217); 
 				t.g.flip();
+				t.g.setColor(0,col("black"));
+				t.g.fillRect(0,196,239,204);
+				t.g.setColor(1,col("lgray"));
+				t.g.fillRect(75,200,165,204);
+				t.g.flip();
+				t.g.setColor(1,col("white"));
+				t.g.fillRect(75,200,98,204);
+				t.g.flip(); 	
 			},1000,this);
     },
 	tid:-1,
@@ -76,9 +96,8 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		setTimeout(function(){euc.busy=0;euc.tmp.live();},800);
 		face.go(set.dash[set.def.dash.face],0);
-		return;
+		return true;
 	},
 	clear: function(){
 		return true;
@@ -87,48 +106,36 @@ face[1] = {
 //touch
 touchHandler[0]=function(e,x,y){ 
 	switch (e) {
-	case 5: case 12: //tap/hold event
-		if (face[0].set) { 
-			this.timeout();
-			if ( 100 < y ) {
-              w.gfx.setColor(0,0);
-              w.gfx.drawLine(120,0,120,97);
-              w.gfx.drawLine(121,0,121,97);
-              w.gfx.flip();
-              face[0].init();return;
-            }
+	case 5: //tap event
+		if ( x<=120 && y<=100 ) { //lights
+			euc.dash.light=1-euc.dash.light;
+			euc.wri("setLights",(euc.dash.light)?1:0);
+			face[0].btn(euc.dash.light,"LIGHT",18,60,15,col("raf"),col("dgray"),0,0,119,97,(euc.dash.light)?"ON":"OFF",28,60,50);
+			face[0].ntfy("LIGHT ON","LIGHT OFF",20,(euc.dash.light)?col("raf"):col("dgray"),euc.dash.light);
 			buzzer(D16,1,[30,50,30]);
-		}
-		else {
-			if ( x<=120 && y<100 ) { //Light
-				euc.dash.light=1-euc.dash.light;
-				euc.wri("setLights",(euc.dash.light)?1:0);
-		        face[0].btn(euc.dash.light,"LIGHT",18,60,15,col("raf"),col("dgray"),0,0,119,97,(euc.dash.light)?"ON":"OFF",28,60,50);
-				face[0].ntfy("LIGHT ON","LIGHT OFF",20,(euc.dash.light)?col("raf"):col("dgray"),euc.dash.light);
-				buzzer(D16,1,[30,50,30]);
-			}else if ( 120<=x && y<=100 ) { //watch alerts
-				buzzer(D16,1,[30,50,30]);						
-				face.go("dashAlerts",0);
-				return;	
-			}else if ( x<=120 && 100<=y ) { //TPMS
-				face[0].ntfy("NOT YET","NOT YET",18,col("red"),1);
-				buzzer(D16,1,[30,50,30]);	
-			}else if ( 120<=x && 100<=y ) { //HORN
-				face[0].ntfy("NOT YET","NOT YET",18,col("red"),1);
-				//euc.dash.horn=1-euc.dash.horn;
-				//face[0].btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("dgray"),122,100,239,195);	
-				//face[0].ntfy("BUTTON IS HORN >2KPH","HORN DISABLED",(euc.dash.horn)?18:20,(euc.dash.horn)?col("raf"):col("dgray"),euc.dash.horn);
-				buzzer(D16,1,[30,50,30]);						
-			}else buzzer(D16,1,[30,50,30]);
-		}
+		}else if ( 120<=x && y<=100 ) { //strobe
+			euc.dash.strb=1-euc.dash.strb;
+            face[0].btn("STROBE",25,185,35,(euc.dash.strb)?col("red"):col("dgray"),122,0,239,97);//2
+			euc.wri((euc.dash.strb)?"strobeOn":"strobeOff");
+			buzzer(D16,1,[30,50,30]);
+		}else if ( x<=120 && 100<=y ) { //tpms
+			face[0].ntfy("NOT YET",col("red"));
+			buzzer(D16,1,[30,50,30]);		
+		}else if (120<=x && 100<=y ) { //lock
+			euc.dash.lock=1-euc.dash.lock;
+            face[0].btn("LOCK",25,185,135,(euc.dash.lock)?col("red"):col("dgray"),122,100,239,195); //4
+            face[0].ntfy("HOLD -> POWER OFF",col("red"));
+			euc.wri((euc.dash.lock)?"lock":"unlock");
+			buzzer(D16,1,[30,50,30]);						
+		}else buzzer(D16,1,[30,50,30]);
 		this.timeout();
 		break;
 	case 1: //slide down event
-		setTimeout(function(){euc.busy=0;euc.tmp.live();},800);
+		//face.go("main",0);
 		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
-		if ( 200<=y && x<=50 ) { //toggles full/current brightness on a left down corner swipe up. 
+		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 			buzzer(D16,1,[30,50,30]);
@@ -136,22 +143,28 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
 	case 3: //slide left event
-		buzzer(D16,1,40);
+		face.go("dashInmotionV1Opt",0);
+		return;	
+	case 4: //slide right event (back action)
+		face.go(set.dash[set.def.dash.face],0);
+		return;
+	case 12: //long press event
+		if ( x<=120 && y<100 ) { //lights
+			face[0].btn("LIGHTS",18,60,15,col("black"),0,0,119,97,"OFF",28,60,50);
+			euc.dash.aLight="lightsOff";
+			euc.wri("lightsOff");
+			buzzer(D16,1,[30,50,30]);
+		}else if  (x<=120 && 100<=y ) { //tpms
+			buzzer(D16,1,40);
+			face[0].ntfy("NOT YET",col("red"));
+		}else if ( 120<=x && 100<=y ) { //off
+			euc.aOff=euc.dash.aOff;
+			euc.aLck=euc.dash.aLck;
+			euc.dash.aOff=1;
+			euc.dash.aLck=0;
+			euc.tgl();
+	    }else buzzer(D16,1,[100]);
 		this.timeout();
 		break;
-	case 4: //slide right event (back action)
-        if (face[0].set) {
-			w.gfx.setColor(0,0);
-			w.gfx.drawLine(120,0,120,97);
-			w.gfx.drawLine(121,0,121,97);
-			w.gfx.flip();
-			face[0].init();
-        } else {
-			setTimeout(function(){euc.busy=0;euc.tmp.live();},800);
-			face.go(set.dash[set.def.dash.face],0);
-			return;
-        }
-   		this.timeout();
-        break;
   }
 };

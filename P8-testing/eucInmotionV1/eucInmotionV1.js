@@ -1,5 +1,6 @@
 //code by freestyl3r
 euc.tmp={count:0,loop:0};
+if (!euc.dash.alrt) euc.dash.alrt={};
 
 euc.cmd=function(no,val){
 	if (set.bt===2) console.log("inmotion: send cmd :",no);
@@ -95,7 +96,7 @@ function appendBuffer(buffer1, buffer2) {
   return tmp.buffer;
 }
 
-function eucin (inc){
+euc.tmp.liveParse= function (inc){
 	let lala = new DataView(inc);
 	//values
 	//spd
@@ -155,11 +156,31 @@ function eucin (inc){
 		digitalPulse(D16,0,a);  
 		setTimeout(() => { euc.buzz = 0; }, 3000);
 	}
-	if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
-	euc.tmp.loop=setTimeout(function(v){ euc.tmp.loop=0;euc.tmp.live();;},50);
+	//if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
+	//euc.tmp.loop=setTimeout(function(v){ euc.tmp.loop=0;euc.tmp.live();},50);
 	//euc.tmp.live();
-}					
-						
+};			
+
+euc.tmp.alertParse= function (inc){
+	//let lala = new DataView(inc);				
+	euc.dash.alrt.id = inc[6];
+	euc.dash.alrt.val = (inc[9] * 256) | (inc[8] & 0xFF);
+	euc.dash.alrt.val2 = (inc[13] * 256 * 256 * 256) | ((inc[12] & 0xFF) * 256 * 256) | ((inc[11] & 0xFF) * 256) | (inc[10] & 0xFF);
+	euc.dash.alrt.spd = Math.abs((euc.dash.alrt.val2 / 3812.0) * 3.6);
+	switch (euc.dash.alrt.id) {
+		case 3:	euc.dash.alrt.text = ("LIFT");break;			
+		case 5:euc.dash.alrt.text = ("START");	break;
+		case 6:euc.dash.alrt.text = ("TILTBACK at speed "+euc.dash.alrt.spd+" at limit "+(euc.dash.alrt.val / 1000.0));break;
+		case 14:euc.dash.alrt.text = ("HELLO");break;
+		case 25:euc.dash.alrt.text = ("FALL");break;
+		case 29:euc.dash.alrt.text = ("REPAIR: bad battery cell found. At voltage: "+ (euc.dash.alrt.val2 / 100.0));break;
+		case 32:euc.dash.alrt.text = ("LOW BATTEY at voltage :" + (euc.dash.alrt.val2 / 100.0));break;
+		case 33:euc.dash.alrt.text = ("CUT-OFF at speed :"+euc.dash.alrt.spd);break;
+		case 38:euc.dash.alrt.text = ("HIGH LOAD at speed :"+euc.dash.alrt.spd+" and current :"+(euc.dash.alrt.val / 1000.0));break;
+		default:euc.dash.alrt.text = ("Unknown Alert: "+ euc.dash.alrt.val+","+euc.dash.alrt.val2);
+    }
+	//euc.emit('alert',euc.dash.alrt.text);
+};
 //
 euc.wri=function(i) {if (set.bt===2) console.log("not connected yet"); if (i=="end") euc.off(); return;};
 euc.conn=function(mac){
@@ -191,7 +212,7 @@ euc.conn=function(mac){
 				//if (euc.busy) return;
 				//gather package
 				let inc=event.target.value.buffer;
-				euc.tmp.tot=E.toUint8Array(euc.tmp.last,inc)
+				euc.tmp.tot=E.toUint8Array(euc.tmp.last,inc);
 				euc.tmp.last=E.toUint8Array(euc.tmp.tot.buffer);
 				//got package	
 				if ( (inc.length==1 && inc[0]==85) || (inc[inc.length - 2]==85 && inc[inc.length - 1]==85) ) {	
@@ -200,11 +221,10 @@ euc.conn=function(mac){
 					if (euc.tmp.tot.buffer[2]===19) {
 						if (118 == euc.tmp.tot.length) {
 							euc.tmp.last=[];
-							if (set.bt===2) console.log("Inmotion: live in, check:",euc.tmp.chk); 
-							eucin(euc.tmp.tot.buffer);
-							return;
+							if (set.bt===2) console.log("Inmotion: live in"); 
+							euc.tmp.liveParse(euc.tmp.tot.buffer);
+							euc.tmp.last=[];euc.tmp.live();return;
 						}else if (119 <= euc.tmp.tot.length) {
-							if (set.bt===2) console.log("Inmotion: live in : length: :", euc.tmp.tot.buffer.length,". check:",euc.tmp.chk); 
 							let temp=JSON.parse(JSON.stringify(euc.tmp.tot.buffer));
 							for (let i = 0; i < temp.length; i++){ if (temp[i]===165 && 15<=i) temp.splice(i,1);}
 							/*euc.tmp.chk=new Uint8Array(euc.tmp.tot.length -3);
@@ -217,13 +237,20 @@ euc.conn=function(mac){
 								return;
 							}
 							*/
-							eucin(E.toUint8Array(temp).buffer);
+							if (set.bt===2) console.log("Inmotion: live in fixed : length: :", temp.length,". check:",euc.tmp.chk); 
+							euc.tmp.last=[];
+							euc.tmp.liveParse(E.toUint8Array(temp).buffer);
+							euc.tmp.last=[];euc.tmp.live();return;
 						}else {
-							if (set.bt===2) console.log("Inmotion: live in, length :",euc.tmp.tot.length,", check:",euc.tmp.chk); 
+							if (set.bt===2) console.log("Inmotion: live in dropped, length :",euc.tmp.tot.length,", check:",euc.tmp.chk); 
 							euc.tmp.last=[];euc.tmp.live();return;
 						}
 					//rest
 					}else {
+						if (euc.tmp.tot.buffer[2]===1) {
+							if (set.bt===2) console.log("Inmotion: ALERT in, length :",euc.tmp.tot.buffer.length,", check:",euc.tmp.chk); 
+							euc.tmp.alertParse(euc.tmp.tot.buffer);
+						}else
 							if (set.bt===2) console.log("Inmotion: unknown in, length :",euc.tmp.tot.buffer.length,", check:",euc.tmp.chk); 
 					}
 					euc.tmp.last=[];
@@ -243,12 +270,12 @@ euc.conn=function(mac){
 			euc.dash.lock=0;
 			//write function
 			euc.tmp.live= function(){
-				  if (euc.busy) return;
-				  euc.wCha.writeValue([170, 170, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125]).then(function() {
-						return euc.wCha.writeValue([85,85]);
-					}).catch(function(err)  {
-						euc.off("writefail");	
-					});
+				if (euc.busy) return;
+				euc.wCha.writeValue([170, 170, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125]).then(function() {
+					return euc.wCha.writeValue([85,85]);
+				}).catch(function(err)  {
+					euc.off("writefail");	
+				});
 			};
 			euc.wri=function(cmd,value){
 				euc.busy=1;
