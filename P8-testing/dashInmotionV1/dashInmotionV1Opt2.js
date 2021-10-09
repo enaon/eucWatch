@@ -23,7 +23,7 @@ face[0] = {
         this.g.setColor(1,col("white"));
       	this.g.fillRect(120,200,143,204);
 		this.g.flip(); 
-        this.btn(euc.dash.ctrl.aLck,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
+        this.btn(euc.dash.lght.aHead,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LIGHT",28,60,50);
         //this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"HAPTIC",25,185,37,col("raf"),col("raf4"),122,0,239,97);	
 		this.btn(0,"",22,185,17,col("raf"),col("dgray"),122,0,239,97,"",22,185,55);		
         this.btn(euc.dash.ctrl.aOff,"AUTO",18,60,115,col("red"),col("dgray"),0,100,119,195,"OFF",30,60,150);
@@ -106,10 +106,10 @@ face[1] = {
 touchHandler[0]=function(e,x,y){ 
 	switch (e) {
       case 5: //tap event
-		if ( x<=120 && y<100 ) { //auto lock
-			euc.dash.ctrl.aLck=1-euc.dash.ctrl.aLck;
-            face[0].btn(euc.dash.ctrl.aLck,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
-            face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,col("dgray"),euc.dash.ctrl.aLck);
+		if ( x<=120 && y<100 ) { //auto light
+			euc.dash.lght.aHead=1-euc.dash.lght.aHead;
+            face[0].btn(euc.dash.lght.aHead,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LIGHT",28,60,50);
+            face[0].ntfy("AUTO LIGHT ON","AUTO LIGHT OFF",18,col("dgray"),euc.dash.lght.aHead);
 			buzzer(D16,1,[30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //watch alerts
 			buzzer(D16,1,40);						
@@ -148,10 +148,10 @@ touchHandler[0]=function(e,x,y){
 		face.go("dashInmotionV1Opt",0);
 		return;
 	case 12: //hold event
-		if ( x<=120 && y<100 ) { //auto lock
-			euc.dash.ctrl.aLck=1-euc.dash.ctrl.aLck;
-            face[0].btn(euc.dash.ctrl.aLck,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
-            face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,col("dgray"),euc.dash.ctrl.aLck);
+		if ( x<=120 && y<100 ) { //auto light
+			euc.dash.lght.aHead=1-euc.dash.lght.aHead;
+            face[0].btn(euc.dash.lght.aHead,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LIGHT",28,60,50);
+            face[0].ntfy("AUTO LIGHT ON","AUTO LIGHT OFF",18,col("dgray"),euc.dash.lght.aHead);
 			buzzer(D16,1,[30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //watch alerts
 			buzzer(D16,1,40);						
