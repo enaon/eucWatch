@@ -24,9 +24,9 @@ face[0] = {
       	this.g.fillRect(75,200,98,204);
 		this.g.flip(); 
         this.btn(euc.dash.light,"LIGHT",18,60,15,col("raf"),col("dgray"),0,0,119,97,(euc.dash.light)?"ON":"OFF",28,60,50);
-		this.btn("STROBE",25,185,35,(euc.dash.strb)?col("red"):col("dgray"),122,0,239,97);//2
-        this.btn("TPMS",25,60,135,col("dgray"),0,100,119,195,"",22,60,155); //3
-   		this.btn("LOCK",25,185,135,(euc.dash.lock)?col("red"):col("dgray"),122,100,239,195); //4
+		this.btn(euc.dash.strb,"STROBE",25,185,35,col("red"),col("dgray"),122,0,239,97);//2
+        this.btn(1,"TPMS",25,60,135,col("dgray"),0,0,100,119,195,"",22,60,155); //3
+   		this.btn(euc.dash.lock,"LOCK",25,185,135,col("red"),col("dgray"),122,100,239,195); //4
 		this.run=true;
 	},
 	show : function(){
@@ -37,25 +37,22 @@ face[0] = {
 		  t.show();
         },1000,this);
 	},
-    btn: function(txt,size,x,y,clr,rx1,ry1,rx2,ry2,txt1,size1,x1,y1){
-			this.g.setColor(0,clr);
+    btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
+			this.g.setColor(0,(bt)?clr1:clr0);
 			this.g.fillRect(rx1,ry1,rx2,ry2);
 			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",size);	
-            this.g.drawString(txt,x-(this.g.stringWidth(txt)/2),y); 
-   			if (txt1){
-            this.g.setFont("Vector",size1);	
-            this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1);
-            }
+			this.g.setFont("Vector",size1);	
+			this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1); 
+   			if (txt2){this.g.setFont("Vector",size2);	
+            this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);}
 			this.g.flip();
     },
-    ntfy: function(txt,clr){
-			this.info=1;
+    ntfy: function(txt1,txt0,size,clr,bt){
             this.g.setColor(0,clr);
 			this.g.fillRect(0,198,239,239);
 			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",20);
-			this.g.drawString(txt,122-(this.g.stringWidth(txt)/2),214); 
+			this.g.setFont("Vector",size);
+     		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
 			this.g.flip();
 			if (this.ntid) clearTimeout(this.ntid);
 			this.ntid=setTimeout(function(t){
@@ -115,16 +112,16 @@ touchHandler[0]=function(e,x,y){
 			buzzer(D16,1,[30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //strobe
 			euc.dash.strb=1-euc.dash.strb;
-            face[0].btn("STROBE",25,185,35,(euc.dash.strb)?col("red"):col("dgray"),122,0,239,97);//2
+            face[0].btn(euc.dash.strb,"STROBE",25,185,35,col("red"),col("dgray"),122,0,239,97);//2
 			euc.wri((euc.dash.strb)?"strobeOn":"strobeOff");
 			buzzer(D16,1,[30,50,30]);
 		}else if ( x<=120 && 100<=y ) { //tpms
-			face[0].ntfy("NOT YET",col("red"));
+			face[0].ntfy("NOT YET","NOT YET",18,col("red"),1);
 			buzzer(D16,1,[30,50,30]);		
 		}else if (120<=x && 100<=y ) { //lock
 			euc.dash.lock=1-euc.dash.lock;
-            face[0].btn("LOCK",25,185,135,(euc.dash.lock)?col("red"):col("dgray"),122,100,239,195); //4
-            face[0].ntfy("HOLD -> POWER OFF",col("red"));
+            face[0].btn(euc.dash.lock,"LOCK",25,185,135,col("red"),col("dgray"),122,100,239,195); //4
+			face[0].ntfy("HOLD -> POWER OFF","",18,col("red"),1);
 			euc.wri((euc.dash.lock)?"lock":"unlock");
 			buzzer(D16,1,[30,50,30]);						
 		}else buzzer(D16,1,[30,50,30]);
@@ -150,13 +147,13 @@ touchHandler[0]=function(e,x,y){
 		return;
 	case 12: //long press event
 		if ( x<=120 && y<100 ) { //lights
-			face[0].btn("LIGHTS",18,60,15,col("black"),0,0,119,97,"OFF",28,60,50);
+			face[0].btn(euc.dash.light,"LIGHT",18,60,15,col("raf"),col("dgray"),0,0,119,97,(euc.dash.light)?"ON":"OFF",28,60,50);
 			euc.dash.aLight="lightsOff";
 			euc.wri("lightsOff");
 			buzzer(D16,1,[30,50,30]);
 		}else if  (x<=120 && 100<=y ) { //tpms
 			buzzer(D16,1,40);
-			face[0].ntfy("NOT YET",col("red"));
+			face[0].ntfy("NOT YET","NOT YET",18,col("red"),1);
 		}else if ( 120<=x && 100<=y ) { //off
 			euc.aOff=euc.dash.aOff;
 			euc.aLck=euc.dash.aLck;
