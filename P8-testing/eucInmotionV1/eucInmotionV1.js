@@ -32,7 +32,7 @@ euc.cmd=function(no,val){
 		case "setLights"://val=0|1
 			if (val!=0 && val!=1) return [0];
 			cmd = [170, 170, 13, 1, 165, 85, 15, val, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0];
-			cmd.push(7+cmd.reduce(checksum));
+			cmd.push(7+cmd.reduce(checksum));euc.alert
 			return cmd;
 		case "setBrightness": 
 			cmd = [170, 170, 20, 3, 96, 43, val];
@@ -101,6 +101,7 @@ function appendBuffer(buffer1, buffer2) {
 
 euc.tmp.liveParse= function (inc){
 	let lala = new DataView(inc);
+	euc.alert=0;
 	//values
 	//spd
 	euc.dash.spd=(lala.getInt32(31, true)+lala.getInt32(35, true))/2000;
