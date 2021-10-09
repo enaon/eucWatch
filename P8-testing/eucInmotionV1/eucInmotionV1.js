@@ -2,7 +2,7 @@
 euc.tmp={count:0,loop:0};
 if (!euc.dash.alrt) euc.dash.alrt={};
 if (!euc.dash.lght) euc.dash.lght={"head":0,"tail":0,"ring":0};
-if (!euc.dash.ctrl) euc.dash.ctrl={"aLck":0,"aLift":0,"aOff":0,"aLight":0,"lift":1,"lamp":0};
+if (!euc.dash.ctrl) euc.dash.ctrl={"aLck":0,"aLift":0,"aOff":0,"aLight":0,"lift":1,"lamp":0,"vol":50};
 if (!euc.dash.ride) euc.dash.ride={};
 
 euc.cmd=function(no,val){
@@ -302,7 +302,7 @@ euc.conn=function(mac){
 											return euc.wCha.writeValue(euc.cmd("end"));
 										}).then(function()  {	
 											setTimeout(() => {
-												euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.light)?0:0)).then(function() {
+												euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.light)?0:1)).then(function() {
 													return euc.wCha.writeValue(euc.cmd("end"));
 												}).then(function()  {	
 													setTimeout(() => {
@@ -328,51 +328,15 @@ euc.conn=function(mac){
 															},1000); 	
 														});
 																
-													},30);
+													},25);
 												});
-											},30); 	
+											},40); 	
 										});
-									},30);
+									},25);
 								});	
 							//},50);
 						});
-					},100);
-				/*	
-					euc.horn=1;
-					if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
-					euc.tmp.loop=setTimeout(function(){
-						euc.tmp.loop=0;
-						euc.wCha.writeValue(euc.cmd("setVolume",100)).then(function() { 
-							return euc.wCha.writeValue(euc.cmd("end"));
-						}).then(function()  {
-							return euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.light)?0:1));
-						}).then(function()  {
-							return euc.wCha.writeValue(euc.cmd("end"));
-						}).then(function()  {
-							return euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.light)?1:0));
-						}).then(function()  {
-							return euc.wCha.writeValue(euc.cmd("end"));	
-						}).then(function()  {
-							return euc.wCha.writeValue(euc.cmd("playSound",20));
-						}).then(function()  {
-							return euc.wCha.writeValue(euc.cmd("end"));	
-						}).then(function()  {
-							if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
-							euc.tmp.loop=setTimeout(function(){
-								euc.wCha.writeValue(euc.cmd("setVolume",10)).then(function() { 
-									return euc.wCha.writeValue(euc.cmd("end"));
-								}).then(function()  {
-									euc.tmp.loop=0;
-									euc.horn=0;
-									euc.busy=0;
-									euc.tmp.live();
-								}).catch(function(err)  {
-									euc.off("hornfail");	
-								});
-							},700);
-						});
 					},150);
-				*/
 				}else if (cmd==="hornOff") {
 					return;
 					//euc.horn=0;	
