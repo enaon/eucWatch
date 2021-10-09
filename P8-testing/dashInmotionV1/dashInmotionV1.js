@@ -1,17 +1,17 @@
 //inmotionV1set actions
 if (!face.menu) {
 	face.menu={g:w.gfx};
-	face.menu.full= function(title,titleSize,value,valueSize,footer,footerSize,footer2,frontColor,backColor,init){
+	face.menu.full= function(title,titleSize,value,valueSize,frontColor,backColor,init){
 		if (!init){
 			this.g.setColor(0,backColor);
-		    this.g.fillRect(50,50,190,150);                    
+		    this.g.fillRect(50,50,195,150);                    
             this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",valueSize);
 			this.g.drawString(value,130-(this.g.stringWidth(value)/2),65); 		
 		    this.g.flip();
 		}else{
 			this.g.setColor(0,backColor);
-			this.g.fillRect(0,0,239,177);
+			this.g.fillRect(0,0,239,195);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",titleSize);
 			this.g.drawString(title,120-(this.g.stringWidth(title)/2),10); 		
@@ -21,13 +21,6 @@ if (!face.menu) {
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",valueSize);
 			this.g.drawString(value,130-(this.g.stringWidth(value)/2),65); 		
-			this.g.flip(); 
-			this.g.setColor(0,frontColor);
-			this.g.fillRect(0,177,239,239);
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",footerSize);
-			this.g.drawString(footer,120-(this.g.stringWidth(footer)/2),188); 
-			this.g.drawString(footer2,120-(this.g.stringWidth(footer2)/2),216); 
 			this.g.flip(); 
 		}
 	};
@@ -59,9 +52,9 @@ face[0] = {
       	this.g.fillRect(75,200,98,204);
 		this.g.flip(); 
         this.btn(euc.dash.light,"LIGHT",18,60,15,col("raf"),col("dgray"),0,0,119,97,(euc.dash.light)?"ON":"OFF",28,60,50);
-		this.btn(euc.dash.strb,"VOLUME",25,185,35,col("red"),col("dgray"),122,0,239,97);//2
+		this.btn(euc.dash.ctrl.vol,"VOLUME",22,185,15,col("olive"),col("red"),122,0,239,97,(euc.dash.ctrl.vol)?euc.dash.ctrl.vol:"MUTE",30,185,50);//2
         this.btn(1,"TPMS",25,60,135,col("dgray"),0,0,100,119,195,"",22,60,155); //3
-   		this.btn(euc.dash.lock,"LOCK",25,185,135,col("red"),col("dgray"),122,100,239,195); //4
+   		this.btn(1,"OFF",25,185,135,col("dgray"),col("dgray"),122,100,239,195); //4
 		this.run=true;
 	},
 	show : function(){
@@ -143,13 +136,13 @@ touchHandler[0]=function(e,x,y){
 		if (face[0].sub) {
 			if (face[0].sub==="volume") {
 				if ( x<=120 && y <= 170 ){
-					euc.dash.ctrl.vol-10;if (euc.dash.ctrl.vol<=0)euc.dash.ctrl.vol=0;
-					face.menu.full("VOLUME",20,euc.dash.ctrl.vol,80,"SET",20,"WHEEL VOLUME",1453,1365);
+					euc.dash.ctrl.vol=euc.dash.ctrl.vol-10;if (euc.dash.ctrl.vol<=0)euc.dash.ctrl.vol=0;
+					face.menu.full("VOLUME",20,euc.dash.ctrl.vol,80,1453,1365);
 					euc.wri("setVolume",euc.dash.ctrl.vol);
 					buzzer(D16,1,[30,50,30]);
 				}else if ( 120 <=x  && y <= 170 ) {
-					euc.dash.ctrl.vol+10;if (100<=euc.dash.ctrl.vol)euc.dash.ctrl.vol=100;
-					face.menu.full("SET VOLUME",20,euc.dash.ctrl.vol,80,"SET",20,"WHEEL VOLUME",1453,1365);
+					euc.dash.ctrl.vol=euc.dash.ctrl.vol+10;if (100<=euc.dash.ctrl.vol)euc.dash.ctrl.vol=100;
+					face.menu.full("SET VOLUME",20,euc.dash.ctrl.vol,80,1453,1365);
 					euc.wri("setVolume",euc.dash.ctrl.vol);
 					buzzer(D16,1,[30,50,30]);
 				}else {
@@ -171,16 +164,14 @@ touchHandler[0]=function(e,x,y){
 				buzzer(D16,1,[30,50,30]);
 			}else if ( 120<=x && y<=100 ) { //Volume
 				buzzer(D16,1,[30,50,30]);
-					face.menu.full("VOLUME",20,euc.dash.ctrl.vol,80,"SET",20,"WHEEL VOLUME",1453,1365,1);
+				face.menu.full("VOLUME",20,euc.dash.ctrl.vol,80,1453,1365,1);
+				face[0].ntfy("SET VOLUME","SET VOLUME",20,col("raf"),1);
 				face[0].sub="volume";
 			}else if ( x<=120 && 100<=y ) { //tpms
 				face[0].ntfy("NOT YET","NOT YET",18,col("red"),1);
 				buzzer(D16,1,[30,50,30]);		
-			}else if (120<=x && 100<=y ) { //lock
-				euc.dash.lock=1-euc.dash.lock;
-				face[0].btn(euc.dash.lock,"LOCK",25,185,135,col("red"),col("dgray"),122,100,239,195); //4
+			}else if (120<=x && 100<=y ) { //off
 				face[0].ntfy("HOLD -> POWER OFF","",18,col("red"),1);
-				euc.wri((euc.dash.lock)?"lock":"unlock");
 				buzzer(D16,1,[30,50,30]);						
 			}else buzzer(D16,1,[30,50,30]);
 		}
@@ -222,6 +213,8 @@ touchHandler[0]=function(e,x,y){
 			buzzer(D16,1,40);
 			face[0].ntfy("NOT YET","NOT YET",18,col("red"),1);
 		}else if ( 120<=x && 100<=y ) { //off
+	   		face[0].btn(1,"OFF",25,185,135,col("red"),0,122,100,239,195); //4
+			euc.tmp.aOff=1;
 			euc.tgl();
 	    }else buzzer(D16,1,[100]);
 		this.timeout();

@@ -24,7 +24,7 @@ face[0] = {
       	this.g.fillRect(98,200,120,204);
 		this.g.flip(); 
         this.btn(euc.dash.lght.ring,"LED",18,60,15,col("raf"),col("dgray"),0,0,119,97,"RING",28,60,50);//1
-		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("dgray"),122,0,239,97,"ALERTS",22,185,55);		
+		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("olive"),122,0,239,97,"ALERTS",22,185,55);		
         this.btn(euc.dash.ctrl.lift,"SENSOR",18,60,115,col("raf"),col("dgray"),0,100,119,195,"LIFT",30,60,150);
         this.btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("dgray"),122,100,239,195);		
         this.run=true;
@@ -105,28 +105,52 @@ face[1] = {
 touchHandler[0]=function(e,x,y){ 
 	switch (e) {
       case 5: //tap event
-		if ( x<=120 && y<100 ) { //RING led
-			euc.dash.lght.ring=1-euc.dash.lght.ring;
-			buzzer(D16,1,[30,50,30]);
-            face[0].btn(euc.dash.lght.ring,"LED",18,60,15,col("raf"),col("dgray"),0,0,119,97,"RING",28,60,50);//1
-            face[0].ntfy("RING LED ON","RING LED OFF",18,(euc.dash.lght.ring)?col("raf"):col("dgray"),euc.dash.lght.ring);
-			euc.wri("control",(euc.dash.lght.ring)?15:16);
-		}else if ( 120<=x && y<=100 ) { //watch alerts
-			buzzer(D16,1,[30,50,30]);						
-			face.go("dashAlerts",0);
-			return;		
-		}else if ( x<=120 && 100<=y ) { //lift sensor
-			euc.dash.ctrl.lift=1-euc.dash.ctrl.lift;
-			buzzer(D16,1,[30,50,30]);		
-            face[0].btn(euc.dash.ctrl.lift,"SENSOR",18,60,115,col("raf"),col("dgray"),0,100,119,195,"LIFT",30,60,150);
-            face[0].ntfy("LIFT SENSOR ENABLED","LIFT SENSOR DISABLED",16,(euc.dash.ctrl.lift)?col("raf"):col("dgray"),euc.dash.ctrl.lift);
-			euc.wri("sethandleButton",(euc.dash.ctrl.lift)?1:0);
-		}else if  (120<=x && 100<=y ) { //horn
-			euc.dash.horn=1-euc.dash.horn;
-            face[0].btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("dgray"),122,100,239,195);
-            face[0].ntfy("BUTTON IS HORN >2KPH","HORN DISABLED",18,(euc.dash.horn)?col("raf"):col("dgray"),euc.dash.horn);
-			buzzer(D16,1,[30,50,30]);						
-		}else buzzer(D16,1,[30,50,30]);
+	  if (face[0].sub) {
+			if (face[0].sub==="horn") {
+				if ( x<=120 && y <= 170 ){
+					euc.dash.ctrl.horn=euc.dash.ctrl.horn-1;if (euc.dash.ctrl.horn<=1)euc.dash.ctrl.horn=1;
+					face.menu.full("SELECT SOUND",20,euc.dash.ctrl.horn,80,1453,1365);
+					euc.wri("playSound",euc.dash.ctrl.horn);
+					buzzer(D16,1,[30,50,30]);
+				}else if ( 120 <=x  && y <= 170 ) {
+					euc.dash.ctrl.horn=euc.dash.ctrl.horn+1;if (22<=euc.dash.ctrl.horn)euc.dash.ctrl.horn=22;
+					face.menu.full("SELECT SOUND",20,euc.dash.ctrl.horn,80,1453,1365);
+					euc.wri("playSound",euc.dash.ctrl.horn);
+					buzzer(D16,1,[30,50,30]);
+				}else {
+					face[0].sub=0;
+					face[0].init();
+				}
+			}else {
+				face[0].sub=0;
+				face[0].init();
+			}
+			this.timeout();
+			return;
+		}else {
+			if ( x<=120 && y<100 ) { //RING led
+				euc.dash.lght.ring=1-euc.dash.lght.ring;
+				buzzer(D16,1,[30,50,30]);
+				face[0].btn(euc.dash.lght.ring,"LED",18,60,15,col("raf"),col("dgray"),0,0,119,97,"RING",28,60,50);//1
+				face[0].ntfy("RING LED ON","RING LED OFF",18,(euc.dash.lght.ring)?col("raf"):col("dgray"),euc.dash.lght.ring);
+				euc.wri("control",(euc.dash.lght.ring)?15:16);
+			}else if ( 120<=x && y<=100 ) { //watch alerts
+				buzzer(D16,1,[30,50,30]);						
+				face.go("dashAlerts",0);
+				return;		
+			}else if ( x<=120 && 100<=y ) { //lift sensor
+				euc.dash.ctrl.lift=1-euc.dash.ctrl.lift;
+				buzzer(D16,1,[30,50,30]);		
+				face[0].btn(euc.dash.ctrl.lift,"SENSOR",18,60,115,col("raf"),col("dgray"),0,100,119,195,"LIFT",30,60,150);
+				face[0].ntfy("LIFT SENSOR ENABLED","LIFT SENSOR DISABLED",16,(euc.dash.ctrl.lift)?col("raf"):col("dgray"),euc.dash.ctrl.lift);
+				euc.wri("sethandleButton",(euc.dash.ctrl.lift)?1:0);
+			}else if  (120<=x && 100<=y ) { //horn
+				euc.dash.horn=1-euc.dash.horn;
+				face[0].btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("dgray"),122,100,239,195);
+				face[0].ntfy("BUTTON IS HORN >2KPH","HOLD -> OPTIONS",18,(euc.dash.horn)?col("raf"):col("dgray"),euc.dash.horn);
+				buzzer(D16,1,[30,50,30]);						
+			}else buzzer(D16,1,[30,50,30]);
+		}
 		this.timeout();
 		break;
 	case 1: //slide down event
@@ -147,6 +171,12 @@ touchHandler[0]=function(e,x,y){
 		face.go("dashInmotionV1Opt2",0);
 		return;
 	case 4: //slide right event (back action)
+		if (face[0].sub){
+			face[0].sub=0;
+			this.timeout();
+			face[0].init();
+			return;
+		}
 		face.go("dashInmotionV1",0);
 		return;
 	case 12: //hold event
@@ -159,7 +189,7 @@ touchHandler[0]=function(e,x,y){
 		}else if ( 120<=x && y<=100 ) { //haptic
 			if (euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB) {euc.dash.hapS=0;euc.dash.hapA=0;euc.dash.hapT=0;euc.dash.hapB=0;}
 			else {euc.dash.hapS=1;euc.dash.hapA=1;euc.dash.hapT=1;euc.dash.hapB=1;}
-			face[0].btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("dgray"),122,0,239,97,"ALERTS",22,185,55);		
+			face[0].btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("olive"),122,0,239,97,"ALERTS",22,185,55);		
 			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",19,col("dgray"),(euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB));
 			buzzer(D16,1,[30,50,30]);
 		}else if ( x<=120 && 100<=y ) { //lift sensor
@@ -169,9 +199,9 @@ touchHandler[0]=function(e,x,y){
             face[0].ntfy("LIFT SENSOR ENABLED","LIFT SENSOR DISABLED",16,(euc.dash.ctrl.lift)?col("raf"):col("dgray"),euc.dash.ctrl.lift);
 			euc.wri("sethandleButton",(euc.dash.ctrl.lift)?1:0);
 		}else if  (120<=x && 100<=y ) { //horn
-			euc.dash.horn=1-euc.dash.horn;
-            face[0].btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("dgray"),122,100,239,195);
-            face[0].ntfy("BUTTON IS HORN >2KPH","HORN DISABLED",18,(euc.dash.horn)?col("raf"):col("dgray"),euc.dash.horn);
+			face.menu.full("SELECT SOUND",20,euc.dash.ctrl.horn,80,1453,1365,1);
+			face[0].ntfy("SELECT SOUND","",20,col("raf"),1);
+			face[0].sub="horn";
 			buzzer(D16,1,[30,50,30]);						
 		}else buzzer(D16,1,[30,50,30]);
 		this.timeout();

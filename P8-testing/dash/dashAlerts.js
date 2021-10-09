@@ -227,22 +227,20 @@ touchHandler[0]=function(e,x,y){
 		buzzer(D16,1,40);
 		break;
 	case 4: //slide right event (back action)
-		if (face.appPrev=="dashGarage") euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
-        if (face[0].set) {
-       		this.timeout();
-		   //clear
-		    w.gfx.setColor(0,0);
-		    w.gfx.drawLine (0,98,239,98);
-		    w.gfx.drawLine (0,99,239,99);
-            w.gfx.flip();
-		    w.gfx.drawLine (120,0,120,195);
-          	w.gfx.drawLine (121,0,121,195);
-            w.gfx.flip();	
+		this.timeout();
+		w.gfx.setColor(0,0);
+		w.gfx.drawLine (0,98,239,98);
+		w.gfx.drawLine (0,99,239,99);
+		w.gfx.flip();
+		w.gfx.drawLine (120,0,120,195);
+		w.gfx.drawLine (121,0,121,195);
+		w.gfx.flip();	
+        if (face[0].set)
   			face[0].set=0;face[0].init();
-        }else if (euc.state=="READY")
-			if (euc.dash.maker=="Kingsong")	face.go("dashKingsongOpt",0); else face.go("dash"+euc.dash.maker,0);
-		else
-			face.go("dashGarage",0);
+       	else{	
+			if (face.appPrev=="dashGarage") euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
+			face.go(face.appPrev,0);
+		}
 		return;
 	case 12: //hold event
 		if (face[0].set) { 

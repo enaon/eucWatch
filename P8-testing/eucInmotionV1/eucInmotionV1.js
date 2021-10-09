@@ -1,8 +1,8 @@
 //code by freestyl3r
 euc.tmp={count:0,loop:0};
 if (!euc.dash.alrt) euc.dash.alrt={};
-if (!euc.dash.lght) euc.dash.lght={"head":0,"tail":0,"ring":0};
-if (!euc.dash.ctrl) euc.dash.ctrl={"aLck":0,"aLift":0,"aOff":0,"aLight":0,"lift":1,"lamp":0,"vol":50};
+if (!euc.dash.lght) euc.dash.lght={"head":0,"tail":0,"ring":0,"aHead"};
+if (!euc.dash.ctrl) euc.dash.ctrl={"aLck":0,"aLift":0,"aOff":0,"aLight":0,"lift":1,"lamp":0,"vol":50,"horn":20};
 if (!euc.dash.ride) euc.dash.ride={};
 
 euc.cmd=function(no,val){
@@ -230,16 +230,15 @@ euc.conn=function(mac){
 						}else if (119 <= euc.tmp.tot.length) {
 							let temp=JSON.parse(JSON.stringify(euc.tmp.tot.buffer));
 							for (let i = 0; i < temp.length; i++){ if (temp[i]===165 && 15<=i) temp.splice(i,1);}
-							/*euc.tmp.chk=new Uint8Array(euc.tmp.tot.length -3);
+							euc.tmp.chk=new Uint8Array(euc.tmp.tot.length -3);
 							euc.tmp.chk.set(euc.tmp.tot);
 							euc.tmp.chk=( euc.tmp.chk.reduce(checksum) + 7 == euc.tmp.tot.buffer[euc.tmp.tot.length - 3] )?1:0;
 							if (!euc.tmp.chk) {
-								console.log( "problem:", temp, " length:", temp.length);
+								//console.log( "problem:", temp, " length:", temp.length);
 								euc.tmp.live();
 								euc.tmp.last=[];
 								return;
 							}
-							*/
 							if (set.bt===2) console.log("Inmotion: live in fixed : length: :", temp.length,". check:",euc.tmp.chk); 
 							euc.tmp.last=[];
 							euc.tmp.liveParse(E.toUint8Array(temp).buffer);
@@ -286,56 +285,61 @@ euc.conn=function(mac){
 				if (set.bt===2) console.log("Inmotion cmd: ", cmd);
 				//off
 				if (cmd==="hornOn") {
-					if (euc.horn) return;
+					//if (euc.horn) return;
 					euc.horn=1;
 					//euc.rCha.stopNotifications();
-					setTimeout(() => {
-						euc.wCha.writeValue(euc.cmd("setVolume",100)).then(function() { 
-							return euc.wCha.writeValue(euc.cmd("end")); 
-						}).then(function()  {
+					if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
+					euc.tmp.loop=setTimeout(() => {euc.tmp.loop=0;
+						//euc.wCha.writeValue(euc.cmd("setVolume",100)).then(function() { 
+							//return euc.wCha.writeValue(euc.cmd("end")); 
+						//}).then(function()  {
 							//setTimeout(() => {
 								euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.light)?0:1)).then(function() {
 										return euc.wCha.writeValue(euc.cmd("end"));
 									}).then(function()  {
-										setTimeout(() => { 
-										euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.light)?1:0)).then(function() {
-											return euc.wCha.writeValue(euc.cmd("end"));
-										}).then(function()  {	
-											setTimeout(() => {
-												euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.light)?0:1)).then(function() {
-													return euc.wCha.writeValue(euc.cmd("end"));
-												}).then(function()  {	
-													setTimeout(() => {
-														euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.light)?1:0)).then(function() {
-															return euc.wCha.writeValue(euc.cmd("end"));
-														}).then(function()  {	
-															return euc.wCha.writeValue(euc.cmd("playSound",20));
-														}).then(function()  {	
-															return euc.wCha.writeValue(euc.cmd("end"));
-														}).then(function()  {
-															setTimeout(() => {
-																euc.wCha.writeValue(euc.cmd("setVolume",20)).then(function() {
-																	return euc.wCha.writeValue(euc.cmd("end"));
-																}).then(function()  {
-																	euc.horn=0;
-																	euc.busy=0;
-																	euc.tmp.live();
-																	//euc.rCha.startNotifications();
-																}).catch(function(err)  {
-																	euc.state="OFF";
-																	euc.off("horn fail");	
-																});	
-															},1000); 	
-														});
-																
-													},25);
-												});
-											},40); 	
-										});
-									},25);
+										if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
+										euc.tmp.loop=setTimeout(() => {euc.tmp.loop=0;
+											euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.light)?1:0)).then(function() {
+												return euc.wCha.writeValue(euc.cmd("end"));
+											}).then(function()  {	
+												if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
+												euc.tmp.loop=setTimeout(() => {euc.tmp.loop=0;
+													euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.light)?0:1)).then(function() {
+														return euc.wCha.writeValue(euc.cmd("end"));
+													}).then(function()  {	
+														if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
+														euc.tmp.loop=setTimeout(() => {euc.tmp.loop=0;
+															euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.light)?1:0)).then(function() {
+																return euc.wCha.writeValue(euc.cmd("end"));
+															}).then(function()  {	
+																return euc.wCha.writeValue(euc.cmd("playSound",euc.dash.ctrl.horn));
+															}).then(function()  {	
+																return euc.wCha.writeValue(euc.cmd("end"));
+															}).then(function()  {
+																if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
+																euc.tmp.loop=setTimeout(() => {euc.tmp.loop=0;
+																	//euc.wCha.writeValue(euc.cmd("setVolume",euc.dash.ctrl.vol)).then(function() {
+																	//	return euc.wCha.writeValue(euc.cmd("end"));
+																	//}).then(function()  {
+																		euc.horn=0;
+																		euc.busy=0;
+																		euc.tmp.live();
+																		//euc.rCha.startNotifications();
+																	//}).catch(function(err)  {
+																	//	euc.state="OFF";
+																	//	euc.off("horn fail");	
+																	//});	
+																},1000); 	
+															});
+																	
+														},25);
+													});
+												},40); 	
+											});
+										},25);
 								});	
 							//},50);
-						});
+						//});
 					},150);
 				}else if (cmd==="hornOff") {
 					return;
@@ -350,7 +354,7 @@ euc.conn=function(mac){
 						if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
 						euc.tmp.loop=setTimeout(function(){ 
 							euc.tmp.loop=0;
-							if (euc.dash.ctrl.aOff) {
+							if (euc.dash.ctrl.aOff||euc.tmp.aOff) {
 								euc.wCha.writeValue(euc.cmd("control",5)).then(function() {
 									return euc.wCha.writeValue(euc.cmd("end"));
 								}).then(function(err)  {
