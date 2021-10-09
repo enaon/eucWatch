@@ -1,7 +1,7 @@
 //code by freestyl3r
 euc.tmp={count:0,loop:0};
 if (!euc.dash.alrt) euc.dash.alrt={};
-if (!euc.dash.lght) euc.dash.lght={"head":0,"tail":0,"ring":0,"aHead"};
+if (!euc.dash.lght) euc.dash.lght={"head":0,"tail":0,"ring":0,"aHead":0};
 if (!euc.dash.ctrl) euc.dash.ctrl={"aLck":0,"aLift":0,"aOff":0,"aLight":0,"lift":1,"lamp":0,"vol":50,"horn":20};
 if (!euc.dash.ride) euc.dash.ride={};
 
@@ -365,7 +365,7 @@ euc.conn=function(mac){
 								});	
 								return;
 							}	
-							euc.wCha.writeValue(euc.cmd("setLights",0)).then(function() {
+							euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.lght.aHead)?0:2)).then(function() {
 								return euc.wCha.writeValue(euc.cmd("end"));
 							}).then(function()  {
 								if (euc.tmp.loopEnd) {clearTimeout(euc.tmp.loopEnd); euc.tmp.loopEnd=0;}
@@ -386,9 +386,9 @@ euc.conn=function(mac){
 					euc.wCha.writeValue(euc.cmd("init")).then(function() {
 						return euc.wCha.writeValue(euc.cmd("end"));
 					}).then(function()  {	
-						return (euc.dash.light)?euc.wCha.writeValue(euc.cmd("setLights",1)):"ok";
+						return (euc.dash.lght.aHead)?euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.lght.Head)?1:0)):"ok";
 					}).then(function()  {
-						return (euc.dash.light)?euc.wCha.writeValue(euc.cmd("end")):"ok";
+						return (euc.dash.lght.aHead)?euc.wCha.writeValue(euc.cmd("end")):"ok";
 					}).then(function()  {
 						return euc.rCha.startNotifications();
 					}).then(function()  {
