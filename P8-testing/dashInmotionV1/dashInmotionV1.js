@@ -51,7 +51,7 @@ face[0] = {
         this.g.setColor(1,col("white"));
       	this.g.fillRect(75,200,98,204);
 		this.g.flip(); 
-        this.btn(euc.dash.light,"LIGHT",18,60,15,col("raf"),col("dgray"),0,0,119,97,(euc.dash.light)?"ON":"OFF",28,60,50);
+        this.btn(euc.dash.lght.head,"LIGHT",18,60,15,col("raf"),col("dgray"),0,0,119,97,(euc.dash.lght.head)?"ON":"OFF",28,60,50);
 		this.btn(euc.dash.ctrl.vol,"VOLUME",22,185,15,col("olive"),col("red"),122,0,239,97,(euc.dash.ctrl.vol)?euc.dash.ctrl.vol:"MUTE",30,185,50);//2
         this.btn(1,"TPMS",25,60,135,col("dgray"),0,0,100,119,195,"",22,60,155); //3
    		this.btn(1,"OFF",25,185,135,col("dgray"),col("dgray"),122,100,239,195); //4
@@ -157,10 +157,10 @@ touchHandler[0]=function(e,x,y){
 			return;
 		}else {	
 			if ( x<=120 && y<=100 ) { //lights
-				euc.dash.light=1-euc.dash.light;
-				euc.wri("setLights",(euc.dash.light)?1:0);
-				face[0].btn(euc.dash.light,"LIGHT",18,60,15,col("raf"),col("dgray"),0,0,119,97,(euc.dash.light)?"ON":"OFF",28,60,50);
-				face[0].ntfy("LIGHT ON","LIGHT OFF",20,(euc.dash.light)?col("raf"):col("dgray"),euc.dash.light);
+				euc.dash.lght.head=1-euc.dash.lght.head;
+				euc.wri("setLights",(euc.dash.lght.head)?1:0);
+				face[0].btn(euc.dash.lght.head,"LIGHT",18,60,15,col("raf"),col("dgray"),0,0,119,97,(euc.dash.lght.head)?"ON":"OFF",28,60,50);
+				face[0].ntfy("LIGHT ON","LIGHT OFF",20,(euc.dash.lght.head)?col("raf"):col("dgray"),euc.dash.lght.head);
 				buzzer(D16,1,[30,50,30]);
 			}else if ( 120<=x && y<=100 ) { //Volume
 				buzzer(D16,1,[30,50,30]);
@@ -205,7 +205,7 @@ touchHandler[0]=function(e,x,y){
 		return;
 	case 12: //long press event
 		if ( x<=120 && y<100 ) { //lights
-			face[0].btn(euc.dash.light,"LIGHT",18,60,15,col("raf"),col("dgray"),0,0,119,97,(euc.dash.light)?"ON":"OFF",28,60,50);
+			face[0].btn(euc.dash.lght.head,"LIGHT",18,60,15,col("raf"),col("dgray"),0,0,119,97,(euc.dash.lght.head)?"ON":"OFF",28,60,50);
 			euc.dash.aLight="lightsOff";
 			euc.wri("lightsOff");
 			buzzer(D16,1,[30,50,30]);
