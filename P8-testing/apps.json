@@ -226,13 +226,13 @@
 		"tags": "euc",
 		"readme": "README.md",
 		"storage": [
-			{"name":"InmotionV1","url":"InmotionV1.js"},
-			{"name":"InmotionV1Opt","url":"InmotionV1Opt.js"},
-			{"name":"InmotionV1Opt2","url":"InmotionV1Opt2.js"},
-			{"name":"InmotionV1Adv","url":"InmotionV1Adv.js"},
-			{"name":"InmotionV1AdvCalibrate","url":"InmotionV1AdvCalibrate.js"},
-			{"name":"InmotionV1AdvLimits","url":"InmotionV1AdvLimits.js"},
-			{"name":"InmotionV1AdvPass","url":"InmotionV1AdvPass.js"}    ]
+			{"name":"InmotionV1","url":"dashInmotionV1.js"},
+			{"name":"InmotionV1Opt","url":"dashInmotionV1Opt.js"},
+			{"name":"InmotionV1Opt2","url":"dashInmotionV1Opt2.js"},
+			{"name":"InmotionV1Adv","url":"dashInmotionV1Adv.js"},
+			{"name":"InmotionV1AdvCalibrate","url":"dashInmotionV1AdvCalibrate.js"},
+			{"name":"InmotionV1AdvLimits","url":"dashInmotionV1AdvLimits.js"},
+			{"name":"InmotionV1AdvPass","url":"dashInmotionV1AdvPass.js"}    ]
 	}, 
 	{ "id": "dashVeteran",
 		"name": "Veteran Settings",
