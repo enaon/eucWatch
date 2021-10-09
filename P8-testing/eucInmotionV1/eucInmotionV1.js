@@ -387,7 +387,7 @@ euc.conn=function(mac){
 					euc.wCha.writeValue(euc.cmd("init")).then(function() {
 						return euc.wCha.writeValue(euc.cmd("end"));
 					}).then(function()  {	
-						return (euc.dash.lght.aHead)?euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.lght.Head)?1:0)):"ok";
+						return (euc.dash.lght.aHead)?euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.lght.head)?1:0)):"ok";
 					}).then(function()  {
 						return (euc.dash.lght.aHead)?euc.wCha.writeValue(euc.cmd("end")):"ok";
 					}).then(function()  {
