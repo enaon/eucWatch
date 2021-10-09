@@ -3,6 +3,7 @@ face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
 	g:w.gfx,
 	init: function(){
+		euc.busy=1;//stop bt loop-accept commands.
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		this.g.setColor(0,0);
 		this.g.fillRect(0,98,239,99);
@@ -93,6 +94,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
+		setTimeout(function(){euc.busy=0;euc.tmp.live();},800);
 		face.go(set.dash[set.def.dash.face],0);
 		return true;
 	},
@@ -129,6 +131,7 @@ touchHandler[0]=function(e,x,y){
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
+		setTimeout(function(){euc.busy=0;euc.tmp.live();},800);
 		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
@@ -143,6 +146,7 @@ touchHandler[0]=function(e,x,y){
 		face.go("dashInmotionV1Opt",0);
 		return;	
 	case 4: //slide right event (back action)
+		setTimeout(function(){euc.busy=0;euc.tmp.live();},800);
 		face.go(set.dash[set.def.dash.face],0);
 		return;
 	case 12: //long press event
@@ -155,10 +159,6 @@ touchHandler[0]=function(e,x,y){
 			buzzer(D16,1,40);
 			face[0].ntfy("NOT YET","NOT YET",18,col("red"),1);
 		}else if ( 120<=x && 100<=y ) { //off
-			euc.aOff=euc.dash.aOff;
-			euc.aLck=euc.dash.aLck;
-			euc.dash.aOff=1;
-			euc.dash.aLck=0;
 			euc.tgl();
 	    }else buzzer(D16,1,[100]);
 		this.timeout();

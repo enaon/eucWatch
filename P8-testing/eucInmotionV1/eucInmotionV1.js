@@ -1,6 +1,9 @@
 //code by freestyl3r
 euc.tmp={count:0,loop:0};
 if (!euc.dash.alrt) euc.dash.alrt={};
+if (!euc.dash.lght) euc.dash.lght={"head":0,"tail":0,"ring":0};
+if (!euc.dash.ctrl) euc.dash.ctrl={"aLck":0,"aLift":0,"aOff":0,"aLight":0,"lift":1,"lamp":0};
+if (!euc.dash.ride) euc.dash.ride={};
 
 euc.cmd=function(no,val){
 	if (set.bt===2) console.log("inmotion: send cmd :",no);
@@ -12,7 +15,7 @@ euc.cmd=function(no,val){
 		case "liveS":		return 		[170, 170, 19, 1, 165, 85, 15, -1, -1, -1, -1, -1, -1, -1, -1, 8, 5, 0, 1, 126];
 		case "liveS1":		return 		[170, 170, 19, 1, 165, 85, 15, -1, -1, -1, -1, -1, -1, -1, -1, 8, 5, 0, 1, 125];
 		case "init":		return 		[170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
-		case "calibration": return 		[170, 170, 22, 1, 165, 85, 15, 50, 84, 118, 152, 0, 0, 0, 0, 8, 5, 0, 0, 63];
+		case "calibration": return 		[ 170, 170, 25, 1, 165, 85, 15, 50, 84, 118, 152, 0, 0, 0, 0, 8, 5, 0, 0, 31 ];
 		case "horn": 		return		[170, 170, 9, 6, 165, 85, 15, 4, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 132];
 		case "beep":		return 		[170, 170, 9, 6, 165, 85, 15, 21, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 149];
 		case "led":			return 		[170, 170, 9, 6, 165, 85, 15, 21, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 149];
@@ -70,7 +73,7 @@ euc.cmd=function(no,val){
 			cmd = [170, 170, 1, 1, 165, 85, 15, val, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0];
 			cmd.push(7+cmd.reduce(checksum));
 			return cmd;
-		case "handleButton"://val=0|1
+		case "sethandleButton"://val=0|1
 			if (val!=0 && val!=1) return [0];
 			cmd = [170, 170, 46, 1, 165, 85, 15, val, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0];
 			cmd.push(7+cmd.reduce(checksum));
@@ -209,7 +212,7 @@ euc.conn=function(mac){
 			euc.tmp.chk= [];
 			euc.rCha.on('characteristicvaluechanged', function(event) {
 				if (set.bt===2&&set.dbg==3) console.log("Inmotion: packet in ",event.target.value.buffer); 
-				//if (euc.busy) return;
+				if (euc.busy) return;
 				//gather package
 				let inc=event.target.value.buffer;
 				euc.tmp.tot=E.toUint8Array(euc.tmp.last,inc);
@@ -282,7 +285,98 @@ euc.conn=function(mac){
 				if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
 				if (set.bt===2) console.log("Inmotion cmd: ", cmd);
 				//off
-				if (euc.state==="OFF"||cmd==="end") {
+				if (cmd==="hornOn") {
+					if (euc.horn) return;
+					euc.horn=1;
+					//euc.rCha.stopNotifications();
+					setTimeout(() => {
+						euc.wCha.writeValue(euc.cmd("setVolume",100)).then(function() { 
+							return euc.wCha.writeValue(euc.cmd("end")); 
+						}).then(function()  {
+							//setTimeout(() => {
+								euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.light)?0:1)).then(function() {
+										return euc.wCha.writeValue(euc.cmd("end"));
+									}).then(function()  {
+										setTimeout(() => { 
+										euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.light)?1:0)).then(function() {
+											return euc.wCha.writeValue(euc.cmd("end"));
+										}).then(function()  {	
+											setTimeout(() => {
+												euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.light)?0:0)).then(function() {
+													return euc.wCha.writeValue(euc.cmd("end"));
+												}).then(function()  {	
+													setTimeout(() => {
+														euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.light)?1:0)).then(function() {
+															return euc.wCha.writeValue(euc.cmd("end"));
+														}).then(function()  {	
+															return euc.wCha.writeValue(euc.cmd("playSound",20));
+														}).then(function()  {	
+															return euc.wCha.writeValue(euc.cmd("end"));
+														}).then(function()  {
+															setTimeout(() => {
+																euc.wCha.writeValue(euc.cmd("setVolume",20)).then(function() {
+																	return euc.wCha.writeValue(euc.cmd("end"));
+																}).then(function()  {
+																	euc.horn=0;
+																	euc.busy=0;
+																	euc.tmp.live();
+																	//euc.rCha.startNotifications();
+																}).catch(function(err)  {
+																	euc.state="OFF";
+																	euc.off("horn fail");	
+																});	
+															},1000); 	
+														});
+																
+													},30);
+												});
+											},30); 	
+										});
+									},30);
+								});	
+							//},50);
+						});
+					},100);
+				/*	
+					euc.horn=1;
+					if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
+					euc.tmp.loop=setTimeout(function(){
+						euc.tmp.loop=0;
+						euc.wCha.writeValue(euc.cmd("setVolume",100)).then(function() { 
+							return euc.wCha.writeValue(euc.cmd("end"));
+						}).then(function()  {
+							return euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.light)?0:1));
+						}).then(function()  {
+							return euc.wCha.writeValue(euc.cmd("end"));
+						}).then(function()  {
+							return euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.light)?1:0));
+						}).then(function()  {
+							return euc.wCha.writeValue(euc.cmd("end"));	
+						}).then(function()  {
+							return euc.wCha.writeValue(euc.cmd("playSound",20));
+						}).then(function()  {
+							return euc.wCha.writeValue(euc.cmd("end"));	
+						}).then(function()  {
+							if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
+							euc.tmp.loop=setTimeout(function(){
+								euc.wCha.writeValue(euc.cmd("setVolume",10)).then(function() { 
+									return euc.wCha.writeValue(euc.cmd("end"));
+								}).then(function()  {
+									euc.tmp.loop=0;
+									euc.horn=0;
+									euc.busy=0;
+									euc.tmp.live();
+								}).catch(function(err)  {
+									euc.off("hornfail");	
+								});
+							},700);
+						});
+					},150);
+				*/
+				}else if (cmd==="hornOff") {
+					return;
+					//euc.horn=0;	
+				}else if (euc.state==="OFF"||cmd==="end") {
 					if (global['\xFF'].BLE_GATTS && global['\xFF'].BLE_GATTS.connected) {
 						if (euc.tmp.loopEnd) {clearTimeout(euc.tmp.loopEnd); euc.tmp.loopEnd=0;}
 						euc.tmp.loopEnd=setTimeout(function(){
@@ -292,7 +386,7 @@ euc.conn=function(mac){
 						if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
 						euc.tmp.loop=setTimeout(function(){ 
 							euc.tmp.loop=0;
-							if (euc.dash.aOff) {
+							if (euc.dash.ctrl.aOff) {
 								euc.wCha.writeValue(euc.cmd("control",5)).then(function() {
 									return euc.wCha.writeValue(euc.cmd("end"));
 								}).then(function(err)  {
@@ -338,23 +432,7 @@ euc.conn=function(mac){
 					}).catch(function(err)  {
 						euc.off("start fail");	
 					});
-				}else if (cmd==="hornOn") {
-					euc.horn=1;
-					if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
-					euc.tmp.loop=setTimeout(function(){
-						euc.tmp.loop=0;
-						euc.wCha.writeValue(euc.cmd("playSound",24)).then(function() { 
-						euc.horn=0;
-						if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
-						euc.tmp.loop=setTimeout(function(){
-							euc.tmp.loop=0;
-							euc.busy=0;
-							euc.tmp.live();
-							},150);
-					});
-					},350);
-				}else if (cmd==="hornOff") {
-					euc.horn=0;					
+				
 				} else {
 					//if (euc.busy) return; 
 					if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
