@@ -235,12 +235,13 @@ touchHandler[0]=function(e,x,y){
 		w.gfx.drawLine (120,0,120,195);
 		w.gfx.drawLine (121,0,121,195);
 		w.gfx.flip();	
-        if (face[0].set)
-  			face[0].set=0;face[0].init();
-       	else{	
-			if (face.appPrev=="dashGarage") euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
-			face.go(face.appPrev,0);
-		}
+        if (face[0].set){
+  			  face[0].set=0;face[0].init();
+        }else{	
+			    if (face.appPrev=="dashGarage") euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
+			    face.go(face.appPrev,0);
+        
+	    	}
 		return;
 	case 12: //hold event
 		if (face[0].set) { 
