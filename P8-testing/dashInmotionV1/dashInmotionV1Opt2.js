@@ -24,11 +24,11 @@ face[0] = {
       	this.g.fillRect(120,200,143,204);
 		this.g.flip(); 
         this.btn(euc.dash.lght.aHead,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LIGHT",28,60,50);
-        //this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"HAPTIC",25,185,37,col("raf"),col("raf4"),122,0,239,97);	
 		this.btn(0,"",22,185,17,col("raf"),col("dgray"),122,0,239,97,"",22,185,55);		
         this.btn(euc.dash.ctrl.aOff,"AUTO",18,60,115,col("red"),col("dgray"),0,100,119,195,"OFF",30,60,150);
-        this.btn(euc.dash.ctrl.aLift,"AUTO",18,185,115,col("red"),col("dgray"),122,100,239,195,"LIFT",30,185,150);		
-        this.run=true;
+        this.btn(euc.dash.ctrl.aLift,"",18,185,115,col("red"),col("dgray"),122,100,239,195);
+		//this.btn(euc.dash.ctrl.aLift,"AUTO",18,185,115,col("red"),col("dgray"),122,100,239,195,"LIFT",30,185,150);	
+		this.run=true;
 	},
 	show : function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
@@ -119,11 +119,11 @@ touchHandler[0]=function(e,x,y){
             face[0].btn(euc.dash.ctrl.aOff,"AUTO",18,60,115,col("red"),col("dgray"),0,100,119,195,"OFF",30,60,150);
             face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",16,col("dgray"),euc.dash.ctrl.aOff);
 			buzzer(D16,1,[30,50,30]);		
-		}else if  (120<=x && 100<=y ) { //auto lift
-			euc.dash.ctrl.aLift=1-euc.dash.ctrl.aLift;
-            face[0].btn(euc.dash.ctrl.aLift,"AUTO",18,185,115,col("red"),col("dgray"),122,100,239,195,"LIFT",30,185,150);	
-            face[0].ntfy("CONNECT -> LIFT OFF","AUTO LIFT DISABLED",18,col("dgray"),euc.dash.ctrl.aLift);
-			buzzer(D16,1,[30,50,30]);						
+		//}else if  (120<=x && 100<=y ) { //auto lift
+			//euc.dash.ctrl.aLift=1-euc.dash.ctrl.aLift;
+         //   face[0].btn(euc.dash.ctrl.aLift,"AUTO",18,185,115,col("red"),col("dgray"),122,100,239,195,"LIFT",30,185,150);	
+			//face[0].ntfy("CONNECT -> LIFT OFF","AUTO LIFT DISABLED",18,col("dgray"),euc.dash.ctrl.aLift);
+			//buzzer(D16,1,[30,50,30]);						
 		}else buzzer(D16,1,[30,50,30]);
 		this.timeout();
 		break;
@@ -153,20 +153,12 @@ touchHandler[0]=function(e,x,y){
             face[0].btn(euc.dash.lght.aHead,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LIGHT",28,60,50);
             face[0].ntfy("AUTO LIGHT ON","AUTO LIGHT OFF",18,col("dgray"),euc.dash.lght.aHead);
 			buzzer(D16,1,[30,50,30]);
-		}else if ( 120<=x && y<=100 ) { //watch alerts
-			buzzer(D16,1,40);						
-			//face.go("dashAlerts",0);
 		}else if ( x<=120 && 100<=y ) { //auto off
 			euc.dash.ctrl.aOff=1-euc.dash.ctrl.aOff;
             face[0].btn(euc.dash.ctrl.aOff,"AUTO",18,60,115,col("red"),col("dgray"),0,100,119,195,"OFF",30,60,150);
             face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",16,col("dgray"),euc.dash.ctrl.aOff);
 			buzzer(D16,1,[30,50,30]);		
-		}else if  (120<=x && 100<=y ) { //auto lift
-			euc.dash.ctrl.aLift=1-euc.dash.ctrl.aLift;
-            face[0].btn(euc.dash.ctrl.aLift,"AUTO",18,185,115,col("red"),col("dgray"),122,100,239,195,"LIFT",30,185,150);	
-            face[0].ntfy("CONNECT -> LIFT OFF","AUTO LIFT DISABLED",18,col("dgray"),euc.dash.ctrl.aLift);
-			buzzer(D16,1,[30,50,30]);						
-		}else buzzer(D16,1,[30,50,30]);
+		}else buzzer(D16,1,40);
 		this.timeout();
 		break;
   }

@@ -273,7 +273,6 @@ touchHandler[0]=function(e,x,y){
 			euc.dash.hapB=1-euc.dash.hapB;
 			face[0].btn(euc.dash.hapB,"BATT",25,185,136,col("raf"),col("dgray"),122,100,239,195);
 			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",22,(euc.dash.hapB)?col("raf"):col("dgray"),euc.dash.hapB);
-
 			buzzer(D16,1,[30,50,30]);						
 			}else buzzer(D16,1,[30,50,30]);
 		this.timeout();
