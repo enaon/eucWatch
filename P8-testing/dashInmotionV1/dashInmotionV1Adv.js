@@ -121,15 +121,15 @@ touchHandler[0]=function(e,x,y){
             buzzer(D16,1,[30,50,30]);
 			face.go("dashInmotionV1AdvCalibrate",0);
 			return;
-		}else if ( x<=120 && 100<=y ) {   //limits
-			buzzer(D16,1,[30,50,30]);
-			face.go("dashInmotionV1AdvLimits",0);
-			return;
-		}else if ( 120<=x && 100<=y ) { //pass
-			buzzer(D16,1,[30,50,30]);		
-			if (euc.dash.pass.length>=4) face.go("dashInmotionV1AdvPass",5);
-			else face.go("dashInmotionV1AdvPass",0);
-			return;
+		//}else if ( x<=120 && 100<=y ) {   //limits
+		//	buzzer(D16,1,[30,50,30]);
+		//	face.go("dashInmotionV1AdvLimits",0);
+		//	return;
+		//}else if ( 120<=x && 100<=y ) { //pass
+		//	buzzer(D16,1,[30,50,30]);		
+		//	if (euc.dash.pass.length>=4) face.go("dashInmotionV1AdvPass",5);
+		//	else face.go("dashInmotionV1AdvPass",0);
+		//	return;
 		}else buzzer(D16,1,40);
 		this.timeout();
 		break;
