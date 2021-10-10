@@ -291,10 +291,6 @@ euc.conn=function(mac){
 					//euc.rCha.stopNotifications();
 					if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
 					euc.tmp.loop=setTimeout(() => {euc.tmp.loop=0;
-						//euc.wCha.writeValue(euc.cmd("setVolume",100)).then(function() { 
-							//return euc.wCha.writeValue(euc.cmd("end")); 
-						//}).then(function()  {
-							//setTimeout(() => {
 								euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.light)?0:1)).then(function() {
 										return euc.wCha.writeValue(euc.cmd("end"));
 									}).then(function()  {
@@ -319,17 +315,9 @@ euc.conn=function(mac){
 															}).then(function()  {
 																if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
 																euc.tmp.loop=setTimeout(() => {euc.tmp.loop=0;
-																	//euc.wCha.writeValue(euc.cmd("setVolume",euc.dash.ctrl.vol)).then(function() {
-																	//	return euc.wCha.writeValue(euc.cmd("end"));
-																	//}).then(function()  {
 																		euc.horn=0;
 																		euc.busy=0;
 																		euc.tmp.live();
-																		//euc.rCha.startNotifications();
-																	//}).catch(function(err)  {
-																	//	euc.state="OFF";
-																	//	euc.off("horn fail");	
-																	//});	
 																},1000); 	
 															});
 																	
@@ -339,12 +327,10 @@ euc.conn=function(mac){
 											});
 										},25);
 								});	
-							//},50);
-						//});
 					},150);
 				}else if (cmd==="hornOff") {
+					euc.horn=0;	
 					return;
-					//euc.horn=0;	
 				}else if (euc.state==="OFF"||cmd==="end") {
 					if (global['\xFF'].BLE_GATTS && global['\xFF'].BLE_GATTS.connected) {
 						if (euc.tmp.loopEnd) {clearTimeout(euc.tmp.loopEnd); euc.tmp.loopEnd=0;}
