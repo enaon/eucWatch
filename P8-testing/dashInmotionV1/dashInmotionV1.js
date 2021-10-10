@@ -173,7 +173,7 @@ touchHandler[0]=function(e,x,y){
 			}else if (120<=x && 100<=y ) { //off
 				face[0].ntfy("HOLD -> POWER OFF","",18,col("red"),1);
 				buzzer(D16,1,[30,50,30]);						
-			}else buzzer(D16,1,[30,50,30]);
+			}else buzzer(D16,1,40);
 		}
 		this.timeout();
 		break;

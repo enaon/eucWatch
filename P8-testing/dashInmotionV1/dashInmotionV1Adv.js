@@ -138,7 +138,7 @@ touchHandler[0]=function(e,x,y){
 			if (euc.dash.pass.length>=4) face.go("dashInmotionV1AdvPass",5);
 			else face.go("dashInmotionV1AdvPass",0);
 			return;
-		}else buzzer(D16,1,[30,50,30]);
+		}else buzzer(D16,1,40);
 		this.timeout();
 		break;
 	case 1: //slide down event

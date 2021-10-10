@@ -149,7 +149,7 @@ touchHandler[0]=function(e,x,y){
 				face[0].btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("dgray"),122,100,239,195);
 				face[0].ntfy("BUTTON IS HORN >2KPH","HOLD -> OPTIONS",18,(euc.dash.horn)?col("raf"):col("dgray"),euc.dash.horn);
 				buzzer(D16,1,[30,50,30]);						
-			}else buzzer(D16,1,[30,50,30]);
+			}else buzzer(D16,1,40);
 		}
 		this.timeout();
 		break;
