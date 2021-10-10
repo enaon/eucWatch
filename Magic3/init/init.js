@@ -7,7 +7,7 @@ function KickWd(){
 var wdint=setInterval(KickWd,3000);
 E.enableWatchdog(30, false);
 E.showMessage=print; //apploader suport
-global.save = function() { throw new Error("You don't need to use save() on P8!"); };
+global.save = function() { throw new Error("You don't need to use save() on the Magic3!"); };
 D7.write(1); // turns off sp02 red led
 ew={pin:{BAT:D30,CHRG:D8,BUZZ:D6,BL:D12,i2c:{SCL:14,SDA:15},touch:{RST:D39,INT:D32},disp:{CS:D3,DC:D47,RST:D2,BL:D12},acc:{INT:D46}}};
 //load in devmode
