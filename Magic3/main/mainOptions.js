@@ -235,26 +235,26 @@ touchHandler[0]=function(e,x,y){
 			   		if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;
 					w.gfx.clear();
 					face[0].init();
-					buzzer(D16,1,[30,50,30]);
+					buzzer(ew.pin.BUZZ,0,[30,50,30]);
 				}
 			}else if (face[0].set=="setTime") {
 				if ( x <=120 && y <= 120) { //hour up
-					buzzer(D16,1,[30,50,30]);
+					buzzer(ew.pin.BUZZ,0,[30,50,30]);
 					setTime(Date().setHours(Date().getHours()+1)/1000);
 					if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;
 					face[0].setTime();
 				}else if ( x <=120 && 120 <= y) {//hour dn
-					buzzer(D16,1,[30,50,30]);
+					buzzer(ew.pin.BUZZ,0,[30,50,30]);
 					setTime(Date().setHours(Date().getHours()-1)/1000);
 					if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;
 					face[0].setTime();
 				}else if ( 120 <= x && y <= 120) { //min up
-					buzzer(D16,1,[30,50,30]);
+					buzzer(ew.pin.BUZZ,0,[30,50,30]);
 					setTime(Date().setMinutes(Date().getMinutes()+1)/1000);
 					if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;
 					face[0].setTime();
 				}else if ( 120 <= x && 120 <= y) {//min dn
-					buzzer(D16,1,[30,50,30]);
+					buzzer(ew.pin.BUZZ,0,[30,50,30]);
 					setTime(Date().setMinutes(Date().getMinutes()-1)/1000);
 					if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;
 					face[0].setTime();
@@ -262,57 +262,57 @@ touchHandler[0]=function(e,x,y){
 					face[0].set=0;
 					w.gfx.clear();
 					face[0].init();
-					buzzer(D16,1,40);
+					buzzer(ew.pin.BUZZ,0,40);
 				}
 			}else if (face[0].set=="setDate") {
 				if ( x <=80 &&  y <= 120) { //date up
-					buzzer(D16,1,[30,50,30]);
+					buzzer(ew.pin.BUZZ,0,[30,50,30]);
 					setTime(Date().setDate(Date().getDate()+1)/1000);
 					face[0].setDate();
 				}else if ( x <=80 && 120 <= y) {//date dn
-					buzzer(D16,1,[30,50,30]);
+					buzzer(ew.pin.BUZZ,0,[30,50,30]);
 					setTime(Date().setDate(Date().getDate()-1)/1000);
 					face[0].setDate();
 				}else if ( 80 <= x && x <=160 && y <= 120) { //month up
-					buzzer(D16,1,[30,50,30]);
+					buzzer(ew.pin.BUZZ,0,[30,50,30]);
 					setTime(Date().setMonth(Date().getMonth()+1)/1000);
 					face[0].setDate();
 				}else if ( 80 <= x && x <=160 && 120 <= y) {//month dn
-					buzzer(D16,1,[30,50,30]);
+					buzzer(ew.pin.BUZZ,0,[30,50,30]);
 					setTime(Date().setMonth(Date().getMonth()-1)/1000);
 					face[0].setDate();
 				}else if ( 160 <= x && y <= 120) { //year up
-					buzzer(D16,1,[30,50,30]);
+					buzzer(ew.pin.BUZZ,0,[30,50,30]);
 					setTime(Date().setFullYear(Date().getFullYear()+1)/1000);
 					face[0].setDate();
 				}else if ( 160 <= x && 120 <= y) {//year dn
-					buzzer(D16,1,[30,50,30]);
+					buzzer(ew.pin.BUZZ,0,[30,50,30]);
 					setTime(Date().setFullYear(Date().getFullYear()-1)/1000);
 					face[0].setDate();
 				}else {
 					face[0].set=0;
 					w.gfx.clear();
 					face[0].init();
-					buzzer(D16,1,40);
+					buzzer(ew.pin.BUZZ,0,40);
 				}
 			}
 		}else if (  x <=120 &&  y <= 80 ) {//setTime
-			buzzer(D16,1,[30,50,30]);
+			buzzer(ew.pin.BUZZ,0,[30,50,30]);
 			face[0].set="setTime";
 			face[0].setTime();			
 		}else if ( 120 <= x && y <= 80 ) {//12/24 hour mode
-			buzzer(D16,1,[30,50,30]);
+			buzzer(ew.pin.BUZZ,0,[30,50,30]);
 			set.def.hr24=1-set.def.hr24;
 			face[0].btn(1,(set.def.hr24)?"24 H":"12 H",26,180,25,col("raf"),0,120,0,239,79);//2
 		}else if ( x <=120 && 80 <= y && y <= 160 ) { //setDate
-			buzzer(D16,1,[30,50,30]);	
+			buzzer(ew.pin.BUZZ,0,[30,50,30]);	
 			face[0].set="setDate";
 			face[0].setDate();
 		}else if (  80 <= y && y <= 160 ) { //about
-			buzzer(D16,1,[30,50,30]);
+			buzzer(ew.pin.BUZZ,0,[30,50,30]);
 			face[0].set="info";
 			face[0].info();
-		}else buzzer(D16,1,40);	
+		}else buzzer(ew.pin.BUZZ,0,40);	
 		this.timeout();
 		return;
 	case 1: //slide down event
@@ -335,7 +335,7 @@ touchHandler[0]=function(e,x,y){
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer(D16,1,[30,50,30]);
+			buzzer(ew.pin.BUZZ,0,[30,50,30]);
 		}else if (face[0].set) {
 			face[0].set=0;
 			if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;
@@ -348,7 +348,7 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
 	case 3: //slide left event
-		buzzer(D16,1,40);
+		buzzer(ew.pin.BUZZ,0,40);
 		break;
 	case 4: //slide right event (back action)
 		if (face[0].set) {
@@ -361,7 +361,7 @@ touchHandler[0]=function(e,x,y){
 			return; 
 		}break;
 	case 12: //hold event
-		buzzer(D16,1,40);
+		buzzer(ew.pin.BUZZ,0,40);
 		this.timeout();
 		break;
   }

@@ -131,7 +131,7 @@ touchHandler[0]=function(e,x,y){
 				touchHandler[0](e,x,y);
 				return;
 			} else{
-				buzzer(D16,1,[30,50,30]);
+				buzzer(ew.pin.BUZZ,0,[30,50,30]);
 				if (face[0].set=="spdF") { 
 					if (x<120){ //spd
 						euc.dash.spdF=(euc.dash.spdF - 0.01);
@@ -169,7 +169,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].btn(1,"EMPTY",15,200,10,col("olive"),0,160,0,239,75,euc.dash.batE/100,30,200,35); //3
 					face[0].ntfy("0% WHEN CELL IS AT",euc.dash.batE/100 + " Volt",30,1,col("olive"),3000,1);
 				}else  {
-					buzzer(D16,1,40);
+					buzzer(ew.pin.BUZZ,0,40);
 					face[0].set=0;
 					face[0].btn(1,"SPEED X",15,40,90,col("dgray"),col("raf"),0,80,75,155,euc.dash.spdF,30,40,120); //4
 					face[0].btn(1,"DIST X",15,120,90,col("dgray"),col("raf"),80,80,155,155,euc.dash.trpF,30,120,120); //5
@@ -178,58 +178,58 @@ touchHandler[0]=function(e,x,y){
 		}else if (!face[0].page){	
 			if (x<75 && y<75) { //1
 				//face[0].set="mph";
-				buzzer(D16,1,[30,50,30]);
+				buzzer(ew.pin.BUZZ,0,[30,50,30]);
 				set.def.dash.mph=1-set.def.dash.mph;
 				face[0].btn(1,(set.def.dash.mph)?"MPH":"KPH",30,40,25,col("raf"),0,0,0,75,75);
 				face[0].ntfy("SPEED & DISTANCE IN",(set.def.dash.mph)?"MILES":"KILOMETERS",30,1,col("raf"),1500);
 			}else if (75<= x && x < 155 && y < 75) { //2
 				//face[0].set="far";
-				buzzer(D16,1,[30,50,30]);
+				buzzer(ew.pin.BUZZ,0,[30,50,30]);
 				set.def.dash.farn=1-set.def.dash.farn;
 				face[0].btn(1,"o",20,100,20,col("raf"),0,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);
 				face[0].ntfy("TEMPERATURE IN",(set.def.dash.farn)?"FAHRENHEIT":"CELSIUS",30,1,col("raf"),1500);
 			}else if (155 <= x && y < 75) { //3
-				buzzer(D16,1,[30,50,30]);
+				buzzer(ew.pin.BUZZ,0,[30,50,30]);
 				face[0].set="batt";
 				face[0].btn(1,"EMPTY",15,200,10,col("olive"),0,160,0,239,75,euc.dash.batE/100,30,200,35); //3
 				face[0].ntfy("0% WHEN CELL IS AT",euc.dash.batE/100 + " Volt",30,1,col("olive"),3000,1);
 			}else if (x<75 && 75 <y && y < 155) { //4
-				buzzer(D16,1,[30,50,30]);
+				buzzer(ew.pin.BUZZ,0,[30,50,30]);
 				face[0].set="spdF";
 				face[0].btn(1,"SPEED X",15,40,90,col("olive"),0,0,80,75,155,euc.dash.spdF,30,40,120); //4
 				face[0].ntfy("SPEED FACTOR",euc.dash.spdF,40,1,col("olive"),3000,1);
 			}else if (75<= x && x < 155 && 75 <y && y < 155) { //5
-				buzzer(D16,1,[30,50,30]);
+				buzzer(ew.pin.BUZZ,0,[30,50,30]);
 				face[0].set="trpF";
 				face[0].btn(1,"DIST X",15,120,90,col("olive"),0,80,80,155,155,euc.dash.trpF,30,120,120); //5
 				face[0].ntfy("DISTANCE FACTOR",euc.dash.trpF,40,1,col("olive"),3000,1);
 			}else if (155 <= x && 75 <y && y < 155) { //6
-				buzzer(D16,1,[30,50,30]);
+				buzzer(ew.pin.BUZZ,0,[30,50,30]);
 				face[0].set="rtr";
 				face[0].btn(1,"RETRY",15,200,90,col("olive"),0,160,80,239,155,set.def.dash.rtr,30,200,120); //6
 				face[0].ntfy("NUMBER OF RETRIES",set.def.dash.rtr,40,1,col("olive"),3000,1);
-			}else buzzer(D16,1,40);		
+			}else buzzer(ew.pin.BUZZ,0,40);		
 		}else {
 			if (x<75 && y<75) { //1
-				buzzer(D16,1,40);
+				buzzer(ew.pin.BUZZ,0,40);
 			}else if (75<= x && x < 155 && y < 75) { //2
-				buzzer(D16,1,40);
+				buzzer(ew.pin.BUZZ,0,40);
 			}else if (155 <= x && y < 75) { //3
 				euc.dash.ampR=1-euc.dash.ampR;
 				face[0].btn(1,"AMP",15,200,10,col("raf"),col("dgray"),160,0,239,75,(euc.dash.ampR)?"R":"N",30,200,35); //3
 				face[0].ntfy("AMPERAGE REPORT",(euc.dash.ampR)?"REVERSED":"NORMAL",30,1,col("raf"),1500);
-				buzzer(D16,1,[30,50,30]);
+				buzzer(ew.pin.BUZZ,0,[30,50,30]);
 			}else if (x<75 && 75 <y && y < 155) { //4
-				buzzer(D16,1,40);
+				buzzer(ew.pin.BUZZ,0,40);
 			}else if (75<= x && x < 155 && 75 <y && y < 155) { //5
-				buzzer(D16,1,40);
+				buzzer(ew.pin.BUZZ,0,40);
 			}else if (155 <= x && 75 <y && y < 155) { //6
 				if (1.5<=euc.dash.bms) euc.dash.bms=1;
 				else euc.dash.bms=euc.dash.bms+0.25;
 				face[0].btn(1,"PACK",15,200,90,col("raf"),0,160,80,239,155,euc.dash.bms*67.2|0,30,200,120); //6
 				face[0].ntfy("BATTERY VOLTAGE",euc.dash.bms*67.2,40,1,col("raf"),1500);
-				buzzer(D16,1,[30,50,30]);   
-			}else buzzer(D16,1,40);		
+				buzzer(ew.pin.BUZZ,0,[30,50,30]);   
+			}else buzzer(ew.pin.BUZZ,0,40);		
 		}
 		this.timeout();
 		return;
@@ -246,7 +246,7 @@ touchHandler[0]=function(e,x,y){
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer(D16,1,[30,50,30]);
+			buzzer(ew.pin.BUZZ,0,[30,50,30]);
 			this.timeout();
 			return;
 		}
@@ -309,7 +309,7 @@ touchHandler[0]=function(e,x,y){
 			w.gfx.fillRect(120,180,165,184);
 			w.gfx.flip(); 
 		}else
-			buzzer(D16,1,40);
+			buzzer(ew.pin.BUZZ,0,40);
 		break;
 	case 4: //slide right event (back action)
 		if (face[0].page) {
@@ -344,7 +344,7 @@ touchHandler[0]=function(e,x,y){
 		}
 		return;
 	case 12: //hold event
-		buzzer(D16,1,40);
+		buzzer(ew.pin.BUZZ,0,40);
 		this.timeout();
 		break;
   }
