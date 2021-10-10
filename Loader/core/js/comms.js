@@ -79,9 +79,7 @@ const Comms = {
               min:currentBytes / maxBytes,
               max:(currentBytes+cmd.length) / maxBytes});
             currentBytes += cmd.length;
-//            Puck.write(`${cmd}\n`,(result) => {
-           Puck.write(`${cmd};Bluetooth.println("OK")\n`,(result) => {
-//              if (!result) {
+            Puck.write(`${cmd};Bluetooth.println("OK")\n`,(result) => {
               if (!result || result.trim()!="OK") {
                 Progress.hide({sticky:true});
                 return reject("Unexpected response "+(result||""));
@@ -123,7 +121,7 @@ const Comms = {
         if (Const.SINGLE_APP_ONLY) // only one app on device, info file is in app.info
           cmd = `\x10Bluetooth.println("["+(require("Storage").read("app.info")||"null")+",0]")\n`;
         else
-           cmd = '\x10Bluetooth.print("[");require("Storage").list(/\\.info$/).forEach(f=>{var j=require("Storage").readJSON(f,1)||{};j.id=f.slice(0,-5);Bluetooth.print(JSON.stringify(j)+",")});Bluetooth.println("0]")\n';
+          cmd = '\x10Bluetooth.print("[");require("Storage").list(/\\.info$/).forEach(f=>{var j=require("Storage").readJSON(f,1)||{};j.id=f.slice(0,-5);Bluetooth.print(JSON.stringify(j)+",")});Bluetooth.println("0]")\n';
         Puck.write(cmd, (appList,err) => {
           Progress.hide({sticky:true});
           try {
@@ -216,7 +214,7 @@ const Comms = {
         }
       }
       // Use write with newline here so we wait for it to finish
-      let cmd = '\x10require("Storage").eraseAll();\n';
+      let cmd = '\x10require("Storage").eraseAll();Bluetooth.println("OK");\n';
       Puck.write(cmd, handleResult, true /* wait for newline */);
     });
   },
