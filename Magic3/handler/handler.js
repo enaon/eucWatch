@@ -349,18 +349,124 @@ btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
 var i2c=new I2C();
 i2c.setup({scl:ew.pin.i2c.SCL, sda:ew.pin.i2c.SDA, bitrate:100000});
 set.def.touchtype="816";
-	setWatch(function(s){
-		i2c.writeTo(0x15,0);
+
+/*
+touch={
+	start:0,
+	stPt:[],
+	stTm:0
+};
+
+watchTouch=setWatch(function(s){
+	i2c.writeTo(0x15,3);
+	var tp=i2c.readFrom(0x15,1);
+	if (tp == 0 && !touch.start) {
+			touch.start=1;
+			touch.stTm=getTime();
+			touch.stPt=i2c.readFrom(0x15,4);
+			return;
+	}else if  (tp == 64 && touch.start){
+			 tp=i2c.readFrom(0x15,4);
+			if (getTime()-touch.stTm <= 200){
+				touchHandler[face.pageCurr](5,tp[1],tp[3]);
+        touch.start=0;
+      }
+    return;
+	}
+  return;
+  if (face.pageCurr>=0) {
+		if (tp[1]== 0 && tp[3]==64) {tp[1]=5; set.def.rstR=0xE5;}
+		if (set.def.rstR==0xE5 && tp[1]== 12 ) tp[6]=tp[6]+25;
+		touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);}
+	else if (tp[1]==1) {
+		face.go(face.appCurr,0);
+	}
+},ew.pin.touch.INT,{repeat:true, edge:"rising"}); 
+
+*/
+
+
+
+var tfk={
+	tid:0,
+	x:0,
+	y:0,
+	do:0,
+	st:1,
+	loop:5,
+	init:function(){
+		"ram";
 		var tp=i2c.readFrom(0x15,7);
-		//print("touch816 :",tp);
-		if (face.pageCurr>=0) {
-			if (tp[1]== 0 && tp[3]==64) {tp[1]=5; set.def.rstR=0xE5;}
-			if (set.def.rstR==0xE5 && tp[1]== 12 ) tp[6]=tp[6]+25;
-			touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);}
-		else if (tp[1]==1) {
-			face.go(face.appCurr,0);
+		if ( (tp[3] === 0 && tp[2] === 1) ) {
+			if ( !this.time ) this.time=getTime();
+			if ( this.st ) {
+				this.st = 0;
+				this.do = 1;
+				this.x = tp[4];
+                this.y = tp[6];
+                return;
+			}
+			if ( this.do && getTime() - this.time > 1 ) { 
+				this.do = 0 ;
+				touchHandler[face.pageCurr](12,this.x,this.y);
+				return;
+			}else if ( this.do && !tp[1] ) {
+				var a=0;
+				if (tp[6]>=this.y+30) a = 1;
+				else if (tp[6]<=this.y-30) a = 2;
+				else if (tp[4]<=this.x-30) a = 3;
+				else if (tp[4]>=this.x+30) a = 4;
+				if ( a != 0 && this.aLast != a ) {
+                    this.aLast=a;
+					this.do=0;
+					touchHandler[face.pageCurr](a,this.x,this.y);
+					return;
+				}
+			}else if ( this.do ){
+				if ( tp[1] == 5 || tp[1] ==12 ){
+					this.do=0;
+					//tfk.emit("touch",
+                    touchHandler[face.pageCurr](tp[1],this.x,this.y);
+                    return;
+				}
+			}
+		}else if ( tp[3] == 64 && !this.st ) {
+			if (this.do===1){
+              this.do=0;
+              touchHandler[face.pageCurr](5,this.x,this.y);
+			  return;
+            }
+            this.aLast=0;
+			this.st = 1;
+            this.time = 0;
 		}
-	},ew.pin.touch.INT,{repeat:true, edge:"rising"}); 
+	},
+	start:function(){ 
+		if (this.tid) clearInterval(this.tid);
+		digitalPulse(set.def.rstP,1,[10,50]); //touch wake
+        this.st=1;
+		this.tid=setInterval(function(){
+			tfk.init();
+		},this.loop);
+	},
+	exit:function(){
+		if (this.tid) clearInterval(this.tid);this.tid=0;
+	    digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100);
+		this.aLast=0;
+		this.st = 1;
+		this.time = 0;
+	}
+};	
+
+
+
+
+
+
+
+
+
+
 
 
 set.def.acctype="SC7A20";
