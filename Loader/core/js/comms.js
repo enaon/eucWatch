@@ -112,7 +112,7 @@ const Comms = {
   getInstalledApps : () => {
     Progress.show({title:`Getting app list...`,sticky:true});
     return new Promise((resolve,reject) => {
-      Puck.write("\x03;",(result) => {
+      Puck.write('\x03\n',(result) => {
         if (result===null) {
           Progress.hide({sticky:true});
           return reject("");
@@ -121,7 +121,7 @@ const Comms = {
         if (Const.SINGLE_APP_ONLY) // only one app on device, info file is in app.info
           cmd = `\x10Bluetooth.println("["+(require("Storage").read("app.info")||"null")+",0]")\n`;
         else
-          cmd = '\x10Bluetooth.print("[");require("Storage").list(/\\.info$/).forEach(f=>{var j=require("Storage").readJSON(f,1)||{};j.id=f.slice(0,-5);Bluetooth.print(JSON.stringify(j)+",")});\n';
+          cmd = '\x10Bluetooth.print("[");require("Storage").list(/\\.info$/).forEach(f=>{var j=require("Storage").readJSON(f,1)||{};j.id=f.slice(0,-5);Bluetooth.print(JSON.stringify(j)+",")})\n';
         Puck.write(cmd, (appList,err) => {
           Progress.hide({sticky:true});
           try {
