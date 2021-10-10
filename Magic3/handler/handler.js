@@ -397,7 +397,9 @@ var tfk={
 	init:function(){
 		"ram";
 		var tp=i2c.readFrom(0x15,7);
-		if ( (tp[3] === 0 && tp[2] === 1) ) {
+		//print(tp);
+		if ( tp[3] == 128 || (tp[3] === 0 && tp[2] === 1) ) {
+			print("start");
 			if ( !this.time ) this.time=getTime();
 			if ( this.st ) {
 				this.st = 0;
@@ -408,10 +410,14 @@ var tfk={
 			}
 			if ( this.do && getTime() - this.time > 1 ) { 
 				this.do = 0 ;
+				print("long");
+
 				touchHandler[face.pageCurr](12,this.x,this.y);
 				return;
 			}else if ( this.do && !tp[1] ) {
 				var a=0;
+				print("gest");
+
 				if (tp[6]>=this.y+30) a = 1;
 				else if (tp[6]<=this.y-30) a = 2;
 				else if (tp[4]<=this.x-30) a = 3;
