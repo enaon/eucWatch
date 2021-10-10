@@ -157,9 +157,9 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
 		if (50 < y) {
-		if (face[0].info) {buzzer(D16,1,40);return;}
+		if (face[0].info) {buzzer(ew.pin.BUZZ,0,40);return;}
 			let i=0;
-			buzzer(D16,1,[30,50,30]);
+			buzzer(ew.pin.BUZZ,0,[30,50,30]);
 			if (face[0].log[face[0].ref]&&!face[0].once){
 				face[0].once=1;
 				face[0].pos=face[0].ref;
@@ -183,7 +183,7 @@ touchHandler[0]=function(e,x,y){
 			face[0].sel(face[0].comf((face[0].log[face[0].pos]*((set.def.dash.mph)?0.625:1)).toFixed((face[0].page)?(face[0].page==1)?1:0:2)), face[0].id[face[0].pos].toUpperCase());
 			face[0].ind((face[0].pos<=face[0].ref)?face[0].len-(face[0].ref-face[0].pos):face[0].pos-face[0].ref);
 		}else {
-			buzzer(D16,1,[30,50,30]);
+			buzzer(ew.pin.BUZZ,0,[30,50,30]);
 			if  ( 120 < x ) { //info
 				if (face[0].info) return;
 				face[0].info=1;
@@ -263,7 +263,7 @@ touchHandler[0]=function(e,x,y){
 		if (y>160&&x<50) {
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer(D16,1,[30,50,30]);
+			buzzer(ew.pin.BUZZ,0,[30,50,30]);
 			this.timeout();
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
         this.timeout();
@@ -275,7 +275,7 @@ touchHandler[0]=function(e,x,y){
 		face.go("main",0);
 		return;
     case 12: //touch and hold(long press) event
-		buzzer(D16,1,40);
+		buzzer(ew.pin.BUZZ,0,40);
 		this.timeout();
 		return;
     }
