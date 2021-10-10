@@ -1,4 +1,4 @@
-//handler
+//handler .set={def:{acctype:"sc7a20",touchtype:"716"}}
 //fonts
 require('Font7x11Numeric7Seg').add(Graphics);
 //notifications
@@ -348,7 +348,7 @@ btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
 //var i2c=I2C1;
 var i2c=new I2C();
 i2c.setup({scl:ew.pin.i2c.SCL, sda:ew.pin.i2c.SDA, bitrate:100000});
-set.def.touchtype="816";
+set.def.touchtype="716";
 
 /*
 touch={
