@@ -79,7 +79,7 @@ const Comms = {
               min:currentBytes / maxBytes,
               max:(currentBytes+cmd.length) / maxBytes});
             currentBytes += cmd.length;
-            Puck.write(`${cmd};Bluetooth.println("OK")\n`,(result) => {
+            Puck.write(`${cmd}\n`,(result) => {
               if (!result || result.trim()!="OK") {
                 Progress.hide({sticky:true});
                 return reject("Unexpected response "+(result||""));
@@ -112,7 +112,7 @@ const Comms = {
   getInstalledApps : () => {
     Progress.show({title:`Getting app list...`,sticky:true});
     return new Promise((resolve,reject) => {
-      Puck.write(`${cmd};Bluetooth.println("OK")\n`,(result) => {
+      Puck.write(`${cmd}\n`,(result) => {
         if (result===null) {
           Progress.hide({sticky:true});
           return reject("");
