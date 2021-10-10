@@ -1,46 +1,11 @@
-var i2c=new I2C();
-i2c.setup({scl:D14, sda:D15, bitrate:100000});
-
 tou.forEach(function(v,i){if (v ) print("index ",i," ,Value ",v) ;})
-i2c.writeTo(0x15,0);print(i2c.readFrom(0x15,254))
+i2c.writeTo(0x15,0);print(i2c.readFrom(0x15,200))
 digitalPulse(D13,1,[5,50]);
 i2c.writeTo(0x15,254,1);
-i2c.writeTo(0x15,238,2); //rate
-i2c.writeTo(0x15,250,113); //rate
-i2c.writeTo(0x15,250,17); //rate
-
-var i2c=new I2C();
-i2c.setup({scl:D7, sda:D6, bitrate:100000}); //p8
-watch=setWatch(()=>{print(i2c.readFrom(0x15,254));},D28,{repeat:true,edge:"falling"}) ; //p8
-watch=setInterval(()=>{print(i2c.readFrom(0x15,254));},2000) ; //p8
-clearWatch(watch);
-digitalPulse(D13,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,254,1);i2c.writeTo(0x15,238,2);i2c.writeTo(0x15,250,113);i2c.writeTo(0x15,0);},100);
-digitalPulse(D13,1,[5,50]);
-
-
-var i2c=new I2C();
-i2c.setup({scl:D14, sda:D15, bitrate:100000});
-watch=setWatch(()=>{i2c.writeTo(0x15,0);print(i2c.readFrom(0x15,7));},D32,{repeat:true,edge:"falling"}) ;
-digitalPulse(D39,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,238,20);i2c.writeTo(0x15,250,17);},100);
-digitalPulse(D39,1,[5,50]);
 
 
 
 
-
-
-
-
-
-
-
-digitalPulse(D39,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,238,2);i2c.writeTo(0x15,239,20);i2c.writeTo(0x15,250,17);i2c.writeTo(0x15,251,1); },100);
-
-digitalPulse(D39,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,238,20);i2c.writeTo(0x15,239,20);i2c.writeTo(0x15,250,17),100);
-
-
-
-digitalPulse(this.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,238,20);i2c.writeTo(0x15,250,113); },100);
 
 new Uint8Array([0, 0, 0, 64, 99, 0, 159, 16, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 32, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 
