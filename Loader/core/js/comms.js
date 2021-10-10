@@ -112,7 +112,7 @@ const Comms = {
   getInstalledApps : () => {
     Progress.show({title:`Getting app list...`,sticky:true});
     return new Promise((resolve,reject) => {
-      Puck.write("\x03",(result) => {
+      Puck.write(`${cmd};Bluetooth.println("OK")\n`,(result) => {
         if (result===null) {
           Progress.hide({sticky:true});
           return reject("");
