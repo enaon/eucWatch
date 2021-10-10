@@ -124,7 +124,7 @@ touchHandler[0]=function(e,x,y){
          //   face[0].btn(euc.dash.ctrl.aLift,"AUTO",18,185,115,col("red"),col("dgray"),122,100,239,195,"LIFT",30,185,150);	
 			//face[0].ntfy("CONNECT -> LIFT OFF","AUTO LIFT DISABLED",18,col("dgray"),euc.dash.ctrl.aLift);
 			//buzzer(D16,1,[30,50,30]);						
-		}else buzzer(D16,1,[30,50,30]);
+		}else buzzer(D16,1,40);
 		this.timeout();
 		break;
 	case 1: //slide down event
