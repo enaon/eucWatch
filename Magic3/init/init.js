@@ -288,16 +288,21 @@ g.bri={
 	}
 };
 
+//return 100*(v-l)/(h-l);
+
 //battery
-const battVoltage=function(s){
-	let v=4.20/0.60*analogRead(ew.pin.bat);
-	if (s) { 
-		var l=3.5,h=4.19;
-		v= (100*(v-l)/(h-l)); //if (v>=100) v=100;
-	}
+const batt=function(i,c){
+	let v= 4.20/0.60*analogRead(ew.pin.BAT);
+	let l=3.5,h=4.19;
     let hexString = ("0x"+(0x50000700+(ew.pin.bat*4)).toString(16));
-	poke32(hexString,2); // disconnect pin for power saving, otherwise it draws 70uA more 
-	return v;
+	poke32(hexString,2); // disconnect pin for power saving, otherwise it draws 70uA more 	
+	if (i==="info"){
+		if (c) return ((100*(v-l)/(h-l)|0)+'% ,'+v.toFixed(2)+'V'); 
+		return ((100*(((v<=l)?0:v)-l)/(((v>=h)?100:h)-l)|0)+'%,'+v.toFixed(2)+'V'); 
+	}else if (i) { 
+		if (c) return (100*(v-l)/(h-l)|0)
+		return (100*(((v<=l)?0:v)-l)/(((v>=h)?100:h)-l)|0)
+	}else return +v.toFixed(2);;
 };
 module.exports = {
 //  pin: pin,
