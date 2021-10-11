@@ -396,7 +396,7 @@ var tfk={
 	y:0,
 	do:0,
 	st:1,
-	loop:20,
+	loop:5,
 	init:function(){
 		"ram";
 		var tp=i2c.readFrom(0x15,7);
