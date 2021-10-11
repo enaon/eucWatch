@@ -14,6 +14,7 @@ global.euc= {
 	off:function(err){if (set.def.cli) console.log("EUC off, not connected",err);},
 	wri:function(err){if (set.def.cli) console.log("EUC write, not connected",err);},
 	tgl:function(){ 
+		"ram";
 		face.off();
 		if (this.reconnect) {clearTimeout(this.reconnect); this.reconnect=0;}
 		if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}

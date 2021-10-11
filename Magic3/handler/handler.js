@@ -413,14 +413,12 @@ var tfk={
 			}
 			if ( this.do && getTime() - this.time > 1 ) { 
 				this.do = 0 ;
-				print("long");
-
+				//print("long");
 				touchHandler[face.pageCurr](12,this.x,this.y);
 				return;
 			}else if ( this.do && !tp[1] ) {
 				var a=0;
-				print("gest");
-
+				//print("gest");
 				if (tp[6]>=this.y+30) a = 1;
 				else if (tp[6]<=this.y-30) a = 2;
 				else if (tp[4]<=this.x-30) a = 3;
