@@ -206,6 +206,7 @@ NRF.setAdvertising({}, { name:set.def.name,connectable:true });
 set.upd();
 //face
 var face={
+	"ram";
 	appCurr:"main",
 	appPrev:"main",
 	pageCurr:-1,
@@ -313,6 +314,7 @@ setWatch(function(s){
 },ew.pin.CHRG,{repeat:true, debounce:500,edge:0});  
 //button 
 function buttonHandler(s){
+	"ram";
 	if (this.t1) {clearTimeout(this.t1); this.t1=0;}
 	if (face.offid) {clearTimeout(face.offid);face.offid=0;}
 	if (s.state) { 
@@ -479,6 +481,7 @@ set.def.acctype="SC7A20";
 //accelerometer(wake on wrist turn)
 //based on work from jeffmer
 	acc={
+		"ram";
 		up:0,
 		//ori:[65,66],
 		ori:[65,66],
@@ -558,6 +561,7 @@ set.def.acctype="SC7A20";
 
 
 cron={
+	"ram";
 	event:{
 		//date:()=>{ setTimeout(() =>{ cron.emit('dateChange',Date().getDate());cron.event.date();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate()+1)-Date()));},
 		hour:()=>{setTimeout(() =>{ cron.emit('hour',Date().getHours());cron.event.hour();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate(),Date().getHours()+1,0,1)-Date()));},
@@ -611,7 +615,7 @@ cron.on('month',cron.task.euc.month);
 //themes -todo
 if (!Boolean(require("Storage").read("colmode16"))){
 	function col(no){
-		//"ram";
+		"ram";
 		switch (no) {
 			case "black":return 0;case "white":return 4095;case "lblue":return 1535;case "blue":return 143;case "dblue":return 1375;case "blue1":return 1708;
 			case "raf":return 1453;case "raf1":return 1708;case "raf2":return 1963;case "raf3":return 2220;case "raf4":return 2474;case "raf5":return 3005;
@@ -622,7 +626,7 @@ if (!Boolean(require("Storage").read("colmode16"))){
 	}
 }else {
 	function col(no){
-			//"ram";
+		"ram";
 		switch (no) {
 			case "black":return 0x0000;case "white":return 0xFFFF;case "lblue":return 0xD7BF;case "blue":return 0xEFBF;case "dblue":return 0x0819;case "blue1":return 0x319B;
 			case "raf":return 0x3276;case "raf1":return 0x4B16;case "raf2":return 0x3ADC;case "raf3":return 0x2A16;case "raf4":return 0x6396;case "raf5":return 0x5332;
