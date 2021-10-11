@@ -132,7 +132,7 @@ var set={
 
 set.def = require('Storage').readJSON('setting.json', 1);
 if (!set.def) {set.resetSettings();set.updateSettings();}
-if (!set.def.rstP) set.def.rstP=ew.pin.touch.RST;
+if (!set.def.rstP) set.def.rstP="D39";
 if (!set.def.rstR) set.def.rstR=0xA5;
 if (set.def.buzz) buzzer=digitalPulse;
 else buzzer=function(){return true;};
@@ -393,7 +393,7 @@ var tfk={
 	y:0,
 	do:0,
 	st:1,
-	loop:5,
+	loop:20,
 	init:function(){
 		"ram";
 		var tp=i2c.readFrom(0x15,7);
