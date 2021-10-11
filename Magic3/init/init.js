@@ -130,6 +130,7 @@ function cmds(arr){
 RST.set();
 
 function init(){
+	"ram";
   cmd(0x11); // sleep out
   delayms(120);
   cmd([0x36, 0]);     // MADCTL - This is an unrotated screen
@@ -218,6 +219,7 @@ g.buffA=E.getAddressOf(g.buffer,true); // framebuffer address
 g.stride=g.getWidth()*bpp/8;
 
 g.flip=function(force){
+	"ram";
   var r=g.getModified(true);
   if (force)
     r={x1:0,y1:0,x2:this.getWidth()-1,y2:this.getHeight()-1};
@@ -244,6 +246,7 @@ g.isOn=false;
 init();
 
 g.on=function(){
+	"ram";
   if (this.isOn) return;
   cmd(0x11);
   g.flip();
@@ -255,6 +258,7 @@ g.on=function(){
 
 
 g.off=function(){
+	"ram";
   if (!this.isOn) return;
   //cmd(0x28);
   cmd(0x10);
@@ -265,6 +269,7 @@ g.off=function(){
 // does PWM on BL pin, not best for P8 as it has 3 BL pins
 g.lev=256;
 g.setBrightness=function(lev){
+	"ram";
   if (lev>=0 && lev<=256)
     this.lev=lev;
   else
@@ -298,10 +303,10 @@ const batt=function(i,c){
 	poke32(hexString,2); // disconnect pin for power saving, otherwise it draws 70uA more 	
 	if (i==="info"){
 		if (c) return ((100*(v-l)/(h-l)|0)+'% ,'+v.toFixed(2)+'V'); 
-		return ((100*(((v<=l)?0:v)-l)/(((v>=h)?100:h)-l)|0)+'%,'+v.toFixed(2)+'V'); 
+		return ((v<=l)?0:(h<=v)?100:((v-l)/(h-l)|0)+'%,'+v.toFixed(2)+'V'); 
 	}else if (i) { 
 		if (c) return (100*(v-l)/(h-l)|0);
-		return (100*(((v<=l)?0:v)-l)/(((v>=h)?100:h)-l)|0);
+		return ( (v<=l)?0:(h<=v)?100:((v-l)/(h-l)|0) );
 	}else return +v.toFixed(2);
 };
 module.exports = {
