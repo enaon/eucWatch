@@ -3,6 +3,7 @@ face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
 	g:w.gfx,
 	init: function(){
+		"ram";
 		if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(set.dash[set.def.dash.face],0);return;}
        //if (!face.appPrev.startsWith("dash")) this.g.clear();
 		this.g.setColor(0,0);
@@ -23,6 +24,7 @@ face[0] = {
         this.run=true;
 	},
 	show : function(){
+		"ram";
 		if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
         this.tid=setTimeout(function(t,o){
@@ -31,6 +33,7 @@ face[0] = {
         },1000,this);
 	},
     btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
+		"ram";
 			this.g.setColor(0,(bt)?clr1:clr0);
 			this.g.fillRect(rx1,ry1,rx2,ry2);
 			this.g.setColor(1,col("white"));
@@ -41,7 +44,8 @@ face[0] = {
 			this.g.flip();
     },
     ntfy: function(txt1,txt0,size,clr,bt){
-            this.g.setColor(0,clr);
+			"ram";
+			this.g.setColor(0,clr);
 			this.g.fillRect(0,198,239,239);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",size);
@@ -62,6 +66,7 @@ face[0] = {
 	tid:-1,
 	run:false,
 	clear : function(){
+		"ram";
 		//this.g.clear();
 		this.run=false;
 		if (this.tid>=0) clearTimeout(this.tid);this.tid=-1;
@@ -69,6 +74,7 @@ face[0] = {
 		return true;
 	},
 	off: function(){
+		"ram";
 		this.g.off();
 		this.clear();
 	}
@@ -77,10 +83,12 @@ face[0] = {
 face[1] = {
 	offms:1000,
 	init: function(){
+		"ram";
 		if (face.appPrev=="dashGarage") euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 		return true;
 	},
 	show : function(){
+		"ram";
 		if (euc.state=="READY"&&euc.dash.maker=="Kingsong")
 			face.go("dashKingsongOpt",0);
 		else if (euc.state=="READY"&&euc.dash.maker=="Begode")
@@ -97,6 +105,7 @@ face[1] = {
 };	
 //touch
 touchHandler[0]=function(e,x,y){ 
+	"ram";
 	switch (e) {
 	case 5: //tap event
 		if (face[0].set) { 

@@ -359,6 +359,7 @@ face[1] = {
 
 //touch-main
 touchHandler[0]=function(e,x,y){
+	"ram";
 	switch (e) {
 	case 5: //tap event	
 		if (120<x&&y<55){//batery percentage/voltage
