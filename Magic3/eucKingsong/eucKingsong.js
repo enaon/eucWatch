@@ -45,7 +45,7 @@ euc.cmd=function(no){
 };
 
 euc.tmp.one=function(inpk){
-  //"ram";
+	"ram";
 	//speed
 	euc.dash.spd=(inpk[5] << 8 | inpk[4])/100; 
 	euc.dash.spdC = ( euc.dash.spd1 <= euc.dash.spd )? 2 : ( euc.dash.spd2 <= euc.dash.spd )? 1 : 0 ;	
@@ -102,6 +102,7 @@ euc.tmp.one=function(inpk){
 					
 };
 euc.tmp.two=function(inpk){
+	"ram";
 	euc.dash.trpL=((inpk[2] << 16) + (inpk[3] << 24) + inpk[4] + (inpk[5] << 8)) / 1000;
 	euc.dash.time=Math.round((inpk[7] << 8 | inpk[6])/60);
 	euc.dash.spdM=Math.round((inpk[9] << 8 | inpk[8])/100) ;
@@ -109,6 +110,7 @@ euc.tmp.two=function(inpk){
 					
 };
 euc.tmp.thre=function(inpk){
+	"ram";
 	euc.dash.spdL=(inpk[3] << 8 | inpk[2])/100;
 	euc.dash.alrm=(euc.dash.spdL < euc.dash.spdT && euc.dash.spdL-5 < euc.dash.spd)?1:0;
 	almL.unshift(euc.dash.alrm);
@@ -133,6 +135,7 @@ euc.conn=function(mac){
 //		inpk=new Uint8Array(event.target.value.buffer);
 		var inpk=new Uint8Array(20);
 		c.on('characteristicvaluechanged', function(event) {
+			"ram";
 			inpk.set(event.target.value.buffer);
             if (euc.busy) return;
 			euc.alert=0;
@@ -210,6 +213,7 @@ euc.conn=function(mac){
 	}).then(function(c) {
 		if (set.def.cli) console.log("EUC Kingsong connected"); 
 		euc.wri= function(n) {
+			"ram";
 			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},100);return;} 
 			euc.busy=setTimeout(()=>{euc.busy=0;},1000);
 			//if (n=="end") c.stopNotifications();
