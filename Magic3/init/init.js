@@ -300,13 +300,13 @@ const batt=function(i,c){
 		if (c) return ((100*(v-l)/(h-l)|0)+'% ,'+v.toFixed(2)+'V'); 
 		return ((100*(((v<=l)?0:v)-l)/(((v>=h)?100:h)-l)|0)+'%,'+v.toFixed(2)+'V'); 
 	}else if (i) { 
-		if (c) return (100*(v-l)/(h-l)|0)
-		return (100*(((v<=l)?0:v)-l)/(((v>=h)?100:h)-l)|0)
-	}else return +v.toFixed(2);;
+		if (c) return (100*(v-l)/(h-l)|0);
+		return (100*(((v<=l)?0:v)-l)/(((v>=h)?100:h)-l)|0);
+	}else return +v.toFixed(2);
 };
 module.exports = {
 //  pin: pin,
-  battVoltage: battVoltage,
+  batt: batt,
   gfx: g
 };
 });
