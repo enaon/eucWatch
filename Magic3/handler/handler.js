@@ -402,7 +402,7 @@ var tfk={
 		var tp=i2c.readFrom(0x15,7);
 		//print(tp);
 		if ( tp[3] == 128 || (tp[3] === 0 && tp[2] === 1) ) {
-			print("start");
+			//print("start");
 			if ( !this.time ) this.time=getTime();
 			if ( this.st ) {
 				this.st = 0;
