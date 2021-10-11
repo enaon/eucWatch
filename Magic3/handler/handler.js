@@ -206,7 +206,6 @@ NRF.setAdvertising({}, { name:set.def.name,connectable:true });
 set.upd();
 //face
 var face={
-	"ram";
 	appCurr:"main",
 	appPrev:"main",
 	pageCurr:-1,
@@ -217,6 +216,7 @@ var face={
 	offid:0,
 	offms:-1,
 	off:function(t){ 
+    "ram";
 		if (this.pageCurr===-1) return;
 		if (this.offid) {clearTimeout(this.offid); this.offid=0;}
 		if (face[this.pageCurr]!=-1){
@@ -242,6 +242,7 @@ var face={
 		},this.offms,this.pageCurr);
 	},
 	go:function(app,page,arg){
+    "ram";
 		this.appPrev=this.appCurr;
 		this.pagePrev=this.pageCurr;
 		this.appCurr=app;
@@ -481,7 +482,6 @@ set.def.acctype="SC7A20";
 //accelerometer(wake on wrist turn)
 //based on work from jeffmer
 	acc={
-		"ram";
 		up:0,
 		//ori:[65,66],
 		ori:[65,66],
@@ -508,6 +508,7 @@ set.def.acctype="SC7A20";
 			return true;
 		},
 		init:function(v){
+      "ram";
 			if (v==2) {
 				i2c.writeTo(0x18,0x22,0x00); //ia1 interrupt to INT1
 				i2c.writeTo(0x18,0x30,0x00); //int1 to xh
@@ -561,7 +562,6 @@ set.def.acctype="SC7A20";
 
 
 cron={
-	"ram";
 	event:{
 		//date:()=>{ setTimeout(() =>{ cron.emit('dateChange',Date().getDate());cron.event.date();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate()+1)-Date()));},
 		hour:()=>{setTimeout(() =>{ cron.emit('hour',Date().getHours());cron.event.hour();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate(),Date().getHours()+1,0,1)-Date()));},

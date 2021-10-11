@@ -126,7 +126,7 @@ euc.conn=function(mac){
 		global["\xFF"].BLE_GATTS.disconnect();return;
 	}
 	//connect 
-	NRF.connect(mac,{minInterval:7.5, maxInterval:15})
+	NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 	.then(function(g) {
 	   return g.getPrimaryService(0xffe0);
 	}).then(function(s) {
