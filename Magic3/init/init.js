@@ -302,8 +302,8 @@ const batt=function(i,c){
     let hexString = ("0x"+(0x50000700+(ew.pin.bat*4)).toString(16));
 	poke32(hexString,2); // disconnect pin for power saving, otherwise it draws 70uA more 	
 	if (i==="info"){
-		if (c) return ((100*(v-l)/(h-l)|0)+'% ,'+v.toFixed(2)+'V'); 
-		return ((v<=l)?0:(h<=v)?100:((v-l)/(h-l)|0)+'%,'+v.toFixed(2)+'V'); 
+		if (c) return ((100*(v-l)/(h-l)|0)+'%-'+v.toFixed(2)+'V'); 
+		return (((v<=l)?0:(h<=v)?100:((v-l)/(h-l)|0))+'%,'+v.toFixed(2)+'V'); 
 	}else if (i) { 
 		if (c) return (100*(v-l)/(h-l)|0);
 		return ( (v<=l)?0:(h<=v)?100:((v-l)/(h-l)|0) );
