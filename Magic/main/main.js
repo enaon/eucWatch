@@ -372,5 +372,5 @@ touchHandler[0]=function(e,x,y){
 	   }	  
      }else buzzer(ew.pin.BUZZ,0,40);
     }
-   face.off()();
+   face.off();
 };

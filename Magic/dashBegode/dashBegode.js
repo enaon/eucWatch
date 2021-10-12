@@ -127,7 +127,7 @@ touchHandler[0]=function(e,x,y){
             face[0].ntfy((euc.dash.horn)?"BUTTON IS HORN >2KPH":"HORN DISABLED",(euc.dash.horn)?col("raf"):col("dgray"),(euc.dash.horn)?18:20);
 			buzzer(ew.pin.BUZZ,0,[30,50,30]);						
 		}else buzzer(ew.pin.BUZZ,0,40);
-		face.off()();
+		face.off();
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
@@ -139,7 +139,7 @@ touchHandler[0]=function(e,x,y){
 			else w.gfx.bri.set(this.bri);
 			buzzer(ew.pin.BUZZ,0,[30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		face.off()();
+		face.off();
 		break;
 	case 3: //slide left event
 		face.go("dashBegodeAdv",0);
@@ -161,7 +161,7 @@ touchHandler[0]=function(e,x,y){
 			buzzer(ew.pin.BUZZ,0,[30,50,30]);	
 			euc.state="OFF";
 	    }else buzzer(ew.pin.BUZZ,0,40);
-		face.off()();
+		face.off();
 		break;
   }
 };

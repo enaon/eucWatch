@@ -259,7 +259,7 @@ touchHandler[0]=function(e,x,y){
 		if (!notify.nCall&&!notify.nIm&&!notify.nInfo) {set.gbSend({t:"notify", n:"dismiss_all"});notify.New=0;}
       }else buzzer(ew.pin.BUZZ,0,40);
     }
-   face.off()();
+   face.off();
 };
 touchHandler[5]=function(e,x,y){
     if (face[5].del===2){
@@ -296,6 +296,6 @@ touchHandler[5]=function(e,x,y){
     }else if  (e==12){
       buzzer(ew.pin.BUZZ,0,40);
     }
-   face.off()();
+   face.off();
 };
 

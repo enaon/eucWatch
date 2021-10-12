@@ -111,7 +111,7 @@ touchHandler[0]=function(e,x,y){
     buzzer(ew.pin.BUZZ,0,40);  
     break;
   default: //reset face timeout on every touch action, this function is in the handler file. 
-    face.off()();
+    face.off();
   }
 };
 

@@ -367,7 +367,7 @@ touchHandler[0]=function(e,x,y){
         buzzer(ew.pin.BUZZ,0,[100,50,80]);
       //}
     }
-   face.off()();
+   face.off();
 };
 //
 touchHandler[5]=function(e,x,y){
@@ -417,6 +417,6 @@ touchHandler[5]=function(e,x,y){
 		calc.hist=[];
 		face.go("calc",0);return;
     }
-   face.off()();
+   face.off();
 };
 	

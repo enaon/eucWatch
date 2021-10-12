@@ -246,5 +246,5 @@ touchHandler[0]=function(e,x,y){
     }else if  (e==12){		
 	  buzzer(ew.pin.BUZZ,0,40);    
     }
-    face.off()();
+    face.off();
 };

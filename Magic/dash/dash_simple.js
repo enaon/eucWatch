@@ -196,7 +196,7 @@ touchHandler[0]=function(e,x,y){
 		else{	
 			buzzer(ew.pin.BUZZ,0,40);
 		}
-		face.off()();
+		face.off();
 		break;
     case 1: //slide down event
 		if (set.def.dash.face+1>=set.dash.length) set.def.dash.face=0; else set.def.dash.face++;
@@ -207,9 +207,9 @@ touchHandler[0]=function(e,x,y){
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 			buzzer(ew.pin.BUZZ,0,[30,50,30]);
-			face.off()();
+			face.off();
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
-        face.off()();
+        face.off();
 		break;
     case 3: //slide left event
 		(euc.state=="READY")?face.go('dash'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0):(euc.state=="OFF")?face.go("dashGarage",0):buzzer(ew.pin.BUZZ,0,40);
@@ -219,7 +219,7 @@ touchHandler[0]=function(e,x,y){
 		return;
     case 12: //touch and hold(long press) event
 		buzzer(ew.pin.BUZZ,0,40);
-		face.off()();
+		face.off();
 		break;
     }
 };

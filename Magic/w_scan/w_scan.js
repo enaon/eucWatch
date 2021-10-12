@@ -188,7 +188,7 @@ touchHandler[0]=function(e,x,y){
 		face.go(face.appRoot[0],face.appRoot[1]);
 	  return;
     }
-    face.off()();
+    face.off();
 };
 
 

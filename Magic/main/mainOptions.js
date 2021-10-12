@@ -320,7 +320,7 @@ touchHandler[0]=function(e,x,y){
 			face[0].set="info";
 			face[0].info();
 		}else buzzer(ew.pin.BUZZ,0,40);	
-		face.off()();
+		face.off();
 		return;
 	case 1: //slide down event
 		if (face[0].set) {
@@ -352,7 +352,7 @@ touchHandler[0]=function(e,x,y){
 			face.go(face.appPrev,0);
 			return; 
 		}
-		face.off()();
+		face.off();
 		break;
 	case 3: //slide left event
 		buzzer(ew.pin.BUZZ,0,40);
@@ -369,7 +369,7 @@ touchHandler[0]=function(e,x,y){
 		}break;
 	case 12: //hold event
 		buzzer(ew.pin.BUZZ,0,40);
-		face.off()();
+		face.off();
 		break;
   }
 };

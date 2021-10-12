@@ -125,7 +125,7 @@ touchHandler[0]=function(e,x,y){
 			//face[0].ntfy("CONNECT -> LIFT OFF","AUTO LIFT DISABLED",18,col("dgray"),euc.dash.ctrl.aLift);
 			//buzzer(ew.pin.BUZZ,0,[30,50,30]);						
 		}else buzzer(ew.pin.BUZZ,0,40);
-		face.off()();
+		face.off();
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
@@ -139,7 +139,7 @@ touchHandler[0]=function(e,x,y){
 		}else //if (y>100) {
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		//} else {buzzer(ew.pin.BUZZ,0,40);}
-		face.off()();
+		face.off();
 		break;
 	case 3: //slide left event
 		face.go("dashInmotionV1Adv",0);
@@ -159,7 +159,7 @@ touchHandler[0]=function(e,x,y){
             face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",16,col("dgray"),euc.dash.ctrl.aOff);
 			buzzer(ew.pin.BUZZ,0,[30,50,30]);		
 		}else buzzer(ew.pin.BUZZ,0,40);
-		face.off()();
+		face.off();
 		break;
   }
 };

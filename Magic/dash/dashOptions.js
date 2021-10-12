@@ -231,7 +231,7 @@ touchHandler[0]=function(e,x,y){
 				buzzer(ew.pin.BUZZ,0,[30,50,30]);   
 			}else buzzer(ew.pin.BUZZ,0,40);		
 		}
-		face.off()();
+		face.off();
 		return;
 	case 1: //slide down event
 		euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
@@ -247,11 +247,11 @@ touchHandler[0]=function(e,x,y){
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 			buzzer(ew.pin.BUZZ,0,[30,50,30]);
-			face.off()();
+			face.off();
 			return;
 		}
 		if (face[0].page) {
-			face.off()();
+			face.off();
 			face[0].page=0;
 			face[0].btn(1,(set.def.dash.mph)?"MPH":"KPH",30,40,25,col("raf"),0,0,0,75,75);//1
 			face[0].btn(1,"o",20,100,20,col("raf"),0,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);//2
@@ -282,7 +282,7 @@ touchHandler[0]=function(e,x,y){
 		}
 		break;
 	case 3: //slide left event
-		face.off()();
+		face.off();
 		if (!face[0].page) {
 			face[0].page=1;
 			face[0].btn(1,"",30,40,25,col("dgray"),0,0,0,75,75);//1
@@ -313,7 +313,7 @@ touchHandler[0]=function(e,x,y){
 		break;
 	case 4: //slide right event (back action)
 		if (face[0].page) {
-			face.off()();
+			face.off();
 			face[0].page=0;
 			face[0].btn(1,(set.def.dash.mph)?"MPH":"KPH",30,40,25,col("raf"),0,0,0,75,75);//1
 			face[0].btn(1,"o",20,100,20,col("raf"),0,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);//2
@@ -345,7 +345,7 @@ touchHandler[0]=function(e,x,y){
 		return;
 	case 12: //hold event
 		buzzer(ew.pin.BUZZ,0,40);
-		face.off()();
+		face.off();
 		break;
   }
 };

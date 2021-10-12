@@ -394,7 +394,7 @@ var tfk={
 		"ram";
 		var tp=i2c.readFrom(0x15,7);
 		//print(tp);
-		if ( tp[3] == 128 || (tp[3] === 0 && tp[2] === 1) ) {
+		if ( tp[3] == 128  && tp[2] === 1 ) {
 			//print("start");
 			if ( !this.time ) this.time=getTime();
 			if ( this.st ) {
@@ -407,7 +407,7 @@ var tfk={
 			if ( this.do && getTime() - this.time > 1 ) { 
 				this.do = 0 ;
 				//print("long");
-				tfk.emit('touch',12,this.x,this.y) 
+				tfk.emit('touch',12,this.x,this.y) ;
 				//touchHandler[face.pageCurr](12,this.x,this.y);
 				return;
 			}else if ( this.do && !tp[1] ) {
@@ -420,14 +420,14 @@ var tfk={
 				if ( a != 0 && this.aLast != a ) {
                     this.aLast=a;
 					this.do=0;
-					tfk.emit('touch',a,this.x,this.y) 
+					tfk.emit('touch',a,this.x,this.y); 
 					//touchHandler[face.pageCurr](a,this.x,this.y);
 					return;
 				}
 			}else if ( this.do ){
 				if ( tp[1] == 5 || tp[1] ==12 ){
 					this.do=0;
-					tfk.emit('touch',tp[1],this.x,this.y) 
+					tfk.emit('touch',tp[1],this.x,this.y); 
                     //touchHandler[face.pageCurr](tp[1],this.x,this.y);
                     return;
 				}
@@ -435,7 +435,7 @@ var tfk={
 		}else if ( tp[3] == 64 && !this.st ) {
 			if (this.do===1){
               this.do=0;
-			  tfk.emit('touch',5,this.x,this.y) 
+			  tfk.emit('touch',5,this.x,this.y) ;
               //touchHandler[face.pageCurr](5,this.x,this.y);
 			  return;
             }

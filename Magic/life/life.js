@@ -155,7 +155,7 @@ touchHandler[0]=function(e,x,y){
     buzzer(ew.pin.BUZZ,0,[30,50,30]);
     break;
     default: //reset face timeout. 
-    face.off()();
+    face.off();
   }
 };
 

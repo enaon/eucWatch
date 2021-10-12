@@ -299,7 +299,7 @@ touchHandler[0]=function(e,x,y){
         buzzer(ew.pin.BUZZ,0,[30,50,30]);
 	  }else buzzer(ew.pin.BUZZ,0,40);    
     }
-    face.off()();
+    face.off();
 };
 //setup 
 touchHandler[5]=function(e,x,y){
@@ -356,6 +356,6 @@ touchHandler[5]=function(e,x,y){
 	if (alrm[a].tmr!==-1){alrm.clear(a); 
         alrm.set(a);
     }
-    face.off()();
+    face.off();
 };
  

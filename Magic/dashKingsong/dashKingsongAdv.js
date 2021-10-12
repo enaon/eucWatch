@@ -139,7 +139,7 @@ touchHandler[0]=function(e,x,y){
 			else face.go("dashKingsongAdvPass",0);
 			return;
 		}else buzzer(ew.pin.BUZZ,0,[30,50,30]);
-		face.off()();
+		face.off();
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
@@ -151,11 +151,11 @@ touchHandler[0]=function(e,x,y){
 			else w.gfx.bri.set(this.bri);
 			buzzer(ew.pin.BUZZ,0,[30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		face.off()();
+		face.off();
 		break;
 	case 3: //slide left event
 		buzzer(ew.pin.BUZZ,0,40);    
-		face.off()();
+		face.off();
 		break;
 	case 4: //slide right event (back action)
 		face.go("dashKingsongOpt2",0);
