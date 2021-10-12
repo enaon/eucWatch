@@ -254,7 +254,7 @@ touchHandler[0]=function(e,x,y){
 				face[0].lg();
 			}			
 		}
-		this.timeout();
+		face.off()();
 		break;
     case 1: //slide down event
 		face.go("main",0);
@@ -264,9 +264,9 @@ touchHandler[0]=function(e,x,y){
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 			buzzer(ew.pin.BUZZ,0,[30,50,30]);
-			this.timeout();
+			face.off()();
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
-        this.timeout();
+        face.off()();
 		break;
     case 3: //slide left event
 		face.go("dashGarage",0);
@@ -276,7 +276,7 @@ touchHandler[0]=function(e,x,y){
 		return;
     case 12: //touch and hold(long press) event
 		buzzer(ew.pin.BUZZ,0,40);
-		this.timeout();
+		face.off()();
 		return;
     }
 };

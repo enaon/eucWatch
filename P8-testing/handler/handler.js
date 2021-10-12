@@ -661,6 +661,7 @@ if (set.def.acctype==="BMA421"){
 			}
 			i2c.writeTo(0x18,0xA8);
 			var a =i2c.readFrom(0x18,6);
+			//print (a[0]+"-"+a[1]+","+a[2]+"-"+a[3]+","+a[4]+"-"+a[5]);
 			//print ( "test got : ax: " + ( a[1] << 8 | a[0] ) + " ay: " + ( a[3] << 8 | a[2] ) + " az: " + ( a[5] << 8 | a[4] ) );
 			return {ax:conv(a[0],a[1]), ay:conv(a[2],a[3]), az:conv(a[4],a[5])};
 		},

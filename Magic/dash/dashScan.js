@@ -116,7 +116,7 @@ face[1] = {
 touchHandler[0]=function(e,x,y){ 
   switch (e) {
   case 5: case 12: //tap event//long press event
-	this.timeout();
+	face.off()();
     if(0<y&&y<100) {
 		buzzer(ew.pin.BUZZ,0,[30,50,30]);
 		if ( face[0].set === 1 ) { //Inmotiion V5/8/10
@@ -192,9 +192,9 @@ touchHandler[0]=function(e,x,y){
       if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
       else w.gfx.bri.set(this.bri);
       buzzer(ew.pin.BUZZ,0,[30,50,30]);
-      this.timeout();
+      face.off()();
     }else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-	this.timeout();
+	face.off()();
     break;
   case 3: //slide left event
 	if ( face[0].set < 4 ) {
@@ -202,14 +202,14 @@ touchHandler[0]=function(e,x,y){
 		face[0].set ++ ;
 		face[0].page(face[0].set);
     }else buzzer(ew.pin.BUZZ,0,40);    
-	this.timeout();
+	face.off()();
     break;
   case 4: //slide right event (back action)
     if ( 1 < face[0].set ) {
 		if (face[0].ntid) clearTimeout(face[0].ntid); face[0].ntid=0;
  		face[0].set -- ;
 		face[0].page(face[0].set); 
-        this.timeout();
+        face.off()();
     } else {
       face.go("dashGarage",0);
       return;

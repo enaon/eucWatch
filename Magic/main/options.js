@@ -189,7 +189,7 @@ touchHandler[0]=function(e,x,y){
 		}else buzzer(D16,1,40);	
 		
 		
-		this.timeout();
+		face.off()();
 		return;
 	case 1: //slide down event
 		if (face[0].set) {
@@ -206,7 +206,7 @@ touchHandler[0]=function(e,x,y){
 			else w.gfx.bri.set(this.bri);
 			buzzer(D16,1,[30,50,30]);
 		}else buzzer(D16,1,40);
-		this.timeout();
+		face.off()();
 		break;
 	case 3: //slide left event
 		buzzer(D16,1,40);
@@ -222,7 +222,7 @@ touchHandler[0]=function(e,x,y){
 		}break;
 	case 12: //hold event
 		buzzer(D16,1,40);
-		this.timeout();
+		face.off()();
 		break;
   }
 };

@@ -246,5 +246,5 @@ touchHandler[0]=function(e,x,y){
     }else if  (e==12){		
 	  buzzer(D16,1,40);    
     }
-    this.timeout();
+    face.off()();
 };

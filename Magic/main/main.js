@@ -76,7 +76,7 @@ face[0] = {
 		//batt status
 		if (notify.ring){
 			if (this.ring!=notify.ring){
-				this.g.setColor(0,col("raf1"));
+				this.g.setColor(0,col("raf"));
 				this.g.fillRect(162,0,239,50);//batt
 				this.g.setColor(1,col("white"));
 				this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8FwAbvh+HnjHh8HjAYPABYNhAYVxAY0wIYU4H4U4EYUcnkP/0Oj0f/8Ph///8Hw/4g8D4IDBgIfBg8AD4IDBvgDCj+AAYIbCgEB//+FoM//gA==")),183,9);
@@ -114,7 +114,7 @@ face[0] = {
 			this.v=w.batt(1);
 			if (this.batt==1) this.g.setColor(0,col("purple"));
 			else if (this.v<=20) this.g.setColor(0,col("red"));
-			else this.g.setColor(0,col("raf1"));
+			else this.g.setColor(0,col("raf"));
 			this.g.fillRect(162,0,239,50);//batt
 			this.g.setColor(1,col("lblue"));
 			if (this.v<0) {this.g.setFont("Vector",21);this.g.drawString("EMPTY",240-(this.g.stringWidth("EMPTY")),14); 
@@ -228,7 +228,7 @@ face[0] = {
 			this.fsec=0;
 			if (global.alrm) {
 				if (alrm.buzz!=-1) {this.bmin=col("dgray");this.fmin=col("yellow");this.fsec=col("yellow");this.bsec=col("dgray");}
-				else if (alrm[1].tmr!==-1||alrm[2].tmr!==-1||alrm[3].tmr!==-1) {this.bmin=col("raf1");this.fsec=col("white");this.bsec=col("raf1");}
+				else if (alrm[1].tmr!==-1||alrm[2].tmr!==-1||alrm[3].tmr!==-1) {this.bmin=col("raf");this.fsec=col("white");this.bsec=col("raf");}
 				else  {this.bmin=col("dgray");this.fsec=col("white");this.bsec=col("dgray");}
 			}else {this.bmin=col("dgray");this.fsec=col("white");this.bsec=col("dgray");}
 			this.g.setColor(0,this.bmin);
@@ -372,5 +372,5 @@ touchHandler[0]=function(e,x,y){
 	   }	  
      }else buzzer(ew.pin.BUZZ,0,40);
     }
-   this.timeout();
+   face.off()();
 };

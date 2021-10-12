@@ -226,7 +226,7 @@ touchHandler[0]=function(e,x,y){
 				face.go("dashAlerts",0);return;			
       }else face[0].ntfy("HOLD -> DELETE","",22,col("red"),1);
 		}
-		this.timeout();
+		face.off()();
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
@@ -238,11 +238,11 @@ touchHandler[0]=function(e,x,y){
 			else w.gfx.bri.set(this.bri);
 			buzzer(ew.pin.BUZZ,0,[30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		this.timeout();
+		face.off()();
 		break;
 	case 3: //slide left event
 		buzzer(ew.pin.BUZZ,0,40);    
-		this.timeout();
+		face.off()();
 		break;
 	case 4: //slide right event (back action)
 		if (face[0].set) {
@@ -313,9 +313,9 @@ touchHandler[0]=function(e,x,y){
 				face.go("dashScan",0);
                 return;
             }
-			this.timeout();
+			face.off()();
 		}
-		this.timeout();
+		face.off()();
 		break;
   }
 };

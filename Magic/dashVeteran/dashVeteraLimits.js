@@ -158,7 +158,7 @@ touchHandler[0]=function(e,x,y){
             buzzer(D16,1,[30,50,30]);
 			face[0].btn(1,euc.dash["spd"+face[0].setEb],100,126,60,col("red"),col("gray"),60,40,180,160);
 		}
-		this.timeout();
+		face.off()();
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
@@ -171,7 +171,7 @@ touchHandler[0]=function(e,x,y){
 			else w.gfx.bri.set(this.bri);
 			buzzer(D16,1,[30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		this.timeout();
+		face.off()();
 		break;
 	case 3: //slide left event
 		buzzer(D16,1,40);
@@ -192,7 +192,7 @@ touchHandler[0]=function(e,x,y){
 			face[0].set("3","TITLBACK");
 			buzzer(D16,1,[30,50,30]);						
 		}else buzzer(D16,1,[30,50,30]);
-		this.timeout();
+		face.off()();
 		break;
 	}
 };

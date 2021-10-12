@@ -277,11 +277,6 @@ var face={
 	}
 };
 //touch 
-var touchHandler = {
-	timeout: function(){
-		face.off();
-	}
-};
 //charging notify
 setWatch(function(s){
 	let co;
@@ -412,7 +407,8 @@ var tfk={
 			if ( this.do && getTime() - this.time > 1 ) { 
 				this.do = 0 ;
 				//print("long");
-				touchHandler[face.pageCurr](12,this.x,this.y);
+				tfk.emit('touch',12,this.x,this.y) 
+				//touchHandler[face.pageCurr](12,this.x,this.y);
 				return;
 			}else if ( this.do && !tp[1] ) {
 				var a=0;
@@ -424,21 +420,23 @@ var tfk={
 				if ( a != 0 && this.aLast != a ) {
                     this.aLast=a;
 					this.do=0;
-					touchHandler[face.pageCurr](a,this.x,this.y);
+					tfk.emit('touch',a,this.x,this.y) 
+					//touchHandler[face.pageCurr](a,this.x,this.y);
 					return;
 				}
 			}else if ( this.do ){
 				if ( tp[1] == 5 || tp[1] ==12 ){
 					this.do=0;
-					//tfk.emit("touch",
-                    touchHandler[face.pageCurr](tp[1],this.x,this.y);
+					tfk.emit('touch',tp[1],this.x,this.y) 
+                    //touchHandler[face.pageCurr](tp[1],this.x,this.y);
                     return;
 				}
 			}
 		}else if ( tp[3] == 64 && !this.st ) {
 			if (this.do===1){
               this.do=0;
-              touchHandler[face.pageCurr](5,this.x,this.y);
+			  tfk.emit('touch',5,this.x,this.y) 
+              //touchHandler[face.pageCurr](5,this.x,this.y);
 			  return;
             }
             this.aLast=0;
@@ -461,8 +459,17 @@ var tfk={
 		this.st = 1;
 		this.time = 0;
 	}
-};	
+};
+//tfk.emit('touch',Date().getHours());cron.event.hour();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate(),Date().getHours()+1,0,1)-Date()));},
+//tfk.emit('touch',(1,2,1));},
+touchHandler= {
+	go:function(e,x,y){
+		touchHandler[face.pageCurr](e,x,y);
+	}
+};
+tfk.on('touch',touchHandler.go);
 
+//
 set.def.acctype="SC7A20";
 //accelerometer(wake on wrist turn)
 //based on work from jeffmer
@@ -519,7 +526,8 @@ set.def.acctype="SC7A20";
 				i2c.writeTo(0x18,0x33,1); //duration = 1 * 20ms
 				this.tid=setWatch(()=>{
 					//"ram";
-					i2c.writeTo(0x18,0x1);
+					i2c.writeTo(0x18,1);
+					print(i2c.readFrom(0x18,1)[0]);
 					if ( 192 < i2c.readFrom(0x18,1)[0] ) {
 						if (!w.gfx.isOn&&face.appCurr!=""){  
 							if (face.appCurr=="main") face.go("main",0);
@@ -540,11 +548,11 @@ set.def.acctype="SC7A20";
 			}
 			i2c.writeTo(0x18,0xA8);
 			var a =i2c.readFrom(0x18,6);
-			//print ( "test got : ax: " + ( a[1] << 8 | a[0] ) + " ay: " + ( a[3] << 8 | a[2] ) + " az: " + ( a[5] << 8 | a[4] ) );
+			print (a[0]+"-"+a[1]+","+a[2]+"-"+a[3]+","+a[4]+"-"+a[5]);
+			//print ( "test got : 1,2,3,4,5,6,7,8: " + ( a[1] << 8 | a[0] ) + " ay: " + ( a[3] << 8 | a[2] ) + " az: " + ( a[5] << 8 | a[4] ) );
 			return {ax:conv(a[0],a[1]), ay:conv(a[2],a[3]), az:conv(a[4],a[5])};
 		},
 	};	
-
 
 cron={
 	event:{
@@ -590,12 +598,10 @@ cron={
 	}
 };
 
-
 cron.event.hour();
 cron.on('hour',cron.task.euc.hour);
 cron.on('day',cron.task.euc.day);
 cron.on('month',cron.task.euc.month);
-
 
 //themes -todo
 if (!Boolean(require("Storage").read("colmode16"))){

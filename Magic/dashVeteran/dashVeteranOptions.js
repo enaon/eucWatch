@@ -108,7 +108,7 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
 		if (face[0].set) { 
-			this.timeout();
+			face.off()();
 			if ( 100 < y ) {
               w.gfx.setColor(0,0);
               w.gfx.drawLine(120,0,120,97);
@@ -139,7 +139,7 @@ touchHandler[0]=function(e,x,y){
 				buzzer(D16,1,[30,50,30]);						
 			}else buzzer(D16,1,[30,50,30]);
 		}
-		this.timeout();
+		face.off()();
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
@@ -151,11 +151,11 @@ touchHandler[0]=function(e,x,y){
 			else w.gfx.bri.set(this.bri);
 			buzzer(D16,1,[30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		this.timeout();
+		face.off()();
 		break;
 	case 3: //slide left event
 		buzzer(D16,1,40);
-		this.timeout();
+		face.off()();
 		break;
 	case 4: //slide right event (back action)
        	face.go("dashVeteran",0);
@@ -169,7 +169,7 @@ touchHandler[0]=function(e,x,y){
 			euc.wri("clearMeter");
 			buzzer(D16,1,[30,50,30]);		
 		}else buzzer(D16,1,40);
-		this.timeout();
+		face.off()();
 		break;
   }
 };

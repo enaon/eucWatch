@@ -507,7 +507,7 @@ touchHandler[0]=function(e,x,y){
 			} else buzzer(ew.pin.BUZZ,0,40);
 		} else buzzer(ew.pin.BUZZ,0,40);
 	}
-	this.timeout();
+	face.off()();
 };
 //
 touchHandler[5]=function(e,x,y){
@@ -550,5 +550,5 @@ touchHandler[5]=function(e,x,y){
 			E.reboot();
 		}else buzzer(ew.pin.BUZZ,0,40);
     }
-   this.timeout();
+   face.off()();
 };

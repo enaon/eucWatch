@@ -208,7 +208,7 @@ touchHandler[0]=function(e,x,y){
             buzzer(ew.pin.BUZZ,0,[30,50,30]);
             face[0].btn(1,"SET LOW-BATT (in %)",18,120,8,col("olive"),0,0,0,239,97,euc.dash.batL,50,120,40);
 		}else buzzer(ew.pin.BUZZ,0,[30,50,30]);		
-  	this.timeout();
+  	face.off()();
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
@@ -230,13 +230,13 @@ touchHandler[0]=function(e,x,y){
 		}else //if (y>100) {
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		//} else {buzzer(ew.pin.BUZZ,0,40);}
-		this.timeout();
+		face.off()();
 		break;
 	case 3: //slide left event
 		buzzer(ew.pin.BUZZ,0,40);
 		break;
 	case 4: //slide right event (back action)
-		this.timeout();
+		face.off()();
 		w.gfx.setColor(0,0);
 		w.gfx.drawLine (0,98,239,98);
 		w.gfx.drawLine (0,99,239,99);
@@ -284,7 +284,7 @@ touchHandler[0]=function(e,x,y){
 			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",22,(euc.dash.hapB)?col("raf"):col("dgray"),euc.dash.hapB);
 			buzzer(ew.pin.BUZZ,0,[30,50,30]);						
 			}else buzzer(ew.pin.BUZZ,0,[30,50,30]);
-		this.timeout();
+		face.off()();
 		break;
   }
 };

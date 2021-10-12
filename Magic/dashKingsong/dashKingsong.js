@@ -130,7 +130,7 @@ touchHandler[0]=function(e,x,y){
 			euc.wri((euc.dash.lock)?"lock":"unlock");
 			buzzer(ew.pin.BUZZ,0,[30,50,30]);						
 		}else buzzer(ew.pin.BUZZ,0,[30,50,30]);
-		this.timeout();
+		face.off()();
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
@@ -142,7 +142,7 @@ touchHandler[0]=function(e,x,y){
 			else w.gfx.bri.set(this.bri);
 			buzzer(ew.pin.BUZZ,0,[30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		this.timeout();
+		face.off()();
 		break;
 	case 3: //slide left event
 		face.go("dashKingsongOpt",0);
@@ -166,7 +166,7 @@ touchHandler[0]=function(e,x,y){
 			euc.dash.aLck=0;
 			euc.tgl();
 	    }else buzzer(ew.pin.BUZZ,0,[100]);
-		this.timeout();
+		face.off()();
 		break;
   }
 };

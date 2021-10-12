@@ -89,7 +89,7 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
 		if (face[0].set) { 
-			this.timeout();
+			face.off()();
 			if ( 100 < y ) {
 			  euc.wri(30+euc.dash.mode);
               w.gfx.setColor(0,0);
@@ -126,7 +126,7 @@ touchHandler[0]=function(e,x,y){
 				buzzer(D16,1,[30,50,30]);						
 			}else buzzer(D16,1,[30,50,30]);
 		}
-		this.timeout();
+		face.off()();
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
@@ -139,11 +139,11 @@ touchHandler[0]=function(e,x,y){
 			else w.gfx.bri.set(this.bri);
 			buzzer(D16,1,[30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		this.timeout();
+		face.off()();
 		break;
 	case 3: //slide left event
 		buzzer(D16,1,40);
-		this.timeout();
+		face.off()();
 		break;
 	case 4: //slide right event (back action)
         if (face[0].set) {
@@ -158,7 +158,7 @@ touchHandler[0]=function(e,x,y){
           face.go(set.dash[set.def.dash.face],0);
           return;
         }
-   		this.timeout();
+   		face.off()();
         break;
 	case 12: //long press event
 		if (face[0].set) { 
@@ -186,7 +186,7 @@ touchHandler[0]=function(e,x,y){
 			face[0].btn(1,"SET RIDE MODE",20,120,5,col("olive"),0,0,0,239,97,euc.dash.mode.toString(),60,120,37);
 			buzzer(D16,1,[30,50,30]);	
 		}else buzzer(D16,1,[30,50,30]);
-		this.timeout();
+		face.off()();
 		break;
   }
 };
