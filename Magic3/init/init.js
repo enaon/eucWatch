@@ -299,14 +299,15 @@ g.bri={
 const batt=function(i,c){
 	let v= 4.20/0.60*analogRead(ew.pin.BAT);
 	let l=3.5,h=4.19;
-    let hexString = ("0x"+(0x50000700+(ew.pin.bat*4)).toString(16));
+    let hexString = ("0x"+(0x50000700+(ew.pin.BAT*4)).toString(16));
 	poke32(hexString,2); // disconnect pin for power saving, otherwise it draws 70uA more 	
 	if (i==="info"){
 		if (c) return ((100*(v-l)/(h-l)|0)+'%-'+v.toFixed(2)+'V'); 
-		return (((v<=l)?0:(h<=v)?100:((v-l)/(h-l)|0))+'%,'+v.toFixed(2)+'V'); 
+		return (((v<=l)?0:(h<=v)?100:((v-l)/(h-l)*100|0))+'%,'+v.toFixed(2)+'V'); 
 	}else if (i) { 
 		if (c) return (100*(v-l)/(h-l)|0);
-		return ( (v<=l)?0:(h<=v)?100:((v-l)/(h-l)|0) );
+		print (v,l)
+		return ( (v<=l)?0:(h<=v)?100:((v-l)/(h-l)*100|0) );
 	}else return +v.toFixed(2);
 };
 module.exports = {
