@@ -24,8 +24,8 @@ var APP_SOURCECODE_DEV;
   let username = "enaon";
   let githubMatch = window.location.href.match(/\/(\w+)\.github\.io/);
   if (githubMatch) username = githubMatch[1];
-  APP_SOURCECODE_URL = `https://github.com/${username}/eucWatch/tree/main/Magic3/`;
-  APP_SOURCECODE_DEV = `Magic3`;
+  APP_SOURCECODE_URL = `https://github.com/${username}/eucWatch/tree/main/Magic/`;
+  APP_SOURCECODE_DEV = `Magic`;
 })();
 
 const DEVICEINFO = {
