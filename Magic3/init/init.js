@@ -306,7 +306,6 @@ const batt=function(i,c){
 		return (((v<=l)?0:(h<=v)?100:((v-l)/(h-l)*100|0))+'%,'+v.toFixed(2)+'V'); 
 	}else if (i) { 
 		if (c) return (100*(v-l)/(h-l)|0);
-		print (v,l)
 		return ( (v<=l)?0:(h<=v)?100:((v-l)/(h-l)*100|0) );
 	}else return +v.toFixed(2);
 };
