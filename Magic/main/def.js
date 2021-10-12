@@ -92,7 +92,7 @@ touchHandler[0]=function(e,x,y){
 		if (face[0].set) { 
 
  
-		}else digitalPulse(D16,1,40);		
+		}else digitalPulse(ew.pin.BUZZ,0,40);		
 		this.timeout();
 		return;
 	case 1: //slide down event
@@ -102,18 +102,18 @@ touchHandler[0]=function(e,x,y){
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			digitalPulse(D16,1,[30,50,30]);
-		}else digitalPulse(D16,1,40);
+			digitalPulse(ew.pin.BUZZ,0,[30,50,30]);
+		}else digitalPulse(ew.pin.BUZZ,0,40);
 		this.timeout();
 		break;
 	case 3: //slide left event
-		digitalPulse(D16,1,40);
+		digitalPulse(ew.pin.BUZZ,0,40);
 		break;
 	case 4: //slide right event (back action)
 		face.go(face.appPrev,0);
 		return;
 	case 12: //hold event
-		digitalPulse(D16,1,40);
+		digitalPulse(ew.pin.BUZZ,0,40);
 		this.timeout();
 		break;
   }

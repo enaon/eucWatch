@@ -134,7 +134,7 @@ face[1] = {
 touchHandler[0]=function(e,x,y){
   switch (e) {
     case 5: //tap event
-    buzzer(D16,1,[30,50,30]);
+    buzzer(ew.pin.BUZZ,0,[30,50,30]);
     if (face[0].intervalRef) face[0].stopdraw(); else face[0].regen();
     break;
     case 1: //slide down event 
@@ -142,17 +142,17 @@ touchHandler[0]=function(e,x,y){
 	face.go("main",0);
     return; //return when changing faces. 
     case 2: //slide up event
-    buzzer(D16,1,40);
+    buzzer(ew.pin.BUZZ,0,40);
     break;
     case 3: //slide left event
-    buzzer(D16,1,40);    
+    buzzer(ew.pin.BUZZ,0,40);    
     break;
     case 4: //slide right event (back action)
     face.go(face.appPrev,face.pagePrev);
     return;
     case 12: //touch and hold(long press) event
     face[0].btn=1-face[0].btn;
-    buzzer(D16,1,[30,50,30]);
+    buzzer(ew.pin.BUZZ,0,[30,50,30]);
     break;
     default: //reset face timeout. 
     face.off()();

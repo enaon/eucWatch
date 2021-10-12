@@ -69,7 +69,7 @@ var atcR= function(evt){
       //set.atcW("AT+BATT:40");
       set.atcW("AT+BATT:"+w.battVoltage(1));
     } else if (srt.substring(0, 8) == "AT+PUSH=") {
-      digitalPulse(D16,1,[80,50,80]);
+      digitalPulse(ew.pin.BUZZ,0,[80,50,80]);
       if  (i[1].indexOf("\r\n") >= 0) {
         i[1] = i[1].replace(/(\r\n)/g, "");
         push.txt=i[1].substr(i[1].indexOf(',')+1,i[1].lastIndexOf(',')-2);
@@ -90,7 +90,7 @@ var atcR= function(evt){
       set.atcW("BT+VER:sdk11");
     } else if (srt == "AT+VER") {
       set.atcW("AT+VER:"+process.version);
-      digitalPulse(D16,1,[80]);
+      digitalPulse(ew.pin.BUZZ,0,[80]);
 	  handleInfoEvent({"src":"BT","title":"ATC","body":"Connected"});
 	  set.bt=4;
     } else if (srt == "AT+SN") {

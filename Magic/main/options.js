@@ -171,22 +171,22 @@ touchHandler[0]=function(e,x,y){
 					face[0].set=0;
 					w.gfx.clear();
 					face[0].init();
-					buzzer(D16,1,[30,50,30]);
+					buzzer(ew.pin.BUZZ,0,[30,50,30]);
 				}
 			}
 
 		}else if ( y <=80 ) {
 			set.def.hr24=1-set.def.hr24;
  			face[0].btn(1,(set.def.hr24)?"24 HOUR MODE":"12 HOUR MODE",24,120,25,1453,0,0,0,239,75);//1
-			buzzer(D16,1,[30,50,30]);
+			buzzer(ew.pin.BUZZ,0,[30,50,30]);
 		}else if ( x <=160 && 80 <= y && y <= 160 ) { //setTime
 			face[0].set=1;
-			buzzer(D16,1,[30,50,30]);	
+			buzzer(ew.pin.BUZZ,0,[30,50,30]);	
 		}else if (  80 <= y && y <= 160 ) { //info
 			face[0].set="info";
 			face[0].info();
-			buzzer(D16,1,[30,50,30]);
-		}else buzzer(D16,1,40);	
+			buzzer(ew.pin.BUZZ,0,[30,50,30]);
+		}else buzzer(ew.pin.BUZZ,0,40);	
 		
 		
 		face.off()();
@@ -204,12 +204,12 @@ touchHandler[0]=function(e,x,y){
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer(D16,1,[30,50,30]);
-		}else buzzer(D16,1,40);
+			buzzer(ew.pin.BUZZ,0,[30,50,30]);
+		}else buzzer(ew.pin.BUZZ,0,40);
 		face.off()();
 		break;
 	case 3: //slide left event
-		buzzer(D16,1,40);
+		buzzer(ew.pin.BUZZ,0,40);
 		break;
 	case 4: //slide right event (back action)
 		if (face[0].set) {
@@ -221,7 +221,7 @@ touchHandler[0]=function(e,x,y){
 			return; 
 		}break;
 	case 12: //hold event
-		buzzer(D16,1,40);
+		buzzer(ew.pin.BUZZ,0,40);
 		face.off()();
 		break;
   }

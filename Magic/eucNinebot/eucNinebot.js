@@ -107,7 +107,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 		case 210: //riding Mode
 			if (this.in16 >=10)  {
               if (face.appCurr=="dashSetNinebot") face[0].ntfy("OK","",22,col("blue1"),1);
-              buzzer(D16,1,[80,40,80]);  
+              buzzer(ew.pin.BUZZ,0,[80,40,80]);  
             }else euc.dash.mode=this.in16;
 			break;
 		case 112: //lock status
@@ -129,7 +129,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			for (i = 0; i < euc.alert ; i++) {
 				a.push(150,150);
 			}
-			digitalPulse(D16,0,a);  
+			digitalPulse(ew.pin.BUZZ,0,a);  
 			setTimeout(() => {euc.buzz=0; }, 3000);
 		}
 	});
@@ -143,7 +143,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 	//connected 
 	if (set.bt===2) console.log("EUC: Connected"); 
 	euc.state="READY"; //connected
-	buzzer(D16,1,[90,40,150,40,90]);
+	buzzer(ew.pin.BUZZ,0,[90,40,150,40,90]);
 	euc.dash.lock=0;
 	//write function
 	euc.wri=function(i){
@@ -210,8 +210,8 @@ euc.off=function(err){
 				return;
 			}
 			euc.run=euc.run+1;
-			if (euc.dash.lock==1) buzzer(D16,1,250);
-			else buzzer(D16,1,[250,200,250,200,250]);
+			if (euc.dash.lock==1) buzzer(ew.pin.BUZZ,0,250);
+			else buzzer(ew.pin.BUZZ,0,[250,200,250,200,250]);
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
 				if (euc.state!="OFF") euc.conn(euc.mac); 

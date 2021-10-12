@@ -139,12 +139,12 @@ touchHandler[0]=function(e,x,y){
 					euc.dash.ctrl.vol=euc.dash.ctrl.vol-10;if (euc.dash.ctrl.vol<=0)euc.dash.ctrl.vol=0;
 					face.menu.full("VOLUME",20,euc.dash.ctrl.vol,80,1453,1365);
 					euc.wri("setVolume",euc.dash.ctrl.vol);
-					buzzer(D16,1,[30,50,30]);
+					buzzer(ew.pin.BUZZ,0,[30,50,30]);
 				}else if ( 120 <=x  && y <= 170 ) {
 					euc.dash.ctrl.vol=euc.dash.ctrl.vol+10;if (100<=euc.dash.ctrl.vol)euc.dash.ctrl.vol=100;
 					face.menu.full("SET VOLUME",20,euc.dash.ctrl.vol,80,1453,1365);
 					euc.wri("setVolume",euc.dash.ctrl.vol);
-					buzzer(D16,1,[30,50,30]);
+					buzzer(ew.pin.BUZZ,0,[30,50,30]);
 				}else {
 					face[0].sub=0;
 					face[0].init();
@@ -161,19 +161,19 @@ touchHandler[0]=function(e,x,y){
 				euc.wri("setLights",(euc.dash.lght.head)?1:0);
 				face[0].btn(euc.dash.lght.head,"LIGHT",18,60,15,col("raf"),col("dgray"),0,0,119,97,(euc.dash.lght.head)?"ON":"OFF",28,60,50);
 				face[0].ntfy("LIGHT ON","LIGHT OFF",20,(euc.dash.lght.head)?col("raf"):col("dgray"),euc.dash.lght.head);
-				buzzer(D16,1,[30,50,30]);
+				buzzer(ew.pin.BUZZ,0,[30,50,30]);
 			}else if ( 120<=x && y<=100 ) { //Volume
-				buzzer(D16,1,[30,50,30]);
+				buzzer(ew.pin.BUZZ,0,[30,50,30]);
 				face.menu.full("VOLUME",20,euc.dash.ctrl.vol,80,1453,1365,1);
 				face[0].ntfy("SET VOLUME","SET VOLUME",20,col("raf"),1);
 				face[0].sub="volume";
 			}else if ( x<=120 && 100<=y ) { //tpms
 				face[0].ntfy("NOT YET","NOT YET",18,col("red"),1);
-				buzzer(D16,1,[30,50,30]);		
+				buzzer(ew.pin.BUZZ,0,[30,50,30]);		
 			}else if (120<=x && 100<=y ) { //off
 				face[0].ntfy("HOLD -> POWER OFF","",18,col("red"),1);
-				buzzer(D16,1,[30,50,30]);						
-			}else buzzer(D16,1,40);
+				buzzer(ew.pin.BUZZ,0,[30,50,30]);						
+			}else buzzer(ew.pin.BUZZ,0,40);
 		}
 		face.off()();
 		break;
@@ -186,7 +186,7 @@ touchHandler[0]=function(e,x,y){
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer(D16,1,[30,50,30]);
+			buzzer(ew.pin.BUZZ,0,[30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		face.off()();
 		break;
@@ -208,7 +208,7 @@ touchHandler[0]=function(e,x,y){
 	   		face[0].btn(1,"OFF",25,185,135,col("red"),0,122,100,239,195); //4
 			euc.tmp.aOff=1;
 			euc.tgl();
-	    }else buzzer(D16,1,40);
+	    }else buzzer(ew.pin.BUZZ,0,40);
 		face.off()();
 		break;
   }
