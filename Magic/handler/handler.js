@@ -444,15 +444,14 @@ var tfk={
 };
 //tfk.emit('touch',Date().getHours());cron.event.hour();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate(),Date().getHours()+1,0,1)-Date()));},
 //tfk.emit('touch',(1,2,1));},
-i2c.writeTo(0x15,254,1);i2c.writeTo(0x15,100)
-lala=setInterval(()=>{ 
-print(i2c.readFrom(0x15,5));
-},50)
+//i2c.writeTo(0x15,254,1);i2c.writeTo(0x15,100)
+//lala=setInterval(()=>{ 
+//print(i2c.readFrom(0x15,5));
+//},50)
 touchHandler= {
 	go:function(e,x,y){
 		touchHandler[face.pageCurr](e,x,y);
 	},
-	main:{}
 };
 tfk.on('touch',touchHandler.go);
 
