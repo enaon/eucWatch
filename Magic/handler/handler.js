@@ -217,6 +217,7 @@ var face={
 	offms:-1,
 	off:function(t){ 
     "ram";
+		face.batt=0;
 		if (this.pageCurr===-1) return;
 		if (this.offid) {clearTimeout(this.offid); this.offid=0;}
 		if (face[this.pageCurr]!=-1){
@@ -257,13 +258,21 @@ var face={
 			acc.go=0;
 			face[this.pagePrev].off();
 			if (this.offid) {clearTimeout(this.offid); this.offid=0;}
-			if (this.appCurr!=this.appPrev) eval(require('Storage').read(app));
+			if (this.appCurr!=this.appPrev) {
+				if (face[app]) {
+					face[0]=face[face.appCurr][0];face[1]=face[face.appCurr][1];
+					touchHandler[0]=touchHandler[face.appCurr][0];
+				}else eval(require('Storage').read(app));	
+			}
 			return;
 		}
 		if (this.appCurr!=this.appPrev) {
 			face[2]=0;face[5]=0;
 			this.appRoot=[this.appPrev,this.pagePrev,this.pageArg];
-			eval(require('Storage').read(app));
+			if (face[app]) {
+				face[0]=face[face.appCurr][0];face[1]=face[face.appCurr][1];
+				touchHandler[0]=touchHandler[face.appCurr][0];
+			}else eval(require('Storage').read(app));
 		} 
 		this.off();
 		face[page].init(arg);	
@@ -324,12 +333,12 @@ function buttonHandler(s){
 		this.press=false;
 		if (global.euc&&euc.state=="READY"&&euc.horn&&euc.dash.horn) {euc.wri("hornOff");return;}
 		if (face.pageCurr==-1) {
-			buzzer(ew.pin.BUZZ,0,[60,40,60]);
+			buzzer(ew.pin.BUZZ,0,100);
 			face.go((global.euc&&euc.state!="OFF")?set.dash[set.def.dash.face]:face.appCurr,0);
 		}else { 
 			if (face.appCurr=="main"&&face.pagePrev!=-1&&face.pagePrev!=2) {
 				face.go("main",-1);
-				buzzer(ew.pin.BUZZ,0,100);
+				buzzer(ew.pin.BUZZ,0,[60,40,60]);
 			}else{
 				let to=face.pageCurr+1;
 				if (to>=2) to=0;
@@ -347,41 +356,24 @@ i2c.setup({scl:ew.pin.i2c.SCL, sda:ew.pin.i2c.SDA, bitrate:100000});
 set.def.touchtype="716";
 
 /*
-touch={
-	start:0,
-	stPt:[],
-	stTm:0
-};
-
+set.def.touchtype="816";
 watchTouch=setWatch(function(s){
-	i2c.writeTo(0x15,3);
-	var tp=i2c.readFrom(0x15,1);
-	if (tp == 0 && !touch.start) {
-			touch.start=1;
-			touch.stTm=getTime();
-			touch.stPt=i2c.readFrom(0x15,4);
-			return;
-	}else if  (tp == 64 && touch.start){
-			 tp=i2c.readFrom(0x15,4);
-			if (getTime()-touch.stTm <= 200){
-				touchHandler[face.pageCurr](5,tp[1],tp[3]);
-        touch.start=0;
-      }
-    return;
+	let tp=i2c.readFrom(0x15,7);
+	if (!tp[2] && !tp[3]) return;
+	if ((tp[3]==0 ||tp[3] === 128) && tfk.st){
+		tfk.st = 0;
+		tfk.do = 1;
+		tfk.x = tp[4];
+        tfk.y = tp[6];
+		tfk.time=getTime();
+		//return;
 	}
-  return;
-  if (face.pageCurr>=0) {
-		if (tp[1]== 0 && tp[3]==64) {tp[1]=5; set.def.rstR=0xE5;}
-		if (set.def.rstR==0xE5 && tp[1]== 12 ) tp[6]=tp[6]+25;
-		touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);}
-	else if (tp[1]==1) {
-		face.go(face.appCurr,0);
-	}
+	tfk.init();
 },ew.pin.touch.INT,{repeat:true, edge:"rising"}); 
 
+
+
 */
-
-
 
 var tfk={
 	tid:0,
@@ -393,51 +385,37 @@ var tfk={
 	init:function(){
 		"ram";
 		var tp=i2c.readFrom(0x15,7);
-		//print(tp);
-		if ( tp[3] == 128  && tp[2] === 1 ) {
-			//print("start");
-			if ( !this.time ) this.time=getTime();
-			if ( this.st ) {
+		if ( tp[3] == 64 && this.st ) return;
+		if (  tp[3] === 0 || tp[3] === 128) {
+			if (tp[2]==1 && this.st  ) {
 				this.st = 0;
 				this.do = 1;
 				this.x = tp[4];
                 this.y = tp[6];
-                return;
-			}
-			if ( this.do && getTime() - this.time > 1 ) { 
-				this.do = 0 ;
-				//print("long");
-				tfk.emit('touch',12,this.x,this.y) ;
-				//touchHandler[face.pageCurr](12,this.x,this.y);
+				this.time=getTime();
 				return;
-			}else if ( this.do && !tp[1] ) {
+			}	
+			if ( this.do && getTime() - this.time > 1 && tp[2]==1 ) { 
+				this.do = 0 ;
+				return setTimeout(function() {touchHandler[face.pageCurr](12,tfk.x,tfk.y);},0);
+			}else if ( this.do&&tp[2]==1) {
 				var a=0;
 				//print("gest");
 				if (tp[6]>=this.y+30) a = 1;
 				else if (tp[6]<=this.y-30) a = 2;
-				else if (tp[4]<=this.x-30) a = 3;
-				else if (tp[4]>=this.x+30) a = 4;
+				else if (tp[4]<=this.x-20) a = 3;
+				else if (tp[4]>=this.x+20) a = 4;
 				if ( a != 0 && this.aLast != a ) {
                     this.aLast=a;
 					this.do=0;
-					tfk.emit('touch',a,this.x,this.y); 
-					//touchHandler[face.pageCurr](a,this.x,this.y);
-					return;
-				}
-			}else if ( this.do ){
-				if ( tp[1] == 5 || tp[1] ==12 ){
-					this.do=0;
-					tfk.emit('touch',tp[1],this.x,this.y); 
-                    //touchHandler[face.pageCurr](tp[1],this.x,this.y);
-                    return;
+					return setTimeout(function() {	touchHandler[face.pageCurr](a,tfk.x,tfk.y);},0);
 				}
 			}
 		}else if ( tp[3] == 64 && !this.st ) {
 			if (this.do===1){
-              this.do=0;
-			  tfk.emit('touch',5,this.x,this.y) ;
-              //touchHandler[face.pageCurr](5,this.x,this.y);
-			  return;
+				this.do=0;
+				//tfk.emit('touch',5,this.x,this.y) ;
+				return setTimeout(function() {touchHandler[face.pageCurr](5,tfk.x,tfk.y);},0);
             }
             this.aLast=0;
 			this.st = 1;
@@ -447,6 +425,7 @@ var tfk={
 	start:function(){ 
 		if (this.tid) clearInterval(this.tid);
 		digitalPulse(set.def.rstP,1,[10,50]); //touch wake
+		i2c.writeTo(0x15,0);
         this.st=1;
 		this.tid=setInterval(function(){
 			tfk.init();
@@ -454,7 +433,7 @@ var tfk={
 	},
 	exit:function(){
 		if (this.tid) clearInterval(this.tid);this.tid=0;
-	    digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100);
+	    digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xE5,3);},100);
 		this.aLast=0;
 		this.st = 1;
 		this.time = 0;
@@ -465,7 +444,8 @@ var tfk={
 touchHandler= {
 	go:function(e,x,y){
 		touchHandler[face.pageCurr](e,x,y);
-	}
+	},
+	main:{}
 };
 tfk.on('touch',touchHandler.go);
 

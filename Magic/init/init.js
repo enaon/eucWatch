@@ -129,7 +129,7 @@ function cmds(arr){
 
 RST.set();
 
-function init(){
+function init(bppi){
 	"ram";
   cmd(0x11); // sleep out
   delayms(120);
@@ -165,7 +165,7 @@ function init(){
   //cmd([0x2c]);
 }
 
-var bpp=1; // powers of two work, 3=8 colors would be nice
+var bpp=4 // powers of two work, 3=8 colors would be nice
 var g=Graphics.createArrayBuffer(240,280,bpp);
 var pal;
 switch(bpp){
@@ -180,25 +180,24 @@ switch(bpp){
 	g.setColor=function(c,v){ 
 		if (c==1) pal[1]=v; else pal[0]=v;
 		g.sc(c);
-	};  
-//	g.sc=g.setColor;
-//	g.setColor=function(c){ //change color 1 dynamically
-//	c=Math.floor(c);
-//    if (c > 1) {
-//      pal[1]=pal[c]; g.sc(1);
-//    } else if (c==1) {
-//      pal[1]=c1; g.sc(1);
-//    } else g.sc(c);
-//  }; 
+	/*g.sc=g.setColor;
+	g.setColor=function(c){ //change color 1 dynamically
+	c=Math.floor(c);
+    if (c > 1) {
+      pal[1]=pal[c]; g.sc(1);
+    } else if (c==1) {
+      pal[1]=c1; g.sc(1);
+	} else g.sc(c);*/
+}; 
   break;
   case 4: pal= Uint16Array( // CGA
     [
-// 12bit RGB444
-      0x000,0x00a,0x0a0,0x0aa,0xa00,0xa0a,0xa50,0xaaa,
-     0x555,0x55f,0x5f5,0x5ff,0xf55,0xf5f,0xff5,0xfff
+// 12bit RGB444  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=blue,9=purple,10=?,11=green,12=olive,13=yellow,14=lblue,15=white
+      0x000,1365,2730,3549,1629,2474,1963,3840,
+     143,3935,2220,0x5ff,170,4080,1535,4095
 //16bit RGB565
 //      0x0000,0x00a8,0x0540,0x0555,0xa800,0xa815,0xaaa0,0xad55,
-//      0x52aa,0x52bf,0x57ea,0x57ff,0xfaaa,0xfabf,0xffea,0xffff
+//      2220,0x52bf,0x57ea,0x57ff,0xfaaa,0xfabf,0xffea,0xffff
 
     ]);break;
 }
@@ -314,7 +313,9 @@ const batt=function(i,c){
 module.exports = {
 //  pin: pin,
   batt: batt,
-  gfx: g
+  gfx: g,
+  bpp: bpp,
+  init:init
 };
 });
 w=require("P8");
