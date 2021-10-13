@@ -84,9 +84,9 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
     this.genB=new Uint8Array(324);
     this.btn=0;
     this.last_btn=1;
-    this.g.setColor(0,col("black"));
+    this.g.setColor(0);
 	this.g.clearRect(0,240,0,240);
-    this.g.setColor(1,col("white"));
+    this.g.setColor(15);
     this.g.setFont('Vector',40);
     this.g.drawString('LIFE',80,85);
     this.g.setFont('6x8',2);
@@ -101,7 +101,7 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
   tid:-1,
   run:false,
   clear : function(){ //enter here everything needed to clear all app running function on face exit. 
-    pal[0]=col("black"); //this is for cleaner face transitions but adds delay, maybe will change in the future
+    pal[0]=0; //this is for cleaner face transitions but adds delay, maybe will change in the future
     this.g.clear(); //as above
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid); //clears main face[0] timeout loop.

@@ -3,10 +3,10 @@ face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
   g:w.gfx,
   init: function(){
-    this.g.setColor(1,0);
-	this.g.fillRect(0,0,239,239);this.g.setColor(0,col("dgray"));this.g.fillRect(0,0,170,77);this.g.fillRect(175,0,239,77);this.g.fillRect(0,83,170,157);this.g.fillRect(175,83,239,157);this.g.fillRect(0,163,170,249);this.g.fillRect(175,163,239,249);
+    this.g.setColor(0);
+	this.g.fillRect(0,0,239,239);this.g.setColor(1);this.g.fillRect(0,0,170,77);this.g.fillRect(175,0,239,77);this.g.fillRect(0,83,170,157);this.g.fillRect(175,83,239,157);this.g.fillRect(0,163,170,249);this.g.fillRect(175,163,239,249);
 	this.g.flip();
-	this.g.setColor(1,col("lblue"));	
+	this.g.setColor(14);	
 	this.img = require("heatshrink").decompress(atob("lMwwMAv/GBAQEEn/Oh////YhwEC/kOgYEB+12CYUDj9gAgMBw8wj/wgHBnF//0AsEcn//gE4hwZCj4HBAAIrBwBfbn4wBFAxQBw5RB/0B4YEBBoPgKIWAuAUC4E4AgRREmEOEoOAjEHKI8H//AEYQEDACkfKwYoG4JQB/cA8JWCKIN/MAJRGAgRRBEARRBAgPAhkDwf/8EHgJMCagJ6D/7KBAAI="));
 	this.g.drawImage(this.img,185,17);
     this.g.flip();	
@@ -26,9 +26,9 @@ face[0] = {
 	if (!this.run) return;
 	if (this.nCall!=notify.nCall){
 		this.nCall=notify.nCall;
-		this.g.setColor(1,(this.nCall)?col("red"):col("dgray"));
+		this.g.setColor((this.nCall)?7:1);
 		this.g.fillRect(0,0,170,77);
-		this.g.setColor(0,col("white"));
+		this.g.setColor(15);
 		this.g.setFont("Vector",25);
 		this.g.drawString((notify.nCall)?notify.nCall+" / "+notify.call.length:(notify.call.length)?notify.call.length+" OLD":"-",100-(this.g.stringWidth((notify.nCall)?notify.nCall+" / "+notify.call.length:(notify.call.length)?notify.call.length+" OLD":"-")/2),30);
 		this.img = require("heatshrink").decompress(atob("jEYwIGDg4CBh4CBj+AAQPAgE/AQoLBn4RBnwCEj4CEh4RBh4XBg/g8ED+P4gP//kAAQV/AQM/AQMf/EAgfgIgQA="));
@@ -38,9 +38,9 @@ face[0] = {
 	}
 	if (this.nIm!=notify.nIm){
 		this.nIm=notify.nIm;
-		this.g.setColor(1,(this.nIm)?col("raf"):col("dgray"));
+		this.g.setColor((this.nIm)?4:1);
 		this.g.fillRect(0,83,170,157);
-		this.g.setColor(0,col("white"));
+		this.g.setColor(15);
 		this.g.setFont("Vector",25);
 		this.g.drawString((notify.nIm)?notify.nIm+" / "+notify.im.length:(notify.im.length)?notify.im.length+" OLD":"-",100-(this.g.stringWidth((notify.nIm)?notify.nIm+" / "+notify.im.length:(notify.im.length)?notify.im.length+" OLD":"-")/2),110);
 		this.img = require("heatshrink").decompress(atob("jEYwIPMv///wCFj///EP//w4f/4fw/8P/F+j/+jATBwP/BoICBAA4mIHZAA="));
@@ -50,9 +50,9 @@ face[0] = {
 	}
 	if (this.nInfo!=notify.nInfo){
 		this.nInfo=notify.nInfo;
-		this.g.setColor(1,(this.nInfo)?col("olive"):col("dgray"));
+		this.g.setColor((this.nInfo)?12:1);
 		this.g.fillRect(0,163,170,249);
-		this.g.setColor(0,col("white"));
+		this.g.setColor(15);
 		this.g.setFont("Vector",25);		
 		this.g.drawString((notify.nInfo)?notify.nInfo+" / "+notify.info.length:(notify.info.length)?notify.info.length+" OLD":"-",100-(this.g.stringWidth((notify.nInfo)?notify.nInfo+" / "+notify.info.length:(notify.info.length)?notify.info.length+" OLD":"-")/2),190);
 		this.img = require("heatshrink").decompress(atob("jEYwIHEv0AgP/wEH//gh//+Ef8/4j/D/E/4/8n///l///+v/nAQPDARM/4YXBAQIgCEwQsCGQQ4CHwQACA=="));
@@ -131,11 +131,11 @@ face[5] = {
     this.go=0;
 	this.at=-1;
     this.del=0;
-    this.g.setColor(0,col("dgray"));
+    this.g.setColor(1);
     if (this.list.length==0){
-      this.g.setColor(0,col("black"));
+      this.g.setColor(0);
       this.g.fillRect(0,0,239,239);
-      this.g.setColor(1,col("lblue"));
+      this.g.setColor(14);
       this.g.setFont("Vector",24);		
       this.g.drawString("NO ENTRIES",120-(this.g.stringWidth("NO ENTRIES")/2),100); 
       this.at=this.go;
@@ -147,9 +147,9 @@ face[5] = {
     if (!this.run||this.list.length==0) return;
     if (this.del===1) {
       this.del=2;
-      this.g.setColor(1,col("red"));
+      this.g.setColor(7);
       this.g.fillRect(0,31,239,120);
-      this.g.setColor(0,col("white"));
+      this.g.setColor(15);
 	  //thrashbin
 	  this.g.drawImage(require("heatshrink").decompress(atob("mEwwI1yg/4AocP/gFDhkMApE//4ABAo4PCAUIACAv4FQATkGAQMYXwSgBYAUBAoPgdsg")),40,35,{scale:1.5});
 	  //swipe-left
@@ -165,29 +165,29 @@ face[5] = {
       //let this.msg=require("Storage").read(this.type+this.list[this.go].substr(4)).split("|");
       if (this.dowrap>0) this.msg.body=this.wrap(this.msg.body,this.dowrap);
       this.g.setFont("Vector",24);
-	  if (this.type==="call") this.g.setColor(1,col("red"));
-	  else if (this.type==="im") this.g.setColor(1,col("raf"));
-	  else if (this.type==="info") this.g.setColor(1,col("olive"));
+	  if (this.type==="call") this.g.setColor(7);
+	  else if (this.type==="im") this.g.setColor(4);
+	  else if (this.type==="info") this.g.setColor(12);
       this.g.fillRect(0,0,239,30);
-      //if (this.msg.idUnread) {this.g.setColor(0,col("white"));set.gbSend({t:"notify", id:this.msg.id, n:"dismiss"});} else this.g.setColor(0,col("lgray"));
+      //if (this.msg.idUnread) {this.g.setColor(15);set.gbSend({t:"notify", id:this.msg.id, n:"dismiss"});} else this.g.setColor(2);
 //	  if (this.msg.id) set.gbSend({t:"notify", id:this.msg.id, n:"dismiss"});     
-	  this.g.setColor(0,col("white"));
+	  this.g.setColor(15);
 	  this.g.drawString(this.msg.src,3,5);
       this.g.drawString(this.go+1+"/"+this.list.length,239-(this.g.stringWidth(this.go+1+"/"+this.list.length)),5);
 	  this.g.flip();
       this.g.setFont("Vector",22);
-      this.g.setColor(0,col("dgray"));
+      this.g.setColor(1);
       this.g.fillRect(0,30,239,210);
-      this.g.setColor(1,col("lblue"));
+      this.g.setColor(14);
    	  if (this.msg.title.length>15) this.msg.title=this.msg.title.substr(0,12)+"...";
       this.g.drawString(this.msg.title+" :",3,35);
 	  this.g.setFont("Vector",24);
       this.g.drawString(this.msg.body,122-(this.g.stringWidth(this.msg.body)/2),65);
       this.g.flip();
       this.g.setFont("Vector",24);
-      this.g.setColor(0,col("dgray"));
+      this.g.setColor(1);
       this.g.fillRect(0,210,239,239);
-      this.g.setColor(1,col("lgray"));
+      this.g.setColor(2);
    	  this.g.drawString(this.msg.time,120-(this.g.stringWidth(this.msg.time)/2),218);
       this.g.flip();
       //this.msg=undefined;

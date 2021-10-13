@@ -101,7 +101,7 @@ face[0] = {
 		this.tid=setTimeout(function(t){
 			t.tid=-1;
 			t.show();
-		},50,this);
+		},100,this);
 	},
 	spdF: function(){
 		"ram";

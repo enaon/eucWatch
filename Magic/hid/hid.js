@@ -2,26 +2,26 @@
 face[0] = {
     offms: 5000,
     col: {
-        txt: col("white"),
-        txt1: col("lblue"),
-        txt2: col("black"),
-        hdr: col("dgray+3"),
-        hdrTxt: col("lgray"),
-        bck: col("raf1"),
-        bck1: col("lgray"),
-        bck2: col("raf"),
-        btnEn: col("raf"),
-        btnDs: col("lgray"),
-        btnDs1: col("olive"),
-        btnTxt: col("black"),
-        btnTxt1: col("white")
+        txt: 15,
+        txt1: 14,
+        txt2: 0,
+        hdr: 1,
+        hdrTxt: 2,
+        bck: 5,
+        bck1: 2,
+        bck2: 4,
+        btnEn: 4,
+        btnDs: 2,
+        btnDs1: 12,
+        btnTxt: 0,
+        btnTxt1: 15
     },
     init: function() {
         var g = w.gfx;
         if (set.def.hid != 1) {
-            g.setColor(0, col("black"));
+            g.setColor( 0);
             //g.clearRect(1,0,239,239);
-            g.setColor(1, col("white"));
+            g.setColor( 15);
             g.setFont("Vector", 25);
             g.drawString("HID DISABLED", 30, 0);
             g.setFont("Vector", 20);
@@ -32,35 +32,35 @@ face[0] = {
         } else {
             //header
 	    //todo:add music info from gb
-            g.setColor(0, col("dgray1")); //header_back
+            g.setColor( 1); //header_back
             g.fillRect(0, 0, 239, 35);
-            g.setColor(1, col("lblue")); //header_txt
+            g.setColor( 14); //header_txt
             g.setFont("Vector", 25);
             g.drawString("MUSIC", 4, 6);
             g.flip();
             //top
-            g.setColor(1, col("lblue"));
+            g.setColor( 14);
             g.fillRect(60, 143, 179, 239); //play&oause
             g.drawImage(require("heatshrink").decompress(atob("oFAwMB/4A/AB3wAgf8v/n8EfA4X4n+B4EHCgcfwOANIYHDgAHFPoM/A40PA4kBwEDA4vgEAQHD+AgCA4f8gBJBA4f/gBJBA4nAAQIHEEAN/A4ggCA4ggCA4pJBA4pJBA4v4A43+gFwA4ggBA43AA4wXGJAIHFLAI/GQYJPLHwMPA4hOBn4HEVAQHEXAQHDDwKfFV46eCA4iuCA4geCd4oeBf5eAdwQHEfwQHD4EPA4c/wPgDwRqBn/DAoQA/ADg=")), 72, 145, {
                 scale: 1.5
             });
-            g.setColor(0, col("black"));
+            g.setColor( 0);
             g.flip();
             //right
-            g.setColor(1, col("raf3"));
+            g.setColor( 5);
             g.fillRect(182, 143, 239, 190); //vol_up
             g.drawImage(require("heatshrink").decompress(atob("mEwwMB/4Ar+IFE+F/AgX++E/AoX8+EPAoX4/kHCwf/gYFC8H/wYFC4H/4IFCwANCAAMA+4ZBFwMA+Y2B/hyB+P4AofwAo0/Aod8AsQpFGohBCOwJNDKYRZDL4JlENYJxDO4OBQYiJD+CVE/ChEU4MfWYi5DYowAm")), 186, 144);
             g.fillRect(182, 190, 239, 239); //next
             g.drawImage(require("heatshrink").decompress(atob("mEwwMB/4A/AA/3AQMPAQPzAonxAonwv4FEn4FEAYIFDg4FEgYFEgAFFv4FEj4FEh4FKCIodFFIiqBIJJNFLIplFPpSJFAH4AGA==")), 186, 194);
-            g.setColor(0, col("white"));
+            g.setColor( 15);
             g.flip();
             //left
-            g.setColor(1, col("raf3"));
+            g.setColor( 5);
             g.fillRect(0, 143, 57, 190); //vol_down
             g.drawImage(require("heatshrink").decompress(atob("mEwwMB/4A394FE54FEx4FEh4ED/wFE/gFE/AFE+EPv4FC8EPn4EB4EAh8fAogYCApEHAsQvLIIQGBJoZTCLIZfBNZJ3FQYqPFTYynFWYoAsA")), 4, 144);
             g.fillRect(0, 190, 57, 239); //prev
             g.drawImage(require("heatshrink").decompress(atob("mEwwMB/4A/AA/wAQPvAonPAokPAof+Aon8AonwAongAomAAokAAof+Aon4AonwApQRF/gFEFIo1GIIpNF/BlKOIp9GRIQA/AAwA=")), 4, 194);
-            g.setColor(0, col("white"));
+            g.setColor( 15);
             g.flip();
         }
     },
@@ -77,7 +77,7 @@ face[0] = {
     run: false,
     clear: function(o) {
         var g = w.gfx;
-        pal[0] = col("black");
+        pal[0] = 0;
         g.clear();
         this.exit(o);
         return true;

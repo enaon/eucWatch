@@ -4,9 +4,9 @@ face[0] = {
 	g:w.gfx, 
 	init: function(o){ 
 		this.dash=require("Storage").readJSON("dash.json",1);
-		this.g.setColor(0,col("black"));
+		this.g.setColor(0);
 		this.g.fillRect(0,0,239,239);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(15);
 		this.g.setFont("Vector",22);
 		this.g.drawString("GARAGE",120-(this.g.stringWidth("GARAGE")/2),217); 
 		this.g.flip();
@@ -20,18 +20,18 @@ face[0] = {
 		if (this.s1!=this.sv1){
 			this.sv1=this.s1;
 			if (this.dash.slot1Mac) {
-				this.g.setColor(0,(this.s1)?col("raf"):col("dgray"));
+				this.g.setColor((this.s1)?4:1);
 				this.g.fillRect(0,0,119,97);
-				this.g.setColor(1,col("white"));
+				this.g.setColor(15);
 				this.g.setFont("Vector",18);	
 				this.g.drawString(this.dash.slot1Maker.toUpperCase(),60-(this.g.stringWidth(this.dash.slot1Maker.toUpperCase())/2),10); 
 				this.g.setFont("Vector",35);	
 				this.g.drawString(this.dash.slot1Name.split("-")[0],60-(this.g.stringWidth(this.dash.slot1Name.split("-")[0])/2),50); 
 				this.g.flip();
 			}else if (this.s1) {
-				this.g.setColor(0,col("red"));
+				this.g.setColor(7);
 				this.g.fillRect(0,0,119,97);
-				this.g.setColor(1,col("white"));
+				this.g.setColor(15);
 				this.g.setFont("Vector",22);	
 				this.g.drawString("EMPTY",60-(this.g.stringWidth("EMPTY")/2),40);
 				this.g.flip();
@@ -40,7 +40,7 @@ face[0] = {
 					t.s1=0;
 					t.s1tid=0;
 					t.g.setFont("Vector",22);	
-					t.g.setColor(0,col("black"));
+					t.g.setColor(0);
 					t.g.fillRect(0,0,119,97);
 					t.g.flip();
 				 },1000,this);
@@ -50,9 +50,9 @@ face[0] = {
 		if (this.s2!=this.sv2){
 			this.sv2=this.s2;
 			if (this.dash.slot2Mac) {
-				this.g.setColor(0,(this.s2)?col("raf"):col("dgray"));
+				this.g.setColor((this.s2)?4:1);
 				this.g.fillRect(122,0,239,97);	
-				this.g.setColor(1,col("white"));
+				this.g.setColor(15);
 				this.g.setFont("Vector",18);	
 //				this.g.drawString((this.s2)?this.dash.slot2Name.split("-")[1]:this.dash.slot2Maker.toUpperCase(),185-(this.g.stringWidth((this.s2)?this.dash.slot2Name.split("-")[1]:this.dash.slot2Maker.toUpperCase())/2),10); 
 				this.g.drawString(this.dash.slot2Maker.toUpperCase(),185-(this.g.stringWidth(this.dash.slot2Maker.toUpperCase())/2),10); 
@@ -60,9 +60,9 @@ face[0] = {
 				this.g.drawString(this.dash.slot2Name.split("-")[0],185-(this.g.stringWidth(this.dash.slot2Name.split("-")[0])/2),50); 
 				this.g.flip();
 			}else if (this.s2) {
-				this.g.setColor(0,col("red"));
+				this.g.setColor(7);
 				this.g.fillRect(122,0,239,97);	
-				this.g.setColor(1,col("white"));
+				this.g.setColor(15);
 				this.g.setFont("Vector",22);	
 				this.g.drawString("EMPTY",185-(this.g.stringWidth("EMPTY")/2),40);
 				this.g.flip();
@@ -71,7 +71,7 @@ face[0] = {
 					t.s2=0;
 					t.s2tid=0;
 					t.g.setFont("Vector",22);	
-					t.g.setColor(0,col("black"));
+					t.g.setColor(0);
 					t.g.fillRect(122,0,239,97);
 					t.g.flip();
 				},1000,this);
@@ -81,18 +81,18 @@ face[0] = {
 		if (this.s3!=this.sv3){
 			this.sv3=this.s3;	
 			if (this.dash.slot3Mac) {
-				this.g.setColor(0,(this.s3)?col("raf"):col("dgray"));
+				this.g.setColor((this.s3)?4:1);
 				this.g.fillRect(0,100,119,195);
-				this.g.setColor(1,col("white"));
+				this.g.setColor(15);
 				this.g.setFont("Vector",18);	
 				this.g.drawString(this.dash.slot3Maker.toUpperCase(),60-(this.g.stringWidth(this.dash.slot3Maker.toUpperCase())/2),110); 
 				this.g.setFont("Vector",35);	
 				this.g.drawString(this.dash.slot3Name.split("-")[0],60-(this.g.stringWidth(this.dash.slot3Name.split("-")[0])/2),150); 
 				this.g.flip();
 			}else if (this.s3) {
-				this.g.setColor(0,col("red"));
+				this.g.setColor(7);
 				this.g.fillRect(0,100,119,195);
-				this.g.setColor(1,col("white"));
+				this.g.setColor(15);
 				this.g.setFont("Vector",22);	
 				this.g.drawString("EMPTY",60-(this.g.stringWidth("EMPTY")/2),140);
 				this.g.flip();
@@ -101,7 +101,7 @@ face[0] = {
 					t.s3=0;
 					t.s3tid=0;
 					t.g.setFont("Vector",22);	
-					t.g.setColor(0,col("black"));
+					t.g.setColor(0);
 					t.g.fillRect(0,100,119,195);
 					t.g.flip();
 				},1000,this);
@@ -111,18 +111,18 @@ face[0] = {
 		if (this.s4!=this.sv4){
 			this.sv4=this.s4;
 			if (this.dash.slot4Mac) {
-				this.g.setColor(0,(this.s4)?col("raf"):col("dgray"));
+				this.g.setColor((this.s4)?4:1);
 		this.g.fillRect(122,100,239,195);
-				this.g.setColor(1,col("white"));
+				this.g.setColor(15);
 				this.g.setFont("Vector",18);	
 				this.g.drawString(this.dash.slot4Maker.toUpperCase(),185-(this.g.stringWidth(this.dash.slot4Maker.toUpperCase())/2),110); 
 				this.g.setFont("Vector",35);	
 				this.g.drawString(this.dash.slot4Name.split("-")[0],185-(this.g.stringWidth(this.dash.slot4Name.split("-")[0])/2),150); 
 				this.g.flip();
 			}else if (this.s4) {
-				this.g.setColor(0,col("red"));
+				this.g.setColor(7);
 				this.g.fillRect(122,100,239,195);
-				this.g.setColor(1,col("white"));
+				this.g.setColor(15);
 				this.g.setFont("Vector",22);	
 				this.g.drawString("EMPTY",185-(this.g.stringWidth("EMPTY")/2),140);
 				this.g.flip();
@@ -131,7 +131,7 @@ face[0] = {
 					t.s4=0;
 					t.s4tid=0;
 					t.g.setFont("Vector",22);	
-					t.g.setColor(0,col("black"));
+					t.g.setColor(0);
 					t.g.fillRect(122,100,239,195);
 					t.g.flip();
 				},1000,this);
@@ -143,18 +143,18 @@ face[0] = {
 		},100,this);
 	},
 	ntfy: function(txt1,txt0,size,clr,bt){
-			this.g.setColor(0,clr);
+			this.g.setColor(clr);
 			this.g.fillRect(0,198,239,239);
-			this.g.setColor(1,col("white"));
+			this.g.setColor(15);
 			this.g.setFont("Vector",size);
 			this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
 			this.g.flip();
 			if (this.ntid) clearTimeout(this.ntid);
 			this.ntid=setTimeout(function(t){
 				t.ntid=0;
-				t.g.setColor(0,0);
+				t.g.setColor(0);
 				t.g.fillRect(0,196,239,239);
-				t.g.setColor(1,col("white"));
+				t.g.setColor(15);
 				t.g.setFont("Vector",22);
 				t.g.drawString("GARAGE",120-(t.g.stringWidth("GARAGE")/2),217); 
 				t.g.flip();
@@ -210,13 +210,13 @@ touchHandler[0]=function(e,x,y){
 					euc.dash=require("Storage").readJSON('eucSlot'+this.s+'.json',1);
 				else euc.dash=require("Storage").readJSON("eucSlot.json",1);
 				face[0].s1=0;face[0].s2=0;face[0].s3=0;face[0].s4=0;
-				face[0].ntfy("HOLD -> OPTIONS","",20,col("raf"),1);
-			} else face[0].ntfy("HOLD -> SCAN & SET","",20,col("dgray"),1);
+				face[0].ntfy("HOLD -> OPTIONS","",20,4,1);
+			} else face[0].ntfy("HOLD -> SCAN & SET","",20,1,1);
 			face[0]["s"+this.s]=1;
 		}
 		else   {
 			if ( y<=120 ) {
-				w.gfx.setColor(0,0);
+				w.gfx.setColor(0);
 				w.gfx.drawLine (0,98,239,98);
 				w.gfx.drawLine (0,99,239,99);
 				w.gfx.flip();
@@ -224,7 +224,7 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.drawLine (121,0,121,195);
 				w.gfx.flip();
 				face.go("dashAlerts",0);return;			
-      }else face[0].ntfy("HOLD -> DELETE","",22,col("red"),1);
+      }else face[0].ntfy("HOLD -> DELETE","",22,7,1);
 		}
 		face.off();
 		break;
@@ -249,7 +249,7 @@ touchHandler[0]=function(e,x,y){
 			face[0].sv1=-1;face[0].sv2=-1;face[0].sv3=-1;face[0].sv4=-1;
 			face[0].s1=0;face[0].s2=0;face[0].s3=0;face[0].s4=0;
             face[0]["s"+require("Storage").readJSON("dash.json",1).slot]=1;
-			w.gfx.setColor(0,0);w.gfx.fillRect(0,0,239,195);w.gfx.flip();
+			w.gfx.setColor(0);w.gfx.fillRect(0,0,239,195);w.gfx.flip();
 			face[0].dash=require("Storage").readJSON("dash.json",1);
 			face[0].run=true;face[0].set=0;face[0].show();		
 		}else
@@ -259,7 +259,7 @@ touchHandler[0]=function(e,x,y){
 		buzzer(ew.pin.BUZZ,0,[100]);
 		if ( face[0].set ) {
 			if ( y<=120 ) {
-				w.gfx.setColor(0,0);
+				w.gfx.setColor(0);
 				w.gfx.drawLine (0,98,239,98);
 				w.gfx.drawLine (0,99,239,99);
 				w.gfx.flip();
@@ -278,7 +278,7 @@ touchHandler[0]=function(e,x,y){
 				require("Storage").erase('eucSlot'+set.read("dash","slot")+'.json');
 				euc.dash=require("Storage").readJSON("eucSlot.json",1);				
 			    face[0].sv1=-1;face[0].sv2=-1;face[0].sv3=-1;face[0].sv4=-1;
-                w.gfx.setColor(0,0);w.gfx.fillRect(0,0,239,195);w.gfx.flip();
+                w.gfx.setColor(0);w.gfx.fillRect(0,0,239,195);w.gfx.flip();
               	face[0].dash=require("Storage").readJSON("dash.json",1);
 				face[0].run=true;face[0].set=0;face[0].show();
                 return;
@@ -297,14 +297,14 @@ touchHandler[0]=function(e,x,y){
 				face[0].clear();
 				var g=w.gfx;
 				g.setFont("Vector",25);	
-				g.setColor(0,col("dgray"));
+				g.setColor(1);
 				g.fillRect(0,0,239,97);
-              	g.setColor(1,col("white"));
+              	g.setColor(15);
 				g.drawString("WATCH ALERTS",120-(g.stringWidth("WATCH ALERTS")/2),35);
 				g.flip();
-				g.setColor(0,col("red"));
+				g.setColor(7);
 				g.fillRect(0,100,239,195);
-                g.setColor(1,col("white"));
+                g.setColor(15);
 				g.drawString("DELETE WHEEL",120-(g.stringWidth("DELETE WHEEL")/2),135);
 				g.flip();
 				face[0].set=1;

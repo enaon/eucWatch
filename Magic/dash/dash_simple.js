@@ -6,14 +6,14 @@ face[0] = {
 	init: function(){
 		if ( euc.day[0] < Date().getHours() && Date().getHours() < euc.day[1] ) euc.night=0; else euc.night=1;
         if (face.appPrev.startsWith("dash_")) {
-			this.g.setColor(0,0);
+			this.g.setColor(0);
 			this.g.fillRect(0,51,239,239);
 			this.g.flip();	
 		}else this.g.clear();
-		this.spdC=[0,col("yellow"),col("red"),col("red")];
-		this.ampC=[col("dgray"),2992,col("red"),col("red")];
-		this.tmpC=[col("dgray"),2992,col("red"),col("red")];
-		this.batC=[col("raf"),col("dgray"),col("red"),col("red")];
+		this.spdC=[0,13,7,7];
+		this.ampC=[1,2992,7,7];
+		this.tmpC=[1,2992,7,7];
+		this.batC=[4,1,7,7];
 		this.spd=-1;
 		this.amp=-1;
 		this.tmp=-1;
@@ -30,7 +30,7 @@ face[0] = {
 		"ram";
 		if (!this.run) return;
 		if (euc.state=="READY") {
-			this.g.setColor(0,0);
+			this.g.setColor(0);
 			//this.g.fillRect(0,0,0,0);
 			this.g.flip();
 			if (this.spd!=Math.round(euc.dash.spd)) this.spdf();
@@ -49,9 +49,9 @@ face[0] = {
 		} else  {
 			if (euc.state!=this.conn) {
 				this.conn=euc.state;
-				this.g.setColor(0,0);
+				this.g.setColor(0);
 				this.g.fillRect(0,0,239,239);
-				this.g.setColor(1,col("white"));
+				this.g.setColor(15);
 				this.g.setFont("Vector",50);
 				this.g.drawString(euc.state,(125-this.g.stringWidth(euc.state)/2),95);
 				this.g.flip();
@@ -66,9 +66,9 @@ face[0] = {
 	tmpf: function(){
 		"ram";
 		this.tmp=euc.dash.tmp.toFixed(1);
-		this.g.setColor(0,this.tmpC[euc.dash.tmpC]);
+		this.g.setColor(this.tmpC[euc.dash.tmpC]);
 		this.g.fillRect(0,0,119,50);       
-		this.g.setColor(1,col("white"));
+		this.g.setColor(15);
 		this.g.setFontVector(50);
 		let temp=(set.def.dash.farn)?this.tmp*1.8+32:this.tmp;
 		temp=(temp<100)?Number(temp).toFixed(1):Math.round(temp);
@@ -83,9 +83,9 @@ face[0] = {
 	clkf: function(){
 		"ram";
 		this.time=getTime();
-		this.g.setColor(0,col("dgray"));
+		this.g.setColor(1);
 		this.g.fillRect(0,0,119,50);       
-		this.g.setColor(1,col("lblue"));
+		this.g.setColor(14);
 		this.g.setFontVector(45);
 		let d=(Date()).toString().split(' ');
 		let t=(d[4]).toString().split(':');
@@ -98,10 +98,10 @@ face[0] = {
 	batf: function(){
 		"ram";
 		this.bat=euc.dash.bat;
-		this.g.setColor(0,this.batC[euc.dash.batC]);
+		this.g.setColor(this.batC[euc.dash.batC]);
 		this.g.fillRect(122,0,239,50);
-//		this.g.setColor(1,col("white"));
-		this.g.setColor(1,col("white"));
+//		this.g.setColor(15);
+		this.g.setColor(15);
 		this.g.setFontVector(50);
 		this.g.drawString(this.bat,225-(this.g.stringWidth(this.bat)),3);
 		this.g.setFontVector(20);
@@ -111,9 +111,9 @@ face[0] = {
 	vltf: function(){
 		"ram";
 		this.volt=euc.dash.volt.toFixed(1);
-		this.g.setColor(0,this.batC[euc.dash.batC]);
+		this.g.setColor(this.batC[euc.dash.batC]);
 		this.g.fillRect(122,0,239,50);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(15);
 		this.g.setFontVector((this.volt<100)?50:44);
 		this.g.drawString(this.volt,(this.volt<100)?135:125,3); 
 		this.g.setFontVector(13);
@@ -125,9 +125,9 @@ face[0] = {
 		"ram";
 		//"ram";
 		this.spd=Math.round(euc.dash.spd);
-		this.g.setColor(0,(euc.dash.spdC==1)?0:this.spdC[euc.dash.spdC]);
+		this.g.setColor((euc.dash.spdC==1)?0:this.spdC[euc.dash.spdC]);
 		this.g.fillRect(0,55,239,220);
-		this.g.setColor(1,(euc.dash.spdC==1)?col("yellow"):col("white"));
+		this.g.setColor((euc.dash.spdC==1)?13:15);
 		if (100 <= this.spd) {
 			if (120 < this.spd)  this.spd=120;
 			this.g.setFontVector(140);
@@ -139,9 +139,9 @@ face[0] = {
 	ampf: function(){
 		"ram";
 		this.amp=(euc.dash.amp);
-		this.g.setColor(0,this.ampC[euc.dash.ampC]);
+		this.g.setColor(this.ampC[euc.dash.ampC]);
 		this.g.fillRect(80,0,160,55); //amp 
-		this.g.setColor(1,col("white"));
+		this.g.setColor(15);
 		this.g.setFontVector(33);
 		this.g.drawString(this.amp|0,(122-(this.g.stringWidth(this.amp|0)/2)),5); 
 		this.g.flip();

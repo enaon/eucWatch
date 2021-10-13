@@ -105,7 +105,7 @@ face[0] = {
 		}else if (this.batt!=set.ondc ){
 			this.batt=set.ondc;
 			this.v=w.batt(1);
-			if (this.batt==1) this.g.setColor(col("purple"));
+			if (this.batt==1) this.g.setColor(9);
 			else if (this.v<=20) this.g.setColor(7);
 			else this.g.setColor(4);
 			this.g.fillRect(162,0,239,50);//batt

@@ -59,9 +59,9 @@ face[0] = {
 
     this.start=1;
 	if(!scan.mac) {scan.mac=[];this.find(o);}
-    this.g.setColor(0,0); //header
+    this.g.setColor(0); //header
     this.g.fillRect(0,0,239,35); 
-    this.g.setColor(1,col("lblue"));
+    this.g.setColor(14);
     this.g.setFont("Vector",24);
 	this.g.drawString((face.appPrev=="repellent")?"REPELLENT":"EUC",4,6); 
     this.g.flip();
@@ -72,32 +72,32 @@ face[0] = {
   show : function(o){
     if (!this.run) return;
     if (!this.start){ 
-      this.g.setColor(0,0); //header
+      this.g.setColor(0); //header
       this.g.fillRect(160,0,239,35);
       this.g.flip();
-      this.g.setColor(1,col("dgray"));
+      this.g.setColor(1);
       this.g.fillRect(0,36,239,239); 
-      this.g.setColor(0,col("lblue"));
+      this.g.setColor(14);
       this.g.setFont("Vector",28);
       this.g.drawString("SCANNING",120-(this.g.stringWidth("SCANNING")/2),110);
       this.g.flip();
     }else if (scan.mac!=""&&this.start==1){
       this.start=2;
-      this.g.setColor(0,0); //header
+      this.g.setColor(0); //header
       this.g.fillRect(160,0,239,35);
-      this.g.setColor(1,col("lblue"));
+      this.g.setColor(14);
       this.g.setFont("Vector",26);
       this.g.drawString(scan.mac.length+"/"+scan.mac.length,242-(this.g.stringWidth(scan.mac.length+"/"+scan.mac.length)),3);
       this.g.flip();
-      this.g.setColor(0,col("dgray"));
+      this.g.setColor(1);
       this.g.fillRect(0,36,239,239); 
       this.g.flip();
       this.g.setFont("Vector",28);
       for (var entry=this.line;entry<this.line+4&&entry<scan.mac.length;entry++) {
         print(entry,this.go);
-		this.g.setColor(0,col((this.go==entry)?"raf":(entry % 2)?"dgray":"gray"));
+		this.g.setColor(col((this.go==entry)?"raf":(entry % 2)?"dgray":"gray"));
         this.g.fillRect(0,(this.top-14)+((entry-this.line)*this.top),239,(this.top+36)+((entry-this.line)*this.top)); 
-		this.g.setColor(1,col((this.go==entry)?"lblue":"white"));
+		this.g.setColor(col((this.go==entry)?"lblue":"white"));
 		let dr=(scan.mac[entry].split("|")[1]!=="undefined")?scan.mac[entry].split("|")[1]:scan.mac[entry].substring(0,17);
 		this.g.drawString(dr,1,this.top+((entry-this.line)*this.top));
 		this.g.flip();
@@ -105,9 +105,9 @@ face[0] = {
       this.g.flip();
     }else if (this.start!==2){
       this.start=3;
-      this.g.setColor(0,col("dgray")); //header
+      this.g.setColor(1); //header
       this.g.fillRect(0,36,239,239);
-      this.g.setColor(1,col("lblue"));
+      this.g.setColor(14);
       this.g.setFont("Vector",25);
 //      this.g.drawString((face.appPrev=="repellent")?"REPELLENT":"EUC",120-(this.g.stringWidth((face.appPrev=="repellent")?"REPELLENT":"EUC")/2),50);
       this.g.drawString("NOT FOUND",120-(this.g.stringWidth("NOT FOUND")/2),80);

@@ -10,9 +10,9 @@ face[0] = {
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
         if (this.calibrate) {
-            this.g.setColor(0,col("dgray"));
+            this.g.setColor(1);
 		    this.g.fillRect(0,0,239,174);                    
-            this.g.setColor(1,col("white"));
+            this.g.setColor(15);
 		    this.g.setFont("Vector",16);
 		    this.g.drawString("1. PRESS START",0,10); 	
    		    this.g.drawString("2. WHEEL BEEPS, TURN OFF",0,37); 		
@@ -21,23 +21,23 @@ face[0] = {
             this.g.drawString("5. TURN WHEEL ON",0,118);
             this.g.drawString("6. DONE!",0,145);
 		    this.g.flip();
-            this.g.setColor(0,col("raf"));
+            this.g.setColor(4);
 		    this.g.fillRect(0,175,120,239);                    
-            this.g.setColor(1,col("white"));
+            this.g.setColor(15);
    		    this.g.setFont("Vector",22);
             this.g.drawString("START",20,200); 	
 		    this.g.flip();
-            this.g.setColor(0,col("olive"));
+            this.g.setColor(12);
 		    this.g.fillRect(121,175,239,239);                    
-            this.g.setColor(1,col("white"));
+            this.g.setColor(15);
    		    this.g.setFont("Vector",22);
             this.g.drawString("CANCEL",140,200); 	
 		    this.g.flip();
        		this.run=false;
         }else if (this.tilt!=euc.dash.tiltSet){ //tilt Set
-		    this.g.setColor(0,col("dgray"));
+		    this.g.setColor(1);
 		    this.g.fillRect(50,50,190,150);                    
-            this.g.setColor(1,col("white"));
+            this.g.setColor(15);
 		    this.g.setFont("Vector",80);
 		    this.g.drawString(euc.dash.tiltSet,130-(this.g.stringWidth(euc.dash.tiltSet)/2),65); 		
 		    this.g.flip();
@@ -48,9 +48,9 @@ face[0] = {
 			if (this.itid)clearTimeout(this.itid);
 			this.itid=setTimeout(function(t){
 				t.itid=0;
-				t.g.setColor(0,0);
+				t.g.setColor(0);
 				t.g.fillRect(0,198,239,239);//6
-				t.g.setColor(1,col("white"));
+				t.g.setColor(15);
 				t.g.setFont("Vector",20);
 				t.g.drawString("OPTIONS",120-(t.g.stringWidth("OPTIONS")/2),214); 
 				t.g.flip();
@@ -107,7 +107,7 @@ touchHandler[0]=function(e,x,y){
 		}else buzzer(ew.pin.BUZZ,0,[30,50,30]);
         }else { //calibrate
 			if (175<=y&&120<=x) {
-				w.gfx.setColor(0,0);
+				w.gfx.setColor(0);
 				w.gfx.drawLine (0,98,239,98);
 				w.gfx.drawLine (0,99,239,99);
 				w.gfx.flip();
@@ -138,7 +138,7 @@ touchHandler[0]=function(e,x,y){
 		face.off();
 		break;
 	case 4: //slide right event (back action)
-		w.gfx.setColor(0,0);
+		w.gfx.setColor(0);
 		w.gfx.drawLine (0,98,239,98);
 		w.gfx.drawLine (0,99,239,99);
         w.gfx.flip();

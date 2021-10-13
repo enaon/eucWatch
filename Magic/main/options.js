@@ -5,9 +5,9 @@ face[0] = {
 	init: function(){
 		if (this.ntid) {clearTimeout(this.ntid); this.ntid=0;}
         //this.g.clear();		
-		this.g.setColor(0,0);
+		this.g.setColor(0);
 		this.g.fillRect(0,161,239,239);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(15);
 		this.g.setFont("Vector",25);
 		this.g.drawString("MAIN OPTIONS",120-(this.g.stringWidth("MAIN OPTIONS")/2),217); 
 		this.g.flip(); 
@@ -37,9 +37,9 @@ face[0] = {
        // },1000,this);
 	},
     btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
-			this.g.setColor(0,(bt)?clr1:clr0);
+			this.g.setColor((bt)?clr1:clr0);
 			this.g.fillRect(rx1,ry1,rx2,ry2);
-			this.g.setColor(1,col("white"));
+			this.g.setColor(15);
 			this.g.setFont("Vector",size1);	
 			this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1); 
    			if (txt2){this.g.setFont("Vector",size2);	
@@ -48,9 +48,9 @@ face[0] = {
     },
     ntfy: function(txt0,txt1,size,bt,col,tm,s){
 			if (this.ntid) {clearTimeout(this.ntid); this.ntid=0;}
-            this.g.setColor(0,col);
+            this.g.setColor(col);
 			this.g.fillRect(0,160,239,239);
-			this.g.setColor(1,4095);
+			this.g.setColor(4095);
 			this.g.setFont("Vector",18);
      		this.g.drawString(txt0,120-(this.g.stringWidth(txt0)/2),165); 
 			if (s) {this.g.setFont("Vector",50);this.g.drawString("<",5,200);this.g.drawString(">",215,200);}
@@ -60,9 +60,9 @@ face[0] = {
 			this.ntid=setTimeout(function(t){
                 t.ntid=0;
 				face[0].set=0;
-				t.g.setColor(0,0);
+				t.g.setColor(0);
 				t.g.fillRect(0,156,239,239);
-				t.g.setColor(1,4095);
+				t.g.setColor(4095);
 				t.g.setFont("Vector",25);
 				t.g.drawString("MAIN OPTIONS",120-(t.g.stringWidth("MAIN OPTIONS")/2),217); 
 				t.g.flip();
@@ -77,9 +77,9 @@ face[0] = {
 		while (s>86400) {s=s-86400;d++;}
 		while (s>3600) {s=s-3600;h++;}
 		while (s>60) {s=s-60;m++;}
-		this.g.setColor(0,0);
+		this.g.setColor(0);
 		this.g.fillRect(0,0,239,200); //all
-		this.g.setColor(1,col("lblue"));
+		this.g.setColor(14);
 		this.g.setFont("Vector",18);
 		this.g.drawString("MEMORY: "+process.memory().free+"/"+process.memory().total,120-(this.g.stringWidth("MEMORY: "+process.memory().free+"/"+process.memory().total)/2),0);  
 		this.g.drawString("IMAGE: "+process.version,120-(this.g.stringWidth("IMAGE: "+process.version)/2),25);  
@@ -92,22 +92,22 @@ face[0] = {
 		this.g.drawString("NAME: "+set.def.name,120-(this.g.stringWidth("NAME: "+set.def.name)/2),175);  
 		this.g.flip();
 		this.g.setFont("Vector",18);
-		this.g.setColor(0,col("raf"));
+		this.g.setColor(4);
 		this.g.fillRect(0,195,119,239);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(15);
 		this.g.drawString("RESTART",18,210);
 		this.g.flip();	
-		this.g.setColor(0,col("red"));
+		this.g.setColor(7);
 		this.g.fillRect(120,195,239,239);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(15);
 		this.g.drawString("DEVMODE",136,210);
 		this.g.flip();		
 	},
 	setTime: function(){
                 
-		this.g.setColor(0,0);
+		this.g.setColor(0);
 		this.g.fillRect(0,0,239,200); //all
-		this.g.setColor(1,col("lblue"));
+		this.g.setColor(14);
 		this.g.setFont("Vector",18);
 		this.g.drawString("MEMORY: "+process.memory().free+"/"+process.memory().total,120-(this.g.stringWidth("MEMORY: "+process.memory().free+"/"+process.memory().total)/2),0);  
 		this.g.drawString("IMAGE: "+process.version,120-(this.g.stringWidth("IMAGE: "+process.version)/2),25);  
@@ -159,13 +159,13 @@ touchHandler[0]=function(e,x,y){
 					set.updateSettings();
 					NRF.removeListener('disconnect',bdis);  
 					NRF.disconnect();
-					w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
+					w.gfx.setColor(0);w.gfx.clear();w.gfx.flip();
 					reset();
 				}else if ( 120 <= x && 190 <= y) {
 					set.updateSettings();
 					NRF.disconnect();
 					require("Storage").write("devmode","dev");
-					w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
+					w.gfx.setColor(0);w.gfx.clear();w.gfx.flip();
 					E.reboot();
 				}else {
 					face[0].set=0;

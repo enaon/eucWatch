@@ -114,7 +114,7 @@ euc.conn=function(mac){
 						break;
 					case 210: //riding Mode
 						if (this.in16 >=10)  {
-						  if (face.appCurr=="dashSetNinebot") face[0].ntfy("OK","",22,col("blue1"),1);
+						  if (face.appCurr=="dashSetNinebot") face[0].ntfy("OK","",22,4,1);
 						  buzzer(ew.pin.BUZZ,0,[80,40,80]);  
 						}else euc.dash.mode=this.in16;
 						break;

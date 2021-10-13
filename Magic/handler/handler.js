@@ -132,6 +132,7 @@ var set={
 
 set.def = require('Storage').readJSON('setting.json', 1);
 if (!set.def) {set.resetSettings();set.updateSettings();}
+set.def.touchtype="716";
 if (!set.def.rstP) set.def.rstP="D39";
 if (!set.def.rstR) set.def.rstR=0xA5;
 if (set.def.buzz) buzzer=digitalPulse;
@@ -229,14 +230,14 @@ var face={
 				if (this.appCurr==="main") {
 					if (face[c].off) {
 						if (set.def.touchtype=="716") tfk.exit();	
-						else digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100); 
+						else {digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100)}; 
 						face[c].off();this.pageCurr=-1;face.pagePrev=c;
 					}
 				}else face.go(this.appCurr,1);
 			}else if (face.appPrev=="off") {
 				if (face[c].off) {
 					if (set.def.touchtype=="716") tfk.exit();	
-					else digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100); 
+				else {digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100)}; 
 					face.go("main",-1);face.pagePrev=c;
 				}
 			}else if (c>1) face.go(this.appCurr,0);
@@ -254,7 +255,7 @@ var face={
 		}
 		if (this.pageCurr==-1 && this.pagePrev!=-1) {
 			if (set.def.touchtype=="716") tfk.exit();	
-			else digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100); 
+			else {digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100);} 
 			acc.go=0;
 			face[this.pagePrev].off();
 			if (this.offid) {clearTimeout(this.offid); this.offid=0;}
@@ -353,7 +354,6 @@ btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
 //var i2c=I2C1;
 var i2c=new I2C();
 i2c.setup({scl:ew.pin.i2c.SCL, sda:ew.pin.i2c.SDA, bitrate:100000});
-set.def.touchtype="716";
 
 /*
 set.def.touchtype="816";
@@ -371,7 +371,10 @@ watchTouch=setWatch(function(s){
 	tfk.init();
 },ew.pin.touch.INT,{repeat:true, edge:"rising"}); 
 
-
+watchTouch=setWatch(function(s){
+	let tp=i2c.readFrom(0x15,7);
+	print(tp);
+},ew.pin.touch.INT,{repeat:true, edge:"rising"}); 
 
 */
 
