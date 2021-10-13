@@ -436,7 +436,7 @@ var tfk={
 	},
 	exit:function(){
 		if (this.tid) clearInterval(this.tid);this.tid=0;
-	    digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xE5,3);},100);
+	    digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xA5,3);},100);
 		this.aLast=0;
 		this.st = 1;
 		this.time = 0;
