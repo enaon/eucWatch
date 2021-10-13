@@ -8,31 +8,32 @@ face[0] = {
        //if (!face.appPrev.startsWith("dash")) this.g.clear();
 		this.g.setColor(0);
 		this.g.fillRect(0,98,239,99);
-        this.g.flip();	
+        //this.g.flip();	
 		this.g.fillRect(120,0,121,195);
-        this.g.flip();		
+        //this.g.flip();		
         this.g.setColor(0);
 		this.g.fillRect(0,196,239,239);
 		this.g.setColor(15);
 		this.g.setFont("Vector",20);
 		this.g.drawString("WATCH ALERTS",120-(this.g.stringWidth("WATCH ALERTS")/2),217); 
-		this.g.flip(); 
-		this.btn(euc.dash.hapS,"SPEED",25,60,37,4,1,0,0,119,97);
-		this.btn(euc.dash.hapA,"AMP",25,185,37,4,1,122,0,239,97);
-		this.btn(euc.dash.hapT,"TEMP",25,60,136,4,1,0,100,119,195);
-        this.btn(euc.dash.hapB,"BATT",25,185,136,4,1,122,100,239,195);			
+		//this.g.flip(); 
+		this.btn(euc.dash.hapS,"SPEED",25,60,37,4,1,0,0,119,97,"",0,0,0,1);
+		this.btn(euc.dash.hapA,"AMP",25,185,37,4,1,122,0,239,97,"",0,0,0,1);
+		this.btn(euc.dash.hapT,"TEMP",25,60,136,4,1,0,100,119,195,"",0,0,0,1);
+        this.btn(euc.dash.hapB,"BATT",25,185,136,4,1,122,100,239,195,"",0,0,0,1);			
         this.run=true;
 	},
 	show : function(){
 		"ram";
 		if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
+		this.g.flip();
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();
-        },1000,this);
+        },100,this);
 	},
-    btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
+    btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2,flip){
 		"ram";
 			this.g.setColor((bt)?clr1:clr0);
 			this.g.fillRect(rx1,ry1,rx2,ry2);
@@ -41,7 +42,9 @@ face[0] = {
           this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1); 
    			if (txt2){this.g.setFont("Vector",size2);	
             this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);}
-			this.g.flip();
+			//this.g.flip();
+			//if (!flip) this.g.flip();
+
     },
     ntfy: function(txt1,txt0,size,clr,bt){
 			"ram";
@@ -50,7 +53,7 @@ face[0] = {
 			this.g.setColor(15);
 			this.g.setFont("Vector",size);
      		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
-			this.g.flip();
+			//this.g.flip();
 			if (this.ntid) clearTimeout(this.ntid);
 			this.ntid=setTimeout(function(t){
                 t.ntid=0;
@@ -118,10 +121,10 @@ touchHandler[0]=function(e,x,y){
 					if (x<=120){ if (1<euc.dash.spd1) euc.dash.spd1--;
 					}else if (euc.dash.spd1<99) euc.dash.spd1++;
                     euc.dash.haSv="spd1";
-					face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,4,0,0,0,239,97,(set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv],50,120,40);
+					setTimeout(()=>{face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,4,0,0,0,239,97,(set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv],50,120,40);});
 					if (!spds) { spds=1;spdr=0;
-						face[0].btn(1,"RESOLUTION:",18,120,110,1,0,0,100,239,195,euc.dash.spdS,50,120,140);
-						face[0].ntfy("ALERT IF OVER "+((set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv]) +((set.def.dash.mph)?" MPH":" Km/h"),"",18,4,1);
+						setTimeout(()=>{face[0].btn(1,"RESOLUTION:",18,120,110,1,0,0,100,239,195,euc.dash.spdS,50,120,140);});
+						setTimeout(()=>{face[0].ntfy("ALERT IF OVER "+((set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv]) +((set.def.dash.mph)?" MPH":" Km/h"),"",18,4,1);});
 					}
 				}else{ //RESOLUTION
 					if (x<=120){ if (1<euc.dash.spdS) euc.dash.spdS--;
