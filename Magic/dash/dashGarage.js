@@ -4,12 +4,11 @@ face[0] = {
 	g:w.gfx, 
 	init: function(o){ 
 		this.dash=require("Storage").readJSON("dash.json",1);
-		this.g.setColor(0);
-		this.g.fillRect(0,0,239,239);
+		//this.g.setColor(0);
+		this.g.clearRect(0,0,239,239);
 		this.g.setColor(15);
 		this.g.setFont("Vector",22);
 		this.g.drawString("GARAGE",120-(this.g.stringWidth("GARAGE")/2),217); 
-		this.g.flip();
 		this.s1=0;this.s2=0;this.s3=0;this.s4=0;
 		this['s'+this.dash.slot]=1;
 		this.set=0;
@@ -27,14 +26,14 @@ face[0] = {
 				this.g.drawString(this.dash.slot1Maker.toUpperCase(),60-(this.g.stringWidth(this.dash.slot1Maker.toUpperCase())/2),10); 
 				this.g.setFont("Vector",35);	
 				this.g.drawString(this.dash.slot1Name.split("-")[0],60-(this.g.stringWidth(this.dash.slot1Name.split("-")[0])/2),50); 
-				this.g.flip();
+				//this.g.flip();
 			}else if (this.s1) {
 				this.g.setColor(7);
 				this.g.fillRect(0,0,119,97);
 				this.g.setColor(15);
 				this.g.setFont("Vector",22);	
 				this.g.drawString("EMPTY",60-(this.g.stringWidth("EMPTY")/2),40);
-				this.g.flip();
+				//this.g.flip();
 				if (this.s1tid)  clearTimeout(this.s1tid);
 				this.s1tid=setTimeout(function(t){
 					t.s1=0;
@@ -42,7 +41,7 @@ face[0] = {
 					t.g.setFont("Vector",22);	
 					t.g.setColor(0);
 					t.g.fillRect(0,0,119,97);
-					t.g.flip();
+					//t.g.flip();
 				 },1000,this);
 			}
 		}
@@ -58,14 +57,14 @@ face[0] = {
 				this.g.drawString(this.dash.slot2Maker.toUpperCase(),185-(this.g.stringWidth(this.dash.slot2Maker.toUpperCase())/2),10); 
 				this.g.setFont("Vector",35);	
 				this.g.drawString(this.dash.slot2Name.split("-")[0],185-(this.g.stringWidth(this.dash.slot2Name.split("-")[0])/2),50); 
-				this.g.flip();
+				//this.g.flip();
 			}else if (this.s2) {
 				this.g.setColor(7);
 				this.g.fillRect(122,0,239,97);	
 				this.g.setColor(15);
 				this.g.setFont("Vector",22);	
 				this.g.drawString("EMPTY",185-(this.g.stringWidth("EMPTY")/2),40);
-				this.g.flip();
+				//this.g.flip();
 				if (this.s2tid)  clearTimeout(this.s2tid);
 				this.s2tid=setTimeout(function(t){
 					t.s2=0;
@@ -73,7 +72,7 @@ face[0] = {
 					t.g.setFont("Vector",22);	
 					t.g.setColor(0);
 					t.g.fillRect(122,0,239,97);
-					t.g.flip();
+					//t.g.flip();
 				},1000,this);
 			}
 		}
@@ -88,14 +87,14 @@ face[0] = {
 				this.g.drawString(this.dash.slot3Maker.toUpperCase(),60-(this.g.stringWidth(this.dash.slot3Maker.toUpperCase())/2),110); 
 				this.g.setFont("Vector",35);	
 				this.g.drawString(this.dash.slot3Name.split("-")[0],60-(this.g.stringWidth(this.dash.slot3Name.split("-")[0])/2),150); 
-				this.g.flip();
+				//this.g.flip();
 			}else if (this.s3) {
 				this.g.setColor(7);
 				this.g.fillRect(0,100,119,195);
 				this.g.setColor(15);
 				this.g.setFont("Vector",22);	
 				this.g.drawString("EMPTY",60-(this.g.stringWidth("EMPTY")/2),140);
-				this.g.flip();
+				//this.g.flip();
 				if (this.s3tid)  clearTimeout(this.s3tid);
 				this.s3tid=setTimeout(function(t){
 					t.s3=0;
@@ -103,7 +102,7 @@ face[0] = {
 					t.g.setFont("Vector",22);	
 					t.g.setColor(0);
 					t.g.fillRect(0,100,119,195);
-					t.g.flip();
+					//t.g.flip();
 				},1000,this);
 			}
 		}
@@ -118,14 +117,14 @@ face[0] = {
 				this.g.drawString(this.dash.slot4Maker.toUpperCase(),185-(this.g.stringWidth(this.dash.slot4Maker.toUpperCase())/2),110); 
 				this.g.setFont("Vector",35);	
 				this.g.drawString(this.dash.slot4Name.split("-")[0],185-(this.g.stringWidth(this.dash.slot4Name.split("-")[0])/2),150); 
-				this.g.flip();
+				//this.g.flip();
 			}else if (this.s4) {
 				this.g.setColor(7);
 				this.g.fillRect(122,100,239,195);
 				this.g.setColor(15);
 				this.g.setFont("Vector",22);	
 				this.g.drawString("EMPTY",185-(this.g.stringWidth("EMPTY")/2),140);
-				this.g.flip();
+				//this.g.flip();
 				if (this.s4tid)  clearTimeout(this.s2tid);
 				this.s4tid=setTimeout(function(t){
 					t.s4=0;
@@ -133,10 +132,11 @@ face[0] = {
 					t.g.setFont("Vector",22);	
 					t.g.setColor(0);
 					t.g.fillRect(122,100,239,195);
-					t.g.flip();
+					//t.g.flip();
 				},1000,this);
 			}
 		}
+		this.g.flip();
 		this.tid=setTimeout(function(t){ 
 			t.tid=-1;
 			t.show(o);
@@ -148,7 +148,7 @@ face[0] = {
 			this.g.setColor(15);
 			this.g.setFont("Vector",size);
 			this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
-			this.g.flip();
+			//this.g.flip();
 			if (this.ntid) clearTimeout(this.ntid);
 			this.ntid=setTimeout(function(t){
 				t.ntid=0;

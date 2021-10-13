@@ -20,14 +20,16 @@ face[0] = {
 		this.id=(set.def.hr24)?["00:00 - 01:00","01:00 - 02:00","02:00 - 03:00","03:00 - 04:00","04:00 - 05:00","05:00 - 06:00","06:00 - 07:00","07:00 - 08:00","08:00 - 09:00","09:00 - 10:00","10:00 - 11:00","11:00 - 12:00","12:00 - 13:00","13:00 - 14:00","14:00 - 15:00","15:00 - 16:00","16:00 - 17:00","17:00 - 18:00","18:00 - 19:00","19:00 - 20:00","20:00 - 21:00","21:00 - 22:00","22:00 - 23:00","23:00 - 00:00"]
 		:["12:00 - 1:00 AM","1:00 - 2:00 AM","2:00 - 3:00 AM","3:00 - 4:00 AM","4:00 - 5:00 AM","5:00 - 6:00 AM","6:00 - 7:00 AM","7:00 - 8:00 AM","8:00 - 9:00 AM","9:00 - 10:00 AM","10:00 - 11:00 AM","11:00 - 11:59 AM","12:00 - 1:00 PM","1:00 - 2:00 PM","2:00 - 3:00 PM","3:00 - 4:00 PM","4:00 - 5:00 PM","5:00 - 6:00 PM","6:00 - 7:00 PM","7:00 - 8:00 PM","8:00 - 9:00 PM","9:00 - 10:00 PM","10:00 - 11:00 PM","11:00 - 11:59 PM"];
 		this.id[this.ref]="Now";
+		this.run=1;
 	},
 	show : function(o){
+		this.g.flip(); 
 		if (!this.run) return;
   		//refresh 
 		this.tid=setTimeout(function(t){
 			t.tid=-1;
 			t.show();
-		},150,this);
+		},100,this);
 	},
 	sc:function(){
 	 		this.totD=0;
@@ -49,10 +51,10 @@ face[0] = {
    		let h=(this.ref-i<0)?this.len+(this.ref-i):this.ref-i;
 			if (this.log[h]) {
 				this.g.fillRect(239-(i*(240/this.len)),(this.log[h])?239-(this.log[h]*this.scale):239, 239-((i*(240/this.len))+((240/this.len)-2)),239);		
-				this.g.flip(); 
+				//this.g.flip(); 
 			}
 		}
-		this.g.flip(); 
+		//this.g.flip(); 
     },
     btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
 		this.g.setColor((bt)?clr1:clr0);
@@ -62,7 +64,7 @@ face[0] = {
 		this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1); 
 		if (txt2){this.g.setFont("Vector",size2);	
 		this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);}
-		this.g.flip();
+		//this.g.flip();
     },
 	sel: function(txt1,txt2){
 		this.g.setColor(1);
@@ -74,7 +76,7 @@ face[0] = {
 		this.g.setFont("Vector",27);	
 		this.g.drawString((set.def.dash.mph)?" mi":" km",125+(size/2)-(this.g.stringWidth((set.def.dash.mph)?" mi":" km")/2),86);
 		this.g.drawString(txt2,120-(this.g.stringWidth(txt2)/2),137);
-		this.g.flip();
+		//this.g.flip();
     },
 	ind: function(pos){
 		pos=(((pos-1)*(240/this.len))+1);
@@ -82,11 +84,11 @@ face[0] = {
 		this.g.setColor(0);
 		this.g.setColor(13);
 		this.g.fillRect(pos,(this.log[this.pos])?239-(this.log[this.pos]*this.scale):239,pos+((240/this.len)-2),239);
-		this.g.flip(); 
+		//this.g.flip(); 
 		if (this.rowL&&this.rowL!==pos){
 			this.g.setColor(14);
 			this.g.fillRect(this.rowL,(this.log[this.posL])?239-(this.log[this.posL]*this.scale):239,this.rowL+((240/this.len)-2),239);
-			this.g.flip(); 
+			//this.g.flip(); 
 		}
 		this.rowL=pos;
 		this.posL=this.pos;
@@ -95,7 +97,7 @@ face[0] = {
 		this.g.fillRect(0,176,239,178);
 		this.g.setColor(13);
 		this.g.fillRect(pos,176,pos+(240/this.len),178);
-		this.g.flip();
+		//this.g.flip();
     },
 	ntfy: function(txt1,txt0,size,clr,bt){
 		this.g.setColor(clr);
@@ -103,7 +105,7 @@ face[0] = {
 		this.g.setColor(15);
 		this.g.setFont("Vector",size);
 		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
-		this.g.flip();
+		//this.g.flip();
 		if (this.ntid) clearTimeout(this.ntid);
 		this.ntid=setTimeout(function(t){
 			t.ntid=0;
@@ -112,7 +114,7 @@ face[0] = {
 			t.g.setColor(15);
 			t.g.setFont("Vector",20);
 			t.g.drawString(euc.dash.maker,120-(t.g.stringWidth(euc.dash.maker)/2),217); 
-			t.g.flip();
+			//t.g.flip();
 		},1000,this);
     },
 	comf: function(num){
@@ -151,7 +153,7 @@ face[1] = {
 		return;
 	},
 };	
-face.dash_off={"0":face[0],"1":face[1]};
+face.dashOff={"0":face[0],"1":face[1]};
 
 //touch-main
 touchHandler[0]=function(e,x,y){
@@ -281,4 +283,4 @@ touchHandler[0]=function(e,x,y){
 		return;
     }
 };
-touchHandler.dash_off={"0":touchHandler[0]};
+touchHandler.dashOff={"0":touchHandler[0]};

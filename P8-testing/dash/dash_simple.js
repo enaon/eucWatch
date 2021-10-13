@@ -54,7 +54,7 @@ face[0] = {
 				this.g.setFont("Vector",50);
 				this.g.drawString(euc.state,(125-this.g.stringWidth(euc.state)/2),95);
 				this.g.flip();
-				this.spd=-1;this.time=0;this.amp=-1;this.tmp=-1;this.bat=-1;this.trpL=-1;this.conn=0;this.lock=2;this.run=true;}
+				this.spd=-1;this.time=0;this.amp=-1;this.tmp=-1;this.volt=-1;this.bat=-1;this.trpL=-1;this.conn=0;this.lock=2;this.run=true;}
 		}
 		//refresh 
 		this.tid=setTimeout(function(t){
