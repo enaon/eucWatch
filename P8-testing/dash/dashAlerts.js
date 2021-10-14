@@ -183,7 +183,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].set="batt"
 					return setTimeout(function() {
 						face[0].btn(euc.dash.hapT,"TEMP",25,60,136,col("raf"),col("dgray"),0,100,119,195);
-						face[0].btn(1,"BATT",25,185,136,col("olive"),0,122,100,239,195);	
+						face[0].btn(1,"BATT",25,180,136,col("olive"),0,122,100,239,195);	
 						face[0].btn(1,"SET LOW-BATT (in %)",18,120,8,col("olive"),0,0,0,239,97,euc.dash.batL,50,125,40,1);
 					},0);
 				}else{ //back
@@ -206,7 +206,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].set="temp"
 					return setTimeout(function() {
 						face[0].btn(euc.dash.hapB,"BATT",25,180,136,col("raf"),col("dgray"),122,100,239,195);	
-						face[0].btn(1,"TEMP",25,65,136,col("olive"),0,0,100,119,195);
+						face[0].btn(1,"TEMP",25,60,136,col("olive"),0,0,100,119,195);
 						face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,120,8,col("olive"),0,0,0,239,97,(set.def.dash.farn)?(euc.dash.tmpH*1.8+32).toFixed(1):euc.dash.tmpH,50,125,40,1);
 					},0);
 				}else{ //back
