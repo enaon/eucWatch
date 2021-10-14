@@ -120,14 +120,14 @@ touchHandler[0]=function(e,x,y){
 						face[0].btn(1,"RESOLUTION:",18,120,110,col("gray"),0,0,100,239,195,euc.dash.spdS,50,120,140);
 					}
 					return setTimeout(function() {
-						face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,col("olive"),0,0,0,239,97,(set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv],50,120,40,1);
+						face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,col("olive"),0,0,0,239,97,(set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv],50,125,40,1);
 						face[0].ntfy("ALERT IF OVER "+((set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv]) +((set.def.dash.mph)?" MPH":" Km/h"),"",18,col("olive"),1);
 					},0);
 				}else{ //RESOLUTION
 					if (x<=120){ if (1<euc.dash.spdS) euc.dash.spdS--;
 					}else if (euc.dash.spdS<5) euc.dash.spdS++;
 					if (!face[0].spdr) { face[0].spdr=1;face[0].spds=0;
-						face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,col("dgray"),0,0,0,239,97,(set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv],50,120,40);
+						face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,col("dgray"),0,0,0,239,97,(set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv],50,125,40);
 					}
 					return setTimeout(function() {
 						face[0].btn(1,"RESOLUTION:",18,120,110,col("olive"),0,0,100,239,195,euc.dash.spdS,50,120,140,1);
@@ -176,7 +176,7 @@ touchHandler[0]=function(e,x,y){
 					if (120<=x&&euc.dash.tmpH<90) euc.dash.tmpH++;
 					else if (x<=120&&25<euc.dash.tmpH) euc.dash.tmpH--;
 					return setTimeout(function() {
-						face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,120,8,col("olive"),0,0,0,239,97,(set.def.dash.farn)?(euc.dash.tmpH*1.8+32).toFixed(1):euc.dash.tmpH,50,120,40,1);
+						face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,120,8,col("olive"),0,0,0,239,97,(set.def.dash.farn)?(euc.dash.tmpH*1.8+32).toFixed(1):euc.dash.tmpH,50,125,40,1);
 						face[0].ntfy("ALERT IF OVER "+((set.def.dash.farn)?Math.round(euc.dash.tmpH*1.8+32):euc.dash.tmpH)+((set.def.dash.farn)?" F":" C"),"",18,col("olive"),1);
 					},0);
 				}else if (120<=x) {
@@ -199,7 +199,7 @@ touchHandler[0]=function(e,x,y){
 					if (120<=x&&euc.dash.batL<60) euc.dash.batL++;
    			  		else if (x<=120&&5<euc.dash.batL) euc.dash.batL--;
 					return setTimeout(function() {
-						face[0].btn(1,"SET LOW-BATT (in %)",18,120,8,col("olive"),0,0,0,239,97,euc.dash.batL,50,120,40,1);
+						face[0].btn(1,"SET LOW-BATT (in %)",18,120,8,col("olive"),0,0,0,239,97,euc.dash.batL,50,125,40,1);
 						face[0].ntfy("ALERT IF UNDER "+euc.dash.batL+" %","",18,col("olive"),1);
 					},0);
 				}else if (x<=120) {
@@ -221,8 +221,8 @@ touchHandler[0]=function(e,x,y){
         }else if (x<=120&&y<100) { //spd
 			face[0].set="spd";
             buzzer([30,50,30]);
-			face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,125,8,col("dgray"),0,0,0,239,97,(set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv],50,125,40);
-			face[0].btn(1,"RESOLUTION:",18,125,110,col("gray"),0,0,100,239,195,euc.dash.spdS,50,125,140);
+			face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,col("dgray"),0,0,0,239,97,(set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv],50,120,40);
+			face[0].btn(1,"RESOLUTION:",18,120,110,col("gray"),0,0,100,239,195,euc.dash.spdS,50,120,140);
 		}else if (120<=x&&y<=100) { //amp
 			face[0].set="amp";
 			buzzer([30,50,30]);
@@ -235,13 +235,13 @@ touchHandler[0]=function(e,x,y){
 		}else if (x<=120&&100<=y) { //temp
 			face[0].set="temp";
             buzzer([30,50,30]);
-			face[0].btn(1,"TEMP",25,65,136,col("olive"),0,0,100,119,195);
-            face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,125,8,col("olive"),0,0,0,239,97,(set.def.dash.farn)?(euc.dash.tmpH*1.8+32).toFixed(1):euc.dash.tmpH,50,125,40,1);
+			face[0].btn(1,"TEMP",25,60,136,col("olive"),0,0,100,119,195);
+            face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,120,8,col("olive"),0,0,0,239,97,(set.def.dash.farn)?(euc.dash.tmpH*1.8+32).toFixed(1):euc.dash.tmpH,50,125,40,1);
 		}else if (120<=x&&100<=y) { //batt
 			face[0].set="batt";
             buzzer([30,50,30]);
-			face[0].btn(1,"BATT",25,185,136,col("olive"),0,122,100,239,195);	
-            face[0].btn(1,"SET LOW-BATT (in %)",18,125,8,col("olive"),0,0,0,239,97,euc.dash.batL,50,125,40,1);
+			face[0].btn(1,"BATT",25,180,136,col("olive"),0,122,100,239,195);	
+            face[0].btn(1,"SET LOW-BATT (in %)",18,120,8,col("olive"),0,0,0,239,97,euc.dash.batL,50,125,40,1);
 		}else buzzer([30,50,30]);		
 		break;
 	case 1: //slide down event
