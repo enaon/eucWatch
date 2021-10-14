@@ -15,9 +15,9 @@ face[0] = {
 		this.g.flip();
 		//
         this.btn(euc.dash.aLck,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
-		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,180,17,col("raf"),col("dgray"),122,0,239,97,"ALERTS",22,180,55);		
+		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("dgray"),122,0,239,97,"ALERTS",22,185,55);		
         this.btn(euc.dash.light,"RING",25,60,136,col("raf"),col("dgray"),0,100,119,195);
-        this.btn(1,"MODE:"+euc.dash.mode,25,180,136,col("olive"),0,122,100,239,195);	
+        this.btn(1,"MODE:"+euc.dash.mode,25,185,136,col("olive"),0,122,100,239,195);	
 		this.run=true;
 	},
 	show : function(){
@@ -36,7 +36,7 @@ face[0] = {
 			this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1);
 			if (txt2){
 				this.g.setFont("Vector",size2);this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);
-				if (sele) {this.g.drawString("<",10,y2); this.g.drawString(">",207,y2); }
+				if (sele) {this.g.setFont("Vector",40); this.g.drawString("<",10,y2); this.g.drawString(">",205,y2); }
 			}
 			this.g.flip();
     },
@@ -92,7 +92,6 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
 		if (face[0].set) { 
-			
 			if ( 100 < y ) {
 			  euc.wri(30+euc.dash.mode);
               w.gfx.setColor(0,0);
@@ -152,16 +151,15 @@ touchHandler[0]=function(e,x,y){
         if (face[0].set) {
 			  euc.wri(30+euc.dash.mode);
               w.gfx.setColor(0,0);
-              w.gfx.drawLine(120,0,125,97);
+              w.gfx.drawLine(120,0,120,97);
               w.gfx.drawLine(121,0,121,97);
               w.gfx.flip();
-              face[0].init();
+              face[0].init();return;
         } else {
 		  euc.busy=0;euc.wri(1);
           face.go(set.dash[set.def.dash.face],0);
           return;
         }
-   		
         break;
 	case 12: //long press event
 		if (face[0].set) { 

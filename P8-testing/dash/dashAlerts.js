@@ -117,20 +117,20 @@ touchHandler[0]=function(e,x,y){
 					}else if (euc.dash.spd1<99) euc.dash.spd1++;
                     euc.dash.haSv="spd1";
 					if (!face[0].spds) { face[0].spds=1;face[0].spdr=0;
-						face[0].btn(1,"RESOLUTION:",18,125,110,col("gray"),0,0,100,239,195,euc.dash.spdS,50,125,140);
+						face[0].btn(1,"RESOLUTION:",18,120,110,col("gray"),0,0,100,239,195,euc.dash.spdS,50,120,140);
 					}
 					return setTimeout(function() {
-						face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,125,8,col("olive"),0,0,0,239,97,(set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv],50,125,40,1);
+						face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,col("olive"),0,0,0,239,97,(set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv],50,120,40,1);
 						face[0].ntfy("ALERT IF OVER "+((set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv]) +((set.def.dash.mph)?" MPH":" Km/h"),"",18,col("olive"),1);
 					},0);
 				}else{ //RESOLUTION
 					if (x<=120){ if (1<euc.dash.spdS) euc.dash.spdS--;
 					}else if (euc.dash.spdS<5) euc.dash.spdS++;
 					if (!face[0].spdr) { face[0].spdr=1;face[0].spds=0;
-						face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,125,8,col("dgray"),0,0,0,239,97,(set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv],50,125,40);
+						face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,col("dgray"),0,0,0,239,97,(set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv],50,120,40);
 					}
 					return setTimeout(function() {
-						face[0].btn(1,"RESOLUTION:",18,125,110,col("olive"),0,0,100,239,195,euc.dash.spdS,50,125,140,1);
+						face[0].btn(1,"RESOLUTION:",18,120,110,col("olive"),0,0,100,239,195,euc.dash.spdS,50,120,140,1);
 						face[0].ntfy("1 PULSE PER "+euc.dash.spdS+((set.def.dash.mph)?" MPH":"KPH")+" > "+((set.def.dash.mph)?Math.round(euc.dash[euc.dash.haSv]*0.625):euc.dash[euc.dash.haSv]),"",18,col("olive"),1);
 						},0);
 				}  
@@ -145,7 +145,7 @@ touchHandler[0]=function(e,x,y){
 					}
 					return setTimeout(function() {
 						face[0].btn(1,"UPHILL:",20,65,23,col("olive"),0,0,0,239,63,euc.dash.ampH+" A",35,180,16);
-						face[0].ntfy("ALERT IF OVER "+euc.dash.ampH+" A","",18,col("dgray"),1);						
+						face[0].ntfy("ALERT IF OVER "+euc.dash.ampH+" A","",18,col("olive"),1);						
 					},0);
 				}else if (65<=y&&y<=133){//braking
 					if (x<=120&&euc.dash.ampL<-5) euc.dash.ampL++;
@@ -156,7 +156,7 @@ touchHandler[0]=function(e,x,y){
 					}
    					return setTimeout(function() {
 						face[0].btn(1,"BRAKING:",20,65,90,col("olive"),0,0,66,239,132,euc.dash.ampL+ " A",35,182,84);
-						face[0].ntfy("ALERT IF UNDER "+euc.dash.ampL+" A","",18,col("dgray"),1);   
+						face[0].ntfy("ALERT IF UNDER "+euc.dash.ampL+" A","",18,col("olive"),1);   
 					},0);
 				}else {//RESOLUTION
 					if (120<=x&&euc.dash.ampS<3) euc.dash.ampS++;
@@ -168,7 +168,7 @@ touchHandler[0]=function(e,x,y){
 					}
 					return setTimeout(function() {
 						face[0].btn(1,"RESOLUTION:",17,70,157,col("olive"),0,0,135,239,195,euc.dash.ampS+ " A",35,190,150);
-						face[0].ntfy("ONE PULSE PER "+euc.dash.ampS+ " A","",18,col("dgray"),1);
+						face[0].ntfy("ONE PULSE PER "+euc.dash.ampS+ " A","",18,col("olive"),1);
 					},0);
 				}
             }else if (face[0].set=="temp") { //temp
@@ -176,7 +176,7 @@ touchHandler[0]=function(e,x,y){
 					if (120<=x&&euc.dash.tmpH<90) euc.dash.tmpH++;
 					else if (x<=120&&25<euc.dash.tmpH) euc.dash.tmpH--;
 					return setTimeout(function() {
-						face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,125,8,col("olive"),0,0,0,239,97,(set.def.dash.farn)?(euc.dash.tmpH*1.8+32).toFixed(1):euc.dash.tmpH,50,125,40,1);
+						face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,120,8,col("olive"),0,0,0,239,97,(set.def.dash.farn)?(euc.dash.tmpH*1.8+32).toFixed(1):euc.dash.tmpH,50,120,40,1);
 						face[0].ntfy("ALERT IF OVER "+((set.def.dash.farn)?Math.round(euc.dash.tmpH*1.8+32):euc.dash.tmpH)+((set.def.dash.farn)?" F":" C"),"",18,col("olive"),1);
 					},0);
 				}else if (120<=x) {
@@ -184,7 +184,7 @@ touchHandler[0]=function(e,x,y){
 					return setTimeout(function() {
 						face[0].btn(euc.dash.hapT,"TEMP",25,65,136,col("raf"),col("dgray"),0,100,119,195);
 						face[0].btn(1,"BATT",25,185,136,col("olive"),0,122,100,239,195);	
-						face[0].btn(1,"SET LOW-BATT (in %)",18,125,8,col("olive"),0,0,0,239,97,euc.dash.batL,50,125,40,1);
+						face[0].btn(1,"SET LOW-BATT (in %)",18,120,8,col("olive"),0,0,0,239,97,euc.dash.batL,50,120,40,1);
 					},0);
 				}else{ //back
 		            w.gfx.setColor(0,0);
@@ -199,7 +199,7 @@ touchHandler[0]=function(e,x,y){
 					if (120<=x&&euc.dash.batL<60) euc.dash.batL++;
    			  		else if (x<=120&&5<euc.dash.batL) euc.dash.batL--;
 					return setTimeout(function() {
-						face[0].btn(1,"SET LOW-BATT (in %)",18,125,8,col("olive"),0,0,0,239,97,euc.dash.batL,50,125,40,1);
+						face[0].btn(1,"SET LOW-BATT (in %)",18,120,8,col("olive"),0,0,0,239,97,euc.dash.batL,50,120,40,1);
 						face[0].ntfy("ALERT IF UNDER "+euc.dash.batL+" %","",18,col("olive"),1);
 					},0);
 				}else if (x<=120) {
@@ -207,7 +207,7 @@ touchHandler[0]=function(e,x,y){
 					return setTimeout(function() {
 						face[0].btn(euc.dash.hapB,"BATT",25,185,136,col("raf"),col("dgray"),122,100,239,195);	
 						face[0].btn(1,"TEMP",25,65,136,col("olive"),0,0,100,119,195);
-						face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,125,8,col("olive"),0,0,0,239,97,(set.def.dash.farn)?(euc.dash.tmpH*1.8+32).toFixed(1):euc.dash.tmpH,50,125,40,1);
+						face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,120,8,col("olive"),0,0,0,239,97,(set.def.dash.farn)?(euc.dash.tmpH*1.8+32).toFixed(1):euc.dash.tmpH,50,120,40,1);
 					},0);
 				}else{ //back
            		    w.gfx.setColor(0,0);
