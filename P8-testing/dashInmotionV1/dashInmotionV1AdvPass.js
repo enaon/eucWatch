@@ -317,32 +317,32 @@ touchHandler[5]=function(e,x,y){
                 if (face[5].pass==face[5].passTemp){
                   euc.dash.passOld=euc.dash.pass;
                   euc.dash.pass=face[5].pass;
-                  buzzer(D16,1,80);
+                  buzzer(80);
                   face[5].ntfy("SUCCESS!",20,col("blue1"));
                   if (euc.dash.passOld!=""){euc.wri("passChange");}else{euc.wri("passSet");}
        			  euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
                   euc.dash.passSend=1;
                   setTimeout(()=>{face.go("dashInmotionV1AdvPass",0);return;},1000);
                 }else{
-                  buzzer(D16,1,120);
+                  buzzer(120);
                   face[5].ntfy("NOT THE SAME",20,col("red"));
                   face[0].passSet=1;
                   face[5].passTemp="";
                 }
               }else {
                  face[5].passTemp=face[5].pass;
-                 buzzer(D16,1,80);
+                 buzzer(80);
                  face[0].passSet=2;
                  face[5].ntfy("RE-ENTER->CONFIRM",20,col("blue1"));
              }
           }else{
               if (face[5].pass==euc.dash.pass) {
-                buzzer(D16,1,80);
+                buzzer(80);
                 face[5].ntfy("PASSWORD ACCEPTED",20,col("blue1"));
                 setTimeout(()=>{face.go("dashInmotionV1AdvPass",0);return;},1000);
               } else {
                 
-                buzzer(D16,1,120);
+                buzzer(120);
        	  	    face[5].ntfy("WRONG PASSWORD",20,col("red"));
               }
           }
@@ -376,7 +376,7 @@ touchHandler[5]=function(e,x,y){
 		face.go("dashInmotionV1Adv",0);
 		return;
 	case 12: //long press event
-		buzzer(D16,1,[100]);
+		buzzer(100);
 		this.timeout();
 		break;
   }

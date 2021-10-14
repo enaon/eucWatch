@@ -137,7 +137,7 @@ euc.conn=function(mac){
 				euc.horn=0;
 			}else if (n=="start") {
 				c.writeValue(euc.cmd((euc.dash.light)?"setLightOn":"setLightOff")).then(function() {
-					buzzer(D16,1,[100,100,150,]);
+					buzzer([100,100,150,]);
 					return c.startNotifications(); 
 				}).then(function()  {
 					let md={"1":"SETs","2":"SETm","3":"SETh"};
@@ -206,8 +206,8 @@ euc.off=function(err){
 				return;
 			}
 			euc.run=euc.run+1;
-			if (euc.dash.lock==1) buzzer(D16,1,250);
-			else buzzer(D16,1,[250,200,250,200,250]);
+			if (euc.dash.lock==1) buzzer(250);
+			else  buzzer([250,200,250,200,250])
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
 				euc.conn(euc.mac); 

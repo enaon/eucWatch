@@ -256,7 +256,7 @@ touchHandler[0]=function(e,x,y){
 			(euc.state=="OFF")?face.go("dashOff",0):face.go(set.dash[set.def.dash.face],0);
 		return;
 	case 12: //long press event
-		buzzer(D16,1,[100]);
+		buzzer(100);
 		if ( face[0].set ) {
 			if ( y<=120 ) {
 				w.gfx.setColor(0,0);

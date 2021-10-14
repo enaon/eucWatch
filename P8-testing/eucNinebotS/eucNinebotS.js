@@ -115,7 +115,7 @@ euc.conn=function(mac){
 					case 210: //riding Mode
 						if (this.in16 >=10)  {
 						  if (face.appCurr=="dashSetNinebot") face[0].ntfy("OK","",22,col("blue1"),1);
-						  buzzer(D16,1,[80,40,80]);  
+						  buzzer([80,40,80]);  
 						}else euc.dash.mode=this.in16;
 						break;
 					case 112: //lock status
@@ -151,7 +151,7 @@ euc.conn=function(mac){
 			//connected 
 			if (set.bt===2) console.log("EUC: Connected"); 
 			euc.state="READY"; //connected
-			buzzer(D16,1,[90,40,150,40,90]);
+			buzzer([90,40,150,40,90]);
 			euc.dash.lock=0;
 			//write function
 			euc.wri=function(i){
@@ -212,8 +212,8 @@ euc.off=function(err){
 				return;
 			}
 			euc.run=euc.run+1;
-			if (euc.dash.lock==1) buzzer(D16,1,250);
-			else buzzer(D16,1,[250,200,250,200,250]);
+			if (euc.dash.lock==1) buzzer(250);
+			else  buzzer([250,200,250,200,250])
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
 				if (euc.state!="OFF") euc.conn(euc.mac); 

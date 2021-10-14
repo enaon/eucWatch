@@ -24,7 +24,7 @@ function handleNotificationEvent(event) {
 				notify.call.unshift(JSON.stringify({src:event.src.substr(0,15),title:event.title.substr(0,20),body:event.body.substr(0,90),time:ti,id:event.id,idUnread:true}));
 				if (notify.call.length>10) notify.call.pop();
 				if (set.def.buzz&&!notify.ring) {
-					buzzer(D16,1,[80,50,80]);
+					buzzer([80,50,80]);
 					if (face.appCurr!="main"||face.pageCurr!=0) {
 						face.go("main",0);
 						face.appPrev="main";face.pagePrev=-1;
@@ -39,7 +39,7 @@ function handleNotificationEvent(event) {
 			notify.im.unshift(JSON.stringify({src:event.src.substr(0,15),title:(event.title)?event.title.substr(0,20):"-",body:(event.body)?event.body.substr(0,90):"-",time:ti,id:event.id,idUnread:true}));
 			if (notify.im.length>10) notify.im.pop();
 			if (set.def.buzz&&!notify.ring&&Boolean(require("Storage").read("notify"))) {
-				buzzer(D16,1,[80,50,80]);
+				buzzer([80,50,80]);
 				if (face.appCurr!="notify"||face.pageCurr!=5) {
 					face.go("notify",5,"im");
 					face.appPrev="off";
@@ -52,7 +52,7 @@ function handleNotificationEvent(event) {
 		notify.im.unshift(JSON.stringify({src:"SMS",title:event.sender.substr(0,20),body:(event.body)?event.body.substr(0,90):"-",time:ti,id:event.id,idUnread:true}));
 		if (notify.im.length>10) notify.im.pop();
 		if (set.def.buzz&&!notify.ring&&Boolean(require("Storage").read("notify"))) {
-			buzzer(D16,1,[80,50,80]);
+			buzzer([80,50,80]);
 			if (face.appCurr!="notify"||face.pageCurr!=5) {
 				face.go("notify",5,"im");
 				face.appPrev="off";
@@ -75,7 +75,7 @@ function handleWeatherEvent(event) {
       if (notify.info.length>10) notify.info.pop();
 	  notify.weather=event;
 	  if (set.def.buzz&&!notify.ring) {
-		buzzer(D16,1,[80,50,80]);
+		buzzer([80,50,80]);
 		if (face.appCurr!="main"||face.pageCurr!=0) {
 			face.go("main",0);
 			face.appPrev="main";face.pagePrev=-1;
@@ -85,7 +85,7 @@ function handleWeatherEvent(event) {
 function handleCallEvent(event) {
 	if (event.cmd==="incoming"&&event.name){
 		notify.in=event;notify.ring=1;
-		buzzer(D16,1,[80,50,80,50,200,50,80,50,80]);
+		buzzer([80,50,80,50,200,50,80,50,80]);
 		if (face.appCurr!="main"||face.pageCurr!=0) {
 			face.go("main",0);
 			face.appPrev="main";face.pagePrev=-1;
@@ -101,7 +101,7 @@ var find=0;
 function handleFindEvent(event) {
     if (event.n===true) {
 	  if (!find){
-		  find=setInterval(function(){ buzzer(D16,1,[100,50,100,50,100]); },1000); 
+		  find=setInterval(function(){ buzzer([100,50,100,50,100]); },1000); 
 	  }
 	} else { // found
 		clearInterval(find);find=0;

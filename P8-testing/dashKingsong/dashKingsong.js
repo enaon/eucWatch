@@ -165,7 +165,7 @@ touchHandler[0]=function(e,x,y){
 			euc.dash.aOff=1;
 			euc.dash.aLck=0;
 			euc.tgl();
-	    }else buzzer(D16,1,[100]);
+	    }else buzzer(100);
 		this.timeout();
 		break;
   }

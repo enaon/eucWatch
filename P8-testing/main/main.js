@@ -347,7 +347,7 @@ touchHandler[0]=function(e,x,y){
 		else buzzer(40);
     }else if  (e==12){
 	if (150<y&&y<200){ 	
-		buzzer(D16,1,180);
+		buzzer(180);
 		notify.New=0;notify.nInfo=0;notify.nCall=0;notify.nIm=0;notify.nMail=0;
 	}else if (x>162 && y>200){ 
       buzzer(40);
@@ -356,11 +356,11 @@ touchHandler[0]=function(e,x,y){
 		if (set.def.hr24==undefined) set.def.hr24=0;
 		set.def.hr24=1-set.def.hr24;
 		face[0].hour=-1;
-		buzzer(D16,1,100);
+		buzzer(100);
 	//alarms
      }else if (x>105 && (55<y&&y<150)&&global.alrm){ 
 	   if (alrm.buzz!=-1) {
-		alrm.stop(alrm.now); buzzer(D16,1,[80,40,80]);
+		alrm.stop(alrm.now); buzzer([80,40,80]);
 	   }else {
         buzzer([30,50,30]);
 		if (global.alrm){face.go("alarm",0);return;}

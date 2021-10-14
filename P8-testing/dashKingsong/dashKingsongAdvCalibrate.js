@@ -175,7 +175,7 @@ touchHandler[0]=function(e,x,y){
 		face.go("dashKingsongAdv",0);
 		return;
 	case 12: //long press event
-		buzzer(D16,1,[100]);
+		buzzer(100);
 		this.timeout();
 		break;
   }

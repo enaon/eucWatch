@@ -287,15 +287,15 @@ touchHandler[0]=function(e,x,y){
     }else if  (e==12){		
 	  if(39<y&&y<105) {
 		if(alrm[1].on===1) {alrm.stop(1);face[0].al1=-2;}
-		else {buzzer(D16,1,[90]);face.go("alarm",5,1);return; }
+		else {90);face.go("alarm",5,1);return; }
         buzzer([30,50,30]);
 	  }else if(105<y&&y<174) {
 		if(alrm[2].on===1) {alrm.stop(2);face[0].al2=-2;}
-		else {buzzer(D16,1,[90]);face.go("alarm",5,2);return;}
+		else {buzzer(90);face.go("alarm",5,2);return;}
         buzzer([30,50,30]);
       }else if(174<y&&y<239) {
 		if(alrm[3].on===1) {alrm.stop(3);face[0].al3=-2;}
-		else {buzzer(D16,1,[90]);face.go("alarm",5,3);return;}
+		else {buzzer(90);face.go("alarm",5,3);return;}
         buzzer([30,50,30]);
 	  }else buzzer(40);    
     }
@@ -351,7 +351,7 @@ touchHandler[5]=function(e,x,y){
     }else if  (e==12){
       alrm[a].hour=Date().getHours();
       alrm[a].min=Date().getMinutes();
-      buzzer(D16,1,[80,60,80]); 
+      buzzer([80,60,80]); 
     }
 	if (alrm[a].tmr!==-1){alrm.clear(a); 
         alrm.set(a);

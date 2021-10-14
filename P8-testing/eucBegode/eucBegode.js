@@ -111,7 +111,7 @@ euc.conn=function(mac){
 	//write
 	}).then(function(c) {
 		console.log("EUC Begode connected!"); 
-		buzzer(D16,1,[90,40,150,40,90]);
+		buzzer([90,40,150,40,90]);
 		euc.wri= function(n) {
 			//print(n);
 			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},500);return;} euc.busy=euc.busy=setTimeout(()=>{euc.busy=0;},500);
@@ -236,8 +236,8 @@ euc.off=function(err){
 				return;
 			}
 			euc.run=euc.run+1;
-			if (euc.dash.lock==1) buzzer(D16,1,250);
-			else buzzer(D16,1,[250,200,250,200,250]);
+			if (euc.dash.lock==1) buzzer(250);
+			else  buzzer([250,200,250,200,250])
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
 				euc.conn(euc.mac); 

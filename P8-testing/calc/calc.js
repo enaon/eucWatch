@@ -295,7 +295,7 @@ touchHandler[0]=function(e,x,y){
       if (y<35) { //back-delete last digit
 	    if(calc.disp!="") {
 			calc.disp=calc.disp.substring(0,calc.disp.length-1);
-	  		buzzer(D16,1,80);
+	  		buzzer(80);
         }  else buzzer(40);		
       }else if(0<x&&x<58&&42<y&&y<91){ //1-2-3
         face[0].num(1);
@@ -364,7 +364,7 @@ touchHandler[0]=function(e,x,y){
     }else if  (e==12){ //long press
       //if(y<40){
         calc.val="";calc.sum="";calc.disp="";calc.tot="";
-        buzzer(D16,1,[100,50,80]);
+        buzzer([100,50,80]);
       //}
     }
    this.timeout();
@@ -412,7 +412,7 @@ touchHandler[5]=function(e,x,y){
         buzzer([30,50,30]);
       }else  face.go("calc",0);return;
     }else if  (e==12){
-        buzzer(D16,1,[80,50,60]);
+        buzzer([80,50,60]);
         face[5].hist=0;
 		calc.hist=[];
 		face.go("calc",0);return;

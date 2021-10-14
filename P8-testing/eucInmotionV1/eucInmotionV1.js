@@ -283,7 +283,7 @@ euc.conn=function(mac){
 			//connected 
 			if (set.bt===2) console.log("EUC InmotionV1: Connected"); 
 			euc.state="READY"; //connected
-			buzzer(D16,1,[90,40,150,40,90]);
+			buzzer([90,40,150,40,90]);
 			euc.dash.lock=0;
 			//write function
 			euc.tmp.live= function(){
@@ -446,8 +446,8 @@ euc.off=function(err){
 				return;
 			}
 			euc.run=euc.run+1;
-			if (euc.dash.lock==1) buzzer(D16,1,250);
-			else buzzer(D16,1,[250,200,250,200,250]);
+			if (euc.dash.lock==1) buzzer(250);
+			else  buzzer([250,200,250,200,250])
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
 				if (euc.state=="OFF") return;
