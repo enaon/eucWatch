@@ -162,7 +162,7 @@ touchHandler[0]=function(e,x,y){
        else if(135<y&&y<=185) 	this.mac=scan.mac[2].split("|")[0];
        else if(185<y) 	this.mac=scan.mac[3].split("|")[0];
        if (this.mac!=undefined) {
-			buzzer(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 			if (face.appRoot[0]!="repellent"){
                 //set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Mac",this.mac);
 				euc.mac=this.mac;
@@ -173,17 +173,17 @@ touchHandler[0]=function(e,x,y){
                 set.write("setting",face.appRoot[0]+"Go",face[0].line+"");
 			}
 			face.go(face.appRoot[0],face.appRoot[1]);return;
-		}else buzzer(D16,1,40);
+		}else buzzer(40);
     }else if  (e==1){
 	  face.go(face.appPrev,face.pagePrev);return;
     }else if  (e==2){
 	  if (y>200&&x<50) {
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
         else w.gfx.bri.set(this.bri);
-		buzzer(D16,1,[30,50,30]);
-	  } else buzzer(D16,1,40);
+		buzzer([30,50,30]);
+	  } else buzzer(40);
     }else if  (e==3){
-	  buzzer(D16,1,40);    
+	  buzzer(40);    
     }else if  (e==4){
 		face.go(face.appRoot[0],face.appRoot[1]);
 	  return;

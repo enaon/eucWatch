@@ -80,7 +80,7 @@ euc.conn=function(mac){
 			//alerts
 			if (euc.alert && !euc.buzz) {  
 				if (!w.gfx.isOn&&(euc.dash.spdC||euc.dash.ampC||euc.dash.alrm)) face.go(set.dash[set.def.dash.face],0);
-				else face.off(6000);
+				//else face.off(6000);
 				euc.buzz=1;
 				if (20<=euc.alert) euc.alert=20;
 				var a=[];

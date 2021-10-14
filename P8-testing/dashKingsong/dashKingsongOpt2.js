@@ -110,21 +110,21 @@ touchHandler[0]=function(e,x,y){
 			euc.dash.aLck=1-euc.dash.aLck;
             face[0].btn(euc.dash.aLck,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
             face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,col("dgray"),euc.dash.aLck);
-			buzzer(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //watch alerts
-			buzzer(D16,1,40);						
+			buzzer(40);						
 			//face.go("dashAlerts",0);
 		}else if ( x<=120 && 100<=y ) { //auto off
 			euc.dash.aOff=1-euc.dash.aOff;
             face[0].btn(euc.dash.aOff,"AUTO",18,60,115,col("red"),col("dgray"),0,100,119,195,"OFF",30,60,150);
             face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",16,col("dgray"),euc.dash.aOff);
-			buzzer(D16,1,[30,50,30]);		
+			buzzer([30,50,30]);		
 		}else if  (120<=x && 100<=y ) { //auto lift
 			euc.dash.ks.aLift=1-euc.dash.ks.aLift;
             face[0].btn(euc.dash.ks.aLift,"AUTO",18,185,115,col("red"),col("dgray"),122,100,239,195,"LIFT",30,185,150);	
             face[0].ntfy("CONNECT -> LIFT OFF","AUTO LIFT DISABLED",18,col("dgray"),euc.dash.ks.aLift);
-			buzzer(D16,1,[30,50,30]);						
-		}else buzzer(D16,1,[30,50,30]);
+			buzzer([30,50,30]);						
+		}else buzzer([30,50,30]);
 		this.timeout();
 		break;
 	case 1: //slide down event
@@ -135,10 +135,10 @@ touchHandler[0]=function(e,x,y){
 		if ( 200<=y && x<=50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 		}else //if (y>100) {
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		//} else {buzzer(D16,1,40);}
+		//} else {buzzer(40);}
 		this.timeout();
 		break;
 	case 3: //slide left event
@@ -152,21 +152,21 @@ touchHandler[0]=function(e,x,y){
 			euc.dash.aLck=1-euc.dash.aLck;
             face[0].btn(euc.dash.aLck,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
             face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,col("dgray"),euc.dash.aLck);
-			buzzer(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //watch alerts
-			buzzer(D16,1,40);						
+			buzzer(40);						
 			//face.go("dashAlerts",0);
 		}else if ( x<=120 && 100<=y ) { //auto off
 			euc.dash.aOff=1-euc.dash.aOff;
             face[0].btn(euc.dash.aOff,"AUTO",18,60,115,col("red"),col("dgray"),0,100,119,195,"OFF",30,60,150);
             face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",16,col("dgray"),euc.dash.aOff);
-			buzzer(D16,1,[30,50,30]);		
+			buzzer([30,50,30]);		
 		}else if  (120<=x && 100<=y ) { //auto lift
 			euc.dash.ks.aLift=1-euc.dash.ks.aLift;
             face[0].btn(euc.dash.ks.aLift,"AUTO",18,185,115,col("red"),col("dgray"),122,100,239,195,"LIFT",30,185,150);	
             face[0].ntfy("CONNECT -> LIFT OFF","AUTO LIFT DISABLED",18,col("dgray"),euc.dash.ks.aLift);
-			buzzer(D16,1,[30,50,30]);						
-		}else buzzer(D16,1,[30,50,30]);
+			buzzer([30,50,30]);						
+		}else buzzer([30,50,30]);
 		this.timeout();
 		break;
   }

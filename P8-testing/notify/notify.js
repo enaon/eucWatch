@@ -224,12 +224,12 @@ touchHandler[0]=function(e,x,y){
       } else if (160<=y&&y<239&x<170){
         face.go("notify",5,"info");return;
 	  }else if (y<80){
-		buzzer(D16,1,40);
+		buzzer(40);
       } else if (80<=y&&y<160){
-		buzzer(D16,1,40);
+		buzzer(40);
 	  } else if (160<=y&&y<239){
-		buzzer(D16,1,40);
-      }else buzzer(D16,1,40);
+		buzzer(40);
+      }else buzzer(40);
     }else if  (e==1){
 		//face.go("notify",-1);return;
 		face.go("main",0);return;
@@ -237,15 +237,15 @@ touchHandler[0]=function(e,x,y){
 	  if (y>160&&x<50) {
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
         else w.gfx.bri.set(this.bri);
-		buzzer(D16,1,[30,50,30]);
+		buzzer([30,50,30]);
       }else {
 		face.go("settings",0);return;
 	  } 
     }else if  (e==3){
-		//buzzer(D16,1,40);
+		//buzzer(40);
 		face.go("main",0);return;
     }else if  (e==4){
-		if (face.appPrev=="main")buzzer(D16,1,40);
+		if (face.appPrev=="main")buzzer(40);
 		else face.go("main",0);return;
     }else if  (e==12){
       if (y<80&&x<170){
@@ -257,7 +257,7 @@ touchHandler[0]=function(e,x,y){
 	  } else if (160<=y&&y<239&x<170){
 		buzzer(D16,1,[30,50,80]);notify.info=[];notify.nInfo=0;face[0].nInfo=-1;
 		if (!notify.nCall&&!notify.nIm&&!notify.nInfo) {set.gbSend({t:"notify", n:"dismiss_all"});notify.New=0;}
-      }else buzzer(D16,1,40);
+      }else buzzer(40);
     }
    this.timeout();
 };
@@ -275,7 +275,7 @@ touchHandler[5]=function(e,x,y){
       face[5].del=0;
       return;
     }else if (e==5){
-	  buzzer(D16,1,40);
+	  buzzer(40);
     }else if  (e==1){//slide down
 	  if (face[5].msg&&face[5].msg.id) set.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
       face[5].go--;
@@ -294,7 +294,7 @@ touchHandler[5]=function(e,x,y){
       if (face.appPrev=="off") {face.go("main",-1);return;}
 		else  {face.go(face.appPrev,face.pagePrev,face.pageArg);return;}
     }else if  (e==12){
-      buzzer(D16,1,40);
+      buzzer(40);
     }
    this.timeout();
 };

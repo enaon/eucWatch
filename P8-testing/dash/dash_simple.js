@@ -178,15 +178,15 @@ touchHandler[0]=function(e,x,y){
 			if (set.def.dash.clkS==undefined) set.def.dash.clkS=0;
 			set.def.dash.clkS=1-set.def.dash.clkS;
 			face[0].time=-1;face[0].tmp=-1;
-			buzzer(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 		}else if (120 < x && y < 60){//batery percentage/voltage
 			if (set.def.dash.batS==undefined) set.def.dash.batS=0;
 			set.def.dash.batS=1-set.def.dash.batS;
 			face[0].bat=-1;face[0].volt=-1;
-			buzzer(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 		}
 		else{	
-			buzzer(D16,1,40);
+			buzzer(40);
 		}
 		this.timeout();
 		break;
@@ -198,19 +198,19 @@ touchHandler[0]=function(e,x,y){
 		if (y>160&&x<50) {
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 			this.timeout();
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
         this.timeout();
 		break;
     case 3: //slide left event
-		(euc.state=="READY")?face.go('dash'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0):(euc.state=="OFF")?face.go("dashGarage",0):buzzer(D16,1,40);
+		(euc.state=="READY")?face.go('dash'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0):(euc.state=="OFF")?face.go("dashGarage",0):buzzer(40);
 		return;
     case 4: //slide right event (back action)
 		face.go("main",0);
 		return;
     case 12: //touch and hold(long press) event
-		buzzer(D16,1,40);
+		buzzer(40);
 		this.timeout();
 		break;
     }

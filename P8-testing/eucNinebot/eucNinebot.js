@@ -106,7 +106,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			break;
 		case 210: //riding Mode
 			if (this.in16 >=10)  {
-              if (face.appCurr=="dashSetNinebot") face[0].ntfy("OK","",22,col("blue1"),1);
+              if (face.appCurr=="dashNinebot") face[0].ntfy("MODE CHANGED","",22,col("raf"),1);
               buzzer(D16,1,[80,40,80]);  
             }else euc.dash.mode=this.in16;
 			break;
@@ -117,7 +117,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
     	//buzz
 		if (euc.alert && !euc.buzz) {  
 			if (!w.gfx.isOn&&(euc.dash.spdC||euc.dash.ampC||euc.dash.alrm)) face.go(set.dash[set.def.dash.face],0);
-			else face.off(6000);
+			//else face.off(6000);
 			euc.buzz=1;
             if (20<=euc.alert) euc.alert=20;
 			var a=[];

@@ -210,14 +210,14 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
         if (euc.dash.pass.length>=4){
-   		buzzer(D16,1,[30,50,30]);
+   		buzzer([30,50,30]);
 		if (y<=100) { //enable/disable
           face[0].ntfy("HOLD -> CLEAR",20,col("dgray"));
 		}else  { //change
            face[0].ntfy("HOLD -> CHANGE",20,col("dgray"));
 		}
         } else {
-          buzzer(D16,1,40);
+          buzzer(40);
           face[0].ntfy("HOLD -> SET",20,col("dgray"));
 
         }
@@ -231,12 +231,12 @@ touchHandler[0]=function(e,x,y){
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		this.timeout();
 		break;
 	case 3: //slide left event
-		buzzer(D16,1,40);
+		buzzer(40);
 		this.timeout();
 		break;
 	case 4: //slide right event (back action)
@@ -250,7 +250,7 @@ touchHandler[0]=function(e,x,y){
 		face.go("dashInmotionV1Adv",0);
 		return;
 	case 12: //long press event
-		buzzer(D16,1,[30,50,30]);
+		buzzer([30,50,30]);
         if (euc.dash.pass.length>=4){ 
 		if (y<=100) { //clear
           euc.wri("passClear");
@@ -276,8 +276,8 @@ touchHandler[0]=function(e,x,y){
 touchHandler[5]=function(e,x,y){ 
 	switch (e) {
 	case 5: //tap event
-        if (face[5].pass.length>=4) {buzzer(D16,1,40);return;}
-		buzzer(D16,1,[30,50,30]);
+        if (face[5].pass.length>=4) {buzzer(40);return;}
+		buzzer([30,50,30]);
         let i;
         if (x<=80&&y<=65) {i=1;
           face[5].btn(0,0,79,63,i,34,18); 
@@ -357,12 +357,12 @@ touchHandler[5]=function(e,x,y){
      	if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		this.timeout();
 		break;
 	case 3: //slide left event
-		buzzer(D16,1,40);
+		buzzer(40);
 		this.timeout();
 		break;
 	case 4: //slide right event (back action)

@@ -10,17 +10,13 @@ face[0] = {
         this.g.flip();	
 		this.g.fillRect(120,0,121,195);
         this.g.flip();		
-        //this.g.setColor(0,0);
-		//this.g.fillRect(0,196,239,239);
-		//this.g.setColor(1,col("white"));
-		//this.g.setFont("Vector",20);
-		//this.g.drawString("WATCH ALERTS",120-(this.g.stringWidth("WATCH ALERTS")/2),217); 
-		//this.g.flip(); 
+		this.g.fillRect(0,196,239,197);
+        this.g.flip();		
 		this.btn(euc.dash.hapS,"SPEED",25,60,37,col("raf"),col("dgray"),0,0,119,97);
 		this.btn(euc.dash.hapA,"AMP",25,185,37,col("raf"),col("dgray"),122,0,239,97);
 		this.btn(euc.dash.hapT,"TEMP",25,60,136,col("raf"),col("dgray"),0,100,119,195);
         this.btn(euc.dash.hapB,"BATT",25,185,136,col("raf"),col("dgray"),122,100,239,195);			
-		this.ntfy("HOLD FOR HAPTIC","",22,col("raf"),1);
+		this.ntfy("HOLD FOR HAPTIC","",22,col("black"),1);
         this.run=true;
 	},
 	show : function(){
@@ -84,6 +80,15 @@ face[1] = {
 		return true;
 	},
 	show : function(){
+	if (face[0].set){
+			w.gfx.setColor(0,0);
+		    w.gfx.drawLine (0,98,239,98);
+		    w.gfx.drawLine (0,99,239,99);
+            w.gfx.flip();
+		    w.gfx.drawLine (120,0,120,195);
+          	w.gfx.drawLine (121,0,121,195);
+            w.gfx.flip();	
+		}
 		if (euc.state=="READY"&&euc.dash.maker=="Kingsong")
 			face.go("dashKingsongOpt",0);
 		else if (euc.state=="READY"&&euc.dash.maker=="Begode")
@@ -100,18 +105,19 @@ face[1] = {
 };	
 //touch
 touchHandler[0]=function(e,x,y){ 
+	this.timeout();
 	switch (e) {
 	case 5: //tap event
-		this.timeout();	
+			
 		if (face[0].set) { 
-			buzzer(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 			if (face[0].set=="spd") {
 				if (y<=120){ //spd
 					if (x<=120){ if (1<euc.dash.spd1) euc.dash.spd1--;
 					}else if (euc.dash.spd1<99) euc.dash.spd1++;
                     euc.dash.haSv="spd1";
 					if (!face[0].spds) { face[0].spds=1;face[0].spdr=0;
-						face[0].btn(1,"RESOLUTION:",18,120,110,col("dgray"),0,0,100,239,195,euc.dash.spdS,50,120,140);
+						face[0].btn(1,"RESOLUTION:",18,120,110,col("gray"),0,0,100,239,195,euc.dash.spdS,50,120,140);
 					}
 					return setTimeout(function() {
 						face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,col("olive"),0,0,0,239,97,(set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv],50,120,40,1);
@@ -134,22 +140,22 @@ touchHandler[0]=function(e,x,y){
 					else if (x<=120&&10<euc.dash.ampH) euc.dash.ampH--;
 					if (!face[0].ampa) { face[0].ampa=1;face[0].ampd=0;face[0].ampr=0;
 						face[0].btn(1,"BRAKING:",20,60,90,col("dgray"),0,0,66,239,132,euc.dash.ampL+ " A",35,182,84);
-						face[0].btn(1,"RESOLUTION:",17,70,157,col("dgray"),0,0,135,239,195,euc.dash.ampS+ " A",35,190,150);
+						face[0].btn(1,"RESOLUTION:",17,70,157,col("gray"),0,0,135,239,195,euc.dash.ampS+ " A",35,190,150);
 						face[0].ntfy("ALERT IF OVER "+euc.dash.ampH+" A","",18,col("dgray"),1);						
 					}
 					return setTimeout(function() {
-						face[0].btn(1,"UPHILL:",20,60,23,col("olive"),0,0,0,239,63,euc.dash.ampH+" A",35,180,16,1);
+						face[0].btn(1,"UPHILL:",20,60,23,col("olive"),0,0,0,239,63,euc.dash.ampH+" A",35,180,16);
 						face[0].ntfy("ALERT IF OVER "+euc.dash.ampH+" A","",18,col("dgray"),1);						
 					},0);
 				}else if (65<=y&&y<=133){//braking
 					if (x<=120&&euc.dash.ampL<-5) euc.dash.ampL++;
 					else if (120<=x&&-40<euc.dash.ampL) euc.dash.ampL--;
 					if (!face[0].ampd) { face[0].ampa=0;face[0].ampd=1;face[0].ampr=0;
-						face[0].btn(1,"UPHILL:",20,60,23,col("dgray"),0,0,0,239,63,euc.dash.ampH+" A",35,180,16);
-						face[0].btn(1,"RESOLUTION:",17,70,157,col("dgray"),0,0,135,239,195,euc.dash.ampS+ " A",35,190,150);
+						face[0].btn(1,"UPHILL:",20,60,23,col("gray"),0,0,0,239,63,euc.dash.ampH+" A",35,180,16);
+						face[0].btn(1,"RESOLUTION:",17,70,157,col("gray"),0,0,135,239,195,euc.dash.ampS+ " A",35,190,150);
 					}
    					return setTimeout(function() {
-						face[0].btn(1,"BRAKING:",20,60,90,col("olive"),0,0,66,239,132,euc.dash.ampL+ " A",35,182,84,1);
+						face[0].btn(1,"BRAKING:",20,60,90,col("olive"),0,0,66,239,132,euc.dash.ampL+ " A",35,182,84);
 						face[0].ntfy("ALERT IF UNDER "+euc.dash.ampL+" A","",18,col("dgray"),1);   
 					},0);
 				}else {//RESOLUTION
@@ -157,11 +163,11 @@ touchHandler[0]=function(e,x,y){
 					else if (x<=120&&1<euc.dash.ampS) euc.dash.ampS--;
 					if (!face[0].ampr) { face[0].ampa=0;face[0].ampd=0;face[0].ampr=1;
 						face[0].btn(1,"BRAKING:",20,60,90,col("dgray"),0,0,66,239,132,euc.dash.ampL+ " A",35,182,84);
-						face[0].btn(1,"UPHILL:",20,60,23,col("dgray"),0,0,0,239,63,euc.dash.ampH+" A",35,180,16);
+						face[0].btn(1,"UPHILL:",20,60,23,col("gray"),0,0,0,239,63,euc.dash.ampH+" A",35,180,16);
 						face[0].ntfy("ONE PULSE PER "+euc.dash.ampS+ " A","",18,col("dgray"),1);
 					}
 					return setTimeout(function() {
-						face[0].btn(1,"RESOLUTION:",17,70,157,col("olive"),0,0,135,239,195,euc.dash.ampS+ " A",35,190,150,1);
+						face[0].btn(1,"RESOLUTION:",17,70,157,col("olive"),0,0,135,239,195,euc.dash.ampS+ " A",35,190,150);
 						face[0].ntfy("ONE PULSE PER "+euc.dash.ampS+ " A","",18,col("dgray"),1);
 					},0);
 				}
@@ -211,34 +217,32 @@ touchHandler[0]=function(e,x,y){
 					face[0].btn(euc.dash.hapB,"BATT",25,185,136,col("raf"),col("dgray"),122,100,239,195);	
 					face[0].set=0;face[0].init();
                 }
-			}else  {buzzer(D16,1,40);face[0].set=0;face[0].init();}
+			}else  {buzzer(40);face[0].set=0;face[0].init();}
         }else if (x<=120&&y<100) { //spd
 			face[0].set="spd";
-            buzzer(D16,1,[30,50,30]);
+            buzzer([30,50,30]);
 			face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,col("dgray"),0,0,0,239,97,(set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv],50,120,40);
 			face[0].btn(1,"RESOLUTION:",18,120,110,col("gray"),0,0,100,239,195,euc.dash.spdS,50,120,140);
 		}else if (120<=x&&y<=100) { //amp
 			face[0].set="amp";
-			buzzer(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
             w.gfx.setColor(0,0);
 	    	w.gfx.fillRect(0,64,239,65);
-			//w.gfx.fillRect(0,133,239,134);
-	    	//w.gfx.fillRect(0,19,239,181);
     		w.gfx.flip();
             face[0].btn(1,"UPHILL:",20,60,23,col("gray"),0,0,0,239,63,euc.dash.ampH+" A",35,180,16);
 			face[0].btn(1,"BRAKING:",20,60,90,col("dgray"),0,0,66,239,132,euc.dash.ampL+ " A",35,182,84);
 			face[0].btn(1,"RESOLUTION:",17,70,157,col("gray"),0,0,135,239,195,euc.dash.ampS+ " A",35,190,150);
 		}else if (x<=120&&100<=y) { //temp
 			face[0].set="temp";
-            buzzer(D16,1,[30,50,30]);
+            buzzer([30,50,30]);
 			face[0].btn(1,"TEMP",25,60,136,col("olive"),0,0,100,119,195);
             face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,120,8,col("olive"),0,0,0,239,97,(set.def.dash.farn)?(euc.dash.tmpH*1.8+32).toFixed(1):euc.dash.tmpH,50,120,40,1);
 		}else if (120<=x&&100<=y) { //batt
 			face[0].set="batt";
-            buzzer(D16,1,[30,50,30]);
+            buzzer([30,50,30]);
 			face[0].btn(1,"BATT",25,185,136,col("olive"),0,122,100,239,195);	
             face[0].btn(1,"SET LOW-BATT (in %)",18,120,8,col("olive"),0,0,0,239,97,euc.dash.batL,50,120,40,1);
-		}else buzzer(D16,1,[30,50,30]);		
+		}else buzzer([30,50,30]);		
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
@@ -250,23 +254,24 @@ touchHandler[0]=function(e,x,y){
           	w.gfx.drawLine (121,0,121,195);
             w.gfx.flip();	
 		if (face.appPrev=="dashGarage") euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
-		face.go(face.appPrev,0);
+		if (face.appPrev.startsWith("settings")) {face.go(face.faceSave[0],0);return;}
+		face.go(face.appRoot[0],0);
 		return;	 
 	case 2: //slide up event
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 		}else //if (y>100) {
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		//} else {buzzer(D16,1,40);}
-		this.timeout();
+		//} else {buzzer(40);}
+		
 		break;
 	case 3: //slide left event
-		buzzer(D16,1,40);
+		buzzer(40);
 		break;
 	case 4: //slide right event (back action)
-		this.timeout();
+		
 		w.gfx.setColor(0,0);
 		w.gfx.drawLine (0,98,239,98);
 		w.gfx.drawLine (0,99,239,99);
@@ -278,8 +283,8 @@ touchHandler[0]=function(e,x,y){
   			  face[0].set=0;face[0].init();
         }else{	
 			    if (face.appPrev=="dashGarage") euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
+				if (face.appPrev.startsWith("settings")) {face.go(face.faceSave[0],0);return;}
 			    face.go(face.appPrev,0);
-        
 	    	}
 		return;
 	case 12: //hold event
@@ -292,29 +297,29 @@ touchHandler[0]=function(e,x,y){
           	w.gfx.drawLine (121,0,121,195);
             w.gfx.flip();
 			face[0].set=0;face[0].init();
-			buzzer(D16,1,[30,50,30]);	
+			buzzer([30,50,30]);	
         }else if (x<=120&&y<100) { //Speed
 			euc.dash.hapS=1-euc.dash.hapS;
 			face[0].btn(euc.dash.hapS,"SPEED",25,60,37,col("raf"),col("dgray"),0,0,119,97);
 			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",22,(euc.dash.hapS)?col("raf"):col("dgray"),euc.dash.hapS);
-			buzzer(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 		}else if (120<=x&&y<=100) { //Ampere
 			euc.dash.hapA=1-euc.dash.hapA;
 			face[0].btn(euc.dash.hapA,"AMP",25,185,37,col("raf"),col("dgray"),122,0,239,97);
 			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",22,(euc.dash.hapA)?col("raf"):col("dgray"),euc.dash.hapA);
-			buzzer(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 		}else if (x<=120&&100<=y) { //Temp
 			euc.dash.hapT=1-euc.dash.hapT;
 			face[0].btn(euc.dash.hapT,"TEMP",25,60,136,col("raf"),col("dgray"),0,100,119,195);
 			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",22,(euc.dash.hapT)?col("raf"):col("dgray"),euc.dash.hapT);
-			buzzer(D16,1,[30,50,30]);		
+			buzzer([30,50,30]);		
 		}else if (120<=x&&100<=y) { //Batt
 			euc.dash.hapB=1-euc.dash.hapB;
 			face[0].btn(euc.dash.hapB,"BATT",25,185,136,col("raf"),col("dgray"),122,100,239,195);
 			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",22,(euc.dash.hapB)?col("raf"):col("dgray"),euc.dash.hapB);
-			buzzer(D16,1,[30,50,30]);						
-			}else buzzer(D16,1,[30,50,30]);
-		this.timeout();
+			buzzer([30,50,30]);						
+			}else buzzer([30,50,30]);
+		
 		break;
   }
 };
