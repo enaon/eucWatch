@@ -117,7 +117,7 @@ touchHandler[0]=function(e,x,y){
 					}else if (euc.dash.spd1<99) euc.dash.spd1++;
                     euc.dash.haSv="spd1";
 					if (!face[0].spds) { face[0].spds=1;face[0].spdr=0;
-						face[0].btn(1,"RESOLUTION:",18,120,110,col("gray"),0,0,100,239,195,euc.dash.spdS,50,120,140);
+						face[0].btn(1,"RESOLUTION:",18,120,110,col("gray"),0,0,100,239,195,euc.dash.spdS,50,125,140);
 					}
 					return setTimeout(function() {
 						face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,col("olive"),0,0,0,239,97,(set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv],50,125,40,1);
@@ -130,7 +130,7 @@ touchHandler[0]=function(e,x,y){
 						face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,col("dgray"),0,0,0,239,97,(set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv],50,125,40);
 					}
 					return setTimeout(function() {
-						face[0].btn(1,"RESOLUTION:",18,120,110,col("olive"),0,0,100,239,195,euc.dash.spdS,50,120,140,1);
+						face[0].btn(1,"RESOLUTION:",18,120,110,col("olive"),0,0,100,239,195,euc.dash.spdS,50,125,140,1);
 						face[0].ntfy("1 PULSE PER "+euc.dash.spdS+((set.def.dash.mph)?" MPH":"KPH")+" > "+((set.def.dash.mph)?Math.round(euc.dash[euc.dash.haSv]*0.625):euc.dash[euc.dash.haSv]),"",18,col("olive"),1);
 						},0);
 				}  
@@ -182,16 +182,16 @@ touchHandler[0]=function(e,x,y){
 				}else if (120<=x) {
 					face[0].set="batt"
 					return setTimeout(function() {
-						face[0].btn(euc.dash.hapT,"TEMP",25,65,136,col("raf"),col("dgray"),0,100,119,195);
+						face[0].btn(euc.dash.hapT,"TEMP",25,60,136,col("raf"),col("dgray"),0,100,119,195);
 						face[0].btn(1,"BATT",25,185,136,col("olive"),0,122,100,239,195);	
-						face[0].btn(1,"SET LOW-BATT (in %)",18,120,8,col("olive"),0,0,0,239,97,euc.dash.batL,50,120,40,1);
+						face[0].btn(1,"SET LOW-BATT (in %)",18,120,8,col("olive"),0,0,0,239,97,euc.dash.batL,50,125,40,1);
 					},0);
 				}else{ //back
 		            w.gfx.setColor(0,0);
 					w.gfx.drawLine (120,0,120,97);
 					w.gfx.drawLine (121,0,121,97);
 					w.gfx.flip();
-					face[0].btn(euc.dash.hapT,"TEMP",25,65,136,col("raf"),col("dgray"),0,100,119,195);
+					face[0].btn(euc.dash.hapT,"TEMP",25,60,136,col("raf"),col("dgray"),0,100,119,195);
 					face[0].set=0;face[0].init();
                 }
             }else if (face[0].set=="batt") { //bat
@@ -205,24 +205,24 @@ touchHandler[0]=function(e,x,y){
 				}else if (x<=120) {
 					face[0].set="temp"
 					return setTimeout(function() {
-						face[0].btn(euc.dash.hapB,"BATT",25,185,136,col("raf"),col("dgray"),122,100,239,195);	
+						face[0].btn(euc.dash.hapB,"BATT",25,180,136,col("raf"),col("dgray"),122,100,239,195);	
 						face[0].btn(1,"TEMP",25,65,136,col("olive"),0,0,100,119,195);
-						face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,120,8,col("olive"),0,0,0,239,97,(set.def.dash.farn)?(euc.dash.tmpH*1.8+32).toFixed(1):euc.dash.tmpH,50,120,40,1);
+						face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,120,8,col("olive"),0,0,0,239,97,(set.def.dash.farn)?(euc.dash.tmpH*1.8+32).toFixed(1):euc.dash.tmpH,50,125,40,1);
 					},0);
 				}else{ //back
            		    w.gfx.setColor(0,0);
 					w.gfx.drawLine (120,0,120,97);
 					w.gfx.drawLine (121,0,121,97);
 					w.gfx.flip();
-					face[0].btn(euc.dash.hapB,"BATT",25,185,136,col("raf"),col("dgray"),122,100,239,195);	
+					face[0].btn(euc.dash.hapB,"BATT",25,180,136,col("raf"),col("dgray"),122,100,239,195);	
 					face[0].set=0;face[0].init();
                 }
 			}else  {buzzer(40);face[0].set=0;face[0].init();}
         }else if (x<=120&&y<100) { //spd
 			face[0].set="spd";
             buzzer([30,50,30]);
-			face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,col("dgray"),0,0,0,239,97,(set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv],50,120,40);
-			face[0].btn(1,"RESOLUTION:",18,120,110,col("gray"),0,0,100,239,195,euc.dash.spdS,50,120,140);
+			face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,col("dgray"),0,0,0,239,97,(set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv],50,125,40);
+			face[0].btn(1,"RESOLUTION:",18,120,110,col("gray"),0,0,100,239,195,euc.dash.spdS,50,125,140);
 		}else if (120<=x&&y<=100) { //amp
 			face[0].set="amp";
 			buzzer([30,50,30]);
