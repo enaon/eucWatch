@@ -17,7 +17,7 @@ function handleInfoEvent(event) {
 	if (notify.info.length>10) notify.info.pop();
 	if (set.def.buzz&&!notify.ring) {
 		//digitalPulse(D16,1,[80,50,80]);
-		buzzer(D16,1,[80,50,80]);
+		buzzer([80,50,80]);
 		if (face.appCurr!="main"||face.pageCurr!=0) {
 			face.go("main",0);
 			face.appPrev="main";face.pagePrev=-1;
@@ -368,12 +368,12 @@ function buttonHandler(s){
 		this.press=false;
 		if (global.euc&&euc.state=="READY"&&euc.horn&&euc.dash.horn) {euc.wri("hornOff");return;}
 		if (face.pageCurr==-1) {
-			buzzer(D16,1,[60,40,60]);
+			buzzer([60,40,60]);
 			face.go((global.euc&&euc.state!="OFF")?set.dash[set.def.dash.face]:face.appCurr,0);
 		}else { 
 			if (face.appCurr=="main"&&face.pagePrev!=-1&&face.pagePrev!=2) {
 				face.go("main",-1);
-				buzzer(D16,1,100);
+				buzzer(100);
 			}else{
 				let to=face.pageCurr+1;
 				if (to>=2) to=0;
