@@ -5,7 +5,7 @@ face[0] = {
 	init: function(){
 		this.g.clear();
 		this.startTime=getTime();
-		this.v=w.battVoltage(1);
+		this.v=w.batt(1);
 		//top
 		pal[0]=0;
 		this.g.setColor(1,col("dgray"));
@@ -109,7 +109,7 @@ face[0] = {
 			this.g.flip();
 		}else if (this.batt!=set.ondc ){
 			this.batt=set.ondc;
-			this.v=w.battVoltage(1);
+			this.v=w.batt(1);
 			if (this.batt==1) this.g.setColor(0,col("purple"));
 			else if (this.v<=20) this.g.setColor(0,col("red"));
 			else this.g.setColor(0,col("raf1"));
