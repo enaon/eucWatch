@@ -15,9 +15,9 @@ face[0] = {
 		this.g.flip();
 		//
         this.btn(euc.dash.aLck,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
-		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("dgray"),122,0,239,97,"ALERTS",22,185,55);		
+		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,180,17,col("raf"),col("dgray"),122,0,239,97,"ALERTS",22,180,55);		
         this.btn(euc.dash.light,"RING",25,60,136,col("raf"),col("dgray"),0,100,119,195);
-        this.btn(1,"MODE:"+euc.dash.mode,25,185,136,col("olive"),0,122,100,239,195);	
+        this.btn(1,"MODE:"+euc.dash.mode,25,180,136,col("olive"),0,122,100,239,195);	
 		this.run=true;
 	},
 	show : function(){
@@ -105,12 +105,12 @@ touchHandler[0]=function(e,x,y){
 				if (0<euc.dash.mode) euc.dash.mode--;
 			}else if (euc.dash.mode<9) euc.dash.mode++;
 			buzzer([30,50,30]);
-			face[0].btn(1,"SET RIDE MODE",20,120,5,col("olive"),0,0,0,239,97,euc.dash.mode.toString(),60,120,37,1);
+			face[0].btn(1,"SET RIDE MODE",20,125,5,col("olive"),0,0,0,239,97,euc.dash.mode.toString(),65,125,37,1);
 		}
 		else {
 			if ( x<=120 && y<100 ) { //auto lock
 				euc.dash.aLck=1-euc.dash.aLck;
-				face[0].btn(euc.dash.aLck,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
+				face[0].btn(euc.dash.aLck,"AUTO",18,65,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,65,50);
 				face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,(euc.dash.aLck)?col("red"):col("dgray"),euc.dash.aLck);
 				buzzer([30,50,30]);
 			}else if ( 120<=x && y<=100 ) { //watch alerts
@@ -119,13 +119,13 @@ touchHandler[0]=function(e,x,y){
 				return;	
 			}else if ( x<=120 && 100<=y ) { //ring lights
 				euc.dash.light=1-euc.dash.light;
-				face[0].btn(euc.dash.light,"RING",25,60,136,col("raf"),col("dgray"),0,100,119,195);
+				face[0].btn(euc.dash.light,"RING",25,65,136,col("raf"),col("dgray"),0,100,119,195);
 				face[0].ntfy("RING ON","RING OFF",20,(euc.dash.light)?col("raf"):col("dgray"),euc.dash.light);
                 euc.wri(25+euc.dash.light);
 				buzzer([30,50,30]);	
 			}else if ( 120<=x && 100<=y ) { //mode
 				face[0].set=1;
-				face[0].btn(1,"SET RIDE MODE",20,120,5,col("olive"),0,0,0,239,97,euc.dash.mode.toString(),60,120,37,1);
+				face[0].btn(1,"SET RIDE MODE",20,125,5,col("olive"),0,0,0,239,97,euc.dash.mode.toString(),65,125,37,1);
 				buzzer([30,50,30]);						
 			}else buzzer([30,50,30]);
 		}
@@ -152,7 +152,7 @@ touchHandler[0]=function(e,x,y){
         if (face[0].set) {
 			  euc.wri(30+euc.dash.mode);
               w.gfx.setColor(0,0);
-              w.gfx.drawLine(120,0,120,97);
+              w.gfx.drawLine(120,0,125,97);
               w.gfx.drawLine(121,0,121,97);
               w.gfx.flip();
               face[0].init();
@@ -169,7 +169,7 @@ touchHandler[0]=function(e,x,y){
 			buzzer([30,50,30]);	
         }else if ( x<=120 && y<100 ) { //auto lock
 			euc.dash.aLck=1-euc.dash.aLck;
-            face[0].btn(euc.dash.aLck,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
+            face[0].btn(euc.dash.aLck,"AUTO",18,65,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,65,50);
             face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,col("dgray"),euc.dash.aLck);
 			buzzer([30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //watch alerts
@@ -180,13 +180,13 @@ touchHandler[0]=function(e,x,y){
 			buzzer([30,50,30]);
 		}else if ( x<=120 && 100<=y ) { //ring lights
 			euc.dash.light=1-euc.dash.light;
-            face[0].btn(euc.dash.light,"RING",25,60,136,col("blue1"),col("dgray"),0,100,119,195);
+            face[0].btn(euc.dash.light,"RING",25,65,136,col("blue1"),col("dgray"),0,100,119,195);
             face[0].ntfy("RING ON","RING OFF",20,col("dgray"),euc.dash.light);
             euc.wri(25+euc.dash.light);
 			buzzer([30,50,30]);		
 		}else if ( 120<=x && 100<=y ) { //mode
 			face[0].set=1;
-			face[0].btn(1,"SET RIDE MODE",20,120,5,col("olive"),0,0,0,239,97,euc.dash.mode.toString(),60,120,37);
+			face[0].btn(1,"SET RIDE MODE",20,125,5,col("olive"),0,0,0,239,97,euc.dash.mode.toString(),65,125,37);
 			buzzer([30,50,30]);	
 		}else buzzer([30,50,30]);
 		
