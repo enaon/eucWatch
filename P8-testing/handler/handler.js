@@ -277,9 +277,7 @@ var face={
 };
 //touch 
 var touchHandler = {
-	timeout: function(){
-		face.off();
-	}
+	timeout:x=>{setTimeout(()=>{face.off();},0);}
 };
 //charging notify
 setWatch(function(s){
