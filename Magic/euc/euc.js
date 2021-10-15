@@ -58,6 +58,7 @@ global.euc= {
 				eval(require('Storage').read('euc'+require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]));
 				this.state="ON";
 				if (this.dash.bms==undefined) this.dash.bms=1.5;
+				if (this.dash.batF<=10) this.dash.batF=420;
 				if (this.dash.maker!=="Kingsong"||this.dash.maker!=="inmotionV11") this.dash.spdM=0;
 				this.conn(this.mac);
 				face.go(set.dash[set.def.dash.face],0);
