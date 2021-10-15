@@ -5,7 +5,14 @@ face[0] = {
 	init: function(){
 		euc.busy=1;//stop bt loop-accept commands.
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
- 		if (!this.set&&(face.appPrev.startsWith("dash_")||face.appPrev==="settings")) this.g.clear();
+ 		//if (!this.set&&(face.appPrev.startsWith("dash_")||face.appPrev==="settings")) this.g.clear();
+		this.g.setColor(0,0);
+		this.g.fillRect(0,98,239,99);
+        this.g.flip();	
+		this.g.fillRect(120,0,121,195);
+        this.g.flip();		
+		this.g.fillRect(0,196,239,197);
+        this.g.flip();	
         this.set=0;
         this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,239);

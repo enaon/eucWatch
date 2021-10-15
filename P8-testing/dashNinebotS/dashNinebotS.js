@@ -1,11 +1,18 @@
-//Ninebot cep settings
+//Ninebot S settings
 face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
 	g:w.gfx,
 	init: function(){
 		euc.busy=1;//stop bt loop-accept commands.
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
- 		if (!this.set&&(face.appPrev.startsWith("dash_")||face.appPrev==="settings")) this.g.clear();
+ 		//if (!this.set&&(face.appPrev.startsWith("dash_")||face.appPrev==="settings")) this.g.clear();
+		this.g.setColor(0,0);
+		this.g.fillRect(0,98,239,99);
+        this.g.flip();	
+		this.g.fillRect(120,0,121,195);
+        this.g.flip();		
+		this.g.fillRect(0,196,239,197);
+        this.g.flip();	
         this.set=0;
         this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,239);
@@ -17,7 +24,7 @@ face[0] = {
         this.btn(euc.dash.aLck,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
 		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("dgray"),122,0,239,97,"ALERTS",22,185,55);		
         this.btn(euc.dash.light,"RING",25,60,136,col("raf"),col("dgray"),0,100,119,195);
-        this.btn(1,"MODE:"+euc.dash.mode,25,185,136,col("olive"),0,122,100,239,195);
+        this.btn(1,"MODE:"+euc.dash.mode,25,185,136,col("olive"),0,122,100,239,195);	
 		this.run=true;
 	},
 	show : function(){
@@ -28,14 +35,16 @@ face[0] = {
 		  t.show();
         },1000,this);
 	},
-    btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
+    btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2,sele){
 			this.g.setColor(0,(bt)?clr1:clr0);
 			this.g.fillRect(rx1,ry1,rx2,ry2);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",size1);	
-			this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1); 
-   			if (txt2){this.g.setFont("Vector",size2);	
-            this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);}
+			this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1);
+			if (txt2){
+				this.g.setFont("Vector",size2);this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);
+				if (sele) {this.g.setFont("Vector",40); this.g.drawString("<",10,y2); this.g.drawString(">",205,y2); }
+			}
 			this.g.flip();
     },
     ntfy: function(txt1,txt0,size,clr,bt){
@@ -86,10 +95,10 @@ face[1] = {
 };	
 //touch
 touchHandler[0]=function(e,x,y){ 
+	this.timeout();
 	switch (e) {
 	case 5: //tap event
 		if (face[0].set) { 
-			this.timeout();
 			if ( 100 < y ) {
 			  euc.wri(30+euc.dash.mode);
               w.gfx.setColor(0,0);
@@ -102,13 +111,13 @@ touchHandler[0]=function(e,x,y){
 				if (0<euc.dash.mode) euc.dash.mode--;
 			}else if (euc.dash.mode<9) euc.dash.mode++;
 			buzzer([30,50,30]);
-			face[0].btn(1,"SET RIDE MODE",20,120,5,col("raf"),0,0,0,239,97,euc.dash.mode.toString(),60,120,37);
+			face[0].btn(1,"SET RIDE MODE",20,120,5,col("olive"),0,0,0,239,97,euc.dash.mode.toString(),60,125,37,1);
 		}
 		else {
 			if ( x<=120 && y<100 ) { //auto lock
 				euc.dash.aLck=1-euc.dash.aLck;
 				face[0].btn(euc.dash.aLck,"AUTO",18,60,15,col("red"),col("dgray"),0,0,119,97,"LOCK",28,60,50);
-				face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,col("dgray"),euc.dash.aLck);
+				face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,(euc.dash.aLck)?col("red"):col("dgray"),euc.dash.aLck);
 				buzzer([30,50,30]);
 			}else if ( 120<=x && y<=100 ) { //watch alerts
 				buzzer([30,50,30]);						
@@ -117,19 +126,24 @@ touchHandler[0]=function(e,x,y){
 			}else if ( x<=120 && 100<=y ) { //ring lights
 				euc.dash.light=1-euc.dash.light;
 				face[0].btn(euc.dash.light,"RING",25,60,136,col("raf"),col("dgray"),0,100,119,195);
-				face[0].ntfy("RING ON","RING OFF",20,col("dgray"),euc.dash.light);
+				face[0].ntfy("RING ON","RING OFF",20,(euc.dash.light)?col("raf"):col("dgray"),euc.dash.light);
                 euc.wri(25+euc.dash.light);
 				buzzer([30,50,30]);	
 			}else if ( 120<=x && 100<=y ) { //mode
 				face[0].set=1;
-				face[0].btn(1,"SET RIDE MODE",20,120,5,col("olive"),0,0,0,239,97,euc.dash.mode.toString(),60,120,37);
+				face[0].btn(1,"SET RIDE MODE",20,120,5,col("olive"),0,0,0,239,97,euc.dash.mode.toString(),60,125,37,1);
 				buzzer([30,50,30]);						
 			}else buzzer([30,50,30]);
 		}
-		this.timeout();
+		
 		break;
 	case 1: //slide down event
-		euc.busy=0;euc.wri(1);
+	    if (face[0].set) {
+			euc.wri(30+euc.dash.mode);
+			setTimeout(()=>{euc.busy=0;euc.wri(1);},500);
+        }
+		//face.go("main",0);
+		
 		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
@@ -138,11 +152,11 @@ touchHandler[0]=function(e,x,y){
 			else w.gfx.bri.set(this.bri);
 			buzzer([30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		this.timeout();
+		
 		break;
 	case 3: //slide left event
 		buzzer(40);
-		this.timeout();
+		
 		break;
 	case 4: //slide right event (back action)
         if (face[0].set) {
@@ -151,13 +165,12 @@ touchHandler[0]=function(e,x,y){
               w.gfx.drawLine(120,0,120,97);
               w.gfx.drawLine(121,0,121,97);
               w.gfx.flip();
-              face[0].init();
+              face[0].init();return;
         } else {
 		  euc.busy=0;euc.wri(1);
           face.go(set.dash[set.def.dash.face],0);
           return;
         }
-   		this.timeout();
         break;
 	case 12: //long press event
 		if (face[0].set) { 
@@ -182,10 +195,10 @@ touchHandler[0]=function(e,x,y){
 			buzzer([30,50,30]);		
 		}else if ( 120<=x && 100<=y ) { //mode
 			face[0].set=1;
-			face[0].btn(1,"SET RIDE MODE",20,120,5,col("olive"),0,0,0,239,97,euc.dash.mode.toString(),60,120,37);
+			face[0].btn(1,"SET RIDE MODE",20,120,5,col("olive"),0,0,0,239,97,euc.dash.mode.toString(),60,125,37);
 			buzzer([30,50,30]);	
 		}else buzzer([30,50,30]);
-		this.timeout();
+		
 		break;
   }
 };

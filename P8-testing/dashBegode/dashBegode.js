@@ -24,7 +24,7 @@ face[0] = {
         this.g.setColor(1,col("white"));
       	this.g.fillRect(75,200,120,204);
 		this.g.flip(); 
-		this.btn("LIGHTS",18,60,15,(euc.dash.aLight==="lightsOff")?col("black"):(euc.dash.aLight==="lightsOn")?col("raf2"):col("red"),0,0,119,97,(euc.dash.aLight==="lightsOff")?"OFF":(euc.dash.aLight==="lightsOn")?"ON":"STROBE",28,60,50); //1
+		this.btn("LIGHTS",18,60,15,(euc.dash.aLight==="lightsOff")?col("black"):(euc.dash.aLight==="lightsOn")?col("raf"):col("red"),0,0,119,97,(euc.dash.aLight==="lightsOff")?"OFF":(euc.dash.aLight==="lightsOn")?"ON":"STROBE",28,60,50); //1
 		this.btn("WATCH",22,185,17,(euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB)?col("raf"):col("dgray"),122,0,239,97,"ALERTS",22,185,55);//2
         this.btn("TPMS",25,60,137,col("dgray"),0,100,119,195,"",22,60,155); //3
    		this.btn("HORN",25,185,137,(euc.dash.horn)?col("raf"):col("dgray"),122,100,239,195); //4
@@ -109,9 +109,9 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
 		if ( x<=120 && y<=100 ) { //lights
-			if (euc.dash.aLight=="lightsOff") { euc.dash.aLight="lightsOn"; euc.wri("lightsOn"); face[0].btn("LIGHTS",18,60,15,col("raf2"),0,0,119,97,"ON",28,60,50); }
+			if (euc.dash.aLight=="lightsOff") { euc.dash.aLight="lightsOn"; euc.wri("lightsOn"); face[0].btn("LIGHTS",18,60,15,col("raf"),0,0,119,97,"ON",28,60,50); }
 			else if (euc.dash.aLight=="lightsOn") { euc.dash.aLight="lightsOff"; euc.wri("lightsOff"); face[0].btn("LIGHTS",18,60,15,col("black"),0,0,119,97,"OFF",28,60,50); }
-			else  { euc.dash.aLight="lightsOn"; euc.wri("lightsOn"); face[0].btn("LIGHTS",18,60,15,col("raf2"),0,0,119,97,"ON",28,60,50); }
+			else  { euc.dash.aLight="lightsOn"; euc.wri("lightsOn"); face[0].btn("LIGHTS",18,60,15,col("raf"),0,0,119,97,"ON",28,60,50); }
             face[0].ntfy("HOLD -> STROBE",col("dgray"));
 			buzzer([30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //haptic

@@ -4,6 +4,7 @@ face[0] = {
 	g:w.gfx,
 	init: function(){
 		if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(set.dash[set.def.dash.face],0);return;}
+		if (face.appPrev!="settings"&&face.appPrev!="dashOptions")  face.last=face.appPrev;
        //if (!face.appPrev.startsWith("dash")) this.g.clear();
 		this.g.setColor(0,0);
 		this.g.fillRect(0,98,239,99);
@@ -80,24 +81,11 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-	if (face[0].set){
-			w.gfx.setColor(0,0);
-		    w.gfx.drawLine (0,98,239,98);
-		    w.gfx.drawLine (0,99,239,99);
-            w.gfx.flip();
-		    w.gfx.drawLine (120,0,120,195);
-          	w.gfx.drawLine (121,0,121,195);
-            w.gfx.flip();	
-		}
-		if (euc.state=="READY"&&euc.dash.maker=="Kingsong")
-			face.go("dashKingsongOpt",0);
-		else if (euc.state=="READY"&&euc.dash.maker=="Begode")
-			face.go("dashBegode",0);
-		else if (euc.state=="READY"&&euc.dash.maker=="Ninebot")
-			face.go("dashNinebot",0);
-		else
-			face.go(set.dash[set.def.dash.face],0);
-		return;
+		if (face.appPrev=="dashGarage") {
+			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
+			face.go("dashGarage",0);
+		}else face.go(set.dash[set.def.dash.face],0);
+		return;	 
 	},
 	clear: function(){
 		return true;
@@ -180,7 +168,7 @@ touchHandler[0]=function(e,x,y){
 						face[0].ntfy("ALERT IF OVER "+((set.def.dash.farn)?Math.round(euc.dash.tmpH*1.8+32):euc.dash.tmpH)+((set.def.dash.farn)?" F":" C"),"",18,col("olive"),1);
 					},0);
 				}else if (120<=x) {
-					face[0].set="batt"
+					face[0].set="batt";
 					return setTimeout(function() {
 						face[0].btn(euc.dash.hapT,"TEMP",25,60,136,col("raf"),col("dgray"),0,100,119,195);
 						face[0].btn(1,"BATT",25,180,136,col("olive"),0,122,100,239,195);	
@@ -203,7 +191,7 @@ touchHandler[0]=function(e,x,y){
 						face[0].ntfy("ALERT IF UNDER "+euc.dash.batL+" %","",18,col("olive"),1);
 					},0);
 				}else if (x<=120) {
-					face[0].set="temp"
+					face[0].set="temp";
 					return setTimeout(function() {
 						face[0].btn(euc.dash.hapB,"BATT",25,180,136,col("raf"),col("dgray"),122,100,239,195);	
 						face[0].btn(1,"TEMP",25,60,136,col("olive"),0,0,100,119,195);
@@ -245,17 +233,21 @@ touchHandler[0]=function(e,x,y){
 		}else buzzer([30,50,30]);		
 		break;
 	case 1: //slide down event
-		//face.go("main",0);
+		if (face[0].set) { 
 			w.gfx.setColor(0,0);
-		    w.gfx.drawLine (0,98,239,98);
-		    w.gfx.drawLine (0,99,239,99);
-            w.gfx.flip();
-		    w.gfx.drawLine (120,0,120,195);
-          	w.gfx.drawLine (121,0,121,195);
-            w.gfx.flip();	
-		if (face.appPrev=="dashGarage") euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
-		if (face.appPrev.startsWith("settings")) {face.go(face.faceSave[0],0);return;}
-		face.go(face.appRoot[0],0);
+			w.gfx.drawLine (0,98,239,98);
+			w.gfx.drawLine (0,99,239,99);
+			w.gfx.flip();
+			w.gfx.drawLine (120,0,120,195);
+			w.gfx.drawLine (121,0,121,195);
+			w.gfx.flip();
+			face[0].init();return;	
+		}
+		if (face.appPrev=="dashGarage") {
+			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
+			face.go("dashGarage",0);
+			return;
+		}else face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
@@ -263,6 +255,7 @@ touchHandler[0]=function(e,x,y){
 			else w.gfx.bri.set(this.bri);
 			buzzer([30,50,30]);
 		}else //if (y>100) {
+			face[0].set=0;
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		//} else {buzzer(40);}
 		
@@ -271,22 +264,26 @@ touchHandler[0]=function(e,x,y){
 		buzzer(40);
 		break;
 	case 4: //slide right event (back action)
-		
-		w.gfx.setColor(0,0);
-		w.gfx.drawLine (0,98,239,98);
-		w.gfx.drawLine (0,99,239,99);
-		w.gfx.flip();
-		w.gfx.drawLine (120,0,120,195);
-		w.gfx.drawLine (121,0,121,195);
-		w.gfx.flip();	
-        if (face[0].set){
-  			  face[0].set=0;face[0].init();
-        }else{	
-			    if (face.appPrev=="dashGarage") euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
-				if (face.appPrev.startsWith("settings")) {face.go(face.faceSave[0],0);return;}
-			    face.go(face.appPrev,0);
-	    	}
-		return;
+		if (face[0].set) { 
+			face[0].set=0;
+			w.gfx.setColor(0,0);
+			w.gfx.drawLine (0,98,239,98);
+			w.gfx.drawLine (0,99,239,99);
+			w.gfx.flip();
+			w.gfx.drawLine (120,0,120,195);
+			w.gfx.drawLine (121,0,121,195);
+			w.gfx.flip();	
+			face[0].init();return;		
+		}
+		if (face.appPrev=="dashGarage") {
+			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
+			face.go("dashGarage",0);
+			return;
+		}else if (face.appPrev=="settings"||face.appPrev=="dashOptions") {
+			face.go(face.last,0);
+			return;
+		}else face.go(face.appPrev,0);
+		return;	 
 	case 12: //hold event
 		if (face[0].set) { 
 		    w.gfx.setColor(0,0);

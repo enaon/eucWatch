@@ -315,9 +315,12 @@ touchHandler[0]=function(e,x,y){
 				buzzer(40);
 			}else {
 				set.def.buzz=1-set.def.buzz;
-				if (set.def.buzz) buzzer=digitalPulse;
-				else buzzer=function(){};
-				buzzer([30,50,30]);
+				if (set.def.buzz){ 
+					buzzer=digitalPulse.bind(null,D16,1);buzzer([30,50,30]);
+				}else{
+					buzzer([30,50,30]);
+					buzzer=function(){};
+				}
 			}
 		}else if(77>x&&77<y&&y<159){//btn4
 			if (face.mode) {if (face[0].appDo4) {buzzer([30,50,30]);eval(face[0].appDo4);return;} else buzzer(40);
