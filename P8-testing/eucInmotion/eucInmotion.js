@@ -134,8 +134,7 @@ euc.conn=function(mac){
 				//volt
 				euc.dash.volt=event.target.value.getUint16(5, true)/100;
 				//batt
-				euc.dash.bat=Math.round(((euc.dash.volt*5) - euc.dash.batE ) * (100/(420-euc.dash.batE)));
-				//euc.dash.bat = Math.round(((euc.dash.volt - 60) * 100) / (84 - 60));
+				euc.dash.bat=Math.round(100*(euc.dash.volt*5 - euc.dash.batE ) / (420-euc.dash.batE));
 				batL.unshift(euc.dash.bat);
 				if (20<batL.length) batL.pop();
 				euc.dash.batC = (50 <= euc.dash.bat)? 0 : (euc.dash.bat <= euc.dash.batL)? 2 : 1;	
@@ -275,7 +274,7 @@ euc.conn=function(mac){
 				}
 			};
 			if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {
-				euc.dash.mac=euc.mac; 
+				euc.dash.mac=euc.mac; euc.dash.batF=420;
 				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 				set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
 			}			

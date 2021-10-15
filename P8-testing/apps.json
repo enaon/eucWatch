@@ -35,6 +35,18 @@
 			{"name":".bootrst","url":"init.js"}
 		]
 	},
+	{ "id": "init_16",
+		"name": "core - P8 - P22 A/B/C/C1/D - 16Bit",
+		"icon": "icon.png",
+		"version":"0.95",
+		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
+		"tags": "core",
+		"type":"core",
+		"readme": "README.md",
+		"storage": [
+			{"name":".bootrst","url":"init.js"}
+		]
+	},
 	{ "id": "handler",
 		"name": "Handler - P8 - P22 A/B/C/C1/D",
 		"icon": "icon.png",

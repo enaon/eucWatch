@@ -4,21 +4,6 @@ if (!euc.dash.alrt) euc.dash.alrt={};
 if (!euc.dash.lght) euc.dash.lght={"head":0,"tail":0,"ring":0,"aHead":0};
 if (!euc.dash.ctrl) euc.dash.ctrl={"aLck":0,"aLift":0,"aOff":0,"aLight":0,"lift":1,"lamp":0,"vol":50,"horn":20};
 if (!euc.dash.ride) euc.dash.ride={mode:0};
-
-/*
-  enum Mode {
-        rookie(0),
-        general(1),
-        smoothly(2),
-        unBoot(3),
-        bldc(4),
-        foc(5);
-
-
-
-*/
-
-
 euc.cmd=function(no,val){
 	if (set.bt===2) console.log("inmotion: send cmd :",no);
 	let cmd;
@@ -127,8 +112,7 @@ euc.tmp.liveParse= function (inc){
 	//volt
 	euc.dash.volt=lala.getUint32(43, true)/100;
 	//batt
-	//euc.dash.bat=Math.round(((euc.dash.volt*5) - euc.dash.batE ) * (100/(420-euc.dash.batE)));
-	euc.dash.bat=Math.round(((euc.dash.volt*( 100/(16*euc.dash.bms))) - euc.dash.batE ) * (100/(420-euc.dash.batE)));
+	euc.dash.bat=Math.round(100* (euc.dash.volt*( 100/(16*euc.dash.bms)) - euc.dash.batE )  / (euc.dash.batF-euc.dash.batE) );
 	//euc.dash.bat = Math.round(((euc.dash.volt - 60) * 100) / (84 - 60));
 	batL.unshift(euc.dash.bat);
 	if (20<batL.length) batL.pop();
@@ -418,7 +402,7 @@ euc.conn=function(mac){
 				}
 			};
 			if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {
-				euc.dash.mac=euc.mac; 
+				euc.dash.mac=euc.mac; euc.dash.batF=420;
 				euc.dash.bms=1.25;//84 volts
 				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 				set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);

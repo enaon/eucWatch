@@ -65,7 +65,7 @@ euc.tmp.one=function(inpk){
 	}
 	//volt
 	euc.dash.volt=(inpk[3] << 8 | inpk[2])/100;
-	euc.dash.bat=Math.round(((euc.dash.volt*euc.dash.batF) - euc.dash.batE ) * (100/(420-euc.dash.batE)));
+	euc.dash.bat=Math.round(100* (euc.dash.volt*( 100/(16*euc.dash.bms)) - euc.dash.batE )  / (euc.dash.batF-euc.dash.batE) );
 	batL.unshift(euc.dash.bat);
 	if (20<batL.length) batL.pop();
 	euc.dash.batC = (50 <= euc.dash.bat)? 0 : (euc.dash.bat <= euc.dash.batL)? 2 : 1;	
@@ -116,6 +116,21 @@ euc.tmp.thre=function(inpk){
 	//haptic
 	if (euc.dash.alrm) euc.alert=20;
 };
+euc.tmp.four=function(inpk){
+	//console.log("model");
+	if (!euc.dash.name) {
+		euc.dash.model=String.fromCharCode.apply(String,inpk.slice(2,11));
+		euc.dash.name=String.fromCharCode.apply(String,inpk.slice(5,8));
+		if (euc.dash.model.includes("-")) {
+			let model=euc.dash.name.split("-")[0];
+			if (model.includes("S18") || model.includes("18L") ||  model.includes("18XL") || model.includes("16X") )
+				euc.dash.batF = 1.25;
+			else 
+				euc.dash.batF = 1;
+		} else euc.dash.batF=1.25;
+		set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",euc.dash.name);
+	}	
+};	
 //start
 euc.conn=function(mac){
 	if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
@@ -167,19 +182,7 @@ euc.conn=function(mac){
 					euc.dash.serial=String.fromCharCode.apply(String,inpk.slice(2,14))+String.fromCharCode.apply(String,inpk.slice(17,3));
 					break;
 				case 187://model
-					//console.log("model");
-					if (!euc.dash.name) {
-						euc.dash.model=String.fromCharCode.apply(String,inpk.slice(2,11));
-						euc.dash.name=String.fromCharCode.apply(String,inpk.slice(5,8));
-						if (euc.dash.model.includes("-")) {
-							let model=euc.dash.name.split("-")[0];
-							if (model.includes("S18") || model.includes("18L") ||  model.includes("18XL") || model.includes("16X") )
-								euc.dash.batF = 5;
-							else 
-								euc.dash.batF = 6.25;
-						} else euc.dash.batF=5;
-						set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",euc.dash.name);
-					}
+					euc.tmp.four(inpk);
 					break;
 			}
 			//haptic
@@ -300,7 +303,7 @@ euc.conn=function(mac){
 			}
 		};
 		if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {
-			euc.dash.mac=euc.mac; 
+			euc.dash.mac=euc.mac; euc.dash.batF=420;
 			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 			set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
 		}
@@ -366,7 +369,7 @@ euc.off=function(err){
 			euc.conn=function(err){if (set.def.cli) console.log("EUC conn, not connected");};
 			euc.cmd=function(err){if (set.def.cli) console.log("EUC cmd, not connected");};
 			euc.run=0;
-			delete euc.tmp;
+			euc.tmp=0;
 			if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
 				if (set.def.cli) console.log("ble still connected"); 
 				global["\xFF"].BLE_GATTS.disconnect();

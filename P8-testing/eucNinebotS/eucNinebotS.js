@@ -92,7 +92,7 @@ euc.conn=function(mac){
 					case 71://battery fixed/voltage
 						euc.dash.volt=this.in16/100;
 						//euc.dash.bat=(((this.in16/100)-51.5)*10|0); 
-						euc.dash.bat=Math.round(((euc.dash.volt*6.66) - euc.dash.batE ) * (100/(413-euc.dash.batE)));
+						euc.dash.bat=Math.round(100*(euc.dash.volt*6.66 - euc.dash.batE )  / (euc.dash.batF-euc.dash.batE));
 						batL.unshift(euc.dash.bat);
 						if (20<batL.length) batL.pop();
 						euc.dash.batC = (50 <= euc.dash.bat)? 0 : (euc.dash.bat <= euc.dash.batL)? 2 : 1;	
@@ -187,7 +187,7 @@ euc.conn=function(mac){
 				} 
 			};
 			if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {
-				euc.dash.mac=euc.mac; 
+				euc.dash.mac=euc.mac; euc.dash.batF=413;
 				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 				set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
 			}
