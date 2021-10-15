@@ -456,7 +456,8 @@ if (set.def.touchtype=="816"){ //816
 	init:function(){
 		//"ram";
 		var tp=i2c.readFrom(0x15,7);
-		if ( (tp[3] == 255 || tp[3] == 0)  && this.st ) return;
+		//print (tp);
+		if ( (tp[3] == 255 )  && this.st ) return;
 		if ( (tp[3] == 128 || tp[3] === 0) && tp[2] === 1 ) {
 			if ( !this.time ) this.time=getTime();
 			if ( this.st ) {
