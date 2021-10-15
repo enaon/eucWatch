@@ -90,7 +90,6 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: case 12: //tap/hold event
 		if (face[0].set) { 
-			
 			if ( 100 < y ) {
               w.gfx.setColor(0,0);
               w.gfx.drawLine(120,0,120,97);
@@ -114,7 +113,7 @@ touchHandler[0]=function(e,x,y){
 				return;	
 			}else if ( x<=120 && 100<=y ) { //TPMS
 				buzzer([30,50,30]);	
-				//face[0].ntfy("NOT YET","NOT YET",18,col("red"),1);
+				face[0].ntfy("NOT YET","NOT YET",18,col("red"),1);
 			}else if ( 120<=x && 100<=y ) { //HORN
 				buzzer([30,50,30]);		
 				//euc.dash.horn=1-euc.dash.horn;

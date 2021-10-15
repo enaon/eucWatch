@@ -1,4 +1,4 @@
-//Ninebot E settings
+//Ninebot S settings
 face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
 	g:w.gfx,
@@ -43,7 +43,7 @@ face[0] = {
 			this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1);
 			if (txt2){
 				this.g.setFont("Vector",size2);this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);
-				if (sele) {this.g.setFont("Vector",40); this.g.drawString("<",10,y2); this.g.drawString(">",205,y2); }
+				if (sele) { this.g.drawString("<",10,y2); this.g.drawString(">",205,y2); }
 			}
 			this.g.flip();
     },
@@ -111,7 +111,7 @@ touchHandler[0]=function(e,x,y){
 				if (0<euc.dash.mode) euc.dash.mode--;
 			}else if (euc.dash.mode<9) euc.dash.mode++;
 			buzzer([30,50,30]);
-			face[0].btn(1,"SET RIDE MODE",20,120,5,col("olive"),0,0,0,239,97,euc.dash.mode.toString(),60,125,37,1);
+			face[0].btn(1,"SET RIDE MODE",20,125,5,col("olive"),0,0,0,239,97,euc.dash.mode.toString(),60,125,37,1);
 		}
 		else {
 			if ( x<=120 && y<100 ) { //auto lock
@@ -131,7 +131,7 @@ touchHandler[0]=function(e,x,y){
 				buzzer([30,50,30]);	
 			}else if ( 120<=x && 100<=y ) { //mode
 				face[0].set=1;
-				face[0].btn(1,"SET RIDE MODE",20,120,5,col("olive"),0,0,0,239,97,euc.dash.mode.toString(),60,125,37,1);
+				face[0].btn(1,"SET RIDE MODE",20,125,5,col("olive"),0,0,0,239,97,euc.dash.mode.toString(),60,125,37,1);
 				buzzer([30,50,30]);						
 			}else buzzer([30,50,30]);
 		}
