@@ -83,7 +83,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			break;
 		case 71://battery fixed/voltage
 			euc.dash.volt=this.in16/100;
-			euc.dash.bat=Math.round(((euc.dash.volt*6.66) - euc.dash.batE ) * (100/(euc.dash.batF-euc.dash.batE)));
+			euc.dash.bat=Math.round(100*(euc.dash.volt*6.66 - euc.dash.batE )  / (euc.dash.batF-euc.dash.batE));
 			//euc.dash.bat=(((this.in16/100)-51.5)*10|0); 
 			batL.unshift(euc.dash.bat);
 			if (20<batL.length) batL.pop();

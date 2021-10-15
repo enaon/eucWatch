@@ -61,7 +61,7 @@ euc.conn=function(mac){
 					if (euc.dash.hapT && euc.dash.tmpC==2) euc.alert++; 	
 					//volt
 					euc.dash.volt=(event.target.value.getUint16(11, true)/100);
-					euc.dash.bat=Math.round(((euc.dash.volt*7.13) - euc.dash.batE ) * (100/(euc.dash.batF-euc.dash.batE)));
+					euc.dash.bat=Math.round(100*(euc.dash.volt*7.13 - euc.dash.batE ) / (euc.dash.batF-euc.dash.batE));
 					batL.unshift(euc.dash.bat);
 					if (20<batL.length) batL.pop();
 					euc.dash.batC = (50 <= euc.dash.bat)? 0 : (euc.dash.bat <= euc.dash.batL)? 2 : 1;	
