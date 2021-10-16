@@ -233,7 +233,7 @@ euc.conn=function(mac){
 							euc.tmp.chk.set(euc.tmp.tot);
 							euc.tmp.chk=( euc.tmp.chk.reduce(checksum) + 7 == euc.tmp.tot.buffer[euc.tmp.tot.length - 3] )?1:0;
 							if (!euc.tmp.chk) {
-								//console.log( "problem:", temp, " length:", temp.length);
+								if (set.bt===2) console.log("Inmotion: problem: length:",  temp.length, temp); 
 								euc.tmp.live();
 								euc.tmp.last=[];
 								return;
