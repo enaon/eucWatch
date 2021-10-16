@@ -618,7 +618,7 @@ if (set.def.acctype==="BMA421"){
 				if (this.loop) { clearInterval(this.loop); this.loop=0;}
 				this.loop= setInterval(()=>{	
 					let cor=acc.read();
-					if (-1000<=cor.ax && cor.ax<=0  && cor.az<=-300 ) {
+					if (-1000<=cor.ax && cor.ax<=100  && cor.az<=-300 ) {
 						if (!w.gfx.isOn&&face.appCurr!=""&&this.up){  
 								face.go(set.dash[set.def.dash.face],0);
 						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
