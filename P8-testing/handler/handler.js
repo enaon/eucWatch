@@ -627,7 +627,7 @@ if (set.def.acctype==="BMA421"){
 						}
 						this.up=0;
 					} else this.up=1;
-				},100);
+				},50);
 				return true;
 			}else if (!this.tid) {
 				i2c.writeTo(0x18,0x32,20); //int1_ths-threshold = 250 milli g's
