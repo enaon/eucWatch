@@ -361,20 +361,21 @@ euc.off=function(err){
 			}, 2000);
 		}
 	} else {
-			if (euc.busy) { clearTimeout(euc.busy);euc.busy=0;} 
-			if ( euc.aOff==0 || euc.aOff==1 ) {euc.dash.aOff=euc.aOff;	delete euc.aOff;}
-			if ( euc.aLck==0 || euc.aLck==1 )  {euc.dash.aLck=euc.aLck;	delete euc.aLck;}
-			euc.off=function(err){if (set.def.cli) console.log("EUC stoped at:",err);};
-			euc.wri=function(err){if (set.def.cli) console.log("EUC write, not connected");};
-			euc.conn=function(err){if (set.def.cli) console.log("EUC conn, not connected");};
-			euc.cmd=function(err){if (set.def.cli) console.log("EUC cmd, not connected");};
-			euc.run=0;
-			euc.tmp=0;
-			if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
-				if (set.def.cli) console.log("ble still connected"); 
-				global["\xFF"].BLE_GATTS.disconnect();
-			}
-			global["\xFF"].bleHdl=[];
-			NRF.setTxPower(set.def.rfTX);
+		if (set.bt===2) console.log("EUC OUT:",err);
+		if (euc.busy) { clearTimeout(euc.busy);euc.busy=0;} 
+		if ( euc.aOff==0 || euc.aOff==1 ) {euc.dash.aOff=euc.aOff;	delete euc.aOff;}
+		if ( euc.aLck==0 || euc.aLck==1 )  {euc.dash.aLck=euc.aLck;	delete euc.aLck;}
+		euc.off=function(err){if (set.bt===2) console.log("EUC off, not connected",err);};
+		euc.wri=function(err){if (set.bt===2) console.log("EUC write, not connected",err);};
+		euc.conn=function(err){if (set.bt===2) console.log("EUC conn, not connected",err);};
+		euc.cmd=function(err){if (set.bt===2) console.log("EUC cmd, not connected",err);};
+		euc.run=0;
+		euc.tmp=0;
+		global["\xFF"].bleHdl=[];
+		NRF.setTxPower(set.def.rfTX);
+		if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
+			if (set.bt===2) console.log("ble still connected"); 
+			global["\xFF"].BLE_GATTS.disconnect();return;
+		}
     }
 };

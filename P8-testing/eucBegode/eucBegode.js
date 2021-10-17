@@ -260,15 +260,20 @@ euc.off=function(err){
 			}, 1000);
 		}
 	} else {
-		if (set.bt===2) console.log("EUC OUT:",err);
-		global["\xFF"].bleHdl=[];
-		euc.run=0;
+		if (set.def.cli) console.log("EUC OUT:",err);
 		if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 		euc.off=function(err){if (set.bt===2) console.log("EUC off, not connected",err);};
 		euc.wri=function(err){if (set.bt===2) console.log("EUC write, not connected",err);};
 		euc.conn=function(err){if (set.bt===2) console.log("EUC conn, not connected",err);};
 		euc.cmd=function(err){if (set.bt===2) console.log("EUC cmd, not connected",err);};
-		NRF.setTxPower(set.def.rfTX);
+		euc.run=0;
+		euc.tmp=0;
+		global["\xFF"].bleHdl=[];
+		NRF.setTxPower(set.def.rfTX);	
+		if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
+			if (set.bt===2) console.log("ble still connected"); 
+			global["\xFF"].BLE_GATTS.disconnect();return;
+		}
     }
 };
 

@@ -431,7 +431,7 @@ euc.off=function(err){
 			}
 			euc.run=euc.run+1;
 			if (euc.dash.lock==1) buzzer(250);
-			else  buzzer([250,200,250,200,250])
+			else  buzzer([250,200,250,200,250]);
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
 				if (euc.state=="OFF") return;
@@ -455,23 +455,22 @@ euc.off=function(err){
 			}, 1500);
 		}
 	} else {
-		if (global['\xFF'].BLE_GATTS && global['\xFF'].BLE_GATTS.connected) {
-			return global['\xFF'].BLE_GATTS.disconnect();
-		}	
+		if (set.bt===2) console.log("EUC OUT:",err);
+		if (set.bt===2) console.log("EUC OUT:",err);
 		if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
-		global["\xFF"].bleHdl=[];
+		euc.off=function(err){if (set.bt===2) console.log("EUC off, not connected",err);};
 		euc.wri=function(err){if (set.bt===2) console.log("EUC write, not connected",err);};
 		euc.conn=function(err){if (set.bt===2) console.log("EUC conn, not connected",err);};
 		euc.cmd=function(err){if (set.bt===2) console.log("EUC cmd, not connected",err);};
-		delete euc.serv;
-		delete euc.wCha;
-		delete euc.rCha;
-		delete euc.tmp;
-		delete euc.gatt;
-		euc.busy=0;euc.run=0;euc.horn=0;
+		euc.run=0;
+		euc.tmp=0;
+		euc.busy=0;
+		euc.serv=0;euc.wCha=0;euc.rCha=0;euc.gatt=0;
+		global["\xFF"].bleHdl=[];
 		NRF.setTxPower(set.def.rfTX);	
-		euc.off=function(err){if (set.bt===2) console.log("EUC off, not connected",err);};
-		if (set.bt===2) console.log("EUC: Inmotion end", err);
-
+		if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
+			if (set.bt===2) console.log("ble still connected"); 
+			global["\xFF"].BLE_GATTS.disconnect();return;
+		}
     }
 };
