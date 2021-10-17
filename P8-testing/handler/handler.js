@@ -530,26 +530,51 @@ if (set.def.acctype==="BMA421"){
 		tid:0,
 		run:0,
 		up:0,
-		on:function(){
+		on:function(v){
 			if (this.tid) {clearInterval(this.tid); this.tid=0;}
 			i2c.writeTo(0x18,0x7d,0x04);
 			i2c.writeTo(0x18,0x12);
 			this.yedge=253;this.xedge=20;
-			this.run=1;this.init();
-			this.tid=setInterval(function(t){
-				t.init(); 
-			},this.loop,this);
+			this.run=1;
+			if (v==2) {
+				this.tid=setInterval(function(t){
+					t.euc(); 
+				},100,this);	
+			}else {	 
+				this.tid=setInterval(function(t){
+					t.init(); 
+				},this.loop,this);
+			}
 		},
 		off:function(){
 			if (this.tid) {clearInterval(this.tid); this.tid=0;}
 			i2c.writeTo(0x18,0x7d,0x04);
 			this.run=0;
 		},
+		euc:function(){
+			"ram";
+			let data=i2c.readFrom(0x18,6);
+			if (230<data[3]&&data[3]<255) {
+				if (data[1]<this.xedge||data[1]>=240) {
+					if (!this.up&&!w.gfx.isOn){  
+						face.go(set.dash[set.def.dash.face],0);
+					}else if (w.gfx.isOn&&face.pageCurr!=-1) {
+						if ( !set.def.off[face.appCurr] || ( set.def.off[face.appCurr] &&  set.def.off[face.appCurr] <= 60000))
+							face.off(1500);		
+					} 
+					this.up=1;
+				}
+			}else if (this.up && data[3] < 220 ) {
+				if ( !set.def.off[face.appCurr] || ( set.def.off[face.appCurr] &&  set.def.off[face.appCurr] <= 60000)) {
+					face.off(1500);	
+				}	
+				this.up=0;
+			}
+		},
 		init:function(){
 			//"ram";
 			if(!this.run) return;
-			var data;
-			data=i2c.readFrom(0x18,6);
+			let data=i2c.readFrom(0x18,6);
 			//print("acc :",data);
 			//if (!this.up && 230<data[3]&&data[3]<this.yedge) {
 			if (230<data[3]&&data[3]<this.yedge) {
