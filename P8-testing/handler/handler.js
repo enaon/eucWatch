@@ -616,9 +616,11 @@ if (set.def.acctype==="BMA421"){
 				i2c.writeTo(0x18,0x32,5); //int1_ths-threshold = 250 milli g's
 				i2c.writeTo(0x18,0x33,15); //duration = 1 * 20ms
 				if (this.loop) { clearInterval(this.loop); this.loop=0;}
+				i2c.writeTo(0x18,0xA8);
 				this.loop= setInterval(()=>{	
 					"ram";
 					let cor=acc.read();
+					print(cor);
 					if (-1000<=cor.ax && cor.ax<=500 && cor.ay<=500 && cor.az<=-300 ) {
 						if (!w.gfx.isOn&&face.appCurr!=""&&this.up){  
 								face.go(set.dash[set.def.dash.face],0);
@@ -628,7 +630,7 @@ if (set.def.acctype==="BMA421"){
 						}
 						this.up=0;
 					} else this.up=1;
-				},100);
+				},50);
 				return true;
 			}else if (!this.tid) {
 				i2c.writeTo(0x18,0x32,20); //int1_ths-threshold = 250 milli g's
@@ -651,16 +653,15 @@ if (set.def.acctype==="BMA421"){
 		},
 		read:function(){
 			"ram";
-			function conv(lo,hi) { 
-				var i = (hi<<8)+lo;
-				return ((i & 0x7FFF) - (i & 0x8000))/16;
-			}
 			i2c.writeTo(0x18,0xA8);
 			var a =i2c.readFrom(0x18,6);
-			//print (a[0]+"-"+a[1]+","+a[2]+"-"+a[3]+","+a[4]+"-"+a[5]);
-			//print ( "test got : ax: " + ( a[1] << 8 | a[0] ) + " ay: " + ( a[3] << 8 | a[2] ) + " az: " + ( a[5] << 8 | a[4] ) );
-			return {ax:conv(a[0],a[1]), ay:conv(a[2],a[3]), az:conv(a[4],a[5])};
+			return {ax:this.conv(a[0],a[1]), ay:this.conv(a[2],a[3]), az:this.conv(a[4],a[5])};
 		},
+		conv:function(lo,hi){
+			"ram";
+			let i = (hi<<8)+lo;
+			return ((i & 0x7FFF) - (i & 0x8000))/16;
+		}
 	};	
 }
 
