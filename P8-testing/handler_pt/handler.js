@@ -658,8 +658,8 @@ if (set.def.acctype==="BMA421"){
 		up:0,
 		//ori:[65,66],
 		ori:[65,66],
-		loop:0,
 		tid:0,
+		mode:0,
 		on:function(v){
 			i2c.writeTo(0x18,0x20,0x4f); //CTRL_REG1 20h ODR3 ODR2 ODR1 ODR0 LPen Zen Yen Xen , 50hz, lpen1. zyx
 			i2c.writeTo(0x18,0x21,0x00); //highpass filter disabled
@@ -670,11 +670,15 @@ if (set.def.acctype==="BMA421"){
 			i2c.writeTo(0x18,0x32,5); //int1_ths-threshold = 250 milli g's
 			i2c.writeTo(0x18,0x33,15); //duration = 1 * 20ms
 			i2c.writeTo(0x18,0x30,0x02); //int1 to xh
+			this.mode=(v)?v:0;
 			this.init(v);
 		},
 		off:function(){
-			if (this.loop) { clearInterval(this.loop); this.loop=0;}
-			if (this.tid) {	clearWatch(this.tid);this.tid=0;}
+			if (this.tid){
+				if (this.mode==2) clearInterval(this.tid);
+				else clearWatch(this.tid);
+				this.tid=0;
+			}
 			i2c.writeTo(0x18,0x20,0x07); //Clear LPen-Enable all axes-Power down
 			i2c.writeTo(0x18,0x26);
 			i2c.readFrom(0x18,1);// Read REFERENCE-Reset filter block 
@@ -686,16 +690,15 @@ if (set.def.acctype==="BMA421"){
 				i2c.writeTo(0x18,0x30,0x00); //int1 to xh
 				i2c.writeTo(0x18,0x32,5); //int1_ths-threshold = 250 milli g's
 				i2c.writeTo(0x18,0x33,15); //duration = 1 * 20ms
-				if (this.loop) { clearInterval(this.loop); this.loop=0;}
-				i2c.writeTo(0x18,0xA8);
-				this.loop= setInterval(()=>{	
+				this.tid= setInterval(()=>{	
 					"ram";
 					let cor=acc.read();
 					if (-1000<=cor.ax && cor.ax<=500 && cor.ay<=500 && cor.az<=-300 ) {
-						if (!w.gfx.isOn&&face.appCurr!=""&&this.up){  
+						if (!w.gfx.isOn&&this.up){  
 								face.go(set.dash[set.def.dash.face],0);
-						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
-							if ( !set.def.off[face.appCurr] || ( set.def.off[face.appCurr] &&  set.def.off[face.appCurr] <= 60000)) 
+						}else {
+							let tout=set.def.off[face.appCurr];
+							if ( !tout || ( tout &&  tout <= 60000)) 
 								face.off(1500);
 						}
 						this.up=0;
@@ -707,15 +710,20 @@ if (set.def.acctype==="BMA421"){
 				i2c.writeTo(0x18,0x33,1); //duration = 1 * 20ms
 				this.tid=setWatch(()=>{
 					//"ram";
+					print(1);
 					i2c.writeTo(0x18,0x1);
 					if ( 192 < i2c.readFrom(0x18,1)[0] ) {
-						if (!w.gfx.isOn&&face.appCurr!=""){  
+						if (!w.gfx.isOn){  
 							if (face.appCurr=="main") face.go("main",0);
 							else face.go(face.appCurr,0);
-						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
-							if (face.appCurr=="main" && face.pageCurr==2) face.go("main",0);
-							else { if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off(); }
-						} 
+						}else  if (set.tor==1)w.gfx.bri.set(face[0].cbri);
+						else face.off(); 
+						
+					} else {
+						print(2);
+						let tout=set.def.off[face.appCurr];
+						if ( !tout || ( tout &&  tout <= 60000)) 
+							face.off(500);
 					}
 				},D8,{repeat:true,edge:"rising",debounce:50});
 				return true;
