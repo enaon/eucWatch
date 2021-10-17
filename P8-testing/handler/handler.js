@@ -617,6 +617,7 @@ if (set.def.acctype==="BMA421"){
 				i2c.writeTo(0x18,0x33,15); //duration = 1 * 20ms
 				if (this.loop) { clearInterval(this.loop); this.loop=0;}
 				this.loop= setInterval(()=>{	
+					"ram";
 					let cor=acc.read();
 					if (-1000<=cor.ax && cor.ax<=500 && cor.ay<=500 && cor.az<=-300 ) {
 						if (!w.gfx.isOn&&face.appCurr!=""&&this.up){  
@@ -627,7 +628,7 @@ if (set.def.acctype==="BMA421"){
 						}
 						this.up=0;
 					} else this.up=1;
-				},50);
+				},100);
 				return true;
 			}else if (!this.tid) {
 				i2c.writeTo(0x18,0x32,20); //int1_ths-threshold = 250 milli g's
@@ -649,6 +650,7 @@ if (set.def.acctype==="BMA421"){
 			} else return false;
 		},
 		read:function(){
+			"ram";
 			function conv(lo,hi) { 
 				var i = (hi<<8)+lo;
 				return ((i & 0x7FFF) - (i & 0x8000))/16;
