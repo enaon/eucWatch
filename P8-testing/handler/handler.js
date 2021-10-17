@@ -618,12 +618,11 @@ if (set.def.acctype==="BMA421"){
 				if (this.loop) { clearInterval(this.loop); this.loop=0;}
 				this.loop= setInterval(()=>{	
 					let cor=acc.read();
-					if (-1000<=cor.ax && cor.ax<=100  && cor.az<=-300 ) {
+					if (-1000<=cor.ax && cor.ax<=500 && cor.ay<=500 && cor.az<=-300 ) {
 						if (!w.gfx.isOn&&face.appCurr!=""&&this.up){  
 								face.go(set.dash[set.def.dash.face],0);
 						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
-							if (set.tor==1)w.gfx.bri.set(face[0].cbri); 
-							else if ( !set.def.off[face.appCurr] || ( set.def.off[face.appCurr] &&  set.def.off[face.appCurr] <= 60000)) 
+							if ( !set.def.off[face.appCurr] || ( set.def.off[face.appCurr] &&  set.def.off[face.appCurr] <= 60000)) 
 								face.off(1500);
 						}
 						this.up=0;
