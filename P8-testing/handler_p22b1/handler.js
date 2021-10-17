@@ -668,7 +668,6 @@ if (set.def.acctype==="BMA421"){
 				this.loop= setInterval(()=>{	
 					"ram";
 					let cor=acc.read();
-					print(cor);
 					if (-1000<=cor.ax && cor.ax<=500 && cor.ay<=500 && cor.az<=-300 ) {
 						if (!w.gfx.isOn&&face.appCurr!=""&&this.up){  
 								face.go(set.dash[set.def.dash.face],0);
