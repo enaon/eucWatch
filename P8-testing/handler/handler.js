@@ -538,6 +538,7 @@ if (set.def.acctype==="BMA421"){
 			this.run=1;
 			if (v==2) {
 				this.tid=setInterval(function(t){
+					"ram";
 					t.euc(); 
 				},100,this);	
 			}else {	 
