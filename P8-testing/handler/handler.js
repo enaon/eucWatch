@@ -665,7 +665,6 @@ if (set.def.acctype==="BMA421"){
 				i2c.writeTo(0x18,0x33,1); //duration = 1 * 20ms
 				this.tid=setWatch(()=>{
 					//"ram";
-					print(1);
 					i2c.writeTo(0x18,0x1);
 					if ( 192 < i2c.readFrom(0x18,1)[0] ) {
 						if (!w.gfx.isOn){  
@@ -673,9 +672,7 @@ if (set.def.acctype==="BMA421"){
 							else face.go(face.appCurr,0);
 						}else  if (set.tor==1)w.gfx.bri.set(face[0].cbri);
 						else face.off(); 
-						
 					} else {
-						print(2);
 						let tout=set.def.off[face.appCurr];
 						if ( !tout || ( tout &&  tout <= 60000)) 
 							face.off(500);
