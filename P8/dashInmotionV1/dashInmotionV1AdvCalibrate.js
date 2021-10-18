@@ -1,6 +1,6 @@
-//kingsong  set adv calibrate
+//inmotionV1 set adv calibrate
 face[0] = {
-	offms: 30000,
+	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:30000,
 	g:w.gfx,
 	init: function(){
 		this.g.setColor(0,col("dgray"));
@@ -27,19 +27,19 @@ face[0] = {
 		this.run=true;
 	},
 	show : function(){
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
+		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
         if (this.calibrate) {
             this.g.setColor(0,col("dgray"));
 		    this.g.fillRect(0,0,239,174);                    
             this.g.setColor(1,col("white"));
 		    this.g.setFont("Vector",17);
-		    this.g.drawString("1. PRESS START",25,10); 	
-   		    this.g.drawString("2. LEVEL WHEEL",25,37); 		
-            this.g.drawString("3. TURN WHEEL ON",25,64);
-            this.g.drawString("4. WHEEL BEEPS->OFF",25,91); 
-            this.g.drawString("5. TURN WHEEL ON",25,118);
-            this.g.drawString("6. DONE!",25,145);
+		    this.g.drawString("1. LEVEL WHEEL",25,10); 	
+   		    this.g.drawString("2. HOLD HANDLE",25,37); 		
+            this.g.drawString("3. PRESS START",25,64);
+            //this.g.drawString("3. WHEEL BEEPS->OFF",25,91); 
+            this.g.drawString("4. WHEEL BEEPS",25,118);
+            this.g.drawString("5. DONE!",25,145);
 		    this.g.flip();
             this.g.setColor(0,col("raf"));
 		    this.g.fillRect(0,175,120,239);                    
@@ -103,7 +103,14 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		face.go("dashVeteran",0);
+		w.gfx.setColor(0,0);
+		w.gfx.drawLine (0,98,239,98);
+		w.gfx.drawLine (0,99,239,99);
+        w.gfx.flip();
+		w.gfx.drawLine (120,0,120,195);
+      	w.gfx.drawLine (121,0,121,195);
+        w.gfx.flip();	
+		face.go("dashInmotionV1Adv",0);
 		return true;
 	},
 	clear: function(){
@@ -116,15 +123,17 @@ touchHandler[0]=function(e,x,y){
 	case 5: //tap event
         if (!face[0].calibrate){
 		if (x<=120&&y<175) { //tilt forward
-			euc.dash.tiltSet--;euc.wri("tiltSet");
-			digitalPulse(D16,1,[30,50,30]);
+			euc.dash.tiltSet--;
+			euc.wri("setPpedalTilt",euc.dash.tiltSet);
+			buzzer([30,50,30]);
 		}else if (120<=x&&y<=175) { //tilt back
-			euc.dash.tiltSet++;euc.wri("tiltSet");
-			digitalPulse(D16,1,[30,50,30]);
+			euc.dash.tiltSet++;
+			euc.wri("setPpedalTilt",euc.dash.tiltSet);
+			buzzer([30,50,30]);
 		}else if (175<=y) { //calibrate
             face[0].calibrate=1;
-			digitalPulse(D16,1,[30,50,30]);
-		}else digitalPulse(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
+		}else buzzer([30,50,30]);
         }else { //calibrate
 			if (175<=y&&120<=x) {
 				w.gfx.setColor(0,0);
@@ -134,27 +143,28 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.drawLine (120,0,120,195);
 				w.gfx.drawLine (121,0,121,195);
 				w.gfx.flip();	
-				face.go("dashVeteran",0);return;
-			}else if (175<=y&&x<=120) 
-				euc.wri("calibrate");
-			else digitalPulse(D16,1,40);
+				face.go("dashInmotionV1Adv",0);return;
+			}else if (175<=y&&x<=120) {
+				buzzer([30,50,30]);
+				euc.wri("calibration");
+      }else buzzer(40);
         }
 		this.timeout();
 		break;
 	case 1: //slide down event
-		//face.go("main",0);
-		face.go(set.dash[set.def.dash],0);
+		setTimeout(function(){euc.busy=0;euc.tmp.live();},800);
+		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			digitalPulse(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		this.timeout();
 		break;
 	case 3: //slide left event
-		digitalPulse(D16,1,40);
+		buzzer(40);
 		this.timeout();
 		break;
 	case 4: //slide right event (back action)
@@ -165,10 +175,10 @@ touchHandler[0]=function(e,x,y){
 		w.gfx.drawLine (120,0,120,195);
       	w.gfx.drawLine (121,0,121,195);
         w.gfx.flip();	
-		face.go("dashVeteran",0);
+		face.go("dashInmotionV1Adv",0);
 		return;
 	case 12: //long press event
-		digitalPulse(D16,1,[100]);
+		buzzer(40);
 		this.timeout();
 		break;
   }

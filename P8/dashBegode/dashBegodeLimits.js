@@ -1,7 +1,7 @@
-//kingsong  set adv limits
+//Begode  set adv limits
 
 face[0] = {
-	offms: 5000,
+	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
 	g:w.gfx,
 	init: function(){
         this.g.setColor(0,0);
@@ -26,7 +26,7 @@ face[0] = {
         this.run=false;
 	},
 	show : function(){
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
+		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
       
         this.tid=setTimeout(function(t,o){
@@ -105,11 +105,6 @@ face[1] = {
 	},
 };	
 
-if (euc.dash.spd1>=euc.dash.spd2) euc.dash.spd1=euc.dash.spd2-1;
-if (euc.dash.spd1<=0) euc.dash.spd1=0;
-
-
-
 //touch
 touchHandler[0]=function(e,x,y){
 	switch (e) {
@@ -118,40 +113,40 @@ touchHandler[0]=function(e,x,y){
 			if (x<=120&&y<100) { //alarm 1
                 if (euc.dash.spd1E){
 					euc.dash.spd1E=0;
-					face[0].btn(euc.dash.spd1E,"ALARM 1",18,60,15,col("red"),col("gray"),0,0,119,97,(euc.dash.spd1E)?"ON":"OFF",28,60,50);
+					face[0].btn(euc.dash.spd1E,"ALARM 1",18,60,15,col("red"),col("dgray"),0,0,119,97,(euc.dash.spd1E)?"ON":"OFF",28,60,50);
 					face[0].ntfy("ALARM 1-> DISABLED","",20,col("dgray"),1);
-					digitalPulse(D16,1,[30,50,30]);
+					buzzer([30,50,30]);
 				}else {
 					if (euc.dash.spd2E){
 						euc.dash.spd1E=1;
-						face[0].btn(euc.dash.spd1E,"ALARM 1",18,60,15,col("red"),col("gray"),0,0,119,97,(euc.dash.spd1E)?"ON":"OFF",28,60,50);
+						face[0].btn(euc.dash.spd1E,"ALARM 1",18,60,15,col("red"),col("dgray"),0,0,119,97,(euc.dash.spd1E)?"ON":"OFF",28,60,50);
 						face[0].ntfy("ALARM 1-> ENABLED","",20,col("dgray"),1);
-						digitalPulse(D16,1,[30,50,30]);
-                    }else {face[0].ntfy("ENABLE ALARM 2","",20,col("red"),1);digitalPulse(D16,1,40);}
+						buzzer([30,50,30]);
+                    }else {face[0].ntfy("ENABLE ALARM 2","",20,col("red"),1);buzzer(40);}
                 }
 			}else if (120<=x<=239&&y<=100) { //alarm 2
 				if ( euc.dash.spd2E){
-					if (euc.dash.spd1E) {face[0].ntfy("DISABLE ALARM 1","",20,col("red"),1);digitalPulse(D16,1,40);}
+					if (euc.dash.spd1E) {face[0].ntfy("DISABLE ALARM 1","",20,col("red"),1);buzzer(40);}
 					else {
 						euc.dash.spd2E=0;
-						digitalPulse(D16,1,[30,50,30]);
+						buzzer([30,50,30]);
 						face[0].btn(euc.dash.spd2E,"ALARM 2",18,185,15,col("red"),col("gray"),122,0,239,97,(euc.dash.spd2E)?"ON":"OFF",28,185,50);
 						face[0].ntfy("ALARM 2 -> DISABLED","",20,col("dgray"),1);
 					}
 				}else {
 					euc.dash.spd2E=1;
-					digitalPulse(D16,1,[30,50,30]);
+					buzzer([30,50,30]);
 					face[0].btn(euc.dash.spd2E,"ALARM 2",18,185,15,col("red"),col("gray"),122,0,239,97,(euc.dash.spd2E)?"ON":"OFF",28,185,50);
 					face[0].ntfy("ALARM 2 -> ENABLED","",20,col("dgray"),1);
 				}
 			}else if (x<=120&&100<=y<=200) { //alarm 3
-				face[0].ntfy("FIXED ALARM","FIXED ALARM",20,col("dgray"),1);
-				digitalPulse(D16,1,[30,50,30]);		
+				face[0].ntfy("FIXED ALARM","FIXED ALARM",20,col("red"),1);
+				buzzer([30,50,30]);		
 			}else if (120<=x<=239&&100<=y<=200) { //tiltback
 				face[0].set("3","TITLBACK");
 				//face[0].ntfy("HOLD -> SET","",20,col("dgray"),1);
-				digitalPulse(D16,1,[30,50,30]);						
-			}else digitalPulse(D16,1,[30,50,30]);
+				buzzer([30,50,30]);						
+			}else buzzer([30,50,30]);
 		}else {//set page
 			if (120<=x) { //up
                 if (euc.dash.spd3<99) euc.dash.spd3++;
@@ -160,7 +155,7 @@ touchHandler[0]=function(e,x,y){
 				if (10<euc.dash.spd3) euc.dash.spd3--;
 				else face[0].ntfy("NO LESS THAN 10KpH","",20,col("red"),1);
             } 
-            digitalPulse(D16,1,[30,50,30]);
+            buzzer([30,50,30]);
 			face[0].btn(1,euc.dash["spd"+face[0].setEb],100,126,60,col("red"),col("gray"),60,40,180,160);
 		}
 		this.timeout();
@@ -168,18 +163,18 @@ touchHandler[0]=function(e,x,y){
 	case 1: //slide down event
 		//face.go("main",0);
         euc.wri("setAlarms");
-		face.go(set.dash[set.def.dash],0);
+		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			digitalPulse(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		this.timeout();
 		break;
 	case 3: //slide left event
-		digitalPulse(D16,1,40);
+		buzzer(40);
 		break;
 	case 4: //slide right event (back action)
         if (face[0].setE) {
@@ -195,8 +190,8 @@ touchHandler[0]=function(e,x,y){
    case 12: //hold event
 		if (120<=x<=239&&100<=y<=200) { //tiltback
 			face[0].set("3","TITLBACK");
-			digitalPulse(D16,1,[30,50,30]);						
-		}else digitalPulse(D16,1,[30,50,30]);
+			buzzer([30,50,30]);						
+		}else buzzer([30,50,30]);
 		this.timeout();
 		break;
 	}

@@ -19,12 +19,13 @@ global.save = function() { throw new Error("You don't need to use save() on P8!"
 //load in devmode
 if (BTN1.read() || Boolean(require("Storage").read("devmode"))) { 
   let mode=(require("Storage").read("devmode"));
-  if ( mode=="off"){ 
-    require("Storage").write("devmode","done");
-    NRF.setAdvertising({},{connectable:false});
-    NRF.disconnect();
-    NRF.sleep();
-    digitalPulse(D16,1,250);
+  if ( mode=="loader"){ 
+    //require("Storage").write("devmode","done");
+    //NRF.setAdvertising({},{connectable:false});
+    //NRF.disconnect();
+    //NRF.sleep();
+	//Bluetooth.println("devmode");
+    digitalPulse(D16,1,80);
   } else {
     require("Storage").write("devmode","done");
     NRF.setAdvertising({}, { name:"Espruino-devmode",connectable:true });
@@ -43,7 +44,6 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
     }, 500);
   },BTN1,{repeat:false, edge:"rising"}); 
 }else{ //load in working mode
-if (!Boolean(require('Storage').read('setting.json'))) require('Storage').write('setting.json',{"watchtype":"eucwatch"});
 var w;
 var pal=[];
 Modules.addCached("P8",function(){
@@ -68,15 +68,6 @@ Modules.addCached("P8",function(){
 };
 */
 
-//battery
-const battVoltage=function(s){
-	let v=7.1*analogRead(D31);
-	if (s) { v=(v*100-345)*1.43|0; //if (v>=100) v=100;
-	}
-    let hexString = ("0x"+(0x50000700+(D31*4)).toString(16));
-	poke32(hexString,2); // disconnect pin for power saving, otherwise it draws 70uA more 
-	return v;
-};
 //screen driver
 //
 // MIT License (c) 2020 fanoush https://github.com/fanoush
@@ -286,19 +277,38 @@ g.off=function(){
 //  BL.set();
   this.isOn=false;
 };
-
+//battery
+const batt=function(i,c){
+	let v= 7.1*analogRead(D31);
+	let l=3.5,h=4.19;
+    let hexString = ("0x"+(0x50000700+(D31*4)).toString(16));
+	poke32(hexString,2); // disconnect pin for power saving, otherwise it draws 70uA more 	
+	if (i==="info"){
+		if (c) return ((100*(v-l)/(h-l)|0)+'%-'+v.toFixed(2)+'V'); 
+		return (((v<=l)?0:(h<=v)?100:((v-l)/(h-l)*100|0))+'%-'+v.toFixed(2)+'V'); 
+	}else if (i) { 
+		if (c) return (100*(v-l)/(h-l)|0);
+		return ( (v<=l)?0:(h<=v)?100:((v-l)/(h-l)*100|0) );
+	}else return +v.toFixed(2);
+};
+const battVoltage=function(s){
+	let v=7.1*analogRead(D31);
+	if (s) { v=(v*100-340)*1.33|0; //if (v>=100) v=100;
+	}
+    let hexString = ("0x"+(0x50000700+(D31*4)).toString(16));
+	poke32(hexString,2); // disconnect pin for power saving, otherwise it draws 70uA more 
+	return v;
+};
 module.exports = {
-//  pin: pin,
-  battVoltage: battVoltage,
-  gfx: g
+	batt: batt,
+	battVoltage: battVoltage,
+	gfx: g
 };
 });
 w=require("P8");
-function buzzer (a,b) {
-	digitalPulse(D16,a,b);
-}
 //load
 //w.gfx.init();
+require("Storage").erase("colmode16");
 eval(require('Storage').read('handler'));
 eval(require('Storage').read('main'));
 eval(require('Storage').read('euc'));

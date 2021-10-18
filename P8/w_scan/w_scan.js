@@ -9,18 +9,18 @@ if(!global.scan){
 				if (app=="repellent") this.filter = [{serviceData:{"fe95":{}}}];
 				else {
 					app="dash";
-					if (euc.dash.maker=="NinebotZ")  this.filter = [{manufacturer:16974}];  
+					if (euc.dash.maker=="NinebotZ"|| euc.dash.maker=="NinebotS")  this.filter = [{manufacturer:16974}];  
 					else if (euc.dash.maker=="InmotionV11")  this.filter = [{ namePrefix: 'V11-' }];
 					else this.filter = [{services:[service]}];
 				}
 				var found=[];
-				NRF.filterDevices(devices, this.filter).forEach(function(entry) {found.push(entry.id);});
+				NRF.filterDevices(devices, this.filter).forEach(function(entry) {found.push(entry.id+"|"+entry.name);});
 				if (found!=""&&found!=undefined){ 
 					if (app=="dash"){
-						set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Mac",found[0]+"");
-						euc.dash.mac=found[0]+"";
+						euc.dash.mac=0;
 					}else{
-						set.write("setting",app+"Mac",found);
+						set.write("setting",app+"Mac",found[0].split("|")[0]);
+						set.write("setting",app+"Name",found[0].split("|")[1]);
 						set.write("setting",app+"Go","0");
 					}
 					scan.mac=found;
@@ -33,7 +33,7 @@ if(!global.scan){
 	};
 }
 face[0] = {
-  offms: 10000,
+	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
   g:w.gfx,
   go:0,
   find:function(service){
@@ -52,8 +52,11 @@ face[0] = {
   },
   init: function(o){
     //this.find(o);
+	this.go=0;
     scan.mac=(require("Storage").readJSON("setting.json",1)||{})[face.appPrev+"Mac"];
 	this.go=(require("Storage").readJSON("setting.json",1)||{})[face.appPrev+"_go"];
+	this.go=0;
+
     this.start=1;
 	if(!scan.mac) {scan.mac=[];this.find(o);}
     this.g.setColor(0,0); //header
@@ -95,7 +98,8 @@ face[0] = {
 		this.g.setColor(0,col((this.go==entry)?"raf":(entry % 2)?"dgray":"gray"));
         this.g.fillRect(0,(this.top-14)+((entry-this.line)*this.top),239,(this.top+36)+((entry-this.line)*this.top)); 
 		this.g.setColor(1,col((this.go==entry)?"lblue":"white"));
-		this.g.drawString(scan.mac[entry].substring(0,17),239-this.g.stringWidth(scan.mac[entry].substring(0,17)),this.top+((entry-this.line)*this.top));
+		let dr=(scan.mac[entry].split("|")[1]!=="undefined")?scan.mac[entry].split("|")[1]:scan.mac[entry].substring(0,17);
+		this.g.drawString(dr,1,this.top+((entry-this.line)*this.top));
 		this.g.flip();
       }
       this.g.flip();
@@ -153,16 +157,15 @@ face[1] = {
 touchHandler[0]=function(e,x,y){
     if (e==5||e==12){
 	   if (face[0].start==3) face[0].find(face.pageArg);
-       if(36<y&&y<=85) 	this.mac=scan.mac[0];
-	   else if(85<y&&y<=135) this.mac=scan.mac[1];
-       else if(135<y&&y<=185) 	this.mac=scan.mac[2];
-       else if(185<y) 	this.mac=scan.mac[3];
-       
+       if(36<y&&y<=85) 	this.mac=scan.mac[0].split("|")[0];
+	   else if(85<y&&y<=135) this.mac=scan.mac[1].split("|")[0];
+       else if(135<y&&y<=185) 	this.mac=scan.mac[2].split("|")[0];
+       else if(185<y) 	this.mac=scan.mac[3].split("|")[0];
        if (this.mac!=undefined) {
-			digitalPulse(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 			if (face.appRoot[0]!="repellent"){
-                set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Mac",this.mac);
-				euc.dash.mac=this.mac;
+                //set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Mac",this.mac);
+				euc.mac=this.mac;
 				euc.tgl();
 				return;
 			}else	{
@@ -170,17 +173,17 @@ touchHandler[0]=function(e,x,y){
                 set.write("setting",face.appRoot[0]+"Go",face[0].line+"");
 			}
 			face.go(face.appRoot[0],face.appRoot[1]);return;
-		}else digitalPulse(D16,1,40);
+		}else buzzer(40);
     }else if  (e==1){
 	  face.go(face.appPrev,face.pagePrev);return;
     }else if  (e==2){
 	  if (y>200&&x<50) {
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
         else w.gfx.bri.set(this.bri);
-		digitalPulse(D16,1,[30,50,30]);
-	  } else digitalPulse(D16,1,40);
+		buzzer([30,50,30]);
+	  } else buzzer(40);
     }else if  (e==3){
-	  digitalPulse(D16,1,40);    
+	  buzzer(40);    
     }else if  (e==4){
 		face.go(face.appRoot[0],face.appRoot[1]);
 	  return;

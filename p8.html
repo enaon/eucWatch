@@ -104,20 +104,23 @@
       <div class="hero bg-gray">
         <div class="hero-body">
           <h4>Installer</h4>
-			<h6>This proccess will erase the Watch</h6>
-		    <h7>Tap on the side button after last file is done uploading to start using the Watch.</h7>
+			<h5>P8 / P22 smartwatch </h5>
+			<h6>Select the "Install All Apps" button to start uploading eucWatch scripts to an espruino ready P8 / P22 smartwatch. </h6>
+			<h6>"Remove all Apps" and "Reset to default Settings" buttons exist for debug. Install will also remove all and reset to defaults.</h6>
+
         </div>
       </div>
       <div class="container" style="padding-top: 8px;">
-        <h5>Features set</h5><h7>Select Basic or EUC if not using the flash enabled Image.</h7>
-        <p><button class="btn" id="installbasic">Basic</button>
-           <button class="btn" id="installeuc">EUC</button>
-           <button class="btn" id="installall">All</button>
+        <h5>Install Actions</h5>
+        <p>
+			<button class="btn" id="installall">Install all apps</button>
+			<button class="btn" id="removeall">Remove all Apps</button>
+			<button class="btn" id="defSettings">Reset to default Settings</button>
         </p>
         <h5>Utilities</h5>
         <p><button class="btn" id="settime">Set Time</button>
 			<button class="btn" id="restart">Restart Watch</button>
-           <button class="btn" id="removeall">Remove all Apps</button>
+		    <button class="btn" id="settings">Change Settings</button>
         </p>
       </div>
     </div>

@@ -1,6 +1,6 @@
 //kingsong  set adv calibrate
 face[0] = {
-	offms: 30000,
+	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:30000,
 	g:w.gfx,
 	init: function(){
 		this.g.setColor(0,col("dgray"));
@@ -27,7 +27,7 @@ face[0] = {
 		this.run=true;
 	},
 	show : function(){
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
+		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
         if (this.calibrate) {
             this.g.setColor(0,col("dgray"));
@@ -103,7 +103,14 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		face.go("dashKingsong",0);
+		w.gfx.setColor(0,0);
+		w.gfx.drawLine (0,98,239,98);
+		w.gfx.drawLine (0,99,239,99);
+        w.gfx.flip();
+		w.gfx.drawLine (120,0,120,195);
+      	w.gfx.drawLine (121,0,121,195);
+        w.gfx.flip();	
+		face.go("dashKingsongAdv",0);
 		return true;
 	},
 	clear: function(){
@@ -117,14 +124,14 @@ touchHandler[0]=function(e,x,y){
         if (!face[0].calibrate){
 		if (x<=120&&y<175) { //tilt forward
 			euc.dash.tiltSet--;euc.wri("tiltSet");
-			digitalPulse(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 		}else if (120<=x&&y<=175) { //tilt back
 			euc.dash.tiltSet++;euc.wri("tiltSet");
-			digitalPulse(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 		}else if (175<=y) { //calibrate
             face[0].calibrate=1;
-			digitalPulse(D16,1,[30,50,30]);
-		}else digitalPulse(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
+		}else buzzer([30,50,30]);
         }else { //calibrate
 			if (175<=y&&120<=x) {
 				w.gfx.setColor(0,0);
@@ -137,24 +144,24 @@ touchHandler[0]=function(e,x,y){
 				face.go("dashKingsongAdv",0);return;
 			}else if (175<=y&&x<=120) 
 				euc.wri("calibrate");
-			else digitalPulse(D16,1,40);
+			else buzzer(40);
         }
 		this.timeout();
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
-		face.go(set.dash[set.def.dash],0);
+		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			digitalPulse(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		this.timeout();
 		break;
 	case 3: //slide left event
-		digitalPulse(D16,1,40);
+		buzzer(40);
 		this.timeout();
 		break;
 	case 4: //slide right event (back action)
@@ -168,7 +175,7 @@ touchHandler[0]=function(e,x,y){
 		face.go("dashKingsongAdv",0);
 		return;
 	case 12: //long press event
-		digitalPulse(D16,1,[100]);
+		buzzer(100);
 		this.timeout();
 		break;
   }

@@ -1,19 +1,19 @@
-//kingsong  set adv limits
+//inmotionV1 set adv limits
 
 face[0] = {
-	offms: 5000,
+	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
 	g:w.gfx,
 	init: function(){
         this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",20);
-		this.g.drawString("SPEED LIMITS",120-(this.g.stringWidth("SPEED LIMITS")/2),214); 
+		this.g.drawString("WHEEL ALERTS",120-(this.g.stringWidth("WHEEL ALERTS")/2),214); 
 		this.g.flip(); 
-		this.btn(euc.dash.spd1E,"ALARM 1",18,60,15,col("olive"),col("gray"),0,0,119,97,(euc.dash.spd1E)?euc.dash.spd1:"OFF",28,60,50);
-		this.btn(euc.dash.spd2E,"ALARM 2",18,185,15,col("olive"),col("gray"),122,0,239,97,(euc.dash.spd2E)?euc.dash.spd2:"OFF",28,185,50);
-		this.btn(1,"ALARM 3",18,60,115,col("olive"),col("raf4"),0,100,119,195,euc.dash.spd3,28,60,150);
-        this.btn(1,"TILTBACK",18,185,115,col("raf5"),col("raf5"),122,100,239,195,euc.dash.spdT,28,185,150);		
+		this.btn(euc.dash.limE[0],"ALARM 1",18,60,15,col("olive"),col("dgray"),0,0,119,97,(euc.dash.limE[0])?euc.dash.lim[0]:"OFF",28,60,50);
+		this.btn(euc.dash.limE[1],"ALARM 2",18,185,15,col("olive"),col("dgray"),122,0,239,97,(euc.dash.limE[1])?euc.dash.lim[1]:"OFF",28,185,50);
+		this.btn(1,"ALARM 3",18,60,115,col("olive"),0,0,100,119,195,euc.dash.lim[2],28,60,150);
+        this.btn(1,"TILTBACK",18,185,115,col("raf"),0,122,100,239,195,euc.dash.lim[3],28,185,150);		
         if (!face.appPrev.startsWith("dashSet")){
 		this.g.setColor(0,0);
 		this.g.drawLine (0,98,239,98);
@@ -26,7 +26,7 @@ face[0] = {
         this.run=false;
 	},
 	show : function(){
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
+		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
       
         this.tid=setTimeout(function(t,o){
@@ -58,7 +58,7 @@ face[0] = {
 			t.g.fillRect(0,198,239,239);
 			t.g.setColor(1,col("white"));
 			t.g.setFont("Vector",20);
-			t.g.drawString("SPEED LIMITS",120-(t.g.stringWidth("SPEED LIMITS")/2),214); 
+			t.g.drawString("WHEEL ALERTS",120-(t.g.stringWidth("WHEEL ALERTS")/2),214); 
 			t.g.flip();
 		    },1000,this);
     },
@@ -73,8 +73,8 @@ face[0] = {
 		this.g.drawImage(require("heatshrink").decompress(atob("oFAwJC/AAs8A41+A43/AwsDA40HA40PA40f/wHFn/8Fw34AwkB//wGw3AGw2AGxk/Gw1/Gw4uFGwPgGxguBGwsfGw4uGv5lFGw4HBGwoHJC4wnHG45HHK45nHO444JGAynHW47HHHBKBHNJ44QA4o4BA4owBA41+A408A4wA6A==")),0,75);
 		this.g.drawImage(require("heatshrink").decompress(atob("oFAwJC/AAU8A41+A43/A4/AA43gA43wA4t//AHFn/8A4sfGA0P/+AA4kDHA0BHCAwGn/+GA4HFg44QGA3/NJ44QA5oXHE443HI4xXHM453HGw6XHU44uGY442Hc473HMo9/Voy9Ifw42FA4IGFgF+A408A4wA9A=")),180,75);
 		this.g.flip(); 
-        this.btn(1,euc.dash["spd"+b],100,126,60,col("olive"),col("gray"),60,40,180,160);
-        euc.dash["spd"+b+"E"]=1;
+        this.btn(1,euc.dash.lim[b],100,126,60,col("olive"),col("dgray"),60,40,180,160);
+        euc.dash.limE[b]=1;
     },
 	tid:-1,
 	run:false,
@@ -97,7 +97,8 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		face.go("dashVeteran",0);
+		euc.wri("setSpeedLimits");
+		face.go("dashInmotionV1",0);
 		return true;
 	},
 	clear: function(){
@@ -105,115 +106,111 @@ face[1] = {
 	},
 };	
 
-if (euc.dash.spd1>=euc.dash.spd2) euc.dash.spd1=euc.dash.spd2-1;
-if (euc.dash.spd1<=0) euc.dash.spd1=0;
-
-
-
 //touch
 touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5://tap event
         if (!face[0].setE){//select page
 			if (x<=120&&y<100) { //alarm 1
-                if (euc.dash.spd1E){
-					euc.dash.spd1E=0;
-					face[0].btn(euc.dash.spd1E,"ALARM 1",18,60,15,col("olive"),col("gray"),0,0,119,97,(euc.dash.spd1E)?euc.dash.spd1:"OFF",28,60,50);
+                if (euc.dash.limE[0]){
+					euc.dash.limE[0]=0;
+					face[0].btn(1,"ALARM 1",18,60,15,col("dgray"),0,0,0,119,97,"OFF",28,60,50);
 					face[0].ntfy("ALARM 1-> DISABLED","",20,col("dgray"),1);
-					digitalPulse(D16,1,[30,50,30]);
+					buzzer([30,50,30]);
 				}else {
-					if (euc.dash.spd2E){
-						euc.dash.spd1E=1;
-                        if (euc.dash.spd1>=euc.dash.spd2) euc.dash.spd1=euc.dash.spd2-1;
-						face[0].btn(euc.dash.spd1E,"ALARM 1",18,60,15,col("olive"),col("gray"),0,0,119,97,(euc.dash.spd1E)?euc.dash.spd1:"OFF",28,60,50);
+					if (euc.dash.limE[1]){
+						euc.dash.limE[0]=1;
+                        if (euc.dash.lim[1]<=euc.dash.lim[0] ) euc.dash.lim[0]=euc.dash.lim[1]-1;
+						face[0].btn(1,"ALARM 1",18,60,15,col("olive"),0,0,0,119,97,euc.dash.lim[0],28,60,50);
 						face[0].ntfy("ALARM 1-> ENABLED","",20,col("dgray"),1);
-						digitalPulse(D16,1,[30,50,30]);
-                    }else {face[0].ntfy("ENABLE ALARM 2","",20,col("red"),1);digitalPulse(D16,1,40);}
+						buzzer([30,50,30]);
+                    }else {face[0].ntfy("ENABLE ALARM 2","",20,col("red"),1);buzzer(40);}
                 }
 			}else if (120<=x<=239&&y<=100) { //alarm 2
-				if ( euc.dash.spd2E){
-					if (euc.dash.spd1E) {face[0].ntfy("DISABLE ALARM 1","",20,col("red"),1);digitalPulse(D16,1,40);}
+				if ( euc.dash.limE[1]){
+					if (euc.dash.limE[0]) {face[0].ntfy("DISABLE ALARM 1","",20,col("red"),1);buzzer(40);}
 					else {
-						euc.dash.spd2E=0;
-						digitalPulse(D16,1,[30,50,30]);
-						face[0].btn(euc.dash.spd2E,"ALARM 2",18,185,15,col("olive"),col("gray"),122,0,239,97,(euc.dash.spd2E)?euc.dash.spd2:"OFF",28,185,50);
+						euc.dash.limE[1]=0;
+						buzzer([30,50,30]);
+						face[0].btn(1,"ALARM 2",18,185,15,col("dgray"),0,122,0,239,97,"OFF",28,185,50);
 						face[0].ntfy("ALARM 2 -> DISABLED","",20,col("dgray"),1);
 					}
 				}else {
-					euc.dash.spd2E=1;
-                    if (euc.dash.spd2>=euc.dash.spd2) euc.dash.spd2=euc.dash.spd3-1;
-					digitalPulse(D16,1,[30,50,30]);
-					face[0].btn(euc.dash.spd2E,"ALARM 2",18,185,15,col("olive"),col("gray"),122,0,239,97,(euc.dash.spd2E)?euc.dash.spd2:"OFF",28,185,50);
+					euc.dash.limE[1]=1;
+                    if (euc.dash.lim[2]<=euc.dash.lim[1]) euc.dash.lim[1]=euc.dash.lim[2]-1;
+					buzzer([30,50,30]);
+					face[0].btn(euc.dash.limE[1],"ALARM 2",18,185,15,col("olive"),col("dgray"),122,0,239,97,(euc.dash.limE[1])?euc.dash.lim[1]:"OFF",28,185,50);
 					face[0].ntfy("ALARM 2 -> ENABLED","",20,col("dgray"),1);
 				}
 			}else if (x<=120&&100<=y<=200) { //alarm 3
 				face[0].ntfy("HOLD -> SET","HOLD -> SET",20,col("dgray"),1);
-				digitalPulse(D16,1,[30,50,30]);		
+				buzzer([30,50,30]);		
 			}else if (120<=x<=239&&100<=y<=200) { //tiltback
 				face[0].ntfy("HOLD -> SET","",20,col("dgray"),1);
-				digitalPulse(D16,1,[30,50,30]);						
-			}else digitalPulse(D16,1,[30,50,30]);
+				buzzer([30,50,30]);						
+			}else buzzer([30,50,30]);
 		}else {//set page
 			if (120<=x) { //up
-                if (face[0].setEb==1) 
-					if (euc.dash.spd2E)
-					if (euc.dash.spd1+1<euc.dash.spd2) euc.dash.spd1++;
+                if (face[0].setEb==0) 
+					if (euc.dash.limE[1])
+					if (euc.dash.lim[0]+1<euc.dash.lim[1])  euc.dash.lim[0]++;
                     else face[0].ntfy("MOVE ALARM 2","",20,col("red"),1);
 					else face[0].ntfy("ENABLE ALARM 2","",20,col("red"),1);
-                else if (face[0].setEb==2) 
-                    if (euc.dash.spd2+1<euc.dash.spd3) euc.dash.spd2++;
+                else if (face[0].setEb==1) 
+                    if (euc.dash.lim[1]+1<euc.dash.lim[2]) euc.dash.lim[1]++;
                     else face[0].ntfy("MOVE ALARM 3","",20,col("red"),1);
-                else if (face[0].setEb==3) 
-                    if (euc.dash.spd3<euc.dash.spdT) euc.dash.spd3++;
+                else if (face[0].setEb==2) 
+                    if (euc.dash.lim[2]<euc.dash.lim[3]) euc.dash.lim[2]++;
                     else face[0].ntfy("MOVE TILTBACK","",20,col("red"),1);
                 else{ 
-                    if (euc.dash.spdT<50) euc.dash.spdT++;
+                    if (euc.dash.lim[3]<50) euc.dash.lim[3]++;
                     else face[0].ntfy("THE LIMIT IS 50KpH","",20,col("red"),1);
                     } 
             }else {  //dn
-                if (face[0].setEb=="1") {
-					if (0<euc.dash.spd1) euc.dash.spd1--;
-                    else {face[0].ntfy("DISABLED","",20,col("red"),1);euc.dash.spd1E=0;}
-                }else if (face[0].setEb=="2"){
-					if (euc.dash.spd1E){
-						if (euc.dash.spd1+1<euc.dash.spd2) euc.dash.spd2--;
+                if (face[0].setEb=="0") {
+					if (0<euc.dash.lim[0]) euc.dash.lim[0]--;
+                    if (euc.dash.lim[0]==0)  {euc.dash.lim[0]=1;face[0].ntfy("DISABLED","",20,col("red"),1);euc.dash.limE[0]=0;buzzer(40);return;}
+                }else if (face[0].setEb=="1"){
+					if (euc.dash.limE[0]){
+						if (euc.dash.lim[1]<=5) { face[0].ntfy("AL1 DN LIMIT IS 5KpH","",20,col("red"),1);buzzer(40);return;}
+						if (euc.dash.lim[0]+1<euc.dash.lim[1]) euc.dash.lim[1]--;
 						else face[0].ntfy("MOVE ALARM 1","",20,col("red"),1);
-					}else if (0<euc.dash.spd2) euc.dash.spd2--;
-					else {face[0].ntfy("DISABLED","",20,col("red"),1);euc.dash.spd2E=0;}
-                }else if (face[0].setEb=="3") {
-					if (euc.dash.spd2E){
-						if (euc.dash.spd2+1<euc.dash.spd3) euc.dash.spd3--;
+					}else if (5<euc.dash.lim[1]) euc.dash.lim[1]--;
+					else face[0].ntfy("AL1 DN LIMIT IS 5KpH","",20,col("red"),1);
+                }else if (face[0].setEb=="2") {
+					if (euc.dash.limE[1]){
+						if (euc.dash.lim[1]+1<euc.dash.lim[2]) euc.dash.lim[2]--;
 						else face[0].ntfy("MOVE ALARM 2","",20,col("red"),1);
-					}else if (5<euc.dash.spd3) euc.dash.spd3--;
-					else face[0].ntfy("THE DN LIMIT IS 5KpH","",20,col("red"),1);
-                }else if (face[0].setEb=="T"){
-					if (euc.dash.spd3E){
-						if (euc.dash.spd3<euc.dash.spdT) euc.dash.spdT--;
+					}else if (10<euc.dash.lim[2]) euc.dash.lim[2]--;
+					else face[0].ntfy("AL2 DN LIMIT IS 10KpH","",20,col("red"),1);
+                }else if (face[0].setEb=="3"){
+					if (euc.dash.limE[2]){
+						if (euc.dash.lim[2]<euc.dash.lim[3]) euc.dash.lim[3]--;
 						else face[0].ntfy("MOVE ALARM 3","",20,col("red"),1);
-					}else if (5<euc.dash.spdT) euc.dash.spdT--;
+					}else if (5<euc.dash.lim[3]) euc.dash.lim[3]--;
 					else face[0].ntfy("THE DN LIMIT IS 5KpH","",20,col("red"),1);
                 } 
             } 
-            digitalPulse(D16,1,[30,50,30]);
-			face[0].btn(1,euc.dash["spd"+face[0].setEb],100,126,60,col("olive"),col("gray"),60,40,180,160);
+            buzzer([30,50,30]);
+			face[0].btn(1,euc.dash.lim[face[0].setEb],100,126,60,col("olive"),col("dgray"),60,40,180,160);
 		}
 		this.timeout();
 		break;
 	case 1: //slide down event
-		//face.go("main",0);
+		setTimeout(function(){euc.busy=0;euc.tmp.live();},800);
         euc.wri("setSpeedLimits");
-		face.go(set.dash[set.def.dash],0);
+		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			digitalPulse(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		this.timeout();
 		break;
 	case 3: //slide left event
-		digitalPulse(D16,1,40);
+		buzzer(40);
 		break;
 	case 4: //slide right event (back action)
         if (face[0].setE) {
@@ -222,29 +219,29 @@ touchHandler[0]=function(e,x,y){
           face[0].init();
         } else {
         euc.wri("setSpeedLimits");
-		face.go("dashVeteran",0);
+		face.go("dashInmotionV1Adv",0);
 		return;
         }
         break;
    case 12: //hold event
 			if (x<=120&&y<100) { //alarm 1
-                if (euc.dash.spd2E){
-                if (euc.dash.spd1>=euc.dash.spd2) euc.dash.spd1=euc.dash.spd2-1;
-				face[0].set("1","ALARM 1");
-				digitalPulse(D16,1,[30,50,30]);
-                }else  {face[0].ntfy("ENABLE ALARM 2","",20,col("red"),1);digitalPulse(D16,1,40);}
+                if (euc.dash.limE[1]){
+                if (euc.dash.lim[0]>=euc.dash.lim[1]) euc.dash.lim[0]=euc.dash.lim[1]-1;
+				face[0].set("0","ALARM 1");
+				buzzer([30,50,30]);
+                }else  {face[0].ntfy("ENABLE ALARM 2","",20,col("red"),1);buzzer(40);}
 			}else if (120<=x<=239&&y<=100) { //alarm 2
-                if (euc.dash.spd2>=euc.dash.spd3) euc.dash.spd2=euc.dash.spd3-1;
-				face[0].set("2","ALARM 2");
-				digitalPulse(D16,1,[30,50,30]);
+                if (euc.dash.lim[1]>=euc.dash.lim[2]) euc.dash.lim[1]=euc.dash.lim[2]-1;
+				face[0].set("1","ALARM 2");
+				buzzer([30,50,30]);
 			}else if (x<=120&&100<=y<=200) { //alarm 3
-                if (euc.dash.spd3>=euc.dash.spdT) euc.dash.spd3=euc.dash.spdT;
-                face[0].set("3","ALARM 3");
-				digitalPulse(D16,1,[30,50,30]);		
+                if (euc.dash.lim[2]>=euc.dash.lim[3]) euc.dash.lim[2]=euc.dash.lim[3];
+                face[0].set("2","ALARM 3");
+				buzzer([30,50,30]);		
 			}else if (120<=x<=239&&100<=y<=200) { //tiltback
-                face[0].set("T","TITLBACK");
-				digitalPulse(D16,1,[30,50,30]);						
-			}else digitalPulse(D16,1,[30,50,30]);
+                face[0].set("3","TITLBACK");
+				buzzer([30,50,30]);						
+			}else buzzer([30,50,30]);
 			
 		this.timeout();
 		break;

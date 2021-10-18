@@ -1,33 +1,13 @@
 //Begode  set adv calibrate
 face[0] = {
-	offms: 30000,
+	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:30000,
 	g:w.gfx,
 	init: function(){
-/*		this.g.setColor(0,col("dgray"));
-		this.g.fillRect(0,0,239,177);
-		this.g.setColor(1,col("white"));
-		this.g.setFont("Vector",20);
-		this.g.drawString("SET PEDAL TILT",120-(this.g.stringWidth("SET PEDAL TILT")/2),10); 		
-//		this.g.drawString("MANUALY SET PEDAL TILT",120-(this.g.stringWidth("MANUALY SET PEDAL TILT")/2),5);
-		this.g.drawImage(require("heatshrink").decompress(atob("oFAwJC/AAs8A41+A43/AwsDA40HA40PA40f/wHFn/8Fw34AwkB//wGw3AGw2AGxk/Gw1/Gw4uFGwPgGxguBGwsfGw4uGv5lFGw4HBGwoHJC4wnHG45HHK45nHO444JGAynHW47HHHBKBHNJ44QA4o4BA4owBA41+A408A4wA6A==")),0,70);
-		this.g.drawImage(require("heatshrink").decompress(atob("oFAwJC/AAU8A41+A43/A4/AA43gA43wA4t//AHFn/8A4sfGA0P/+AA4kDHA0BHCAwGn/+GA4HFg44QGA3/NJ44QA5oXHE443HI4xXHM453HGw6XHU44uGY442Hc473HMo9/Voy9Ifw42FA4IGFgF+A408A4wA9A=")),180,70);
-		this.g.flip(); 
-		this.g.setColor(1,col("white"));
-		this.g.setFont("Vector",80);
-		this.g.drawString(euc.dash.tiltSet,130-(this.g.stringWidth(euc.dash.tiltSet)/2),65); 		
-		this.g.flip(); 
-        this.g.setColor(0,col("olive"));
-		this.g.fillRect(0,177,239,239);
-		this.g.setColor(1,col("white"));
-		this.g.setFont("Vector",20);
-   		this.g.drawString("START",120-(this.g.stringWidth("START")/2),188); 
-		this.g.drawString("CALIBRATION",120-(this.g.stringWidth("CALIBRATION")/2),216); 
-		this.g.flip(); 
-*/		this.calibrate=1;
+		this.calibrate=1;
 		this.run=true;
 	},
 	show : function(){
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
+		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
         if (this.calibrate) {
             this.g.setColor(0,col("dgray"));
@@ -117,14 +97,14 @@ touchHandler[0]=function(e,x,y){
         if (!face[0].calibrate){
 		if (x<=120&&y<175) { //tilt forward
 			//euc.dash.tiltSet--;euc.wri("tiltSet");
-			digitalPulse(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 		}else if (120<=x&&y<=175) { //tilt back
 			//euc.dash.tiltSet++;euc.wri("tiltSet");
-			digitalPulse(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 		}else if (175<=y) { //calibrate
             face[0].calibrate=1;
-			digitalPulse(D16,1,[30,50,30]);
-		}else digitalPulse(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
+		}else buzzer([30,50,30]);
         }else { //calibrate
 			if (175<=y&&120<=x) {
 				w.gfx.setColor(0,0);
@@ -137,24 +117,24 @@ touchHandler[0]=function(e,x,y){
 				face.go("dashBegode",0);return;
 			}else if (175<=y&&x<=120) 
 				euc.wri("calibrate");
-			else digitalPulse(D16,1,40);
+			else buzzer(40);
         }
 		this.timeout();
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
-		face.go(set.dash[set.def.dash],0);
+		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			digitalPulse(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		this.timeout();
 		break;
 	case 3: //slide left event
-		digitalPulse(D16,1,40);
+		buzzer(40);
 		this.timeout();
 		break;
 	case 4: //slide right event (back action)
@@ -168,7 +148,7 @@ touchHandler[0]=function(e,x,y){
 		face.go("dashBegodeAdv",0);
 		return;
 	case 12: //long press event
-		digitalPulse(D16,1,[100]);
+		buzzer(100);
 		this.timeout();
 		break;
   }

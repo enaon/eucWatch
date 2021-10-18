@@ -1,6 +1,3 @@
-//	//this.maker=require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'];
-//	//this.mac=require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Mac'];
-				
 global.euc= {
 	state: "OFF",
 	reconnect:0,
@@ -10,48 +7,71 @@ global.euc= {
 	night:1,
 	buzz:0,
 	day:[7,19],
+	log:{
+		trp:[0,0,0]//hour/day/month
+	},
 	updateDash:function(slot){require('Storage').write('eucSlot'+slot+'.json', euc.dash);},
+	off:function(err){if (set.def.cli) console.log("EUC off, not connected",err);},
+	wri:function(err){if (set.def.cli) console.log("EUC write, not connected",err);},
 	tgl:function(){ 
-		ampL=[];batL=[];almL=[];
+		face.off();
+		if (this.reconnect) {clearTimeout(this.reconnect); this.reconnect=0;}
+		if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
+		this.seq=1;
+		ampL=[];batL=[];almL=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 		if (this.state!="OFF" ) {
-			digitalPulse(D16,1,[90,60,90]);  
-			set.def.accE=0;
-			if (!set.def.acc) {acc.off();}
-			this.seq=1;
+			buzzer([90,60,90]); 
+			//log
+			if (this.log.trp[0]&& 0<this.dash.trpT-this.log.trp[0] ) 
+				set.write("logDaySlot"+set.def.dash.slot,Date().getHours(),(this.dash.trpT-this.log.trp[0])+((set.read("logDaySlot"+set.def.dash.slot,Date().getHours()))?set.read("logDaySlot"+set.def.dash.slot,Date().getHours()):0));
+			this.log.trp[0]=0;
+			set.def.dash.accE=0;
+			this.mac=0;
 			this.state="OFF";
-   			//face.go(set.dash[set.def.dash],0);
-			face.go("dashOff",0);
-			//if (this.kill) clearTimout(this.kill);
-			//this.kill=setTimeout(()=>{
-			//if (euc.dash.emu) {set.def.atc=0;set.upd();}
-			if (require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]!="Ninebot") 
-				euc.wri("end");
-			else  
-				euc.wri(0);
-			if (euc.busy)euc.busy=0;
-			setTimeout(()=>{euc.updateDash(require("Storage").readJSON("dash.json",1).slot);},500);
+			acc.off();
+			this.wri("end");
+			setTimeout(()=>{
+				//print("log");
+				if (this.log.trp[1]&& 0<this.dash.trpT-this.log.trp[1] ) {
+					//print("week");
+					set.write("logWeekSlot"+set.def.dash.slot,Date().getDay(),(euc.dash.trpT-this.log.trp[1])+( (set.read("logWeekSlot"+set.def.dash.slot,Date().getDay()))?set.read("logWeekSlot"+set.def.dash.slot,Date().getDay()):0));
+				}
+				if (this.log.trp[2]&& 0<this.dash.trpT-this.log.trp[2] ) {
+					set.write("logYearSlot"+set.def.dash.slot,Date().getMonth(),(euc.dash.trpT-this.log.trp[2])+( (set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()))?set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()):0));	
+				}
+				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
+				this.log.trp=[0,0,0];
+				if (face.appCurr!=="dashOff") face.go('dashOff',0);
+				if (set.def.acc) acc.on(1);
+			},1000);
+			
 			return;
 		}else {
+			buzzer(100); 
+			this.log.trp=[0,0,0];
 			NRF.setTxPower(4);
-			digitalPulse(D16,1,100); 
-			//if (euc.dash.emu){set.def.atc=1;set.def.gb=0;set.def.cli=0;set.def.hid=0;set.upd();}
-			this.mac=require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Mac"];
+			this.mac=(this.mac)?this.mac:set.read("dash","slot"+set.read("dash","slot")+"Mac");
 			if(!this.mac) {
 				face.go('dashScan',0);return;
-		    }else {
+			}else {
 				eval(require('Storage').read('euc'+require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]));
 				this.state="ON";
-				if (!set.def.acc) {set.def.accE=1;acc.on();}
-				this.seq=1;
-				if (euc.dash.bms==undefined) euc.dash.bms=1.5;
-				if (euc.dash.maker=="Begobe"||euc.dash.maker=="NinebotZ")euc.dash.spdM=0;
-				this.conn(this.mac); 
-				face.go(set.dash[set.def.dash],0);return;
-            }
+				if (this.dash.bms==undefined) this.dash.bms=1.5;
+				if (this.dash.batF<=10) this.dash.batF=420;
+				if (this.dash.maker!=="Kingsong"||this.dash.maker!=="inmotionV11") this.dash.spdM=0;
+				this.conn(this.mac);
+				face.go(set.dash[set.def.dash.face],0);
+				this.state="ON";
+				if (set.def.acc) acc.off();
+				setTimeout(()=>{set.def.dash.accE=1;acc.on(2); },1000);
+				return;
+			}
 		}
 	} 
 };
+
 //init
 if (Boolean(require("Storage").read('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json'))) { 
 euc.dash=require("Storage").readJSON('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json',1);
 }else euc.dash=require("Storage").readJSON("eucSlot.json",1);
+set.def.dash.slot=require("Storage").readJSON("dash.json",1).slot;

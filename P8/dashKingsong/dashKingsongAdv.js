@@ -1,11 +1,15 @@
 //kingsong  set advanced
 face[0] = {
-	offms: 5000,
+	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
 	g:w.gfx,
 	init: function(){
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
-
-		//info
+		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
+        //if (!face.appPrev.startsWith("dash")) this.g.clear();
+		this.g.setColor(0,0);
+		this.g.fillRect(0,98,239,99);
+        this.g.flip();	
+		this.g.fillRect(120,0,121,195);
+        this.g.flip();
 		this.g.setColor(0,0);
 		this.g.fillRect(0,205,239,239);
 		this.g.setColor(1,col("white"));
@@ -15,14 +19,14 @@ face[0] = {
 		this.g.setColor(0,col("black"));
 		this.g.fillRect(0,196,239,204);
 		this.g.setColor(1,col("lgray"));
-      	this.g.fillRect(75,200,135,204);
+      	this.g.fillRect(75,200,165,204);
 		this.g.flip();
         this.g.setColor(1,col("white"));
-      	this.g.fillRect(135,200,165,204);
+      	this.g.fillRect(143,200,165,204);
 		this.g.flip(); 
 		//ride mode
 		this.b1=euc.dash.mode;
-		if (this.b1==0) {
+		if (!this.b1) {
 			this.b1t="HARD";this.b1c=col("raf4");
 		}else if (this.b1==1) {
 			this.b1t="MED";this.b1c=col("raf2");
@@ -65,7 +69,7 @@ face[0] = {
 		this.run=true;
 	},
 	show : function(){
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
+		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
@@ -120,41 +124,41 @@ touchHandler[0]=function(e,x,y){
 			if (euc.dash.mode==0) {euc.dash.mode=1;euc.wri("rideMed");face[0].btn("MODE",18,60,15,col("raf2"),0,0,119,97,"MED",30,60,50);}
 			else if (euc.dash.mode==1) {euc.dash.mode=2;euc.wri("rideSoft");face[0].btn("MODE",18,60,15,col("raf3"),0,0,119,97,"SOFT",30,60,50);}
 			else if (euc.dash.mode==2) {euc.dash.mode=0;euc.wri("rideHard");face[0].btn("MODE",18,60,15,col("raf4"),0,0,119,97,"HARD",30,60,50);}
-			digitalPulse(D16,1,[30,50,30]);		
+			buzzer([30,50,30]);		
 		}else if ( 120<=x  && y<=100 ) { //calibrate
-            digitalPulse(D16,1,[30,50,30]);
+            buzzer([30,50,30]);
 			face.go("dashKingsongAdvCalibrate",0);
 			return;
 		}else if ( x<=120 && 100<=y ) {   //limits
-			digitalPulse(D16,1,[30,50,30]);		
+			buzzer([30,50,30]);
 			face.go("dashKingsongAdvLimits",0);
 			return;
 		}else if ( 120<=x && 100<=y ) { //pass
-			digitalPulse(D16,1,[30,50,30]);		
+			buzzer([30,50,30]);		
 			if (euc.dash.pass.length>=4) face.go("dashKingsongAdvPass",5);
 			else face.go("dashKingsongAdvPass",0);
 			return;
-		}else digitalPulse(D16,1,[30,50,30]);
+		}else buzzer([30,50,30]);
 		this.timeout();
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
-		face.go(set.dash[set.def.dash],0);
+		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			digitalPulse(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		this.timeout();
 		break;
 	case 3: //slide left event
-		digitalPulse(D16,1,40);    
+		buzzer(40);    
 		this.timeout();
 		break;
 	case 4: //slide right event (back action)
-		face.go("dashKingsongOpt",0);
+		face.go("dashKingsongOpt2",0);
 		return;
   }
 };

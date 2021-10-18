@@ -1,15 +1,21 @@
-//kingsong set actions
+//Veteran settings
 face[0] = {
-	offms: 5000,
+	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
 	g:w.gfx,
 	init: function(){
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
- 		if (!face.appPrev.startsWith("dash")||face.appPrev.startsWith("dash_")) this.g.clear();
+		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
+ 		//if (!this.set&&(face.appPrev.startsWith("dash_")||face.appPrev==="settings")) this.g.clear();
+        this.set=0;
+		this.g.setColor(0,0);
+		this.g.fillRect(0,98,239,99);
+        this.g.flip();	
+		this.g.fillRect(120,0,121,195);
+        this.g.flip();	
         this.g.setColor(0,0);
-		this.g.fillRect(0,205,239,239);
+		this.g.fillRect(0,196,239,239);
 		this.g.setColor(1,col("white"));
-		this.g.setFont("Vector",20);
-		this.g.drawString("ACTIONS",120-(this.g.stringWidth("ACTIONS")/2),217); 
+		this.g.setFont("Vector",24);
+		this.g.drawString("SHERMAN",120-(this.g.stringWidth("SHERMAN")/2),217); 
 		this.g.flip();
 		this.g.setColor(0,col("black"));
 		this.g.fillRect(0,196,239,204);
@@ -17,65 +23,58 @@ face[0] = {
       	this.g.fillRect(106,200,165,204);
 		this.g.flip();
         this.g.setColor(1,col("white"));
-      	this.g.fillRect(75,200,105,204);
-		this.g.flip(); 
-      this.btn("LIGHTS",18,60,15,(euc.dash.aLight==="lightsOff")?col("black"):(euc.dash.aLight==="lightsOn")?col("raf2"):(euc.dash.aLight=="lightsAuto")?col("raf3"):col("raf4"),0,0,119,97,(euc.dash.aLight==="lightsOff")?"OFF":(euc.dash.aLight==="lightsOn")?"ON":(euc.dash.aLight==="lightsAuto")?"AUTO":"CITY",28,60,50); //1
-      this.btn("STROBE",25,185,35,(euc.dash.strb)?col("red"):col("dgray"),122,0,239,97);//2
-        this.g.setColor(0,(euc.dash.emu)?col("blue1"):col("dgray"));
-        this.g.fillRect(0,100,119,195); 
-		this.g.setColor(1,col("white"));
-this.img=require("heatshrink").decompress(atob("oFAgINKv38AwkD/n88AHDj4HB/AHDv+8/k/A4f+jH+h+ADwXoiP+j4gCg/Mg4XB+AHBh8OFAN/FAUf40f/F3IIU/5wPBuf+GwUEA4MB/42CiE//kD/+AgP+ngHBi//4ED/0+A4M///gCQM/GoN/A4MH/9+A4P///wh//AoP8/vGA4vB4d4j///P//3Az4HFMgN8A4PBEoM4OQX/wIHBj0H/wHBgAHB54aBA4U//PnA4N3EgJ/BA4aCBn/6k/9+93wwHB+YmB+9jWQM/++P/3nA4Uf+YxBs9hA4vHsC6BA4eHsFwLgP7B4cYA4JpBA4TZC/CUBA4qkBw9wgeAgYHCg4HB+AHC/wHCZoIHDmADBgLfB/0OnAHI//hDIP8h0YA4P5A4UMjgHE/EcjkB//xA4PwjkOVwOHIIPgnAHCn4HDg6WBv4XB4FwA4MeA4MBwASBwAHCOYPggPAA4YFBgPgh1//EACoMA+EMA4UHA4N4ggHCh4hBngHB/QzBA4MegN/+QMBA4MPwAHCDIIqB4E/+hXBA4MB+Of8kH4AHBgH8z/In4GCFAPgiJYCAAMGuFzeYIADj/HJoIAI"));
-		this.g.drawImage(this.img,30,117);
-		delete this.img;
-		this.g.flip();  
-   		this.btn("LOCK",25,185,135,(euc.dash.lock)?col("red"):col("dgray"),122,100,239,195); //4
+      	this.g.fillRect(75,200,120,204);
+		this.g.flip();
+		//
+        this.btn(euc.dash.light,"LIGHT",28,60,35,col("raf"),col("dgray"),0,0,119,97);
+		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("dgray"),122,0,239,97,"ALERTS",22,185,55);		
+        this.btn(1,"TPMS",25,60,135,col("dgray"),col("dgray"),0,100,119,195); //3
+		let md={"1":"SOFT","2":"MEDIUM","3":"STRONG"};
+        this.btn(1,"RIDE",25,185,115,col("olive"),0,122,100,239,195,md[euc.dash.mode],25,185,155);
 		this.run=true;
 	},
 	show : function(){
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash],0);return;}
+		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();
         },1000,this);
 	},
-    btn: function(txt,size,x,y,clr,rx1,ry1,rx2,ry2,txt1,size1,x1,y1){
-			this.g.setColor(0,clr);
+    btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
+			this.g.setColor(0,(bt)?clr1:clr0);
 			this.g.fillRect(rx1,ry1,rx2,ry2);
 			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",size);	
-            this.g.drawString(txt,x-(this.g.stringWidth(txt)/2),y); 
-   			if (txt1){
-            this.g.setFont("Vector",size1);	
-            this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1);
-            }
+			this.g.setFont("Vector",size1);	
+			this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1); 
+   			if (txt2){this.g.setFont("Vector",size2);	
+            this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);}
 			this.g.flip();
     },
-    ntfy: function(txt,clr){
-			this.info=1;
+    ntfy: function(txt1,txt0,size,clr,bt){
             this.g.setColor(0,clr);
 			this.g.fillRect(0,198,239,239);
 			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",20);
-			this.g.drawString(txt,122-(this.g.stringWidth(txt)/2),214); 
+			this.g.setFont("Vector",size);
+     		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
 			this.g.flip();
 			if (this.ntid) clearTimeout(this.ntid);
 			this.ntid=setTimeout(function(t){
                 t.ntid=0;
 				t.g.setColor(0,0);
-				t.g.fillRect(0,205,239,239);
+				t.g.fillRect(0,196,239,239);
 				t.g.setColor(1,col("white"));
-				t.g.setFont("Vector",20);
-		        t.g.drawString("ACTIONS",122-(t.g.stringWidth("ACTIONS")/2),217); 
+				t.g.setFont("Vector",24);
+				t.g.drawString("SHERMAN",120-(t.g.stringWidth("SHERMAN")/2),217); 
 				t.g.flip();
 				t.g.setColor(0,col("black"));
 				t.g.fillRect(0,196,239,204);
 				t.g.setColor(1,col("lgray"));
-				t.g.fillRect(75,200,165,204);
+				t.g.fillRect(106,200,165,204);
 				t.g.flip();
 				t.g.setColor(1,col("white"));
-				t.g.fillRect(75,200,105,204);
-				t.g.flip(); 	
+				t.g.fillRect(75,200,120,204);
+				t.g.flip();
 			},1000,this);
     },
 	tid:-1,
@@ -98,8 +97,8 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		face.go(set.dash[set.def.dash],0);
-		return true;
+		face.go(set.dash[set.def.dash.face],0);
+		return;
 	},
 	clear: function(){
 		return true;
@@ -109,72 +108,98 @@ face[1] = {
 touchHandler[0]=function(e,x,y){ 
 	switch (e) {
 	case 5: //tap event
-		if ( x<=120 && y<=100 ) { //lights
-			if (euc.dash.aLight=="lightsOff") { euc.dash.aLight="lightsOn"; euc.wri("lightsOn"); face[0].btn("LIGHTS",18,60,15,col("raf2"),0,0,119,97,"ON",28,60,50); }
-			else if (euc.dash.aLight=="lightsOn") { euc.dash.aLight="lightsAuto"; euc.wri("lightsAuto"); face[0].btn("LIGHTS",18,60,15,col("raf3"),0,0,119,97,"AUTO",28,60,50); }
-			else if (euc.dash.aLight=="lightsAuto") { euc.dash.aLight="lightsCity"; face[0].btn("LIGHTS",18,60,15,col("raf4"),0,0,119,97,"CITY",28,60,50); }
-			else if (euc.dash.aLight=="lightsCity") { euc.dash.aLight="lightsOn"; euc.wri("lightsOn"); face[0].btn("LIGHTS",18,60,15,col("raf2"),0,0,119,97,"ON",28,60,50); }
-			else  { euc.dash.aLight="lightsOn"; euc.wri("lightsOn"); face[0].btn("LIGHTS",18,60,15,col("raf2"),0,0,119,97,"ON",28,60,50); }
-            face[0].ntfy("HOLD -> LIGHTS OFF",col("dgray"));
-			digitalPulse(D16,1,[30,50,30]);
-		}else if ( 120<=x && y<=100 ) { //strobe
-			euc.dash.strb=1-euc.dash.strb;
-            face[0].btn("STROBE",25,185,35,(euc.dash.strb)?col("red"):col("dgray"),122,0,239,97);//2
-			euc.wri((euc.dash.strb)?"strobeOn":"strobeOff");
-			digitalPulse(D16,1,[30,50,30]);
-		}else if ( x<=120 && 100<=y ) { //bridge
-			face[0].ntfy("HOLD -> TOGGLE",col("dgray"));
-			digitalPulse(D16,1,[30,50,30]);		
-		}else if (120<=x && 100<=y ) { //lock
-			euc.dash.lock=1-euc.dash.lock;
-            face[0].btn("LOCK",25,185,135,(euc.dash.lock)?col("red"):col("dgray"),122,100,239,195); //4
-            face[0].ntfy("HOLD -> POWER OFF",col("red"));
-			euc.wri((euc.dash.lock)?"lock":"unlock");
-			digitalPulse(D16,1,[30,50,30]);						
-		}else digitalPulse(D16,1,[30,50,30]);
+		if (face[0].set) { 
+			this.timeout();
+			if ( 100 < y ) {
+              w.gfx.setColor(0,0);
+              w.gfx.drawLine(120,0,120,97);
+              w.gfx.drawLine(121,0,121,97);
+              w.gfx.flip();
+              face[0].init();return;
+            }
+			buzzer(40);
+		}
+		else {
+			if ( x<=120 && y<100 ) { 
+				euc.dash.light= 1- euc.dash.light;
+				face[0].btn(euc.dash.light,"LIGHT",28,60,35,col("raf"),col("dgray"),0,0,119,97);
+				euc.wri((euc.dash.light)?"setLightOn":"setLightOff");
+			face[0].ntfy("LIGHT ON","LIGHT OFF",22,(euc.dash.light)?col("raf"):col("dgray"),euc.dash.light);
+				buzzer([30,50,30]);
+			}else if ( 120<=x && y<=100 ) { //watch alerts
+				buzzer([30,50,30]);						
+				face.go("dashAlerts",0);
+				return;	
+			}else if ( x<=120 && 100<=y ) { //tpms
+				face[0].ntfy("NOT YET","",22,col("red"),1);
+				buzzer([30,50,30]);	
+			}else if ( 120<=x && 100<=y ) { //mode
+				if (euc.dash.mode==1) {euc.dash.mode=2;euc.wri("rideMed");}
+				else if (euc.dash.mode==2) {euc.dash.mode=3;euc.wri("rideStrong"); }
+				else if (euc.dash.mode==3) {euc.dash.mode=1;euc.wri("rideSoft");}
+				let md={"1":"SOFT","2":"MEDIUM","3":"STRONG"};
+				face[0].btn(1,"RIDE",25,185,115,col("olive"),0,122,100,239,195,md[euc.dash.mode],25,185,155);
+				buzzer([30,50,30]);						
+			}else buzzer([30,50,30]);
+		}
 		this.timeout();
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
-		face.go(set.dash[set.def.dash],0);
+		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
-		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
+		if ( 200<=y && x<=50 ) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			digitalPulse(D16,1,[30,50,30]);
+			buzzer([30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		this.timeout();
 		break;
 	case 3: //slide left event
-		face.go("dashVeteranOpt",0);
-		return;	
-	case 4: //slide right event (back action)
-		face.go(set.dash[set.def.dash],0);
+		face.go("dashVeteranOptions",0);
 		return;
+	case 4: //slide right event (back action)
+        if (face[0].set) {
+              w.gfx.setColor(0,0);
+              w.gfx.drawLine(120,0,120,97);
+              w.gfx.drawLine(121,0,121,97);
+              w.gfx.flip();
+              face[0].init();
+        } else {
+          face.go(set.dash[set.def.dash.face],0);
+          return;
+        }
+   		this.timeout();
+        break;
 	case 12: //long press event
-		if ( x<=120 && y<100 ) { //lights
-			face[0].btn("LIGHTS",18,60,15,col("black"),0,0,119,97,"OFF",28,60,50);
-			euc.dash.aLight="lightsOff";
-			euc.wri("lightsOff");
-			digitalPulse(D16,1,[30,50,30]);
-		}else if  (x<=120 && 100<=y ) { //bridge
-			euc.dash.emu=1-euc.dash.emu;
-			w.gfx.setColor(0,(euc.dash.emu)?col("blue1"):col("dgray"));
-			w.gfx.fillRect(0,100,119,195); 
-			w.gfx.setColor(1,col("white"));
-			img=require("heatshrink").decompress(atob("oFAgINKv38AwkD/n88AHDj4HB/AHDv+8/k/A4f+jH+h+ADwXoiP+j4gCg/Mg4XB+AHBh8OFAN/FAUf40f/F3IIU/5wPBuf+GwUEA4MB/42CiE//kD/+AgP+ngHBi//4ED/0+A4M///gCQM/GoN/A4MH/9+A4P///wh//AoP8/vGA4vB4d4j///P//3Az4HFMgN8A4PBEoM4OQX/wIHBj0H/wHBgAHB54aBA4U//PnA4N3EgJ/BA4aCBn/6k/9+93wwHB+YmB+9jWQM/++P/3nA4Uf+YxBs9hA4vHsC6BA4eHsFwLgP7B4cYA4JpBA4TZC/CUBA4qkBw9wgeAgYHCg4HB+AHC/wHCZoIHDmADBgLfB/0OnAHI//hDIP8h0YA4P5A4UMjgHE/EcjkB//xA4PwjkOVwOHIIPgnAHCn4HDg6WBv4XB4FwA4MeA4MBwASBwAHCOYPggPAA4YFBgPgh1//EACoMA+EMA4UHA4N4ggHCh4hBngHB/QzBA4MegN/+QMBA4MPwAHCDIIqB4E/+hXBA4MB+Of8kH4AHBgH8z/In4GCFAPgiJYCAAMGuFzeYIADj/HJoIAI"));
-			w.gfx.drawImage(img,30,117);
-			delete img;
-			w.gfx.flip();  
-			digitalPulse(D16,1,[30,50,30]);
-			if (euc.dash.emu)face[0].ntfy("BRIDGE ENABLED",col("raf2"));
-			else face[0].ntfy("BRIDGE DISABLED",col("dgray"));
-		}else if ( 120<=x && 100<=y ) { //off
-			euc.wri("off");
-			digitalPulse(D16,1,[30,50,30]);	
-			euc.state="OFF";
-	    }else digitalPulse(D16,1,[100]);
+		if (face[0].set) { 
+			face[0].set=0;face[0].init();
+			buzzer([30,50,30]);	
+        }else if ( x<=120 && y<100 ) { // light
+			euc.dash.light= 1- euc.dash.light;
+			face[0].btn(euc.dash.light,"LIGHT",28,60,35,col("raf"),col("dgray"),0,0,119,97);
+			euc.wri((euc.dash.light)?"setLightOn":"setLightOff");
+			face[0].ntfy("LIGHT ON","LIGHT OFF",22,col("dgray"),euc.dash.light);
+			buzzer([30,50,30]);
+		}else if ( 120<=x && y<=100 ) { //watch alerts
+			if (euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB) {euc.dash.hapS=0;euc.dash.hapA=0;euc.dash.hapT=0;euc.dash.hapB=0;}
+			else {euc.dash.hapS=1;euc.dash.hapA=1;euc.dash.hapT=1;euc.dash.hapB=1;}
+			face[0].btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("dgray"),122,0,239,97,"ALERTS",22,185,55);		
+            face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",19,col("dgray"),(euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB));
+			buzzer([30,50,30]);
+		}else if ( x<=120 && 100<=y ) { 
+            face[0].ntfy("METER CLEARED","",19,col("raf"),1);
+			euc.wri("clearMeter");
+			buzzer([30,50,30]);		
+		}else if ( 120<=x && 100<=y ) { //mode
+			if (euc.dash.mode==1) {euc.dash.mode=2;euc.wri("rideMed");}
+			else if (euc.dash.mode==2) {euc.dash.mode=3;euc.wri("rideStrong"); }
+			else if (euc.dash.mode==3) {euc.dash.mode=1;euc.wri("rideSoft");}
+			let md={"1":"SOFT","2":"MEDIUM","3":"STRONG"};
+			face[0].btn(1,"RIDE",25,185,115,col("olive"),0,122,100,239,195,md[euc.dash.mode],25,185,155);
+			buzzer([30,50,30]);	
+		}else buzzer([30,50,30]);
 		this.timeout();
 		break;
   }

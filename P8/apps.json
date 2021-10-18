@@ -1,9 +1,45 @@
 [
 	{ "id": "init",
-		"name": "P8 core",
+		"name": "core - P8-P22 A/B/C/C1",
 		"icon": "icon.png",
-		"version":"0.20",
-		"description": "P8 Screen driver and init functions. For use with the [flash enabled](https://github.com/fanoush/ds-d6/blob/master/espruino/DFU/P8/espruino_2v07.60_p8_SDK11_SD20_SPIFLASH.zip) or the  the [not flash enabled](https://github.com/fanoush/ds-d6/blob/master/espruino/DFU/P8/espruino_2v07.60_p8_SDK11_SD20.zip) Espruino image  build by fanoush. ",
+		"version":"0.93",
+		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
+		"tags": "core",
+		"type":"core",
+		"readme": "README.md",
+		"storage": [
+			{"name":".bootrst","url":"init.js"}
+		]
+	},
+	{ "id": "init_pt",
+		"name": "core - Pinetime",
+		"icon": "icon.png",
+		"version":"0.92",
+		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
+		"tags": "core",
+		"type":"core",
+		"readme": "README.md",
+		"storage": [
+			{"name":".bootrst","url":"init.js"}
+		]
+	},
+	{ "id": "init_r_d",
+		"name": "core - P22 B1/D",
+		"icon": "icon.png",
+		"version":"0.95",
+		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
+		"tags": "core",
+		"type":"core",
+		"readme": "README.md",
+		"storage": [
+			{"name":".bootrst","url":"init.js"}
+		]
+	},
+	{ "id": "init_16",
+		"name": "core - P8 - P22 A/B/C/C1/D - 16Bit",
+		"icon": "icon.png",
+		"version":"0.95",
+		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
 		"tags": "core",
 		"type":"core",
 		"readme": "README.md",
@@ -12,34 +48,59 @@
 		]
 	},
 	{ "id": "handler",
-		"name": "Handler",
+		"name": "Handler - P8 - P22 A/B/C/C1/D",
 		"icon": "icon.png",
-		"version":"0.26",
-		"description": "P8 functions handler",
+		"version":"0.99.9.1",
+		"description": "P8/P22 functions handler",
 		"tags": "core",
-		"custom": "custom.html",
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
 			{"name":"handler","url":"handler.js"}
 		]
 	},  
+	{ "id": "handler_pt",
+		"name": "Handler - Pinetime",
+		"icon": "icon.png",
+		"version":"0.99.3",
+		"description": "Pinetime functions handler",
+		"tags": "core",
+		"type":"core",
+		"readme": "README.md",
+		"storage": [
+			{"name":"handler","url":"handler.js"}
+		]
+	}, 
+	{ "id": "handler_p22b1",
+		"name": "Handler - P22 B1",
+		"icon": "icon.png",
+		"version":"0.99.3",
+		"description": "P22B1 functions handler",
+		"tags": "core",
+		"type":"core",
+		"readme": "README.md",
+		"storage": [
+			{"name":"handler","url":"handler.js"}
+		]
+	}, 
 	{ "id": "main",
 		"name": "Clock",
 		"icon": "icon.png",
-		"version":"0.24",
+		"version":"0.98",
 		"description": "Main Clock/notifications face",
 		"tags": "apps",
 		"type":"main",
 		"storage": [
-			{"name":"main","url":"main.js"}
+			{"name":"main","url":"main.js"},
+			{"name":"mainOptions","url":"mainOptions.js"}
+
 		]
 	},  
 	{ "id": "settings",
 		"name": "Settings",
 		"icon": "icon.png",
-		"version":"0.21",
-		"description": "global Settings face",
+		"version":"0.98",
+		"description": "Settings face",
 		"tags": "apps",
 		"type":"main",
 		"readme": "README.md",
@@ -50,7 +111,7 @@
 	{ "id": "alarm",
 		"name": "Alarms",
 		"icon": "icon.png",
-		"version":"0.20",
+		"version":"0.92",
 		"description": "Three user settable Alarms/Timers face",
 		"tags": "apps",
 		"readme": "README.md",
@@ -61,7 +122,7 @@
 	{ "id": "calc",
 		"name": "Calculator",
 		"icon": "icon.png",
-		"version":"0.20",
+		"version":"0.94",
 		"description": "Simple Calculator face with history",
 		"tags": "apps",
 		"storage": [
@@ -71,7 +132,7 @@
 	{ "id": "notify",
 		"name": "Notifications",
 		"icon": "icon.png",
-		"version":"0.20",
+		"version":"0.94",
 		"description": "Notifications face for system, atc and gadgetbridge",
 		"tags": "apps",
 		"type": "notify",
@@ -82,7 +143,7 @@
 	{ "id": "m_gb",
 		"name": "Gadgetbridge",
 		"icon": "icon.png",
-		"version":"0.20",
+		"version":"0.94",
 		"description": "Gadgetbridge support for notifications, calls, weather and gps navigation",
 		"tags": "system",
 		"type": "notify",
@@ -94,28 +155,31 @@
 	{ "id": "dash",
 		"name": "EUC Dashboard",
 		"icon": "icon.png",
-		"version":"0.33",
+		"version":"0.99.2",
 		"description": "EUC dashboard. Garage, scan and dash faces. Depends on EUC modules.",
 		"tags": "euc",
+		"readme": "README.md",
 		"storage": [
 			{"name":"dash_simple","url":"dash_simple.js"},
 			{"name":"dash_digital","url":"dash_digital.js"},
 			{"name":"dashGarage","url":"dashGarage.js"},
 			{"name":"dashAlerts","url":"dashAlerts.js"},
 			{"name":"dashScan","url":"dashScan.js"},
-			{"name":"dashOff","url":"dashOff.js"}
-
+			{"name":"dashOff","url":"dashOff.js"},
+			{"name":"dashOptions","url":"dashOptions.js"}
 		]
 	}, 
 	{ "id": "dashKingsong",
 		"name": "Kingsong Settings",
 		"icon": "icon.png",
-		"version":"0.20",
+		"version":"0.93",
 		"description": "EUC dashboard, Kingsong settings gui files.",
 		"tags": "euc",
+		"readme": "README.md",
 		"storage": [
 			{"name":"dashKingsong","url":"dashKingsong.js"},
 			{"name":"dashKingsongOpt","url":"dashKingsongOpt.js"},
+			{"name":"dashKingsongOpt2","url":"dashKingsongOpt2.js"},
 			{"name":"dashKingsongAdv","url":"dashKingsongAdv.js"},
 			{"name":"dashKingsongAdvCalibrate","url":"dashKingsongAdvCalibrate.js"},
 			{"name":"dashKingsongAdvLimits","url":"dashKingsongAdvLimits.js"},
@@ -125,9 +189,10 @@
 	{ "id": "dashNinebot",
 		"name": "Ninebot Settings",
 		"icon": "icon.png",
-		"version":"0.21",
+		"version":"0.93",
 		"description": "EUC dashboard, Ninebot settings gui files.",
 		"tags": "euc",
+		"readme": "README.md",
 		"storage": [
 			{"name":"dashNinebot","url":"dashNinebot.js"}
     ]
@@ -135,19 +200,21 @@
 	{ "id": "dashNinebotZ",
 		"name": "NinebotZ Settings",
 		"icon": "icon.png",
-		"version":"0.21",
+		"version":"0.93",
 		"description": "EUC dashboard, NinebotZ settings gui files.",
 		"tags": "euc",
+		"readme": "README.md",
 		"storage": [
 			{"name":"dashNinebotZ","url":"dashNinebotZ.js"}
     ]
 	}, 
 	{ "id": "dashNinebotS",
-		"name": "NinebotS Settings",
+		"name": "Ninebot S2/A1 Settings",
 		"icon": "icon.png",
-		"version":"0.30",
+		"version":"0.93",
 		"description": "EUC dashboard, NinebotS settings gui files.",
 		"tags": "euc",
+		"readme": "README.md",
 		"storage": [
 			{"name":"dashNinebotS","url":"dashNinebotS.js"}
     ]
@@ -155,29 +222,49 @@
 	{ "id": "dashInmotion",
 		"name": "Inmotion V11 Settings",
 		"icon": "icon.png",
-		"version":"0.30",
+		"version":"0.94",
 		"description": "EUC dashboard, Inmotion V11 settings gui files.",
 		"tags": "euc",
+		"readme": "README.md",
 		"storage": [
 			{"name":"dashInmotion","url":"dashInmotion.js"}
     ]
 	}, 
+	{ "id": "dashInmotionV1",
+		"name": "Inmotion V5/8/10 Settings",
+		"icon": "icon.png",
+		"version":"0.99.1",
+		"description": "EUC dashboard, Inmotion V5/8/10 settings gui files.",
+		"tags": "euc",
+		"readme": "README.md",
+		"storage": [
+			{"name":"dashInmotionV1","url":"dashInmotionV1.js"},
+			{"name":"dashInmotionV1Opt","url":"dashInmotionV1Opt.js"},
+			{"name":"dashInmotionV1Opt2","url":"dashInmotionV1Opt2.js"},
+			{"name":"dashInmotionV1Adv","url":"dashInmotionV1Adv.js"},
+			{"name":"dashInmotionV1AdvCalibrate","url":"dashInmotionV1AdvCalibrate.js"},
+			{"name":"dashInmotionV1AdvLimits","url":"dashInmotionV1AdvLimits.js"},
+			{"name":"dashInmotionV1AdvPass","url":"dashInmotionV1AdvPass.js"}    ]
+	}, 
 	{ "id": "dashVeteran",
 		"name": "Veteran Settings",
 		"icon": "icon.png",
-		"version":"0.20",
+		"version":"0.93",
 		"description": "EUC dashboard, Veteran settings gui files.",
 		"tags": "euc",
 		"storage": [
-			{"name":"dashVeteran","url":"dashVeteran.js"}
+			{"name":"dashVeteran","url":"dashVeteran.js"},
+			{"name":"dashVeteranOptions","url":"dashVeteranOptions.js"}
+
 		]
 	}, 
 	{ "id": "dashBegode",
 		"name": "Begode Settings",
 		"icon": "icon.png",
-		"version":"0.31",
+		"version":"0.93",
 		"description": "EUC dashboard, Begode settings gui files.",
 		"tags": "euc",
+		"readme": "README.md",
 		"storage": [
 			{"name":"dashBegode","url":"dashBegode.js"},
 			{"name":"dashBegodeAdv","url":"dashBegodeAdv.js"},
@@ -188,31 +275,31 @@
 	{ "id": "euc",
 		"name": "EUC modules support",
 		"icon": "icon.png",
-		"version":"0.32",
+		"version":"0.97",
 		"description": "EUC module switcher, depends on wheel module.",
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
 			{"name":"euc","url":"euc.js"},
-			{"name":"eucSlot.json","url":"eucSlot.json"}
+			{"name":"eucSlot.json","url":"eucSlot.json"},
+			{"name":"emuZ","url":"emuZ.js"}
 		]
 		},
 	{ "id": "eucKingsong",
 		"name": "Kingsong module",
 		"icon": "icon.png",
-		"version":"0.33",
+		"version":"0.98",
 		"description": "EUC module for Kingsong.",
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"eucKingsong","url":"eucKingsong.js"},
-			{"name":"eucEmu","url":"eucEmuKs.js"}
+			{"name":"eucKingsong","url":"eucKingsong.js"}
 		]
 		},
 	{ "id": "eucNinebot",
 		"name": "Ninebot module",
 		"icon": "icon.png",
-		"version":"0.22",
+		"version":"0.97",
 		"description": "EUC module for Ninebot C/E/P.",
 		"tags": "euc",
 		"type": "euc",
@@ -223,7 +310,7 @@
 	{ "id": "eucNinebotZ",
 		"name": "NinebotZ module",
 		"icon": "icon.png",
-		"version":"0.21",
+		"version":"0.97",
 		"description": "EUC module for Ninebot Z6/Z10",
 		"tags": "euc",
 		"type": "euc",
@@ -234,7 +321,7 @@
 	{ "id": "eucNinebotS",
 		"name": "Ninebot S2/A1 module",
 		"icon": "icon.png",
-		"version":"0.30",
+		"version":"0.97",
 		"description": "EUC module for Ninebot S2/A1",
 		"tags": "euc",
 		"type": "euc",
@@ -244,8 +331,8 @@
 		},
 	{ "id": "eucInmotion",
 		"name": "Inmotion V11 module",
-		"icon": "icon.jpg",
-		"version":"0.34",
+		"icon": "icon.png",
+		"version":"0.99",
 		"description": "EUC module for Inmotion V11.",
 		"tags": "euc",
 		"type": "euc",
@@ -253,10 +340,21 @@
 			{"name":"eucInmotion","url":"eucInmotion.js"}
 		]
 	},
+	{ "id": "eucInmotionV1",
+		"name": "Inmotion V5/8/10 module",
+		"icon": "icon.png",
+		"version":"0.99.2",
+		"description": "EUC module for Inmotion V5/8/10.",
+		"tags": "euc",
+		"type": "euc",
+		"storage": [
+			{"name":"eucInmotionV1","url":"eucInmotionV1.js"}
+		]
+	},
    { "id": "eucVeteran",
 		"name": "Veteran module",
 		"icon": "icon.png",
-		"version":"0.21",
+		"version":"0.95",
 		"description": "EUC module for Veteran Sherman",
 		"tags": "euc",
 		"type": "euc",
@@ -267,7 +365,7 @@
    { "id": "eucBegode",
 		"name": "Begode module",
 		"icon": "icon.png",
-		"version":"0.32",
+		"version":"0.97",
 		"description": "EUC module for Begode (Gotway)",
 		"tags": "euc",
 		"type": "euc",
@@ -278,27 +376,17 @@
 	{ "id": "repellent",
 		"name": "Repellent",
 		"icon": "icon.png",
-		"version":"0.30",
+		"version":"0.92",
 		"description": "Xiaomi insect repellent face",
 		"tags": "apps",
 		"storage": [
 			{"name":"repellent","url":"repellent.js"}
 		]
 	},
-	{ "id": "atc",
-		"name": "D6 Notification",
-		"icon": "icon.png",
-		"version":"0.20",
-		"description": "Support for playstore app D6 Notification from atc1441",
-		"tags": "system",
-		"storage": [
-			{"name":"atc","url":"D6Notification.js"}
-		]
-	},
 	{ "id": "hid",
 		"name": "Music controls",
 		"icon": "icon.png",
-		"version":"0.20",
+		"version":"0.92",
 		"description": "Music controls over BLEHID face",
 		"tags": "apps",
 		"storage": [
@@ -308,7 +396,7 @@
 	{ "id": "w_apps",
 		"name": "App Loader widget",
 		"icon": "icon.png",
-		"version":"0.20",
+		"version":"0.92",
 		"description": "Extends settings face with an app drawer.",
 		"tags": "system",
 		"type": "system",
@@ -319,7 +407,7 @@
 	{ "id": "w_scan",
 		"name": "BLE scanner widget",
 		"icon": "icon.png",
-		"version":"0.30",
+		"version":"0.93",
 		"description": "Shared scan face addon",
 		"tags": "system",
 		"type": "system",
@@ -330,7 +418,7 @@
 	{ "id": "Font7x11Numeric7Seg",
 		"name": "Fonts-Font7x11Numeric7Seg",
 		"icon": "icon.png",
-		"version":"0.20",
+		"version":"0.93",
 		"description": "Font7x11Numeric7Seg font",
 		"tags": "core",
 		"type": "core",
@@ -338,21 +426,10 @@
 		{"name":"Font7x11Numeric7Seg","url":"Font7x11Numeric7Seg.js"}
 		]
 	},
-	{ "id": "life",
-		"name": "Life",
-		"icon": "icon.png",
-		"version":"0.20",
-		"description": "Conway's Game of Life cellular automata (MightyWither port)",
-		"tags": "apps",
-		"readme": "README.md",
-		"storage": [
-			{"name":"life","url":"life.js"}
-		]
-	},
 	{ "id": "example_app",
 		"name": "Hello example",
 		"icon": "icon.png",
-		"version":"0.20",
+		"version":"0.93",
 		"description": "A face/app with just the minimum, to be used as a starting point. ",
 		"tags": "apps",
 		"readme": "README.md",
