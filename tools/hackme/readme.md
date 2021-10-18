@@ -83,12 +83,7 @@ This step will take up to 5 minutes, and when done the watch screen will remain 
 
 ### EucWatch Installation:
 
-If all went ok disconnect the phone by turning off the BT radio, so that you will make sure the watch is disconnected, and go to the eucWatch [loader](https://enaon.github.io/eucWatch/p8) using a chromium based browser, press the **connect** button on the right top corner, connect to the p8 (named p8xxx), then on the installer tab select **feature set/all**. 
-
-Select 816 and sc7a20 for the touch and accelerometer if not sure, they can be later re-selected by re-uploading just the handler file. The timezone is not importand. 
-
-> **Notice:** Use the [testing loader](https://enaon.github.io/eucWatch/p8-testing) with a p22 watch (p8 too if you want to test the new version). Select "install all apps" from the installer tab. No need to select touch or accelerator type.  
-
+If all went ok disconnect the phone by turning off the BT radio, so that you will make sure the watch is disconnected, and go to the eucWatch [loader](https://enaon.github.io/eucWatch/p8) using a chromium based browser, press the **connect** button on the right top corner, connect to the p8/p22/pinetime (named p8xxx/p22xx etc), then on the installer tab select **feature set/all**. 
 
 
 good luck :)
