@@ -17,8 +17,7 @@ const Comms = {
 			} else {
 				console.log(`<COMMS> reset: complete.`);
 				setTimeout(resolve,250);
-				setTimeout(()=>{
-
+				/*setTimeout(()=>{
 				Comms.readSettings("setting","acctype").then(function(c) {
 					return localStorage.setItem("p8acc", c);
 				}).then(function() {
@@ -31,7 +30,7 @@ const Comms = {
 					localStorage.setItem("p8name", c);
 				});
 				},1000);
-
+				*/
 			}
 		
 	});
@@ -138,8 +137,7 @@ const Comms = {
           if (appList===null) return reject(err || "");
           console.log("<COMMS> getInstalledApps", appList);
           resolve(appList);
-		  //setTimeout(()=>{
-			 Comms.readSettings("setting","acctype").then(function(c) {
+			/* Comms.readSettings("setting","acctype").then(function(c) {
 				return localStorage.setItem("p8acc", c);
 				}).then(function(c) {
 				return Comms.readSettings("setting","touchtype");
@@ -150,8 +148,7 @@ const Comms = {
 				}).then(function(c) {
 				 localStorage.setItem("p8name", c);
 			});
-		  //},1000);
-		 
+			*/
         }, true /* callback on newline */);
       });
     });
