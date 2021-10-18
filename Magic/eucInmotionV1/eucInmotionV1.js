@@ -1,10 +1,9 @@
-//code by freestyl3r
+//code by freestyl3r & wheellog
 euc.tmp={count:0,loop:0};
 if (!euc.dash.alrt) euc.dash.alrt={};
 if (!euc.dash.lght) euc.dash.lght={"head":0,"tail":0,"ring":0,"aHead":0};
 if (!euc.dash.ctrl) euc.dash.ctrl={"aLck":0,"aLift":0,"aOff":0,"aLight":0,"lift":1,"lamp":0,"vol":50,"horn":20};
 if (!euc.dash.ride) euc.dash.ride={mode:0};
-
 /*
   enum Mode {
         rookie(0),
@@ -13,12 +12,7 @@ if (!euc.dash.ride) euc.dash.ride={mode:0};
         unBoot(3),
         bldc(4),
         foc(5);
-
-
-
 */
-
-
 euc.cmd=function(no,val){
 	if (set.bt===2) console.log("inmotion: send cmd :",no);
 	let cmd;
