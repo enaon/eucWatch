@@ -294,7 +294,6 @@ face[0] = {
 		this.g.setColor(1,col("dgray"));
 		this.g.fillRect(0,176,239,197); //mileage
 		this.g.setColor(0,col("white"));
-		this.g.setFont("7x11Numeric7Seg",4);
 		this.g.setFontVector(16); //mileage
 		//if (euc.dash.maker=="Ninebot") {
 		//	this.g.drawString("TRIP",2,180); 
