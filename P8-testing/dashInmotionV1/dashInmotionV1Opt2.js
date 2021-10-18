@@ -128,7 +128,7 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
 	case 1: //slide down event
-		//face.go("main",0);
+		setTimeout(function(){euc.busy=0;euc.tmp.live();},800);
 		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event

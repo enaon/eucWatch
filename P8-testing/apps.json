@@ -233,7 +233,7 @@
 	{ "id": "dashInmotionV1",
 		"name": "Inmotion V5/8/10 Settings",
 		"icon": "icon.png",
-		"version":"0.99",
+		"version":"0.99.1",
 		"description": "EUC dashboard, Inmotion V5/8/10 settings gui files.",
 		"tags": "euc",
 		"readme": "README.md",
