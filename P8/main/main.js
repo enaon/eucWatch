@@ -98,13 +98,15 @@ face[0] = {
 			this.g.drawImage(this.img,170,12);
 			this.img=-1;
 			if (this.str>9) {
-				this.g.setFont("7x11Numeric7Seg",3);
-				this.g.drawString("9",200,9);
-				this.g.setFont("Vector",25);
+				this.g.setFont("Vector",32);
+				//this.g.setFont("7x11Numeric7Seg",3);
+				this.g.drawString("9",200,10);
+				this.g.setFont("Vector",28);
 				this.g.drawString("+",225,14);
 			}else{
-				this.g.setFont("7x11Numeric7Seg",3);
-				this.g.drawString(this.str,210,9);
+				this.g.setFont("Vector",32);
+				//this.g.setFont("7x11Numeric7Seg",3);
+				this.g.drawString(this.str,210,10);
 			}
 			this.g.flip();
 		}else if (this.batt!=set.ondc ){
