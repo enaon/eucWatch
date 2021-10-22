@@ -111,7 +111,7 @@
 	{ "id": "alarm",
 		"name": "Alarms",
 		"icon": "icon.png",
-		"version":"0.92",
+		"version":"0.93",
 		"description": "Three user settable Alarms/Timers face",
 		"tags": "apps",
 		"readme": "README.md",
