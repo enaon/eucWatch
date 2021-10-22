@@ -175,7 +175,7 @@ touchHandler[0]=function(e,x,y){
 						euc.dash.batF++; if (425 <= euc.dash.batF) euc.dash.batF = 425;
 					}
 					face[0].btn(1,"FULL",15,40,10,col("olive"),0,0,0,75,75,euc.dash.batF/100,30,40,35); //1
-					face[0].ntfy("100% WHEN CELL IS AT",euc.dash.batE/100 + " Volt",30,1,col("olive"),3000,1);
+					face[0].ntfy("100% WHEN CELL IS AT",euc.dash.batF/100 + " Volt",30,1,col("olive"),3000,1);
 				}else if (face[0].set=="batE") { //bat
 					if (x<120){ //
 						euc.dash.batE--; if ( euc.dash.batE <= 300 ) euc.dash.batE = 300;
