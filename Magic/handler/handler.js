@@ -513,8 +513,8 @@ set.def.acctype="SC7A20";
 				this.tid=setWatch(()=>{
 					//"ram";
 					i2c.writeTo(0x18,1);
-					print(i2c.readFrom(0x18,1)[0]);
-					if ( 192 < i2c.readFrom(0x18,1)[0] ) {
+					print(255-i2c.readFrom(0x18,1)[0]);
+					if ( 192 < 255-i2c.readFrom(0x18,1)[0] ) {
 						if (!w.gfx.isOn&&face.appCurr!=""){  
 							if (face.appCurr=="main") face.go("main",0);
 							else face.go(face.appCurr,0);
@@ -528,7 +528,9 @@ set.def.acctype="SC7A20";
 			} else return false;
 		},
 		read:function(){
+			"ram";
 			function conv(lo,hi) { 
+				"ram";
 				var i = (hi<<8)+lo;
 				return ((i & 0x7FFF) - (i & 0x8000))/16;
 			}

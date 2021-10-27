@@ -134,7 +134,7 @@ set.def = require('Storage').readJSON('setting.json', 1);
 if (!set.def) {set.resetSettings();set.updateSettings();}
 if (!set.def.rstP) set.def.rstP="D13";
 if (!set.def.rstR) set.def.rstR=0xA5;
-if (set.def.buzz) buzzer = digitalPulse.bind(null,D16,1)
+if (set.def.buzz) buzzer = digitalPulse.bind(null,D16,1);
 else buzzer=function(){return true;};
 if (!set.def.off) set.def.off={};
 //dash
