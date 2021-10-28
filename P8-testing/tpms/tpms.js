@@ -53,5 +53,42 @@ this.filter = [{services:[ "fbb0" ]}];
 }, 5000);
 
 NRF.requestDevice({ filters: [{ services: ["fbb0"] }] }).then(function(device) { print(device) });
-NRF.requestDevice({ filters: [{ services: ['fbb0'] }] }).then(function(device) { print(device) });
+
+
+NRF.requestDevice({ filters: [{ services: ['fbb0'] }] }).then(function(device) { 
+
+print(device["data"]); 
+print(device["manufacturerData"]); 
+print(device["manufacturerData"][7] <<8 | device["manufacturerData"][6] )
+//(inpk[3] << 8 | inpk[2])
+
+//(inpk[6] << 16) + (inpk[7] << 24) + inpk[8] + (inpk[9] << 8)
+//(ev[10] << 24 | ev[11] << 16 | ev[8] << 8  | ev[9])
+}).catch(function(err){print("not found");});
+
+
+
+
+2, 1, 5, 3, 3, 176, 251, 19, 255, 0, 1, 128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 84, 8, 0, 0, 69, 1
+
+2, 1, 5, 3, 3, 176, 251, 19, 255, 0, 1, 128, 234, 202, 17, 54, 237, 196, 21, 1, 0, 8, 9, 0, 0, 69, 0
+
+2, 1, 5, 3, 3, 176, 251, 19, 255, 0, 1, 128, 234, 202, 17, 54, 237, 213, 21, 1, 0, 4, 9, 0, 0, 69, 0
+
+
+128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 244, 8, 0, 0, 69, 1
+128, 234, 202, 17, 54, 237, 213, 21, 1, 0, 4, 9, 0, 0, 69, 0
+128, 234, 202, 17, 54, 237, 162, 211, 0, 0, 251, 6, 0, 0, 69, 0
+128, 234, 202, 17, 54, 237, 162, 211, 0, 0, 251, 6, 0, 0, 69, 0
+
+
+2, 1, 5, 3, 3, 176, 251, 19, 255, 0, 1, 128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 118, 7, 0, 0, 69, 1
+2, 1, 5, 3, 3, 176, 251, 19, 255, 0, 1, 128, 234, 202, 17, 54, 237, 230, 12, 1, 0, 118, 7, 0, 0, 69, 0
+
+128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 120, 7, 0, 0, 69, 1
+128, 234, 202, 17, 54, 237, 230, 12, 1, 0, 118, 7, 0, 0, 69, 0
+
+
+NRF.requestDevice({ filters: [{ services: ['fbb0'] }] }).then(function(device) {
+	print(device); }).catch(function(err){print("not found");}); 
 

@@ -81,7 +81,7 @@ face[0] = {
 		while (s>3600) {s=s-3600;h++;}
 		while (s>60) {s=s-60;m++;}
 		this.g.setColor(0,0);
-		this.g.fillRect(0,0,239,200); //all
+		this.g.fillRect(0,0,239,194); //all
 		this.g.setColor(1,col("lblue"));
 		this.g.setFont("Vector",18);
 		this.g.drawString("MEMORY: "+process.memory().free+"/"+process.memory().total,120-(this.g.stringWidth("MEMORY: "+process.memory().free+"/"+process.memory().total)/2),0);  
@@ -94,6 +94,28 @@ face[0] = {
 		this.g.drawString("TEMPERATURE: "+E.getTemperature(),120-(this.g.stringWidth("TEMPERATURE: "+E.getTemperature())/2),150);  
 		this.g.drawString("NAME: "+set.def.name,120-(this.g.stringWidth("NAME: "+set.def.name)/2),175);  
 		this.g.flip();
+		this.g.setFont("Vector",18);
+		this.g.setColor(0,col("raf"));
+		this.g.fillRect(0,195,119,239);
+		this.g.setColor(1,col("white"));
+		this.g.drawString("RESTART",18,210);
+		this.g.flip();	
+		this.g.setColor(0,col("dgray"));
+		this.g.fillRect(120,195,239,239);
+		this.g.setColor(1,col("white"));
+		this.g.drawString("MORE",156,210);
+		this.g.flip();		
+	},
+	more: function(){
+		this.g.setColor(0,0);
+		this.g.fillRect(0,0,239,194); //all
+		this.g.setColor(1,col("lblue"));
+		this.g.setFont("Vector",22);
+		this.g.drawString("TP RST:",65-(this.g.stringWidth("TP RST:")/2),0);  
+		this.g.setFont("Vector",26);
+		this.g.drawString(set.def.rstP,180-(this.g.stringWidth(set.def.rstP)/2),0);  
+		this.g.flip();
+		this.btn((set.def.rstR==165)?1:0,"TP SLEEP:",22,65,45,col("dgray"),col("gray"),0,30,239,80,(set.def.rstR==165)?"P8":"P22",26,180,45);
 		this.g.setFont("Vector",18);
 		this.g.setColor(0,col("raf"));
 		this.g.fillRect(0,195,119,239);
@@ -214,11 +236,34 @@ face[1] = {
 };	
 //touch
 touchHandler[0]=function(e,x,y){ 
+	this.timeout();
 	switch (e) {
 	case 5: //tap event
 		if (face[0].set) { 
 			if (face[0].set=="info") {
 				if ( x <=120 && 190 <= y) {
+					set.updateSettings();
+					NRF.removeListener('disconnect',bdis);  
+					NRF.disconnect();
+					w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
+					reset();
+				}else if ( 120 <= x && 190 <= y) {
+					buzzer([30,50,30]);
+					face[0].set="more";
+					face[0].more();
+					return;
+				}else {
+					face[0].set=0;
+			   		if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;
+					w.gfx.clear();
+					face[0].init();
+					buzzer([30,50,30]);
+				}
+			}else if (face[0].set=="more") {
+				if (30 <= y && y <= 80 ) {
+					set.def.rstR=(set.def.rstR==165)?229:165;
+					face[0].btn((set.def.rstR==165)?1:0,"TP SLEEP:",22,65,45,col("dgray"),col("gray"),0,30,239,80,(set.def.rstR==165)?"P8":"P22",26,180,45);//1
+				}else if ( x <=120 && 190 <= y) {
 					set.updateSettings();
 					NRF.removeListener('disconnect',bdis);  
 					NRF.disconnect();
@@ -231,11 +276,11 @@ touchHandler[0]=function(e,x,y){
 					w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
 					E.reboot();
 				}else {
-					face[0].set=0;
-			   		if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;
-					w.gfx.clear();
-					face[0].init();
-					buzzer([30,50,30]);
+					//face[0].set=0;
+			   		//if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;
+					//w.gfx.clear();
+					//face[0].init();
+					buzzer(40);
 				}
 			}else if (face[0].set=="setTime") {
 				if ( x <=120 && y <= 120) { //hour up
