@@ -31,7 +31,7 @@ Using the app, you will upload four files to the P8 watch:
 
 [**Step1 file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme/step1-DaFitBootloader23Hacked.bin)
 
-[**Step2 file**](https://github.com/enaon/eucWatch/blob/main/tools/hackme/step2-FitBootloaderDFU2.0.1.zip)
+[**Step2 file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme/step2-FitBootloaderDFU2.0.1.zip)
 
 [**Step3 file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme/step3-p8-sdk11-to-sdk12.zip)
 
