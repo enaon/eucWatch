@@ -163,7 +163,7 @@ var set={
 
 set.def = require('Storage').readJSON('setting.json', 1);
 if (!set.def) {set.resetSettings();set.updateSettings();}
-set.def.rstP=(pine)?"D10":"D13";
+set.def.rstP="D10";
 set.def.rstR=0xE5;
 if (set.def.buzz) buzzer=digitalPulse.bind(null,D16,1);
 else buzzer=function(){return true;};
