@@ -36,7 +36,7 @@
 		]
 	},
 	{ "id": "init_16",
-		"name": "core - P8 - P22 A/B/C/C1/D - 16Bit",
+		"name": "core - P8 - P22 A/B/C/C1 - 16Bit",
 		"icon": "icon.png",
 		"version":"0.95",
 		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
@@ -48,7 +48,7 @@
 		]
 	},
 	{ "id": "handler",
-		"name": "Handler - P8 - P22 A/B/C/C1/D",
+		"name": "Handler - P8 - P22 A/B/C/C1",
 		"icon": "icon.png",
 		"version":"0.99.9.1",
 		"description": "P8/P22 functions handler",
@@ -72,10 +72,10 @@
 		]
 	}, 
 	{ "id": "handler_p22b1",
-		"name": "Handler - P22 B1",
+		"name": "Handler - P22 B1/D",
 		"icon": "icon.png",
 		"version":"0.99.3",
-		"description": "P22B1 functions handler",
+		"description": "P22 B1/D functions handler",
 		"tags": "core",
 		"type":"core",
 		"readme": "README.md",
