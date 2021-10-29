@@ -27,6 +27,16 @@ Using the app, you will upload four files to the P8 watch:
 > [daflasher files](https://github.com/atc1441/DaFlasherFiles) (step 1&2)
 > [espruino bootloader & image](https://github.com/fanoush/ds-d6/tree/master/espruino/DFU/P8) (step 3&4)
 
+> **Tip**
+
+[**Step1 file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme/step1-DaFitBootloader23Hacked.bin)
+[**Step2 file**](https://github.com/enaon/eucWatch/blob/main/tools/hackme/step2-FitBootloaderDFU2.0.1.zip)
+[**Step3 file**](https://enaon.github.io/eucWatch/tools/webclient/9BotONE_S)
+[**Step4 P8 file**](https://enaon.github.io/eucWatch/tools/webclient/9BotONE_S)
+[**Step4 P22/Pinetime file**](https://enaon.github.io/eucWatch/tools/webclient/9BotONE_S)
+
+
+
 ### Installation:
 
 > **Tip:** Disconnect any accessories and stop any programs you know may be using the BT on the phone.  
