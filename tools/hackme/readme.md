@@ -35,7 +35,7 @@ Using the app, you will upload four files to the P8 watch:
 
 [**Step3 file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme/step3-p8-sdk11-to-sdk12.zip)
 
-[**Step4 P8 file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme/step4-espruino_2v09.119_p8_SDK12_SD30_SPIFLASH4M.zip) OR  [**Step4 P22/Pinetime file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme/step4-espruino_2v09.119_p22_SDK12_SD30_SPIFLASH4M.zip)
+[**Step4 P8 file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme/step4-espruino_2v09.119_p8_SDK12_SD30_SPIFLASH4M.zip)   or   [**Step4 P22/Pinetime file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme/step4-espruino_2v09.119_p22_SDK12_SD30_SPIFLASH4M.zip)
 
 
 
