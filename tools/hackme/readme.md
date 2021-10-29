@@ -27,7 +27,7 @@ Using the app, you will upload four files to the P8 watch:
 > [daflasher files](https://github.com/atc1441/DaFlasherFiles) (step 1&2)
 > [espruino bootloader & image](https://github.com/fanoush/ds-d6/tree/master/espruino/DFU/P8) (step 3&4)
 
-> **Notice"" Do not "right click"->"save as" on github, use the download button instead, or the following links for convinience:
+> **Notice** Do not "right click"->"save as" on github, use the download button instead, or the following links for convinience:
 
 [**Step1 file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme/step1-DaFitBootloader23Hacked.bin)
 
