@@ -1,0 +1,116 @@
+<html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=0.8, minimal-ui">
+		<meta name="description" content="ucWatch">
+		<meta name="author" content="enaon">
+		<meta name="theme-color" content="#36393E" />
+		<title>eucWatch</title>
+		<link rel="stylesheet" href="style.css">
+		<script src="js/functions.js"></script>
+	</head>
+
+
+	<body>
+		<div id="select">
+			<button onclick="ui_connect()">Connect to eucWatch</button>
+		</div>
+		<nav>
+			<a href="index1.html">Settings</a>
+			<a href="Devices.html">Devices</a>
+			<a href="News.html">News</a>
+			<a class="right" href="info.html">Info</a>
+		</nav>
+
+
+		<div id="menu" style="display: none;">
+			Offset: <input id="offset" type="text" value="0x22" /><br />
+			Size: <input  id="size" type="number" value="2" /><br />
+			Value: <input  id="value" type="text" value="" /><br />
+			Sent: <input  id="Sent" type="text" value="" /><br />
+			Recv: <input  id="Recv" type="text" value="" /><br />
+			<button onclick="ui_read_register()">Read</button>
+			<button onclick="ui_write_register()">Write</button><br />
+			<button onclick="ui_disconnect()">Disconnect</button>
+		</div>
+		<script type="text/javascript" src="setme.js"></script>
+		<script type="text/javascript">
+
+			var funcs = (function() {
+
+				var device_select = document.getElementById("select");
+				var device_menu = document.getElementById("menu");
+				var offset = document.getElementById("offset");
+				var size = document.getElementById("size");
+				var value = document.getElementById("value");
+				var sent = document.getElementById("Sent");
+				var recv = document.getElementById("Recv");
+
+				function getValue(element)
+				{
+					var val = parseInt(element.value, 0);
+
+					if(val === 0)
+						element.value = "0";
+					return val;
+				}
+
+				function handleErr(err)
+				{
+					disconnect();
+					alert(err);
+				}
+
+				function connect()
+				{
+					navigator.bluetooth.requestDevice({
+						filters: [{services: ["6e400001-b5a3-f393-e0a9-e50e24dcca9e"]}],
+					})
+						.then(device => device.gatt.connect())
+						.then(initialize_device)
+						.then(() => {
+
+							device_select.style = "display: none;";
+							device_menu.style = "";
+
+						})
+						.catch(handleErr);
+				}
+
+				function disconnect()
+				{
+					device.disconnect();
+					device_menu.style = "display: none;";
+					device_select.style = "";
+				}
+
+				function read()
+				{
+					read_register(getValue(offset), getValue(size))
+						.then(val => value.value = val)
+						.then(val => sent.value = Sent)
+						.then(val => recv.value = Recv)
+						.catch(handleErr);
+				}
+
+				function write()
+				{
+					write_register(getValue(offset), getValue(value), getValue(size))
+					.then(val => sent.value = Sent)
+					.then(val => recv.value = Recv)
+					.catch(handleErr);
+				}
+
+				return {connect, disconnect, read, write};
+
+			})();
+
+			var ui_connect = funcs.connect;
+			var ui_disconnect = funcs.disconnect;
+			var ui_read_register = funcs.read;
+			var ui_write_register = funcs.write;
+
+		</script>
+	</body>
+</html>
