@@ -39,7 +39,7 @@ Using the app, you will upload four files to the P8 watch:
 
 
 
-### Installation:
+## Installation:
 
 > **Tip:** Disconnect any accessories and stop any programs you know may be using the BT on the phone.  
 
