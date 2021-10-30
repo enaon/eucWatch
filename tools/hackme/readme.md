@@ -26,22 +26,20 @@ Using the app, you will upload four files to the P8 watch:
 >  **original links:**
 > [daflasher files](https://github.com/atc1441/DaFlasherFiles) (step 1&2)
 > [espruino bootloader & image](https://github.com/fanoush/ds-d6/tree/master/espruino/DFU/P8) (step 3&4)
-
-> **Notice"" Do not "right click"->"save as" on github, use the download button instead, of the following links for convinience:
-
-[**Step1 file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme/step1-DaFitBootloader23Hacked.bin)
-
-[**Step2 file**](https://github.com/enaon/eucWatch/blob/main/tools/hackme/step2-FitBootloaderDFU2.0.1.zip)
-
-[**Step3 file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme/step3-p8-sdk11-to-sdk12.zip)
-
-[**Step4 P8 file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme/step4-espruino_2v09.119_p8_SDK12_SD30_SPIFLASH4M.zip)
-
-[**Step4 P22/Pinetime file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme/step4-espruino_2v09.119_p22_SDK12_SD30_SPIFLASH4M.zip)
+> 
+> **Notice** Do not "right click"->"save as" on github, use the download button instead, or the following links for convenience:
+>
+> [**Step1 file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme/step1-DaFitBootloader23Hacked.bin)
+> 
+> [**Step2 file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme/step2-FitBootloaderDFU2.0.1.zip)
+> 
+> [**Step3 file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme/step3-p8-sdk11-to-sdk12.zip)
+> 
+> [**Step4 P8 file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme/step4-espruino_2v09.119_p8_SDK12_SD30_SPIFLASH4M.zip)   or   [**Step4 P22/Pinetime file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme/step4-espruino_2v09.119_p22_SDK12_SD30_SPIFLASH4M.zip)
 
 
 
-### Installation:
+## Installation:
 
 > **Tip:** Disconnect any accessories and stop any programs you know may be using the BT on the phone.  
 
@@ -95,9 +93,15 @@ Select it,  select **Toggle Bluetooth** and **Use Nordic Bootloader** option, th
 
 This step will take up to 5 minutes, and when done the watch screen will remain black/off. 
 
+## Post install
 ### EucWatch Installation:
 
-If all went ok disconnect the phone by turning off the BT radio, so that you will make sure the watch is disconnected, and go to the eucWatch [loader](https://enaon.github.io/eucWatch/p8) using a chromium based browser, press the **connect** button on the right top corner, connect to the p8/p22/pinetime (named p8xxx/p22xx etc), then on the installer tab select **feature set/all**. 
+
+If all went ok disconnect the phone by turning off the BT radio, so that you will make sure the watch is disconnected, and go to the eucWatch [loader](https://enaon.github.io/eucWatch/p8) using PC or android chromium based browser. 
+
+The loader is a web based app store service, using web Bluetooth technology it will connect to the watch, help install the scripts and keep you up to date by offring updates when available.
+
+Using a chromium based browser, press the **connect** button (right top corner), connect to the watch (named p8xxx/p22xx etc), then on the installer tab select **Install All Apps**. 
 
 
 good luck :)
