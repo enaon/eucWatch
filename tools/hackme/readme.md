@@ -93,9 +93,15 @@ Select it,  select **Toggle Bluetooth** and **Use Nordic Bootloader** option, th
 
 This step will take up to 5 minutes, and when done the watch screen will remain black/off. 
 
+## Post install
 ### EucWatch Installation:
 
-If all went ok disconnect the phone by turning off the BT radio, so that you will make sure the watch is disconnected, and go to the eucWatch [loader](https://enaon.github.io/eucWatch/p8) using a chromium based browser, press the **connect** button on the right top corner, connect to the p8/p22/pinetime (named p8xxx/p22xx etc), then on the installer tab select **feature set/all**. 
+
+If all went ok disconnect the phone by turning off the BT radio, so that you will make sure the watch is disconnected, and go to the eucWatch [loader](https://enaon.github.io/eucWatch/p8) using PC or android chromium based browser. 
+
+The loader is a web based app store service, using web Bluetooth technology it will connect to the watch, help install the scripts and keep you up to date by offring updates when available.
+
+Using a chromium based browser, press the **connect** button (right top corner), connect to the watch (named p8xxx/p22xx etc), then on the installer tab select **Install All Apps**. 
 
 
 good luck :)
