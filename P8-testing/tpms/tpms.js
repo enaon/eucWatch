@@ -1,94 +1,60 @@
- }
->NRF.requestDevice({ filters: [{ services: ["fbb0"] }] }).then(function(device) { print(device) });
-=Promise: {  }
-BluetoothDevice: {
-  "id": "81:ea:ca:21:37:fa public",
-  "rssi": -48,
-  "data": new Uint8Array([2, 1, 5, 3, 3, 176, 251, 19, 255, 0, 1, 129, 234, 202, 33, 55, 250, 0, 0, 0, 0, 123, 11, 0, 0, 82, 1]).buffer,
-  "manufacturer": 256,
-  "manufacturerData": new Uint8Array([129, 234, 202, 33, 55, 250, 0, 0, 0, 0, 123, 11, 0, 0, 82, 1]).buffer,
-  "services": [
-    "fbb0"
-   ]
- }
->NRF.requestDevice({ filters: [{ services: ["fbb0"] }] }).then(function(device) { print(device) });
-=Promise: {  }
-BluetoothDevice: {
-  "id": "80:ea:ca:11:36:ed public",
-  "rssi": -60,
-  "data": new Uint8Array([2, 1, 5, 3, 3, 176, 251, 19, 255, 0, 1, 128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 122, 11, 0, 0, 98, 1]).buffer,
-  "manufacturer": 256,
-  "manufacturerData": new Uint8Array([128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 122, 11, 0, 0, 98, 1]).buffer,
-  "services": [
-    "fbb0"
-   ]
- }
-> 
-
->String.fromCharCode.apply(String,new Uint8Array([128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 122, 11, 0, 0, 98, 1]))
-="\x80\xEA\xCA\x116\xED\0\0\0\0z\v\0\0b\1"
-
->String.fromCharCode.apply(String,Uint8Array([2, 1, 5, 3, 3, 176, 251, 19, 255, 0, 1, 128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 122, 11, 0, 0, 98, 1]))
-="\2\1\5\3\3\xB0\xFB\x13\xFF\0\1\x80\xEA\xCA\x116\xED\0\0\0\0z\v\0\0b\1"
-
-
- 
- NRF.requestDevice({ filters: [{ services: ['fbb0'] }] }).then(function(device) { print(device) });
- 
- 
- NRF.findDevices(function(devices) {
-console.log(devices);
-}, 1000);
-
-NRF.findDevices(function(devices) {
-//this.filter = [{serviceData:{"fe95":{}}}];
-//this.filter = [{manufacturer:17224}];  
-//this.filter = [{ namePrefix: 'P8' }];
-//this.filter = [{ name: 'P8b' }];
-this.filter = [{services:[ "fbb0" ]}];
-		NRF.filterDevices(devices, this.filter).forEach(function(entry) {
-			print(entry);
-		});
-		print("done");
-}, 5000);
-
-NRF.requestDevice({ filters: [{ services: ["fbb0"] }] }).then(function(device) { print(device) });
-
-
-NRF.requestDevice({ filters: [{ services: ['fbb0'] }] }).then(function(device) { 
-
-print(device["data"]); 
-print(device["manufacturerData"]); 
-print(device["manufacturerData"][7] <<8 | device["manufacturerData"][6] )
-//(inpk[3] << 8 | inpk[2])
-
-//(inpk[6] << 16) + (inpk[7] << 24) + inpk[8] + (inpk[9] << 8)
-//(ev[10] << 24 | ev[11] << 16 | ev[8] << 8  | ev[9])
-}).catch(function(err){print("not found");});
-
-
-
-
-2, 1, 5, 3, 3, 176, 251, 19, 255, 0, 1, 128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 84, 8, 0, 0, 69, 1
-
-2, 1, 5, 3, 3, 176, 251, 19, 255, 0, 1, 128, 234, 202, 17, 54, 237, 196, 21, 1, 0, 8, 9, 0, 0, 69, 0
-
-2, 1, 5, 3, 3, 176, 251, 19, 255, 0, 1, 128, 234, 202, 17, 54, 237, 213, 21, 1, 0, 4, 9, 0, 0, 69, 0
-
-
-128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 244, 8, 0, 0, 69, 1
-128, 234, 202, 17, 54, 237, 213, 21, 1, 0, 4, 9, 0, 0, 69, 0
-128, 234, 202, 17, 54, 237, 162, 211, 0, 0, 251, 6, 0, 0, 69, 0
-128, 234, 202, 17, 54, 237, 162, 211, 0, 0, 251, 6, 0, 0, 69, 0
-
-
-2, 1, 5, 3, 3, 176, 251, 19, 255, 0, 1, 128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 118, 7, 0, 0, 69, 1
-2, 1, 5, 3, 3, 176, 251, 19, 255, 0, 1, 128, 234, 202, 17, 54, 237, 230, 12, 1, 0, 118, 7, 0, 0, 69, 0
-
-128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 120, 7, 0, 0, 69, 1
-128, 234, 202, 17, 54, 237, 230, 12, 1, 0, 118, 7, 0, 0, 69, 0
-
-
-NRF.requestDevice({ filters: [{ services: ['fbb0'] }] }).then(function(device) {
-	print(device); }).catch(function(err){print("not found");}); 
+tpms= {
+	busy:0,
+	try:0,
+	wait:10,
+	def:"",
+	status:"IDLE";
+	//slot:{},
+	scan:(rp,sl)=>{
+		if (!tpms.slot) tpms.slot={};
+		if (sl) tpms.def=sl;
+		if (rp) tpms.try=rp;
+		if (tpms.busy) {print("busy");return;}
+		tpms.busy=1;
+		tpms.def="";
+		NRF.findDevices(function(devices) {
+			tpms.status="SCANNING";
+			this.filter = [{services:[ "fbb0" ]}];
+			NRF.filterDevices(devices, this.filter).forEach(function(device) {
+				print device;
+				let mac =device.id.split(" ")[0].split(":");
+				let id=mac[3]+mac[4]+mac[5];
+				if (!tpms.slot[id]) {
+					if (mac[1]+mac[2] == "eaca") tpms.slot[id]={};
+					else {
+						tpms.status="NOT FOUND";
+						return;
+					}
+				}
+				tpms.def=id;
+				tpms.slot[id].pos=mac[0][1];
+				tpms.slot[id].kpa=((device.manufacturerData[6]|device.manufacturerData[7]<<8|device.manufacturerData[8]<<16|device.manufacturerData[9]<<24)/1000).toFixed(2);
+				tpms.slot[id].bar=(tpms.slot[id].kpa/100).toFixed(2);
+				tpms.slot[id].psi=(tpms.slot[id].kpa*0.1450377377).toFixed(2);
+				tpms.slot[id].temp=((device.manufacturerData[10]|device.manufacturerData[11]<<8|device.manufacturerData[12]<<16|device.manufacturerData[13]<<24)/100).toFixed(2);
+				tpms.slot[id].batt=device.manufacturerData[14];
+				tpms.slot[id].volt=((330-(tpms.slot[id].batt/1.725))/100).toFixed(2);
+				tpms.slot[id].alrm=device.manufacturerData[15];
+				let last= (getTime()|0)-tpms.slot[id].time;
+				print("Got new reading, last reading was",(last<60)?last+" secs ago":(last<3600)?last/60|0+" min ago":(last<86400)?last/3600|0+" hour ago":"never");
+				tpms.status="SUCCESS";
+				tpms.slot[id].time=getTime()|0;
+				print(tpms.slot[id]);
+				tpms.busy=0;
+			});
+			if (tpms.def=="") {
+				if (tpms.try) {
+					tpms.try--;
+					print("Retry :",tpms.try);
+					tpms.status=("RETRYING:",tpms.try);
+					tpms.busy=0;tpms.scan();
+					//setTimeout(()=>{ tpms.busy=0;tpms.scan();},1000);
+				}else {
+					tpms.busy=0;
+					tpms.status="NOT FOUND";
+				}
+			}
+		}, tpms.wait*1000);
+	}
+};
 

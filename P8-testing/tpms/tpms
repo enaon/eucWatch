@@ -49,3 +49,136 @@ this.filter = [{services:[ "fbb0" ]}];
 NRF.requestDevice({ filters: [{ services: ["fbb0"] }] }).then(function(device) { print(device) });
 NRF.requestDevice({ filters: [{ services: ['fbb0'] }] }).then(function(device) { print(device) });
 
+ }
+>NRF.requestDevice({ filters: [{ services: ["fbb0"] }] }).then(function(device) { print(device) });
+=Promise: {  }
+BluetoothDevice: {
+  "id": "81:ea:ca:21:37:fa public",
+  "rssi": -48,
+  "data": new Uint8Array([2, 1, 5, 3, 3, 176, 251, 19, 255, 0, 1, 129, 234, 202, 33, 55, 250, 0, 0, 0, 0, 123, 11, 0, 0, 82, 1]).buffer,
+  "manufacturer": 256,
+  "manufacturerData": new Uint8Array([129, 234, 202, 33, 55, 250, 0, 0, 0, 0, 123, 11, 0, 0, 82, 1]).buffer,
+  "services": [
+    "fbb0"
+   ]
+ }
+>NRF.requestDevice({ filters: [{ services: ["fbb0"] }] }).then(function(device) { print(device) });
+=Promise: {  }
+BluetoothDevice: {
+  "id": "80:ea:ca:11:36:ed public",
+  "rssi": -60,
+  "data": new Uint8Array([2, 1, 5, 3, 3, 176, 251, 19, 255, 0, 1, 128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 122, 11, 0, 0, 98, 1]).buffer,
+  "manufacturer": 256,
+  "manufacturerData": new Uint8Array([128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 122, 11, 0, 0, 98, 1]).buffer,
+  "services": [
+    "fbb0"
+   ]
+ }
+> 
+
+>String.fromCharCode.apply(String,new Uint8Array([128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 122, 11, 0, 0, 98, 1]))
+="\x80\xEA\xCA\x116\xED\0\0\0\0z\v\0\0b\1"
+
+>String.fromCharCode.apply(String,Uint8Array([2, 1, 5, 3, 3, 176, 251, 19, 255, 0, 1, 128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 122, 11, 0, 0, 98, 1]))
+="\2\1\5\3\3\xB0\xFB\x13\xFF\0\1\x80\xEA\xCA\x116\xED\0\0\0\0z\v\0\0b\1"
+
+
+ 
+ NRF.requestDevice({ filters: [{ services: ['fbb0'] }] }).then(function(device) { print(device) });
+ 
+ 
+ NRF.findDevices(function(devices) {
+console.log(devices);
+}, 1000);
+
+NRF.findDevices(function(devices) {
+//this.filter = [{serviceData:{"fe95":{}}}];
+//this.filter = [{manufacturer:17224}];  
+//this.filter = [{ namePrefix: 'P8' }];
+//this.filter = [{ name: 'P8b' }];
+this.filter = [{services:[ "fbb0" ]}];
+		NRF.filterDevices(devices, this.filter).forEach(function(entry) {
+			print(entry);
+		});
+		print("done");
+}, 5000);
+
+NRF.requestDevice({ filters: [{ services: ["fbb0"] }] }).then(function(device) { print(device) });
+
+
+
+
+
+NRF.requestDevice({ filters: [{ services: ['fbb0'] }] }).then(function(device) { 
+
+print(device.data); 
+print(device.manufacturerData); 
+print(device.manufacturerData[7] <<8 | device.manufacturerData[6] );
+//(inpk[3] << 8 | inpk[2])
+
+//(inpk[6] << 16) + (inpk[7] << 24) + inpk[8] + (inpk[9] << 8)
+//(ev[10] << 24 | ev[11] << 16 | ev[8] << 8  | ev[9])
+}).catch(function(err){print("not found");});
+
+
+
+
+
+2, 1, 5, 3, 3, 176, 251, 19, 255, 0, 1, 128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 84, 8, 0, 0, 69, 1
+
+2, 1, 5, 3, 3, 176, 251, 19, 255, 0, 1, 128, 234, 202, 17, 54, 237, 196, 21, 1, 0, 8, 9, 0, 0, 69, 0
+
+2, 1, 5, 3, 3, 176, 251, 19, 255, 0, 1, 128, 234, 202, 17, 54, 237, 213, 21, 1, 0, 4, 9, 0, 0, 69, 0
+
+
+128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 244, 8, 0, 0, 69, 1
+128, 234, 202, 17, 54, 237, 213, 21, 1, 0, 4, 9, 0, 0, 69, 0
+128, 234, 202, 17, 54, 237, 162, 211, 0, 0, 251, 6, 0, 0, 69, 0
+128, 234, 202, 17, 54, 237, 162, 211, 0, 0, 251, 6, 0, 0, 69, 0
+0, 1, 128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 84, 8, 0, 0, 69, 1
+
+
+2, 1, 5, 3, 3, 176, 251, 19, 255, 0, 1, 128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 118, 7, 0, 0, 69, 1
+2, 1, 5, 3, 3, 176, 251, 19, 255, 0, 1, 128, 234, 202, 17, 54, 237, 230, 12, 1, 0, 118, 7, 0, 0, 69, 0
+
+128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 120, 7, 0, 0, 69, 1
+128, 234, 202, 17, 54, 237, 230, 12, 1, 0, 118, 7, 0, 0, 69, 0
+
+
+NRF.requestDevice({ filters: [{ services: ['fbb0'] }] }).then(function(device) {
+	print(device); }).catch(function(err){print("not found");}); 
+
+
+
+
+
+
+
+NRF.requestDevice({
+  filters: [{
+    services: ['fbb0']
+  }]
+}).then(function(device) {
+
+  //print(device.data); 
+  print(device.manufacturerData);
+	//long LE
+  byte0|byte1<<8|byte2<<16|byte3<<24
+	let pressure=device.manufacturerData[7]|device.manufacturerData[8]<<8|device.manufacturerData[9]<<16|device.manufacturerData[10]<<24;
+  print("pressure", presure, pressure/1000, pressure/100000) ;
+  
+}).catch(function(err) {
+  print("not found");
+});
+
+
+
+lala = new Uint8Array([128, 234, 202, 17, 54, 237, 218, 75, 1, 0, 71, 7, 0, 0, 69, 0]);
+
+print(lala.buffer[7] << 8 | lala.buffer[6]);
+print(((lala.buffer[7] & 0xFF) << 8) | (lala.buffer[6] & 0xFF));
+print(((lala.buffer[9] & 0xFF) << 24) | ((lala.buffer[8] & 0xFF) << 16) | ((lala.buffer[7] & 0xFF) << 8) | (lala.buffer[6] & 0xFF));
+
+ byte0|byte1<<8|byte2<<16|byte3<<24
+
+lala=Uint8Array([128, 234, 202, 17, 54, 237, 167, 128, 3, 0, 54, 8, 0, 0, 69, 0]);

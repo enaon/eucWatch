@@ -373,6 +373,17 @@
 			{"name":"eucBegode","url":"eucBegode.js"}
 		]
 	},
+	{ "id": "tpms",
+		"name": "TMPS support",
+		"icon": "icon.png",
+		"version":"0.92",
+		"description": "BLE TPMS Sensors (TP630 etc)",
+		"tags": "apps",
+		"storage": [
+			{"name":"tpms","url":"tpms.js"},
+			{"name":"tpmsFace","url":"tpmsFace.js"}
+		]
+	},
 	{ "id": "repellent",
 		"name": "Repellent",
 		"icon": "icon.png",
