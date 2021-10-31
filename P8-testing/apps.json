@@ -374,11 +374,11 @@
 		]
 	},
 	{ "id": "tpms",
-		"name": "TMPS support",
+		"name": "TMPS Sensor",
 		"icon": "icon.png",
 		"version":"0.92",
-		"description": "BLE TPMS Sensors (TP630 etc)",
-		"tags": "apps",
+		"description": "BLE TPMS Sensors (Tire pressure, TP630 etc)",
+		"tags": "euc",
 		"storage": [
 			{"name":"tpms","url":"tpms.js"},
 			{"name":"tpmsFace","url":"tpmsFace.js"}
