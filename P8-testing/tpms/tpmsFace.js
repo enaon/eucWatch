@@ -13,21 +13,7 @@ face[0] = {
 		this.g.setFont("Vector",25);
 		this.g.drawString("TPMS SENSOR",120-(this.g.stringWidth("TPMS SENSOR")/2),217); 
 		this.g.flip(); 
-		let cnt=0;
-		this.tpms={};
-		for (let i in tpms.slot ){
-			cnt++; 
-			let cl=(getTime()|0 - tpms.slot[i].time < 300)?0:1;
-			if  (cnt==1) 	 this.btn(cl,i,27,60,10,col("dgray"),col("raf"),0,0,119,97,tpms.slot[i].psi,35,60,55);//1
-			else if  (cnt==2) this.btn(cl,i,27,185,10,col("dgray"),col("raf"),122,0,239,97,tpms.slot[i].psi,35,185,55);//2
-			else if  (cnt==3) this.btn(cl,i,27,60,110,col("dgray"),col("raf"),0,100,119,195,tpms.slot[i].psi,35,60,155);//3
-			else if  (cnt==4) this.btn(cl,i,27,185,110,col("dgray"),col("raf"),122,100,239,195,tpms.slot[i].psi,35,185,155);//4
-			this.tpms[cnt]=i;
-		}
-		if (!cnt) 
-			this.btn(1,"TOUCH TO SCAN",25,120,115,col("dgray"),0,0,80,239,160);//4
-		this.min=-1;
-		this.hour=-1;
+		this.info();
 		//this.run=true;
 	},
 	show : function(i){
@@ -68,6 +54,7 @@ face[0] = {
 			this.ntid=setTimeout(function(t){
                 t.ntid=0;
 				face[0].set=0;
+				face[0].info();
 				t.g.setColor(0,0);
 				t.g.fillRect(0,156,239,239);
 				t.g.setColor(1,col("white"));
@@ -77,7 +64,30 @@ face[0] = {
 			},tm,this);
     },
 	info: function(){
+		let cnt=0;
 
+		this.tpms={};
+		for (let i in tpms.slot ){
+			cnt++; 
+			let cl=((getTime()|0) - tpms.slot[i].time < 300)?1:0;
+			col1=col("raf");
+			col2=col("dgray");
+			if (tpms.slot[i].alrm) col1=col("red");col2=col("purple")
+			/*if  (cnt==1) 	 this.btn(cl,i,27,60,10,col1,col2,0,0,119,97,tpms.slot[i].psi,35,60,55);//1
+			else if  (cnt==2) this.btn(cl,i,27,185,10,col1,col2,122,0,239,97,tpms.slot[i].psi,35,185,55);//2
+			else if  (cnt==3) this.btn(cl,i,27,60,110,col1,col2,0,100,119,195,tpms.slot[i].psi,35,60,155);//3
+			else if  (cnt==4) this.btn(cl,i,27,185,110,col1,col2,122,100,239,195,tpms.slot[i].psi,35,185,155);//4
+			*/
+			if  (cnt==1) 	 this.btn(cl,i,27,60,10,col1,col2,0,0,239,50,tpms.slot[i].psi,35,60,55);//1
+			else if  (cnt==2) this.btn(cl,i,27,185,10,col1,col2,0,55,239,105,tpms.slot[i].psi,35,185,55);//2
+			else if  (cnt==3) this.btn(cl,i,27,60,110,col1,col2,0,110,239,165,tpms.slot[i].psi,35,60,155);//3
+			else if  (cnt==4) this.btn(cl,i,27,185,110,col1,col2,0,100,239,195,tpms.slot[i].psi,35,185,155);//4
+			
+			
+			this.tpms[cnt]=i;
+		}
+		if (!cnt) 
+			this.btn(1,"TOUCH TO SCAN",25,120,115,col("dgray"),0,0,80,239,160);//4
 	},
 	more: function(){
 	
