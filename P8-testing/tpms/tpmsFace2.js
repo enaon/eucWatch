@@ -6,12 +6,12 @@ face[0] = {
 	spd:[],
 	init: function(){
 		this.disp=0;
-		this.info();
-		this.btn(1,this.tpms[0],30,60,13,col("raf"),col("raf"),0,0,119,50);
-		this.btn(1,"INFO",30,185,10,0,col("raf"),120,0,239,50);
+		this.get();
+		this.pos=0;
+		this.btn(1,face[0].tpms[face[0].pos],40,75,7,col("raf"),col("raf"),0,0,149,50);
+		this.btn(1,face[0].pos+1+"/"+face[0].tpms.length,35,200,7,0,col("raf"),150,0,239,50);
 		this.sel(tpms.slot[this.tpms[0]].psi,"<  "+this.tpms.length+" TOTAL  >");
 		this.lg();
-		this.pos=0;
 	},
 	show : function(o){
 		if (!this.run) return;
@@ -21,24 +21,11 @@ face[0] = {
 			t.show();
 		},150,this);
 	},
-	info: function(){
+	get: function(){
 		this.tpms=[];
 		for (let i in tpms.slot ){
-			//let cl=((getTime()|0) - tpms.slot[i].time < 300)?1:0;
-			//col1=col("raf");
-			//col2=col("dgray");
-			//if (tpms.slot[i].alrm) col1=col("red");col2=col("purple")
-			/*if  (cnt==1) 	 this.btn(cl,i,27,60,10,col1,col2,0,0,119,97,tpms.slot[i].psi,35,60,55);//1
-			else if  (cnt==2) this.btn(cl,i,27,185,10,col1,col2,122,0,239,97,tpms.slot[i].psi,35,185,55);//2
-			else if  (cnt==3) this.btn(cl,i,27,60,110,col1,col2,0,100,119,195,tpms.slot[i].psi,35,60,155);//3
-			else if  (cnt==4) this.btn(cl,i,27,185,110,col1,col2,122,100,239,195,tpms.slot[i].psi,35,185,155);//4
-			*/
 			this.tpms.unshift(i);
 		}
-		
-
-		//if (!cnt) 
-		//	this.btn(1,"TOUCH TO SCAN",25,120,115,col("dgray"),0,0,80,239,160);//4
 	},
 	sc:function(){
 	 		this.totD=0;
@@ -56,14 +43,6 @@ face[0] = {
 		this.g.setColor(0,0);
 		this.g.fillRect(0,176,239,239);
 		this.g.setColor(1,col("lblue"));
-		/*for (let i = 0; i < this.len; i++) {
-   		let h=(this.ref-i<0)?this.len+(this.ref-i):this.ref-i;
-			if (this.log[h]) {
-				this.g.fillRect(239-(i*(240/this.len)),(this.log[h])?239-(this.log[h]*this.scale):239, 239-((i*(240/this.len))+((240/this.len)-2)),239);		
-				this.g.flip(); 
-			}
-		}
-		*/
 		this.g.flip(); 
     },
     btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
@@ -90,7 +69,6 @@ face[0] = {
     },
 	ind: function(pos){
 		pos=(((pos-1)*(240/this.len))+1);
-		//print(pos,this.pos,this.len,this.ref);
 		this.g.setColor(0,0);
 		this.g.setColor(1,col("yellow"));
 		this.g.fillRect(pos,(this.log[this.pos])?239-(this.log[this.pos]*this.scale):239,pos+((240/this.len)-2),239);
@@ -127,12 +105,6 @@ face[0] = {
 			t.g.flip();
 		},1000,this);
     },
-	comf: function(num){
-      var parts = (''+(num<0?-num:num)).split("."), s=parts[0], L, i=L= s.length, o='';
-      while(i--){ o = (i===0?'':((L-i)%3?'':',')) 
-        +s.charAt(i) +o; }
-        return (num<0?'-':'') + o + (parts[1] ? (o.length>5?'.' + parts[1].toString().substr(0,3): '.' + parts[1]) : ''); 
-	},
 	tid:-1,
 	run:false,
 	clear : function(){
@@ -196,42 +168,52 @@ touchHandler[0]=function(e,x,y){
 			face[0].ind((face[0].pos<=face[0].ref)?face[0].len-(face[0].ref-face[0].pos):face[0].pos-face[0].ref);
 		}else {
 			buzzer([30,50,30]);
-			if  ( 120 < x ) { //info
-				if (face[0].info) return;
+			if  ( 150 < x ) { //info
+				if (face[0].info) {
+					if (face[0].pos+1 < face[0].tpms.length) face[0].pos++;
+					else face[0].pos=0;
+				} 
 				face[0].info=1;
-				let btC=[col("raf"),col("dgray"),col("red"),col("red")];
-				face[0].btn(1,euc.dash.bat,50,180,3,btC[euc.dash.batC],0,120,0,239,50,"%",20,235,8);
-				face[0].btn(1,"DAY",30,60,13,0,0,0,0,119,50);
-				face[0].page=2;	
+				face[0].btn(1,face[0].tpms[face[0].pos],40,75,7,col("raf"),col("raf"),0,0,149,50);
+				face[0].btn(1,face[0].pos+1+"/"+face[0].tpms.length,35,200,7,0,col("raf"),150,0,239,50);
+				face[0].info=1;
 				w.gfx.setColor(0,0);
-				w.gfx.fillRect(0,51,239,239); 
+				w.gfx.fillRect(100,51,190,239); 
 				w.gfx.setColor(1,col("white"));
-				w.gfx.setFontVector(30);
-				w.gfx.drawString(((euc.dash.name)?euc.dash.name:euc.dash.maker),120-w.gfx.stringWidth(((euc.dash.name)?euc.dash.name:euc.dash.maker))/2,62);
 				w.gfx.setFontVector(28);
-				w.gfx.drawString(euc.dash.spdM*((set.def.dash.mph)?0.625:1)*euc.dash.spdF,185-w.gfx.stringWidth(euc.dash.spdM*((set.def.dash.mph)?0.625:1)*euc.dash.spdF),99);
-				w.gfx.drawString(euc.dash.time,185-w.gfx.stringWidth(euc.dash.time),139); 
-				w.gfx.drawString(face[0].comf((euc.dash.trpL*((set.def.dash.mph)?0.625:1)).toFixed(0)),185-w.gfx.stringWidth(face[0].comf((euc.dash.trpL*((set.def.dash.mph)?0.625:1)).toFixed(0))),178); 
-				w.gfx.drawString(face[0].comf((euc.dash.trpT*((set.def.dash.mph)?0.625:1)).toFixed(1)),185-w.gfx.stringWidth(face[0].comf((euc.dash.trpT*((set.def.dash.mph)?0.625:1)).toFixed(1))),217); 
+				w.gfx.drawString(tpms.slot[face[0].tpms[face[0].pos]].bar,185-w.gfx.stringWidth(tpms.slot[face[0].tpms[face[0].pos]].bar),62);
+				w.gfx.drawString(tpms.slot[face[0].tpms[face[0].pos]].psi,185-w.gfx.stringWidth(tpms.slot[face[0].tpms[face[0].pos]].psi),100);
+				w.gfx.drawString(tpms.slot[face[0].tpms[face[0].pos]].temp,185-w.gfx.stringWidth(tpms.slot[face[0].tpms[face[0].pos]].temp),139); 
+				w.gfx.drawString(tpms.slot[face[0].tpms[face[0].pos]].batt,185-w.gfx.stringWidth(tpms.slot[face[0].tpms[face[0].pos]].batt),178); 
+				w.gfx.drawString(tpms.slot[face[0].tpms[face[0].pos]].volt,185-w.gfx.stringWidth(tpms.slot[face[0].tpms[face[0].pos]].volt),217); 
 				w.gfx.flip();	
+				w.gfx.setColor(0,0);
+				w.gfx.fillRect(0,51,99,239); 				
 				w.gfx.setColor(1,col("lgray"));
+				w.gfx.setFontVector(22);
+				w.gfx.drawString("Pressure",5,65);
 				w.gfx.setFontVector(24);
-				w.gfx.drawString("TOP",5,102);
-				w.gfx.drawString("RUN",5,143);
-				w.gfx.drawString("TRP",5,181);
-				w.gfx.drawString("TOT",5,220);
+				w.gfx.drawString("Temp",5,143);
+				w.gfx.drawString("Battery",5,181);
 				w.gfx.flip();
+				w.gfx.setColor(0,0);
+				w.gfx.fillRect(191,51,239,239); 
 				w.gfx.setColor(1,col("lgray"));
-				w.gfx.drawString((set.def.dash.mph)?"mph":"kph",195,102);
-				w.gfx.drawString("Min",195,143);
-				w.gfx.drawString((set.def.dash.mph)?"mi":"Km",195,181);
-				w.gfx.drawString((set.def.dash.mph)?"mi":"Km",195,220);
+				w.gfx.drawString("Bar",195,65);
+				w.gfx.drawString("Psi",195,105);
+				w.gfx.drawString("C",195,143);
+				w.gfx.drawString("%",195,181);
+				w.gfx.drawString("V",195,220);
 				w.gfx.flip();
 			}else{ //sensor
-				if (face[0].pos+1 < face.tpms.length) face[0].pos++;
-				else face[0].pos=0;
-				face[0].btn(1,face[0].tpms[face[0].pos],30,60,13,col("raf"),col("raf"),0,0,119,50);
-				face[0].btn(1,"INFO",30,185,10,0,col("raf"),120,0,239,50);
+				if (face[0].info) {
+					face[0].info=0;
+				} else {
+					if (face[0].pos+1 < face[0].tpms.length) face[0].pos++;
+					else face[0].pos=0;
+				}
+				face[0].btn(1,face[0].tpms[face[0].pos],40,75,7,col("raf"),col("raf"),0,0,149,50);
+				face[0].btn(1,face[0].pos+1+"/"+face[0].tpms.length,35,200,7,0,col("raf"),150,0,239,50);
 				face[0].sel(tpms.slot[face[0].tpms[face[0].pos]].psi,"<  "+face[0].tpms.length+" TOTAL  >");
 				face[0].lg();
 			}			

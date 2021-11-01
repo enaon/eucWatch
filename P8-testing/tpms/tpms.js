@@ -16,7 +16,7 @@ tpms= {
 			tpms.status="SCANNING";
 			this.filter = [{services:[ "fbb0" ]}];
 			NRF.filterDevices(devices, this.filter).forEach(function(device) {
-				print (device);
+				//print (device);
 				let mac =device.id.split(" ")[0].split(":");
 				let id=mac[3]+mac[4]+mac[5];
 				if (!tpms.slot[id]) {
