@@ -12,8 +12,8 @@ tpms= {
 		if (tpms.busy) {print("busy");return;}
 		tpms.busy=1;
 		tpms.def="";
+		tpms.status="SCANNING";
 		NRF.findDevices(function(devices) {
-			tpms.status="SCANNING";
 			this.filter = [{services:[ "fbb0" ]}];
 			NRF.filterDevices(devices, this.filter).forEach(function(device) {
 				//print (device);
@@ -22,7 +22,7 @@ tpms= {
 				if (!tpms.slot[id]) {
 					if (mac[1]+mac[2] == "eaca") tpms.slot[id]={};
 					else {
-						tpms.status="NOT FOUND";
+						tpms.status="NOT FOUND.";
 						return;
 					}
 				}
@@ -44,10 +44,10 @@ tpms= {
 			});
 			if (tpms.def=="") {
 				if (tpms.try) {
+					tpms.status="RETRYING:"+tpms.try;
 					tpms.try--;
-					print("Retry :",tpms.try);
-					tpms.status=("RETRYING:",tpms.try);
-					tpms.busy=0;tpms.scan();
+					tpms.busy=0;
+					tpms.scan();
 					//setTimeout(()=>{ tpms.busy=0;tpms.scan();},1000);
 				}else {
 					tpms.busy=0;

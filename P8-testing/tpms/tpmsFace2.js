@@ -8,13 +8,22 @@ face[0] = {
 		this.disp=0;
 		this.get();
 		this.pos=0;
-		this.btn(1,face[0].tpms[face[0].pos],40,75,7,col("raf"),col("raf"),0,0,149,50);
-		this.btn(1,face[0].pos+1+"/"+face[0].tpms.length,35,200,7,0,col("raf"),150,0,239,50);
-		this.sel(tpms.slot[this.tpms[0]].psi,"<  "+this.tpms.length+" TOTAL  >");
-		this.lg();
+		if (face[0].tpms.length) {
+			let cl=((getTime()|0) - tpms.slot[face[0].tpms[face[0].pos]].time < 300)?1:0;
+			this.btn(cl,face[0].tpms[face[0].pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
+			this.btn(1,face[0].pos+1+"/"+face[0].tpms.length,35,200,7,0,col("raf"),150,0,239,50);
+			this.sel(tpms.slot[this.tpms[0]].psi,"<  "+this.tpms.length+" TOTAL  >");
+			this.lg();
+			this.page=0;
+		}else {
+			this.page="scan";
+			this.btn(1,"TOUCH TO SCAN",35,120,7,col("raf"),col("dgray"),0,0,239,50);
+			this.run=1;
+		}	
 	},
 	show : function(o){
 		if (!this.run) return;
+			this.btn(0,tpms.status,50,120,200,col("raf"),col("dgray"),0,55,239,200);
   		//refresh 
 		this.tid=setTimeout(function(t){
 			t.tid=-1;
@@ -140,13 +149,14 @@ face[1] = {
 touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
-		if (50 < y) {
+		if (face[0].page=="scan"){
+			tpms.scan(1);
+		}else if (50 < y) {
 			if (face[0].info) {buzzer(40);return;}
 			let i=0;
 			buzzer([30,50,30]);
 			if (face[0].log[face[0].ref]&&!face[0].once){
 				face[0].once=1;
-				face[0].pos=face[0].ref;
 			}else if  ( 120 < x ) {
 				face[0].pos++;
 				while (!face[0].log[face[0].pos]) {
@@ -174,7 +184,8 @@ touchHandler[0]=function(e,x,y){
 					else face[0].pos=0;
 				} 
 				face[0].info=1;
-				face[0].btn(1,face[0].tpms[face[0].pos],40,75,7,col("raf"),col("raf"),0,0,149,50);
+				let cl=((getTime()|0) - tpms.slot[face[0].tpms[face[0].pos]].time < 300)?1:0;
+				face[0].btn(cl,face[0].tpms[face[0].pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
 				face[0].btn(1,face[0].pos+1+"/"+face[0].tpms.length,35,200,7,0,col("raf"),150,0,239,50);
 				face[0].info=1;
 				w.gfx.setColor(0,0);
@@ -212,7 +223,8 @@ touchHandler[0]=function(e,x,y){
 					if (face[0].pos+1 < face[0].tpms.length) face[0].pos++;
 					else face[0].pos=0;
 				}
-				face[0].btn(1,face[0].tpms[face[0].pos],40,75,7,col("raf"),col("raf"),0,0,149,50);
+				let cl=((getTime()|0) - tpms.slot[face[0].tpms[face[0].pos]].time < 300)?1:0;
+				face[0].btn(cl,face[0].tpms[face[0].pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
 				face[0].btn(1,face[0].pos+1+"/"+face[0].tpms.length,35,200,7,0,col("raf"),150,0,239,50);
 				face[0].sel(tpms.slot[face[0].tpms[face[0].pos]].psi,"<  "+face[0].tpms.length+" TOTAL  >");
 				face[0].lg();
