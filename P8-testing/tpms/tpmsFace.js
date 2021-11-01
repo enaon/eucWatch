@@ -187,7 +187,7 @@ touchHandler[0]=function(e,x,y){
 		}else if (  80 <= y && y <= 160 && face[0].tpms[4] ) { 
 			buzzer([30,50,30]);
 		}else {
-			face[0].ntfy("SCANNING",euc.dash.spdF,40,1,col("raf"),10000);
+			face[0].ntfy("SCANNING","WAIT 10 SECS",30,1,col("raf"),10000);
 			tpms.scan();
 			buzzer(30,50,30);
 		}
