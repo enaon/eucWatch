@@ -26,12 +26,12 @@ face[0] = {
 			this.g.clearRect(0,0,239,239);
 			this.page="scan";
 			this.btn(1,"TPMS SENSOR",25,100,7,0,0,0,0,239,50);
-			this.btn(1,"TOUCH",30,120,80,col("dgray"),col("dgray"),0,50,239,185,"TO SCAN",30,120,130);
+			this.btn(1,"TOUCH",30,120,80,col("dgray"),col("dgray"),0,50,239,189,"TO SCAN",30,120,130);
 		}	
 	},
 	show : function(o){
 		if (!this.run) return;
-			this.btn(1,tpms.status,27,120,205,col("olive"),0,0,186,239,239,"",22,120,225);
+			this.btn(1,tpms.status,27,120,205,col("olive"),0,0,189,239,239,"",22,120,225);
 			//this.btn(0,tpms.status,30,120,100,col("raf"),col("dgray"),0,55,239,200,"TRY :"+tpms.try,22,120,150);
   		//refresh 
 		this.tid=setTimeout(function(t){
@@ -48,10 +48,10 @@ face[0] = {
 	bar: function(){
 		this.foot="bar";
 		this.g.setColor(0,0);
-		this.g.fillRect(0,186,239,239);
+		this.g.fillRect(0,189,239,239);
 		this.g.setColor(1,col("lblue"));
 		var img = require("heatshrink").decompress(atob("mEwwIcZg/+Aocfx+AAoV4gPgAoQDBuAEBgPAgE4AoQVBjgFBgYCBhgoCAQMGAQUgAolACggFL6AFGGQQFJEZsGsAFEIIhNFLIplFgBxBnwFCPYP/AoU8gf/BwKVB/+/SAUD/kf+CjDh/4V4n8AoYeBAoq1DgIqDAAP/XYcAv4qEn4qEGwsfC4kPEYkHF4Z1DACA="));
-		this.g.drawImage(img,10,190);
+		this.g.drawImage(img,10,195);
 		img=0;
 		this.g.flip();
 		//this.btn(1,"TOUCH TO SCAN",22,120,7,col("raf"),col("dgray"),0,0,239,50);
@@ -73,7 +73,7 @@ face[0] = {
 			this.ntfy(tpms.status,"",27,col("red"),1,2);	
 			return;
 		}
-		this.btn(1,tpms.status,27,120,205,col("olive"),0,0,186,239,239,"",22,120,225);
+		this.btn(1,tpms.status,27,120,205,col("olive"),0,0,190,239,239,"",22,120,225);
   		//refresh 
 		if (this.tid>=0) clearTimeout(this.tid);
 		this.tid=setTimeout(function(t){
@@ -111,14 +111,20 @@ face[0] = {
     },
 	sel: function(txt1,txt2){
 		this.g.setColor(0,col("dgray"));
-		this.g.fillRect(0,51,239,185);
+		this.g.fillRect(0,51,239,189);
 		this.g.setColor(1,col("white"));
-		this.g.setFont("Vector",53);	
+		this.g.setFont("Vector",55);	
 		let size=this.g.stringWidth(txt1);
-		this.g.drawString(txt1,105-(this.g.stringWidth(txt1)/2),68); 
+		this.g.drawString(txt1,105-(this.g.stringWidth(txt1)/2),57); 
 		this.g.setFont("Vector",27);	
-		this.g.drawString(" PSI",125+(size/2)-(this.g.stringWidth(" PSI")/2),86);
-		this.g.drawString(txt2,120-(this.g.stringWidth(txt2)/2),137);
+		this.g.drawString(" PSI",125+(size/2)-(this.g.stringWidth(" PSI")/2),77);
+		this.g.setFont("Vector",23);	
+		this.g.drawString(this.dev.batt+"%",60-(this.g.stringWidth(this.dev.batt+"%")/2),115);
+		this.g.drawString(this.dev.temp+"C",170-(this.g.stringWidth(this.dev.temp+"C")/2),115);
+		this.g.setFont("Vector",25);
+		let tim=new Date(this.dev.time*1000).toString().split(" ")[1]+" "+new Date(this.dev.time*1000).toString().split(" ")[2]+" "+new Date(this.dev.time*1000).toString().split(" ")[4];
+		this.g.drawString(tim,120-(this.g.stringWidth(tim)/2),155);
+
 		this.g.flip();
     },
 	ind: function(pos){
@@ -143,7 +149,7 @@ face[0] = {
     },
 	ntfy: function(txt1,txt0,size,clr,bt,tm){
 		this.g.setColor(0,clr);
-		this.g.fillRect(0,186,239,239);
+		this.g.fillRect(0,190,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",size);
 		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),205); 
