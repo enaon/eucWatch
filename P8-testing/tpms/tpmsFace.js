@@ -10,8 +10,8 @@ face[0] = {
 		this.pos=(set.def.tpms)?set.def.tpms:0;
 		this.try=tpms.try;
 		this.tpms=set.read("tpms","slot");
-		this.dev=set.read("tpms",this.tpms[this.pos]);
 		if (this.tpms.length) {
+			this.dev=set.read("tpms",this.tpms[this.pos]);
 			let tm=(getTime()|0) - this.dev.time;
 			let cl=(tm < 300)?1:0;
 			this.btn(cl,this.tpms[this.pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
@@ -21,20 +21,23 @@ face[0] = {
 			else this.bar();
 			this.page=0;
 		}else {
+			this.pos=0;
+			this.g.setColor(0,0);
 			this.g.clearRect(0,0,239,239);
 			this.page="scan";
-			this.btn(1,"TOUCH TO SCAN",22,120,7,col("raf"),col("dgray"),0,0,239,50);
-			this.run=1;
+			this.btn(1,"TPMS SENSOR",25,100,7,0,0,0,0,239,50);
+			this.btn(1,"TOUCH",30,120,80,col("dgray"),col("dgray"),0,50,239,185,"TO SCAN",30,120,130);
 		}	
 	},
 	show : function(o){
 		if (!this.run) return;
-			this.btn(0,tpms.status,30,120,100,col("raf"),col("dgray"),0,55,239,200,"TRY :"+tpms.try,22,120,150);
+			this.btn(1,tpms.status,27,120,205,col("olive"),0,0,186,239,239,"",22,120,225);
+			//this.btn(0,tpms.status,30,120,100,col("raf"),col("dgray"),0,55,239,200,"TRY :"+tpms.try,22,120,150);
   		//refresh 
 		this.tid=setTimeout(function(t){
 			t.tid=-1;
 			t.show();
-		},150,this);
+		},500,this);
 	},
 	get: function(){
 		this.tpms=[];
@@ -56,6 +59,8 @@ face[0] = {
 	scan: function(){
 		this.foot=0;
 		if (tpms.status=="SUCCESS") {
+			this.page=0;
+			this.tpms=set.read("tpms","slot");
 			this.dev=set.read("tpms",this.tpms[this.pos]);
 			let tm=(getTime()|0) - this.dev.time;
 			let cl=(tm < 300)?1:0;
@@ -187,21 +192,21 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
 		if (face[0].page=="scan"){
+			tpms.new=0;
 			tpms.scan(face[0].try);
+			//face[0].run=1;
+			face[0].scan();
 			buzzer([30,50,30]);
 		}else if (190 < y) {
 			if (face[0].foot=="bar") {
 				if  ( x < 80 ) { 
+					tpms.new=0;
 					tpms.scan(face[0].try);
 					face[0].scan();
 					buzzer([30,50,30]);
 			
-				}
-				
-				buzzer(40);return;
-				}
-			let i=0;
-			buzzer([30,50,30]);
+				}else buzzer(40);
+			}else buzzer(40);
 		}else if (50 < y) {
 			if (face[0].info) {buzzer(40);return;}
 			let i=0;

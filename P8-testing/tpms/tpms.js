@@ -47,8 +47,8 @@ tpms= {
 				set.write("tpms",id,dev);
 				tpms.status="SUCCESS";
 				tpms.busy=0;
+				return;
 			});
-			tpms.new=0;
 			if (tpms.def=="") {
 				if (tpms.try) {
 					tpms.status="RETRYING:"+tpms.try;
@@ -58,6 +58,7 @@ tpms= {
 					//setTimeout(()=>{ tpms.busy=0;tpms.scan();},1000);
 				}else {
 					tpms.busy=0;
+					tpms.new=0;
 					tpms.status="NOT FOUND";
 				}
 			}
