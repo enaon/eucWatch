@@ -5,15 +5,20 @@ face[0] = {
 	g:w.gfx,
 	spd:[],
 	init: function(){
+		//if (tpms.status!="NOT FOUND") tpms.status="IDLE";
 		this.disp=0;
-		this.get();
-		this.pos=0;
-		if (face[0].tpms.length) {
-			let cl=((getTime()|0) - tpms.slot[face[0].tpms[face[0].pos]].time < 300)?1:0;
-			this.btn(cl,face[0].tpms[face[0].pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
-			this.btn(1,face[0].pos+1+"/"+face[0].tpms.length,35,200,7,0,col("raf"),150,0,239,50);
-			this.sel(tpms.slot[this.tpms[0]].psi,"<  "+this.tpms.length+" TOTAL  >");
-			this.lg();
+		this.pos=(set.def.tpms)?set.def.tpms:0;
+		this.try=tpms.try;
+		this.tpms=set.read("tpms","slot");
+		this.dev=set.read("tpms",this.tpms[this.pos]);
+		if (this.tpms.length) {
+			let tm=(getTime()|0) - this.dev.time;
+			let cl=(tm < 300)?1:0;
+			this.btn(cl,this.tpms[this.pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
+			this.btn(1,this.pos+1+"/"+this.tpms.length,35,200,7,0,col("raf"),150,0,239,50);
+			this.sel(this.dev.psi,"<  "+(tm < 3600)?new Date(tm * 1000).toISOString().substr(11, 8):new Date(tm * 1000).toString().substr(0,24)+"  >");
+			if (tpms.status=="SCANNING") this.scan();
+			else this.bar();
 			this.page=0;
 		}else {
 			this.g.clearRect(0,0,239,239);
@@ -24,7 +29,7 @@ face[0] = {
 	},
 	show : function(o){
 		if (!this.run) return;
-			this.btn(0,tpms.status,30,120,100,col("raf"),col("dgray"),0,55,239,200);
+			this.btn(0,tpms.status,30,120,100,col("raf"),col("dgray"),0,55,239,200,"TRY :"+tpms.try,22,120,150);
   		//refresh 
 		this.tid=setTimeout(function(t){
 			t.tid=-1;
@@ -33,10 +38,44 @@ face[0] = {
 	},
 	get: function(){
 		this.tpms=[];
-		for (let i in tpms.slot ){
+		for (let i in tpms.dev ){
 			this.tpms.unshift(i);
 		}
 	},
+	bar: function(){
+		this.foot="bar";
+		this.g.setColor(0,0);
+		this.g.fillRect(0,186,239,239);
+		this.g.setColor(1,col("lblue"));
+		var img = require("heatshrink").decompress(atob("mEwwIcZg/+Aocfx+AAoV4gPgAoQDBuAEBgPAgE4AoQVBjgFBgYCBhgoCAQMGAQUgAolACggFL6AFGGQQFJEZsGsAFEIIhNFLIplFgBxBnwFCPYP/AoU8gf/BwKVB/+/SAUD/kf+CjDh/4V4n8AoYeBAoq1DgIqDAAP/XYcAv4qEn4qEGwsfC4kPEYkHF4Z1DACA="));
+		this.g.drawImage(img,10,190);
+		img=0;
+		this.g.flip();
+		//this.btn(1,"TOUCH TO SCAN",22,120,7,col("raf"),col("dgray"),0,0,239,50);
+	},
+	scan: function(){
+		this.foot=0;
+		if (tpms.status=="SUCCESS") {
+			this.dev=set.read("tpms",this.tpms[this.pos]);
+			let tm=(getTime()|0) - this.dev.time;
+			let cl=(tm < 300)?1:0;
+			this.btn(cl,this.tpms[this.pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
+			this.btn(1,this.pos+1+"/"+this.tpms.length,35,200,7,0,col("raf"),150,0,239,50);
+			this.sel(this.dev.psi,"<  "+(tm < 3600)?new Date(tm * 1000).toISOString().substr(11, 8):new Date(tm * 1000).toString().substr(0,24)+"  >");
+			this.ntfy("FOUND : "+tpms.new,"",27,col("raf"),1,2);	
+			return;
+		}else if (tpms.status=="NOT FOUND") {
+			this.ntfy(tpms.status,"",27,col("red"),1,2);	
+			return;
+		}
+		this.btn(1,tpms.status,27,120,205,col("olive"),0,0,186,239,239,"",22,120,225);
+  		//refresh 
+		if (this.tid>=0) clearTimeout(this.tid);
+		this.tid=setTimeout(function(t){
+			t.tid=-1;
+			t.scan();
+		},500,this);
+    },
 	sc:function(){
 	 		this.totD=0;
 			this.scale=0;
@@ -67,7 +106,7 @@ face[0] = {
     },
 	sel: function(txt1,txt2){
 		this.g.setColor(0,col("dgray"));
-		this.g.fillRect(0,51,239,175);
+		this.g.fillRect(0,51,239,185);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",53);	
 		let size=this.g.stringWidth(txt1);
@@ -97,29 +136,25 @@ face[0] = {
 		this.g.fillRect(pos,176,pos+(240/this.len),178);
 		this.g.flip();
     },
-	ntfy: function(txt1,txt0,size,clr,bt){
+	ntfy: function(txt1,txt0,size,clr,bt,tm){
 		this.g.setColor(0,clr);
-		this.g.fillRect(0,180,239,239);
+		this.g.fillRect(0,186,239,239);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",size);
-		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
+		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),205); 
 		this.g.flip();
 		if (this.ntid) clearTimeout(this.ntid);
 		this.ntid=setTimeout(function(t){
 			t.ntid=0;
-			t.g.setColor(0,0);
-			t.g.fillRect(0,196,239,239);
-			t.g.setColor(1,col("white"));
-			t.g.setFont("Vector",20);
-			t.g.drawString(euc.dash.maker,120-(t.g.stringWidth(euc.dash.maker)/2),217); 
-			t.g.flip();
-		},1000,this);
+			t.bar();
+		},tm*1000,this);
     },
 	tid:-1,
 	run:false,
 	clear : function(){
 		this.run=false;
 		if (this.tid>=0) clearTimeout(this.tid);
+		if (this.ntid) clearTimeout(this.ntid);
 		this.tid=-1;
 		return true;
 	},
@@ -148,45 +183,40 @@ face[1] = {
 
 //touch-main
 touchHandler[0]=function(e,x,y){
+	this.timeout();
 	switch (e) {
 	case 5: //tap event
 		if (face[0].page=="scan"){
-			tpms.scan(1);
+			tpms.scan(face[0].try);
+			buzzer([30,50,30]);
+		}else if (190 < y) {
+			if (face[0].foot=="bar") {
+				if  ( x < 80 ) { 
+					tpms.scan(face[0].try);
+					face[0].scan();
+					buzzer([30,50,30]);
+			
+				}
+				
+				buzzer(40);return;
+				}
+			let i=0;
 			buzzer([30,50,30]);
 		}else if (50 < y) {
 			if (face[0].info) {buzzer(40);return;}
 			let i=0;
 			buzzer([30,50,30]);
-			if (face[0].log[face[0].ref]&&!face[0].once){
-				face[0].once=1;
-			}else if  ( 120 < x ) {
-				face[0].pos++;
-				while (!face[0].log[face[0].pos]) {
- 					face[0].pos++;
-					i++;
-					if (face[0].len<i) return;
-					if (face[0].len<face[0].pos) face[0].pos=0;
-				}
-			}else if ( x < 120 ){
- 				face[0].pos--;
-				while (!face[0].log[face[0].pos]) {
- 					face[0].pos--;
-					if (face[0].pos< 0) face[0].pos=face[0].len-1;
-					i++;
-					if (face[0].len<i) return;
-				}
-			}
-			face[0].sel(face[0].comf((face[0].log[face[0].pos]*((set.def.dash.mph)?0.625:1)).toFixed((face[0].page)?(face[0].page==1)?1:0:2)), face[0].id[face[0].pos].toUpperCase());
-			face[0].ind((face[0].pos<=face[0].ref)?face[0].len-(face[0].ref-face[0].pos):face[0].pos-face[0].ref);
 		}else {
 			buzzer([30,50,30]);
 			if  ( 150 < x ) { //info
 				if (face[0].info) {
 					if (face[0].pos+1 < face[0].tpms.length) face[0].pos++;
 					else face[0].pos=0;
+					set.def.tpms=face[0].pos;
 				} 
+				face[0].dev=set.read("tpms",face[0].tpms[face[0].pos]);
 				face[0].info=1;
-				let cl=((getTime()|0) - tpms.slot[face[0].tpms[face[0].pos]].time < 300)?1:0;
+				let cl=((getTime()|0) - face[0].dev.time < 300)?1:0;
 				face[0].btn(cl,face[0].tpms[face[0].pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
 				face[0].btn(1,face[0].pos+1+"/"+face[0].tpms.length,35,200,7,0,col("raf"),150,0,239,50);
 				face[0].info=1;
@@ -194,11 +224,11 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.fillRect(100,51,190,239); 
 				w.gfx.setColor(1,col("white"));
 				w.gfx.setFontVector(28);
-				w.gfx.drawString(tpms.slot[face[0].tpms[face[0].pos]].bar,185-w.gfx.stringWidth(tpms.slot[face[0].tpms[face[0].pos]].bar),62);
-				w.gfx.drawString(tpms.slot[face[0].tpms[face[0].pos]].psi,185-w.gfx.stringWidth(tpms.slot[face[0].tpms[face[0].pos]].psi),100);
-				w.gfx.drawString(tpms.slot[face[0].tpms[face[0].pos]].temp,185-w.gfx.stringWidth(tpms.slot[face[0].tpms[face[0].pos]].temp),139); 
-				w.gfx.drawString(tpms.slot[face[0].tpms[face[0].pos]].batt,185-w.gfx.stringWidth(tpms.slot[face[0].tpms[face[0].pos]].batt),178); 
-				w.gfx.drawString(tpms.slot[face[0].tpms[face[0].pos]].volt,185-w.gfx.stringWidth(tpms.slot[face[0].tpms[face[0].pos]].volt),217); 
+				w.gfx.drawString(face[0].dev.bar,185-w.gfx.stringWidth(face[0].dev.bar),62);
+				w.gfx.drawString(face[0].dev.psi,185-w.gfx.stringWidth(face[0].dev.psi),100);
+				w.gfx.drawString(face[0].dev.temp,185-w.gfx.stringWidth(face[0].dev.temp),139); 
+				w.gfx.drawString(face[0].dev.batt,185-w.gfx.stringWidth(face[0].dev.batt),178); 
+				w.gfx.drawString(face[0].dev.volt,185-w.gfx.stringWidth(face[0].dev.volt),217); 
 				w.gfx.flip();	
 				w.gfx.setColor(0,0);
 				w.gfx.fillRect(0,51,99,239); 				
@@ -224,15 +254,17 @@ touchHandler[0]=function(e,x,y){
 				} else {
 					if (face[0].pos+1 < face[0].tpms.length) face[0].pos++;
 					else face[0].pos=0;
+					set.def.tpms=face[0].pos;
 				}
-				let cl=((getTime()|0) - tpms.slot[face[0].tpms[face[0].pos]].time < 300)?1:0;
+				face[0].dev=set.read("tpms",face[0].tpms[face[0].pos]);
+				let cl=((getTime()|0) - face[0].dev.time < 300)?1:0;
 				face[0].btn(cl,face[0].tpms[face[0].pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
 				face[0].btn(1,face[0].pos+1+"/"+face[0].tpms.length,35,200,7,0,col("raf"),150,0,239,50);
-				face[0].sel(tpms.slot[face[0].tpms[face[0].pos]].psi,"<  "+face[0].tpms.length+" TOTAL  >");
-				face[0].lg();
+				let tm=(getTime()|0) - face[0].dev.time;
+				face[0].sel(face[0].dev.psi,"<  "+(tm < 3600)?new Date(tm * 1000).toISOString().substr(11, 8):new Date(tm * 1000).toString().substr(0,24)+"  >");
+				face[0].bar();
 			}			
 		}
-		this.timeout();
 		break;
     case 1: //slide down event
 		face.go("main",0);
@@ -242,9 +274,7 @@ touchHandler[0]=function(e,x,y){
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 			buzzer([30,50,30]);
-			this.timeout();
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
-        this.timeout();
 		break;
     case 3: //slide left event
 		face.go("dashGarage",0);
@@ -254,7 +284,6 @@ touchHandler[0]=function(e,x,y){
 		return;
     case 12: //touch and hold(long press) event
 		buzzer(40);
-		this.timeout();
 		return;
     }
 };
