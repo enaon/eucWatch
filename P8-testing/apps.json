@@ -8,7 +8,7 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"C:.bootrst","url":"init.js"}
+			{"name":".bootrst","url":"init.js"}
 		]
 	},
 	{ "id": "init_pt",
@@ -20,7 +20,7 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"C:.bootrst","url":"init.js"}
+			{"name":".bootrst","url":"init.js"}
 		]
 	},
 	{ "id": "init_r_d",
@@ -32,7 +32,7 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"C:.bootrst","url":"init.js"}
+			{"name":".bootrst","url":"init.js"}
 		]
 	},
 	{ "id": "init_16",
@@ -44,7 +44,7 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"C:.bootrst","url":"init.js"}
+			{"name":".bootrst","url":"init.js"}
 		]
 	},
 	{ "id": "handler",
