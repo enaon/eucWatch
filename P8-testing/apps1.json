@@ -8,7 +8,7 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"C:.bootrst","url":"init.js"}
+			{"name":".bootrst","url":"init.js"}
 		]
 	},
 	{ "id": "init_pt",
@@ -20,7 +20,7 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"C:.bootrst","url":"init.js"}
+			{"name":".bootrst","url":"init.js"}
 		]
 	},
 	{ "id": "init_r_d",
@@ -32,7 +32,7 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"C:.bootrst","url":"init.js"}
+			{"name":".bootrst","url":"init.js"}
 		]
 	},
 	{ "id": "init_16",
@@ -44,7 +44,7 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"C:.bootrst","url":"init.js"}
+			{"name":".bootrst","url":"init.js"}
 		]
 	},
 	{ "id": "handler",
@@ -56,7 +56,7 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"C:handler","url":"handler.js"}
+			{"name":"handler","url":"handler.js"}
 		]
 	},  
 	{ "id": "handler_pt",
@@ -68,7 +68,7 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"C:handler","url":"handler.js"}
+			{"name":"handler","url":"handler.js"}
 		]
 	}, 
 	{ "id": "handler_p22b1",
@@ -80,7 +80,7 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"C:handler","url":"handler.js"}
+			{"name":"handler","url":"handler.js"}
 		]
 	}, 
 	{ "id": "main",
@@ -91,7 +91,7 @@
 		"tags": "apps",
 		"type":"main",
 		"storage": [
-			{"name":"C:main","url":"main.js"},
+			{"name":"main","url":"main.js"},
 			{"name":"mainOptions","url":"mainOptions.js"}
 
 		]
@@ -105,7 +105,7 @@
 		"type":"main",
 		"readme": "README.md",
 		"storage": [
-			{"name":"C:settings","url":"settings.js"}
+			{"name":"settings","url":"settings.js"}
 		]
 	},
 	{ "id": "alarm",
@@ -160,12 +160,12 @@
 		"tags": "euc",
 		"readme": "README.md",
 		"storage": [
-			{"name":"C:dash_simple","url":"dash_simple.js"},
-			{"name":"C:dash_digital","url":"dash_digital.js"},
+			{"name":"dash_simple","url":"dash_simple.js"},
+			{"name":"dash_digital","url":"dash_digital.js"},
 			{"name":"dashGarage","url":"dashGarage.js"},
 			{"name":"dashAlerts","url":"dashAlerts.js"},
 			{"name":"dashScan","url":"dashScan.js"},
-			{"name":"C:dashOff","url":"dashOff.js"},
+			{"name":"dashOff","url":"dashOff.js"},
 			{"name":"dashOptions","url":"dashOptions.js"}
 		]
 	}, 
@@ -293,7 +293,7 @@
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"C:eucKingsong","url":"eucKingsong.js"}
+			{"name":"eucKingsong","url":"eucKingsong.js"}
 		]
 		},
 	{ "id": "eucNinebot",
