@@ -88,12 +88,11 @@
 	{ "id": "main",
 		"name": "Clock",
 		"icon": "icon.png",
-		"version":"0.99.2",
+		"version":"0.99.1",
 		"description": "Main Clock/notifications face",
 		"tags": "apps",
 		"type":"main",
 		"storage": [
-			{"name":"main","url":"main.js"},
 			{"name":"C:main","url":"main.js"},
 			{"name":"mainOptions","url":"mainOptions.js"}
 
