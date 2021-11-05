@@ -124,10 +124,10 @@ euc.tmp.four=function(inpk){
 		if (euc.dash.model.includes("-")) {
 			let model=euc.dash.name.split("-")[0];
 			if (model.includes("S18") || model.includes("18L") ||  model.includes("18XL") || model.includes("16X") )
-				euc.dash.batF = 1.25;
+				euc.dash.bms = 1.25;
 			else 
-				euc.dash.batF = 1;
-		} else euc.dash.batF=1.25;
+				euc.dash.bms = 1;
+		} else euc.dash.bms=1.25;
 		set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",euc.dash.name);
 	}	
 };	
