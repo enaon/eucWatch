@@ -297,7 +297,7 @@ face[1] = {
 		this.g.off();
 	}
 };	
-face.main={"0":face[0],"1":face[1]};
+//face.main={"0":face[0],"1":face[1]};
 
 //touch
 
@@ -373,4 +373,4 @@ touchHandler[0]=function(e,x,y){
     }
    face.off();
 };
-touchHandler.main={"0":touchHandler[0]};
+//touchHandler.main={"0":touchHandler[0]};

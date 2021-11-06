@@ -8,7 +8,7 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":".bootrst","url":"init.js"}
+			{"name":"C:.bootrst","url":"init.js"}
 		]
 	},
 	{ "id": "handler",
@@ -20,7 +20,7 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"handler","url":"handler.js"}
+			{"name":"C:handler","url":"handler.js"}
 		]
 	},  
 	{ "id": "UI",
@@ -32,7 +32,7 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"ui","url":"ui.js"}
+			{"name":"C:ui","url":"ui.js"}
 		]
 	},
 	{ "id": "main",
@@ -43,7 +43,7 @@
 		"tags": "apps",
 		"type":"main",
 		"storage": [
-			{"name":"main","url":"main.js"},
+			{"name":"C:main","url":"main.js"},
 			{"name":"mainOptions","url":"mainOptions.js"}
 
 		]
@@ -57,7 +57,7 @@
 		"type":"main",
 		"readme": "README.md",
 		"storage": [
-			{"name":"settings","url":"settings.js"}
+			{"name":"C:settings","url":"settings.js"}
 		]
 	},
 	{ "id": "alarm",
@@ -89,7 +89,7 @@
 		"tags": "apps",
 		"type": "notify",
 		"storage": [
-			{"name":"notify","url":"notify.js"}
+			{"name":"C:notify","url":"notify.js"}
 		]
 	},
 	{ "id": "m_gb",
@@ -112,13 +112,13 @@
 		"tags": "euc",
 		"readme": "README.md",
 		"storage": [
-			{"name":"dash_simple","url":"dash_simple.js"},
-			{"name":"dash_digital","url":"dash_digital.js"},
+			{"name":"C:dash_simple","url":"dash_simple.js"},
+			{"name":"C:dash_digital","url":"dash_digital.js"},
 			{"name":"dashGarage","url":"dashGarage.js"},
 			{"name":"dashAlerts","url":"dashAlerts.js"},
 			{"name":"dashScan","url":"dashScan.js"},
-			{"name":"dashOff","url":"dashOff.js"},
-			{"name":"dashOptions","url":"dashOptions.js"}
+			{"name":"C:dashOff","url":"dashOff.js"},
+			{"name":"C:dashOptions","url":"dashOptions.js"}
 		]
 	}, 
 	{ "id": "dashKingsong",
@@ -232,9 +232,9 @@
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"euc","url":"euc.js"},
+			{"name":"C:euc","url":"euc.js"},
 			{"name":"eucSlot.json","url":"eucSlot.json"},
-			{"name":"emuZ","url":"emuZ.js"}
+			{"name":"C:emuZ","url":"emuZ.js"}
 		]
 		},
 	{ "id": "eucKingsong",
@@ -245,7 +245,7 @@
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"eucKingsong","url":"eucKingsong.js"}
+			{"name":"C:eucKingsong","url":"eucKingsong.js"}
 		]
 		},
 	{ "id": "eucNinebot",
@@ -256,7 +256,7 @@
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"eucNinebot","url":"eucNinebot.js"}
+			{"name":"C:eucNinebot","url":"eucNinebot.js"}
 		]
 		},
 	{ "id": "eucNinebotZ",
@@ -267,7 +267,7 @@
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"eucNinebotZ","url":"eucNinebotZ.js"}
+			{"name":"C:eucNinebotZ","url":"eucNinebotZ.js"}
 		]
 		},
 	{ "id": "eucNinebotS",
@@ -278,7 +278,7 @@
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"eucNinebotS","url":"eucNinebotS.js"}
+			{"name":"C:eucNinebotS","url":"eucNinebotS.js"}
 		]
 		},
 	{ "id": "eucInmotion",
@@ -289,7 +289,7 @@
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"eucInmotion","url":"eucInmotion.js"}
+			{"name":"C:eucInmotion","url":"eucInmotion.js"}
 		]
 	},
 	{ "id": "eucInmotionV1",
@@ -300,7 +300,7 @@
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"eucInmotionV1","url":"eucInmotionV1.js"}
+			{"name":"C:eucInmotionV1","url":"eucInmotionV1.js"}
 		]
 	},
    { "id": "eucVeteran",
@@ -311,7 +311,7 @@
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"eucVeteran","url":"eucVeteran.js"}
+			{"name":"C:eucVeteran","url":"eucVeteran.js"}
 		]
 	},
    { "id": "eucBegode",
@@ -322,7 +322,7 @@
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"eucBegode","url":"eucBegode.js"}
+			{"name":"C:eucBegode","url":"eucBegode.js"}
 		]
 	},
 	{ "id": "repellent",

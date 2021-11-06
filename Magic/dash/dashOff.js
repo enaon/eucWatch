@@ -153,7 +153,7 @@ face[1] = {
 		return;
 	},
 };	
-face.dashOff={"0":face[0],"1":face[1]};
+//face.dashOff={"0":face[0],"1":face[1]};
 
 //touch-main
 touchHandler[0]=function(e,x,y){
@@ -283,4 +283,4 @@ touchHandler[0]=function(e,x,y){
 		return;
     }
 };
-touchHandler.dashOff={"0":touchHandler[0]};
+//touchHandler.dashOff={"0":touchHandler[0]};

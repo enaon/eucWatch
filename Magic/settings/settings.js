@@ -272,7 +272,7 @@ face[5] = {
 		this.clear(o);
 	}
 };
-face.settings={"0":face[0],"1":face[1],"5":face[5]};
+//face.settings={"0":face[0],"1":face[1],"5":face[5]};
 //touch-settings  
 touchHandler[0]=function(e,x,y){
     if (set.tor==1){
@@ -549,4 +549,4 @@ touchHandler[5]=function(e,x,y){
     }
    face.off();
 };
-touchHandler.settings={"0":touchHandler[0],"5":touchHandler[5]};
+//touchHandler.settings={"0":touchHandler[0],"5":touchHandler[5]};
