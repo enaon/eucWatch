@@ -249,7 +249,7 @@ face[0] = {
 		//hours
 		if (this.t[0]!=this.hour){
 			this.hour=this.t[0];
-			this.g.setColor(0,col("dgray"));
+			this.g.setColor(0,this.bmin);
 			this.g.fillRect(0,55,95,150);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",73);

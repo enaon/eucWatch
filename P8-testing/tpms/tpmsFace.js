@@ -198,7 +198,7 @@ touchHandler[0]=function(e,x,y){
 			//face[0].run=1;
 			face[0].scan();
 			buzzer([30,50,30]);
-    }else if (face[0].page=="sett"){
+		}else if (face[0].page=="sett"){
 			if ( 0 < x && x < 155 && y < 75 ) { //1-2
 				buzzer([30,50,30]);
 				if (set.read("tpms","dev")[face[0].tpms[face[0].pos]].log) {
@@ -305,8 +305,10 @@ touchHandler[0]=function(e,x,y){
 		}
 		break;
     case 1: //slide down event
+		let mode=set.read("tpms","mode")-0;
+		if (mode && mode!=4) tpms.scan();
 		if (face.faceSave!=-1) {
-			  face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
+			face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
 		}else
 			face.go("main",0);
 		return;
@@ -315,7 +317,11 @@ touchHandler[0]=function(e,x,y){
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 			buzzer([30,50,30]);
-		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
+		}else if (Boolean(require("Storage").read("settings"))) {
+			let mode=set.read("tpms","mode")-0;
+			if (mode && mode!=4) tpms.scan();
+			face.go("settings",0);return;
+		}
 		break;
     case 3: //slide left event
 		buzzer(40);
@@ -327,6 +333,8 @@ touchHandler[0]=function(e,x,y){
 			face[0].init();
 			return;
 		}
+		let mode=set.read("tpms","mode")-0;
+		if (mode && mode!=4) tpms.scan();
 		face.go("settings",0,1);
 		return;
     case 12: //touch and hold(long press) event

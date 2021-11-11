@@ -1,5 +1,5 @@
 if (!set.read("tpms")) {
-	set.write("tpms","dev",{}):
+	set.write("tpms","dev",{});
 	set.write("tpms","mode",0);
 }
 tpms= {
@@ -31,6 +31,15 @@ tpms= {
 					}else {
 						tpms.new=0;
 						tpms.status="NOT FOUND";
+						let mode=set.read("tpms","mode")-0;
+						let modT=[5,30,60];
+						if (mode && mode!=4) {
+							if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
+							tpms.tid=setTimeout(()=>{ 
+								tpms.tid=0;
+								tpms.scan();
+							},modT[mode]*60000);
+						}	
 						return;
 					}
 				}
@@ -72,6 +81,15 @@ tpms= {
 					tpms.busy=0;
 					tpms.new=0;
 					tpms.status="NOT FOUND";
+					let mode=set.read("tpms","mode")-0;
+					let modT=[5,30,60];
+					if (mode && mode!=4) {
+						if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
+						tpms.tid=setTimeout(()=>{ 
+							tpms.tid=0;
+							tpms.scan();
+						},modT[mode]*60000);
+					}	
 				}
 			}
 		}, tpms.wait*1000);
