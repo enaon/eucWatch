@@ -1,4 +1,7 @@
-if (!set.read("tpms")) set.write("tpms","dev",{});
+if (!set.read("tpms")) {
+	set.write("tpms","dev",{}):
+	set.write("tpms","mode",0);
+}
 tpms= {
 	busy:0,
 	try:0,

@@ -6,6 +6,7 @@ face[0] = {
 	spd:[],
 	init: function(){
 		//if (tpms.status!="NOT FOUND") tpms.status="IDLE";
+		this.foot="bar";
 		this.disp=0;
 		this.pos=(set.def.tpms)?set.def.tpms:0;
 		this.try=tpms.try;
@@ -45,17 +46,18 @@ face[0] = {
 		this.g.setColor(0,0);
 		this.g.fillRect(0,186,239,239);
 		this.g.setColor(1,col("lblue"));
-		var img = require("heatshrink").decompress(atob("mEwwIcZg/+Aocfx+AAoV4gPgAoQDBuAEBgPAgE4AoQVBjgFBgYCBhgoCAQMGAQUgAolACggFL6AFGGQQFJEZsGsAFEIIhNFLIplFgBxBnwFCPYP/AoU8gf/BwKVB/+/SAUD/kf+CjDh/4V4n8AoYeBAoq1DgIqDAAP/XYcAv4qEn4qEGwsfC4kPEYkHF4Z1DACA="));
+		let img = require("heatshrink").decompress(atob("mEwwIcZg/+Aocfx+AAoV4gPgAoQDBuAEBgPAgE4AoQVBjgFBgYCBhgoCAQMGAQUgAolACggFL6AFGGQQFJEZsGsAFEIIhNFLIplFgBxBnwFCPYP/AoU8gf/BwKVB/+/SAUD/kf+CjDh/4V4n8AoYeBAoq1DgIqDAAP/XYcAv4qEn4qEGwsfC4kPEYkHF4Z1DACA="));
+		//let img = require("heatshrink").decompress(atob("mEwwIZWsAFE/AEDgIFEg/8AocPAokfAok/C4n/+AiD//AAoUD/+AFAf/FAn+EQgoEv4iDFAPgFBAiBFAcPFAhLLn4oEn4oDC4ILEN4sHJgheBRog7EKYJHDGA0fHggqLEgxsEFQJPEFQsPZYoFEgbdKgAdEACgA="));
 		this.g.drawImage(img,10,195);
 		img = require("heatshrink").decompress(atob("mEwwI2zgP/Ao0f////P/nE/AoP9/88ApU4EZYADAooAICg2AApE8/+/G4P4Aon8AoscCIgjLACkf8AFE+CJDz/3/B9CAoP8ApRBBDogFJF4gAsA="));
 		this.g.drawImage(img,95,195);
-		img=require("heatshrink").decompress(atob("mE3wIcZn////+AoIEBAAOAgIFD4ED4AOBgfgg+ADYXwh4hDvEOAoc4AoscgEBD4McAoIhBgEYAoMHAoIMBAoPwAoYRCAoQdChAFBAAQjCApcBJ4I1FAoQ1CAoY1BAvBHFAoU8SoRZBTYytFXIqNDM4LRB/EPaILdB/kf/4OBj/+n/4DQUPvAmDh6zCEIQFEFYYABXIQAkA=="));
-		this.g.drawImage(img,180,195);
+		//img=require("heatshrink").decompress(atob("mE3wIcZn////+AoIEBAAOAgIFD4ED4AOBgfgg+ADYXwh4hDvEOAoc4AoscgEBD4McAoIhBgEYAoMHAoIMBAoPwAoYRCAoQdChAFBAAQjCApcBJ4I1FAoQ1CAoY1BAvBHFAoU8SoRZBTYytFXIqNDM4LRB/EPaILdB/kf/4OBj/+n/4DQUPvAmDh6zCEIQFEFYYABXIQAkA=="));
+		//this.g.drawImage(img,180,195);
 		img=0;
 		this.g.flip();
 	},
 	scan: function(){
-		this.foot=0;
+		//this.foot=0;
 		if (tpms.status=="SUCCESS") {
 			this.page=0;
 			this.tpms=set.read("tpms","slot");
@@ -98,9 +100,6 @@ face[0] = {
 		this.g.drawString(txt1,100-(this.g.stringWidth(txt1)/2),65); 
 		this.g.setFont("Vector",27);	
 		this.g.drawString(" PSI",120+(size/2)-(this.g.stringWidth(" PSI")/2),85);
-		//this.g.setFont("Vector",23);	
-		//this.g.drawString(this.dev.batt+"%",60-(this.g.stringWidth(this.dev.batt+"%")/2),115);
-		//this.g.drawString(this.dev.temp+"C",170-(this.g.stringWidth(this.dev.temp+"C")/2),115);
 		this.g.setFont("Vector",25);
 		let tim=new Date(this.dev.time*1000).toString().split(" ")[1]+" "+new Date(this.dev.time*1000).toString().split(" ")[2]+" "+new Date(this.dev.time*1000).toString().split(" ")[4];
 		this.g.drawString(tim,120-(this.g.stringWidth(tim)/2),145);
@@ -110,25 +109,38 @@ face[0] = {
 		this.g.flip();
     },
 	sett:function(){
+		this.barS();
+		this.btn(set.read("tpms","dev")[face[0].tpms[face[0].pos]].log,"LOGGING",28,80,25,col("raf"),col("gray"),0,0,155,75,"",18,40,50);//1
 		this.g.setColor(0,0);
-		this.g.clearRect(0,0,239,79);
-		//this.g.clearRect(76,0,79,75);
-		//this.g.clearRect(156,0,159,75);
+		this.g.clearRect(156,0,159,75);
 		this.g.flip(); 
-		this.btn(set.read("tpms","dev")[face[0].tpms[face[0].pos]].log,"LOG",22,40,25,col("raf"),col("dgray"),0,0,75,75,"",18,40,50);//1
-		this.btn(1,"SLOT",22,120,10,col("raf"),0,80,0,155,75,"1",30,120,40);//2
-		this.btn(1,"MODE",22,205,10,col("dgray"),0,160,0,239,75,"OFF",22,205,45); //3
+		this.btn(1,"HI",20,205,10,col("dgray"),0,160,0,239,75,"40",30,205,40); //3
 		this.g.setColor(0,0);
-		this.g.clearRect(0,80,239,190);
-		//this.g.clearRect(0,76,239,79);
-		//this.g.clearRect(76,80,79,155);
-		//this.g.clearRect(156,80,159,155);
-		//this.g.clearRect(0,156,239,190);
-		this.g.flip(); 		
-		this.btn(1,"HI",20,40,90,col("dgray"),0,0,80,75,155,"40",30,40,120); //4
-		this.btn(1,"LOW",20,120,90,col("dgray"),0,80,80,155,155,"10",30,120,120); //5
-		this.btn(1,"DEL",22,205,110,col("red"),0,160,80,239,155,"",30,205,120); //6
-        //this.run=true;
+		this.g.clearRect(0,76,239,190);
+		this.g.flip();
+		let tpmsS=["MANUAL","5 MINUTES","30 MINUTES","1 HOUR","EUC MODE"];
+		let mode=set.read("tpms","mode")-0;
+		this.btn(mode,"REFRESH",20,80,90,(mode==4)?col("olive"):col("raf"),col("dgray"),0,80,155,155,tpmsS[mode],25,80,125); //4
+		this.btn(1,"LOW",20,205,90,col("dgray"),0,160,80,239,155,"10",30,205,120); //6
+	},	
+	barS: function(){
+		this.foot="barS";
+		this.g.setColor(0,0);
+		this.g.fillRect(0,186,239,239);
+		this.g.setColor(1,col("lblue"));
+		let img = require("heatshrink").decompress(atob("mEwwIZWsAFE/AEDgIFEg/8AocPAokfAok/C4n/+AiD//AAoUD/+AFAf/FAn+EQgoEv4iDFAPgFBAiBFAcPFAhLLn4oEn4oDC4ILEN4sHJgheBRog7EKYJHDGA0fHggqLEgxsEFQJPEFQsPZYoFEgbdKgAdEACgA="));
+		this.g.drawImage(img,10,195);
+		//img = require("heatshrink").decompress(atob("mEwwI2zgP/Ao0f////P/nE/AoP9/88ApU4EZYADAooAICg2AApE8/+/G4P4Aon8AoscCIgjLACkf8AFE+CJDz/3/B9CAoP8ApRBBDogFJF4gAsA="));
+		//this.g.drawImage(img,95,195);
+		this.g.flip();
+		this.g.setColor(0,col("red"));
+		this.g.fillRect(160,195,239,239);
+		this.g.setColor(1,col("lblue"));
+		img = require("heatshrink").decompress(atob("mEwwIROv/+AqoAPgf/AAXAg4FD8AFLFSQTCg8AgPwAoMPwAFHkAFE+EPAv4FLsEGL5IFVgH8AoM/AQKnDawQEBbAU/AoIUCj4FB/DkTAAgA="));
+		//img = require("heatshrink").decompress(atob("mEwwIXUj/4Aof//4ECgYFB4AFBh/4j/wCwXAgIYCn4CBvgCEnwCBBwUPgEBDQUHwEB8AsC4ABBAomAkEGB4ITBuEPAoQkBj+A+AIB/k/4Hwh0D/1/4Fwh0BKYOAvEOL4d4j0Av/+gE4AoM//gFDO4QFICIodDFIo1GR4JBCJoP+JoNwLIP8LIRlBvCCBNYUwOIR9FRIqVFUIqtGAQQICGYLFDh6SBEATdCFgRfCFAIYCOIIASA=="));
+		this.g.drawImage(img,177,195);
+		img=0;
+		this.g.flip();
 	},	
 	ntfy: function(txt1,txt0,size,clr,bt,tm){
 		this.g.setColor(0,clr);
@@ -140,7 +152,7 @@ face[0] = {
 		if (this.ntid) clearTimeout(this.ntid);
 		this.ntid=setTimeout(function(t){
 			t.ntid=0;
-			t.bar();
+			t[t.foot]();
 		},tm*1000,this);
     },
 	tid:-1,
@@ -187,35 +199,25 @@ touchHandler[0]=function(e,x,y){
 			face[0].scan();
 			buzzer([30,50,30]);
     }else if (face[0].page=="sett"){
-			if (x<75 && y<75) { //1
+			if ( 0 < x && x < 155 && y < 75 ) { //1-2
 				buzzer([30,50,30]);
 				if (set.read("tpms","dev")[face[0].tpms[face[0].pos]].log) {
 					set.write("tpms","dev",face[0].tpms[face[0].pos],"log",0);
-					face[0].btn(1,"LOG",22,40,25,col("dgray"),0,0,0,75,75,"",18,40,50);//1
+					face[0].btn(1,"LOGGING",28,80,25,col("gray"),0,0,0,155,75,"",18,40,50);//1-2
 				}else {
 					set.write("tpms","dev",face[0].tpms[face[0].pos],"log",1);
-					face[0].btn(1,"LOG",22,40,25,col("raf"),0,0,0,75,75,"",18,40,50);//1
-				}
-			}else if (75<= x && x < 155 && y < 75) { //2
-				buzzer([30,50,30]);
-				let setS=set.read("tpms","dev")[face[0].tpms[face[0].pos]].slot;
-				
-				
-				if (set.read("tpms","dev")[face[0].tpms[face[0].pos]].slot) {
-					set.write("tpms","dev",face[0].tpms[face[0].pos],"log",0);
-					face[0].btn(1,"LOG",22,40,25,col("dgray"),0,0,0,75,75,"",18,40,50);//1
-				}else {
-					set.write("tpms","dev",face[0].tpms[face[0].pos],"log",1);
-					face[0].btn(1,"LOG",22,40,25,col("raf"),0,0,0,75,75,"",18,40,50);//1
+					face[0].btn(1,"LOGGING",28,80,25,col("raf"),0,0,0,155,75,"",18,40,50);//1-2
 				}
 			}else if (155 <= x && y < 75) { //3
 				buzzer([30,50,30]);				
-			
-			}else if (x<75 && 75 <y && y < 155) { //4
+				
+			}else if (0 <= x && x < 155 && 75 <y && y < 155) { //4-5
 				buzzer([30,50,30]);
-
-			}else if (75<= x && x < 155 && 75 <y && y < 155) { //5
-				buzzer([30,50,30]);
+				let mode=set.read("tpms","mode");
+				mode++; if (4 < mode) mode=0;
+				set.write("tpms","mode",mode+"");
+				let tpmsS=["MANUAL","5 MINUTES","30 MINUTES","1 HOUR","EUC MODE"];
+				face[0].btn(mode,"REFRESH",20,80,90,(mode==4)?col("olive"):col("raf"),col("dgray"),0,80,155,155,tpmsS[mode],25,80,125); //4
 
 			}else if (155 <= x && 75 <y && y < 155) { //6
 				buzzer([30,50,30]);
