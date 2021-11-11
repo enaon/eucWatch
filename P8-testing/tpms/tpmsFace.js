@@ -108,6 +108,15 @@ face[0] = {
 		this.g.flip();
     },
 	sett:function(){
+		this.g.setColor(0,col("black"));
+		//this.g.fillRect(75,170,165,174);
+		this.g.clearRect(0,170,239,190);
+		this.g.setColor(1,col("white"));
+      	this.g.fillRect(75,172,120,176);
+		this.g.flip();
+        this.g.setColor(1,col("gray"));
+      	this.g.fillRect(120,172,165,176);
+		this.g.flip(); 
 		this.barS();
 		this.btn(set.read("tpms","dev")[face[0].tpms[face[0].pos]].log,"LOGGING",28,80,25,col("raf"),col("gray"),0,0,155,75,"",18,40,50);//1
 		this.g.setColor(0,0);
@@ -115,12 +124,13 @@ face[0] = {
 		this.g.flip(); 
 		this.btn(1,"HI",20,205,10,col("dgray"),0,160,0,239,75,"40",30,205,40); //3
 		this.g.setColor(0,0);
-		this.g.clearRect(0,76,239,190);
+		this.g.clearRect(0,76,239,169);
 		this.g.flip();
 		let tpmsS=["MANUAL","5 MINUTES","30 MINUTES","1 HOUR","EUC MODE"];
 		let mode=set.read("tpms","mode")-0;
 		this.btn(mode,"REFRESH",20,80,90,(mode==4)?col("olive"):col("raf"),col("dgray"),0,80,155,155,tpmsS[mode],25,80,125); //4
 		this.btn(1,"LOW",20,205,90,col("dgray"),0,160,80,239,155,"10",30,205,120); //6
+
 	},	
 	barS: function(){
 		this.foot="barS";
@@ -141,10 +151,11 @@ face[0] = {
 		img=0;
 		this.g.flip();
 	},	
-	ntfy: function(txt1,txt0,size,clr,bt,tm){
+	ntfy: function(txt1,txt0,size,clr,bt,tm,s){
 		this.g.setColor(0,clr);
 		this.g.fillRect(0,190,239,239);
 		this.g.setColor(1,col("white"));
+		if (s) {this.g.setFont("Vector",45);this.g.drawString("<",5,197);this.g.drawString(">",215,197);}
 		this.g.setFont("Vector",size);
 		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),205); 
 		this.g.flip();
@@ -208,8 +219,8 @@ touchHandler[0]=function(e,x,y){
 					face[0].btn(1,"LOGGING",28,80,25,col("raf"),0,0,0,155,75,"",18,40,50);//1-2
 				}
 			}else if (155 <= x && y < 75) { //3
-				buzzer([30,50,30]);				
-				
+				buzzer([30,50,30]);	
+				face[0].ntfy("HI: "+tpms.new,"",27,col("olive"),1,4,1);
 			}else if (0 <= x && x < 155 && 75 <y && y < 155) { //4-5
 				buzzer([30,50,30]);
 				let mode=set.read("tpms","mode");
@@ -220,11 +231,31 @@ touchHandler[0]=function(e,x,y){
 
 			}else if (155 <= x && 75 <y && y < 155) { //6
 				buzzer([30,50,30]);
+				face[0].ntfy("LOW: "+tpms.new,"",27,col("olive"),1,4,1);
 
 			}else {
-				buzzer(40);		
-				face[0].page=0;
-				face[0].init();
+				if ( 160 < x && 160 < y) {
+					if (face[0].act="hi"){
+					
+					}else if (face[0].act="low"){	
+					
+					
+				}else if ( x < 160 && 160 < y) {
+					
+					
+				}else {	
+				
+					if (face[0].page=="scan"){
+						tpms.new=0;
+						tpms.scan(face[0].try);
+						//face[0].run=1;
+						face[0].scan();
+						buzzer([30,50,30]);
+					}
+					buzzer(40);		
+					face[0].page=0;
+					face[0].init();
+				}
 			}
 		}else if (190 < y) {
 			if (face[0].foot=="bar") {

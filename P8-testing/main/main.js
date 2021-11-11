@@ -230,7 +230,7 @@ face[0] = {
 				else  {this.bmin=col("dgray");this.fsec=col("white");this.bsec=col("dgray");}
 			}else {this.bmin=col("dgray");this.fsec=col("white");this.bsec=col("dgray");}
 			this.g.setColor(0,this.bmin);
-			this.g.fillRect(100,55,203,150);
+			this.g.fillRect(96,55,203,150);
 			this.g.setColor(1,this.fmin);
 			this.g.drawString(this.t[1],107,69);
 			this.g.flip();
