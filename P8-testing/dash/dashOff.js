@@ -12,6 +12,8 @@ face[0] = {
 		this.len=24;
 		this.pos=this.ref;
 		this.disp=0;
+		//this.g.setColor(0,0);
+		//this.g.flip();
 		this.btn(1,"DAY",30,60,13,col("raf"),col("raf"),0,0,119,50);
 		this.btn(1,"INFO",30,185,10,0,col("raf"),120,0,239,50);
 		this.sc();

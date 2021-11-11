@@ -45,8 +45,8 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
   tid:-1,
   run:false,
   clear : function(){ //enter here everything needed to clear all app running function on face exit. 
-    pal[0]=col("black"); //this is for cleaner face transitions but adds delay, maybe will change in the future
-    this.g.clear(); //as above
+    //pal[0]=col("black"); //this is for cleaner face transitions but adds delay, maybe will change in the future
+    //this.g.clear(); //as above
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid); //clears main face[0] timeout loop.
     this.tid=-1;
