@@ -348,7 +348,11 @@ touchHandler[0]=function(e,x,y){
         face[0].math('+');
       } else buzzer(40);
     }else if  (e==1){ //slide dn
-		face.go("main",0);return;
+		if (face.faceSave!=-1) {
+			  face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
+		}else
+			face.go("main",0);
+		return;
     }else if  (e==2){ //slide up
 	  if (y>160&&x<50) {
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}

@@ -27,6 +27,7 @@ face[0] = {
 			this.page="scan";
 			this.btn(1,"TPMS SENSOR",25,100,7,0,0,0,0,239,50);
 			this.btn(1,"TOUCH",30,120,80,col("dgray"),col("dgray"),0,50,239,185,"TO SCAN",30,120,130);
+			if (tpms.status=="SCANNING") this.scan();
 		}	
 	},
 	show : function(o){
@@ -302,7 +303,10 @@ touchHandler[0]=function(e,x,y){
 		}
 		break;
     case 1: //slide down event
-		face.go("main",0);
+		if (face.faceSave!=-1) {
+			  face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
+		}else
+			face.go("main",0);
 		return;
     case 2: //slide up event
 		if (y>160&&x<50) {
@@ -317,7 +321,7 @@ touchHandler[0]=function(e,x,y){
 		return;
     case 4: //slide right event (back action)
 		if (face[0].page && face[0].page!="scan") {
-			face[0].page=0;
+			//face[0].page=0;
 			face[0].init();
 			return;
 		}
