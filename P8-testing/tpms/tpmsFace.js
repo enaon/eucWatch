@@ -316,7 +316,7 @@ touchHandler[0]=function(e,x,y){
 		//face.go("dashGarage",0);
 		return;
     case 4: //slide right event (back action)
-		if (face[0].page && this.page!="scan") {
+		if (face[0].page && face[0].page!="scan") {
 			face[0].page=0;
 			face[0].init();
 			return;
