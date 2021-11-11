@@ -2,6 +2,7 @@ if (!set.read("tpms")) {
 	set.write("tpms","dev",{});
 	set.write("tpms","mode",0);
 }
+
 tpms= {
 	busy:0,
 	try:0,
@@ -95,3 +96,4 @@ tpms= {
 		}, tpms.wait*1000);
 	}
 };
+if (set.read("tpms","mode")-0 && set.read("tpms","mode")-0 != 4) tpms.scan(tpms.try);

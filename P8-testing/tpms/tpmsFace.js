@@ -1,5 +1,4 @@
 //tpms face
-if (!global.tpms) eval(require('Storage').read('tpms'));
 face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:30000,
 	g:w.gfx,
@@ -333,7 +332,7 @@ touchHandler[0]=function(e,x,y){
 			face[0].init();
 			return;
 		}
-		let mode=set.read("tpms","mode")-0;
+		mode=set.read("tpms","mode")-0;
 		if (mode && mode!=4) tpms.scan();
 		face.go("settings",0,1);
 		return;
