@@ -1,3 +1,4 @@
+if (!set.read("tpms")) set.write("tpms","dev",{});
 tpms= {
 	busy:0,
 	try:0,
@@ -18,11 +19,12 @@ tpms= {
 				//print (device);
 				let mac =device.id.split(" ")[0].split(":");
 				let id=mac[3]+mac[4]+mac[5];
-				if (!set.read("tpms",id)) {
+				if (!set.read("tpms","dev")[id]) {
 					if (mac[1]+mac[2] == "eaca") {
 						let slot=(set.read("tpms","slot"))?set.read("tpms","slot"):[];
 						slot.unshift(id);
 						set.write("tpms","slot",slot);
+						//set.write("tpms","dev",);
 					}else {
 						tpms.new=0;
 						tpms.status="NOT FOUND";
@@ -31,7 +33,8 @@ tpms= {
 				}
 				tpms.new++;
 				tpms.def=id;
-				let dev={};
+				let dev=(set.read("tpms","dev")[id])?set.read("tpms","dev")[id]:{};
+				dev.id=id;
 				dev.pos=mac[0][1];
 				dev.kpa=((device.manufacturerData[6]|device.manufacturerData[7]<<8|device.manufacturerData[8]<<16|device.manufacturerData[9]<<24)/1000).toFixed(2);
 				dev.bar=(dev.kpa/100).toFixed(2);
@@ -44,7 +47,13 @@ tpms= {
 				print("Got new reading, last reading was",(last<60)?last+" secs ago":(last<3600)?last/60|0+" min ago":(last<86400)?last/3600|0+" hour ago":"never");
 				dev.time=getTime()|0;
 				print(dev);
-				set.write("tpms",id,dev);
+				set.write("tpms","dev",id,dev);
+				//logging
+				if ( set.read("tpms","dev")[id].log) {
+					delete dev.log;
+					delete dev.id;
+					set.write("tpmsLog"+id,dev.time,dev);
+				}
 				tpms.status="SUCCESS";
 				tpms.busy=0;
 				return;

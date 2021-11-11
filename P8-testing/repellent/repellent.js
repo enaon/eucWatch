@@ -241,7 +241,7 @@ touchHandler[0]=function(e,x,y){
     }else if  (e==3){
 	  face.go("settings",0);return;
     }else if  (e==4){
-	   face.go("settings",0);return;
+	   face.go("settings",0,1);return;
 //	  face.go(face.appRoot[0],face.appRoot[1],face.appRoot[2]);return;
     }else if  (e==12){		
 	  buzzer(40);    

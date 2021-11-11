@@ -1,4 +1,4 @@
-//tpms 
+//tpms face
 if (!global.tpms) eval(require('Storage').read('tpms'));
 face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:30000,
@@ -11,7 +11,7 @@ face[0] = {
 		this.try=tpms.try;
 		this.tpms=set.read("tpms","slot");
 		if (this.tpms.length) {
-			this.dev=set.read("tpms",this.tpms[this.pos]);
+			this.dev=set.read("tpms","dev")[this.tpms[this.pos]];
 			let tm=(getTime()|0) - this.dev.time;
 			let cl=(tm < 300)?1:0;
 			this.btn(cl,this.tpms[this.pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
@@ -39,12 +39,6 @@ face[0] = {
 			t.show();
 		},500,this);
 	},
-	get: function(){
-		this.tpms=[];
-		for (let i in tpms.dev ){
-			this.tpms.unshift(i);
-		}
-	},
 	bar: function(){
 		this.foot="bar";
 		this.g.setColor(0,0);
@@ -52,16 +46,19 @@ face[0] = {
 		this.g.setColor(1,col("lblue"));
 		var img = require("heatshrink").decompress(atob("mEwwIcZg/+Aocfx+AAoV4gPgAoQDBuAEBgPAgE4AoQVBjgFBgYCBhgoCAQMGAQUgAolACggFL6AFGGQQFJEZsGsAFEIIhNFLIplFgBxBnwFCPYP/AoU8gf/BwKVB/+/SAUD/kf+CjDh/4V4n8AoYeBAoq1DgIqDAAP/XYcAv4qEn4qEGwsfC4kPEYkHF4Z1DACA="));
 		this.g.drawImage(img,10,195);
+		img = require("heatshrink").decompress(atob("mEwwI2zgP/Ao0f////P/nE/AoP9/88ApU4EZYADAooAICg2AApE8/+/G4P4Aon8AoscCIgjLACkf8AFE+CJDz/3/B9CAoP8ApRBBDogFJF4gAsA="));
+		this.g.drawImage(img,95,195);
+		img=require("heatshrink").decompress(atob("mE3wIcZn////+AoIEBAAOAgIFD4ED4AOBgfgg+ADYXwh4hDvEOAoc4AoscgEBD4McAoIhBgEYAoMHAoIMBAoPwAoYRCAoQdChAFBAAQjCApcBJ4I1FAoQ1CAoY1BAvBHFAoU8SoRZBTYytFXIqNDM4LRB/EPaILdB/kf/4OBj/+n/4DQUPvAmDh6zCEIQFEFYYABXIQAkA=="));
+		this.g.drawImage(img,180,195);
 		img=0;
 		this.g.flip();
-		//this.btn(1,"TOUCH TO SCAN",22,120,7,col("raf"),col("dgray"),0,0,239,50);
 	},
 	scan: function(){
 		this.foot=0;
 		if (tpms.status=="SUCCESS") {
 			this.page=0;
 			this.tpms=set.read("tpms","slot");
-			this.dev=set.read("tpms",this.tpms[this.pos]);
+			this.dev=set.read("tpms","dev")[this.tpms[this.pos]];
 			let tm=(getTime()|0) - this.dev.time;
 			let cl=(tm < 300)?1:0;
 			this.btn(cl,this.tpms[this.pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
@@ -80,24 +77,6 @@ face[0] = {
 			t.tid=-1;
 			t.scan();
 		},500,this);
-    },
-	sc:function(){
-	 		this.totD=0;
-			this.scale=0;
-			for (let i = 0; i < this.len; i++) {
-				if (this.log[i]) {
-					this.totD=this.totD+this.log[i];
-					if (this.scale<this.log[i] ) this.scale=this.log[i];
-				}
-			}
-			this.scale=60/this.scale;		
-			return this.scale;
-	},
-	lg: function(){
-		this.g.setColor(0,0);
-		this.g.fillRect(0,176,239,239);
-		this.g.setColor(1,col("lblue"));
-		this.g.flip(); 
     },
     btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
 		this.g.setColor(0,(bt)?clr1:clr0);
@@ -129,26 +108,27 @@ face[0] = {
 		this.g.clearRect(0,186,239,189);
 		this.g.flip();
     },
-	ind: function(pos){
-		pos=(((pos-1)*(240/this.len))+1);
+	sett:function(){
 		this.g.setColor(0,0);
-		this.g.setColor(1,col("yellow"));
-		this.g.fillRect(pos,(this.log[this.pos])?239-(this.log[this.pos]*this.scale):239,pos+((240/this.len)-2),239);
+		this.g.clearRect(0,0,239,79);
+		//this.g.clearRect(76,0,79,75);
+		//this.g.clearRect(156,0,159,75);
 		this.g.flip(); 
-		if (this.rowL&&this.rowL!==pos){
-			this.g.setColor(1,col("lblue"));
-			this.g.fillRect(this.rowL,(this.log[this.posL])?239-(this.log[this.posL]*this.scale):239,this.rowL+((240/this.len)-2),239);
-			this.g.flip(); 
-		}
-		this.rowL=pos;
-		this.posL=this.pos;
-		pos=pos-1;
+		this.btn(set.read("tpms","dev")[face[0].tpms[face[0].pos]].log,"LOG",22,40,25,col("raf"),col("dgray"),0,0,75,75,"",18,40,50);//1
+		this.btn(1,"SLOT",22,120,10,col("raf"),0,80,0,155,75,"1",30,120,40);//2
+		this.btn(1,"MODE",22,205,10,col("dgray"),0,160,0,239,75,"OFF",22,205,45); //3
 		this.g.setColor(0,0);
-		this.g.fillRect(0,176,239,178);
-		this.g.setColor(1,col("yellow"));
-		this.g.fillRect(pos,176,pos+(240/this.len),178);
-		this.g.flip();
-    },
+		this.g.clearRect(0,80,239,190);
+		//this.g.clearRect(0,76,239,79);
+		//this.g.clearRect(76,80,79,155);
+		//this.g.clearRect(156,80,159,155);
+		//this.g.clearRect(0,156,239,190);
+		this.g.flip(); 		
+		this.btn(1,"HI",20,40,90,col("dgray"),0,0,80,75,155,"40",30,40,120); //4
+		this.btn(1,"LOW",20,120,90,col("dgray"),0,80,80,155,155,"10",30,120,120); //5
+		this.btn(1,"DEL",22,205,110,col("red"),0,160,80,239,155,"",30,205,120); //6
+        //this.run=true;
+	},	
 	ntfy: function(txt1,txt0,size,clr,bt,tm){
 		this.g.setColor(0,clr);
 		this.g.fillRect(0,190,239,239);
@@ -205,6 +185,45 @@ touchHandler[0]=function(e,x,y){
 			//face[0].run=1;
 			face[0].scan();
 			buzzer([30,50,30]);
+    }else if (face[0].page=="sett"){
+			if (x<75 && y<75) { //1
+				buzzer([30,50,30]);
+				if (set.read("tpms","dev")[face[0].tpms[face[0].pos]].log) {
+					set.write("tpms","dev",face[0].tpms[face[0].pos],"log",0);
+					face[0].btn(1,"LOG",22,40,25,col("dgray"),0,0,0,75,75,"",18,40,50);//1
+				}else {
+					set.write("tpms","dev",face[0].tpms[face[0].pos],"log",1);
+					face[0].btn(1,"LOG",22,40,25,col("raf"),0,0,0,75,75,"",18,40,50);//1
+				}
+			}else if (75<= x && x < 155 && y < 75) { //2
+				buzzer([30,50,30]);
+				let setS=set.read("tpms","dev")[face[0].tpms[face[0].pos]].slot;
+				
+				
+				if (set.read("tpms","dev")[face[0].tpms[face[0].pos]].slot) {
+					set.write("tpms","dev",face[0].tpms[face[0].pos],"log",0);
+					face[0].btn(1,"LOG",22,40,25,col("dgray"),0,0,0,75,75,"",18,40,50);//1
+				}else {
+					set.write("tpms","dev",face[0].tpms[face[0].pos],"log",1);
+					face[0].btn(1,"LOG",22,40,25,col("raf"),0,0,0,75,75,"",18,40,50);//1
+				}
+			}else if (155 <= x && y < 75) { //3
+				buzzer([30,50,30]);				
+			
+			}else if (x<75 && 75 <y && y < 155) { //4
+				buzzer([30,50,30]);
+
+			}else if (75<= x && x < 155 && 75 <y && y < 155) { //5
+				buzzer([30,50,30]);
+
+			}else if (155 <= x && 75 <y && y < 155) { //6
+				buzzer([30,50,30]);
+
+			}else {
+				buzzer(40);		
+				face[0].page=0;
+				face[0].init();
+			}
 		}else if (190 < y) {
 			if (face[0].foot=="bar") {
 				if  ( x < 80 ) { 
@@ -212,7 +231,10 @@ touchHandler[0]=function(e,x,y){
 					tpms.scan(face[0].try);
 					face[0].scan();
 					buzzer([30,50,30]);
-			
+				}else if  (80 < x && x < 160 ) { 
+					buzzer([30,50,30]);	
+					face[0].sett();
+					face[0].page="sett";
 				}else buzzer(40);
 			}else buzzer(40);
 		}else if (50 < y) {
@@ -227,7 +249,7 @@ touchHandler[0]=function(e,x,y){
 					else face[0].pos=0;
 					set.def.tpms=face[0].pos;
 				} 
-				face[0].dev=set.read("tpms",face[0].tpms[face[0].pos]);
+				face[0].dev=set.read("tpms","dev")[face[0].tpms[face[0].pos]];
 				face[0].info=1;
 				let cl=((getTime()|0) - face[0].dev.time < 300)?1:0;
 				face[0].btn(cl,face[0].tpms[face[0].pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
@@ -269,7 +291,7 @@ touchHandler[0]=function(e,x,y){
 					else face[0].pos=0;
 					set.def.tpms=face[0].pos;
 				}
-				face[0].dev=set.read("tpms",face[0].tpms[face[0].pos]);
+				face[0].dev=set.read("tpms","dev")[face[0].tpms[face[0].pos]];
 				let cl=((getTime()|0) - face[0].dev.time < 300)?1:0;
 				face[0].btn(cl,face[0].tpms[face[0].pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
 				face[0].btn(1,face[0].pos+1+"/"+face[0].tpms.length,35,200,7,0,col("raf"),150,0,239,50);
@@ -290,10 +312,16 @@ touchHandler[0]=function(e,x,y){
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
 		break;
     case 3: //slide left event
-		face.go("dashGarage",0);
+		buzzer(40);
+		//face.go("dashGarage",0);
 		return;
     case 4: //slide right event (back action)
-		face.go("main",0);
+		if (face[0].page){
+			face[0].page=0;
+			face[0].init();
+			return;
+		}
+		face.go("settings",0,1);
 		return;
     case 12: //touch and hold(long press) event
 		buzzer(40);

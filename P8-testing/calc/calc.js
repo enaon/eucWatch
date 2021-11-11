@@ -360,7 +360,7 @@ touchHandler[0]=function(e,x,y){
     }else if  (e==3){ //slide left
 		face.go("calc",5);return;
     }else if  (e==4){ //slide right
-	    face.go("settings",0);return;
+	    face.go("settings",0,1);return;
     }else if  (e==12){ //long press
       //if(y<40){
         calc.val="";calc.sum="";calc.disp="";calc.tot="";

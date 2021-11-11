@@ -37,13 +37,23 @@ var set={
 	read:function(file,name){
 		let got=require("Storage").readJSON([file+".json"],1);
 		if (got==undefined) return false;
-		return require("Storage").readJSON([file+".json"],1)[name];
+		if (name) {
+			if (require("Storage").readJSON([file+".json"],1)[name])
+			return require("Storage").readJSON([file+".json"],1)[name];
+			else return false;
+		}else return require("Storage").readJSON([file+".json"],1);
 	},	
-	write:function(file,name,value){
+	write:function(file,name,value,value2,value3){
 		let got=require("Storage").readJSON([file+".json"],1);
 		if (got==undefined) got={};
-		if (!value)  got[name]=0;
-		else got[name]=value;
+		if (!value)  delete got[name]; //delete
+		else {
+			if (value2 && got[name] ) 
+				if (value3 || value3==0) got[name][value][value2]=value3;
+				else got[name][value]=value2;
+			else 
+				got[name]=value;
+		}
 		require("Storage").writeJSON([file+".json"],got);
 		return true;
 	},

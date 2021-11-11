@@ -105,7 +105,7 @@ touchHandler[0]=function(e,x,y){
     buzzer(40);    
     break;
   case 4: //slide right event (back action)
-    face.go(face.appPrev,face.pagePrev);return;
+    face.go(face.appPrev,face.pagePrev,1);return;
     //break;
   case 12: //touch and hold(long press) event
     buzzer(40);  

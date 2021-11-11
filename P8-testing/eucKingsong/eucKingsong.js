@@ -303,7 +303,7 @@ euc.conn=function(mac){
 			}
 		};
 		if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {
-			euc.dash.mac=euc.mac; euc.dash.batF=420;
+			euc.dash.mac=euc.mac; euc.dash.batF=420;euc.dash.batE=320;
 			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 			set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
 		}
