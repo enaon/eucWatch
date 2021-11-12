@@ -76,5 +76,5 @@ euc.dash=require("Storage").readJSON('eucSlot'+require("Storage").readJSON("dash
 }else euc.dash=require("Storage").readJSON("eucSlot.json",1);
 set.def.dash.slot=require("Storage").readJSON("dash.json",1).slot;
 //more
-if (require('Storage').read('tpms')) eval(require('Storage').read('tpms'));
+setTimeout(()=>{if (require('Storage').read('tpms')) eval(require('Storage').read('tpms'));},5000);
 

@@ -4,7 +4,6 @@ face[0] = {
 	g:w.gfx,
 	spd:[],
 	init: function(){
-		//if (tpms.status!="NOT FOUND") tpms.status="IDLE";
 		this.foot="bar";
 		this.disp=0;
 		this.pos=(set.def.tpms)?set.def.tpms:0;
@@ -16,7 +15,7 @@ face[0] = {
 			let cl=(tm < 300)?1:0;
 			this.btn(cl,this.tpms[this.pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
 			this.btn(1,this.pos+1+"/"+this.tpms.length,35,200,7,0,col("raf"),150,0,239,50);
-			this.sel(this.dev.psi,"<  "+(tm < 3600)?new Date(tm * 1000).toISOString().substr(11, 8):new Date(tm * 1000).toString().substr(0,24)+"  >");
+			this.sel(this.dev[tpms.metric],"<  "+(tm < 3600)?new Date(tm * 1000).toISOString().substr(11, 8):new Date(tm * 1000).toString().substr(0,24)+"  >");
 			if (tpms.status=="SCANNING") this.scan();
 			else this.bar();
 			this.page=0;
@@ -33,7 +32,6 @@ face[0] = {
 	show : function(o){
 		if (!this.run) return;
 			this.btn(1,tpms.status,27,120,205,col("olive"),0,0,186,239,239,"",22,120,225);
-			//this.btn(0,tpms.status,30,120,100,col("raf"),col("dgray"),0,55,239,200,"TRY :"+tpms.try,22,120,150);
   		//refresh 
 		this.tid=setTimeout(function(t){
 			t.tid=-1;
@@ -46,12 +44,9 @@ face[0] = {
 		this.g.fillRect(0,186,239,239);
 		this.g.setColor(1,col("lblue"));
 		let img = require("heatshrink").decompress(atob("mEwwIcZg/+Aocfx+AAoV4gPgAoQDBuAEBgPAgE4AoQVBjgFBgYCBhgoCAQMGAQUgAolACggFL6AFGGQQFJEZsGsAFEIIhNFLIplFgBxBnwFCPYP/AoU8gf/BwKVB/+/SAUD/kf+CjDh/4V4n8AoYeBAoq1DgIqDAAP/XYcAv4qEn4qEGwsfC4kPEYkHF4Z1DACA="));
-		//let img = require("heatshrink").decompress(atob("mEwwIZWsAFE/AEDgIFEg/8AocPAokfAok/C4n/+AiD//AAoUD/+AFAf/FAn+EQgoEv4iDFAPgFBAiBFAcPFAhLLn4oEn4oDC4ILEN4sHJgheBRog7EKYJHDGA0fHggqLEgxsEFQJPEFQsPZYoFEgbdKgAdEACgA="));
 		this.g.drawImage(img,10,195);
 		img = require("heatshrink").decompress(atob("mEwwI2zgP/Ao0f////P/nE/AoP9/88ApU4EZYADAooAICg2AApE8/+/G4P4Aon8AoscCIgjLACkf8AFE+CJDz/3/B9CAoP8ApRBBDogFJF4gAsA="));
 		this.g.drawImage(img,95,195);
-		//img=require("heatshrink").decompress(atob("mE3wIcZn////+AoIEBAAOAgIFD4ED4AOBgfgg+ADYXwh4hDvEOAoc4AoscgEBD4McAoIhBgEYAoMHAoIMBAoPwAoYRCAoQdChAFBAAQjCApcBJ4I1FAoQ1CAoY1BAvBHFAoU8SoRZBTYytFXIqNDM4LRB/EPaILdB/kf/4OBj/+n/4DQUPvAmDh6zCEIQFEFYYABXIQAkA=="));
-		//this.g.drawImage(img,180,195);
 		img=0;
 		this.g.flip();
 	},
@@ -65,7 +60,7 @@ face[0] = {
 			let cl=(tm < 300)?1:0;
 			this.btn(cl,this.tpms[this.pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
 			this.btn(1,this.pos+1+"/"+this.tpms.length,35,200,7,0,col("raf"),150,0,239,50);
-			this.sel(this.dev.psi,"<  "+(tm < 3600)?new Date(tm * 1000).toISOString().substr(11, 8):new Date(tm * 1000).toString().substr(0,24)+"  >");
+			this.sel(this.dev[tpms.metric],"<  "+(tm < 3600)?new Date(tm * 1000).toISOString().substr(11, 8):new Date(tm * 1000).toString().substr(0,24)+"  >");
 			this.ntfy("FOUND : "+tpms.new,"",27,col("raf"),1,2);	
 			return;
 		}else if (tpms.status=="NOT FOUND") {
@@ -98,7 +93,7 @@ face[0] = {
 		let size=this.g.stringWidth(txt1);
 		this.g.drawString(txt1,100-(this.g.stringWidth(txt1)/2),65); 
 		this.g.setFont("Vector",27);	
-		this.g.drawString(" PSI",120+(size/2)-(this.g.stringWidth(" PSI")/2),85);
+		this.g.drawString(tpms.metric.toUpperCase(),105+(size/2),84);
 		this.g.setFont("Vector",25);
 		let tim=new Date(this.dev.time*1000).toString().split(" ")[1]+" "+new Date(this.dev.time*1000).toString().split(" ")[2]+" "+new Date(this.dev.time*1000).toString().split(" ")[4];
 		this.g.drawString(tim,120-(this.g.stringWidth(tim)/2),145);
@@ -108,61 +103,71 @@ face[0] = {
 		this.g.flip();
     },
 	sett:function(){
-		this.g.setColor(0,col("black"));
-		//this.g.fillRect(75,170,165,174);
-		this.g.clearRect(0,170,239,190);
-		this.g.setColor(1,col("white"));
-      	this.g.fillRect(75,172,120,176);
-		this.g.flip();
-        this.g.setColor(1,col("gray"));
-      	this.g.fillRect(120,172,165,176);
-		this.g.flip(); 
+		let tpmsS=["OFF","5 MIN","30 MIN","1 HOUR","EUC"];
 		this.barS();
-		this.btn(set.read("tpms","dev")[face[0].tpms[face[0].pos]].log,"LOGGING",28,80,25,col("raf"),col("gray"),0,0,155,75,"",18,40,50);//1
+		this.btn(this.dev.log,"LOGGING",25,80,20,col("raf"),col("gray"),0,0,155,60);//1-2
 		this.g.setColor(0,0);
-		this.g.clearRect(156,0,159,75);
+		this.g.clearRect(156,0,159,60);
 		this.g.flip(); 
-		this.btn(1,"HI",20,205,10,col("dgray"),0,160,0,239,75,"40",30,205,40); //3
+		this.btn(1,(tpms.metric=="bar")?(this.dev.hiP/14.50377377).toFixed(2):this.dev.hiP,35,205,15,col("dgray"),0,160,0,239,60); //3
 		this.g.setColor(0,0);
-		this.g.clearRect(0,76,239,169);
+		this.g.clearRect(0,61,239,64);
 		this.g.flip();
-		let tpmsS=["MANUAL","5 MINUTES","30 MINUTES","1 HOUR","EUC MODE"];
-		let mode=set.read("tpms","mode")-0;
-		this.btn(mode,"REFRESH",20,80,90,(mode==4)?col("olive"):col("raf"),col("dgray"),0,80,155,155,tpmsS[mode],25,80,125); //4
-		this.btn(1,"LOW",20,205,90,col("dgray"),0,160,80,239,155,"10",30,205,120); //6
-
+		//this.btn(tpms.mode,"REFRESH",20,80,73,(tpms.mode==4)?col("olive"):col("raf"),col("dgray"),0,65,155,125,tpmsS[tpms.mode],25,80,100); //4-5
+		this.btn(tpms.mode,tpmsS[tpms.mode],28,80,84,(tpms.mode==4)?col("olive"):col("raf"),col("dgray"),0,65,155,125); //4-5
+		this.g.setColor(0,0);
+		this.g.clearRect(156,65,159,125);
+		this.g.flip();
+		this.btn(1,(tpms.metric=="bar")?(this.dev.lowP/14.50377377).toFixed(2):this.dev.lowP,35,205,85,col("dgray"),0,160,65,239,125); //6
 	},	
 	barS: function(){
 		this.foot="barS";
+		this.g.setColor(0,0);
+		this.g.clearRect(0,126,239,129);
+		this.g.flip();
+		this.btn(1,"RETRY: "+tpms.try,25,85,150,col("dgray"),0,0,130,155,185); 
+		this.g.setColor(0,0);
+		this.g.clearRect(156,130,159,190);
+		this.g.flip();
+		this.btn(1,tpms.metric.toUpperCase(),25,205,150,col("dgray"),0,160,130,239,185,"",30,205,40); 
 		this.g.setColor(0,0);
 		this.g.fillRect(0,186,239,239);
 		this.g.setColor(1,col("lblue"));
 		let img = require("heatshrink").decompress(atob("mEwwIZWsAFE/AEDgIFEg/8AocPAokfAok/C4n/+AiD//AAoUD/+AFAf/FAn+EQgoEv4iDFAPgFBAiBFAcPFAhLLn4oEn4oDC4ILEN4sHJgheBRog7EKYJHDGA0fHggqLEgxsEFQJPEFQsPZYoFEgbdKgAdEACgA="));
 		this.g.drawImage(img,10,195);
-		//img = require("heatshrink").decompress(atob("mEwwI2zgP/Ao0f////P/nE/AoP9/88ApU4EZYADAooAICg2AApE8/+/G4P4Aon8AoscCIgjLACkf8AFE+CJDz/3/B9CAoP8ApRBBDogFJF4gAsA="));
-		//this.g.drawImage(img,95,195);
 		this.g.flip();
-		this.g.setColor(0,col("red"));
-		this.g.fillRect(160,195,239,239);
 		this.g.setColor(1,col("lblue"));
 		img = require("heatshrink").decompress(atob("mEwwIROv/+AqoAPgf/AAXAg4FD8AFLFSQTCg8AgPwAoMPwAFHkAFE+EPAv4FLsEGL5IFVgH8AoM/AQKnDawQEBbAU/AoIUCj4FB/DkTAAgA="));
-		//img = require("heatshrink").decompress(atob("mEwwIXUj/4Aof//4ECgYFB4AFBh/4j/wCwXAgIYCn4CBvgCEnwCBBwUPgEBDQUHwEB8AsC4ABBAomAkEGB4ITBuEPAoQkBj+A+AIB/k/4Hwh0D/1/4Fwh0BKYOAvEOL4d4j0Av/+gE4AoM//gFDO4QFICIodDFIo1GR4JBCJoP+JoNwLIP8LIRlBvCCBNYUwOIR9FRIqVFUIqtGAQQICGYLFDh6SBEATdCFgRfCFAIYCOIIASA=="));
 		this.g.drawImage(img,177,195);
 		img=0;
 		this.g.flip();
 	},	
-	ntfy: function(txt1,txt0,size,clr,bt,tm,s){
-		this.g.setColor(0,clr);
-		this.g.fillRect(0,190,239,239);
-		this.g.setColor(1,col("white"));
-		if (s) {this.g.setFont("Vector",45);this.g.drawString("<",5,197);this.g.drawString(">",215,197);}
-		this.g.setFont("Vector",size);
-		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),205); 
-		this.g.flip();
+	ntfy: function(txt1,txt2,size,clr,bt,tm,s,f,d){
+		if (f && this.ntid) {clearTimeout(this.ntid);this.ntid=0;}
+		if (!this.ntid){
+			this.g.setColor(0,clr);
+			if (d) {
+				this.g.fillRect(0,130,239,239);
+				this.g.setColor(1,col("white"));
+				if (s) {this.g.setFont("Vector",45);this.g.drawString("<",5,203);this.g.drawString(">",215,203);}
+				this.g.setFont("Vector",28);
+				this.g.drawString(txt1,120-(this.g.stringWidth(txt1)/2),150); 
+				this.g.setFont("Vector",size);
+				this.g.drawString(txt2,120-(this.g.stringWidth(txt2)/2),210); 
+			}else{
+				this.g.fillRect(0,190,239,239);
+				this.g.setColor(1,col("white"));
+				if (s) {this.g.setFont("Vector",45);this.g.drawString("<",5,197);this.g.drawString(">",215,197);}
+				this.g.setFont("Vector",size);
+				this.g.drawString((bt)?txt1:txt2,120-(this.g.stringWidth((bt)?txt1:txt2)/2),205); 
+			}
+			this.g.flip();
+		}
 		if (this.ntid) clearTimeout(this.ntid);
 		this.ntid=setTimeout(function(t){
 			t.ntid=0;
 			t[t.foot]();
+			t.act=0;
 		},tm*1000,this);
     },
 	tid:-1,
@@ -186,8 +191,13 @@ face[1] = {
 	return;
 	},
 	show : function(){
-		face.go("main",0);
-		return;
+		if (face[0].page=="sett") set.write("tpms","dev",face[0].tpms[face[0].pos],face[0].dev);
+		if (tpms.mode && tpms.mode!=4) tpms.scan(); else if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
+		//if (face.faceSave!=-1) {
+		//	face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
+		//}else
+			face.go("settings",0,1);
+		//return;
 	},
 	clear: function(){
 		return;
@@ -208,55 +218,6 @@ touchHandler[0]=function(e,x,y){
 			//face[0].run=1;
 			face[0].scan();
 			buzzer([30,50,30]);
-		}else if (face[0].page=="sett"){
-			if ( 0 < x && x < 155 && y < 75 ) { //1-2
-				buzzer([30,50,30]);
-				if (set.read("tpms","dev")[face[0].tpms[face[0].pos]].log) {
-					set.write("tpms","dev",face[0].tpms[face[0].pos],"log",0);
-					face[0].btn(1,"LOGGING",28,80,25,col("gray"),0,0,0,155,75,"",18,40,50);//1-2
-				}else {
-					set.write("tpms","dev",face[0].tpms[face[0].pos],"log",1);
-					face[0].btn(1,"LOGGING",28,80,25,col("raf"),0,0,0,155,75,"",18,40,50);//1-2
-				}
-			}else if (155 <= x && y < 75) { //3
-				buzzer([30,50,30]);	
-				face[0].ntfy("HI: "+tpms.new,"",27,col("olive"),1,4,1);
-			}else if (0 <= x && x < 155 && 75 <y && y < 155) { //4-5
-				buzzer([30,50,30]);
-				let mode=set.read("tpms","mode");
-				mode++; if (4 < mode) mode=0;
-				set.write("tpms","mode",mode+"");
-				let tpmsS=["MANUAL","5 MINUTES","30 MINUTES","1 HOUR","EUC MODE"];
-				face[0].btn(mode,"REFRESH",20,80,90,(mode==4)?col("olive"):col("raf"),col("dgray"),0,80,155,155,tpmsS[mode],25,80,125); //4
-
-			}else if (155 <= x && 75 <y && y < 155) { //6
-				buzzer([30,50,30]);
-				face[0].ntfy("LOW: "+tpms.new,"",27,col("olive"),1,4,1);
-
-			}else {
-				if ( 160 < x && 160 < y) {
-					if (face[0].act="hi"){
-					
-					}else if (face[0].act="low"){	
-					
-					
-				}else if ( x < 160 && 160 < y) {
-					
-					
-				}else {	
-				
-					if (face[0].page=="scan"){
-						tpms.new=0;
-						tpms.scan(face[0].try);
-						//face[0].run=1;
-						face[0].scan();
-						buzzer([30,50,30]);
-					}
-					buzzer(40);		
-					face[0].page=0;
-					face[0].init();
-				}
-			}
 		}else if (190 < y) {
 			if (face[0].foot=="bar") {
 				if  ( x < 80 ) { 
@@ -269,7 +230,72 @@ touchHandler[0]=function(e,x,y){
 					face[0].sett();
 					face[0].page="sett";
 				}else buzzer(40);
-			}else buzzer(40);
+			}else if (face[0].foot=="barS") {
+				if  ( x < 120 ) {
+					if (face[0].act=="hi"){
+						buzzer([30,50,30]);
+						face[0].dev.hiP--; if ( face[0].dev.hiP < 31 ) face[0].dev.hiP=31;
+						face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.hiP/14.50377377).toFixed(2):face[0].dev.hiP,35,205,15,col("dgray"),0,160,0,239,60); //3
+					}else if (face[0].act=="low"){	
+						buzzer([30,50,30]);
+						face[0].dev.lowP--; if (  face[0].dev.lowP <5 ) face[0].dev.lowP=5;
+						face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.lowP/14.50377377).toFixed(2):face[0].dev.lowP,35,205,85,col("dgray"),0,160,65,239,125); //6
+					}	
+					face[0].ntfy("","",27,0,1,2,0,0);
+				}else if  ( 120 < x  ) { 
+					if (face[0].act=="hi"){
+						buzzer([30,50,30]);
+						face[0].dev.hiP++; if ( 150 < face[0].dev.hiP ) face[0].dev.hiP=150;
+						face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.hiP/14.50377377).toFixed(2):face[0].dev.hiP,35,205,15,col("dgray"),0,160,0,239,60); //3
+			
+					}else if (face[0].act=="low"){
+						buzzer([30,50,30]);						
+						face[0].dev.lowP++; if ( 30 < face[0].dev.lowP ) face[0].dev.lowP=30;
+						face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.lowP/14.50377377).toFixed(2):face[0].dev.lowP,35,205,85,col("dgray"),0,160,65,239,125); //6
+					}else if (face[0].act=="del"){
+						buzzer([30,50,30]);						
+						face[0].ntfy("GONE","",25,col("red"),1,1,0,1,0);
+					}else {
+						face[0].ntfy("DELETE ?","",25,col("red"),1,2,0,1,0);
+						face[0].act="del";
+					}
+					face[0].ntfy("","",27,0,1,2,0,0);
+				}
+				
+			}else buzzer(40);	
+		}else if (face[0].page=="sett"){
+			if ( 0 < x && x < 155 && y < 65 ) { //1-2
+				buzzer([30,50,30]);
+				face[0].dev.log = 1 - face[0].dev.log;
+				face[0].btn(face[0].dev.log,"LOGGING",25,80,20,col("raf"),col("gray"),0,0,155,60);//1-2
+				face[0].ntfy("ENABLED","DISABLED",27,(face[0].dev.log)?col("raf"):col("dgray"),face[0].dev.log,2,0,1,0);
+			}else if (155 <= x && y < 65) { //3
+				buzzer([30,50,30]);	
+				face[0].ntfy("HI PRESSURE","LIMIT",27,col("olive"),1,4,1,1,1);
+				face[0].act="hi";
+			}else if (0 <= x && x < 155 && 65 <y && y < 130) { //4-5
+				buzzer([30,50,30]);
+				tpms.mode++; if (4 < tpms.mode) tpms.mode=0;
+				set.write("tpms","mode",tpms.mode+"");
+				let tpmsS=["OFF","5 MIN","30 MIN","1 HOUR","EUC"];
+				//face[0].btn(tpms.mode,"REFRESH",20,80,73,(tpms.mode==4)?col("olive"):col("raf"),col("dgray"),0,65,155,125,tpmsS[tpms.mode],25,80,100); //4-5
+				face[0].btn(tpms.mode,tpmsS[tpms.mode],28,80,84,(tpms.mode==4)?col("olive"):col("raf"),col("dgray"),0,65,155,125); //4-5
+				face[0].ntfy("REFRESH","MODE",27,col("dgray"),1,2,0,1,1);
+			}else if (155 <= x && 65 <y && y < 130) { //6
+				buzzer([30,50,30]);
+				face[0].ntfy("LOW PRESSURE","LIMIT",27,col("olive"),1,4,1,1,1);
+				face[0].act="low";
+			}else if (x < 160 && 130 <y && y < 190) { //7-8 
+				buzzer([30,50,30]);
+				
+			} else if (160 < x && 130 <y && y < 190) { //9 bar-psi
+				buzzer([30,50,30]);
+				tpms.metric=(tpms.metric=="bar")?"psi":"bar";
+				face[0].btn(1,tpms.metric.toUpperCase(),25,205,150,col("dgray"),0,160,130,239,185,"",30,205,40); 
+				face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.hiP/14.50377377).toFixed(2):face[0].dev.hiP,35,205,15,col("dgray"),0,160,0,239,60); //3
+				face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.lowP/14.50377377).toFixed(2):face[0].dev.lowP,35,205,85,col("dgray"),0,160,65,239,125); //6
+
+			} 
 		}else if (50 < y) {
 			if (face[0].info) {buzzer(40);return;}
 			let i=0;
@@ -329,42 +355,46 @@ touchHandler[0]=function(e,x,y){
 				face[0].btn(cl,face[0].tpms[face[0].pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
 				face[0].btn(1,face[0].pos+1+"/"+face[0].tpms.length,35,200,7,0,col("raf"),150,0,239,50);
 				let tm=(getTime()|0) - face[0].dev.time;
-				face[0].sel(face[0].dev.psi,"<  "+(tm < 3600)?new Date(tm * 1000).toISOString().substr(11, 8):new Date(tm * 1000).toString().substr(0,24)+"  >");
+				face[0].sel(face[0].dev[tpms.metric],"<  "+(tm < 3600)?new Date(tm * 1000).toISOString().substr(11, 8):new Date(tm * 1000).toString().substr(0,24)+"  >");
 				face[0].bar();
 			}			
 		}
 		break;
     case 1: //slide down event
-		let mode=set.read("tpms","mode")-0;
-		if (mode && mode!=4) tpms.scan();
+		if (face[0].page=="sett") set.write("tpms","dev",face[0].tpms[face[0].pos],face[0].dev);
+		if (tpms.mode && tpms.mode!=4) tpms.scan(); else if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
 		if (face.faceSave!=-1) {
 			face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
 		}else
 			face.go("main",0);
 		return;
-    case 2: //slide up event
+    case 2: //slide up =event
 		if (y>160&&x<50) {
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 			buzzer([30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {
-			let mode=set.read("tpms","mode")-0;
-			if (mode && mode!=4) tpms.scan();
+			if (face[0].page=="sett") set.write("tpms","dev",face[0].tpms[face[0].pos],face[0].dev);
+			if (tpms.mode && tpms.mode!=4) tpms.scan();else if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
 			face.go("settings",0);return;
 		}
 		break;
     case 3: //slide left event
-		buzzer(40);
+		if (face[0].page!="sett"){
+			face[0].sett();
+			face[0].page="sett";
+		}else
+			buzzer(40);
 		//face.go("dashGarage",0);
 		return;
     case 4: //slide right event (back action)
 		if (face[0].page && face[0].page!="scan") {
+			if (face[0].page=="sett") set.write("tpms","dev",face[0].tpms[face[0].pos],face[0].dev);
 			//face[0].page=0;
 			face[0].init();
 			return;
 		}
-		mode=set.read("tpms","mode")-0;
-		if (mode && mode!=4) tpms.scan();
+		if (tpms.mode && tpms.mode!=4) tpms.scan();else if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
 		face.go("settings",0,1);
 		return;
     case 12: //touch and hold(long press) event

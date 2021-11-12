@@ -41,6 +41,7 @@ tpms= {
 								tpms.scan();
 							},modT[mode]*60000);
 						}	
+						print(1);
 						return;
 					}
 				}
@@ -73,6 +74,7 @@ tpms= {
 			});
 			if (tpms.def=="") {
 				if (tpms.try) {
+					print(2);
 					tpms.status="RETRYING:"+tpms.try;
 					tpms.try--;
 					tpms.busy=0;
@@ -84,16 +86,24 @@ tpms= {
 					tpms.status="NOT FOUND";
 					let mode=set.read("tpms","mode")-0;
 					let modT=[5,30,60];
+					if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
 					if (mode && mode!=4) {
-						if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
 						tpms.tid=setTimeout(()=>{ 
 							tpms.tid=0;
 							tpms.scan();
-						},modT[mode]*60000);
-					}	
+						},modT[mode-1]*60000);
+					}
+					print(3);
 				}
 			}
 		}, tpms.wait*1000);
 	}
 };
-if (set.read("tpms","mode")-0 && set.read("tpms","mode")-0 != 4) tpms.scan(tpms.try);
+//start
+tpms.metric=set.read("tpms","metric");
+tpms.mode=set.read("tpms","mode")-0;
+if (set.read("tpms","mode")-0 && set.read("tpms","mode")-0 != 4) {
+	tpms.scan(tpms.try);
+}
+
+
