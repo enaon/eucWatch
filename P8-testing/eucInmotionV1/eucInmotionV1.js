@@ -240,7 +240,7 @@ euc.conn=function(mac){
 								euc.tmp.last=[];
 								return;
 							}
-							if (set.bt===2) console.log("Inmotion: live in fixed : length: :", temp.length,"); 
+							if (set.bt===2) console.log("Inmotion: live in fixed : length: :", temp.length); 
 							euc.tmp.last=[];
 							euc.tmp.liveParse(E.toUint8Array(temp).buffer);
 							euc.tmp.last=[];euc.tmp.live();return;
