@@ -64,8 +64,7 @@ tpms= {
 				set.write("tpms","dev",id,dev);
 				//logging
 				if ( set.read("tpms","dev")[id].log) {
-					delete dev.log;
-					delete dev.id;
+					delete dev.log;delete dev.id;delete dev.hiP;delete dev.lowP;
 					set.write("tpmsLog"+id,dev.time,dev);
 				}
 				tpms.status="SUCCESS";
@@ -100,7 +99,7 @@ tpms= {
 	}
 };
 //start
-tpms.metric=set.read("tpms","metric");
+tpms.metric=(set.read("tpms","metric"))?set.read("tpms","metric"):"psi";
 tpms.mode=set.read("tpms","mode")-0;
 if (set.read("tpms","mode")-0 && set.read("tpms","mode")-0 != 4) {
 	tpms.scan(tpms.try);

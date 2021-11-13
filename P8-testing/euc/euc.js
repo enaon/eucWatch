@@ -72,9 +72,10 @@ global.euc= {
 
 //init
 if (Boolean(require("Storage").read('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json'))) { 
-euc.dash=require("Storage").readJSON('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json',1);
-}else euc.dash=require("Storage").readJSON("eucSlot.json",1);
+	euc.dash=require("Storage").readJSON('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json',1);
+}else 
+	euc.dash=require("Storage").readJSON("eucSlot.json",1);
 set.def.dash.slot=require("Storage").readJSON("dash.json",1).slot;
 //more
-setTimeout(()=>{if (require('Storage').read('tpms')) eval(require('Storage').read('tpms'));},5000);
+setTimeout(()=>{if (require('Storage').read('tpms')) eval(require('Storage').read('tpms'));},2000);
 
