@@ -241,7 +241,7 @@ euc.conn=function(mac){
 								return;
 							}
 							*/
-							if (set.bt===2) console.log("Inmotion: live in fixed : length: :", temp.length,". check:",euc.tmp.chk); 
+							if (set.bt===2) console.log("Inmotion: live in fixed : length: :", temp.length,"); 
 							euc.tmp.last=[];
 							euc.tmp.liveParse(E.toUint8Array(temp).buffer);
 							euc.tmp.last=[];euc.tmp.live();return;
