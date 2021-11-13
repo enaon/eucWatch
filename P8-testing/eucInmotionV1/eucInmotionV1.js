@@ -222,15 +222,16 @@ euc.conn=function(mac){
 					if (set.bt===2) console.log("Inmotion: in: length:",euc.tmp.tot.buffer.length," data :",euc.tmp.tot); 
 					//live pckg
 					if (euc.tmp.tot.buffer[2]===19) {
-						if (118 == euc.tmp.tot.length) {
+						if (euc.tmp.tot.buffer[12]+4 == euc.tmp.tot.length) {
 							euc.tmp.last=[];
 							if (set.bt===2) console.log("Inmotion: live in"); 
 							euc.tmp.liveParse(euc.tmp.tot.buffer);
 							euc.tmp.last=[];euc.tmp.live();return;
-						}else if (119 <= euc.tmp.tot.length) {
+						//}else if (119 <= euc.tmp.tot.length) {
+						}else{
 							let temp=JSON.parse(JSON.stringify(euc.tmp.tot.buffer));
 							for (let i = 0; i < temp.length; i++){ if (temp[i]===165 && 15<=i) temp.splice(i,1);}
-							euc.tmp.chk=new Uint8Array(euc.tmp.tot.length -3);
+							/*euc.tmp.chk=new Uint8Array(euc.tmp.tot.length -3);
 							euc.tmp.chk.set(temp);
 							euc.tmp.chk=( euc.tmp.chk.reduce(checksum) + 7 == euc.tmp.tot.buffer[euc.tmp.tot.length - 3] )?1:0;
 							if (!euc.tmp.chk) {
@@ -239,12 +240,10 @@ euc.conn=function(mac){
 								euc.tmp.last=[];
 								return;
 							}
+							*/
 							if (set.bt===2) console.log("Inmotion: live in fixed : length: :", temp.length,". check:",euc.tmp.chk); 
 							euc.tmp.last=[];
 							euc.tmp.liveParse(E.toUint8Array(temp).buffer);
-							euc.tmp.last=[];euc.tmp.live();return;
-						}else {
-							if (set.bt===2) console.log("Inmotion: live in dropped, length :",euc.tmp.tot.length,", check:",euc.tmp.chk); 
 							euc.tmp.last=[];euc.tmp.live();return;
 						}
 					//rest

@@ -335,6 +335,8 @@ touchHandler[0]=function(e,x,y){
 			} 
 		}else if (50 < y) {
 			if (face[0].info) {buzzer(40);return;}
+			
+			
 			let i=0;
 			buzzer([30,50,30]);
 		}else {
