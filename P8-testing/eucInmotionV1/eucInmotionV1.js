@@ -4,6 +4,9 @@ if (!euc.dash.alrt) euc.dash.alrt={};
 if (!euc.dash.lght) euc.dash.lght={"head":0,"tail":0,"ring":0,"aHead":0};
 if (!euc.dash.ctrl) euc.dash.ctrl={"aLck":0,"aLift":0,"aOff":0,"aLight":0,"lift":1,"lamp":0,"vol":50,"horn":20};
 if (!euc.dash.ride) euc.dash.ride={mode:0};
+
+
+
 euc.cmd=function(no,val){
 	if (set.bt===2) console.log("inmotion: send cmd :",no);
 	let cmd;
@@ -11,8 +14,6 @@ euc.cmd=function(no,val){
 		case "info" :		return		[170, 170, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127]; 
 		case "batLevelData":return 		[170, 170, 20, 1, 165, 85, 15, 0, 0, 0, 21, 0, 0, 0, 0, 8, 5, 0, 1, 156];
 		case "live":		return 		[170, 170, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
-		case "liveS":		return 		[170, 170, 19, 1, 165, 85, 15, -1, -1, -1, -1, -1, -1, -1, -1, 8, 5, 0, 1, 126];
-		case "liveS1":		return 		[170, 170, 19, 1, 165, 85, 15, -1, -1, -1, -1, -1, -1, -1, -1, 8, 5, 0, 1, 125];
 		case "init":		return 		[170, 170, 7, 3, 165, 85, 15, 48, 48, 48, 48, 48, 48, 0, 0, 8, 5, 0, 0, 155];
 		case "calibration": return 		[ 170, 170, 25, 1, 165, 85, 15, 50, 84, 118, 152, 0, 0, 0, 0, 8, 5, 0, 0, 31 ];
 		case "horn": 		return		[170, 170, 9, 6, 165, 85, 15, 4, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0, 132];
@@ -221,12 +222,31 @@ euc.conn=function(mac){
 					if (set.bt===2) console.log("Inmotion: in: length:",euc.tmp.tot.buffer.length," data :",euc.tmp.tot); 
 					//live pckg
 					if (euc.tmp.tot.buffer[2]===19) {
-						euc.tmp.last=[];
-						if (set.bt===2) console.log("Inmotion: live in"); 
-						euc.tmp.liveParse(euc.tmp.tot.buffer);
-						euc.tmp.last=[];
-						euc.tmp.live();
-						return;
+						if (118 == euc.tmp.tot.length) {
+							euc.tmp.last=[];
+							if (set.bt===2) console.log("Inmotion: live in"); 
+							euc.tmp.liveParse(euc.tmp.tot.buffer);
+							euc.tmp.last=[];euc.tmp.live();return;
+						}else if (119 <= euc.tmp.tot.length) {
+							let temp=JSON.parse(JSON.stringify(euc.tmp.tot.buffer));
+							for (let i = 0; i < temp.length; i++){ if (temp[i]===165 && 15<=i) temp.splice(i,1);}
+							euc.tmp.chk=new Uint8Array(euc.tmp.tot.length -3);
+							euc.tmp.chk.set(temp);
+							euc.tmp.chk=( euc.tmp.chk.reduce(checksum) + 7 == euc.tmp.tot.buffer[euc.tmp.tot.length - 3] )?1:0;
+							if (!euc.tmp.chk) {
+								if (set.bt===2) console.log("Inmotion: problem: length:",  temp.length, temp); 
+								euc.tmp.live();
+								euc.tmp.last=[];
+								return;
+							}
+							if (set.bt===2) console.log("Inmotion: live in fixed : length: :", temp.length,". check:",euc.tmp.chk); 
+							euc.tmp.last=[];
+							euc.tmp.liveParse(E.toUint8Array(temp).buffer);
+							euc.tmp.last=[];euc.tmp.live();return;
+						}else {
+							if (set.bt===2) console.log("Inmotion: live in dropped, length :",euc.tmp.tot.length,", check:",euc.tmp.chk); 
+							euc.tmp.last=[];euc.tmp.live();return;
+						}
 					//rest
 					}else {
 						if (euc.tmp.tot.buffer[2]===1) {
@@ -254,7 +274,7 @@ euc.conn=function(mac){
 			euc.tmp.live= function(){
 				if (euc.busy) return;
 				euc.wCha.writeValue([170, 170, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125]).then(function() {
-					return euc.wCha.writeValue([85,85]);
+					return euc.wCha.writeValue([85, 85, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125]);
 				}).catch(function(err)  {
 					euc.off("writefail");	
 				});

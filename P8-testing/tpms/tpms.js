@@ -58,9 +58,9 @@ tpms= {
 				dev.volt=((330-(dev.batt/1.725))/100).toFixed(2);
 				dev.alrm=device.manufacturerData[15];
 				let last= (getTime()|0)-dev.time;
-				print("Got new reading, last reading was",(last<60)?last+" secs ago":(last<3600)?last/60|0+" min ago":(last<86400)?last/3600|0+" hour ago":"never");
+				//print("Got new reading, last reading was",(last<60)?last+" secs ago":(last<3600)?last/60|0+" min ago":(last<86400)?last/3600|0+" hour ago":"never");
 				dev.time=getTime()|0;
-				print(dev);
+				//print(dev);
 				set.write("tpms","dev",id,dev);
 				//logging
 				if ( set.read("tpms","dev")[id].log) {
@@ -73,7 +73,6 @@ tpms= {
 			});
 			if (tpms.def=="") {
 				if (tpms.try) {
-					print(2);
 					tpms.status="RETRYING:"+tpms.try;
 					tpms.try--;
 					tpms.busy=0;
@@ -92,7 +91,7 @@ tpms= {
 							tpms.scan();
 						},modT[mode-1]*60000);
 					}
-					print(3);
+					//print(3);
 				}
 			}
 		}, tpms.wait*1000);
