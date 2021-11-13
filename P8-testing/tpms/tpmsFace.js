@@ -109,7 +109,7 @@ face[0] = {
 		this.g.setColor(0,0);
 		this.g.clearRect(156,0,159,60);
 		this.g.flip(); 
-		this.btn(1,(tpms.metric=="bar")?(this.dev.hiP/14.50377377).toFixed(2):this.dev.hiP,35,205,15,col("dgray"),0,160,0,239,60); //3
+		this.btn(1,(tpms.metric=="bar")?(this.dev.hiP/14.50377377).toFixed(2):this.dev.hiP,38,205,15,col("dgray"),0,160,0,239,60); //3
 		this.g.setColor(0,0);
 		this.g.clearRect(0,61,239,64);
 		this.g.flip();
@@ -118,7 +118,7 @@ face[0] = {
 		this.g.setColor(0,0);
 		this.g.clearRect(156,65,159,125);
 		this.g.flip();
-		this.btn(1,(tpms.metric=="bar")?(this.dev.lowP/14.50377377).toFixed(2):this.dev.lowP,35,205,85,col("dgray"),0,160,65,239,125); //6
+		this.btn(1,(tpms.metric=="bar")?(this.dev.lowP/14.50377377).toFixed(2):this.dev.lowP,38,205,81,col("dgray"),0,160,65,239,125); //6
 	},	
 	barS: function(){
 		this.foot="barS";
@@ -195,9 +195,11 @@ face[1] = {
 		if (tpms.mode && tpms.mode!=4) tpms.scan(); else if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
 		//if (face.faceSave!=-1) {
 		//	face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
-		//}else
+		if (gobal.euc && euc.state!="OFF")
+			face.go(set.dash[set.def.dash.face],0);
+		else
 			face.go("settings",0,1);
-		//return;
+		return;
 	},
 	clear: function(){
 		return;
@@ -235,23 +237,23 @@ touchHandler[0]=function(e,x,y){
 					if (face[0].act=="hi"){
 						buzzer([30,50,30]);
 						face[0].dev.hiP--; if ( face[0].dev.hiP < 31 ) face[0].dev.hiP=31;
-						face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.hiP/14.50377377).toFixed(2):face[0].dev.hiP,35,205,15,col("dgray"),0,160,0,239,60); //3
+						face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.hiP/14.50377377).toFixed(2):face[0].dev.hiP,38,205,15,col("dgray"),0,160,0,239,60); //3
 					}else if (face[0].act=="low"){	
 						buzzer([30,50,30]);
 						face[0].dev.lowP--; if (  face[0].dev.lowP <5 ) face[0].dev.lowP=5;
-						face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.lowP/14.50377377).toFixed(2):face[0].dev.lowP,35,205,85,col("dgray"),0,160,65,239,125); //6
+						face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.lowP/14.50377377).toFixed(2):face[0].dev.lowP,38,205,81,col("dgray"),0,160,65,239,125); //6
 					}	
 					face[0].ntfy("","",27,0,1,2,0,0);
 				}else if  ( 120 < x  ) { 
 					if (face[0].act=="hi"){
 						buzzer([30,50,30]);
 						face[0].dev.hiP++; if ( 150 < face[0].dev.hiP ) face[0].dev.hiP=150;
-						face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.hiP/14.50377377).toFixed(2):face[0].dev.hiP,35,205,15,col("dgray"),0,160,0,239,60); //3
+						face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.hiP/14.50377377).toFixed(2):face[0].dev.hiP,38,205,15,col("dgray"),0,160,0,239,60); //3
 			
 					}else if (face[0].act=="low"){
 						buzzer([30,50,30]);						
 						face[0].dev.lowP++; if ( 30 < face[0].dev.lowP ) face[0].dev.lowP=30;
-						face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.lowP/14.50377377).toFixed(2):face[0].dev.lowP,35,205,85,col("dgray"),0,160,65,239,125); //6
+						face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.lowP/14.50377377).toFixed(2):face[0].dev.lowP,38,205,81,col("dgray"),0,160,65,239,125); //6
 					}else if (face[0].act=="del"){
 						buzzer([30,50,30]);						
 						face[0].ntfy("GONE","",25,col("red"),1,1,0,1,0);
@@ -292,8 +294,8 @@ touchHandler[0]=function(e,x,y){
 				buzzer([30,50,30]);
 				tpms.metric=(tpms.metric=="bar")?"psi":"bar";
 				face[0].btn(1,tpms.metric.toUpperCase(),25,205,150,col("dgray"),0,160,130,239,185,"",30,205,40); 
-				face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.hiP/14.50377377).toFixed(2):face[0].dev.hiP,35,205,15,col("dgray"),0,160,0,239,60); //3
-				face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.lowP/14.50377377).toFixed(2):face[0].dev.lowP,35,205,85,col("dgray"),0,160,65,239,125); //6
+				face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.hiP/14.50377377).toFixed(2):face[0].dev.hiP,38,205,15,col("dgray"),0,160,0,239,60); //3
+				face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.lowP/14.50377377).toFixed(2):face[0].dev.lowP,38,205,81,col("dgray"),0,160,65,239,125); //6
 
 			} 
 		}else if (50 < y) {
