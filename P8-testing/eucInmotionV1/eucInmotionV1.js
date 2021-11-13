@@ -455,7 +455,6 @@ euc.off=function(err){
 		}
 	} else {
 		if (set.bt===2) console.log("EUC OUT:",err);
-		if (set.bt===2) console.log("EUC OUT:",err);
 		if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
 		euc.off=function(err){if (set.bt===2) console.log("EUC off, not connected",err);};
 		euc.wri=function(err){if (set.bt===2) console.log("EUC write, not connected",err);};
@@ -467,9 +466,5 @@ euc.off=function(err){
 		euc.serv=0;euc.wCha=0;euc.rCha=0;euc.gatt=0;
 		global["\xFF"].bleHdl=[];
 		NRF.setTxPower(set.def.rfTX);	
-		if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
-			if (set.bt===2) console.log("ble still connected"); 
-			global["\xFF"].BLE_GATTS.disconnect();return;
-		}
     }
 };
