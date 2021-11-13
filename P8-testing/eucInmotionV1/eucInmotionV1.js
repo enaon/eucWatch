@@ -231,7 +231,7 @@ euc.conn=function(mac){
 						}else{
 							let temp=JSON.parse(JSON.stringify(euc.tmp.tot.buffer));
 							for (let i = 0; i < temp.length; i++){ if (temp[i]===165 && 15<=i) temp.splice(i,1);}
-							/*euc.tmp.chk=new Uint8Array(euc.tmp.tot.length -3);
+							euc.tmp.chk=new Uint8Array(euc.tmp.tot.length -3);
 							euc.tmp.chk.set(temp);
 							euc.tmp.chk=( euc.tmp.chk.reduce(checksum) + 7 == euc.tmp.tot.buffer[euc.tmp.tot.length - 3] )?1:0;
 							if (!euc.tmp.chk) {
@@ -240,7 +240,6 @@ euc.conn=function(mac){
 								euc.tmp.last=[];
 								return;
 							}
-							*/
 							if (set.bt===2) console.log("Inmotion: live in fixed : length: :", temp.length,"); 
 							euc.tmp.last=[];
 							euc.tmp.liveParse(E.toUint8Array(temp).buffer);
