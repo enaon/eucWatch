@@ -95,6 +95,7 @@ face[0] = {
       this.g.setFont("Vector",28);
       for (var entry=this.line;entry<this.line+4&&entry<scan.mac.length;entry++) {
         print(entry,this.go);
+		print("id :"+scan.mac[entry].substring(0,17),"name :"+scan.mac[entry].split("|")[1]);
 		this.g.setColor(0,col((this.go==entry)?"raf":(entry % 2)?"dgray":"gray"));
         this.g.fillRect(0,(this.top-14)+((entry-this.line)*this.top),239,(this.top+36)+((entry-this.line)*this.top)); 
 		this.g.setColor(1,col((this.go==entry)?"lblue":"white"));
