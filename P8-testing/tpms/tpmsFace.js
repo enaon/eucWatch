@@ -73,16 +73,6 @@ face[0] = {
     },	
 	ind: function(last){
 		if (!this.log.length) return;
-		this.g.setColor(0,0);
-		this.g.setColor(1,col("lblue"));
-		this.g.fillRect(239-(this.ref*18)-16, 239-(this.log[this.ref][tpms.metric]*this.scale),239-(this.ref*18), 239);
-		this.g.flip(); 
-		if ((last || last===0) && last!=this.ref){
-			if (this.log[last].psi < this.dev.lowP ||  this.dev.hiP < this.log[last].psi ) this.g.setColor(1,col("red"));
-			else this.g.setColor(1,col("raf"));
-			this.g.fillRect(239-(last*18)-16, 239-(this.log[last][tpms.metric]*this.scale),239-(last*18), 239);
-			this.g.flip(); 
-		}
 		if (last || last===0) {
 			this.g.setColor(1,col("lblue"));
 			this.g.fillRect(239-(this.ref*18)-16,187,239-(this.ref*18),190);
@@ -95,7 +85,18 @@ face[0] = {
 			this.g.fillRect(239-(this.ref*18)-16,187,239-(this.ref*18),190);
 		}
 		this.g.flip();
-    },
+		if (tpms.status=="SCANNING") return;
+		this.g.setColor(0,0);
+		this.g.setColor(1,col("lblue"));
+		this.g.fillRect(239-(this.ref*18)-16, 239-(this.log[this.ref][tpms.metric]*this.scale),239-(this.ref*18), 239);
+		this.g.flip(); 
+		if ((last || last===0) && last!=this.ref){
+			if (this.log[last].psi < this.dev.lowP ||  this.dev.hiP < this.log[last].psi ) this.g.setColor(1,col("red"));
+			else this.g.setColor(1,col("raf"));
+			this.g.fillRect(239-(last*18)-16, 239-(this.log[last][tpms.metric]*this.scale),239-(last*18), 239);
+			this.g.flip(); 
+		}
+    },	
 	scan: function(){
 		if (tpms.status=="SUCCESS") {
 			this.page=0;
