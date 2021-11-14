@@ -65,7 +65,13 @@ tpms= {
 				//logging
 				if ( set.read("tpms","dev")[id].log) {
 					delete dev.log;delete dev.id;delete dev.hiP;delete dev.lowP;
-					set.write("tpmsLog"+id,dev.time,dev);
+					//set.write("tpmsLog"+id,dev.time,dev);
+					let log=(require("Storage").readJSON("tpmsLog"+id+".json",1))?require("Storage").readJSON("tpmsLog"+id+".json",1):[];
+					log.unshift(dev);
+					if (10<log.length) log.pop();
+					require("Storage").writeJSON("tpmsLog"+id+".json",log);
+					log=0;
+					dev=0;
 				}
 				tpms.status="SUCCESS";
 				tpms.busy=0;
