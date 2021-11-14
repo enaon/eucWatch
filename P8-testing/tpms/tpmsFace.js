@@ -6,6 +6,7 @@ face[0] = {
 	init: function(){
 		this.foot="bar";
 		this.disp=0;
+		this.ref=0;
 		this.pos=(set.def.tpms)?set.def.tpms:0;
 		this.try=tpms.try;
 		//this.tpms=set.read("tpms","slot");
@@ -15,13 +16,20 @@ face[0] = {
 		//this.tmp=require("Storage").readJSON("tpmsLog"+this.tpms[this.pos]+".json",1);
 		//this.tmp=set.read("tpmsLog"+this.tpms[this.pos]);
 		//this.tmp=set.read("tpmsLog"+this.tpms[this.pos])
+		/*
+		
+		ppos=(set.def.tpms)?set.def.tpms:0;
+		ttpms=require("Storage").readJSON("tpms.json",1).slot;
+		ddev=require("Storage").readJSON("tpms.json",1).dev[ttpms[ppos]];
+		ttmp=require("Storage").readJSON("tpmsLog"+ttpms[ppos]+".json",1);
+		*/
 		if (this.tpms.length) {
 			//this.dev=set.read("tpms","dev")[this.tpms[this.pos]];
 			let tm=(getTime()|0) - this.dev.time;
 			let cl=(tm < 300)?1:0;
 			this.btn(cl,this.tpms[this.pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
 			this.btn(1,this.pos+1+"/"+this.tpms.length,35,200,7,0,col("raf"),150,0,239,50);
-			this.sel(this.dev[tpms.metric],"<  "+(tm < 3600)?new Date(tm * 1000).toISOString().substr(11, 8):new Date(tm * 1000).toString().substr(0,24)+"  >");
+			this.sel(this.tmp[Object.keys(this.tmp)[0]][tpms.metric],"<  "+(tm < 3600)?new Date(tm * 1000).toISOString().substr(11, 8):new Date(tm * 1000).toString().substr(0,24)+"  >");
 			if (tpms.status=="SCANNING") this.scan();
 			//else  if (this.dev) this.lg();
 			else {
@@ -63,22 +71,19 @@ face[0] = {
 		this.g.setColor(1,col("lblue"));
 		let img = require("heatshrink").decompress(atob("mEwwIcZg/+Aocfx+AAoV4gPgAoQDBuAEBgPAgE4AoQVBjgFBgYCBhgoCAQMGAQUgAolACggFL6AFGGQQFJEZsGsAFEIIhNFLIplFgBxBnwFCPYP/AoU8gf/BwKVB/+/SAUD/kf+CjDh/4V4n8AoYeBAoq1DgIqDAAP/XYcAv4qEn4qEGwsfC4kPEYkHF4Z1DACA="));
 		this.g.drawImage(img,10,195);
-		let time=(getTime()|0);
+		//let time=(getTime()|0);
+		this.tot=Object.keys(this.tmp).length-1;
+		this.ref=this.tot;
 		let cnt=0;
 		this.g.setFont("Vector",23);	
-		for (let i in this.tmp) {
-			if (time-i < 10800 ) this.g.fillRect(239-((time-i)/60)-5, 239-(this.tmp[i][tpms.metric]*this.scale),239-((time-i)/60), 239);
-			else cnt++
+		for (let i = this.tot; 0 < i ; i--) {
+		//for (let i in this.tmp) {
+			this.g.fillRect(239-(cnt*10)-8, 239-(this.tmp[Object.keys(this.tmp)[i]][tpms.metric]*this.scale),239-(cnt*10), 239);
+			//this.g.fillRect(239-(cnt*10)-8, 239-(this.tmp[i][tpms.metric]*this.scale),239-(cnt*10), 239);
+			//if (time-i < 10800 ) this.g.fillRect(239-((time-i)/60)-5, 239-(this.tmp[i][tpms.metric]*this.scale),239-((time-i)/60), 239);
+			//else 
+				cnt++;
 			this.g.flip(); 
-		}
-		if (cnt) {
-				this.g.setFont("Vector",40);	
-				this.g.fillRect(70,200,110,239);
-				this.g.setColor(0,0);
-				this.g.drawString(cnt,78,207); 
-				this.g.setFont("Vector",18);	
-				this.g.drawString("OLD",75,198); 
-				//this.g.fillRect(60,200,90,239);
 		}
 		this.g.flip(); 
     },	
@@ -95,7 +100,9 @@ face[0] = {
 			let cl=(tm < 300)?1:0;
 			this.btn(cl,this.tpms[this.pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
 			this.btn(1,this.pos+1+"/"+this.tpms.length,35,200,7,0,col("raf"),150,0,239,50);
-			this.sel(this.dev[tpms.metric],"<  "+(tm < 3600)?new Date(tm * 1000).toISOString().substr(11, 8):new Date(tm * 1000).toString().substr(0,24)+"  >");
+			
+			this.sel(face[0].tmp[Object.keys(face[0].tmp)[0]][tpms.metric],"<  "+(tm < 3600)?new Date(tm * 1000).toISOString().substr(11, 8):new Date(tm * 1000).toString().substr(0,24)+"  >");
+			//this.sel(this.dev[tpms.metric],"<  "+(tm < 3600)?new Date(tm * 1000).toISOString().substr(11, 8):new Date(tm * 1000).toString().substr(0,24)+"  >");
 			this.ntfy("FOUND : "+tpms.new,"",27,col("raf"),1,2);	
 			return;
 		}else if (tpms.status=="NOT FOUND") {
@@ -130,8 +137,8 @@ face[0] = {
 		this.g.setFont("Vector",27);	
 		this.g.drawString(tpms.metric.toUpperCase(),105+(size/2),84);
 		this.g.setFont("Vector",25);
-		let tim=new Date(this.dev.time*1000).toString().split(" ")[1]+" "+new Date(this.dev.time*1000).toString().split(" ")[2]+" "+new Date(this.dev.time*1000).toString().split(" ")[4];
-		this.g.drawString(tim,120-(this.g.stringWidth(tim)/2),145);
+		//let tim=new Date(this.dev.time*1000).toString().split(" ")[1]+" "+new Date(this.dev.time*1000).toString().split(" ")[2]+" "+new Date(this.dev.time*1000).toString().split(" ")[4];
+		this.g.drawString(txt2,120-(this.g.stringWidth(txt2)/2),145);
 		this.g.flip();
 		this.g.setColor(0,0);
 		this.g.clearRect(0,186,239,189);
@@ -331,14 +338,19 @@ touchHandler[0]=function(e,x,y){
 				face[0].btn(1,tpms.metric.toUpperCase(),25,205,150,col("dgray"),0,160,130,239,185,"",30,205,40); 
 				face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.hiP/14.50377377).toFixed(2):face[0].dev.hiP,38,205,15,col("dgray"),0,160,0,239,60); //3
 				face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.lowP/14.50377377).toFixed(2):face[0].dev.lowP,38,205,81,col("dgray"),0,160,65,239,125); //6
-
 			} 
-		}else if (50 < y) {
-			if (face[0].info) {buzzer(40);return;}
-			
-			
-			let i=0;
-			buzzer([30,50,30]);
+		}else if (50 < y) { //entry select
+			if  ( 120 < x ){
+				if ( face[0].ref  < face[0].tot ) { buzzer([30,50,30]);face[0].ref++;}
+				else  {buzzer(40);return;}
+			}else {
+				if (  0 < face[0].ref  ) { buzzer([30,50,30]);face[0].ref--;}
+				else  {buzzer(40);return;}
+			}
+			let tim=new Date(face[0].tmp[Object.keys(face[0].tmp)[face[0].ref]].time*1000).toString().split(" ")[1]+" "+new Date(face[0].tmp[Object.keys(face[0].tmp)[face[0].ref]].time*1000).toString().split(" ")[2]+" "+new Date(face[0].tmp[Object.keys(face[0].tmp)[face[0].ref]].time*1000).toString().split(" ")[4];
+			face[0].sel(face[0].tmp[Object.keys(face[0].tmp)[face[0].ref]][tpms.metric],tim);
+			print(face[0].ref,Object.keys(face[0].tmp).length,tim);
+
 		}else {
 			buzzer([30,50,30]);
 			if  ( 150 < x ) { //info
@@ -398,7 +410,10 @@ touchHandler[0]=function(e,x,y){
 				face[0].btn(cl,face[0].tpms[face[0].pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
 				face[0].btn(1,face[0].pos+1+"/"+face[0].tpms.length,35,200,7,0,col("raf"),150,0,239,50);
 				let tm=(getTime()|0) - face[0].dev.time;
-				face[0].sel(face[0].dev[tpms.metric],"<  "+(tm < 3600)?new Date(tm * 1000).toISOString().substr(11, 8):new Date(tm * 1000).toString().substr(0,24)+"  >");
+				
+				face[0].sel(face[0].tmp[Object.keys(face[0].tmp)[0]][tpms.metric],"<  "+(tm < 3600)?new Date(tm * 1000).toISOString().substr(11, 8):new Date(tm * 1000).toString().substr(0,24)+"  >");
+
+				//face[0].sel(face[0].dev[tpms.metric],"<  "+(tm < 3600)?new Date(tm * 1000).toISOString().substr(11, 8):new Date(tm * 1000).toString().substr(0,24)+"  >");
 				//if (face[0].dev) face[0].lg(); else 
 				face[0].sc();
 				face[0].bar();
