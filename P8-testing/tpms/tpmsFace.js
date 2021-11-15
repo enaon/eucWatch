@@ -17,18 +17,20 @@ face[0] = {
 			this.dev.lowP=(this.dev.lowP)?this.dev.lowP:10;this.dev.hiP=(this.dev.hiP)?this.dev.hiP:40;
 			this.dev.log=(this.dev.log)?1:0;
 			let cl=((getTime()|0) - face[0].dev.time < 1800)?1:0;
-			this.btn(cl,this.tpms[this.pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
+			this.btn(cl,this.tpms[this.pos],35,75,7,(this.dev.psi < this.dev.lowP ||  this.dev.hiP < this.dev.psi )?col("red"):col("raf"),col("dgray"),0,0,149,50);
 			this.btn(1,this.pos+1+"/"+this.tpms.length,35,200,7,0,col("raf"),150,0,239,50);
 			this.sc();
 			let tm=(getTime()|0) - this.dev.time;
 			cl=(tm < 3600)?1:0;
 			let ago=(cl)?((tm/60)|0):(tm < 3600)?new Date(tm * 1000).toISOString().substr(11, 8):new Date(tm * 1000).toString().substr(0,24);
 			this.sel(this.dev[tpms.metric],ago,(cl)?" AGO":0);
-			if (tpms.status=="SCANNING") 
+			if (tpms.status=="SCANNING") {
 				this.scan();
-			else if (!this.ntid) //clearTimeout(this.ntid);
+			}else if (!this.ntid) { 
+				tpms.cnt=0;
 				this.bar();
-			this.page=0;
+				this.page=0;
+			} 
 		}else {
 			this.pos=0;
 			this.g.setColor(0,0);
@@ -236,6 +238,44 @@ face[0] = {
 			t.act=0;
 		},tm*1000,this);
     },
+	inf:function(){
+		//this.dev=set.read("tpms","dev")[this.tpms[this.pos]];
+		this.dev=require("Storage").readJSON("tpms.json",1).dev[this.tpms[this.pos]];
+		//this.log=require("Storage").readJSON("tpmsLog"+this.tpms[this.pos]+".json",1);
+		this.info=1;
+		let cl=((getTime()|0) - this.dev.time < 300)?1:0;
+		this.btn(cl,this.tpms[this.pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
+		this.btn(1,this.pos+1+"/"+this.tpms.length,35,200,7,0,col("raf"),150,0,239,50);
+		this.info=1;
+		w.gfx.setColor(0,0);
+		w.gfx.fillRect(100,51,190,239); 
+		w.gfx.setColor(1,col("white"));
+		w.gfx.setFontVector(28);
+		w.gfx.drawString(this.dev.bar,185-w.gfx.stringWidth(this.dev.bar),62);
+		w.gfx.drawString(this.dev.psi,185-w.gfx.stringWidth(this.dev.psi),100);
+		w.gfx.drawString(this.dev.temp,185-w.gfx.stringWidth(this.dev.temp),139); 
+		w.gfx.drawString(this.dev.batt,185-w.gfx.stringWidth(this.dev.batt),178); 
+		w.gfx.drawString(this.dev.volt,185-w.gfx.stringWidth(this.dev.volt),217); 
+		w.gfx.flip();	
+		w.gfx.setColor(0,0);
+		w.gfx.fillRect(0,51,99,239); 				
+		w.gfx.setColor(1,col("lgray"));
+		w.gfx.setFontVector(22);
+		w.gfx.drawString("Pressure",5,65);
+		w.gfx.setFontVector(24);
+		w.gfx.drawString("Temp",5,143);
+		w.gfx.drawString("Battery",5,181);
+		w.gfx.flip();
+		w.gfx.setColor(0,0);
+		w.gfx.fillRect(191,51,239,239); 
+		w.gfx.setColor(1,col("lgray"));
+		w.gfx.drawString("Bar",195,65);
+		w.gfx.drawString("Psi",195,105);
+		w.gfx.drawString("C",195,143);
+		w.gfx.drawString("%",195,181);
+		w.gfx.drawString("V",195,220);
+		w.gfx.flip();	
+	},	
 	tid:-1,
 	run:false,
 	clear : function(){
@@ -276,6 +316,7 @@ face[1] = {
 //touch-main
 touchHandler[0]=function(e,x,y){
 	this.timeout();
+	if (!this.lL) this.lL=getTime();
 	switch (e) {
 	case 5: //tap event
 		if (face[0].page=="scan"){
@@ -302,16 +343,20 @@ touchHandler[0]=function(e,x,y){
 						face[0].act=0;
 				}else if (face[0].act=="hi"){	
 						buzzer([30,50,30]);
-						if  ( x < 120 ) {face[0].dev.hiP--; if ( face[0].dev.hiP < 31 ) face[0].dev.hiP=31;}
-						else {face[0].dev.hiP++; if ( 150 < face[0].dev.hiP ) face[0].dev.hiP=150;}
+						let fast=( getTime()-this.lL < 0.2 )?1:0;
+						if  ( x < 120 ) {face[0].dev.hiP=face[0].dev.hiP-((fast)?5:1);if(face[0].dev.hiP-5<face[0].dev.lowP){face[0].dev.hiP=face[0].dev.lowP+5;if(face[0].dev.hiP<20)face[0].dev.hiP=20;}}
+						else {face[0].dev.hiP=face[0].dev.hiP+((fast)?5:1); if ( 250 < face[0].dev.hiP ) face[0].dev.hiP=250;}
 						face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.hiP/14.50377377).toFixed(2):face[0].dev.hiP,38,205,15,col("dgray"),0,160,0,239,60); //3
 						face[0].ntfy("","",27,0,1,2,0,0);
+						this.lL=getTime();
 				}else if (face[0].act=="low"){		
 						buzzer([30,50,30]);
-						if  ( x < 120 ) {face[0].dev.lowP--; if (  face[0].dev.lowP <5 ) face[0].dev.lowP=5;}
-						else { face[0].dev.lowP++; if ( 30 < face[0].dev.lowP ) face[0].dev.lowP=30;}
+						let fast=( getTime()-this.lL < 0.2 )?1:0;
+						if  ( x < 120 ) {face[0].dev.lowP=face[0].dev.lowP-((fast)?5:1); if (  face[0].dev.lowP <0 ) face[0].dev.lowP=0;}
+						else { face[0].dev.lowP=face[0].dev.lowP+((fast)?5:1);if(face[0].dev.hiP-5<face[0].dev.lowP){face[0].dev.lowP=face[0].dev.hiP-5;if ( 150 < face[0].dev.lowP ) face[0].dev.lowP=150;}}
 						face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.lowP/14.50377377).toFixed(2):face[0].dev.lowP,38,205,81,col("dgray"),0,160,65,239,125); //6
 						face[0].ntfy("","",27,0,1,2,0,0);
+						this.lL=getTime();
 				}else { 
 					if ( x < 80 ){
 						buzzer([30,50,30]);
@@ -358,7 +403,8 @@ touchHandler[0]=function(e,x,y){
 				face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.hiP/14.50377377).toFixed(2):face[0].dev.hiP,38,205,15,col("dgray"),0,160,0,239,60); //3
 				face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.lowP/14.50377377).toFixed(2):face[0].dev.lowP,38,205,81,col("dgray"),0,160,65,239,125); //6
 			} 
-		}else if (50 < y) { //entry select
+		}else if (50 < y) { 
+			//entry select
 			if (face[0].info || !face[0].log.length || !face[0].dev.log  ) {buzzer(40);return;}
 			let last=face[0].ref;
 			buzzer([30,50,30]);
@@ -374,6 +420,7 @@ touchHandler[0]=function(e,x,y){
 			let ago=(cl)?((tm/60)|0):(tm < 3600)?new Date(tm * 1000).toISOString().substr(11, 8):new Date(tm * 1000).toString().substr(0,24);
 			face[0].sel(face[0].log[face[0].ref][tpms.metric],ago,(cl)?" AGO":0);
 			face[0].ind(last);
+			return;
 		}else {
 			if  ( 150 < x ) { //info
 				if (face[0].info) {
@@ -383,42 +430,7 @@ touchHandler[0]=function(e,x,y){
 					set.def.tpms=face[0].pos;
 				} 
 				buzzer([30,50,30]);
-				//face[0].dev=set.read("tpms","dev")[face[0].tpms[face[0].pos]];
-				face[0].dev=require("Storage").readJSON("tpms.json",1).dev[face[0].tpms[face[0].pos]];
-				//face[0].log=require("Storage").readJSON("tpmsLog"+face[0].tpms[face[0].pos]+".json",1);
-				face[0].info=1;
-				let cl=((getTime()|0) - face[0].dev.time < 300)?1:0;
-				face[0].btn(cl,face[0].tpms[face[0].pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
-				face[0].btn(1,face[0].pos+1+"/"+face[0].tpms.length,35,200,7,0,col("raf"),150,0,239,50);
-				face[0].info=1;
-				w.gfx.setColor(0,0);
-				w.gfx.fillRect(100,51,190,239); 
-				w.gfx.setColor(1,col("white"));
-				w.gfx.setFontVector(28);
-				w.gfx.drawString(face[0].dev.bar,185-w.gfx.stringWidth(face[0].dev.bar),62);
-				w.gfx.drawString(face[0].dev.psi,185-w.gfx.stringWidth(face[0].dev.psi),100);
-				w.gfx.drawString(face[0].dev.temp,185-w.gfx.stringWidth(face[0].dev.temp),139); 
-				w.gfx.drawString(face[0].dev.batt,185-w.gfx.stringWidth(face[0].dev.batt),178); 
-				w.gfx.drawString(face[0].dev.volt,185-w.gfx.stringWidth(face[0].dev.volt),217); 
-				w.gfx.flip();	
-				w.gfx.setColor(0,0);
-				w.gfx.fillRect(0,51,99,239); 				
-				w.gfx.setColor(1,col("lgray"));
-				w.gfx.setFontVector(22);
-				w.gfx.drawString("Pressure",5,65);
-				w.gfx.setFontVector(24);
-				w.gfx.drawString("Temp",5,143);
-				w.gfx.drawString("Battery",5,181);
-				w.gfx.flip();
-				w.gfx.setColor(0,0);
-				w.gfx.fillRect(191,51,239,239); 
-				w.gfx.setColor(1,col("lgray"));
-				w.gfx.drawString("Bar",195,65);
-				w.gfx.drawString("Psi",195,105);
-				w.gfx.drawString("C",195,143);
-				w.gfx.drawString("%",195,181);
-				w.gfx.drawString("V",195,220);
-				w.gfx.flip();
+				face[0].inf();
 			}else{ //sensor
 				if (face[0].info) {
 					face[0].info=0;
@@ -442,6 +454,8 @@ touchHandler[0]=function(e,x,y){
 				face[0].bar();
 			}			
 		}
+		//},10);
+
 		break;
     case 1: //slide down event
 		if (face[0].page=="sett") set.write("tpms","dev",face[0].tpms[face[0].pos],face[0].dev);
