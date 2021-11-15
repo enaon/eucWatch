@@ -374,10 +374,10 @@
 		]
 	},
 	{ "id": "tpms",
-		"name": "TMPS Sensor",
+		"name": "TPMS Sensor",
 		"icon": "icon.png",
 		"version":"0.93",
-		"description": "BLE TPMS Sensors (Tire pressure, TP630 etc)",
+		"description": "BLE TPMS Sensors (Tire pressure measuring, TP630 etc)",
 		"tags": "euc",
 		"storage": [
 			{"name":"tpms","url":"tpms.js"},
