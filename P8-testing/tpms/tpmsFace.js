@@ -4,6 +4,7 @@ face[0] = {
 	g:w.gfx,
 	spd:[],
 	init: function(){
+		//if (this.ntid) clearTimeout(this.ntid);
 		this.foot="bar";
 		this.disp=0;
 		this.pos=(set.def.tpms)?set.def.tpms:0;
@@ -13,16 +14,18 @@ face[0] = {
 		this.log=(require("Storage").readJSON("tpmsLog"+this.tpms[this.pos]+".json",1))?require("Storage").readJSON("tpmsLog"+this.tpms[this.pos]+".json",1):[];
 		if (this.tpms.length) {
 			this.dev=require("Storage").readJSON("tpms.json",1).dev[this.tpms[this.pos]];
-			//this.dev=set.read("tpms","dev")[this.tpms[this.pos]];
-			let tm=(getTime()|0) - this.dev.time;
-			let cl=(tm < 1800)?1:0;
+			this.dev.lowP=(this.dev.lowP)?this.dev.lowP:10;this.dev.hiP=(this.dev.hiP)?this.dev.hiP:40;
+			let cl=((getTime()|0) - face[0].dev.time < 1800)?1:0;
 			this.btn(cl,this.tpms[this.pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
 			this.btn(1,this.pos+1+"/"+this.tpms.length,35,200,7,0,col("raf"),150,0,239,50);
 			this.sc();
-			this.sel(this.dev[tpms.metric],"<  "+(tm < 3600)?new Date(tm * 1000).toISOString().substr(11, 8):new Date(tm * 1000).toString().substr(0,24)+"  >");
+			let tm=(getTime()|0) - this.dev.time;
+			cl=(tm < 3600)?1:0;
+			let ago=(cl)?((tm/60)|0):(tm < 3600)?new Date(tm * 1000).toISOString().substr(11, 8):new Date(tm * 1000).toString().substr(0,24);
+			this.sel(this.dev[tpms.metric],ago,(cl)?" AGO":0);
 			if (tpms.status=="SCANNING") 
 				this.scan();
-			else 
+			else if (!this.ntid) //clearTimeout(this.ntid);
 				this.bar();
 			this.page=0;
 		}else {
@@ -36,16 +39,10 @@ face[0] = {
 		}	
 	},
 	show : function(o){
-		if (!this.run) return;
-			//this.btn(1,tpms.status,27,120,205,col("olive"),0,0,186,239,239,"",22,120,225);
-  		//refresh 
-		this.tid=setTimeout(function(t){
-			t.tid=-1;
-			t.show();
-		},500,this);
+		return;
 	},
 	sc:function(){
-			if (!this.log.length) return;
+			if (!this.log || !this.log.length) return;
 			this.scale=0;
 			for (let i in this.log) {
 				if (this.scale < this.log[i][tpms.metric]-0 ) this.scale=this.log[i][tpms.metric];
@@ -62,7 +59,7 @@ face[0] = {
 		let img = require("heatshrink").decompress(atob("mEwwIcZg/+Aocfx+AAoV4gPgAoQDBuAEBgPAgE4AoQVBjgFBgYCBhgoCAQMGAQUgAolACggFL6AFGGQQFJEZsGsAFEIIhNFLIplFgBxBnwFCPYP/AoU8gf/BwKVB/+/SAUD/kf+CjDh/4V4n8AoYeBAoq1DgIqDAAP/XYcAv4qEn4qEGwsfC4kPEYkHF4Z1DACA="));
 		this.g.drawImage(img,5,195);
 		this.g.flip();
-		if (!this.log.length) return;
+	if (!this.log || !this.log.length || !this.dev.log) return;
 		for (let i in this.log) {
 			if (this.log[i].psi < this.dev.lowP ||  this.dev.hiP < this.log[i].psi ) this.g.setColor(1,col("red"));
 			else this.g.setColor(1,col("raf"));
@@ -72,7 +69,7 @@ face[0] = {
 		this.ind();
     },	
 	ind: function(last){
-		if (!this.log.length) return;
+		if (!this.log || !this.log.length ||!this.dev.log) return;
 		if (last || last===0) {
 			this.g.setColor(1,col("lblue"));
 			this.g.fillRect(239-(this.ref*18)-16,187,239-(this.ref*18),190);
@@ -85,7 +82,7 @@ face[0] = {
 			this.g.fillRect(239-(this.ref*18)-16,187,239-(this.ref*18),190);
 		}
 		this.g.flip();
-		if (tpms.status=="SCANNING") return;
+		if (tpms.status=="SCANNING" || this.act) return;
 		this.g.setColor(0,0);
 		this.g.setColor(1,col("lblue"));
 		this.g.fillRect(239-(this.ref*18)-16, 239-(this.log[this.ref][tpms.metric]*this.scale),239-(this.ref*18), 239);
@@ -98,6 +95,8 @@ face[0] = {
 		}
     },	
 	scan: function(){
+		this.act=1;
+		if (!tpms.cnt) tpms.cnt=getTime()|0;
 		if (tpms.status=="SUCCESS") {
 			this.page=0;
 			this.tpms=require("Storage").readJSON("tpms.json",1).slot;
@@ -106,24 +105,25 @@ face[0] = {
 				this.log=require("Storage").readJSON("tpmsLog"+this.tpms[this.pos]+".json",1);
 				this.sc();
 			}
-			let tm=(getTime()|0) - this.dev.time;
-			let cl=(tm < 1800)?1:0;
+			let cl=((getTime()|0) - face[0].dev.time < 1800)?1:0;
 			this.btn(cl,this.tpms[this.pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
 			this.btn(1,this.pos+1+"/"+this.tpms.length,35,200,7,0,col("raf"),150,0,239,50);
-			this.sel(face[0].dev[tpms.metric],"<  "+(tm < 3600)?new Date(tm * 1000).toISOString().substr(11, 8):new Date(tm * 1000).toString().substr(0,24)+"  >");
-			this.ntfy("FOUND : "+tpms.new,"",27,col("raf"),1,2);	
+			this.sel(face[0].dev[tpms.metric],"JUST NOW");
+			this.ntfy("FOUND : "+tpms.new,"",27,col("raf"),1,2);
+			tpms.cnt=0;			
 			return;
 		}else if (tpms.status=="NOT FOUND") {
-			this.ntfy(tpms.status,"",27,col("red"),1,2);	
+			this.ntfy(tpms.status,"",27,col("red"),1,2);
+			tpms.cnt=0;
 			return;
 		}
-		this.btn(1,tpms.status,27,120,205,col("olive"),0,0,190,239,239,"",22,120,225);
+		this.btn(1,tpms.status+" "+(tpms.wait-( (getTime()|0)-tpms.cnt) ),27,120,205,col("olive"),0,0,190,239,239,"",22,120,225);
   		//refresh 
 		if (this.tid>=0) clearTimeout(this.tid);
 		this.tid=setTimeout(function(t){
 			t.tid=-1;
 			t.scan();
-		},500,this);
+		},1000,this);
     },
     btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
 		this.g.setColor(0,(bt)?clr1:clr0);
@@ -135,17 +135,35 @@ face[0] = {
 		this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);}
 		this.g.flip();
     },
-	sel: function(txt1,txt2){
+	sel: function(txt1,txt2,txt3){
 		this.g.setColor(0,col("dgray"));
-		this.g.fillRect(0,51,239,185);
+		//this.g.fillRect(0,51,239,185);
+		this.g.fillRect(0,51,239,120);
 		this.g.setColor(1,col("white"));
 		this.g.setFont("Vector",50);	
 		let size=this.g.stringWidth(txt1);
 		this.g.drawString(txt1,100-(this.g.stringWidth(txt1)/2),65); 
 		this.g.setFont("Vector",27);	
 		this.g.drawString(tpms.metric.toUpperCase(),105+(size/2),84);
-		this.g.setFont("Vector",25);
-		this.g.drawString(txt2,120-(this.g.stringWidth(txt2)/2),145);
+		this.g.flip();
+		this.g.setColor(0,col("dgray"));
+		if (txt3){
+			this.g.fillRect(0,121,120,185);
+			this.g.setColor(1,col("lblue"));
+			this.g.setFont("Vector",47);
+			this.g.drawString(txt2+"'",120-(this.g.stringWidth(txt2+"'")),132);		
+			this.g.flip();
+			this.g.setColor(0,col("dgray"));
+			this.g.fillRect(121,121,239,185);
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",25);
+			this.g.drawString(txt3,120,147);
+		}else{
+			this.g.fillRect(0,121,239,185);
+			this.g.setColor(1,col("white"));
+			this.g.setFont("Vector",25);
+			this.g.drawString(txt2,120-(this.g.stringWidth(txt2)/2),142);
+		}
 		this.g.flip();
     },
 	sett:function(){
@@ -159,7 +177,6 @@ face[0] = {
 		this.g.setColor(0,0);
 		this.g.clearRect(0,61,239,64);
 		this.g.flip();
-		//this.btn(tpms.mode,"REFRESH",20,80,73,(tpms.mode==4)?col("olive"):col("raf"),col("dgray"),0,65,155,125,tpmsS[tpms.mode],25,80,100); //4-5
 		this.btn(tpms.mode,tpmsS[tpms.mode],28,80,84,(tpms.mode==4)?col("olive"):col("raf"),col("dgray"),0,65,155,125); //4-5
 		this.g.setColor(0,0);
 		this.g.clearRect(156,65,159,125);
@@ -168,6 +185,7 @@ face[0] = {
 	},	
 	barS: function(){
 		this.foot="barS";
+		if (tpms.status=="SCANNING") return;
 		this.g.setColor(0,0);
 		this.g.clearRect(0,126,239,129);
 		this.g.flip();
@@ -240,8 +258,6 @@ face[1] = {
 	show : function(){
 		if (face[0].page=="sett") set.write("tpms","dev",face[0].tpms[face[0].pos],face[0].dev);
 		if (tpms.mode && tpms.mode!=4) tpms.scan(); else if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
-		//if (face.faceSave!=-1) {
-		//	face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
 		if (global.euc && euc.state!="OFF")
 			face.go(set.dash[set.def.dash.face],0);
 		else
@@ -268,46 +284,44 @@ touchHandler[0]=function(e,x,y){
 			buzzer([30,50,30]);
 		}else if (190 < y) {
 			if (face[0].foot=="bar") {
-				if  ( x < 80 ) { 
+				if  (tpms.status!="SCANNING" ) { 
 					tpms.new=0;
 					tpms.scan(face[0].try);
 					face[0].scan();
 					buzzer([30,50,30]);
-				}else if  (80 < x && x < 160 ) { 
-					buzzer([30,50,30]);	
-					face[0].sett();
-					face[0].page="sett";
 				}else buzzer(40);
 			}else if (face[0].foot=="barS") {
-				if  ( x < 120 ) {
-					if (face[0].act=="hi"){
+				if (face[0].act=="del"){	
+						buzzer([100,50,100]);
+						//set.write("tpms.json",dev,[this.tpms[this.pos]
+						//require("Storage").remove("tpms.json",1).dev[this.tpms[this.pos]]
+						//require("Storage").remove("tpmsLog"+face[0].tpms[face[0].pos]+".json",1)
+						face[0].ntfy(face[0].tpms[face[0].pos]+" DELETED","",25,col("red"),1,2,0,1,0);
+						face[0].init();
+						face[0].act=0;
+				}else if (face[0].act=="hi"){	
 						buzzer([30,50,30]);
-						face[0].dev.hiP--; if ( face[0].dev.hiP < 31 ) face[0].dev.hiP=31;
+						if  ( x < 120 ) {face[0].dev.hiP--; if ( face[0].dev.hiP < 31 ) face[0].dev.hiP=31;}
+						else {face[0].dev.hiP++; if ( 150 < face[0].dev.hiP ) face[0].dev.hiP=150;}
 						face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.hiP/14.50377377).toFixed(2):face[0].dev.hiP,38,205,15,col("dgray"),0,160,0,239,60); //3
-					}else if (face[0].act=="low"){	
+						face[0].ntfy("","",27,0,1,2,0,0);
+				}else if (face[0].act=="low"){		
 						buzzer([30,50,30]);
-						face[0].dev.lowP--; if (  face[0].dev.lowP <5 ) face[0].dev.lowP=5;
+						if  ( x < 120 ) {face[0].dev.lowP--; if (  face[0].dev.lowP <5 ) face[0].dev.lowP=5;}
+						else { face[0].dev.lowP++; if ( 30 < face[0].dev.lowP ) face[0].dev.lowP=30;}
 						face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.lowP/14.50377377).toFixed(2):face[0].dev.lowP,38,205,81,col("dgray"),0,160,65,239,125); //6
-					}	
-					face[0].ntfy("","",27,0,1,2,0,0);
-				}else if  ( 120 < x  ) { 
-					if (face[0].act=="hi"){
+						face[0].ntfy("","",27,0,1,2,0,0);
+				}else { 
+					if ( x < 80 ){
 						buzzer([30,50,30]);
-						face[0].dev.hiP++; if ( 150 < face[0].dev.hiP ) face[0].dev.hiP=150;
-						face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.hiP/14.50377377).toFixed(2):face[0].dev.hiP,38,205,15,col("dgray"),0,160,0,239,60); //3
-			
-					}else if (face[0].act=="low"){
-						buzzer([30,50,30]);						
-						face[0].dev.lowP++; if ( 30 < face[0].dev.lowP ) face[0].dev.lowP=30;
-						face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.lowP/14.50377377).toFixed(2):face[0].dev.lowP,38,205,81,col("dgray"),0,160,65,239,125); //6
-					}else if (face[0].act=="del"){
-						buzzer([30,50,30]);						
-						face[0].ntfy("GONE","",25,col("red"),1,1,0,1,0);
-					}else {
-						face[0].ntfy("DELETE ?","",25,col("red"),1,2,0,1,0);
+						face[0].init();
+					}else if ( 180 < x ){
+						buzzer([30,50,30]);
+						face[0].ntfy("TAP -> DELETE","",25,col("red"),1,2,0,1,0);
 						face[0].act="del";
+					}else {
+						buzzer(40);
 					}
-					face[0].ntfy("","",27,0,1,2,0,0);
 				}
 				
 			}else buzzer(40);	
@@ -344,7 +358,7 @@ touchHandler[0]=function(e,x,y){
 				face[0].btn(1,(tpms.metric=="bar")?(face[0].dev.lowP/14.50377377).toFixed(2):face[0].dev.lowP,38,205,81,col("dgray"),0,160,65,239,125); //6
 			} 
 		}else if (50 < y) { //entry select
-			if (face[0].info || !face[0].log.length ) {buzzer(40);return;}
+			if (face[0].info || !face[0].log.length || !face[0].dev.log  ) {buzzer(40);return;}
 			let last=face[0].ref;
 			buzzer([30,50,30]);
 			if  ( 120 < x ){
@@ -354,8 +368,10 @@ touchHandler[0]=function(e,x,y){
 				if ( face[0].ref  < face[0].log.length-1 )face[0].ref++;
 				else face[0].ref=0;
 			}
-			let tim=new Date(face[0].log[face[0].ref].time*1000).toString().split(" ")[1]+" "+new Date(face[0].log[face[0].ref].time*1000).toString().split(" ")[2]+" "+new Date(face[0].log[Object.keys(face[0].log)[face[0].ref]].time*1000).toString().split(" ")[4];
-			face[0].sel(face[0].log[face[0].ref][tpms.metric],tim);
+			let tm=(getTime()|0) - face[0].log[face[0].ref].time;
+			let cl=(tm < 3600)?1:0;
+			let ago=(cl)?((tm/60)|0):(tm < 3600)?new Date(tm * 1000).toISOString().substr(11, 8):new Date(tm * 1000).toString().substr(0,24);
+			face[0].sel(face[0].log[face[0].ref][tpms.metric],ago,(cl)?" AGO":0);
 			face[0].ind(last);
 		}else {
 			if  ( 150 < x ) { //info
@@ -413,15 +429,15 @@ touchHandler[0]=function(e,x,y){
 				}
 				buzzer([30,50,30]);
 				face[0].dev=require("Storage").readJSON("tpms.json",1).dev[face[0].tpms[face[0].pos]];
-				if ( face[0].log.length ) face[0].log=require("Storage").readJSON("tpmsLog"+face[0].tpms[face[0].pos]+".json",1);
+				face[0].log=(require("Storage").readJSON("tpmsLog"+face[0].tpms[face[0].pos]+".json",1) )?face[0].log=require("Storage").readJSON("tpmsLog"+face[0].tpms[face[0].pos]+".json",1):[];
 				let cl=((getTime()|0) - face[0].dev.time < 300)?1:0;
 				face[0].btn(cl,face[0].tpms[face[0].pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
 				face[0].btn(1,face[0].pos+1+"/"+face[0].tpms.length,35,200,7,0,col("raf"),150,0,239,50);
 				face[0].sc();	
-				let tim=new Date(face[0].dev.time*1000).toString().split(" ")[1]+" "+new Date(face[0].dev.time*1000).toString().split(" ")[2]+" "+new Date(face[0].dev.time*1000).toString().split(" ")[4];
-				//let tim=new Date(face[0].log[face[0].ref].time*1000).toString().split(" ")[1]+" "+new Date(face[0].log[face[0].ref].time*1000).toString().split(" ")[2]+" "+new Date(face[0].log[face[0].ref].time*1000).toString().split(" ")[4];
-				face[0].sel(face[0].dev[tpms.metric],tim);
-				//face[0].sel(face[0].log[face[0].ref][tpms.metric],tim);
+				let tm=(getTime()|0) - face[0].dev.time;
+				cl=(tm < 3600)?1:0;
+				let ago=(cl)?((tm/60)|0):(tm < 3600)?new Date(tm * 1000).toISOString().substr(11, 8):new Date(tm * 1000).toString().substr(0,24);
+				face[0].sel(face[0].dev[tpms.metric],ago,(cl)?" AGO":0);
 				face[0].bar();
 			}			
 		}
