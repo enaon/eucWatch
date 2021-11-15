@@ -15,6 +15,7 @@ face[0] = {
 		if (this.tpms.length) {
 			this.dev=require("Storage").readJSON("tpms.json",1).dev[this.tpms[this.pos]];
 			this.dev.lowP=(this.dev.lowP)?this.dev.lowP:10;this.dev.hiP=(this.dev.hiP)?this.dev.hiP:40;
+			this.dev.log=(this.dev.log)?1:0;
 			let cl=((getTime()|0) - face[0].dev.time < 1800)?1:0;
 			this.btn(cl,this.tpms[this.pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
 			this.btn(1,this.pos+1+"/"+this.tpms.length,35,200,7,0,col("raf"),150,0,239,50);
