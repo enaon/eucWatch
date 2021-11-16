@@ -1,28 +1,36 @@
-if (!set.read("tpms")) {
-	set.write("tpms","dev",{});
-	set.write("tpms","mode",0);
+if (!require("Storage").read("tpms.json",1)) {
+	let def={};
+	def.dev={};
+	def.def={
+			wait:10,
+			try:0,
+			mode:0,
+			ref:"",
+			pos:0,
+			metric:"psi"
+	};			
+	require("Storage").writeJSON("tpms.json",def);
 }
 
 tpms= {
 	busy:0,
-	try:0,
-	wait:10,
-	def:"",
 	new:0,
 	status:"IDLE",
 	scan:(rp,sl)=>{
-		if (sl) tpms.def=sl;
-		if (rp) tpms.try=rp;
+		if (sl) tpms.def.id=sl;
+		if (rp) tpms.def.try=rp;
 		if (tpms.busy) {print("busy");return;}
 		tpms.busy=1;
-		tpms.def="";
+		tpms.def.id="";
 		tpms.status="SCANNING";
 		NRF.findDevices(function(devices) {
 			this.filter = [{services:[ "fbb0" ]}];
 			NRF.filterDevices(devices, this.filter).forEach(function(device) {
 				//print (device);
 				let mac =device.id.split(" ")[0].split(":");
+				if (mac[1]+mac[2] != "eaca") {print("unknown tpms sensor");return;}
 				let id=mac[3]+mac[4]+mac[5];
+				/*
 				if (!set.read("tpms","dev")[id]) {
 					if (mac[1]+mac[2] == "eaca") {
 						let slot=(set.read("tpms","slot"))?set.read("tpms","slot"):[];
@@ -45,8 +53,9 @@ tpms= {
 						return;
 					}
 				}
+				*/
 				tpms.new++;
-				tpms.def=id;
+				tpms.def.id=id;
 				let dev=(set.read("tpms","dev")[id])?set.read("tpms","dev")[id]:{};
 				dev.id=id;
 				dev.pos=mac[0][1];
@@ -77,10 +86,10 @@ tpms= {
 				tpms.busy=0;
 				return;
 			});
-			if (tpms.def=="") {
-				if (tpms.try) {
-					tpms.status="RETRYING:"+tpms.try;
-					tpms.try--;
+			if (tpms.def.id=="") {
+				if (tpms.def.try) {
+					tpms.status="RETRYING:"+tpms.def.try;
+					tpms.def.try--;
 					tpms.busy=0;
 					tpms.scan();
 					//setTimeout(()=>{ tpms.busy=0;tpms.scan();},1000);
@@ -88,10 +97,9 @@ tpms= {
 					tpms.busy=0;
 					tpms.new=0;
 					tpms.status="NOT FOUND";
-					let mode=set.read("tpms","mode")-0;
 					let modT=[5,30,60];
 					if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
-					if (mode && mode!=4) {
+					if (tpms.def.mode && tpms.def.mode!=4) {
 						tpms.tid=setTimeout(()=>{ 
 							tpms.tid=0;
 							tpms.scan();
@@ -100,14 +108,13 @@ tpms= {
 					//print(3);
 				}
 			}
-		}, tpms.wait*1000);
+		}, tpms.def.wait*1000);
 	}
 };
 //start
-tpms.metric=(set.read("tpms","metric"))?set.read("tpms","metric"):"psi";
-tpms.mode=set.read("tpms","mode")-0;
-if (set.read("tpms","mode")-0 && set.read("tpms","mode")-0 != 4) {
-	tpms.scan(tpms.try);
+tpms.def=require("Storage").readJSON("tpms.json",1).def;
+if (tpms.def.mode-0 && tpms.def.mode != 4) {
+	tpms.scan(tpms.def.try);
 }
 
 
