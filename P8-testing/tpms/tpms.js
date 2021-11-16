@@ -32,6 +32,7 @@ tpms= {
 				let id=mac[3]+mac[4]+mac[5];
 				tpms.new++;
 				tpms.def.id=id;
+				tpms.def.ref=0;
 				let dev=(set.read("tpms","dev")[id])?set.read("tpms","dev")[id]:{};
 				dev.id=id;
 				dev.pos=mac[0][1];
@@ -75,7 +76,7 @@ tpms= {
 						tpms.tid=setTimeout(()=>{ 
 							tpms.tid=0;
 							tpms.scan();
-						},modT[mode-1]*60000);
+						},modT[tpms.def.mode-1]*60000);
 					}
 				}
 			}
@@ -84,7 +85,7 @@ tpms= {
 };
 //start
 tpms.def=require("Storage").readJSON("tpms.json",1).def;
-if (tpms.def.mode-0 && tpms.def.mode != 4) {
+if (tpms.def.mode && tpms.def.mode != 4) {
 	tpms.scan(tpms.def.try);
 }
 
