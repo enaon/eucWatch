@@ -185,29 +185,33 @@ face[0] = {
 		this.g.flip();
 		//this.btn(1,(tpms.def.metric=="bar")?(this.dev.lowP/14.50377377).toFixed(2):this.dev.lowP,38,205,81,col("dgray"),0,160,65,239,125); //6
 		this.btn(1,(tpms.def.metric=="psi")?face[0].dev.lowP:(face[0].dev.lowP/ ((tpms.def.metric=="bar")?14.50377377:0.1450377377 )).toFixed((tpms.def.metric=="bar")?2:0),38,205,81,col("dgray"),0,160,65,239,125); //6
-		this.g.setColor(0,0);
-		this.g.clearRect(0,126,239,129);
-		this.g.flip();
-		this.btn(1,"RETRY: "+tpms.def.try,25,85,150,col("dgray"),0,0,130,155,185); //7
-		this.g.setColor(0,0);
-		this.g.clearRect(156,130,159,190);
-		this.g.flip();
-		this.btn(1,tpms.def.metric.toUpperCase(),28,205,150,col("raf"),0,160,130,239,185,"",30,205,40); //8
+			this.g.setColor(0,0);
+			this.g.clearRect(0,126,239,129);
+			this.g.flip();
+			this.btn(1,"WAIT",18,40,152,col("dgray"),0,0,130,80,185); //7
+			this.g.setColor(0,0);
+			this.g.clearRect(81,130,84,185);
+			this.g.flip();
+			this.btn(1,"RETRY",18,123,152,col("dgray"),0,85,130,155,185); //8
+			this.g.setColor(0,0);
+			this.g.clearRect(156,130,159,185);
+			this.g.flip();
+			this.btn(1,tpms.def.metric.toUpperCase(),28,205,150,col("raf"),0,160,130,239,185,"",30,205,40); //9
 	},	
 	barS: function(){
 		if ( this.page=="sett") {
 			this.g.setColor(0,0);
-			this.g.clearRect(156,65,159,125);
-			this.g.flip();
-			this.btn(1,(tpms.def.metric=="bar")?(this.dev.lowP/14.50377377).toFixed(2):this.dev.lowP,38,205,81,col("dgray"),0,160,65,239,125); //6
-			this.g.setColor(0,0);
 			this.g.clearRect(0,126,239,129);
 			this.g.flip();
-			this.btn(1,"RETRY: "+tpms.def.try,25,85,150,col("dgray"),0,0,130,155,185); //7
+			this.btn(1,"WAIT",18,40,152,col("dgray"),0,0,130,80,185); //7
 			this.g.setColor(0,0);
-			this.g.clearRect(156,130,159,190);
+			this.g.clearRect(81,130,84,185);
 			this.g.flip();
-			this.btn(1,tpms.def.metric.toUpperCase(),28,205,150,col("raf"),0,160,130,239,185,"",30,205,40); //8
+			this.btn(1,"RETRY",18,123,152,col("dgray"),0,85,130,155,185); //8
+			this.g.setColor(0,0);
+			this.g.clearRect(156,130,159,185);
+			this.g.flip();
+			this.btn(1,tpms.def.metric.toUpperCase(),28,205,150,col("raf"),0,160,130,239,185,"",30,205,40); //9
 		}
 		this.foot="barS";
   	if (tpms.status=="SCANNING") {this.ind();return;}
@@ -397,9 +401,16 @@ touchHandler[0]=function(e,x,y){
 						face[0].dev.log = 1 - face[0].dev.log;
 						face[0].btn(face[0].dev.log,"LOGGING",25,80,20,col("raf"),col("gray"),0,0,155,60);//1-2
 						face[0].ntfy((face[0].dev.log)?"LOG ON":"LOG OFF",face[0].dev.id.toUpperCase(),30,(face[0].dev.log)?col("raf"):col("dgray"),1,4,1,1,1);
-				}
+				}else if (face[0].act=="wait"){
+ 						buzzer([30,50,30]);
+            tpms.def.wait=(x<120)?(tpms.def.wait<6)?5:tpms.def.wait-1:(19<tpms.def.wait)?20:tpms.def.wait+1;
+						face[0].ntfy("SCAN FOR",tpms.def.wait+" SECONDS",25,col("raf"),1,2,1,1,1);
+				}else if (face[0].act=="try"){
+ 						buzzer([30,50,30]);
+						tpms.def.try=(x<120)?(tpms.def.try<1)?0:tpms.def.try-1:(3<tpms.def.try)?4:tpms.def.try+1;
+						face[0].ntfy("RETRY",tpms.def.try+" TIMES",25,col("raf"),1,2,1,1,1);
+				}		
 			return;
-
 		}
 		if (face[0].page=="sett"){
 			if ( 0 < x && x < 155 && y < 62 ) { //1-2
@@ -421,9 +432,14 @@ touchHandler[0]=function(e,x,y){
 				buzzer([30,50,30]);
 				if ( face[0].act == "low" ) {face[0].barS();if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;face[0].act=0;}
 				else {face[0].ntfy("LOWER","(in "+tpms.def.metric.toUpperCase()+")",30,col("olive"),1,4,1,1,1);face[0].act="low";}
-			}else if (x < 160 && 127 <y && y < 190) { //7-8 
+			}else if (x < 80 && 127 <y && y < 190) { //7
 				buzzer([30,50,30]);
-				face[0].act="unk";
+				face[0].act="wait";
+				face[0].ntfy("SCAN FOR",tpms.def.wait+" SECONDS",25,col("raf"),1,2,1,1,1);
+			}else if (80 <  x && x < 160 && 127 <y && y < 190) { //8
+				buzzer([30,50,30]);
+				face[0].act="try";	
+				face[0].ntfy("RETRY",tpms.def.try+" TIMES",25,col("raf"),1,2,1,1,1);
 			} else if (160 < x && 127 <y && y < 190) { //9 bar-psi
 				face[0].act=0;
 				buzzer([30,50,30]);
@@ -438,7 +454,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].init();
 				}else if ( 160 < x ){
 					buzzer([30,50,30]);
-					face[0].ntfy("CLEAR LOG","DELETE SENSOR",26,col("dgray"),1,2,0,1,1);
+					face[0].ntfy("CLEAR LOG","DELETE SENSOR",25,col("dgray"),1,2,0,1,1);
 					face[0].act="del";
 				}else {
 					buzzer(40);
