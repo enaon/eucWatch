@@ -39,7 +39,6 @@ face[0] = {
 			for (let i in this.log) {
 				if (this.scale < this.log[i][tpms.def.metric]-0 ) this.scale=this.log[i][tpms.def.metric];
 			}
-			//tpms.def.ref=(tpms.def.ref)?tpms.def.ref:0;
 			this.top=this.scale;
 			this.scale=40/this.scale;				
 	},
@@ -104,7 +103,7 @@ face[0] = {
 				this.sc();
 			}
 			let cl=((getTime()|0) - this.dev.time < 1800)?1:0;
-			this.btn(cl,this.tpms[tpms.def.pos],35,75,7,(this.dev.psi<this.dev.lowP||this.dev.hiP<this.psi)?col("red"):col("raf"),col("dgray"),0,0,149,50);
+			this.btn(cl,this.tpms[tpms.def.pos],35,75,7,(this.dev.psi<this.dev.lowP||this.dev.hiP<this.dev.psi)?col("red"):col("raf"),col("dgray"),0,0,149,50);
 			this.btn(1,tpms.def.pos+1+"/"+this.tpms.length,35,200,7,0,col("raf"),150,0,239,50);
 			this.sel(face[0].dev[tpms.def.metric],"JUST NOW");
 			this.ntfy("FOUND : "+tpms.new,"",27,col("raf"),1,2);
@@ -254,7 +253,7 @@ face[0] = {
 		//this.log=require("Storage").readJSON("tpmsLog"+this.tpms[tpms.def.pos]+".json",1);
 		this.info=1;
 		let cl=((getTime()|0) - this.dev.time < 1800)?1:0;
-		this.btn(cl,this.tpms[tpms.def.pos],35,75,7,(this.dev.psi<this.dev.lowP||this.dev.hiP<this.psi)?col("red"):col("raf"),col("dgray"),0,0,149,50);
+		this.btn(cl,this.tpms[tpms.def.pos],35,75,7,(this.dev.psi<this.dev.lowP||this.dev.hiP<this.dev.psi)?col("red"):col("raf"),col("dgray"),0,0,149,50);
 		this.btn(1,tpms.def.pos+1+"/"+this.tpms.length,35,200,7,0,col("raf"),150,0,239,50);
 		this.info=1;
 		w.gfx.setColor(0,0);
@@ -487,7 +486,7 @@ touchHandler[0]=function(e,x,y){
 				face[0].dev=require("Storage").readJSON("tpms.json",1).dev[face[0].tpms[tpms.def.pos]];
 				face[0].log=(require("Storage").readJSON("tpmsLog"+face[0].tpms[tpms.def.pos]+".json",1) )?face[0].log=require("Storage").readJSON("tpmsLog"+face[0].tpms[tpms.def.pos]+".json",1):[];
 				let cl=((getTime()|0) - face[0].dev.time < 1800)?1:0;
-				face[0].btn(cl,face[0].tpms[tpms.def.pos],35,75,7,(face[0].dev.psi<face[0].dev.lowP||face[0].dev.hiP<face[0].psi)?col("red"):col("raf"),col("dgray"),0,0,149,50);
+				face[0].btn(cl,face[0].tpms[tpms.def.pos],35,75,7,(face[0].dev.psi<face[0].dev.lowP||face[0].dev.hiP<face[0].dev.psi)?col("red"):col("raf"),col("dgray"),0,0,149,50);
 				face[0].btn(1,tpms.def.pos+1+"/"+face[0].tpms.length,35,200,7,0,col("raf"),150,0,239,50);
 				face[0].sc();	
 				let tm=(getTime()|0) - face[0].dev.time;

@@ -30,30 +30,6 @@ tpms= {
 				let mac =device.id.split(" ")[0].split(":");
 				if (mac[1]+mac[2] != "eaca") {print("unknown tpms sensor");return;}
 				let id=mac[3]+mac[4]+mac[5];
-				/*
-				if (!set.read("tpms","dev")[id]) {
-					if (mac[1]+mac[2] == "eaca") {
-						let slot=(set.read("tpms","slot"))?set.read("tpms","slot"):[];
-						slot.unshift(id);
-						set.write("tpms","slot",slot);
-						//set.write("tpms","dev",);
-					}else {
-						tpms.new=0;
-						tpms.status="NOT FOUND";
-						let mode=set.read("tpms","mode")-0;
-						let modT=[5,30,60];
-						if (mode && mode!=4) {
-							if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
-							tpms.tid=setTimeout(()=>{ 
-								tpms.tid=0;
-								tpms.scan();
-							},modT[mode]*60000);
-						}	
-						print(1);
-						return;
-					}
-				}
-				*/
 				tpms.new++;
 				tpms.def.id=id;
 				let dev=(set.read("tpms","dev")[id])?set.read("tpms","dev")[id]:{};
@@ -67,14 +43,11 @@ tpms= {
 				dev.volt=((330-(dev.batt/1.725))/100).toFixed(2);
 				dev.alrm=device.manufacturerData[15];
 				let last= (getTime()|0)-dev.time;
-				//print("Got new reading, last reading was",(last<60)?last+" secs ago":(last<3600)?last/60|0+" min ago":(last<86400)?last/3600|0+" hour ago":"never");
 				dev.time=getTime()|0;
-				//print(dev);
 				set.write("tpms","dev",id,dev);
 				//logging
 				if ( set.read("tpms","dev")[id].log) {
 					delete dev.log;delete dev.id;delete dev.hiP;delete dev.lowP;
-					//set.write("tpmsLog"+id,dev.time,dev);
 					let log=(require("Storage").readJSON("tpmsLog"+id+".json",1))?require("Storage").readJSON("tpmsLog"+id+".json",1):[];
 					log.unshift(dev);
 					if (10<log.length) log.pop();
@@ -92,7 +65,6 @@ tpms= {
 					tpms.def.try--;
 					tpms.busy=0;
 					tpms.scan();
-					//setTimeout(()=>{ tpms.busy=0;tpms.scan();},1000);
 				}else {
 					tpms.busy=0;
 					tpms.new=0;
@@ -105,7 +77,6 @@ tpms= {
 							tpms.scan();
 						},modT[mode-1]*60000);
 					}
-					//print(3);
 				}
 			}
 		}, tpms.def.wait*1000);
