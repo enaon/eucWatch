@@ -5,7 +5,7 @@ if (!require("Storage").read("tpms.json",1)) {
 			wait:10,
 			try:0,
 			mode:0,
-			ref:"",
+			ref:0,
 			pos:0,
 			metric:"psi"
 	};			

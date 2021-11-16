@@ -95,6 +95,7 @@ face[0] = {
 			this.page=0;
 			tpms.def.ref=0;
 			this.tpms=Object.keys(require("Storage").readJSON("tpms.json",1).dev);
+			tpms.def.pos=this.tpms.indexOf(tpms.def.id);
 			this.dev=require("Storage").readJSON("tpms.json",1).dev[this.tpms[tpms.def.pos]];
 			this.dev.lowP=(this.dev.lowP)?this.dev.lowP:10;this.dev.hiP=(this.dev.hiP)?this.dev.hiP:40;
 			this.dev.log=(this.dev.log)?1:0;
