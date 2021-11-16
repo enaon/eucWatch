@@ -1,5 +1,5 @@
-if (!require("Storage").read("tpms.json",1)) {
-	let def={};
+if (!require("Storage").read("tpms.json",1) || ( require("Storage").read("tpms.json",1) && require("Storage").readJSON("tpms.json",1).ver!=3) ) {
+	let def={"ver":3};
 	def.dev={};
 	def.def={
 			wait:10,

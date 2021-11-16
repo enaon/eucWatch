@@ -6,10 +6,13 @@ face[0] = {
 	init: function(){
 		this.foot="bar";
 		this.disp=0;
+		this.info=0;
 		this.tpms=(require("Storage").readJSON("tpms.json",1).dev)?Object.keys(require("Storage").readJSON("tpms.json",1).dev):[];
 		this.log=(require("Storage").readJSON("tpmsLog"+this.tpms[tpms.def.pos]+".json",1))?require("Storage").readJSON("tpmsLog"+this.tpms[tpms.def.pos]+".json",1):[];
 		if (this.tpms.length) {
 			this.dev=require("Storage").readJSON("tpms.json",1).dev[this.tpms[tpms.def.pos]];
+			this.dev.lowP=(this.dev.lowP)?this.dev.lowP:10;this.dev.hiP=(this.dev.hiP)?this.dev.hiP:40;this.dev.log=(this.dev.log)?1:0;
+
 			let cl=((getTime()|0) - face[0].dev.time < 1800)?1:0;
 			this.btn(cl,this.tpms[tpms.def.pos],35,75,7,(this.dev.psi < this.dev.lowP ||  this.dev.hiP < this.dev.psi )?col("red"):col("raf"),col("dgray"),0,0,149,50);
 			this.btn(1,tpms.def.pos+1+"/"+this.tpms.length,35,200,7,0,col("raf"),150,0,239,50);
@@ -17,7 +20,7 @@ face[0] = {
 			let tm=(getTime()|0) - this.dev.time;
 			let ago=0;
 			if (tm < 86400){if(tm<60){ago=tm+"''";}else if(tm<3600){ago=((tm/60)|0)+"'";}else{ago=new Date(tm*1000).toISOString().substr(11,5).split(":");ago=Number(ago[0])+"h "+ago[1]+"'";}}else ago=new Date(tm*1000).toString().substr(0,24);
-			this.sel(this.dev[tpms.def.metric],ago,(tm < 86400)?"AGO":0);
+			this.sel((this.log.length)?this.log[tpms.def.ref][tpms.def.metric]:this.dev[tpms.def.metric],ago,(tm < 86400)?"AGO":0);
 			if (tpms.status=="SCANNING") {this.scan();this.ind();}else if (!this.ntid){tpms.cnt=0;this.bar();} 
 			this.page=0;
 		}else {
@@ -96,8 +99,7 @@ face[0] = {
 			this.tpms=Object.keys(require("Storage").readJSON("tpms.json",1).dev);
 			tpms.def.pos=this.tpms.indexOf(tpms.def.id);
 			this.dev=require("Storage").readJSON("tpms.json",1).dev[this.tpms[tpms.def.pos]];
-			this.dev.lowP=(this.dev.lowP)?this.dev.lowP:10;this.dev.hiP=(this.dev.hiP)?this.dev.hiP:40;
-			this.dev.log=(this.dev.log)?1:0;
+			this.dev.lowP=(this.dev.lowP)?this.dev.lowP:10;this.dev.hiP=(this.dev.hiP)?this.dev.hiP:40;this.dev.log=(this.dev.log)?1:0;
 			if ( this.log.length )  {
 				this.log=require("Storage").readJSON("tpmsLog"+this.tpms[tpms.def.pos]+".json",1);
 				this.sc();
@@ -105,6 +107,7 @@ face[0] = {
 			let cl=((getTime()|0) - this.dev.time < 1800)?1:0;
 			this.btn(cl,this.tpms[tpms.def.pos],35,75,7,(this.dev.psi<this.dev.lowP||this.dev.hiP<this.dev.psi)?col("red"):col("raf"),col("dgray"),0,0,149,50);
 			this.btn(1,tpms.def.pos+1+"/"+this.tpms.length,35,200,7,0,col("raf"),150,0,239,50);
+			//this.sel((this.log.length)?this.log[tpms.def.ref][tpms.def.metric]:this.dev[tpms.def.metric],"JUST NOW");
 			this.sel(face[0].dev[tpms.def.metric],"JUST NOW");
 			this.ntfy("FOUND : "+tpms.new,"",27,col("raf"),1,2);
 			tpms.cnt=0;			
@@ -378,16 +381,14 @@ touchHandler[0]=function(e,x,y){
 						if  ( x < 120 ) {face[0].dev.hiP=face[0].dev.hiP-((fast)?5:1);if(face[0].dev.hiP-5<face[0].dev.lowP){face[0].dev.hiP=face[0].dev.lowP+5;if(face[0].dev.hiP<20)face[0].dev.hiP=20;}}
 						else {face[0].dev.hiP=face[0].dev.hiP+((fast)?5:1); if ( 250 < face[0].dev.hiP ) face[0].dev.hiP=250;}
 						face[0].btn(1,(tpms.def.metric=="psi")?face[0].dev.hiP: (face[0].dev.hiP/((tpms.def.metric=="bar")?14.50377377:0.1450377377) ).toFixed((tpms.def.metric=="bar")?2:0),38,205,15,col("dgray"),0,160,0,239,60); //3
-						//face[0].btn(1,(tpms.def.metric=="bar")?(face[0].dev.hiP/14.50377377).toFixed(2):face[0].dev.hiP,38,205,15,col("dgray"),0,160,0,239,60); //3
 						face[0].ntfy("","",27,0,1,2,0,0);
 						this.lL=getTime();
 				}else if (face[0].act=="low"){		
 						buzzer([30,50,30]);
 						let fast=( getTime()-this.lL < 0.2 )?1:0;
-						if  ( x < 120 ) {face[0].dev.lowP=face[0].dev.lowP-((fast)?5:1); if (  face[0].dev.lowP <0 ) face[0].dev.lowP=0;}
+						if  ( x < 120 ) {face[0].dev.lowP=face[0].dev.lowP-((fast)?5:1); if (  face[0].dev.lowP <1 ) face[0].dev.lowP=1;}
 						else { face[0].dev.lowP=face[0].dev.lowP+((fast)?5:1);if(face[0].dev.hiP-5<face[0].dev.lowP){face[0].dev.lowP=face[0].dev.hiP-5;if ( 150 < face[0].dev.lowP ) face[0].dev.lowP=150;}}
 						face[0].btn(1,(tpms.def.metric=="psi")?face[0].dev.lowP:(face[0].dev.lowP/ ((tpms.def.metric=="bar")?14.50377377:0.1450377377 )).toFixed((tpms.def.metric=="bar")?2:0),38,205,81,col("dgray"),0,160,65,239,125); //6
-						//face[0].btn(1,(tpms.def.metric=="bar")?(face[0].dev.lowP/14.50377377).toFixed(2):face[0].dev.lowP,38,205,81,col("dgray"),0,160,65,239,125); //6
 						face[0].ntfy("","",27,0,1,2,0,0);
 						this.lL=getTime();
 				}else if (face[0].act=="log"){	
@@ -395,7 +396,6 @@ touchHandler[0]=function(e,x,y){
 						tpms.def.ref=0;
 						face[0].dev.log = 1 - face[0].dev.log;
 						face[0].btn(face[0].dev.log,"LOGGING",25,80,20,col("raf"),col("gray"),0,0,155,60);//1-2
-						//face[0].ntfy((face[0].dev.log)?"LOG ON":"LOG OFF",face[0].dev.id.toUpperCase(),30,col("olive"),1,1,1,1,1);
 						face[0].ntfy((face[0].dev.log)?"LOG ON":"LOG OFF",face[0].dev.id.toUpperCase(),30,(face[0].dev.log)?col("raf"):col("dgray"),1,4,1,1,1);
 				}
 			return;
@@ -459,7 +459,8 @@ touchHandler[0]=function(e,x,y){
 			let tm=(getTime()|0) - face[0].log[tpms.def.ref].time;
 			let ago=0;
 			if (tm < 86400){if(tm<60){ago=tm+"''";}else if(tm<3600){ago=((tm/60)|0)+"'";}else{ago=new Date(tm*1000).toISOString().substr(11,5).split(":");ago=Number(ago[0])+"h "+ago[1]+"'";}}else ago=new Date(tm*1000).toString().substr(0,24);
-			face[0].sel(face[0].log[tpms.def.ref][tpms.def.metric],ago,(tm < 86400)?"AGO":0);
+			face[0].sel((face[0].log.length)?face[0].log[tpms.def.ref][tpms.def.metric]:face[0].dev[tpms.def.metric],ago,(tm < 86400)?"AGO":0);
+			//face[0].sel(face[0].log[tpms.def.ref][tpms.def.metric],ago,(tm < 86400)?"AGO":0);
 			face[0].ind(last);
 			return;
 		}else {
@@ -467,6 +468,7 @@ touchHandler[0]=function(e,x,y){
 				if (face[0].info) {
 					if (face[0].tpms.length <=1 ) {buzzer(40);return;}
 					face[0].dev=require("Storage").readJSON("tpms.json",1).dev[face[0].tpms[tpms.def.pos]];
+					face[0].dev.lowP=(face[0].dev.lowP)?face[0].dev.lowP:10;face[0].dev.hiP=(face[0].dev.hiP)?face[0].dev.hiP:40;face[0].dev.log=(face[0].dev.log)?1:0;
 					if (tpms.def.pos+1 < face[0].tpms.length) tpms.def.pos++;
 					else tpms.def.pos=0;
 					tpms.def.ref=0;
@@ -481,9 +483,10 @@ touchHandler[0]=function(e,x,y){
 					if (tpms.def.pos+1 < face[0].tpms.length) tpms.def.pos++;
 					else tpms.def.pos=0;
 					tpms.def.ref=0;
+					face[0].dev=require("Storage").readJSON("tpms.json",1).dev[face[0].tpms[tpms.def.pos]];
+					face[0].dev.lowP=(face[0].dev.lowP)?face[0].dev.lowP:10;face[0].dev.hiP=(face[0].dev.hiP)?face[0].dev.hiP:40;face[0].dev.log=(face[0].dev.log)?1:0;
 				}
 				buzzer([30,50,30]);
-				face[0].dev=require("Storage").readJSON("tpms.json",1).dev[face[0].tpms[tpms.def.pos]];
 				face[0].log=(require("Storage").readJSON("tpmsLog"+face[0].tpms[tpms.def.pos]+".json",1) )?face[0].log=require("Storage").readJSON("tpmsLog"+face[0].tpms[tpms.def.pos]+".json",1):[];
 				let cl=((getTime()|0) - face[0].dev.time < 1800)?1:0;
 				face[0].btn(cl,face[0].tpms[tpms.def.pos],35,75,7,(face[0].dev.psi<face[0].dev.lowP||face[0].dev.hiP<face[0].dev.psi)?col("red"):col("raf"),col("dgray"),0,0,149,50);
@@ -492,7 +495,8 @@ touchHandler[0]=function(e,x,y){
 				let tm=(getTime()|0) - face[0].dev.time;
 				let ago=0;
 				if (tm < 86400){if(tm<60){ago=tm+"''";}else if(tm<3600){ago=((tm/60)|0)+"'";}else{ago=new Date(tm*1000).toISOString().substr(11,5).split(":");ago=Number(ago[0])+"h "+ago[1]+"'";}}else ago=new Date(tm*1000).toString().substr(0,24);
-				face[0].sel(face[0].dev[tpms.def.metric],ago,(tm < 86400)?"AGO":0);
+				face[0].sel((face[0].log.length)?face[0].log[tpms.def.ref][tpms.def.metric]:face[0].dev[tpms.def.metric],ago,(tm < 86400)?"AGO":0);
+				//face[0].sel(face[0].dev[tpms.def.metric],ago,(tm < 86400)?"AGO":0);
 				face[0].bar();
 			}			
 		}
