@@ -19,7 +19,7 @@ face[0] = {
 			this.sc();
 			let tm=(getTime()|0) - this.dev.time;
 			let ago=0;
-			if (tm < 86400){if(tm<60){ago=tm+"''";}else if(tm<3600){ago=((tm/60)|0)+"'";}else{ago=new Date(tm*1000).toISOString().substr(11,5).split(":");ago=Number(ago[0])+"h "+ago[1]+"'";}}else ago=new Date(tm*1000).toString().substr(0,24);
+			if (tm < 86400){if(tm<60){ago=tm+"''";}else if(tm<3600){ago=((tm/60)|0)+"'";}else{ago=new Date(tm*1000).toISOString().substr(11,5).split(":");ago=Number(ago[0])+"h "+ago[1]+"'";}}else {ago=(new Date(tm*1000).toString().substr(4,16)).split(" ");ago=ago[0]+" "+ago[1]+" "+ago[3];}
 			this.sel((this.log.length)?this.log[tpms.def.ref][tpms.def.metric]:this.dev[tpms.def.metric],ago,(tm < 86400)?"AGO":0);
 			if (tpms.status=="SCANNING") {this.scan();this.ind();}else if (!this.ntid){this.bar();} 
 			this.page=0;
@@ -472,7 +472,7 @@ touchHandler[0]=function(e,x,y){
 			}
 			let tm=(getTime()|0) - face[0].log[tpms.def.ref].time;
 			let ago=0;
-			if (tm < 86400){if(tm<60){ago=tm+"''";}else if(tm<3600){ago=((tm/60)|0)+"'";}else{ago=new Date(tm*1000).toISOString().substr(11,5).split(":");ago=Number(ago[0])+"h "+ago[1]+"'";}}else ago=new Date(tm*1000).toString().substr(0,21);
+			if (tm < 86400){if(tm<60){ago=tm+"''";}else if(tm<3600){ago=((tm/60)|0)+"'";}else{ago=new Date(tm*1000).toISOString().substr(11,5).split(":");ago=Number(ago[0])+"h "+ago[1]+"'";}}else {ago=(new Date(tm*1000).toString().substr(4,16)).split(" ");ago=ago[0]+" "+ago[1]+" "+ago[3];}
 			face[0].sel((face[0].log.length)?face[0].log[tpms.def.ref][tpms.def.metric]:face[0].dev[tpms.def.metric],ago,(tm < 86400)?"AGO":0);
 			//face[0].sel(face[0].log[tpms.def.ref][tpms.def.metric],ago,(tm < 86400)?"AGO":0);
 			face[0].ind(last);
@@ -508,7 +508,8 @@ touchHandler[0]=function(e,x,y){
 				face[0].sc();	
 				let tm=(getTime()|0) - face[0].dev.time;
 				let ago=0;
-				if (tm < 86400){if(tm<60){ago=tm+"''";}else if(tm<3600){ago=((tm/60)|0)+"'";}else{ago=new Date(tm*1000).toISOString().substr(11,5).split(":");ago=Number(ago[0])+"h "+ago[1]+"'";}}else ago=new Date(tm*1000).toString().substr(0,21);
+				if (tm < 86400){if(tm<60){ago=tm+"''";}else if(tm<3600){ago=((tm/60)|0)+"'";}else{ago=new Date(tm*1000).toISOString().substr(11,5).split(":");ago=Number(ago[0])+"h "+ago[1]+"'";}}
+				else {ago=(new Date(tm*1000).toString().substr(4,16)).split(" ");ago=ago[0]+" "+ago[1]+" "+ago[3];}
 				face[0].sel((face[0].log.length)?face[0].log[tpms.def.ref][tpms.def.metric]:face[0].dev[tpms.def.metric],ago,(tm < 86400)?"AGO":0);
 				//face[0].sel(face[0].dev[tpms.def.metric],ago,(tm < 86400)?"AGO":0);
 				face[0].bar();
