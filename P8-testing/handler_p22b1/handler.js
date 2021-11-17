@@ -393,32 +393,7 @@ btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
 //var i2c=I2C1;
 var i2c=new I2C();
 i2c.setup({scl:D7, sda:D6, bitrate:100000});
-/*
-set.def.rstP="D13";
-digitalPulse(set.def.rstP,1,[5,50]);
-setTimeout(()=>{ 
-	i2c.writeTo(0x15,0xA7);
-	let tp=i2c.readFrom(0x15,1);
-	if ( tp == 255 ) {
-		set.def.rstP="D10";
-	}
-	//touch (816)
-	set.def.touchtype="816";
-	setWatch(function(s){
-		i2c.writeTo(0x15,0);
-		var tp=i2c.readFrom(0x15,7);
-		//print("touch816 :",tp);
-		if (face.pageCurr>=0) {
-			if (tp[1]== 0 && tp[3]==64) tp[1]=5;
-			if (tp[1]== 12 ) tp[6]=tp[6]+25;
-			touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);}
-		else if (tp[1]==1) {
-			face.go(face.appCurr,0);
-		}
-	},D28,{repeat:true, edge:"rising"}); 
-		
-},100);
-*/
+
 set.def.touchtype="816";
 setWatch(function(s){
 	i2c.writeTo(0x15,0);
