@@ -1,5 +1,5 @@
-if (!require("Storage").read("tpms.json",1) || ( require("Storage").read("tpms.json",1) && require("Storage").readJSON("tpms.json",1).ver!=3) ) {
-	let def={"ver":3};
+if (!require("Storage").read("tpms.json",1) || ( require("Storage").read("tpms.json",1) && require("Storage").readJSON("tpms.json",1).ver!=4) ) {
+	let def={"ver":4};
 	def.dev={};
 	def.def={
 			wait:10,
@@ -22,9 +22,9 @@ tpms= {
 		if (tpms.busy) {print("busy");return;}
 		tpms.busy=1;
 		tpms.def.id="";
+		if (!tpms.try && tpms.status!="SCANNING") tpms.try=tpms.def.try
 		tpms.status="SCANNING";
 		if (!tpms.cnt) tpms.cnt=getTime()|0;
-		if (!tpms.try) tpms.try=tpms.def.try
 		NRF.findDevices(function(devices) {
 			this.filter = [{services:[ "fbb0" ]}];
 			NRF.filterDevices(devices, this.filter).forEach(function(device) {
@@ -66,7 +66,6 @@ tpms= {
 			if (tpms.def.id=="") {
 				tpms.cnt=0;
 				if (tpms.try) {
-					//tpms.status="RETRYING:"+tpms.try;
 					tpms.try--;
 					tpms.busy=0;
 					tpms.scan();
