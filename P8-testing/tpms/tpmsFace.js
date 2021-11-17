@@ -21,7 +21,7 @@ face[0] = {
 			let ago=0;
 			if (tm < 86400){if(tm<60){ago=tm+"''";}else if(tm<3600){ago=((tm/60)|0)+"'";}else{ago=new Date(tm*1000).toISOString().substr(11,5).split(":");ago=Number(ago[0])+"h "+ago[1]+"'";}}else ago=new Date(tm*1000).toString().substr(0,24);
 			this.sel((this.log.length)?this.log[tpms.def.ref][tpms.def.metric]:this.dev[tpms.def.metric],ago,(tm < 86400)?"AGO":0);
-			if (tpms.status=="SCANNING") {this.scan();this.ind();}else if (!this.ntid){tpms.cnt=0;this.bar();} 
+			if (tpms.status=="SCANNING") {this.scan();this.ind();}else if (!this.ntid){this.bar();} 
 			this.page=0;
 		}else {
 			tpms.def.pos=0;
@@ -92,7 +92,7 @@ face[0] = {
     },	
 	scan: function(){
 		this.act=1;
-		if (!tpms.cnt) tpms.cnt=getTime()|0;
+		
 		if (tpms.status=="SUCCESS") {
 			this.page=0;
 			tpms.def.ref=0;
@@ -110,14 +110,12 @@ face[0] = {
 			//this.sel((this.log.length)?this.log[tpms.def.ref][tpms.def.metric]:this.dev[tpms.def.metric],"JUST NOW");
 			this.sel(face[0].dev[tpms.def.metric],"JUST NOW");
 			this.ntfy("FOUND : "+tpms.new,"",27,col("raf"),1,2);
-			tpms.cnt=0;			
 			return;
 		}else if (tpms.status=="NOT FOUND") {
 			this.ntfy(tpms.status,"",27,col("red"),1,2);
-			tpms.cnt=0;
 			return;
 		}
-		this.btn(1,tpms.status+" "+(tpms.def.wait-( (getTime()|0)-tpms.cnt) ),27,120,205,col("olive"),0,0,190,239,239,"",22,120,225);
+		this.btn(1,tpms.status+((tpms.try)?"("+tpms.try+") ":" ")+(tpms.def.wait-( (getTime()|0)-tpms.cnt) ),27,120,205,col("olive"),0,0,190,239,239,"",22,120,225);
   		//refresh 
 		if (this.tid>=0) clearTimeout(this.tid);
 		this.tid=setTimeout(function(t){
@@ -342,13 +340,13 @@ touchHandler[0]=function(e,x,y){
 	case 5: //tap event
 		if (face[0].page=="scan"){
 			tpms.new=0;
-			tpms.scan(tpms.def.try);
+			tpms.scan();
 			face[0].scan();
 			buzzer([30,50,30]);
 		}else if (190<y&& x< 80&&face[0].foot=="bar") {
 				if  (tpms.status!="SCANNING" ) { 
 					tpms.new=0;
-					tpms.scan(tpms.def.try);
+					tpms.scan();
 					face[0].scan();
 					buzzer([30,50,30]);
 				}else buzzer(40);
@@ -403,12 +401,12 @@ touchHandler[0]=function(e,x,y){
 						face[0].ntfy((face[0].dev.log)?"LOG ON":"LOG OFF",face[0].dev.id.toUpperCase(),30,(face[0].dev.log)?col("raf"):col("dgray"),1,4,1,1,1);
 				}else if (face[0].act=="wait"){
  						buzzer([30,50,30]);
-            tpms.def.wait=(x<120)?(tpms.def.wait<6)?5:tpms.def.wait-1:(19<tpms.def.wait)?20:tpms.def.wait+1;
+						tpms.def.wait=(x<120)?(tpms.def.wait<6)?5:tpms.def.wait-1:(19<tpms.def.wait)?20:tpms.def.wait+1;
 						face[0].ntfy("SCAN FOR",tpms.def.wait+" SECONDS",25,col("raf"),1,2,1,1,1);
 				}else if (face[0].act=="try"){
  						buzzer([30,50,30]);
 						tpms.def.try=(x<120)?(tpms.def.try<1)?0:tpms.def.try-1:(3<tpms.def.try)?4:tpms.def.try+1;
-						face[0].ntfy("RETRY",tpms.def.try+" TIMES",25,col("raf"),1,2,1,1,1);
+						face[0].ntfy("RETRY",tpms.def.try+1+" TIMES",25,col("raf"),1,2,1,1,1);
 				}		
 			return;
 		}
@@ -439,7 +437,7 @@ touchHandler[0]=function(e,x,y){
 			}else if (80 <  x && x < 160 && 127 <y && y < 190) { //8
 				buzzer([30,50,30]);
 				face[0].act="try";	
-				face[0].ntfy("RETRY",tpms.def.try+" TIMES",25,col("raf"),1,2,1,1,1);
+				face[0].ntfy("RETRY",tpms.def.try+1+" TIMES",25,col("raf"),1,2,1,1,1);
 			} else if (160 < x && 127 <y && y < 190) { //9 bar-psi
 				face[0].act=0;
 				buzzer([30,50,30]);
@@ -474,7 +472,7 @@ touchHandler[0]=function(e,x,y){
 			}
 			let tm=(getTime()|0) - face[0].log[tpms.def.ref].time;
 			let ago=0;
-			if (tm < 86400){if(tm<60){ago=tm+"''";}else if(tm<3600){ago=((tm/60)|0)+"'";}else{ago=new Date(tm*1000).toISOString().substr(11,5).split(":");ago=Number(ago[0])+"h "+ago[1]+"'";}}else ago=new Date(tm*1000).toString().substr(0,24);
+			if (tm < 86400){if(tm<60){ago=tm+"''";}else if(tm<3600){ago=((tm/60)|0)+"'";}else{ago=new Date(tm*1000).toISOString().substr(11,5).split(":");ago=Number(ago[0])+"h "+ago[1]+"'";}}else ago=new Date(tm*1000).toString().substr(0,21);
 			face[0].sel((face[0].log.length)?face[0].log[tpms.def.ref][tpms.def.metric]:face[0].dev[tpms.def.metric],ago,(tm < 86400)?"AGO":0);
 			//face[0].sel(face[0].log[tpms.def.ref][tpms.def.metric],ago,(tm < 86400)?"AGO":0);
 			face[0].ind(last);
@@ -510,7 +508,7 @@ touchHandler[0]=function(e,x,y){
 				face[0].sc();	
 				let tm=(getTime()|0) - face[0].dev.time;
 				let ago=0;
-				if (tm < 86400){if(tm<60){ago=tm+"''";}else if(tm<3600){ago=((tm/60)|0)+"'";}else{ago=new Date(tm*1000).toISOString().substr(11,5).split(":");ago=Number(ago[0])+"h "+ago[1]+"'";}}else ago=new Date(tm*1000).toString().substr(0,24);
+				if (tm < 86400){if(tm<60){ago=tm+"''";}else if(tm<3600){ago=((tm/60)|0)+"'";}else{ago=new Date(tm*1000).toISOString().substr(11,5).split(":");ago=Number(ago[0])+"h "+ago[1]+"'";}}else ago=new Date(tm*1000).toString().substr(0,21);
 				face[0].sel((face[0].log.length)?face[0].log[tpms.def.ref][tpms.def.metric]:face[0].dev[tpms.def.metric],ago,(tm < 86400)?"AGO":0);
 				//face[0].sel(face[0].dev[tpms.def.metric],ago,(tm < 86400)?"AGO":0);
 				face[0].bar();

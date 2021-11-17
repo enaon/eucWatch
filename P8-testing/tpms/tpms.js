@@ -17,12 +17,14 @@ tpms= {
 	new:0,
 	status:"IDLE",
 	scan:(rp,sl)=>{
-		if (sl) tpms.def.id=sl;
-		if (rp) tpms.def.try=rp;
+		//if (sl) tpms.def.id=sl;
+		//if (rp) tpms.def.try=rp;
 		if (tpms.busy) {print("busy");return;}
 		tpms.busy=1;
 		tpms.def.id="";
 		tpms.status="SCANNING";
+		if (!tpms.cnt) tpms.cnt=getTime()|0;
+		if (!tpms.try) tpms.try=tpms.def.try
 		NRF.findDevices(function(devices) {
 			this.filter = [{services:[ "fbb0" ]}];
 			NRF.filterDevices(devices, this.filter).forEach(function(device) {
@@ -58,12 +60,14 @@ tpms= {
 				}
 				tpms.status="SUCCESS";
 				tpms.busy=0;
+				tpms.cnt=0;
 				return;
 			});
 			if (tpms.def.id=="") {
-				if (tpms.def.try) {
-					tpms.status="RETRYING:"+tpms.def.try;
-					tpms.def.try--;
+				tpms.cnt=0;
+				if (tpms.try) {
+					//tpms.status="RETRYING:"+tpms.try;
+					tpms.try--;
 					tpms.busy=0;
 					tpms.scan();
 				}else {
@@ -86,7 +90,7 @@ tpms= {
 //start
 tpms.def=require("Storage").readJSON("tpms.json",1).def;
 if (tpms.def.mode && tpms.def.mode != 4) {
-	tpms.scan(tpms.def.try);
+	tpms.scan();
 }
 
 
