@@ -210,5 +210,5 @@ euc.off=function(err){
 			if (set.bt===2) console.log("ble still connected"); 
 			global["\xFF"].BLE_GATTS.disconnect();return;
 		}
+  }
 };
-trp    }
