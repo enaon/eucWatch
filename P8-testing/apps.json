@@ -310,7 +310,7 @@
 	{ "id": "eucNinebotZ",
 		"name": "NinebotZ module",
 		"icon": "icon.png",
-		"version":"0.97",
+		"version":"0.98",
 		"description": "EUC module for Ninebot Z6/Z10",
 		"tags": "euc",
 		"type": "euc",
