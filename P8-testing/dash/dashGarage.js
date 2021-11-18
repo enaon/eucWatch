@@ -19,128 +19,54 @@ face[0] = {
 		if (!this.run) return;
 		if (this.s1!=this.sv1){
 			this.sv1=this.s1;
-			if (this.dash.slot1Mac) {
-				this.g.setColor(0,(this.s1)?col("raf"):col("dgray"));
-				this.g.fillRect(0,0,119,97);
-				this.g.setColor(1,col("white"));
-				this.g.setFont("Vector",18);	
-				this.g.drawString(this.dash.slot1Maker.toUpperCase(),60-(this.g.stringWidth(this.dash.slot1Maker.toUpperCase())/2),10); 
-				this.g.setFont("Vector",35);	
-				this.g.drawString(this.dash.slot1Name.split("-")[0],60-(this.g.stringWidth(this.dash.slot1Name.split("-")[0])/2),50); 
-				this.g.flip();
-			}else if (this.s1) {
-				this.g.setColor(0,col("red"));
-				this.g.fillRect(0,0,119,97);
-				this.g.setColor(1,col("white"));
-				this.g.setFont("Vector",22);	
-				this.g.drawString("EMPTY",60-(this.g.stringWidth("EMPTY")/2),40);
-				this.g.flip();
-				if (this.s1tid)  clearTimeout(this.s1tid);
-				this.s1tid=setTimeout(function(t){
-					t.s1=0;
-					t.s1tid=0;
-					t.g.setFont("Vector",22);	
-					t.g.setColor(0,col("black"));
-					t.g.fillRect(0,0,119,97);
-					t.g.flip();
-				 },1000,this);
-			}
+			this.btn(1,this.s1,60,10,50,40,0,0,119,97);
 		}
-		//slot 2    
 		if (this.s2!=this.sv2){
 			this.sv2=this.s2;
-			if (this.dash.slot2Mac) {
-				this.g.setColor(0,(this.s2)?col("raf"):col("dgray"));
-				this.g.fillRect(122,0,239,97);	
-				this.g.setColor(1,col("white"));
-				this.g.setFont("Vector",18);	
-//				this.g.drawString((this.s2)?this.dash.slot2Name.split("-")[1]:this.dash.slot2Maker.toUpperCase(),185-(this.g.stringWidth((this.s2)?this.dash.slot2Name.split("-")[1]:this.dash.slot2Maker.toUpperCase())/2),10); 
-				this.g.drawString(this.dash.slot2Maker.toUpperCase(),185-(this.g.stringWidth(this.dash.slot2Maker.toUpperCase())/2),10); 
-				this.g.setFont("Vector",35);	
-				this.g.drawString(this.dash.slot2Name.split("-")[0],185-(this.g.stringWidth(this.dash.slot2Name.split("-")[0])/2),50); 
-				this.g.flip();
-			}else if (this.s2) {
-				this.g.setColor(0,col("red"));
-				this.g.fillRect(122,0,239,97);	
-				this.g.setColor(1,col("white"));
-				this.g.setFont("Vector",22);	
-				this.g.drawString("EMPTY",185-(this.g.stringWidth("EMPTY")/2),40);
-				this.g.flip();
-				if (this.s2tid)  clearTimeout(this.s2tid);
-				this.s2tid=setTimeout(function(t){
-					t.s2=0;
-					t.s2tid=0;
-					t.g.setFont("Vector",22);	
-					t.g.setColor(0,col("black"));
-					t.g.fillRect(122,0,239,97);
-					t.g.flip();
-				},1000,this);
-			}
+			this.btn(2,this.s2,185,10,50,40,122,0,239,97);
 		}
-		  //slot 3
 		if (this.s3!=this.sv3){
 			this.sv3=this.s3;	
-			if (this.dash.slot3Mac) {
-				this.g.setColor(0,(this.s3)?col("raf"):col("dgray"));
-				this.g.fillRect(0,100,119,195);
-				this.g.setColor(1,col("white"));
-				this.g.setFont("Vector",18);	
-				this.g.drawString(this.dash.slot3Maker.toUpperCase(),60-(this.g.stringWidth(this.dash.slot3Maker.toUpperCase())/2),110); 
-				this.g.setFont("Vector",35);	
-				this.g.drawString(this.dash.slot3Name.split("-")[0],60-(this.g.stringWidth(this.dash.slot3Name.split("-")[0])/2),150); 
-				this.g.flip();
-			}else if (this.s3) {
-				this.g.setColor(0,col("red"));
-				this.g.fillRect(0,100,119,195);
-				this.g.setColor(1,col("white"));
-				this.g.setFont("Vector",22);	
-				this.g.drawString("EMPTY",60-(this.g.stringWidth("EMPTY")/2),140);
-				this.g.flip();
-				if (this.s3tid)  clearTimeout(this.s3tid);
-				this.s3tid=setTimeout(function(t){
-					t.s3=0;
-					t.s3tid=0;
-					t.g.setFont("Vector",22);	
-					t.g.setColor(0,col("black"));
-					t.g.fillRect(0,100,119,195);
-					t.g.flip();
-				},1000,this);
-			}
+			this.btn(3,this.s3,60,110,150,140,0,100,119,195);
 		}
-		  //slot 4
 		if (this.s4!=this.sv4){
 			this.sv4=this.s4;
-			if (this.dash.slot4Mac) {
-				this.g.setColor(0,(this.s4)?col("raf"):col("dgray"));
-		this.g.fillRect(122,100,239,195);
-				this.g.setColor(1,col("white"));
-				this.g.setFont("Vector",18);	
-				this.g.drawString(this.dash.slot4Maker.toUpperCase(),185-(this.g.stringWidth(this.dash.slot4Maker.toUpperCase())/2),110); 
-				this.g.setFont("Vector",35);	
-				this.g.drawString(this.dash.slot4Name.split("-")[0],185-(this.g.stringWidth(this.dash.slot4Name.split("-")[0])/2),150); 
-				this.g.flip();
-			}else if (this.s4) {
-				this.g.setColor(0,col("red"));
-				this.g.fillRect(122,100,239,195);
-				this.g.setColor(1,col("white"));
-				this.g.setFont("Vector",22);	
-				this.g.drawString("EMPTY",185-(this.g.stringWidth("EMPTY")/2),140);
-				this.g.flip();
-				if (this.s4tid)  clearTimeout(this.s2tid);
-				this.s4tid=setTimeout(function(t){
-					t.s4=0;
-					t.s4tid=0;
-					t.g.setFont("Vector",22);	
-					t.g.setColor(0,col("black"));
-					t.g.fillRect(122,100,239,195);
-					t.g.flip();
-				},1000,this);
-			}
+			this.btn(4,this.s4,185,110,150,140,122,100,239,195);
 		}
 		this.tid=setTimeout(function(t){ 
 			t.tid=-1;
 			t.show(o);
 		},100,this);
+	},
+	btn: function(slotNumber,active,x,y,y1,y2,rx1,ry1,rx2,ry2 ){
+			if (this.dash["slot"+slotNumber+"Mac"]) {
+				this.g.setColor(0,(active)?col("raf"):col("dgray"));
+				this.g.fillRect(rx1,ry1,rx2,ry2);	
+				this.g.setColor(1,col("white"));
+				this.g.setFont("Vector",18);	
+//				this.g.drawString((this.s2)?this.dash.slot2Name.split("-")[1]:this.dash.slot2Maker.toUpperCase(),185-(this.g.stringWidth((this.s2)?this.dash.slot2Name.split("-")[1]:this.dash.slot2Maker.toUpperCase())/2),10); 
+			this.g.drawString(this.dash["slot"+slotNumber+"Maker"].toUpperCase(),x-(this.g.stringWidth(this.dash["slot"+slotNumber+"Maker"].toUpperCase())/2),y); 
+				if ( (this.dash["slot"+slotNumber+"Name"]).includes("Proxy")) { this.g.setFont("Vector",25);this.dash["slot"+slotNumber+"Name"]="PROXY";}
+				else this.g.setFont("Vector",35);
+				this.g.drawString(this.dash["slot"+slotNumber+"Name"].split("-")[0],x-(this.g.stringWidth(this.dash["slot"+slotNumber+"Name"].split("-")[0])/2),y1); 
+				this.g.flip();
+			}else if (active) {
+				this.g.setColor(0,col("red"));
+				this.g.fillRect(rx1,ry1,rx2,ry2);	
+				this.g.setColor(1,col("white"));
+				this.g.setFont("Vector",22);	
+				this.g.drawString("EMPTY",x-(this.g.stringWidth("EMPTY")/2),y2);
+				this.g.flip();
+				if (this["s"+slotNumber+"tid"])  clearTimeout(this["s"+slotNumber+"tid"]);
+				this["tid"+slotNumber]=setTimeout(function(slotNumber){
+					face[0]["s"+slotNumber]=0;
+					face[0]["s"+slotNumber+"tid"]=0;
+					w.gfx.setFont("Vector",22);	
+					w.gfx.setColor(0,col("black"));
+					w.gfx.fillRect(rx1,ry1,rx2,ry2);
+					w.gfx.flip();
+				},1000,slotNumber);
+			}
 	},
 	ntfy: function(txt1,txt0,size,clr,bt){
 			this.g.setColor(0,clr);
@@ -178,22 +104,22 @@ face[0] = {
 	}
 };
 face[1] = {
-  offms:1000,
-  init: function(){
-  return;
-  },
-  show : function(){
- 	(euc.state=="OFF")?face.go("dashOff",0):face.go(set.dash[set.def.dash.face],0);
-    return;
-  },
-   clear: function(){
-   return;
-  },
-   off: function(){
-   this.clear();
-  }
+	offms:1000,
+	init: function(){
+		return;
+	},
+	show : function(){
+		(euc.state=="OFF")?face.go("dashOff",0):face.go(set.dash[set.def.dash.face],0);
+		return;
+	},
+	clear: function(){
+		return;
+	},
+	off: function(){
+		this.clear();
+	}
 };	
-
+//
 touchHandler[0]=function(e,x,y){ 
 	switch (e) {
 	case 5: //tap event

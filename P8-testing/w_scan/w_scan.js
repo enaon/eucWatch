@@ -101,10 +101,8 @@ face[0] = {
         this.g.fillRect(0,(this.top-14)+((entry-this.line)*this.top),239,(this.top+36)+((entry-this.line)*this.top)); 
 		this.g.setColor(1,col((this.go==entry)?"lblue":"white"));
 		//let dr=scan.mac[entry].substring(0,17);
-		let dr=0;
 		if (scan.mac[entry].split("|")[1]!=="undefined"){
 			dr=E.toString(scan.mac[entry].split("|")[1]);
-			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",dr);
 		}else dr=scan.mac[entry].substring(0,17);
 		//let dr=scan.mac[entry].substring(0,17);
 		//let dr=(scan.mac[entry].split("|")[1]!=="undefined")?scan.mac[entry].split("|")[1]:scan.mac[entry].substring(0,17);
@@ -165,14 +163,16 @@ face[1] = {
 //
 touchHandler[0]=function(e,x,y){
     if (e==5||e==12){
-	   if (face[0].start==3) face[0].find(face.pageArg);
-       if(36<y&&y<=85) 	this.mac=scan.mac[0].split("|")[0];
-	   else if(85<y&&y<=135) this.mac=scan.mac[1].split("|")[0];
-       else if(135<y&&y<=185) 	this.mac=scan.mac[2].split("|")[0];
-       else if(185<y) 	this.mac=scan.mac[3].split("|")[0];
-       if (this.mac!=undefined) {
+		if (!face[0].start||face[0].start==1) { buzzer(40);return}
+		if (face[0].start==3) { buzzer([30,50,30]);face[0].find(face.pageArg); return}
+		if(36<y&&y<=85) 	{this.mac=scan.mac[0].split("|")[0];this.name=(scan.mac[0].split("|")[1])?scan.mac[0].split("|")[1]:0;}
+		else if(85<y&&y<=135) {this.mac=scan.mac[1].split("|")[0];this.name=(scan.mac[0].split("|")[1])?scan.mac[0].split("|")[1]:0;}
+		else if(135<y&&y<=185) 	{this.mac=scan.mac[2].split("|")[0];this.name=(scan.mac[0].split("|")[1])?scan.mac[0].split("|")[1]:0;}
+		else if(185<y) 	{this.mac=scan.mac[3].split("|")[0];this.name=(scan.mac[0].split("|")[1])?scan.mac[0].split("|")[1]:0;}
+		if (this.mac!=undefined) {
 			buzzer([30,50,30]);
 			if (face.appRoot[0]!="repellent"){
+				if (this.name) set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Mac",this.name);
                 //set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Mac",this.mac);
 				euc.mac=this.mac;
 				euc.tgl();
