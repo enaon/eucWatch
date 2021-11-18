@@ -104,6 +104,7 @@ face[0] = {
 		let dr=0;
 		if (scan.mac[entry].split("|")[1]!=="undefined"){
 			dr=E.toString(scan.mac[entry].split("|")[1]);
+			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",dr);
 		}else dr=scan.mac[entry].substring(0,17);
 		//let dr=scan.mac[entry].substring(0,17);
 		//let dr=(scan.mac[entry].split("|")[1]!=="undefined")?scan.mac[entry].split("|")[1]:scan.mac[entry].substring(0,17);
