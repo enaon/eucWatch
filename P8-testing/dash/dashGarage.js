@@ -45,7 +45,7 @@ face[0] = {
 				this.g.setColor(1,col("white"));
 				this.g.setFont("Vector",18);	
 				this.g.drawString(this.dash["slot"+slotNumber+"Maker"].toUpperCase(),x-(this.g.stringWidth(this.dash["slot"+slotNumber+"Maker"].toUpperCase())/2),y); 
-				if ( (this.dash["slot"+slotNumber+"Name"]).includes("Proxy")) { this.g.setFont("Vector",25);this.dash["slot"+slotNumber+"Name"]="Proxy";}
+				if ( (this.dash["slot"+slotNumber+"Name"]).includes("Proxy")) { this.g.setFont("Vector",30);this.dash["slot"+slotNumber+"Name"]="Proxy";}
 				else this.g.setFont("Vector",35);
 				this.g.drawString(this.dash["slot"+slotNumber+"Name"].split("-")[0],x-(this.g.stringWidth(this.dash["slot"+slotNumber+"Name"].split("-")[0])/2),y1); 
 				this.g.flip();
