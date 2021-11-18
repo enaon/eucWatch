@@ -20,6 +20,7 @@ euc.cmd=function(no){
 //start
 euc.wri=function(i) {if (set.bt===2) console.log("not connected yet"); if (i=="end") euc.off(); return;};
 euc.conn=function(mac){
+	print("mac: ",mac);
 	//check
 	if ( global["\xFF"].BLE_GATTS!="undefined") {
 		if (set.def.cli) print("ble allready connected"); 

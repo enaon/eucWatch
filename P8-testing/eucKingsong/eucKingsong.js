@@ -340,7 +340,7 @@ euc.off=function(err){
 			}
 			euc.run=euc.run+1;
 			if (euc.dash.lock==1) buzzer(250);
-			else  buzzer([250,200,250,200,250])
+			else  buzzer([250,200,250,200,250]);
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
 				if (euc.state!="OFF") euc.conn(euc.mac); 
