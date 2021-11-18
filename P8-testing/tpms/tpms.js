@@ -1,16 +1,17 @@
 //tpms sensor support
 //create settings json
-if (!require("Storage").read("tpms.json",1) || ( require("Storage").read("tpms.json",1) && require("Storage").readJSON("tpms.json",1).ver!=5) ) {
-	let def={"ver":5};
+if (!require("Storage").read("tpms.json",1) || ( require("Storage").read("tpms.json",1) && require("Storage").readJSON("tpms.json",1).ver!=7) ) {
+	let def={"ver":7};
 	def.dev={};
 	def.def={
 			wait:10,
 			try:0,
-			mode:0,
+			int:0,
 			ref:0,
 			pos:0,
 			metric:"psi",
 			list:{},
+			slot:{},
 			allowNew:1
 	};			
 	require("Storage").writeJSON("tpms.json",def);
@@ -41,6 +42,11 @@ tpms= {
 				if ( tpms.def.allowNew || tpms.def.list[id] ) {
 					if (!tpms.def.list[id]) {
 						tpms.def.list[id]={"hiP":50,"lowP":10}
+						let got=require("Storage").readJSON("tpms.json",1);
+						got.def=tpms.def;
+						got.dev[face[0].tpms[tpms.def.pos]]=face[0].dev;
+						require("Storage").writeJSON("tpms.json",got);
+						got=0;
 					}
 					tpms.new++;
 					tpms.def.ref=0;
@@ -77,13 +83,13 @@ tpms= {
 					tpms.busy=0;
 					tpms.new=0;
 					tpms.status="NOT FOUND";
-					let modT=[5,30,60];
+					let intT=[5,30,60,360];
 					if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
-					if (tpms.def.mode && tpms.def.mode!=4) {
+					if (tpms.def.int) {
 						tpms.tid=setTimeout(()=>{ 
 							tpms.tid=0;
 							tpms.scan();
-						},modT[tpms.def.mode-1]*60000);
+						},intT[tpms.def.int-1]*60000);
 					}
 				}
 			}else {
@@ -95,7 +101,7 @@ tpms= {
 };
 //run 
 tpms.def=require("Storage").readJSON("tpms.json",1).def;
-if (tpms.def.mode && tpms.def.mode != 4) {
+if (tpms.def.int) {
 	tpms.scan();
 }
 
