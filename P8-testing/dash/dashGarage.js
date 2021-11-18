@@ -44,9 +44,8 @@ face[0] = {
 				this.g.fillRect(rx1,ry1,rx2,ry2);	
 				this.g.setColor(1,col("white"));
 				this.g.setFont("Vector",18);	
-//				this.g.drawString((this.s2)?this.dash.slot2Name.split("-")[1]:this.dash.slot2Maker.toUpperCase(),185-(this.g.stringWidth((this.s2)?this.dash.slot2Name.split("-")[1]:this.dash.slot2Maker.toUpperCase())/2),10); 
-			this.g.drawString(this.dash["slot"+slotNumber+"Maker"].toUpperCase(),x-(this.g.stringWidth(this.dash["slot"+slotNumber+"Maker"].toUpperCase())/2),y); 
-				if ( (this.dash["slot"+slotNumber+"Name"]).includes("Proxy")) { this.g.setFont("Vector",25);this.dash["slot"+slotNumber+"Name"]="PROXY";}
+				this.g.drawString(this.dash["slot"+slotNumber+"Maker"].toUpperCase(),x-(this.g.stringWidth(this.dash["slot"+slotNumber+"Maker"].toUpperCase())/2),y); 
+				if ( (this.dash["slot"+slotNumber+"Name"]).includes("Proxy")) { this.g.setFont("Vector",25);this.dash["slot"+slotNumber+"Name"]="Proxy";}
 				else this.g.setFont("Vector",35);
 				this.g.drawString(this.dash["slot"+slotNumber+"Name"].split("-")[0],x-(this.g.stringWidth(this.dash["slot"+slotNumber+"Name"].split("-")[0])/2),y1); 
 				this.g.flip();
