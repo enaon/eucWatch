@@ -100,7 +100,12 @@ face[0] = {
 		this.g.setColor(0,col((this.go==entry)?"raf":(entry % 2)?"dgray":"gray"));
         this.g.fillRect(0,(this.top-14)+((entry-this.line)*this.top),239,(this.top+36)+((entry-this.line)*this.top)); 
 		this.g.setColor(1,col((this.go==entry)?"lblue":"white"));
-		let dr=scan.mac[entry].substring(0,17);
+		//let dr=scan.mac[entry].substring(0,17);
+		let dr=0;
+		if (scan.mac[entry].split("|")[1]!=="undefined"){
+			dr=E.toString(scan.mac[entry].split("|")[1]);
+		}else dr=scan.mac[entry].substring(0,17);
+		//let dr=scan.mac[entry].substring(0,17);
 		//let dr=(scan.mac[entry].split("|")[1]!=="undefined")?scan.mac[entry].split("|")[1]:scan.mac[entry].substring(0,17);
 		this.g.drawString(dr,1,this.top+((entry-this.line)*this.top));
 		this.g.flip();
