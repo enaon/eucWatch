@@ -58,9 +58,10 @@ face[0] = {
 				this.g.drawString("EMPTY",x-(this.g.stringWidth("EMPTY")/2),y2);
 				this.g.flip();
 				if (this["s"+slotNumber+"tid"])  clearTimeout(this["s"+slotNumber+"tid"]);
-				this["tid"+slotNumber]=setTimeout(function(slotNumber){
-					face[0]["s"+slotNumber]=0;
-					face[0]["s"+slotNumber+"tid"]=0;
+				this["s"+slotNumber+"tid"]=setTimeout(function(slot){
+					face[0]["s"+slot]=0;
+					face[0]["s"+slot+"tid"]=0;
+					print(face[0]["s"+slot+"tid"])
 					w.gfx.setFont("Vector",22);	
 					w.gfx.setColor(0,col("black"));
 					w.gfx.fillRect(rx1,ry1,rx2,ry2);
