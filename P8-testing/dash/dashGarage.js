@@ -61,7 +61,6 @@ face[0] = {
 				this["s"+slotNumber+"tid"]=setTimeout(function(slot){
 					face[0]["s"+slot]=0;
 					face[0]["s"+slot+"tid"]=0;
-					print(face[0]["s"+slot+"tid"])
 					w.gfx.setFont("Vector",22);	
 					w.gfx.setColor(0,col("black"));
 					w.gfx.fillRect(rx1,ry1,rx2,ry2);
