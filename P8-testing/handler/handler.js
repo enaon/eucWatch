@@ -191,7 +191,14 @@ function bcon() {
 	E.setConsole(null,{force:true});
 	set.bt=1; 
 	if (set.def.cli||set.def.gb||set.def.emuZ) { Bluetooth.on('data',ccon);}
-	setTimeout(()=>{if (set.bt==1) NRF.disconnect();},5000);
+	setTimeout(()=>{
+    if (set.bt==1 && !set.def.cli) 
+      NRF.disconnect(); 
+		else{ 
+			handleInfoEvent({"src":"DEBUG","title":"RELAY","body":"Relay Connected"});
+			set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
+    }
+	},5000);
 }
 function bdis() {
     Bluetooth.removeListener('data',ccon);
