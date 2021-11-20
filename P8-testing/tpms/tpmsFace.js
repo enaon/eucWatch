@@ -4,11 +4,14 @@ face[0] = {
 	g:w.gfx,
 	spd:[],
 	init: function(){
-    //check if corrupted
-		if (require("Storage").read("tpmsLog"+Object.keys(tpms.def.list)[tpms.def.pos]+".json",1) && !require("Storage").readJSON("tpmsLog"+Object.keys(tpms.def.list)[tpms.def.pos]+".json",1)){
-			require("Storage").erase("tpmsLog"+Object.keys(tpms.def.list)[tpms.def.pos]+".json",1);
-			delete tpms.def.list[Object.keys(tpms.def.list)[tpms.def.pos]];
+		//check if log is corrupted
+		this.tpms=Object.keys(tpms.def.list);
+		if (require("Storage").read("tpmsLog"+this.tpms[tpms.def.pos]+".json",1) && !require("Storage").readJSON("tpmsLog"+this.tpms[tpms.def.pos]+".json",1)){
+			require("Storage").erase("tpmsLog"+this.tpms[tpms.def.pos]+".json",1);
+			delete tpms.def.list[this.tpms[tpms.def.pos]];
 		}
+		if (!this.tpms.length) {tpms.def.allowNew=1;tpms.def.int=0;}
+		//
 		this.log=0;
 		this.foot="bar";
 		this.disp=0;
@@ -50,7 +53,7 @@ face[0] = {
 				if (this.scale < this.log[i][tpms.def.metric]-0 ) this.scale=this.log[i][tpms.def.metric];
 			}
 			this.top=this.scale;
-			this.scale=40/this.scale;				
+			this.scale=40/((this.scale)?this.scale:1);				
 	},
 	bar: function(l){
 		if (tpms.status=="SCANNING"||tpms.status.startsWith("RETRY") ) {if (this.log ) this.ind(); return;}
@@ -74,10 +77,10 @@ face[0] = {
 		if (!this.log ) return;
 		let lim=(this.log[tpms.def.ref].psi<tpms.def.list[this.tpms[tpms.def.pos]].lowP||tpms.def.list[this.tpms[tpms.def.pos]].hiP<this.log[tpms.def.ref].psi)?1:0;		
 		if (last || last===0) {
-			this.g.setColor(1,col( (this.foot=="barS")?"black":(lim)?"yellow":"lblue"));
-			this.g.fillRect(239-(tpms.def.ref*18)-16,186,239-(tpms.def.ref*18),189);
 			this.g.setColor(0,0);
 			this.g.fillRect(239-(last*18)-16,186,239-(last*18),189);
+			this.g.setColor(1,col( (this.foot=="barS")?"black":(lim)?"yellow":"lblue"));
+			this.g.fillRect(239-(tpms.def.ref*18)-16,186,239-(tpms.def.ref*18),189);
 		}else {
 			this.g.setColor(0,0);
 			this.g.fillRect(0,186,239,190);
@@ -169,7 +172,7 @@ face[0] = {
 	sett:function(){
 		let tpmsS=["OFF","5 MIN","30 MIN","1 HOUR","6 HOURS"];
 		this.barS();
-		this.btn(1,"LOGGING",25,80,20,col("raf"),col("gray"),0,0,155,60);//1-2
+		this.btn(tpms.def.allowNew,(tpms.def.allowNew)?"ALLOW":"BLOCK",25,80,20,col("raf"),col("red"),0,0,155,60);//1-2
 		this.g.setColor(0,0);
 		this.g.clearRect(156,0,159,60);
 		this.g.flip(); 
@@ -215,10 +218,10 @@ face[0] = {
 		this.g.setColor(0,0);
 		this.g.fillRect(0,186,239,239);
 		this.g.setColor(1,col("lblue"));
-		//let img = require("heatshrink").decompress(atob("mEwwIZWsAFE/AEDgIFEg/8AocPAokfAok/C4n/+AiD//AAoUD/+AFAf/FAn+EQgoEv4iDFAPgFBAiBFAcPFAhLLn4oEn4oDC4ILEN4sHJgheBRog7EKYJHDGA0fHggqLEgxsEFQJPEFQsPZYoFEgbdKgAdEACgA="));
-		//this.g.drawImage(img,10,195);
-		//this.g.flip();
-		//this.g.setColor(1,col("lblue"));
+		let img = require("heatshrink").decompress(atob("mEwwIZWsAFE/AEDgIFEg/8AocPAokfAok/C4n/+AiD//AAoUD/+AFAf/FAn+EQgoEv4iDFAPgFBAiBFAcPFAhLLn4oEn4oDC4ILEN4sHJgheBRog7EKYJHDGA0fHggqLEgxsEFQJPEFQsPZYoFEgbdKgAdEACgA="));
+		this.g.drawImage(img,10,195);
+		this.g.flip();
+		this.g.setColor(1,col("lblue"));
 		img = require("heatshrink").decompress(atob("mEwwIROv/+AqoAPgf/AAXAg4FD8AFLFSQTCg8AgPwAoMPwAFHkAFE+EPAv4FLsEGL5IFVgH8AoM/AQKnDawQEBbAU/AoIUCj4FB/DkTAAgA="));
 		this.g.drawImage(img,177,195);
 		img=0;
@@ -378,16 +381,16 @@ touchHandler[0]=function(e,x,y){
 				face[0].btn(1,(tpms.def.metric=="psi")?tpms.def.list[face[0].tpms[tpms.def.pos]].lowP:(tpms.def.list[face[0].tpms[tpms.def.pos]].lowP/ ((tpms.def.metric=="bar")?14.50377377:0.1450377377 )).toFixed((tpms.def.metric=="bar")?2:0),38,205,81,col("dgray"),0,160,65,239,125); //6
 				face[0].ntfy("","",27,0,1,2,0,0);
 				this.lL=getTime();
-			}else if (face[0].act=="mode"){	
+			}else if (face[0].act=="allow"){	
 				buzzer([30,50,30]);
 				tpms.def.ref=0;
-				face[0].btn(1,"LOGGING",25,80,20,col("raf"),col("gray"),0,0,155,60);//1-2
-				face[0].ntfy("LOG ON",face[0].log[tpms.def.ref].id.toUpperCase(),30,col("dgray"),1,4,1,1,1);
+				face[0].btn(tpms.def.AlowNew,(tpms.def.AlowNew)?"ALLOW":"BLOCK",25,80,20,col("raf"),col("red"),0,0,155,60);//4-5
+				face[0].ntfy("NEW SENSOR","DISCOVERY",26,col("dgray"),1,4,1,1,1);
 			}else if (face[0].act=="int"){	
 				buzzer([30,50,30]);
 				tpms.def.int++; if (4 < tpms.def.int) tpms.def.int=0;
 				let tpmsS=["ONCE","5 MIN","30 MIN","1 HOUR","6 HOURS"];
-				face[0].ntfy((tpms.def.int)?"EVERY":"MANUAL",(tpms.def.int)?tpmsS[tpms.def.int]:"ONLY",27,col((tpms.def.int)?"raf":"dgray"),1,3,1,1,1);
+				face[0].ntfy((tpms.def.int)?"EVERY":"MANUAL",(tpms.def.int)?tpmsS[tpms.def.int]:"SCAN",27,col((tpms.def.int)?"raf":"dgray"),1,3,1,1,1);
 				face[0].btn(tpms.def.int,"SCAN",28,80,84,col("raf"),col("dgray"),0,65,155,125); //4-5
 			}else if (face[0].act=="wait"){
 				buzzer([30,50,30]);
@@ -403,14 +406,10 @@ touchHandler[0]=function(e,x,y){
 		if (face[0].page=="sett"){
 			if ( 0 < x && x < 155 && y < 62 ) { //1-2
 				buzzer([30,50,30]);
-				if ( face[0].act == "mode" ) {
-					if (face[0].ntid) {clearTimeout(face[0].ntid);face[0].ntid=0;}
-					face[0].barS();
-					face[0].act=0;
-				}else {
-					face[0].ntfy("LOG OFF",face[0].log[tpms.def.ref].id.toUpperCase(),30,col("dgray"),1,4,1,1,1);
-					face[0].act="mode";
-				}
+				tpms.def.allowNew=1-tpms.def.allowNew;
+				face[0].btn(tpms.def.allowNew,(tpms.def.allowNew)?"ALLOW":"BLOCK",25,80,20,col("raf"),col("red"),0,0,155,60);//1-2
+				face[0].ntfy("NEW SENSOR","DISCOVERY",26,col("dgray"),1,1,0,1,1);
+				face[0].act="allow";
 			}else if (155 <= x && y < 62) { //3
 				buzzer([30,50,30]);	
 				if ( face[0].act == "hi" ) {face[0].barS();if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;face[0].act=0;}
@@ -423,7 +422,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].act=0;
 				}else {
 					let tpmsS=["ONCE","5 MIN","30 MIN","1 HOUR","6 HOURS"];
-				face[0].ntfy((tpms.def.int)?"EVERY":"MANUAL",(tpms.def.int)?tpmsS[tpms.def.int]:"ONLY",27,col((tpms.def.int)?"raf":"dgray"),1,3,1,1,1);
+				face[0].ntfy((tpms.def.int)?"EVERY":"MANUAL",(tpms.def.int)?tpmsS[tpms.def.int]:"SCAN",27,col((tpms.def.int)?"raf":"dgray"),1,3,1,1,1);
 					face[0].act="int";
 				}
 			}else if (155 <= x && 62 <y && y < 127) { //6
@@ -456,7 +455,7 @@ touchHandler[0]=function(e,x,y){
 			}
 		}else if (50 < y) { 
 			//entry select
-			if (face[0].info ) {buzzer(40);return;}
+			if (!face[0].tpms.length ) {buzzer(40);return;}
 			let last=tpms.def.ref;
 			buzzer([30,50,30]);
 			tpms.def.ref=(120<x)?(0<tpms.def.ref)?tpms.def.ref-1:face[0].log.length-1:(tpms.def.ref<face[0].log.length-1)?tpms.def.ref+1:0;
@@ -467,28 +466,21 @@ touchHandler[0]=function(e,x,y){
 			face[0].ind(last);
 			return;
 		}else {
-			if  ( 150 < x ) { //info
-				if (tpms.status=="SCANNING"||tpms.status.startsWith("RETRY") ) {buzzer(40);return;}
-				if (face[0].info) {
-					if (face[0].tpms.length <=1 ) {buzzer(40);return;}
-					face[0].log=face[0].log=require("Storage").readJSON("tpmsLog"+face[0].tpms[tpms.def.pos]+".json",1);
-					if (tpms.def.pos+1 < face[0].tpms.length) tpms.def.pos++;
-					else tpms.def.pos=0;
-					tpms.def.ref=0;
-				} 
-				buzzer([30,50,30]);
-				face[0].inf();
+			if  ( 150 < x ) { //settings
+				if (face[0].page!="sett" && face[0].tpms.length&&tpms.status!="SCANNING"&&!tpms.status.startsWith("RETRY")){
+					buzzer([30,50,30]);
+					if (face[0].ntid) {clearTimeout(face[0].ntid);face[0].ntid=0;}
+					face[0].sett();
+					face[0].page="sett";
+					face[0].act=0;	
+				}else buzzer(40);
 			}else{ //sensor
-				if (face[0].info) {
-					face[0].info=0;
-				} else {
-					if (face[0].tpms.length <=1 ) {buzzer(40);return;}
-					if (tpms.def.pos+1 < face[0].tpms.length) tpms.def.pos++;
-					else tpms.def.pos=0;
-					tpms.def.ref=0;
-					face[0].log=face[0].log=require("Storage").readJSON("tpmsLog"+face[0].tpms[tpms.def.pos]+".json",1);
-				}
+				if (face[0].tpms.length<=1) {buzzer(40);return;}
 				buzzer([30,50,30]);
+				if (tpms.def.pos+1 < face[0].tpms.length) tpms.def.pos++;
+				else tpms.def.pos=0;
+				tpms.def.ref=0;
+				face[0].log=face[0].log=require("Storage").readJSON("tpmsLog"+face[0].tpms[tpms.def.pos]+".json",1);
 				let cl=((getTime()|0) - face[0].log[tpms.def.ref].time < 1800)?1:0;
 				face[0].btn(cl,face[0].tpms[tpms.def.pos],35,75,7,(face[0].log[tpms.def.ref].psi<tpms.def.list[face[0].tpms[tpms.def.pos]].lowP||tpms.def.list[face[0].tpms[tpms.def.pos]].hiP<face[0].log[tpms.def.ref].psi)?col("red"):col("raf"),col("dgray"),0,0,149,50);
 				face[0].btn(1,tpms.def.pos+1+"/"+face[0].tpms.length,35,200,7,0,col("raf"),150,0,239,50);
@@ -526,11 +518,9 @@ touchHandler[0]=function(e,x,y){
 		}
 		break;
     case 3: //slide left event
-		if (face[0].page!="sett" && face[0].tpms.length&&tpms.status!="SCANNING"&&!tpms.status.startsWith("RETRY")){
-			if (face[0].ntid) {clearTimeout(face[0].ntid);face[0].ntid=0;}
-			face[0].sett();
-			face[0].page="sett";
-			face[0].act=0;
+		if (!face[0].info&&face[0].tpms.length) {
+			buzzer([30,50,30]);
+			face[0].info=1;
 		}else
 			buzzer(40);
 		return;
@@ -541,7 +531,11 @@ touchHandler[0]=function(e,x,y){
 			got.def=tpms.def;
 			require("Storage").writeJSON("tpms.json",got);
 		} 
-		if (face[0].page && face[0].page!="scan") {
+		if (face[0].info) {
+			buzzer([30,50,30]);
+			face[0].info=0;
+			return;
+		}else if (face[0].page && face[0].page!="scan") {
 			if (face[0].ntid) {clearTimeout(face[0].ntid);face[0].ntid=0;}
 			if (face[0].act&&tpms.status!="SCANNING"&&!tpms.status.startsWith("RETRY")) face[0].barS();
 			else face[0].init();

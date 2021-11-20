@@ -101,8 +101,6 @@ tpms= {
 };
 //run 
 tpms.def=require("Storage").readJSON("tpms.json",1).def;
-if (tpms.def.int) {
-	tpms.scan();
-}
+if (tpms.def.int) tpms.scan();
 
 
