@@ -4,10 +4,15 @@ face[0] = {
 	g:w.gfx,
 	spd:[],
 	init: function(){
+    //check if corrupted
+		if (require("Storage").read("tpmsLog"+Object.keys(tpms.def.list)[tpms.def.pos]+".json",1) && !require("Storage").readJSON("tpmsLog"+Object.keys(tpms.def.list)[tpms.def.pos]+".json",1)){
+			require("Storage").erase("tpmsLog"+Object.keys(tpms.def.list)[tpms.def.pos]+".json",1);
+			delete tpms.def.list[Object.keys(tpms.def.list)[tpms.def.pos]];
+		}
+		this.log=0;
 		this.foot="bar";
 		this.disp=0;
 		this.info=0;
-		this.log=[];
 		this.tpms=Object.keys(tpms.def.list);
 		if (!this.tpms[tpms.def.pos]) tpms.def.pos=0;
 		//tpms.def.id=this.tpms[tpms.def.pos];
@@ -48,16 +53,16 @@ face[0] = {
 			this.scale=40/this.scale;				
 	},
 	bar: function(l){
-		if (tpms.status=="SCANNING"||tpms.status.startsWith("RETRY") ) {this.ind();return;}
+		if (tpms.status=="SCANNING"||tpms.status.startsWith("RETRY") ) {if (this.log ) this.ind(); return;}
 		this.g.setColor(0,0);
-		this.g.fillRect(0,186,58,239);
+		this.g.fillRect(0,186,( (face[0].log!=0)?58:239),239);
 		this.g.setColor(1,col("lblue"));
 		let img = require("heatshrink").decompress(atob("mEwwIcZg/+Aocfx+AAoV4gPgAoQDBuAEBgPAgE4AoQVBjgFBgYCBhgoCAQMGAQUgAolACggFL6AFGGQQFJEZsGsAFEIIhNFLIplFgBxBnwFCPYP/AoU8gf/BwKVB/+/SAUD/kf+CjDh/4V4n8AoYeBAoq1DgIqDAAP/XYcAv4qEn4qEGwsfC4kPEYkHF4Z1DACA="));
 		this.g.drawImage(img,5,195);
 		this.g.flip();
 		this.g.setColor(0,0);
 		this.g.fillRect(59,186,239,239);
-		//if (!this.log || !this.log.length) return;
+		if (!this.log ) return;
 		for (let i in this.log) {
 			if (this.log[i].psi<tpms.def.list[this.tpms[tpms.def.pos]].lowP||tpms.def.list[this.tpms[tpms.def.pos]].hiP<this.log[i].psi)this.g.setColor(1,col("red"));else this.g.setColor(1,col("raf"));
 			this.g.fillRect(239-(i*18)-16, 239-(this.log[i][tpms.def.metric]*this.scale),239-(i*18), 239);
@@ -66,6 +71,7 @@ face[0] = {
 		this.ind();
     },	
 	ind: function(last){
+		if (!this.log ) return;
 		let lim=(this.log[tpms.def.ref].psi<tpms.def.list[this.tpms[tpms.def.pos]].lowP||tpms.def.list[this.tpms[tpms.def.pos]].hiP<this.log[tpms.def.ref].psi)?1:0;		
 		if (last || last===0) {
 			this.g.setColor(1,col( (this.foot=="barS")?"black":(lim)?"yellow":"lblue"));
@@ -205,7 +211,7 @@ face[0] = {
 			this.btn(1,tpms.def.metric.toUpperCase(),28,205,150,col("raf"),0,160,130,239,185,"",30,205,40); //9
 		}
 		this.foot="barS";
-  	if (tpms.status=="SCANNING"||tpms.status.startsWith("RETRY") ) {this.ind();return;}
+		if (tpms.status=="SCANNING"||tpms.status.startsWith("RETRY")) return;
 		this.g.setColor(0,0);
 		this.g.fillRect(0,186,239,239);
 		this.g.setColor(1,col("lblue"));
@@ -331,10 +337,11 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
 		if (face[0].page=="scan"){
+			buzzer([30,50,30]);
 			tpms.new=0;
 			tpms.scan();
 			face[0].scan();
-			buzzer([30,50,30]);
+			return;
 		}else if (190<y&& x< 80&&face[0].foot=="bar") {
 			if  (tpms.status!="SCANNING"&&!tpms.status.startsWith("RETRY")  ) { 
 				tpms.new=0;

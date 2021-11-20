@@ -121,7 +121,7 @@ face[0] = {
 	},
 	alF: function(){
 		this.al.set(almL);
-		print(this.al,almL);
+		//print(this.al,almL);
 		this.g.setColor(0,col("dgray"));
 		this.g.clearRect(0,176,239,197);
 		this.g.setColor(1,col("white"));
