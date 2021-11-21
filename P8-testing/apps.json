@@ -169,7 +169,7 @@
 		"readme": "README.md",
 		"storage": [
 			{"name":"dash_simple","url":"dash_simple.js"},
-			{"name":"C"dash_simple","url":"dash_simple.js"},
+			{"name":"C:dash_simple","url":"dash_simple.js"},
 			{"name":"dash_digital","url":"dash_digital.js"},
 			{"name":"C:dash_digital","url":"dash_digital.js"},
 			{"name":"dashGarage","url":"dashGarage.js"},
