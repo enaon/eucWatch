@@ -72,10 +72,10 @@ face[0] = {
 		temp=(temp<100)?Number(temp).toFixed(1):Math.round(temp);
 		let size=this.g.stringWidth(temp);
 		this.g.drawString(temp, 0,3); 
-		this.g.setFontVector(13);
-		this.g.drawString("o",size-3,2); 
+		//this.g.setFontVector(13);
+		//this.g.drawString("o",size-3,2); 
 		this.g.setFontVector(16);
-		this.g.drawString((set.def.dash.farn)?"F":"C",size+5,5); 
+		this.g.drawString((set.def.dash.farn)?"°F":"°C",size-1,5); 
 		this.g.flip();
 	},
 	clkf: function(){

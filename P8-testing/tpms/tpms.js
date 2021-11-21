@@ -59,7 +59,7 @@ tpms= {
 						"psi":(((device.manufacturerData[6]|device.manufacturerData[7]<<8|device.manufacturerData[8]<<16|device.manufacturerData[9]<<24)/1000)*0.1450377377).toFixed(2),
 						"temp":((device.manufacturerData[10]|device.manufacturerData[11]<<8|device.manufacturerData[12]<<16|device.manufacturerData[13]<<24)/100).toFixed(2),
 						"batt":device.manufacturerData[14],
-						"volt":((330-(dev.batt/1.725))/100).toFixed(2),
+						//"volt":((330-(dev.batt/1.725))/100).toFixed(2),
 						"alrm":device.manufacturerData[15],
 						"time":getTime()|0,
 					};
@@ -68,6 +68,8 @@ tpms= {
 					log.unshift(dev);
 					if (10<log.length) log.pop();
 					require("Storage").writeJSON("tpmsLog"+id+".json",log);
+					if (dev.psi<tpms.def.lowP) handleInfoEvent({"src":"TPMS","title":id,"body":"LOW PRESSURE"},1);
+					if (tpms.def.hiP <=dev.psi) handleInfoEvent({"src":"TPMS","title":id,"body":"HI PRESSURE"}),1;
 					log=0;
 					dev=0;
 					tpms.def.id=id;
