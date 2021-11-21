@@ -246,11 +246,15 @@ touchHandler[0]=function(e,x,y){
 		}	
 		break;
     case 1: //slide down event
-			let got=require("Storage").readJSON("tpms.json",1);
-			got.def=tpms.def;
-			require("Storage").writeJSON("tpms.json",got);
-			if (tpms.def.int) tpms.scan(); else if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
-		if (face.faceSave!=-1) {
+		let got=require("Storage").readJSON("tpms.json",1);
+		got.def=tpms.def;
+		require("Storage").writeJSON("tpms.json",got);
+		if (tpms.def.int) tpms.scan(); else if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
+		if (euc.state!="OFF"&&face.faceSave[0].startsWith("dash")){
+			euc.dash.tpms=face[0].tpms[tpms.def.pos];
+			tpms.def.id=face[0].tpms[tpms.def.pos];
+			face.go(set.dash[set.def.dash.face],0);
+		}else if (face.faceSave!=-1) {
 			face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
 		}else
 			face.go("main",0);
