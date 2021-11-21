@@ -41,7 +41,7 @@ tpms= {
 				let id=mac[3]+mac[4]+mac[5];
 				if ( tpms.def.allowNew || tpms.def.list[id] ) {
 					if (!tpms.def.list[id]) {
-						tpms.def.list[id]={"hiP":50,"lowP":10}
+						tpms.def.list[id]={"hiP":50,"lowP":10};
 						let got=require("Storage").readJSON("tpms.json",1);
 						got.def=tpms.def;
 						got.dev[face[0].tpms[tpms.def.pos]]=face[0].dev;
@@ -68,8 +68,8 @@ tpms= {
 					log.unshift(dev);
 					if (10<log.length) log.pop();
 					require("Storage").writeJSON("tpmsLog"+id+".json",log);
-					if (dev.psi<tpms.def.lowP) handleInfoEvent({"src":"TPMS","title":id,"body":"LOW PRESSURE"},1);
-					if (tpms.def.hiP <=dev.psi) handleInfoEvent({"src":"TPMS","title":id,"body":"HI PRESSURE"}),1;
+					if (dev.psi<tpms.def.list[id].lowP) handleInfoEvent({"src":"TPMS","title":id,"body":"LOW PRESSURE."+"  "+dev[tpms.def.metric]+" "+tpms.def.metric+"  "},1);
+					if (tpms.def.list[id].hiP <=dev.psi) handleInfoEvent({"src":"TPMS","title":id,"body":"HI PRESSURE."+"  "+dev[tpms.def.metric]+" "+tpms.def.metric+"  "},1);
 					log=0;
 					dev=0;
 					tpms.def.id=id;

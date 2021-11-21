@@ -25,7 +25,7 @@ face[0] = {
 		this.g.flip(); 
 		this.btn("LIGHTS",18,60,15,(euc.dash.aLight==="lightsOff")?col("black"):(euc.dash.aLight==="lightsOn")?col("raf2"):(euc.dash.aLight=="lightsAuto"||euc.dash.aLight==0)?col("raf3"):col("raf"),0,0,119,97,(euc.dash.aLight==="lightsOff")?"OFF":(euc.dash.aLight==="lightsOn")?"ON":(euc.dash.aLight==="lightsAuto"||euc.dash.aLight==0)?"AUTO":"CITY",28,60,50); //1
 		this.btn("STROBE",25,185,35,(euc.dash.strb)?col("red"):col("dgray"),122,0,239,97);//2
-        this.btn("TPMS",25,60,135,col("dgray"),0,100,119,195,"",22,60,155); //3
+      this.btn((euc.dash.tpms)?euc.dash.tpms:"TPMS",25,60,135,col("dgray"),0,100,119,195,(euc.dash.tpms)?"TODO":"OFF",22,60,155); //3
    		this.btn("LOCK",25,185,135,(euc.dash.lock)?col("red"):col("dgray"),122,100,239,195); //4
 		this.run=true;
 	},
@@ -105,6 +105,7 @@ face[1] = {
 };	
 //touch
 touchHandler[0]=function(e,x,y){ 
+ 	this.timeout();
 	switch (e) {
 	case 5: //tap event
 		if ( x<=120 && y<=100 ) { //lights
@@ -120,9 +121,13 @@ touchHandler[0]=function(e,x,y){
             face[0].btn("STROBE",25,185,35,(euc.dash.strb)?col("red"):col("dgray"),122,0,239,97);//2
 			euc.wri((euc.dash.strb)?"strobeOn":"strobeOff");
 			buzzer([30,50,30]);
-		}else if ( x<=120 && 100<=y ) { //bridge
-			face[0].ntfy("NOT YET",col("red"));
+		}else if ( x<=120 && 100<=y ) { //tpms
 			buzzer([30,50,30]);		
+			if (!euc.dash.tpms) face[0].ntfy("HOLD-> ON/OFF",col("raf"));
+			else {
+				face.go("tpmsFace",0);
+				return;
+			}
 		}else if (120<=x && 100<=y ) { //lock
 			euc.dash.lock=1-euc.dash.lock;
             face[0].btn("LOCK",25,185,135,(euc.dash.lock)?col("red"):col("dgray"),122,100,239,195); //4
@@ -130,7 +135,6 @@ touchHandler[0]=function(e,x,y){
 			euc.wri((euc.dash.lock)?"lock":"unlock");
 			buzzer([30,50,30]);						
 		}else buzzer([30,50,30]);
-		this.timeout();
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
@@ -142,7 +146,6 @@ touchHandler[0]=function(e,x,y){
 			else w.gfx.bri.set(this.bri);
 			buzzer([30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		this.timeout();
 		break;
 	case 3: //slide left event
 		face.go("dashKingsongOpt",0);
@@ -157,8 +160,13 @@ touchHandler[0]=function(e,x,y){
 			euc.wri("lightsOff");
 			buzzer([30,50,30]);
 		}else if  (x<=120 && 100<=y ) { //tpms
-			buzzer(40);
-			face[0].ntfy("NOT YET",col("red"));
+			if (euc.dash.tpms) {
+				euc.dash.tpms=0;
+				this.btn("TPMS",25,60,135,col("dgray"),0,100,119,195,"OFF",22,60,155); //3
+				face[0].ntfy("TPMS DISABLED",col("dgray"));
+				return;
+			}else face.go("tpmsFace",0);
+			return;
 		}else if ( 120<=x && 100<=y ) { //off
 			euc.aOff=euc.dash.aOff;
 			euc.aLck=euc.dash.aLck;
@@ -166,7 +174,6 @@ touchHandler[0]=function(e,x,y){
 			euc.dash.aLck=0;
 			euc.tgl();
 	    }else buzzer(100);
-		this.timeout();
 		break;
   }
 };

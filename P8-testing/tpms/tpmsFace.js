@@ -15,7 +15,6 @@ face[0] = {
 		this.log=0;
 		this.foot="bar";
 		this.disp=0;
-		//this.info=0;
 		this.tpms=Object.keys(tpms.def.list);
 		if (!this.tpms[tpms.def.pos]) tpms.def.pos=0;
 		//tpms.def.id=this.tpms[tpms.def.pos];
@@ -24,7 +23,7 @@ face[0] = {
 			this.sc();
 			let cl=((getTime()|0) - this.log[tpms.def.ref].time < 1800)?1:0;
 			//top
-			this.btn(cl,this.tpms[tpms.def.pos],35,75,7,(this.log[tpms.def.ref].psi < tpms.def.list[this.tpms[tpms.def.pos]].lowP ||  tpms.def.list[this.tpms[tpms.def.pos]].hiP < this.log[tpms.def.ref].psi )?col("red"):col("raf"),col("dgray"),0,0,149,50); //device
+			this.btn(cl,this.tpms[tpms.def.pos],35,75,7,(this.log[0].psi < tpms.def.list[this.tpms[tpms.def.pos]].lowP ||  tpms.def.list[this.tpms[tpms.def.pos]].hiP < this.log[0].psi )?col("red"):col("raf"),col("dgray"),0,0,149,50); //device
 			this.btn(1,tpms.def.pos+1+"/"+this.tpms.length,35,200,7,0,0,150,0,239,50);  //more
 			//scale			
 			let tm=(getTime()|0) - this.log[tpms.def.ref].time;
@@ -173,27 +172,13 @@ face[0] = {
 		this.g.flip();
     },
 	ntfy: function(txt1,txt2,size,clr,bt,tm,s,f,d){
-		if (tpms.status=="SCANNING"||tpms.status.startsWith("RETRY") ) return;
-		if (f && this.ntid) {clearTimeout(this.ntid);this.ntid=0;}
-		if (!this.ntid){
 			this.g.setColor(0,clr);
-			if (d) {
-				this.g.fillRect(0,130,239,239);
-				this.g.setColor(1,col("white"));
-				if (s) {this.g.setFont("Vector",40);this.g.drawString("<",5,170);this.g.drawString(">",215,170);}
-				this.g.setFont("Vector",size);
-				this.g.drawString(txt1,125-(this.g.stringWidth(txt1)/2),150); 
-				//this.g.setFont("Vector",size);
-				this.g.drawString(txt2,125-(this.g.stringWidth(txt2)/2),205); 
-			}else{
-				this.g.fillRect(0,190,239,239);
-				this.g.setColor(1,col("white"));
-				if (s) {this.g.setFont("Vector",45);this.g.drawString("<",5,197);this.g.drawString(">",215,197);}
-				this.g.setFont("Vector",size);
-				this.g.drawString((bt)?txt1:txt2,125-(this.g.stringWidth((bt)?txt1:txt2)/2),205); 
-			}
+			this.g.fillRect(0,190,239,239);
+			this.g.setColor(1,col("white"));
+			if (s) {this.g.setFont("Vector",45);this.g.drawString("<",5,197);this.g.drawString(">",215,197);}
+			this.g.setFont("Vector",size);
+			this.g.drawString((bt)?txt1:txt2,125-(this.g.stringWidth((bt)?txt1:txt2)/2),205); 
 			this.g.flip();
-		}
 		if (this.ntid) clearTimeout(this.ntid);
 		this.ntid=setTimeout(function(t){
 			t.ntid=0;
@@ -275,9 +260,11 @@ touchHandler[0]=function(e,x,y){
 			return;
 		}else {
 			if  ( 150 < x ) { //settings
+				if  (tpms.status!="SCANNING"&&!tpms.status.startsWith("RETRY")  ) { 
 					buzzer([30,50,30]);
 					face.go("tpmsOptions",0);
 					return;
+				}else buzzer(40);
 			}else{ //sensor
 				if (face[0].tpms.length<=1) {buzzer(40);return;}
 				buzzer([30,50,30]);
@@ -287,7 +274,7 @@ touchHandler[0]=function(e,x,y){
 				face[0].log=face[0].log=require("Storage").readJSON("tpmsLog"+face[0].tpms[tpms.def.pos]+".json",1);
 				face[0].sc();	
 				let cl=((getTime()|0) - face[0].log[tpms.def.ref].time < 1800)?1:0;
-				face[0].btn(cl,face[0].tpms[tpms.def.pos],35,75,7,(face[0].log[tpms.def.ref].psi<tpms.def.list[face[0].tpms[tpms.def.pos]].lowP||tpms.def.list[face[0].tpms[tpms.def.pos]].hiP<face[0].log[tpms.def.ref].psi)?col("red"):col("raf"),col("dgray"),0,0,149,50);
+				face[0].btn(cl,face[0].tpms[tpms.def.pos],35,75,7,(face[0].log[0].psi<tpms.def.list[face[0].tpms[tpms.def.pos]].lowP||tpms.def.list[face[0].tpms[tpms.def.pos]].hiP<face[0].log[0].psi)?col("red"):col("raf"),col("dgray"),0,0,149,50);
 				face[0].btn(1,tpms.def.pos+1+"/"+face[0].tpms.length,35,200,7,0,col("raf"),150,0,239,50);
 				//face[0].sc();	
 				face[0].info=0;
@@ -331,7 +318,12 @@ touchHandler[0]=function(e,x,y){
 		}
 		return;
     case 4: //slide right event (back action)
-		face.go("settings",0,1);
+		if (euc.state!="OFF"&&face.faceSave==-1){
+			euc.dash.tpms=face[0].tpms[tpms.def.pos];
+			tpms.def.id=face[0].tpms[tpms.def.pos];
+			face.go(face.appPrev,face.pagePrev);
+  }else 
+			face.go("settings",0,1);
 		return;
     case 12: //touch and hold(long press) event
 		buzzer(40);

@@ -56,29 +56,24 @@ face[0] = {
 			this.btn(1,tpms.def.metric.toUpperCase(),28,205,150,col("raf"),0,160,130,239,185,"",30,205,40); //9
 	},	
 	barS: function(){
-		if ( this.page=="sett") {
-			this.g.setColor(0,0);
-			this.g.clearRect(0,126,239,129);
-			this.g.flip();
-			this.btn(1,"WAIT",18,40,152,col("dgray"),0,0,130,80,185); //7
-			this.g.setColor(0,0);
-			this.g.clearRect(81,130,84,185);
-			this.g.flip();
-			this.btn(1,"RETRY",18,123,152,col("dgray"),0,85,130,155,185); //8
-			this.g.setColor(0,0);
-			this.g.clearRect(156,130,159,185);
-			this.g.flip();
-			this.btn(1,tpms.def.metric.toUpperCase(),28,205,150,col("raf"),0,160,130,239,185,"",30,205,40); //9
-		}
-		this.foot="barS";
+		this.g.setColor(0,0);
+		this.g.clearRect(0,126,239,129);
+		this.g.flip();
+		this.btn(1,"WAIT",18,40,152,col("dgray"),0,0,130,80,185); //7
+		this.g.setColor(0,0);
+		this.g.clearRect(81,130,84,185);
+		this.g.flip();
+		this.btn(1,"RETRY",18,123,152,col("dgray"),0,85,130,155,185); //8
+		this.g.setColor(0,0);
+		this.g.clearRect(156,130,159,185);
+		this.g.flip();
+		this.btn(1,tpms.def.metric.toUpperCase(),28,205,150,col("raf"),0,160,130,239,185,"",30,205,40); //9
 		if (tpms.status=="SCANNING"||tpms.status.startsWith("RETRY")) return;
 		this.g.setColor(0,0);
 		this.g.fillRect(0,186,239,239);
 		this.g.setColor(1,col("lblue"));
-		let img = require("heatshrink").decompress(atob("mEwwIZWsAFE/AEDgIFEg/8AocPAokfAok/C4n/+AiD//AAoUD/+AFAf/FAn+EQgoEv4iDFAPgFBAiBFAcPFAhLLn4oEn4oDC4ILEN4sHJgheBRog7EKYJHDGA0fHggqLEgxsEFQJPEFQsPZYoFEgbdKgAdEACgA="));
-		this.g.drawImage(img,10,195);
-		this.g.flip();
-		this.g.setColor(1,col("lblue"));
+		this.g.setFont("Vector",55);
+		this.g.drawString("<",15,195); 
 		img = require("heatshrink").decompress(atob("mEwwIROv/+AqoAPgf/AAXAg4FD8AFLFSQTCg8AgPwAoMPwAFHkAFE+EPAv4FLsEGL5IFVgH8AoM/AQKnDawQEBbAU/AoIUCj4FB/DkTAAgA="));
 		this.g.drawImage(img,177,195);
 		img=0;
@@ -89,21 +84,13 @@ face[0] = {
 		if (f && this.ntid) {clearTimeout(this.ntid);this.ntid=0;}
 		if (!this.ntid){
 			this.g.setColor(0,clr);
-			if (d) {
-				this.g.fillRect(0,130,239,239);
-				this.g.setColor(1,col("white"));
-				if (s) {this.g.setFont("Vector",40);this.g.drawString("<",5,170);this.g.drawString(">",215,170);}
-				this.g.setFont("Vector",size);
-				this.g.drawString(txt1,125-(this.g.stringWidth(txt1)/2),150); 
-				//this.g.setFont("Vector",size);
-				this.g.drawString(txt2,125-(this.g.stringWidth(txt2)/2),205); 
-			}else{
-				this.g.fillRect(0,190,239,239);
-				this.g.setColor(1,col("white"));
-				if (s) {this.g.setFont("Vector",45);this.g.drawString("<",5,197);this.g.drawString(">",215,197);}
-				this.g.setFont("Vector",size);
-				this.g.drawString((bt)?txt1:txt2,125-(this.g.stringWidth((bt)?txt1:txt2)/2),205); 
-			}
+			this.g.fillRect(0,130,239,239);
+			this.g.setColor(1,col("white"));
+			if (s) {this.g.setFont("Vector",40);this.g.drawString("<",5,170);this.g.drawString(">",215,170);}
+			this.g.setFont("Vector",size);
+			this.g.drawString(txt1,125-(this.g.stringWidth(txt1)/2),150); 
+			//this.g.setFont("Vector",size);
+			this.g.drawString(txt2,125-(this.g.stringWidth(txt2)/2),205); 
 			this.g.flip();
 		}
 		if (this.ntid) clearTimeout(this.ntid);
@@ -155,7 +142,7 @@ touchHandler[0]=function(e,x,y){
 	if (!this.lL) this.lL=getTime();
 	switch (e) {
 	case 5: //tap event
-		if ( face[0].foot=="barS"&&125<y&&face[0].act) {
+		if ( 125<y&&face[0].act) {
 			if (face[0].act=="conf"){
 				buzzer([100,50,100]);
 				delete tpms.def.list[face[0].tpms[tpms.def.pos]];
@@ -245,7 +232,9 @@ touchHandler[0]=function(e,x,y){
 				face[0].btn(1,(tpms.def.metric=="psi")?tpms.def.list[face[0].tpms[tpms.def.pos]].lowP:(tpms.def.list[face[0].tpms[tpms.def.pos]].lowP/((tpms.def.metric=="bar")?14.50377377:0.1450377377 )).toFixed((tpms.def.metric=="bar")?2:0),38,205,81,col("dgray"),0,160,65,239,125); //6
 			} else { 
 				if ( x < 80 ){
-					face[0].init();
+					buzzer([30,50,30]);
+					face.go("tpmsFace",0);
+					return;
 				}else if ( 160 < x ){
 					buzzer([30,50,30]);
 					face[0].ntfy("DELETE",face[0].tpms[tpms.def.pos].toUpperCase(),25,col("dgray"),1,2,0,1,1);
@@ -283,12 +272,19 @@ touchHandler[0]=function(e,x,y){
 		buzzer(40);
 		return;
     case 4: //slide right event (back action)
-		got=require("Storage").readJSON("tpms.json",1);
-		got.def=tpms.def;
-		require("Storage").writeJSON("tpms.json",got);
-		if (tpms.def.int) tpms.scan(); else if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
-		face.go("tpmsFace",0,1);
-		return;
+		if (face[0].act) {
+			face[0].act=0;
+			if (face[0].ntid) {clearTimeout(face[0].ntid);face[0].ntid=0;}
+			face[0].barS();
+		}else {	
+			got=require("Storage").readJSON("tpms.json",1);
+			got.def=tpms.def;
+			require("Storage").writeJSON("tpms.json",got);
+			if (tpms.def.int) tpms.scan(); else if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
+			face.go("tpmsFace",0,1);
+			return;
+		}
+      break;
     case 12: //touch and hold(long press) event
 		buzzer(40);
 		return;
