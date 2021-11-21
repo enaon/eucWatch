@@ -15,7 +15,6 @@ g.setColor(0,0);
 g.clearRect(76,0,79,75);
 g.flip();
 //app2
-this.appDo2="face.go('repellent',0)";
 g.setColor(1,col("dgray"));
 g.fillRect(80,0,155,75);
 g.setColor(0,col("white"));
