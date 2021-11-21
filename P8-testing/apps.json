@@ -92,8 +92,8 @@
 		"type":"main",
 		"storage": [
 			{"name":"main","url":"main.js"},
+			{"name":"C:main","url":"main.js"},
 			{"name":"mainOptions","url":"mainOptions.js"}
-
 		]
 	},  
 	{ "id": "settings",
@@ -105,7 +105,8 @@
 		"type":"main",
 		"readme": "README.md",
 		"storage": [
-			{"name":"settings","url":"settings.js"}
+			{"name":"settings","url":"settings.js"},
+			{"name":"C:settings","url":"settings.js"}
 		]
 	},
 	{ "id": "alarm",
@@ -161,7 +162,9 @@
 		"readme": "README.md",
 		"storage": [
 			{"name":"dash_simple","url":"dash_simple.js"},
+			{"name":"C"dash_simple","url":"dash_simple.js"},
 			{"name":"dash_digital","url":"dash_digital.js"},
+			{"name":"C:dash_digital","url":"dash_digital.js"},
 			{"name":"dashGarage","url":"dashGarage.js"},
 			{"name":"dashAlerts","url":"dashAlerts.js"},
 			{"name":"dashScan","url":"dashScan.js"},
