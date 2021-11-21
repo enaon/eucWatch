@@ -23,7 +23,6 @@
 		"storage": [
 			{"name":".bootrst","url":"init.js"},
 			{"name":"C:.bootrst","url":"init.js"}
-			
 		]
 	},
 	{ "id": "init_r_d",
@@ -63,7 +62,6 @@
 		"storage": [
 			{"name":"handler","url":"handler.js"},
 			{"name":"C:handler","url":"handler.js"}
-			
 		]
 	},  
 	{ "id": "handler_pt",
@@ -256,7 +254,8 @@
 			{"name":"dashInmotionV1Adv","url":"dashInmotionV1Adv.js"},
 			{"name":"dashInmotionV1AdvCalibrate","url":"dashInmotionV1AdvCalibrate.js"},
 			{"name":"dashInmotionV1AdvLimits","url":"dashInmotionV1AdvLimits.js"},
-			{"name":"dashInmotionV1AdvPass","url":"dashInmotionV1AdvPass.js"}    ]
+			{"name":"dashInmotionV1AdvPass","url":"dashInmotionV1AdvPass.js"}   
+		]
 	}, 
 	{ "id": "dashVeteran",
 		"name": "Veteran Settings",
@@ -394,8 +393,7 @@
 		"storage": [
 			{"name":"tpms","url":"tpms.js"},
 			{"name":"tpmsFace","url":"tpmsFace.js"},
-			{"name":"tpmsOptions","url":"tpmsOptions.js"},
-			{"name":"tpmsDash","url":"tpmsDash.js"}
+			{"name":"tpmsOptions","url":"tpmsOptions.js"}
 		]
 	},
 	{ "id": "repellent",
