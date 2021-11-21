@@ -329,7 +329,11 @@ touchHandler[0]=function(e,x,y){
 	  }else buzzer(40);
 	  
     }else if  (e==1){
-		face.go("main",-1);return;
+		if (global.euc&&euc.state!="OFF")
+			face.go(set.dash[set.def.dash.face],0);
+		else
+			face.go("main",-1);
+		return;
     }else if  (e==2){
 		if (y>160&&x<50) {
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
