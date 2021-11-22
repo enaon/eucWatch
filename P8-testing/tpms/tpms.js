@@ -18,13 +18,14 @@ if (!require("Storage").read("tpms.json",1) || ( require("Storage").read("tpms.j
 }
 //tpms module
 tpms= {
+	euc:{},
 	busy:0,
-	new:{"0":0},
+	new:0,
 	status:"IDLE",
 	scan:()=>{
 		if (tpms.busy) {print("busy");return;}
 		tpms.busy=1;
-		tpms.new={"0":0};
+		tpms.new=0;
 		tpms.try=tpms.def.try;
 		tpms.cnt=getTime()|0;
 		tpms.status="SCANNING";
@@ -44,11 +45,12 @@ tpms= {
 						tpms.def.list[id]={"hiP":50,"lowP":10};
 						let got=require("Storage").readJSON("tpms.json",1);
 						got.def=tpms.def;
-						got.dev[face[0].tpms[tpms.def.pos]]=face[0].dev;
 						require("Storage").writeJSON("tpms.json",got);
 						got=0;
 					}
 					tpms.def.ref=0;
+					let time=getTime()|0;
+					let alrm=0;
 					let dev={};
 					dev={ 
 						"id":id,
@@ -60,19 +62,18 @@ tpms= {
 						"batt":device.manufacturerData[14],
 						//"volt":((330-(dev.batt/1.725))/100).toFixed(2),
 						"alrm":device.manufacturerData[15],
-						"time":getTime()|0,
+						"time":time,
 					};
-					tpms.new[0]++;
-					tpms.new.time=getTime()|0;
-					if (euc.state!="OFF"&&euc.dash.tpms) {
-						if (dev.psi<tpms.def.list[id].lowP) {
-							tpms.new[id]=[1,dev[tpms.def.metric]];
-							handleInfoEvent({"src":"TPMS","title":id,"body":"LOW PRESSURE."+"  "+dev[tpms.def.metric]+" "+tpms.def.metric+"  "},1);
-						}else if (tpms.def.list[id].hiP <=dev.psi) {
-							tpms.new[id]=[2,dev[tpms.def.metric]];
-							handleInfoEvent({"src":"TPMS","title":id,"body":"HI PRESSURE."+"  "+dev[tpms.def.metric]+" "+tpms.def.metric+"  "},1);
-						} else tpms.new[id]=[0,dev[tpms.def.metric]];
-					}	
+					tpms.new++;
+					//tpms.new.time=time;
+					if (dev.psi<tpms.def.list[id].lowP) {
+						alrm=1;
+						handleInfoEvent({"src":"TPMS","title":id,"body":"LOW PRESSURE."+"  "+dev[tpms.def.metric]+" "+tpms.def.metric+"  "},1);
+					}else if (tpms.def.list[id].hiP <=dev.psi) {
+						alrm=2;
+						handleInfoEvent({"src":"TPMS","title":id,"body":"HI PRESSURE."+"  "+dev[tpms.def.metric]+" "+tpms.def.metric+"  "},1);
+					} else alrm=0;
+					if (euc.state!="OFF") tpms.euc[id]={"time":time,"alrm":alrm,"psi":dev.psi};
 					let log=(require("Storage").readJSON("tpmsLog"+id+".json",1))?require("Storage").readJSON("tpmsLog"+id+".json",1):[];
 					log.unshift(dev);
 					if (10<log.length) log.pop();
@@ -82,7 +83,7 @@ tpms= {
 					tpms.def.id=id;
 				}
 			});
-			if (!tpms.new[0]) {
+			if (!tpms.new) {
 				if (tpms.try) {
 					tpms.cnt=getTime()|0;
 					tpms.try--;

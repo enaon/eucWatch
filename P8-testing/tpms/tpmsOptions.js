@@ -37,7 +37,7 @@ face[0] = {
 		this.g.setColor(0,0);
 		this.g.clearRect(0,61,239,64);
 		this.g.flip();
-		this.btn(tpms.def.int,"SCAN",28,80,84,col("raf"),col("dgray"),0,65,155,125); //4-5
+		this.btn(tpms.def.int,"SCAN",28,80,84,col("raf"),col((euc.state!="OFF"&&euc.dash.tpms)?"olive":"dgray"),0,65,155,125); //4-5
 		this.g.setColor(0,0);
 		this.g.clearRect(156,65,159,125);
 		this.g.flip();
@@ -138,6 +138,7 @@ face[1] = {
 
 //touch-main
 touchHandler[0]=function(e,x,y){
+	if (tpms.status=="SCANNING"||tpms.status.startsWith("RETRY") ) {face.go("tpmsFace",0);return;} 
 	this.timeout();
 	if (!this.lL) this.lL=getTime();
 	switch (e) {
@@ -177,8 +178,8 @@ touchHandler[0]=function(e,x,y){
 				buzzer([30,50,30]);
 				tpms.def.int++; if (4 < tpms.def.int) tpms.def.int=0;
 				let tpmsS=["ONCE","5 MIN","30 MIN","1 HOUR","6 HOURS"];
-				face[0].ntfy((tpms.def.int)?"EVERY":"MANUAL",(tpms.def.int)?tpmsS[tpms.def.int]:"SCAN",27,col((tpms.def.int)?"raf":"dgray"),1,3,1,1,1);
-				face[0].btn(tpms.def.int,"SCAN",28,80,84,col("raf"),col("dgray"),0,65,155,125); //4-5
+				face[0].ntfy((tpms.def.int)?"EVERY":"EUC",(tpms.def.int)?tpmsS[tpms.def.int]:"MODE",27,col((tpms.def.int)?"raf":(euc.state!="OFF"&&euc.dash.tpms)?"olive":"dgray"),1,3,1,1,1);
+				face[0].btn(tpms.def.int,"SCAN",28,80,84,col("raf"),col((euc.state!="OFF"&&euc.dash.tpms)?"olive":"dgray"),0,65,155,125); //4-5
 			}else if (face[0].act=="wait"){
 				buzzer([30,50,30]);
 				tpms.def.wait=(x<120)?(tpms.def.wait<6)?5:tpms.def.wait-1:(19<tpms.def.wait)?20:tpms.def.wait+1;
@@ -209,7 +210,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].act=0;
 				}else {
 					let tpmsS=["ONCE","5 MIN","30 MIN","1 HOUR","6 HOURS"];
-				face[0].ntfy((tpms.def.int)?"EVERY":"MANUAL",(tpms.def.int)?tpmsS[tpms.def.int]:"SCAN",27,col((tpms.def.int)?"raf":"dgray"),1,3,1,1,1);
+					face[0].ntfy((tpms.def.int)?"EVERY":"EUC",(tpms.def.int)?tpmsS[tpms.def.int]:"MODE",27,col((tpms.def.int)?"raf":(euc.state!="OFF"&&euc.dash.tpms)?"olive":"dgray"),1,3,1,1,1);
 					face[0].act="int";
 				}
 			}else if (155 <= x && 62 <y && y < 127) { //6

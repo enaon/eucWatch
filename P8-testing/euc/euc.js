@@ -64,6 +64,7 @@ global.euc= {
 				this.state="ON";
 				if (set.def.acc) acc.off();
 				setTimeout(()=>{set.def.dash.accE=1;acc.on(2); },1000);
+				if (euc.dash.tpms&&global.tpms&&!tpms.def.int) {tpms.euc={}; setTimeout(()=>{tpms.scan(); },10000);}//tpms
 				return;
 			}
 		}
