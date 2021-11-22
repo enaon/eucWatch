@@ -8,8 +8,8 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":".bootrst","url":"init.js"},
-			{"name":"C:.bootrst","url":"init.js"}
+			{"name":".bootrst","url":"init.js"}
+			//,{"name":"C:.bootrst","url":"init.js"}
 		]
 	},
 	{ "id": "init_pt",
@@ -21,8 +21,8 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":".bootrst","url":"init.js"},
-			{"name":"C:.bootrst","url":"init.js"}
+			{"name":".bootrst","url":"init.js"}
+			//,{"name":"C:.bootrst","url":"init.js"}
 		]
 	},
 	{ "id": "init_r_d",
@@ -34,8 +34,8 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":".bootrst","url":"init.js"},
-			{"name":"C:.bootrst","url":"init.js"}
+			{"name":".bootrst","url":"init.js"}
+			//,{"name":"C:.bootrst","url":"init.js"}
 		]
 	},
 	{ "id": "init_16",
@@ -47,8 +47,8 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":".bootrst","url":"init.js"},
-			{"name":"C:.bootrst","url":"init.js"}
+			{"name":".bootrst","url":"init.js"}
+			//,{"name":"C:.bootrst","url":"init.js"}
 		]
 	},
 	{ "id": "handler",
@@ -60,8 +60,8 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"handler","url":"handler.js"},
-			{"name":"C:handler","url":"handler.js"}
+			{"name":"handler","url":"handler.js"}
+			//,{"name":"C:handler","url":"handler.js"}
 		]
 	},  
 	{ "id": "handler_pt",
@@ -73,8 +73,8 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"handler","url":"handler.js"},
-			{"name":"C:handler","url":"handler.js"}
+			{"name":"handler","url":"handler.js"}
+			//,{"name":"C:handler","url":"handler.js"}
 		]
 	}, 
 	{ "id": "handler_p22b1",
@@ -86,8 +86,8 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"handler","url":"handler.js"},
-			{"name":"C:handler","url":"handler.js"}
+			{"name":"handler","url":"handler.js"}
+			//,{"name":"C:handler","url":"handler.js"}
 		]
 	}, 
 	{ "id": "main",
@@ -99,7 +99,7 @@
 		"type":"main",
 		"storage": [
 			{"name":"main","url":"main.js"},
-			{"name":"C:main","url":"main.js"},
+			//{"name":"C:main","url":"main.js"},
 			{"name":"mainOptions","url":"mainOptions.js"}
 		]
 	},  
@@ -169,9 +169,9 @@
 		"readme": "README.md",
 		"storage": [
 			{"name":"dash_simple","url":"dash_simple.js"},
-			{"name":"C:dash_simple","url":"dash_simple.js"},
+			//{"name":"C:dash_simple","url":"dash_simple.js"},
 			{"name":"dash_digital","url":"dash_digital.js"},
-			{"name":"C:dash_digital","url":"dash_digital.js"},
+			//{"name":"C:dash_digital","url":"dash_digital.js"},
 			{"name":"dashGarage","url":"dashGarage.js"},
 			{"name":"dashAlerts","url":"dashAlerts.js"},
 			{"name":"dashScan","url":"dashScan.js"},
