@@ -9,6 +9,7 @@
 		"readme": "README.md",
 		"storage": [
 			{"name":".bootrst","url":"init.js"}
+			//,{"name":"C:.bootrst","url":"init.js"}
 		]
 	},
 	{ "id": "init_pt",
@@ -21,6 +22,7 @@
 		"readme": "README.md",
 		"storage": [
 			{"name":".bootrst","url":"init.js"}
+			//,{"name":"C:.bootrst","url":"init.js"}
 		]
 	},
 	{ "id": "init_r_d",
@@ -33,6 +35,7 @@
 		"readme": "README.md",
 		"storage": [
 			{"name":".bootrst","url":"init.js"}
+			//,{"name":"C:.bootrst","url":"init.js"}
 		]
 	},
 	{ "id": "init_16",
@@ -45,6 +48,7 @@
 		"readme": "README.md",
 		"storage": [
 			{"name":".bootrst","url":"init.js"}
+			//,{"name":"C:.bootrst","url":"init.js"}
 		]
 	},
 	{ "id": "handler",
@@ -57,6 +61,7 @@
 		"readme": "README.md",
 		"storage": [
 			{"name":"handler","url":"handler.js"}
+			//,{"name":"C:handler","url":"handler.js"}
 		]
 	},  
 	{ "id": "handler_pt",
@@ -69,6 +74,7 @@
 		"readme": "README.md",
 		"storage": [
 			{"name":"handler","url":"handler.js"}
+			//,{"name":"C:handler","url":"handler.js"}
 		]
 	}, 
 	{ "id": "handler_p22b1",
@@ -81,6 +87,7 @@
 		"readme": "README.md",
 		"storage": [
 			{"name":"handler","url":"handler.js"}
+			//,{"name":"C:handler","url":"handler.js"}
 		]
 	}, 
 	{ "id": "main",
@@ -92,6 +99,7 @@
 		"type":"main",
 		"storage": [
 			{"name":"main","url":"main.js"},
+			//{"name":"C:main","url":"main.js"},
 			{"name":"mainOptions","url":"mainOptions.js"}
 		]
 	},  
@@ -104,7 +112,8 @@
 		"type":"main",
 		"readme": "README.md",
 		"storage": [
-			{"name":"settings","url":"settings.js"},
+			{"name":"settings","url":"settings.js"}
+			//{"name":"C:settings","url":"settings.js"}
 		]
 	},
 	{ "id": "alarm",
@@ -160,7 +169,9 @@
 		"readme": "README.md",
 		"storage": [
 			{"name":"dash_simple","url":"dash_simple.js"},
+			//{"name":"C:dash_simple","url":"dash_simple.js"},
 			{"name":"dash_digital","url":"dash_digital.js"},
+			//{"name":"C:dash_digital","url":"dash_digital.js"},
 			{"name":"dashGarage","url":"dashGarage.js"},
 			{"name":"dashAlerts","url":"dashAlerts.js"},
 			{"name":"dashScan","url":"dashScan.js"},
