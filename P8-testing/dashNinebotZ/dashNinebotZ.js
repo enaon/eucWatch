@@ -16,7 +16,8 @@ face[0] = {
 		//
         this.btn(euc.dash.light,"LIGHT",18,60,15,col("raf"),col("dgray"),0,0,119,97,(euc.dash.light)?"ON":"OFF",28,60,50);
 		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("dgray"),122,0,239,97,"ALERTS",22,185,55);		
-        this.btn(0,"TPMS",25,60,136,col("raf"),col("dgray"),0,100,119,195);
+		let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
+		this.btn((euc.dash.tpms)?euc.dash.tpms:"TPMS",18,60,115,col((euc.dash.tpms&&tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.tpms].time<1800)?(tpms.euc[euc.dash.tpms].alrm)?"red":"raf":"dgray"),0,100,119,195,(euc.dash.tpms)?(tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].psi)?Math.round(tpms.euc[euc.dash.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.tpms)?32:28,60,150); //3
         this.btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("dgray"),122,100,239,195);	
 		this.run=true;
 	},
@@ -88,7 +89,7 @@ face[1] = {
 touchHandler[0]=function(e,x,y){ 
 	this.timeout();
 	switch (e) {
-	case 5: case 12: //tap/hold event
+	case 5:  //tap/hold event
 		if (face[0].set) { 
 			if ( 100 < y ) {
               w.gfx.setColor(0,0);
@@ -111,9 +112,14 @@ touchHandler[0]=function(e,x,y){
 				buzzer([30,50,30]);						
 				face.go("dashAlerts",0);
 				return;	
-			}else if ( x<=120 && 100<=y ) { //TPMS
-				buzzer([30,50,30]);	
-				face[0].ntfy("NOT YET","NOT YET",18,col("red"),1);
+			}else if ( x<=120 && 100<=y ) { //tpms
+				buzzer([30,50,30]);		
+				if (!euc.dash.tpms) face[0].ntfy("HOLD-> ON/OFF",col("raf"));
+				else {
+					tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.tpms);
+					face.go("tpmsFace",0);
+					return;
+				}	
 			}else if ( 120<=x && 100<=y ) { //HORN
 				buzzer([30,50,30]);		
 				//euc.dash.horn=1-euc.dash.horn;
@@ -153,5 +159,23 @@ touchHandler[0]=function(e,x,y){
         }
    		
         break;
+	case 12: //long press event
+		if  (x<=120 && 100<=y ) { //tpms
+			buzzer([30,50,30]);
+			if (euc.dash.tpms) {
+				euc.dash.tpms=0;
+				face[0].btn("TPMS",18,60,115,col("dgray"),0,100,119,195,"OFF",28,60,155); //3
+				face[0].ntfy("TPMS DISABLED",col("dgray"));
+				return;
+			}else{
+				if (global.tpms){ 
+					tpms.scan();
+					face.go("tpmsFace",0);
+				}else 
+					face[0].ntfy("NOT INSTALLED",col("red"));
+			}
+			return;
+	    }else buzzer(40);
+		break;	
   }
 };

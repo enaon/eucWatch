@@ -53,7 +53,8 @@ face[0] = {
 		this.g.flip(); 
         this.btn(euc.dash.lght.head,"LIGHT",18,60,15,col("raf"),col("dgray"),0,0,119,97,(euc.dash.lght.head)?"ON":"OFF",28,60,50);
 		this.btn(euc.dash.ctrl.vol,"VOLUME",22,185,15,col("olive"),col("red"),122,0,239,97,(euc.dash.ctrl.vol)?euc.dash.ctrl.vol:"MUTE",30,185,50);//2
-        this.btn(1,"TPMS",25,60,135,col("dgray"),0,0,100,119,195,"",22,60,155); //3
+		let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
+		this.btn((euc.dash.tpms)?euc.dash.tpms:"TPMS",18,60,115,col((euc.dash.tpms&&tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.tpms].time<1800)?(tpms.euc[euc.dash.tpms].alrm)?"red":"raf":"dgray"),0,100,119,195,(euc.dash.tpms)?(tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].psi)?Math.round(tpms.euc[euc.dash.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.tpms)?32:28,60,150); //3
    		this.btn(1,"OFF",25,185,135,col("dgray"),col("dgray"),122,100,239,195); //4
 		this.run=true;
 	},
@@ -168,8 +169,13 @@ touchHandler[0]=function(e,x,y){
 				face[0].ntfy("SET VOLUME","SET VOLUME",20,col("raf"),1);
 				face[0].sub="volume";
 			}else if ( x<=120 && 100<=y ) { //tpms
-				face[0].ntfy("NOT YET","NOT YET",18,col("red"),1);
 				buzzer([30,50,30]);		
+				if (!euc.dash.tpms) face[0].ntfy("HOLD-> ON/OFF",col("raf"));
+				else {
+					tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.tpms);
+					face.go("tpmsFace",0);
+					return;
+				}	
 			}else if (120<=x && 100<=y ) { //off
 				face[0].ntfy("HOLD -> POWER OFF","",18,col("red"),1);
 				buzzer([30,50,30]);						
@@ -208,6 +214,21 @@ touchHandler[0]=function(e,x,y){
 	   		face[0].btn(1,"OFF",25,185,135,col("red"),0,122,100,239,195); //4
 			euc.tmp.aOff=1;
 			euc.tgl();
+		}else if  (x<=120 && 100<=y ) { //tpms
+			buzzer([30,50,30]);
+			if (euc.dash.tpms) {
+				euc.dash.tpms=0;
+				face[0].btn("TPMS",18,60,115,col("dgray"),0,100,119,195,"OFF",28,60,155); //3
+				face[0].ntfy("TPMS DISABLED",col("dgray"));
+				return;
+			}else{
+				if (global.tpms){ 
+					tpms.scan();
+					face.go("tpmsFace",0);
+				}else 
+					face[0].ntfy("NOT INSTALLED",col("red"));
+			}
+			return;	
 	    }else buzzer(40);
 		this.timeout();
 		break;

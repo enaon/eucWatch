@@ -62,6 +62,7 @@ euc.tmp.one=function(inpk){
 	if (euc.dash.hapA && euc.dash.ampC==2) {
 		if (euc.dash.ampH<=euc.dash.amp)	euc.alert =  euc.alert + 1 + Math.round( (euc.dash.amp - euc.dash.ampH) / euc.dash.ampS) ;
 		else euc.alert =  euc.alert + 1 + Math.round(-(euc.dash.amp - euc.dash.ampL) / euc.dash.ampS) ;
+		if (euc.dash.tpms&&!tpms.def.int&&(getTime()|0)-tpms.euc[euc.dash.tpms].time > 300) tpms.scan();//tpms
 	}
 	//volt
 	euc.dash.volt=(inpk[3] << 8 | inpk[2])/100;
@@ -187,8 +188,7 @@ euc.conn=function(mac){
 			}
 			//haptic
 			if (!euc.buzz && euc.alert) { 
-				if (!w.gfx.isOn&&(euc.dash.spdC||euc.dash.ampC||euc.dash.alrm)) face.go(set.dash[set.def.dash.face],0);
-				//else face.off(6000);
+				if (!w.gfx.isOn&&(euc.dash.spdC||euc.dash.ampC||euc.dash.alrm||(euc.dash.tpms&&tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].alrm))) face.go(set.dash[set.def.dash.face],0);
 				euc.buzz=1;
 				if (20 <= euc.alert) euc.alert = 20;
 				var a=[];
@@ -196,10 +196,7 @@ euc.conn=function(mac){
 					a.push(200,500);
 					euc.alert = euc.alert - 5;
 				}
-				let i;
-				for (i = 0; i < euc.alert ; i++) {
-					a.push(200,150);
-				}
+				for (let i = 0; i < euc.alert ; i++) a.push(200,150);
 				digitalPulse(D16,0,a); 
 				setTimeout(() => { euc.buzz = 0; }, 3000);
 			}
@@ -373,9 +370,5 @@ euc.off=function(err){
 		euc.tmp=0;
 		global["\xFF"].bleHdl=[];
 		NRF.setTxPower(set.def.rfTX);
-		if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
-			if (set.bt===2) console.log("ble still connected"); 
-			global["\xFF"].BLE_GATTS.disconnect();return;
-		}
     }
 };
