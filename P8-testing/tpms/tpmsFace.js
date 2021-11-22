@@ -76,7 +76,7 @@ face[0] = {
 	bar: function(l){
 		if (tpms.status=="SCANNING"||tpms.status.startsWith("RETRY") ) {if (this.log ) this.ind(); return;}
 		this.g.setColor(0,0);
-		this.g.fillRect(0,190,58,239);
+		this.g.fillRect(0,190,(this.log)?58:239,239);
 		this.g.setColor(1,col("lblue"));
 		let img = require("heatshrink").decompress(atob("mEwwIcZg/+Aocfx+AAoV4gPgAoQDBuAEBgPAgE4AoQVBjgFBgYCBhgoCAQMGAQUgAolACggFL6AFGGQQFJEZsGsAFEIIhNFLIplFgBxBnwFCPYP/AoU8gf/BwKVB/+/SAUD/kf+CjDh/4V4n8AoYeBAoq1DgIqDAAP/XYcAv4qEn4qEGwsfC4kPEYkHF4Z1DACA="));
 		this.g.drawImage(img,5,195);
@@ -256,7 +256,7 @@ touchHandler[0]=function(e,x,y){
 			if  (tpms.status!="SCANNING"&&!tpms.status.startsWith("RETRY")  ) { 
 				buzzer([30,50,30]);
 				tpms.scan();
-				if (face[0].act && face[0].ntid) { clearTimeout(face[0].ntid);face[0].ntid=0};
+				if (face[0].act && face[0].ntid) { clearTimeout(face[0].ntid);face[0].ntid=0;}
 				face[0].scan();
 			}else buzzer(40);
 			return;
@@ -288,7 +288,7 @@ touchHandler[0]=function(e,x,y){
 			}else{ //sensor
 				if (face[0].tpms.length<=1) {buzzer(40);return;}
 				buzzer([30,50,30]);
-				if (face[0].act && face[0].ntid) { clearTimeout(face[0].ntid);face[0].ntid=0};
+				if (face[0].act && face[0].ntid) { clearTimeout(face[0].ntid);face[0].ntid=0;}
 				if (tpms.def.pos+1 < face[0].tpms.length) tpms.def.pos++;
 				else tpms.def.pos=0;
 				tpms.def.ref=0;
@@ -329,6 +329,7 @@ touchHandler[0]=function(e,x,y){
 		}
 		break;
     case 3: //slide left event
+		if (!face[0].log) {buzzer(40);return;}
 		buzzer([30,50,30]);
 		if (face[0].info) {
 			face[0].info=0;

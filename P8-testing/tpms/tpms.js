@@ -11,7 +11,6 @@ if (!require("Storage").read("tpms.json",1) || ( require("Storage").read("tpms.j
 			pos:0,
 			metric:"psi",
 			list:{},
-			slot:{},
 			allowNew:1
 	};			
 	require("Storage").writeJSON("tpms.json",def);

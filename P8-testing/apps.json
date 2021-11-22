@@ -376,7 +376,7 @@
 	{ "id": "tpms",
 		"name": "TPMS Sensor",
 		"icon": "icon.png",
-		"version":"1.00",
+		"version":"1.01",
 		"description": "BLE TPMS Sensors (Tire pressure measuring, TP630 etc)",
 		"tags": "euc",
 		"storage": [
