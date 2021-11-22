@@ -64,13 +64,15 @@ tpms= {
 					};
 					tpms.new[0]++;
 					tpms.new.time=getTime()|0;
-					if (dev.psi<tpms.def.list[id].lowP) {
-						tpms.new[id]=[1,dev[tpms.def.metric]];
-						handleInfoEvent({"src":"TPMS","title":id,"body":"LOW PRESSURE."+"  "+dev[tpms.def.metric]+" "+tpms.def.metric+"  "},1);
-					}else if (tpms.def.list[id].hiP <=dev.psi) {
-						tpms.new[id]=[2,dev[tpms.def.metric]];
-						handleInfoEvent({"src":"TPMS","title":id,"body":"HI PRESSURE."+"  "+dev[tpms.def.metric]+" "+tpms.def.metric+"  "},1);
-					} else tpms.new[id]=[0,dev[tpms.def.metric]];
+					if (euc.state!="OFF"&&euc.dash.tpms) {
+						if (dev.psi<tpms.def.list[id].lowP) {
+							tpms.new[id]=[1,dev[tpms.def.metric]];
+							handleInfoEvent({"src":"TPMS","title":id,"body":"LOW PRESSURE."+"  "+dev[tpms.def.metric]+" "+tpms.def.metric+"  "},1);
+						}else if (tpms.def.list[id].hiP <=dev.psi) {
+							tpms.new[id]=[2,dev[tpms.def.metric]];
+							handleInfoEvent({"src":"TPMS","title":id,"body":"HI PRESSURE."+"  "+dev[tpms.def.metric]+" "+tpms.def.metric+"  "},1);
+						} else tpms.new[id]=[0,dev[tpms.def.metric]];
+					}	
 					let log=(require("Storage").readJSON("tpmsLog"+id+".json",1))?require("Storage").readJSON("tpmsLog"+id+".json",1):[];
 					log.unshift(dev);
 					if (10<log.length) log.pop();

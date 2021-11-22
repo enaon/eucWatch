@@ -149,7 +149,8 @@ touchHandler[0]=function(e,x,y){
 				require("Storage").erase("tpmsLog"+face[0].tpms[tpms.def.pos]+".json",1);
 				face[0].ntfy(face[0].tpms[tpms.def.pos]+" CLEARED","",25,col("red"),1,2,0,1,0);
 				tpms.def.pos=0;
-				face[0].init();
+				face.go("tpmsFace",0);
+				return;
 			}else if (face[0].act=="del"){
 				buzzer([30,50,30]);
 				face[0].ntfy("TAP TO","DELETE",26,col("red"),1,2,0,1,1);
