@@ -19,12 +19,12 @@ if (!require("Storage").read("tpms.json",1) || ( require("Storage").read("tpms.j
 //tpms module
 tpms= {
 	busy:0,
-	new:0,
+	new:{"0":0},
 	status:"IDLE",
 	scan:()=>{
 		if (tpms.busy) {print("busy");return;}
 		tpms.busy=1;
-		tpms.new=0;
+		tpms.new={"0":0};
 		tpms.try=tpms.def.try;
 		tpms.cnt=getTime()|0;
 		tpms.status="SCANNING";
@@ -48,7 +48,6 @@ tpms= {
 						require("Storage").writeJSON("tpms.json",got);
 						got=0;
 					}
-					tpms.new++;
 					tpms.def.ref=0;
 					let dev={};
 					dev={ 
@@ -63,19 +62,25 @@ tpms= {
 						"alrm":device.manufacturerData[15],
 						"time":getTime()|0,
 					};
-					//delete dev.log;delete dev.id;delete dev.hiP;delete dev.lowP;
+					tpms.new[0]++;
+					tpms.new.time=getTime()|0;
+					if (dev.psi<tpms.def.list[id].lowP) {
+						tpms.new[id]=[1,dev[tpms.def.metric]];
+						handleInfoEvent({"src":"TPMS","title":id,"body":"LOW PRESSURE."+"  "+dev[tpms.def.metric]+" "+tpms.def.metric+"  "},1);
+					}else if (tpms.def.list[id].hiP <=dev.psi) {
+						tpms.new[id]=[2,dev[tpms.def.metric]];
+						handleInfoEvent({"src":"TPMS","title":id,"body":"HI PRESSURE."+"  "+dev[tpms.def.metric]+" "+tpms.def.metric+"  "},1);
+					} else tpms.new[id]=[0,dev[tpms.def.metric]];
 					let log=(require("Storage").readJSON("tpmsLog"+id+".json",1))?require("Storage").readJSON("tpmsLog"+id+".json",1):[];
 					log.unshift(dev);
 					if (10<log.length) log.pop();
 					require("Storage").writeJSON("tpmsLog"+id+".json",log);
-					if (dev.psi<tpms.def.list[id].lowP) handleInfoEvent({"src":"TPMS","title":id,"body":"LOW PRESSURE."+"  "+dev[tpms.def.metric]+" "+tpms.def.metric+"  "},1);
-					if (tpms.def.list[id].hiP <=dev.psi) handleInfoEvent({"src":"TPMS","title":id,"body":"HI PRESSURE."+"  "+dev[tpms.def.metric]+" "+tpms.def.metric+"  "},1);
 					log=0;
 					dev=0;
 					tpms.def.id=id;
 				}
 			});
-			if (!tpms.new) {
+			if (!tpms.new[0]) {
 				if (tpms.try) {
 					tpms.cnt=getTime()|0;
 					tpms.try--;
@@ -83,7 +88,6 @@ tpms= {
 					tpms.find();
 				}else {
 					tpms.busy=0;
-					tpms.new=0;
 					tpms.status="NOT FOUND";
 					let intT=[5,30,60,360];
 					if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}

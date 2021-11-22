@@ -20,6 +20,9 @@ face[0] = {
 		if (!this.tpms[tpms.def.pos]) tpms.def.pos=0;
 		//tpms.def.id=this.tpms[tpms.def.pos];
 		if (this.tpms.length) {
+			this.g.setColor(0,0);
+			this.g.clearRect(0,186,239,195);
+			this.g.flip();
 			this.log=require("Storage").readJSON("tpmsLog"+this.tpms[tpms.def.pos]+".json",1);
 			this.sc();
 			//scale
@@ -28,7 +31,7 @@ face[0] = {
 			if (tm < 86400){if(tm<60){ago=tm+"''";}else if(tm<3600){ago=((tm/60)|0)+"'";}else{ago=new Date(tm*1000).toISOString().substr(11,5).split(":");ago=Number(ago[0])+"h "+ago[1]+"'";}}else {ago=(new Date(tm*1000).toString().substr(4,16)).split(" ");ago=ago[0]+" "+ago[1]+" "+ago[3];}
 			//info
 			this.sel((this.log.length)?this.log[tpms.def.ref][tpms.def.metric]:this.log[tpms.def.ref][tpms.def.metric] ,ago,(tm < 86400)?"AGO":0);
-			let cl=((getTime()|0) - this.log[tpms.def.ref].time < 1800)?1:0;
+			let cl=((getTime()|0) - this.log[0].time < 1800)?1:0;
 			//top
 			this.btn(cl,this.tpms[tpms.def.pos],35,75,7,(this.log[0].psi < tpms.def.list[this.tpms[tpms.def.pos]].lowP ||  tpms.def.list[this.tpms[tpms.def.pos]].hiP < this.log[0].psi )?col("red"):col("raf"),col("dgray"),0,0,149,50); //device
 			this.btn(1,tpms.def.pos+1+"/"+this.tpms.length,35,200,7,0,0,150,0,239,50);  //more
@@ -129,12 +132,12 @@ face[0] = {
 			tpms.def.pos=this.tpms.indexOf(tpms.def.id);
 			this.log=require("Storage").readJSON("tpmsLog"+this.tpms[tpms.def.pos]+".json",1);
 			this.sc();
-			let cl=((getTime()|0) - this.log[tpms.def.ref].time < 1800)?1:0;
+			let cl=((getTime()|0) - this.log[0].time < 1800)?1:0;
 			this.btn(cl,this.tpms[tpms.def.pos],35,75,7,(this.log[tpms.def.ref].psi<tpms.def.list[this.tpms[tpms.def.pos]].lowP||tpms.def.list[this.tpms[tpms.def.pos]].hiP<this.log[tpms.def.ref].psi)?col("red"):col("raf"),col("dgray"),0,0,149,50);
 			this.btn(1,tpms.def.pos+1+"/"+this.tpms.length,35,200,7,0,col("raf"),150,0,239,50);
 			this.sel(face[0].log[tpms.def.ref][tpms.def.metric],"JUST NOW");
 			this.foot="bar";
-			this.ntfy("FOUND : "+tpms.new,"",27,col("raf"),1,2);
+			this.ntfy("FOUND : "+tpms.new[0],"",27,col("raf"),1,2);
 			return;
 		}else if (tpms.status=="NOT FOUND") {
 			this.ntfy(tpms.status,"",27,col("red"),1,2);
@@ -248,13 +251,11 @@ touchHandler[0]=function(e,x,y){
 	case 5: //tap event
 		if (face[0].page=="scan"){
 			buzzer([30,50,30]);
-			tpms.new=0;
 			tpms.scan();
 			face[0].scan();
 			return;
 		}else if (190 < y && x < 80 ) {
 			if  (tpms.status!="SCANNING"&&!tpms.status.startsWith("RETRY")  ) { 
-				tpms.new=0;
 				tpms.scan();
 				face[0].scan();
 				buzzer([30,50,30]);
@@ -293,7 +294,7 @@ touchHandler[0]=function(e,x,y){
 				tpms.def.ref=0;
 				face[0].log=face[0].log=require("Storage").readJSON("tpmsLog"+face[0].tpms[tpms.def.pos]+".json",1);
 				face[0].sc();	
-				let cl=((getTime()|0) - face[0].log[tpms.def.ref].time < 1800)?1:0;
+				let cl=((getTime()|0) - face[0].log[0].time < 1800)?1:0;
 				face[0].btn(cl,face[0].tpms[tpms.def.pos],35,75,7,(face[0].log[0].psi<tpms.def.list[face[0].tpms[tpms.def.pos]].lowP||tpms.def.list[face[0].tpms[tpms.def.pos]].hiP<face[0].log[0].psi)?col("red"):col("raf"),col("dgray"),0,0,149,50);
 				face[0].btn(1,tpms.def.pos+1+"/"+face[0].tpms.length,35,200,7,0,col("raf"),150,0,239,50);
 				//face[0].sc();	

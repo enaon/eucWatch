@@ -25,7 +25,7 @@ face[0] = {
 		this.g.flip(); 
 		this.btn("LIGHTS",18,60,15,(euc.dash.aLight==="lightsOff")?col("black"):(euc.dash.aLight==="lightsOn")?col("raf2"):(euc.dash.aLight=="lightsAuto"||euc.dash.aLight==0)?col("raf3"):col("raf"),0,0,119,97,(euc.dash.aLight==="lightsOff")?"OFF":(euc.dash.aLight==="lightsOn")?"ON":(euc.dash.aLight==="lightsAuto"||euc.dash.aLight==0)?"AUTO":"CITY",28,60,50); //1
 		this.btn("STROBE",25,185,35,(euc.dash.strb)?col("red"):col("dgray"),122,0,239,97);//2
-		this.btn((euc.dash.tpms)?euc.dash.tpms:"TPMS",18,60,115,col("dgray"),0,100,119,195,(euc.dash.tpms)?"TODO":"OFF",28,60,155); //3
+		this.btn((euc.dash.tpms)?euc.dash.tpms:"TPMS",18,60,115,col((euc.dash.tpms&&tpms.new[euc.dash.tpms])?(tpms.new[euc.dash.tpms][0])?"red":"raf":"dgray"),0,100,119,195,(euc.dash.tpms)?(tpms.new[euc.dash.tpms])?tpms.new[euc.dash.tpms][1]:"WAIT":"OFF",(euc.dash.tpms)?32:28,60,150); //3
    		this.btn("LOCK",25,185,135,(euc.dash.lock)?col("red"):col("dgray"),122,100,239,195); //4
 		this.run=true;
 	},
@@ -166,8 +166,13 @@ touchHandler[0]=function(e,x,y){
 				face[0].btn("TPMS",18,60,115,col("dgray"),0,100,119,195,"OFF",28,60,155); //3
 				face[0].ntfy("TPMS DISABLED",col("dgray"));
 				return;
-			}else face.go("tpmsFace",0);
-			return;
+			}else{
+				if (require("Storage").read("tpms",1)) 
+					face.go("tpmsFace",0);
+				else 
+					face[0].ntfy("NOT INSTALLED",col("red"));
+      }
+      return;
 		}else if ( 120<=x && 100<=y ) { //off
 			euc.aOff=euc.dash.aOff;
 			euc.aLck=euc.dash.aLck;
