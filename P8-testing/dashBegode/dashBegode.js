@@ -162,15 +162,15 @@ touchHandler[0]=function(e,x,y){
 			buzzer([30,50,30]);
 			if (euc.dash.tpms) {
 				euc.dash.tpms=0;
-				face[0].btn("TPMS",18,60,115,col("dgray"),0,100,119,195,"OFF",28,60,155); //3
-				face[0].ntfy("TPMS DISABLED",col("dgray"));
+				face[0].btn(1,"TPMS",18,60,115,col("dgray"),0,0,100,119,195,"OFF",28,60,155); //3
+				face[0].ntfy("TPMS DISABLED","TPMS ",20,col("dgray"),1);
 				return;
 			}else{
 				if (global.tpms){ 
 					tpms.scan();
 					face.go("tpmsFace",0);
 				}else 
-					face[0].ntfy("NOT INSTALLED",col("red"));
+					face[0].ntfy("NOT INSTALLED","",20,col("red"),1);
 			}
 			return;
 		}else if ( 120<=x && 100<=y ) { //off
