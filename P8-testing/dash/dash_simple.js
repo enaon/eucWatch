@@ -68,14 +68,15 @@ face[0] = {
 		this.g.fillRect(0,0,119,50);       
 		this.g.setColor(1,col("white"));
 		this.g.setFontVector(50);
-		let temp=(set.def.dash.farn)?this.tmp*1.8+32:this.tmp;
-		temp=(temp<100)?Number(temp).toFixed(1):Math.round(temp);
-		let size=this.g.stringWidth(temp);
-		this.g.drawString(temp, 0,3); 
-		//this.g.setFontVector(13);
-		//this.g.drawString("o",size-3,2); 
+		let temp=((set.def.dash.farn)?this.tmp*1.8+32:this.tmp).toString().split(".");
+		//temp=(temp<100)?Number(temp).toFixed(1):Math.round(temp);
+		let size=this.g.stringWidth(temp[0]);
+		this.g.drawString(temp[0], 20,3); 
+		this.g.setFontVector(35);
+		this.g.drawString("."+temp[1],size,15); 
+		size=size+this.g.stringWidth(temp[1]);
 		this.g.setFontVector(16);
-		this.g.drawString((set.def.dash.farn)?"°F":"°C",size-1,5); 
+		this.g.drawString((set.def.dash.farn)?"°F":"°C",size,5); 
 		this.g.flip();
 	},
 	clkf: function(){
