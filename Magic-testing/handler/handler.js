@@ -1,6 +1,6 @@
 //handler .set={def:{acctype:"sc7a20",touchtype:"716"}}
 //fonts
-require('Font7x11Numeric7Seg').add(Graphics);
+//require('Font7x11Numeric7Seg').add(Graphics);
 //notifications
 var notify={
 	New:0,nIm:0,nInfo:0,nCall:0,nMail:0
@@ -135,8 +135,10 @@ if (!set.def) {set.resetSettings();set.updateSettings();}
 set.def.touchtype="716";
 if (!set.def.rstP) set.def.rstP="D39";
 if (!set.def.rstR) set.def.rstR=0xA5;
-if (set.def.buzz) buzzer=digitalPulse;
+if (set.def.buzz) buzzer = digitalPulse.bind(null,ew.pin.BUZZ,0);
 else buzzer=function(){return true;};
+
+
 if (!set.def.off) set.def.off={};
 //dash
 require('Storage').list("dash_").forEach(dashfile=>{
@@ -453,6 +455,14 @@ touchHandler= {
 		touchHandler[face.pageCurr](e,x,y);
 	},
 };
+
+touchHandler= {
+	timeout:x=>{setTimeout(()=>{face.off();},0);},
+	go:function(e,x,y){
+		touchHandler[face.pageCurr](e,x,y);
+	},
+};
+
 tfk.on('touch',touchHandler.go);
 
 //

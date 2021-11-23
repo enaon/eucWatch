@@ -91,13 +91,13 @@ tpms= {
 				}else {
 					tpms.busy=0;
 					tpms.status="NOT FOUND";
-					let intT=[5,30,60,360];
+					let intT=[5,5,30,60,360];
 					if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
-					if (tpms.def.int) {
+					if (tpms.def.int||euc.state!="OFF") {
 						tpms.tid=setTimeout(()=>{ 
 							tpms.tid=0;
 							tpms.scan();
-						},intT[tpms.def.int-1]*60000);
+						},intT[tpms.def.int]*60000);
 					}
 				}
 			}else {
