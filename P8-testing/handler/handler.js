@@ -363,7 +363,10 @@ btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
 var i2c=new I2C();
 i2c.setup({scl:D7, sda:D6, bitrate:100000});
 //find touch
+
 if ( set.def.touchtype == "0" ) {
+	digitalPulse(D10,1,[5,50]);
+	digitalPulse(D13,1,[5,50]);
 	set.def.rstP="D13";
 	digitalPulse(set.def.rstP,1,[5,50]);
 	setTimeout(()=>{ 
