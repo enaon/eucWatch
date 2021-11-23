@@ -154,7 +154,7 @@
 	{ "id": "dash",
 		"name": "EUC Dashboard",
 		"icon": "icon.png",
-		"version":"0.99.8",
+		"version":"1.00",
 		"description": "EUC dashboard. Garage, scan and dash faces. Depends on EUC modules.",
 		"tags": "euc",
 		"readme": "README.md",
@@ -376,7 +376,7 @@
 	{ "id": "tpms",
 		"name": "TPMS Sensor",
 		"icon": "icon.png",
-		"version":"1.01",
+		"version":"1.02",
 		"description": "BLE TPMS Sensors (Tire pressure measuring, TP630 etc)",
 		"tags": "euc",
 		"storage": [
