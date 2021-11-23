@@ -17,7 +17,7 @@ face[0] = {
         this.btn(euc.dash.light,"LIGHT",18,60,15,col("raf"),col("dgray"),0,0,119,97,(euc.dash.light)?"ON":"OFF",28,60,50);
 		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("dgray"),122,0,239,97,"ALERTS",22,185,55);		
 		let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
-		this.btn((euc.dash.tpms)?euc.dash.tpms:"TPMS",18,60,115,col((euc.dash.tpms&&tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.tpms].time<1800)?(tpms.euc[euc.dash.tpms].alrm)?"red":"raf":"dgray"),0,100,119,195,(euc.dash.tpms)?(tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].psi)?Math.round(tpms.euc[euc.dash.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.tpms)?32:28,60,150); //3
+		this.btn(euc.dash.tpms,(euc.dash.tpms)?euc.dash.tpms:"TPMS",18,60,115,col((euc.dash.tpms&&tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.tpms].time<1800)?(tpms.euc[euc.dash.tpms].alrm)?"red":"raf":"dgray"),col("dgray"),0,100,119,195,(euc.dash.tpms)?(tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].psi)?Math.round(tpms.euc[euc.dash.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.tpms)?32:28,60,150); //3				
         this.btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("dgray"),122,100,239,195);	
 		this.run=true;
 	},

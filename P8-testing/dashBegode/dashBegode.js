@@ -27,7 +27,7 @@ face[0] = {
 		this.btn("LIGHTS",18,60,15,(euc.dash.aLight==="lightsOff")?col("black"):(euc.dash.aLight==="lightsOn")?col("raf"):col("red"),0,0,119,97,(euc.dash.aLight==="lightsOff")?"OFF":(euc.dash.aLight==="lightsOn")?"ON":"STROBE",28,60,50); //1
 		this.btn("WATCH",22,185,17,(euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB)?col("raf"):col("dgray"),122,0,239,97,"ALERTS",22,185,55);//2
 		let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
-		this.btn((euc.dash.tpms)?euc.dash.tpms:"TPMS",18,60,115,col((euc.dash.tpms&&tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.tpms].time<1800)?(tpms.euc[euc.dash.tpms].alrm)?"red":"raf":"dgray"),0,100,119,195,(euc.dash.tpms)?(tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].psi)?Math.round(tpms.euc[euc.dash.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.tpms)?32:28,60,150); //3
+		this.btn(euc.dash.tpms,(euc.dash.tpms)?euc.dash.tpms:"TPMS",18,60,115,col((euc.dash.tpms&&tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.tpms].time<1800)?(tpms.euc[euc.dash.tpms].alrm)?"red":"raf":"dgray"),col("dgray"),0,100,119,195,(euc.dash.tpms)?(tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].psi)?Math.round(tpms.euc[euc.dash.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.tpms)?32:28,60,150); //3				
    		this.btn("HORN",25,185,137,(euc.dash.horn)?col("raf"):col("dgray"),122,100,239,195); //4
 		this.run=true;
 	},
