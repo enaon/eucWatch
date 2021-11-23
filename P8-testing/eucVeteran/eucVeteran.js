@@ -96,10 +96,7 @@ euc.conn=function(mac){
 					a.push(150,500);
 					euc.alert=euc.alert-5;
 				}
-				var i;
-				for (i = 0; i < euc.alert ; i++) {
-					a.push(150,150);
-				}
+				for (let i = 0; i < euc.alert ; i++) a.push(150,150);
 				digitalPulse(D16,0,a);  
 				setTimeout(() => {euc.buzz=0; }, 3000);
 			}

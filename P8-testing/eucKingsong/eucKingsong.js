@@ -62,7 +62,6 @@ euc.tmp.one=function(inpk){
 	if (euc.dash.hapA && euc.dash.ampC==2) {
 		if (euc.dash.ampH<=euc.dash.amp)	euc.alert =  euc.alert + 1 + Math.round( (euc.dash.amp - euc.dash.ampH) / euc.dash.ampS) ;
 		else euc.alert =  euc.alert + 1 + Math.round(-(euc.dash.amp - euc.dash.ampL) / euc.dash.ampS) ;
-		if (euc.dash.tpms&&!tpms.def.int&&(getTime()|0)-tpms.euc[euc.dash.tpms].time > 300) tpms.scan();//tpms
 	}
 	//volt
 	euc.dash.volt=(inpk[3] << 8 | inpk[2])/100;
