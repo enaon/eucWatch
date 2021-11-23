@@ -165,7 +165,7 @@ function init(bppi){
   //cmd([0x2c]);
 }
 
-var bpp=4; // powers of two work, 3=8 colors would be nice
+var bpp=1; // powers of two work, 3=8 colors would be nice
 var g=Graphics.createArrayBuffer(240,280,bpp);
 var pal;
 switch(bpp){
