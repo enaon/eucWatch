@@ -389,7 +389,7 @@ var tfk={
 	y:0,
 	do:0,
 	st:1,
-	loop:5,
+	loop:10,
 	init:function(){
 		"ram";
 		var tp=i2c.readFrom(0x15,7);
@@ -435,7 +435,7 @@ var tfk={
 		if (this.tid) clearInterval(this.tid);
 		digitalPulse(set.def.rstP,1,[10,50]); //touch wake
 		i2c.writeTo(0x15,0);
-        this.st=1;
+		this.st=1;
 		this.tid=setInterval(function(){
 			tfk.init();
 		},this.loop);
