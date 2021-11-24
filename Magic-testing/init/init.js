@@ -67,6 +67,7 @@ Modules.addCached("P8",function(){
 // see full license text at https://choosealicense.com/licenses/mit/
 // compiled with options LCD_BPP=12,SHARED_SPIFLASH,SPIFLASH_CS=(1<<5)
 var SPI2 = (function(){
+	"ram";
   var bin=atob("//////////8AAAAAAAAAAP////8AAAAAAAAAAAAAAL8QtQZMfETE6QABIDsBIQH6AvKZQKJg4WAQvQC/2P///wZLACLD+AAlw/gIIQEiWmDT+AQjCrHD+AgjcEcA8AJAEkvT+AAlELXqudP4BCMKscP4CCMOSnpEAAYUaMP4CEVUaMP4DEUSacP4ECVJAE/w/zLD+BQlw/hsJcP4JAXD+FQVASAQvU/w/zD75wDwAkCG////CEt7RJuKU7EFStL4GDEAK/vQACPC+BgxA0p6RJOCcEcA8AJARv///y7///8QtQNMfETigiCDYYOjgxC9GP////i1FUb/99z/FEsAJMP4NEX/J8P4OEUBIsP4GEEmRv8pAOsEDMP4RMWLv/80w/hIFcP4SHUAIYi//zkaYSWxGbkHS3tEmoL4vdP4GMG88QAP+tDD+BhhACnh0fTnAPACQMb+//8bSnpEOLUMRtFoWbMXTQcjxfgANU/woEPD+AwYkmgKscP4DCUAIgEh//e4/xFLe0QBLNpoT/CgQ8P4CCgE3QAiYR4BMP/3qv8LS3tEm2gbsU/woELC+Ag1ACABI8X4AAVrYDi9T/D/MPvnAL8A8AJAov7//3b+//9a/v//cLUERoixRhgAJSBGEPgBGxmxRBi0QgLZbUIoRnC9//ex/wAo+dEBNe/nBUb15xO1ACgd2wAppr+N+AUQAiQBJAAqob8CqQkZATQB+AQsACuivwKqEhkBNI34BACovwL4BDwhRgGo//eN/yBGArAQvQAk+uct6fBPobDN6QESU0p6RAdGkvgWkAAoAPCZgAApAPCWgAnx/zMHKwDykYABIwP6CfMBOwVG27I1+AJLA5MCm0VJsvgagBxBByPB+AA1k2ikshuxT/CgQsL4DDVP6kkD27IEkz5Le0QUqAWTCKvN6QYwT/AAC1lGBZsCnrP4GKADmwGaI0BE+gn0MvgTwAObI0BE+gn0MvgTIASbHkT2sgcugb8IPhX4ATv2ssbxCA6EvwP6DvMcQ0/qHBNDVBMKAfECDkPqDBxDGAMxqvECCi8pg/gBwKSyAPgOIB/6ivoJ3QEi//fj/tvxAQsLvweYBphZRgAhuvEAD8HRGUt7RAjx/zibix9EPUYCmzX4Aksf+oj4HEGksrjxAA+s0ZmxQkb/98T+D0t7RJtoG7FP8KBCwvgINQdKACABI8L4AAVTYCGwvejwj//3kf7r50/w/zD25wC/APACQKj9//9Q/f//uPz//478//8=");
   return {
     cmd:E.nativeCall(345, "int(int,int)", bin),
@@ -97,11 +98,13 @@ SPI2.setpins(SCK,MOSI,CS,DC);
 SPI2.enable(0x14,0); //32MBit, mode 0
 
 function delayms(ms){
+"ram";
   digitalPulse(DC,0,ms);
   digitalPulse(DC,0,0); // 0=wait for previous
 }
 
 function toFlatString(arr){
+"ram";
   var b=E.toString(arr);if (b) return b   ;
   print("toFlatString() fail&retry!");E.defrag();b=E.toString(arr);if (b) return b;
   print("fail&retry again!");E.defrag();b=E.toString(arr);if (b) return b;
@@ -110,6 +113,7 @@ function toFlatString(arr){
 function toFlatBuffer(a){return E.toArrayBuffer(toFlatString(a));}
 
 function cmd(a){
+	"ram";
   var l=a.length;
   if (!l)return SPI2.cmd4(a,-1,-1,-1);
   if (l==2)return SPI2.cmd4(a[0],a[1],-1,-1);
@@ -121,6 +125,7 @@ function cmd(a){
 }
 
 function cmds(arr){
+	"ram";
   var b=toFlatString(arr);
   var c=SPI2.cmds(E.getAddressOf(b,true),b.length);
   if (c<0)print('lcd_cmds: buffer mismatch, cnt='+c);
@@ -298,6 +303,7 @@ g.bri={
 
 //battery
 const batt=function(i,c){
+		"ram";
 	let v= 4.20/0.60*analogRead(ew.pin.BAT);
 	let l=3.5,h=4.19;
     let hexString = ("0x"+(0x50000700+(ew.pin.BAT*4)).toString(16));

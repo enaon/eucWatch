@@ -4,6 +4,7 @@ face[0] = {
 	g:w.gfx,
 	spd:[],
 	init: function(){
+		"ram";
 		if ( euc.day[0] < Date().getHours() && Date().getHours() < euc.day[1] ) euc.night=0; else euc.night=1;
         if (face.appPrev.startsWith("dash_")) {
 			this.g.setColor(0,0);
@@ -35,6 +36,7 @@ face[0] = {
 		this.run=true;
 	},
 	show : function(o){
+		"ram";
 		if (!this.run) return;
 		if (euc.state=="READY") {
 			this.g.setColor(0,0);
@@ -72,6 +74,7 @@ face[0] = {
 		},100,this);
 	},
 	tmpf: function(){
+		"ram";
 		this.tmp=euc.dash.tmp.toFixed(1);
 		this.g.setColor(0,this.tmpC[euc.dash.tmpC]);
 		this.g.fillRect(0,0,119,50);       
@@ -90,6 +93,7 @@ face[0] = {
 		this.g.flip();
 	},
 	clkf: function(){
+		"ram";
 		this.time=getTime();
 		this.g.setColor(0,col("dgray"));
 		this.g.fillRect(0,0,119,50);       
@@ -104,6 +108,7 @@ face[0] = {
 		this.g.flip();
 	},
 	batf: function(){
+		"ram";
 		this.bat=euc.dash.bat;
 		this.g.setColor(0,this.batC[euc.dash.batC]);
 		this.g.fillRect(122,0,239,50);
@@ -116,6 +121,7 @@ face[0] = {
 		this.g.flip();
 	},
 	vltf: function(){
+		"ram";
 		this.volt=euc.dash.volt.toFixed(1);
 		this.g.setColor(0,this.batC[euc.dash.batC]);
 		this.g.fillRect(122,0,239,50);
@@ -134,6 +140,7 @@ face[0] = {
 		this.g.flip();
 	},
 	spdf: function(){
+		"ram";
 		//"ram";
 		this.spd=Math.round(euc.dash.spd);
 		this.g.setColor(0,(euc.dash.spdC==1)?0:this.spdC[euc.dash.spdC]);
@@ -148,6 +155,7 @@ face[0] = {
 		this.g.flip();
 	},
 	ampf: function(){
+		"ram";
 		this.amp=euc.dash.amp;
 		this.g.setColor(0,this.ampC[euc.dash.ampC]);
 		this.g.fillRect(80,0,160,55); //amp 
@@ -157,6 +165,7 @@ face[0] = {
 		this.g.flip();
 	},
 	tpmsf: function(){
+		"ram";
 		this.tpms=tpms.euc[euc.dash.tpms].alrm
 		this.g.setColor(0,col((this.tpms)?"red":"raf"));
 		this.g.clearRect(0,210,239,239); //amp 
@@ -198,6 +207,7 @@ face[1] = {
 
 //touch-main
 touchHandler[0]=function(e,x,y){
+	"ram";
 	switch (e) {
 	case 5: //tap event
 		if (x < 120 && y < 60){//temp/clock

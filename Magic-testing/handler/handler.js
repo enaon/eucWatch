@@ -9,6 +9,7 @@ notify.im=(Boolean(require('Storage').read('im.log')))?require('Storage').readJS
 notify.info=(Boolean(require('Storage').read('info.log')))?require('Storage').readJSON('info.log'):[];
 notify.call=(Boolean(require('Storage').read('call.log')))?require('Storage').readJSON('call.log'):[];
 function handleInfoEvent(event) {
+	"ram";
 	notify.nInfo++;
 	notify.New++;
 	let d=(Date()).toString().split(' ');
@@ -34,6 +35,7 @@ var set={
 	boot:getTime(), 
 	dash:[],
 	read:function(file,name){
+		"ram";
 		let got=require("Storage").readJSON([file+".json"],1);
 		if (got==undefined) return false;
 		if (name) {
@@ -43,6 +45,7 @@ var set={
 		}else return require("Storage").readJSON([file+".json"],1);
 	},	
 	write:function(file,name,value,value2,value3){
+		"ram";
 		let got=require("Storage").readJSON([file+".json"],1);
 		if (got==undefined) got={};
 		if (!value)  delete got[name]; //delete
@@ -163,6 +166,7 @@ E.setTimeZone(set.def.timezone);
 //nrf
 //set.emuD=0;
 function ccon(l){ 
+	"ram";
 	if (set.def.emuZ) {
 		//if (set.emuD) return;
 		emuZ.cmd(l);
