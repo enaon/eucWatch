@@ -121,7 +121,7 @@ face[0] = {
 	},
 	alF: function(){
 		this.al.set(almL);
-		print(this.al,almL);
+		//print(this.al,almL);
 		this.g.setColor(0,col("dgray"));
 		this.g.clearRect(0,176,239,197);
 		this.g.setColor(1,col("white"));
@@ -207,10 +207,10 @@ face[0] = {
 		temp=(temp<100)?Number(temp).toFixed(1):Math.round(temp);
 		let size=this.g.stringWidth(temp);
 		this.g.drawString(temp, 0,3); 
-		this.g.setFontVector(13);
-		this.g.drawString("o",size-3,2); 
+		//this.g.setFontVector(13);
+		//this.g.drawString("o",size-3,2); 
 		this.g.setFontVector(16);
-		this.g.drawString((set.def.dash.farn)?"F":"C",size+5,5); 
+		this.g.drawString((set.def.dash.farn)?"°F":"°C",size-1,5); 
 		this.g.flip();
 	},	
 	amLF: function(){

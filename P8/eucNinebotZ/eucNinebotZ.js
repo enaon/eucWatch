@@ -12,6 +12,7 @@ euc.cmd=function(no){
 //
 euc.wri=function(i) {if (set.bt===2) console.log("not connected yet"); if (i=="end") euc.off(); return;};
 euc.conn=function(mac){
+	
     if ( global["\xFF"].BLE_GATTS!="undefined") {
 		if (set.def.cli) print("ble allready connected"); 
 		if (global["\xFF"].BLE_GATTS.connected) 
@@ -95,10 +96,7 @@ euc.conn=function(mac){
 							a.push(200,500);
 							euc.alert = euc.alert - 5;
 						}
-						let i;
-						for (i = 0; i < euc.alert ; i++) {
-							a.push(200,150);
-						}
+						for (let i = 0; i < euc.alert ; i++) a.push(200,150);
 						digitalPulse(D16,0,a);  
 						setTimeout(() => { euc.buzz = 0; }, 3000);
 				}
@@ -210,5 +208,5 @@ euc.off=function(err){
 			if (set.bt===2) console.log("ble still connected"); 
 			global["\xFF"].BLE_GATTS.disconnect();return;
 		}
+  }
 };
-trp    }

@@ -8,16 +8,15 @@ var notify={
 notify.im=(Boolean(require('Storage').read('im.log')))?require('Storage').readJSON('im.log'):[];
 notify.info=(Boolean(require('Storage').read('info.log')))?require('Storage').readJSON('info.log'):[];
 notify.call=(Boolean(require('Storage').read('call.log')))?require('Storage').readJSON('call.log'):[];
-function handleInfoEvent(event) {
+function handleInfoEvent(event,disc) {
 	notify.nInfo++;
 	notify.New++;
 	let d=(Date()).toString().split(' ');
     let ti=(""+d[4]+" "+d[0]+" "+d[2]);
 	notify.info.unshift("{\"src\":\""+event.src+"\",\"title\":\""+event.title+"\",\"body\":\""+event.body+"\",\"time\":\""+ti+"\"}");
 	if (notify.info.length>10) notify.info.pop();
-	if (set.def.buzz&&!notify.ring) {
-		//digitalPulse(D16,1,[80,50,80]);
-		buzzer([80,50,80]);
+	buzzer([80,50,80]);
+	if (set.def.buzz&&!notify.ring&&!disc) {
 		if (face.appCurr!="main"||face.pageCurr!=0) {
 			face.go("main",0);
 			face.appPrev="main";face.pagePrev=-1;
@@ -37,13 +36,23 @@ var set={
 	read:function(file,name){
 		let got=require("Storage").readJSON([file+".json"],1);
 		if (got==undefined) return false;
-		return require("Storage").readJSON([file+".json"],1)[name];
+		if (name) {
+			if (require("Storage").readJSON([file+".json"],1)[name])
+			return require("Storage").readJSON([file+".json"],1)[name];
+			else return false;
+		}else return require("Storage").readJSON([file+".json"],1);
 	},	
-	write:function(file,name,value){
+	write:function(file,name,value,value2,value3){
 		let got=require("Storage").readJSON([file+".json"],1);
 		if (got==undefined) got={};
-		if (!value)  got[name]=0;
-		else got[name]=value;
+		if (!value)  delete got[name]; //delete
+		else {
+			if (value2 && got[name] ) 
+				if (value3 || value3==0) got[name][value][value2]=value3;
+				else got[name][value]=value2;
+			else 
+				got[name]=value;
+		}
 		require("Storage").writeJSON([file+".json"],got);
 		return true;
 	},
@@ -217,7 +226,16 @@ function bcon() {
 	E.setConsole(null,{force:true});
 	set.bt=1; 
 	if (set.def.cli||set.def.gb||set.def.emuZ) { Bluetooth.on('data',ccon);}
-	setTimeout(()=>{if (set.bt==1) NRF.disconnect();},5000);
+	setTimeout(()=>{
+    if (set.bt==1){ 
+		if (!set.def.cli) 
+			NRF.disconnect(); 
+		else{ 
+			handleInfoEvent({"src":"DEBUG","title":"RELAY","body":"Relay Connected"});
+			set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
+		}
+	}
+	},5000);
 }
 function bdis() {
     Bluetooth.removeListener('data',ccon);
@@ -383,32 +401,7 @@ btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
 //var i2c=I2C1;
 var i2c=new I2C();
 i2c.setup({scl:D7, sda:D6, bitrate:100000});
-/*
-set.def.rstP="D13";
-digitalPulse(set.def.rstP,1,[5,50]);
-setTimeout(()=>{ 
-	i2c.writeTo(0x15,0xA7);
-	let tp=i2c.readFrom(0x15,1);
-	if ( tp == 255 ) {
-		set.def.rstP="D10";
-	}
-	//touch (816)
-	set.def.touchtype="816";
-	setWatch(function(s){
-		i2c.writeTo(0x15,0);
-		var tp=i2c.readFrom(0x15,7);
-		//print("touch816 :",tp);
-		if (face.pageCurr>=0) {
-			if (tp[1]== 0 && tp[3]==64) tp[1]=5;
-			if (tp[1]== 12 ) tp[6]=tp[6]+25;
-			touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);}
-		else if (tp[1]==1) {
-			face.go(face.appCurr,0);
-		}
-	},D28,{repeat:true, edge:"rising"}); 
-		
-},100);
-*/
+
 set.def.touchtype="816";
 setWatch(function(s){
 	i2c.writeTo(0x15,0);

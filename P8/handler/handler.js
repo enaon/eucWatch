@@ -8,16 +8,15 @@ var notify={
 notify.im=(Boolean(require('Storage').read('im.log')))?require('Storage').readJSON('im.log'):[];
 notify.info=(Boolean(require('Storage').read('info.log')))?require('Storage').readJSON('info.log'):[];
 notify.call=(Boolean(require('Storage').read('call.log')))?require('Storage').readJSON('call.log'):[];
-function handleInfoEvent(event) {
+function handleInfoEvent(event,disc) {
 	notify.nInfo++;
 	notify.New++;
 	let d=(Date()).toString().split(' ');
     let ti=(""+d[4]+" "+d[0]+" "+d[2]);
 	notify.info.unshift("{\"src\":\""+event.src+"\",\"title\":\""+event.title+"\",\"body\":\""+event.body+"\",\"time\":\""+ti+"\"}");
 	if (notify.info.length>10) notify.info.pop();
-	if (set.def.buzz&&!notify.ring) {
-		//digitalPulse(D16,1,[80,50,80]);
-		buzzer([80,50,80]);
+	buzzer([80,50,80]);
+	if (set.def.buzz&&!notify.ring&&!disc) {
 		if (face.appCurr!="main"||face.pageCurr!=0) {
 			face.go("main",0);
 			face.appPrev="main";face.pagePrev=-1;
@@ -37,13 +36,23 @@ var set={
 	read:function(file,name){
 		let got=require("Storage").readJSON([file+".json"],1);
 		if (got==undefined) return false;
-		return require("Storage").readJSON([file+".json"],1)[name];
+		if (name) {
+			if (require("Storage").readJSON([file+".json"],1)[name])
+			return require("Storage").readJSON([file+".json"],1)[name];
+			else return false;
+		}else return require("Storage").readJSON([file+".json"],1);
 	},	
-	write:function(file,name,value){
+	write:function(file,name,value,value2,value3){
 		let got=require("Storage").readJSON([file+".json"],1);
 		if (got==undefined) got={};
-		if (!value)  got[name]=0;
-		else got[name]=value;
+		if (!value)  delete got[name]; //delete
+		else {
+			if (value2 && got[name] ) 
+				if (value3 || value3==0) got[name][value][value2]=value3;
+				else got[name][value]=value2;
+			else 
+				got[name]=value;
+		}
 		require("Storage").writeJSON([file+".json"],got);
 		return true;
 	},
@@ -134,7 +143,7 @@ set.def = require('Storage').readJSON('setting.json', 1);
 if (!set.def) {set.resetSettings();set.updateSettings();}
 if (!set.def.rstP) set.def.rstP="D13";
 if (!set.def.rstR) set.def.rstR=0xA5;
-if (set.def.buzz) buzzer = digitalPulse.bind(null,D16,1)
+if (set.def.buzz) buzzer = digitalPulse.bind(null,D16,1);
 else buzzer=function(){return true;};
 if (!set.def.off) set.def.off={};
 //dash
@@ -181,7 +190,16 @@ function bcon() {
 	E.setConsole(null,{force:true});
 	set.bt=1; 
 	if (set.def.cli||set.def.gb||set.def.emuZ) { Bluetooth.on('data',ccon);}
-	setTimeout(()=>{if (set.bt==1) NRF.disconnect();},5000);
+	setTimeout(()=>{
+    if (set.bt==1){ 
+		if (!set.def.cli) 
+			NRF.disconnect(); 
+		else{ 
+			handleInfoEvent({"src":"DEBUG","title":"RELAY","body":"Relay Connected"});
+			set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
+		}
+	}
+	},5000);
 }
 function bdis() {
     Bluetooth.removeListener('data',ccon);
@@ -345,7 +363,10 @@ btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
 var i2c=new I2C();
 i2c.setup({scl:D7, sda:D6, bitrate:100000});
 //find touch
+
 if ( set.def.touchtype == "0" ) {
+	digitalPulse(D10,1,[5,50]);
+	digitalPulse(D13,1,[5,50]);
 	set.def.rstP="D13";
 	digitalPulse(set.def.rstP,1,[5,50]);
 	setTimeout(()=>{ 
@@ -749,7 +770,7 @@ cron.on('month',cron.task.euc.month);
 //themes -todo
 if (!Boolean(require("Storage").read("colmode16"))){
 	function col(no){
-		//"ram";
+		"ram";
 		switch (no) {
 			case "black":return 0;case "white":return 4095;case "lblue":return 1535;case "blue":return 143;case "dblue":return 1375;case "blue1":return 1708;
 			case "raf":return 1453;case "raf1":return 1708;case "raf2":return 1963;case "raf3":return 2220;case "raf4":return 2474;case "raf5":return 3005;

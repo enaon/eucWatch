@@ -37,7 +37,7 @@ tpms= {
 			NRF.filterDevices(devices, filter).forEach(function(device) {
 				//print (device);
 				let mac =device.id.split(" ")[0].split(":");
-				if (mac[1]+mac[2] != "eaca") {print("unknown tpms sensor");return;}
+				if (mac[1]+mac[2] != "eaca") {;return;}
 				let id=mac[3]+mac[4]+mac[5];
 				if ( tpms.def.allowNew || tpms.def.list[id] ) {
 					if (!tpms.def.list[id]) {

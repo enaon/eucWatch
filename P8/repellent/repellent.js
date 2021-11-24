@@ -190,8 +190,8 @@ face[0]= {
   run:false,
   clear : function(){
     var g=w.gfx;
-    pal[0]=0;
-    g.clear();
+    //pal[0]=0;
+    //g.clear();
     this.exit();
     return true;
   },
@@ -229,7 +229,11 @@ touchHandler[0]=function(e,x,y){
 		face.go('w_scan',0,'fe95');	  
     }else if  (e==1){
 	  //face.go("repellent",-1);return;
-	  face.go("main",0);return;
+		if (face.faceSave!=-1) {
+			  face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
+		}else
+			face.go("main",0);
+		return;
     }else if  (e==2){
 	  if (y>200&&x<50) {
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
@@ -241,7 +245,7 @@ touchHandler[0]=function(e,x,y){
     }else if  (e==3){
 	  face.go("settings",0);return;
     }else if  (e==4){
-	   face.go("settings",0);return;
+	   face.go("settings",0,1);return;
 //	  face.go(face.appRoot[0],face.appRoot[1],face.appRoot[2]);return;
     }else if  (e==12){		
 	  buzzer(40);    

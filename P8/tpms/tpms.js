@@ -1,57 +1,114 @@
- }
->NRF.requestDevice({ filters: [{ services: ["fbb0"] }] }).then(function(device) { print(device) });
-=Promise: {  }
-BluetoothDevice: {
-  "id": "81:ea:ca:21:37:fa public",
-  "rssi": -48,
-  "data": new Uint8Array([2, 1, 5, 3, 3, 176, 251, 19, 255, 0, 1, 129, 234, 202, 33, 55, 250, 0, 0, 0, 0, 123, 11, 0, 0, 82, 1]).buffer,
-  "manufacturer": 256,
-  "manufacturerData": new Uint8Array([129, 234, 202, 33, 55, 250, 0, 0, 0, 0, 123, 11, 0, 0, 82, 1]).buffer,
-  "services": [
-    "fbb0"
-   ]
- }
->NRF.requestDevice({ filters: [{ services: ["fbb0"] }] }).then(function(device) { print(device) });
-=Promise: {  }
-BluetoothDevice: {
-  "id": "80:ea:ca:11:36:ed public",
-  "rssi": -60,
-  "data": new Uint8Array([2, 1, 5, 3, 3, 176, 251, 19, 255, 0, 1, 128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 122, 11, 0, 0, 98, 1]).buffer,
-  "manufacturer": 256,
-  "manufacturerData": new Uint8Array([128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 122, 11, 0, 0, 98, 1]).buffer,
-  "services": [
-    "fbb0"
-   ]
- }
-> 
+//tpms sensor support
+//create settings json
+if (!require("Storage").read("tpms.json",1) || ( require("Storage").read("tpms.json",1) && require("Storage").readJSON("tpms.json",1).ver!=7) ) {
+	let def={"ver":7};
+	def.dev={};
+	def.def={
+			wait:10,
+			try:0,
+			int:0,
+			ref:0,
+			pos:0,
+			metric:"psi",
+			list:{},
+			allowNew:1
+	};			
+	require("Storage").writeJSON("tpms.json",def);
+}
+//tpms module
+tpms= {
+	euc:{},
+	busy:0,
+	new:0,
+	status:"IDLE",
+	scan:()=>{
+		if (tpms.busy) {print("busy");return;}
+		tpms.busy=1;
+		tpms.new=0;
+		tpms.try=tpms.def.try;
+		tpms.cnt=getTime()|0;
+		tpms.status="SCANNING";
+		tpms.find();
+	},	
+	find:(rp,sl)=>{
+		//if (!this.try && this.status!="SCANNING") this.try=this.def.try
+		NRF.findDevices(function(devices) {
+			let filter = [{services:[ "fbb0" ]}];
+			NRF.filterDevices(devices, filter).forEach(function(device) {
+				//print (device);
+				let mac =device.id.split(" ")[0].split(":");
+				if (mac[1]+mac[2] != "eaca") {;return;}
+				let id=mac[3]+mac[4]+mac[5];
+				if ( tpms.def.allowNew || tpms.def.list[id] ) {
+					if (!tpms.def.list[id]) {
+						tpms.def.list[id]={"hiP":50,"lowP":10};
+						let got=require("Storage").readJSON("tpms.json",1);
+						got.def=tpms.def;
+						require("Storage").writeJSON("tpms.json",got);
+						got=0;
+					}
+					tpms.def.ref=0;
+					let time=getTime()|0;
+					let alrm=0;
+					let dev={};
+					dev={ 
+						"id":id,
+						"pos":mac[0][1],
+						"kpa":((device.manufacturerData[6]|device.manufacturerData[7]<<8|device.manufacturerData[8]<<16|device.manufacturerData[9]<<24)/1000).toFixed(2),
+						"bar":((device.manufacturerData[6]|device.manufacturerData[7]<<8|device.manufacturerData[8]<<16|device.manufacturerData[9]<<24)/100000).toFixed(2),
+						"psi":(((device.manufacturerData[6]|device.manufacturerData[7]<<8|device.manufacturerData[8]<<16|device.manufacturerData[9]<<24)/1000)*0.1450377377).toFixed(2),
+						"temp":((device.manufacturerData[10]|device.manufacturerData[11]<<8|device.manufacturerData[12]<<16|device.manufacturerData[13]<<24)/100).toFixed(2),
+						"batt":device.manufacturerData[14],
+						//"volt":((330-(dev.batt/1.725))/100).toFixed(2),
+						"alrm":device.manufacturerData[15],
+						"time":time,
+					};
+					tpms.new++;
+					//tpms.new.time=time;
+					if (dev.psi<tpms.def.list[id].lowP) {
+						alrm=1;
+						handleInfoEvent({"src":"TPMS","title":id,"body":"LOW PRESSURE."+"  "+dev[tpms.def.metric]+" "+tpms.def.metric+"  "},1);
+					}else if (tpms.def.list[id].hiP <=dev.psi) {
+						alrm=2;
+						handleInfoEvent({"src":"TPMS","title":id,"body":"HI PRESSURE."+"  "+dev[tpms.def.metric]+" "+tpms.def.metric+"  "},1);
+					} else alrm=0;
+					if (euc.state!="OFF") tpms.euc[id]={"time":time,"alrm":alrm,"psi":dev.psi};
+					let log=(require("Storage").readJSON("tpmsLog"+id+".json",1))?require("Storage").readJSON("tpmsLog"+id+".json",1):[];
+					log.unshift(dev);
+					if (10<log.length) log.pop();
+					require("Storage").writeJSON("tpmsLog"+id+".json",log);
+					log=0;
+					dev=0;
+					tpms.def.id=id;
+				}
+			});
+			if (!tpms.new) {
+				if (tpms.try) {
+					tpms.cnt=getTime()|0;
+					tpms.try--;
+					tpms.status="RETRY ("+(tpms.try+1)+")";
+					tpms.find();
+				}else {
+					tpms.busy=0;
+					tpms.status="NOT FOUND";
+					let intT=[5,5,30,60,360];
+					if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
+					if (tpms.def.int||euc.state!="OFF") {
+						tpms.tid=setTimeout(()=>{ 
+							tpms.tid=0;
+							tpms.scan();
+						},intT[tpms.def.int]*60000);
+					}
+				}
+			}else {
+				tpms.status="SUCCESS";
+				tpms.busy=0;
+			}
+		}, tpms.def.wait*1000);
+	}
+};
+//run 
+tpms.def=require("Storage").readJSON("tpms.json",1).def;
+if (tpms.def.int) tpms.scan();
 
->String.fromCharCode.apply(String,new Uint8Array([128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 122, 11, 0, 0, 98, 1]))
-="\x80\xEA\xCA\x116\xED\0\0\0\0z\v\0\0b\1"
-
->String.fromCharCode.apply(String,Uint8Array([2, 1, 5, 3, 3, 176, 251, 19, 255, 0, 1, 128, 234, 202, 17, 54, 237, 0, 0, 0, 0, 122, 11, 0, 0, 98, 1]))
-="\2\1\5\3\3\xB0\xFB\x13\xFF\0\1\x80\xEA\xCA\x116\xED\0\0\0\0z\v\0\0b\1"
-
-
- 
- NRF.requestDevice({ filters: [{ services: ['fbb0'] }] }).then(function(device) { print(device) });
- 
- 
- NRF.findDevices(function(devices) {
-console.log(devices);
-}, 1000);
-
-NRF.findDevices(function(devices) {
-//this.filter = [{serviceData:{"fe95":{}}}];
-//this.filter = [{manufacturer:17224}];  
-//this.filter = [{ namePrefix: 'P8' }];
-//this.filter = [{ name: 'P8b' }];
-this.filter = [{services:[ "fbb0" ]}];
-		NRF.filterDevices(devices, this.filter).forEach(function(entry) {
-			print(entry);
-		});
-		print("done");
-}, 5000);
-
-NRF.requestDevice({ filters: [{ services: ["fbb0"] }] }).then(function(device) { print(device) });
-NRF.requestDevice({ filters: [{ services: ['fbb0'] }] }).then(function(device) { print(device) });
 

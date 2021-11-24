@@ -230,7 +230,7 @@ face[0] = {
 				else  {this.bmin=col("dgray");this.fsec=col("white");this.bsec=col("dgray");}
 			}else {this.bmin=col("dgray");this.fsec=col("white");this.bsec=col("dgray");}
 			this.g.setColor(0,this.bmin);
-			this.g.fillRect(100,55,203,150);
+			this.g.fillRect(96,55,203,150);
 			this.g.setColor(1,this.fmin);
 			this.g.drawString(this.t[1],107,69);
 			this.g.flip();
@@ -249,7 +249,7 @@ face[0] = {
 		//hours
 		if (this.t[0]!=this.hour){
 			this.hour=this.t[0];
-			this.g.setColor(0,col("dgray"));
+			this.g.setColor(0,this.bmin);
 			this.g.fillRect(0,55,95,150);
 			this.g.setColor(1,col("white"));
 			this.g.setFont("Vector",73);
@@ -329,7 +329,11 @@ touchHandler[0]=function(e,x,y){
 	  }else buzzer(40);
 	  
     }else if  (e==1){
-		face.go("main",-1);return;
+		if (global.euc&&euc.state!="OFF")
+			face.go(set.dash[set.def.dash.face],0);
+		else
+			face.go("main",-1);
+		return;
     }else if  (e==2){
 		if (y>160&&x<50) {
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}

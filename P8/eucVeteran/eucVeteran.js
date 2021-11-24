@@ -15,6 +15,7 @@ euc.cmd=function(no){
 		case "clearMeter":return "CLEARMETER";
     }
 };
+euc.proxy=0;
 //start
 euc.wri=function(i) {if (set.def.cli) console.log("not connected yet"); if (i=="end") euc.off(); return;};
 euc.conn=function(mac){
@@ -23,6 +24,13 @@ euc.conn=function(mac){
 		if (set.def.cli) print("ble allready connected"); 
 		if (global["\xFF"].BLE_GATTS.connected) {global["\xFF"].BLE_GATTS.disconnect();return;}
 	}
+	//check if proxy
+	if (mac.includes("private-resolvable")&&!euc.proxy ){
+		let name=require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Name"];
+		NRF.requestDevice({ timeout:2000, filters: [{ namePrefix: name }] }).then(function(device) { euc.proxy=1;euc.conn(device.id);}  ).catch(function(err) {print ("error "+err);euc.conn(euc.mac); });
+		return;
+	}
+	euc.proxy=0;
 	//connect 
 	NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 	.then(function(g) {
@@ -88,10 +96,7 @@ euc.conn=function(mac){
 					a.push(150,500);
 					euc.alert=euc.alert-5;
 				}
-				var i;
-				for (i = 0; i < euc.alert ; i++) {
-					a.push(150,150);
-				}
+				for (let i = 0; i < euc.alert ; i++) a.push(150,150);
 				digitalPulse(D16,0,a);  
 				setTimeout(() => {euc.buzz=0; }, 3000);
 			}

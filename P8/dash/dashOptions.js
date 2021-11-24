@@ -66,7 +66,6 @@ face[0] = {
                 t.ntid=0;
 				t.set=0;
 				if (!t.page){
-					t.btn(1,"EMPTY",15,200,10,col("dgray"),0,160,0,239,75,euc.dash.batE/100,30,200,35); //3
 					t.btn(1,"SPEED X",15,40,90,col("dgray"),0,0,80,75,155,euc.dash.spdF,30,40,120); //4
 					t.btn(1,"DIST X",15,120,90,col("dgray"),0,80,80,155,155,euc.dash.trpF,30,120,120); //5
 					t.btn(1,"RETRY",15,200,90,col("dgray"),0,160,80,239,155,set.def.dash.rtr,30,200,120); //6

@@ -64,6 +64,7 @@ global.euc= {
 				this.state="ON";
 				if (set.def.acc) acc.off();
 				setTimeout(()=>{set.def.dash.accE=1;acc.on(2); },1000);
+				if (euc.dash.tpms&&global.tpms&&!tpms.def.int) {tpms.euc={}; setTimeout(()=>{tpms.scan(); },10000);}//tpms
 				return;
 			}
 		}
@@ -72,6 +73,10 @@ global.euc= {
 
 //init
 if (Boolean(require("Storage").read('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json'))) { 
-euc.dash=require("Storage").readJSON('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json',1);
-}else euc.dash=require("Storage").readJSON("eucSlot.json",1);
+	euc.dash=require("Storage").readJSON('eucSlot'+require("Storage").readJSON("dash.json",1).slot+'.json',1);
+}else 
+	euc.dash=require("Storage").readJSON("eucSlot.json",1);
 set.def.dash.slot=require("Storage").readJSON("dash.json",1).slot;
+//more
+setTimeout(()=>{if (require('Storage').read('tpms')) eval(require('Storage').read('tpms'));},2000);
+

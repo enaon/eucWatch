@@ -188,7 +188,6 @@ euc.conn=function(mac){
 			//haptic
 			if (!euc.buzz && euc.alert) { 
 				if (!w.gfx.isOn&&(euc.dash.spdC||euc.dash.ampC||euc.dash.alrm)) face.go(set.dash[set.def.dash.face],0);
-				//else face.off(6000);
 				euc.buzz=1;
 				if (20 <= euc.alert) euc.alert = 20;
 				var a=[];
@@ -196,10 +195,7 @@ euc.conn=function(mac){
 					a.push(200,500);
 					euc.alert = euc.alert - 5;
 				}
-				let i;
-				for (i = 0; i < euc.alert ; i++) {
-					a.push(200,150);
-				}
+				for (let i = 0; i < euc.alert ; i++) a.push(200,150);
 				digitalPulse(D16,0,a); 
 				setTimeout(() => { euc.buzz = 0; }, 3000);
 			}
@@ -303,7 +299,7 @@ euc.conn=function(mac){
 			}
 		};
 		if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {
-			euc.dash.mac=euc.mac; euc.dash.batF=420;
+			euc.dash.mac=euc.mac; euc.dash.batF=420;euc.dash.batE=320;
 			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 			set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
 		}
@@ -340,7 +336,7 @@ euc.off=function(err){
 			}
 			euc.run=euc.run+1;
 			if (euc.dash.lock==1) buzzer(250);
-			else  buzzer([250,200,250,200,250])
+			else  buzzer([250,200,250,200,250]);
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
 				if (euc.state!="OFF") euc.conn(euc.mac); 
@@ -373,9 +369,5 @@ euc.off=function(err){
 		euc.tmp=0;
 		global["\xFF"].bleHdl=[];
 		NRF.setTxPower(set.def.rfTX);
-		if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
-			if (set.bt===2) console.log("ble still connected"); 
-			global["\xFF"].BLE_GATTS.disconnect();return;
-		}
     }
 };
