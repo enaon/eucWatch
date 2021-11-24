@@ -1,6 +1,6 @@
 [
 	{ "id": "init",
-		"name": "core - P8-P22 A/B/C/C1",
+		"name": "core - MAGIC - ROCK",
 		"icon": "icon.png",
 		"version":"1.00",
 		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
@@ -8,81 +8,22 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":".bootrst","url":"init.js"}
-		]
-	},
-	{ "id": "init_pt",
-		"name": "core - Pinetime",
-		"icon": "icon.png",
-		"version":"1.00",
-		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
-		"tags": "core",
-		"type":"core",
-		"readme": "README.md",
-		"storage": [
-			{"name":".bootrst","url":"init.js"}
-		]
-	},
-	{ "id": "init_r_d",
-		"name": "core - P22 B1/D",
-		"icon": "icon.png",
-		"version":"1.00",
-		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
-		"tags": "core",
-		"type":"core",
-		"readme": "README.md",
-		"storage": [
-			{"name":".bootrst","url":"init.js"}
-		]
-	},
-	{ "id": "init_16",
-		"name": "core - P8 - P22 A/B/C/C1 - 16Bit",
-		"icon": "icon.png",
-		"version":"1.00",
-		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
-		"tags": "core",
-		"type":"core",
-		"readme": "README.md",
-		"storage": [
-			{"name":".bootrst","url":"init.js"}
+			{"name":"C:.bootrst","url":"init.js"}
 		]
 	},
 	{ "id": "handler",
-		"name": "Handler - P8 - P22 A/B/C/C1",
+		"name": "Handler - MAGIC - ROCK",
 		"icon": "icon.png",
 		"version":"1.00",
-		"description": "P8/P22 functions handler",
+		"description": "MAGIC - ROCK functions handler",
 		"tags": "core",
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"handler","url":"handler.js"}
+			{"name":"C:handler","url":"handler.js"}
 		]
 	},  
-	{ "id": "handler_pt",
-		"name": "Handler - Pinetime",
-		"icon": "icon.png",
-		"version":"1.00",
-		"description": "Pinetime functions handler",
-		"tags": "core",
-		"type":"core",
-		"readme": "README.md",
-		"storage": [
-			{"name":"handler","url":"handler.js"}
-		]
-	}, 
-	{ "id": "handler_p22b1",
-		"name": "Handler - P22 B1/D",
-		"icon": "icon.png",
-		"version":"1.00",
-		"description": "P22 B1/D functions handler",
-		"tags": "core",
-		"type":"core",
-		"readme": "README.md",
-		"storage": [
-			{"name":"handler","url":"handler.js"}
-		]
-	}, 
+
 	{ "id": "main",
 		"name": "Clock",
 		"icon": "icon.png",
@@ -91,7 +32,7 @@
 		"tags": "apps",
 		"type":"main",
 		"storage": [
-			{"name":"main","url":"main.js"},
+			{"name":"C:main","url":"main.js"},
 			{"name":"mainOptions","url":"mainOptions.js"}
 		]
 	},  
@@ -104,7 +45,7 @@
 		"type":"main",
 		"readme": "README.md",
 		"storage": [
-			{"name":"settings","url":"settings.js"}
+			{"name":"C:settings","url":"settings.js"}
 		]
 	},
 	{ "id": "alarm",
@@ -159,12 +100,12 @@
 		"tags": "euc",
 		"readme": "README.md",
 		"storage": [
-			{"name":"dash_simple","url":"dash_simple.js"},
-			{"name":"dash_digital","url":"dash_digital.js"},
+			{"name":"C:dash_simple","url":"dash_simple.js"},
+			{"name":"C:dash_digital","url":"dash_digital.js"},
 			{"name":"dashGarage","url":"dashGarage.js"},
 			{"name":"dashAlerts","url":"dashAlerts.js"},
 			{"name":"dashScan","url":"dashScan.js"},
-			{"name":"dashOff","url":"dashOff.js"},
+			{"name":"C:dashOff","url":"dashOff.js"},
 			{"name":"dashOptions","url":"dashOptions.js"}
 		]
 	}, 
