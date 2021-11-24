@@ -474,18 +474,6 @@ var tfk={
 	}
 };
 
-touchHandler= {
-	go:function(e,x,y){
-		touchHandler[face.pageCurr](e,x,y);
-	},
-};
-
-touchHandler= {
-	timeout:x=>{setTimeout(()=>{face.off();},0);},
-	go:function(e,x,y){
-		touchHandler[face.pageCurr](e,x,y);
-	},
-};
 
 tfk.on('touch',touchHandler.go);
 
@@ -496,6 +484,13 @@ tfk.on('touch',touchHandler.go);
 //lala=setInterval(()=>{ 
 //print(i2c.readFrom(0x15,5));
 //},50)
+
+touchHandler= {
+	timeout:x=>{setTimeout(()=>{face.off();},0);},
+	go:function(e,x,y){
+		touchHandler[face.pageCurr](e,x,y);
+	},
+};
 
 
 
