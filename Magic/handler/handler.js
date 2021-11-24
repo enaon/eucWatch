@@ -355,8 +355,9 @@ btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
 var i2c=new I2C();
 i2c.setup({scl:ew.pin.i2c.SCL, sda:ew.pin.i2c.SDA, bitrate:100000});
 
-/*
-set.def.touchtype="816";
+if (set.def.touchtype=="816"){ //816
+
+//set.def.touchtype="816";
 watchTouch=setWatch(function(s){
 	let tp=i2c.readFrom(0x15,7);
 	if (!tp[2] && !tp[3]) return;
@@ -377,7 +378,7 @@ watchTouch=setWatch(function(s){
 },ew.pin.touch.INT,{repeat:true, edge:"rising"}); 
 
 */
-
+else {
 
 var tfk={
 	tid:0,
@@ -445,6 +446,7 @@ var tfk={
 		this.time = 0;
 	}
 };
+}
 //tfk.emit('touch',Date().getHours());cron.event.hour();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate(),Date().getHours()+1,0,1)-Date()));},
 //tfk.emit('touch',(1,2,1));},
 //i2c.writeTo(0x15,254,1);i2c.writeTo(0x15,100)

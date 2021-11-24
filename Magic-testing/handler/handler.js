@@ -1,6 +1,6 @@
 //handler .set={def:{acctype:"sc7a20",touchtype:"716"}}
 //fonts
-//require('Font7x11Numeric7Seg').add(Graphics);
+require('Font7x11Numeric7Seg').add(Graphics);
 //notifications
 var notify={
 	New:0,nIm:0,nInfo:0,nCall:0,nMail:0
@@ -9,15 +9,15 @@ notify.im=(Boolean(require('Storage').read('im.log')))?require('Storage').readJS
 notify.info=(Boolean(require('Storage').read('info.log')))?require('Storage').readJSON('info.log'):[];
 notify.call=(Boolean(require('Storage').read('call.log')))?require('Storage').readJSON('call.log'):[];
 function handleInfoEvent(event) {
-	"ram";
 	notify.nInfo++;
 	notify.New++;
 	let d=(Date()).toString().split(' ');
     let ti=(""+d[4]+" "+d[0]+" "+d[2]);
 	notify.info.unshift("{\"src\":\""+event.src+"\",\"title\":\""+event.title+"\",\"body\":\""+event.body+"\",\"time\":\""+ti+"\"}");
 	if (notify.info.length>10) notify.info.pop();
-	buzzer([80,50,80]);
-	if (set.def.buzz&&!notify.ring&&!disc) {
+	if (set.def.buzz&&!notify.ring) {
+		//digitalPulse(ew.pin.BUZZ,0,[80,50,80]);
+		buzzer(ew.pin.BUZZ,0,[80,50,80]);
 		if (face.appCurr!="main"||face.pageCurr!=0) {
 			face.go("main",0);
 			face.appPrev="main";face.pagePrev=-1;
@@ -35,27 +35,15 @@ var set={
 	boot:getTime(), 
 	dash:[],
 	read:function(file,name){
-		"ram";
 		let got=require("Storage").readJSON([file+".json"],1);
 		if (got==undefined) return false;
-		if (name) {
-			if (require("Storage").readJSON([file+".json"],1)[name])
-			return require("Storage").readJSON([file+".json"],1)[name];
-			else return false;
-		}else return require("Storage").readJSON([file+".json"],1);
+		return require("Storage").readJSON([file+".json"],1)[name];
 	},	
-	write:function(file,name,value,value2,value3){
-		"ram";
+	write:function(file,name,value){
 		let got=require("Storage").readJSON([file+".json"],1);
 		if (got==undefined) got={};
-		if (!value)  delete got[name]; //delete
-		else {
-			if (value2 && got[name] ) 
-				if (value3 || value3==0) got[name][value][value2]=value3;
-				else got[name][value]=value2;
-			else 
-				got[name]=value;
-		}
+		if (!value)  got[name]=0;
+		else got[name]=value;
 		require("Storage").writeJSON([file+".json"],got);
 		return true;
 	},
@@ -104,8 +92,7 @@ var set={
 		buzz:1
 		};
 		set.updateSettings();
-	},	
-	accR:function(){if(!this.def.dash.accE) { if (this.def.acc)acc.on(); else acc.off();}},
+	},
 	accR:function(){if(!this.def.dash.accE) { if (this.def.acc)acc.on(); else acc.off();}},
 	hidM:undefined, //not user settable.
 	clin:0,//not settable
@@ -148,10 +135,8 @@ if (!set.def) {set.resetSettings();set.updateSettings();}
 set.def.touchtype="716";
 if (!set.def.rstP) set.def.rstP="D39";
 if (!set.def.rstR) set.def.rstR=0xA5;
-if (set.def.buzz) buzzer = digitalPulse.bind(null,ew.pin.BUZZ,0);
+if (set.def.buzz) buzzer=digitalPulse;
 else buzzer=function(){return true;};
-
-
 if (!set.def.off) set.def.off={};
 //dash
 require('Storage').list("dash_").forEach(dashfile=>{
@@ -166,7 +151,6 @@ E.setTimeZone(set.def.timezone);
 //nrf
 //set.emuD=0;
 function ccon(l){ 
-	"ram";
 	if (set.def.emuZ) {
 		//if (set.emuD) return;
 		emuZ.cmd(l);
@@ -198,16 +182,7 @@ function bcon() {
 	E.setConsole(null,{force:true});
 	set.bt=1; 
 	if (set.def.cli||set.def.gb||set.def.emuZ) { Bluetooth.on('data',ccon);}
-	setTimeout(()=>{
-    if (set.bt==1){ 
-		if (!set.def.cli) 
-			NRF.disconnect(); 
-		else{ 
-			handleInfoEvent({"src":"DEBUG","title":"RELAY","body":"Relay Connected"});
-			set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
-		}
-	}
-	},5000);
+	setTimeout(()=>{if (set.bt==1) NRF.disconnect();},5000);
 }
 function bdis() {
     Bluetooth.removeListener('data',ccon);
@@ -380,8 +355,8 @@ btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
 var i2c=new I2C();
 i2c.setup({scl:ew.pin.i2c.SCL, sda:ew.pin.i2c.SDA, bitrate:100000});
 
-/*
-set.def.touchtype="816";
+if (set.def.touchtype=="816"){ 
+//set.def.touchtype="816";
 watchTouch=setWatch(function(s){
 	let tp=i2c.readFrom(0x15,7);
 	if (!tp[2] && !tp[3]) return;
@@ -401,10 +376,7 @@ watchTouch=setWatch(function(s){
 	print(tp);
 },ew.pin.touch.INT,{repeat:true, edge:"rising"}); 
 
-*/
-
-
-
+}else {
 
 var tfk={
 	tid:0,
@@ -472,27 +444,18 @@ var tfk={
 		this.time = 0;
 	}
 };
+}
 //tfk.emit('touch',Date().getHours());cron.event.hour();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate(),Date().getHours()+1,0,1)-Date()));},
 //tfk.emit('touch',(1,2,1));},
 //i2c.writeTo(0x15,254,1);i2c.writeTo(0x15,100)
 //lala=setInterval(()=>{ 
 //print(i2c.readFrom(0x15,5));
 //},50)
-
-
 touchHandler= {
 	go:function(e,x,y){
 		touchHandler[face.pageCurr](e,x,y);
 	},
 };
-
-touchHandler= {
-	timeout:x=>{setTimeout(()=>{face.off();},0);},
-	go:function(e,x,y){
-		touchHandler[face.pageCurr](e,x,y);
-	},
-};
-
 tfk.on('touch',touchHandler.go);
 
 //
@@ -515,60 +478,55 @@ set.def.acctype="SC7A20";
 			i2c.writeTo(0x18,0x32,5); //int1_ths-threshold = 250 milli g's
 			i2c.writeTo(0x18,0x33,15); //duration = 1 * 20ms
 			i2c.writeTo(0x18,0x30,0x02); //int1 to xh
-			this.mode=(v)?v:0;
 			this.init(v);
 		},
 		off:function(){
-			if (this.tid){
-				if (this.mode==2) clearInterval(this.tid);
-				else clearWatch(this.tid);
-				this.tid=0;
-			}
+			if (this.loop) { clearInterval(this.loop); this.loop=0;}
+			if (this.tid) {	clearWatch(this.tid);this.tid=0;}
 			i2c.writeTo(0x18,0x20,0x07); //Clear LPen-Enable all axes-Power down
 			i2c.writeTo(0x18,0x26);
 			i2c.readFrom(0x18,1);// Read REFERENCE-Reset filter block 
 			return true;
 		},
 		init:function(v){
-			"ram";
+      "ram";
 			if (v==2) {
 				i2c.writeTo(0x18,0x22,0x00); //ia1 interrupt to INT1
 				i2c.writeTo(0x18,0x30,0x00); //int1 to xh
 				i2c.writeTo(0x18,0x32,5); //int1_ths-threshold = 250 milli g's
 				i2c.writeTo(0x18,0x33,15); //duration = 1 * 20ms
 				if (this.loop) { clearInterval(this.loop); this.loop=0;}
-				this.tid= setInterval(()=>{	
-					"ram";
+				this.loop= setInterval(()=>{	
 					let cor=acc.read();
 					//print (cor.ax,cor.ay,cor.az);
-					if (-200<=cor.ax && cor.ay<=500  && 500<cor.az ) {
+
+					if (-1000<=cor.ax && cor.ax<=0  && cor.az<=-300 ) {
 						if (!w.gfx.isOn&&face.appCurr!=""&&this.up){  
 								face.go(set.dash[set.def.dash.face],0);
-						}else {
-							let tout=set.def.off[face.appCurr];
-							if ( !tout || ( tout &&  tout <= 60000)) 
+						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
+							if (set.tor==1)w.gfx.bri.set(face[0].cbri); 
+							else if ( !set.def.off[face.appCurr] || ( set.def.off[face.appCurr] &&  set.def.off[face.appCurr] <= 60000)) 
 								face.off(1500);
 						}
 						this.up=0;
 					} else this.up=1;
-				},100);
+				},500);
 				return true;
 			}else if (!this.tid) {
 				i2c.writeTo(0x18,0x32,20); //int1_ths-threshold = 250 milli g's
 				i2c.writeTo(0x18,0x33,1); //duration = 1 * 20ms
 				this.tid=setWatch(()=>{
-					"ram";
-					i2c.writeTo(0x18,0x1);
-					if ( 10 < i2c.readFrom(0x18,1)[0] && i2c.readFrom(0x18,1)[0] < 192) {
-						if (!w.gfx.isOn){  
+					//"ram";
+					i2c.writeTo(0x18,1);
+					print(255-i2c.readFrom(0x18,1)[0]);
+					if ( 192 < 255-i2c.readFrom(0x18,1)[0] ) {
+						if (!w.gfx.isOn&&face.appCurr!=""){  
 							if (face.appCurr=="main") face.go("main",0);
 							else face.go(face.appCurr,0);
-						}else  if (set.tor==1)w.gfx.bri.set(face[0].cbri);
-						else face.off(); 
-					} else {
-						let tout=set.def.off[face.appCurr];
-						if ( !tout || ( tout &&  tout <= 60000)) 
-							face.off(500);
+						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
+							if (face.appCurr=="main" && face.pageCurr==2) face.go("main",0);
+							else { if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off(); }
+						} 
 					}
 				},ew.pin.acc.INT,{repeat:true,edge:"rising",debounce:50});
 				return true;
@@ -576,15 +534,18 @@ set.def.acctype="SC7A20";
 		},
 		read:function(){
 			"ram";
+			function conv(lo,hi) { 
+				"ram";
+				var i = (hi<<8)+lo;
+				return ((i & 0x7FFF) - (i & 0x8000))/16;
+			}
 			i2c.writeTo(0x18,0xA8);
 			var a =i2c.readFrom(0x18,6);
-			return {ax:this.conv(a[0],a[1]), ay:this.conv(a[2],a[3]), az:this.conv(a[4],a[5])};
+			print (a[0]+"-"+a[1]+","+a[2]+"-"+a[3]+","+a[4]+"-"+a[5]);
+			//print ( "test got : 1,2,3,4,5,6,7,8: " + ( a[1] << 8 | a[0] ) + " ay: " + ( a[3] << 8 | a[2] ) + " az: " + ( a[5] << 8 | a[4] ) );
+			return {ax:conv(a[0],a[1]), ay:conv(a[2],a[3]), az:conv(a[4],a[5])};
+
 		},
-		conv:function(lo,hi){
-			"ram";
-			let i = (hi<<8)+lo;
-			return ((i & 0x7FFF) - (i & 0x8000))/16;
-		}
 	};	
 
 cron={
@@ -630,16 +591,6 @@ cron={
 		}
 	}
 };
-function col(no){
-		"ram";
-		switch (no) {
-			case "black":return 0;case "white":return 4095;case "lblue":return 1535;case "blue":return 143;case "dblue":return 1375;case "blue1":return 1708;
-			case "raf":return 1629;case "raf1":return 2474;case "raf2":return 1963;case "raf3":return 2220;case "raf4":return 2474;case "raf5":return 3005;
-			case "gray":return 2730;case "lgray":return 3549;case "dgray":return 1365;case "dgray1":return 1351;case "lgreen":return 1525;case "red":return 3840;
-			case "dred":return 3925;case "dred1":return 3888;case "purple":return 3935;case "lyellow":return 4085;case "dyellow":return 4064;case "yellow":return 4080;
-			case "olive":return 170;
-		}
-}
 
 cron.event.hour();
 cron.on('hour',cron.task.euc.hour);
