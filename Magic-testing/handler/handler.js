@@ -383,24 +383,18 @@ i2c.setup({scl:ew.pin.i2c.SCL, sda:ew.pin.i2c.SDA, bitrate:100000});
 if (set.def.touchtype=="816"){ //816
 
 //set.def.touchtype="816";
-watchTouch=setWatch(function(s){
-	let tp=i2c.readFrom(0x15,7);
-	if (!tp[2] && !tp[3]) return;
-	if ((tp[3]==0 ||tp[3] === 128) && tfk.st){
-		tfk.st = 0;
-		tfk.do = 1;
-		tfk.x = tp[4];
-        tfk.y = tp[6];
-		tfk.time=getTime();
-		//return;
-	}
-	tfk.init();
-},ew.pin.touch.INT,{repeat:true, edge:"rising"}); 
-
-watchTouch=setWatch(function(s){
-	let tp=i2c.readFrom(0x15,7);
-	print(tp);
-},ew.pin.touch.INT,{repeat:true, edge:"rising"}); 
+	watchTouch=setWatch(function(s){
+		i2c.writeTo(0x15,0);
+		var tp=i2c.readFrom(0x15,7);
+		//print("touch816 :",tp);
+		if (face.pageCurr>=0) {
+			if (tp[1]== 0 && tp[3]==64) {tp[1]=5; set.def.rstR=0xE5;}
+			if (set.def.rstR==0xE5 && tp[1]== 12 ) tp[6]=tp[6]+25;
+			touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);}
+		else if (tp[1]==1) {
+			face.go(face.appCurr,0);
+		}
+	},ew.pin.touch.INT,{repeat:true, edge:"rising"}); 
 
 }else{
 
