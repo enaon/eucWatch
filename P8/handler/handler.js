@@ -667,7 +667,7 @@ if (set.def.acctype==="BMA421"){
 				i2c.writeTo(0x18,0x32,5); //int1_ths-threshold = 250 milli g's
 				i2c.writeTo(0x18,0x33,15); //duration = 1 * 20ms
 				this.tid= setInterval(()=>{	
-					"ram";
+					//"ram";
 					let cor=acc.read();
 					if (-1000<=cor.ax && cor.ax<=500 && cor.ay<=500 && cor.az<=-300 ) {
 						if (!w.gfx.isOn&&this.up){  
@@ -703,13 +703,13 @@ if (set.def.acctype==="BMA421"){
 			} else return false;
 		},
 		read:function(){
-			"ram";
+			//"ram";
 			i2c.writeTo(0x18,0xA8);
 			var a =i2c.readFrom(0x18,6);
 			return {ax:this.conv(a[0],a[1]), ay:this.conv(a[2],a[3]), az:this.conv(a[4],a[5])};
 		},
 		conv:function(lo,hi){
-			"ram";
+			//"ram";
 			let i = (hi<<8)+lo;
 			return ((i & 0x7FFF) - (i & 0x8000))/16;
 		}
