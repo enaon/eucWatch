@@ -426,7 +426,7 @@ var tfk={
 				this.do=0;
 				//tfk.emit('touch',5,this.x,this.y) ;
 				return setTimeout(function() {touchHandler[face.pageCurr](5,tfk.x+20,tfk.y);},0);
-            }
+			}
 			this.aLast=0;
 			this.st = 1;
 			this.time = 0;
