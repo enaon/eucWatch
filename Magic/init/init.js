@@ -254,7 +254,8 @@ g.on=function(){
   //cmd(0x13); //ST7735_NORON: Set Normal display on, no args, w/delay: 10 ms delay
   //cmd(0x29); //ST7735_DISPON: Set Main screen turn on, no args w/delay: 100 ms delay
   this.isOn=true;
-  this.setBrightness();
+  this.bri.set(this.bri.lv);
+  //this.setBrightness();
 };
 
 
@@ -288,6 +289,10 @@ g.bri={
 	set:function(o){	
 //      print(o);
 	if (o) this.lv=o; else { this.lv++; if (this.lv>7) this.lv=1; o=this.lv; }
+	if (this.lv==0||this.lv==7)
+        digitalWrite(BL,(this.lv==0)?0:1);
+	else 
+        analogWrite(BL,(this.lv*42.666)/256,{freq:60});
 	//digitalWrite([D23,D22,D14],7-o);
     set.def.bri=o;
 	return o;
