@@ -29,7 +29,7 @@ face[0] = {
         this.btn(euc.dash.light,"LIGHT",28,60,35,col("raf"),col("dgray"),0,0,119,97);
 		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("dgray"),122,0,239,97,"ALERTS",22,185,55);		
 		let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
-		this.btn((euc.dash.tpms)?euc.dash.tpms:"TPMS",18,60,115,col((euc.dash.tpms&&tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.tpms].time<1800)?(tpms.euc[euc.dash.tpms].alrm)?"red":"raf":"dgray"),0,100,119,195,(euc.dash.tpms)?(tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].psi)?Math.round(tpms.euc[euc.dash.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.tpms)?32:28,60,150); //3		
+		this.btn(euc.dash.tpms,(euc.dash.tpms)?euc.dash.tpms:"TPMS",18,60,115,col((euc.dash.tpms&&tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.tpms].time<1800)?(tpms.euc[euc.dash.tpms].alrm)?"red":"raf":"dgray"),col("dgray"),0,100,119,195,(euc.dash.tpms)?(tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].psi)?Math.round(tpms.euc[euc.dash.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.tpms)?32:28,60,150); //3				
 		let md={"1":"SOFT","2":"MEDIUM","3":"STRONG"};
         this.btn(1,"RIDE",25,185,115,col("olive"),0,122,100,239,195,md[euc.dash.mode],25,185,155);
 		this.run=true;
@@ -195,15 +195,15 @@ touchHandler[0]=function(e,x,y){
 			buzzer([30,50,30]);
 			if (euc.dash.tpms) {
 				euc.dash.tpms=0;
-				face[0].btn("TPMS",18,60,115,col("dgray"),0,100,119,195,"OFF",28,60,155); //3
-				face[0].ntfy("TPMS DISABLED",col("dgray"));
+				face[0].btn(1,"TPMS",18,60,115,col("dgray"),0,0,100,119,195,"OFF",28,60,155); //3
+				face[0].ntfy("TPMS DISABLED","TPMS ",20,col("dgray"),1);
 				return;
 			}else{
 				if (global.tpms){ 
 					tpms.scan();
 					face.go("tpmsFace",0);
 				}else 
-					face[0].ntfy("NOT INSTALLED",col("red"));
+					face[0].ntfy("NOT INSTALLED","",20,col("red"),1);
 			}
 			return;
 		}else if ( 120<=x && 100<=y ) { //mode

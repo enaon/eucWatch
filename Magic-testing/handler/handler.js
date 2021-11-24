@@ -15,9 +15,8 @@ function handleInfoEvent(event) {
     let ti=(""+d[4]+" "+d[0]+" "+d[2]);
 	notify.info.unshift("{\"src\":\""+event.src+"\",\"title\":\""+event.title+"\",\"body\":\""+event.body+"\",\"time\":\""+ti+"\"}");
 	if (notify.info.length>10) notify.info.pop();
-	if (set.def.buzz&&!notify.ring) {
-		//digitalPulse(ew.pin.BUZZ,0,[80,50,80]);
-		buzzer(ew.pin.BUZZ,0,[80,50,80]);
+	buzzer([80,50,80]);
+	if (set.def.buzz&&!notify.ring&&!disc) {
 		if (face.appCurr!="main"||face.pageCurr!=0) {
 			face.go("main",0);
 			face.appPrev="main";face.pagePrev=-1;
@@ -37,13 +36,23 @@ var set={
 	read:function(file,name){
 		let got=require("Storage").readJSON([file+".json"],1);
 		if (got==undefined) return false;
-		return require("Storage").readJSON([file+".json"],1)[name];
+		if (name) {
+			if (require("Storage").readJSON([file+".json"],1)[name])
+			return require("Storage").readJSON([file+".json"],1)[name];
+			else return false;
+		}else return require("Storage").readJSON([file+".json"],1);
 	},	
-	write:function(file,name,value){
+	write:function(file,name,value,value2,value3){
 		let got=require("Storage").readJSON([file+".json"],1);
 		if (got==undefined) got={};
-		if (!value)  got[name]=0;
-		else got[name]=value;
+		if (!value)  delete got[name]; //delete
+		else {
+			if (value2 && got[name] ) 
+				if (value3 || value3==0) got[name][value][value2]=value3;
+				else got[name][value]=value2;
+			else 
+				got[name]=value;
+		}
 		require("Storage").writeJSON([file+".json"],got);
 		return true;
 	},
@@ -184,7 +193,16 @@ function bcon() {
 	E.setConsole(null,{force:true});
 	set.bt=1; 
 	if (set.def.cli||set.def.gb||set.def.emuZ) { Bluetooth.on('data',ccon);}
-	setTimeout(()=>{if (set.bt==1) NRF.disconnect();},5000);
+	setTimeout(()=>{
+    if (set.bt==1){ 
+		if (!set.def.cli) 
+			NRF.disconnect(); 
+		else{ 
+			handleInfoEvent({"src":"DEBUG","title":"RELAY","body":"Relay Connected"});
+			set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
+		}
+	}
+	},5000);
 }
 function bdis() {
     Bluetooth.removeListener('data',ccon);
@@ -492,18 +510,22 @@ set.def.acctype="SC7A20";
 			i2c.writeTo(0x18,0x32,5); //int1_ths-threshold = 250 milli g's
 			i2c.writeTo(0x18,0x33,15); //duration = 1 * 20ms
 			i2c.writeTo(0x18,0x30,0x02); //int1 to xh
+			this.mode=(v)?v:0;
 			this.init(v);
 		},
 		off:function(){
-			if (this.loop) { clearInterval(this.loop); this.loop=0;}
-			if (this.tid) {	clearWatch(this.tid);this.tid=0;}
+			if (this.tid){
+				if (this.mode==2) clearInterval(this.tid);
+				else clearWatch(this.tid);
+				this.tid=0;
+			}
 			i2c.writeTo(0x18,0x20,0x07); //Clear LPen-Enable all axes-Power down
 			i2c.writeTo(0x18,0x26);
 			i2c.readFrom(0x18,1);// Read REFERENCE-Reset filter block 
 			return true;
 		},
 		init:function(v){
-      "ram";
+			"ram";
 			if (v==2) {
 				i2c.writeTo(0x18,0x22,0x00); //ia1 interrupt to INT1
 				i2c.writeTo(0x18,0x30,0x00); //int1 to xh
@@ -511,34 +533,36 @@ set.def.acctype="SC7A20";
 				i2c.writeTo(0x18,0x33,15); //duration = 1 * 20ms
 				if (this.loop) { clearInterval(this.loop); this.loop=0;}
 				this.loop= setInterval(()=>{	
+					"ram";
 					let cor=acc.read();
 					if (-1000<=cor.ax && cor.ax<=0  && cor.az<=-300 ) {
 						if (!w.gfx.isOn&&face.appCurr!=""&&this.up){  
 								face.go(set.dash[set.def.dash.face],0);
-						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
-							if (set.tor==1)w.gfx.bri.set(face[0].cbri); 
-							else if ( !set.def.off[face.appCurr] || ( set.def.off[face.appCurr] &&  set.def.off[face.appCurr] <= 60000)) 
+						}else {
+							let tout=set.def.off[face.appCurr];
+							if ( !tout || ( tout &&  tout <= 60000)) 
 								face.off(1500);
 						}
 						this.up=0;
 					} else this.up=1;
-				},500);
+				},100);
 				return true;
 			}else if (!this.tid) {
 				i2c.writeTo(0x18,0x32,20); //int1_ths-threshold = 250 milli g's
 				i2c.writeTo(0x18,0x33,1); //duration = 1 * 20ms
 				this.tid=setWatch(()=>{
-					//"ram";
-					i2c.writeTo(0x18,1);
-					print(255-i2c.readFrom(0x18,1)[0]);
-					if ( 192 < 255-i2c.readFrom(0x18,1)[0] ) {
-						if (!w.gfx.isOn&&face.appCurr!=""){  
+					"ram";
+					i2c.writeTo(0x18,0x1);
+					if ( 10 < i2c.readFrom(0x18,1)[0] && i2c.readFrom(0x18,1)[0] < 192) {
+						if (!w.gfx.isOn){  
 							if (face.appCurr=="main") face.go("main",0);
 							else face.go(face.appCurr,0);
-						}else if (w.gfx.isOn&&face.pageCurr!=-1) {
-							if (face.appCurr=="main" && face.pageCurr==2) face.go("main",0);
-							else { if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off(); }
-						} 
+						}else  if (set.tor==1)w.gfx.bri.set(face[0].cbri);
+						else face.off(); 
+					} else {
+						let tout=set.def.off[face.appCurr];
+						if ( !tout || ( tout &&  tout <= 60000)) 
+							face.off(500);
 					}
 				},ew.pin.acc.INT,{repeat:true,edge:"rising",debounce:50});
 				return true;
@@ -546,16 +570,15 @@ set.def.acctype="SC7A20";
 		},
 		read:function(){
 			"ram";
-			function conv(lo,hi) { 
-				var i = (hi<<8)+lo;
-				return ((i & 0x7FFF) - (i & 0x8000))/16;
-			}
 			i2c.writeTo(0x18,0xA8);
 			var a =i2c.readFrom(0x18,6);
-			print (a[0]+"-"+a[1]+","+a[2]+"-"+a[3]+","+a[4]+"-"+a[5]);
-			//print ( "test got : 1,2,3,4,5,6,7,8: " + ( a[1] << 8 | a[0] ) + " ay: " + ( a[3] << 8 | a[2] ) + " az: " + ( a[5] << 8 | a[4] ) );
-			return {ax:conv(a[0],a[1]), ay:conv(a[2],a[3]), az:conv(a[4],a[5])};
+			return {ax:this.conv(a[0],a[1]), ay:this.conv(a[2],a[3]), az:this.conv(a[4],a[5])};
 		},
+		conv:function(lo,hi){
+			"ram";
+			let i = (hi<<8)+lo;
+			return ((i & 0x7FFF) - (i & 0x8000))/16;
+		}
 	};	
 
 cron={

@@ -4,13 +4,20 @@ face[0] = {
 	g:w.gfx,
 	spd:[],
 	init: function(){
-		"ram";
 		if ( euc.day[0] < Date().getHours() && Date().getHours() < euc.day[1] ) euc.night=0; else euc.night=1;
         if (face.appPrev.startsWith("dash_")) {
 			this.g.setColor(0,0);
 			this.g.fillRect(0,51,239,239);
 			this.g.flip();	
 		}else this.g.clear();
+		if (euc.dash.tpms&&!tpms.euc[euc.dash.tpms]){
+			this.g.setColor(0,col("dgray"));
+			this.g.clearRect(0,210,239,239); 
+			this.g.setColor(1,col("lgray"));
+			this.g.setFontVector(18);
+			this.g.drawString("WAITING FOR TPMS",25,220); 
+			this.g.flip();
+		}else this.tpms=-1;
 		this.spdC=[0,col("yellow"),col("red"),col("red")];
 		this.ampC=[col("dgray"),2992,col("red"),col("red")];
 		this.tmpC=[col("dgray"),2992,col("red"),col("red")];
@@ -28,7 +35,6 @@ face[0] = {
 		this.run=true;
 	},
 	show : function(o){
-		"ram";
 		if (!this.run) return;
 		if (euc.state=="READY") {
 			this.g.setColor(0,0);
@@ -41,6 +47,7 @@ face[0] = {
 				this.clkf();
 			if (set.def.dash.batS){	if (this.bat!=euc.dash.bat)	this.batf();}
 			else  if (this.volt!=euc.dash.volt.toFixed(1)) this.vltf();
+			else if (euc.dash.tpms&&tpms.euc[euc.dash.tpms]&&(this.tpms!=tpms.euc[euc.dash.tpms].alrm)) this.tpmsf()
 		} else if (euc.state=="OFF")  {
 			setTimeout(function(){
 				face.go("dashOff",0);
@@ -65,24 +72,24 @@ face[0] = {
 		},100,this);
 	},
 	tmpf: function(){
-		"ram";
 		this.tmp=euc.dash.tmp.toFixed(1);
 		this.g.setColor(0,this.tmpC[euc.dash.tmpC]);
 		this.g.fillRect(0,0,119,50);       
 		this.g.setColor(1,col("white"));
 		this.g.setFontVector(50);
-		let temp=(set.def.dash.farn)?this.tmp*1.8+32:this.tmp;
-		temp=(temp<100)?Number(temp).toFixed(1):Math.round(temp);
-		let size=this.g.stringWidth(temp);
-		this.g.drawString(temp, 0,3); 
-		//this.g.setFontVector(13);
-		//this.g.drawString("o",size-3,2); 
+		let temp=((set.def.dash.farn)?this.tmp*1.8+32:this.tmp).toString().split(".");
+		let size=5+this.g.stringWidth(temp[0]);
+		this.g.drawString(temp[0], 5,3); 
+		if (temp[0]<100) {
+			this.g.setFontVector(35);
+			this.g.drawString("."+temp[1],size,17); 
+			size=size+this.g.stringWidth(temp[1]);
+		}
 		this.g.setFontVector(16);
-		this.g.drawString((set.def.dash.farn)?"°F":"°C",size-1,5); 
+		this.g.drawString((set.def.dash.farn)?"°F":"°C",3+size,5); 
 		this.g.flip();
 	},
 	clkf: function(){
-		"ram";
 		this.time=getTime();
 		this.g.setColor(0,col("dgray"));
 		this.g.fillRect(0,0,119,50);       
@@ -97,7 +104,6 @@ face[0] = {
 		this.g.flip();
 	},
 	batf: function(){
-		"ram";
 		this.bat=euc.dash.bat;
 		this.g.setColor(0,this.batC[euc.dash.batC]);
 		this.g.fillRect(122,0,239,50);
@@ -110,41 +116,53 @@ face[0] = {
 		this.g.flip();
 	},
 	vltf: function(){
-		"ram";
 		this.volt=euc.dash.volt.toFixed(1);
 		this.g.setColor(0,this.batC[euc.dash.batC]);
 		this.g.fillRect(122,0,239,50);
 		this.g.setColor(1,col("white"));
-		this.g.setFontVector((this.volt<100)?50:44);
-		this.g.drawString(this.volt,(this.volt<100)?135:125,3); 
-		this.g.setFontVector(13);
-		//this.g.drawString("V",202,10);
-		//this.g.drawString("VOLT",202,40);
+		let volt=this.volt.toString().split(".");
+		this.g.setFontVector(14);
+		this.g.drawString("V",230,30); 
+		let size=230;
+		if (volt[0]<100) {
+			this.g.setFontVector(35);
+			size=size-this.g.stringWidth("."+volt[1]);
+			this.g.drawString("."+volt[1],size,15); 
+		}
+		this.g.setFontVector(50);
+		this.g.drawString(volt[0], size-this.g.stringWidth(volt[0]),3); 
 		this.g.flip();
 	},
 	spdf: function(){
-		"ram";
 		//"ram";
 		this.spd=Math.round(euc.dash.spd);
 		this.g.setColor(0,(euc.dash.spdC==1)?0:this.spdC[euc.dash.spdC]);
-		this.g.fillRect(0,55,239,220);
+		this.g.fillRect(0,55,239,210);
 		this.g.setColor(1,(euc.dash.spdC==1)?col("yellow"):col("white"));
 		if (100 <= this.spd) {
 			if (120 < this.spd)  this.spd=120;
-			this.g.setFontVector(140);
+			this.g.setFontVector(130);
 		}else 
-			this.g.setFontVector(200);	  
+			this.g.setFontVector(185);	  
 		this.g.drawString(Math.round(this.spd*this.spdF),132-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2),55); 
 		this.g.flip();
 	},
 	ampf: function(){
-		"ram";
-		this.amp=(euc.dash.amp);
+		this.amp=euc.dash.amp;
 		this.g.setColor(0,this.ampC[euc.dash.ampC]);
 		this.g.fillRect(80,0,160,55); //amp 
 		this.g.setColor(1,col("white"));
 		this.g.setFontVector(33);
 		this.g.drawString(this.amp|0,(122-(this.g.stringWidth(this.amp|0)/2)),5); 
+		this.g.flip();
+	},
+	tpmsf: function(){
+		this.tpms=tpms.euc[euc.dash.tpms].alrm
+		this.g.setColor(0,col((this.tpms)?"red":"raf"));
+		this.g.clearRect(0,210,239,239); //amp 
+		this.g.setColor(1,col("lblue"));
+		this.g.setFontVector(25);
+		this.g.drawString("TPMS",85,215); 
 		this.g.flip();
 	},
 	tid:-1,
@@ -180,7 +198,6 @@ face[1] = {
 
 //touch-main
 touchHandler[0]=function(e,x,y){
-	"ram";
 	switch (e) {
 	case 5: //tap event
 		if (x < 120 && y < 60){//temp/clock

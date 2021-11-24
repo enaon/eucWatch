@@ -8,7 +8,6 @@ euc.tmp={};
 //commands
 euc.wri=function(i) {if (set.def.cli) console.log("not connected yet"); if (i=="end") euc.off(); return;};
 euc.cmd=function(no){
-	"ram";
 	switch (no) {
 		case "model":return [0xAA,0x55,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x9B,0x14,0x5A,0x5A]; 
 		case "serial":return [0xAA,0x55,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x63,0x14,0x5A,0x5A]; 
@@ -46,7 +45,7 @@ euc.cmd=function(no){
 };
 
 euc.tmp.one=function(inpk){
-  "ram";
+  //"ram";
 	//speed
 	euc.dash.spd=(inpk[5] << 8 | inpk[4])/100; 
 	euc.dash.spdC = ( euc.dash.spd1 <= euc.dash.spd )? 2 : ( euc.dash.spd2 <= euc.dash.spd )? 1 : 0 ;	
@@ -63,7 +62,6 @@ euc.tmp.one=function(inpk){
 	if (euc.dash.hapA && euc.dash.ampC==2) {
 		if (euc.dash.ampH<=euc.dash.amp)	euc.alert =  euc.alert + 1 + Math.round( (euc.dash.amp - euc.dash.ampH) / euc.dash.ampS) ;
 		else euc.alert =  euc.alert + 1 + Math.round(-(euc.dash.amp - euc.dash.ampL) / euc.dash.ampS) ;
-		if (euc.dash.tpms&&!tpms.def.int&&(getTime()|0)-tpms.euc[euc.dash.tpms].time > 300) tpms.scan();//tpms
 	}
 	//volt
 	euc.dash.volt=(inpk[3] << 8 | inpk[2])/100;
@@ -104,7 +102,6 @@ euc.tmp.one=function(inpk){
 					
 };
 euc.tmp.two=function(inpk){
-	"ram";
 	euc.dash.trpL=((inpk[2] << 16) + (inpk[3] << 24) + inpk[4] + (inpk[5] << 8)) / 1000;
 	euc.dash.time=Math.round((inpk[7] << 8 | inpk[6])/60);
 	euc.dash.spdM=Math.round((inpk[9] << 8 | inpk[8])/100) ;
@@ -112,7 +109,6 @@ euc.tmp.two=function(inpk){
 					
 };
 euc.tmp.thre=function(inpk){
-	"ram";
 	euc.dash.spdL=(inpk[3] << 8 | inpk[2])/100;
 	euc.dash.alrm=(euc.dash.spdL < euc.dash.spdT && euc.dash.spdL-5 < euc.dash.spd)?1:0;
 	almL.unshift(euc.dash.alrm);
@@ -121,7 +117,6 @@ euc.tmp.thre=function(inpk){
 	if (euc.dash.alrm) euc.alert=20;
 };
 euc.tmp.four=function(inpk){
-	"ram";
 	//console.log("model");
 	if (!euc.dash.name) {
 		euc.dash.model=String.fromCharCode.apply(String,inpk.slice(2,11));
@@ -138,7 +133,6 @@ euc.tmp.four=function(inpk){
 };	
 //start
 euc.conn=function(mac){
-	"ram";
 	if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
 		if (set.def.cli) console.log("ble allready connected"); 
 		global["\xFF"].BLE_GATTS.disconnect();return;
@@ -193,7 +187,7 @@ euc.conn=function(mac){
 			}
 			//haptic
 			if (!euc.buzz && euc.alert) { 
-				if (!w.gfx.isOn&&(euc.dash.spdC||euc.dash.ampC||euc.dash.alrm||(euc.dash.tpms&&tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].alrm))) face.go(set.dash[set.def.dash.face],0);
+				if (!w.gfx.isOn&&(euc.dash.spdC||euc.dash.ampC||euc.dash.alrm)) face.go(set.dash[set.def.dash.face],0);
 				euc.buzz=1;
 				if (20 <= euc.alert) euc.alert = 20;
 				var a=[];
@@ -215,7 +209,6 @@ euc.conn=function(mac){
 	}).then(function(c) {
 		if (set.def.cli) console.log("EUC Kingsong connected"); 
 		euc.wri= function(n) {
-			"ram";
 			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},100);return;} 
 			euc.busy=setTimeout(()=>{euc.busy=0;},1000);
 			//if (n=="end") c.stopNotifications();
@@ -330,7 +323,6 @@ euc.conn=function(mac){
 };
 //catch
 euc.off=function(err){
-	"ram";
 	if (euc.reconnect) {clearTimeout(euc.reconnect); euc.reconnect=0;}
 	if (euc.state!="OFF") {
 		euc.seq=1;
