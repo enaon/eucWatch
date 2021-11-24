@@ -145,7 +145,7 @@ var set={
 
 set.def = require('Storage').readJSON('setting.json', 1);
 if (!set.def) {set.resetSettings();set.updateSettings();}
-set.def.touchtype="716";
+//set.def.touchtype="716";
 if (!set.def.rstP) set.def.rstP="D39";
 if (!set.def.rstR) set.def.rstR=0xA5;
 if (set.def.buzz) buzzer = digitalPulse.bind(null,ew.pin.BUZZ,0);
@@ -473,14 +473,6 @@ var tfk={
 		this.time = 0;
 	}
 };
-}
-//tfk.emit('touch',Date().getHours());cron.event.hour();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate(),Date().getHours()+1,0,1)-Date()));},
-//tfk.emit('touch',(1,2,1));},
-//i2c.writeTo(0x15,254,1);i2c.writeTo(0x15,100)
-//lala=setInterval(()=>{ 
-//print(i2c.readFrom(0x15,5));
-//},50)
-
 
 touchHandler= {
 	go:function(e,x,y){
@@ -496,6 +488,16 @@ touchHandler= {
 };
 
 tfk.on('touch',touchHandler.go);
+
+}
+//tfk.emit('touch',Date().getHours());cron.event.hour();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate(),Date().getHours()+1,0,1)-Date()));},
+//tfk.emit('touch',(1,2,1));},
+//i2c.writeTo(0x15,254,1);i2c.writeTo(0x15,100)
+//lala=setInterval(()=>{ 
+//print(i2c.readFrom(0x15,5));
+//},50)
+
+
 
 //
 set.def.acctype="SC7A20";
