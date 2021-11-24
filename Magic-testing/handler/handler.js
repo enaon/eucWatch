@@ -401,7 +401,6 @@ var tfk={
 				this.x = ((tp[3]&0x0F)<<8)|tp[4];
 				this.y =((tp[5]&0x0F)<<8)|tp[6];
 				this.time=getTime();
-				print("start");
 				//return;
 			}	
 			if ( this.do && getTime() - this.time > 1 && tp[2]==1 ) { 
@@ -416,7 +415,6 @@ var tfk={
 				if ( a != 0 && this.aLast != a ) {
 					this.aLast=a;
 					this.do=0;
-					print("A",a);
 					return setTimeout(function() {	touchHandler[face.pageCurr](a,tfk.x+20,tfk.y);},0);
 				}
 				return;
