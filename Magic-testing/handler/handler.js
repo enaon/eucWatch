@@ -380,6 +380,9 @@ watchTouch=setWatch(function(s){
 
 */
 
+
+
+
 var tfk={
 	tid:0,
 	x:0,
@@ -390,31 +393,33 @@ var tfk={
 	init:function(){
 		"ram";
 		var tp=i2c.readFrom(0x15,7);
-		if ( tp[3] == 64 && this.st ) return;
+		if ( tp == Uint8Array(7) || (tp[3] == 64 && this.st)  ) return;
 		if (  tp[3] === 0 || tp[3] === 128) {
 			if (tp[2]==1 && this.st  ) {
 				this.st = 0;
 				this.do = 1;
-				this.x = tp[4];
-                this.y = tp[6];
+				this.x = ((tp[3]&0x0F)<<8)|tp[4];
+                this.y =((tp[5]&0x0F)<<8)|tp[6];
 				this.time=getTime();
-				return;
+				print("start");
+				//return;
 			}	
 			if ( this.do && getTime() - this.time > 1 && tp[2]==1 ) { 
 				this.do = 0 ;
 				return setTimeout(function() {touchHandler[face.pageCurr](12,tfk.x,tfk.y);},0);
 			}else if ( this.do&&tp[2]==1) {
 				var a=0;
-				//print("gest");
-				if (tp[6]>=this.y+45) a = 1;
-				else if (tp[6]<=this.y-45) a = 2;
-				else if (tp[4]<=this.x-35) a = 3;
-				else if (tp[4]>=this.x+35) a = 4;
+				if ((((tp[5]&0x0F)<<8)|tp[6])>=this.y+10) a = 1;
+				else if ((((tp[5]&0x0F)<<8)|tp[6])<=this.y-10) a = 2;
+				else if ((((tp[3]&0x0F)<<8)|tp[4])<=this.x-10) a = 3;
+				else if ((((tp[3]&0x0F)<<8)|tp[4])>=this.x+10) a = 4;
 				if ( a != 0 && this.aLast != a ) {
                     this.aLast=a;
 					this.do=0;
+					print("A",a);
 					return setTimeout(function() {	touchHandler[face.pageCurr](a,tfk.x,tfk.y);},0);
 				}
+				return;
 			}
 		}else if ( tp[3] == 64 && !this.st ) {
 			if (this.do===1){
@@ -428,6 +433,7 @@ var tfk={
 		}
 	},
 	start:function(){ 
+		"ram";
 		if (this.tid) clearInterval(this.tid);
 		digitalPulse(set.def.rstP,1,[10,50]); //touch wake
 		i2c.writeTo(0x15,0);
@@ -437,6 +443,7 @@ var tfk={
 		},this.loop);
 	},
 	exit:function(){
+		"ram";
 		if (this.tid) clearInterval(this.tid);this.tid=0;
 	    digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xA5,3);},100);
 		this.aLast=0;
@@ -450,6 +457,8 @@ var tfk={
 //lala=setInterval(()=>{ 
 //print(i2c.readFrom(0x15,5));
 //},50)
+
+
 touchHandler= {
 	go:function(e,x,y){
 		touchHandler[face.pageCurr](e,x,y);
@@ -540,7 +549,6 @@ set.def.acctype="SC7A20";
 		read:function(){
 			"ram";
 			function conv(lo,hi) { 
-				"ram";
 				var i = (hi<<8)+lo;
 				return ((i & 0x7FFF) - (i & 0x8000))/16;
 			}
