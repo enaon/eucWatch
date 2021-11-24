@@ -4,7 +4,6 @@ face[0] = {
 	g:w.gfx,
 	spd:[],
 	init: function(){
-		"ram";
 		this.log=require("Storage").readJSON("logDaySlot"+set.def.dash.slot+".json",1);
 		if (!euc.dash.maker||!set.def.dash.slot||!this.log) {face.go((face.appPrev=="dashGarage")?"main":"dashGarage",0);return;}
 		this.rowL=0;
@@ -25,7 +24,6 @@ face[0] = {
 		this.id[this.ref]="Now";
 	},
 	show : function(o){
-		"ram";
 		if (!this.run) return;
   		//refresh 
 		this.tid=setTimeout(function(t){
@@ -34,7 +32,6 @@ face[0] = {
 		},150,this);
 	},
 	sc:function(){
-		"ram";
 	 		this.totD=0;
 			this.scale=0;
 			for (let i = 0; i < this.len; i++) {
@@ -47,7 +44,6 @@ face[0] = {
 			return this.scale;
 	},
 	lg: function(){
-		"ram";
 		this.g.setColor(0,0);
 		this.g.fillRect(0,176,239,239);
 		this.g.setColor(1,col("lblue"));
@@ -61,7 +57,6 @@ face[0] = {
 		this.g.flip(); 
     },
     btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
-		"ram";
 		this.g.setColor(0,(bt)?clr1:clr0);
 		this.g.fillRect(rx1,ry1,rx2,ry2);
 		this.g.setColor(1,col("white"));
@@ -107,7 +102,6 @@ face[0] = {
 		this.g.flip();
     },
 	ntfy: function(txt1,txt0,size,clr,bt){
-		"ram";
 		this.g.setColor(0,clr);
 		this.g.fillRect(0,180,239,239);
 		this.g.setColor(1,col("white"));
@@ -126,7 +120,6 @@ face[0] = {
 		},1000,this);
     },
 	comf: function(num){
-		"ram";
       var parts = (''+(num<0?-num:num)).split("."), s=parts[0], L, i=L= s.length, o='';
       while(i--){ o = (i===0?'':((L-i)%3?'':',')) 
         +s.charAt(i) +o; }
@@ -135,7 +128,6 @@ face[0] = {
 	tid:-1,
 	run:false,
 	clear : function(){
-		"ram";
 		this.run=false;
 		if (this.tid>=0) clearTimeout(this.tid);
 		this.tid=-1;
@@ -166,7 +158,6 @@ face[1] = {
 
 //touch-main
 touchHandler[0]=function(e,x,y){
-	"ram";
 	switch (e) {
 	case 5: //tap event
 		if (50 < y) {

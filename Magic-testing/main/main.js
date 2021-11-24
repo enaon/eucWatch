@@ -3,7 +3,6 @@ face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
 	g:w.gfx,
 	init: function(){
-		"ram";
 		this.g.clear();
 		this.startTime=getTime();
 		this.v=w.batt(1);
@@ -29,7 +28,6 @@ face[0] = {
 		this.batt=-1;
 	},
 	show : function(){
-		"ram";
 		if (!this.run) return;
 		//time
 		this.time();
@@ -139,7 +137,6 @@ face[0] = {
 		},200,this);
 	},
 	widg:function(){
-		"ram";
 		//push-(wip)   
 		if (notify.ring){
 		if (this.ring!=notify.ring){
@@ -218,7 +215,6 @@ face[0] = {
 		}
 	},
 	time:function(){
-		"ram";
 		//minutes
 		this.d=(Date()).toString().split(' ');
 		this.t=(this.d[4]).toString().split(':');
@@ -305,7 +301,6 @@ face[1] = {
 
 //touch
 touchHandler[0]=function(e,x,y){
-	"ram";
     var p=D16;
     if (e==5){
 	  if (x<158 && y<50){//date

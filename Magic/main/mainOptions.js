@@ -20,7 +20,6 @@ face[0] = {
 		//this.run=true;
 	},
 	show : function(i){
-		"ram";
 		if (!this.run) return; 
 		if (!i) {
 			//let h=Date().getHours();
@@ -41,7 +40,6 @@ face[0] = {
        // },1000,this);
 	},
     btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
-			"ram";
 			this.g.setColor((bt)?clr1:clr0);
 			this.g.fillRect(rx1,ry1,rx2,ry2);
 			this.g.setColor(15);
@@ -52,7 +50,6 @@ face[0] = {
 			this.g.flip();
     },
     ntfy: function(txt0,txt1,size,bt,col,tm,s){
-			"ram";
 			if (this.ntid) {clearTimeout(this.ntid); this.ntid=0;}
             this.g.setColor(col);
 			this.g.fillRect(0,160,239,239);
@@ -75,7 +72,6 @@ face[0] = {
 			},tm,this);
     },
 	info: function(){
-		"ram";
 		let s=(getTime()-set.boot)|0;
 		let d=0;
 		let h=0;
@@ -111,7 +107,6 @@ face[0] = {
 		this.g.flip();		
 	},
 	setTime:function(){
-		"ram";
 		//minutes
 		this.d=(Date()).toString().split(' ');
 		this.t=(this.d[4]).toString().split(':');
@@ -168,7 +163,6 @@ face[0] = {
         },1000,this);
 	},
 	setDate:function(){
-		"ram";
 		this.g.setColor(0);
 		this.g.fillRect(0,0,239,54);
 		this.g.flip();		
@@ -220,7 +214,6 @@ face[1] = {
 };	
 //touch
 touchHandler[0]=function(e,x,y){ 
-	"ram";
 	switch (e) {
 	case 5: //tap event
 		if (face[0].set) { 

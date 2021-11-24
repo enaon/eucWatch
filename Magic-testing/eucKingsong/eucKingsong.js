@@ -215,6 +215,7 @@ euc.conn=function(mac){
 	}).then(function(c) {
 		if (set.def.cli) console.log("EUC Kingsong connected"); 
 		euc.wri= function(n) {
+			"ram";
 			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},100);return;} 
 			euc.busy=setTimeout(()=>{euc.busy=0;},1000);
 			//if (n=="end") c.stopNotifications();

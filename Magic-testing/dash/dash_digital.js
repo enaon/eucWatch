@@ -4,7 +4,6 @@ face[0] = {
 	g:w.gfx,
 	spd:[],
 	init: function(){
-		"ram";
 		if ( euc.day[0] < Date().getHours() && Date().getHours() < euc.day[1] ) euc.night=0; else euc.night=1;
         if (face.appPrev.startsWith("dash_")) {
 			this.g.setColor(0,0);
@@ -38,7 +37,6 @@ face[0] = {
 		this.run=true;
 	},
 	show : function(o){
-		"ram";
 		if (!this.run) return;
 		if (euc.state=="READY") {
 			this.g.setColor(0,0);
@@ -138,7 +136,6 @@ face[0] = {
 		this.g.flip();
 	},
 	ampF: function(){
-		"ram";
 		this.amp=Math.round(euc.dash.amp);
 		this.g.setColor(0,this.ampC[euc.dash.ampC]);
 		this.g.fillRect(0,53,40,112);
@@ -150,7 +147,6 @@ face[0] = {
 		this.g.flip();
 	},
 	tmpF: function(){
-		"ram";
 		this.tmp=Math.round(euc.dash.tmp);
 		this.g.setColor(0,this.tmpC[euc.dash.tmpC]);
 		this.g.fillRect(0,53,40,112);
@@ -164,7 +160,6 @@ face[0] = {
 		this.g.flip();
 	},
 	buzF: function(){
-		"ram";
 		this.buzz=euc.buzz;
 		this.g.setFontVector(35);
 		this.g.setColor(0,(this.buzz)?col("red"):col("dgray"));
@@ -174,7 +169,6 @@ face[0] = {
 		this.g.flip();
 	},
 	spMF: function(){
-		"ram";
 		this.spdM=euc.dash.spdM.toFixed(1);
 		this.g.setColor(0,col("dgray"));
 		this.g.fillRect(200,53,239,112); 
@@ -186,7 +180,6 @@ face[0] = {
 		this.g.flip();
 	},	
 	spLF: function(){
-		"ram";
 		this.spdL=euc.dash.spdL;
 		this.g.setColor(0,(euc.dash.lim[3]<=this.spdL)?col("dgray"):col("red"));	
 		this.g.fillRect(200,115,239,173); 
@@ -198,7 +191,6 @@ face[0] = {
 		this.g.flip();
 	},	
 	alrF: function(){
-		"ram";
 		this.alrm=euc.dash.alrm;
 		this.g.setColor(0,col("dgray"));
 		this.g.fillRect(200,115,239,173); 
@@ -208,7 +200,6 @@ face[0] = {
 		this.g.flip();
 	},	
 	tmFF: function(){
-		"ram";
 		this.tmp=euc.dash.tmp.toFixed(1);
 		this.g.setColor(0,this.tmpC[euc.dash.tmpC]);
 		this.g.fillRect(0,0,119,50);       
@@ -225,7 +216,6 @@ face[0] = {
 		this.g.flip();
 	},	
 	amLF: function(){
-		"ram";
 		this.ampL.set(ampL);
 		this.g.setColor(1,(1<euc.dash.ampC)?col("red"):col("dgray"));
 		this.g.fillRect(0,0,119,50);       
@@ -239,7 +229,6 @@ face[0] = {
 		this.g.flip();
 	},	
 	pwrF: function(){
-		"ram";
 		this.g.setColor(0,col("dgray"));
 		//this.g.setColor(0,col("red"));
 		this.g.fillRect(0,176,239,197); 
@@ -251,7 +240,6 @@ face[0] = {
 		w.gfx.flip();
 	},
 	vltF: function(){
-		"ram";
 		this.volt=euc.dash.volt.toFixed(2);
 		this.g.setColor(0,this.batC[euc.dash.batC]);
 		this.g.fillRect(122,0,239,50);
@@ -263,7 +251,6 @@ face[0] = {
 		this.g.flip();
 	},	
 	batF: function(){
-		"ram";
 		this.bat=euc.dash.bat;
 		this.g.setColor(0,this.batC[euc.dash.batC]);
 		this.g.fillRect(122,0,239,50);
@@ -275,7 +262,6 @@ face[0] = {
 		this.g.flip();
 	},
 	baLF: function(){
-		"ram";
 		this.batL.set(batL);
 		this.g.setColor(0,this.batC[euc.dash.batC]);
 		this.g.fillRect(122,0,239,50);       
@@ -290,7 +276,6 @@ face[0] = {
 		this.g.flip();
 	},	
 	mileage: function(){
-		"ram";
 		this.trpL=euc.dash.trpL.toFixed(2);
 		this.g.setColor(0,0);
 		this.g.fillRect(0,203,239,239);
@@ -308,7 +293,6 @@ face[0] = {
 		this.g.flip();
 	},
 	barF: function(){
-		"ram";
 		this.g.setColor(1,col("dgray"));
 		this.g.fillRect(0,176,239,197); //mileage
 		this.g.setColor(0,col("white"));
@@ -359,7 +343,6 @@ face[1] = {
 
 //touch-main
 touchHandler[0]=function(e,x,y){
-	"ram";
 	switch (e) {
 	case 5: //tap event	
 		if (120<x&&y<55){//batery percentage/voltage
