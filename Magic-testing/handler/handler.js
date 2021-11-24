@@ -427,9 +427,9 @@ var tfk={
 				//tfk.emit('touch',5,this.x,this.y) ;
 				return setTimeout(function() {touchHandler[face.pageCurr](5,tfk.x+20,tfk.y);},0);
             }
-            this.aLast=0;
+			this.aLast=0;
 			this.st = 1;
-            this.time = 0;
+			this.time = 0;
 		}
 	},
 	start:function(){ 
@@ -445,7 +445,7 @@ var tfk={
 	exit:function(){
 		"ram";
 		if (this.tid) clearInterval(this.tid);this.tid=0;
-	    digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xA5,3);},100);
+		digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xA5,3);},100);
 		this.aLast=0;
 		this.st = 1;
 		this.time = 0;
