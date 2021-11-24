@@ -376,10 +376,17 @@ function buttonHandler(s){
 }
 btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
 //touch controller
+touchHandler= {
+	timeout:x=>{setTimeout(()=>{face.off();},0);},
+	go:function(e,x,y){
+		touchHandler[face.pageCurr](e,x,y);
+	},
+};
+
+
 //var i2c=I2C1;
 var i2c=new I2C();
 i2c.setup({scl:ew.pin.i2c.SCL, sda:ew.pin.i2c.SDA, bitrate:100000});
-
 if (set.def.touchtype=="816"){ //816
 
 //set.def.touchtype="816";
@@ -478,15 +485,6 @@ tfk.on('touch',touchHandler.go);
 //lala=setInterval(()=>{ 
 //print(i2c.readFrom(0x15,5));
 //},50)
-
-touchHandler= {
-	timeout:x=>{setTimeout(()=>{face.off();},0);},
-	go:function(e,x,y){
-		touchHandler[face.pageCurr](e,x,y);
-	},
-};
-
-
 
 //
 set.def.acctype="SC7A20";
