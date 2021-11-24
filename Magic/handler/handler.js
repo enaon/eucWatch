@@ -400,25 +400,25 @@ var tfk={
 			}	
 			if ( this.do && getTime() - this.time > 1 && tp[2]==1 ) { 
 				this.do = 0 ;
-				return setTimeout(function() {touchHandler[face.pageCurr](12,tfk.x,tfk.y);},0);
+				return setTimeout(function() {touchHandler[face.pageCurr](12,tfk.x+20,tfk.y);},0);
 			}else if ( this.do&&tp[2]==1) {
 				var a=0;
 				//print("gest");
-				if (tp[6]>=this.y+45) a = 1;
-				else if (tp[6]<=this.y-45) a = 2;
-				else if (tp[4]<=this.x-35) a = 3;
-				else if (tp[4]>=this.x+35) a = 4;
+				if (tp[6]>=this.y+10) a = 1;
+				else if (tp[6]<=this.y-10) a = 2;
+				else if (tp[4]<=this.x-10) a = 3;
+				else if (tp[4]>=this.x+10) a = 4;
 				if ( a != 0 && this.aLast != a ) {
                     this.aLast=a;
 					this.do=0;
-					return setTimeout(function() {	touchHandler[face.pageCurr](a,tfk.x,tfk.y);},0);
+					return setTimeout(function() {	touchHandler[face.pageCurr](a,tfk.x+20,tfk.y);},0);
 				}
 			}
 		}else if ( tp[3] == 64 && !this.st ) {
 			if (this.do===1){
 				this.do=0;
 				//tfk.emit('touch',5,this.x,this.y) ;
-				return setTimeout(function() {touchHandler[face.pageCurr](5,tfk.x,tfk.y);},0);
+				return setTimeout(function() {touchHandler[face.pageCurr](5,tfk.x+20,tfk.y);},0);
             }
             this.aLast=0;
 			this.st = 1;
@@ -495,6 +495,8 @@ set.def.acctype="SC7A20";
 				if (this.loop) { clearInterval(this.loop); this.loop=0;}
 				this.loop= setInterval(()=>{	
 					let cor=acc.read();
+					//print (cor.ax,cor.ay,cor.az);
+
 					if (-1000<=cor.ax && cor.ax<=0  && cor.az<=-300 ) {
 						if (!w.gfx.isOn&&face.appCurr!=""&&this.up){  
 								face.go(set.dash[set.def.dash.face],0);
@@ -539,6 +541,7 @@ set.def.acctype="SC7A20";
 			print (a[0]+"-"+a[1]+","+a[2]+"-"+a[3]+","+a[4]+"-"+a[5]);
 			//print ( "test got : 1,2,3,4,5,6,7,8: " + ( a[1] << 8 | a[0] ) + " ay: " + ( a[3] << 8 | a[2] ) + " az: " + ( a[5] << 8 | a[4] ) );
 			return {ax:conv(a[0],a[1]), ay:conv(a[2],a[3]), az:conv(a[4],a[5])};
+
 		},
 	};	
 

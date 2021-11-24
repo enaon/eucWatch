@@ -424,7 +424,7 @@ var tfk={
 				this.x = ((tp[3]&0x0F)<<8)|tp[4];
 				this.y =((tp[5]&0x0F)<<8)|tp[6];
 				this.time=getTime();
-				//return;
+				return;
 			}	
 			if ( this.do && getTime() - this.time > 1 && tp[2]==1 ) { 
 				this.do = 0 ;
@@ -537,10 +537,11 @@ set.def.acctype="SC7A20";
 				i2c.writeTo(0x18,0x32,5); //int1_ths-threshold = 250 milli g's
 				i2c.writeTo(0x18,0x33,15); //duration = 1 * 20ms
 				if (this.loop) { clearInterval(this.loop); this.loop=0;}
-				this.loop= setInterval(()=>{	
+				this.tid= setInterval(()=>{	
 					"ram";
 					let cor=acc.read();
-					if (-1000<=cor.ax && cor.ax<=0  && cor.az<=-300 ) {
+					//print (cor.ax,cor.ay,cor.az);
+					if (-200<=cor.ax && cor.ay<=500  && 500<cor.az ) {
 						if (!w.gfx.isOn&&face.appCurr!=""&&this.up){  
 								face.go(set.dash[set.def.dash.face],0);
 						}else {
