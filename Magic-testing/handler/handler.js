@@ -382,7 +382,7 @@ touchHandler= {
 		touchHandler[face.pageCurr](e,x,y);
 	},
 };
-
+if (!set.def.touchtype) set.def.touchtype="716";
 
 //var i2c=I2C1;
 var i2c=new I2C();
