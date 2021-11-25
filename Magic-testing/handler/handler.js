@@ -106,7 +106,6 @@ var set={
 		set.updateSettings();
 	},	
 	accR:function(){if(!this.def.dash.accE) { if (this.def.acc)acc.on(); else acc.off();}},
-	accR:function(){if(!this.def.dash.accE) { if (this.def.acc)acc.on(); else acc.off();}},
 	hidM:undefined, //not user settable.
 	clin:0,//not settable
 	upd:function(){ //run this for settings changes to take effect.
@@ -255,14 +254,14 @@ var face={
 				if (this.appCurr==="main") {
 					if (face[c].off) {
 						if (set.def.touchtype=="716") tfk.exit();	
-						else {digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100)}; 
+						else {digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100);} 
 						face[c].off();this.pageCurr=-1;face.pagePrev=c;
 					}
 				}else face.go(this.appCurr,1);
 			}else if (face.appPrev=="off") {
 				if (face[c].off) {
 					if (set.def.touchtype=="716") tfk.exit();	
-				else {digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100)}; 
+				else {digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100);} 
 					face.go("main",-1);face.pagePrev=c;
 				}
 			}else if (c>1) face.go(this.appCurr,0);
@@ -304,7 +303,8 @@ var face={
 		face[page].init(arg);	
 		if(!w.gfx.isOn) {
 			if (set.def.touchtype=="716") tfk.start();
-			else digitalPulse(set.def.rstP,1,[5,50]);
+			else digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0xFA,0X11);},100);
+
 			w.gfx.on();
 		}
 		face[page].show(arg);
@@ -325,9 +325,9 @@ setWatch(function(s){
 	}
 	if (face.pageCurr<0|| face.batt){
 		//g.clear();
-		g.setColor((set.ondc)?4:1);
-		g.fillRect(0,0,240,280);
-		g.setColor(14);
+		g.setColor(0,(set.ondc)?col("raf"):col("dgray"));
+		g.fillRect(0,0,240,240);
+		g.setColor(1,col("lblue"));
 		let img = require("heatshrink").decompress(atob("wGAwJC/AA0D///4APLh4PB+AP/B/N/BoIAD/gPHBwv//wPO/4PH+F8gEHXwN8h4PIKgwP/B/4P/B/4PbgQPOg4POh+AB7sfB50/H5wPPv4PO/4PdgIPP94PNgfPB5sHB5+PB5sPB50fBgQPLjwPOn0OB5t8jwPNvAPO/APNgPwB53gB5sDB5/AB5sHwAPNh+Aj//4APLYAIPMj4POnwhBB5k8AgJSBB5V8LoQPL/BtDB5TRCKQIPJZwIEBSAIPJXwIEBMQQPJ4AEBKQIPJg4PCvAPKRgP+MQQPNYgYPKMQR/KLoMBMQIPLjxiCB5ccMQQPLnjeBB5reBB5zhDB5TeBB5reBB5s8B5s4bwIPMvDeBB5reBB5oDCB5d5B517bwIPNZwIPMu4PO/7OBB7oGCB5f+B738B7sBZwQPcGQQPMZwQPbgDOCB5gADB/4P/B/4PY/4AGB69/Bwv+B538B44Ar"));
 		g.drawImage(img,60,30);
 		g.setFont("Vector",30);
@@ -388,19 +388,30 @@ touchHandler= {
 var i2c=new I2C();
 i2c.setup({scl:ew.pin.i2c.SCL, sda:ew.pin.i2c.SDA, bitrate:100000});
 if (set.def.touchtype=="816"){ //816
-
+digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0xFA,0X11);},150);
+tpnst=1;
+tpnen=0;
 //set.def.touchtype="816";
 	watchTouch=setWatch(function(s){
 		i2c.writeTo(0x15,0);
 		var tp=i2c.readFrom(0x15,7);
-		//print("touch816 :",tp);
-		if (face.pageCurr>=0) {
-			if (tp[1]== 0 && tp[3]==64) {tp[1]=5; set.def.rstR=0xE5;}
-			if (set.def.rstR==0xE5 && tp[1]== 12 ) tp[6]=tp[6]+25;
-			touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);}
-		else if (tp[1]==1) {
-			face.go(face.appCurr,0);
-		}
+		//print("in",tp);
+		
+		if (tpnst && !tp[1]&&tp[3]==0){
+			tpnst=0;tpnen=1;
+			//print("in st");
+		}else if (tpnen && (tp[1] || (!tp[1]&&  tp[3]==64) )) {
+				if (tp[3]==64) tp[1]=5;
+				//print("in en");
+				tpnst=1;tpnen=0;
+			if (face.pageCurr>=0) {
+				touchHandler[face.pageCurr](tp[1],tp[4]+20,tp[6]);}
+			else if (tp[1]==1) {
+				face.go(face.appCurr,0);
+			}
+		}else return;	
+		//print("touch816 end");
+
 	},ew.pin.touch.INT,{repeat:true, edge:"rising"}); 
 
 }else{
@@ -529,7 +540,6 @@ set.def.acctype="SC7A20";
 				i2c.writeTo(0x18,0x33,15); //duration = 1 * 20ms
 				if (this.loop) { clearInterval(this.loop); this.loop=0;}
 				this.tid= setInterval(()=>{	
-					"ram";
 					let cor=acc.read();
 					//print (cor.ax,cor.ay,cor.az);
 					if (-200<=cor.ax && cor.ay<=500  && 500<cor.az ) {
@@ -548,7 +558,6 @@ set.def.acctype="SC7A20";
 				i2c.writeTo(0x18,0x32,20); //int1_ths-threshold = 250 milli g's
 				i2c.writeTo(0x18,0x33,1); //duration = 1 * 20ms
 				this.tid=setWatch(()=>{
-					"ram";
 					i2c.writeTo(0x18,0x1);
 					if ( 10 < i2c.readFrom(0x18,1)[0] && i2c.readFrom(0x18,1)[0] < 192) {
 						if (!w.gfx.isOn){  
