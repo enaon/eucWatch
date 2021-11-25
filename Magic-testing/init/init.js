@@ -36,7 +36,7 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
 }else{ //load in working mode
 var w;
 //var pal=[];
-Modules.addCached("P8",function(){
+Modules.addCached("eucWatch",function(){
 /*const pin = {
   BUTTON: D17,
   MOTOR: D6, 
@@ -173,15 +173,17 @@ function init(bppi){
 var bpp=1; // powers of two work, 3=8 colors would be nice
 var g=Graphics.createArrayBuffer(240,280,bpp);
 var pal;
-switch(bpp){
-  case 2: pal= Uint16Array([0x000,0xf00,0x0f0,0x00f]);break; // white won't fit
+g.sc=g.setColor;
+function cmode(bppi){
+	switch(bppi){
+	g.setColor=g.sc
+  case 2: pal= Uint16Array([0x000,1365,1629,1535]);break; // white won't fit
 //  case 1: pal= Uint16Array([0x000,0xfff]);break;
   case 1:
   pal= Uint16Array( // same as 16color below, use for dynamic colors
     [ 0x000,1365,2730,3549,1629,2474,1963,3840,
      143,3935,2220,0x5ff,170,4080,1535,4095 ]);
 	c1=pal[1]; //save color 1
-	g.sc=g.setColor;
 	g.setColor=function(c,v){ 
 		if (c==1) pal[1]=v; else pal[0]=v;
 		g.sc(c);
@@ -206,7 +208,8 @@ switch(bpp){
 
     ]);break;
 }
-
+}
+cmode(bpp);
 // preallocate setwindow command buffer for flip
 g.winCmd=toFlatBuffer([
   5, 0x2a, 0,0, 0,0,
@@ -323,12 +326,13 @@ const batt=function(i,c){
 };
 module.exports = {
 //  pin: pin,
+  cmode: cmode,
   batt: batt,
   gfx: g,
   init:init
 };
 });
-w=require("P8");
+w=require("eucWatch");
 //load
 //w.gfx.init();
 //require("Storage").erase("colmode16");

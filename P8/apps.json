@@ -50,7 +50,7 @@
 	{ "id": "handler",
 		"name": "Handler - P8 - P22 A/B/C/C1",
 		"icon": "icon.png",
-		"version":"1.00",
+		"version":"1.01",
 		"description": "P8/P22 functions handler",
 		"tags": "core",
 		"type":"core",

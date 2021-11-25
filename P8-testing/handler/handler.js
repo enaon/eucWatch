@@ -365,8 +365,10 @@ i2c.setup({scl:D7, sda:D6, bitrate:100000});
 //find touch
 
 if ( set.def.touchtype == "0" ) {
-	digitalPulse(D10,1,[5,50]);
-	digitalPulse(D13,1,[5,50]);
+	i2c.writeTo(0x15,0xa5,3);
+	i2c.writeTo(0x15,0xE5,3);
+	//digitalPulse(D10,1,[5,50]);
+	//digitalPulse(D13,1,[5,50]);
 	set.def.rstP="D13";
 	digitalPulse(set.def.rstP,1,[5,50]);
 	setTimeout(()=>{ 
