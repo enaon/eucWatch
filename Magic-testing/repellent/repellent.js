@@ -190,7 +190,6 @@ face[0]= {
   run:false,
   clear : function(){
     var g=w.gfx;
-    //pal[0]=0;
     //g.clear();
     this.exit();
     return true;

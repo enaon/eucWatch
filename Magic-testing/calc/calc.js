@@ -173,7 +173,6 @@ face[0] = {
   tid:-1,
   run:false,
   clear : function(o){
-    pal[0]=col("black");
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
     this.tid=-1;
@@ -276,7 +275,6 @@ face[5] = {
   tid:-1,
   run:false,
   clear : function(o){
-    pal[0]=col("black");
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
     this.tid=-1;

@@ -35,7 +35,7 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
   },BTN1,{repeat:false, edge:"rising"}); 
 }else{ //load in working mode
 var w;
-var pal=[];
+//var pal=[];
 Modules.addCached("P8",function(){
 /*const pin = {
   BUTTON: D17,
@@ -178,8 +178,8 @@ switch(bpp){
 //  case 1: pal= Uint16Array([0x000,0xfff]);break;
   case 1:
   pal= Uint16Array( // same as 16color below, use for dynamic colors
-    [ 0x000,0x00a,0x0a0,0x0aa,0xa00,0xa0a,0xa50,0xaaa,
-      0x555,0x55f,0x5f5,0x5ff,0xf55,0xf5f,0xff5,0xfff ]);
+    [ 0x000,1365,2730,3549,1629,2474,1963,3840,
+     143,3935,2220,0x5ff,170,4080,1535,4095 ]);
 	c1=pal[1]; //save color 1
 	g.sc=g.setColor;
 	g.setColor=function(c,v){ 
@@ -325,7 +325,6 @@ module.exports = {
 //  pin: pin,
   batt: batt,
   gfx: g,
-  bpp: bpp,
   init:init
 };
 });

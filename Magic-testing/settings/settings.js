@@ -155,7 +155,7 @@ face[0] = {
 	tid:-1,
 	run:false,
 	clear : function(o){
-		pal[0]=0;
+		//pal[0]=0;
 		//this.g.clear();
 		if (set.tor==1){
 			w.gfx.bri.set(this.cbri);
@@ -260,7 +260,7 @@ face[5] = {
 		return;
 	},
 	clear : function(o){
-		pal[0]=0;
+		//pal[0]=0;
 		this.run=false;
 		if (this.tid>=0) clearTimeout(this.tid);
 		this.tid=-1;

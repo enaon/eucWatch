@@ -7,7 +7,6 @@ face[0] = {
 		this.startTime=getTime();
 		this.v=w.batt(1);
 		//top
-		pal[0]=0;
 		this.g.setColor(1,col("dgray"));
 		this.g.fillRect(0,0,158,50); //date
 		this.g.fillRect(162,0,239,50);//batt

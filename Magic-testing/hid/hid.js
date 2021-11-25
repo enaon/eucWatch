@@ -77,7 +77,6 @@ face[0] = {
     run: false,
     clear: function(o) {
         var g = w.gfx;
-        pal[0] = col("black");
         g.clear();
         this.exit(o);
         return true;
