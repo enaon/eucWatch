@@ -183,7 +183,7 @@ function cmode(bppi){
 		g.buffer=new ArrayBuffer(33600);
 		pal= Uint16Array([0x000,1365,2730,3549,1629,2474,1963,3840,143,3935,2220,0x5ff,170,4080,1535,4095]);
 		g.setColor=function(c,v){ 
-			g.sc(v);
+			g.sc(pal[v]);
 		}; 
 	//12bit RGB444
 	//0=black,1=dgray,2=gray,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=blue,9=purple,10=?,11=green,12=olive,13=yellow,14=lblue,15=white
