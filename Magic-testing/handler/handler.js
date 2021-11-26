@@ -8,7 +8,7 @@ var notify={
 notify.im=(Boolean(require('Storage').read('im.log')))?require('Storage').readJSON('im.log'):[];
 notify.info=(Boolean(require('Storage').read('info.log')))?require('Storage').readJSON('info.log'):[];
 notify.call=(Boolean(require('Storage').read('call.log')))?require('Storage').readJSON('call.log'):[];
-function handleInfoEvent(event) {
+function handleInfoEvent(event,disc) {
 	"ram";
 	notify.nInfo++;
 	notify.New++;
@@ -630,16 +630,6 @@ cron={
 		}
 	}
 };
-function col(no){
-		"ram";
-		switch (no) {
-			case "black":return 0;case 15:return 4095;case 14:return 1535;case "blue":return 143;case "dblue":return 1375;case "blue1":return 1708;
-			case 4:return 1629;case "raf1":return 2474;case "raf2":return 1963;case "raf3":return 2220;case "raf4":return 2474;case "raf5":return 3005;
-			case 2:return 2730;case "lgray":return 3549;case 1:return 1365;case "dgray1":return 1351;case "lgreen":return 1525;case 7:return 3840;
-			case "dred":return 3925;case "dred1":return 3888;case "purple":return 3935;case "lyellow":return 4085;case "dyellow":return 4064;case "yellow":return 4080;
-			case 12:return 170;
-		}
-}
 
 cron.event.hour();
 cron.on('hour',cron.task.euc.hour);

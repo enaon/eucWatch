@@ -2,12 +2,13 @@
 //watchdog
 E.kickWatchdog();
 function KickWd(){
+	"ram";
   if( (typeof(BTN1)=='undefined')||(!BTN1.read()) ) E.kickWatchdog();
 }
 var wdint=setInterval(KickWd,3000);
 E.enableWatchdog(30, false);
 E.showMessage=print; //apploader suport
-global.save = function() { throw new Error("You don't need to use save() on the Magic3!"); };
+global.save = function() { throw new Error("You don't need to use save() on eucWatch!"); };
 D7.write(1); // turns off sp02 red led
 ew={pin:{BAT:D30,CHRG:D8,BUZZ:D6,BL:D12,i2c:{SCL:14,SDA:15},touch:{RST:D39,INT:D32},disp:{CS:D3,DC:D47,RST:D2,BL:D12},acc:{INT:D16}}};
 //devmode
@@ -34,9 +35,7 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
   },BTN1,{repeat:false, edge:"rising"}); 
 }else{ //working mode
 var w;
-//var pal=[];
 Modules.addCached("eucWatch",function(){
-const pin={BAT:D30,CHRG:D8,BUZZ:D6,BL:D12,i2c:{SCL:14,SDA:15},touch:{RST:D39,INT:D32},disp:{CS:D3,DC:D47,RST:D2,BL:D12},acc:{INT:D16}};
 //screen driver
 //
 ///*
@@ -147,53 +146,33 @@ function init(bppi){
   //cmd([0x2c]);
 }
 var bpp=(require("Storage").read("setting.json") && require("Storage").readJSON("setting.json").bpp)?require("Storage").readJSON("setting.json").bpp:1;
-//var bpp=4; // powers of two work, 3=8 colors would be nice
 var g=Graphics.createArrayBuffer(240,280,bpp);
-var pal=Uint16Array([]);
+var pal;
 g.sc=g.setColor;
+g.col=Uint16Array([ 0x000,1365,2730,3549,1629,2474,1963,3840,143,3935,2220,0x5ff,170,4080,1535,4095 ]);
 
-function cmode(bppi){
+switch(bpp){
+  case 1:
+    pal= Uint16Array([ 0x000,1365,2730,3549,1629,2474,1963,3840,143,3935,2220,0x5ff,170,4080,1535,4095 ]);
+    g.buffer=new ArrayBuffer(8400);
+    c1=pal[1]; //save color 1
+    g.setColor=function(c,v){ 
+	  if (c==1) pal[1]=g.col[v]; else pal[0]=g.col[v];
+	  g.sc(c);
+    }; 
+    break; 
+  case 2: 
+    pal= Uint16Array([0x000,1365,1629,1535]); // white won't fit
+    g.buffer=new ArrayBuffer(16800);
+    break; 
+  case 4: 
 	g.buffer=new ArrayBuffer(33600);
-	switch(bppi){
-//  case 1: pal= Uint16Array([0x000,0xfff]);break;
-	case 1:
-	pal= Uint16Array( // same as 16color below, use for dynamic colors
-    [ 0x000,1365,2730,3549,1629,2474,1963,3840,
-     143,3935,2220,0x5ff,170,4080,1535,4095 ]);
-	g.buffer=new ArrayBuffer(8400);
-	c1=pal[1]; //save color 1
+	pal= Uint16Array([0x000,1365,2730,3549,1629,2474,1963,3840,143,3935,2220,0x5ff,170,4080,1535,4095]);
 	g.setColor=function(c,v){ 
-		if (c==1) pal[1]=v; else pal[0]=v;
-		g.sc(c);
+		g.sc(v);
 	}; 
-	/*g.sc=g.setColor;
-	g.setColor=function(c){ //change color 1 dynamically
-	c=Math.floor(c);
-    if (c > 1) {
-      pal[1]=pal[c]; g.sc(1);
-    } else if (c==1) {
-      pal[1]=c1; g.sc(1);
-	} else g.sc(c);*/
-
-	break; 
-	case 2: 
-	  pal= Uint16Array([0x000,1365,1629,1535]);break; // white won't fit
-	  g.buffer=new ArrayBuffer(16800);
-	case 4: 
-		g.buffer=new ArrayBuffer(33600);
-		pal= Uint16Array([0x000,1365,2730,3549,1629,2474,1963,3840,143,3935,2220,0x5ff,170,4080,1535,4095]);
-		g.setColor=function(c,v){ 
-			g.sc(pal[v]);
-		}; 
-	//12bit RGB444
-	//0=black,1=dgray,2=gray,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=blue,9=purple,10=?,11=green,12=olive,13=yellow,14=lblue,15=white
-	//16bit RGB565
-	//0x0000,0x00a8,0x0540,0x0555,0xa800,0xa815,0xaaa0,0xad55,
-	//2220,0x52bf,0x57ea,0x57ff,0xfaaa,0xfabf,0xffea,0xffff
-  break;
-  }
+    break;
 }
-cmode(bpp);
 // preallocate setwindow command buffer for flip
 g.winCmd=toFlatBuffer([
   5, 0x2a, 0,0, 0,0,
@@ -289,10 +268,8 @@ const batt=function(i,c){
 };
 module.exports = {
   pal: pal,
-  cmode: cmode,
   batt: batt,
-  gfx: g,
-  init:init
+  gfx: g
 };
 });
 w=require("eucWatch");

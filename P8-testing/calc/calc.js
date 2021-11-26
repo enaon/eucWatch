@@ -22,7 +22,7 @@ face[0] = {
   init: function(){
 //rows
 	this.g.clear();
-    this.g.setColor(1,col("lgray"));
+    this.g.setColor(1,3);
     this.g.fillRect(0,40,57,90);//1
     this.g.fillRect(60,40,117,90);//2
     this.g.fillRect(120,40,179,90);//3
@@ -35,7 +35,7 @@ face[0] = {
     this.g.fillRect(0,193,57,239);//.
     this.g.fillRect(60,193,117,239);//0
 //
-    this.g.setColor(0,col("black"));
+    this.g.setColor(0,0);
     this.g.setFont("Vector",35);
     this.g.drawString("1",20,50);
 	this.g.drawString("2",80,50);
@@ -50,17 +50,17 @@ face[0] = {
 	this.g.drawString("0",80,202);
     this.g.flip();
 //side   
-    this.g.setColor(1,col("raf"));
+    this.g.setColor(1,4);
     this.g.fillRect(120,193,179,239);//=
-    this.g.setColor(0,col("white"));
+    this.g.setColor(0,15);
 	this.g.drawString("=",140,204);
     this.g.flip();
-    this.g.setColor(0,col("dgray"));
+    this.g.setColor(0,1);
     this.g.fillRect(181,40,239,90);///
     this.g.fillRect(182,93,239,140);//*
     this.g.fillRect(182,143,239,190);//-
     this.g.fillRect(182,193,239,239);//+
-    this.g.setColor(1,col("lblue"));
+    this.g.setColor(1,14);
   	this.g.drawString("/",201,50);
   	this.g.drawString("*",202,107);		
     this.g.drawString("-",205,152);
@@ -74,20 +74,20 @@ face[0] = {
   show : function(){
     if (!this.run) return;
     if (this.disp!=calc.disp){
-      this.g.setColor(0,col("black"));
+      this.g.setColor(0,0);
       this.g.fillRect(0,0,239,35);
       if (calc.disp.length>16) {calc.disp=""; }
       if (calc.disp==""){
         if (calc.val!=""){
           if (calc.val!="-"){
-          this.g.setColor(1,col("yellow"));
+          this.g.setColor(1,13);
           this.out=this.comf(eval(calc.val.substring(0,calc.val.length-1)))+calc.val.substring(calc.val.length-1);
-          }else {this.out="-"; this.g.setColor(1,col("white"));}
+          }else {this.out="-"; this.g.setColor(1,15);}
         }else if (calc.sum!=""){
-          this.g.setColor(1,col("lblue"));
+          this.g.setColor(1,14);
           this.out=this.comf(Number(calc.sum));
-        }else {this.g.setColor(1,col("lgray"));this.out=0;}
-      }else {this.g.setColor(1,col("white"));
+        }else {this.g.setColor(1,3);this.out=0;}
+      }else {this.g.setColor(1,15);
         this.out=calc.disp;
 	    if (calc.disp.substring(0)==".") this.out="0.";
    	    else if (calc.disp.substring(calc.disp.length-1)==".") this.out=this.comf(Number(this.out))+".";
@@ -106,10 +106,10 @@ face[0] = {
       this.g.flip();
     }
     if (this.key!=-1) {
-      this.act(this.key,col("white"),col("raf"));
+      this.act(this.key,15,4);
       if (this.tim[this.key]>=0) clearTimeout(this.tim[this.key]);
       this.tim[this.key]=setTimeout(function(k,a,t){
-        a(k,col("black"),col("lgray"));
+        a(k,0,3);
         t[k]=-1;
       },400,this.key,this.act,this.tim); 
       this.key=-1;
@@ -173,7 +173,6 @@ face[0] = {
   tid:-1,
   run:false,
   clear : function(o){
-    pal[0]=col("black");
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
     this.tid=-1;
@@ -206,9 +205,9 @@ face[5] = {
   offms: 4000,
   g:w.gfx,
   init: function(){
-    this.g.setColor(0,col("black")); //header
+    this.g.setColor(0,0); //header
     this.g.fillRect(0,0,239,35); 
-    this.g.setColor(1,col("lblue"));
+    this.g.setColor(1,14);
     this.g.setFont("Vector",24);
 	this.g.drawString("HISTORY",4,6); 
     this.hist=0;
@@ -221,9 +220,9 @@ face[5] = {
       this.run=true;
     } else{ 
       this.g.flip();
-      this.g.setColor(0,col("dgray")); //header
+      this.g.setColor(0,1); //header
       this.g.fillRect(0,36,239,239); 
-      this.g.setColor(1,col("white"));
+      this.g.setColor(1,15);
       this.g.setFont("Vector",24);
       this.g.drawString("NO ENTRIES",120-(this.g.stringWidth("NO ENTRIES")/2),100); 
     }  
@@ -234,14 +233,14 @@ face[5] = {
     if (this.hist!=this.at) {
     this.at=this.hist; 
     this.g.setFont("Vector",26);
-    this.g.setColor(0,col("black")); //header
+    this.g.setColor(0,0); //header
     this.g.fillRect(160,0,239,35); 
-    this.g.setColor(1,col("lblue"));
+    this.g.setColor(1,14);
     this.g.drawString((this.hist+1)+"/"+calc.hist.length,242-(this.g.stringWidth((this.hist+1)+"/"+calc.hist.length)),3);
     this.g.flip();
-    this.g.setColor(0,col("dgray")); //header
+    this.g.setColor(0,1); //header
     this.g.fillRect(0,36,239,195); 
-    this.g.setColor(1,col("white"));
+    this.g.setColor(1,15);
     this.math=calc.hist[this.hist].substr(0,calc.hist[this.hist].indexOf('|=')).split('|');
     this.tot=calc.hist[this.hist].substr(calc.hist[this.hist].indexOf('|=')+2);
     for (var entry=this.line;entry<this.line+4&&entry<this.math.length;entry++) {
@@ -253,9 +252,9 @@ face[5] = {
       } 
     }
     this.g.flip();
-    this.g.setColor(0,col("dgray")); //header
+    this.g.setColor(0,1); //header
     this.g.fillRect(0,196,239,239);
-    this.g.setColor(1,col("lblue"));
+    this.g.setColor(1,14);
     this.g.drawLine(10,200,229,200);
     this.g.setFont("Vector",30);
 //    this.g.drawString('=',2,210);
@@ -276,7 +275,6 @@ face[5] = {
   tid:-1,
   run:false,
   clear : function(o){
-    pal[0]=col("black");
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
     this.tid=-1;

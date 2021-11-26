@@ -9,7 +9,7 @@ face[0] = {
 		this.g.setColor(0,0);
 		//this.g.fillRect(0,161,239,239);
 		this.g.fillRect(0,0,239,239);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(1,15);
 		this.g.setFont("Vector",25);
 		this.g.drawString("TPMS SENSOR",120-(this.g.stringWidth("TPMS SENSOR")/2),217); 
 		this.g.flip(); 
@@ -33,7 +33,7 @@ face[0] = {
     btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
 			this.g.setColor(0,(bt)?clr1:clr0);
 			this.g.fillRect(rx1,ry1,rx2,ry2);
-			this.g.setColor(1,col("white"));
+			this.g.setColor(1,15);
 			this.g.setFont("Vector",size1);	
 			this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1); 
    			if (txt2){this.g.setFont("Vector",size2);	
@@ -44,7 +44,7 @@ face[0] = {
 			if (this.ntid) {clearTimeout(this.ntid); this.ntid=0;}
             this.g.setColor(0,clr);
 			this.g.fillRect(0,160,239,239);
-			this.g.setColor(1,col("white"));
+			this.g.setColor(1,15);
 			this.g.setFont("Vector",18);
      		this.g.drawString(txt0,120-(this.g.stringWidth(txt0)/2),165); 
 			if (s) {this.g.setFont("Vector",50);this.g.drawString("<",5,200);this.g.drawString(">",215,200);}
@@ -57,7 +57,7 @@ face[0] = {
 				face[0].info();
 				t.g.setColor(0,0);
 				t.g.fillRect(0,156,239,239);
-				t.g.setColor(1,col("white"));
+				t.g.setColor(1,15);
 				t.g.setFont("Vector",25);
 				t.g.drawString("TPMS SENSOR",120-(t.g.stringWidth("TPMS SENSOR")/2),217); 
 				t.g.flip();
@@ -70,9 +70,9 @@ face[0] = {
 		for (let i in tpms.slot ){
 			cnt++; 
 			let cl=((getTime()|0) - tpms.slot[i].time < 300)?1:0;
-			col1=col("raf");
-			col2=col("dgray");
-			if (tpms.slot[i].alrm) col1=col("red");col2=col("purple")
+			col1=4;
+			col2=1;
+			if (tpms.slot[i].alrm) col1=7;col2=9
 			if  (cnt==1) 	 this.btn(cl,i,27,60,10,col1,col2,0,0,119,97,tpms.slot[i].psi,35,60,55);//1
 			else if  (cnt==2) this.btn(cl,i,27,185,10,col1,col2,122,0,239,97,tpms.slot[i].psi,35,185,55);//2
 			else if  (cnt==3) this.btn(cl,i,27,60,110,col1,col2,0,100,119,195,tpms.slot[i].psi,35,60,155);//3
@@ -87,7 +87,7 @@ face[0] = {
 			this.tpms[cnt]=i;
 		}
 		if (!cnt) 
-			this.btn(1,"TOUCH TO SCAN",25,120,115,col("dgray"),0,0,80,239,160);//4
+			this.btn(1,"TOUCH TO SCAN",25,120,115,1,0,0,80,239,160);//4
 	},
 	more: function(){
 	
@@ -197,7 +197,7 @@ touchHandler[0]=function(e,x,y){
 		}else if (  80 <= y && y <= 160 && face[0].tpms[4] ) { 
 			buzzer([30,50,30]);
 		}else {
-			face[0].ntfy("SCANNING","WAIT 10 SECS",30,1,col("raf"),10000);
+			face[0].ntfy("SCANNING","WAIT 10 SECS",30,1,4,10000);
 			tpms.scan();
 			buzzer(30,50,30);
 		}
