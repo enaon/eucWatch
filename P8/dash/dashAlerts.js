@@ -17,7 +17,7 @@ face[0] = {
 		this.btn(euc.dash.hapA,"AMP",25,180,37,4,1,122,0,239,97);
 		this.btn(euc.dash.hapT,"TEMP",25,60,136,4,1,0,100,119,195);
         this.btn(euc.dash.hapB,"BATT",25,180,136,4,1,122,100,239,195);			
-		this.ntfy("HOLD FOR HAPTIC","",22,0,1);
+		this.ntfy("HOLD FOR HAPTIC","",22,4,1);
         this.run=true;
 	},
 	show : function(){
@@ -297,22 +297,22 @@ touchHandler[0]=function(e,x,y){
 			buzzer([30,50,30]);	
         }else if (x<=120&&y<100) { //Speed
 			euc.dash.hapS=1-euc.dash.hapS;
-			face[0].btn(euc.dash.hapS,"SPEED",25,65,37,4,1,0,0,119,97);
+			face[0].btn(euc.dash.hapS,"SPEED",25,60,37,4,1,0,0,119,97);
 			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",22,(euc.dash.hapS)?4:1,euc.dash.hapS);
 			buzzer([30,50,30]);
 		}else if (120<=x&&y<=100) { //Ampere
 			euc.dash.hapA=1-euc.dash.hapA;
-			face[0].btn(euc.dash.hapA,"AMP",25,185,37,4,1,122,0,239,97);
+			face[0].btn(euc.dash.hapA,"AMP",25,180,37,4,1,122,0,239,97);
 			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",22,(euc.dash.hapA)?4:1,euc.dash.hapA);
 			buzzer([30,50,30]);
 		}else if (x<=120&&100<=y) { //Temp
 			euc.dash.hapT=1-euc.dash.hapT;
-			face[0].btn(euc.dash.hapT,"TEMP",25,65,136,4,1,0,100,119,195);
+			face[0].btn(euc.dash.hapT,"TEMP",25,60,136,4,1,0,100,119,195);
 			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",22,(euc.dash.hapT)?4:1,euc.dash.hapT);
 			buzzer([30,50,30]);		
 		}else if (120<=x&&100<=y) { //Batt
 			euc.dash.hapB=1-euc.dash.hapB;
-			face[0].btn(euc.dash.hapB,"BATT",25,185,136,4,1,122,100,239,195);
+			face[0].btn(euc.dash.hapB,"BATT",25,180,136,4,1,122,100,239,195);
 			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",22,(euc.dash.hapB)?4:1,euc.dash.hapB);
 			buzzer([30,50,30]);						
 			}else buzzer([30,50,30]);
