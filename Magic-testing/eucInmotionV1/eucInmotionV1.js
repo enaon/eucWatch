@@ -229,8 +229,8 @@ euc.conn=function(mac){
 							if (set.bt===2) console.log("Inmotion: live in"); 
 							euc.tmp.liveParse(euc.tmp.tot.buffer);
 							euc.tmp.last=[];
-							//euc.tmp.live();
-							setTimeout(function(){ euc.tmp.live();},100);
+							euc.tmp.live();
+							//setTimeout(function(){ euc.tmp.live();},100);
 							return;
 						//}else if (119 <= euc.tmp.tot.length) {
 						}else{
@@ -241,8 +241,8 @@ euc.conn=function(mac){
 							euc.tmp.chk=( euc.tmp.chk.reduce(checksum) + 7 == temp[temp.length - 3] )?1:0;
 							if (!euc.tmp.chk) {
 								if (set.bt===2) console.log("Inmotion: problem: length:",  temp.length, temp); 
-								//euc.tmp.live();
-								setTimeout(function(){euc.tmp.live();},100);
+								euc.tmp.live();
+								//setTimeout(function(){euc.tmp.live();},100);
 								euc.tmp.last=[];
 								return;
 							}
@@ -251,8 +251,8 @@ euc.conn=function(mac){
 							euc.tmp.last=[];
 							euc.tmp.liveParse(E.toUint8Array(temp).buffer);
 							euc.tmp.last=[];
-							//euc.tmp.live();
-							setTimeout(function(){ euc.tmp.live();},100);
+							euc.tmp.live();
+							//setTimeout(function(){ euc.tmp.live();},100);
 							return;
 						}
 					//rest
