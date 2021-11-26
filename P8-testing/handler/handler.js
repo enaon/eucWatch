@@ -764,7 +764,7 @@ cron.event.hour();
 cron.on('hour',cron.task.euc.hour);
 cron.on('day',cron.task.euc.day);
 cron.on('month',cron.task.euc.month);
-
+/*
 
 //themes -todo
 if (!Boolean(require("Storage").read("colmode16"))){
@@ -790,3 +790,4 @@ if (!Boolean(require("Storage").read("colmode16"))){
 }
 //end
 
+*/
