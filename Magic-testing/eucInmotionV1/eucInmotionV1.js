@@ -157,7 +157,7 @@ euc.tmp.liveParse= function (inc){
 		for (i = 0; i < euc.alert ; i++) {
 			a.push(200,150);
 		}
-		digitalPulse(D16,0,a);  
+		digitalPulse(ew.pin.BUZZ,0,a);  
 		setTimeout(() => { euc.buzz = 0; }, 3000);
 	}
 	//if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
@@ -302,43 +302,17 @@ euc.conn=function(mac){
 					//euc.rCha.stopNotifications();
 					if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
 					euc.tmp.loop=setTimeout(() => {euc.tmp.loop=0;
-								euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.light)?0:1)).then(function() {
-										return euc.wCha.writeValue(euc.cmd("end"));
-									}).then(function()  {
-										if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
-										euc.tmp.loop=setTimeout(() => {euc.tmp.loop=0;
-											euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.light)?1:0)).then(function() {
-												return euc.wCha.writeValue(euc.cmd("end"));
-											}).then(function()  {	
-												if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
-												euc.tmp.loop=setTimeout(() => {euc.tmp.loop=0;
-													euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.light)?0:1)).then(function() {
-														return euc.wCha.writeValue(euc.cmd("end"));
-													}).then(function()  {	
-														if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
-														euc.tmp.loop=setTimeout(() => {euc.tmp.loop=0;
-															euc.wCha.writeValue(euc.cmd("setLights",(euc.dash.light)?1:0)).then(function() {
-																return euc.wCha.writeValue(euc.cmd("end"));
-															}).then(function()  {	
-																return euc.wCha.writeValue(euc.cmd("playSound",euc.dash.ctrl.horn));
-															}).then(function()  {	
-																return euc.wCha.writeValue(euc.cmd("end"));
-															}).then(function()  {
-																if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
-																euc.tmp.loop=setTimeout(() => {euc.tmp.loop=0;
-																		euc.horn=0;
-																		euc.busy=0;
-																		euc.tmp.live();
-																},1000); 	
-															});
-																	
-														},25);
-													});
-												},40); 	
-											});
-										},25);
-								});	
-					},150);
+						euc.wCha.writeValue(euc.cmd("playSound",euc.dash.ctrl.horn)).then(function()  {	
+								return euc.wCha.writeValue(euc.cmd("end"));
+							}).then(function()  {
+								if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
+								euc.tmp.loop=setTimeout(() => {euc.tmp.loop=0;
+									euc.horn=0;
+									euc.busy=0;
+									euc.tmp.live();
+								},500); 	
+							});
+				  	},150);
 				}else if (cmd==="hornOff") {
 					euc.horn=0;	
 					return;
