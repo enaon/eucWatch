@@ -307,7 +307,7 @@ euc.conn=function(mac){
 							}).then(function()  {
 								euc.tmp.loop=0;
 								if (euc.tmp.alive) {clearTimeout(euc.tmp.alive); euc.tmp.alive=0;}
-								euc.tmp.alive=setTimeout(function(){euc.tmp.alive=0;euc.busy=0;euc.tmp.live();},500);
+								euc.tmp.alive=setTimeout(function(){euc.tmp.alive=0;euc.horn=0;euc.busy=0;euc.tmp.live();},500);
 							});
 				  	},150);
 				}else if (cmd==="hornOff") {
