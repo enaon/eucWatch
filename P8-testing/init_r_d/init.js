@@ -136,8 +136,7 @@ g.col=Uint16Array([ 0x000,1365,2730,3549,1629,2474,1963,3840,143,3935,2220,0x5ff
 
 switch(bpp){
   case 1:
-    pal= Uint16Array([ 0x000,1365,2730,3549,1629,2474,1963,3840,143,3935,2220,0x5ff,170,4080,1535,4095 ]);
-    g.buffer=new ArrayBuffer(8400);
+    pal= Uint16Array([ 0x000,4095 ]);
     c1=pal[1]; //save color 1
     g.setColor=function(c,v){ 
 	  if (c==1) pal[1]=g.col[v]; else pal[0]=g.col[v];
@@ -146,10 +145,8 @@ switch(bpp){
     break; 
   case 2: 
     pal= Uint16Array([0x000,1365,1629,1535]);break; // white won't fit
-    g.buffer=new ArrayBuffer(16800);
     break; 
   case 4: 
-	g.buffer=new ArrayBuffer(33600);
 	pal= Uint16Array([0x000,1365,2730,3549,1629,2474,1963,3840,143,3935,2220,0x5ff,170,4080,1535,4095]);
 	g.setColor=function(c,v){ 
 		g.sc(v);
