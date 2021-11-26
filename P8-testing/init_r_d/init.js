@@ -36,7 +36,7 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
 }else{ //working mode
 var w;
 var pal=[];
-Modules.addCached("P8",function(){
+Modules.addCached("eucWatch",function(){
 //screen driver
 //
 // MIT License (c) 2020 fanoush https://github.com/fanoush
@@ -60,7 +60,6 @@ var SPI2 = (function(){
 // however it seems the gain is very small so is not worth it
 //    shrink:function(){return `var bin=E.toString(require("heatshrink").decompress(atob("${btoa(require("heatshrink").compress(bin))}")))`;}
 //*/
-//P8 pins
 CS=D25;DC=D18;RST=D26;BL=D14;
 SCK=D2;MOSI=D3;
 RST.reset();
@@ -260,7 +259,7 @@ module.exports = {
 	gfx: g
 };
 });
-w=require("P8");
+w=require("eucWatch");
 //load
 //w.gfx.init();
 require("Storage").write("colmode16","done");
