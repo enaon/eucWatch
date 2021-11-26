@@ -67,7 +67,6 @@ face[0] = {
 		this.g.flip();
     },
 	sel: function(txt1,txt2){
-		"ram";
 		this.g.setColor(0,1);
 		this.g.fillRect(0,51,239,175);
 		this.g.setColor(1,15);
@@ -80,7 +79,6 @@ face[0] = {
 		this.g.flip();
     },
 	ind: function(pos){
-		"ram";
 		pos=(((pos-1)*(240/this.len))+1);
 		//print(pos,this.pos,this.len,this.ref);
 		this.g.setColor(0,0);

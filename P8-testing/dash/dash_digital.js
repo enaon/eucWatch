@@ -102,7 +102,6 @@ face[0] = {
 		},150,this);
 	},
 	spdF: function(){
-		"ram";
 		this.spd=Math.round(euc.dash.spd);
 		this.g.setColor(0,(euc.dash.spdC==1)?0:this.spdC[euc.dash.spdC]);
 		this.g.fillRect(43,54,197,170);
@@ -121,7 +120,6 @@ face[0] = {
 		}
 	},
 	alF: function(){
-		"ram";
 		this.al.set(almL);
 		//print(this.al,almL);
 		this.g.setColor(0,1);

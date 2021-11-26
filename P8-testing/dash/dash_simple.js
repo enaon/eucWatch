@@ -134,8 +134,6 @@ face[0] = {
 		this.g.flip();
 	},
 	spdf: function(){
-		"ram";
-		//"ram";
 		this.spd=Math.round(euc.dash.spd);
 		this.g.setColor(0,(euc.dash.spdC==1)?0:this.spdC[euc.dash.spdC]);
 		this.g.fillRect(0,55,239,210);
