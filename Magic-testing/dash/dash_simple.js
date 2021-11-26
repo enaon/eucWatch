@@ -11,17 +11,17 @@ face[0] = {
 			this.g.flip();	
 		}else this.g.clear();
 		if (euc.dash.tpms&&!tpms.euc[euc.dash.tpms]){
-			this.g.setColor(0,col("dgray"));
+			this.g.setColor(0,1);
 			this.g.clearRect(0,210,239,239); 
-			this.g.setColor(1,col("lgray"));
+			this.g.setColor(1,3);
 			this.g.setFontVector(18);
 			this.g.drawString("WAITING FOR TPMS",25,220); 
 			this.g.flip();
 		}else this.tpms=-1;
-		this.spdC=[0,col("yellow"),col("red"),col("red")];
-		this.ampC=[col("dgray"),2992,col("red"),col("red")];
-		this.tmpC=[col("dgray"),2992,col("red"),col("red")];
-		this.batC=[col("raf"),col("dgray"),col("red"),col("red")];
+		this.spdC=[0,13,7,7];
+		this.ampC=[1,2992,7,7];
+		this.tmpC=[1,2992,7,7];
+		this.batC=[4,1,7,7];
 		this.spd=-1;
 		this.amp=-1;
 		this.tmp=-1;
@@ -59,7 +59,7 @@ face[0] = {
 				this.conn=euc.state;
 				this.g.setColor(0,0);
 				this.g.fillRect(0,0,239,239);
-				this.g.setColor(1,col("white"));
+				this.g.setColor(1,15);
 				this.g.setFont("Vector",50);
 				this.g.drawString(euc.state,(125-this.g.stringWidth(euc.state)/2),95);
 				this.g.flip();
@@ -75,7 +75,7 @@ face[0] = {
 		this.tmp=euc.dash.tmp.toFixed(1);
 		this.g.setColor(0,this.tmpC[euc.dash.tmpC]);
 		this.g.fillRect(0,0,119,50);       
-		this.g.setColor(1,col("white"));
+		this.g.setColor(1,15);
 		this.g.setFontVector(50);
 		let temp=((set.def.dash.farn)?this.tmp*1.8+32:this.tmp).toString().split(".");
 		let size=5+this.g.stringWidth(temp[0]);
@@ -91,9 +91,9 @@ face[0] = {
 	},
 	clkf: function(){
 		this.time=getTime();
-		this.g.setColor(0,col("dgray"));
+		this.g.setColor(0,1);
 		this.g.fillRect(0,0,119,50);       
-		this.g.setColor(1,col("lblue"));
+		this.g.setColor(1,14);
 		this.g.setFontVector(45);
 		let d=(Date()).toString().split(' ');
 		let t=(d[4]).toString().split(':');
@@ -107,8 +107,8 @@ face[0] = {
 		this.bat=euc.dash.bat;
 		this.g.setColor(0,this.batC[euc.dash.batC]);
 		this.g.fillRect(122,0,239,50);
-//		this.g.setColor(1,col("white"));
-		this.g.setColor(1,col("white"));
+//		this.g.setColor(1,15);
+		this.g.setColor(1,15);
 		this.g.setFontVector(50);
 		this.g.drawString(this.bat,225-(this.g.stringWidth(this.bat)),3);
 		this.g.setFontVector(20);
@@ -119,7 +119,7 @@ face[0] = {
 		this.volt=euc.dash.volt.toFixed(1);
 		this.g.setColor(0,this.batC[euc.dash.batC]);
 		this.g.fillRect(122,0,239,50);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(1,15);
 		let volt=this.volt.toString().split(".");
 		this.g.setFontVector(14);
 		this.g.drawString("V",230,30); 
@@ -139,7 +139,7 @@ face[0] = {
 		this.spd=Math.round(euc.dash.spd);
 		this.g.setColor(0,(euc.dash.spdC==1)?0:this.spdC[euc.dash.spdC]);
 		this.g.fillRect(0,55,239,210);
-		this.g.setColor(1,(euc.dash.spdC==1)?col("yellow"):col("white"));
+		this.g.setColor(1,(euc.dash.spdC==1)?13:15);
 		if (100 <= this.spd) {
 			if (120 < this.spd)  this.spd=120;
 			this.g.setFontVector(130);
@@ -152,16 +152,16 @@ face[0] = {
 		this.amp=euc.dash.amp;
 		this.g.setColor(0,this.ampC[euc.dash.ampC]);
 		this.g.fillRect(80,0,160,55); //amp 
-		this.g.setColor(1,col("white"));
+		this.g.setColor(1,15);
 		this.g.setFontVector(33);
 		this.g.drawString(this.amp|0,(122-(this.g.stringWidth(this.amp|0)/2)),5); 
 		this.g.flip();
 	},
 	tpmsf: function(){
 		this.tpms=tpms.euc[euc.dash.tpms].alrm;
-		this.g.setColor(0,col((this.tpms)?"red":"raf"));
+		this.g.setColor(0,(this.tpms)?7:4);
 		this.g.clearRect(0,210,239,239); //amp 
-		this.g.setColor(1,col("lblue"));
+		this.g.setColor(1,14);
 		this.g.setFontVector(25);
 		this.g.drawString("TPMS",85,215); 
 		this.g.flip();

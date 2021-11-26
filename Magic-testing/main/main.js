@@ -7,7 +7,7 @@ face[0] = {
 		this.startTime=getTime();
 		this.v=w.batt(1);
 		//top
-		this.g.setColor(1,col("dgray"));
+		this.g.setColor(1,1);
 		this.g.fillRect(0,0,158,50); //date
 		this.g.fillRect(162,0,239,50);//batt
 		if (face.pagePrev!=2){this.g.fillRect(0,55,100,150);}
@@ -36,7 +36,7 @@ face[0] = {
 				this.bt=-1;
 				this.g.setColor(0,2220);
 				this.g.fillRect(0,0,158,50); //date
-				this.g.setColor(1,col("white"));
+				this.g.setColor(1,15);
 				this.g.setFont("Vector",22);
 				this.g.drawString("MUTE",68,15);
 				//mute
@@ -46,13 +46,13 @@ face[0] = {
 		}else if (set.bt != this.bt){
 			this.bt=set.bt;
 			this.ring=0;
-			var colbt=col("dgray");
-			if (this.bt==3)  colbt=col("raf2");
-			else if (this.bt==4)  colbt=col("blue");
-			else if (this.bt==2)  colbt=col("purple");
+			var colbt=1;
+			if (this.bt==3)  colbt=5;
+			else if (this.bt==4)  colbt=4;
+			else if (this.bt==2)  colbt=9;
 			this.g.setColor(0,colbt);
 			this.g.fillRect(0,0,158,50); //date
-			this.g.setColor(1,col("lblue"));
+			this.g.setColor(1,14);
 			this.g.setFont("Vector",35);
 			if (this.bt==0&&!set.def.cli&&!set.def.emuZ&&!set.def.hid&&!set.def.gb) {
 				this.g.drawString(this.d[2]+" "+this.d[0].toUpperCase(), (81-(this.g.stringWidth(this.d[2]+" "+this.d[0].toUpperCase()))/2) ,9); //date
@@ -63,8 +63,8 @@ face[0] = {
 				this.g.flip();
 				this.g.setColor(0,colbt);
 				this.g.fillRect(0,0,15,50); //date
-				var colbtf=col("white");
-				if (set.bt==0) colbtf=col("lgray");
+				var colbtf=15;
+				if (set.bt==0) colbtf=3;
 				this.g.setColor(1,colbtf);
 				this.g.drawImage(E.toArrayBuffer(atob("CxQBBgDgFgJgR4jZMawfAcA4D4NYybEYIwTAsBwDAA==")),3,13);
 				this.g.flip();
@@ -73,22 +73,22 @@ face[0] = {
 		//batt status
 		if (notify.ring){
 			if (this.ring!=notify.ring){
-				this.g.setColor(0,col("raf1"));
+				this.g.setColor(0,5);
 				this.g.fillRect(162,0,239,50);//batt
-				this.g.setColor(1,col("white"));
+				this.g.setColor(1,15);
 				this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8FwAbvh+HnjHh8HjAYPABYNhAYVxAY0wIYU4H4U4EYUcnkP/0Oj0f/8Ph///8Hw/4g8D4IDBgIfBg8AD4IDBvgDCj+AAYIbCgEB//+FoM//gA==")),183,9);
 				this.g.flip();
 			}
 		}else if (notify.New&&(this.nCall!=notify.nCall||this.nInfo!=notify.nInfo||this.nIm!=notify.nIm)){
 			this.batt=set.ondc;
 			if (notify.nCall)  {
-				this.colf=col("white");this.colb=col("red");this.str=notify.nCall;this.bs="nCall";
+				this.colf=15;this.colb=7;this.str=notify.nCall;this.bs="nCall";
 				this.img =  require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8FwAbvh+HnjHh8HjAYPABYNhAYVxAY0wIYU4H4U4EYUcnkP/0Oj0f/8Ph///8Hw/4g8D4IDBgIfBg8AD4IDBvgDCj+AAYIbCgEB//+FoM//gA=="));
 			}else if (notify.nIm)  {
-				this.colf=col("white");this.colb=col("raf");this.str=notify.nIm;this.bs="nIm";
+				this.colf=15;this.colb=4;this.str=notify.nIm;this.bs="nIm";
 				this.img = require("heatshrink").decompress(atob("jEYwIPMv///wCFj///EP//w4f/4fw/8P/F+j/+jATBwP/BoICBAA4mIHZAA="));
 			}else if (notify.nInfo)  {
-				this.colf=col("white");this.colb=col("olive");this.str=notify.nInfo;this.bs="nInfo";
+				this.colf=15;this.colb=12;this.str=notify.nInfo;this.bs="nInfo";
 				this.img = require("heatshrink").decompress(atob("jEYwIHEv0AgP/wEH//gh//+Ef8/4j/D/E/4/8n///l///+v/nAQPDARM/4YXBAQIgCEwQsCGQQ4CHwQACA=="));
 			}else { this.batt=-1; this.bs=0;}
 			this.g.setColor(0,this.colb);
@@ -111,11 +111,11 @@ face[0] = {
 		}else if (this.batt!=set.ondc ){
 			this.batt=set.ondc;
 			this.v=w.batt(1);
-			if (this.batt==1) this.g.setColor(0,col("purple"));
-			else if (this.v<=20) this.g.setColor(0,col("red"));
-			else this.g.setColor(0,col("raf1"));
+			if (this.batt==1) this.g.setColor(0,9);
+			else if (this.v<=20) this.g.setColor(0,7);
+			else this.g.setColor(0,5);
 			this.g.fillRect(162,0,239,50);//batt
-			this.g.setColor(1,col("lblue"));
+			this.g.setColor(1,14);
 			if (this.v<0) {this.g.setFont("Vector",21);this.g.drawString("EMPTY",240-(this.g.stringWidth("EMPTY")),14); 
 			}else if (this.v<100) {
 				this.g.setFont("Vector",32);
@@ -139,7 +139,7 @@ face[0] = {
 		//push-(wip)   
 		if (notify.ring){
 		if (this.ring!=notify.ring){
-			this.ring=notify.ring;this.g.setColor(0,0);this.g.clearRect(0,151,239,239);this.g.setColor(1,col("white"));
+			this.ring=notify.ring;this.g.setColor(0,0);this.g.clearRect(0,151,239,239);this.g.setColor(1,15);
 			this.g.setFont("Vector",26);
 			this.g.drawString((notify.in.name.length>16)?notify.in.name.substr(0,13)+"...":notify.in.name,122-(this.g.stringWidth((notify.in.name.length>16)?notify.in.name.substr(0,13)+"...":notify.in.name))/2,168); //Name
 			this.g.drawString((notify.in.number.length>16)?notify.in.number.substr(0,13)+"...":notify.in.number,122-(this.g.stringWidth((notify.in.number.length>16)?notify.in.number.substr(0,13)+"...":notify.in.number))/2,210); //Number
@@ -150,10 +150,10 @@ face[0] = {
 			if (notify.nCall||notify.nIm||notify.nInfo){
 				this.g.setColor(0,0);
 				this.g.clearRect(0,151,239,239);		  
-				if (this.nCall)  {this.msg=JSON.parse(notify.call[0]);this.cf=col("red");}
-				else if (this.nIm)  {this.msg=JSON.parse(notify.im[0]);this.cf=col("lblue");}
-				else if (this.nInfo)  {this.msg=JSON.parse(notify.info[0]);this.cf=col("raf2");}
-				this.g.setColor(1,col("white"));//
+				if (this.nCall)  {this.msg=JSON.parse(notify.call[0]);this.cf=7;}
+				else if (this.nIm)  {this.msg=JSON.parse(notify.im[0]);this.cf=14;}
+				else if (this.nInfo)  {this.msg=JSON.parse(notify.info[0]);this.cf=5;}
+				this.g.setColor(1,15);//
 				this.g.setFont("Vector",25);
 				this.g.drawString((this.msg.title.length>16)?this.msg.title.substr(0,13)+"...":this.msg.title,122-(this.g.stringWidth((this.msg.title.length>16)?this.msg.title.substr(0,13)+"...":this.msg.title))/2,168); //info
 				this.g.drawString((this.msg.body.length>16)?this.msg.body.substr(0,13)+"...":this.msg.body,122-(this.g.stringWidth((this.msg.body.length>16)?this.msg.body.substr(0,13)+"...":this.msg.body))/2,210); //info
@@ -164,7 +164,7 @@ face[0] = {
 				this.wupd=0;  	
 				this.g.setColor(0,0);
 				this.g.clearRect(0,151,239,239);
-				this.g.setColor(1,col("white"));//
+				this.g.setColor(1,15);//
 				this.g.setFont("Vector",25);
 				this.g.drawString(notify.weather.txt,119-(this.g.stringWidth(notify.weather.txt))/2,165); //info
 				//temp
@@ -178,7 +178,7 @@ face[0] = {
 			}else {
 				this.g.setColor(0,0);
 				this.g.fillRect(0,151,239,239);
-				this.g.setColor(1,col("white"));//
+				this.g.setColor(1,15);//
 				this.mac=(this.mac)?this.mac:set.read("dash","slot"+set.read("dash","slot")+"Mac");
 				if(!this.mac) {
 						this.g.setFont("Vector",25);
@@ -212,6 +212,7 @@ face[0] = {
 				}
 			}
 		}
+	
 	},
 	time:function(){
 		//minutes
@@ -221,13 +222,13 @@ face[0] = {
 		if (this.t[1]!=this.min ){
 			this.min=this.t[1];
 			this.g.setFont("Vector",73);
-			this.fmin=col("lblue");
+			this.fmin=14;
 			this.fsec=0;
 			if (global.alrm) {
-				if (alrm.buzz!=-1) {this.bmin=col("dgray");this.fmin=col("yellow");this.fsec=col("yellow");this.bsec=col("dgray");}
-				else if (alrm[1].tmr!==-1||alrm[2].tmr!==-1||alrm[3].tmr!==-1) {this.bmin=col("raf1");this.fsec=col("white");this.bsec=col("raf1");}
-				else  {this.bmin=col("dgray");this.fsec=col("white");this.bsec=col("dgray");}
-			}else {this.bmin=col("dgray");this.fsec=col("white");this.bsec=col("dgray");}
+				if (alrm.buzz!=-1) {this.bmin=1;this.fmin=13;this.fsec=13;this.bsec=1;}
+				else if (alrm[1].tmr!==-1||alrm[2].tmr!==-1||alrm[3].tmr!==-1) {this.bmin=5;this.fsec=15;this.bsec=5;}
+				else  {this.bmin=1;this.fsec=15;this.bsec=1;}
+			}else {this.bmin=1;this.fsec=15;this.bsec=1;}
 			this.g.setColor(0,this.bmin);
 			this.g.fillRect(96,55,203,150);
 			this.g.setColor(1,this.fmin);
@@ -250,7 +251,7 @@ face[0] = {
 			this.hour=this.t[0];
 			this.g.setColor(0,this.bmin);
 			this.g.fillRect(0,55,95,150);
-			this.g.setColor(1,col("white"));
+			this.g.setColor(1,15);
 			this.g.setFont("Vector",73);
 			if (set.def.hr24) {
 				this.g.drawString(this.hour,0,69); //hours

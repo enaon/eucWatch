@@ -5,20 +5,20 @@ if (!face.menu) {
 		if (!init){
 			this.g.setColor(0,backColor);
 		    this.g.fillRect(50,50,195,150);                    
-            this.g.setColor(1,col("white"));
+            this.g.setColor(1,15);
 			this.g.setFont("Vector",valueSize);
 			this.g.drawString(value,130-(this.g.stringWidth(value)/2),65); 		
 		    this.g.flip();
 		}else{
 			this.g.setColor(0,backColor);
 			this.g.fillRect(0,0,239,195);
-			this.g.setColor(1,col("white"));
+			this.g.setColor(1,15);
 			this.g.setFont("Vector",titleSize);
 			this.g.drawString(title,120-(this.g.stringWidth(title)/2),10); 		
 			this.g.drawImage(require("heatshrink").decompress(atob("oFAwJC/AAs8A41+A43/AwsDA40HA40PA40f/wHFn/8Fw34AwkB//wGw3AGw2AGxk/Gw1/Gw4uFGwPgGxguBGwsfGw4uGv5lFGw4HBGwoHJC4wnHG45HHK45nHO444JGAynHW47HHHBKBHNJ44QA4o4BA4owBA41+A408A4wA6A==")),0,70);
 			this.g.drawImage(require("heatshrink").decompress(atob("oFAwJC/AAU8A41+A43/A4/AA43gA43wA4t//AHFn/8A4sfGA0P/+AA4kDHA0BHCAwGn/+GA4HFg44QGA3/NJ44QA5oXHE443HI4xXHM453HGw6XHU44uGY442Hc473HMo9/Voy9Ifw42FA4IGFgF+A408A4wA9A=")),180,70);
 			this.g.flip(); 
-			this.g.setColor(1,col("white"));
+			this.g.setColor(1,15);
 			this.g.setFont("Vector",valueSize);
 			this.g.drawString(value,130-(this.g.stringWidth(value)/2),65); 		
 			this.g.flip(); 
@@ -40,23 +40,23 @@ face[0] = {
         this.g.flip();	
         this.g.setColor(0,0);
 		this.g.fillRect(0,205,239,239);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(1,15);
 		this.g.setFont("Vector",20);
 		this.g.drawString("ACTIONS",120-(this.g.stringWidth("ACTIONS")/2),217); 
 		this.g.flip();
-		this.g.setColor(0,col("black"));
+		this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,204);
-		this.g.setColor(1,col("lgray"));
+		this.g.setColor(1,3);
       	this.g.fillRect(75,200,165,204);
 		this.g.flip();
-        this.g.setColor(1,col("white"));
+        this.g.setColor(1,15);
       	this.g.fillRect(75,200,98,204);
 		this.g.flip(); 
-        this.btn(euc.dash.lght.head,"LIGHT",18,60,15,col("raf"),col("dgray"),0,0,119,97,(euc.dash.lght.head)?"ON":"OFF",28,60,50);
-		this.btn(euc.dash.ctrl.vol,"VOLUME",22,185,15,col("olive"),col("red"),122,0,239,97,(euc.dash.ctrl.vol)?euc.dash.ctrl.vol:"MUTE",30,185,50);//2
+        this.btn(euc.dash.lght.head,"LIGHT",18,60,15,4,1,0,0,119,97,(euc.dash.lght.head)?"ON":"OFF",28,60,50);
+		this.btn(euc.dash.ctrl.vol,"VOLUME",22,185,15,12,7,122,0,239,97,(euc.dash.ctrl.vol)?euc.dash.ctrl.vol:"MUTE",30,185,50);//2
 		let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
-		this.btn(euc.dash.tpms,(euc.dash.tpms)?euc.dash.tpms:"TPMS",18,60,115,col((euc.dash.tpms&&tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.tpms].time<1800)?(tpms.euc[euc.dash.tpms].alrm)?"red":"raf":"dgray"),col("dgray"),0,100,119,195,(euc.dash.tpms)?(tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].psi)?Math.round(tpms.euc[euc.dash.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.tpms)?32:28,60,150); //3				
-   		this.btn(1,"OFF",25,185,135,col("dgray"),col("dgray"),122,100,239,195); //4
+		this.btn(euc.dash.tpms,(euc.dash.tpms)?euc.dash.tpms:"TPMS",18,60,115,(euc.dash.tpms&&tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.tpms].time<1800)?(tpms.euc[euc.dash.tpms].alrm)?7:4:1,1,0,100,119,195,(euc.dash.tpms)?(tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].psi)?Math.round(tpms.euc[euc.dash.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.tpms)?32:28,60,150); //3				
+   		this.btn(1,"OFF",25,185,135,1,1,122,100,239,195); //4
 		this.run=true;
 	},
 	show : function(){
@@ -70,7 +70,7 @@ face[0] = {
     btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
 			this.g.setColor(0,(bt)?clr1:clr0);
 			this.g.fillRect(rx1,ry1,rx2,ry2);
-			this.g.setColor(1,col("white"));
+			this.g.setColor(1,15);
 			this.g.setFont("Vector",size1);	
 			this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1); 
    			if (txt2){this.g.setFont("Vector",size2);	
@@ -80,7 +80,7 @@ face[0] = {
     ntfy: function(txt1,txt0,size,clr,bt){
             this.g.setColor(0,clr);
 			this.g.fillRect(0,198,239,239);
-			this.g.setColor(1,col("white"));
+			this.g.setColor(1,15);
 			this.g.setFont("Vector",size);
      		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
 			this.g.flip();
@@ -89,16 +89,16 @@ face[0] = {
                 t.ntid=0;
 				t.g.setColor(0,0);
 				t.g.fillRect(0,205,239,239);
-				t.g.setColor(1,col("white"));
+				t.g.setColor(1,15);
 				t.g.setFont("Vector",20);
 		        t.g.drawString("ACTIONS",122-(t.g.stringWidth("ACTIONS")/2),217); 
 				t.g.flip();
-				t.g.setColor(0,col("black"));
+				t.g.setColor(0,0);
 				t.g.fillRect(0,196,239,204);
-				t.g.setColor(1,col("lgray"));
+				t.g.setColor(1,3);
 				t.g.fillRect(75,200,165,204);
 				t.g.flip();
-				t.g.setColor(1,col("white"));
+				t.g.setColor(1,15);
 				t.g.fillRect(75,200,98,204);
 				t.g.flip(); 	
 			},1000,this);
@@ -161,24 +161,24 @@ touchHandler[0]=function(e,x,y){
 			if ( x<=120 && y<=100 ) { //lights
 				euc.dash.lght.head=1-euc.dash.lght.head;
 				euc.wri("setLights",(euc.dash.lght.head)?1:0);
-				face[0].btn(euc.dash.lght.head,"LIGHT",18,60,15,col("raf"),col("dgray"),0,0,119,97,(euc.dash.lght.head)?"ON":"OFF",28,60,50);
-				face[0].ntfy("LIGHT ON","LIGHT OFF",20,(euc.dash.lght.head)?col("raf"):col("dgray"),euc.dash.lght.head);
+				face[0].btn(euc.dash.lght.head,"LIGHT",18,60,15,4,1,0,0,119,97,(euc.dash.lght.head)?"ON":"OFF",28,60,50);
+				face[0].ntfy("LIGHT ON","LIGHT OFF",20,(euc.dash.lght.head)?4:1,euc.dash.lght.head);
 				buzzer([30,50,30]);
 			}else if ( 120<=x && y<=100 ) { //Volume
 				buzzer([30,50,30]);
 				face.menu.full("VOLUME",20,euc.dash.ctrl.vol,80,1453,1365,1);
-				face[0].ntfy("SET VOLUME","SET VOLUME",20,col("raf"),1);
+				face[0].ntfy("SET VOLUME","SET VOLUME",20,4,1);
 				face[0].sub="volume";
 			}else if ( x<=120 && 100<=y ) { //tpms
 				buzzer([30,50,30]);		
-				if (!euc.dash.tpms) face[0].ntfy("HOLD-> ON/OFF",col("raf"));
+				if (!euc.dash.tpms) face[0].ntfy("HOLD-> ON/OFF",4);
 				else {
 					tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.tpms);
 					face.go("tpmsFace",0);
 					return;
 				}	
 			}else if (120<=x && 100<=y ) { //off
-				face[0].ntfy("HOLD -> POWER OFF","",18,col("red"),1);
+				face[0].ntfy("HOLD -> POWER OFF","",18,7,1);
 				buzzer([30,50,30]);						
 			}else buzzer(40);
 		}
@@ -212,22 +212,22 @@ touchHandler[0]=function(e,x,y){
 		return;
 	case 12: //long press event
 		if ( 120<=x && 100<=y ) { //off
-	   		face[0].btn(1,"OFF",25,185,135,col("red"),0,122,100,239,195); //4
+	   		face[0].btn(1,"OFF",25,185,135,7,0,122,100,239,195); //4
 			euc.tmp.aOff=1;
 			euc.tgl();
 		}else if  (x<=120 && 100<=y ) { //tpms
 			buzzer([30,50,30]);
 			if (euc.dash.tpms) {
 				euc.dash.tpms=0;
-				face[0].btn("TPMS",18,60,115,col("dgray"),0,100,119,195,"OFF",28,60,155); //3
-				face[0].ntfy("TPMS DISABLED",col("dgray"));
+				face[0].btn("TPMS",18,60,115,1,0,100,119,195,"OFF",28,60,155); //3
+				face[0].ntfy("TPMS DISABLED",1);
 				return;
 			}else{
 				if (global.tpms){ 
 					tpms.scan();
 					face.go("tpmsFace",0);
 				}else 
-					face[0].ntfy("NOT INSTALLED",col("red"));
+					face[0].ntfy("NOT INSTALLED",7);
 			}
 			return;	
 	    }else buzzer(40);

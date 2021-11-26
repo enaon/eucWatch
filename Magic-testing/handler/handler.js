@@ -325,9 +325,9 @@ setWatch(function(s){
 	}
 	if (face.pageCurr<0|| face.batt){
 		//g.clear();
-		g.setColor(0,(set.ondc)?col("raf"):col("dgray"));
+		g.setColor(0,(set.ondc)?4:1);
 		g.fillRect(0,0,240,240);
-		g.setColor(1,col("lblue"));
+		g.setColor(1,14);
 		let img = require("heatshrink").decompress(atob("wGAwJC/AA0D///4APLh4PB+AP/B/N/BoIAD/gPHBwv//wPO/4PH+F8gEHXwN8h4PIKgwP/B/4P/B/4PbgQPOg4POh+AB7sfB50/H5wPPv4PO/4PdgIPP94PNgfPB5sHB5+PB5sPB50fBgQPLjwPOn0OB5t8jwPNvAPO/APNgPwB53gB5sDB5/AB5sHwAPNh+Aj//4APLYAIPMj4POnwhBB5k8AgJSBB5V8LoQPL/BtDB5TRCKQIPJZwIEBSAIPJXwIEBMQQPJ4AEBKQIPJg4PCvAPKRgP+MQQPNYgYPKMQR/KLoMBMQIPLjxiCB5ccMQQPLnjeBB5reBB5zhDB5TeBB5reBB5s8B5s4bwIPMvDeBB5reBB5oDCB5d5B517bwIPNZwIPMu4PO/7OBB7oGCB5f+B738B7sBZwQPcGQQPMZwQPbgDOCB5gADB/4P/B/4PY/4AGB69/Bwv+B538B44Ar"));
 		g.drawImage(img,60,30);
 		g.setFont("Vector",30);
@@ -633,11 +633,11 @@ cron={
 function col(no){
 		"ram";
 		switch (no) {
-			case "black":return 0;case "white":return 4095;case "lblue":return 1535;case "blue":return 143;case "dblue":return 1375;case "blue1":return 1708;
-			case "raf":return 1629;case "raf1":return 2474;case "raf2":return 1963;case "raf3":return 2220;case "raf4":return 2474;case "raf5":return 3005;
-			case "gray":return 2730;case "lgray":return 3549;case "dgray":return 1365;case "dgray1":return 1351;case "lgreen":return 1525;case "red":return 3840;
+			case "black":return 0;case 15:return 4095;case 14:return 1535;case "blue":return 143;case "dblue":return 1375;case "blue1":return 1708;
+			case 4:return 1629;case "raf1":return 2474;case "raf2":return 1963;case "raf3":return 2220;case "raf4":return 2474;case "raf5":return 3005;
+			case 2:return 2730;case "lgray":return 3549;case 1:return 1365;case "dgray1":return 1351;case "lgreen":return 1525;case 7:return 3840;
 			case "dred":return 3925;case "dred1":return 3888;case "purple":return 3935;case "lyellow":return 4085;case "dyellow":return 4064;case "yellow":return 4080;
-			case "olive":return 170;
+			case 12:return 170;
 		}
 }
 

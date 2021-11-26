@@ -10,20 +10,20 @@ face[0] = {
 		this.pos=0;
 		if (face[0].tpms.length) {
 			let cl=((getTime()|0) - tpms.slot[face[0].tpms[face[0].pos]].time < 300)?1:0;
-			this.btn(cl,face[0].tpms[face[0].pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
-			this.btn(1,face[0].pos+1+"/"+face[0].tpms.length,35,200,7,0,col("raf"),150,0,239,50);
+			this.btn(cl,face[0].tpms[face[0].pos],35,75,7,4,1,0,0,149,50);
+			this.btn(1,face[0].pos+1+"/"+face[0].tpms.length,35,200,7,0,4,150,0,239,50);
 			this.sel(tpms.slot[this.tpms[0]].psi,"<  "+this.tpms.length+" TOTAL  >");
 			this.lg();
 			this.page=0;
 		}else {
 			this.page="scan";
-			this.btn(1,"TOUCH TO SCAN",35,120,7,col("raf"),col("dgray"),0,0,239,50);
+			this.btn(1,"TOUCH TO SCAN",35,120,7,4,1,0,0,239,50);
 			this.run=1;
 		}	
 	},
 	show : function(o){
 		if (!this.run) return;
-			this.btn(0,tpms.status,50,120,200,col("raf"),col("dgray"),0,55,239,200);
+			this.btn(0,tpms.status,50,120,200,4,1,0,55,239,200);
   		//refresh 
 		this.tid=setTimeout(function(t){
 			t.tid=-1;
@@ -51,13 +51,13 @@ face[0] = {
 	lg: function(){
 		this.g.setColor(0,0);
 		this.g.fillRect(0,176,239,239);
-		this.g.setColor(1,col("lblue"));
+		this.g.setColor(1,14);
 		this.g.flip(); 
     },
     btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
 		this.g.setColor(0,(bt)?clr1:clr0);
 		this.g.fillRect(rx1,ry1,rx2,ry2);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(1,15);
 		this.g.setFont("Vector",size1);	
 		this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1); 
 		if (txt2){this.g.setFont("Vector",size2);	
@@ -65,9 +65,9 @@ face[0] = {
 		this.g.flip();
     },
 	sel: function(txt1,txt2){
-		this.g.setColor(0,col("dgray"));
+		this.g.setColor(0,1);
 		this.g.fillRect(0,51,239,175);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(1,15);
 		this.g.setFont("Vector",53);	
 		let size=this.g.stringWidth(txt1);
 		this.g.drawString(txt1,105-(this.g.stringWidth(txt1)/2),68); 
@@ -79,11 +79,11 @@ face[0] = {
 	ind: function(pos){
 		pos=(((pos-1)*(240/this.len))+1);
 		this.g.setColor(0,0);
-		this.g.setColor(1,col("yellow"));
+		this.g.setColor(1,13);
 		this.g.fillRect(pos,(this.log[this.pos])?239-(this.log[this.pos]*this.scale):239,pos+((240/this.len)-2),239);
 		this.g.flip(); 
 		if (this.rowL&&this.rowL!==pos){
-			this.g.setColor(1,col("lblue"));
+			this.g.setColor(1,14);
 			this.g.fillRect(this.rowL,(this.log[this.posL])?239-(this.log[this.posL]*this.scale):239,this.rowL+((240/this.len)-2),239);
 			this.g.flip(); 
 		}
@@ -92,14 +92,14 @@ face[0] = {
 		pos=pos-1;
 		this.g.setColor(0,0);
 		this.g.fillRect(0,176,239,178);
-		this.g.setColor(1,col("yellow"));
+		this.g.setColor(1,13);
 		this.g.fillRect(pos,176,pos+(240/this.len),178);
 		this.g.flip();
     },
 	ntfy: function(txt1,txt0,size,clr,bt){
 		this.g.setColor(0,clr);
 		this.g.fillRect(0,180,239,239);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(1,15);
 		this.g.setFont("Vector",size);
 		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
 		this.g.flip();
@@ -108,7 +108,7 @@ face[0] = {
 			t.ntid=0;
 			t.g.setColor(0,0);
 			t.g.fillRect(0,196,239,239);
-			t.g.setColor(1,col("white"));
+			t.g.setColor(1,15);
 			t.g.setFont("Vector",20);
 			t.g.drawString(euc.dash.maker,120-(t.g.stringWidth(euc.dash.maker)/2),217); 
 			t.g.flip();
@@ -185,12 +185,12 @@ touchHandler[0]=function(e,x,y){
 				} 
 				face[0].info=1;
 				let cl=((getTime()|0) - tpms.slot[face[0].tpms[face[0].pos]].time < 300)?1:0;
-				face[0].btn(cl,face[0].tpms[face[0].pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
-				face[0].btn(1,face[0].pos+1+"/"+face[0].tpms.length,35,200,7,0,col("raf"),150,0,239,50);
+				face[0].btn(cl,face[0].tpms[face[0].pos],35,75,7,4,1,0,0,149,50);
+				face[0].btn(1,face[0].pos+1+"/"+face[0].tpms.length,35,200,7,0,4,150,0,239,50);
 				face[0].info=1;
 				w.gfx.setColor(0,0);
 				w.gfx.fillRect(100,51,190,239); 
-				w.gfx.setColor(1,col("white"));
+				w.gfx.setColor(1,15);
 				w.gfx.setFontVector(28);
 				w.gfx.drawString(tpms.slot[face[0].tpms[face[0].pos]].bar,185-w.gfx.stringWidth(tpms.slot[face[0].tpms[face[0].pos]].bar),62);
 				w.gfx.drawString(tpms.slot[face[0].tpms[face[0].pos]].psi,185-w.gfx.stringWidth(tpms.slot[face[0].tpms[face[0].pos]].psi),100);
@@ -200,7 +200,7 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.flip();	
 				w.gfx.setColor(0,0);
 				w.gfx.fillRect(0,51,99,239); 				
-				w.gfx.setColor(1,col("lgray"));
+				w.gfx.setColor(1,3);
 				w.gfx.setFontVector(22);
 				w.gfx.drawString("Pressure",5,65);
 				w.gfx.setFontVector(24);
@@ -209,7 +209,7 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.flip();
 				w.gfx.setColor(0,0);
 				w.gfx.fillRect(191,51,239,239); 
-				w.gfx.setColor(1,col("lgray"));
+				w.gfx.setColor(1,3);
 				w.gfx.drawString("Bar",195,65);
 				w.gfx.drawString("Psi",195,105);
 				w.gfx.drawString("C",195,143);
@@ -224,8 +224,8 @@ touchHandler[0]=function(e,x,y){
 					else face[0].pos=0;
 				}
 				let cl=((getTime()|0) - tpms.slot[face[0].tpms[face[0].pos]].time < 300)?1:0;
-				face[0].btn(cl,face[0].tpms[face[0].pos],35,75,7,col("raf"),col("dgray"),0,0,149,50);
-				face[0].btn(1,face[0].pos+1+"/"+face[0].tpms.length,35,200,7,0,col("raf"),150,0,239,50);
+				face[0].btn(cl,face[0].tpms[face[0].pos],35,75,7,4,1,0,0,149,50);
+				face[0].btn(1,face[0].pos+1+"/"+face[0].tpms.length,35,200,7,0,4,150,0,239,50);
 				face[0].sel(tpms.slot[face[0].tpms[face[0].pos]].psi,"<  "+face[0].tpms.length+" TOTAL  >");
 				face[0].lg();
 			}			

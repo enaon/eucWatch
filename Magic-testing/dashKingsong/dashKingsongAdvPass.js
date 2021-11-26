@@ -5,15 +5,15 @@ face[0] = {
 	init: function(){
    		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		//if (!face[5].pass) {
-		//	face[5].ntfy("EMPTY PASSWORD",20,col("blue1"));
+		//	face[5].ntfy("EMPTY PASSWORD",20,4);
         //    setTimeout(()=>{face.go("dashKingsongOpt",0);return;},1000);
 		//	return;
 		//}	
         //status
         if (euc.dash.pass.length>=4){
-			this.g.setColor(0,col("blue1"));
+			this.g.setColor(0,4);
 			this.g.fillRect(0,0,239,97);
-			this.g.setColor(1,col("white"));
+			this.g.setColor(1,15);
 			this.g.setFont("Vector",16);
 			this.g.drawString("WHEEL IS",120-(this.g.stringWidth("WHEEL IS")/2),18); 
 			this.g.setFont("Vector",26);
@@ -25,18 +25,18 @@ face[0] = {
 			this.g.drawLine (0,99,239,99);
 			this.g.flip();
 			//change
-			this.g.setColor(0,col("olive"));
+			this.g.setColor(0,12);
 			this.g.fillRect(0,100,239,195);
-			this.g.setColor(1,col("white"));
+			this.g.setColor(1,15);
 			this.g.setFont("Vector",16);
 			this.g.drawString("CHANGE",122-(this.g.stringWidth("CHANGE")/2),118); 
 			this.g.setFont("Vector",26);
 			this.g.drawString("PASS",122-(this.g.stringWidth("PASS")/2),150); 
 			this.g.flip();
         }else {
-			this.g.setColor(0,col("olive"));
+			this.g.setColor(0,12);
 			this.g.fillRect(0,0,239,195);
-			this.g.setColor(1,col("white"));
+			this.g.setColor(1,15);
 			this.g.setFont("Vector",18);
 			this.g.drawString("WHEEL IS",120-(this.g.stringWidth("WHEEL IS")/2),55); 
 			this.g.setFont("Vector",30);
@@ -46,7 +46,7 @@ face[0] = {
         //info
         this.g.setColor(0,0);
 		this.g.fillRect(0,195,239,239);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(1,15);
 		this.g.setFont("Vector",20);
 		this.g.drawString("PASS SETTINGS",120-(this.g.stringWidth("PASS SETTINGS")/2),214); 
 		this.g.flip(); 
@@ -64,7 +64,7 @@ face[0] = {
 			this.info=1;
             this.g.setColor(0,clr);
 			this.g.fillRect(0,196,239,239);
-			this.g.setColor(1,col("white"));
+			this.g.setColor(1,15);
 			this.g.setFont("Vector",size);
 			this.g.drawString(txt,122-(this.g.stringWidth(txt)/2),212); 
 			this.info=1;
@@ -74,7 +74,7 @@ face[0] = {
                 t.ntid=0;
 				t.g.setColor(0,0);
 				t.g.fillRect(0,196,239,239);
-				t.g.setColor(1,col("white"));
+				t.g.setColor(1,15);
 				t.g.setFont("Vector",20);
 		        t.g.drawString("PASS SETTINGS",120-(t.g.stringWidth("PASS SETTINGS")/2),214); 
 				t.g.flip();
@@ -113,9 +113,9 @@ face[5] = {
 	g:w.gfx,
 	init: function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
-		this.g.setColor(0,col("olive"));
+		this.g.setColor(0,12);
 		this.g.fillRect(0,0,239,195);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(1,15);
 		this.g.setFont("Vector",30);
 		this.g.drawString(1,34,18);this.g.drawString(2,115,18);this.g.drawString(3,195,18);
 		this.g.drawString(4,34,85);this.g.drawString(5,115,85);this.g.drawString(6,195,85);
@@ -149,7 +149,7 @@ face[5] = {
 			this.info=1;
             this.g.setColor(0,clr);
 			this.g.fillRect(0,196,239,239);
-			this.g.setColor(1,col("white"));
+			this.g.setColor(1,15);
 			this.g.setFont("Vector",size);
 			this.g.drawString(txt,122-(this.g.stringWidth(txt)/2),212); 
 			this.info=1;
@@ -160,9 +160,9 @@ face[5] = {
 				t.g.setColor(0,0);
 				t.g.fillRect(0,196,239,239);
 				t.g.flip();
-				t.g.setColor(0,col("olive"));
+				t.g.setColor(0,12);
 				t.g.fillRect(82,198,158,239);
-				t.g.setColor(1,col("white"));
+				t.g.setColor(1,15);
 				t.g.setFont("Vector",30);
 				t.g.drawString(0,115,207); 
 				if (t.pass.length >=4) t.pass="";
@@ -170,18 +170,18 @@ face[5] = {
 			},1200,this);
     },
     btn: function(x1,y1,x2,y2,bt,xb,yb){
-            this.g.setColor(0,col("red"));
+            this.g.setColor(0,7);
 			this.g.fillRect(x1,y1,x2,y2);
-			this.g.setColor(1,col("white"));
+			this.g.setColor(1,15);
 			this.g.setFont("Vector",30);
 			this.g.drawString(bt,xb,yb); 
 			this.g.flip();
 			if (this["tid"+bt]) clearTimeout(this["tid"+bt]);
 			this["tid"+bt]=setTimeout(function(t,x1,y1,x2,y2,bt,xb,yb){
                 t["tid"+bt]=0;
-				t.g.setColor(0,col("olive"));
+				t.g.setColor(0,12);
 			    t.g.fillRect(x1,y1,x2,y2);
-				t.g.setColor(1,col("white"));
+				t.g.setColor(1,15);
 				t.g.setFont("Vector",30);
 				t.g.drawString(bt,xb,yb); 
 				t.g.flip();
@@ -212,13 +212,13 @@ touchHandler[0]=function(e,x,y){
         if (euc.dash.pass.length>=4){
    		buzzer([30,50,30]);
 		if (y<=100) { //enable/disable
-          face[0].ntfy("HOLD -> CLEAR",20,col("dgray"));
+          face[0].ntfy("HOLD -> CLEAR",20,1);
 		}else  { //change
-           face[0].ntfy("HOLD -> CHANGE",20,col("dgray"));
+           face[0].ntfy("HOLD -> CHANGE",20,1);
 		}
         } else {
           buzzer(40);
-          face[0].ntfy("HOLD -> SET",20,col("dgray"));
+          face[0].ntfy("HOLD -> SET",20,1);
 
         }
         this.timeout();
@@ -318,14 +318,14 @@ touchHandler[5]=function(e,x,y){
                   euc.dash.passOld=euc.dash.pass;
                   euc.dash.pass=face[5].pass;
                   buzzer(80);
-                  face[5].ntfy("SUCCESS!",20,col("blue1"));
+                  face[5].ntfy("SUCCESS!",20,4);
                   if (euc.dash.passOld!=""){euc.wri("passChange");}else{euc.wri("passSet");}
        			  euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
                   euc.dash.passSend=1;
                   setTimeout(()=>{face.go("dashKingsongAdvPass",0);return;},1000);
                 }else{
                   buzzer(120);
-                  face[5].ntfy("NOT THE SAME",20,col("red"));
+                  face[5].ntfy("NOT THE SAME",20,7);
                   face[0].passSet=1;
                   face[5].passTemp="";
                 }
@@ -333,17 +333,17 @@ touchHandler[5]=function(e,x,y){
                  face[5].passTemp=face[5].pass;
                  buzzer(80);
                  face[0].passSet=2;
-                 face[5].ntfy("RE-ENTER->CONFIRM",20,col("blue1"));
+                 face[5].ntfy("RE-ENTER->CONFIRM",20,4);
              }
           }else{
               if (face[5].pass==euc.dash.pass) {
                 buzzer(80);
-                face[5].ntfy("PASSWORD ACCEPTED",20,col("blue1"));
+                face[5].ntfy("PASSWORD ACCEPTED",20,4);
                 setTimeout(()=>{face.go("dashKingsongAdvPass",0);return;},1000);
               } else {
                 
                 buzzer(120);
-       	  	    face[5].ntfy("WRONG PASSWORD",20,col("red"));
+       	  	    face[5].ntfy("WRONG PASSWORD",20,7);
               }
           }
         }       

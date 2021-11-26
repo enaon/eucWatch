@@ -10,8 +10,7 @@ E.showMessage=print; //apploader suport
 global.save = function() { throw new Error("You don't need to use save() on the Magic3!"); };
 D7.write(1); // turns off sp02 red led
 ew={pin:{BAT:D30,CHRG:D8,BUZZ:D6,BL:D12,i2c:{SCL:14,SDA:15},touch:{RST:D39,INT:D32},disp:{CS:D3,DC:D47,RST:D2,BL:D12},acc:{INT:D16}}};
-//load in devmode
-
+//devmode
 if (BTN1.read() || Boolean(require("Storage").read("devmode"))) { 
   let mode=(require("Storage").read("devmode"));
   if ( mode=="loader"){ 
@@ -33,33 +32,11 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
 	 reset();
     }, 500);
   },BTN1,{repeat:false, edge:"rising"}); 
-}else{ //load in working mode
+}else{ //working mode
 var w;
 //var pal=[];
 Modules.addCached("eucWatch",function(){
-/*const pin = {
-  BUTTON: D17,
-  MOTOR: D6, 
-  BATTERY: D31, 
-  CHARGING: D19, 
-  LCD_BL_L:D14,
-  LCD_BL_M:D22,  
-  LCD_BL_H:D23,  
-  LCD_CLK: D2, 
-  LCD_RST: D26, 
-  LCD_CS: D25, 
-  LCD_SI: D3,
-  LCD_DC: D18, 
-  //Touchscreen
-  TP_SDA:D16,
-  TP_SCL:D15,
-  //TP_RESET:D13, // P8 Watch
-	TP_RESET:D39, // Magic3  
-  TP_INT:D32,
-};
-*/
-
-
+const pin={BAT:D30,CHRG:D8,BUZZ:D6,BL:D12,i2c:{SCL:14,SDA:15},touch:{RST:D39,INT:D32},disp:{CS:D3,DC:D47,RST:D2,BL:D12},acc:{INT:D16}};
 //screen driver
 //
 ///*
@@ -169,24 +146,26 @@ function init(bppi){
   //cmd([0x2b,0,0,0,239]);
   //cmd([0x2c]);
 }
-
-var bpp=1; // powers of two work, 3=8 colors would be nice
+var bpp=(require("Storage").read("setting.json") && require("Storage").readJSON("setting.json").bpp)?require("Storage").readJSON("setting.json").bpp:1;
+//var bpp=4; // powers of two work, 3=8 colors would be nice
 var g=Graphics.createArrayBuffer(240,280,bpp);
-var pal;
+var pal=Uint16Array([]);
 g.sc=g.setColor;
+
 function cmode(bppi){
+	g.buffer=new ArrayBuffer(33600);
 	switch(bppi){
-	g.setColor=g.sc
-  case 2: pal= Uint16Array([0x000,1365,1629,1535]);break; // white won't fit
 //  case 1: pal= Uint16Array([0x000,0xfff]);break;
-  case 1:
-  pal= Uint16Array( // same as 16color below, use for dynamic colors
+	case 1:
+	pal= Uint16Array( // same as 16color below, use for dynamic colors
     [ 0x000,1365,2730,3549,1629,2474,1963,3840,
      143,3935,2220,0x5ff,170,4080,1535,4095 ]);
+	g.buffer=new ArrayBuffer(8400);
 	c1=pal[1]; //save color 1
 	g.setColor=function(c,v){ 
 		if (c==1) pal[1]=v; else pal[0]=v;
 		g.sc(c);
+	}; 
 	/*g.sc=g.setColor;
 	g.setColor=function(c){ //change color 1 dynamically
 	c=Math.floor(c);
@@ -195,19 +174,24 @@ function cmode(bppi){
     } else if (c==1) {
       pal[1]=c1; g.sc(1);
 	} else g.sc(c);*/
-}; 
-  break;
-  case 4: pal= Uint16Array( // CGA
-    [
-// 12bit RGB444  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=blue,9=purple,10=?,11=green,12=olive,13=yellow,14=lblue,15=white
-      0x000,1365,2730,3549,1629,2474,1963,3840,
-     143,3935,2220,0x5ff,170,4080,1535,4095
-//16bit RGB565
-//      0x0000,0x00a8,0x0540,0x0555,0xa800,0xa815,0xaaa0,0xad55,
-//      2220,0x52bf,0x57ea,0x57ff,0xfaaa,0xfabf,0xffea,0xffff
 
-    ]);break;
-}
+	break; 
+	case 2: 
+	  pal= Uint16Array([0x000,1365,1629,1535]);break; // white won't fit
+	  g.buffer=new ArrayBuffer(16800);
+	case 4: 
+		g.buffer=new ArrayBuffer(33600);
+		pal= Uint16Array([0x000,1365,2730,3549,1629,2474,1963,3840,143,3935,2220,0x5ff,170,4080,1535,4095]);
+		g.setColor=function(c,v){ 
+			g.sc(v);
+		}; 
+	//12bit RGB444
+	//0=black,1=dgray,2=gray,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=blue,9=purple,10=?,11=green,12=olive,13=yellow,14=lblue,15=white
+	//16bit RGB565
+	//0x0000,0x00a8,0x0540,0x0555,0xa800,0xa815,0xaaa0,0xad55,
+	//2220,0x52bf,0x57ea,0x57ff,0xfaaa,0xfabf,0xffea,0xffff
+  break;
+  }
 }
 cmode(bpp);
 // preallocate setwindow command buffer for flip
@@ -228,7 +212,7 @@ g.buffA=E.getAddressOf(g.buffer,true); // framebuffer address
 g.stride=g.getWidth()*bpp/8;
 
 g.flip=function(force){
-	"ram";
+  "ram";
   var r=g.getModified(true);
   if (force)
     r={x1:0,y1:0,x2:this.getWidth()-1,y2:this.getHeight()-1};
@@ -255,7 +239,7 @@ g.isOn=false;
 init();
 
 g.on=function(){
-	"ram";
+  "ram";
   if (this.isOn) return;
   cmd(0x11);
   g.flip();
@@ -266,9 +250,8 @@ g.on=function(){
   //this.setBrightness();
 };
 
-
 g.off=function(){
-	"ram";
+  "ram";
   if (!this.isOn) return;
   //cmd(0x28);
   cmd(0x10);
@@ -276,56 +259,36 @@ g.off=function(){
   this.isOn=false;
 };
 
-// does PWM on BL pin, not best for P8 as it has 3 BL pins
-g.lev=256;
-g.setBrightness=function(lev){
-	"ram";
-  if (lev>=0 && lev<=256)
-    this.lev=lev;
-  else
-    lev=this.lev;
-  if (this.isOn){
-    val=lev/256;
-    if (val==0||val==1)
-      digitalWrite(BL,val);
-    else
-      analogWrite(BL,val,{freq:60});
+g.bri={
+  lv:((require("Storage").readJSON("setting.json",1)||{}).bri)?(require("Storage").readJSON("setting.json",1)||{}).bri:3,
+  set:function(o){	
+    if (o) this.lv=o; else { this.lv++; if (this.lv>7) this.lv=1; o=this.lv; }
+    if (this.lv==0||this.lv==7)
+      digitalWrite(BL,(this.lv==0)?0:1);
+    else 
+      analogWrite(BL,(this.lv*42.666)/256,{freq:60});
+      //digitalWrite([D23,D22,D14],7-o);
+    set.def.bri=o;
+    return o;
   }
 };
-g.bri={
-  	lv:((require("Storage").readJSON("setting.json",1)||{}).bri)?(require("Storage").readJSON("setting.json",1)||{}).bri:3,
-	set:function(o){	
-//      print(o);
-	if (o) this.lv=o; else { this.lv++; if (this.lv>7) this.lv=1; o=this.lv; }
-	if (this.lv==0||this.lv==7)
-        digitalWrite(BL,(this.lv==0)?0:1);
-	else 
-        analogWrite(BL,(this.lv*42.666)/256,{freq:60});
-	//digitalWrite([D23,D22,D14],7-o);
-    set.def.bri=o;
-	return o;
-	}
-};
-
-//return 100*(v-l)/(h-l);
-
 //battery
 const batt=function(i,c){
-		"ram";
-	let v= 4.20/0.60*analogRead(ew.pin.BAT);
-	let l=3.5,h=4.19;
-    let hexString = ("0x"+(0x50000700+(ew.pin.BAT*4)).toString(16));
-	poke32(hexString,2); // disconnect pin for power saving, otherwise it draws 70uA more 	
-	if (i==="info"){
-		if (c) return ((100*(v-l)/(h-l)|0)+'%-'+v.toFixed(2)+'V'); 
-		return (((v<=l)?0:(h<=v)?100:((v-l)/(h-l)*100|0))+'%-'+v.toFixed(2)+'V'); 
-	}else if (i) { 
-		if (c) return (100*(v-l)/(h-l)|0);
-		return ( (v<=l)?0:(h<=v)?100:((v-l)/(h-l)*100|0) );
-	}else return +v.toFixed(2);
+  "ram";
+  let v= 4.20/0.60*analogRead(ew.pin.BAT);
+  let l=3.5,h=4.19;
+  let hexString = ("0x"+(0x50000700+(ew.pin.BAT*4)).toString(16));
+  poke32(hexString,2); // disconnect pin for power saving, otherwise it draws 70uA more 	
+  if (i==="info"){
+    if (c) return ((100*(v-l)/(h-l)|0)+'%-'+v.toFixed(2)+'V'); 
+    return (((v<=l)?0:(h<=v)?100:((v-l)/(h-l)*100|0))+'%-'+v.toFixed(2)+'V'); 
+  }else if (i) { 
+    if (c) return (100*(v-l)/(h-l)|0);
+    return ( (v<=l)?0:(h<=v)?100:((v-l)/(h-l)*100|0) );
+  }else return +v.toFixed(2);
 };
 module.exports = {
-//  pin: pin,
+  pal: pal,
   cmode: cmode,
   batt: batt,
   gfx: g,
@@ -333,18 +296,15 @@ module.exports = {
 };
 });
 w=require("eucWatch");
-//load
-//w.gfx.init();
-//require("Storage").erase("colmode16");
+
 eval(require('Storage').read('handler'));
 eval(require('Storage').read('main'));
 eval(require('Storage').read('euc'));
 
-//require('Storage').list(/m_/).forEach(modfile=>{eval(require('Storage').read(modfile));});
 digitalPulse(ew.pin.BUZZ,0,[100,30,100]);
 setTimeout(function(){
-if (global.face) face.go('main',0);
-setTimeout(function(){ if (global.set) set.accR(); },1000); 
-digitalPulse(ew.pin.BUZZ,0,[100]);  
+  if (global.face) face.go('main',0);
+  setTimeout(function(){ if (global.set) set.accR(); },1000); 
+  digitalPulse(ew.pin.BUZZ,0,[100]);  
 },200); 
 }
