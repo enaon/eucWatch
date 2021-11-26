@@ -281,7 +281,7 @@ euc.conn=function(mac){
 			//write function
 			euc.tmp.live= function(){
 				if (euc.tmp.alive) {clearTimeout(euc.tmp.alive); euc.tmp.alive=0;}
-				euc.tmp.alive=setTimeout(function(){euc.busy=0;euc.tmp.live();},1000);
+				euc.tmp.alive=setTimeout(function(){euc.tmp.alive=0;euc.busy=0;euc.tmp.live();},500);
 				if (euc.busy) return;
 				euc.wCha.writeValue([170, 170, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125]).then(function() {
 					return euc.wCha.writeValue([85, 85, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125]);
@@ -305,12 +305,9 @@ euc.conn=function(mac){
 						euc.wCha.writeValue(euc.cmd("playSound",euc.dash.ctrl.horn)).then(function()  {	
 								return euc.wCha.writeValue(euc.cmd("end"));
 							}).then(function()  {
-								if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
-								euc.tmp.loop=setTimeout(() => {euc.tmp.loop=0;
-									euc.horn=0;
-									euc.busy=0;
-									euc.tmp.live();
-								},500); 	
+								euc.tmp.loop=0;
+								if (euc.tmp.alive) {clearTimeout(euc.tmp.alive); euc.tmp.alive=0;}
+								euc.tmp.alive=setTimeout(function(){euc.tmp.alive=0;euc.busy=0;euc.tmp.live();},500);
 							});
 				  	},150);
 				}else if (cmd==="hornOff") {
