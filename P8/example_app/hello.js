@@ -7,15 +7,15 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
    	this.g.clear();
     this.msg=(global.hello)?hello:"Hello"; //check if global.hello var exists and get val or set to "hello". 
     //the way g.setColor is used on this project is not the espruino default. You can see changes on it at the init file. The screen driver is set at two colors mode to save on ram, and a flip is used when more colors are needed. The first argument is the color space, 0 or 1, the second argument is the actual color in 12-bit Color code. https://rangevoting.org/ColorCode.html#
-    this.g.setColor(1,col("lblue"));
+    this.g.setColor(1,14);
     this.g.fillRect(30,10,210,100);
     this.g.drawRect(30,130,115,200);
     this.g.drawRect(125,130,210,200);
-    this.g.setColor(0,col("black"));
+    this.g.setColor(0,0);
     this.g.setFont("Vector",50);
     this.g.drawString(this.msg,120-(this.g.stringWidth(this.msg)/2),35);
     this.g.flip();
-    this.g.setColor(1,col("white"));
+    this.g.setColor(1,15);
     this.g.setFont("Vector",22);
     this.g.drawString("Hello\nWorld",45,140);
     this.g.drawString("ALRM",137,154);
@@ -30,9 +30,9 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
       this.last_btn=this.btn;
       this.msg=(this.btn)?"Hello":"World";
       hello=this.msg;
-      this.g.setColor(0,col("dgray"));
+      this.g.setColor(0,1);
       this.g.fillRect(30,10,210,100);
-      this.g.setColor(1,col("lblue"));
+      this.g.setColor(1,14);
       this.g.setFont("Vector",50);
       this.g.drawString(this.msg,120-(this.g.stringWidth(this.msg)/2),35);    
       this.g.flip();
@@ -45,7 +45,6 @@ face[0] = { //the first face of the hello app, called by using `face.go("hello",
   tid:-1,
   run:false,
   clear : function(){ //enter here everything needed to clear all app running function on face exit. 
-    //pal[0]=col("black"); //this is for cleaner face transitions but adds delay, maybe will change in the future
     //this.g.clear(); //as above
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid); //clears main face[0] timeout loop.

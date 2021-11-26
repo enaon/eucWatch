@@ -32,7 +32,7 @@ face[0] = {
 			this.sel((this.log.length)?this.log[tpms.def.ref][tpms.def.metric]:this.log[tpms.def.ref][tpms.def.metric] ,ago,(tm < 86400)?"AGO":0);
 			let cl=((getTime()|0) - this.log[0].time < 1800)?1:0;
 			//top
-			this.btn(cl,this.tpms[tpms.def.pos],35,75,7,(this.log[0].psi < tpms.def.list[this.tpms[tpms.def.pos]].lowP ||  tpms.def.list[this.tpms[tpms.def.pos]].hiP < this.log[0].psi )?col("red"):col("raf"),col("dgray"),0,0,149,50); //device
+			this.btn(cl,this.tpms[tpms.def.pos],35,75,7,(this.log[0].psi < tpms.def.list[this.tpms[tpms.def.pos]].lowP ||  tpms.def.list[this.tpms[tpms.def.pos]].hiP < this.log[0].psi )?7:4,1,0,0,149,50); //device
 			this.btn(1,tpms.def.pos+1+"/"+this.tpms.length,35,200,7,0,0,150,0,239,50);  //more
 
 			if (tpms.status=="SCANNING"||tpms.status.startsWith("RETRY") ) {this.scan();this.ind();}else if (!this.ntid){this.bar();} 
@@ -43,7 +43,7 @@ face[0] = {
 			this.g.clearRect(0,0,239,239);
 			this.page="scan";
 			this.btn(1,"TPMS SENSOR",25,100,7,0,0,0,0,239,50);
-			this.btn(1,"TOUCH",30,120,80,col("dgray"),col("dgray"),0,50,239,185,"TO SCAN",30,120,130);
+			this.btn(1,"TOUCH",30,120,80,1,1,0,50,239,185,"TO SCAN",30,120,130);
 			if (tpms.status=="SCANNING"||tpms.status.startsWith("RETRY") ) this.scan();
 		}	
 		this.ref=tpms.def.ref;
@@ -77,7 +77,7 @@ face[0] = {
 		if (tpms.status=="SCANNING"||tpms.status.startsWith("RETRY") ) {if (this.log ) this.ind(); return;}
 		this.g.setColor(0,0);
 		this.g.fillRect(0,190,(this.log)?58:239,239);
-		this.g.setColor(1,col("lblue"));
+		this.g.setColor(1,14);
 		let img = require("heatshrink").decompress(atob("mEwwIcZg/+Aocfx+AAoV4gPgAoQDBuAEBgPAgE4AoQVBjgFBgYCBhgoCAQMGAQUgAolACggFL6AFGGQQFJEZsGsAFEIIhNFLIplFgBxBnwFCPYP/AoU8gf/BwKVB/+/SAUD/kf+CjDh/4V4n8AoYeBAoq1DgIqDAAP/XYcAv4qEn4qEGwsfC4kPEYkHF4Z1DACA="));
 		this.g.drawImage(img,5,195);
 		this.g.flip();
@@ -87,8 +87,8 @@ face[0] = {
 		if (!this.log ) return;
 		for (let i in this.log) {
 			//let lim=(this.log[tpms.def.ref].psi<tpms.def.list[this.tpms[tpms.def.pos]].lowP||tpms.def.list[this.tpms[tpms.def.pos]].hiP<this.log[tpms.def.ref].psi)?1:0;		
-			//this.g.setColor(1,col((lim)?"red":"raf"));
-			if (this.log[i].psi<tpms.def.list[this.tpms[tpms.def.pos]].lowP||tpms.def.list[this.tpms[tpms.def.pos]].hiP<this.log[i].psi)this.g.setColor(1,col("red"));else this.g.setColor(1,col("raf"));
+			//this.g.setColor(1,(lim)?7:4);
+			if (this.log[i].psi<tpms.def.list[this.tpms[tpms.def.pos]].lowP||tpms.def.list[this.tpms[tpms.def.pos]].hiP<this.log[i].psi)this.g.setColor(1,7);else this.g.setColor(1,4);
 			this.g.fillRect(239-(i*18)-16, 239-(this.log[i][tpms.def.metric]*this.scale),239-(i*18), 239);
 			this.g.flip(); 
 		}
@@ -100,18 +100,18 @@ face[0] = {
 		if (last || last===0) {
 			this.g.setColor(0,0);
 			this.g.fillRect(239-(last*18)-16,186,239-(last*18),189);
-			this.g.setColor(1,col( (this.foot=="barS")?"black":(lim)?"yellow":"lblue"));
+			this.g.setColor(1,(this.foot=="barS")?0:(lim)?13:14);
 			this.g.fillRect(239-(tpms.def.ref*18)-16,186,239-(tpms.def.ref*18),189);
 		}else {
 			this.g.setColor(0,0);
 			this.g.fillRect(0,186,239,190);
-			this.g.setColor(1,col( (this.foot=="barS")?"black":(lim)?"yellow":"lblue"));
+			this.g.setColor(1, (this.foot=="barS")?0:(lim)?13:14);
 			this.g.fillRect(239-(tpms.def.ref*18)-16,186,239-(tpms.def.ref*18),189);
 		}
 		this.g.flip();
 		if (this.act) return;
 		this.g.setColor(0,0);
-		this.g.setColor(1,col( ( (lim)?"yellow":"lblue") ));
+		this.g.setColor(1,(lim)?13:14);
 		this.g.fillRect(239-(tpms.def.ref*18)-16, 196,239-(tpms.def.ref*18), 238-(this.log[tpms.def.ref][tpms.def.metric]*this.scale));
 		this.g.flip(); 
 		if ((last || last===0) && last!=tpms.def.ref){
@@ -131,17 +131,17 @@ face[0] = {
 			this.log=require("Storage").readJSON("tpmsLog"+this.tpms[tpms.def.pos]+".json",1);
 			this.sc();
 			let cl=((getTime()|0) - this.log[0].time < 1800)?1:0;
-			this.btn(cl,this.tpms[tpms.def.pos],35,75,7,(this.log[tpms.def.ref].psi<tpms.def.list[this.tpms[tpms.def.pos]].lowP||tpms.def.list[this.tpms[tpms.def.pos]].hiP<this.log[tpms.def.ref].psi)?col("red"):col("raf"),col("dgray"),0,0,149,50);
-			this.btn(1,tpms.def.pos+1+"/"+this.tpms.length,35,200,7,0,col("raf"),150,0,239,50);
+			this.btn(cl,this.tpms[tpms.def.pos],35,75,7,(this.log[tpms.def.ref].psi<tpms.def.list[this.tpms[tpms.def.pos]].lowP||tpms.def.list[this.tpms[tpms.def.pos]].hiP<this.log[tpms.def.ref].psi)?7:4,1,0,0,149,50);
+			this.btn(1,tpms.def.pos+1+"/"+this.tpms.length,35,200,7,0,4,150,0,239,50);
 			this.sel(this.log[tpms.def.ref][tpms.def.metric],"JUST NOW");
 			this.foot="bar";
-			this.ntfy("FOUND : "+tpms.new,"",27,col("raf"),1,2);
+			this.ntfy("FOUND : "+tpms.new,"",27,4,1,2);
 			return;
 		}else if (tpms.status=="NOT FOUND") {
-			this.ntfy(tpms.status,"",27,col("red"),1,2);
+			this.ntfy(tpms.status,"",27,7,1,2);
 			return;
 		}
-		this.btn(1,tpms.status+" "+(tpms.def.wait-( (getTime()|0)-tpms.cnt) ),27,120,205,col("olive"),0,0,190,239,239,"",22,120,225);
+		this.btn(1,tpms.status+" "+(tpms.def.wait-( (getTime()|0)-tpms.cnt) ),27,120,205,12,0,0,190,239,239,"",22,120,225);
   		//refresh 
 		if (this.stid>=0) clearTimeout(this.stid);
 		this.stid=setTimeout(function(t){
@@ -152,7 +152,7 @@ face[0] = {
     btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
 		this.g.setColor(0,(bt)?clr1:clr0);
 		this.g.fillRect(rx1,ry1,rx2,ry2);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(1,15);
 		this.g.setFont("Vector",size1);	
 		this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1); 
 		if (txt2){this.g.setFont("Vector",size2);	
@@ -161,9 +161,9 @@ face[0] = {
     },
 	sel: function(txt1,txt2,txt3){
 		txt1=txt1.split(".");
-		this.g.setColor(0,col("dgray"));
+		this.g.setColor(0,1);
 		this.g.fillRect(0,51,239,120);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(1,15);
 		this.g.setFont("Vector",53);
 		let size=this.g.stringWidth(txt1[0]);
 		this.g.drawString(txt1[0],((this.info)?100:80)-(size/2),65);
@@ -173,10 +173,10 @@ face[0] = {
 		this.g.setFont("Vector",20);	
 		this.g.drawString((this.info)?"°C":tpms.def.metric.toUpperCase(),((this.info)?117:97)+size,89);
 		this.g.flip();
-		this.g.setColor(0,col("dgray"));
+		this.g.setColor(0,1);
 		if (txt3){
 			this.g.fillRect(0,121,239,185);
-			this.g.setColor(1,col("lblue"));
+			this.g.setColor(1,14);
 			this.g.setFont("Vector",42);
 			let size=this.g.stringWidth(txt2);
 			this.g.drawString(txt2,((this.info)?120:110)-(size/2),135);	
@@ -184,7 +184,7 @@ face[0] = {
 			this.g.drawString(txt3,((this.info)?122:112)+(size/2),152);
 		}else{
 			this.g.fillRect(0,121,239,185);
-			this.g.setColor(1,col("white"));
+			this.g.setColor(1,15);
 			this.g.setFont("Vector",30);
 			this.g.drawString(txt2,120-(this.g.stringWidth(txt2)/2),145);
 		}
@@ -193,7 +193,7 @@ face[0] = {
 	ntfy: function(txt1,txt2,size,clr,bt,tm,s,f,d){
 			this.g.setColor(0,clr);
 			this.g.fillRect(0,190,239,239);
-			this.g.setColor(1,col("white"));
+			this.g.setColor(1,15);
 			if (s) {this.g.setFont("Vector",45);this.g.drawString("<",5,197);this.g.drawString(">",215,197);}
 			this.g.setFont("Vector",size);
 			this.g.drawString((bt)?txt1:txt2,125-(this.g.stringWidth((bt)?txt1:txt2)/2),205); 
@@ -295,8 +295,8 @@ touchHandler[0]=function(e,x,y){
 				face[0].log=face[0].log=require("Storage").readJSON("tpmsLog"+face[0].tpms[tpms.def.pos]+".json",1);
 				face[0].sc();	
 				let cl=((getTime()|0) - face[0].log[0].time < 1800)?1:0;
-				face[0].btn(cl,face[0].tpms[tpms.def.pos],35,75,7,(face[0].log[0].psi<tpms.def.list[face[0].tpms[tpms.def.pos]].lowP||tpms.def.list[face[0].tpms[tpms.def.pos]].hiP<face[0].log[0].psi)?col("red"):col("raf"),col("dgray"),0,0,149,50);
-				face[0].btn(1,tpms.def.pos+1+"/"+face[0].tpms.length,35,200,7,0,col("raf"),150,0,239,50);
+				face[0].btn(cl,face[0].tpms[tpms.def.pos],35,75,7,(face[0].log[0].psi<tpms.def.list[face[0].tpms[tpms.def.pos]].lowP||tpms.def.list[face[0].tpms[tpms.def.pos]].hiP<face[0].log[0].psi)?7:4,1,0,0,149,50);
+				face[0].btn(1,tpms.def.pos+1+"/"+face[0].tpms.length,35,200,7,0,4,150,0,239,50);
 				//face[0].sc();	
 				face[0].info=0;
 				let tm=(getTime()|0) - face[0].log[tpms.def.ref].time;

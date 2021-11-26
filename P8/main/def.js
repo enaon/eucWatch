@@ -8,7 +8,7 @@ face[0] = {
         //this.g.clear();
 		this.g.setColor(0,0);
 		this.g.fillRect(0,0,239,239);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(1,15);
 		this.g.setFont("Vector",25);
 		this.g.drawString("SET TIME",120-(this.g.stringWidth("SET TIME")/2),217); 
 		this.g.flip(); 
@@ -27,7 +27,7 @@ face[0] = {
     btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
 			this.g.setColor(0,(bt)?clr1:clr0);
 			this.g.fillRect(rx1,ry1,rx2,ry2);
-			this.g.setColor(1,col("white"));
+			this.g.setColor(1,15);
 			this.g.setFont("Vector",size1);	
 			this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1); 
    			if (txt2){this.g.setFont("Vector",size2);	

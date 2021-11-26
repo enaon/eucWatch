@@ -14,8 +14,8 @@ face[0] = {
 		this.disp=0;
 		//this.g.setColor(0,0);
 		//this.g.flip();
-		this.btn(1,"24HRS",30,60,13,col("raf"),col("raf"),0,0,119,50);
-		this.btn(1,"INFO",30,185,10,0,col("raf"),120,0,239,50);
+		this.btn(1,"24HRS",30,60,13,4,4,0,0,119,50);
+		this.btn(1,"INFO",30,185,10,0,4,120,0,239,50);
 		this.sc();
 		this.sel(this.comf((this.totD*((set.def.dash.mph)?0.625:1)).toFixed((this.page)?(this.page==1)?1:0:2)),"<   TOTAL   >");
 		this.lg();
@@ -46,7 +46,7 @@ face[0] = {
 	lg: function(){
 		this.g.setColor(0,0);
 		this.g.fillRect(0,176,239,239);
-		this.g.setColor(1,col("lblue"));
+		this.g.setColor(1,14);
 		for (let i = 0; i < this.len; i++) {
    		let h=(this.ref-i<0)?this.len+(this.ref-i):this.ref-i;
 			if (this.log[h]) {
@@ -59,7 +59,7 @@ face[0] = {
     btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
 		this.g.setColor(0,(bt)?clr1:clr0);
 		this.g.fillRect(rx1,ry1,rx2,ry2);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(1,15);
 		this.g.setFont("Vector",size1);	
 		this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1); 
 		if (txt2){this.g.setFont("Vector",size2);	
@@ -67,9 +67,9 @@ face[0] = {
 		this.g.flip();
     },
 	sel: function(txt1,txt2){
-		this.g.setColor(0,col("dgray"));
+		this.g.setColor(0,1);
 		this.g.fillRect(0,51,239,175);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(1,15);
 		this.g.setFont("Vector",53);	
 		let size=this.g.stringWidth(txt1);
 		this.g.drawString(txt1,105-(this.g.stringWidth(txt1)/2),68); 
@@ -82,11 +82,11 @@ face[0] = {
 		pos=(((pos-1)*(240/this.len))+1);
 		//print(pos,this.pos,this.len,this.ref);
 		this.g.setColor(0,0);
-		this.g.setColor(1,col("yellow"));
+		this.g.setColor(1,13);
 		this.g.fillRect(pos,(this.log[this.pos])?239-(this.log[this.pos]*this.scale):239,pos+((240/this.len)-2),239);
 		this.g.flip(); 
 		if (this.rowL&&this.rowL!==pos){
-			this.g.setColor(1,col("lblue"));
+			this.g.setColor(1,14);
 			this.g.fillRect(this.rowL,(this.log[this.posL])?239-(this.log[this.posL]*this.scale):239,this.rowL+((240/this.len)-2),239);
 			this.g.flip(); 
 		}
@@ -95,14 +95,14 @@ face[0] = {
 		pos=pos-1;
 		this.g.setColor(0,0);
 		this.g.fillRect(0,176,239,178);
-		this.g.setColor(1,col("yellow"));
+		this.g.setColor(1,13);
 		this.g.fillRect(pos,176,pos+(240/this.len),178);
 		this.g.flip();
     },
 	ntfy: function(txt1,txt0,size,clr,bt){
 		this.g.setColor(0,clr);
 		this.g.fillRect(0,180,239,239);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(1,15);
 		this.g.setFont("Vector",size);
 		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
 		this.g.flip();
@@ -111,7 +111,7 @@ face[0] = {
 			t.ntid=0;
 			t.g.setColor(0,0);
 			t.g.fillRect(0,196,239,239);
-			t.g.setColor(1,col("white"));
+			t.g.setColor(1,15);
 			t.g.setFont("Vector",20);
 			t.g.drawString(euc.dash.maker,120-(t.g.stringWidth(euc.dash.maker)/2),217); 
 			t.g.flip();
@@ -189,13 +189,13 @@ touchHandler[0]=function(e,x,y){
 			if  ( 120 < x ) { //info
 				if (face[0].info) return;
 				face[0].info=1;
-				let btC=[col("raf"),col("dgray"),col("red"),col("red")];
+				let btC=[4,1,7,7];
 				face[0].btn(1,euc.dash.bat,50,180,3,btC[euc.dash.batC],0,120,0,239,50,"%",20,235,8);
 				face[0].btn(1,"24HRS",30,60,13,0,0,0,0,119,50);
 				face[0].page=2;	
 				w.gfx.setColor(0,0);
 				w.gfx.fillRect(0,51,239,239); 
-				w.gfx.setColor(1,col("white"));
+				w.gfx.setColor(1,15);
 				w.gfx.setFontVector(30);
 				w.gfx.drawString(((euc.dash.name)?euc.dash.name:euc.dash.maker),120-w.gfx.stringWidth(((euc.dash.name)?euc.dash.name:euc.dash.maker))/2,62);
 				w.gfx.setFontVector(28);
@@ -204,14 +204,14 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.drawString(face[0].comf((euc.dash.trpL*((set.def.dash.mph)?0.625:1)).toFixed(0)),185-w.gfx.stringWidth(face[0].comf((euc.dash.trpL*((set.def.dash.mph)?0.625:1)).toFixed(0))),178); 
 				w.gfx.drawString(face[0].comf((euc.dash.trpT*((set.def.dash.mph)?0.625:1)).toFixed(1)),185-w.gfx.stringWidth(face[0].comf((euc.dash.trpT*((set.def.dash.mph)?0.625:1)).toFixed(1))),217); 
 				w.gfx.flip();	
-				w.gfx.setColor(1,col("lgray"));
+				w.gfx.setColor(1,3);
 				w.gfx.setFontVector(24);
 				w.gfx.drawString("TOP",5,102);
 				w.gfx.drawString("RUN",5,143);
 				w.gfx.drawString("TRP",5,181);
 				w.gfx.drawString("TOT",5,220);
 				w.gfx.flip();
-				w.gfx.setColor(1,col("lgray"));
+				w.gfx.setColor(1,3);
 				w.gfx.drawString((set.def.dash.mph)?"mph":"kph",195,102);
 				w.gfx.drawString("Min",195,143);
 				w.gfx.drawString((set.def.dash.mph)?"mi":"Km",195,181);
@@ -227,7 +227,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].len=7;
 					face[0].ref=Date().getDay();
 					face[0].pos=face[0].ref;
-					face[0].btn(1,"7DAYS",30,60,13,col("raf"),col("raf"),0,0,119,50);
+					face[0].btn(1,"7DAYS",30,60,13,4,4,0,0,119,50);
 					face[0].log=require("Storage").readJSON("logWeekSlot"+set.def.dash.slot+".json",1);
 					face[0].id=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
 					face[0].id[face[0].ref]="Today";
@@ -236,7 +236,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].len=12;
 					face[0].ref=Date().getMonth();
 					face[0].pos=face[0].ref;
-					face[0].btn(1,"YEAR",30,60,13,col("raf"),col("raf"),0,0,119,50);
+					face[0].btn(1,"YEAR",30,60,13,4,4,0,0,119,50);
 					face[0].log=require("Storage").readJSON("logYearSlot"+set.def.dash.slot+".json",1);
 					face[0].id=["January","February","March","April","May","June","July","August","September","October","November","December"];
 					//face[0].id[face[0].ref]="running Month";
@@ -245,7 +245,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].len=24;
 					face[0].ref=Date().getHours();
 					face[0].pos=face[0].ref;
-					face[0].btn(1,"24HRS",30,60,13,col("raf"),col("raf"),0,0,119,50);
+					face[0].btn(1,"24HRS",30,60,13,4,4,0,0,119,50);
 					face[0].log=require("Storage").readJSON("logDaySlot"+set.def.dash.slot+".json",1);
 					face[0].id=(set.def.hr24)?["00:00 - 01:00","01:00 - 02:00","02:00 - 03:00","03:00 - 04:00","04:00 - 05:00","05:00 - 06:00","06:00 - 07:00","07:00 - 08:00","08:00 - 09:00","09:00 - 10:00","10:00 - 11:00","11:00 - 12:00","12:00 - 13:00","13:00 - 14:00","14:00 - 15:00","15:00 - 16:00","16:00 - 17:00","17:00 - 18:00","18:00 - 19:00","19:00 - 20:00","20:00 - 21:00","21:00 - 22:00","22:00 - 23:00","23:00 - 00:00"]
 		:["12:00 - 1:00 AM","1:00 - 2:00 AM","2:00 - 3:00 AM","3:00 - 4:00 AM","4:00 - 5:00 AM","5:00 - 6:00 AM","6:00 - 7:00 AM","7:00 - 8:00 AM","8:00 - 9:00 AM","9:00 - 10:00 AM","10:00 - 11:00 AM","11:00 - 11:59 AM","12:00 - 1:00 PM","1:00 - 2:00 PM","2:00 - 3:00 PM","3:00 - 4:00 PM","4:00 - 5:00 PM","5:00 - 6:00 PM","6:00 - 7:00 PM","7:00 - 8:00 PM","8:00 - 9:00 PM","9:00 - 10:00 PM","10:00 - 11:00 PM","11:00 - 11:59 PM"];

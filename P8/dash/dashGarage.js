@@ -4,9 +4,9 @@ face[0] = {
 	g:w.gfx, 
 	init: function(o){ 
 		this.dash=require("Storage").readJSON("dash.json",1);
-		this.g.setColor(0,col("black"));
+		this.g.setColor(0,0);
 		this.g.fillRect(0,0,239,239);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(1,15);
 		this.g.setFont("Vector",22);
 		this.g.drawString("GARAGE",120-(this.g.stringWidth("GARAGE")/2),217); 
 		this.g.flip();
@@ -40,9 +40,9 @@ face[0] = {
 	},
 	btn: function(slotNumber,active,x,y,y1,y2,rx1,ry1,rx2,ry2 ){
 			if (this.dash["slot"+slotNumber+"Mac"]) {
-				this.g.setColor(0,(active)?col("raf"):col("dgray"));
+				this.g.setColor(0,(active)?4:1);
 				this.g.fillRect(rx1,ry1,rx2,ry2);	
-				this.g.setColor(1,col("white"));
+				this.g.setColor(1,15);
 				this.g.setFont("Vector",18);	
 				this.g.drawString(this.dash["slot"+slotNumber+"Maker"].toUpperCase(),x-(this.g.stringWidth(this.dash["slot"+slotNumber+"Maker"].toUpperCase())/2),y); 
 				if ( (this.dash["slot"+slotNumber+"Name"]).includes("Proxy")) { this.g.setFont("Vector",30);this.dash["slot"+slotNumber+"Name"]="Proxy";}
@@ -50,9 +50,9 @@ face[0] = {
 				this.g.drawString(this.dash["slot"+slotNumber+"Name"].split("-")[0],x-(this.g.stringWidth(this.dash["slot"+slotNumber+"Name"].split("-")[0])/2),y1); 
 				this.g.flip();
 			}else if (active) {
-				this.g.setColor(0,col("red"));
+				this.g.setColor(0,7);
 				this.g.fillRect(rx1,ry1,rx2,ry2);	
-				this.g.setColor(1,col("white"));
+				this.g.setColor(1,15);
 				this.g.setFont("Vector",22);	
 				this.g.drawString("EMPTY",x-(this.g.stringWidth("EMPTY")/2),y2);
 				this.g.flip();
@@ -61,7 +61,7 @@ face[0] = {
 					face[0]["s"+slot]=0;
 					face[0]["s"+slot+"tid"]=0;
 					w.gfx.setFont("Vector",22);	
-					w.gfx.setColor(0,col("black"));
+					w.gfx.setColor(0,0);
 					w.gfx.fillRect(rx1,ry1,rx2,ry2);
 					w.gfx.flip();
 				},1000,slotNumber);
@@ -70,7 +70,7 @@ face[0] = {
 	ntfy: function(txt1,txt0,size,clr,bt){
 			this.g.setColor(0,clr);
 			this.g.fillRect(0,198,239,239);
-			this.g.setColor(1,col("white"));
+			this.g.setColor(1,15);
 			this.g.setFont("Vector",size);
 			this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
 			this.g.flip();
@@ -79,7 +79,7 @@ face[0] = {
 				t.ntid=0;
 				t.g.setColor(0,0);
 				t.g.fillRect(0,196,239,239);
-				t.g.setColor(1,col("white"));
+				t.g.setColor(1,15);
 				t.g.setFont("Vector",22);
 				t.g.drawString("GARAGE",120-(t.g.stringWidth("GARAGE")/2),217); 
 				t.g.flip();
@@ -135,8 +135,8 @@ touchHandler[0]=function(e,x,y){
 					euc.dash=require("Storage").readJSON('eucSlot'+this.s+'.json',1);
 				else euc.dash=require("Storage").readJSON("eucSlot.json",1);
 				face[0].s1=0;face[0].s2=0;face[0].s3=0;face[0].s4=0;
-				face[0].ntfy("HOLD -> OPTIONS","",20,col("raf"),1);
-			} else face[0].ntfy("HOLD -> SCAN & SET","",20,col("dgray"),1);
+				face[0].ntfy("HOLD -> OPTIONS","",20,4,1);
+			} else face[0].ntfy("HOLD -> SCAN & SET","",20,1,1);
 			face[0]["s"+this.s]=1;
 		}
 		else   {
@@ -149,7 +149,7 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.drawLine (121,0,121,195);
 				w.gfx.flip();
 				face.go("dashAlerts",0);return;			
-      }else face[0].ntfy("HOLD -> DELETE","",22,col("red"),1);
+      }else face[0].ntfy("HOLD -> DELETE","",22,7,1);
 		}
 		this.timeout();
 		break;
@@ -222,14 +222,14 @@ touchHandler[0]=function(e,x,y){
 				face[0].clear();
 				var g=w.gfx;
 				g.setFont("Vector",25);	
-				g.setColor(0,col("dgray"));
+				g.setColor(0,1);
 				g.fillRect(0,0,239,97);
-              	g.setColor(1,col("white"));
+              	g.setColor(1,15);
 				g.drawString("WATCH ALERTS",120-(g.stringWidth("WATCH ALERTS")/2),35);
 				g.flip();
-				g.setColor(0,col("red"));
+				g.setColor(0,7);
 				g.fillRect(0,100,239,195);
-                g.setColor(1,col("white"));
+                g.setColor(1,15);
 				g.drawString("DELETE WHEEL",120-(g.stringWidth("DELETE WHEEL")/2),135);
 				g.flip();
 				face[0].set=1;

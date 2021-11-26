@@ -309,9 +309,9 @@ setWatch(function(s){
 		set.ondc=0;
 	}
 	if (face.pageCurr<0|| face.batt){
-		g.setColor(0,(set.ondc)?col("raf"):col("dgray"));
+		g.setColor(0,(set.ondc)?4:1);
 		g.fillRect(0,0,240,240);
-		g.setColor(1,col("lblue"));
+		g.setColor(1,14);
 		let img = require("heatshrink").decompress(atob("wGAwJC/AA0D///4APLh4PB+AP/B/N/BoIAD/gPHBwv//wPO/4PH+F8gEHXwN8h4PIKgwP/B/4P/B/4PbgQPOg4POh+AB7sfB50/H5wPPv4PO/4PdgIPP94PNgfPB5sHB5+PB5sPB50fBgQPLjwPOn0OB5t8jwPNvAPO/APNgPwB53gB5sDB5/AB5sHwAPNh+Aj//4APLYAIPMj4POnwhBB5k8AgJSBB5V8LoQPL/BtDB5TRCKQIPJZwIEBSAIPJXwIEBMQQPJ4AEBKQIPJg4PCvAPKRgP+MQQPNYgYPKMQR/KLoMBMQIPLjxiCB5ccMQQPLnjeBB5reBB5zhDB5TeBB5reBB5s8B5s4bwIPMvDeBB5reBB5oDCB5d5B517bwIPNZwIPMu4PO/7OBB7oGCB5f+B738B7sBZwQPcGQQPMZwQPbgDOCB5gADB/4P/B/4PY/4AGB69/Bwv+B538B44Ar"));
 		g.drawImage(img,60,30);
 		g.setFont("Vector",35);
@@ -477,7 +477,6 @@ if (set.def.touchtype=="816"){ //816
 	st:1,
 	loop:5,
 	init:function(){
-		//"ram";
 		var tp=i2c.readFrom(0x15,7);
 		//print (tp);
 		if ( (tp[3] == 255 )  && this.st ) return;
@@ -596,7 +595,6 @@ if (set.def.acctype==="BMA421"){
 			}
 		},
 		init:function(){
-			//"ram";
 			if(!this.run) return;
 			let data=i2c.readFrom(0x18,6);
 			//print("acc :",data);
@@ -669,7 +667,7 @@ if (set.def.acctype==="BMA421"){
 				i2c.writeTo(0x18,0x32,5); //int1_ths-threshold = 250 milli g's
 				i2c.writeTo(0x18,0x33,15); //duration = 1 * 20ms
 				this.tid= setInterval(()=>{	
-					//"ram";
+					"ram";
 					let cor=acc.read();
 					if (-1000<=cor.ax && cor.ax<=500 && cor.ay<=500 && cor.az<=-300 ) {
 						if (!w.gfx.isOn&&this.up){  
@@ -687,7 +685,6 @@ if (set.def.acctype==="BMA421"){
 				i2c.writeTo(0x18,0x32,20); //int1_ths-threshold = 250 milli g's
 				i2c.writeTo(0x18,0x33,1); //duration = 1 * 20ms
 				this.tid=setWatch(()=>{
-					//"ram";
 					i2c.writeTo(0x18,0x1);
 					if ( 192 < i2c.readFrom(0x18,1)[0] ) {
 						if (!w.gfx.isOn){  
@@ -705,13 +702,13 @@ if (set.def.acctype==="BMA421"){
 			} else return false;
 		},
 		read:function(){
-			//"ram";
+			"ram";
 			i2c.writeTo(0x18,0xA8);
 			var a =i2c.readFrom(0x18,6);
 			return {ax:this.conv(a[0],a[1]), ay:this.conv(a[2],a[3]), az:this.conv(a[4],a[5])};
 		},
 		conv:function(lo,hi){
-			//"ram";
+			"ram";
 			let i = (hi<<8)+lo;
 			return ((i & 0x7FFF) - (i & 0x8000))/16;
 		}
@@ -767,12 +764,11 @@ cron.event.hour();
 cron.on('hour',cron.task.euc.hour);
 cron.on('day',cron.task.euc.day);
 cron.on('month',cron.task.euc.month);
-
+/*
 
 //themes -todo
 if (!Boolean(require("Storage").read("colmode16"))){
 	function col(no){
-		"ram";
 		switch (no) {
 			case "black":return 0;case "white":return 4095;case "lblue":return 1535;case "blue":return 143;case "dblue":return 1375;case "blue1":return 1708;
 			case "raf":return 1453;case "raf1":return 1708;case "raf2":return 1963;case "raf3":return 2220;case "raf4":return 2474;case "raf5":return 3005;
@@ -783,7 +779,6 @@ if (!Boolean(require("Storage").read("colmode16"))){
 	}
 }else {
 	function col(no){
-			//"ram";
 		switch (no) {
 			case "black":return 0x0000;case "white":return 0xFFFF;case "lblue":return 0xD7BF;case "blue":return 0xEFBF;case "dblue":return 0x0819;case "blue1":return 0x319B;
 			case "raf":return 0x3276;case "raf1":return 0x4B16;case "raf2":return 0x3ADC;case "raf3":return 0x2A16;case "raf4":return 0x6396;case "raf5":return 0x5332;
@@ -794,3 +789,7 @@ if (!Boolean(require("Storage").read("colmode16"))){
 	}
 }
 //end
+// 16bit RGB565  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=blue,9=purple,10=?,11=green,12=olive,13=yellow,14=lblue,15=white
+g.col=Uint16Array([ 0x000,0x31C8,0x5B2F,0xD6BA,0x3276,0x4B16,0x3ADC,0xF165,0xEFBF,0xA815,2220,0x5ff,0x3C0C,0xFFE0,0xD7BF,0xFFFF ]);
+
+*/

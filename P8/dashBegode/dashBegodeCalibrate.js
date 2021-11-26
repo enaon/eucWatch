@@ -10,9 +10,9 @@ face[0] = {
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
         if (this.calibrate) {
-            this.g.setColor(0,col("dgray"));
+            this.g.setColor(0,1);
 		    this.g.fillRect(0,0,239,174);                    
-            this.g.setColor(1,col("white"));
+            this.g.setColor(1,15);
 		    this.g.setFont("Vector",16);
 		    this.g.drawString("1. PRESS START",0,10); 	
    		    this.g.drawString("2. WHEEL BEEPS, TURN OFF",0,37); 		
@@ -21,23 +21,23 @@ face[0] = {
             this.g.drawString("5. TURN WHEEL ON",0,118);
             this.g.drawString("6. DONE!",0,145);
 		    this.g.flip();
-            this.g.setColor(0,col("raf"));
+            this.g.setColor(0,4);
 		    this.g.fillRect(0,175,120,239);                    
-            this.g.setColor(1,col("white"));
+            this.g.setColor(1,15);
    		    this.g.setFont("Vector",22);
             this.g.drawString("START",20,200); 	
 		    this.g.flip();
-            this.g.setColor(0,col("olive"));
+            this.g.setColor(0,12);
 		    this.g.fillRect(121,175,239,239);                    
-            this.g.setColor(1,col("white"));
+            this.g.setColor(1,15);
    		    this.g.setFont("Vector",22);
             this.g.drawString("CANCEL",140,200); 	
 		    this.g.flip();
        		this.run=false;
         }else if (this.tilt!=euc.dash.tiltSet){ //tilt Set
-		    this.g.setColor(0,col("dgray"));
+		    this.g.setColor(0,1);
 		    this.g.fillRect(50,50,190,150);                    
-            this.g.setColor(1,col("white"));
+            this.g.setColor(1,15);
 		    this.g.setFont("Vector",80);
 		    this.g.drawString(euc.dash.tiltSet,130-(this.g.stringWidth(euc.dash.tiltSet)/2),65); 		
 		    this.g.flip();
@@ -50,7 +50,7 @@ face[0] = {
 				t.itid=0;
 				t.g.setColor(0,0);
 				t.g.fillRect(0,198,239,239);//6
-				t.g.setColor(1,col("white"));
+				t.g.setColor(1,15);
 				t.g.setFont("Vector",20);
 				t.g.drawString("OPTIONS",120-(t.g.stringWidth("OPTIONS")/2),214); 
 				t.g.flip();

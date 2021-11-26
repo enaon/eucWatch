@@ -1,35 +1,25 @@
 //watchdog
 //setBusyIndicator(D27)
 E.kickWatchdog();
-function P8KickWd(){
+function KickWd(){
 	"ram";
-  if(!BTN1.read())E.kickWatchdog();
+  if( (typeof(BTN1)=='undefined')||(!BTN1.read()) ) E.kickWatchdog();
 }
-var wdint=setInterval(P8KickWd,3000);
+var wdint=setInterval(KickWd,3000);
 E.enableWatchdog(30, false);
-//d25.write(0)
 E.showMessage=print; //apploader suport
-global.save = function() { throw new Error("You don't need to use save() on P8!"); };
-//spi flash-notes
-//var spi=new SPI();spi.setup({sck:D2,mosi:D3,miso:D4,mode:0});
-//spi.send([0xab],D5);  //wake
-//spi.send([0xb9],D5); //powerdown
-//spi.send([0x9f,0,0,0],D5); //check status
-//errata 108 fix // poke32(0x40000EE4,0x4f) //obsolete
-//load in devmode
+global.save = function() { throw new Error("You don't need to use save() on eucWatch!"); };
+//d25.write(0)
+ew={pin:{BAT:D31,CHRG:D19,BUZZ:D16,BL:D12,i2c:{SCL:D7,SDA:D6},touch:{RST:D13,INT:D28},disp:{CS:D25,DC:D18,RST:D26,BL:D14},acc:{INT:D8}}};
+//devmode
 if (BTN1.read() || Boolean(require("Storage").read("devmode"))) { 
   let mode=(require("Storage").read("devmode"));
   if ( mode=="loader"){ 
-    //require("Storage").write("devmode","done");
-    //NRF.setAdvertising({},{connectable:false});
-    //NRF.disconnect();
-    //NRF.sleep();
-	//Bluetooth.println("devmode");
-    digitalPulse(D16,1,80);
+    digitalPulse(ew.pin.BUZZ,1,80);
   } else {
     require("Storage").write("devmode","done");
     NRF.setAdvertising({}, { name:"Espruino-devmode",connectable:true });
-    digitalPulse(D16,1,100);
+    digitalPulse(ew.pin.BUZZ,1,100);
 	print("Welcome!\n*** DevMode ***\nShort press the side button\nto restart in WorkingMode");
   }
   setWatch(function(){
@@ -43,31 +33,9 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
 	 reset();
     }, 500);
   },BTN1,{repeat:false, edge:"rising"}); 
-}else{ //load in working mode
+}else{ //working mode
 var w;
-var pal=[];
-Modules.addCached("P8",function(){
-/*const pin = {
-  BUTTON: D17,
-  MOTOR: D16, 
-  BATTERY: D31, 
-  CHARGING: D19, 
-  LCD_BL_L:D14,
-  LCD_BL_M:D22,  
-  LCD_BL_H:D23,  
-  LCD_CLK: D2, 
-  LCD_RST: D26, 
-  LCD_CS: D25, 
-  LCD_SI: D3,
-  LCD_DC: D18, 
-  //Touchscreen
-  TP_SDA:D6,
-  TP_SCL:D7,
-  TP_RESET:D13, // P8 Watch
-  TP_INT:D28,
-};
-*/
-
+Modules.addCached("eucWatch",function(){
 //screen driver
 //
 // MIT License (c) 2020 fanoush https://github.com/fanoush
@@ -91,7 +59,6 @@ var SPI2 = (function(){
 // however it seems the gain is very small so is not worth it
 //    shrink:function(){return `var bin=E.toString(require("heatshrink").decompress(atob("${btoa(require("heatshrink").compress(bin))}")))`;}
 //*/
-//P8 pins
 CS=D25;DC=D18;RST=D26;BL=D14;
 SCK=D2;MOSI=D3;
 RST.reset();
@@ -159,51 +126,31 @@ function init(){
   //cmd([0x2b,0,0,0,239]);
   //cmd([0x2c]);
 }
-
-bpp=1; // powers of two work, 3=8 colors would be nice
+var bpp=(require("Storage").read("setting.json") && require("Storage").readJSON("setting.json").bpp)?require("Storage").readJSON("setting.json").bpp:1;
 var g=Graphics.createArrayBuffer(240,240,bpp);
-//var pal;
-g.isOn=false;
-//bpp 1or2
-if (bpp==2) pal= Uint16Array([0x000,0xf00,0x0f0,0x00f]);
-else pal= Uint16Array([0x000,0xfff]);
-g.sc=g.setColor;
-g.setColor=function(c,v){ 
-  if (c==1) pal[1]=v; else pal[0]=v;
-  g.sc(c);
-};
-/*
+var pal;
+// 12bit RGB444  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=blue,9=purple,10=?,11=green,12=olive,13=yellow,14=lblue,15=white
+g.col=Uint16Array([ 0x000,1365,2730,3549,1629,2474,1963,3840,143,3935,2220,0x5ff,170,4080,1535,4095 ]);
+g.sc=g.setColor;  
 switch(bpp){
-  case 2: pal= Uint16Array([0x000,0xf00,0x0f0,0x00f]);break; // white won't fit
-//  case 1: pal= Uint16Array([0x000,0xfff]);break;
   case 1:
-  pal= Uint16Array( // same as 16color below, use for dynamic colors
-    [ 0x000,0x00a,0x0a0,0x0aa,0xa00,0xa0a,0xa50,0xaaa,
-      0x555,0x55f,0x5f5,0x5ff,0xf55,0xf5f,0xff5,0xfff ]);
-  g.sc=g.setColor;
-  c1=pal[1]; //save color 1
-  g.setColor=function(c){ //change color 1 dynamically
-    c=Math.floor(c);
-    if (c > 1) {
-      pal[1]=pal[c]; g.sc(1);
-    } else if (c==1) {
-      pal[1]=c1; g.sc(1);
-    } else g.sc(c);
-  }; break;
-  case 4: pal= Uint16Array( // CGA
-    [
-// 12bit RGB444
-      0x000,0x00a,0x0a0,0x0aa,0xa00,0xa0a,0xa50,0xaaa,
-     0x555,0x55f,0x5f5,0x5ff,0xf55,0xf5f,0xff5,0xfff
-//16bit RGB565
-//      0x0000,0x00a8,0x0540,0x0555,0xa800,0xa815,0xaaa0,0xad55,
-//      0x52aa,0x52bf,0x57ea,0x57ff,0xfaaa,0xfabf,0xffea,0xffff
-
-    ]);break;
+    pal= Uint16Array([ 0x000,4095]);
+	let sc=g.setColor;
+    g.setColor=function(c,v){ 
+	  if (c==1) pal[1]=g.col[v]; else pal[0]=g.col[v];
+	  g.sc(c);
+    }; 
+    break; 
+  case 2: 
+    pal= Uint16Array([0x000,1365,1629,1535]);break; // white won't fit
+    break; 
+  case 4: 
+	pal= Uint16Array([0x000,1365,2730,3549,1629,2474,1963,3840,143,3935,2220,0x5ff,170,4080,1535,4095]);
+	g.setColor=function(c,v){ 
+		g.sc(v);
+	}; 
+    break;
 }
-
-*/
-
 // preallocate setwindow command buffer for flip
 g.winCmd=toFlatBuffer([
   5, 0x2a, 0,0, 0,0,
@@ -291,33 +238,24 @@ const batt=function(i,c){
 		return ( (v<=l)?0:(h<=v)?100:((v-l)/(h-l)*100|0) );
 	}else return +v.toFixed(2);
 };
-const battVoltage=function(s){
-	let v=7.1*analogRead(D31);
-	if (s) { v=(v*100-340)*1.33|0; //if (v>=100) v=100;
-	}
-    let hexString = ("0x"+(0x50000700+(D31*4)).toString(16));
-	poke32(hexString,2); // disconnect pin for power saving, otherwise it draws 70uA more 
-	return v;
-};
 module.exports = {
+    pal: pal,
 	batt: batt,
-	battVoltage: battVoltage,
 	gfx: g
 };
 });
-w=require("P8");
+w=require("eucWatch");
 //load
 //w.gfx.init();
-require("Storage").erase("colmode16");
 eval(require('Storage').read('handler'));
 eval(require('Storage').read('main'));
 eval(require('Storage').read('euc'));
 
 //require('Storage').list(/m_/).forEach(modfile=>{eval(require('Storage').read(modfile));});
-digitalPulse(D16,1,[100,30,100]);
+digitalPulse(ew.pin.BUZZ,1,[100,30,100]);
 setTimeout(function(){
 if (global.face) face.go('main',0);
 setTimeout(function(){ if (global.set) set.accR(); },1000); 
-digitalPulse(D16,1,[100]);  
+digitalPulse(ew.pin.BUZZ,1,[100]);  
 },200); 
 }

@@ -9,15 +9,15 @@ face[0] = {
         this.set=0;
         this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,239);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(1,15);
 		this.g.setFont("Vector",20);
 		this.g.drawString("SETTINGS",120-(this.g.stringWidth("SETTINGS")/2),217); 
 		this.g.flip();
 		//
-        this.btn(euc.dash.light,"LIGHT",18,60,15,col("raf"),col("dgray"),0,0,119,97,(euc.dash.light)?"ON":"OFF",28,60,50);
-		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,col("raf"),col("dgray"),122,0,239,97,"ALERTS",22,185,55);		
-        this.btn(0,"TPMS",25,60,136,col("raf"),col("dgray"),0,100,119,195);
-        this.btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("dgray"),122,100,239,195);	
+        this.btn(euc.dash.light,"LIGHT",18,60,15,4,1,0,0,119,97,(euc.dash.light)?"ON":"OFF",28,60,50);
+		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,4,1,122,0,239,97,"ALERTS",22,185,55);		
+        this.btn(0,"TPMS",25,60,136,4,1,0,100,119,195);
+        this.btn(euc.dash.horn,"HORN",25,185,136,4,1,122,100,239,195);	
 		this.run=true;
 	},
 	show : function(){
@@ -31,7 +31,7 @@ face[0] = {
     btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
 			this.g.setColor(0,(bt)?clr1:clr0);
 			this.g.fillRect(rx1,ry1,rx2,ry2);
-			this.g.setColor(1,col("white"));
+			this.g.setColor(1,15);
 			this.g.setFont("Vector",size1);	
 			this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1); 
    			if (txt2){this.g.setFont("Vector",size2);	
@@ -41,7 +41,7 @@ face[0] = {
     ntfy: function(txt1,txt0,size,clr,bt){
             this.g.setColor(0,clr);
 			this.g.fillRect(0,198,239,239);
-			this.g.setColor(1,col("white"));
+			this.g.setColor(1,15);
 			this.g.setFont("Vector",size);
      		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
 			this.g.flip();
@@ -50,7 +50,7 @@ face[0] = {
                 t.ntid=0;
 				t.g.setColor(0,0);
 				t.g.fillRect(0,196,239,239);
-				t.g.setColor(1,col("white"));
+				t.g.setColor(1,15);
 				t.g.setFont("Vector",22);
 		        t.g.drawString("SETTINGS",120-(t.g.stringWidth("SETTINGS")/2),217); 
 				t.g.flip();
@@ -103,21 +103,21 @@ touchHandler[0]=function(e,x,y){
 			if ( x<=120 && y<100 ) { //Light
 				euc.dash.light=1-euc.dash.light;
 				euc.wri("setLights",(euc.dash.light)?1:0);
-		        face[0].btn(euc.dash.light,"LIGHT",18,60,15,col("raf"),col("dgray"),0,0,119,97,(euc.dash.light)?"ON":"OFF",28,60,50);
-				face[0].ntfy("LIGHT ON","LIGHT OFF",20,(euc.dash.light)?col("raf"):col("dgray"),euc.dash.light);
+		        face[0].btn(euc.dash.light,"LIGHT",18,60,15,4,1,0,0,119,97,(euc.dash.light)?"ON":"OFF",28,60,50);
+				face[0].ntfy("LIGHT ON","LIGHT OFF",20,(euc.dash.light)?4:1,euc.dash.light);
 				buzzer([30,50,30]);
 			}else if ( 120<=x && y<=100 ) { //watch alerts
 				buzzer([30,50,30]);						
 				face.go("dashAlerts",0);
 				return;	
 			}else if ( x<=120 && 100<=y ) { //TPMS
-				face[0].ntfy("NOT YET","NOT YET",18,col("red"),1);
+				face[0].ntfy("NOT YET","NOT YET",18,7,1);
 				buzzer([30,50,30]);	
 			}else if ( 120<=x && 100<=y ) { //HORN
-				face[0].ntfy("NOT YET","NOT YET",18,col("red"),1);
+				face[0].ntfy("NOT YET","NOT YET",18,7,1);
 				//euc.dash.horn=1-euc.dash.horn;
-				//face[0].btn(euc.dash.horn,"HORN",25,185,136,col("raf"),col("dgray"),122,100,239,195);	
-				//face[0].ntfy("BUTTON IS HORN >2KPH","HORN DISABLED",(euc.dash.horn)?18:20,(euc.dash.horn)?col("raf"):col("dgray"),euc.dash.horn);
+				//face[0].btn(euc.dash.horn,"HORN",25,185,136,4,1,122,100,239,195);	
+				//face[0].ntfy("BUTTON IS HORN >2KPH","HORN DISABLED",(euc.dash.horn)?18:20,(euc.dash.horn)?4:1,euc.dash.horn);
 				buzzer([30,50,30]);						
 			}else buzzer([30,50,30]);
 		}
