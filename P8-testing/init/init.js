@@ -35,7 +35,6 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
   },BTN1,{repeat:false, edge:"rising"}); 
 }else{ //working mode
 var w;
-var pal=[];
 Modules.addCached("eucWatch",function(){
 //screen driver
 //
@@ -130,13 +129,13 @@ function init(){
 var bpp=(require("Storage").read("setting.json") && require("Storage").readJSON("setting.json").bpp)?require("Storage").readJSON("setting.json").bpp:1;
 var g=Graphics.createArrayBuffer(240,240,bpp);
 var pal;
-g.sc=g.setColor;
+// 12bit RGB444  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=blue,9=purple,10=?,11=green,12=olive,13=yellow,14=lblue,15=white
 g.col=Uint16Array([ 0x000,1365,2730,3549,1629,2474,1963,3840,143,3935,2220,0x5ff,170,4080,1535,4095 ]);
-
+g.sc=g.setColor;  
 switch(bpp){
   case 1:
     pal= Uint16Array([ 0x000,4095]);
-    c1=pal[1]; //save color 1
+	let sc=g.setColor;
     g.setColor=function(c,v){ 
 	  if (c==1) pal[1]=g.col[v]; else pal[0]=g.col[v];
 	  g.sc(c);
@@ -248,7 +247,6 @@ module.exports = {
 w=require("eucWatch");
 //load
 //w.gfx.init();
-require("Storage").erase("colmode16");
 eval(require('Storage').read('handler'));
 eval(require('Storage').read('main'));
 eval(require('Storage').read('euc'));

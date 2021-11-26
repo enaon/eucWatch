@@ -12,47 +12,47 @@ face[0] = {
         this.g.flip();
 		this.g.setColor(0,0);
 		this.g.fillRect(0,205,239,239);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(1,15);
 		this.g.setFont("Vector",20);
 		this.g.drawString("ADVANCED",122-(this.g.stringWidth("ADVANCED")/2),217); 
 		this.g.flip();
-		this.g.setColor(0,col("black"));
+		this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,204);
-		this.g.setColor(1,col("lgray"));
+		this.g.setColor(1,3);
       	this.g.fillRect(75,200,165,204);
 		this.g.flip();
-        this.g.setColor(1,col("white"));
+        this.g.setColor(1,15);
       	this.g.fillRect(143,200,165,204);
 		this.g.flip(); 
 		//ride mode
 		this.b1=euc.dash.mode;
 		if (!this.b1) {
-			this.b1t="HARD";this.b1c=col("raf4");
+			this.b1t="HARD";this.b1c=5;
 		}else if (this.b1==1) {
-			this.b1t="MED";this.b1c=col("raf2");
+			this.b1t="MED";this.b1c=6;
 		}else if (this.b1==2) {
-			this.b1t="SOFT";this.b1c=col("raf3");
+			this.b1t="SOFT";this.b1c=6;
 		}
 		this.g.setColor(0,this.b1c);
 		this.g.fillRect(0,0,119,97);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(1,15);
 		this.g.setFont("Vector",18);	
 		this.g.drawString("MODE",60-(this.g.stringWidth("MODE")/2),15); 
 		this.g.setFont("Vector",30);	
 		this.g.drawString(this.b1t,60-(this.g.stringWidth(this.b1t)/2),50); 
 		this.g.flip();
 		//calibrate
-		this.g.setColor(0,col("olive"));
+		this.g.setColor(0,12);
 		this.g.fillRect(122,0,239,97);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(1,15);
 //		this.g.drawImage(E.toArrayBuffer(atob("GAiBADAYDHg8HsxmM8xmM8xmI8xmM3g8HjAYDA==")),195,45);
 		this.g.setFont("Vector",18);	
 		this.g.drawString("CALIBRATE",185-(this.g.stringWidth("CALIBRATE")/2),37); 
 		this.g.flip();
 		//limits
-		this.g.setColor(0,col("olive"));
+		this.g.setColor(0,12);
 		this.g.fillRect(0,100,119,195);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(1,15);
 		this.g.setFont("Vector",22);	
 		this.g.drawString("WHEEL",60-(this.g.stringWidth("WHEEL")/2),115); 
 //		this.g.setFont("Vector",25);
@@ -60,9 +60,9 @@ face[0] = {
 //		this.g.drawString(euc.dash.spdT,60-(this.g.stringWidth(euc.dash.spdT)/2),150); 
 		this.g.flip();
 		//pass
-		this.g.setColor(0,col("olive"));
+		this.g.setColor(0,12);
 		this.g.fillRect(122,100,239,195);
-		this.g.setColor(1,col("white"));
+		this.g.setColor(1,15);
 		this.g.setFont("Vector",28);	
 		this.g.drawString("PASS",185-(this.g.stringWidth("PASS")/2),135); 
 		this.g.flip();
@@ -79,7 +79,7 @@ face[0] = {
     btn: function(txt,size,x,y,clr,rx1,ry1,rx2,ry2,txt1,size1,x1,y1){
 			this.g.setColor(0,clr);
 			this.g.fillRect(rx1,ry1,rx2,ry2);
-			this.g.setColor(1,col("white"));
+			this.g.setColor(1,15);
 			this.g.setFont("Vector",size);	
             this.g.drawString(txt,x-(this.g.stringWidth(txt)/2),y); 
    			if (txt1){
@@ -121,9 +121,9 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
       case 5:case 12: //tap event
 		if ( x<=120 && y<=100 ) { //ride mode
-			if (euc.dash.mode==0) {euc.dash.mode=1;euc.wri("rideMed");face[0].btn("MODE",18,60,15,col("raf2"),0,0,119,97,"MED",30,60,50);}
-			else if (euc.dash.mode==1) {euc.dash.mode=2;euc.wri("rideSoft");face[0].btn("MODE",18,60,15,col("raf3"),0,0,119,97,"SOFT",30,60,50);}
-			else if (euc.dash.mode==2) {euc.dash.mode=0;euc.wri("rideHard");face[0].btn("MODE",18,60,15,col("raf4"),0,0,119,97,"HARD",30,60,50);}
+			if (euc.dash.mode==0) {euc.dash.mode=1;euc.wri("rideMed");face[0].btn("MODE",18,60,15,6,0,0,119,97,"MED",30,60,50);}
+			else if (euc.dash.mode==1) {euc.dash.mode=2;euc.wri("rideSoft");face[0].btn("MODE",18,60,15,6,0,0,119,97,"SOFT",30,60,50);}
+			else if (euc.dash.mode==2) {euc.dash.mode=0;euc.wri("rideHard");face[0].btn("MODE",18,60,15,5,0,0,119,97,"HARD",30,60,50);}
 			buzzer([30,50,30]);		
 		}else if ( 120<=x  && y<=100 ) { //calibrate
             buzzer([30,50,30]);

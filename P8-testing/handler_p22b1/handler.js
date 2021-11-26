@@ -549,17 +549,5 @@ cron.event.hour();
 cron.on('hour',cron.task.euc.hour);
 cron.on('day',cron.task.euc.day);
 cron.on('month',cron.task.euc.month);
-//themes -todo
-function col(no){
-	//"ram";
-	switch (no) {
-		case "black":return 0x0000;case "white":return 0xFFFF;case "lblue":return 0xD7BF;case "blue":return 0xEFBF;case "dblue":return 0x0819;case "blue1":return 0x319B;
-		case "raf":return 0x3276;case "raf1":return 0x4B16;case "raf2":return 0x3ADC;case "raf3":return 0x2A16;case "raf4":return 0x6396;case "raf5":return 0x5332;
-		case "gray":return 0x5B2F;case "lgray":return 0xD6BA;case "dgray":return 0x31C8;case "dgray1":return 0x2104;case "green":return 0x24C5;case "lgreen":return 0x37C8;
-		case "red":return 0xF165;case "dred":return 0xA000;case "dred1":return 0x8904;case "purple":return 0xA815;case "lyellow":return 0xFFEA;case "dyellow":return 0xCEE0;
-		case "yellow":return 0xFFE0;case "olive":return 0x3C0C;
-	}
-}
 
-//end
 

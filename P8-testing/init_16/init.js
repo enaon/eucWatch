@@ -132,8 +132,8 @@ var bpp=(require("Storage").read("setting.json") && require("Storage").readJSON(
 var g=Graphics.createArrayBuffer(240,240,bpp);
 var pal;
 g.sc=g.setColor;
-g.col=Uint16Array([ 0x000,1365,2730,3549,1629,2474,1963,3840,143,3935,2220,0x5ff,170,4080,1535,4095 ]);
-
+// 16bit RGB565  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=blue,9=purple,10=?,11=green,12=olive,13=yellow,14=lblue,15=white
+g.col=Uint16Array([ 0x000,0x31C8,0x5B2F,0xD6BA,0x3276,0x4B16,0x3ADC,0xF165,0xEFBF,0xA815,2220,0x5ff,0x3C0C,0xFFE0,0xD7BF,0xFFFF ]);
 switch(bpp){
   case 1:
     pal= Uint16Array([ 0x000,4095 ]);
@@ -237,19 +237,16 @@ const batt=function(i,c){
 };
 module.exports = {
 	batt: batt,
-	battVoltage: battVoltage,
 	gfx: g
 };
 });
 w=require("eucWatch");
-//load
-//w.gfx.init();
-require("Storage").write("colmode16","done");
+
 eval(require('Storage').read('handler'));
 eval(require('Storage').read('main'));
 eval(require('Storage').read('euc'));
 
-//require('Storage').list(/m_/).forEach(modfile=>{eval(require('Storage').read(modfile));});
+
 digitalPulse(D16,1,[100,30,100]);
 setTimeout(function(){
 if (global.face) face.go('main',0);

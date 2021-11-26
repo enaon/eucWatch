@@ -23,12 +23,16 @@ face[0] = {
         this.g.setColor(1,15);
       	this.g.fillRect(120,200,143,204);
 		this.g.flip(); 
-        this.btn(euc.dash.aLck,"AUTO",18,60,15,7,1,0,0,119,97,"LOCK",28,60,50);
-        //this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"HAPTIC",25,185,37,4,5,122,0,239,97);	
+        this.btn(euc.dash.ks.aRide,"AUTO",18,60,15,12,1,0,0,119,97,"RIDE",28,60,50);
+		this.btn(euc.dash.aOff,"AUTO",22,185,15,7,1,122,0,239,97,"OFF",28,185,50);		
+        this.btn(euc.dash.ks.aLift,"AUTO",18,60,115,12,1,0,100,119,195,"LIFT",30,60,150);
+        this.btn(euc.dash.aLock,"AUTO",18,185,115,7,1,122,100,239,195,"LOCK",30,185,150);		
+        /*this.btn(euc.dash.aLck,"AUTO",18,60,15,7,1,0,0,119,97,"LOCK",28,60,50);
 		this.btn(0,"",22,185,17,4,1,122,0,239,97,"",22,185,55);		
         this.btn(euc.dash.aOff,"AUTO",18,60,115,7,1,0,100,119,195,"OFF",30,60,150);
-        this.btn(euc.dash.ks.aLift,"AUTO",18,185,115,7,1,122,100,239,195,"LIFT",30,185,150);		
-        this.run=true;
+        this.btn(euc.dash.ks.aLift,"AUTO",18,185,115,7,1,122,100,239,195,"LIFT",30,185,150);
+        */
+		this.run=true;
 	},
 	show : function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
@@ -104,28 +108,31 @@ face[1] = {
 };	
 //touch
 touchHandler[0]=function(e,x,y){ 
+	face.off();
 	switch (e) {
-      case 5: //tap event
-		if ( x<=120 && y<100 ) { //auto lock
-			euc.dash.aLck=1-euc.dash.aLck;
-            face[0].btn(euc.dash.aLck,"AUTO",18,60,15,7,1,0,0,119,97,"LOCK",28,60,50);
-            face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",19,1,euc.dash.aLck);
+      case 5: case 12: //tap event
+		if ( x<=120 && y<100 ) { //auto Ride
+			if (!euc.dash.ks.aRide) euc.dash.ks.aRide=0;
+			euc.dash.ks.aRide=1-euc.dash.ks.aRide;
+	        face[0].btn(euc.dash.ks.aRide,"AUTO",18,60,15,12,1,0,0,119,97,"RIDE",28,60,50);
+			face[0].ntfy("DISCON->RIDELED OFF","RIDE LED ON",19,1,euc.dash.ks.aRide);
 			buzzer([30,50,30]);
-		}else if ( 120<=x && y<=100 ) { //watch alerts
-			buzzer(40);						
-			//face.go("dashAlerts",0);
-		}else if ( x<=120 && 100<=y ) { //auto off
+		}else if ( 120<=x && y<=100 ) { //auto off
 			euc.dash.aOff=1-euc.dash.aOff;
-            face[0].btn(euc.dash.aOff,"AUTO",18,60,115,7,1,0,100,119,195,"OFF",30,60,150);
+            face[0].btn(euc.dash.aOff,"AUTO",22,185,15,7,1,122,0,239,97,"OFF",28,185,50);		
             face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",(euc.dash.aOff)?17:19,1,euc.dash.aOff);
 			buzzer([30,50,30]);		
-		}else if  (120<=x && 100<=y ) { //auto lift
+		}else if ( x<=120 && 100<=y ) { //auto lift
 			euc.dash.ks.aLift=1-euc.dash.ks.aLift;
-            face[0].btn(euc.dash.ks.aLift,"AUTO",18,185,115,7,1,122,100,239,195,"LIFT",30,185,150);	
+            face[0].btn(euc.dash.ks.aLift,"AUTO",18,60,115,12,1,0,100,119,195,"LIFT",30,60,150);
             face[0].ntfy("CONNECT -> LIFT OFF","AUTO LIFT DISABLED",19,1,euc.dash.ks.aLift);
+			buzzer([30,50,30]);		
+		}else if  (120<=x && 100<=y ) { //auto lock
+			euc.dash.aLck=1-euc.dash.aLck;
+            face[0].btn(euc.dash.aLck,"AUTO",18,185,115,7,1,122,100,239,195,"LOCK",30,185,150);	
+            face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",19,1,euc.dash.aLck);
 			buzzer([30,50,30]);						
 		}else buzzer([30,50,30]);
-		this.timeout();
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
@@ -139,7 +146,6 @@ touchHandler[0]=function(e,x,y){
 		}else //if (y>100) {
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		//} else {buzzer(40);}
-		this.timeout();
 		break;
 	case 3: //slide left event
 		face.go("dashKingsongAdv",0);
@@ -147,27 +153,5 @@ touchHandler[0]=function(e,x,y){
 	case 4: //slide right event (back action)
 		face.go("dashKingsongOpt",0);
 		return;
-	case 12: //hold event
-		if ( x<=120 && y<100 ) { //auto lock
-			euc.dash.aLck=1-euc.dash.aLck;
-            face[0].btn(euc.dash.aLck,"AUTO",18,60,15,7,1,0,0,119,97,"LOCK",28,60,50);
-            face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",19,1,euc.dash.aLck);
-			buzzer([30,50,30]);
-		}else if ( 120<=x && y<=100 ) { //watch alerts
-			buzzer(40);						
-			//face.go("dashAlerts",0);
-		}else if ( x<=120 && 100<=y ) { //auto off
-			euc.dash.aOff=1-euc.dash.aOff;
-            face[0].btn(euc.dash.aOff,"AUTO",18,60,115,7,1,0,100,119,195,"OFF",30,60,150);
-            face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",(euc.dash.aOff)?17:19,1,euc.dash.aOff);
-			buzzer([30,50,30]);		
-		}else if  (120<=x && 100<=y ) { //auto lift
-			euc.dash.ks.aLift=1-euc.dash.ks.aLift;
-            face[0].btn(euc.dash.ks.aLift,"AUTO",18,185,115,7,1,122,100,239,195,"LIFT",30,185,150);	
-            face[0].ntfy("CONNECT -> LIFT OFF","AUTO LIFT DISABLED",19,1,euc.dash.ks.aLift);
-			buzzer([30,50,30]);						
-		}else buzzer([30,50,30]);
-		this.timeout();
-		break;
   }
 };

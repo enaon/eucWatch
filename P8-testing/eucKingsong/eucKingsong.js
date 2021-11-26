@@ -3,7 +3,7 @@
 //euc.wri("lightsOn")
 //temp
 if (!euc.dash.lght) euc.dash.lght={"ride":0};
-if (!euc.dash.ks) euc.dash.ks={"lift":1,"aLift":0};
+if (!euc.dash.ks) euc.dash.ks={"lift":1,"aLift":0,"aRide":0};
 euc.tmp={};
 //commands
 euc.wri=function(i) {if (set.def.cli) console.log("not connected yet"); if (i=="end") euc.off(); return;};
@@ -267,12 +267,14 @@ euc.conn=function(mac){
 				});
 			}else if (euc.state=="OFF"||n=="end") {
 				if (global['\xFF'].BLE_GATTS && global['\xFF'].BLE_GATTS.connected) {
-					c.writeValue(euc.cmd((euc.dash.aOff)?"off":"rideLedOff")).then(function() {
-						return c.writeValue(euc.cmd((euc.dash.aLck)?"lock":"lightsOff"));
+					c.writeValue(euc.cmd((euc.dash.aLck)?"lock":"lightsOff")).then(function() {
+						return ((euc.dash.aOff)?c.writeValue(euc.cmd("off")):true);	
 					}).then(function() {
-						return ((euc.seq==0)?"ok":c.writeValue(euc.cmd("lightsOff")));
+						return ((euc.seq)?c.writeValue(euc.cmd("lightsOff")):true);
 					}).then(function() {
-						return ((euc.dash.ks.aLift)?c.writeValue(euc.cmd("liftOn")):"ok");
+						return ((euc.dash.ks.aRide)?c.writeValue(euc.cmd("rideLedOff")):true);	
+					}).then(function() {
+						return ((euc.dash.ks.aLift)?c.writeValue(euc.cmd("liftOn")):true);
 					}).then(function() {
 						euc.run=0;
 						return global["\xFF"].BLE_GATTS.disconnect();	
