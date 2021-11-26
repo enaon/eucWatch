@@ -10,7 +10,7 @@ E.enableWatchdog(30, false);
 E.showMessage=print; //apploader suport
 global.save = function() { throw new Error("You don't need to use save() on eucWatch!"); };
 //d25.write(0)
-ew={pin:{BAT:D30,CHRG:D8,BUZZ:D6,BL:D12,i2c:{SCL:14,SDA:15},touch:{RST:D39,INT:D32},disp:{CS:D3,DC:D47,RST:D2,BL:D12},acc:{INT:D16}}};
+ew={pin:{BAT:D31,CHRG:D19,BUZZ:D16,BL:D12,i2c:{SCL:D7,SDA:D6},touch:{RST:D13,INT:D28},disp:{CS:D25,DC:D18,RST:D26,BL:D14},acc:{INT:D8}}};
 //devmode
 if (BTN1.read() || Boolean(require("Storage").read("devmode"))) { 
   let mode=(require("Storage").read("devmode"));
