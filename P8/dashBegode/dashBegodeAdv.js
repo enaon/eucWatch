@@ -27,9 +27,9 @@ face[0] = {
 		//ride mode
 		this.b1=euc.dash.mode;
 		if (this.b1==4) {
-			this.b1t="HARD";this.b1c=5;
+			this.b1t="HARD";this.b1c=4;
 		}else if (this.b1==2) {
-			this.b1t="MED";this.b1c=6;
+			this.b1t="MED";this.b1c=5;
 		}else if (this.b1==0) {
 			this.b1t="SOFT";this.b1c=6;
 		}
@@ -122,8 +122,8 @@ touchHandler[0]=function(e,x,y){
       case 5:case 12: //tap event
 		if ( x<=120 && y<=100 ) { //ride mode
 			if (euc.dash.mode==0) {euc.dash.mode=2;euc.wri("rideMed");face[0].btn("MODE",18,60,15,6,0,0,119,97,"MED",30,60,50);}
-			else if (euc.dash.mode==2) {euc.dash.mode=4;euc.wri("rideHard");face[0].btn("MODE",18,60,15,5,0,0,119,97,"HARD",30,60,50);}
-			else if (euc.dash.mode==4) {euc.dash.mode=0;euc.wri("rideSoft");face[0].btn("MODE",18,60,15,6,0,0,119,97,"SOFT",30,60,50);}
+			else if (euc.dash.mode==2) {euc.dash.mode=4;euc.wri("rideHard");face[0].btn("MODE",18,60,15,4,0,0,119,97,"HARD",30,60,50);}
+			else if (euc.dash.mode==4) {euc.dash.mode=0;euc.wri("rideSoft");face[0].btn("MODE",18,60,15,5,0,0,119,97,"SOFT",30,60,50);}
 			buzzer([30,50,30]);		
 		}else if ( 120<=x  && y<=100 ) { //calibrate
             buzzer([30,50,30]);
