@@ -23,7 +23,7 @@ face[0] = {
 		this.batL=new Uint8Array(20);
 		this.ampL = new Uint8Array(20);
 		this.al=new Uint8Array(20);
-		this.ampL.fill(1,0,1)
+		this.ampL.fill(1,0,1);
 		this.volt=-1;
 		this.buzz=-1;
 		this.spdM=-1;

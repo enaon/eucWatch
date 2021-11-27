@@ -30,6 +30,7 @@ global.euc= {
 			this.state="OFF";
 			acc.off();
 			this.wri("end");
+			setTimeout(function(){face.go("dashOff",0);},150);
 			setTimeout(()=>{
 				//print("log");
 				if (this.log.trp[1]&& 0<this.dash.trpT-this.log.trp[1] ) {
@@ -41,7 +42,7 @@ global.euc= {
 				}
 				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 				this.log.trp=[0,0,0];
-				if (face.appCurr!=="dashOff") face.go('dashOff',0);
+				//if (face.appCurr!=="dashOff") face.go('dashOff',0);
 				if (set.def.acc) acc.on(1);
 			},1000);
 			
