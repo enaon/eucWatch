@@ -13,7 +13,7 @@ face[0] = {
 		this.g.fillRect(0,205,239,239);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",20);
-		this.g.drawString("MORE",120-(this.g.stringWidth("MORE")/2),217); 
+		this.g.drawString("ON CONN / DISCONN",120-(this.g.stringWidth("ON CONN / DISCONN")/2),217); 
 		this.g.flip(); 
 		this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,204);
@@ -66,7 +66,7 @@ face[0] = {
 				t.g.fillRect(0,205,239,239);
 				t.g.setColor(1,15);
 				t.g.setFont("Vector",20);
-		        t.g.drawString("MORE",120-(t.g.stringWidth("MORE")/2),217); 
+		        t.g.drawString("ON CONN / DISCONN",120-(t.g.stringWidth("ON CONN / DISCONN")/2),217); 
 				t.g.flip();
 				t.g.setColor(0,0);
 				t.g.fillRect(0,196,239,204);

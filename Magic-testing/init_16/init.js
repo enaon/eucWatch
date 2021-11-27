@@ -15,11 +15,11 @@ ew={pin:{BAT:D31,CHRG:D19,BUZZ:D16,BL:D12,i2c:{SCL:D7,SDA:D6},touch:{RST:D13,INT
 if (BTN1.read() || Boolean(require("Storage").read("devmode"))) { 
   let mode=(require("Storage").read("devmode"));
   if ( mode=="loader"){ 
-    digitalPulse(ew.pin.BUZZ,1,80);
+    digitalPulse(D16,1,80);
   } else {
     require("Storage").write("devmode","done");
     NRF.setAdvertising({}, { name:"Espruino-devmode",connectable:true });
-    digitalPulse(ew.pin.BUZZ,1,100);
+    digitalPulse(D16,1,100);
 	print("Welcome!\n*** DevMode ***\nShort press the side button\nto restart in WorkingMode");
   }
   setWatch(function(){
@@ -33,8 +33,9 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
 	 reset();
     }, 500);
   },BTN1,{repeat:false, edge:"rising"}); 
-}else{ //working mode
+}else{ //load in working mode
 var w;
+var pal=[];
 Modules.addCached("eucWatch",function(){
 //screen driver
 //
@@ -42,14 +43,14 @@ Modules.addCached("eucWatch",function(){
 // see full license text at https://choosealicense.com/licenses/mit/
 // compiled with options LCD_BPP=12,SHARED_SPIFLASH,SPIFLASH_CS=(1<<5)
 var SPI2 = (function(){
-  var bin=atob("AAAAAAAAAAAAAAAAAAAAAAAAAAD///////////////8QtQNMfEQigGCAoYDjgBC92P///wdLe0QbiUOxBEoTaAAr/NAAIxNgA0p6RBOBcEcYMQJAxv///7L///8t6fBHkEYZTBlO//fl/xlK3/hkwAAjASUTYE/w/w5TYKlGI2AQMh9G/ykA6wMKwvgAoIu//zMxYMb4AOAAIYi//znM+ACQuPEADwbQKbkLS3tEHYEAIL3o8IfU+ACguvEAD/rQJ2AAKd7R8+cYMQJASDUCQDQ1AkAQMAJAUP///y3p8E+dsM3pARJWSnpEBkaS+ACQACgA8JuAACkA8JiACfH/MwcrAPKTgAEjA/oJ8wE727IEeAOTQ3hHSZeIROoDJAKbAPECC0RIHEEgIwNgByMLYNNopLLN6QYBC7FAShNgT+pJA9uyBJM/S3tEE6gFkwqrzekIME/wAAhBRgWbAp2z+AKgA5sBmiNARPoJ9DL4E8ADmyNARPoJ9DL4EyAEmx1E7bIHLULYpLJP6iwTQ1QTEgHxAg5D6gwcQxgDMarxAgojKYP4AcAf+or6APgOIAndASL/91P/2PEBCAu/CZgImEFGACG68QAPy9EfS3tEAT/biB5Ev7JzeDR4ROoDJAKbHEEG8QILpLIAL7bR2bE6Rv/3NP8VS3tE22gLsQaaE2AHmwAgGGAdsL3o8I/eRgg9HvgBO+2yxfEICwP6C/McQ6Sy80aw5//3Bf/j50/w/zDp5wC/ADUCQAgFAFAMBQBQFP///7T+//8w/v//Bv7//xlKekT4tQZGEGkPRhCzE0wTTSAjI2AHIytgEksYYNJoArEaYAAiASEwRv/37/4PS3tEAS8baSNgBN0AInkecBz/9+T+Ckt7RNtoA7EjYAAgKGD4vU/w/zD75wC/CAUAUAA1AkAMBQBQqv3//3z9//9m/f//E7UAKB7bACmmv434BRACJAEkACqkvwKpCRmN+AQApL8BNAH4BCwAK6K/AqoSGQE0IUYBqKi/AvgEPP/3p/8gRgKwEL0AJPrncLUFRoixRhgAJChGEPgBGxmxRRi1QgLZZEIgRnC9//eR/wAo+dEBNO/nBEb15wAADUsbaBC1o7kMSxtoC7EMShNgDksLSntEAAZcaRRgnGlUYNppCEtJABpgWGFZZAEgEL1P8P8w++cANQJABDMCQAgzAkAINQJAEDUCQKr8//8FSgAjE2Ci9X5yE2ADSxtoC7HC+AAycEcANQJABDMCQBC1Bkx8RMTpBQEBIQH6AvIB+gPz4mAjYRC9AL9M/P//");
+  var bin=atob("AAAAAAAAAAAAAAAAAAAAAAAAAAD///////////////8QtQNMfEQigGCAoYDjgBC92P///wdLe0QbiUOxBEoTaAAr/NAAIxNgA0p6RBOBcEcYMQJAxv///7L///8t6fBHkEYZTBlO//fl/xlK3/hkwAAjASUTYE/w/w5TYKlGI2AQMh9G/ykA6wMKwvgAoIu//zMxYMb4AOAAIYi//znM+ACQuPEADwbQKbkLS3tEHYEAIL3o8IfU+ACguvEAD/rQJ2AAKd7R8+cYMQJASDUCQDQ1AkAQMAJAUP///y3p8E+bsBNGAJFOSXlEBkaR+ACwACgA8IyAAJoAKgDwiIAL8f8yByoA8oOAASIC+gvyATrSsgR4AZJCeD5NsfgEgETqAiSHHCAiPEgqYAciAmDKaBxBpLLN6QNQCrE4SQpgOUp6RBGoApIIqs3pBSBP8AAJSUYCmrL4AqAdRgGaXUTtsgctAuoEDACaiL8IPTL4HMCBvxf4ASvtssXxCA4C+g7yRPoL9E/qLC6IvxRDAPgB4EocAjEK8f86IymksgD4AsAf+or6C90BIgeT//dX/9nxAQkHmwu/BpgFmElGACG68QAPytEYSnpECPH/ONKIFkQf+oj4cng0eETqAiQcQbccpLK48QAPtNFxsUJG//c2/w5Le0TbaAuxA5oTYASbACAYYBuwvejwj//3FP/w50/w/zD25wgFAFAANQJADAUAUBT///+8/v//Nv7//wr+//8ZSnpE+LUGRhBpD0YQsxNME00gIyNgByMrYBJLGGDSaAKxGmAAIgEhMEb/9//+D0t7RAEvG2kjYATdACJ5HnAc//f0/gpLe0TbaAOxI2AAIChg+L1P8P8w++cAvwgFAFAANQJADAUAUMr9//+c/f//hv3//xO1ACge2wAppr+N+AUQAiQBJAAqpL8CqQkZjfgEAKS/ATQB+AQsACuivwKqEhkBNCFGAaiovwL4BDz/96f/IEYCsBC9ACT653C1BUaIsUYYACQoRhD4ARsZsUUYtUIC2WRCIEZwvf/3kf8AKPnRATTv5wRG9ecAAA1LG2gQtaO5DEsbaAuxDEoTYA5LC0p7RAAGXGkUYJxpVGDaaQhLSQAaYFhhWWQBIBC9T/D/MPvnADUCQAQzAkAIMwJACDUCQBA1AkDK/P//BUoAIxNgovV+chNgA0sbaAuxwvgAMnBHADUCQAQzAkAQtQZMfETE6QUBASEB+gLyAfoD8+JgI2EQvQC/bPz//w==");
   return {
-    cmd:E.nativeCall(593, "int(int,int)", bin),
-    cmds:E.nativeCall(781, "int(int,int)", bin),
-    cmd4:E.nativeCall(709, "int(int,int,int,int)", bin),
-    setpins:E.nativeCall(941, "void(int,int,int,int)", bin),
-    enable:E.nativeCall(829, "int(int,int)", bin),
-    disable:E.nativeCall(909, "void()", bin),
+    cmd:E.nativeCall(561, "int(int,int)", bin),
+    cmds:E.nativeCall(749, "int(int,int)", bin),
+    cmd4:E.nativeCall(677, "int(int,int,int,int)", bin),
+    setpins:E.nativeCall(909, "void(int,int,int,int)", bin),
+    enable:E.nativeCall(797, "int(int,int)", bin),
+    disable:E.nativeCall(877, "void()", bin),
     blit_setup:E.nativeCall(33, "void(int,int,int,int)", bin),
     blt_pal:E.nativeCall(221, "int(int,int,int)", bin),
   };
@@ -101,41 +102,42 @@ function cmds(arr){
 RST.set();
 
 function init(){
-  cmd(0x11); // sleep out
-  delayms(20);
-  
-  cmd([0x36, 0]);     // MADCTL - This is an unrotated screen
-  cmd([0x37,0,0]);
-  // These 2 rotate the screen by 180 degrees
-  //[0x36,0xC0],     // MADCTL
-  //[0x37,0,80],   // VSCSAD (37h): Vertical Scroll Start Address of RAM
-  cmd([0x3A, 0x03]);  // COLMOD - interface pixel format - 03 - 12bpp, 05 - 16bpp
-  cmd([0xB2, 0xC, 0xC, 0, 0x33, 0x33]); // PORCTRL (B2h): Porch Setting
-  cmd([0xB7, 0]);     // GCTRL (B7h): Gate Control
-  cmd([0xBB, 0x3E]);  // VCOMS (BBh): VCOM Setting 
-  cmd([0xC2, 1]);     // VDVVRHEN (C2h): VDV and VRH Command Enable
-  cmd([0xC3, 0x19]);  // VRHS (C3h): VRH Set 
-  cmd([0xC4, 0x20]);  // VDVS (C4h): VDV Set
-  cmd([0xC5, 0xF]);   // VCMOFSET (C5h): VCOM Offset Set .
-  cmd([0xD0, 0xA4, 0xA1]);   // PWCTRL1 (D0h): Power Control 1 
-  cmd([0xe0, 0x70, 0x15, 0x20, 0x15, 0x10, 0x09, 0x48, 0x33, 0x53, 0x0B, 0x19, 0x15, 0x2a, 0x2f]);   // PVGAMCTRL (E0h): Positive Voltage Gamma Control
-  cmd([0xe1, 0x70, 0x15, 0x20, 0x15, 0x10, 0x09, 0x48, 0x33, 0x53, 0x0B, 0x19, 0x15, 0x2a, 0x2f]);   // NVGAMCTRL (E1h): Negative Voltage Gamma Contro
-  cmd(0x29); // DISPON (29h): Display On 
-  cmd(0x21); // INVON (21h): Display Inversion On
-  //cmd([0x2a,0,0,0,239]);
-  //cmd([0x2b,0,0,0,239]);
-  //cmd([0x2c]);
+	cmd(0x11); // sleep out
+	delayms(20);
+	cmd([0x36, 0]);     // MADCTL - This is an unrotated screen
+//	cmd([0x36, 0x48]); 	
+	cmd([0x37,0,0]);
+	// These 2 rotate the screen by 180 degrees
+	//[0x36,0xC0],     // MADCTL
+	//[0x37,0,80],   // VSCSAD (37h): Vertical Scroll Start Address of RAM
+	cmd([0x3A, 0x55]);  // COLMOD - interface pixel format - 03 - 12bpp, 05 - 16bpp
+	cmd([0xB2, 0xC, 0xC, 0, 0x33, 0x33]); // PORCTRL (B2h): Porch Setting
+	cmd([0xB7, 0]);     // GCTRL (B7h): Gate Control
+	cmd([0xBB, 0x3E]);  // VCOMS (BBh): VCOM Setting 
+	cmd([0xC2, 1]);     // VDVVRHEN (C2h): VDV and VRH Command Enable
+	cmd([0xC3, 0x19]);  // VRHS (C3h): VRH Set 
+	cmd([0xC4, 0x20]);  // VDVS (C4h): VDV Set
+	cmd([0xC5, 0xF]);   // VCMOFSET (C5h): VCOM Offset Set .
+	cmd([0xD0, 0xA4, 0xA1]);   // PWCTRL1 (D0h): Power Control 1 
+	cmd([0xe0, 0x70, 0x15, 0x20, 0x15, 0x10, 0x09, 0x48, 0x33, 0x53, 0x0B, 0x19, 0x15, 0x2a, 0x2f]);   // PVGAMCTRL (E0h): Positive Voltage Gamma Control
+	cmd([0xe1, 0x70, 0x15, 0x20, 0x15, 0x10, 0x09, 0x48, 0x33, 0x53, 0x0B, 0x19, 0x15, 0x2a, 0x2f]);   // NVGAMCTRL (E1h): Negative Voltage Gamma Contro
+	cmd(0x29); // DISPON (29h): Display On 
+	cmd(0x21); // INVON (21h): Display Inversion On
+//	cmd(0x20); // INVON (21h): Display Inversion On
+	//cmd([0x2a,0,0,0,239]);
+	//cmd([0x2b,0,0,0,239]);
+	//cmd([0x2c]);
 }
 var bpp=(require("Storage").read("setting.json") && require("Storage").readJSON("setting.json").bpp)?require("Storage").readJSON("setting.json").bpp:1;
 var g=Graphics.createArrayBuffer(240,240,bpp);
 var pal;
-// 12bit RGB444  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=blue,9=purple,10=?,11=green,12=olive,13=yellow,14=lblue,15=white
-g.col=Uint16Array([ 0x000,1365,2730,3549,1629,2474,1963,3840,143,3935,2220,0x5ff,170,4080,1535,4095 ]);
-g.sc=g.setColor;  
+g.sc=g.setColor;
+// 16bit RGB565  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=blue,9=purple,10=?,11=green,12=olive,13=yellow,14=lblue,15=white
+g.col=Uint16Array([ 0x000,0x31C8,0x5B2F,0xD6BA,0x3276,0x4B16,0x3ADC,0xF165,0xEFBF,0xA815,2220,0x5ff,0x3C0C,0xFFE0,0xD7BF,0xFFFF ]);
 switch(bpp){
   case 1:
-    pal= Uint16Array([ 0x000,4095]);
-	let sc=g.setColor;
+    pal= Uint16Array([ 0x000,4095 ]);
+    c1=pal[1]; //save color 1
     g.setColor=function(c,v){ 
 	  if (c==1) pal[1]=g.col[v]; else pal[0]=g.col[v];
 	  g.sc(c);
@@ -151,12 +153,6 @@ switch(bpp){
 	}; 
     break;
 }
-// preallocate setwindow command buffer for flip
-g.winCmd=toFlatBuffer([
-  5, 0x2a, 0,0, 0,0,
-  5, 0x2b, 0,0, 0,0,
-  1, 0x2c,
-  0 ]);
 // precompute addresses for flip
 g.winA=E.getAddressOf(g.winCmd,true);
 g.palA=E.getAddressOf(pal.buffer,true); // pallete address
@@ -224,6 +220,7 @@ g.off=function(){
 //  BL.set();
   this.isOn=false;
 };
+
 //battery
 const batt=function(i,c){
 	let v= 7.1*analogRead(D31);
@@ -239,23 +236,21 @@ const batt=function(i,c){
 	}else return +v.toFixed(2);
 };
 module.exports = {
-    pal: pal,
 	batt: batt,
 	gfx: g
 };
 });
 w=require("eucWatch");
-//load
-//w.gfx.init();
+
 eval(require('Storage').read('handler'));
 eval(require('Storage').read('main'));
 eval(require('Storage').read('euc'));
 
-//require('Storage').list(/m_/).forEach(modfile=>{eval(require('Storage').read(modfile));});
-digitalPulse(ew.pin.BUZZ,1,[100,30,100]);
+
+digitalPulse(D16,1,[100,30,100]);
 setTimeout(function(){
 if (global.face) face.go('main',0);
 setTimeout(function(){ if (global.set) set.accR(); },1000); 
-digitalPulse(ew.pin.BUZZ,1,[100]);  
+digitalPulse(D16,1,[100]);  
 },200); 
 }

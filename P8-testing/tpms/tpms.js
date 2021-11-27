@@ -22,12 +22,13 @@ tpms= {
 	new:0,
 	status:"IDLE",
 	scan:()=>{
-		if (tpms.busy) {print("busy");return;}
+		if (tpms.busy) return;
 		tpms.busy=1;
 		tpms.new=0;
 		tpms.try=tpms.def.try;
 		tpms.cnt=getTime()|0;
 		tpms.status="SCANNING";
+		if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
 		tpms.find();
 	},	
 	find:(rp,sl)=>{
@@ -37,7 +38,7 @@ tpms= {
 			NRF.filterDevices(devices, filter).forEach(function(device) {
 				//print (device);
 				let mac =device.id.split(" ")[0].split(":");
-				if (mac[1]+mac[2] != "eaca") {;return;}
+				if (mac[1]+mac[2] != "eaca") return;
 				let id=mac[3]+mac[4]+mac[5];
 				if ( tpms.def.allowNew || tpms.def.list[id] ) {
 					if (!tpms.def.list[id]) {
@@ -94,6 +95,7 @@ tpms= {
 					let intT=[5,5,30,60,360];
 					if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
 					if (tpms.def.int||euc.state!="OFF") {
+						if (tpms.tid) clearTimeout(tpms.tid);
 						tpms.tid=setTimeout(()=>{ 
 							tpms.tid=0;
 							tpms.scan();

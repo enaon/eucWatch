@@ -1,0 +1,336 @@
+//tests
+//init i2c
+var i2c=new I2C();
+i2c.setup({scl:D7, sda:D6, bitrate:100000});
+
+//50hz low power mode all axes enabled.
+i2c.writeTo(0x18,0x20,0x4f); //CTRL_REG1 20h ODR3 ODR2 ODR1 ODR0 LPen Zen Yen Xen , 50hz, lpen1. zyx
+i2c.writeTo(0x18,0x21,0x00); //-highpass filter disabled
+i2c.writeTo(0x18,0x22,0x00); //no Interrupt
+i2c.writeTo(0x18,0x23,0x80); //1000 BDU,MSB at high addr, 1000 HR low
+i2c.writeTo(0x18,0x24,0x00); // latched interrupt off
+i2c.writeTo(0x18,0x25,0x00); //no Interrupt2 , no int polatiry
+////50hz low power mode all axes enabled.
+i2c.writeTo(0x18,0x20,0x4f); //CTRL_REG1 20h ODR3 ODR2 ODR1 ODR0 LPen Zen Yen Xen , 50hz, lpen1. zyx
+i2c.writeTo(0x18,0x21,0x00); //highpass filter disabled
+i2c.writeTo(0x18,0x22,0x40); //ia1 interrupt to INT1
+i2c.writeTo(0x18,0x23,0x80); //1000 BDU,MSB at high addr, 1000 HR low
+i2c.writeTo(0x18,0x24,0x00); // latched interrupt off
+i2c.writeTo(0x18,0x25,0x00); //no Interrupt2 , no int polatiry
+i2c.writeTo(0x18,0x32,5); //int1_ths-threshold = 250 milli g's
+i2c.writeTo(0x18,0x33,10); //duration = 1 * 20ms
+i2c.writeTo(0x18,0x30,0x02); //INT1_CFG-XH interrupt 0Ah=XH&YH 2Ah=allH 95h=freefall 
+////50hz low power mode all axes enabled.  turn to see as a watch
+i2c.writeTo(0x18,0x20,0x4f); //CTRL_REG1 20h ODR3 ODR2 ODR1 ODR0 LPen Zen Yen Xen , 50hz, lpen1. zyx
+i2c.writeTo(0x18,0x21,0x00); //highpass filter disabled
+i2c.writeTo(0x18,0x22,0x40); //ia1 interrupt to INT1
+i2c.writeTo(0x18,0x23,0x80); //1000 BDU,MSB at high addr, 1000 HR low
+i2c.writeTo(0x18,0x24,0x00); // latched interrupt off
+i2c.writeTo(0x18,0x25,0x00); //no Interrupt2 , no int polatiry
+i2c.writeTo(0x18,0x32,5); //int1_ths-threshold = 250 milli g's
+i2c.writeTo(0x18,0x33,15); //duration = 1 * 20ms
+i2c.writeTo(0x18,0x30,0x02); //int1 to xh
+//i2c.writeTo(0x18,0x30,0x08); //int1 to yh
+//i2c.writeTo(0x18,0x30,0x20); //int1 to zh
+//i2c.writeTo(0x18,0x30,0x28); //int1 to zyh
+
+//i2c.writeTo(0x18,0x30,0x44); //68//int1 to xh button horizontal
+//i2c.writeTo(0x18,0x30,0x48); //72 //int1 to xh GOOD FOR OFF
+
+//i2c.writeTo(0x18,0x30,0x41);//65 //int1 to xh button vertical
+//i2c.writeTo(0x18,0x30,0x42); //66 //int1 to xh 
+
+//euc plane related up/down
+i2c.writeTo(0x18,0x30,0x45);
+i2c.writeTo(0x18,0x30,0x4a);
+//
+//off
+i2c.writeTo(0x18,0x20,0x00);
+//int1 monitoring
+
+//test
+i2c.writeTo(0x18,0x30,0x45);
+var up=1;
+int1watch=setWatch(()=>{
+	
+	if (up) { i2c.writeTo(0x18,0x30,0x48); up=0; print("up");
+	}else { i2c.writeTo(0x18,0x30,0x44);up=1;   print("dn");}
+},D8,{repeat:true,edge:"rising"});
+//
+clearWatch(int1watch);
+//
+
+
+//test final
+var i2c=new I2C();
+i2c.setup({scl:D7, sda:D6, bitrate:100000});
+acc={
+	up:0,
+	ori:[65,66],
+	loop:0,
+	tid:0,
+	on:function(v){
+		i2c.writeTo(0x18,0x20,0x4f); //CTRL_REG1 20h ODR3 ODR2 ODR1 ODR0 LPen Zen Yen Xen , 50hz, lpen1. zyx
+		i2c.writeTo(0x18,0x21,0x00); //highpass filter disabled
+		i2c.writeTo(0x18,0x22,0x40); //ia1 interrupt to INT1
+		i2c.writeTo(0x18,0x23,0x80); //1000 BDU,MSB at high addr, 1000 HR low
+		i2c.writeTo(0x18,0x24,0x00); // latched interrupt off
+		i2c.writeTo(0x18,0x25,0x00); //no Interrupt2 , no int polatiry
+		i2c.writeTo(0x18,0x32,5); //int1_ths-threshold = 250 milli g's
+		i2c.writeTo(0x18,0x33,15); //duration = 1 * 20ms
+		i2c.writeTo(0x18,0x30,0x02); //int1 to xh
+		if (v) {
+			if (v==1) { this.ori=[68,72]; i2c.writeTo(0x18,0x30,0x44);
+		}else {this.ori=[65,66];i2c.writeTo(0x18,0x30,0x41);}
+		}
+		this.init(v);
+	},
+	off:function(){
+		if (this.loop) { clearInterval(this.loop); this.loop=0;}
+		if (this.tid) {
+			clearWatch(this.tid);
+			this.tid=0;
+			i2c.writeTo(0x18,0x20,0x07); //Clear LPen-Enable all axes-Power down
+			i2c.writeTo(0x18,0x26);
+			i2c.readFrom(0x18,1);// Read REFERENCE-Reset filter block 
+			return true;
+		}else return false;
+	},
+	init:function(v){
+		if (v==2) {
+			if (this.loop) { clearInterval(this.loop); this.loop=0;}
+			this.loop= setInterval(()=>{	
+				let cor=acc.read();
+				print(cor, cor.ax);
+				if (-120<=cor.ax<= -700) print("UP");
+			},500);
+		}else if (!this.tid) {
+			this.tid=setWatch(()=>{
+				if (this.up) { 
+					i2c.writeTo(0x18,0x30,this.ori[1]);
+					this.up=0;
+					print("up");
+					if (!w.gfx.isOn&&face.appCurr!=""){  
+						if  (global.euc) {
+							if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash.face],0);
+							else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
+						}else{ 
+							if (face.appCurr=="main") face.go("main",0);
+							else face.go(face.appCurr,0);
+						}
+					}else if (w.gfx.isOn&&face.pageCurr!=-1) {
+						if (set.tor==1)w.gfx.bri.set(face[0].cbri); else face.off();
+					} 
+					if (this.loop) { clearInterval(this.loop); this.loop=0; }
+					this.loop= setInterval(()=>{	
+						let cor=acc.read();
+						print(cor);
+					},500);
+				}else {
+					if (this.loop) { clearInterval(this.loop); this.loop=0; }
+					i2c.writeTo(0x18,0x30,this.ori[0]); 
+					this.up=1;   
+					print("dn");
+					if (set.tor==1)
+						w.gfx.bri.set(7);
+					else 
+						face.off(1200);
+				}
+			},D8,{repeat:true,edge:"rising"});
+			return true;
+		} else return false;
+	},
+	read:function(){
+		function conv(lo,hi) { 
+			var i = (hi<<8)+lo;
+			return ((i & 0x7FFF) - (i & 0x8000))/16;
+		}
+		i2c.writeTo(0x18,0xA8);
+		var a =i2c.readFrom(0x18,6);
+		//print ( "test got : ax: " + ( a[1] << 8 | a[0] ) + " ay: " + ( a[3] << 8 | a[2] ) + " az: " + ( a[5] << 8 | a[4] ) );
+		return {ax:conv(a[0],a[1]), ay:conv(a[2],a[3]), az:conv(a[4],a[5])};
+	},
+};	
+
+//
+//whoAmI
+i2c.writeTo(0x18,0x0F);i2c.readFrom(0x18,6);
+//read zxy
+i2c.writeTo(0x18,0xA8);i2c.readFrom(0x18,6);
+//read status register
+i2c.writeTo(0x18,0x27);i2c.readFrom(0x18,1);
+//read int1 src
+i2c.writeTo(0x18,0x31);i2c.readFrom(0x18,1);
+
+//sc7a20 notes 
+//WHO_AM_I 0Fh 0 0 1 1 0 0 1 1
+//Operating mode
+CTRL_REG1[3](LPen bit) CTRL_REG4[3](HR bit)
+1 0 ODR/2 1 16 Low-power mode(8-bit data output)
+0 0 ODR/2 1.6 4 Normal mode(10-bit data output) 
+0 1 ODR/9 7/ODR 1 High-resolution mode(12-bit data output)
+1 1 -- -- - Not allowed
+//
+ODR3 ODR2 ODR1 ODR0 Power mode selection
+0 0 0 0 Power-down mode
+0 0 1 0 HR/Normal/Low-power mode (10 Hz)
+0 0 1 1 HR/Normal/Low-power mode (25 Hz)
+0 1 0 0 HR/Normal/Low-power mode (50 Hz)
+0 1 0 1 HR/Normal/Low-power mode (100 Hz)
+0 1 1 0 HR/Normal/Low-power mode (200 Hz)
+0 1 1 1 HR/Normal/Low-power mode (400 Hz)
+1 0 0 0 Low-power mode (1.60 kHz)
+1 0 0 1 Normal (1.344 kHz)/Low-power mode (5.376 kHz)
+
+//CTRL_REG1 20h ODR3 ODR2 ODR1 ODR0 LPen Zen Yen Xen 
+i2c.writeTo(0x18,0x20,0x4F); //50hz, lpen1. zyx
+i2c.writeTo(0x18,0x20,0x41); //50hz, 0 001
+i2c.writeTo(0x18,0x20,0x57); //100hz, 0 111
+i2c.writeTo(0x18,0x20,0x51); //100hz, 0 001
+//CTRL_REG2 21h HPM1 HPM0 HPCF2 HPCF1 FDS HPCLICK HP_IA2 HP_IA
+i2c.writeTo(0x18,0x21,0x00); //-highpass filter disabled
+//CTRL_REG3 22h I1_CLICK I1_IA1 I1_IA2 I1_ZYXDA I1_321DA I1_WTM I1_OVERRUN 
+i2c.writeTo(0x18,0x22,0x40); //Interrupt1 to I1_IA1
+i2c.writeTo(0x18,0x22,0x80); //Interrupt1 to I1_CLICK 
+i2c.writeTo(0x18,0x22,0x10); //Interrupt1 to I1_ZYXDA
+//CTRL_REG4 23h BDU BLE FS1 FS0 HR ST1 ST0 SIM
+i2c.writeTo(0x18,0x23,0x80); //1000 BDU,MSB at high addr, 1000 HR low
+i2c.writeTo(0x18,0x23,0x88); //1000 BDU,MSB at high addr, 1000 HR high
+//CTRL_REG5 24h BOOT FIFO_EN - LIR_INT1 D4D_INT1 LIR_INT2 D4D_INT2
+i2c.writeTo(0x18,0x24,0x00); // latched interrupt off
+//CTRL_REG6 25h I2_CLICK I2_IA1 I2_IA2 I2_BOOT I2_ACT - INT_POLARITY - , 
+i2c.writeTo(0x18,0x25,0x00); //no Interrupt2 , no int polatiry
+//INT1_DURATION 33h 0 D6 D5 D4 D3 D2 D1 D0  
+//REFERENCE 26h REF7 REF6 REF5 REF4 REF3 REF2 REF1 REF0
+//STATUS_REG 27h ZYXOR ZOR YOR XOR ZYXDA ZDA YDA XDA
+//OUT_X_L 28h XD7 XD6 XD5 XD4 XD3 XD2 XD1 XD0
+//OUT_X_H 29h XD15 XD14 XD13 XD12 XD11 XD10 XD9 XD8
+//OUT_Y_L 2Ah YD7 YD6 YD5 YD4 YD3 YD2 YD1 YD0
+//OUT_Y_H 2Bh YD15 YD14 YD13 YD12 YD11 YD10 YD9 YD8
+//OUT_Z_L 2Ch ZD7 ZD6 ZD5 ZD4 ZD3 ZD2 ZD1 ZD0
+//OUT_Z_H 2Dh ZD15 ZD14 ZD13 ZD12 ZD11 ZD10 ZD9 ZD
+//INT1_CFG 30h AOI 6D ZHIE ZLIE YHIE YLIE XHIE XLIE ,
+i2c.writeTo(0x18,0x30,0x02); //duration - XH interrupt 
+//INT1_SRC 31h 0 IA ZH ZL YH YL XH XL -READ
+//INT1_THS 32h 0 THS6 THS5 THS4 THS3 THS2 THS1 THS0
+i2c.writeTo(0x18,0x32,0x10); // 250 milli g's
+//INT1_DURATION 33h 0 D6 D5 D4 D3 D2 D1 D0 
+i2c.writeTo(0x18,0x33,0x01); // 1 * 20ms
+//
+
+4 Startup sequence
+Once the device is powered up, it automatically downloads the calibration coefficients from 
+the embedded flash to the internal registers. When the boot procedure is completed, i.e. 
+after approximately 5 milliseconds, the device automatically enters power-down mode. To 
+turn on the device and gather acceleration data, select the HR bit in CTRL_REG4 and the 
+LPen bit in CTRL_REG1, enable at least one of the axes and select the preferred ODR.
+The following general-purpose sequence can be used to configure the device:
+1. Write CTRL_REG1
+2. Write CTRL_REG2
+3. Write CTRL_REG3
+4. Write CTRL_REG4
+5. Write CTRL_REG5
+6. Write CTRL_REG6
+7. Write REFERENCE
+8. Write INTx_THS
+9. Write INTx_DUR
+10. Write INTx_CFG
+11. Write CTRL_REG5
+
+
+4.1 Reading acceleration data
+4.1.1 Using the status register
+The LIS3DH generates data serially (X first, Y second, Z third). Every time the single-axis 
+data is generated, the corresponding DA signal (XDA, YDA, ZDA) bit of STATUS_REG is 
+set to 1. XDA, YDA, ZDA are individually reset to 0 when the respective higher part of the 
+data is read (ie. XDA goes to 0 as soon as the X-axis higher part of the data (reg. 29h) is 
+read, and so on).
+The ZYXDA signal can be set only after Z data generation and is set if XDA, YDA and ZDA 
+bits are simultaneously '1', otherwise the ZYXDA bit is reset to '0' when XDA, YDA and 
+ZDA are simultaneously '0'.
+The overrun flags XOR, YOR, ZOR bits are individually set to '1' when the corresponding 
+data is generated and the corresponding DA bit is already at 1, while they are reset to '0' 
+(with corresponding DA bit) when the corresponding data is read. 
+The ZYXOR bit is set to 1 when at least one overrun flag ( XOR, YOR, ZOR) goes to 1, 
+while the ZYXOR bit is reset to 0 when all the overrun flags are zero
+
+
+The device is provided with a STATUS_REG which should be polled to check when a new 
+set of data is available. The reading procedure should be the following:
+1. Read STATUS_REG
+2. If STATUS_REG(3) = 0, then go to 1
+3. If STATUS_REG(7) = 1, then some data have been overwritten
+4. Read OUTX_L
+5. Read OUTX_H
+6. Read OUTY_L
+7. Read OUTY_H
+8. Read OUTZ_L
+9. Read OUTZ_H
+10. Data processing
+11. Go to 1
+
+
+Using the data-ready (DRDY) signal
+ZYXDA can be driven to the INT1 pin when the I1_ ZYXDA bit of CTRL_REG3 (22h) is set 
+to '1'.
+This signal is called DRDY. DRDY signal behavior is the same as that of the ZYXDA bit 
+(Figure 2: "DRDY signal synchronization"
+
+
+
+
+
+
+Inertial interrupt
+The LIS3DH can provide two inertial interrupt signals and offers several possibilities to 
+personalize these signals. The registers involved in the interrupt generation behavior are 
+INTx_CFG, INTx_THS and INTx_DURATION.
+Table 17: Interrupt mode configuration
+AOI 6D Interrupt mode
+0 0 OR combination of interrupt events
+0 1 6-direction movement recognition
+1 0 AND combination of interrupt events
+1 1 6-direction position recognition
+Whenever an interrupt condition is verified, the interrupt signal is generated and by reading 
+the INTx_SRC register, it is possible to understand which condition happened
+
+
+
+
+
+
+
+
+
+
+
+
+
+		    i2c.writeTo(0x18,0x20,0x47); //reg1-odr=50zh lp=0 zyx=1
+//		    i2c.writeTo(0x18,0x20,0x77); //reg1-odr=400zh lp=0 zyx=1
+			i2c.writeTo(0x18,0x21,0x00); //reg2-highpass filter disabled
+			i2c.writeTo(0x18,0x22,0x40); //reg3-ia1 interrupt to INT1
+//			i2c.writeTo(0x18,0x22,0x80); //reg3-click interrupt to INT1
+//			i2c.writeTo(0x18,0x22,0xC0); //reg3-click and IA1 on interrupt to INT1
+			i2c.writeTo(0x18,0x23,0x88); //reg4-BDU,MSB at high addr, HR=1
+			i2c.writeTo(0x18,0x24,0x00); //reg5-latched interrupt off
+//			i2c.writeTo(0x18,0x24,0x08); //reg5-latched interrupt1
+			i2c.writeTo(0x18,0x32,5); //int1_ths-threshold = 250 milli g's
+			i2c.writeTo(0x18,0x33,5); //duration = 1 * 20ms
+			i2c.writeTo(0x18,0x30,0x02); //INT1_CFG-XH interrupt 0Ah=XH&YH 2Ah=allH 95h=freefall 
+//			i2c.writeTo(0x18,0x30,0x03); //INT1_CFG-1011 1111
+//			i2c.writeTo(0x18,0x30,0x80); //INT1_CFG-interrupt aio=1 
+			//click config
+			i2c.writeTo(0x18,0x38,0x01); //click_cfg-single tap on X
+//			i2c.writeTo(0x18,0x3A,0x3f); //click_ths-
+//			i2c.writeTo(0x18,0x3A,0x83); //click_ths-
+			i2c.writeTo(0x18,0x3A,250); //click_ths-
+			i2c.writeTo(0x18,0x3B,10); //time_limit-25ms at 400
+			i2c.writeTo(0x18,0x3C,20); //time_latency-50ms at 400
+			i2c.writeTo(0x18,0x3D,15); //time_window-25ms at 400
+			
+//			i2c.writeTo(0x18,0x31);print (i2c.readFrom(0x18,1)+""); //src int
+//			i2c.writeTo(0x18,0x39);print (i2c.readFrom(0x18,1)+""); //src click
+//			i2c.writeTo(0x18,0x26);print (i2c.readFrom(0x18,1)+""); //reference
+//			i2c.writeTo(0x18,0x27);print (i2c.readFrom(0x18,1)+""); //status
+			//Write 08h into CTRL_REG4 //set hr

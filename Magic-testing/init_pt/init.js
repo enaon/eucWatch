@@ -12,14 +12,14 @@ global.save = function() { throw new Error("You don't need to use save() on eucW
 //d25.write(0)
 ew={pin:{BAT:D31,CHRG:D19,BUZZ:D16,BL:D12,i2c:{SCL:D7,SDA:D6},touch:{RST:D13,INT:D28},disp:{CS:D25,DC:D18,RST:D26,BL:D14},acc:{INT:D8}}};
 //devmode
-if (BTN1.read() || Boolean(require("Storage").read("devmode"))) { 
+if (D13.read() || Boolean(require("Storage").read("devmode"))) { 
   let mode=(require("Storage").read("devmode"));
   if ( mode=="loader"){ 
-    digitalPulse(ew.pin.BUZZ,1,80);
+    digitalPulse(D16,1,80);
   } else {
     require("Storage").write("devmode","done");
     NRF.setAdvertising({}, { name:"Espruino-devmode",connectable:true });
-    digitalPulse(ew.pin.BUZZ,1,100);
+    digitalPulse(D16,1,100);
 	print("Welcome!\n*** DevMode ***\nShort press the side button\nto restart in WorkingMode");
   }
   setWatch(function(){
@@ -32,9 +32,10 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
     setTimeout(() => {
 	 reset();
     }, 500);
-  },BTN1,{repeat:false, edge:"rising"}); 
-}else{ //working mode
+  },D13,{repeat:false, edge:"rising"}); 
+}else{ //load in working mode
 var w;
+var pal=[];
 Modules.addCached("eucWatch",function(){
 //screen driver
 //
@@ -129,13 +130,13 @@ function init(){
 var bpp=(require("Storage").read("setting.json") && require("Storage").readJSON("setting.json").bpp)?require("Storage").readJSON("setting.json").bpp:1;
 var g=Graphics.createArrayBuffer(240,240,bpp);
 var pal;
+g.sc=g.setColor;
 // 12bit RGB444  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=blue,9=purple,10=?,11=green,12=olive,13=yellow,14=lblue,15=white
 g.col=Uint16Array([ 0x000,1365,2730,3549,1629,2474,1963,3840,143,3935,2220,0x5ff,170,4080,1535,4095 ]);
-g.sc=g.setColor;  
 switch(bpp){
   case 1:
-    pal= Uint16Array([ 0x000,4095]);
-	let sc=g.setColor;
+    pal= Uint16Array([ 0x000,1365,2730,3549,1629,2474,1963,3840,143,3935,2220,0x5ff,170,4080,1535,4095 ]);
+    c1=pal[1]; //save color 1
     g.setColor=function(c,v){ 
 	  if (c==1) pal[1]=g.col[v]; else pal[0]=g.col[v];
 	  g.sc(c);
@@ -145,7 +146,7 @@ switch(bpp){
     pal= Uint16Array([0x000,1365,1629,1535]);break; // white won't fit
     break; 
   case 4: 
-	pal= Uint16Array([0x000,1365,2730,3549,1629,2474,1963,3840,143,3935,2220,0x5ff,170,4080,1535,4095]);
+	pal= Uint16Array([0x000,4095]);
 	g.setColor=function(c,v){ 
 		g.sc(v);
 	}; 
@@ -224,6 +225,7 @@ g.off=function(){
 //  BL.set();
   this.isOn=false;
 };
+
 //battery
 const batt=function(i,c){
 	let v= 7.1*analogRead(D31);
@@ -239,7 +241,6 @@ const batt=function(i,c){
 	}else return +v.toFixed(2);
 };
 module.exports = {
-    pal: pal,
 	batt: batt,
 	gfx: g
 };
@@ -247,15 +248,16 @@ module.exports = {
 w=require("eucWatch");
 //load
 //w.gfx.init();
+require("Storage").erase("colmode16");
 eval(require('Storage').read('handler'));
 eval(require('Storage').read('main'));
 eval(require('Storage').read('euc'));
 
 //require('Storage').list(/m_/).forEach(modfile=>{eval(require('Storage').read(modfile));});
-digitalPulse(ew.pin.BUZZ,1,[100,30,100]);
+digitalPulse(D16,1,[100,30,100]);
 setTimeout(function(){
 if (global.face) face.go('main',0);
 setTimeout(function(){ if (global.set) set.accR(); },1000); 
-digitalPulse(ew.pin.BUZZ,1,[100]);  
+digitalPulse(D16,1,[100]);  
 },200); 
 }

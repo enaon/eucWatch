@@ -107,6 +107,29 @@ var set={
 	clin:0,//not settable
 	upd:function(){ //run this for settings changes to take effect.
 	if (this.def.hid===1) {this.def.hid=0; return;}
+	if (this.def.hid===1&&this.hidM==undefined) {
+		Modules.addCached("ble_hid_controls",function(){
+		function b(a,b){NRF.sendHIDReport(a,function(){NRF.sendHIDReport(0,b);});}
+		exports.report=new Uint8Array([5,12,9,1,161,1,21,0,37,1,117,1,149,5,9,181,9,182,9,183,9,205,9,226,129,6,149,2,9,233,9,234,129,2,149,1,129,1,192]);
+		exports.next=function(a){b(1,a);};
+		exports.prev=function(a){b(2,a);};
+		exports.stop=function(a){b(4,a);};
+		exports.playpause=function(a){b(8,a);};
+		exports.mute=function(a){b(16,a);};
+		exports.volumeUp=function(a){b(32,a);};
+		exports.volumeDown=function(a){b(64,a);};});
+		this.hidM=require("ble_hid_controls");
+		/*		if (this.def.hidT=="joy") this.hidM = E.toUint8Array(atob("BQEJBKEBCQGhAAUJGQEpBRUAJQGVBXUBgQKVA3UBgQMFAQkwCTEVgSV/dQiVAoECwMA="));
+		else if (this.def.hidT=="kb") this.hidM = E.toUint8Array(atob("BQEJBqEBBQcZ4CnnFQAlAXUBlQiBApUBdQiBAZUFdQEFCBkBKQWRApUBdQORAZUGdQgVACVzBQcZAClzgQAJBRUAJv8AdQiVArECwA=="));
+		else this.def.hidM = E.toUint8Array(atob("BQEJBqEBhQIFBxngKecVACUBdQGVCIEClQF1CIEBlQV1AQUIGQEpBZEClQF1A5EBlQZ1CBUAJXMFBxkAKXOBAAkFFQAm/wB1CJUCsQLABQwJAaEBhQEVACUBdQGVAQm1gQIJtoECCbeBAgm4gQIJzYECCeKBAgnpgQIJ6oECwA=="));
+		*/
+	}else if (this.def.hid==0 &&this.hidM!=undefined) {
+		this.hidM=undefined;
+		if (global["\xFF"].modules.ble_hid_controls) Modules.removeCached("ble_hid_controls");
+	}
+	//if (!Boolean(require('Storage').read('atc'))) this.def.atc=0;
+	//if (!Boolean(require('Storage').read('eucEmu'))||!global.euc) this.def.atc=0;
+	//if (this.def.atc) eval(require('Storage').read('atc'));
 	if (this.def.emuZ){
 		this.def.cli=0;
 		this.def.gb=0;
@@ -130,7 +153,15 @@ var set={
 	}
 	if (this.def.gb) eval(require('Storage').read('m_gb'));
 	else {
+		//this.handleNotificationEvent=function(){return;};
+		//this.handleFindEvent=function(){return;};
+		//this.handleWeatherEvent=function(){return;};
+		//this.handleCallEvent=function(){return;};
+		//this.handleFindEvent=function(){return;};
+		//global.GB=function(){return;};
+		//this.sendBattery=undefined;
 		this.gbSend=function(){return;};
+		//global.GB=undefined;
 		this.handleNotificationEvent=0;this.handleFindEvent=0;handleWeatherEvent=0;handleCallEvent=0;handleFindEvent=0;sendBattery=0;global.GB=0;
 	}		
 	if (!this.def.cli&&!this.def.gb&&!this.def.emuZ&&!this.def.hid) { if (this.bt) NRF.disconnect(); else{ NRF.sleep();this.btsl=1;}}
@@ -141,9 +172,9 @@ var set={
 
 set.def = require('Storage').readJSON('setting.json', 1);
 if (!set.def) {set.resetSettings();set.updateSettings();}
-if (!set.def.rstP) set.def.rstP="D13";
+if (!set.def.rstP) set.def.rstP="D10";
 if (!set.def.rstR) set.def.rstR=0xA5;
-if (set.def.buzz) buzzer = digitalPulse.bind(null,D16,1);
+if (set.def.buzz) buzzer=digitalPulse.bind(null,D16,1);
 else buzzer=function(){return true;};
 if (!set.def.off) set.def.off={};
 //dash
@@ -169,11 +200,15 @@ function ccon(l){
 		var gb="\x20\x03";
 		 if (l.startsWith(loa)) {
 			Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
+			//print("OK\n");
+			//require("Storage").write("devmode","loader");
 			return; 
 		}else {
 		if (set.def.cli) {
 			if (l.startsWith(cli)) {
 				set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
+				//print("Welcome.\n** Working mode **\nUse devmode (Settings-Info-long press on Restart) for uploading files."); 
+				//handleInfoEvent({"src":"BT","title":"IDE","body":"Connected"});
 			}
 		}
 		if (set.def.gb) {
@@ -238,28 +273,31 @@ var face={
 		if (this.pageCurr===-1) return;
 		if (this.offid) {clearTimeout(this.offid); this.offid=0;}
 		if (face[this.pageCurr]!=-1){
+			//print("page: ",this.pageCurr);
 			this.offms=(t)?t:face[this.pageCurr].offms;
 		}
 		this.offid=setTimeout((c)=>{
 			this.offid=0;
+			//if (set.def.acc&&acc.tid==-1) acc.on();
 			if (c===0||c===2) {
 				if (this.appCurr==="main") {
 					if (face[c].off) {
 						if (set.def.touchtype=="716") tfk.exit();	
-						else {digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100);}
+						else digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100); 
 						face[c].off();this.pageCurr=-1;face.pagePrev=c;
 					}
 				}else face.go(this.appCurr,1);
 			}else if (face.appPrev=="off") {
 				if (face[c].off) {
 					if (set.def.touchtype=="716") tfk.exit();	
-					else {digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100);}
+					else digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100); 
 					face.go("main",-1);face.pagePrev=c;
 				}
 			}else if (c>1) face.go(this.appCurr,0);
 		},this.offms,this.pageCurr);
 	},
 	go:function(app,page,arg){
+	 	//if (this.appCurr.startsWith("dash")&&app=="settings") app="dashOptions"; //temporary
 		this.appPrev=this.appCurr;
 		this.pagePrev=this.pageCurr;
 		this.appCurr=app;
@@ -269,8 +307,9 @@ var face={
 			face[this.pagePrev].clear();
 		}
 		if (this.pageCurr==-1 && this.pagePrev!=-1) {
+			//if (set.def.touchtype=="716")tfk.loop=100;
 			if (set.def.touchtype=="716") tfk.exit();	
-			else {digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100);} 
+			else digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100); 
 			acc.go=0;
 			face[this.pagePrev].off();
 			if (this.offid) {clearTimeout(this.offid); this.offid=0;}
@@ -285,7 +324,9 @@ var face={
 		this.off();
 		face[page].init(arg);	
 		if(!w.gfx.isOn) {
+			//digitalPulse(set.def.rstP,1,[10,50]); //touch wake
 			if (set.def.touchtype=="716") tfk.start();
+			//{tfk.loop=10;if(!tfk.tid) tfk.start();}
 			else digitalPulse(set.def.rstP,1,[5,50]);
 			w.gfx.on();
 		}
@@ -295,7 +336,9 @@ var face={
 };
 //touch 
 var touchHandler = {
-	timeout:x=>{setTimeout(()=>{face.off();},0);}
+	timeout: function(){
+		face.off();
+	}
 };
 //charging notify
 setWatch(function(s){
@@ -357,19 +400,14 @@ function buttonHandler(s){
 	}else if (this.press&&global.euc&&euc.state==="READY"&&euc.horn&&euc.dash.horn) {euc.wri("hornOff");return;
 	}else face.off();
 }
-btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
+btn=setWatch(buttonHandler,D13, {repeat:true, debounce:10,edge:0});
 //touch controller
 //var i2c=I2C1;
 var i2c=new I2C();
 i2c.setup({scl:D7, sda:D6, bitrate:100000});
 //find touch
-
 if ( set.def.touchtype == "0" ) {
-	i2c.writeTo(0x15,0xa5,3);
-	i2c.writeTo(0x15,0xE5,3);
-	//digitalPulse(D10,1,[5,50]);
-	//digitalPulse(D13,1,[5,50]);
-	set.def.rstP="D13";
+	set.def.rstP="D10";
 	digitalPulse(set.def.rstP,1,[5,50]);
 	setTimeout(()=>{ 
 		i2c.writeTo(0x15,0xA7);
@@ -477,10 +515,9 @@ if (set.def.touchtype=="816"){ //816
 	st:1,
 	loop:5,
 	init:function(){
+		"ram";
 		var tp=i2c.readFrom(0x15,7);
-		//print (tp);
-		if ( (tp[3] == 255 )  && this.st ) return;
-		if ( (tp[3] == 128 || tp[3] === 0) && tp[2] === 1 ) {
+		if ( tp[3] == 128 || (tp[3] === 0 && tp[2] === 1) ) {
 			if ( !this.time ) this.time=getTime();
 			if ( this.st ) {
 				this.st = 0;
@@ -491,7 +528,8 @@ if (set.def.touchtype=="816"){ //816
 			}
 			if ( this.do && getTime() - this.time > 1 ) { 
 				this.do = 0 ;
-				return setTimeout(function() {touchHandler[face.pageCurr](12,tfk.x,tfk.y);},0);
+				touchHandler[face.pageCurr](12,this.x,this.y);
+				return;
 			}else if ( this.do && !tp[1] ) {
 				var a=0;
 				if (tp[6]>=this.y+30) a = 1;
@@ -501,20 +539,22 @@ if (set.def.touchtype=="816"){ //816
 				if ( a != 0 && this.aLast != a ) {
                     this.aLast=a;
 					this.do=0;
-					return setTimeout(function() {touchHandler[face.pageCurr](a,tfk.x,tfk.y);},0);
+					touchHandler[face.pageCurr](a,this.x,this.y);
+					return;
 				}
 			}else if ( this.do ){
 				if ( tp[1] == 5 || tp[1] ==12 ){
 					this.do=0;
-					return setTimeout(function() { touchHandler[face.pageCurr](tp[1],tfk.x,tfk.y);},0);
+					//tfk.emit("touch",
+                    touchHandler[face.pageCurr](tp[1],this.x,this.y);
+                    return;
 				}
 			}
-		}else  {
-//		}else if ( (tp[3] == 255 || tp[3] == 0)  && !this.st ) {
-
+		}else if ( (tp[3] == 255 || tp[3] == 0)  && !this.st ) {
 			if (this.do===1){
-				this.do=0;
-				return setTimeout(function() {touchHandler[face.pageCurr](5,tfk.x,tfk.y);},0);
+              this.do=0;
+              touchHandler[face.pageCurr](5,this.x,this.y);
+			  return;
             }
             this.aLast=0;
 			this.st = 1;
@@ -628,7 +668,7 @@ if (set.def.acctype==="BMA421"){
 				this.up=0;
 			}
 		}
-	};	
+	};
 }else if (set.def.acctype==="SC7A20"){ //based on work from jeffmer
 	acc={
 		up:0,
@@ -714,7 +754,6 @@ if (set.def.acctype==="BMA421"){
 		}
 	};	
 }
-
 cron={
 	event:{
 		//date:()=>{ setTimeout(() =>{ cron.emit('dateChange',Date().getDate());cron.event.date();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate()+1)-Date()));},
@@ -764,32 +803,4 @@ cron.event.hour();
 cron.on('hour',cron.task.euc.hour);
 cron.on('day',cron.task.euc.day);
 cron.on('month',cron.task.euc.month);
-/*
 
-//themes -todo
-if (!Boolean(require("Storage").read("colmode16"))){
-	function col(no){
-		switch (no) {
-			case "black":return 0;case "white":return 4095;case "lblue":return 1535;case "blue":return 143;case "dblue":return 1375;case "blue1":return 1708;
-			case "raf":return 1453;case "raf1":return 1708;case "raf2":return 1963;case "raf3":return 2220;case "raf4":return 2474;case "raf5":return 3005;
-			case "gray":return 2730;case "lgray":return 3549;case "dgray":return 1365;case "dgray1":return 1351;case "lgreen":return 1525;case "red":return 3840;
-			case "dred":return 3925;case "dred1":return 3888;case "purple":return 3935;case "lyellow":return 4085;case "dyellow":return 4064;case "yellow":return 4080;
-			case "olive":return 170;
-		}
-	}
-}else {
-	function col(no){
-		switch (no) {
-			case "black":return 0x0000;case "white":return 0xFFFF;case "lblue":return 0xD7BF;case "blue":return 0xEFBF;case "dblue":return 0x0819;case "blue1":return 0x319B;
-			case "raf":return 0x3276;case "raf1":return 0x4B16;case "raf2":return 0x3ADC;case "raf3":return 0x2A16;case "raf4":return 0x6396;case "raf5":return 0x5332;
-			case "gray":return 0x5B2F;case "lgray":return 0xD6BA;case "dgray":return 0x31C8;case "dgray1":return 0x2104;case "green":return 0x24C5;case "lgreen":return 0x37C8;
-			case "red":return 0xF165;case "dred":return 0xA000;case "dred1":return 0x8904;case "purple":return 0xA815;case "lyellow":return 0xFFEA;case "dyellow":return 0xCEE0;
-			case "yellow":return 0xFFE0;case "olive":return 0x3C0C;
-		}
-	}
-}
-//end
-// 16bit RGB565  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=blue,9=purple,10=?,11=green,12=olive,13=yellow,14=lblue,15=white
-g.col=Uint16Array([ 0x000,0x31C8,0x5B2F,0xD6BA,0x3276,0x4B16,0x3ADC,0xF165,0xEFBF,0xA815,2220,0x5ff,0x3C0C,0xFFE0,0xD7BF,0xFFFF ]);
-
-*/
