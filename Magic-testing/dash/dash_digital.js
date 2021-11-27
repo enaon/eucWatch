@@ -1,4 +1,5 @@
 //dash digital
+
 face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
 	old:set.def.bpp?0:1,

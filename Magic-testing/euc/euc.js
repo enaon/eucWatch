@@ -1,3 +1,4 @@
+//euc handler
 global.euc= {
 	state: "OFF",
 	reconnect:0,
