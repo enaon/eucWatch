@@ -383,7 +383,7 @@ touchHandler= {
 	},
 };
 
-if (!set.def.touchtype) set.def.touchtype="716";
+if (set.def.touchtype==0) set.def.touchtype="716";
 
 //var i2c=I2C1;
 var i2c=new I2C();
