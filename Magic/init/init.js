@@ -20,17 +20,17 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
     require("Storage").write("devmode","done");
     NRF.setAdvertising({}, { name:"Espruino-devmode",connectable:true });
     digitalPulse(ew.pin.BUZZ,0,100);
-	print("Welcome!\n*** DevMode ***\nShort press the side button\nto restart in WorkingMode");
+print("Welcome!\n*** DevMode ***\nShort press the side button\nto restart in WorkingMode");
   }
   setWatch(function(){
     "ram";
     require("Storage").erase("devmode");
-	require("Storage").erase("devmode.info");
+require("Storage").erase("devmode.info");
     NRF.setServices({},{uart:false});
     NRF.setServices({},{uart:true}); 
     NRF.disconnect();
     setTimeout(() => {
-	 reset();
+ reset();
     }, 500);
   },BTN1,{repeat:false, edge:"rising"}); 
 }else{ //load in working mode
@@ -54,7 +54,7 @@ Modules.addCached("P8",function(){
   TP_SDA:D16,
   TP_SCL:D15,
   //TP_RESET:D13, // P8 Watch
-	TP_RESET:D39, // Magic3  
+TP_RESET:D39, // Magic3  
   TP_INT:D32,
 };
 */
@@ -130,7 +130,7 @@ function cmds(arr){
 RST.set();
 
 function init(bppi){
-	"ram";
+"ram";
   cmd(0x11); // sleep out
   delayms(120);
   cmd([0x36, 0]);     // MADCTL - This is an unrotated screen
@@ -175,19 +175,19 @@ switch(bpp){
   pal= Uint16Array( // same as 16color below, use for dynamic colors
     [ 0x000,0x00a,0x0a0,0x0aa,0xa00,0xa0a,0xa50,0xaaa,
       0x555,0x55f,0x5f5,0x5ff,0xf55,0xf5f,0xff5,0xfff ]);
-	c1=pal[1]; //save color 1
-	g.sc=g.setColor;
-	g.setColor=function(c,v){ 
-		if (c==1) pal[1]=v; else pal[0]=v;
-		g.sc(c);
-	/*g.sc=g.setColor;
-	g.setColor=function(c){ //change color 1 dynamically
-	c=Math.floor(c);
+c1=pal[1]; //save color 1
+g.sc=g.setColor;
+g.setColor=function(c,v){ 
+if (c==1) pal[1]=v; else pal[0]=v;
+g.sc(c);
+/*g.sc=g.setColor;
+g.setColor=function(c){ //change color 1 dynamically
+c=Math.floor(c);
     if (c > 1) {
       pal[1]=pal[c]; g.sc(1);
     } else if (c==1) {
       pal[1]=c1; g.sc(1);
-	} else g.sc(c);*/
+} else g.sc(c);*/
 }; 
   break;
   case 4: pal= Uint16Array( // CGA
@@ -220,7 +220,7 @@ g.buffA=E.getAddressOf(g.buffer,true); // framebuffer address
 g.stride=g.getWidth()*bpp/8;
 
 g.flip=function(force){
-	"ram";
+"ram";
   var r=g.getModified(true);
   if (force)
     r={x1:0,y1:0,x2:this.getWidth()-1,y2:this.getHeight()-1};
@@ -247,20 +247,19 @@ g.isOn=false;
 init();
 
 g.on=function(){
-	"ram";
+"ram";
   if (this.isOn) return;
   cmd(0x11);
   g.flip();
   //cmd(0x13); //ST7735_NORON: Set Normal display on, no args, w/delay: 10 ms delay
   //cmd(0x29); //ST7735_DISPON: Set Main screen turn on, no args w/delay: 100 ms delay
   this.isOn=true;
-  this.bri.set(this.bri.lv);
-  //this.setBrightness();
+  this.setBrightness();
 };
 
 
 g.off=function(){
-	"ram";
+"ram";
   if (!this.isOn) return;
   //cmd(0x28);
   cmd(0x10);
@@ -271,7 +270,7 @@ g.off=function(){
 // does PWM on BL pin, not best for P8 as it has 3 BL pins
 g.lev=256;
 g.setBrightness=function(lev){
-	"ram";
+"ram";
   if (lev>=0 && lev<=256)
     this.lev=lev;
   else
@@ -285,35 +284,31 @@ g.setBrightness=function(lev){
   }
 };
 g.bri={
-  	lv:((require("Storage").readJSON("setting.json",1)||{}).bri)?(require("Storage").readJSON("setting.json",1)||{}).bri:3,
-	set:function(o){	
+   lv:((require("Storage").readJSON("setting.json",1)||{}).bri)?(require("Storage").readJSON("setting.json",1)||{}).bri:3,
+set:function(o){
 //      print(o);
-	if (o) this.lv=o; else { this.lv++; if (this.lv>7) this.lv=1; o=this.lv; }
-	if (this.lv==0||this.lv==7)
-        digitalWrite(BL,(this.lv==0)?0:1);
-	else 
-        analogWrite(BL,(this.lv*42.666)/256,{freq:60});
-	//digitalWrite([D23,D22,D14],7-o);
+if (o) this.lv=o; else { this.lv++; if (this.lv>7) this.lv=1; o=this.lv; }
+//digitalWrite([D23,D22,D14],7-o);
     set.def.bri=o;
-	return o;
-	}
+return o;
+}
 };
 
 //return 100*(v-l)/(h-l);
 
 //battery
 const batt=function(i,c){
-	let v= 4.20/0.60*analogRead(ew.pin.BAT);
-	let l=3.5,h=4.19;
+let v= 4.20/0.60*analogRead(ew.pin.BAT);
+let l=3.5,h=4.19;
     let hexString = ("0x"+(0x50000700+(ew.pin.BAT*4)).toString(16));
-	poke32(hexString,2); // disconnect pin for power saving, otherwise it draws 70uA more 	
-	if (i==="info"){
-		if (c) return ((100*(v-l)/(h-l)|0)+'%-'+v.toFixed(2)+'V'); 
-		return (((v<=l)?0:(h<=v)?100:((v-l)/(h-l)*100|0))+'%-'+v.toFixed(2)+'V'); 
-	}else if (i) { 
-		if (c) return (100*(v-l)/(h-l)|0);
-		return ( (v<=l)?0:(h<=v)?100:((v-l)/(h-l)*100|0) );
-	}else return +v.toFixed(2);
+poke32(hexString,2); // disconnect pin for power saving, otherwise it draws 70uA more 
+if (i==="info"){
+if (c) return ((100*(v-l)/(h-l)|0)+'%-'+v.toFixed(2)+'V'); 
+return (((v<=l)?0:(h<=v)?100:((v-l)/(h-l)*100|0))+'%-'+v.toFixed(2)+'V'); 
+}else if (i) { 
+if (c) return (100*(v-l)/(h-l)|0);
+return ( (v<=l)?0:(h<=v)?100:((v-l)/(h-l)*100|0) );
+}else return +v.toFixed(2);
 };
 module.exports = {
 //  pin: pin,
