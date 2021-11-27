@@ -157,6 +157,7 @@ switch(bpp){
     g.buffer=new ArrayBuffer(8400);
     c1=pal[1]; //save color 1
     g.setColor=function(c,v){ 
+		"ram";
 	  if (c==1) pal[1]=g.col[v]; else pal[0]=g.col[v];
 	  g.sc(c);
     }; 

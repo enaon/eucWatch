@@ -2,6 +2,7 @@
 face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
 	g:w.gfx,
+	old:set.def.bpp?0:1,
 	spd:[],
 	init: function(){
 		this.log=require("Storage").readJSON("logDaySlot"+set.def.dash.slot+".json",1);
@@ -24,12 +25,13 @@ face[0] = {
 		this.id[this.ref]="Now";
 	},
 	show : function(o){
-		if (!this.run) return;
+		if (this.old) return;
   		//refresh 
+		this.g.flip(); 
 		this.tid=setTimeout(function(t){
 			t.tid=-1;
 			t.show();
-		},150,this);
+		},100,this);
 	},
 	sc:function(){
 	 		this.totD=0;
@@ -51,10 +53,10 @@ face[0] = {
    		let h=(this.ref-i<0)?this.len+(this.ref-i):this.ref-i;
 			if (this.log[h]) {
 				this.g.fillRect(239-(i*(240/this.len)),(this.log[h])?239-(this.log[h]*this.scale):239, 239-((i*(240/this.len))+((240/this.len)-2)),239);		
-				this.g.flip(); 
+				if (this.old)this.g.flip(); 
 			}
 		}
-		this.g.flip(); 
+		if (this.old)this.g.flip(); 
     },
     btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
 		this.g.setColor(0,(bt)?clr1:clr0);
@@ -64,7 +66,7 @@ face[0] = {
 		this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1); 
 		if (txt2){this.g.setFont("Vector",size2);	
 		this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);}
-		this.g.flip();
+				if (this.old)this.g.flip(); 
     },
 	sel: function(txt1,txt2){
 		this.g.setColor(0,1);
@@ -84,11 +86,11 @@ face[0] = {
 		this.g.setColor(0,0);
 		this.g.setColor(1,13);
 		this.g.fillRect(pos,(this.log[this.pos])?239-(this.log[this.pos]*this.scale):239,pos+((240/this.len)-2),239);
-		this.g.flip(); 
+				if (this.old)this.g.flip(); 
 		if (this.rowL&&this.rowL!==pos){
 			this.g.setColor(1,14);
 			this.g.fillRect(this.rowL,(this.log[this.posL])?239-(this.log[this.posL]*this.scale):239,this.rowL+((240/this.len)-2),239);
-			this.g.flip(); 
+				if (this.old)this.g.flip(); 
 		}
 		this.rowL=pos;
 		this.posL=this.pos;
@@ -97,7 +99,7 @@ face[0] = {
 		this.g.fillRect(0,176,239,178);
 		this.g.setColor(1,13);
 		this.g.fillRect(pos,176,pos+(240/this.len),178);
-		this.g.flip();
+				if (this.old)this.g.flip(); 
     },
 	ntfy: function(txt1,txt0,size,clr,bt){
 		this.g.setColor(0,clr);
@@ -105,7 +107,7 @@ face[0] = {
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",size);
 		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
-		this.g.flip();
+				if (this.old)this.g.flip(); 
 		if (this.ntid) clearTimeout(this.ntid);
 		this.ntid=setTimeout(function(t){
 			t.ntid=0;
@@ -114,7 +116,7 @@ face[0] = {
 			t.g.setColor(1,15);
 			t.g.setFont("Vector",20);
 			t.g.drawString(euc.dash.maker,120-(t.g.stringWidth(euc.dash.maker)/2),217); 
-			t.g.flip();
+				if (this.old)this.g.flip(); 
 		},1000,this);
     },
 	comf: function(num){
@@ -203,20 +205,20 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.drawString(euc.dash.time,185-w.gfx.stringWidth(euc.dash.time),139); 
 				w.gfx.drawString(face[0].comf((euc.dash.trpL*((set.def.dash.mph)?0.625:1)).toFixed(0)),185-w.gfx.stringWidth(face[0].comf((euc.dash.trpL*((set.def.dash.mph)?0.625:1)).toFixed(0))),178); 
 				w.gfx.drawString(face[0].comf((euc.dash.trpT*((set.def.dash.mph)?0.625:1)).toFixed(1)),185-w.gfx.stringWidth(face[0].comf((euc.dash.trpT*((set.def.dash.mph)?0.625:1)).toFixed(1))),217); 
-				w.gfx.flip();	
+				if (this.old)w.gfx.flip(); 
 				w.gfx.setColor(1,3);
 				w.gfx.setFontVector(24);
 				w.gfx.drawString("TOP",5,102);
 				w.gfx.drawString("RUN",5,143);
 				w.gfx.drawString("TRP",5,181);
 				w.gfx.drawString("TOT",5,220);
-				w.gfx.flip();
+				if (this.old)w.gfx.flip(); 
 				w.gfx.setColor(1,3);
 				w.gfx.drawString((set.def.dash.mph)?"mph":"kph",195,102);
 				w.gfx.drawString("Min",195,143);
 				w.gfx.drawString((set.def.dash.mph)?"mi":"Km",195,181);
 				w.gfx.drawString((set.def.dash.mph)?"mi":"Km",195,220);
-				w.gfx.flip();
+				if (this.old)w.gfx.flip(); 
 			}else{ //24HRS/7DAYS/month/year
 				face[0].info=0;
 				face[0].btn(1,"INFO",30,185,10,0,0,120,0,239,50);
