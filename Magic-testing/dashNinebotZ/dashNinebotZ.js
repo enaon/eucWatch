@@ -98,22 +98,22 @@ touchHandler[0]=function(e,x,y){
               w.gfx.flip();
               face[0].init();return;
             }
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 		}
 		else {
 			if ( x<=120 && y<100 ) { //Light
-				buzzer([30,50,30]);
+				buzzer(buz.ok);
 				//euc.dash.light=1-euc.dash.light;
 				//euc.wri((euc.dash.light)?"lightsOn":"lightsOff");
 		        //face[0].btn(euc.dash.light,"LIGHT",18,60,15,4,1,0,0,119,97,(euc.dash.light)?"ON":"OFF",28,60,50);
 				//face[0].ntfy("LIGHT ON","LIGHT OFF",20,(euc.dash.light)?4:1,euc.dash.light);
 				face[0].ntfy("NOT YET","NOT YET",18,7,1);
 			}else if ( 120<=x && y<=100 ) { //watch alerts
-				buzzer([30,50,30]);						
+				buzzer(buz.ok);						
 				face.go("dashAlerts",0);
 				return;	
 			}else if ( x<=120 && 100<=y ) { //tpms
-				buzzer([30,50,30]);		
+				buzzer(buz.ok);		
 				if (!euc.dash.tpms) face[0].ntfy("HOLD-> ON/OFF",4);
 				else {
 					tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.tpms);
@@ -121,12 +121,12 @@ touchHandler[0]=function(e,x,y){
 					return;
 				}	
 			}else if ( 120<=x && 100<=y ) { //HORN
-				buzzer([30,50,30]);		
+				buzzer(buz.ok);		
 				//euc.dash.horn=1-euc.dash.horn;
 				//face[0].btn(euc.dash.horn,"HORN",25,185,136,4,1,122,100,239,195);	
 				//face[0].ntfy("BUTTON IS HORN >2KPH","HORN DISABLED",(euc.dash.horn)?18:20,(euc.dash.horn)?4:1,euc.dash.horn);
 				face[0].ntfy("NOT YET","NOT YET",18,7,1);
-			}else buzzer([30,50,30]);
+			}else buzzer(buz.ok);
 		}
 		
 		break;
@@ -137,12 +137,12 @@ touchHandler[0]=function(e,x,y){
 		if ( 200<=y && x<=50 ) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		
 		break;
 	case 3: //slide left event
-		buzzer(40);
+		buzzer(buz.na);
 		
 		break;
 	case 4: //slide right event (back action)
@@ -161,7 +161,7 @@ touchHandler[0]=function(e,x,y){
         break;
 	case 12: //long press event
 		if  (x<=120 && 100<=y ) { //tpms
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 			if (euc.dash.tpms) {
 				euc.dash.tpms=0;
 				face[0].btn(1,"TPMS",18,60,115,1,0,0,100,119,195,"OFF",28,60,155); //3
@@ -175,7 +175,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].ntfy("NOT INSTALLED","",20,7,1);
 			}
 			return;
-	    }else buzzer(40);
+	    }else buzzer(buz.na);
 		break;	
   }
 };

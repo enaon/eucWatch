@@ -147,7 +147,7 @@ if (!set.def) {set.resetSettings();set.updateSettings();}
 set.def.touchtype="716";
 if (!set.def.rstP) set.def.rstP="D39";
 if (!set.def.rstR) set.def.rstR=0xA5;
-if (set.def.buzz) buzzer = digitalPulse.bind(null,ew.pin.BUZZ,0);
+if (set.def.buzz) buzzer = digitalPulse.bind([20,30,20],ew.pin.BUZZ,0);
 else buzzer=function(){return true;};
 
 

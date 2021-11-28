@@ -141,12 +141,12 @@ touchHandler[0]=function(e,x,y){
 					euc.dash.ctrl.vol=euc.dash.ctrl.vol-10;if (euc.dash.ctrl.vol<=0)euc.dash.ctrl.vol=0;
 					face.menu.full("VOLUME",20,euc.dash.ctrl.vol,80,1453,1365);
 					euc.wri("setVolume",euc.dash.ctrl.vol);
-					buzzer([30,50,30]);
+					buzzer(buz.ok);
 				}else if ( 120 <=x  && y <= 170 ) {
 					euc.dash.ctrl.vol=euc.dash.ctrl.vol+10;if (100<=euc.dash.ctrl.vol)euc.dash.ctrl.vol=100;
 					face.menu.full("SET VOLUME",20,euc.dash.ctrl.vol,80,1453,1365);
 					euc.wri("setVolume",euc.dash.ctrl.vol);
-					buzzer([30,50,30]);
+					buzzer(buz.ok);
 				}else {
 					face[0].sub=0;
 					face[0].init();
@@ -163,14 +163,14 @@ touchHandler[0]=function(e,x,y){
 				euc.wri("setLights",(euc.dash.lght.head)?1:0);
 				face[0].btn(euc.dash.lght.head,"LIGHT",18,60,15,4,1,0,0,119,97,(euc.dash.lght.head)?"ON":"OFF",28,60,50);
 				face[0].ntfy("LIGHT ON","LIGHT OFF",20,(euc.dash.lght.head)?4:1,euc.dash.lght.head);
-				buzzer([30,50,30]);
+				buzzer(buz.ok);
 			}else if ( 120<=x && y<=100 ) { //Volume
-				buzzer([30,50,30]);
+				buzzer(buz.ok);
 				face.menu.full("VOLUME",20,euc.dash.ctrl.vol,80,1453,1365,1);
 				face[0].ntfy("SET VOLUME","SET VOLUME",20,4,1);
 				face[0].sub="volume";
 			}else if ( x<=120 && 100<=y ) { //tpms
-				buzzer([30,50,30]);		
+				buzzer(buz.ok);		
 				if (!euc.dash.tpms) face[0].ntfy("HOLD-> ON/OFF",4);
 				else {
 					tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.tpms);
@@ -179,8 +179,8 @@ touchHandler[0]=function(e,x,y){
 				}	
 			}else if (120<=x && 100<=y ) { //off
 				face[0].ntfy("HOLD -> POWER OFF","",18,7,1);
-				buzzer([30,50,30]);						
-			}else buzzer(40);
+				buzzer(buz.ok);						
+			}else buzzer(buz.na);
 		}
 		this.timeout();
 		break;
@@ -193,7 +193,7 @@ touchHandler[0]=function(e,x,y){
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		this.timeout();
 		break;
@@ -216,7 +216,7 @@ touchHandler[0]=function(e,x,y){
 			euc.tmp.aOff=1;
 			euc.tgl();
 		}else if  (x<=120 && 100<=y ) { //tpms
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 			if (euc.dash.tpms) {
 				euc.dash.tpms=0;
 				face[0].btn("TPMS",18,60,115,1,0,100,119,195,"OFF",28,60,155); //3
@@ -230,7 +230,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].ntfy("NOT INSTALLED",7);
 			}
 			return;	
-	    }else buzzer(40);
+	    }else buzzer(buz.na);
 		this.timeout();
 		break;
   }

@@ -170,6 +170,7 @@ switch(bpp){
 	g.buffer=new ArrayBuffer(33600);
 	pal= Uint16Array([0x000,1365,2730,3549,1629,2474,1963,3840,143,3935,2220,0x5ff,170,4080,1535,4095]);
 	g.setColor=function(c,v){ 
+		"ram";
 		g.sc(v);
 	}; 
     break;

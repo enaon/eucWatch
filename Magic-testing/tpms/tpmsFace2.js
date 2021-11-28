@@ -152,9 +152,9 @@ touchHandler[0]=function(e,x,y){
 		if (face[0].page=="scan"){
 			tpms.scan(1);
 		}else if (50 < y) {
-			if (face[0].info) {buzzer(40);return;}
+			if (face[0].info) {buzzer(buz.na);return;}
 			let i=0;
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 			if (face[0].log[face[0].ref]&&!face[0].once){
 				face[0].once=1;
 			}else if  ( 120 < x ) {
@@ -177,7 +177,7 @@ touchHandler[0]=function(e,x,y){
 			face[0].sel(face[0].comf((face[0].log[face[0].pos]*((set.def.dash.mph)?0.625:1)).toFixed((face[0].page)?(face[0].page==1)?1:0:2)), face[0].id[face[0].pos].toUpperCase());
 			face[0].ind((face[0].pos<=face[0].ref)?face[0].len-(face[0].ref-face[0].pos):face[0].pos-face[0].ref);
 		}else {
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 			if  ( 150 < x ) { //info
 				if (face[0].info) {
 					if (face[0].pos+1 < face[0].tpms.length) face[0].pos++;
@@ -239,7 +239,7 @@ touchHandler[0]=function(e,x,y){
 		if (y>160&&x<50) {
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 			this.timeout();
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
         this.timeout();
@@ -251,7 +251,7 @@ touchHandler[0]=function(e,x,y){
 		face.go("main",0);
 		return;
     case 12: //touch and hold(long press) event
-		buzzer(40);
+		buzzer(buz.na);
 		this.timeout();
 		return;
     }

@@ -248,24 +248,24 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
 		if (face[0].page=="scan"){
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 			tpms.scan();
 			face[0].scan();
 			return;
 		}else if (190 < y && x < 80 ) {
 			if  (tpms.status!="SCANNING"&&!tpms.status.startsWith("RETRY")  ) { 
-				buzzer([30,50,30]);
+				buzzer(buz.ok);
 				tpms.scan();
 				if (face[0].act && face[0].ntid) { clearTimeout(face[0].ntid);face[0].ntid=0;}
 				face[0].scan();
-			}else buzzer(40);
+			}else buzzer(buz.na);
 			return;
 		}
 		if (50 < y) { 
 			//entry select
-			if (!face[0].tpms.length ) {buzzer(40);return;}
+			if (!face[0].tpms.length ) {buzzer(buz.na);return;}
 			let last=tpms.def.ref;
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 			tpms.def.ref=(120<x)?(0<tpms.def.ref)?tpms.def.ref-1:face[0].log.length-1:(tpms.def.ref<face[0].log.length-1)?tpms.def.ref+1:0;
 			/*if (face[0].info){
 				face[0].sel(face[0].log[tpms.def.ref].temp,face[0].log[tpms.def.ref].batt,"%");
@@ -281,13 +281,13 @@ touchHandler[0]=function(e,x,y){
 		}else {
 			if  ( 150 < x ) { //settings
 				if  (tpms.status!="SCANNING"&&!tpms.status.startsWith("RETRY")  ) { 
-					buzzer([30,50,30]);
+					buzzer(buz.ok);
 					face.go("tpmsOptions",0);
 					return;
-				}else buzzer(40);
+				}else buzzer(buz.na);
 			}else{ //sensor
-				if (face[0].tpms.length<=1) {buzzer(40);return;}
-				buzzer([30,50,30]);
+				if (face[0].tpms.length<=1) {buzzer(buz.na);return;}
+				buzzer(buz.ok);
 				if (face[0].act && face[0].ntid) { clearTimeout(face[0].ntid);face[0].ntid=0;}
 				if (tpms.def.pos+1 < face[0].tpms.length) tpms.def.pos++;
 				else tpms.def.pos=0;
@@ -320,7 +320,7 @@ touchHandler[0]=function(e,x,y){
 		return;
     case 2: //slide up =event
 		if (y>160&&x<50) {
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 		}else {
@@ -329,8 +329,8 @@ touchHandler[0]=function(e,x,y){
 		}
 		break;
     case 3: //slide left event
-		if (!face[0].log) {buzzer(40);return;}
-		buzzer([30,50,30]);
+		if (!face[0].log) {buzzer(buz.na);return;}
+		buzzer(buz.ok);
 		if (face[0].info) {
 			face[0].info=0;
 			let tm=(getTime()|0) - face[0].log[tpms.def.ref].time;
@@ -352,7 +352,7 @@ touchHandler[0]=function(e,x,y){
 			face.go("settings",0,1);
 		return;
     case 12: //touch and hold(long press) event
-		buzzer(40);
+		buzzer(buz.na);
 		return;
     }
 };

@@ -337,19 +337,19 @@ touchHandler[0]=function(e,x,y){
 		if (120<x&&y<55){//batery percentage/voltage
 			if (set.def.dash.bat==undefined || 1 < set.def.dash.bat) set.def.dash.bat=0; else set.def.dash.bat++;
 			face[0].bat=-1;face[0].volt=-1;face[0].batL.fill(1,0,1);
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 		}else if (x<120&&y<55){//tmp/amp
 			if (set.def.dash.amp==undefined) set.def.dash.amp=0;
 			set.def.dash.amp=1-set.def.dash.amp;
  			face[0].tmp=-1;face[0].amp=-1;face[0].ampL.fill(1,0,1);
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 		}else if (190<y){//mileage/time
 			if (set.def.dash.clck==undefined) set.def.dash.clck=0;
 			set.def.dash.clck=1-set.def.dash.clck;
  			face[0].trpL=-1;face[0].barF();
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 		}else
-			buzzer(40);
+			buzzer(buz.na);
 		this.timeout();
 		break;
     case 1: //slide down event
@@ -363,7 +363,7 @@ touchHandler[0]=function(e,x,y){
 		if (y>160&&x<50) {
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 		}else if (Boolean(require("Storage").read("settings"))) {
 			face.go("settings",0);
 			return;
@@ -371,14 +371,14 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
     case 3: //slide left event
-		(euc.state=="READY")?face.go('dash'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0):(euc.state=="OFF")?face.go("dashGarage",0):buzzer(40);
+		(euc.state=="READY")?face.go('dash'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0):(euc.state=="OFF")?face.go("dashGarage",0):buzzer(buz.na);
 		return;
     case 4: //slide right event (back action)
 		face.go("main",0);
 		return;
     case 12: //touch and hold(long press) event
 		this.timeout();
-		buzzer(40);
+		buzzer(buz.na);
 		break;
     }
 };

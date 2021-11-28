@@ -117,14 +117,14 @@ touchHandler[0]=function(e,x,y){
 			else if (euc.dash.aLight=="lightsCity") { euc.dash.aLight="lightsOn"; euc.wri("lightsOn"); face[0].btn("LIGHTS",18,60,15,6,0,0,119,97,"ON",28,60,50); }
 			else  { euc.dash.aLight="lightsOn"; euc.wri("lightsOn"); face[0].btn("LIGHTS",18,60,15,6,0,0,119,97,"ON",28,60,50); }
             face[0].ntfy("HOLD -> LIGHTS OFF",1);
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 		}else if ( 120<=x && y<=100 ) { //strobe
 			euc.dash.strb=1-euc.dash.strb;
             face[0].btn("STROBE",25,185,35,(euc.dash.strb)?7:1,122,0,239,97);//2
 			euc.wri((euc.dash.strb)?"strobeOn":"strobeOff");
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 		}else if ( x<=120 && 100<=y ) { //tpms
-			buzzer([30,50,30]);		
+			buzzer(buz.ok);		
 			if (!euc.dash.tpms) face[0].ntfy("HOLD-> ON/OFF",4);
 			else {
 				tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.tpms);
@@ -136,8 +136,8 @@ touchHandler[0]=function(e,x,y){
             face[0].btn("LOCK",25,185,135,(euc.dash.lock)?7:1,122,100,239,195); //4
             face[0].ntfy("HOLD -> POWER OFF",7);
 			euc.wri((euc.dash.lock)?"lock":"unlock");
-			buzzer([30,50,30]);						
-		}else buzzer([30,50,30]);
+			buzzer(buz.ok);						
+		}else buzzer(buz.ok);
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
@@ -147,7 +147,7 @@ touchHandler[0]=function(e,x,y){
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		break;
 	case 3: //slide left event
@@ -158,12 +158,12 @@ touchHandler[0]=function(e,x,y){
 		return;
 	case 12: //long press event
 		if ( x<=120 && y<100 ) { //lights
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 			face[0].btn("LIGHTS",18,60,15,0,0,0,119,97,"OFF",28,60,50);
 			euc.dash.aLight="lightsOff";
 			euc.wri("lightsOff");
 		}else if  (x<=120 && 100<=y ) { //tpms
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 			if (euc.dash.tpms) {
 				euc.dash.tpms=0;
 				face[0].btn("TPMS",18,60,115,1,0,100,119,195,"OFF",28,60,155); //3

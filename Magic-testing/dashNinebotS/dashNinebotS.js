@@ -110,7 +110,7 @@ touchHandler[0]=function(e,x,y){
 			else if ( x<=120 && y<100 ) { //decrease
 				if (0<euc.dash.mode) euc.dash.mode--;
 			}else if (euc.dash.mode<9) euc.dash.mode++;
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 			face[0].btn(1,"SET RIDE MODE",20,125,5,12,0,0,0,239,97,euc.dash.mode.toString(),60,125,37,1);
 		}
 		else {
@@ -118,9 +118,9 @@ touchHandler[0]=function(e,x,y){
 				euc.dash.aLck=1-euc.dash.aLck;
 				face[0].btn(euc.dash.aLck,"AUTO",18,60,15,7,1,0,0,119,97,"LOCK",28,60,50);
 				face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,(euc.dash.aLck)?7:1,euc.dash.aLck);
-				buzzer([30,50,30]);
+				buzzer(buz.ok);
 			}else if ( 120<=x && y<=100 ) { //watch alerts
-				buzzer([30,50,30]);						
+				buzzer(buz.ok);						
 				face.go("dashAlerts",0);
 				return;	
 			}else if ( x<=120 && 100<=y ) { //ring lights
@@ -128,12 +128,12 @@ touchHandler[0]=function(e,x,y){
 				face[0].btn(euc.dash.light,"RING",25,60,136,4,1,0,100,119,195);
 				face[0].ntfy("RING ON","RING OFF",20,(euc.dash.light)?4:1,euc.dash.light);
                 euc.wri(25+euc.dash.light);
-				buzzer([30,50,30]);	
+				buzzer(buz.ok);	
 			}else if ( 120<=x && 100<=y ) { //mode
 				face[0].set=1;
 				face[0].btn(1,"SET RIDE MODE",20,125,5,12,0,0,0,239,97,euc.dash.mode.toString(),60,125,37,1);
-				buzzer([30,50,30]);						
-			}else buzzer([30,50,30]);
+				buzzer(buz.ok);						
+			}else buzzer(buz.ok);
 		}
 		
 		break;
@@ -150,12 +150,12 @@ touchHandler[0]=function(e,x,y){
 		if ( 200<=y && x<=50 ) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		
 		break;
 	case 3: //slide left event
-		buzzer(40);
+		buzzer(buz.na);
 		
 		break;
 	case 4: //slide right event (back action)
@@ -175,29 +175,29 @@ touchHandler[0]=function(e,x,y){
 	case 12: //long press event
 		if (face[0].set) { 
 			face[0].set=0;face[0].init();
-			buzzer([30,50,30]);	
+			buzzer(buz.ok);	
         }else if ( x<=120 && y<100 ) { //auto lock
 			euc.dash.aLck=1-euc.dash.aLck;
             face[0].btn(euc.dash.aLck,"AUTO",18,60,15,7,1,0,0,119,97,"LOCK",28,60,50);
             face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,1,euc.dash.aLck);
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 		}else if ( 120<=x && y<=100 ) { //watch alerts
 			if (euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB) {euc.dash.hapS=0;euc.dash.hapA=0;euc.dash.hapT=0;euc.dash.hapB=0;}
 			else {euc.dash.hapS=1;euc.dash.hapA=1;euc.dash.hapT=1;euc.dash.hapB=1;}
 			face[0].btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,4,1,122,0,239,97,"ALERTS",22,185,55);		
             face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",19,1,(euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB));
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 		}else if ( x<=120 && 100<=y ) { //ring lights
 			euc.dash.light=1-euc.dash.light;
             face[0].btn(euc.dash.light,"RING",25,60,136,4,1,0,100,119,195);
             face[0].ntfy("RING ON","RING OFF",20,1,euc.dash.light);
             euc.wri(25+euc.dash.light);
-			buzzer([30,50,30]);		
+			buzzer(buz.ok);		
 		}else if ( 120<=x && 100<=y ) { //mode
 			face[0].set=1;
 			face[0].btn(1,"SET RIDE MODE",20,120,5,12,0,0,0,239,97,euc.dash.mode.toString(),60,125,37);
-			buzzer([30,50,30]);	
-		}else buzzer([30,50,30]);
+			buzzer(buz.ok);	
+		}else buzzer(buz.ok);
 		
 		break;
   }

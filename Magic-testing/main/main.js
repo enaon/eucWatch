@@ -307,28 +307,28 @@ touchHandler[0]=function(e,x,y){
     if (e==5){
 	  if (x<158 && y<50){//date
 		if (notify.ring){
-			buzzer(p,1,[30,50,30]);
+			buzzer(p,1,buz.ok);
 			set.gbSend({t:"call",n:"ignore"});notify.ring=0;
 		}else  buzzer(p,1,40);
 	  //batt notifications dismiss
 	  }else if (x>158 && y<50){//batt
 		if (notify.ring){
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 			set.gbSend({t:"call",n:"accept"});notify.ring=0;
 		}else if (face[0].bs){
 			if (Boolean(require("Storage").read("notify"))) {
-				buzzer([30,50,30]);	
+				buzzer(buz.ok);	
 				face.go("notify",5,face[0].bs.substr(1).toLowerCase());return;
-			}else buzzer(40);
+			}else buzzer(buz.na);
 		}else if (set.hidM){
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 			if (Boolean(require("Storage").read("hid"))) {face.go("hid",0);return;}
-		}else buzzer(40);
+		}else buzzer(buz.na);
 	  }else if (y>151&&face[0].bs){ 
 			notify[face[0].bs]=0;
 			if (!notify.nInfo&&!notify.nCall&&!notify.nIm) {face[0].batt=-1;face[0].bs=0;notify.New=0;}
-			buzzer([30,50,30]);
-	  }else buzzer(40);
+			buzzer(buz.ok);
+	  }else buzzer(buz.na);
 	  
     }else if  (e==1){
 		if (global.euc&&euc.state!="OFF")
@@ -340,10 +340,10 @@ touchHandler[0]=function(e,x,y){
 		if (y>160&&x<50) {
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
         else w.gfx.bri.set(this.bri);
-		buzzer([30,50,30]);
+		buzzer(buz.ok);
      }else //if (y>160) {
 		if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
-	  //} else buzzer(40);
+	  //} else buzzer(buz.na);
     }else if  (e==3){
 		if (Boolean(require("Storage").read(set.dash[set.def.dash.face]))) {
 			(euc.state=="OFF")?face.go("dashOff",0):face.go(set.dash[set.def.dash.face],0);
@@ -352,13 +352,13 @@ touchHandler[0]=function(e,x,y){
 		}else if (Boolean(require("Storage").read("alarm"))) {face.go("alarm",0);return;}
     }else if  (e==4){
 		if (Boolean(require("Storage").read("notify"))) {face.go("notify",0);return;}
-		else buzzer(40);
+		else buzzer(buz.na);
     }else if  (e==12){
 	if (150<y&&y<200){ 	
 		buzzer(180);
 		notify.New=0;notify.nInfo=0;notify.nCall=0;notify.nIm=0;notify.nMail=0;
 	}else if (x>162 && y>200){ 
-      buzzer(40);
+      buzzer(buz.na);
 	//24 hour
 	}else if (x<100 && 55<y && y<150){ 
 		if (set.def.hr24==undefined) set.def.hr24=0;
@@ -370,10 +370,10 @@ touchHandler[0]=function(e,x,y){
 	   if (alrm.buzz!=-1) {
 		alrm.stop(alrm.now); buzzer([80,40,80]);
 	   }else {
-        buzzer([30,50,30]);
+        buzzer(buz.ok);
 		if (global.alrm){face.go("alarm",0);return;}
 	   }	  
-     }else buzzer(40);
+     }else buzzer(buz.na);
     }
    this.timeout();
 };

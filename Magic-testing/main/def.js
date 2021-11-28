@@ -102,7 +102,7 @@ touchHandler[0]=function(e,x,y){
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			digitalPulse(D16,1,[30,50,30]);
+			digitalPulse(D16,1,buz.ok);
 		}else digitalPulse(D16,1,40);
 		this.timeout();
 		break;

@@ -126,7 +126,7 @@ touchHandler[0] = function(e, x, y) {
             } else if (0 < x && x < 58 && 142 < y && y < 191) {//vol_down
                 set.hidM.volumeDown();
                 buzzer([30, 50, 30]);
-            } else buzzer(40);
+            } else buzzer(buz.na);
         }
     }
     if (e == 1) {
@@ -149,7 +149,7 @@ touchHandler[0] = function(e, x, y) {
         face.go("main", -0);
         return;
     } else if (e == 12) {
-        buzzer(40);
+        buzzer(buz.na);
     }
     this.timeout();
 

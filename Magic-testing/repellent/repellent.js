@@ -237,7 +237,7 @@ touchHandler[0]=function(e,x,y){
 	  if (y>200&&x<50) {
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
         else w.gfx.bri.set(this.bri);
-		buzzer([30,50,30]);
+		buzzer(buz.ok);
       }else  {  
 		face.go("settings",0);return;
 	  } 
@@ -247,7 +247,7 @@ touchHandler[0]=function(e,x,y){
 	   face.go("settings",0,1);return;
 //	  face.go(face.appRoot[0],face.appRoot[1],face.appRoot[2]);return;
     }else if  (e==12){		
-	  buzzer(40);    
+	  buzzer(buz.na);    
     }
     this.timeout();
 };

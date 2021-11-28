@@ -210,14 +210,14 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
         if (euc.dash.pass.length>=4){
-   		buzzer([30,50,30]);
+   		buzzer(buz.ok);
 		if (y<=100) { //enable/disable
           face[0].ntfy("HOLD -> CLEAR",20,1);
 		}else  { //change
            face[0].ntfy("HOLD -> CHANGE",20,1);
 		}
         } else {
-          buzzer(40);
+          buzzer(buz.na);
           face[0].ntfy("HOLD -> SET",20,1);
 
         }
@@ -231,12 +231,12 @@ touchHandler[0]=function(e,x,y){
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		this.timeout();
 		break;
 	case 3: //slide left event
-		buzzer(40);
+		buzzer(buz.na);
 		this.timeout();
 		break;
 	case 4: //slide right event (back action)
@@ -250,7 +250,7 @@ touchHandler[0]=function(e,x,y){
 		face.go("dashKingsongAdv",0);
 		return;
 	case 12: //long press event
-		buzzer([30,50,30]);
+		buzzer(buz.ok);
         if (euc.dash.pass.length>=4){ 
 		if (y<=100) { //clear
           euc.wri("passClear");
@@ -276,8 +276,8 @@ touchHandler[0]=function(e,x,y){
 touchHandler[5]=function(e,x,y){ 
 	switch (e) {
 	case 5: //tap event
-        if (face[5].pass.length>=4) {buzzer(40);return;}
-		buzzer([30,50,30]);
+        if (face[5].pass.length>=4) {buzzer(buz.na);return;}
+		buzzer(buz.ok);
         let i;
         if (x<=80&&y<=65) {i=1;
           face[5].btn(0,0,79,63,i,34,18); 
@@ -357,12 +357,12 @@ touchHandler[5]=function(e,x,y){
      	if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer(buz.ok);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		this.timeout();
 		break;
 	case 3: //slide left event
-		buzzer(40);
+		buzzer(buz.na);
 		this.timeout();
 		break;
 	case 4: //slide right event (back action)

@@ -222,12 +222,12 @@ touchHandler[0]=function(e,x,y){
       } else if (160<=y&&y<239&x<170){
         face.go("notify",5,"info");return;
 	  }else if (y<80){
-		buzzer(40);
+		buzzer(buz.na);
       } else if (80<=y&&y<160){
-		buzzer(40);
+		buzzer(buz.na);
 	  } else if (160<=y&&y<239){
-		buzzer(40);
-      }else buzzer(40);
+		buzzer(buz.na);
+      }else buzzer(buz.na);
     }else if  (e==1){
 		//face.go("notify",-1);return;
 		face.go("main",0);return;
@@ -235,15 +235,15 @@ touchHandler[0]=function(e,x,y){
 	  if (y>160&&x<50) {
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
         else w.gfx.bri.set(this.bri);
-		buzzer([30,50,30]);
+		buzzer(buz.ok);
       }else {
 		face.go("settings",0);return;
 	  } 
     }else if  (e==3){
-		//buzzer(40);
+		//buzzer(buz.na);
 		face.go("main",0);return;
     }else if  (e==4){
-		if (face.appPrev=="main")buzzer(40);
+		if (face.appPrev=="main")buzzer(buz.na);
 		else face.go("main",0);return;
     }else if  (e==12){
       if (y<80&&x<170){
@@ -255,7 +255,7 @@ touchHandler[0]=function(e,x,y){
 	  } else if (160<=y&&y<239&x<170){
 		buzzer([30,50,80]);notify.info=[];notify.nInfo=0;face[0].nInfo=-1;
 		if (!notify.nCall&&!notify.nIm&&!notify.nInfo) {set.gbSend({t:"notify", n:"dismiss_all"});notify.New=0;}
-      }else buzzer(40);
+      }else buzzer(buz.na);
     }
    this.timeout();
 };
@@ -273,15 +273,15 @@ touchHandler[5]=function(e,x,y){
       face[5].del=0;
       return;
     }else if (e==5){
-	  buzzer(40);
+	  buzzer(buz.na);
     }else if  (e==1){//slide down
 	  if (face[5].msg&&face[5].msg.id) set.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
       face[5].go--;
-      buzzer([30,50,30]);
+      buzzer(buz.ok);
     }else if  (e==2){
 	  if (face[5].msg&&face[5].msg.id) set.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
 	  face[5].go++;
-      buzzer([30,50,30]);
+      buzzer(buz.ok);
     }else if  (e==3){
       if  (face[5].list.length>0) face[5].del=1;
       else {face.go("notify",0); return;}
@@ -292,7 +292,7 @@ touchHandler[5]=function(e,x,y){
       if (face.appPrev=="off") {face.go("main",-1);return;}
 		else  {face.go(face.appPrev,face.pagePrev,face.pageArg);return;}
     }else if  (e==12){
-      buzzer(40);
+      buzzer(buz.na);
     }
    this.timeout();
 };
