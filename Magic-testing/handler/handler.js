@@ -150,7 +150,7 @@ if (!set.def.rstR) set.def.rstR=0xA5;
 //buzzzer
 if (set.def.buzz) buzzer = digitalPulse.bind(null,ew.pin.BUZZ,0);
 else buzzer=function(){return true;};
-buz={ok:[5,20,5],na:30,ln:80};
+buz={ok:[5,20,5],na:20,ln:80,on:40,off:[20,25,20]};
 
 if (!set.def.off) set.def.off={};
 //dash
@@ -360,12 +360,12 @@ function buttonHandler(s){
 		this.press=false;
 		if (global.euc&&euc.state=="READY"&&euc.horn&&euc.dash.horn) {euc.wri("hornOff");return;}
 		if (face.pageCurr==-1) {
-			buzzer(ew.pin.BUZZ,0,100);
+			buzzer(buz.on);
 			face.go((global.euc&&euc.state!="OFF")?set.dash[set.def.dash.face]:face.appCurr,0);
 		}else { 
 			if (face.appCurr=="main"&&face.pagePrev!=-1&&face.pagePrev!=2) {
 				face.go("main",-1);
-				buzzer(ew.pin.BUZZ,0,[60,40,60]);
+				buzzer(buz.off);
 			}else{
 				let to=face.pageCurr+1;
 				if (to>=2) to=0;
