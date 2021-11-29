@@ -129,6 +129,7 @@ if (!set.def) {set.resetSettings();set.updateSettings();}
 //set.def.touchtype="716";
 if (!set.def.rstP) set.def.rstP="D39";
 if (!set.def.rstR) set.def.rstR=0xA5;
+if (!set.def.addr) set.def.addr=NRF.getAddress();
 //buzzzer
 if (set.def.buzz) buzzer = digitalPulse.bind(null,ew.pin.BUZZ,0);
 else buzzer=function(){return true;};
@@ -159,12 +160,13 @@ function ccon(l){
 	if (set.def.cli) {
 		if (l.startsWith(cli)) {
 			set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
+			andleInfoEvent({"src":"IDE","title":"LOADER","body":"Connected"},1);
 		}
 	}
 	if (set.def.gb) {
 		if (l.startsWith(gb)){
 			set.bt=3;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
-			handleInfoEvent({"src":"BT","title":"GB","body":"Connected"});
+			handleInfoEvent({"src":"BT","title":"GB","body":"Connected"},1);
 		}
 	}
 	if (l.length>5)  NRF.disconnect();
@@ -173,7 +175,7 @@ function ccon(l){
 function bcon() {
 	if (set.def.emuZ&&global.euc&&euc.state=="READY") {
 		set.bt=4;Bluetooth.removeListener('data',ccon);
-		handleInfoEvent({"src":"BT","title":"EUC-PROXY","body":"Connected"});
+		handleInfoEvent({"src":"BT","title":"EUC-PROXY","body":"Connected"},1);
 		return
 	}
 	E.setConsole(null,{force:true});
@@ -184,7 +186,7 @@ function bcon() {
 		if (!set.def.cli) 
 			NRF.disconnect(); 
 		else{ 
-			handleInfoEvent({"src":"DEBUG","title":"BT","body":"BT Connected"});
+			handleInfoEvent({"src":"DEBUG","title":"BT","body":"BT Connected"},1);
 			set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
 		}
 	}
@@ -197,12 +199,12 @@ function bdis() {
 		NRF.sleep();
 		set.btsl=1;
     }	
-	if (set.bt==1) handleInfoEvent({"src":"BT","title":"BT","body":"Disconnected"});
-	else if (set.bt==2) handleInfoEvent({"src":"BT","title":"IDE","body":"Disconnected"});
-	else if (set.bt==3) handleInfoEvent({"src":"BT","title":"GB","body":"Disconnected"});
+	if (set.bt==1) handleInfoEvent({"src":"BT","title":"BT","body":"Disconnected"},1);
+	else if (set.bt==2) handleInfoEvent({"src":"IDE","title":"LOADER","body":"Disconnected"},1);
+	else if (set.bt==3) handleInfoEvent({"src":"BT","title":"GB","body":"Disconnected"},1);
 	//else if (set.bt==4) handleInfoEvent({"src":"BT","title":"ATC","body":"Disconnected"});
-	else if (set.bt==4) handleInfoEvent({"src":"BT","title":"EUC-PROXY","body":"Disconnected"});
-	else if (set.bt==5) handleInfoEvent({"src":"BT","title":"ESP","body":"Disconnected"});
+	else if (set.bt==4) handleInfoEvent({"src":"BT","title":"EUC-PROXY","body":"Disconnected"},1);
+	else if (set.bt==5) handleInfoEvent({"src":"BT","title":"ESP","body":"Disconnected"},1);
   	set.bt=0; 
 	set.emuD=0;
 }
@@ -424,7 +426,7 @@ var tfk={
 			}	
 			if ( this.do && getTime() - this.time > 1 && tp[2]==1 ) { 
 				this.do = 0 ;
-				return setTimeout(function() {touchHandler[face.pageCurr](12,tfk.x+20,tfk.y);},0);
+				return setTimeout(function() {touchHandler[face.pageCurr](12,tfk.xx+(tfk.x/10),tfk.y);},0);
 			}else if ( this.do&&tp[2]==1) {
 				var a=0;
 				if ((((tp[5]&0x0F)<<8)|tp[6])>=this.y+10) a = 1;
@@ -434,7 +436,7 @@ var tfk={
 				if ( a != 0 && this.aLast != a ) {
 					this.aLast=a;
 					this.do=0;
-					return setTimeout(function() {	touchHandler[face.pageCurr](a,tfk.x+20,tfk.y);},0);
+					return setTimeout(function() {	touchHandler[face.pageCurr](a,tfk.x+(tfk.x/10),tfk.y);},0);
 				}
 				return;
 			}
@@ -442,7 +444,7 @@ var tfk={
 			if (this.do===1){
 				this.do=0;
 				//tfk.emit('touch',5,this.x,this.y) ;
-				return setTimeout(function() {touchHandler[face.pageCurr](5,tfk.x+20,tfk.y);},0);
+				return setTimeout(function() {touchHandler[face.pageCurr](5,tfk.x+(tfk.x/10),tfk.y);},0);
 			}
 			this.aLast=0;
 			this.st = 1;

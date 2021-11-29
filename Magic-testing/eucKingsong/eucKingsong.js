@@ -1,4 +1,5 @@
 //kingsong euc module 
+//KS-S180531
 //euc.conn(euc.mac);
 //euc.wri("lightsOn")
 //temp

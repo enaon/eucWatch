@@ -480,8 +480,6 @@ touchHandler[0]=function(e,x,y){
 			w.gfx.fillRect(156,0,159,160);
 			if (face[0].bpp)w.gfx.flip();
 			face[0].themeSet=0;
-		//}else if (face.faceSave!=-1) {
-		//	face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
 		}else if (Boolean(require('Storage').read('w_apps'))){
 			face.mode=1-face.mode;
 			face[0].btSet=0;
@@ -489,22 +487,7 @@ touchHandler[0]=function(e,x,y){
 			buzzer(buz.ok);
 		}else{
 			buzzer(buz.na);
-			//if (face.appPrev=="settings") {face.appPrev="main";face.pagePrev=0;}
-			//face.go(face.appPrev,face.pagePrev,face.pageArg);return;
 		}
-		/*	
-		  if (face[0].btSet) {
-			face[0].btSet=0;
-			face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
-		  }else if (face.faceSave!=-1) {
-			  face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
-			  //set.updateSettings();
-		  }else{
-			  if (face.appPrev=="settings") {face.appPrev="main";face.pagePrev=0;}
-			  face.go(face.appPrev,face.pagePrev,face.pageArg);return;
-			  //set.updateSettings();
-		  }
-		  */
 	}else if  (e==12){
 		if (face[0].btSet) {
 			if(x<160&&y<77){//bt toggle tx
