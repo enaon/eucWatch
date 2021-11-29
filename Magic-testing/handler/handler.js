@@ -3,8 +3,6 @@
 eval(require('Storage').read('handler_notify'));
 //set
 eval(require('Storage').read('handler_set'));
-//
-E.setTimeZone(set.def.timezone);
 //conn
 eval(require('Storage').read('handler_conn'));
 //face
