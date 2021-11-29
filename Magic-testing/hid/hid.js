@@ -151,6 +151,4 @@ touchHandler[0] = function(e, x, y) {
     } else if (e == 12) {
         buzzer(buz.na);
     }
-    this.timeout();
-
 };

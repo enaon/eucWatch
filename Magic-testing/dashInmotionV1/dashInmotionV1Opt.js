@@ -125,7 +125,6 @@ touchHandler[0]=function(e,x,y){
 				face[0].sub=0;
 				face[0].init();
 			}
-			this.timeout();
 			return;
 		}else {
 			if ( x<=120 && y<100 ) { //RING led
@@ -151,7 +150,6 @@ touchHandler[0]=function(e,x,y){
 				buzzer(buz.ok);						
 			}else buzzer(buz.na);
 		}
-		this.timeout();
 		break;
 	case 1: //slide down event
 		setTimeout(function(){euc.busy=0;euc.tmp.live();},800);
@@ -165,7 +163,6 @@ touchHandler[0]=function(e,x,y){
 		}else //if (y>100) {
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		//} else {buzzer(buz.na);}
-		this.timeout();
 		break;
 	case 3: //slide left event
 		face.go("dashInmotionV1Opt2",0);
@@ -173,7 +170,6 @@ touchHandler[0]=function(e,x,y){
 	case 4: //slide right event (back action)
 		if (face[0].sub){
 			face[0].sub=0;
-			this.timeout();
 			face[0].init();
 			return;
 		}
@@ -192,7 +188,6 @@ touchHandler[0]=function(e,x,y){
 			face[0].sub="horn";
 			buzzer(buz.ok);						
 		}else buzzer(buz.na);
-		this.timeout();
 		break;
   }
 };

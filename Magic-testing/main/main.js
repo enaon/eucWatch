@@ -305,7 +305,6 @@ face[1] = {
 
 //touch
 touchHandler[0]=function(e,x,y){
-	face.off();
     var p=D16;
     if (e==5){
 	  if (x<158 && y<50){//date

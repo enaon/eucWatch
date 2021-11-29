@@ -20,7 +20,7 @@ var tfk={
 			}	
 			if ( this.do && getTime() - this.time > 1 && tp[2]==1 ) { 
 				this.do = 0 ;
-				return setTimeout(function() {touchHandler[face.pageCurr](12,tfk.xx+(tfk.x/10),tfk.y);},0);
+				return setTimeout(function() {touchHandler[face.pageCurr](12,tfk.xx+(tfk.x/10),tfk.y);face.off();},0);
 			}else if ( this.do&&tp[2]==1) {
 				var a=0;
 				if ((((tp[5]&0x0F)<<8)|tp[6])>=this.y+10) a = 1;
@@ -30,7 +30,7 @@ var tfk={
 				if ( a != 0 && this.aLast != a ) {
 					this.aLast=a;
 					this.do=0;
-					return setTimeout(function() {	touchHandler[face.pageCurr](a,tfk.x+(tfk.x/10),tfk.y);},0);
+					return setTimeout(function() {	touchHandler[face.pageCurr](a,tfk.x+(tfk.x/10),tfk.y);face.off();},0);
 				}
 				return;
 			}
@@ -38,7 +38,7 @@ var tfk={
 			if (this.do===1){
 				this.do=0;
 				//tfk.emit('touch',5,this.x,this.y) ;
-				return setTimeout(function() {touchHandler[face.pageCurr](5,tfk.x+(tfk.x/10),tfk.y);},0);
+				return setTimeout(function() {touchHandler[face.pageCurr](5,tfk.x+(tfk.x/10),tfk.y);face.off();},0);
 			}
 			this.aLast=0;
 			this.st = 1;

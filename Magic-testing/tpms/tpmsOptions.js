@@ -139,7 +139,6 @@ face[1] = {
 //touch-main
 touchHandler[0]=function(e,x,y){
 	if (tpms.status=="SCANNING"||tpms.status.startsWith("RETRY") ) {face.go("tpmsFace",0);return;} 
-	this.timeout();
 	if (!this.lL) this.lL=getTime();
 	switch (e) {
 	case 5: //tap event

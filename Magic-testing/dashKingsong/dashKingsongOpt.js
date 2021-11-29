@@ -127,7 +127,6 @@ touchHandler[0]=function(e,x,y){
             face[0].ntfy("SIDE BTN HORN >2KPH","HORN DISABLED",(euc.dash.horn)?19:20,1,euc.dash.horn);
 			buzzer(buz.ok);						
 		}else buzzer(buz.ok);
-		this.timeout();
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
@@ -141,7 +140,6 @@ touchHandler[0]=function(e,x,y){
 		}else //if (y>100) {
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		//} else {buzzer(buz.na);}
-		this.timeout();
 		break;
 	case 3: //slide left event
 		face.go("dashKingsongOpt2",0);
@@ -174,7 +172,6 @@ touchHandler[0]=function(e,x,y){
             face[0].ntfy("SIDE BTN HORN >2KPH","HORN DISABLED",(euc.dash.horn)?19:20,1,euc.dash.horn);
 			buzzer(buz.ok);						
 		}else buzzer(buz.ok);
-		this.timeout();
 		break;
   }
 };

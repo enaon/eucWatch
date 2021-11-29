@@ -155,7 +155,6 @@ touchHandler[0]=function(e,x,y){
 				face[0].sub=0;
 				face[0].init();
 			}
-			this.timeout();
 			return;
 		}else {	
 			if ( x<=120 && y<=100 ) { //lights
@@ -182,7 +181,6 @@ touchHandler[0]=function(e,x,y){
 				buzzer(buz.ok);						
 			}else buzzer(buz.na);
 		}
-		this.timeout();
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
@@ -195,7 +193,6 @@ touchHandler[0]=function(e,x,y){
 			else w.gfx.bri.set(this.bri);
 			buzzer(buz.ok);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		this.timeout();
 		break;
 	case 3: //slide left event
 		face.go("dashInmotionV1Opt",0);
@@ -203,7 +200,6 @@ touchHandler[0]=function(e,x,y){
 	case 4: //slide right event (back action)
 		if (face[0].sub){
 			face[0].sub=0;
-			this.timeout();
 			face[0].init();
 			return;
 		}
@@ -231,7 +227,6 @@ touchHandler[0]=function(e,x,y){
 			}
 			return;	
 	    }else buzzer(buz.na);
-		this.timeout();
 		break;
   }
 };

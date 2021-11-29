@@ -113,7 +113,6 @@ touchHandler[0]=function(e,x,y){
     buzzer(40);  
     break;
   default: //reset face timeout on every touch action, this function is in the handler file. 
-    this.timeout();
   }
 };
 

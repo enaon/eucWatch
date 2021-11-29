@@ -108,7 +108,6 @@ face[1] = {
 };	
 //touch
 touchHandler[0]=function(e,x,y){ 
-	face.off();
 	switch (e) {
       case 5: case 12: //tap event
 		if ( x<=120 && y<100 ) { //auto Ride

@@ -162,7 +162,6 @@ face[1] = {
 };	
 //
 touchHandler[0]=function(e,x,y){
-	face.off();
     if (e==5||e==12){
 		if (!face[0].start||face[0].start==1) { buzzer(buz.na);return}
 		if (face[0].start==3) { buzzer(buz.ok);face[0].find(face.pageArg); return}
@@ -198,7 +197,6 @@ touchHandler[0]=function(e,x,y){
 		face.go(face.appRoot[0],face.appRoot[1]);
 	  return;
     }
-    this.timeout();
 };
 
 

@@ -149,7 +149,6 @@ touchHandler[0]=function(e,x,y){
 				euc.wri("calibration");
       }else buzzer(buz.na);
         }
-		this.timeout();
 		break;
 	case 1: //slide down event
 		setTimeout(function(){euc.busy=0;euc.tmp.live();},800);
@@ -161,11 +160,9 @@ touchHandler[0]=function(e,x,y){
 			else w.gfx.bri.set(this.bri);
 			buzzer(buz.ok);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		this.timeout();
 		break;
 	case 3: //slide left event
 		buzzer(buz.na);
-		this.timeout();
 		break;
 	case 4: //slide right event (back action)
 		w.gfx.setColor(0,0);
@@ -179,7 +176,6 @@ touchHandler[0]=function(e,x,y){
 		return;
 	case 12: //long press event
 		buzzer(buz.na);
-		this.timeout();
 		break;
   }
 };

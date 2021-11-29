@@ -141,7 +141,6 @@ touchHandler[0]=function(e,x,y){
 			else face.go("dashBegodePass",0);
 			return;
 */		}else buzzer(buz.ok);
-		this.timeout();
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
@@ -153,11 +152,9 @@ touchHandler[0]=function(e,x,y){
 			else w.gfx.bri.set(this.bri);
 			buzzer(buz.ok);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		this.timeout();
 		break;
 	case 3: //slide left event
 		buzzer(buz.na);    
-		this.timeout();
 		break;
 	case 4: //slide right event (back action)
 		face.go("dashBegode",0);

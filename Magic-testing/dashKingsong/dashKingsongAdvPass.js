@@ -221,7 +221,6 @@ touchHandler[0]=function(e,x,y){
           face[0].ntfy("HOLD -> SET",20,1);
 
         }
-        this.timeout();
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
@@ -233,11 +232,9 @@ touchHandler[0]=function(e,x,y){
 			else w.gfx.bri.set(this.bri);
 			buzzer(buz.ok);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		this.timeout();
 		break;
 	case 3: //slide left event
 		buzzer(buz.na);
-		this.timeout();
 		break;
 	case 4: //slide right event (back action)
 		w.gfx.setColor(0,0);
@@ -269,7 +266,6 @@ touchHandler[0]=function(e,x,y){
           face.go("dashKingsongAdvPass",5);
           face[0].passSet=1;
         }  
-		this.timeout();
 		break;
   }
 };
@@ -347,7 +343,6 @@ touchHandler[5]=function(e,x,y){
               }
           }
         }       
-        this.timeout();
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
@@ -359,11 +354,9 @@ touchHandler[5]=function(e,x,y){
 			else w.gfx.bri.set(this.bri);
 			buzzer(buz.ok);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		this.timeout();
 		break;
 	case 3: //slide left event
 		buzzer(buz.na);
-		this.timeout();
 		break;
 	case 4: //slide right event (back action)
 		w.gfx.setColor(0,0);
@@ -377,7 +370,6 @@ touchHandler[5]=function(e,x,y){
 		return;
 	case 12: //long press event
 		buzzer(100);
-		this.timeout();
 		break;
   }
 };

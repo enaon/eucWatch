@@ -236,7 +236,6 @@ face[1] = {
 };	
 //touch
 touchHandler[0]=function(e,x,y){ 
-	this.timeout();
 	switch (e) {
 	case 5: //tap event
 		if (face[0].set) { 
@@ -358,7 +357,6 @@ touchHandler[0]=function(e,x,y){
 			face[0].set="info";
 			face[0].info();
 		}else buzzer(buz.na);	
-		this.timeout();
 		return;
 	case 1: //slide down event
 		if (face[0].set) {
@@ -390,7 +388,6 @@ touchHandler[0]=function(e,x,y){
 			face.go(face.appPrev,0);
 			return; 
 		}
-		this.timeout();
 		break;
 	case 3: //slide left event
 		buzzer(buz.na);
@@ -407,7 +404,6 @@ touchHandler[0]=function(e,x,y){
 		}break;
 	case 12: //hold event
 		buzzer(buz.na);
-		this.timeout();
 		break;
   }
 };

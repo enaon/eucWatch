@@ -154,7 +154,6 @@ touchHandler[0]=function(e,x,y){
     buzzer(buz.ok);
     break;
     default: //reset face timeout. 
-    this.timeout();
   }
 };
 

@@ -369,7 +369,6 @@ touchHandler[0]=function(e,x,y){
         buzzer([100,50,80]);
       //}
     }
-   this.timeout();
 };
 //
 touchHandler[5]=function(e,x,y){
@@ -419,6 +418,5 @@ touchHandler[5]=function(e,x,y){
 		calc.hist=[];
 		face.go("calc",0);return;
     }
-   this.timeout();
 };
 	

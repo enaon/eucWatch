@@ -107,7 +107,6 @@ face[1] = {
 };	
 //touch
 touchHandler[0]=function(e,x,y){ 
-	this.timeout();
 	switch (e) {
 	case 5: //tap event
 		if (face[0].set) { 

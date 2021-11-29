@@ -303,7 +303,6 @@ touchHandler[0]=function(e,x,y){
         buzzer(buz.ok);
 	  }else buzzer(buz.na);    
     }
-    this.timeout();
 };
 //setup 
 touchHandler[5]=function(e,x,y){
@@ -360,6 +359,5 @@ touchHandler[5]=function(e,x,y){
 	if (alrm[a].tmr!==-1){alrm.clear(a); 
         alrm.set(a);
     }
-    this.timeout();
 };
  
