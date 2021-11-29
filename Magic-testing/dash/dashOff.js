@@ -189,7 +189,7 @@ touchHandler[0]=function(e,x,y){
 			face[0].ind((face[0].pos<=face[0].ref)?face[0].len-(face[0].ref-face[0].pos):face[0].pos-face[0].ref);
 		}else {
 			if  ( 120 < x ) { //info
-				if (face[0].info) {buzzer(na);return;}
+				if (face[0].info) {buzzer(buz.na);return;}
 				buzzer(buz.ok);
 				face[0].info=1;
 				let btC=[4,1,7,7];
@@ -221,6 +221,7 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.drawString((set.def.dash.mph)?"mi":"Km",195,220);
 				if (face[0].old)w.gfx.flip(); 
 			}else{ //24HRS/7DAYS/month/year
+				buzzer(buz.ok);
 				face[0].info=0;
 				face[0].btn(1,"INFO",30,185,10,0,0,120,0,239,50);
 				face[0].once=0;
