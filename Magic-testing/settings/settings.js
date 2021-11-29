@@ -279,6 +279,7 @@ face[5] = {
 };
 //touch-settings  
 touchHandler[0]=function(e,x,y){
+	face.off();
     if (set.tor==1){
         w.gfx.bri.set(face[0].cbri);
         set.tor=-1;
@@ -500,10 +501,10 @@ touchHandler[0]=function(e,x,y){
 			} else buzzer(buz.na);
 		} else buzzer(buz.na);
 	}
-	this.timeout();
 };
 //
 touchHandler[5]=function(e,x,y){
+	face.off();
     if (e==5){
 		if (x<120 && y>190) {
 			set.updateSettings();
@@ -543,5 +544,4 @@ touchHandler[5]=function(e,x,y){
 			E.reboot();
 		}else buzzer(buz.na);
     }
-   this.timeout();
 };
