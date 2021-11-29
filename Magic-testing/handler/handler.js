@@ -2,6 +2,7 @@
 //fonts
 //require('Font7x11Numeric7Seg').add(Graphics);
 //notifications
+
 var notify={
 	New:0,nIm:0,nInfo:0,nCall:0,nMail:0
 };
