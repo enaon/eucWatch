@@ -150,18 +150,19 @@ face[1] = {
 	},
 	clear: function(){
 		return;
-	},
 	off: function(){
+	},
 		return;
 	},
 };	
 
 //touch-main
 touchHandler[0]=function(e,x,y){
+	face.off();
 	switch (e) {
 	case 5: //tap event
 		if (50 < y) {
-		if (face[0].info) {buzzer(buz.na);return;}
+			if (face[0].info) {buzzer(buz.na);return;}
 			let i=0;
 			buzzer(buz.ok);
 			if (face[0].log[face[0].ref]&&!face[0].once){
@@ -187,9 +188,9 @@ touchHandler[0]=function(e,x,y){
 			face[0].sel(face[0].comf((face[0].log[face[0].pos]*((set.def.dash.mph)?0.625:1)).toFixed((face[0].page)?(face[0].page==1)?1:0:2)), face[0].id[face[0].pos].toUpperCase());
 			face[0].ind((face[0].pos<=face[0].ref)?face[0].len-(face[0].ref-face[0].pos):face[0].pos-face[0].ref);
 		}else {
-			buzzer(buz.ok);
 			if  ( 120 < x ) { //info
-				if (face[0].info) return;
+				if (face[0].info) {buzzer(na);return;}
+				buzzer(buz.ok);
 				face[0].info=1;
 				let btC=[4,1,7,7];
 				face[0].btn(1,euc.dash.bat,50,180,3,btC[euc.dash.batC],0,120,0,239,50,"%",20,235,35);
@@ -205,20 +206,20 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.drawString(euc.dash.time,185-w.gfx.stringWidth(euc.dash.time),139); 
 				w.gfx.drawString(face[0].comf((euc.dash.trpL*((set.def.dash.mph)?0.625:1)).toFixed(0)),185-w.gfx.stringWidth(face[0].comf((euc.dash.trpL*((set.def.dash.mph)?0.625:1)).toFixed(0))),178); 
 				w.gfx.drawString(face[0].comf((euc.dash.trpT*((set.def.dash.mph)?0.625:1)).toFixed(1)),185-w.gfx.stringWidth(face[0].comf((euc.dash.trpT*((set.def.dash.mph)?0.625:1)).toFixed(1))),217); 
-				if (this.old)w.gfx.flip(); 
+				if (face[0].old)w.gfx.flip(); 
 				w.gfx.setColor(1,3);
 				w.gfx.setFontVector(24);
 				w.gfx.drawString("TOP",5,102);
 				w.gfx.drawString("RUN",5,143);
 				w.gfx.drawString("TRP",5,181);
 				w.gfx.drawString("TOT",5,220);
-				if (this.old)w.gfx.flip(); 
+				if (face[0].old)w.gfx.flip(); 
 				w.gfx.setColor(1,3);
 				w.gfx.drawString((set.def.dash.mph)?"mph":"kph",195,102);
 				w.gfx.drawString("Min",195,143);
 				w.gfx.drawString((set.def.dash.mph)?"mi":"Km",195,181);
 				w.gfx.drawString((set.def.dash.mph)?"mi":"Km",195,220);
-				if (this.old)w.gfx.flip(); 
+				if (face[0].old)w.gfx.flip(); 
 			}else{ //24HRS/7DAYS/month/year
 				face[0].info=0;
 				face[0].btn(1,"INFO",30,185,10,0,0,120,0,239,50);
@@ -258,7 +259,6 @@ touchHandler[0]=function(e,x,y){
 				face[0].lg();
 			}			
 		}
-		this.timeout();
 		break;
     case 1: //slide down event
 		face.go("main",0);
@@ -268,9 +268,7 @@ touchHandler[0]=function(e,x,y){
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 			buzzer(buz.ok);
-			this.timeout();
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
-        this.timeout();
 		break;
     case 3: //slide left event
 		face.go("dashGarage",0);
@@ -280,7 +278,6 @@ touchHandler[0]=function(e,x,y){
 		return;
     case 12: //touch and hold(long press) event
 		buzzer(buz.na);
-		this.timeout();
 		return;
     }
 };
