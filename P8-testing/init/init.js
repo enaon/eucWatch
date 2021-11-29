@@ -223,7 +223,6 @@ g.off=function(){
   digitalWrite([D23,D22,D14],7);
 //  BL.set();
   this.isOn=false;
-  Modules.removeAllCached();
 };
 //battery
 const batt=function(i,c){

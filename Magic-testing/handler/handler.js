@@ -160,7 +160,7 @@ function ccon(l){
 	if (set.def.cli) {
 		if (l.startsWith(cli)) {
 			set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
-			andleInfoEvent({"src":"IDE","title":"LOADER","body":"Connected"},1);
+			handleInfoEvent({"src":"IDE","title":"LOADER","body":"Connected"},1);
 		}
 	}
 	if (set.def.gb) {

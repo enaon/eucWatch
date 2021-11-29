@@ -107,26 +107,33 @@ var set={
 	clin:0,//not settable
 	upd:function(){ //run this for settings changes to take effect.
 	if (this.def.hid===1) {this.def.hid=0; return;}
-	//if (this.def.emuZ){
-		//this.def.cli=0;
-		//this.def.gb=0;
-		//this.def.hid=0;
-		//eval(require('Storage').read('emuKingsong'));
-	//}else {
+	if (this.def.emuZ){
+		this.def.cli=0;
+		this.def.gb=0;
+		this.def.hid=0;
+		eval(require('Storage').read('emuZ'));
+		// ninebotZ emu support
+		NRF.setServices({
+			0xfee7: {
+				0xfec8: {
+				},
+				0xfec7: {
+				},
+				0xfec9: {
+				}
+			}
+		}, { uart: true});
+	}else {
 		NRF.setServices(undefined,{uart:(this.def.cli||this.def.gb)?true:false,hid:(this.def.hid&&this.hidM)?this.hidM.report:undefined });
-		if (!this.def.emuZ) if (global.euc&&euc.proxy)  euc.proxy=0;
-		//NRF.disconnect();
-		//if (global.emuZ)  emuZ=0;
+		if (global.emuZ)  emuZ=0;
 		//if (this.atcW) {this.atcW=undefined;this.atcR=undefined;} 
-	//}
-	if (this.def.gb) 
-		eval(require('Storage').read('m_gb'));
+	}
+	if (this.def.gb) eval(require('Storage').read('m_gb'));
 	else {
 		this.gbSend=function(){return;};
 		this.handleNotificationEvent=0;this.handleFindEvent=0;handleWeatherEvent=0;handleCallEvent=0;handleFindEvent=0;sendBattery=0;global.GB=0;
 	}		
-	//if (!this.def.cli&&!this.def.gb&&!this.def.emuZ&&!this.def.hid) { if (this.bt) NRF.disconnect(); else{ NRF.sleep();this.btsl=1;}}
-	if (!this.def.cli&&!this.def.gb&&!this.def.hid) { if (this.bt) NRF.disconnect(); else{ NRF.sleep();this.btsl=1;}}
+	if (!this.def.cli&&!this.def.gb&&!this.def.emuZ&&!this.def.hid) { if (this.bt) NRF.disconnect(); else{ NRF.sleep();this.btsl=1;}}
 	else if (this.bt) NRF.disconnect();
 	else if (this.btsl==1) {NRF.restart();this.btsl=0;}
 	}
@@ -136,7 +143,6 @@ set.def = require('Storage').readJSON('setting.json', 1);
 if (!set.def) {set.resetSettings();set.updateSettings();}
 if (!set.def.rstP) set.def.rstP="D13";
 if (!set.def.rstR) set.def.rstR=0xA5;
-if (!set.def.addr) set.def.addr=NRF.getAddress();
 if (set.def.buzz) buzzer = digitalPulse.bind(null,D16,1);
 else buzzer=function(){return true;};
 if (!set.def.off) set.def.off={};
@@ -153,40 +159,37 @@ E.setTimeZone(set.def.timezone);
 //nrf
 //set.emuD=0;
 function ccon(l){ 
+	if (set.def.emuZ) {
+		//if (set.emuD) return;
+		emuZ.cmd(l);
+		return;
+	}else {
 		var cli="\x03";
 		var loa="\x04";
 		var gb="\x20\x03";
-		if (l.startsWith(loa)) {
+		 if (l.startsWith(loa)) {
 			Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
 			return; 
 		}else {
-			if (set.def.cli) {
-				if (l.startsWith(cli)) {
-					set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
-				}
+		if (set.def.cli) {
+			if (l.startsWith(cli)) {
+				set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
 			}
-			if (set.def.gb) {
-				if (l.startsWith(gb)){
-					set.bt=3;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
-					handleInfoEvent({"src":"BT","title":"GB","body":"Connected"});
-				}
-			}
-			
-			if (l.length>5)  NRF.disconnect();
 		}
+		if (set.def.gb) {
+			if (l.startsWith(gb)){
+				set.bt=3;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
+				handleInfoEvent({"src":"BT","title":"GB","body":"Connected"});
+			}
+		}
+		if (l.length>5)  NRF.disconnect();
+		}
+	}
 }
 function bcon() {
-	if (set.def.emuZ&&global.euc&&euc.state=="READY") {
-		set.bt=4;Bluetooth.removeListener('data',ccon);
-		handleInfoEvent({"src":"BT","title":"EUC-PROXY","body":"Connected"});
-		return
-	}
 	E.setConsole(null,{force:true});
-
 	set.bt=1; 
-	if (set.def.cli||set.def.gb||set.def.emuZ) { 
-		Bluetooth.on('data',ccon);
-	}
+	if (set.def.cli||set.def.gb||set.def.emuZ) { Bluetooth.on('data',ccon);}
 	setTimeout(()=>{
     if (set.bt==1){ 
 		if (!set.def.cli) 
@@ -209,7 +212,7 @@ function bdis() {
 	else if (set.bt==2) handleInfoEvent({"src":"BT","title":"IDE","body":"Disconnected"});
 	else if (set.bt==3) handleInfoEvent({"src":"BT","title":"GB","body":"Disconnected"});
 	//else if (set.bt==4) handleInfoEvent({"src":"BT","title":"ATC","body":"Disconnected"});
-	else if (set.bt==4) {euc.proxy.F=0;handleInfoEvent({"src":"BT","title":"EUC-PROXY","body":"Disconnected"});}
+	else if (set.bt==4) handleInfoEvent({"src":"BT","title":"BRIDGE","body":"Disconnected"});
 	else if (set.bt==5) handleInfoEvent({"src":"BT","title":"ESP","body":"Disconnected"});
   	set.bt=0; 
 	set.emuD=0;
@@ -716,7 +719,7 @@ cron={
 	event:{
 		//date:()=>{ setTimeout(() =>{ cron.emit('dateChange',Date().getDate());cron.event.date();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate()+1)-Date()));},
 		hour:()=>{setTimeout(() =>{ cron.emit('hour',Date().getHours());cron.event.hour();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate(),Date().getHours()+1,0,1)-Date()));},
-		min: ()=>{setTimeout(() =>{ cron.emit('min',Date().getMinutes());cron.event.min();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate(),Date().getHours(),Date().getMinutes()+1)-Date()));},
+		//min: ()=>{setTimeout(() =>{ cron.emit('min',Date().getMinutes());cron.event.min();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate(),Date().getHours(),Date().getMinutes()+1)-Date()));},
 		//sec:()=>{setTimeout(() =>{ cron.emit('sec',Date().getSeconds());cron.event.sec();},(Date(Date().getFullYear(),Date().getMonth(),Date().getDate(),Date().getHours(),Date().getMinutes(),Date().getSeconds()+1)-Date()));},
 	},
 	task:{

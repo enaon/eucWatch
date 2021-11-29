@@ -1,17 +1,6 @@
 //	//this.maker=require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'];
 //	//this.mac=require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Mac'];	
 //emu
-NRF.setServices({
-			0xfee7: {
-				0xfec8: {
-				},
-				0xfec7: {
-				},
-				0xfec9: {
-				}
-			}
-}, { uart: true});
-
 global.emuZ={
 	checksum:function(packet){ 
 		var sum = 0;

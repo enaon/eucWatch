@@ -1,17 +1,18 @@
 //main
 face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
+	g:w.gfx,
 	init: function(){
-		w.gfx.clear();
+		this.g.clear();
 		this.startTime=getTime();
 		this.v=w.batt(1);
 		//top
-		w.gfx.setColor(1,1);
-		w.gfx.fillRect(0,0,158,50); //date
-		w.gfx.fillRect(162,0,239,50);//batt
-		if (face.pagePrev!=2){w.gfx.fillRect(0,55,100,150);}
-		w.gfx.setColor(0,0);
-		w.gfx.flip();
+		this.g.setColor(1,1);
+		this.g.fillRect(0,0,158,50); //date
+		this.g.fillRect(162,0,239,50);//batt
+		if (face.pagePrev!=2){this.g.fillRect(0,55,100,150);}
+		this.g.setColor(0,0);
+		this.g.flip();
 		this.wupd=1;
 		this.bt=-1;
 		this.nCall=-1;
@@ -33,14 +34,14 @@ face[0] = {
 		if (notify.ring){
 			if (this.ring!=notify.ring){
 				this.bt=-1;
-				w.gfx.setColor(0,2220);
-				w.gfx.fillRect(0,0,158,50); //date
-				w.gfx.setColor(1,15);
-				w.gfx.setFont("Vector",22);
-				w.gfx.drawString("MUTE",68,15);
+				this.g.setColor(0,2220);
+				this.g.fillRect(0,0,158,50); //date
+				this.g.setColor(1,15);
+				this.g.setFont("Vector",22);
+				this.g.drawString("MUTE",68,15);
 				//mute
-				w.gfx.drawImage( require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8FwAbvh+HnjHh8HjAYPABYNhAYVxAY0wIYU4H4U4EYUcnkP/0Oj0f/8Ph///8Hw/4g8D4IDBgIfBg8AD4IDBvgDCj+AAYIbCgEB//+FoM//gA==")),15,9);
-				w.gfx.flip();
+				this.g.drawImage( require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8FwAbvh+HnjHh8HjAYPABYNhAYVxAY0wIYU4H4U4EYUcnkP/0Oj0f/8Ph///8Hw/4g8D4IDBgIfBg8AD4IDBvgDCj+AAYIbCgEB//+FoM//gA==")),15,9);
+				this.g.flip();
 			}
 		}else if (set.bt != this.bt){
 			this.bt=set.bt;
@@ -49,34 +50,34 @@ face[0] = {
 			if (this.bt==3)  colbt=5;
 			else if (this.bt==4)  colbt=4;
 			else if (this.bt==2)  colbt=9;
-			w.gfx.setColor(0,colbt);
-			w.gfx.fillRect(0,0,158,50); //date
-			w.gfx.setColor(1,14);
-			w.gfx.setFont("Vector",35);
+			this.g.setColor(0,colbt);
+			this.g.fillRect(0,0,158,50); //date
+			this.g.setColor(1,14);
+			this.g.setFont("Vector",35);
 			if (this.bt==0&&!set.def.cli&&!set.def.emuZ&&!set.def.hid&&!set.def.gb) {
-				w.gfx.drawString(this.d[2]+" "+this.d[0].toUpperCase(), (81-(w.gfx.stringWidth(this.d[2]+" "+this.d[0].toUpperCase()))/2) ,9); //date
-				w.gfx.flip();
+				this.g.drawString(this.d[2]+" "+this.d[0].toUpperCase(), (81-(this.g.stringWidth(this.d[2]+" "+this.d[0].toUpperCase()))/2) ,9); //date
+				this.g.flip();
 			}else {
-				w.gfx.setFont("Vector",32);
-				w.gfx.drawString(this.d[2]+" "+this.d[0].toUpperCase(), (90-(w.gfx.stringWidth(this.d[2]+" "+this.d[0].toUpperCase()))/2) ,10); //date
-				w.gfx.flip();
-				w.gfx.setColor(0,colbt);
-				w.gfx.fillRect(0,0,15,50); //date
+				this.g.setFont("Vector",32);
+				this.g.drawString(this.d[2]+" "+this.d[0].toUpperCase(), (90-(this.g.stringWidth(this.d[2]+" "+this.d[0].toUpperCase()))/2) ,10); //date
+				this.g.flip();
+				this.g.setColor(0,colbt);
+				this.g.fillRect(0,0,15,50); //date
 				var colbtf=15;
 				if (set.bt==0) colbtf=3;
-				w.gfx.setColor(1,colbtf);
-				w.gfx.drawImage(E.toArrayBuffer(atob("CxQBBgDgFgJgR4jZMawfAcA4D4NYybEYIwTAsBwDAA==")),3,13);
-				w.gfx.flip();
+				this.g.setColor(1,colbtf);
+				this.g.drawImage(E.toArrayBuffer(atob("CxQBBgDgFgJgR4jZMawfAcA4D4NYybEYIwTAsBwDAA==")),3,13);
+				this.g.flip();
 			}  
 		}
 		//batt status
 		if (notify.ring){
 			if (this.ring!=notify.ring){
-				w.gfx.setColor(0,5);
-				w.gfx.fillRect(162,0,239,50);//batt
-				w.gfx.setColor(1,15);
-				w.gfx.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8FwAbvh+HnjHh8HjAYPABYNhAYVxAY0wIYU4H4U4EYUcnkP/0Oj0f/8Ph///8Hw/4g8D4IDBgIfBg8AD4IDBvgDCj+AAYIbCgEB//+FoM//gA==")),183,9);
-				w.gfx.flip();
+				this.g.setColor(0,5);
+				this.g.fillRect(162,0,239,50);//batt
+				this.g.setColor(1,15);
+				this.g.drawImage(require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8FwAbvh+HnjHh8HjAYPABYNhAYVxAY0wIYU4H4U4EYUcnkP/0Oj0f/8Ph///8Hw/4g8D4IDBgIfBg8AD4IDBvgDCj+AAYIbCgEB//+FoM//gA==")),183,9);
+				this.g.flip();
 			}
 		}else if (notify.New&&(this.nCall!=notify.nCall||this.nInfo!=notify.nInfo||this.nIm!=notify.nIm)){
 			this.batt=set.ondc;
@@ -90,42 +91,42 @@ face[0] = {
 				this.colf=15;this.colb=12;this.str=notify.nInfo;this.bs="nInfo";
 				this.img = require("heatshrink").decompress(atob("jEYwIHEv0AgP/wEH//gh//+Ef8/4j/D/E/4/8n///l///+v/nAQPDARM/4YXBAQIgCEwQsCGQQ4CHwQACA=="));
 			}else { this.batt=-1; this.bs=0;}
-			w.gfx.setColor(0,this.colb);
-			w.gfx.fillRect(162,0,239,50);//batt
-			w.gfx.setColor(1,this.colf);
-			w.gfx.drawImage(this.img,170,12);
+			this.g.setColor(0,this.colb);
+			this.g.fillRect(162,0,239,50);//batt
+			this.g.setColor(1,this.colf);
+			this.g.drawImage(this.img,170,12);
 			this.img=-1;
 			if (this.str>9) {
-				w.gfx.setFont("Vector",32);
-				//w.gfx.setFont("7x11Numeric7Seg",3);
-				w.gfx.drawString("9",200,10);
-				w.gfx.setFont("Vector",28);
-				w.gfx.drawString("+",225,14);
+				this.g.setFont("Vector",32);
+				//this.g.setFont("7x11Numeric7Seg",3);
+				this.g.drawString("9",200,10);
+				this.g.setFont("Vector",28);
+				this.g.drawString("+",225,14);
 			}else{
-				w.gfx.setFont("Vector",32);
-				//w.gfx.setFont("7x11Numeric7Seg",3);
-				w.gfx.drawString(this.str,210,10);
+				this.g.setFont("Vector",32);
+				//this.g.setFont("7x11Numeric7Seg",3);
+				this.g.drawString(this.str,210,10);
 			}
-			w.gfx.flip();
+			this.g.flip();
 		}else if (this.batt!=set.ondc ){
 			this.batt=set.ondc;
 			this.v=w.batt(1);
-			if (this.batt==1) w.gfx.setColor(0,9);
-			else if (this.v<=20) w.gfx.setColor(0,7);
-			else w.gfx.setColor(0,5);
-			w.gfx.fillRect(162,0,239,50);//batt
-			w.gfx.setColor(1,14);
-			if (this.v<0) {w.gfx.setFont("Vector",21);w.gfx.drawString("EMPTY",240-(w.gfx.stringWidth("EMPTY")),14); 
+			if (this.batt==1) this.g.setColor(0,9);
+			else if (this.v<=20) this.g.setColor(0,7);
+			else this.g.setColor(0,5);
+			this.g.fillRect(162,0,239,50);//batt
+			this.g.setColor(1,14);
+			if (this.v<0) {this.g.setFont("Vector",21);this.g.drawString("EMPTY",240-(this.g.stringWidth("EMPTY")),14); 
 			}else if (this.v<100) {
-				w.gfx.setFont("Vector",32);
-				w.gfx.drawString(this.v,210-(w.gfx.stringWidth(this.v)),10);
-				w.gfx.drawImage((this.batt==1)?require("heatshrink").decompress(atob("jEYwIKHiACEnACHvACEv/AgH/AQcB/+AAQsAh4UBAQUOAQ8EAQgAEA==")):require("heatshrink").decompress(atob("jEYwIEBngCDg//4EGgFgggCZgv/ASUEAQQaBHYPgJYQ=")),212,12);
-				//w.gfx.drawImage(this.image("batteryMed"),212,12);
+				this.g.setFont("Vector",32);
+				this.g.drawString(this.v,210-(this.g.stringWidth(this.v)),10);
+				this.g.drawImage((this.batt==1)?require("heatshrink").decompress(atob("jEYwIKHiACEnACHvACEv/AgH/AQcB/+AAQsAh4UBAQUOAQ8EAQgAEA==")):require("heatshrink").decompress(atob("jEYwIEBngCDg//4EGgFgggCZgv/ASUEAQQaBHYPgJYQ=")),212,12);
+				//this.g.drawImage(this.image("batteryMed"),212,12);
 			}else  {
-				w.gfx.setFont("Vector",28);
-				w.gfx.drawString("FULL",238-(w.gfx.stringWidth("FULL")),12); 
+				this.g.setFont("Vector",28);
+				this.g.drawString("FULL",238-(this.g.stringWidth("FULL")),12); 
 			} 
-			w.gfx.flip();
+			this.g.flip();
 		}
 		this.widg();
 		//loop
@@ -138,60 +139,60 @@ face[0] = {
 		//push-(wip)   
 		if (notify.ring){
 		if (this.ring!=notify.ring){
-			this.ring=notify.ring;w.gfx.setColor(0,0);w.gfx.clearRect(0,151,239,239);w.gfx.setColor(1,15);
-			w.gfx.setFont("Vector",26);
-			w.gfx.drawString((notify.in.name.length>16)?notify.in.name.substr(0,13)+"...":notify.in.name,122-(w.gfx.stringWidth((notify.in.name.length>16)?notify.in.name.substr(0,13)+"...":notify.in.name))/2,168); //Name
-			w.gfx.drawString((notify.in.number.length>16)?notify.in.number.substr(0,13)+"...":notify.in.number,122-(w.gfx.stringWidth((notify.in.number.length>16)?notify.in.number.substr(0,13)+"...":notify.in.number))/2,210); //Number
-			w.gfx.flip();
+			this.ring=notify.ring;this.g.setColor(0,0);this.g.clearRect(0,151,239,239);this.g.setColor(1,15);
+			this.g.setFont("Vector",26);
+			this.g.drawString((notify.in.name.length>16)?notify.in.name.substr(0,13)+"...":notify.in.name,122-(this.g.stringWidth((notify.in.name.length>16)?notify.in.name.substr(0,13)+"...":notify.in.name))/2,168); //Name
+			this.g.drawString((notify.in.number.length>16)?notify.in.number.substr(0,13)+"...":notify.in.number,122-(this.g.stringWidth((notify.in.number.length>16)?notify.in.number.substr(0,13)+"...":notify.in.number))/2,210); //Number
+			this.g.flip();
 		}
 		}else if (this.nCall!=notify.nCall||this.nInfo!=notify.nInfo||this.nIm!=notify.nIm) {
 			this.nInfo=notify.nInfo;this.nCall=notify.nCall;this.nIm=notify.nIm;this.New=notify.New;
 			if (notify.nCall||notify.nIm||notify.nInfo){
-				w.gfx.setColor(0,0);
-				w.gfx.clearRect(0,151,239,239);		  
+				this.g.setColor(0,0);
+				this.g.clearRect(0,151,239,239);		  
 				if (this.nCall)  {this.msg=JSON.parse(notify.call[0]);this.cf=7;}
 				else if (this.nIm)  {this.msg=JSON.parse(notify.im[0]);this.cf=14;}
 				else if (this.nInfo)  {this.msg=JSON.parse(notify.info[0]);this.cf=5;}
-				w.gfx.setColor(1,15);//
-				w.gfx.setFont("Vector",25);
-				w.gfx.drawString((this.msg.title.length>16)?this.msg.title.substr(0,13)+"...":this.msg.title,122-(w.gfx.stringWidth((this.msg.title.length>16)?this.msg.title.substr(0,13)+"...":this.msg.title))/2,168); //info
-				w.gfx.drawString((this.msg.body.length>16)?this.msg.body.substr(0,13)+"...":this.msg.body,122-(w.gfx.stringWidth((this.msg.body.length>16)?this.msg.body.substr(0,13)+"...":this.msg.body))/2,210); //info
+				this.g.setColor(1,15);//
+				this.g.setFont("Vector",25);
+				this.g.drawString((this.msg.title.length>16)?this.msg.title.substr(0,13)+"...":this.msg.title,122-(this.g.stringWidth((this.msg.title.length>16)?this.msg.title.substr(0,13)+"...":this.msg.title))/2,168); //info
+				this.g.drawString((this.msg.body.length>16)?this.msg.body.substr(0,13)+"...":this.msg.body,122-(this.g.stringWidth((this.msg.body.length>16)?this.msg.body.substr(0,13)+"...":this.msg.body))/2,210); //info
 				this.msg=-1;
-				w.gfx.flip();
+				this.g.flip();
 			}else if (this.wupd&&notify.weather&&!this.New){
 			//this.widp=1;
 				this.wupd=0;  	
-				w.gfx.setColor(0,0);
-				w.gfx.clearRect(0,151,239,239);
-				w.gfx.setColor(1,15);//
-				w.gfx.setFont("Vector",25);
-				w.gfx.drawString(notify.weather.txt,119-(w.gfx.stringWidth(notify.weather.txt))/2,165); //info
+				this.g.setColor(0,0);
+				this.g.clearRect(0,151,239,239);
+				this.g.setColor(1,15);//
+				this.g.setFont("Vector",25);
+				this.g.drawString(notify.weather.txt,119-(this.g.stringWidth(notify.weather.txt))/2,165); //info
 				//temp
-				w.gfx.drawImage(E.toArrayBuffer(atob("EyCBAADgAH8AH/AH3wDg4BwcA4GAcDAOBgHAwDuYB3MA7mAdzAO5gHcwHucHnPHjjzj45j+Pz/n5/z8/5+f8/H8dx8c8AOPAeD9+Af+AD4A=")),20,200);
-				w.gfx.drawString(Math.round(notify.weather.temp-273),60,205);
+				this.g.drawImage(E.toArrayBuffer(atob("EyCBAADgAH8AH/AH3wDg4BwcA4GAcDAOBgHAwDuYB3MA7mAdzAO5gHcwHucHnPHjjzj45j+Pz/n5/z8/5+f8/H8dx8c8AOPAeD9+Af+AD4A=")),20,200);
+				this.g.drawString(Math.round(notify.weather.temp-273),60,205);
 				//hum   
-				w.gfx.drawImage(E.toArrayBuffer(atob("HSCBAAAAAAAAEAAAAcAAAB8AAAD4AAAP4AAA94AABxwAAHjwAAODgAA4DgADwHgAHAHAAcAHAB4APADgAOAOGAOAYQQMBwhAcDhUA4HAIBwOAoDgcCCHAYAgMA4AA4BwABwBwAHAB4AcAB4DwAB//AAA/4AAAEAA")),145,200);
-				w.gfx.drawString(notify.weather.hum,190,205); //info
-				w.gfx.flip();
+				this.g.drawImage(E.toArrayBuffer(atob("HSCBAAAAAAAAEAAAAcAAAB8AAAD4AAAP4AAA94AABxwAAHjwAAODgAA4DgADwHgAHAHAAcAHAB4APADgAOAOGAOAYQQMBwhAcDhUA4HAIBwOAoDgcCCHAYAgMA4AA4BwABwBwAHAB4AcAB4DwAB//AAA/4AAAEAA")),145,200);
+				this.g.drawString(notify.weather.hum,190,205); //info
+				this.g.flip();
 				this.img=-1;
 			}else {
-				w.gfx.setColor(0,0);
-				w.gfx.fillRect(0,151,239,239);
-				w.gfx.setColor(1,15);//
+				this.g.setColor(0,0);
+				this.g.fillRect(0,151,239,239);
+				this.g.setColor(1,15);//
 				this.mac=(this.mac)?this.mac:set.read("dash","slot"+set.read("dash","slot")+"Mac");
 				if(!this.mac) {
-						w.gfx.setFont("Vector",25);
-						w.gfx.drawString("eucWatch",119-(w.gfx.stringWidth("eucWatch")/2),170); 
-						w.gfx.setFont("Vector",20);
-						w.gfx.drawString("Hold side Btn to Scan",119-(w.gfx.stringWidth("Hold side Btn to Scan")/2),215); 
-						w.gfx.flip();
+						this.g.setFont("Vector",25);
+						this.g.drawString("eucWatch",119-(this.g.stringWidth("eucWatch")/2),170); 
+						this.g.setFont("Vector",20);
+						this.g.drawString("Hold side Btn to Scan",119-(this.g.stringWidth("Hold side Btn to Scan")/2),215); 
+						this.g.flip();
 				}else {
-					w.gfx.setFont("Vector",35);
-					//w.gfx.drawString(euc.dash.maker,119-(w.gfx.stringWidth(euc.dash.maker)/2),170)); 
-					w.gfx.drawString(set.def.name,119-(w.gfx.stringWidth(set.def.name)/2),155);
-					w.gfx.setFont("Vector",30);
+					this.g.setFont("Vector",35);
+					//this.g.drawString(euc.dash.maker,119-(this.g.stringWidth(euc.dash.maker)/2),170)); 
+					this.g.drawString(set.def.name,119-(this.g.stringWidth(set.def.name)/2),155);
+					this.g.setFont("Vector",30);
 					if (euc.state !== "OFF") {
-						w.gfx.drawString(euc.state,119-(w.gfx.stringWidth(euc.state)/2),215); //
+						this.g.drawString(euc.state,119-(this.g.stringWidth(euc.state)/2),215); //
 					} else 	{
 						this.tot=0;
 						require('Storage').list("logYearSlot").forEach(logfile=>{
@@ -204,10 +205,10 @@ face[0] = {
 						this.tot=Math.round(this.tot);
 						if (3<this.tot.toString().length) 
                 this.tot=this.tot.toString().substring(0,this.tot.toString().length-3)+","+this.tot.toString().substring(this.tot.toString().length-3, this.tot.toString().length);
-						w.gfx.setFont("Vector",40);
-						w.gfx.drawString(this.tot+" "+((set.def.dash.mph)?"mi":"Km"),119-(w.gfx.stringWidth(this.tot+" "+((set.def.dash.mph)?"mi":"Km"))/2),200); 
+						this.g.setFont("Vector",40);
+						this.g.drawString(this.tot+" "+((set.def.dash.mph)?"mi":"Km"),119-(this.g.stringWidth(this.tot+" "+((set.def.dash.mph)?"mi":"Km"))/2),200); 
 					}
-					w.gfx.flip();
+					this.g.flip();
 				}
 			}
 		}
@@ -220,7 +221,7 @@ face[0] = {
 		this.s=(this.t[2]).toString().split('');
 		if (this.t[1]!=this.min ){
 			this.min=this.t[1];
-			w.gfx.setFont("Vector",73);
+			this.g.setFont("Vector",73);
 			this.fmin=14;
 			this.fsec=0;
 			if (global.alrm) {
@@ -228,39 +229,39 @@ face[0] = {
 				else if (alrm[1].tmr!==-1||alrm[2].tmr!==-1||alrm[3].tmr!==-1) {this.bmin=5;this.fsec=15;this.bsec=5;}
 				else  {this.bmin=1;this.fsec=15;this.bsec=1;}
 			}else {this.bmin=1;this.fsec=15;this.bsec=1;}
-			w.gfx.setColor(0,this.bmin);
-			w.gfx.fillRect(96,55,203,150);
-			w.gfx.setColor(1,this.fmin);
-			w.gfx.drawString(this.t[1],107,69);
-			w.gfx.flip();
+			this.g.setColor(0,this.bmin);
+			this.g.fillRect(96,55,203,150);
+			this.g.setColor(1,this.fmin);
+			this.g.drawString(this.t[1],107,69);
+			this.g.flip();
 		}
 		//seconds
-		w.gfx.setColor(0,this.bsec);
-		w.gfx.fillRect(203,55,240,150);
-		w.gfx.setColor(1,this.fsec);//
-		w.gfx.setFont("Vector",18);
+		this.g.setColor(0,this.bsec);
+		this.g.fillRect(203,55,240,150);
+		this.g.setColor(1,this.fsec);//
+		this.g.setFont("Vector",18);
 		let sec=(set.def.hr24)?"24H":(this.t[0]<12)?"AM":"PM";
-		w.gfx.drawString(sec,241-(w.gfx.stringWidth(sec)),74); //hours mode
-		w.gfx.setFont("Vector",30);
-		w.gfx.drawString(this.s[0]+this.s[1],206,101); //seconds
+		this.g.drawString(sec,241-(this.g.stringWidth(sec)),74); //hours mode
+		this.g.setFont("Vector",30);
+		this.g.drawString(this.s[0]+this.s[1],206,101); //seconds
 
-		w.gfx.flip(); 
+		this.g.flip(); 
 		//hours
 		if (this.t[0]!=this.hour){
 			this.hour=this.t[0];
-			w.gfx.setColor(0,this.bmin);
-			w.gfx.fillRect(0,55,95,150);
-			w.gfx.setColor(1,15);
-			w.gfx.setFont("Vector",73);
+			this.g.setColor(0,this.bmin);
+			this.g.fillRect(0,55,95,150);
+			this.g.setColor(1,15);
+			this.g.setFont("Vector",73);
 			if (set.def.hr24) {
-				w.gfx.drawString(this.hour,0,69); //hours
+				this.g.drawString(this.hour,0,69); //hours
 			} else {	
 				this.hour=(this.hour<10)?(this.hour=="00")?12:this.hour[1]:(this.hour<13)?this.hour:this.hour-12;
-				w.gfx.drawString(this.hour,(this.hour<10)?45:0,69); //hours
+				this.g.drawString(this.hour,(this.hour<10)?45:0,69); //hours
 			}
-			w.gfx.fillRect(91,90,95,94);
-			w.gfx.fillRect(91,110,95,114);
-			w.gfx.flip();
+			this.g.fillRect(91,90,95,94);
+			this.g.fillRect(91,110,95,114);
+			this.g.flip();
 		}
 	},
 	tid:-1,
@@ -272,7 +273,7 @@ face[0] = {
 		return true;
 	},
 	off: function(){
-		w.gfx.off();
+		this.g.off();
 		this.clear();
 	}
 };
@@ -294,7 +295,7 @@ face[1] = {
 		return true;
 		},
 		off: function(){
-		w.gfx.off();
+		this.g.off();
 	}
 };	
 

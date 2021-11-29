@@ -1,7 +1,6 @@
 //dash digital
 face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
-	old:set.def.bpp?0:1,
 	g:w.gfx,
 	spd:[],
 	init: function(){
@@ -9,7 +8,7 @@ face[0] = {
         if (face.appPrev.startsWith("dash_")) {
 			this.g.setColor(0,0);
 			this.g.fillRect(0,51,239,239);
-			if (this.old)this.g.flip();	
+			this.g.flip();	
 		}else this.g.clear();
 		this.spdC=[0,0,7,7];
 		this.ampC=[1,2992,7,7];
@@ -24,7 +23,7 @@ face[0] = {
 		this.batL=new Uint8Array(20);
 		this.ampL = new Uint8Array(20);
 		this.al=new Uint8Array(20);
-		this.ampL.fill(1,0,1);
+		this.ampL.fill(1,0,1)
 		this.volt=-1;
 		this.buzz=-1;
 		this.spdM=-1;
@@ -42,7 +41,7 @@ face[0] = {
 		if (euc.state=="READY") {
 			this.g.setColor(0,0);
 			//this.g.fillRect(0,0,0,0);
-			if (this.old)this.g.flip();
+			this.g.flip();
 			if (this.spd != Math.round(euc.dash.spd)) this.spdF();
 			// alarm events time graph
 			if (5<=this.spd && this.al!=almL) this.alF();
@@ -88,23 +87,21 @@ face[0] = {
 				this.g.setColor(1,15);
 				this.g.setFont("Vector",50);
 				this.g.drawString(euc.state,(125-this.g.stringWidth(euc.state)/2),95);
-				if (this.old)this.g.flip();
+				this.g.flip();
 				this.spd=-1;this.amp=-1;this.tmp=-1;this.bat=-1;this.trpL=-1;this.conn=0;this.lock=2;
 				this.buzz=-1;this.volt=-1;this.spdM=-1;this.alrm=-1;this.spdL=-1;this.spdM=-1;this.bar=0;
 				this.ampL.fill(1,0,1);this.batL.fill(1,0,1);
 				this.run=true;
 			}
 		}
-		if (!this.old)this.g.flip();
 		euc.new=0;
 		//refresh 
 		this.tid=setTimeout(function(t){
 			t.tid=-1;
 			t.show();
-		},50,this);
+		},150,this);
 	},
 	spdF: function(){
-		"ram";
 		this.spd=Math.round(euc.dash.spd);
 		this.g.setColor(0,(euc.dash.spdC==1)?0:this.spdC[euc.dash.spdC]);
 		this.g.fillRect(43,54,197,170);
@@ -116,14 +113,13 @@ face[0] = {
 			this.g.setFontVector(130);
 		//this.g.drawString((set.def.dashSpd)?euc.dash.spd:Math.round(euc.dash.spd/1.6),129-(this.g.stringWidth((set.def.dashSpd)?euc.dash.spd:Math.round(euc.dash.spd/1.6))/2),57); 
 		this.g.drawString(Math.round(this.spd*this.fact),129-(this.g.stringWidth(Math.round(this.spd*this.fact))/2),57); 
-		if (this.old)this.g.flip();
+		this.g.flip();
 		if (this.spd==0) { 
 			this.bar=1;
 			this.barF();
 		}
 	},
 	alF: function(){
-		"ram";
 		this.al.set(almL);
 		//print(this.al,almL);
 		this.g.setColor(0,1);
@@ -135,7 +131,7 @@ face[0] = {
 			w.gfx.fillRect(237-(i*12),(this.al[i])?181:191,237-((i*12)+8),191);
 		}
 		//});
-		if (this.old)this.g.flip();
+		this.g.flip();
 	},
 	ampF: function(){
 		this.amp=Math.round(euc.dash.amp);
@@ -146,7 +142,7 @@ face[0] = {
 		this.g.drawString("AMP", 8,59);
 		this.g.setFontVector(32);
 		this.g.drawString(this.amp|0, 22-(this.g.stringWidth(this.amp|0)/2),80); 
-		if (this.old)this.g.flip();
+		this.g.flip();
 	},
 	tmpF: function(){
 		this.tmp=Math.round(euc.dash.tmp);
@@ -159,7 +155,7 @@ face[0] = {
 		this.g.setFontVector((100<temp)?20:32);
 		this.g.drawString(temp,22-(this.g.stringWidth(temp)/2),80); 
 		//this.g.drawString(Math.round(this.tmp), 22-(this.g.stringWidth(Math.round(this.tmp))/2),80); 
-		if (this.old)this.g.flip();
+		this.g.flip();
 	},
 	buzF: function(){
 		this.buzz=euc.buzz;
@@ -168,7 +164,7 @@ face[0] = {
 		this.g.fillRect(0,115,40,173); 
 		this.g.setColor(1,(this.buzz)?15:0);
 		this.g.drawString("!", 19,130); 
-		if (this.old)this.g.flip();
+		this.g.flip();
 	},
 	spMF: function(){
 		this.spdM=euc.dash.spdM.toFixed(1);
@@ -179,7 +175,7 @@ face[0] = {
 		this.g.drawString("TOP", 208,59);
 		this.g.setFontVector(32);
 		this.g.drawString(Math.round(this.spdM*this.fact), 222-(this.g.stringWidth(Math.round(this.spdM*this.fact))/2),80); 
-		if (this.old)this.g.flip();
+		this.g.flip();
 	},	
 	spLF: function(){
 		this.spdL=euc.dash.spdL;
@@ -190,7 +186,7 @@ face[0] = {
 		this.g.drawString("LIMIT", 205,120);
 		this.g.setFontVector(32);
 		this.g.drawString(Math.round(this.spdL*this.fact), 202,140); 
-		if (this.old)this.g.flip();
+		this.g.flip();
 	},	
 	alrF: function(){
 		this.alrm=euc.dash.alrm;
@@ -199,7 +195,7 @@ face[0] = {
 		this.g.setColor(1,0);
 		this.g.setFontVector(35);
 		this.g.drawString("B", 212,130); 
-		if (this.old)this.g.flip();
+		this.g.flip();
 	},	
 	tmFF: function(){
 		this.tmp=euc.dash.tmp.toFixed(1);
@@ -215,7 +211,7 @@ face[0] = {
 		//this.g.drawString("o",size-3,2); 
 		this.g.setFontVector(16);
 		this.g.drawString((set.def.dash.farn)?"°F":"°C",size-1,5); 
-		if (this.old)this.g.flip();
+		this.g.flip();
 	},	
 	amLF: function(){
 		this.ampL.set(ampL);
@@ -228,7 +224,7 @@ face[0] = {
 		}
 		//w.gfx.fillRect(118-(i*6),(val<200)?50-(val*1.2):1,118-(i*6)-1,(val<200)?50:(255-val)*2);
 		//});
-		if (this.old)this.g.flip();
+		this.g.flip();
 	},	
 	pwrF: function(){
 		this.g.setColor(0,1);
@@ -250,7 +246,7 @@ face[0] = {
 		this.g.drawString(this.volt,(this.volt<100)?135:125,0); 
 		this.g.setFontVector(13);
 		this.g.drawString("VOLT",202,38);
-		if (this.old)this.g.flip();
+		this.g.flip();
 	},	
 	batF: function(){
 		this.bat=euc.dash.bat;
@@ -261,7 +257,7 @@ face[0] = {
 		this.g.drawString(this.bat,225-(this.g.stringWidth(this.bat)),3);
 		this.g.setFontVector(20);
 		this.g.drawString("%",227,8);
-		if (this.old)this.g.flip();
+		this.g.flip();
 	},
 	baLF: function(){
 		this.batL.set(batL);
@@ -275,7 +271,7 @@ face[0] = {
 		}
 		//	w.gfx.fillRect(238-(i*6),50-(val/2),238-(i*6)-1,50);
 		//});
-		if (this.old)this.g.flip();
+		this.g.flip();
 	},	
 	mileage: function(){
 		this.trpL=euc.dash.trpL.toFixed(2);
@@ -292,7 +288,7 @@ face[0] = {
 		}else 	
 			this.g.drawString(Math.round(euc.dash.trpT*this.trpF),240-(this.g.stringWidth(Math.round(euc.dash.trpT*this.trpF))),208); 
 		//}
-		if (this.old)this.g.flip();
+		this.g.flip();
 	},
 	barF: function(){
 		this.g.setColor(1,1);
@@ -308,7 +304,7 @@ face[0] = {
 			this.g.drawString((set.def.dash.mph)?"MPH":"KPH",105,180);
 			this.g.drawString((!set.def.dash.clck)?"CLOCK":"TOTAL",181,180); 
 		//}
-		if (this.old)this.g.flip();
+		this.g.flip();
 	},
 	tid:-1,
 	run:false,

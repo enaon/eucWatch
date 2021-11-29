@@ -114,8 +114,8 @@ face[1] = {
   }
 };	
 touchHandler[0]=function(e,x,y){ 
-	face.off();
-	switch (e) {
+	this.timeout();
+  switch (e) {
   case 5: case 12: //tap event//long press event
 	
     if(0<y&&y<100) {

@@ -37,7 +37,8 @@ euc.proxy={
 			}
 		}, {advertise: ['0xfff0'],uart:false });
 		NRF.setAdvertising({}, { name:euc.dash.model,connectable:true });
-		NRF.setAddress(euc.mac);
+		//NRF.setAddress(euc.mac);
+		NRF.setAddress("eu:cW:at:ch:00:01 public");
 		NRF.restart();
 		NRF.disconnect();
 	}, 

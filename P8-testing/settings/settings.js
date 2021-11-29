@@ -1,36 +1,37 @@
 //settings	
 face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
-	init: function(){ 
+	g:w.gfx,
+		init: function(){ 
 		face.mode=0;
 		if (face.faceSave==-1) face.faceSave=[face.appPrev,face.pagePrev,face.pageArg];
 		this.cli=-1;this.bt=-1;this.gb=-1;this.hid=-1;this.emuZ=-1;this.bri=-1;this.acc=-1;this.buzz=-1;this.sys=1;this.btn2=1;this.fmp=-1;
 		face[0].btSetOn=1;
 		var d=(Date()).toString().split(' ');
 		var t=(d[4]).toString().split(':');	
-		w.gfx.setColor(0,0);
-		//w.gfx.fillRect(0,0,239,155);
-		w.gfx.fillRect(76,0,79,155);
-		w.gfx.fillRect(156,0,159,155);
-		w.gfx.fillRect(0,76,239,79);
-		w.gfx.setColor(1,1);
-		//if(!face.mode) w.gfx.setColor(1,1); else w.gfx.setColor(1,1);
-		w.gfx.fillRect(0,0,75,75);//1
-		w.gfx.fillRect(80,0,155,75); //2
-		w.gfx.fillRect(160,0,239,75); //3
-		w.gfx.fillRect(0,80,75,155); //4
-		w.gfx.fillRect(80,80,155,155); //5
-		w.gfx.fillRect(160,80,239,155);//6
-		w.gfx.flip();
+		this.g.setColor(0,0);
+		//this.g.fillRect(0,0,239,155);
+		this.g.fillRect(76,0,79,155);
+		this.g.fillRect(156,0,159,155);
+		this.g.fillRect(0,76,239,79);
+		this.g.setColor(1,1);
+		//if(!face.mode) this.g.setColor(1,1); else this.g.setColor(1,1);
+		this.g.fillRect(0,0,75,75);//1
+		this.g.fillRect(80,0,155,75); //2
+		this.g.fillRect(160,0,239,75); //3
+		this.g.fillRect(0,80,75,155); //4
+		this.g.fillRect(80,80,155,155); //5
+		this.g.fillRect(160,80,239,155);//6
+		this.g.flip();
 		//bottom
-		w.gfx.setColor(0,0);
-		//w.gfx.fillRect(0,0,239,239);
-		w.gfx.fillRect(0,156,239,239);
-		w.gfx.setColor(1,14);
-		w.gfx.drawImage(require("heatshrink").decompress(atob("mEwwILIgOAAp0EAoMQAoMMAoMwAoMGAoNgAoMDAQPADgcBAooqEADcP///+AFNABcHCIPgKYQFHKYYFHLIYFHFQd/Aol8nwFDngFdvwFDn/+AvX8ApIADA==")),10,195);
-		w.gfx.drawImage(require("heatshrink").decompress(atob("mEwwI2zgP/Ao0f////P/nE/AoP9/88ApU4EZYADAooAICg2AApE8/+/G4P4Aon8AoscCIgjLACkf8AFE+CJDz/3/B9CAoP8ApRBBDogFJF4gAsA=")),95,195);	//w.gfx.drawImage(require("heatshrink").decompress(atob("mE3wIcZn////+AoIEBAAOAgIFD4ED4AOBgfgg+ADYXwh4hDvEOAoc4AoscgEBD4McAoIhBgEYAoMHAoIMBAoPwAoYRCAoQdChAFBAAQjCApcBJ4I1FAoQ1CAoY1BAvBHFAoU8SoRZBTYytFXIqNDM4LRB/EPaILdB/kf/4OBj/+n/4DQUPvAmDh6zCEIQFEFYYABXIQAkA==")),94,195);
-		w.gfx.drawImage(require("heatshrink").decompress(atob("mEwwIKH/ACBh8Agf+AoN/4EH/+AgH/+EP//AgP//EfAoMDAo38n4dDAoIpCj4FB8E//kHAoPA///wIFBwYFB8AFBGAI0BvkeFQIuBnkcn/wDgM4FgOAgIyC/41CAQIICn4OB/kB4EfAoP4AoMPKAPwAo8H8ABBAo8DAoJ2BAo5EBAYIFF8AFE+AFE/gFC8BMBEYQFBh+DAocHw4fCL4IJBAoZTBL4IFE/inCZAJ3EQYzaBR4abBh4aDU4QFEBYU/AoIXCvwFB3wFBvjbBjwFBXYMAAoQAEA=")),180,195);
-		w.gfx.flip();
+		this.g.setColor(0,0);
+		//this.g.fillRect(0,0,239,239);
+		this.g.fillRect(0,156,239,239);
+		this.g.setColor(1,14);
+		this.g.drawImage(require("heatshrink").decompress(atob("mEwwILIgOAAp0EAoMQAoMMAoMwAoMGAoNgAoMDAQPADgcBAooqEADcP///+AFNABcHCIPgKYQFHKYYFHLIYFHFQd/Aol8nwFDngFdvwFDn/+AvX8ApIADA==")),10,195);
+		this.g.drawImage(require("heatshrink").decompress(atob("mEwwI2zgP/Ao0f////P/nE/AoP9/88ApU4EZYADAooAICg2AApE8/+/G4P4Aon8AoscCIgjLACkf8AFE+CJDz/3/B9CAoP8ApRBBDogFJF4gAsA=")),95,195);	//this.g.drawImage(require("heatshrink").decompress(atob("mE3wIcZn////+AoIEBAAOAgIFD4ED4AOBgfgg+ADYXwh4hDvEOAoc4AoscgEBD4McAoIhBgEYAoMHAoIMBAoPwAoYRCAoQdChAFBAAQjCApcBJ4I1FAoQ1CAoY1BAvBHFAoU8SoRZBTYytFXIqNDM4LRB/EPaILdB/kf/4OBj/+n/4DQUPvAmDh6zCEIQFEFYYABXIQAkA==")),94,195);
+		this.g.drawImage(require("heatshrink").decompress(atob("mEwwIKH/ACBh8Agf+AoN/4EH/+AgH/+EP//AgP//EfAoMDAo38n4dDAoIpCj4FB8E//kHAoPA///wIFBwYFB8AFBGAI0BvkeFQIuBnkcn/wDgM4FgOAgIyC/41CAQIICn4OB/kB4EfAoP4AoMPKAPwAo8H8ABBAo8DAoJ2BAo5EBAYIFF8AFE+AFE/gFC8BMBEYQFBh+DAocHw4fCL4IJBAoZTBL4IFE/inCZAJ3EQYzaBR4abBh4aDU4QFEBYU/AoIXCvwFB3wFBvjbBjwFBXYMAAoQAEA=")),180,195);
+		this.g.flip();
 		this.run=true;
 	},
 	show : function(s){
@@ -38,11 +39,11 @@ face[0] = {
 		//torch
 		if (s) face.mode=1;
 		if (this.tor==1) {
-			w.gfx.setColor(0,15);
-			w.gfx.fillRect(0,0,239,239); 
-			w.gfx.setColor(1,3);
-			w.gfx.drawImage(require("heatshrink").decompress(atob("mEwwILIgOAAp0EAoMQAoMMAoMwAoMGAoNgAoMDAQPADgcBAooqEADcP///+AFNABcHCIPgKYQFHKYYFHLIYFHFQd/Aol8nwFDngFdvwFDn/+AvX8ApIADA==")),50,30,{scale:3});
-			w.gfx.flip();
+			this.g.setColor(0,15);
+			this.g.fillRect(0,0,239,239); 
+			this.g.setColor(1,3);
+			this.g.drawImage(require("heatshrink").decompress(atob("mEwwILIgOAAp0EAoMQAoMMAoMwAoMGAoNgAoMDAQPADgcBAooqEADcP///+AFNABcHCIPgKYQFHKYYFHLIYFHFQd/Aol8nwFDngFdvwFDn/+AvX8ApIADA==")),50,30,{scale:3});
+			this.g.flip();
 			this.appImgNone=0;
 			this.btSetOn=1;
 			return;
@@ -51,30 +52,30 @@ face[0] = {
 		}else if(this.themeSet){
 			if(this.themeSetOn){
 			 	this.themeSetOn=0;
-				w.gfx.setColor(0,0);
-				w.gfx.fillRect(0,0,239,155);
-				w.gfx.setColor(1,1);
-				w.gfx.fillRect(0,0,239,75);
-				//w.gfx.fillRect(0,80,239,155); 
-				w.gfx.flip();
-				w.gfx.setColor(0,15);
-				w.gfx.setFont("Vector",35);
-				w.gfx.drawString(face.appRoot[0],120-(w.gfx.stringWidth(face.appRoot[0])/2),20);
-				w.gfx.flip();
+				this.g.setColor(0,0);
+				this.g.fillRect(0,0,239,155);
+				this.g.setColor(1,1);
+				this.g.fillRect(0,0,239,75);
+				//this.g.fillRect(0,80,239,155); 
+				this.g.flip();
+				this.g.setColor(0,15);
+				this.g.setFont("Vector",35);
+				this.g.drawString(face.appRoot[0],120-(this.g.stringWidth(face.appRoot[0])/2),20);
+				this.g.flip();
 				this.themetout();
 			}
 			
 		}else if(this.btSet){
 			if(this.btSetOn){
 				this.btSetOn=0;
-				//w.gfx.setColor(1,(set.def.cli||set.def.gb||set.def.emuZ||set.def.hid)?4:1);
-				w.gfx.setColor(1,1);
-				w.gfx.fillRect(0,0,155,75);
-				w.gfx.setColor(0,15);
+				//this.g.setColor(1,(set.def.cli||set.def.gb||set.def.emuZ||set.def.hid)?4:1);
+				this.g.setColor(1,1);
+				this.g.fillRect(0,0,155,75);
+				this.g.setColor(0,15);
 				//bt
-				w.gfx.drawImage(require("heatshrink").decompress(atob("mEwwIXUgYFFwAFE4AFE8AFE/AFE/gFE/wFE/4FE74qCgUD54qCg8D44qCh+D4fwAoXDAocD8YRDgPzDocA/YpDgF/Gok/IIkfJokPLIkHFwQFHCIodFFIo1FIIhNFLIplFOIp9FRIqVFUI6tFXIrFFaIrdFdIr/IABY=")),54,15);
-				w.gfx.drawImage((set.def.rfTX==-4)?E.toArrayBuffer(atob("EyCBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfAAPgAEQACIABEAAiAARAAIgAHz74=")):(set.def.rfTX==0)?E.toArrayBuffer(atob("EyCBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4ADEABiAAxAfYgPsQEWICLEBFiAixARYgIsQHz74=")):E.toArrayBuffer(atob("EyCBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+AARAAIgAEQD6IDFEBiiAxRfYovsUUWKKLFFFiiixRRYoosUXz74=")),125,32);
-				w.gfx.flip();
+				this.g.drawImage(require("heatshrink").decompress(atob("mEwwIXUgYFFwAFE4AFE8AFE/AFE/gFE/wFE/4FE74qCgUD54qCg8D44qCh+D4fwAoXDAocD8YRDgPzDocA/YpDgF/Gok/IIkfJokPLIkHFwQFHCIodFFIo1FIIhNFLIplFOIp9FRIqVFUI6tFXIrFFaIrdFdIr/IABY=")),54,15);
+				this.g.drawImage((set.def.rfTX==-4)?E.toArrayBuffer(atob("EyCBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfAAPgAEQACIABEAAiAARAAIgAHz74=")):(set.def.rfTX==0)?E.toArrayBuffer(atob("EyCBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4ADEABiAAxAfYgPsQEWICLEBFiAixARYgIsQHz74=")):E.toArrayBuffer(atob("EyCBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+AARAAIgAEQD6IDFEBiiAxRfYovsUUWKKLFFFiiixRRYoosUXz74=")),125,32);
+				this.g.flip();
 			}
 			if (set.def.cli!=this.cli) {
 				this.cli=set.def.cli;
@@ -106,14 +107,14 @@ face[0] = {
 			//themes 
 			if (this.btn2) {
 				this.btn2=0;
-				w.gfx.setColor(0,0);
-				w.gfx.clearRect(76,0,79,75);
-				w.gfx.flip();
-				w.gfx.setColor(1,1);
-				w.gfx.fillRect(80,0,155,75); //2
-				w.gfx.setColor(0,14);
-				w.gfx.drawImage(require("heatshrink").decompress(atob("mEwwIHEgfwAocH/AFDh/8Aocf/wFDn//Aod/Aon//8PAQPBAomDAQMfAQMH//+AoP+BwIFC/gCE+AuB/Ef4AuC+EfwAuC8AFBgIFB4AFBgYFBwAFBFwJGBAoIuCAoQuCAoQuCAonwoAFBGgPgFIQLB4IFBQIJgB4EeRoJgB4Ecg+D/wFBjE/8P8h5XC+H4AoQzB+AFD/lAAoJdBIoIFDKIIFfQIIpDApB+BAoZsBAoX4PAPANIPwAoR1B+CtDcQaHCYAL3CTwIAC")),95,15);
-				w.gfx.flip();
+				this.g.setColor(0,0);
+				this.g.clearRect(76,0,79,75);
+				this.g.flip();
+				this.g.setColor(1,1);
+				this.g.fillRect(80,0,155,75); //2
+				this.g.setColor(0,14);
+				this.g.drawImage(require("heatshrink").decompress(atob("mEwwIHEgfwAocH/AFDh/8Aocf/wFDn//Aod/Aon//8PAQPBAomDAQMfAQMH//+AoP+BwIFC/gCE+AuB/Ef4AuC+EfwAuC8AFBgIFB4AFBgYFBwAFBFwJGBAoIuCAoQuCAoQuCAonwoAFBGgPgFIQLB4IFBQIJgB4EeRoJgB4Ecg+D/wFBjE/8P8h5XC+H4AoQzB+AFD/lAAoJdBIoIFDKIIFfQIIpDApB+BAoZsBAoX4PAPANIPwAoR1B+CtDcQaHCYAL3CTwIAC")),95,15);
+				this.g.flip();
 			}
 			//buzz on/off
 			if (set.def.buzz!=this.buzz) {
@@ -132,17 +133,17 @@ face[0] = {
 				this.btn(this.acc,80,80,155,155,require("heatshrink").decompress(atob("mEwwJC/AAkPwAECgP//AFCg///4FCj4FBCQU/AoPgAoN/4Ef+AFB/wZBDwMB/gCCgUDBwV+h0HDQU/jkP4AsCvg/Dh/8j5JDAokH/k+Igf4Aoc//E8AoRbBvhhEAoUD//wjAnBwIFBEIRaEn/AgIFDJ4QFIKoQdDAoibDgECbfA=")),95,94,14,4,14,(euc.state=="READY")?4:2);
 			}
 			//brightness level
-			if (w.gfx.bri.lv!=this.bri) {
-				this.bri=w.gfx.bri.lv;
+			if (this.g.bri.lv!=this.bri) {
+				this.bri=this.g.bri.lv;
 				this.c=15;
-				w.gfx.setColor(0,1);
-				w.gfx.clearRect(160,80,239,155);//brightness
-				w.gfx.setColor(1,this.c);
-				w.gfx.setFont("Vector",30);
-				w.gfx.drawImage(require("heatshrink").decompress(atob("jEXwIHEhAKCAQcEAgMGAQMCuADB+EAgICEgYCBnYFEBwoXCDoUGiEAhw9DAQ4ABA")),170,107);
-				w.gfx.setFont("Vector",45);
-				w.gfx.drawString(w.gfx.bri.lv,194,99);   
-				w.gfx.flip();
+				this.g.setColor(0,1);
+				this.g.clearRect(160,80,239,155);//brightness
+				this.g.setColor(1,this.c);
+				this.g.setFont("Vector",30);
+				this.g.drawImage(require("heatshrink").decompress(atob("jEXwIHEhAKCAQcEAgMGAQMCuADB+EAgICEgYCBnYFEBwoXCDoUGiEAhw9DAQ4ABA")),170,107);
+				this.g.setFont("Vector",45);
+				this.g.drawString(this.g.bri.lv,194,99);   
+				this.g.flip();
 			}
 		}
 		//loop
@@ -155,7 +156,7 @@ face[0] = {
 	run:false,
 	clear : function(o){
 		//pal[0]=0;
-		//w.gfx.clear();
+		//this.g.clear();
 		if (set.tor==1){
 			w.gfx.bri.set(this.cbri);
 			face.faceSave=-1;
@@ -167,33 +168,33 @@ face[0] = {
 		return true;
 	},
 	off: function(o){
-		w.gfx.off();
+		this.g.off();
 		this.clear(o);
 	},
 	btn:function(state,rectx0,recty0,rectx1,recty1,Img,ImgX,ImgY,efCol,ebCol,dfCol,dbCol){
 		if (state) {this.colf=(efCol)?efCol:15;this.colb=(ebCol)?ebCol:4;}
 		else {this.colf=(dfCol)?dfCol:0;this.colb=(dbCol)?dbCol:1;}
-		w.gfx.setColor(1,this.colb);
-		w.gfx.fillRect(rectx0,recty0,rectx1,recty1);
-		w.gfx.setColor(0,this.colf);
-		w.gfx.drawImage(Img,ImgX,ImgY);
+		this.g.setColor(1,this.colb);
+		this.g.fillRect(rectx0,recty0,rectx1,recty1);
+		this.g.setColor(0,this.colf);
+		this.g.drawImage(Img,ImgX,ImgY);
 		Img=-1;
-		w.gfx.flip();
+		this.g.flip();
 	},
 	themetout:function(tim){
-		w.gfx.setColor(0,1);
-		w.gfx.fillRect(0,80,239,155); 
-		w.gfx.setColor(1,15);
-		w.gfx.setFont("Vector",18);
+		this.g.setColor(0,1);
+		this.g.fillRect(0,80,239,155); 
+		this.g.setColor(1,15);
+		this.g.setFont("Vector",18);
 		this.tout=(set.def.off[face.appRoot[0]])?set.def.off[face.appRoot[0]]:3000;
-		w.gfx.drawString("TIMEOUT (" + ((this.tout<60000)?"seconds":(this.tout<3600000)?"minutes":"hours") + ")",120-(w.gfx.stringWidth("TIMEOUT (" + ((this.tout<60000)?"seconds":(this.tout<3600000)?"minutes":"hours") + ")")/2),85);
-		//w.gfx.setFont("Vector",18);
-		//w.gfx.drawString("TIMEOUT (seconds)",120-(w.gfx.stringWidth("TIMEOUT (seconds)")/2),85);
-		w.gfx.setFont("Vector",30);
-		w.gfx.drawString("<",20,120);w.gfx.drawString(">",195,120);
-		w.gfx.setFont("Vector",45);
-		w.gfx.drawString(this.tout/   ( (this.tout<60000)?"1000":(this.tout<3600000)?"60000":"3600000"),120-(w.gfx.stringWidth( this.tout/( (this.tout<60000)?"1000":(this.tout<3600000)?"60000":"3600000") )/2),115);
-		w.gfx.flip();
+		this.g.drawString("TIMEOUT (" + ((this.tout<60000)?"seconds":(this.tout<3600000)?"minutes":"hours") + ")",120-(this.g.stringWidth("TIMEOUT (" + ((this.tout<60000)?"seconds":(this.tout<3600000)?"minutes":"hours") + ")")/2),85);
+		//this.g.setFont("Vector",18);
+		//this.g.drawString("TIMEOUT (seconds)",120-(this.g.stringWidth("TIMEOUT (seconds)")/2),85);
+		this.g.setFont("Vector",30);
+		this.g.drawString("<",20,120);this.g.drawString(">",195,120);
+		this.g.setFont("Vector",45);
+		this.g.drawString(this.tout/   ( (this.tout<60000)?"1000":(this.tout<3600000)?"60000":"3600000"),120-(this.g.stringWidth( this.tout/( (this.tout<60000)?"1000":(this.tout<3600000)?"60000":"3600000") )/2),115);
+		this.g.flip();
 	},
 };
 //
@@ -229,30 +230,30 @@ face[5] = {
 		while (s>86400) {s=s-86400;d++;}
 		while (s>3600) {s=s-3600;h++;}
 		while (s>60) {s=s-60;m++;}
-		w.gfx.setColor(0,0);
-		w.gfx.fillRect(0,0,239,239); //all
-		w.gfx.setColor(1,14);
-		w.gfx.setFont("Vector",18);
-		w.gfx.drawString("MEMORY: "+mem.free+"/"+mem.total,120-(w.gfx.stringWidth("MEMORY: "+mem.free+"/"+mem.total)/2),0);  
-		w.gfx.drawString("IMAGE: "+process.version,120-(w.gfx.stringWidth("IMAGE: "+process.version)/2),25);  
-		w.gfx.drawString("ACC TYPE: "+set.def.acctype,120-(w.gfx.stringWidth("ACC TYPE: "+set.def.acctype)/2),50);  
-		w.gfx.drawString("TOUCH TYPE: "+set.def.touchtype,120-(w.gfx.stringWidth("TOUCH TYPE: "+set.def.touchtype)/2),75);  
-		w.gfx.drawString("UPTIME: "+d+"D-"+h+"H-"+m+"M",120-(w.gfx.stringWidth("UPTIME: "+d+"D-"+h+"H-"+m+"M")/2),100);  
-		w.gfx.drawString("FLASH: "+require("Storage").getFree(),120-(w.gfx.stringWidth("FLASH: "+require("Storage").getFree())/2),125); 
-		w.gfx.drawString("TEMPERATURE: "+E.getTemperature(),120-(w.gfx.stringWidth("TEMPERATURE: "+E.getTemperature())/2),150);  
-		w.gfx.drawString("NAME: "+set.def.name,120-(w.gfx.stringWidth("NAME: "+set.def.name)/2),175);  
-		w.gfx.flip();
-		w.gfx.setFont("Vector",18);
-		w.gfx.setColor(0,4);
-		w.gfx.fillRect(0,200,117,239);
-		w.gfx.setColor(1,15);
-		w.gfx.drawString("RESTART",18,213);
-		w.gfx.flip();	
-		w.gfx.setColor(0,4);
-		w.gfx.fillRect(121,200,239,239);
-		w.gfx.setColor(1,15);
-		w.gfx.drawString("DEVMODE",136,213);
-		w.gfx.flip();
+		this.g.setColor(0,0);
+		this.g.fillRect(0,0,239,239); //all
+		this.g.setColor(1,14);
+		this.g.setFont("Vector",18);
+		this.g.drawString("MEMORY: "+mem.free+"/"+mem.total,120-(this.g.stringWidth("MEMORY: "+mem.free+"/"+mem.total)/2),0);  
+		this.g.drawString("IMAGE: "+process.version,120-(this.g.stringWidth("IMAGE: "+process.version)/2),25);  
+		this.g.drawString("ACC TYPE: "+set.def.acctype,120-(this.g.stringWidth("ACC TYPE: "+set.def.acctype)/2),50);  
+		this.g.drawString("TOUCH TYPE: "+set.def.touchtype,120-(this.g.stringWidth("TOUCH TYPE: "+set.def.touchtype)/2),75);  
+		this.g.drawString("UPTIME: "+d+"D-"+h+"H-"+m+"M",120-(this.g.stringWidth("UPTIME: "+d+"D-"+h+"H-"+m+"M")/2),100);  
+		this.g.drawString("FLASH: "+require("Storage").getFree(),120-(this.g.stringWidth("FLASH: "+require("Storage").getFree())/2),125); 
+		this.g.drawString("TEMPERATURE: "+E.getTemperature(),120-(this.g.stringWidth("TEMPERATURE: "+E.getTemperature())/2),150);  
+		this.g.drawString("NAME: "+set.def.name,120-(this.g.stringWidth("NAME: "+set.def.name)/2),175);  
+		this.g.flip();
+		this.g.setFont("Vector",18);
+		this.g.setColor(0,4);
+		this.g.fillRect(0,200,117,239);
+		this.g.setColor(1,15);
+		this.g.drawString("RESTART",18,213);
+		this.g.flip();	
+		this.g.setColor(0,4);
+		this.g.fillRect(121,200,239,239);
+		this.g.setColor(1,15);
+		this.g.drawString("DEVMODE",136,213);
+		this.g.flip();
 		face[0].appImgNone=0;
 	},
 	show : function(){
@@ -266,7 +267,7 @@ face[5] = {
 		return true;
 	},
 	off: function(o){
-		w.gfx.off();
+		this.g.off();
 		this.clear(o);
 	}
 };
