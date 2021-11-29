@@ -153,6 +153,8 @@ euc.conn=function(mac){
 //		inpk=new Uint8Array(event.target.value.buffer);
 		var inpk=new Uint8Array(20);
 		c.on('characteristicvaluechanged', function(event) {
+			if (set.bt===2&&2<set.dbg) console.log("KingSong: packet in ",event.target.value.buffer); 
+			if (set.bt==4) 	euc.proxy.w(event.target.value.buffer);
 			inpk.set(event.target.value.buffer);
             if (euc.busy) return;
 			euc.alert=0;
@@ -297,6 +299,14 @@ euc.conn=function(mac){
 					euc.off("not connected");
 					return;
 				}
+			//forward if cmd unknown	
+			}else if (!euc.cmd(n)) {
+				c.writeValue(n).then(function() {
+                    clearTimeout(euc.busy);euc.busy=0;
+				}).catch(function(err)  {
+					clearTimeout(euc.busy);euc.busy=0;euc.off("err-fwd");
+				});
+			//rest	
 			}else { 
 				c.writeValue(euc.cmd(n)).then(function() {
 					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}

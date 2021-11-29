@@ -28,7 +28,7 @@ if(!global.scan){
 				set.gIsB=0;
 				face[0].start=1;
 				if (face.appCurr!="w_scan") {delete scan.go;delete scan;}
-			}, 2000);
+			},  {active:true, timeout:4000});
 		}	
 	};
 }
@@ -162,6 +162,7 @@ face[1] = {
 };	
 //
 touchHandler[0]=function(e,x,y){
+	face.off();
     if (e==5||e==12){
 		if (!face[0].start||face[0].start==1) { buzzer(buz.na);return}
 		if (face[0].start==3) { buzzer(buz.ok);face[0].find(face.pageArg); return}

@@ -11,10 +11,10 @@ global.euc= {
 	tgl:function(){ 
 		if (this.state!="OFF" ) {
 			buzzer(1,200);
-			acc.on(1);
+			if (global.acc) acc.on(1);
 			this.seq=1;
 			this.state="OFF";
-   			face.go("dash",0);
+   			if (global.face)face.go("dash",0);
 			if (require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]!="Ninebot") 
 				euc.wri("end");
 			else  
@@ -34,10 +34,10 @@ global.euc= {
 		    }else {
 				eval(require('Storage').read('euc'+require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]));
 				this.state="ON";
-				acc.on(2);
+				if (global.acc) acc.on(2);
 				this.seq=1;
 				this.conn(this.mac); 
-				face.go("dash");return;
+				if (global.face)face.go("dash");return;
             }
 		}
 	} 

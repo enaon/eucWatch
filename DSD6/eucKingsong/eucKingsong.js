@@ -56,10 +56,10 @@ euc.conn=function(mac){
 	}).then(function(c) {
 		c.on('characteristicvaluechanged', function(event) {
 			this.var= event.target.value.getUint8(16, true);
-			//print (event.target.value.buffer);
+			if (2<set.dbg) print (event.target.value.buffer);
             if (euc.busy) return;
-            if (set.bt==4&&euc.dash.emu==1) {
-				euc.emuW(event.target.value.buffer);
+            if (set.bt==4) {
+				euc.proxy.w(event.target.value.buffer);
 			}
 			switch (this.var){
 				case  169:
@@ -180,6 +180,7 @@ euc.conn=function(mac){
 		return  c;
 	//write
 	}).then(function(c) {
+		euc.tmp=c;
 		console.log("EUC connected"); 
           buzzer(1,[90,40,150]);
 		euc.wri= function(n) {
@@ -255,7 +256,7 @@ euc.conn=function(mac){
 								c.writeValue(euc.cmd("model")).then(function() {
 									if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 									euc.state="READY";
-                                    c.startNotifications();
+                                   c.startNotifications();
 									euc.run=1;
 								});
 								return;

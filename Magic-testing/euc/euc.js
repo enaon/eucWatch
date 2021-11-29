@@ -32,6 +32,7 @@ global.euc= {
 			acc.off();
 			this.wri("end");
 			setTimeout(function(){face.go("dashOff",0);},150);
+			if (this.proxy) this.proxy.e();
 			setTimeout(()=>{
 				//print("log");
 				if (this.log.trp[1]&& 0<this.dash.trpT-this.log.trp[1] ) {
@@ -57,7 +58,9 @@ global.euc= {
 				face.go('dashScan',0);return;
 			}else {
 				eval(require('Storage').read('euc'+require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]));
-				this.state="ON";
+				if (set.def.emuZ&&require('Storage').read('proxy'+euc.dash.maker)){
+					eval(require('Storage').read('proxy'+euc.dash.maker));
+				}				this.state="ON";
 				if (this.dash.bms==undefined) this.dash.bms=1.5;
 				if (this.dash.batF<=10) this.dash.batF=420;
 				if (this.dash.maker!=="Kingsong"||this.dash.maker!=="inmotionV11") this.dash.spdM=0;

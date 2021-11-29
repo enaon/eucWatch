@@ -28,7 +28,7 @@ if(!global.scan){
 				set.gIsB=0;
 				face[0].start=1;
 				if (face.appCurr!="w_scan") {delete scan.go;delete scan;}
-			}, 2000);
+			}, {active:true, timeout:4000});
 		}	
 	};
 }

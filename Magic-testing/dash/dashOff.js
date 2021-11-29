@@ -15,7 +15,7 @@ face[0] = {
 		this.disp=0;
 		//this.g.setColor(0,0);
 		//this.g.flip();
-		this.btn(1,"24HRS",30,60,13,4,4,0,0,119,50);
+		this.btn(1,"24HRS",30,65,13,4,4,0,0,119,50);
 		this.btn(1,"INFO",30,185,10,0,4,120,0,239,50);
 		this.sc();
 		this.sel(this.comf((this.totD*((set.def.dash.mph)?0.625:1)).toFixed((this.page)?(this.page==1)?1:0:2)),"<   TOTAL   >");
@@ -192,8 +192,8 @@ touchHandler[0]=function(e,x,y){
 				if (face[0].info) return;
 				face[0].info=1;
 				let btC=[4,1,7,7];
-				face[0].btn(1,euc.dash.bat,50,180,3,btC[euc.dash.batC],0,120,0,239,50,"%",50,235,8);
-				face[0].btn(1,"24HRS",30,60,13,0,0,0,0,119,50);
+				face[0].btn(1,euc.dash.bat,50,180,3,btC[euc.dash.batC],0,120,0,239,50,"%",20,235,35);
+				face[0].btn(1,"24HRS",30,65,13,0,0,0,0,119,50);
 				face[0].page=2;	
 				w.gfx.setColor(0,0);
 				w.gfx.fillRect(0,51,239,239); 
@@ -229,7 +229,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].len=7;
 					face[0].ref=Date().getDay();
 					face[0].pos=face[0].ref;
-					face[0].btn(1,"7DAYS",30,60,13,4,4,0,0,119,50);
+					face[0].btn(1,"7DAYS",30,65,13,4,4,0,0,119,50);
 					face[0].log=require("Storage").readJSON("logWeekSlot"+set.def.dash.slot+".json",1);
 					face[0].id=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
 					face[0].id[face[0].ref]="Today";
@@ -238,7 +238,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].len=12;
 					face[0].ref=Date().getMonth();
 					face[0].pos=face[0].ref;
-					face[0].btn(1,"YEAR",30,60,13,4,4,0,0,119,50);
+					face[0].btn(1,"YEAR",30,65,13,4,4,0,0,119,50);
 					face[0].log=require("Storage").readJSON("logYearSlot"+set.def.dash.slot+".json",1);
 					face[0].id=["January","February","March","April","May","June","July","August","September","October","November","December"];
 					//face[0].id[face[0].ref]="running Month";
@@ -247,7 +247,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].len=24;
 					face[0].ref=Date().getHours();
 					face[0].pos=face[0].ref;
-					face[0].btn(1,"24HRS",30,60,13,4,4,0,0,119,50);
+					face[0].btn(1,"24HRS",30,65,13,4,4,0,0,119,50);
 					face[0].log=require("Storage").readJSON("logDaySlot"+set.def.dash.slot+".json",1);
 					face[0].id=(set.def.hr24)?["00:00 - 01:00","01:00 - 02:00","02:00 - 03:00","03:00 - 04:00","04:00 - 05:00","05:00 - 06:00","06:00 - 07:00","07:00 - 08:00","08:00 - 09:00","09:00 - 10:00","10:00 - 11:00","11:00 - 12:00","12:00 - 13:00","13:00 - 14:00","14:00 - 15:00","15:00 - 16:00","16:00 - 17:00","17:00 - 18:00","18:00 - 19:00","19:00 - 20:00","20:00 - 21:00","21:00 - 22:00","22:00 - 23:00","23:00 - 00:00"]
 		:["12:00 - 1:00 AM","1:00 - 2:00 AM","2:00 - 3:00 AM","3:00 - 4:00 AM","4:00 - 5:00 AM","5:00 - 6:00 AM","6:00 - 7:00 AM","7:00 - 8:00 AM","8:00 - 9:00 AM","9:00 - 10:00 AM","10:00 - 11:00 AM","11:00 - 11:59 AM","12:00 - 1:00 PM","1:00 - 2:00 PM","2:00 - 3:00 PM","3:00 - 4:00 PM","4:00 - 5:00 PM","5:00 - 6:00 PM","6:00 - 7:00 PM","7:00 - 8:00 PM","8:00 - 9:00 PM","9:00 - 10:00 PM","10:00 - 11:00 PM","11:00 - 11:59 PM"];
