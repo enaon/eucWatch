@@ -133,7 +133,7 @@ if (!set.def.addr) set.def.addr=NRF.getAddress();
 //buzzzer
 if (set.def.buzz) buzzer = digitalPulse.bind(null,ew.pin.BUZZ,0);
 else buzzer=function(){return true;};
-buz={ok:[5,20,5],na:20,ln:80,on:40,off:[20,25,20]};
+buz={ok:[15,30,20],na:25,ln:80,on:40,off:[20,25,20]};
 
 if (!set.def.off) set.def.off={};
 //dash

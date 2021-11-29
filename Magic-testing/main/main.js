@@ -67,7 +67,9 @@ face[0] = {
 				var colbtf=15;
 				if (set.bt==0) colbtf=3;
 				this.g.setColor(1,colbtf);
-				this.g.drawImage(E.toArrayBuffer(atob("CxQBBgDgFgJgR4jZMawfAcA4D4NYybEYIwTAsBwDAA==")),3,13);
+				//var img = require("heatshrink").decompress(atob("iEQwIFCgIBB4EB8EJ2EF2ED8AJC4AFBBIINBCIILCDoQ"))
+				this.g.drawImage(E.toArrayBuffer(atob("EBCBAAAAAQABwAHgCbAFsAPgAcABwAPgBbAJsAHgAcABAAAA")),3,20);
+				//this.g.drawImage(E.toArrayBuffer(atob("CxQBBgDgFgJgR4jZMawfAcA4D4NYybEYIwTAsBwDAA==")),3,13);
 				if (this.old)this.g.flip();
 			}  
 		}

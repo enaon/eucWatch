@@ -88,7 +88,7 @@ face[0] = {
 			}
 			if (set.def.emuZ!=this.emuZ) {
 				this.emuZ=set.def.emuZ;
-				this.btn(this.emuZ,80,80,155,155,require("heatshrink").decompress(atob("mEwwMB/4AL/ATBh4FB4AFBCwQgD//+Aod//kDCgU//kfEAUf/E/AoIJB+F/AoP+h4FD/4FBHIcH+H8vgFBw/gAoITBAowRCAoYdDAoovG/A7EI4v8NwXwLIJlDn5rF/+APongAoJ0CN4Q4D/grCAqYdF8EHAofAFwYFGwPBEIUAg5DBLIQFVD4ODEYQvH8AFE+BHEKYoAJA=")),95,94,14,4,0,2);//btn5
+				this.btn(this.emuZ,80,80,155,155,require("heatshrink").decompress(atob("mEwwIcZn////+AoIEBAAOAgIFD4EDAofgg/gCgMD+EH4AFBgPwh+AE4X4h4tDvAFFj8DwITBvkegeDD4M8AoPDAoQRBwYRCj4jKGopBFJosD/AFBj/gMopxFPo0PAoIaCEIIrCAqg9CEgQiDH4P8Wgg0CAAM+nwbC//8j5NBg4/BIYKzBApQZBRgojDF447FI4pTFABI")),95,94,14,4,0,2);//btn5
 			}
 			if (set.def.hid!=this.hid) {
 				this.hid=set.def.hid;
