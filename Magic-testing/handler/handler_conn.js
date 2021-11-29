@@ -63,4 +63,4 @@ NRF.setTxPower(set.def.rfTX);
 NRF.on('disconnect',bdis);  
 NRF.on('connect',bcon);
 NRF.setAdvertising({}, { name:set.def.name,connectable:true });
-set.upd();
+setter.upd();

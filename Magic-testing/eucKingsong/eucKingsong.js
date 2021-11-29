@@ -133,7 +133,7 @@ euc.tmp.four=function(inpk){
 			else 
 				euc.dash.bms = 1;
 		} else euc.dash.bms=1.25;
-		set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",euc.dash.name);
+		setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",euc.dash.name);
 	}	
 };	
 //start
@@ -317,10 +317,10 @@ euc.conn=function(mac){
 				});
 			}
 		};
-		if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {
+		if (!setter.read("dash","slot"+setter.read("dash","slot")+"Mac")) {
 			euc.dash.mac=euc.mac; euc.dash.batF=420;euc.dash.batE=320;
 			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
-			set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
+			setter.write("dash","slot"+setter.read("dash","slot")+"Mac",euc.mac);
 		}
 		if (!euc.run) { 
 			euc.wri("start");

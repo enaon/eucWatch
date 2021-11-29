@@ -45,7 +45,7 @@ euc.proxy={
 	e:(o)=>{
 		NRF.setAdvertising({}, { name:set.def.name,connectable:true });
 		NRF.setAddress(set.def.addr+" random");
-		set.upd();
+		setter.upd();
 		NRF.restart();
 		NRF.disconnect();
 		euc.proxy=0;

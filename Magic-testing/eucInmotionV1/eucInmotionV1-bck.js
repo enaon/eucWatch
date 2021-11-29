@@ -401,11 +401,11 @@ euc.conn=function(mac){
 					},250);
 				}
 			};
-			if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {
+			if (!setter.read("dash","slot"+setter.read("dash","slot")+"Mac")) {
 				euc.dash.mac=euc.mac; euc.dash.batF=420;
 				euc.dash.bms=1.25;//84 volts
 				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
-				set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
+				setter.write("dash","slot"+setter.read("dash","slot")+"Mac",euc.mac);
 			}		
 			//euc.wri("start");			
 			setTimeout(() => {euc.wri("start");}, 200);

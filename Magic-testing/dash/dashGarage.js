@@ -129,7 +129,7 @@ touchHandler[0]=function(e,x,y){
 			else if( x<=120 && 100<=y ) this.s=3;   //slot3 
 			else if( 120<=x && 100<=y ) this.s=4;	//slot4
 			if (face[0].dash["slot"+this.s+"Mac"]){
-                set.write("dash","slot",this.s);
+                setter.write("dash","slot",this.s);
 				set.def.dash.slot=this.s;
 				if (Boolean(require("Storage").read('eucSlot'+this.s+'.json')))
 					euc.dash=require("Storage").readJSON('eucSlot'+this.s+'.json',1);
@@ -190,14 +190,14 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.flip();
 				face.go("dashAlerts",0);return;
 			} else {
-                set.write("dash", "slot"+set.read("dash","slot")+"Mac"  );
-                set.write("dash","slot"+set.read("dash","slot")+"Maker");
-                set.write("dash","slot"+set.read("dash","slot")+"Name");
-				require("Storage").erase('logDaySlot'+set.read("dash","slot")+'.json');
-				require("Storage").erase('logWeekSlot'+set.read("dash","slot")+'.json');
-				require("Storage").erase('logYearSlot'+set.read("dash","slot")+'.json');
+                setter.write("dash", "slot"+setter.read("dash","slot")+"Mac"  );
+                setter.write("dash","slot"+setter.read("dash","slot")+"Maker");
+                setter.write("dash","slot"+setter.read("dash","slot")+"Name");
+				require("Storage").erase('logDaySlot'+setter.read("dash","slot")+'.json');
+				require("Storage").erase('logWeekSlot'+setter.read("dash","slot")+'.json');
+				require("Storage").erase('logYearSlot'+setter.read("dash","slot")+'.json');
 				set.def.dash.slot=0;
-				require("Storage").erase('eucSlot'+set.read("dash","slot")+'.json');
+				require("Storage").erase('eucSlot'+setter.read("dash","slot")+'.json');
 				euc.dash=require("Storage").readJSON("eucSlot.json",1);				
 			    face[0].sv1=-1;face[0].sv2=-1;face[0].sv3=-1;face[0].sv4=-1;
                 w.gfx.setColor(0,0);w.gfx.fillRect(0,0,239,195);w.gfx.flip();
@@ -210,7 +210,7 @@ touchHandler[0]=function(e,x,y){
 			else if( 120<=x && y<=100 ) this.s=2;	//slot2 
 			else if( x<=120 && 100<=y ) this.s=3;   //slot3 
 			else if( 120<=x && 100<=y ) this.s=4;	//slot4
-            set.write("dash","slot",this.s);
+            setter.write("dash","slot",this.s);
 			set.def.dash.slot=this.s;
 			if (Boolean(require("Storage").read('eucSlot'+this.s+'.json')))
 				euc.dash=require("Storage").readJSON('eucSlot'+this.s+'.json',1);

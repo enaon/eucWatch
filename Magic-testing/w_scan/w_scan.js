@@ -19,9 +19,9 @@ if(!global.scan){
 					if (app=="dash"){
 						euc.dash.mac=0;
 					}else{
-						set.write("setting",app+"Mac",found[0].split("|")[0]);
-						set.write("setting",app+"Name",found[0].split("|")[1]);
-						set.write("setting",app+"Go","0");
+						setter.write("setting",app+"Mac",found[0].split("|")[0]);
+						setter.write("setting",app+"Name",found[0].split("|")[1]);
+						setter.write("setting",app+"Go","0");
 					}
 					scan.mac=found;
 				} else scan.mac=[];
@@ -172,14 +172,14 @@ touchHandler[0]=function(e,x,y){
 		if (this.mac!=undefined) {
 			buzzer(buz.ok);
 			if (face.appRoot[0]!="repellent"){
-				if (this.name) set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",this.name);
-                //set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Mac",this.mac);
+				if (this.name) setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",this.name);
+                //setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Mac",this.mac);
 				euc.mac=this.mac;
 				euc.tgl();
 				return;
 			}else	{
 
-                set.write("setting",face.appRoot[0]+"Go",face[0].line+"");
+                setter.write("setting",face.appRoot[0]+"Go",face[0].line+"");
 			}
 			face.go(face.appRoot[0],face.appRoot[1]);return;
 		}else buzzer(buz.na);

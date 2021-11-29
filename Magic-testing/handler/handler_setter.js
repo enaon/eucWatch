@@ -1,4 +1,4 @@
-//settings - run set.upd() after changing BT settings to take effect.
+//settings - run setter.upd() after changing BT settings to take effect.
 var set={
 	bt:0, //Incomming BT service status indicator- Not user settable.0=not_connected|1=unknown|2=webide|3=gadgetbridge|4=eucemu|5=esp32
 	tor:0, //Enables/disables torch- Not user settable.
@@ -8,15 +8,11 @@ var set={
 	fmp:0, //find my phone-n.u.s.
 	boot:getTime(), 
 	dash:[],
-	read:function(file,name){setter.read(file,name)},
-	write:function(file,name,value,value2,value3){setter.write(file,name,value,value2,value3)},
 	gDis:function(){setter.Dis()},
-	updateSettings:function(){require('Storage').write('setting.json', set.def);},
-	resetSettings:function() {setter.resetSettings();},	
 	accR:function(){if(!this.def.dash.accE) { if (this.def.acc)acc.on(); else acc.off();}},
 	hidM:undefined, //not user settable.
 	clin:0,//not settable
-	upd:function(){setter.updateBT();}
+	upd:function(){updateBT();}
 };
 
 var setter={
@@ -55,7 +51,7 @@ var setter={
 		touchtype:"0",
 		buzz:1
 		};
-		setter.updateSettings();
+		updateSettings();
 	},	
 	updateBT:function(){ //run this for settings changes to take effect.
 		if (set.def.hid===1) {set.def.hid=0; return;}
@@ -109,7 +105,7 @@ var setter={
 
 //defaults
 set.def = require('Storage').readJSON('setting.json', 1);
-if (!set.def) {set.resetSettings();set.updateSettings();}
+if (!set.def) setter.resetSettings();
 if (!set.def.rstP) set.def.rstP="D39";
 if (!set.def.rstR) set.def.rstR=0xA5;
 if (!set.def.addr) set.def.addr=NRF.getAddress();

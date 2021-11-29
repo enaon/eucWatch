@@ -71,7 +71,7 @@ function handleWeatherEvent(event) {
 	  notify.wupd=1;
 	  let d=(Date()).toString().split(' ');
       let ti=(""+d[4]+" "+d[0]+" "+d[2]);
-	  notify.info.unshift("{\"src\":\"Weather\",\"title\":\"Weather Updated\",\"body\":\""+event.loc+"\",\"time\":\""+ti+"\"}");
+	  notify.info.unshift("{\"src\":\"Weather\",\"title\":\"Weather updated\",\"body\":\""+event.loc+"\",\"time\":\""+ti+"\"}");
       if (notify.info.length>10) notify.info.pop();
 	  notify.weather=event;
 	  if (set.def.buzz&&!notify.ring) {
@@ -114,10 +114,10 @@ global.GB = (event) => {
         handleNotificationEvent(event);
         break;
       case "musicinfo":
-        //handleMusicInfoUpdate(event);
+        //handleMusicInfoupdate(event);
         break;
       case "musicstate":
-        //handleMusicStateUpdate(event);
+        //handleMusicStateupdate(event);
         break;
       case "call":
         handleCallEvent(event);

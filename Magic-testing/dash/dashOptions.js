@@ -23,7 +23,7 @@ face[0] = {
 		this.g.flip(); 
 		this.btn(1,(set.def.dash.mph)?"MPH":"KPH",30,40,25,4,0,0,0,75,75);//1
 		this.btn(1,"o",20,100,20,4,0,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);//2
-		//let makr=set.read("dash","slot"+set.read("dash","slot")+"Maker"); 
+		//let makr=setter.read("dash","slot"+setter.read("dash","slot")+"Maker"); 
 		//if (makr) {
 			//if (makr=="Begode"){
 		//this.btn(1,"EMPTY",15,200,10,1,0,160,0,239,75,euc.dash.batE/100,30,200,35); //3

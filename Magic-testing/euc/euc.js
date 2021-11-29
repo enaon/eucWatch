@@ -24,7 +24,7 @@ global.euc= {
 			buzzer([90,60,90]); 
 			//log
 			if (this.log.trp[0]&& 0<this.dash.trpT-this.log.trp[0] ) 
-				set.write("logDaySlot"+set.def.dash.slot,Date().getHours(),(this.dash.trpT-this.log.trp[0])+((set.read("logDaySlot"+set.def.dash.slot,Date().getHours()))?set.read("logDaySlot"+set.def.dash.slot,Date().getHours()):0));
+				setter.write("logDaySlot"+set.def.dash.slot,Date().getHours(),(this.dash.trpT-this.log.trp[0])+((setter.read("logDaySlot"+set.def.dash.slot,Date().getHours()))?setter.read("logDaySlot"+set.def.dash.slot,Date().getHours()):0));
 			this.log.trp[0]=0;
 			set.def.dash.accE=0;
 			this.mac=0;
@@ -37,10 +37,10 @@ global.euc= {
 				//print("log");
 				if (this.log.trp[1]&& 0<this.dash.trpT-this.log.trp[1] ) {
 					//print("week");
-					set.write("logWeekSlot"+set.def.dash.slot,Date().getDay(),(euc.dash.trpT-this.log.trp[1])+( (set.read("logWeekSlot"+set.def.dash.slot,Date().getDay()))?set.read("logWeekSlot"+set.def.dash.slot,Date().getDay()):0));
+					setter.write("logWeekSlot"+set.def.dash.slot,Date().getDay(),(euc.dash.trpT-this.log.trp[1])+( (setter.read("logWeekSlot"+set.def.dash.slot,Date().getDay()))?setter.read("logWeekSlot"+set.def.dash.slot,Date().getDay()):0));
 				}
 				if (this.log.trp[2]&& 0<this.dash.trpT-this.log.trp[2] ) {
-					set.write("logYearSlot"+set.def.dash.slot,Date().getMonth(),(euc.dash.trpT-this.log.trp[2])+( (set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()))?set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()):0));	
+					setter.write("logYearSlot"+set.def.dash.slot,Date().getMonth(),(euc.dash.trpT-this.log.trp[2])+( (setter.read("logYearSlot"+set.def.dash.slot,Date().getMonth()))?setter.read("logYearSlot"+set.def.dash.slot,Date().getMonth()):0));	
 				}
 				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 				this.log.trp=[0,0,0];
@@ -53,7 +53,7 @@ global.euc= {
 			buzzer(100); 
 			this.log.trp=[0,0,0];
 			NRF.setTxPower(4);
-			this.mac=(this.mac)?this.mac:set.read("dash","slot"+set.read("dash","slot")+"Mac");
+			this.mac=(this.mac)?this.mac:setter.read("dash","slot"+setter.read("dash","slot")+"Mac");
 			if(!this.mac) {
 				face.go('dashScan',0);return;
 			}else {

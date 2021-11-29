@@ -182,10 +182,10 @@ euc.conn=function(mac){
 				console.log("no command :",n,", sending raw");
 			}
 		};
-		if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {
+		if (!setter.read("dash","slot"+setter.read("dash","slot")+"Mac")) {
 			euc.dash.mac=euc.mac; euc.dash.batF=420;
 			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
-			set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
+			setter.write("dash","slot"+setter.read("dash","slot")+"Mac",euc.mac);
 		}
 		euc.state="READY";euc.wri("start");
 	//reconect

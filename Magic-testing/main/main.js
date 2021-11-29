@@ -183,7 +183,7 @@ face[0] = {
 				this.g.setColor(0,0);
 				this.g.fillRect(0,151,239,239);
 				this.g.setColor(1,15);//
-				this.mac=(this.mac)?this.mac:set.read("dash","slot"+set.read("dash","slot")+"Mac");
+				this.mac=(this.mac)?this.mac:setter.read("dash","slot"+setter.read("dash","slot")+"Mac");
 				if(!this.mac) {
 						this.g.setFont("Vector",25);
 						this.g.drawString("eucWatch",119-(this.g.stringWidth("eucWatch")/2),170); 

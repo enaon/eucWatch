@@ -211,7 +211,6 @@ face[1] = {
   return true;
   },
   show : function(){
-  	//set.updateSettings();
 	face[0].btSetOn=1;
 	if (face.faceSave!=-1) {
 		  face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
@@ -317,7 +316,7 @@ touchHandler[0]=function(e,x,y){
 		}else if(158<x&&x<239&&y<75){//btn3
 			if (face.mode) {if (face[0].appDo3) {buzzer(buz.ok);eval(face[0].appDo3);return;} else buzzer(buz.na);
 			}else if (face[0].btSet) {
-				set.def.cli=1-set.def.cli;set.upd();buzzer(buz.ok);
+				set.def.cli=1-set.def.cli;setter.upd();buzzer(buz.ok);
 			}else if (face[0].themeSet) {
 				buzzer(buz.na);
 			}else {
@@ -332,7 +331,7 @@ touchHandler[0]=function(e,x,y){
 		}else if(77>x&&77<y&&y<159){//btn4
 			if (face.mode) {if (face[0].appDo4) {buzzer(buz.ok);eval(face[0].appDo4);return;} else buzzer(buz.na);
 			}else if (face[0].btSet) {
-				set.def.gb=1-set.def.gb;set.upd();buzzer(buz.ok);
+				set.def.gb=1-set.def.gb;setter.upd();buzzer(buz.ok);
 			}else if (face[0].themeSet) {
 				if ( 1000 < face[0].tout && face[0].tout <= 60000 ){
 				  set.def.off[face.appRoot[0]]=face[0].tout-3000;
@@ -355,14 +354,14 @@ touchHandler[0]=function(e,x,y){
 		}else if(77<x&&x<157&&77<y&&y<159){//btn5
 			if (face.mode) {if (face[0].appDo5) {buzzer(buz.ok);eval(face[0].appDo5);return;} else buzzer(buz.na);
 			}else if (face[0].btSet) {
-				set.def.emuZ=1-set.def.emuZ;set.upd();buzzer(buz.ok);
+				set.def.emuZ=1-set.def.emuZ;setter.upd();buzzer(buz.ok);
 			}else if (face[0].themeSet) {
 				buzzer(buz.na);
 			}else {set.def.acc=1-set.def.acc;set.accR();buzzer(buz.ok);}
 		}else if(158<x&&x<239&&77<y&&y<159) {//btn6
 			if (face.mode) {if (face[0].appDo6) {buzzer(buz.ok);eval(face[0].appDo6);return;} else buzzer(buz.na);
 			}else if (face[0].btSet) {
-				set.def.hid=1-set.def.hid;set.upd();buzzer(buz.ok);
+				set.def.hid=1-set.def.hid;setter.upd();buzzer(buz.ok);
 			}else if (face[0].themeSet) {
 				if (1000 <= face[0].tout && face[0].tout < 60000 )
 					set.def.off[face.appRoot[0]]=face[0].tout+3000;
@@ -417,7 +416,6 @@ touchHandler[0]=function(e,x,y){
 			w.gfx.bri.set(face[0].cbri);
 			buzzer(buz.ok);
 		}else { 
-			//set.updateSettings();
 			if (face.faceSave!=-1) {
 			  face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
 			}else{
@@ -447,11 +445,9 @@ touchHandler[0]=function(e,x,y){
 			buzzer(buz.ok);
 		}else if (face.faceSave!=-1) {
 			face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
-			//set.updateSettings();
 		}else{
 			if (face.appPrev=="settings") {face.appPrev="main";face.pagePrev=0;}
 			face.go(face.appPrev,face.pagePrev,face.pageArg);return;
-			//set.updateSettings();
 		}    
 	}else if  (e==3){
 		if (face[0].btSet) {
@@ -472,7 +468,6 @@ touchHandler[0]=function(e,x,y){
 	}else if  (e==4){
 		if (face[0].btSet) {
 			face[0].btSet=0;
-			//set.updateSettings();
 		}else if (face[0].themeSet) {
 			w.gfx.setColor(0,0);
 			w.gfx.fillRect(76,0,79,160);
@@ -505,7 +500,7 @@ touchHandler[0]=function(e,x,y){
 touchHandler[5]=function(e,x,y){
     if (e==5){
 		if (x<120 && y>190) {
-			set.updateSettings();
+			setter.updateSettings();
 			NRF.removeListener('disconnect',bdis);  
 			NRF.disconnect();
 			w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
@@ -528,14 +523,14 @@ touchHandler[5]=function(e,x,y){
     }else if  (e==12){
 	//restart
 		if (x<120 && y>190) {
-			set.updateSettings();
+			setter.updateSettings();
 			NRF.removeListener('disconnect',bdis);  
 			NRF.disconnect();
 			w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
 			reset();
 		}else if (x>120 && y>190) {
 			//devmode
-			set.updateSettings();
+			setter.updateSettings();
 			NRF.disconnect();
 			require("Storage").write("devmode","dev");
 			w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
