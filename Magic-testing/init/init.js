@@ -283,7 +283,7 @@ eval(require('Storage').read('euc'));
 digitalPulse(ew.pin.BUZZ,0,[100,30,100]);
 setTimeout(function(){
   if (global.face) face.go('main',0);
-  setTimeout(function(){ if (global.set) set.accR(); },1000); 
+  setTimeout(function(){ if (global.set) setter.accR(); },1000); 
   digitalPulse(ew.pin.BUZZ,0,[100]);  
 },200); 
 }

@@ -1,4 +1,4 @@
-//settings - run setter.upd() after changing BT settings to take effect.
+//settings - run setter.updateBT() after changing BT settings to take effect.
 var set={
 	bt:0, //Incomming BT service status indicator- Not user settable.0=not_connected|1=unknown|2=webide|3=gadgetbridge|4=eucemu|5=esp32
 	tor:0, //Enables/disables torch- Not user settable.
@@ -8,11 +8,8 @@ var set={
 	fmp:0, //find my phone-n.u.s.
 	boot:getTime(), 
 	dash:[],
-	gDis:function(){setter.Dis()},
-	accR:function(){if(!this.def.dash.accE) { if (this.def.acc)acc.on(); else acc.off();}},
 	hidM:undefined, //not user settable.
 	clin:0,//not settable
-	upd:function(){updateBT();}
 };
 
 var setter={

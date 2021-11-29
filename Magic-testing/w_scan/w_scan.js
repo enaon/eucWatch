@@ -40,7 +40,7 @@ face[0] = {
   	if(!this.start) return;
     this.start=0;
     if(set.gIsB) {
-		//set.gDis();
+		//setter.gDis();
 		this.cnt=1;
         if (this.loop>=0) clearInterval(this.loop);
 		this.loop = setInterval(function() {
