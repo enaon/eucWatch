@@ -183,7 +183,7 @@ function bcon() {
 		if (!set.def.cli) 
 			NRF.disconnect(); 
 		else{ 
-			handleInfoEvent({"src":"DEBUG","title":"BT","body":"ΒΤ Connected"});
+			handleInfoEvent({"src":"DEBUG","title":"BT","body":"BT Connected"});
 			set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
 		}
 	}
