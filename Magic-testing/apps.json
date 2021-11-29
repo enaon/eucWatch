@@ -223,7 +223,7 @@
 		"storage": [
 			{"name":"euc","url":"euc.js"},
 			{"name":"eucSlot.json","url":"eucSlot.json"},
-			{"name":"emuZ","url":"emuZ.js"}
+			{"name":"proxyKingsong","url":"proxyKingsong.js"}
 		]
 		},
 	{ "id": "eucKingsong",
