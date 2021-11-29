@@ -150,8 +150,8 @@ face[1] = {
 	},
 	clear: function(){
 		return;
-	off: function(){
 	},
+	off: function(){
 		return;
 	},
 };	
