@@ -60,12 +60,6 @@ face[0] = {
 			}else if (this.batL!=batL) this.baLF();			
 			//Mileage
 			if (this.buff.trpL!=dash.live.trpL.toFixed(2)) this.mileage();    
-		//off
-		//} else if (euc.state=="OFF")  {
-		//	setTimeout(function(){
-		//		face.go("dashOff",0);
-		//	},250);
-		//	return;
 		//rest
 		} else  {
 			if (euc.state!=this.buff.conn) {
@@ -83,12 +77,11 @@ face[0] = {
 			}
 		}
 		if (!this.old)this.g.flip();
-		euc.new=0;
 		//refresh 
 		this.tid=setTimeout(function(t){
 			t.tid=-1;
 			t.show();
-		},50,this);
+		},100,this);
 	},
 	spdF: function(){
 		"ram";
@@ -336,17 +329,17 @@ touchHandler[0]=function(e,x,y){
 	case 5: //tap event	
 		if (120<x&&y<55){//batery percentage/voltage
 			if (set.def.dash.bat==undefined || 1 < set.def.dash.bat) set.def.dash.bat=0; else set.def.dash.bat++;
-			face[0].bat=-1;face[0].volt=-1;face[0].batL.fill(1,0,1);
+			face[0].buff.bat=-1;face[0].buff.volt=-1;face[0].batL.fill(1,0,1);
 			buzzer(buz.ok);
 		}else if (x<120&&y<55){//tmp/amp
 			if (set.def.dash.amp==undefined) set.def.dash.amp=0;
 			set.def.dash.amp=1-set.def.dash.amp;
- 			face[0].tmp=-1;face[0].amp=-1;face[0].ampL.fill(1,0,1);
+ 			face[0].buff.tmp=-1;face[0].buff.amp=-1;face[0].ampL.fill(1,0,1);
 			buzzer(buz.ok);
 		}else if (190<y){//mileage/time
 			if (set.def.dash.clck==undefined) set.def.dash.clck=0;
 			set.def.dash.clck=1-set.def.dash.clck;
- 			face[0].trpL=-1;face[0].barF();
+ 			face[0].buff.trpL=-1;face[0].barF();
 			buzzer(buz.ok);
 		}else
 			buzzer(buz.na);
