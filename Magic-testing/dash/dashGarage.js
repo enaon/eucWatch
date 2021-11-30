@@ -132,8 +132,8 @@ touchHandler[0]=function(e,x,y){
                 setter.write("dash","slot",this.s);
 				set.def.dash.slot=this.s;
 				if (Boolean(require("Storage").read('eucSlot'+this.s+'.json')))
-					euc.dash=require("Storage").readJSON('eucSlot'+this.s+'.json',1);
-				else euc.dash=require("Storage").readJSON("eucSlot.json",1);
+					dash.live=require("Storage").readJSON('eucSlot'+this.s+'.json',1);
+				else dash.live=require("Storage").readJSON("eucSlot.json",1);
 				face[0].s1=0;face[0].s2=0;face[0].s3=0;face[0].s4=0;
 				face[0].ntfy("HOLD -> OPTIONS","",20,4,1);
 			} else face[0].ntfy("HOLD -> SCAN & SET","",20,1,1);
@@ -198,7 +198,7 @@ touchHandler[0]=function(e,x,y){
 				require("Storage").erase('logYearSlot'+setter.read("dash","slot")+'.json');
 				set.def.dash.slot=0;
 				require("Storage").erase('eucSlot'+setter.read("dash","slot")+'.json');
-				euc.dash=require("Storage").readJSON("eucSlot.json",1);				
+				dash.live=require("Storage").readJSON("eucSlot.json",1);				
 			    face[0].sv1=-1;face[0].sv2=-1;face[0].sv3=-1;face[0].sv4=-1;
                 w.gfx.setColor(0,0);w.gfx.fillRect(0,0,239,195);w.gfx.flip();
               	face[0].dash=require("Storage").readJSON("dash.json",1);
@@ -213,8 +213,8 @@ touchHandler[0]=function(e,x,y){
             setter.write("dash","slot",this.s);
 			set.def.dash.slot=this.s;
 			if (Boolean(require("Storage").read('eucSlot'+this.s+'.json')))
-				euc.dash=require("Storage").readJSON('eucSlot'+this.s+'.json',1);
-			else euc.dash=require("Storage").readJSON("eucSlot.json",1);
+				dash.live=require("Storage").readJSON('eucSlot'+this.s+'.json',1);
+			else dash.live=require("Storage").readJSON("eucSlot.json",1);
 			if (face[0].dash["slot"+this.s+"Mac"]){
 				face[0].clear();
 				var g=w.gfx;
@@ -231,7 +231,7 @@ touchHandler[0]=function(e,x,y){
 				g.flip();
 				face[0].set=1;
 			}else {
-				euc.dash=require("Storage").readJSON("eucSlot.json",1);
+				dash.live=require("Storage").readJSON("eucSlot.json",1);
 				face.go("dashScan",0);
                 return;
             }

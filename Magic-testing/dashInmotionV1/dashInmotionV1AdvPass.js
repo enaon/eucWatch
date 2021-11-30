@@ -10,7 +10,7 @@ face[0] = {
 		//	return;
 		//}	
         //status
-        if (euc.dash.pass.length>=4){
+        if (dash.live.pass.length>=4){
 			this.g.setColor(0,4);
 			this.g.fillRect(0,0,239,97);
 			this.g.setColor(1,15);
@@ -209,7 +209,7 @@ face[5] = {
 touchHandler[0]=function(e,x,y){ 
 	switch (e) {
 	case 5: //tap event
-        if (euc.dash.pass.length>=4){
+        if (dash.live.pass.length>=4){
    		buzzer(buz.ok);
 		if (y<=100) { //enable/disable
           face[0].ntfy("HOLD -> CLEAR",20,1);
@@ -248,12 +248,12 @@ touchHandler[0]=function(e,x,y){
 		return;
 	case 12: //long press event
 		buzzer(buz.ok);
-        if (euc.dash.pass.length>=4){ 
+        if (dash.live.pass.length>=4){ 
 		if (y<=100) { //clear
           euc.wri("passClear");
-          euc.dash.passOld="";
-          euc.dash.pass="";
-          euc.dash.passSend=0;
+          dash.live.passOld="";
+          dash.live.pass="";
+          dash.live.passSend=0;
 		  euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
           face.go("dashInmotionV1AdvPass",0);
 		}else  { //change
@@ -262,7 +262,7 @@ touchHandler[0]=function(e,x,y){
             return;		
         }
         }else { //enable
-          euc.dash.pass="";
+          dash.live.pass="";
           face.go("dashInmotionV1AdvPass",5);
           face[0].passSet=1;
         }  
@@ -311,13 +311,13 @@ touchHandler[5]=function(e,x,y){
           if (face[0].passSet){
              if (face[0].passSet>=2){
                 if (face[5].pass==face[5].passTemp){
-                  euc.dash.passOld=euc.dash.pass;
-                  euc.dash.pass=face[5].pass;
+                  dash.live.passOld=dash.live.pass;
+                  dash.live.pass=face[5].pass;
                   buzzer(80);
                   face[5].ntfy("SUCCESS!",20,4);
-                  if (euc.dash.passOld!=""){euc.wri("passChange");}else{euc.wri("passSet");}
+                  if (dash.live.passOld!=""){euc.wri("passChange");}else{euc.wri("passSet");}
        			  euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
-                  euc.dash.passSend=1;
+                  dash.live.passSend=1;
                   setTimeout(()=>{face.go("dashInmotionV1AdvPass",0);return;},1000);
                 }else{
                   buzzer(120);
@@ -332,7 +332,7 @@ touchHandler[5]=function(e,x,y){
                  face[5].ntfy("RE-ENTER->CONFIRM",20,4);
              }
           }else{
-              if (face[5].pass==euc.dash.pass) {
+              if (face[5].pass==dash.live.pass) {
                 buzzer(80);
                 face[5].ntfy("PASSWORD ACCEPTED",20,4);
                 setTimeout(()=>{face.go("dashInmotionV1AdvPass",0);return;},1000);

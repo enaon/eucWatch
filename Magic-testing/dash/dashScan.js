@@ -123,31 +123,31 @@ touchHandler[0]=function(e,x,y){
 			if (!Boolean(require("Storage").read('eucInmotionV1'))) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
 			setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","InmotionV1");
 			setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","V?");
-			euc.dash.name=0;
-			euc.dash.maker="InmotionV1";
+			dash.live.name=0;
+			dash.live.maker="InmotionV1";
 			face.go('w_scan',0,'ffb0');
 			return;
 		}else if ( face[0].set === 2 ) { //begode
 			if (!Boolean(require("Storage").read('eucBegode'))) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
 			setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Begode");
 			setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","BG-NO NAME");
-			euc.dash.name=0;
-			euc.dash.maker="Begode";
+			dash.live.name=0;
+			dash.live.maker="Begode";
 			face.go('w_scan',0,'ffe0'); 
 			//face[0].ntfy("NOT YET","",20,7,1);
 		}else if ( face[0].set === 3 ) { //Ninebot Z
 			if (!Boolean(require("Storage").read('eucNinebotZ'))) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
 			setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","NinebotZ");
 			setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","Z10");
-			euc.dash.name=0;
-			euc.dash.maker="NinebotZ";
+			dash.live.name=0;
+			dash.live.maker="NinebotZ";
 			face.go('w_scan',0,'e7fe');
 		}else if ( face[0].set === 4 ) { //Ninebot S
 			if (!Boolean(require("Storage").read('eucNinebotS'))) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
 			setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","NinebotS");
 			setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","S2");
-			euc.dash.name=0;
-			euc.dash.maker="NinebotS";
+			dash.live.name=0;
+			dash.live.maker="NinebotS";
 			face.go('w_scan',0,'e7fe');
 		}
 	}else if(100<y&&y<200) {
@@ -156,30 +156,30 @@ touchHandler[0]=function(e,x,y){
 			if (!Boolean(require("Storage").read('eucInmotion'))) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
 			setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Inmotion");
 			setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","V11");
-			euc.dash.name=0;
-			euc.dash.maker="InmotionV11";
+			dash.live.name=0;
+			dash.live.maker="InmotionV11";
 			face.go('w_scan',0,'ffe0');
 			return;
 		}else if ( face[0].set === 2 ) {
 			if (!Boolean(require("Storage").read('eucVeteran'))) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
 			setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Veteran");
 			setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","SM-NO NAME");
-			euc.dash.name=0;
-			euc.dash.maker="Veteran";
+			dash.live.name=0;
+			dash.live.maker="Veteran";
 			face.go('w_scan',0,'ffe0'); return;
 		}else if ( face[0].set === 3 ) {
 			if (!Boolean(require("Storage").read("eucNinebot"))) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
 			setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Ninebot");
 			setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","E+-NO NAME");
-			euc.dash.name=0;
-			euc.dash.maker="Ninebot";
+			dash.live.name=0;
+			dash.live.maker="Ninebot";
 			face.go('w_scan',0,'ffe0'); return;
 		}else if ( face[0].set === 4 ) { //Kingsong
 			if (!Boolean(require("Storage").read('eucKingsong'))) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
 			setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Kingsong");
 			setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","KS-NO NAME");
-			euc.dash.name=0;
-			euc.dash.maker="Kingsong"; 
+			dash.live.name=0;
+			dash.live.maker="Kingsong"; 
 			face.go('w_scan',0,'fff0'); 
 		}
     }else buzzer(buz.na); 

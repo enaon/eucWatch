@@ -36,7 +36,7 @@ euc.proxy={
 				}
 			}
 		}, {advertise: ['0xfff0'],uart:false });
-		NRF.setAdvertising({}, { name:euc.dash.model,connectable:true });
+		NRF.setAdvertising({}, { name:dash.live.model,connectable:true });
 		//NRF.setAddress(euc.mac);
 		NRF.setAddress("eu:cW:at:ch:00:01 public");
 		NRF.restart();
@@ -67,7 +67,7 @@ NRF.setAdvertising([[
 0x03,0x02,0xf0,0xff,
 0x05,0x12,0x60,0x00,0x0c,0x00,
 0x07,0xFF,0x48,0x43,0x2D,0x30,0x38,0x00,
-]],{ name:euc.dash.model});
+]],{ name:dash.live.model});
 
 */
 

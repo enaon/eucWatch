@@ -13,10 +13,10 @@ face[0] = {
         this.g.flip();		
 		this.g.fillRect(0,196,239,197);
         this.g.flip();		
-		this.btn(euc.dash.hapS,"SPEED",25,60,37,4,1,0,0,119,97);
-		this.btn(euc.dash.hapA,"AMP",25,180,37,4,1,122,0,239,97);
-		this.btn(euc.dash.hapT,"TEMP",25,60,136,4,1,0,100,119,195);
-        this.btn(euc.dash.hapB,"BATT",25,180,136,4,1,122,100,239,195);			
+		this.btn(dash.live.hapS,"SPEED",25,60,37,4,1,0,0,119,97);
+		this.btn(dash.live.hapA,"AMP",25,180,37,4,1,122,0,239,97);
+		this.btn(dash.live.hapT,"TEMP",25,60,136,4,1,0,100,119,195);
+        this.btn(dash.live.hapB,"BATT",25,180,136,4,1,122,100,239,195);			
 		this.ntfy("HOLD FOR HAPTIC","",22,4,1);
         this.run=true;
 	},
@@ -100,135 +100,135 @@ touchHandler[0]=function(e,x,y){
 			buzzer(buz.ok);
 			if (face[0].set=="spd") {
 				if (y<=120){ //spd
-					if (x<=120){ if (1<euc.dash.spd1) euc.dash.spd1--;
-					}else if (euc.dash.spd1<99) euc.dash.spd1++;
-                    euc.dash.haSv="spd1";
+					if (x<=120){ if (1<dash.live.spd1) dash.live.spd1--;
+					}else if (dash.live.spd1<99) dash.live.spd1++;
+                    dash.live.haSv="spd1";
 					if (!face[0].spds) { face[0].spds=1;face[0].spdr=0;
-						face[0].btn(1,"RESOLUTION:",18,120,110,2,0,0,100,239,195,euc.dash.spdS,50,125,140);
+						face[0].btn(1,"RESOLUTION:",18,120,110,2,0,0,100,239,195,dash.live.spdS,50,125,140);
 					}
 					return setTimeout(function() {
-						face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,12,0,0,0,239,97,(set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv],50,125,40,1);
-						face[0].ntfy("ALERT IF OVER "+((set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv]) +((set.def.dash.mph)?" MPH":" Km/h"),"",18,12,1);
+						face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,12,0,0,0,239,97,(set.def.dash.mph)?(dash.live[dash.live.haSv]*0.625).toFixed(1):dash.live[dash.live.haSv],50,125,40,1);
+						face[0].ntfy("ALERT IF OVER "+((set.def.dash.mph)?(dash.live[dash.live.haSv]*0.625).toFixed(1):dash.live[dash.live.haSv]) +((set.def.dash.mph)?" MPH":" Km/h"),"",18,12,1);
 					},0);
 				}else{ //RESOLUTION
-					if (x<=120){ if (1<euc.dash.spdS) euc.dash.spdS--;
-					}else if (euc.dash.spdS<5) euc.dash.spdS++;
+					if (x<=120){ if (1<dash.live.spdS) dash.live.spdS--;
+					}else if (dash.live.spdS<5) dash.live.spdS++;
 					if (!face[0].spdr) { face[0].spdr=1;face[0].spds=0;
-						face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,1,0,0,0,239,97,(set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv],50,125,40);
+						face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,1,0,0,0,239,97,(set.def.dash.mph)?(dash.live[dash.live.haSv]*0.625).toFixed(1):dash.live[dash.live.haSv],50,125,40);
 					}
 					return setTimeout(function() {
-						face[0].btn(1,"RESOLUTION:",18,120,110,12,0,0,100,239,195,euc.dash.spdS,50,125,140,1);
-						face[0].ntfy("1 PULSE PER "+euc.dash.spdS+((set.def.dash.mph)?" MPH":"KPH")+" > "+((set.def.dash.mph)?Math.round(euc.dash[euc.dash.haSv]*0.625):euc.dash[euc.dash.haSv]),"",18,12,1);
+						face[0].btn(1,"RESOLUTION:",18,120,110,12,0,0,100,239,195,dash.live.spdS,50,125,140,1);
+						face[0].ntfy("1 PULSE PER "+dash.live.spdS+((set.def.dash.mph)?" MPH":"KPH")+" > "+((set.def.dash.mph)?Math.round(dash.live[dash.live.haSv]*0.625):dash.live[dash.live.haSv]),"",18,12,1);
 						},0);
 				}  
 			}else if (face[0].set=="amp") { //amp
 				if (y<=65){ //uphill
-					if (120<=x&&euc.dash.ampH<50) euc.dash.ampH++;
-					else if (x<=120&&10<euc.dash.ampH) euc.dash.ampH--;
+					if (120<=x&&dash.live.ampH<50) dash.live.ampH++;
+					else if (x<=120&&10<dash.live.ampH) dash.live.ampH--;
 					if (!face[0].ampa) { face[0].ampa=1;face[0].ampd=0;face[0].ampr=0;
-						face[0].btn(1,"BRAKING:",20,65,90,1,0,0,66,239,132,euc.dash.ampL+ " A",35,182,84);
-						face[0].btn(1,"RESOLUTION:",17,70,157,2,0,0,135,239,195,euc.dash.ampS+ " A",35,190,150);
-						face[0].ntfy("ALERT IF OVER "+euc.dash.ampH+" A","",18,1,1);						
+						face[0].btn(1,"BRAKING:",20,65,90,1,0,0,66,239,132,dash.live.ampL+ " A",35,182,84);
+						face[0].btn(1,"RESOLUTION:",17,70,157,2,0,0,135,239,195,dash.live.ampS+ " A",35,190,150);
+						face[0].ntfy("ALERT IF OVER "+dash.live.ampH+" A","",18,1,1);						
 					}
 					return setTimeout(function() {
-						face[0].btn(1,"UPHILL:",20,65,23,12,0,0,0,239,63,euc.dash.ampH+" A",35,180,16);
-						face[0].ntfy("ALERT IF OVER "+euc.dash.ampH+" A","",18,12,1);						
+						face[0].btn(1,"UPHILL:",20,65,23,12,0,0,0,239,63,dash.live.ampH+" A",35,180,16);
+						face[0].ntfy("ALERT IF OVER "+dash.live.ampH+" A","",18,12,1);						
 					},0);
 				}else if (65<=y&&y<=133){//braking
-					if (x<=120&&euc.dash.ampL<-5) euc.dash.ampL++;
-					else if (120<=x&&-40<euc.dash.ampL) euc.dash.ampL--;
+					if (x<=120&&dash.live.ampL<-5) dash.live.ampL++;
+					else if (120<=x&&-40<dash.live.ampL) dash.live.ampL--;
 					if (!face[0].ampd) { face[0].ampa=0;face[0].ampd=1;face[0].ampr=0;
-						face[0].btn(1,"UPHILL:",20,65,23,2,0,0,0,239,63,euc.dash.ampH+" A",35,180,16);
-						face[0].btn(1,"RESOLUTION:",17,70,157,2,0,0,135,239,195,euc.dash.ampS+ " A",35,190,150);
+						face[0].btn(1,"UPHILL:",20,65,23,2,0,0,0,239,63,dash.live.ampH+" A",35,180,16);
+						face[0].btn(1,"RESOLUTION:",17,70,157,2,0,0,135,239,195,dash.live.ampS+ " A",35,190,150);
 					}
    					return setTimeout(function() {
-						face[0].btn(1,"BRAKING:",20,65,90,12,0,0,66,239,132,euc.dash.ampL+ " A",35,182,84);
-						face[0].ntfy("ALERT IF UNDER "+euc.dash.ampL+" A","",18,12,1);   
+						face[0].btn(1,"BRAKING:",20,65,90,12,0,0,66,239,132,dash.live.ampL+ " A",35,182,84);
+						face[0].ntfy("ALERT IF UNDER "+dash.live.ampL+" A","",18,12,1);   
 					},0);
 				}else {//RESOLUTION
-					if (120<=x&&euc.dash.ampS<3) euc.dash.ampS++;
-					else if (x<=120&&1<euc.dash.ampS) euc.dash.ampS--;
+					if (120<=x&&dash.live.ampS<3) dash.live.ampS++;
+					else if (x<=120&&1<dash.live.ampS) dash.live.ampS--;
 					if (!face[0].ampr) { face[0].ampa=0;face[0].ampd=0;face[0].ampr=1;
-						face[0].btn(1,"BRAKING:",20,65,90,1,0,0,66,239,132,euc.dash.ampL+ " A",35,182,84);
-						face[0].btn(1,"UPHILL:",20,65,23,2,0,0,0,239,63,euc.dash.ampH+" A",35,180,16);
-						face[0].ntfy("ONE PULSE PER "+euc.dash.ampS+ " A","",18,1,1);
+						face[0].btn(1,"BRAKING:",20,65,90,1,0,0,66,239,132,dash.live.ampL+ " A",35,182,84);
+						face[0].btn(1,"UPHILL:",20,65,23,2,0,0,0,239,63,dash.live.ampH+" A",35,180,16);
+						face[0].ntfy("ONE PULSE PER "+dash.live.ampS+ " A","",18,1,1);
 					}
 					return setTimeout(function() {
-						face[0].btn(1,"RESOLUTION:",17,70,157,12,0,0,135,239,195,euc.dash.ampS+ " A",35,190,150);
-						face[0].ntfy("ONE PULSE PER "+euc.dash.ampS+ " A","",18,12,1);
+						face[0].btn(1,"RESOLUTION:",17,70,157,12,0,0,135,239,195,dash.live.ampS+ " A",35,190,150);
+						face[0].ntfy("ONE PULSE PER "+dash.live.ampS+ " A","",18,12,1);
 					},0);
 				}
             }else if (face[0].set=="temp") { //temp
               if (y<=120){ //
-					if (120<=x&&euc.dash.tmpH<90) euc.dash.tmpH++;
-					else if (x<=120&&25<euc.dash.tmpH) euc.dash.tmpH--;
+					if (120<=x&&dash.live.tmpH<90) dash.live.tmpH++;
+					else if (x<=120&&25<dash.live.tmpH) dash.live.tmpH--;
 					return setTimeout(function() {
-						face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,120,8,12,0,0,0,239,97,(set.def.dash.farn)?(euc.dash.tmpH*1.8+32).toFixed(1):euc.dash.tmpH,50,125,40,1);
-						face[0].ntfy("ALERT IF OVER "+((set.def.dash.farn)?Math.round(euc.dash.tmpH*1.8+32):euc.dash.tmpH)+((set.def.dash.farn)?" F":" C"),"",18,12,1);
+						face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,120,8,12,0,0,0,239,97,(set.def.dash.farn)?(dash.live.tmpH*1.8+32).toFixed(1):dash.live.tmpH,50,125,40,1);
+						face[0].ntfy("ALERT IF OVER "+((set.def.dash.farn)?Math.round(dash.live.tmpH*1.8+32):dash.live.tmpH)+((set.def.dash.farn)?" F":" C"),"",18,12,1);
 					},0);
 				}else if (120<=x) {
 					face[0].set="batt";
 					return setTimeout(function() {
-						face[0].btn(euc.dash.hapT,"TEMP",25,60,136,4,1,0,100,119,195);
+						face[0].btn(dash.live.hapT,"TEMP",25,60,136,4,1,0,100,119,195);
 						face[0].btn(1,"BATT",25,180,136,12,0,122,100,239,195);	
-						face[0].btn(1,"SET LOW-BATT (in %)",18,120,8,12,0,0,0,239,97,euc.dash.batL,50,125,40,1);
+						face[0].btn(1,"SET LOW-BATT (in %)",18,120,8,12,0,0,0,239,97,dash.live.batL,50,125,40,1);
 					},0);
 				}else{ //back
 		            w.gfx.setColor(0,0);
 					w.gfx.drawLine (120,0,120,97);
 					w.gfx.drawLine (121,0,121,97);
 					w.gfx.flip();
-					face[0].btn(euc.dash.hapT,"TEMP",25,60,136,4,1,0,100,119,195);
+					face[0].btn(dash.live.hapT,"TEMP",25,60,136,4,1,0,100,119,195);
 					face[0].set=0;face[0].init();
                 }
             }else if (face[0].set=="batt") { //bat
 				if (y<=120){ //
-					if (120<=x&&euc.dash.batL<60) euc.dash.batL++;
-   			  		else if (x<=120&&5<euc.dash.batL) euc.dash.batL--;
+					if (120<=x&&dash.live.batL<60) dash.live.batL++;
+   			  		else if (x<=120&&5<dash.live.batL) dash.live.batL--;
 					return setTimeout(function() {
-						face[0].btn(1,"SET LOW-BATT (in %)",18,120,8,12,0,0,0,239,97,euc.dash.batL,50,125,40,1);
-						face[0].ntfy("ALERT IF UNDER "+euc.dash.batL+" %","",18,12,1);
+						face[0].btn(1,"SET LOW-BATT (in %)",18,120,8,12,0,0,0,239,97,dash.live.batL,50,125,40,1);
+						face[0].ntfy("ALERT IF UNDER "+dash.live.batL+" %","",18,12,1);
 					},0);
 				}else if (x<=120) {
 					face[0].set="temp";
 					return setTimeout(function() {
-						face[0].btn(euc.dash.hapB,"BATT",25,180,136,4,1,122,100,239,195);	
+						face[0].btn(dash.live.hapB,"BATT",25,180,136,4,1,122,100,239,195);	
 						face[0].btn(1,"TEMP",25,60,136,12,0,0,100,119,195);
-						face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,120,8,12,0,0,0,239,97,(set.def.dash.farn)?(euc.dash.tmpH*1.8+32).toFixed(1):euc.dash.tmpH,50,125,40,1);
+						face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,120,8,12,0,0,0,239,97,(set.def.dash.farn)?(dash.live.tmpH*1.8+32).toFixed(1):dash.live.tmpH,50,125,40,1);
 					},0);
 				}else{ //back
            		    w.gfx.setColor(0,0);
 					w.gfx.drawLine (120,0,120,97);
 					w.gfx.drawLine (121,0,121,97);
 					w.gfx.flip();
-					face[0].btn(euc.dash.hapB,"BATT",25,180,136,4,1,122,100,239,195);	
+					face[0].btn(dash.live.hapB,"BATT",25,180,136,4,1,122,100,239,195);	
 					face[0].set=0;face[0].init();
                 }
 			}else  {buzzer(buz.na);face[0].set=0;face[0].init();}
         }else if (x<=120&&y<100) { //spd
 			face[0].set="spd";
             buzzer(buz.ok);
-			face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,1,0,0,0,239,97,(set.def.dash.mph)?(euc.dash[euc.dash.haSv]*0.625).toFixed(1):euc.dash[euc.dash.haSv],50,125,40);
-			face[0].btn(1,"RESOLUTION:",18,120,110,2,0,0,100,239,195,euc.dash.spdS,50,125,140);
+			face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,1,0,0,0,239,97,(set.def.dash.mph)?(dash.live[dash.live.haSv]*0.625).toFixed(1):dash.live[dash.live.haSv],50,125,40);
+			face[0].btn(1,"RESOLUTION:",18,120,110,2,0,0,100,239,195,dash.live.spdS,50,125,140);
 		}else if (120<=x&&y<=100) { //amp
 			face[0].set="amp";
 			buzzer(buz.ok);
             w.gfx.setColor(0,0);
 	    	w.gfx.fillRect(0,64,239,65);
     		w.gfx.flip();
-            face[0].btn(1,"UPHILL:",20,65,23,2,0,0,0,239,63,euc.dash.ampH+" A",35,180,16);
-			face[0].btn(1,"BRAKING:",20,65,90,1,0,0,66,239,132,euc.dash.ampL+ " A",35,182,84);
-			face[0].btn(1,"RESOLUTION:",17,70,157,2,0,0,135,239,195,euc.dash.ampS+ " A",35,190,150);
+            face[0].btn(1,"UPHILL:",20,65,23,2,0,0,0,239,63,dash.live.ampH+" A",35,180,16);
+			face[0].btn(1,"BRAKING:",20,65,90,1,0,0,66,239,132,dash.live.ampL+ " A",35,182,84);
+			face[0].btn(1,"RESOLUTION:",17,70,157,2,0,0,135,239,195,dash.live.ampS+ " A",35,190,150);
 		}else if (x<=120&&100<=y) { //temp
 			face[0].set="temp";
             buzzer(buz.ok);
 			face[0].btn(1,"TEMP",25,60,136,12,0,0,100,119,195);
-            face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,120,8,12,0,0,0,239,97,(set.def.dash.farn)?(euc.dash.tmpH*1.8+32).toFixed(1):euc.dash.tmpH,50,125,40,1);
+            face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,120,8,12,0,0,0,239,97,(set.def.dash.farn)?(dash.live.tmpH*1.8+32).toFixed(1):dash.live.tmpH,50,125,40,1);
 		}else if (120<=x&&100<=y) { //batt
 			face[0].set="batt";
             buzzer(buz.ok);
 			face[0].btn(1,"BATT",25,180,136,12,0,122,100,239,195);	
-            face[0].btn(1,"SET LOW-BATT (in %)",18,120,8,12,0,0,0,239,97,euc.dash.batL,50,125,40,1);
+            face[0].btn(1,"SET LOW-BATT (in %)",18,120,8,12,0,0,0,239,97,dash.live.batL,50,125,40,1);
 		}else buzzer(buz.ok);		
 		break;
 	case 1: //slide down event
@@ -295,24 +295,24 @@ touchHandler[0]=function(e,x,y){
 			face[0].set=0;face[0].init();
 			buzzer(buz.ok);	
         }else if (x<=120&&y<100) { //Speed
-			euc.dash.hapS=1-euc.dash.hapS;
-			face[0].btn(euc.dash.hapS,"SPEED",25,60,37,4,1,0,0,119,97);
-			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",22,(euc.dash.hapS)?4:1,euc.dash.hapS);
+			dash.live.hapS=1-dash.live.hapS;
+			face[0].btn(dash.live.hapS,"SPEED",25,60,37,4,1,0,0,119,97);
+			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",22,(dash.live.hapS)?4:1,dash.live.hapS);
 			buzzer(buz.ok);
 		}else if (120<=x&&y<=100) { //Ampere
-			euc.dash.hapA=1-euc.dash.hapA;
-			face[0].btn(euc.dash.hapA,"AMP",25,180,37,4,1,122,0,239,97);
-			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",22,(euc.dash.hapA)?4:1,euc.dash.hapA);
+			dash.live.hapA=1-dash.live.hapA;
+			face[0].btn(dash.live.hapA,"AMP",25,180,37,4,1,122,0,239,97);
+			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",22,(dash.live.hapA)?4:1,dash.live.hapA);
 			buzzer(buz.ok);
 		}else if (x<=120&&100<=y) { //Temp
-			euc.dash.hapT=1-euc.dash.hapT;
-			face[0].btn(euc.dash.hapT,"TEMP",25,60,136,4,1,0,100,119,195);
-			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",22,(euc.dash.hapT)?4:1,euc.dash.hapT);
+			dash.live.hapT=1-dash.live.hapT;
+			face[0].btn(dash.live.hapT,"TEMP",25,60,136,4,1,0,100,119,195);
+			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",22,(dash.live.hapT)?4:1,dash.live.hapT);
 			buzzer(buz.ok);		
 		}else if (120<=x&&100<=y) { //Batt
-			euc.dash.hapB=1-euc.dash.hapB;
-			face[0].btn(euc.dash.hapB,"BATT",25,180,136,4,1,122,100,239,195);
-			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",22,(euc.dash.hapB)?4:1,euc.dash.hapB);
+			dash.live.hapB=1-dash.live.hapB;
+			face[0].btn(dash.live.hapB,"BATT",25,180,136,4,1,122,100,239,195);
+			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",22,(dash.live.hapB)?4:1,dash.live.hapB);
 			buzzer(buz.ok);						
 			}else buzzer(buz.ok);
 		

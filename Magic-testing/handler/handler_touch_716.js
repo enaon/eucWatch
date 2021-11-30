@@ -20,7 +20,7 @@ var tfk={
 			}	
 			if ( this.do && getTime() - this.time > 1 && tp[2]==1 ) { 
 				this.do = 0 ;
-				return setTimeout(function() {touchHandler[face.pageCurr](12,tfk.xx+(tfk.x/10),tfk.y);face.off();},0);
+				return setTimeout(function() {touchHandler[face.pageCurr](12,tfk.x+(tfk.x/10),tfk.y);face.off();},0);
 			}else if ( this.do&&tp[2]==1) {
 				var a=0;
 				if ((((tp[5]&0x0F)<<8)|tp[6])>=this.y+10) a = 1;

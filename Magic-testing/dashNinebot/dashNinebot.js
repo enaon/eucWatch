@@ -21,10 +21,10 @@ face[0] = {
 		this.g.drawString("SETTINGS",120-(this.g.stringWidth("SETTINGS")/2),217); 
 		this.g.flip();
 		//
-        this.btn(euc.dash.aLck,"AUTO",18,60,15,7,1,0,0,119,97,"LOCK",28,60,50);
-		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,4,1,122,0,239,97,"ALERTS",22,185,55);		
-        this.btn(euc.dash.light,"RING",25,60,136,4,1,0,100,119,195);
-        this.btn(1,"MODE:"+euc.dash.mode,25,185,136,12,0,122,100,239,195);	
+        this.btn(dash.live.aLck,"AUTO",18,60,15,7,1,0,0,119,97,"LOCK",28,60,50);
+		this.btn((dash.live.hapS||dash.live.hapA||dash.live.hapT||dash.live.hapB),"WATCH",22,185,17,4,1,122,0,239,97,"ALERTS",22,185,55);		
+        this.btn(dash.live.light,"RING",25,60,136,4,1,0,100,119,195);
+        this.btn(1,"MODE:"+dash.live.mode,25,185,136,12,0,122,100,239,195);	
 		this.run=true;
 	},
 	show : function(){
@@ -99,7 +99,7 @@ touchHandler[0]=function(e,x,y){
 	case 5: //tap event
 		if (face[0].set) { 
 			if ( 100 < y ) {
-			  euc.wri(30+euc.dash.mode);
+			  euc.wri(30+dash.live.mode);
               w.gfx.setColor(0,0);
               w.gfx.drawLine(120,0,120,97);
               w.gfx.drawLine(121,0,121,97);
@@ -107,30 +107,30 @@ touchHandler[0]=function(e,x,y){
               face[0].init();return;
             }
 			else if ( x<=120 && y<100 ) { //decrease
-				if (0<euc.dash.mode) euc.dash.mode--;
-			}else if (euc.dash.mode<9) euc.dash.mode++;
+				if (0<dash.live.mode) dash.live.mode--;
+			}else if (dash.live.mode<9) dash.live.mode++;
 			buzzer(buz.ok);
-			face[0].btn(1,"SET RIDE MODE",20,125,5,12,0,0,0,239,97,euc.dash.mode.toString(),60,125,37,1);
+			face[0].btn(1,"SET RIDE MODE",20,125,5,12,0,0,0,239,97,dash.live.mode.toString(),60,125,37,1);
 		}
 		else {
 			if ( x<=120 && y<100 ) { //auto lock
-				euc.dash.aLck=1-euc.dash.aLck;
-				face[0].btn(euc.dash.aLck,"AUTO",18,60,15,7,1,0,0,119,97,"LOCK",28,60,50);
-				face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,(euc.dash.aLck)?7:1,euc.dash.aLck);
+				dash.live.aLck=1-dash.live.aLck;
+				face[0].btn(dash.live.aLck,"AUTO",18,60,15,7,1,0,0,119,97,"LOCK",28,60,50);
+				face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,(dash.live.aLck)?7:1,dash.live.aLck);
 				buzzer(buz.ok);
 			}else if ( 120<=x && y<=100 ) { //watch alerts
 				buzzer(buz.ok);						
 				face.go("dashAlerts",0);
 				return;	
 			}else if ( x<=120 && 100<=y ) { //ring lights
-				euc.dash.light=1-euc.dash.light;
-				face[0].btn(euc.dash.light,"RING",25,60,136,4,1,0,100,119,195);
-				face[0].ntfy("RING ON","RING OFF",20,(euc.dash.light)?4:1,euc.dash.light);
-                euc.wri(25+euc.dash.light);
+				dash.live.light=1-dash.live.light;
+				face[0].btn(dash.live.light,"RING",25,60,136,4,1,0,100,119,195);
+				face[0].ntfy("RING ON","RING OFF",20,(dash.live.light)?4:1,dash.live.light);
+                euc.wri(25+dash.live.light);
 				buzzer(buz.ok);	
 			}else if ( 120<=x && 100<=y ) { //mode
 				face[0].set=1;
-				face[0].btn(1,"SET RIDE MODE",20,125,5,12,0,0,0,239,97,euc.dash.mode.toString(),60,125,37,1);
+				face[0].btn(1,"SET RIDE MODE",20,125,5,12,0,0,0,239,97,dash.live.mode.toString(),60,125,37,1);
 				buzzer(buz.ok);						
 			}else buzzer(buz.ok);
 		}
@@ -138,7 +138,7 @@ touchHandler[0]=function(e,x,y){
 		break;
 	case 1: //slide down event
 	    if (face[0].set) {
-			euc.wri(30+euc.dash.mode);
+			euc.wri(30+dash.live.mode);
 			setTimeout(()=>{euc.busy=0;euc.wri(1);},500);
         }
 		//face.go("main",0);
@@ -159,7 +159,7 @@ touchHandler[0]=function(e,x,y){
 		break;
 	case 4: //slide right event (back action)
         if (face[0].set) {
-			  euc.wri(30+euc.dash.mode);
+			  euc.wri(30+dash.live.mode);
               w.gfx.setColor(0,0);
               w.gfx.drawLine(120,0,120,97);
               w.gfx.drawLine(121,0,121,97);
@@ -176,25 +176,25 @@ touchHandler[0]=function(e,x,y){
 			face[0].set=0;face[0].init();
 			buzzer(buz.ok);	
         }else if ( x<=120 && y<100 ) { //auto lock
-			euc.dash.aLck=1-euc.dash.aLck;
-            face[0].btn(euc.dash.aLck,"AUTO",18,60,15,7,1,0,0,119,97,"LOCK",28,60,50);
-            face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,1,euc.dash.aLck);
+			dash.live.aLck=1-dash.live.aLck;
+            face[0].btn(dash.live.aLck,"AUTO",18,60,15,7,1,0,0,119,97,"LOCK",28,60,50);
+            face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,1,dash.live.aLck);
 			buzzer(buz.ok);
 		}else if ( 120<=x && y<=100 ) { //watch alerts
-			if (euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB) {euc.dash.hapS=0;euc.dash.hapA=0;euc.dash.hapT=0;euc.dash.hapB=0;}
-			else {euc.dash.hapS=1;euc.dash.hapA=1;euc.dash.hapT=1;euc.dash.hapB=1;}
-			face[0].btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,4,1,122,0,239,97,"ALERTS",22,185,55);		
-            face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",19,1,(euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB));
+			if (dash.live.hapS||dash.live.hapA||dash.live.hapT||dash.live.hapB) {dash.live.hapS=0;dash.live.hapA=0;dash.live.hapT=0;dash.live.hapB=0;}
+			else {dash.live.hapS=1;dash.live.hapA=1;dash.live.hapT=1;dash.live.hapB=1;}
+			face[0].btn((dash.live.hapS||dash.live.hapA||dash.live.hapT||dash.live.hapB),"WATCH",22,185,17,4,1,122,0,239,97,"ALERTS",22,185,55);		
+            face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",19,1,(dash.live.hapS||dash.live.hapA||dash.live.hapT||dash.live.hapB));
 			buzzer(buz.ok);
 		}else if ( x<=120 && 100<=y ) { //ring lights
-			euc.dash.light=1-euc.dash.light;
-            face[0].btn(euc.dash.light,"RING",25,60,136,4,1,0,100,119,195);
-            face[0].ntfy("RING ON","RING OFF",20,1,euc.dash.light);
-            euc.wri(25+euc.dash.light);
+			dash.live.light=1-dash.live.light;
+            face[0].btn(dash.live.light,"RING",25,60,136,4,1,0,100,119,195);
+            face[0].ntfy("RING ON","RING OFF",20,1,dash.live.light);
+            euc.wri(25+dash.live.light);
 			buzzer(buz.ok);		
 		}else if ( 120<=x && 100<=y ) { //mode
 			face[0].set=1;
-			face[0].btn(1,"SET RIDE MODE",20,120,5,12,0,0,0,239,97,euc.dash.mode.toString(),60,125,37);
+			face[0].btn(1,"SET RIDE MODE",20,120,5,12,0,0,0,239,97,dash.live.mode.toString(),60,125,37);
 			buzzer(buz.ok);	
 		}else buzzer(buz.ok);
 		

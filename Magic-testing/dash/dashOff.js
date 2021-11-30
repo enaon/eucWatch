@@ -6,7 +6,7 @@ face[0] = {
 	spd:[],
 	init: function(){
 		this.log=require("Storage").readJSON("logDaySlot"+set.def.dash.slot+".json",1);
-		if (!euc.dash.maker||!set.def.dash.slot||!this.log) {face.go((face.appPrev=="dashGarage")?"main":"dashGarage",0);return;}
+		if (!dash.live.maker||!set.def.dash.slot||!this.log) {face.go((face.appPrev=="dashGarage")?"main":"dashGarage",0);return;}
 		this.rowL=0;
 		this.posL=0;
 		this.ref=Date().getHours();
@@ -115,7 +115,7 @@ face[0] = {
 			t.g.fillRect(0,196,239,239);
 			t.g.setColor(1,15);
 			t.g.setFont("Vector",20);
-			t.g.drawString(euc.dash.maker,120-(t.g.stringWidth(euc.dash.maker)/2),217); 
+			t.g.drawString(dash.live.maker,120-(t.g.stringWidth(dash.live.maker)/2),217); 
 				if (this.old)this.g.flip(); 
 		},1000,this);
     },
@@ -192,19 +192,19 @@ touchHandler[0]=function(e,x,y){
 				buzzer(buz.ok);
 				face[0].info=1;
 				let btC=[4,1,7,7];
-				face[0].btn(1,euc.dash.bat,50,180,3,btC[euc.dash.batC],0,120,0,239,50,"%",20,235,35);
+				face[0].btn(1,dash.live.bat,50,180,3,btC[dash.live.batC],0,120,0,239,50,"%",20,235,35);
 				face[0].btn(1,"24HRS",30,65,13,0,0,0,0,119,50);
 				face[0].page=2;	
 				w.gfx.setColor(0,0);
 				w.gfx.fillRect(0,51,239,239); 
 				w.gfx.setColor(1,15);
 				w.gfx.setFontVector(30);
-				w.gfx.drawString(((euc.dash.name)?euc.dash.name:euc.dash.maker),120-w.gfx.stringWidth(((euc.dash.name)?euc.dash.name:euc.dash.maker))/2,62);
+				w.gfx.drawString(((dash.live.name)?dash.live.name:dash.live.maker),120-w.gfx.stringWidth(((dash.live.name)?dash.live.name:dash.live.maker))/2,62);
 				w.gfx.setFontVector(28);
-				w.gfx.drawString(euc.dash.spdM*((set.def.dash.mph)?0.625:1)*euc.dash.spdF,185-w.gfx.stringWidth(euc.dash.spdM*((set.def.dash.mph)?0.625:1)*euc.dash.spdF),99);
-				w.gfx.drawString(euc.dash.time,185-w.gfx.stringWidth(euc.dash.time),139); 
-				w.gfx.drawString(face[0].comf((euc.dash.trpL*((set.def.dash.mph)?0.625:1)).toFixed(0)),185-w.gfx.stringWidth(face[0].comf((euc.dash.trpL*((set.def.dash.mph)?0.625:1)).toFixed(0))),178); 
-				w.gfx.drawString(face[0].comf((euc.dash.trpT*((set.def.dash.mph)?0.625:1)).toFixed(1)),185-w.gfx.stringWidth(face[0].comf((euc.dash.trpT*((set.def.dash.mph)?0.625:1)).toFixed(1))),217); 
+				w.gfx.drawString(dash.live.spdM*((set.def.dash.mph)?0.625:1)*dash.live.spdF,185-w.gfx.stringWidth(dash.live.spdM*((set.def.dash.mph)?0.625:1)*dash.live.spdF),99);
+				w.gfx.drawString(dash.live.time,185-w.gfx.stringWidth(dash.live.time),139); 
+				w.gfx.drawString(face[0].comf((dash.live.trpL*((set.def.dash.mph)?0.625:1)).toFixed(0)),185-w.gfx.stringWidth(face[0].comf((dash.live.trpL*((set.def.dash.mph)?0.625:1)).toFixed(0))),178); 
+				w.gfx.drawString(face[0].comf((dash.live.trpT*((set.def.dash.mph)?0.625:1)).toFixed(1)),185-w.gfx.stringWidth(face[0].comf((dash.live.trpT*((set.def.dash.mph)?0.625:1)).toFixed(1))),217); 
 				if (face[0].old)w.gfx.flip(); 
 				w.gfx.setColor(1,3);
 				w.gfx.setFontVector(24);

@@ -37,7 +37,7 @@ face[0] = {
 		this.g.setColor(0,0);
 		this.g.clearRect(0,61,239,64);
 		this.g.flip();
-		this.btn(tpms.def.int,"SCAN",28,80,84,4,(euc.state!="OFF"&&euc.dash.tpms)?12:1,0,65,155,125); //4-5
+		this.btn(tpms.def.int,"SCAN",28,80,84,4,(euc.state!="OFF"&&dash.live.tpms)?12:1,0,65,155,125); //4-5
 		this.g.setColor(0,0);
 		this.g.clearRect(156,65,159,125);
 		this.g.flip();
@@ -177,8 +177,8 @@ touchHandler[0]=function(e,x,y){
 				buzzer(buz.ok);
 				tpms.def.int++; if (4 < tpms.def.int) tpms.def.int=0;
 				let tpmsS=["ONCE","5 MIN","30 MIN","1 HOUR","6 HOURS"];
-				face[0].ntfy((tpms.def.int)?"EVERY":"EUC",(tpms.def.int)?tpmsS[tpms.def.int]:"MODE",27,(tpms.def.int)?4:(euc.state!="OFF"&&euc.dash.tpms)?12:1,1,3,1,1,1);
-				face[0].btn(tpms.def.int,"SCAN",28,80,84,4,(euc.state!="OFF"&&euc.dash.tpms)?12:1,0,65,155,125); //4-5
+				face[0].ntfy((tpms.def.int)?"EVERY":"EUC",(tpms.def.int)?tpmsS[tpms.def.int]:"MODE",27,(tpms.def.int)?4:(euc.state!="OFF"&&dash.live.tpms)?12:1,1,3,1,1,1);
+				face[0].btn(tpms.def.int,"SCAN",28,80,84,4,(euc.state!="OFF"&&dash.live.tpms)?12:1,0,65,155,125); //4-5
 			}else if (face[0].act=="wait"){
 				buzzer(buz.ok);
 				tpms.def.wait=(x<120)?(tpms.def.wait<6)?5:tpms.def.wait-1:(19<tpms.def.wait)?20:tpms.def.wait+1;
@@ -209,7 +209,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].act=0;
 				}else {
 					let tpmsS=["ONCE","5 MIN","30 MIN","1 HOUR","6 HOURS"];
-					face[0].ntfy((tpms.def.int)?"EVERY":"EUC",(tpms.def.int)?tpmsS[tpms.def.int]:"MODE",27,(tpms.def.int)?4:(euc.state!="OFF"&&euc.dash.tpms)?12:1,1,3,1,1,1);
+					face[0].ntfy((tpms.def.int)?"EVERY":"EUC",(tpms.def.int)?tpmsS[tpms.def.int]:"MODE",27,(tpms.def.int)?4:(euc.state!="OFF"&&dash.live.tpms)?12:1,1,3,1,1,1);
 					face[0].act="int";
 				}
 			}else if (155 <= x && 62 <y && y < 127) { //6
@@ -252,7 +252,7 @@ touchHandler[0]=function(e,x,y){
 		require("Storage").writeJSON("tpms.json",got);
 		if (tpms.def.int) tpms.scan(); else if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
 		if (euc.state!="OFF"&&face.faceSave[0].startsWith("dash")){
-			euc.dash.tpms=face[0].tpms[tpms.def.pos];
+			dash.live.tpms=face[0].tpms[tpms.def.pos];
 			tpms.def.id=face[0].tpms[tpms.def.pos];
 			face.go(set.dash[set.def.dash.face],0);
 		}else if (face.faceSave!=-1) {

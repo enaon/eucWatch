@@ -13,6 +13,7 @@ var set={
 };
 
 var setter={
+	accR:function(){if(!set.def.dash.accE) { if (set.def.acc)acc.on(); else acc.off();}},
 	updateSettings:function(){require('Storage').write('setting.json', set.def);},
 	resetSettings:function() {
 		set.def = {
@@ -97,7 +98,7 @@ var setter={
 			}else gIsB=0;
 		 }
 	}
-}
+};
 
 
 //defaults

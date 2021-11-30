@@ -309,7 +309,7 @@ touchHandler[0]=function(e,x,y){
 		break;
     case 1: //slide down event
 		if (euc.state!="OFF"&&face.faceSave[0].startsWith("dash")){
-			euc.dash.tpms=face[0].tpms[tpms.def.pos];
+			dash.live.tpms=face[0].tpms[tpms.def.pos];
 			tpms.def.id=face[0].tpms[tpms.def.pos];
 			face.go(set.dash[set.def.dash.face],0);
 		}else if (face.faceSave!=-1) {
@@ -344,7 +344,7 @@ touchHandler[0]=function(e,x,y){
 		return;
     case 4: //slide right event (back action)
 		if (euc.state!="OFF"&&face.faceSave[0].startsWith("dash")){
-			euc.dash.tpms=face[0].tpms[tpms.def.pos];
+			dash.live.tpms=face[0].tpms[tpms.def.pos];
 			tpms.def.id=face[0].tpms[tpms.def.pos];
 			face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
 		}else 

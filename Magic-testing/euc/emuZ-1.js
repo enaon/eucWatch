@@ -56,8 +56,8 @@ global.emuZ={
 		//[0x5a,0xa5,0x01,0x3e,0x14,0x01,0xb0,0x20,0xdb,0xfe]
 		case "Z\xA5\1>\x14\1\xB0\x20\xDB\xFE"://live
 			if (set.bt!=4) {set.bt=4;handleInfoEvent({"src":"BT","title":"BRIDGE","body":"Connected"});}
-			this.send(new Uint8Array( [32, 20, 62, 4, 176, 0, 0, 0, 0, 0, 0, 0, 0, euc.dash.bat, 0,this.d2h(euc.dash.spd,100,16,2),this.d2h(euc.dash.spd,100,16,1),0,0,euc.dash.trpT, 0,0,0,0, 1, 0,0,this.d2h(euc.dash.tmp,10,16,2),this.d2h(euc.dash.tmp,10,16,1),this.d2h(euc.dash.volt,100,16,2), this.d2h(euc.dash.volt,100,16,1), this.d2h(euc.dash.amp,100,16,2), this.d2h(euc.dash.amp,100,16,1), this.d2h(euc.dash.spd,100,16,2),this.d2h(euc.dash.spd,100,16,1), 0, 0]));
-			//return this.send(new Uint8Array( [32, 20, 62, 4, 176, 0, 0, 0, 0, 72, 152, 0, 0, euc.dash.bat, 0, 0,0, 0, 0, 24, 56, 37, 0, 0, 0, 59, 0,euc.dash.tmp,0,parseInt((euc.dash.volt*100).toString(16).substr(2),16), parseInt((euc.dash.volt*100).toString(16).substr(0,2),16), euc.dash.amp, 0, 0, 0, 0, 0]));
+			this.send(new Uint8Array( [32, 20, 62, 4, 176, 0, 0, 0, 0, 0, 0, 0, 0, dash.live.bat, 0,this.d2h(dash.live.spd,100,16,2),this.d2h(dash.live.spd,100,16,1),0,0,dash.live.trpT, 0,0,0,0, 1, 0,0,this.d2h(dash.live.tmp,10,16,2),this.d2h(dash.live.tmp,10,16,1),this.d2h(dash.live.volt,100,16,2), this.d2h(dash.live.volt,100,16,1), this.d2h(dash.live.amp,100,16,2), this.d2h(dash.live.amp,100,16,1), this.d2h(dash.live.spd,100,16,2),this.d2h(dash.live.spd,100,16,1), 0, 0]));
+			//return this.send(new Uint8Array( [32, 20, 62, 4, 176, 0, 0, 0, 0, 72, 152, 0, 0, dash.live.bat, 0, 0,0, 0, 0, 24, 56, 37, 0, 0, 0, 59, 0,dash.live.tmp,0,parseInt((dash.live.volt*100).toString(16).substr(2),16), parseInt((dash.live.volt*100).toString(16).substr(0,2),16), dash.live.amp, 0, 0, 0, 0, 0]));
 			break;
 		case "Z\xA5\1>\x14\1\x25\x0c\x7a\xFF":return this.send(new Uint8Array([0x0c,0x14,0x3e,0x04,0x25,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00]));  //live2  
 //		case "Z\xA5\1>\x14\1\x25\x0c\x7a\xFF":return this.send(new Uint8Array([0x0c,0x14,0x3e,0x04,0x25,0xf0,0x15,0x08,0xe5,0xd2,0x93,0x7b,0x56,0xa2,0xb8,0x7d,0xf6]));  //live2  
@@ -100,7 +100,7 @@ global.emuZ={
 		case "Z\xA5\1>\x12\1\x20\x02\x8b\xFF":return this.send(new Uint8Array([0x02,0x12,0x3e,0x04,0x20,0x00,0x00]));  
 //		case "Z\xA5\1>\x12\1\x20\x02\x8b\xFF":return this.send(new Uint8Array([0x02,0x12,0x3e,0x04,0x20,0x01,0x25]));  
 		case "Z\xA5\1>\x14\1\x3e\x02\x6b\xFF":return this.send(new Uint8Array([0x02,0x14,0x3e,0x04,0x3e,0x00,0x00]));   //temp
-//		case "Z\xA5\1>\x14\1\x3e\x02\x6b\xFF":return this.send(new Uint8Array([0x02,0x14,0x3e,0x04,0x3e,this.d2h(euc.dash.tmp,10,16,2),this.d2h(euc.dash.tmp,10,16,1)]));   //temp
+//		case "Z\xA5\1>\x14\1\x3e\x02\x6b\xFF":return this.send(new Uint8Array([0x02,0x14,0x3e,0x04,0x3e,this.d2h(dash.live.tmp,10,16,2),this.d2h(dash.live.tmp,10,16,1)]));   //temp
 		case "Z\xA5\1>\x14\1\x43\x0a\x5e\xFF":return this.send(new Uint8Array([0x0a,0x14,0x3e,0x04,0x43,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00]));  
 //		case "Z\xA5\1>\x14\1\x43\x0a\x5e\xFF":return this.send(new Uint8Array([0x0a,0x14,0x3e,0x04,0x43,0x72,0x01,0x08,0xe5,0x2a,0x82,0x7b,0x56,0x5d,0x2e]));  
 		case "Z\xA5\1>\x14\1\xd2\x04\xd5\xFF":return this.send(new Uint8Array([0x04,0x14,0x3e,0x04,0xd2,0x00,0x00,0x00,0x00]));  
@@ -137,7 +137,7 @@ function emuG1(l){
 	set.emuD=1;
 switch (l) {
 	case "Z\xA5\1>\x14\1\xB0\x20\xDB\xFE"://live
-	return this.send(new Uint8Array( [32, 20, 62, 4, 176, 0, 0, 0, 0, 72, 152, 0, 0, euc.dash.bat, 0, "0x"+(euc.dash.spd*100+0x10000).toString(16).substr(3), "0x"+(euc.dash.spd*100+0x10000).toString(16).substr(1,2), 0, 0, 24, 56, 37, 0, 0, 0, 59, 0,euc.dash.tmp,0,parseInt((euc.dash.volt*100).toString(16).substr(2),16), parseInt((euc.dash.volt*100).toString(16).substr(0,2),16), euc.dash.amp, 0, 0, 0, 0, 0]));
+	return this.send(new Uint8Array( [32, 20, 62, 4, 176, 0, 0, 0, 0, 72, 152, 0, 0, dash.live.bat, 0, "0x"+(dash.live.spd*100+0x10000).toString(16).substr(3), "0x"+(dash.live.spd*100+0x10000).toString(16).substr(1,2), 0, 0, 24, 56, 37, 0, 0, 0, 59, 0,dash.live.tmp,0,parseInt((dash.live.volt*100).toString(16).substr(2),16), parseInt((dash.live.volt*100).toString(16).substr(0,2),16), dash.live.amp, 0, 0, 0, 0, 0]));
 	case "Z\xA5\1>\x14\1\x1A\2\x8F\xFF": //firmware
 		if (set.bt!=4) {
 			set.bt=4;

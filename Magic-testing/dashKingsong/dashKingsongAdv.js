@@ -25,7 +25,7 @@ face[0] = {
       	this.g.fillRect(143,200,165,204);
 		this.g.flip(); 
 		//ride mode
-		this.b1=euc.dash.mode;
+		this.b1=dash.live.mode;
 		if (!this.b1) {
 			this.b1t="HARD";this.b1c=4;
 		}else if (this.b1==1) {
@@ -57,7 +57,7 @@ face[0] = {
 		this.g.drawString("WHEEL",60-(this.g.stringWidth("WHEEL")/2),115); 
 //		this.g.setFont("Vector",25);
 		this.g.drawString("ALERTS",60-(this.g.stringWidth("ALERTS")/2),150); 
-//		this.g.drawString(euc.dash.spdT,60-(this.g.stringWidth(euc.dash.spdT)/2),150); 
+//		this.g.drawString(dash.live.spdT,60-(this.g.stringWidth(dash.live.spdT)/2),150); 
 		this.g.flip();
 		//pass
 		this.g.setColor(0,12);
@@ -121,9 +121,9 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
       case 5:case 12: //tap event
 		if ( x<=120 && y<=100 ) { //ride mode
-			if (euc.dash.mode==0) {euc.dash.mode=1;euc.wri("rideMed");face[0].btn("MODE",18,60,15,6,0,0,119,97,"MED",30,60,50);}
-			else if (euc.dash.mode==1) {euc.dash.mode=2;euc.wri("rideSoft");face[0].btn("MODE",18,60,15,4,0,0,119,97,"SOFT",30,60,50);}
-			else if (euc.dash.mode==2) {euc.dash.mode=0;euc.wri("rideHard");face[0].btn("MODE",18,60,15,5,0,0,119,97,"HARD",30,60,50);}
+			if (dash.live.mode==0) {dash.live.mode=1;euc.wri("rideMed");face[0].btn("MODE",18,60,15,6,0,0,119,97,"MED",30,60,50);}
+			else if (dash.live.mode==1) {dash.live.mode=2;euc.wri("rideSoft");face[0].btn("MODE",18,60,15,4,0,0,119,97,"SOFT",30,60,50);}
+			else if (dash.live.mode==2) {dash.live.mode=0;euc.wri("rideHard");face[0].btn("MODE",18,60,15,5,0,0,119,97,"HARD",30,60,50);}
 			buzzer(buz.ok);		
 		}else if ( 120<=x  && y<=100 ) { //calibrate
             buzzer(buz.ok);
@@ -135,7 +135,7 @@ touchHandler[0]=function(e,x,y){
 			return;
 		}else if ( 120<=x && 100<=y ) { //pass
 			buzzer(buz.ok);		
-			if (euc.dash.pass.length>=4) face.go("dashKingsongAdvPass",5);
+			if (dash.live.pass.length>=4) face.go("dashKingsongAdvPass",5);
 			else face.go("dashKingsongAdvPass",0);
 			return;
 		}else buzzer(buz.ok);

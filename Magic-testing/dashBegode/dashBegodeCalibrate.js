@@ -34,12 +34,12 @@ face[0] = {
             this.g.drawString("CANCEL",140,200); 	
 		    this.g.flip();
        		this.run=false;
-        }else if (this.tilt!=euc.dash.tiltSet){ //tilt Set
+        }else if (this.tilt!=dash.live.tiltSet){ //tilt Set
 		    this.g.setColor(0,1);
 		    this.g.fillRect(50,50,190,150);                    
             this.g.setColor(1,15);
 		    this.g.setFont("Vector",80);
-		    this.g.drawString(euc.dash.tiltSet,130-(this.g.stringWidth(euc.dash.tiltSet)/2),65); 		
+		    this.g.drawString(dash.live.tiltSet,130-(this.g.stringWidth(dash.live.tiltSet)/2),65); 		
 		    this.g.flip();
 		}
 
@@ -96,10 +96,10 @@ touchHandler[0]=function(e,x,y){
 	case 5: //tap event
         if (!face[0].calibrate){
 		if (x<=120&&y<175) { //tilt forward
-			//euc.dash.tiltSet--;euc.wri("tiltSet");
+			//dash.live.tiltSet--;euc.wri("tiltSet");
 			buzzer(buz.ok);
 		}else if (120<=x&&y<=175) { //tilt back
-			//euc.dash.tiltSet++;euc.wri("tiltSet");
+			//dash.live.tiltSet++;euc.wri("tiltSet");
 			buzzer(buz.ok);
 		}else if (175<=y) { //calibrate
             face[0].calibrate=1;

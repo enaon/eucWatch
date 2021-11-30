@@ -1,0 +1,3 @@
+var dash={  
+	live:{}
+};

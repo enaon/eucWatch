@@ -9,15 +9,15 @@ if(!global.scan){
 				if (app=="repellent") this.filter = [{serviceData:{"fe95":{}}}];
 				else {
 					app="dash";
-					if (euc.dash.maker=="NinebotZ"|| euc.dash.maker=="NinebotS")  this.filter = [{manufacturer:16974}];  
-					else if (euc.dash.maker=="InmotionV11")  this.filter = [{ namePrefix: 'V11-' }];
+					if (dash.live.maker=="NinebotZ"|| dash.live.maker=="NinebotS")  this.filter = [{manufacturer:16974}];  
+					else if (dash.live.maker=="InmotionV11")  this.filter = [{ namePrefix: 'V11-' }];
 					else this.filter = [{services:[service]}];
 				}
 				var found=[];
 				NRF.filterDevices(devices, this.filter).forEach(function(entry) {found.push(entry.id+"|"+entry.name);});
 				if (found!=""&&found!=undefined){ 
 					if (app=="dash"){
-						euc.dash.mac=0;
+						dash.live.mac=0;
 					}else{
 						setter.write("setting",app+"Mac",found[0].split("|")[0]);
 						setter.write("setting",app+"Name",found[0].split("|")[1]);
