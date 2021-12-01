@@ -335,6 +335,8 @@ poke32(0x4001e504, 0);while(!peek32(0x4001e400)); // disable flash writing
 E.setFlags({unsafeFlash:1});
 fl.erasePage(0xfe000);
 fl.erasePage(0xff000);
+setTimeout(()=>{poke32(0x4000051c,1);},5000);
+
 };
 NRF.restart();
 setTimeout(()=>{poke32(0x4000051c,1);},5000);
