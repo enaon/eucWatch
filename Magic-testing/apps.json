@@ -1,4 +1,16 @@
 [
+	{ "id": "bootloader",
+		"name": "bootloader - MAGIC - ROCK",
+		"icon": "icon.png",
+		"version":"1.00",
+		"description": "DO NOT use this on a working watch. This is a bootloader from Fanoush.https://github.com/fanoush/ds-d6/blob/master/espruino/DFU/Magic3/Magic3-bootloader.txt ",
+		"tags": "core",
+		"type":"core",
+		"readme": "README.md",
+		"storage": [
+			{"name":"C:.bootrst","url":"bootloader.js"}
+		]
+	},
 	{ "id": "init",
 		"name": "core - MAGIC - ROCK",
 		"icon": "icon.png",

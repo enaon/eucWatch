@@ -1,0 +1,2 @@
+SWD: with pins left to right at BOTTOM RIGHT corner:
+DIO, CLK, 3.3, GND (hi,lo,hi,lo) (Gnd in corner)
