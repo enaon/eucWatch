@@ -1,6 +1,4 @@
 NRF.disconnect();
-//if (peek32(0x1000-8).toString(16)=="f8000"&&peek32(0x10001014).toString(16)=="f8000")
-//poke32(0x4000051c,1);
 E.setFlags({unsafeFlash:1});
 var fl=require("Flash");
 var ladd=0;var lpg=0;var nadd=0;// last address, last page addr, next addr
@@ -13,11 +11,6 @@ var flash=function(a,d){
   if (a>ladd) {fl.write(d,a);ladd=a;nadd=a+d.length;}
 };
 var f=flash;
-//if (peek32(0x1000-8).toString(16)=="f8000"&&peek32(0x10001014).toString(16)=="f8000"){
-	
-	
-	
-//}else {
 echo(0); 
 f(1015808,atob('8P8DIAGCDwA9gg8AP4IPAEGCDwBDgg8ARYIPAAAAAAAAAAAAAAAAAAAAAAAFqg8ASYIPAAAAAABLgg8ATYIPAE+CDwBPgg8A'));
 f(1015880,atob('T4IPAE+CDwBPgg8AT4IPAE+CDwBPgg8AT4IPAE+CDwBPgg8AT4IPAE+CDwBPgg8AT4IPAE+CDwCNzQ8AoZoPAE+CDwBPgg8A'));
@@ -330,34 +323,17 @@ f(1037912,atob('RGZ1VGFyZwBQ6towiIO4n2BPFfMAAMmOAzj92HBHDAAMAAAAWAIAACR2ACA8dgAg
 f(1037984,atob('gAAAAAAAAAADAAAAqbsPAE21DwAAAAAAjaAPAAAAAACNpg8AAAAAAG2nDwAAAAAAzZ4PAAAAAACBoA8AAAAAAHD3/38BAAAA'));
 f(1038056,atob('ABABQBEABAAAkNAD/wD//wEAAAAAAAAAAAAAAB+8DwAAEAAAAAAQAA=='));
 echo(1);
-poke32(0x4001e504,1);while(!peek32(0x4001e400)); // enable flash writing
-poke32(0x1000-8,0xF8000);while(!peek32(0x4001e400)); // set bootloader address 
-poke32(0x1000-4,0xFE000);while(!peek32(0x4001e400)); // set mbr settings
-poke32(0x10001014,0xF8000);while(!peek32(0x4001e400)); // set bootloader address 
-poke32(0x10001018,0xFE000);while(!peek32(0x4001e400)); // set mbr settings
-poke32(0x4001e504, 0);while(!peek32(0x4001e400)); // disable flash writing
-E.setFlags({unsafeFlash:1});
-fl.erasePage(0xfe000);
-fl.erasePage(0xff000);
-setTimeout(()=>{poke32(0x4000051c,1);},5000);
-//}
-//E.reboot();
-
-// include also this line or press enter after echo(1)
-/*RF.onRestart=function(){
-poke32(0x4001e504,1);while(!peek32(0x4001e400)); // enable flash writing
-poke32(0x1000-8,0xF8000);while(!peek32(0x4001e400)); // set bootloader address 
-poke32(0x1000-4,0xFE000);while(!peek32(0x4001e400)); // set mbr settings
-poke32(0x10001014,0xF8000);while(!peek32(0x4001e400)); // set bootloader address 
-poke32(0x10001018,0xFE000);while(!peek32(0x4001e400)); // set mbr settings
-poke32(0x4001e504, 0);while(!peek32(0x4001e400)); // disable flash writing
-E.setFlags({unsafeFlash:1});
-fl.erasePage(0xfe000);
-fl.erasePage(0xff000);
-setTimeout(()=>{poke32(0x4000051c,1);},5000);
-
+NRF.onRestart=function(){
+  poke32(0x4001e504,1);while(!peek32(0x4001e400)); // enable flash writing
+  poke32(0x1000-8,0xF8000);while(!peek32(0x4001e400)); // set bootloader address 
+  poke32(0x1000-4,0xFE000);while(!peek32(0x4001e400)); // set mbr settings
+  poke32(0x10001014,0xF8000);while(!peek32(0x4001e400)); // set bootloader address 
+  poke32(0x10001018,0xFE000);while(!peek32(0x4001e400)); // set mbr settings
+  poke32(0x4001e504, 0);while(!peek32(0x4001e400)); // disable flash writing
+  setTimeout(()=>{
+    fl.erasePage(0xfe000);
+    fl.erasePage(0xff000);
+    poke32(0x4000051c,1);
+  },5000);
 };
 NRF.restart();
-setTimeout(()=>{poke32(0x4000051c,1);},5000);
-NRF.disconnect();
-*/
