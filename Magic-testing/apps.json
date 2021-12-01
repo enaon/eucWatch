@@ -1,5 +1,5 @@
 [
-	{ "id": "bootloader",
+	{ "id": ".btldr",
 		"name": "bootloader - MAGIC - ROCK",
 		"icon": "icon.png",
 		"version":"1.00",
