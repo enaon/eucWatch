@@ -247,7 +247,8 @@ g.bri={
     if (this.lv==0||this.lv==7)
       digitalWrite(BL,(this.lv==0)?0:1);
     else 
-      analogWrite(BL,(this.lv*42.666)/256,{freq:60});
+      //analogWrite(BL,(this.lv*42.666)/256);
+	  analogWrite(BL,(this.lv*42.666)/256,{freq:4096});
       //digitalWrite([D23,D22,D14],7-o);
     set.def.bri=o;
     return o;

@@ -14,7 +14,7 @@
 	{ "id": "init",
 		"name": "core - MAGIC - ROCK",
 		"icon": "icon.png",
-		"version":"1.00",
+		"version":"1.01",
 		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
 		"tags": "core",
 		"type":"core",
