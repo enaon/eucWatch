@@ -36,7 +36,7 @@ face[0] = {
 			else if (5<=this.buff.spd && !euc.buzz && dash.live.maker=="Kingsong") this.pwrF();
 			else if (!this.buff.bar) { this.buff.bar=1; this.barF();}
 			//tmp/amp block
-			if (!set.def.dash.amp) {
+			if (!set.def.dash.amp||set.def.dash.amp==2) {
 				if (this.buff.amp!=Math.round(dash.live.amp)) this.ampF();
 			}else 
 				if (this.buff.tmp!=Math.round(dash.live.tmp))	this.tmpF();
@@ -333,7 +333,7 @@ touchHandler[0]=function(e,x,y){
 			buzzer(buz.ok);
 		}else if (x<120&&y<55){//tmp/amp
 			if (set.def.dash.amp==undefined) set.def.dash.amp=0;
-			set.def.dash.amp=1-set.def.dash.amp;
+			if (set.def.dash.amp<2) set.def.dash.amp++; else set.def.dash.amp=0;
  			face[0].buff.tmp=-1;face[0].buff.amp=-1;face[0].ampL.fill(1,0,1);
 			buzzer(buz.ok);
 		}else if (190<y){//mileage/time
