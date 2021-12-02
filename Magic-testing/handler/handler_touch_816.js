@@ -1,5 +1,5 @@
 var TC={
-	ntid:0;
+	ntid:0,
 	start:function(){ 
 		digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xFA,0x11);},150);
 		this.ntid=setWatch(function(s){
