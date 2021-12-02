@@ -30,7 +30,7 @@ var face={
 			}else if (face.appPrev=="off") {
 				if (face[c].off) {
 					if (set.def.touchtype=="716") tfk.exit();	
-				else {digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100);} 
+					else {digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100);} 
 					face.go("main",-1);face.pagePrev=c;
 				}
 			}else if (c>1) face.go(this.appCurr,0);
@@ -72,7 +72,7 @@ var face={
 		face[page].init(arg);	
 		if(!w.gfx.isOn) {
 			if (set.def.touchtype=="716") tfk.start();
-			else digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0xFA,0X11);},100);
+			else digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0xFA,0X11);},150);
 
 			w.gfx.on();
 		}

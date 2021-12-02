@@ -93,9 +93,9 @@ face[1] = {
 };	
 //touch
 touchHandler[0]=function(e,x,y){ 
+	face.off();
 	switch (e) {
 	case 5: //tap event
-			
 		if (face[0].set) { 
 			buzzer(buz.ok);
 			if (face[0].set=="spd") {
