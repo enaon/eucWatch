@@ -22,15 +22,13 @@ var face={
 			if (c===0||c===2) {
 				if (this.appCurr==="main") {
 					if (face[c].off) {
-						if (set.def.touchtype=="716") tfk.exit();	
-						else {digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100);} 
+						TC.stop();	
 						face[c].off();this.pageCurr=-1;face.pagePrev=c;
 					}
 				}else face.go(this.appCurr,1);
 			}else if (face.appPrev=="off") {
 				if (face[c].off) {
-					if (set.def.touchtype=="716") tfk.exit();	
-					else {digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100);} 
+					TC.stop();	
 					face.go("main",-1);face.pagePrev=c;
 				}
 			}else if (c>1) face.go(this.appCurr,0);
@@ -47,8 +45,7 @@ var face={
 			face[this.pagePrev].clear();
 		}
 		if (this.pageCurr==-1 && this.pagePrev!=-1) {
-			if (set.def.touchtype=="716") tfk.exit();	
-			else {digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100);} 
+			TC.stop();	
 			acc.go=0;
 			face[this.pagePrev].off();
 			if (this.offid) {clearTimeout(this.offid); this.offid=0;}
@@ -71,9 +68,7 @@ var face={
 		this.off();
 		face[page].init(arg);	
 		if(!w.gfx.isOn) {
-			if (set.def.touchtype=="716") tfk.start();
-		else {digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xFA,0x11);},100);}
-
+			TC.start();
 			w.gfx.on();
 		}
 		face[page].show(arg);
