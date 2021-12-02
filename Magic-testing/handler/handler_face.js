@@ -72,7 +72,7 @@ var face={
 		face[page].init(arg);	
 		if(!w.gfx.isOn) {
 			if (set.def.touchtype=="716") tfk.start();
-			else digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0xFA,0X11);},150);
+		else {digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xFA,0x11);},100);}
 
 			w.gfx.on();
 		}
