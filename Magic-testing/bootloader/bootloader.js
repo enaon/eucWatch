@@ -1,3 +1,4 @@
+if (process.env.GIT_COMMIT=="d3ae4fe3") {
 NRF.disconnect();
 E.setFlags({unsafeFlash:1});
 var fl=require("Flash");
@@ -337,3 +338,4 @@ NRF.onRestart=function(){
   },5000);
 };
 NRF.restart();
+}
