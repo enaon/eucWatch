@@ -52,10 +52,6 @@ face[0] = {
 				},1000,slotNumber);
 			}
 	},
-	ntfy: function(txt1,txt0,size,clr,bt){
-			UI.ntfy.simple("btm",bt?txt1:txt2,0,15,clr);//
-			UI.on('ntfy','UI.ele.title("btm","GARAGE",15,1);');
-	},
 	tid:-1,
 	run:false,
 	clear : function(){  
@@ -106,8 +102,12 @@ touchHandler[0]=function(e,x,y){
 					dash.live=require("Storage").readJSON('eucSlot'+this.s+'.json',1);
 				else dash.live=require("Storage").readJSON("eucSlot.json",1);
 				face[0].s1=0;face[0].s2=0;face[0].s3=0;face[0].s4=0;
-				face[0].ntfy("HOLD -> OPTIONS","",20,4,1);
-			} else face[0].ntfy("HOLD -> SCAN","",20,1,1);
+				UI.ntfy.simple("btm","HOLD -> OPTIONS",0,15,4);
+				UI.on('ntfy','UI.ele.title("btm","GARAGE",15,1);');
+			} else{
+				UI.ntfy.simple("btm","HOLD -> SCAN",0,15,1);
+				UI.on('ntfy','UI.ele.title("btm","GARAGE",15,1);');
+			}
 			face[0]["s"+this.s]=1;
 		}
 		else   {
@@ -120,7 +120,10 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.drawLine (121,0,121,195);
 				w.gfx.flip();
 				face.go("dashAlerts",0);return;			
-      }else face[0].ntfy("HOLD -> DELETE","",22,7,1);
+      }else{
+		  UI.ntfy.simple("btm","HOLD -> DELETE",0,15,7);
+		  UI.on('ntfy','UI.ele.title("btm","GARAGE",15,1);');
+	  }
 		}
 		break;
 	case 1: //slide down event
