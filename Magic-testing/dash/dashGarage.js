@@ -40,15 +40,8 @@ face[0] = {
 	},
 	btn: function(slotNumber,active,x,y,y1,y2,rx1,ry1,rx2,ry2 ){
 			if (this.dash["slot"+slotNumber+"Mac"]) {
-				this.g.setColor(0,(active)?4:1);
-				this.g.fillRect(rx1,ry1,rx2,ry2);	
-				this.g.setColor(1,15);
-				this.g.setFont("Vector",18);	
-				this.g.drawString(this.dash["slot"+slotNumber+"Maker"].toUpperCase(),x-(this.g.stringWidth(this.dash["slot"+slotNumber+"Maker"].toUpperCase())/2),y); 
-				if ( (this.dash["slot"+slotNumber+"Name"]).includes("Proxy")) { this.g.setFont("Vector",30);this.dash["slot"+slotNumber+"Name"]="Proxy";}
-				else this.g.setFont("Vector",35);
-				this.g.drawString(this.dash["slot"+slotNumber+"Name"].split("-")[0],x-(this.g.stringWidth(this.dash["slot"+slotNumber+"Name"].split("-")[0])/2),y1); 
-				this.g.flip();
+				if ((this.dash["slot"+slotNumber+"Name"]).includes("Proxy")) { this.g.setFont("Vector",30);this.dash["slot"+slotNumber+"Name"]="Proxy";}
+				UI.btn.c2l("_2x2",slotNumber,this.dash["slot"+slotNumber+"Maker"].toUpperCase(),this.dash["slot"+slotNumber+"Name"].split("-")[0],15,(active)?4:1); 
 			}else if (active) {
 				this.g.setColor(0,7);
 				this.g.fillRect(rx1,ry1,rx2,ry2);	
@@ -92,8 +85,8 @@ face[0] = {
 		if (this.s2tid)  clearTimeout(this.s2tid);
 		if (this.s3tid)  clearTimeout(this.s3tid);
 		if (this.s4tid)  clearTimeout(this.s4tid);
-		if (this.ntid) clearTimeout(this.ntid);this.ntid=0;
-		if (this.tid>=0) clearTimeout(this.tid);     this.tid=-1;
+		if (this.ntid)	clearTimeout(this.ntid);this.ntid=0;
+		if (this.tid>=0) clearTimeout(this.tid);this.tid=-1;
 		this.run=false;
 		return true;
 	},
@@ -190,7 +183,7 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.flip();
 				face.go("dashAlerts",0);return;
 			} else {
-                setter.write("dash", "slot"+setter.read("dash","slot")+"Mac"  );
+                setter.write("dash", "slot"+setter.read("dash","slot")+"Mac");
                 setter.write("dash","slot"+setter.read("dash","slot")+"Maker");
                 setter.write("dash","slot"+setter.read("dash","slot")+"Name");
 				require("Storage").erase('logDaySlot'+setter.read("dash","slot")+'.json');

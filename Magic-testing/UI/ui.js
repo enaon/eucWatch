@@ -1,29 +1,86 @@
-global.UI={};
-UI.g=w.gfx;
-UI.btn={
+UI={
+  pos:{
+	_2x2:[0,[3,0,119,97],[122,0,236,97],[3,100,119,195],[122,100,236,195]],
+	_2x3:[0,[0,0,75,75],[80,0,155,75],[160,0,239,75],[0,80,75,155],[80,80,155,155],[160,80,239,155]],
+	_4x2:[0,[0,0,119,97]],
+	_4x1:[],
+	_3x2:[],
+	_3x1:[]
+  },
+  btn:{
+    c2l:(no,po,txt1,txt2,fclr,bclr)=>{
+      "ram";
+      let p=(UI.pos[no][po]);
+      let x=4+p[2]-((p[2]-p[0])/2);
+      let y=p[3]-((p[3]-p[1])/1.5);
+      w.gfx.setColor(0,bclr);
+      w.gfx.fillRect(p[0],p[1],p[2],p[3]);
+      w.gfx.setColor(1,fclr);
+      if (txt2){
+        w.gfx.setFont("Vector",(p[3]-p[1])/5);	
+        w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-((p[3]-p[1])/5)); 
+        w.gfx.setFont("Vector",(p[3]-p[1])/3);	
+        w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),y+((p[3]-p[1])/5));
+      }else{  
+        w.gfx.setFont("Vector",(p[3]-p[1])/3);	
+        w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y); 
+      }
+      w.gfx.flip();
+    },
+    rows:(no,po,txt1,size1,txt2,size2,fclr,bclr)=>{
+      "ram";
+      let p=(UI.pos[no][po]);
+      let x=p[2]-((p[2]-p[0])/2);
+      let y=p[3]-((p[3]-p[1])/2);
+      w.gfx.setColor(0,bclr);
+      w.gfx.fillRect(p[0],p[1],p[2],p[3]);
+      w.gfx.setColor(1,fclr);
+      if (txt2){
+        w.gfx.setFont("Vector",size1);	
+        w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-10); 
+        w.gfx.setFont("Vector",size2);	
+        w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),y+10);
+      }else{  
+        w.gfx.setFont("Vector",size1);	
+        w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y); 
+      }
+      w.gfx.flip();
+	},
+    img:(no,po,Img,fclr,bclr)=>{
+      "ram";
+      let p=(UI.pos[no][po]);
+      let x=p[0]+((p[2]-p[0])/4.5);
+      let y=p[1]+((p[3]-p[1])/4.5);
+      w.gfx.setColor(0,bclr);
+      w.gfx.fillRect(p[0],p[1],p[2],p[3]);
+      w.gfx.setColor(1,fclr);		
+	  w.gfx.drawImage(Img,x,y);
+	  Img=-1;
+	  w.gfx.flip();
+	},
+    
+  }  
+};
+UI.ele={
 	
-	_4x1:(pos,txt,size,clr)=>{
-		"ram";
-		let p=[
-		this.g.setColor(0,clr);
-		this.g.fillRect(rx1,ry1,rx2,ry2);
-		this.g.setColor(1,col("white"));
-
-	},
-	_4x2:(pos,txt,size,clr)=>{
+	btm:()=>{
 		
 		
 	},
-	_4x3:(pos,txt,size,clr)=>{
+	top:()=>{
 		
 		
 	},
-	free:{pos.txt,size,clr}=>{
+	glbl:()=>{
+		
+		
+	},
+	dash:()=>{
 		
 		
 	}
 };
-	
+
 UI.ntfy={
 	
 	btm:()=>{
@@ -45,18 +102,6 @@ UI.ntfy={
 };
 	
 
-	    btn: function(txt,size,x,y,clr,rx1,ry1,rx2,ry2,txt1,size1,x1,y1){
-			this.g.setColor(0,clr);
-			this.g.fillRect(rx1,ry1,rx2,ry2);
-			this.g.setColor(1,col("white"));
-			this.g.setFont("Vector",size);	
-            this.g.drawString(txt,x-(this.g.stringWidth(txt)/2),y); 
-   			if (txt1){
-            this.g.setFont("Vector",size1);	
-            this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1);
-            }
-			this.g.flip();
-    },
 
 
 
