@@ -6,10 +6,9 @@ face[0] = {
 		this.dash=require("Storage").readJSON("dash.json",1);
 		this.g.setColor(0,0);
 		this.g.fillRect(0,0,239,239);
-		this.g.setColor(1,15);
-		this.g.setFont("Vector",22);
-		this.g.drawString("GARAGE",120-(this.g.stringWidth("GARAGE")/2),217); 
 		this.g.flip();
+		UI.ele.title("top","SELECT",15,1);
+		UI.ele.title("btm","GARAGE",15,1);
 		this.s1=0;this.s2=0;this.s3=0;this.s4=0;
 		this['s'+this.dash.slot]=1;
 		this.set=0;
@@ -54,22 +53,8 @@ face[0] = {
 			}
 	},
 	ntfy: function(txt1,txt0,size,clr,bt){
-			this.g.setColor(0,clr);
-			this.g.fillRect(0,198,239,239);
-			this.g.setColor(1,15);
-			this.g.setFont("Vector",size);
-			this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
-			this.g.flip();
-			if (this.ntid) clearTimeout(this.ntid);
-			this.ntid=setTimeout(function(t){
-				t.ntid=0;
-				t.g.setColor(0,0);
-				t.g.fillRect(0,196,239,239);
-				t.g.setColor(1,15);
-				t.g.setFont("Vector",22);
-				t.g.drawString("GARAGE",120-(t.g.stringWidth("GARAGE")/2),217); 
-				t.g.flip();
-			},1000,this);
+			UI.ntfy.simple("btm",bt?txt1:txt2,0,15,clr);//
+			UI.on('ntfy','UI.ele.title("btm","GARAGE",15,1);');
 	},
 	tid:-1,
 	run:false,

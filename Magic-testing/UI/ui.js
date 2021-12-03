@@ -1,11 +1,16 @@
 UI={
   pos:{
-	_2x2:[3.3,[3,0,119,97],[122,0,236,97],[3,100,119,195],[122,100,236,195]],
+ 	_2x2:[3.3,[3,40,119,137],[122,40,236,137],[3,140,119,235],[122,140,236,235]],
+	//_2x2:[3.3,[3,0,119,97],[122,0,236,97],[3,100,119,195],[122,100,236,195]],
 	_2x3:[4.5,[0,0,75,75],[80,0,155,75],[160,0,239,75],[0,80,75,155],[80,80,155,155],[160,80,239,155]],
 	_4x2:[0,[0,0,119,97]],
 	_4x1:[],
 	_3x2:[],
-	_3x1:[]
+	_3x1:[],
+	_ele:{top:[0,0,239,37],dnS:[0,198,239,239],btm:[0,240,239,279],btmL:[0,198,239,279]},
+	//_ele:{top:[0,0,239,37],btm:[0,240,239,279]},
+	_head:2,
+	_foot:255,
   },
   btn:{
     c2l:(no,po,txt1,txt2,fclr,bclr)=>{
@@ -62,43 +67,36 @@ UI={
   }  
 };
 UI.ele={
-	
-	btm:()=>{
-		
-		
+	title:(po,txt,fclr,bclr)=>{
+		"ram";
+		let p=(UI.pos._ele[po]);
+		let x=4+p[2]-((p[2]-p[0])/2);
+		let y=p[3]-((p[3]-p[1])/1.5);
+		w.gfx.setColor(0,bclr);
+		w.gfx.fillRect(p[0],p[1],p[2],p[3]);
+		w.gfx.setColor(1,fclr);	
+        w.gfx.setFont("Vector",(p[3]-p[1])/1.7);	
+		w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y-2); 
+		w.gfx.flip();
 	},
-	top:()=>{
-		
-		
-	},
-	glbl:()=>{
-		
-		
-	},
-	dash:()=>{
-		
-		
-	}
+
 };
 
 UI.ntfy={
-	
-	btm:()=>{
-		
-		
+	simple:(po,txt1,txt2,fclr,bclr,tmot)=>{
+			UI.removeAllListeners("ntfy");
+			let p=(UI.pos._ele[po]);
+			let x=4+p[2]-((p[2]-p[0])/2);
+			let y=p[3]-((p[3]-p[1])/1.5);			
+			w.gfx.setColor(0,bclr);
+			w.gfx.fillRect(p[0],p[1],p[2],p[3]);
+			w.gfx.setColor(1,fclr);
+			w.gfx.setFont("Vector",(p[3]-p[1])/1.7);	
+			w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y); 
+			w.gfx.flip();
+			if (UI.ntid) clearTimeout(UI.ntid);
+			UI.ntid=setTimeout(function(t){UI.ntid=0;UI.emit('ntfy',"ok");},tmot?tmot:1000);
 	},
-	top:()=>{
-		
-		
-	},
-	glbl:()=>{
-		
-		
-	},
-	dash:()=>{
-		
-		
-	}
 };
 	
 
