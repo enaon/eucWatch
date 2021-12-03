@@ -19,10 +19,10 @@ UI={
       if (txt2){
         w.gfx.setFont("Vector",(p[3]-p[1])/5);	
         w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-((p[3]-p[1])/5)); 
-        w.gfx.setFont("Vector",(p[3]-p[1])/3);	
+        w.gfx.setFont("Vector",(p[3]-p[1])/2.5);	
         w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),y+((p[3]-p[1])/5));
       }else{  
-        w.gfx.setFont("Vector",(p[3]-p[1])/3);	
+        w.gfx.setFont("Vector",(p[3]-p[1])/3.5);	
         w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y); 
       }
       w.gfx.flip();

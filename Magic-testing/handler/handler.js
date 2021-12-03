@@ -22,6 +22,7 @@ eval(require('Storage').read('handler_button'));
 //var i2c=I2C1;
 var i2c=new I2C();
 i2c.setup({scl:ew.pin.i2c.SCL, sda:ew.pin.i2c.SDA, bitrate:100000});
+//touch
 if (set.def.touchtype=="816"){ //816
 	eval(require('Storage').read('handler_touch_816'));
 }else{

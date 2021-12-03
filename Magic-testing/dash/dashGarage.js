@@ -19,19 +19,19 @@ face[0] = {
 		if (!this.run) return;
 		if (this.s1!=this.sv1){
 			this.sv1=this.s1;
-			this.btn(1,this.s1,60,10,50,40,0,0,119,97);
+			this.btn(1,this.s1);
 		}
 		if (this.s2!=this.sv2){
 			this.sv2=this.s2;
-			this.btn(2,this.s2,185,10,50,40,122,0,239,97);
+			this.btn(2,this.s2);
 		}
 		if (this.s3!=this.sv3){
 			this.sv3=this.s3;	
-			this.btn(3,this.s3,60,110,150,140,0,100,119,195);
+			this.btn(3,this.s3);
 		}
 		if (this.s4!=this.sv4){
 			this.sv4=this.s4;
-			this.btn(4,this.s4,185,110,150,140,122,100,239,195);
+			this.btn(4,this.s4);
 		}
 		this.tid=setTimeout(function(t){ 
 			t.tid=-1;
@@ -43,20 +43,13 @@ face[0] = {
 				if ((this.dash["slot"+slotNumber+"Name"]).includes("Proxy")) { this.g.setFont("Vector",30);this.dash["slot"+slotNumber+"Name"]="Proxy";}
 				UI.btn.c2l("_2x2",slotNumber,this.dash["slot"+slotNumber+"Maker"].toUpperCase(),this.dash["slot"+slotNumber+"Name"].split("-")[0],15,(active)?4:1); 
 			}else if (active) {
-				this.g.setColor(0,7);
-				this.g.fillRect(rx1,ry1,rx2,ry2);	
-				this.g.setColor(1,15);
-				this.g.setFont("Vector",22);	
-				this.g.drawString("EMPTY",x-(this.g.stringWidth("EMPTY")/2),y2);
-				this.g.flip();
+				let img = require("heatshrink").decompress(atob("mEwwIcZg/+Aocfx+AAoV4gPgAoQDBuAEBgPAgE4AoQVBjgFBgYCBhgoCAQMGAQUgAolACggFL6AFGGQQFJEZsGsAFEIIhNFLIplFgBxBnwFCPYP/AoU8gf/BwKVB/+/SAUD/kf+CjDh/4V4n8AoYeBAoq1DgIqDAAP/XYcAv4qEn4qEGwsfC4kPEYkHF4Z1DACA="));
+				UI.btn.img("_2x2",slotNumber,img,15,12); 	
 				if (this["s"+slotNumber+"tid"])  clearTimeout(this["s"+slotNumber+"tid"]);
 				this["s"+slotNumber+"tid"]=setTimeout(function(slot){
 					face[0]["s"+slot]=0;
 					face[0]["s"+slot+"tid"]=0;
-					w.gfx.setFont("Vector",22);	
-					w.gfx.setColor(0,0);
-					w.gfx.fillRect(rx1,ry1,rx2,ry2);
-					w.gfx.flip();
+					UI.btn.c2l("_2x2",slot,"",0,0,0); 	
 				},1000,slotNumber);
 			}
 	},
@@ -129,7 +122,7 @@ touchHandler[0]=function(e,x,y){
 				else dash.live=require("Storage").readJSON("eucSlot.json",1);
 				face[0].s1=0;face[0].s2=0;face[0].s3=0;face[0].s4=0;
 				face[0].ntfy("HOLD -> OPTIONS","",20,4,1);
-			} else face[0].ntfy("HOLD -> SCAN & SET","",20,1,1);
+			} else face[0].ntfy("HOLD -> SCAN","",20,1,1);
 			face[0]["s"+this.s]=1;
 		}
 		else   {
