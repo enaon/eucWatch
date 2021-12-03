@@ -26,7 +26,7 @@
 	{ "id": "UI",
 		"name": "core - UI support",
 		"icon": "icon.png",
-		"version":"1.01",
+		"version":"1.02",
 		"description": "UI",
 		"tags": "core",
 		"type":"core",
