@@ -26,13 +26,13 @@
 	{ "id": "UI",
 		"name": "core - UI support",
 		"icon": "icon.png",
-		"version":"1.02",
+		"version":"1.03",
 		"description": "UI",
 		"tags": "core",
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"C:ui","url":"ui.js"}
+			{"name":"C:UI","url":"ui.js"}
 		]
 	},	
 	{ "id": "handler",
