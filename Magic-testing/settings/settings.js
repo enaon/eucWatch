@@ -12,6 +12,7 @@ face[0] = {
 		var d=(Date()).toString().split(' ');
 		var t=(d[4]).toString().split(':');	
 		//bottom
+		this.g.setColor(0,0);
 		this.g.fillRect(0,156,239,239);
 		this.g.setColor(1,14);
 		this.g.drawImage(icon("torch"),10,195);	//this.g.drawImage(require("heatshrink").decompress(atob("mEwwILIgOAAp0EAoMQAoMMAoMwAoMGAoNgAoMDAQPADgcBAooqEADcP///+AFNABcHCIPgKYQFHKYYFHLIYFHFQd/Aol8nwFDngFdvwFDn/+AvX8ApIADA==")),10,195);
