@@ -42,8 +42,7 @@ face[0] = {
 				if ((this.dash["slot"+slotNumber+"Name"]).includes("Proxy")) { this.g.setFont("Vector",30);this.dash["slot"+slotNumber+"Name"]="Proxy";}
 				UI.btn.c2l("_2x2",slotNumber,this.dash["slot"+slotNumber+"Maker"].toUpperCase(),this.dash["slot"+slotNumber+"Name"].split("-")[0],15,(active)?4:1); 
 			}else if (active) {
-				let img = require("heatshrink").decompress(atob("mEwwIcZg/+Aocfx+AAoV4gPgAoQDBuAEBgPAgE4AoQVBjgFBgYCBhgoCAQMGAQUgAolACggFL6AFGGQQFJEZsGsAFEIIhNFLIplFgBxBnwFCPYP/AoU8gf/BwKVB/+/SAUD/kf+CjDh/4V4n8AoYeBAoq1DgIqDAAP/XYcAv4qEn4qEGwsfC4kPEYkHF4Z1DACA="));
-				UI.btn.img("_2x2",slotNumber,img,14,0); 	
+				UI.btn.img("_2x2",slotNumber,icon("find"),14,0); 	
 				if (this["s"+slotNumber+"tid"])  clearTimeout(this["s"+slotNumber+"tid"]);
 				this["s"+slotNumber+"tid"]=setTimeout(function(slot){
 					face[0]["s"+slot]=0;
