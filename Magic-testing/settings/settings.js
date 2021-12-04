@@ -11,20 +11,7 @@ face[0] = {
 		face[0].btSetOn=1;
 		var d=(Date()).toString().split(' ');
 		var t=(d[4]).toString().split(':');	
-		this.g.setColor(0,0);
-		this.g.fillRect(76,0,79,155);
-		this.g.fillRect(156,0,159,155);
-		this.g.fillRect(0,76,239,79);
-		if (this.bpp){
-			this.g.setColor(1,1);
-			this.g.fillRect(0,0,75,75);//1
-			this.g.fillRect(80,0,155,75); //2
-			this.g.fillRect(160,0,239,75); //3
-			this.g.fillRect(0,80,75,155); //4
-			this.g.fillRect(80,80,155,155); //5
-			this.g.fillRect(160,80,239,155);//6
-			this.g.flip();
-			this.g.setColor(0,0);
+
 		}
 		//bottom
 		this.g.fillRect(0,156,239,239);

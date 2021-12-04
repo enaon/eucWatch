@@ -1,11 +1,13 @@
 //Dash Scan
 face[0] = { 
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
+  offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
+  bpp:set.def.bpp?0:1,
   g:w.gfx, 
   init: function(o){ 
 	UI.ele.title("top","SCAN FOR",15,0);
 	UI.ele.title("btm","",0,0);
 	this.page(1);
+	this.g.flip();
   },
   show : function(o){
 	return;
@@ -46,7 +48,6 @@ face[1] = {
    return true;
   },
    off: function(){
-   this.clear();
   }
 };	
 touchHandler[0]=function(e,x,y){ 
@@ -54,26 +55,22 @@ touchHandler[0]=function(e,x,y){
   case 5: case 12: //tap event//long press event
 	buzzer(buz.ok);
     let target;
-		if(0<y&&y<120) 
-			target=[0,["InmotionV1","V?","ffb0"],["Begode","BG-NO NAME","ffe0"],["NinebotZ","Z10","e7fe"],["NinebotS","S2","e7fe"]] ;
-		else 
-		  target=[0,["Inmotion","V11","ffe0"],["Veteran","SM-NO NAME","ffe0"],["Ninebot","E+-NO NAME","ffe0"],["Kingsong","KS-NO NAME","fff0"]] ;
-		if (!Boolean(require("Storage").read("euc"+target[face[0].set][0]))) {
-				UI.ntfy.simple("btm","INSTALL MODULE",0,15,7);
-				UI.on('ntfy','UI.ele.title("btm","GARAGE",15,1);');
-				return; 
-		}
-		setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker",target[face[0].set][0]);
-		setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",target[face[0].set][1]);
-		dash.live.name=0;
-		dash.live.maker=target[face[0].set][0];
-		face.go('w_scan',0,target[face[0].set][2]);
-		//return;
-	
-    //}else buzzer(buz.na); 
+	if(0<y&&y<120) 
+		target=[0,["InmotionV1","V?","ffb0"],["Begode","BG-NO NAME","ffe0"],["NinebotZ","Z10","e7fe"],["NinebotS","S2","e7fe"]] ;
+	else 
+	  target=[0,["Inmotion","V11","ffe0"],["Veteran","SM-NO NAME","ffe0"],["Ninebot","E+-NO NAME","ffe0"],["Kingsong","KS-NO NAME","fff0"]] ;
+	if (!Boolean(require("Storage").read("euc"+target[face[0].set][0]))) {
+			UI.ntfy.simple("btm","INSTALL MODULE",0,15,7);
+			UI.on('ntfy','UI.ele.title("btm","GARAGE",15,1);');
+			return; 
+	}
+	setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker",target[face[0].set][0]);
+	setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",target[face[0].set][1]);
+	dash.live.name=0;
+	dash.live.maker=target[face[0].set][0];
+	face.go('w_scan',0,target[face[0].set][2]);
     break;
   case 1: //slide down event
-    //face.go(set.dash[set.def.dash.face],0);
 	face.go("dashGarage",0);
 	return;	 
   case 2: //slide up event

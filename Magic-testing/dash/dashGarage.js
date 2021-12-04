@@ -1,13 +1,12 @@
 //Dash Garage
 face[0] = { 
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
+	bpp:set.def.bpp?0:1,
 	g:w.gfx, 
 	init: function(o){ 
+		this.sv=[-1,-1,-1,-1,-1];
 		this.dash=require("Storage").readJSON("dash.json",1);
-		this.g.setColor(0,0);
-		this.g.fillRect(0,0,239,239);
-		this.g.flip();
-		UI.ele.title("top","SELECT",15,1);
+		UI.ele.title("top","SELECT",15,4);
 		UI.ele.title("btm","GARAGE",15,1);
 		this.s1=0;this.s2=0;this.s3=0;this.s4=0;
 		this['s'+this.dash.slot]=1;
@@ -16,22 +15,23 @@ face[0] = {
 	},
 	show : function(o){
 		if (!this.run) return;
-		if (this.s1!=this.sv1){
-			this.sv1=this.s1;
+		if (this.s1!=this.sv[1]){
+			this.sv[1]=this.s1;
 			this.btn(1,this.s1);
 		}
-		if (this.s2!=this.sv2){
-			this.sv2=this.s2;
+		if (this.s2!=this.sv[2]){
+			this.sv[2]=this.s2;
 			this.btn(2,this.s2);
 		}
-		if (this.s3!=this.sv3){
-			this.sv3=this.s3;	
+		if (this.s3!=this.sv[3]){
+			this.sv[3]=this.s3;	
 			this.btn(3,this.s3);
 		}
-		if (this.s4!=this.sv4){
-			this.sv4=this.s4;
+		if (this.s4!=this.sv[4]){
+			this.sv[4]=this.s4;
 			this.btn(4,this.s4);
 		}
+        if (set.def.bpp) w.gfx.flip();
 		this.tid=setTimeout(function(t){ 
 			t.tid=-1;
 			t.show(o);
@@ -43,7 +43,7 @@ face[0] = {
 				UI.btn.c2l("_2x2",slotNumber,this.dash["slot"+slotNumber+"Maker"].toUpperCase(),this.dash["slot"+slotNumber+"Name"].split("-")[0],15,(active)?4:1); 
 			}else if (active) {
 				let img = require("heatshrink").decompress(atob("mEwwIcZg/+Aocfx+AAoV4gPgAoQDBuAEBgPAgE4AoQVBjgFBgYCBhgoCAQMGAQUgAolACggFL6AFGGQQFJEZsGsAFEIIhNFLIplFgBxBnwFCPYP/AoU8gf/BwKVB/+/SAUD/kf+CjDh/4V4n8AoYeBAoq1DgIqDAAP/XYcAv4qEn4qEGwsfC4kPEYkHF4Z1DACA="));
-				UI.btn.img("_2x2",slotNumber,img,15,12); 	
+				UI.btn.img("_2x2",slotNumber,img,14,0); 	
 				if (this["s"+slotNumber+"tid"])  clearTimeout(this["s"+slotNumber+"tid"]);
 				this["s"+slotNumber+"tid"]=setTimeout(function(slot){
 					face[0]["s"+slot]=0;
@@ -120,14 +120,13 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.drawLine (121,0,121,195);
 				w.gfx.flip();
 				face.go("dashAlerts",0);return;			
-      }else{
-		  UI.ntfy.simple("btm","HOLD -> DELETE",0,15,7);
-		  UI.on('ntfy','UI.ele.title("btm","GARAGE",15,1);');
-	  }
+			}else{
+				UI.ntfy.simple("btm","HOLD -> DELETE",0,15,7);
+				UI.on('ntfy','UI.ele.title("btm","GARAGE",15,1);');
+			}
 		}
 		break;
 	case 1: //slide down event
-		//face.go("main",0);
 		face.go("main",0);
 		return;	 
 	case 2: //slide up event
@@ -142,12 +141,9 @@ touchHandler[0]=function(e,x,y){
 		break;
 	case 4: //slide right event (back action)
 		if (face[0].set) {
-			face[0].sv1=-1;face[0].sv2=-1;face[0].sv3=-1;face[0].sv4=-1;
-			face[0].s1=0;face[0].s2=0;face[0].s3=0;face[0].s4=0;
-            face[0]["s"+require("Storage").readJSON("dash.json",1).slot]=1;
-			w.gfx.setColor(0,0);w.gfx.fillRect(0,0,239,195);w.gfx.flip();
-			face[0].dash=require("Storage").readJSON("dash.json",1);
-			face[0].run=true;face[0].set=0;face[0].show();		
+			face[0].init();	
+			face[0].show();
+			return;			
 		}else
 			(euc.state=="OFF")?face.go("dashOff",0):face.go(set.dash[set.def.dash.face],0);
 		return;
@@ -173,7 +169,7 @@ touchHandler[0]=function(e,x,y){
 				set.def.dash.slot=0;
 				require("Storage").erase('eucSlot'+setter.read("dash","slot")+'.json');
 				dash.live=require("Storage").readJSON("eucSlot.json",1);				
-			    face[0].sv1=-1;face[0].sv2=-1;face[0].sv3=-1;face[0].sv4=-1;
+				face[0].sv=[-1,-1,-1,-1,-1];
                 w.gfx.setColor(0,0);w.gfx.fillRect(0,0,239,195);w.gfx.flip();
               	face[0].dash=require("Storage").readJSON("dash.json",1);
 				face[0].run=true;face[0].set=0;face[0].show();
@@ -191,18 +187,9 @@ touchHandler[0]=function(e,x,y){
 			else dash.live=require("Storage").readJSON("eucSlot.json",1);
 			if (face[0].dash["slot"+this.s+"Mac"]){
 				face[0].clear();
-				var g=w.gfx;
-				g.setFont("Vector",25);	
-				g.setColor(0,1);
-				g.fillRect(0,0,239,97);
-              	g.setColor(1,15);
-				g.drawString("WATCH ALERTS",120-(g.stringWidth("WATCH ALERTS")/2),35);
-				g.flip();
-				g.setColor(0,7);
-				g.fillRect(0,100,239,195);
-                g.setColor(1,15);
-				g.drawString("DELETE WHEEL",120-(g.stringWidth("DELETE WHEEL")/2),135);
-				g.flip();
+				UI.ele.title("top",face[0].dash["slot"+this.s+"Mac"],15,4);
+				UI.btn.c2l("_2x1",1,"WATCH ALERTS",0,15,4); 	
+				UI.btn.c2l("_2x1",2,"DELETE WHEEL",0,15,7); 	
 				face[0].set=1;
 			}else {
 				dash.live=require("Storage").readJSON("eucSlot.json",1);

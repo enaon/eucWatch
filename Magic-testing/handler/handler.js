@@ -30,3 +30,6 @@ if (set.def.touchtype=="816"){ //816
 }
 //acc
 eval(require('Storage').read('handler_accel_SC7A20'));
+//
+//cron
+eval(require('Storage').read('handler_cron'));

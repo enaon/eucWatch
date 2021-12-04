@@ -17,12 +17,9 @@ face[0] = {
 		this.g.flip();
 		this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,204);
-		this.g.setColor(1,3);
-      	this.g.fillRect(75,200,165,204);
 		this.g.flip();
-        this.g.setColor(1,15);
-      	this.g.fillRect(75,200,98,204);
-		this.g.flip(); 
+		UI.ele.ind(1,4);
+
 		this.btn("LIGHTS",18,60,15,(dash.live.aLight==="lightsOff")?0:(dash.live.aLight==="lightsOn")?6:(dash.live.aLight=="lightsAuto"||dash.live.aLight==0)?6:4,0,0,119,97,(dash.live.aLight==="lightsOff")?"OFF":(dash.live.aLight==="lightsOn")?"ON":(dash.live.aLight==="lightsAuto"||dash.live.aLight==0)?"AUTO":"CITY",28,60,50); //1
 		this.btn("STROBE",25,185,35,(dash.live.strb)?7:1,122,0,239,97);//2
 		//

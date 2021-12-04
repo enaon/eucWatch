@@ -7,26 +7,15 @@ face[0] = {
 		if (this.ntid) {clearTimeout(this.ntid); this.ntid=0;}
 		if (!set.def.dash.rtr) set.def.dash.rtr=5;
 		this.page=0;
-		this.g.setColor(0,0);
-		this.g.fillRect(0,160,239,239);
-		this.g.setColor(1,15);
-		this.g.setFont("Vector",25);
-		this.g.drawString("DASH OPTIONS",120-(this.g.stringWidth("DASH OPTIONS")/2),217); 
-		this.g.flip(); 
-		this.g.setColor(0,0);
-		this.g.fillRect(75,180,165,184);
-		this.g.setColor(1,15);
-      	this.g.fillRect(75,180,120,184);
-		this.g.flip();
-        this.g.setColor(1,2);
-      	this.g.fillRect(120,180,165,184);
-		this.g.flip(); 
+		UI.ele.title("btm","DASH OPTIONS",15,4);
 		UI.btn.c2l("_2x3",1,(set.def.dash.mph)?"MPH":"KPH",0,15,4);//1
 		UI.btn.c2l("_2x3",2,(set.def.dash.farn)?"°F":"°C",0,15,4);//2
 		UI.btn.c2l("_2x3",3,"",0,0,2); //3
 		UI.btn.c2l("_2x3",4,"SPEED X",dash.live.spdF,15,1); //4
 		UI.btn.c2l("_2x3",5,"DIST X",dash.live.trpF,15,1); //5
 		UI.btn.c2l("_2x3",6,"RETRY",set.def.dash.rtr,15,1); //6
+		UI.ele.ind(1,2);
+
         //this.run=true;
 	},
 	show : function(){
