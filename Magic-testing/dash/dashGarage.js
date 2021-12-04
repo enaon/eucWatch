@@ -49,7 +49,7 @@ face[0] = {
 					face[0]["s"+slot+"tid"]=0;
 					UI.btn.c2l("_2x2",slot,"",0,0,0); 	
 				},1000,slotNumber);
-			} //else UI.btn.c2l("_2x2",slotNumber,"",0,0,0);
+			} else UI.btn.c2l("_2x2",slotNumber,"",0,0,0);
 	},
 	tid:-1,
 	run:false,
