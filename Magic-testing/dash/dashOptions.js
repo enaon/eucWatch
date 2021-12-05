@@ -1,5 +1,5 @@
 //dash  Options
-//dash options  
+TC.removeAllListeners("tc5");
 face[0] = {
 	btn:{},
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:15000,
@@ -63,6 +63,7 @@ face[1] = {
 	},
 };	
 //touch
+/*
 touchHandler[0]=function(e,x,y){};
 TC.on('tc1',tcDn); 	
 TC.on('tc2',tcUp); 	
@@ -83,18 +84,18 @@ tcL=(x,y)=>{
 };	
 TC.on('tc3',tcL); 	
 TC.on('tc4',tcL); 	
-
-face[0].btn._2x3_1=()=>{buzzer(buz.ok);};
-face[0].btn._2x3_2=()=>{buzzer(buz.ok);};
-face[0].btn._2x3_3=()=>{buzzer(buz.ok);};
-face[0].btn._2x3_4=()=>{buzzer(buz.ok);};
-face[0].btn._2x3_5=()=>{buzzer(buz.na);};
-face[0].btn._2x3_6=()=>{buzzer(buz.na);};
-
-
+*/
+face[0].btn._2x3_1=()=>{};
+face[0].btn._2x3_2=()=>{};
+face[0].btn._2x3_3=()=>{};
+face[0].btn._2x3_4=()=>{};
+face[0].btn._2x3_5=()=>{};
+face[0].btn._2x3_6=()=>{};
 
 
-te=function(e,x,y){ 
+
+
+touchHandler[0]=function(e,x,y){ 
 	switch (e) {
 	case 5: //tap event
 		if (face[0].set) { 
