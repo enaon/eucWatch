@@ -31,7 +31,7 @@ var setter={
 		},
 		off:{ //face timeout 
 		},
-		name:"eucWatch", //Set the name to be broadcasted by the Bluetooth module. 
+		name:"eucWatch_v1", //Set the name to be broadcasted by the Bluetooth module. 
 		timezone:0, //Timezone
 		hr24:1, //24 hour mode
 		woe:1, //wake Screen on event.0=disable|1=enable
@@ -105,7 +105,7 @@ var setter={
 //defaults
 set.def = require('Storage').readJSON('setting.json', 1);
 if (!set.def) setter.resetSettings();
-if (!set.def.rstP) set.def.rstP=ew.pin.touch.RST;
+if (!set.def.rstP) set.def.rstP=E.toJS(ew.pin.touch.RST);
 if (!set.def.rstR) set.def.rstR=0xA5;
 if (!set.def.addr) set.def.addr=NRF.getAddress();
 if (!set.def.off) set.def.off={};
