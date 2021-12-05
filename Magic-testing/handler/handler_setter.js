@@ -49,7 +49,7 @@ var setter={
 		touchtype:"0",
 		buzz:1
 		};
-		updateSettings();
+		setter.updateSettings();
 	},	
 	updateBT:function(){ //run this for settings changes to take effect.
 		if (set.def.hid===1) {set.def.hid=0; return;}
