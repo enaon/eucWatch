@@ -8,24 +8,89 @@ face[0] = {
 		if (this.ntid) {clearTimeout(this.ntid); this.ntid=0;}
 		if (!set.def.dash.rtr) set.def.dash.rtr=5;
 		this.page=0;
-		UI.ele.title("btmS","DASH OPTIONS",15,4);
+		UI.ele.ind("top",1,2);
 		UI.btn.c2l("_2x3",1,(set.def.dash.mph)?"MPH":"KPH",0,15,4);//1
 		UI.btn.c2l("_2x3",2,(set.def.dash.farn)?"°F":"°C",0,15,4);//2
 		UI.btn.c2l("_2x3",3,"",0,0,2); //3
 		UI.btn.c2l("_2x3",4,"SPEED X",dash.live.spdF,15,1); //4
 		UI.btn.c2l("_2x3",5,"DIST X",dash.live.trpF,15,1); //5
 		UI.btn.c2l("_2x3",6,"RETRY",set.def.dash.rtr,15,1); //6
-		UI.ele.ind("top",1,2);
+		UI.ele.fill("_ele","btmM",0);
+		UI.ele.title("btmS","DASH OPTIONS",15,4);
+
 		if (set.def.bpp) w.gfx.flip();
-        this.run=false;
+        this.run=true;
 	},
 	show : function(){
-		if (!this.run) return; 
-		if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(set.dash[set.def.dash.face],0);return;}
-        this.tid=setTimeout(function(t,o){
-		  t.tid=-1;
-		  t.show();
-        },1000,this);
+		face[0].btn._2x3_1=()=>{
+			buzzer(buz.ok);
+			if (!face[0].page){	
+				set.def.dash.mph=1-set.def.dash.mph;
+				UI.btn.c2l("_2x3",1,(set.def.dash.mph)?"MPH":"KPH",0,15,4);
+				face[0].ntfy("SPEED & DISTANCE IN",(set.def.dash.mph)?"MILES":"KILOMETERS",30,1,4,1500);
+			}else{
+				face[0].set="batF";
+				UI.btn.c2l("_2x3",1,"FULL",dash.live.batF/100,15,1); //1
+				face[0].ntfy("100% WHEN CELL IS AT",dash.live.batF/100 + " Volt",30,1,12,3000,1);
+			} 	
+		};
+		face[0].btn._2x3_2=()=>{
+			if (!face[0].page){
+				buzzer(buz.ok);
+				set.def.dash.farn=1-set.def.dash.farn;
+				UI.btn.c2l("_2x3",2,(set.def.dash.farn)?"°F":"°C",0,15,4);
+				face[0].ntfy("TEMPERATURE IN",(set.def.dash.farn)?"FAHRENHEIT":"CELSIUS",30,1,4,1500);
+			}else{
+				buzzer(buz.ok); 
+			} 	
+		};
+		face[0].btn._2x3_3=()=>{
+			if (!face[0].page){
+				buzzer(buz.na);
+			}else{
+				dash.live.ampR=1-dash.live.ampR;
+				UI.btn.c2l("_2x3",3,"AMP",(dash.live.ampR)?"R":"N",15,4); //3
+				face[0].ntfy("AMPERAGE REPORT",(dash.live.ampR)?"REVERSED":"NORMAL",30,1,4,1500);
+				buzzer(buz.ok);
+			}
+		};
+		face[0].btn._2x3_4=()=>{
+			buzzer(buz.ok);
+			if (!face[0].page){	
+				face[0].set="spdF";
+				UI.btn.c2l("_2x3",4,"SPEED X",dash.live.spdF,15,1); //4
+				face[0].ntfy("SPEED FACTOR",dash.live.spdF,40,1,12,3000,1);
+			}else{
+				face[0].set="batE";
+				UI.btn.c2l("_2x3",4,"EMPTY",dash.live.batE/100,15,1); //4
+				face[0].ntfy("0% WHEN CELL IS AT",dash.live.batE/100 + " Volt",30,1,12,3000,1);
+			} 	
+		};
+		face[0].btn._2x3_5=()=>{
+			if (!face[0].page){	
+				buzzer(buz.ok);
+				face[0].set="trpF";
+				UI.btn.c2l("_2x3",5,"DIST X",dash.live.trpF,15,1); //5
+				face[0].ntfy("DISTANCE FACTOR",dash.live.trpF,40,1,12,3000,1);
+			}else{
+				buzzer(buz.na); 
+			} 	
+		};
+		face[0].btn._2x3_6=()=>{
+			if (!face[0].page){	
+				if (1.5<=dash.live.bms) dash.live.bms=1;
+				else dash.live.bms=dash.live.bms+0.25;
+				UI.btn.c2l("_2x3",6,"PACK",dash.live.bms*67.2|0,15,4); //6
+				face[0].ntfy("BATTERY VOLTAGE",dash.live.bms*67.2,40,1,4,1500);
+				buzzer(buz.ok); 
+			}else{
+				if (1.5<=dash.live.bms) dash.live.bms=1;
+				else dash.live.bms=dash.live.bms+0.25;
+				UI.btn.c2l("_2x3",6,"PACK",dash.live.bms*67.2|0,15,4); //6
+				face[0].ntfy("BATTERY VOLTAGE",dash.live.bms*67.2,40,1,4,1500);
+				buzzer(buz.ok); 
+			} 	
+		};
 	},
  	tid:-1,
 	run:false,
@@ -85,75 +150,7 @@ tcL=(x,y)=>{
 TC.on('tc3',tcL); 	
 TC.on('tc4',tcL); 	
 */
-face[0].btn._2x3_1=()=>{
-	buzzer(buz.ok);
-	if (!face[0].page){	
-		set.def.dash.mph=1-set.def.dash.mph;
-		UI.btn.c2l("_2x3",1,(set.def.dash.mph)?"MPH":"KPH",0,15,4);
-		face[0].ntfy("SPEED & DISTANCE IN",(set.def.dash.mph)?"MILES":"KILOMETERS",30,1,4,1500);
-	}else{
-		face[0].set="batF";
-		UI.btn.c2l("_2x3",1,"FULL",dash.live.batF/100,15,1); //1
-		face[0].ntfy("100% WHEN CELL IS AT",dash.live.batF/100 + " Volt",30,1,12,3000,1);
-	} 	
-};
-face[0].btn._2x3_2=()=>{
-	if (!face[0].page){
-		buzzer(buz.ok);
-		set.def.dash.farn=1-set.def.dash.farn;
-		UI.btn.c2l("_2x3",2,(set.def.dash.farn)?"°F":"°C",0,15,4);
-		face[0].ntfy("TEMPERATURE IN",(set.def.dash.farn)?"FAHRENHEIT":"CELSIUS",30,1,4,1500);
-	}else{
-		buzzer(buz.ok); 
-	} 	
-};
-face[0].btn._2x3_3=()=>{
-	if (!face[0].page){
-		buzzer(buz.na);
-	}else{
-		dash.live.ampR=1-dash.live.ampR;
-		UI.btn.c2l("_2x3",3,"AMP",(dash.live.ampR)?"R":"N",15,4); //3
-		face[0].ntfy("AMPERAGE REPORT",(dash.live.ampR)?"REVERSED":"NORMAL",30,1,4,1500);
-		buzzer(buz.ok);
-	}
-};
-face[0].btn._2x3_4=()=>{
-	buzzer(buz.ok);
-	if (!face[0].page){	
-		face[0].set="spdF";
-		UI.btn.c2l("_2x3",4,"SPEED X",dash.live.spdF,15,1); //4
-		face[0].ntfy("SPEED FACTOR",dash.live.spdF,40,1,12,3000,1);
-	}else{
-		face[0].set="batE";
-		UI.btn.c2l("_2x3",4,"EMPTY",dash.live.batE/100,15,1); //4
-		face[0].ntfy("0% WHEN CELL IS AT",dash.live.batE/100 + " Volt",30,1,12,3000,1);
-	} 	
-};
-face[0].btn._2x3_5=()=>{
-	if (!face[0].page){	
-		buzzer(buz.ok);
-		face[0].set="trpF";
-		UI.btn.c2l("_2x3",5,"DIST X",dash.live.trpF,15,1); //5
-		face[0].ntfy("DISTANCE FACTOR",dash.live.trpF,40,1,12,3000,1);
-	}else{
-		buzzer(buz.na); 
-	} 	
-};
-face[0].btn._2x3_6=()=>{
-	if (!face[0].page){	
-		if (1.5<=dash.live.bms) dash.live.bms=1;
-		else dash.live.bms=dash.live.bms+0.25;
-		UI.btn.c2l("_2x3",6,"PACK",dash.live.bms*67.2|0,15,4); //6
-		face[0].ntfy("BATTERY VOLTAGE",dash.live.bms*67.2,40,1,4,1500);
-		buzzer(buz.ok); 
-	}else{
-		if (1.5<=dash.live.bms) dash.live.bms=1;
-		else dash.live.bms=dash.live.bms+0.25;
-		UI.btn.c2l("_2x3",6,"PACK",dash.live.bms*67.2|0,15,4); //6
-		face[0].ntfy("BATTERY VOLTAGE",dash.live.bms*67.2,40,1,4,1500);
-		buzzer(buz.ok); 
-	} 	
-};
+
 
 
 
