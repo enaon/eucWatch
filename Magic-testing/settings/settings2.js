@@ -1,5 +1,4 @@
 //settings
-
 face[0] = {
 	g:w.gfx,
 	btn:{},
@@ -8,15 +7,14 @@ face[0] = {
 	init: function(o){ 
 		set.def.info=0;
 		if (face.faceSave==-1) face.faceSave=[face.appPrev,face.pagePrev,face.pageArg];
-		UI.ele.fill("_ele","topS",0);
-		UI.ele.fill("_ele","topS1",1);
+		UI.ele.fill("_ele","topS",1);
+		//UI.ele.fill("_ele","topS1",1);
 		UI.ele.fill("_ele","btm",0);
 		eval(require('Storage').read(o?'set_apps':'set_set')); 
 		this.run=false;
 	},
 	show : function(s){
 		if (!this.run) return;
-		
 		//loop
 		this.tid=setTimeout(function(t,o){
 			t.tid=-1;
@@ -35,7 +33,7 @@ face[0] = {
 		//pal[0]=0;
 		//this.g.clear();
 		if (set.tor==1){
-			w.gfx.bri.set(this.cbri);
+			w.gfx.bri.set(set.bri);
 			face.faceSave=-1;
 			set.tor=-1;
 		}
@@ -75,16 +73,12 @@ TC.on('tc2',tcUp);
 tcL=(x,y)=>{
 	buzzer(buz.ok);
 	print("left",x,y);
-	if (face[0].page=="app"){
-		face[0].page="set";
+	if (face[0].page=="set"){
+		set.def.info=1;
+		eval(require('Storage').read('set_apps')); 
+	}else  { 
 		set.def.info=0;
 		eval(require('Storage').read('set_set')); 
-	}else { 
-		set.def.info=1;
-		face[0].page="app";
-		print("left",x,y);
-		eval(require('Storage').read('set_apps')); 
-		w.gfx.flip();
 	}
 };	
 TC.on('tc3',tcL); 	

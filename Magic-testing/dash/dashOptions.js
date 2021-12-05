@@ -1,22 +1,23 @@
 //dash  Options
 //dash options  
 face[0] = {
+	btn:{},
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:15000,
 	g:w.gfx,
 	init: function(){
 		if (this.ntid) {clearTimeout(this.ntid); this.ntid=0;}
 		if (!set.def.dash.rtr) set.def.dash.rtr=5;
 		this.page=0;
-		UI.ele.title("btm","DASH OPTIONS",15,4);
+		UI.ele.title("btmS","DASH OPTIONS",15,4);
 		UI.btn.c2l("_2x3",1,(set.def.dash.mph)?"MPH":"KPH",0,15,4);//1
 		UI.btn.c2l("_2x3",2,(set.def.dash.farn)?"°F":"°C",0,15,4);//2
 		UI.btn.c2l("_2x3",3,"",0,0,2); //3
 		UI.btn.c2l("_2x3",4,"SPEED X",dash.live.spdF,15,1); //4
 		UI.btn.c2l("_2x3",5,"DIST X",dash.live.trpF,15,1); //5
 		UI.btn.c2l("_2x3",6,"RETRY",set.def.dash.rtr,15,1); //6
-		UI.ele.ind(1,2);
-
-        //this.run=true;
+		UI.ele.ind("top",1,2);
+		if (set.def.bpp) w.gfx.flip();
+        this.run=false;
 	},
 	show : function(){
 		if (!this.run) return; 
@@ -26,47 +27,15 @@ face[0] = {
 		  t.show();
         },1000,this);
 	},
-    ntfy: function(txt0,txt1,size,bt,clr,tm,s){
-			if (this.ntid) {clearTimeout(this.ntid); this.ntid=0;}
-            this.g.setColor(0,clr);
-			this.g.fillRect(0,160,239,239);
-			this.g.setColor(1,15);
-			this.g.setFont("Vector",18);
-     		this.g.drawString(txt0,120-(this.g.stringWidth(txt0)/2),170); 
-			if (s) {this.g.setFont("Vector",50);this.g.drawString("<",5,200);this.g.drawString(">",215,200);}
-			this.g.setFont("Vector",size);
-     		this.g.drawString(txt1,120-(this.g.stringWidth(txt1)/2),205); 
-			this.g.flip();
-			this.ntid=setTimeout(function(t){
-                t.ntid=0;
-				t.set=0;
-				if (!t.page){
-					UI.btn.c2l("_2x3",4,"SPEED X",dash.live.spdF,15,1); //4
-					UI.btn.c2l("_2x3",5,"DIST X",dash.live.trpF,15,1); //5
-					UI.btn.c2l("_2x3",6,"RETRY",set.def.dash.rtr,15,1); //6
-				}else {
-					UI.btn.c2l("_2x3",1,"FULL",dash.live.batF/100,15,1); //1
-					UI.btn.c2l("_2x3",4,"EMPTY",dash.live.batE/100,15,1); //4
-				}
-				t.g.setColor(0,0);
-				t.g.fillRect(0,156,239,239);
-				t.g.setColor(1,15);
-				t.g.setFont("Vector",25);
-				t.g.drawString("DASH OPTIONS",120-(t.g.stringWidth("DASH OPTIONS")/2),217); 
-				t.g.flip();
-				t.g.setColor(0,0);
-				t.g.fillRect(75,180,165,184);
-				t.g.setColor(1,(t.page)?2:15);
-				t.g.fillRect(75,180,120,184);
-				t.g.flip();
-				t.g.setColor(1,(t.page)?15:2);
-				t.g.fillRect(120,180,165,184);
-				t.g.flip(); 
-			},tm,this);
-    },
-	tid:-1,
+ 	tid:-1,
 	run:false,
 	clear : function(){
+		TC.removeAllListeners("tc5");
+		TC.removeAllListeners("tc12");
+		TC.removeAllListeners("tc1");
+		TC.removeAllListeners("tc2");
+		TC.removeAllListeners("tc3");
+		TC.removeAllListeners("tc4");
 		//this.g.clear();
 		this.run=false;
 		if (this.tid>=0) clearTimeout(this.tid);this.tid=-1;
@@ -94,7 +63,38 @@ face[1] = {
 	},
 };	
 //touch
-touchHandler[0]=function(e,x,y){ 
+touchHandler[0]=function(e,x,y){};
+TC.on('tc1',tcDn); 	
+TC.on('tc2',tcUp); 	
+tcL=(x,y)=>{
+	buzzer(buz.ok);
+	print("left",x,y);
+	if (face[0].page=="app"){
+		face[0].page="set";
+		set.def.info=0;
+		eval(require('Storage').read('set_set')); 
+	}else { 
+		set.def.info=1;
+		face[0].page="app";
+		print("left",x,y);
+		eval(require('Storage').read('set_apps')); 
+		w.gfx.flip();
+	}
+};	
+TC.on('tc3',tcL); 	
+TC.on('tc4',tcL); 	
+
+face[0].btn._2x3_1=()=>{buzzer(buz.ok);};
+face[0].btn._2x3_2=()=>{buzzer(buz.ok);};
+face[0].btn._2x3_3=()=>{buzzer(buz.ok);};
+face[0].btn._2x3_4=()=>{buzzer(buz.ok);};
+face[0].btn._2x3_5=()=>{buzzer(buz.na);};
+face[0].btn._2x3_6=()=>{buzzer(buz.na);};
+
+
+
+
+te=function(e,x,y){ 
 	switch (e) {
 	case 5: //tap event
 		if (face[0].set) { 
@@ -259,21 +259,7 @@ touchHandler[0]=function(e,x,y){
 			UI.btn.c2l("_2x3",6,"PACK",dash.live.bms*67.2|0,15,4); //6
 			if (face[0].ntid) {
 				clearTimeout(face[0].ntid);face[0].ntid=0;
-				w.gfx.setColor(0,0);
-				w.gfx.fillRect(0,156,239,239);
-				w.gfx.setColor(1,15);
-				w.gfx.setFont("Vector",25);
-				w.gfx.drawString("DASH OPTIONS",120-(w.gfx.stringWidth("DASH OPTIONS")/2),217); 
-				w.gfx.flip();				
 			}
-			w.gfx.setColor(0,0);
-			w.gfx.fillRect(75,180,165,184);
-			w.gfx.setColor(1,2);
-			w.gfx.fillRect(75,180,120,184);
-			w.gfx.flip();
-			w.gfx.setColor(1,15);
-			w.gfx.fillRect(120,180,165,184);
-			w.gfx.flip(); 
 		}else
 			buzzer(buz.na);
 		break;
@@ -289,21 +275,7 @@ touchHandler[0]=function(e,x,y){
 			UI.btn.c2l("_2x3",6,"RETRY",set.def.dash.rtr,15,1); //6			
 			if (face[0].ntid) {
 				clearTimeout(face[0].ntid);face[0].ntid=0;
-				w.gfx.setColor(0,0);
-				w.gfx.fillRect(0,156,239,239);
-				w.gfx.setColor(1,15);
-				w.gfx.setFont("Vector",25);
-				w.gfx.drawString("DASH OPTIONS",120-(w.gfx.stringWidth("DASH OPTIONS")/2),217); 
-				w.gfx.flip();				
 			}
-			w.gfx.setColor(0,0);
-			w.gfx.fillRect(75,180,165,184);
-			w.gfx.setColor(1,15);
-			w.gfx.fillRect(75,180,120,184);
-			w.gfx.flip();
-			w.gfx.setColor(1,2);
-			w.gfx.fillRect(120,180,165,184);
-			w.gfx.flip(); 
 		}else {
 			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 			face.go(face.appPrev,0);

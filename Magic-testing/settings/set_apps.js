@@ -1,4 +1,5 @@
 TC.removeAllListeners("tc5");
+face[0].page="app";
 face[0].btn={};
 UI.ele.ind("top",2,2);
 let img;
@@ -26,9 +27,9 @@ UI.ele.fill("_2x3",5,1);//img=E.toArrayBuffer(atob("MDCBAAAAAAAAAAAAAAAAAAAAAAAA
 //app6
 UI.ele.fill("_2x3",6,1);
 img=0;
-UI.btn.img("_bar",1,UI.icon.torch,0,14,0,1);//btn2
-UI.btn.img("_bar",2,UI.icon.settings,0,14,face.appPrev=="main"?1:4,1);//btn2
-UI.btn.img("_bar",3,UI.icon.alarm,0,14,0,1);//btn2
+UI.btn.img("_bar",1,UI.icon.torch,0,14,0);//btn2
+UI.btn.img("_bar",2,UI.icon.settings,0,14,0);//btn2
+UI.btn.img("_bar",3,UI.icon.alarm,0,14,0);//btn2
 if (set.def.bpp) w.gfx.flip();
 //
 face[0].btn._2x3_1=()=>{buzzer(buz.ok);face.go('calc',0);};

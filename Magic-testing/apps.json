@@ -95,7 +95,9 @@
 		"storage": [
 			{"name":"C:settings","url":"settings.js"},
 			{"name":"C:set_set","url":"set_set.js"},
-			{"name":"C:set_apps","url":"set_apps.js"}
+			{"name":"C:set_apps","url":"set_apps.js"},
+			{"name":"C:set_bt","url":"set_bt.js"}
+			
 		]
 	},
 	{ "id": "alarm",
