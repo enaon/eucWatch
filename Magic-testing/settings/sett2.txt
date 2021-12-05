@@ -26,11 +26,12 @@ face[0] = {
 	tid:-1,
 	run:false,
 	clear : function(o){
-		TC.removeAllListeners("tcT");
-		TC.removeAllListeners("tcL");
-		TC.removeAllListeners("tcR");
-		TC.removeAllListeners("tcUp");
-		TC.removeAllListeners("tcDn");
+		TC.removeAllListeners("tc5");
+		TC.removeAllListeners("tc12");
+		TC.removeAllListeners("tc1");
+		TC.removeAllListeners("tc2");
+		TC.removeAllListeners("tc3");
+		TC.removeAllListeners("tc4");
 		//pal[0]=0;
 		//this.g.clear();
 		if (set.tor==1){
@@ -69,8 +70,8 @@ face[1] = {
 //info face
 
 touchHandler[0]=function(){};
-TC.on('tcDn',tcDn); 	
-TC.on('tcUp',tcUp); 	
+TC.on('tc1',tcDn); 	
+TC.on('tc2',tcUp); 	
 tcL=(x,y)=>{
 	buzzer(buz.ok);
 	print("left",x,y);
@@ -86,6 +87,6 @@ tcL=(x,y)=>{
 		w.gfx.flip();
 	}
 };	
-TC.on('tcL',tcL); 	
-TC.on('tcR',tcL); 	
+TC.on('tc3',tcL); 	
+TC.on('tc4',tcL); 	
 

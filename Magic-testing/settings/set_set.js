@@ -1,4 +1,4 @@
-TC.removeAllListeners("tcT");
+TC.removeAllListeners("tc5");
 face[0].btn={};
 let tmp={cli:-1,};
 tmp.bt=(set.def.cli||set.def.gb||set.def.emuZ)?1:0;

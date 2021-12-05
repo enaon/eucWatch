@@ -1,6 +1,5 @@
 var TC={
 	ntid:0,
-	act:{"5":"T","12":"H","1":"Dn","2":"Up","3":"L","4":"R"},
 	start:function(){ 
 		digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xFA,0x11);},150);
 		if (this.ntid&&set.def.rstR==165) return;
@@ -9,7 +8,7 @@ var TC={
 			var tp=i2c.readFrom(0x15,7);
 			//print("in",tp);
 			if (face.pageCurr>=0) {
-				TC.emit("tc"+TC.act[tp[1]],tp[4],tp[6]);
+				TC.emit("tc"+tp[1],tp[4],tp[6]);
 				touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);face.off();
 			}else if (tp[1]==1) 
 				face.go(face.appCurr,0);
@@ -22,9 +21,9 @@ var TC={
 	}
 };
 
-TC.on('tcT',x=>{print(x);});
-TC.on('tcH',x=>{print(x);});
-TC.on('tcUp',x=>{print(x);});
-TC.on('tcDn',x=>{print(x);});
-TC.on('tcL',x=>{print(x);});
-TC.on('tcR',x=>{print(x);});
+TC.on('tc1',x=>{print(x);});
+TC.on('tc2',x=>{print(x);});
+TC.on('tc3',x=>{print(x);});
+TC.on('tc4',x=>{print(x);});
+TC.on('tc5',x=>{print(x);});
+TC.on('tc12',x=>{print(x);});

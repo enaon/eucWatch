@@ -1,4 +1,4 @@
-TC.removeAllListeners("tcT");
+TC.removeAllListeners("tc5");
 face[0].btn={};
 UI.ele.ind("top",2,2);
 let img;

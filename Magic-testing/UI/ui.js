@@ -39,7 +39,7 @@ UI={
         w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y); 
       }
       if (!set.def.bpp) w.gfx.flip();
-	  if (!face[0].btn[no+"_"+po]) TC.on('tcT',(x,y)=>{if (p[0]<x&&x<p[2]&&p[1]<y&&y<p[3]) face[0].btn[no+"_"+po]();});
+	  if (!face[0].btn[no+"_"+po]) TC.on('tc5',(x,y)=>{if (p[0]<x&&x<p[2]&&p[1]<y&&y<p[3]) face[0].btn[no+"_"+po]();});
     },
     rows:(no,po,txt1,size1,txt2,size2,fclr,bclr)=>{
       "ram";
@@ -81,7 +81,7 @@ UI={
 	  }
 	  Img=-1;
       if (!set.def.bpp) w.gfx.flip();
-	  if (!face[0].btn[no+"_"+po]) TC.on('tcT',(x,y)=>{if (p[0]<x&&x<p[2]&&p[1]<y&&y<p[3]) face[0].btn[no+"_"+po]();});
+	  if (!face[0].btn[no+"_"+po]) TC.on('tc5',(x,y)=>{if (p[0]<x&&x<p[2]&&p[1]<y&&y<p[3]) face[0].btn[no+"_"+po]();});
 	},
     
   }  
