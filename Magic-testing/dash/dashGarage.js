@@ -12,7 +12,7 @@ face[0] = {
 		this.s1=0;this.s2=0;this.s3=0;this.s4=0;
 		this['s'+this.dash.slot]=1;
 		this.set=0;
-		this.run=true;
+		this.run=true;	
 	},
 	show : function(o){
 		if (!this.run) return;
@@ -32,7 +32,8 @@ face[0] = {
 			this.sv[4]=this.s4;
 			this.btn(4,this.s4);
 		}
-        if (set.def.bpp) w.gfx.flip();
+		if (set.def.bpp) w.gfx.flip();
+
 		this.tid=setTimeout(function(t){ 
 			t.tid=-1;
 			t.show(o);

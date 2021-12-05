@@ -1,5 +1,6 @@
 //Dash Scan
 face[0] = { 
+  btn:{},
   offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
   bpp:set.def.bpp?0:1,
   g:w.gfx, 
@@ -7,7 +8,6 @@ face[0] = {
 	UI.ele.title("top","SCAN FOR",15,0);
 	UI.ele.title("btm","",0,0);
 	this.page(1);
-	this.g.flip();
   },
   show : function(o){
 	return;
@@ -20,7 +20,8 @@ face[0] = {
 	txt1=["INMOTION V11","VETERAN","NINEBOT","KINGSONG"];
 	txt2=["","","ONE C/E/P",""];	
 	UI.btn.c2l("_2x1",2,txt1[n-1],txt2[n-1],15,12); 
-	UI.ele.ind(n,4);
+	UI.ele.ind("btm",n,4);
+	if (set.def.bpp) w.gfx.flip();
   },
   tid:-1,
   run:false,
@@ -50,6 +51,9 @@ face[1] = {
    off: function(){
   }
 };	
+face[0].btn._2x1_1=()=>{};
+face[0].btn._2x1_2=()=>{};
+
 touchHandler[0]=function(e,x,y){ 
   switch (e) {
   case 5: case 12: //tap event//long press event
