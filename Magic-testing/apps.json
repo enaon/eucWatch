@@ -93,7 +93,9 @@
 		"type":"main",
 		"readme": "README.md",
 		"storage": [
-			{"name":"C:settings","url":"settings.js"}
+			{"name":"C:settings","url":"settings.js"},
+			{"name":"C:set_set","url":"set_set.js"},
+			{"name":"C:set_apps","url":"set_apps.js"}
 		]
 	},
 	{ "id": "alarm",
