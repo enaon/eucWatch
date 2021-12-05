@@ -28,7 +28,6 @@ var setter={
 			clkS:0,	
 			farn:0,
 			rtr:5,
-			bpp:4
 		},
 		off:{ //face timeout 
 		},
@@ -48,7 +47,8 @@ var setter={
 		bri:2, //Screen brightness 1..7
 		acctype:"0",
 		touchtype:"0",
-		buzz:1
+		buzz:1,
+		bpp:4
 		};
 		setter.updateSettings();
 	},	
