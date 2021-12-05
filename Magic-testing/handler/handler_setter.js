@@ -27,7 +27,8 @@ var setter={
 			clck:0,
 			clkS:0,	
 			farn:0,
-			rtr:5
+			rtr:5,
+			bpp:4
 		},
 		off:{ //face timeout 
 		},
