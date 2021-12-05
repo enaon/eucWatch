@@ -145,7 +145,7 @@ function init(bppi){
   //cmd([0x2b,0,0,0,239]);
   //cmd([0x2c]);
 }
-var bpp=(require("Storage").read("setting.json") && require("Storage").readJSON("setting.json").bpp)?require("Storage").readJSON("setting.json").bpp:1;
+var bpp=(require("Storage").read("setting.json") && require("Storage").readJSON("setting.json").bpp)?require("Storage").readJSON("setting.json").bpp:4;
 var g=Graphics.createArrayBuffer(240,280,bpp);
 var pal;
 g.sc=g.setColor;

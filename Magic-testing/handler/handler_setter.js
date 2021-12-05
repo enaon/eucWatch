@@ -104,11 +104,10 @@ var setter={
 //defaults
 set.def = require('Storage').readJSON('setting.json', 1);
 if (!set.def) setter.resetSettings();
-if (!set.def.rstP) set.def.rstP="D39";
+if (!set.def.rstP) set.def.rstP=ew.pin.touch.RST;
 if (!set.def.rstR) set.def.rstR=0xA5;
 if (!set.def.addr) set.def.addr=NRF.getAddress();
 if (!set.def.off) set.def.off={};
-if (set.def.touchtype==0) set.def.touchtype="816";
 //
 //buzzzer
 if (set.def.buzz) buzzer = digitalPulse.bind(null,ew.pin.BUZZ,0);
