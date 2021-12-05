@@ -3,12 +3,16 @@ UI={
  	_2x2:[3.3,[0,40,120,140],[120,40,240,140],[0,140,120,240],[120,140,240,240]],
 	//_2x2:[3.3,[3,0,119,97],[122,0,236,97],[3,100,119,195],[122,100,236,195]],
 	//_2x3:[4.5,[0,0,80,80],[80,0,160,80],[160,0,239,80],[0,80,80,160],[80,80,160,160],[160,80,239,160]],
-	_2x3:[4.5,[0,20,80,100],[80,20,160,100],[160,20,239,100],[0,100,80,180],[80,100,160,180],[160,100,239,180]],
+	//_2x3:[4.5,[0,25,80,105],[80,25,160,105],[160,25,239,105],[0,105,80,185],[80,105,160,185],[160,105,239,185]],
+	_2x3:[4.5,[0,30,80,110],[80,30,160,110],[160,30,239,110],[0,110,80,190],[80,110,160,190],[160,110,239,190]],
+
 	_4x2:[0,[0,0,119,97]],
 	_2x1:[4,[0,40,239,137],[0,140,239,235]],
 	//_2x1:[4,[0,0,239,96],[0,99,239,195]],
-	_ele:{top:[0,0,239,40],dnS:[0,200,239,240],btm:[0,240,239,279],btmL:[0,200,239,279],ind:[75,265,165,270]},
+	_ele:{topS:[0,0,239,30],topS1:[0,0,239,27],top:[0,0,239,40],dnS:[0,200,239,240],btmS:[0,210,239,279],btm:[0,200,239,279],btmM:[0,190,239,279],btmL:[0,185,239,279]},
+	_ind:{btm:[75,265,165,270],top:[75,12,165,17]},
 	//_ele:{top:[0,0,239,37],btm:[0,240,239,279]},
+	_bar:[4.5,[0,195,80,279],[80,200,160,279],[160,195,239,279]],
 	_head:2,
 	_foot:255,
   },
@@ -18,10 +22,12 @@ UI={
       let p=(UI.pos[no][po]);
       let x=4+p[2]-((p[2]-p[0])/2);
       let y=p[3]-((p[3]-p[1])/1.5);
-	  w.gfx.setColor(0,0);
-      w.gfx.fillRect(p[0],p[1],p[2],p[3]);
+	  //w.gfx.setColor(0,0);
+      //w.gfx.fillRect(p[0],p[1],p[2],p[3]);
       w.gfx.setColor(0,bclr);
-      w.gfx.fillRect(p[0]+3,p[1]+3,p[2]-3,p[3]-3);
+      //w.gfx.fillRect(p[0]+3,p[1]+3,p[2]-3,p[3]-3);
+      w.gfx.fillRect(p[0],p[1],p[2],p[3]);
+
       w.gfx.setColor(1,fclr);
       if (txt2&&txt2!=""){
         w.gfx.setFont("Vector",(p[3]-p[1])/5);	
@@ -33,6 +39,7 @@ UI={
         w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y); 
       }
       if (!set.def.bpp) w.gfx.flip();
+	  if (!face[0].btn[no+"_"+po]) TC.on('tcT',(x,y)=>{if (p[0]<x&&x<p[2]&&p[1]<y&&y<p[3]) face[0].btn[no+"_"+po]();});
     },
     rows:(no,po,txt1,size1,txt2,size2,fclr,bclr)=>{
       "ram";
@@ -53,19 +60,28 @@ UI={
       }
       if (!set.def.bpp) w.gfx.flip();
 	},
-    img:(no,po,Img,fclr,bclr)=>{
+    img:(no,po,Img,txt,fclr,bclr,tran)=>{
       "ram";
       let p=(UI.pos[no][po]);
       let x=p[0]+((p[2]-p[0])/UI.pos[no][0]);
       let y=p[1]+((p[3]-p[1])/UI.pos[no][0]);
-	  w.gfx.setColor(0,0);
-      w.gfx.fillRect(p[0],p[1],p[2],p[3]);
-      w.gfx.setColor(0,bclr);
-      w.gfx.fillRect(p[0]+3,p[1]+3,p[2]-3,p[3]-3);
+	  //w.gfx.setColor(0,0);
+      //w.gfx.fillRect(p[0],p[1],p[2],p[3]);
+      if (!tran){ 
+		w.gfx.setColor(0,bclr);
+		//w.gfx.fillRect(p[0]+3,p[1]+3,p[2]-3,p[3]-3);
+		w.gfx.fillRect(p[0],p[1],p[2],p[3]);
+	  }
       w.gfx.setColor(1,fclr);		
-	  w.gfx.drawImage(Img,x,y);
+	  w.gfx.drawImage(Img,x,set.def.info&&txt?y-14:y);
+	  if (set.def.info&&txt) {
+    	  w.gfx.setColor(0,14);
+          w.gfx.setFont("Vector",(p[3]-p[1])/5.3);	
+		  w.gfx.drawString(txt,(p[2]-((p[2]-p[0])/2))-(w.gfx.stringWidth(txt)/2),p[3]-17); 
+	  }
 	  Img=-1;
       if (!set.def.bpp) w.gfx.flip();
+	  if (!face[0].btn[no+"_"+po]) TC.on('tcT',(x,y)=>{if (p[0]<x&&x<p[2]&&p[1]<y&&y<p[3]) face[0].btn[no+"_"+po]();});
 	},
     
   }  
@@ -83,14 +99,20 @@ UI.ele={
 		w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y-2); 
         if (!set.def.bpp) w.gfx.flip();
 	},
-	ind:(c,t)=>{
+	ind:(no,c,t)=>{
 		"ram";
-		let p=(UI.pos._ele.ind);
-		w.gfx.setColor(0,2);
+		let p=(UI.pos._ind[no?no:"btm"]);
+		w.gfx.setColor(0,0);
 		w.gfx.fillRect(p[0],p[1],p[2],p[3]);
 		let pa=(p[2]-p[0])/t;
-		w.gfx.setColor(1,15);	
+		w.gfx.setColor(1,3);	
 		w.gfx.fillRect(p[0]+(pa*(c-1)),p[1],p[0]+(pa*c),p[3]);
+        if (!set.def.bpp) w.gfx.flip();
+	},
+	fill:(no,po,clr)=>{
+		let p=(UI.pos[no][po]);
+		w.gfx.setColor(0,clr);
+		w.gfx.fillRect(p[0],p[1],p[2],p[3]);
         if (!set.def.bpp) w.gfx.flip();
 	}
 };
@@ -112,7 +134,16 @@ UI.ntfy={
 	},
 };
 	
-
-
-
-
+UI.icon={	
+	bt:require("heatshrink").decompress(atob("mEwwIXUgYFFwAFE4AFE8AFE/AFE/gFE/wFE/4FE74qCgUD54qCg8D44qCh+D4fwAoXDAocD8YRDgPzDocA/YpDgF/Gok/IIkfJokPLIkHFwQFHCIodFFIo1FIIhNFLIplFOIp9FRIqVFUI6tFXIrFFaIrdFdIr/IABY=")),
+	plain:require("heatshrink").decompress(atob("lkwwIPMg4FE/AKE4AFDtwEDg1gAocjAgcDnAFDmOAAgUBxgKDjAbChkBwwJC8EMmAEBh8A4IbC+EEjAKDsBCC7/+g//4EN//gv//wFAEgUMgw0DsBQDgQKEkAKDg0EBQfgFYf4FYf8IIMGhhBDoJMDhhMCh0A4YhC4BtDPAOOPAifDgYaCAAMzRwcCPoQABsyvEXQl8AgcPDQcAuD/XABYA=")),
+	themes:require("heatshrink").decompress(atob("mEwwIHEgfwAocH/AFDh/8Aocf/wFDn//Aod/Aon//8PAQPBAomDAQMfAQMH//+AoP+BwIFC/gCE+AuB/Ef4AuC+EfwAuC8AFBgIFB4AFBgYFBwAFBFwJGBAoIuCAoQuCAoQuCAonwoAFBGgPgFIQLB4IFBQIJgB4EeRoJgB4Ecg+D/wFBjE/8P8h5XC+H4AoQzB+AFD/lAAoJdBIoIFDKIIFfQIIpDApB+BAoZsBAoX4PAPANIPwAoR1B+CtDcQaHCYAL3CTwIAC")),
+	dndOff:require("heatshrink").decompress(atob("mEwwIdag/gEAIFEuAFBhwDBA4MAn18gPAAoP4j8DwEABAMDw4KBBAMBxwiCAQMcEQQCBnACBhgCBFwUYEoQFDgPYMgQlBzAFDg4aCAoMOAokcAok4AolwAongAoZUBAoZUBAoZUBAoZUBAoZdBAoZdBAoZdBAoVgRgMGKwPBRgMDQwODRgiDCgAFBQYQFCj//AAIaBn4FERgQACXYQABEoMYS4RdBAoZdCbYQuBboRPCIoL/TAAo")),
+	dndOn:require("heatshrink").decompress(atob("mEwwIdag/gApMOuAFDn18Aof4j4ECgPAgeAAoIDBA4IiCAQIkChwCBEgUMKoQCBjACKBwUcAogaFAv4FEsACBgx8BPQQDBQwaMCTAYFH/4ACAozRNjCOCAo8MJITdHJIYAXA")),
+	findPhone:require("heatshrink").decompress(atob("mEwwILIv/+AgUD///4AFBg8//HgAoMGj/4sAFCAQIFfgYFD4EPAofghwFDuEcAoc4nAFDjkw4wFBscMuIFDx1hwwFBAYPjAofG8YdD4/HApPjAqIjEAovHsY1D45BFJopZFMopxFPosHAofwSoq/jAo0HAQL1Cgf//40BAAM87wECAAg")),
+	wakeScreen:require("heatshrink").decompress(atob("mEwwJC/AAkPwAECgP//AFCg///4FCj4FBCQU/AoPgAoN/4Ef+AFB/wZBDwMB/gCCgUDBwV+h0HDQU/jkP4AsCvg/Dh/8j5JDAokH/k+Igf4Aoc//E8AoRbBvhhEAoUD//wjAnBwIFBEIRaEn/AgIFDJ4QFIKoQdDAoibDgECbfA=")),
+	bri:require("heatshrink").decompress(atob("jEXwIHEhAKCAQcEAgMGAQMCuADB+EAgICEgYCBnYFEBwoXCDoUGiEAhw9DAQ4ABA")),
+	torch:require("heatshrink").decompress(atob("mEwwILIgOAAp0EAoMQAoMMAoMwAoMGAoNgAoMDAQPADgcBAooqEADcP///+AFNABcHCIPgKYQFHKYYFHLIYFHFQd/Aol8nwFDngFdvwFDn/+AvX8ApIADA==")),
+	settings:require("heatshrink").decompress(atob("mEwwI2zgP/Ao0f////P/nE/AoP9/88ApU4EZYADAooAICg2AApE8/+/G4P4Aon8AoscCIgjLACkf8AFE+CJDz/3/B9CAoP8ApRBBDogFJF4gAsA=")),
+	alarm:require("heatshrink").decompress(atob("mEwwIKH/ACBh8Agf+AoN/4EH/+AgH/+EP//AgP//EfAoMDAo38n4dDAoIpCj4FB8E//kHAoPA///wIFBwYFB8AFBGAI0BvkeFQIuBnkcn/wDgM4FgOAgIyC/41CAQIICn4OB/kB4EfAoP4AoMPKAPwAo8H8ABBAo8DAoJ2BAo5EBAYIFF8AFE+AFE/gFC8BMBEYQFBh+DAocHw4fCL4IJBAoZTBL4IFE/inCZAJ3EQYzaBR4abBh4aDU4QFEBYU/AoIXCvwFB3wFBvjbBjwFBXYMAAoQAEA="))
+};

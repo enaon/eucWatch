@@ -1,0 +1,143 @@
+//settings
+
+face[0] = {
+	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
+	bpp:set.def.bpp?0:1,
+	init: function(){ 
+		let tmp={cli:-1,};
+		this.icon=icon;
+		tmp.bt=(set.def.cli||set.def.gb||set.def.emuZ)?1:0;
+/*		let img=require("heatshrink").decompress(atob("mEwwIXUgYFFwAFE4AFE8AFE/AFE/gFE/wFE/4FE74qCgUD54qCg8D44qCh+D4fwAoXDAocD8YRDgPzDocA/YpDgF/Gok/IIkfJokPLIkHFwQFHCIodFFIo1FIIhNFLIplFOIp9FRIqVFUI6tFXIrFFaIrdFdIr/IABY="));
+		let img1= require("heatshrink").decompress(atob("lkwwIPMg4FE/AKE4AFDtwEDg1gAocjAgcDnAFDmOAAgUBxgKDjAbChkBwwJC8EMmAEBh8A4IbC+EEjAKDsBCC7/+g//4EN//gv//wFAEgUMgw0DsBQDgQKEkAKDg0EBQfgFYf4FYf8IIMGhhBDoJMDhhMCh0A4YhC4BtDPAOOPAifDgYaCAAMzRwcCPoQABsyvEXQl8AgcPDQcAuD/XABYA="));
+		UI.btn.img("_2x3",1,tmp.bt?img:img1,15,1);//btn1
+		img1=0;
+		img=require("heatshrink").decompress(atob("mEwwIHEgfwAocH/AFDh/8Aocf/wFDn//Aod/Aon//8PAQPBAomDAQMfAQMH//+AoP+BwIFC/gCE+AuB/Ef4AuC+EfwAuC8AFBgIFB4AFBgYFBwAFBFwJGBAoIuCAoQuCAoQuCAonwoAFBGgPgFIQLB4IFBQIJgB4EeRoJgB4Ecg+D/wFBjE/8P8h5XC+H4AoQzB+AFD/lAAoJdBIoIFDKIIFfQIIpDApB+BAoZsBAoX4PAPANIPwAoR1B+CtDcQaHCYAL3CTwIAC"));	
+		UI.btn.img("_2x3",2,img,15,1);//btn2
+		img=require("heatshrink").decompress(atob("mEwwIdag/gEAIFEuAFBhwDBA4MAn18gPAAoP4j8DwEABAMDw4KBBAMBxwiCAQMcEQQCBnACBhgCBFwUYEoQFDgPYMgQlBzAFDg4aCAoMOAokcAok4AolwAongAoZUBAoZUBAoZUBAoZUBAoZdBAoZdBAoZdBAoVgRgMGKwPBRgMDQwODRgiDCgAFBQYQFCj//AAIaBn4FERgQACXYQABEoMYS4RdBAoZdCbYQuBboRPCIoL/TAAo"));
+		img1= require("heatshrink").decompress(atob("mEwwIdag/gApMOuAFDn18Aof4j4ECgPAgeAAoIDBA4IiCAQIkChwCBEgUMKoQCBjACKBwUcAogaFAv4FEsACBgx8BPQQDBQwaMCTAYFH/4ACAozRNjCOCAo8MJITdHJIYAXA"));
+		UI.btn.img("_2x3",3,set.def.buzz?img:img1,set.def.buzz?15:0,set.def.buzz?4:2);//btn
+		img1=0;
+		img=require("heatshrink").decompress(atob("mEwwILIv/+AgUD///4AFBg8//HgAoMGj/4sAFCAQIFfgYFD4EPAofghwFDuEcAoc4nAFDjkw4wFBscMuIFDx1hwwFBAYPjAofG8YdD4/HApPjAqIjEAovHsY1D45BFJopZFMopxFPosHAofwSoq/jAo0HAQL1Cgf//40BAAM87wECAAg"));
+		UI.btn.img("_2x3",4,img,0,2);//btn2
+		img=require("heatshrink").decompress(atob("mEwwJC/AAkPwAECgP//AFCg///4FCj4FBCQU/AoPgAoN/4Ef+AFB/wZBDwMB/gCCgUDBwV+h0HDQU/jkP4AsCvg/Dh/8j5JDAokH/k+Igf4Aoc//E8AoRbBvhhEAoUD//wjAnBwIFBEIRaEn/AgIFDJ4QFIKoQdDAoibDgECbfA="));
+		UI.btn.img("_2x3",5,img,set.def.acc?15:0,set.def.acc?4:2);//btn2
+		img=require("heatshrink").decompress(atob("jEXwIHEhAKCAQcEAgMGAQMCuADB+EAgICEgYCBnYFEBwoXCDoUGiEAhw9DAQ4ABA"));
+		UI.btn.img("_2x3",6,img,15,1);//btn2
+		img=0;
+	*/	
+		UI.btn.img("_2x3",1,tmp.bt?UI.icon.bt:UI.icon.plane,15,1);//btn1
+		UI.btn.img("_2x3",2,UI.icon.themes,15,1);//btn2
+		UI.btn.img("_2x3",3,set.def.buzz?UI.icon.dndOff:UI.icon.dndOn,set.def.buzz?15:0,set.def.buzz?4:2);//btn3
+		UI.btn.img("_2x3",4,UI.icon.findPhone,0,2);//btn2
+		UI.btn.img("_2x3",5,UI.icon.wakeScreen,set.def.acc?15:0,set.def.acc?4:2);//btn2
+		UI.btn.img("_2x3",6,UI.icon.bri,15,0);//btn2
+		
+		
+	/*	UI.btn.img("_2x3",1,this.icon(tmp.bt?"bt":"plane"),15,1);//btn1
+		UI.btn.img("_2x3",2,this.icon("themes"),15,1);//btn2
+		UI.btn.img("_2x3",3,this.icon(set.def.buzz?"dndOff":"dndOn"),set.def.buzz?15:0,set.def.buzz?4:2);//btn3
+		UI.btn.img("_2x3",4,this.icon("findPhone"),0,2);//btn2
+		UI.btn.img("_2x3",5,this.icon("wakeScreen"),set.def.acc?15:0,set.def.acc?4:2);//btn2
+		UI.btn.img("_2x3",6,this.icon("bri"),15,0);//btn2
+		
+		UI.btn.img("_2x3",1,tmp.bt?require("heatshrink").decompress(atob("mEwwIXUgYFFwAFE4AFE8AFE/AFE/gFE/wFE/4FE74qCgUD54qCg8D44qCh+D4fwAoXDAocD8YRDgPzDocA/YpDgF/Gok/IIkfJokPLIkHFwQFHCIodFFIo1FIIhNFLIplFOIp9FRIqVFUI6tFXIrFFaIrdFdIr/IABY=")):require("heatshrink").decompress(atob("lkwwIPMg4FE/AKE4AFDtwEDg1gAocjAgcDnAFDmOAAgUBxgKDjAbChkBwwJC8EMmAEBh8A4IbC+EEjAKDsBCC7/+g//4EN//gv//wFAEgUMgw0DsBQDgQKEkAKDg0EBQfgFYf4FYf8IIMGhhBDoJMDhhMCh0A4YhC4BtDPAOOPAifDgYaCAAMzRwcCPoQABsyvEXQl8AgcPDQcAuD/XABYA=")),15,1);//btn1
+		UI.btn.img("_2x3",2,require("heatshrink").decompress(atob("mEwwIHEgfwAocH/AFDh/8Aocf/wFDn//Aod/Aon//8PAQPBAomDAQMfAQMH//+AoP+BwIFC/gCE+AuB/Ef4AuC+EfwAuC8AFBgIFB4AFBgYFBwAFBFwJGBAoIuCAoQuCAoQuCAonwoAFBGgPgFIQLB4IFBQIJgB4EeRoJgB4Ecg+D/wFBjE/8P8h5XC+H4AoQzB+AFD/lAAoJdBIoIFDKIIFfQIIpDApB+BAoZsBAoX4PAPANIPwAoR1B+CtDcQaHCYAL3CTwIAC")),15,1);//btn2
+		UI.btn.img("_2x3",3,set.def.buzz?require("heatshrink").decompress(atob("mEwwIdag/gEAIFEuAFBhwDBA4MAn18gPAAoP4j8DwEABAMDw4KBBAMBxwiCAQMcEQQCBnACBhgCBFwUYEoQFDgPYMgQlBzAFDg4aCAoMOAokcAok4AolwAongAoZUBAoZUBAoZUBAoZUBAoZdBAoZdBAoZdBAoVgRgMGKwPBRgMDQwODRgiDCgAFBQYQFCj//AAIaBn4FERgQACXYQABEoMYS4RdBAoZdCbYQuBboRPCIoL/TAAo")):require("heatshrink").decompress(atob("mEwwIdag/gApMOuAFDn18Aof4j4ECgPAgeAAoIDBA4IiCAQIkChwCBEgUMKoQCBjACKBwUcAogaFAv4FEsACBgx8BPQQDBQwaMCTAYFH/4ACAozRNjCOCAo8MJITdHJIYAXA")),set.def.buzz?15:0,set.def.buzz?4:2);//btn3
+		UI.btn.img("_2x3",4,require("heatshrink").decompress(atob("mEwwILIv/+AgUD///4AFBg8//HgAoMGj/4sAFCAQIFfgYFD4EPAofghwFDuEcAoc4nAFDjkw4wFBscMuIFDx1hwwFBAYPjAofG8YdD4/HApPjAqIjEAovHsY1D45BFJopZFMopxFPosHAofwSoq/jAo0HAQL1Cgf//40BAAM87wECAAg")),0,2);//btn2
+		UI.btn.img("_2x3",5,require("heatshrink").decompress(atob("mEwwJC/AAkPwAECgP//AFCg///4FCj4FBCQU/AoPgAoN/4Ef+AFB/wZBDwMB/gCCgUDBwV+h0HDQU/jkP4AsCvg/Dh/8j5JDAokH/k+Igf4Aoc//E8AoRbBvhhEAoUD//wjAnBwIFBEIRaEn/AgIFDJ4QFIKoQdDAoibDgECbfA=")),set.def.acc?15:0,set.def.acc?4:2);//btn2
+		UI.btn.img("_2x3",6,require("heatshrink").decompress(atob("jEXwIHEhAKCAQcEAgMGAQMCuADB+EAgICEgYCBnYFEBwoXCDoUGiEAhw9DAQ4ABA")),15,0);//btn2
+		*/
+		this.run=true;
+	},
+	show : function(s){
+		if (!this.run) return;
+		
+		
+		//loop
+		this.tid=setTimeout(function(t,o){
+			t.tid=-1;
+			t.show(o);
+		},100,this);
+	},
+	tid:-1,
+	run:false,
+	clear : function(o){
+		//pal[0]=0;
+		//this.g.clear();
+		if (set.tor==1){
+			w.gfx.bri.set(this.cbri);
+			face.faceSave=-1;
+			set.tor=-1;
+		}
+		this.run=false;
+		if (this.tid>=0) clearTimeout(this.tid);
+		this.tid=-1;
+		return true;
+	},
+	off: function(o){
+		this.g.off();
+		this.clear(o);
+	}
+};
+//
+face[1] = {
+  offms:1000,
+  g:w.gfx,
+  init: function(){
+  return true;
+  },
+  show : function(){
+	face[0].btSetOn=1;
+	if (face.faceSave!=-1) {
+		  face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
+    }else face.go("main",0);
+    return true;
+  },
+  clear: function(){
+  return true;
+  },
+};	
+//info face
+
+//touch-settings  
+touchHandler[0]=function(e,x,y){
+    if (set.tor==1){
+   
+    }else if (e==5){
+		if(x<77&&y<75){//btn1
+			
+		}else if(77<x&&x<158&&y<75){//btn2
+			
+		}else if(158<x&&x<239&&y<75){//btn3
+			
+		}else if(77>x&&77<y&&y<159){//btn4
+			
+		}else if(77<x&&x<157&&77<y&&y<159){//btn5
+			
+		}else if(158<x&&x<239&&77<y&&y<159) {//btn6
+
+		}else if(0<x&&x<75&&158<y&&y<239){//btn7
+		
+		}else if(77<x&&x<157&&158<y&&y<239){//btn8	
+    }
+	}else if  (e==1){
+
+		if(158<x&&x<239&&60<y&&y<180&&!face.mode) {
+			
+		}else { 
+
+		}  
+	}else if  (e==2){
+
+	}else if  (e==3){
+
+	}else if  (e==4){
+		if (face[0].btSet) {
+			face[0].btSet=0;
+				}else{
+			buzzer(buz.na);
+		}
+	}else if  (e==12){
+		buzzer(buz.na);
+	}
+};

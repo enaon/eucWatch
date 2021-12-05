@@ -6,7 +6,7 @@ face[0] = {
 	init: function(o){ 
 		this.sv=[-1,-1,-1,-1,-1];
 		this.dash=require("Storage").readJSON("dash.json",1);
-		UI.ele.title("top","SELECT",15,4);
+		UI.ele.title("top","SELECT",14,1);		
 		UI.ele.title("btm","GARAGE",15,1);
 		this.s1=0;this.s2=0;this.s3=0;this.s4=0;
 		this['s'+this.dash.slot]=1;
@@ -41,8 +41,10 @@ face[0] = {
 			if (this.dash["slot"+slotNumber+"Mac"]) {
 				if ((this.dash["slot"+slotNumber+"Name"]).includes("Proxy")) { this.g.setFont("Vector",30);this.dash["slot"+slotNumber+"Name"]="Proxy";}
 				UI.btn.c2l("_2x2",slotNumber,this.dash["slot"+slotNumber+"Maker"].toUpperCase(),this.dash["slot"+slotNumber+"Name"].split("-")[0],15,(active)?4:1); 
+				if (active) UI.ele.title("top",this.dash["slot"+slotNumber+"Maker"].toUpperCase(),14,4);
 			}else if (active) {
-				UI.btn.img("_2x2",slotNumber,icon("find"),14,0); 	
+				var img=require("heatshrink").decompress(atob("mEwwIcZg/+Aocfx+AAoV4gPgAoQDBuAEBgPAgE4AoQVBjgFBgYCBhgoCAQMGAQUgAolACggFL6AFGGQQFJEZsGsAFEIIhNFLIplFgBxBnwFCPYP/AoU8gf/BwKVB/+/SAUD/kf+CjDh/4V4n8AoYeBAoq1DgIqDAAP/XYcAv4qEn4qEGwsfC4kPEYkHF4Z1DACA="));
+				UI.btn.img("_2x2",slotNumber,img,15,1); 	
 				if (this["s"+slotNumber+"tid"])  clearTimeout(this["s"+slotNumber+"tid"]);
 				this["s"+slotNumber+"tid"]=setTimeout(function(slot){
 					face[0]["s"+slot]=0;
@@ -50,6 +52,7 @@ face[0] = {
 					UI.btn.c2l("_2x2",slot,"",0,0,0); 	
 				},1000,slotNumber);
 			} else UI.btn.c2l("_2x2",slotNumber,"",0,0,0);
+
 	},
 	tid:-1,
 	run:false,

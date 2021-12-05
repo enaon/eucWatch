@@ -52,6 +52,7 @@
 			{"name":"handler_conn","url":"handler_conn.js"},
 			{"name":"handler_cron","url":"handler_cron.js"},
 			{"name":"handler_charge","url":"handler_charge.js"},
+			{"name":"handler_touch","url":"handler_touch.js"},
 			{"name":"handler_touch_716","url":"handler_touch_716.js"},
 			{"name":"handler_touch_816","url":"handler_touch_816.js"},
 			{"name":"handler_touch_816s","url":"handler_touch_816s.js"},
