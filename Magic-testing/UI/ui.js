@@ -84,7 +84,7 @@ UI={
       w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height-3);
       //if (!set.def.bpp) w.gfx.flip();
       w.gfx.flip();
-      UIc.cord=`if ( x< ${p[2]-p[0]/2} && ${p[1]}<y&&y<${p[3]} ) face[0].btn.${no}_${po}_rigth(); else if(${p[2]-p[0]/2}<x && ${p[1]}<y&&y<${p[3]}) face[0].btn.${no}_${po}_left();`;	
+      UIc.cord=`if ( x< ${(p[2]-p[0])/2} && ${p[1]}<y&&y<${p[3]} ) face[0].btn.sel_rigth(); else if(${(p[2]-p[0])/2}<x && ${p[1]}<y&&y<${p[3]}) face[0].btn.sel_left();`;	
     },
     
   }  
@@ -134,7 +134,11 @@ UI.ntfy={
 			if (!set.def.bpp) w.gfx.flip();
 			if (UI.ntid) clearTimeout(UI.ntid);
 			UI.ntid=setTimeout(function(t){UI.ntid=0;UI.emit('ntfy',"ok");},tmot?tmot:1000);
-	},
+	},	
+	
+	
+	
+	
 };
 	
 UI.icon={	

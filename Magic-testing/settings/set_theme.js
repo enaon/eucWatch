@@ -51,7 +51,7 @@ face[0].btn._2x3_3=()=>{
 	TC.removeListener("tc5",UIc.tap.bar);
 	UI.btn.sel("_sel",3,"ala","lala",15,1);
 	UIc.tap.sel = new Function("x", "y",'setTimeout(()=>{'+UIc.cord+'},0);'); 
-	TC.on('tc5',UIc.tap.bar);
+	TC.on('tc5',UIc.tap.sel);
 	UIc.get=0;UIc.cord="";
 };
 face[0].btn._2x3_4=()=>{buzzer(buz.na);};

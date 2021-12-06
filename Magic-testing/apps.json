@@ -38,7 +38,7 @@
 	{ "id": "handler",
 		"name": "Handler - MAGIC - ROCK",
 		"icon": "icon.png",
-		"version":"1.07",
+		"version":"1.08",
 		"description": "MAGIC - ROCK functions handler",
 		"tags": "core",
 		"type":"core",

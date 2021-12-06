@@ -1,6 +1,5 @@
 var TC={
 	ntid:0,
-	cord:0;
 	act:{main:{},bar:{},titl:{}},
 	start:function(){ 
 		digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xFA,0x11);},150);
@@ -26,7 +25,7 @@ var UIc={
 	get:1,
 	cord:"",
 	tap:{},
-}
+};
 /*TC.on('tc1',x=>{print(x);});
 TC.on('tc2',x=>{print(x);});
 TC.on('tc3',x=>{print(x);});
