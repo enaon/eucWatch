@@ -5,11 +5,11 @@ let tmp={cli:-1,};
 tmp.bt=(set.def.cli||set.def.gb||set.def.emuZ)?1:0;
 UI.ele.ind("top",1,2);
 UI.btn.img("_2x3",1,tmp.bt?UI.icon.bt:UI.icon.plane,"BT",15,1);
-UI.btn.img("_2x3",2,UI.icon.themes,"THEME",15,1);
-UI.btn.img("_2x3",3,UI.icon.bri,"BRIGHT",15,1);
+UI.btn.img("_2x3",2,UI.icon.themes,"Face",15,1);
+UI.btn.img("_2x3",3,UI.icon.bri,"Lum",15,1);
 UI.btn.img("_2x3",4,UI.icon.findPhone,"FIND",0,3);
-UI.btn.img("_2x3",5,UI.icon.wakeScreen,"WAKE",set.def.acc?15:0,set.def.acc?4:3);
-UI.btn.img("_2x3",6,set.def.buzz?UI.icon.dndOn:UI.icon.dndOff,"BUZZER",set.def.buzz?15:0,set.def.buzz?4:3);
+UI.btn.img("_2x3",5,UI.icon.wakeScreen,"WAKE ",set.def.acc?15:0,set.def.acc?4:3);
+UI.btn.img("_2x3",6,set.def.buzz?UI.icon.dndOn:UI.icon.dndOff,"Buzzer",set.def.buzz?15:0,set.def.buzz?4:3);
 if (set.def.bpp) w.gfx.flip();
 //get coordinates  
 UIc.tap.btn.replaceWith( new Function("x", "y",'setTimeout(()=>{'+UIc.cord+'},0);'));

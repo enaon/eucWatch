@@ -60,8 +60,9 @@ UI={
       w.gfx.setColor(1,fclr);		
 	  w.gfx.drawImage(Img,x-24,set.def.info&&txt?y-36:y-24);
 	  if (set.def.info&&txt) {
-    	  //w.gfx.setColor(0,14);
-          w.gfx.setFont("Vector",(p[3]-p[1])/5.3);	
+    	  //w.gfx.setColor(0,bclr==3?0:bclr==4?14:3);
+		  w.gfx.setColor(0,bclr==3?0:3);
+          w.gfx.setFont("Vector",(p[3]-p[1])/5);	
 		  w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y+22); 
 	  }
 	  Img=-1;
