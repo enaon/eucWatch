@@ -1,19 +1,21 @@
 UI={
   getC:0,
   cord:"",
+  calc:(no,po)=>{
+	  let p=(UI.pos[no][po]);
+      let x=p[2]-((p[2]-p[0])/2);
+      let y=p[3]-((p[3]-p[1])/2); 
+	  return {x:x,y:y};
+  },
   pos:{
-	_fold:[4.5,[0,30,160,110],[80,30,240,110],[0,130,120,220],[120,130,240,220]], 
-  	_2x2:[3.3,[0,35,120,130],[121,35,240,130],[0,131,120,220],[121,131,240,220]],
- 	//_2x2:[3.3,[0,40,120,140],[120,40,240,140],[0,140,120,240],[120,140,240,240]],
-	//_2x2:[3.3,[3,0,119,97],[122,0,236,97],[3,100,119,195],[122,100,236,195]],
-	//_2x3:[4.5,[0,0,80,80],[80,0,160,80],[160,0,239,80],[0,80,80,160],[80,80,160,160],[160,80,239,160]],
-	//_2x3:[4.5,[0,25,80,105],[80,25,160,105],[160,25,239,105],[0,105,80,185],[80,105,160,185],[160,105,239,185]],
-	_2x3:[4.5,[0,30,80,110],[81,30,160,110],[161,30,239,110],[0,111,80,190],[81,111,160,190],[161,111,239,190]],
-	_4x2:[0,[0,0,119,97]],
-	_2x1:[4,[0,40,239,137],[0,140,239,235]],
-	_ele:{topS:[0,0,239,29],topS1:[0,0,239,27],top:[0,0,239,40],btmS:[0,235,239,279],btm:[0,210,239,279],btmM:[0,191,239,279],btmL:[0,185,239,279]},
+	_fold:[20,[0,30,160,110],[80,30,240,110],[0,130,120,220],[120,130,240,220]], 
+  	_2x2:[35,[0,35,120,130],[121,35,240,130],[0,131,120,220],[121,131,240,220]],
+	_2x3:[25,[0,30,80,110],[81,30,160,110],[161,30,239,110],[0,111,80,190],[81,111,160,190],[161,111,239,190]],
+	_2x1:[35,[0,40,239,140],[0,141,239,235]],
+	_sel:[30,[0,236,239,279],[0,221,239,279],[0,191,239,279] ],
+	_ele:{topS:[0,0,239,29],topS1:[0,0,239,27],top:[0,0,239,40],btmS:[0,236,239,279],btmM:[0,221,239,279],btmL:[0,191,239,279]},
 	_ind:{btm:[75,265,165,270],top:[75,12,165,17]},
-	_bar:[4.5,[0,195,80,279],[80,200,160,279],[160,195,239,279]],
+	_bar:[20,[0,195,80,279],[80,200,160,279],[160,195,239,279]],
 	_head:2,
 	_foot:255,
   },
@@ -21,34 +23,32 @@ UI={
     c2l:(no,po,txt1,txt2,fclr,bclr)=>{
       "ram";
       let p=(UI.pos[no][po]);
-      let x=4+p[2]-((p[2]-p[0])/2);
-      let y=p[3]-((p[3]-p[1])/1.5);
+      let x=p[2]-((p[2]-p[0])/2);
+      let y=p[3]-((p[3]-p[1])/2);
 	  //w.gfx.setColor(0,0);
       //w.gfx.fillRect(p[0],p[1],p[2],p[3]);
       w.gfx.setColor(0,bclr);
       //w.gfx.fillRect(p[0]+3,p[1]+3,p[2]-3,p[3]-3);
       w.gfx.fillRect(p[0],p[1],p[2],p[3]);
-
       w.gfx.setColor(1,fclr);
       if (txt2&&txt2!=""){
         w.gfx.setFont("Vector",(p[3]-p[1])/5);	
-        w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-((p[3]-p[1])/5)); 
-        w.gfx.setFont("Vector",(p[3]-p[1])/UI.pos[no][0]);	
-        w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),y+((p[3]-p[1])/5));
+        w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-((p[3]-p[1])/4)); 
+        w.gfx.setFont("Vector",UI.pos[no][0]);	
+        w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height-3);
       }else{  
-        w.gfx.setFont("Vector",(p[3]-p[1])/UI.pos[no][0]);	
-        w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y); 
+        w.gfx.setFont("Vector",UI.pos[no][0]);	
+        w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-(w.gfx.stringMetrics(txt1).height/2)); 
       }
       if (!set.def.bpp) w.gfx.flip();
-	if (UIc.get) UIc.cord=UIc.cord+`${UIc.cord!=""?'else ':''}if (${p[0]}<x&&x<${p[2]}&&${p[1]}<y&&y<${p[3]}) face[0].btn.${no}_${po}();`;	
-	  //if (!face[0].btn[no+"_"+po]) TC.on('tc5',(x,y)=>{if (p[0]<x&&x<p[2]&&p[1]<y&&y<p[3]) face[0].btn[no+"_"+po]();});
+      if (UIc.get) UIc.cord=UIc.cord+`${UIc.cord!=""?'else ':''}if (${p[0]}<x&&x<${p[2]}&&${p[1]}<y&&y<${p[3]}) face[0].btn.${no}_${po}();`;	
 	  else w.gfx.flip();
     },
     img:(no,po,Img,txt,fclr,bclr,tran)=>{
       "ram";
       let p=(UI.pos[no][po]);
-      let x=p[0]+((p[2]-p[0])/UI.pos[no][0]);
-      let y=p[1]+((p[3]-p[1])/UI.pos[no][0]);
+	  let x=p[0]+((p[2]-p[0])/2);
+      let y=p[1]+((p[3]-p[1])/2);
 	  //w.gfx.setColor(0,0);
       //w.gfx.fillRect(p[0],p[1],p[2],p[3]);
       if (!tran){ 
@@ -57,19 +57,35 @@ UI={
 		w.gfx.fillRect(p[0],p[1],p[2],p[3]);
 	  }
       w.gfx.setColor(1,fclr);		
-	  w.gfx.drawImage(Img,x,set.def.info&&txt?y-14:y);
+	  w.gfx.drawImage(Img,x-24,set.def.info&&txt?y-36:y-24);
 	  if (set.def.info&&txt) {
     	  //w.gfx.setColor(0,14);
           w.gfx.setFont("Vector",(p[3]-p[1])/5.3);	
-		  w.gfx.drawString(txt,(p[2]-((p[2]-p[0])/2))-(w.gfx.stringWidth(txt)/2),p[3]-17); 
+		  w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y+22); 
 	  }
 	  Img=-1;
 
       if (!set.def.bpp) w.gfx.flip();
-	if (UIc.get) UIc.cord=UIc.cord+`${UIc.cord!=""?'else ':''}if (${p[0]}<x&&x<${p[2]}&&${p[1]}<y&&y<${p[3]}) face[0].btn.${no}_${po}();`;	
-//if (!face[0].btn[no+"_"+po]) TC.on('tc5',(x,y)=>{if (p[0]<x&&x<p[2]&&p[1]<y&&y<p[3]) face[0].btn[no+"_"+po]();});
+	  if (UIc.get) UIc.cord=UIc.cord+`${UIc.cord!=""?'else ':''}if (${p[0]}<x&&x<${p[2]}&&${p[1]}<y&&y<${p[3]}) face[0].btn.${no}_${po}();`;	
 	  else w.gfx.flip();
-	},
+	}, 
+	sel:(no,po,txt1,txt2,fclr,bclr,vert)=>{
+      "ram";
+      let p=(UI.pos[no][po]);
+      let x=p[2]-((p[2]-p[0])/2);
+      let y=p[3]-((p[3]-p[1])/2);
+      w.gfx.setColor(0,bclr);
+      w.gfx.fillRect(p[0],p[1],p[2],p[3]);
+      w.gfx.setColor(1,fclr);
+      w.gfx.setFont("Vector",(p[3]-p[1])/3);	
+      w.gfx.drawString("<",p[0]+5,y-((p[3]-p[1])/4)); w.gfx.drawString(">",p[2]+-5-w.gfx.stringWidth(">"),y-((p[3]-p[1])/4));
+      w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-((p[3]-p[1])/4)); 
+      w.gfx.setFont("Vector",UI.pos[no][0]);	
+      w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height-3);
+      //if (!set.def.bpp) w.gfx.flip();
+      w.gfx.flip();
+      UIc.cord=`if ( x< ${p[2]-p[0]/2} && ${p[1]}<y&&y<${p[3]} ) face[0].btn.${no}_${po}_rigth(); else if(${p[2]-p[0]/2}<x && ${p[1]}<y&&y<${p[3]}) face[0].btn.${no}_${po}_left();`;	
+    },
     
   }  
 };

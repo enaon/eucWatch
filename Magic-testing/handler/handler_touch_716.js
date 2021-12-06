@@ -31,8 +31,8 @@ var TC={
 				if ( a != 0 && this.aLast != a ) {
 					this.aLast=a;
 					this.do=0;
-					TC.emit("tc"+a,TC.x+(TC.x/10),TC.y);
-					return setTimeout(function() {touchHandler[face.pageCurr](a,TC.x+(TC.x/10),TC.y);face.off();},0);
+					//TC.emit("tc"+a,TC.x+(TC.x/10),TC.y);
+					return setTimeout(function() {TC.emit("tc"+a,TC.x+(TC.x/10),TC.y);touchHandler[face.pageCurr](a,TC.x+(TC.x/10),TC.y);face.off();},0);
 				}
 				return;
 			}
@@ -70,7 +70,7 @@ var UIc={
 	get:1,
 	cord:"",
 	tap:{},
-}
+};
 /*
 TC.on('tc5',x=>{print(x);});
 TC.on('tc12',x=>{print(x);});

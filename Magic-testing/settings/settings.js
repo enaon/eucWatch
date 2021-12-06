@@ -5,21 +5,10 @@ face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
 	bpp:set.def.bpp?0:1,
 	init: function(o){ 
-		set.def.info=0;
 		if (face.faceSave==-1) face.faceSave=[face.appPrev,face.pagePrev,face.pageArg];
 		UI.ele.fill("_ele","topS",1);
-		//UI.ele.fill("_ele","topS1",1);
-		UI.ele.fill("_ele","btm",0);
-		//start bar
-		UIc.get=1;UIc.cord="";
-		UI.btn.img("_bar",1,UI.icon.torch,0,14,0);//btn2
-		UI.btn.img("_bar",2,UI.icon.settings,0,14,0);//btn2
-		UI.btn.img("_bar",3,UI.icon.alarm,0,14,0);//btn2
-		UIc.tap.bar = new Function("x", "y",'setTimeout(()=>{'+UIc.cord+'},0);'); 
-		TC.on('tc5',UIc.tap.bar);
-		UIc.get=0;UIc.cord="";
+		this.bar();
 		eval(require('Storage').read(o?'set_apps':'set_set')); 
-		//end bar
 		this.run=false;
 	},
 	show : function(s){
@@ -30,7 +19,29 @@ face[0] = {
 			t.show(o);
 		},100,this);
 	},
-	tid:-1,
+	bar : function(){
+		//start bar
+		UI.ele.fill("_ele","btmL",0);
+		UIc.get=1;UIc.cord="";
+		UI.btn.img("_bar",1,UI.icon.torch,0,3,0);//btn2
+		UI.btn.img("_bar",2,UI.icon.settings,0,14,0);//btn2
+		UI.btn.img("_bar",3,UI.icon.alarm,0,3,0);//btn2
+		UIc.tap.bar = new Function("x", "y",'setTimeout(()=>{'+UIc.cord+'},0);'); 
+		TC.on('tc5',UIc.tap.bar);
+		UIc.get=0;UIc.cord="";
+		//end bar
+	},
+	sel : function(){
+		//start bar
+		UIc.get=1;UIc.cord="";
+		UI.btn.img("_bar",1,UI.icon.torch,0,14,0);//btn2
+		UI.btn.img("_bar",2,UI.icon.settings,0,14,0);//btn2
+		UI.btn.img("_bar",3,UI.icon.alarm,0,14,0);//btn2
+		UIc.tap.bar = new Function("x", "y",'setTimeout(()=>{'+UIc.cord+'},0);'); 
+		TC.on('tc5',UIc.tap.bar);
+		UIc.get=0;UIc.cord="";
+		//end bar
+	},
 	run:false,
 	clear : function(o){
 		TC.removeAllListeners("tc5");
@@ -82,10 +93,8 @@ TC.on('tc2',tcUp);
 tcL=(x,y)=>{
 	buzzer(buz.ok);
 	if (face[0].page=="set"){
-		set.def.info=1;
 		eval(require('Storage').read('set_apps')); 
 	}else  { 
-		set.def.info=0;
 		eval(require('Storage').read('set_set')); 
 	}
 };	

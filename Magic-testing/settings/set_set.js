@@ -6,7 +6,7 @@ let tmp={cli:-1,};
 tmp.bt=(set.def.cli||set.def.gb||set.def.emuZ)?1:0;
 UI.ele.ind("top",1,2);
 UI.btn.img("_2x3",1,tmp.bt?UI.icon.bt:UI.icon.plane,"BT",15,1);
-UI.btn.img("_2x3",2,UI.icon.themes,"TIMEOUT",15,1);
+UI.btn.img("_2x3",2,UI.icon.themes,"THEME",15,1);
 UI.btn.img("_2x3",3,UI.icon.bri,"BRIGHT",15,1);
 UI.btn.img("_2x3",4,UI.icon.findPhone,"FIND",0,3);
 UI.btn.img("_2x3",5,UI.icon.wakeScreen,"WAKE",set.def.acc?15:0,set.def.acc?4:3);
@@ -18,7 +18,7 @@ TC.on('tc5',UIc.tap.btn);
 UIc.get=0;UIc.cord="";
 //
 face[0].btn._2x3_1=()=>{buzzer(buz.ok);eval(require('Storage').read('set_bt'));};
-face[0].btn._2x3_2=()=>{buzzer(buz.na);};
+face[0].btn._2x3_2=()=>{buzzer(buz.ok);eval(require('Storage').read('set_theme'));};
 face[0].btn._2x3_3=()=>{
 	buzzer(buz.ok);
 	w.gfx.bri.lv++;
