@@ -13,7 +13,7 @@ UI={
   	_2x2:[35,[0,35,120,135],[121,35,240,135],[0,136,120,235],[121,136,240,235]],
 	_2x3:[25,[0,30,80,110],[81,30,160,110],[161,30,239,110],[0,111,80,190],[81,111,160,190],[161,111,239,190]],
 	_2x1:[35,[0,40,239,140],[0,141,239,235]],
-	_sel:[30,[0,236,239,279],[0,221,239,279],[0,191,239,279] ],
+	_sel:[25,[0,236,239,279],[0,221,239,279],[0,191,239,279] ],
 	_ele:{topS:[0,0,239,29],topS1:[0,0,239,27],top:[0,0,239,40],btmS:[0,236,239,279],btmM:[0,221,239,279],btmL:[0,191,239,279]},
 	_ind:{btm:[75,265,165,270],top:[75,9,165,14]},
 	_bar:[20,[0,195,80,279],[80,200,160,279],[160,195,239,279]],
@@ -62,11 +62,11 @@ UI={
  		  w.gfx.setFont("Vector",(p[3]-p[1])/3);	
 		  let xa=x-((w.gfx.imageMetrics(img).width+w.gfx.stringWidth(txt))/2);
 	      w.gfx.drawImage(img,xa,y-(w.gfx.imageMetrics(img).width/2));
-		  w.gfx.setColor(1,bclr==3?0:3);
+		 // w.gfx.setColor(1,bclr==3?0:3);
 		  w.gfx.drawString(txt,xa+w.gfx.imageMetrics(img).width,y-(w.gfx.stringMetrics(txt).height/2)); 
 	  }else if (set.def.info&&txt) {
 		  w.gfx.drawImage(img,x-24,set.def.info&&txt?y-36:y-24);
-		  w.gfx.setColor(1,bclr==3?0:3);
+		  w.gfx.setColor(1,bclr==3?0:14);
 		  w.gfx.setFont("Vector",(p[3]-p[1])/5);	
 		  w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y+22); 
 	  }else w.gfx.drawImage(img,x-(w.gfx.imageMetrics(img).width/2),y-(w.gfx.imageMetrics(img).width/2));
@@ -84,11 +84,11 @@ UI={
 		w.gfx.setColor(0,bclr);
 		w.gfx.fillRect(p[0],p[1],p[2],p[3]);
 		w.gfx.setColor(1,fclr);
-        w.gfx.setFont("Vector",(p[3]-p[1])/3);	
+        w.gfx.setFont("Vector",(p[3]-p[1])/5);	
         w.gfx.drawString("<",p[0]+5,y-((p[3]-p[1])/4)); w.gfx.drawString(">",p[2]+-5-w.gfx.stringWidth(">"),y-((p[3]-p[1])/4));
         w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-((p[3]-p[1])/4)); 
         w.gfx.setFont("Vector",UI.pos[no][0]);	
-        w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height-3);
+        w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height-10);
         w.gfx.flip(); //if (!set.def.bpp) w.gfx.flip();
 		if (UI.ntid) clearTimeout(UI.ntid);
 		UIc.cord=`if ( x< ${(p[2]-p[0])/2} && ${p[1]}<y&&y<${p[3]} ) face[0].btn.sel_rigth(); else if(${(p[2]-p[0])/2}<x && ${p[1]}<y&&y<${p[3]}) face[0].btn.sel_left();`;	
