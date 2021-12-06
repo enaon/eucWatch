@@ -1,6 +1,7 @@
-TC.removeAllListeners("tc5");
+TC.removeListener("tc5",UIc.tap.btn);
 face[0].page="app";
-face[0].btn={};
+UIc.get=1;
+UIc.cord="";
 UI.ele.ind("top",2,2);
 let img;
 if (require("Storage").read("calc",1)) {
@@ -27,10 +28,11 @@ UI.ele.fill("_2x3",5,1);//img=E.toArrayBuffer(atob("MDCBAAAAAAAAAAAAAAAAAAAAAAAA
 //app6
 UI.ele.fill("_2x3",6,1);
 img=0;
-UI.btn.img("_bar",1,UI.icon.torch,0,14,0);//btn2
-UI.btn.img("_bar",2,UI.icon.settings,0,14,0);//btn2
-UI.btn.img("_bar",3,UI.icon.alarm,0,14,0);//btn2
 if (set.def.bpp) w.gfx.flip();
+//get coordinates
+UIc.tap.btn = new Function("x", "y",'setTimeout(()=>{'+UIc.cord+'},0);'); 
+TC.on('tc5',UIc.tap.btn);
+UIc.get=0;UIc.cord="";
 //
 face[0].btn._2x3_1=()=>{buzzer(buz.ok);face.go('calc',0);};
 face[0].btn._2x3_2=()=>{buzzer(buz.ok);face.go('repellent',0);};
@@ -38,11 +40,3 @@ face[0].btn._2x3_3=()=>{buzzer(buz.ok);face.go('tpmsFace',0);};
 face[0].btn._2x3_4=()=>{buzzer(buz.ok);face.go('hello',0);};
 face[0].btn._2x3_5=()=>{buzzer(buz.na);};
 face[0].btn._2x3_6=()=>{buzzer(buz.na);};
-//bar
-face[0].btn._bar_1=()=>{buzzer(buz.na);};
-face[0].btn._bar_2=()=>{
-	if (Boolean(require("Storage").read(face.faceSave[0].substring(0,1)+"Options"))){
-		buzzer(buz.ok);face.go(face.faceSave[0].substring(0,1)+"Options",0);
-	}else buzzer(buz.na);
-};
-face[0].btn._bar_3=()=>{buzzer(buz.ok);face.go('alarm',0);};

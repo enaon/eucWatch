@@ -1,5 +1,7 @@
 var TC={
 	ntid:0,
+	cord:0;
+	act:{main:{},bar:{},titl:{}},
 	start:function(){ 
 		digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xFA,0x11);},150);
 		if (this.ntid&&set.def.rstR==165) return;
@@ -20,10 +22,15 @@ var TC={
 		if (this.ntid&&set.def.rstR==229) {clearWatch(this.ntid);this.ntid=0;}
 	}
 };
-
-TC.on('tc1',x=>{print(x);});
+var UIc={
+	get:1,
+	cord:"",
+	tap:{},
+}
+/*TC.on('tc1',x=>{print(x);});
 TC.on('tc2',x=>{print(x);});
 TC.on('tc3',x=>{print(x);});
 TC.on('tc4',x=>{print(x);});
 TC.on('tc5',x=>{print(x);});
 TC.on('tc12',x=>{print(x);});
+*/

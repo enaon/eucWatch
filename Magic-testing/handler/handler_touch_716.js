@@ -66,10 +66,16 @@ var TC={
 		this.time = 0;
 	}
 };
-
+var UIc={
+	get:1,
+	cord:"",
+	tap:{},
+}
+/*
 TC.on('tc5',x=>{print(x);});
 TC.on('tc12',x=>{print(x);});
 TC.on('tc1',x=>{print(x);});
 TC.on('tc2',x=>{print(x);});
 TC.on('tc3',x=>{print(x);});
 TC.on('tc4',x=>{print(x);});
+*/

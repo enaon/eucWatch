@@ -1,4 +1,6 @@
 UI={
+  getC:0,
+  cord:"",
   pos:{
 	_fold:[4.5,[0,30,160,110],[80,30,240,110],[0,130,120,220],[120,130,240,220]], 
   	_2x2:[3.3,[0,35,120,130],[121,35,240,130],[0,131,120,220],[121,131,240,220]],
@@ -38,7 +40,8 @@ UI={
         w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y); 
       }
       if (!set.def.bpp) w.gfx.flip();
-	  if (!face[0].btn[no+"_"+po]) TC.on('tc5',(x,y)=>{if (p[0]<x&&x<p[2]&&p[1]<y&&y<p[3]) face[0].btn[no+"_"+po]();});
+	if (UIc.get) UIc.cord=UIc.cord+`${UIc.cord!=""?'else ':''}if (${p[0]}<x&&x<${p[2]}&&${p[1]}<y&&y<${p[3]}) face[0].btn.${no}_${po}();`;	
+	  //if (!face[0].btn[no+"_"+po]) TC.on('tc5',(x,y)=>{if (p[0]<x&&x<p[2]&&p[1]<y&&y<p[3]) face[0].btn[no+"_"+po]();});
 	  else w.gfx.flip();
     },
     img:(no,po,Img,txt,fclr,bclr,tran)=>{
@@ -61,9 +64,10 @@ UI={
 		  w.gfx.drawString(txt,(p[2]-((p[2]-p[0])/2))-(w.gfx.stringWidth(txt)/2),p[3]-17); 
 	  }
 	  Img=-1;
-      //if (!set.def.bpp) w.gfx.flip();
+
       if (!set.def.bpp) w.gfx.flip();
-	    if (!face[0].btn[no+"_"+po]) TC.on('tc5',(x,y)=>{if (p[0]<x&&x<p[2]&&p[1]<y&&y<p[3]) face[0].btn[no+"_"+po]();});
+	if (UIc.get) UIc.cord=UIc.cord+`${UIc.cord!=""?'else ':''}if (${p[0]}<x&&x<${p[2]}&&${p[1]}<y&&y<${p[3]}) face[0].btn.${no}_${po}();`;	
+//if (!face[0].btn[no+"_"+po]) TC.on('tc5',(x,y)=>{if (p[0]<x&&x<p[2]&&p[1]<y&&y<p[3]) face[0].btn[no+"_"+po]();});
 	  else w.gfx.flip();
 	},
     
@@ -136,3 +140,4 @@ UI.icon={
 	
 
 };
+
