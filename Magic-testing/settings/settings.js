@@ -81,7 +81,6 @@ TC.on('tc1',tcDn);
 TC.on('tc2',tcUp); 	
 tcL=(x,y)=>{
 	buzzer(buz.ok);
-	print("left",x,y);
 	if (face[0].page=="set"){
 		set.def.info=1;
 		eval(require('Storage').read('set_apps')); 
