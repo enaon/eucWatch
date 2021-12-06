@@ -5,7 +5,7 @@ UI.ele.ind("top",1,1);
 let img;
 //app1-2 header
 //img=require("heatshrink").decompress(atob("mEwwIXUgYFFwAFE4AFE8AFE/AFE/gFE/wFE/4FE74qCgUD54qCg8D44qCh+D4fwAoXDAocD8YRDgPzDocA/YpDgF/Gok/IIkfJokPLIkHFwQFHCIodFFIo1FIIhNFLIplFOIp9FRIqVFUI6tFXIrFFaIrdFdIr/IABY="));
-UI.btn.img("_fold",1,UI.icon.bt,"BLUETOOTH",14,1);
+UI.btn.img("_fold",1,UI.icon.bt,"BT",14,1,1);
 //app3 cli
 //img=require("heatshrink").decompress(atob("mEmwIPMggFEj4FEn+AAonAAongAonwDon4Aon8AocP/wFDg//AocD/4wDgP/GAgFFv42RAokPBZQFFEYovFHYhHBJoZTBL4hlEh5xEFxE///4SoQFDFwIFDFwIFCXIQFCYoUP/5KEAA4"));
 UI.btn.img("_2x3",3,UI.icon.cli,"CLI",set.def.cli?15:0,set.def.cli?4:3);

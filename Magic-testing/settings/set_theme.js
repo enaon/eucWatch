@@ -5,7 +5,7 @@ UIc.cord="";
 let tout=(set.def.off[face.appRoot[0]])?set.def.off[face.appRoot[0]]:3000;
 let tm=(tout/((this.tout<60000)?"1000":(this.tout<3600000)?"60000":"3600000"))+ ((tout<60000)?"sec":(tout<3600000)?"min":"hours");
 UI.ele.ind("top",1,1);
-UI.btn.img("_fold",1,UI.icon.themes,15<face.appRoot[0].length?face.appRoot[0].subst(0,15)+"..":face.appRoot[0],14,1);
+UI.btn.img("_fold",1,UI.icon.themes,6<face.appRoot[0].length?face.appRoot[0].substr(0,6)+"..":face.appRoot[0],14,1,1);
 //UI.btn.img("_fold",1,UI.icon.themes,15<face.appRoot[0].length?face.appRoot[0].subst(0,15)+"..":face.appRoot[0].toUpperCase(),15,1);
 UI.btn.c2l("_2x3",3,"TIMEOUT",tm,0,3);
 UI.btn.c2l("_2x3",4,"COLOR","BLK",0,3);
@@ -23,10 +23,8 @@ UIc.get=0;UIc.cord="";
 face[0].btn._fold_1=()=>{buzzer(buz.ok);eval(require('Storage').read('set_set'));};
 face[0].btn._2x3_3=()=>{
 	buzzer(buz.ok);
-	TC.removeListener("tc5",UIc.tap.bar);
-	UI.btn.sel("_sel",3,"ala","lala",15,1);
-	UIc.tap.sel = new Function("x", "y",'setTimeout(()=>{'+UIc.cord+'},0);'); 
-	TC.on('tc5',UIc.tap.sel);
+	UI.btn.ntfy("_sel",3,"ala","lala",15,1);
+	UIc.tap.bar.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.cord+'},0);'));
 	UIc.get=0;UIc.cord="";
 };
 face[0].btn._2x3_4=()=>{buzzer(buz.na);};
@@ -36,8 +34,8 @@ face[0].btn._2x3_5=()=>{
 face[0].btn._2x3_6=()=>{
 	buzzer(buz.ok);
 	set.def.info=1-set.def.info;
-	eval(require('Storage').read('set_theme'));
-	//UI.btn.c2l("_2x3",6,"TEXT",set.def.info?"ON":"OFF",set.def.info?15:0,set.def.info?4:3);
+	//eval(require('Storage').read('set_theme'));
+	UI.btn.c2l("_2x3",6,"TEXT",set.def.info?"ON":"OFF",set.def.info?15:0,set.def.info?4:3);
 };
 
 		

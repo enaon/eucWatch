@@ -45,7 +45,7 @@ UI={
       if (UIc.get) UIc.cord=UIc.cord+`${UIc.cord!=""?'else ':''}if (${p[0]}<x&&x<${p[2]}&&${p[1]}<y&&y<${p[3]}) face[0].btn.${no}_${po}();`;	
 	  else w.gfx.flip();
     },
-    img:(no,po,Img,txt,fclr,bclr,tran)=>{
+    img:(no,po,img,txt,fclr,bclr,side,tran)=>{
       "ram";
       let p=(UI.pos[no][po]);
 	  let x=p[0]+((p[2]-p[0])/2);
@@ -57,22 +57,26 @@ UI={
 		//w.gfx.fillRect(p[0]+3,p[1]+3,p[2]-3,p[3]-3);
 		w.gfx.fillRect(p[0],p[1],p[2],p[3]);
 	  }
-      w.gfx.setColor(1,fclr);		
-	  w.gfx.drawImage(Img,x-24,set.def.info&&txt?y-36:y-24);
-	  if (set.def.info&&txt) {
-    	  //w.gfx.setColor(0,bclr==3?0:bclr==4?14:3);
-		  w.gfx.setColor(0,bclr==3?0:3);
-          w.gfx.setFont("Vector",(p[3]-p[1])/5);	
+      w.gfx.setColor(1,fclr);	
+	  if  (txt&&side){
+ 		  w.gfx.setFont("Vector",(p[3]-p[1])/3);	
+		  let xa=x-((w.gfx.imageMetrics(img).width+w.gfx.stringWidth(txt))/2);
+	      w.gfx.drawImage(img,xa,y-(w.gfx.imageMetrics(img).width/2));
+		  w.gfx.setColor(1,bclr==3?0:3);
+		  w.gfx.drawString(txt,xa+w.gfx.imageMetrics(img).width,y-(w.gfx.stringMetrics(txt).height/2)); 
+	  }else if (set.def.info&&txt) {
+		  w.gfx.drawImage(img,x-24,set.def.info&&txt?y-36:y-24);
+		  w.gfx.setColor(1,bclr==3?0:3);
+		  w.gfx.setFont("Vector",(p[3]-p[1])/5);	
 		  w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y+22); 
-	  }
-	  Img=-1;
-
+	  }else w.gfx.drawImage(img,x-(w.gfx.imageMetrics(img).width/2),y-(w.gfx.imageMetrics(img).width/2));
+	  img=0;
       if (!set.def.bpp) w.gfx.flip();
 	  if (UIc.get) UIc.cord=UIc.cord+`${UIc.cord!=""?'else ':''}if (${p[0]}<x&&x<${p[2]}&&${p[1]}<y&&y<${p[3]}) face[0].btn.${no}_${po}();`;	
 	  else w.gfx.flip();
 	}, 
 	ntfy:(no,po,txt1,txt2,fclr,bclr,tmot,sel)=>{
-		if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;};
+		if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}
 		UI.removeAllListeners("ntfy");
 		let p=(UI.pos[no][po]);
 		let x=p[2]-((p[2]-p[0])/2);
@@ -88,7 +92,7 @@ UI={
         w.gfx.flip(); //if (!set.def.bpp) w.gfx.flip();
 		if (UI.ntid) clearTimeout(UI.ntid);
 		UIc.cord=`if ( x< ${(p[2]-p[0])/2} && ${p[1]}<y&&y<${p[3]} ) face[0].btn.sel_rigth(); else if(${(p[2]-p[0])/2}<x && ${p[1]}<y&&y<${p[3]}) face[0].btn.sel_left();`;	
-		UI.ntid=setTimeout(function(t){UI.removeAllListeners("sel");UI.ntid=0;UI.emit('ntfy',"ok");if (face[0].bar) face[0].bar();},tmot?tmot:1000);
+		UI.ntid=setTimeout(function(t){UI.ntid=0;UI.emit('ntfy',"ok");if (face[0].bar) face[0].bar(); },tmot?tmot:1000);
 	},
 	sel:(no,po,txt1,txt2,fclr,bclr,vert)=>{
       "ram";

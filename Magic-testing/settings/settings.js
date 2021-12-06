@@ -29,7 +29,7 @@ face[0] = {
 		UI.btn.img("_bar",2,UI.icon.settings,0,14,0);//btn2
 		UI.btn.img("_bar",3,UI.icon.alarm,0,3,0);//btn2
 		if (set.def.bpp) w.gfx.flip();
-		UIc.tap.bar = new Function("x", "y",'setTimeout(()=>{'+UIc.cord+'},0);'); 
+		UIc.tap.bar.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.cord+'},0);'));
 		TC.on('tc5',UIc.tap.bar);
 		UIc.get=0;UIc.cord="";
 		//end bar
