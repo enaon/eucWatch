@@ -1,4 +1,3 @@
-TC.removeListener("tc5",UIc.tap.btn);
 face[0].page="app";
 UIc.get=1;
 UIc.cord="";
@@ -30,9 +29,10 @@ UI.ele.fill("_2x3",6,1);
 img=0;
 if (set.def.bpp) w.gfx.flip();
 //get coordinates
-UIc.tap.btn = new Function("x", "y",'setTimeout(()=>{'+UIc.cord+'},0);'); 
-TC.on('tc5',UIc.tap.btn);
+UIc.tap.btn.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.cord+'},0);'));
+//UIc.tap.btn = new Function("x", "y",'setTimeout(()=>{'+UIc.cord+'},0);'); 
 UIc.get=0;UIc.cord="";
+//TC.on('tc5',UIc.tap.btn);
 //
 face[0].btn._2x3_1=()=>{buzzer(buz.ok);face.go('calc',0);};
 face[0].btn._2x3_2=()=>{buzzer(buz.ok);face.go('repellent',0);};

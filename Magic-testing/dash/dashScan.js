@@ -6,7 +6,7 @@ face[0] = {
   g:w.gfx, 
   init: function(o){ 
 	UI.ele.title("top","SCAN FOR",15,0);
-	UI.ele.title("btm","",0,0);
+	UI.ele.title("btmS","",0,0);
 	this.page(1);
   },
   show : function(o){
@@ -20,7 +20,7 @@ face[0] = {
 	txt1=["INMOTION V11","VETERAN","NINEBOT","KINGSONG"];
 	txt2=["","","ONE C/E/P",""];	
 	UI.btn.c2l("_2x1",2,txt1[n-1],txt2[n-1],15,12); 
-	UI.ele.ind("btm",n,4);
+	UI.ele.ind("btmS",n,4);
 	if (set.def.bpp) w.gfx.flip();
   },
   tid:-1,
@@ -64,8 +64,8 @@ touchHandler[0]=function(e,x,y){
 	else 
 	  target=[0,["Inmotion","V11","ffe0"],["Veteran","SM-NO NAME","ffe0"],["Ninebot","E+-NO NAME","ffe0"],["Kingsong","KS-NO NAME","fff0"]] ;
 	if (!Boolean(require("Storage").read("euc"+target[face[0].set][0]))) {
-			UI.ntfy.simple("btm","INSTALL MODULE",0,15,7);
-			UI.on('ntfy','UI.ele.title("btm","GARAGE",15,1);');
+			UI.ntfy.simple("btmS","INSTALL MODULE",0,15,7);
+			UI.on('ntfy','UI.ele.title("btmS","GARAGE",15,1);');
 			return; 
 	}
 	setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker",target[face[0].set][0]);

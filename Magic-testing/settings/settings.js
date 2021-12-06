@@ -1,14 +1,16 @@
 //settings
 face[0] = {
-	g:w.gfx,
 	btn:{},
+	g:w.gfx,
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
 	bpp:set.def.bpp?0:1,
 	init: function(o){ 
+		
 		if (face.faceSave==-1) face.faceSave=[face.appPrev,face.pagePrev,face.pageArg];
 		UI.ele.fill("_ele","topS",1);
-		this.bar();
 		eval(require('Storage').read(o?'set_apps':'set_set')); 
+		this.bar();
+		TC.on('tc5',UIc.tap.btn);
 		this.run=false;
 	},
 	show : function(s){
@@ -26,6 +28,7 @@ face[0] = {
 		UI.btn.img("_bar",1,UI.icon.torch,0,3,0);//btn2
 		UI.btn.img("_bar",2,UI.icon.settings,0,14,0);//btn2
 		UI.btn.img("_bar",3,UI.icon.alarm,0,3,0);//btn2
+		if (set.def.bpp) w.gfx.flip();
 		UIc.tap.bar = new Function("x", "y",'setTimeout(()=>{'+UIc.cord+'},0);'); 
 		TC.on('tc5',UIc.tap.bar);
 		UIc.get=0;UIc.cord="";
@@ -85,7 +88,6 @@ face[1] = {
   return true;
   },
 };	
-//info face
 
 touchHandler[0]=function(){};
 TC.on('tc1',tcDn); 	
@@ -100,6 +102,8 @@ tcL=(x,y)=>{
 };	
 TC.on('tc3',tcL); 	
 TC.on('tc4',tcL); 	
+
+
 
 //bar
 face[0].btn._bar_1=()=>{buzzer(buz.na);};

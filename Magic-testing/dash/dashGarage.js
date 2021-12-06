@@ -6,8 +6,8 @@ face[0] = {
 	init: function(o){ 
 		this.sv=[-1,-1,-1,-1,-1];
 		this.dash=require("Storage").readJSON("dash.json",1);
-		UI.ele.title("top","SELECT",14,1);
-		UI.ele.fill("_ele","btmM",0);
+		//UI.ele.title("top","SELECT",14,1);
+		//UI.ele.fill("_ele","btmL",0);
 		UI.ele.title("btmS","GARAGE",15,1);
 		this.s1=0;this.s2=0;this.s3=0;this.s4=0;
 		this['s'+this.dash.slot]=1;
@@ -43,7 +43,7 @@ face[0] = {
 			if (this.dash["slot"+slotNumber+"Mac"]) {
 				if ((this.dash["slot"+slotNumber+"Name"]).includes("Proxy")) { this.g.setFont("Vector",30);this.dash["slot"+slotNumber+"Name"]="Proxy";}
 				UI.btn.c2l("_2x2",slotNumber,this.dash["slot"+slotNumber+"Maker"].toUpperCase(),this.dash["slot"+slotNumber+"Name"].split("-")[0],15,(active)?4:1); 
-				if (active) UI.ele.title("top",this.dash["slot"+slotNumber+"Maker"].toUpperCase(),14,4);
+				UI.ele.title("top",active?this.dash["slot"+slotNumber+"Maker"].toUpperCase():"SELECT",active?14:15,active?4:1);
 			}else if (active) {
 				var img=require("heatshrink").decompress(atob("mEwwIcZg/+Aocfx+AAoV4gPgAoQDBuAEBgPAgE4AoQVBjgFBgYCBhgoCAQMGAQUgAolACggFL6AFGGQQFJEZsGsAFEIIhNFLIplFgBxBnwFCPYP/AoU8gf/BwKVB/+/SAUD/kf+CjDh/4V4n8AoYeBAoq1DgIqDAAP/XYcAv4qEn4qEGwsfC4kPEYkHF4Z1DACA="));
 				UI.btn.img("_2x2",slotNumber,img,"Empty",15,1); 	
@@ -96,10 +96,10 @@ face[1] = {
 	}
 };	
 //
-face[0].btn._2x2_1=()=>{;};
-face[0].btn._2x2_2=()=>{;};
-face[0].btn._2x2_3=()=>{;};
-face[0].btn._2x2_4=()=>{;};
+face[0].btn._2x2_1=()=>{};
+face[0].btn._2x2_2=()=>{};
+face[0].btn._2x2_3=()=>{};
+face[0].btn._2x2_4=()=>{};
 
 
 touchHandler[0]=function(e,x,y){ 
