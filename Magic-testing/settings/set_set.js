@@ -37,6 +37,10 @@ face[0].btn._2x3_5=()=>{
 	set.def.acc=1-set.def.acc;
 	UI.btn.img("_2x3",5,UI.icon.wakeScreen,"WAKE",set.def.acc?15:0,set.def.acc?4:3);
 	setter.accR();
+	if (set.def.info){
+		UI.btn.ntfy("_sel",3,"TURN TO WAKE",set.def.acc?"ENABLED":"DISABED",15,1);
+		UIc.tap.bar.replaceWith(new Function("x",'return;'));
+	}
 };
 face[0].btn._2x3_6=()=>{
 	buzzer(buz.ok);
@@ -47,5 +51,9 @@ face[0].btn._2x3_6=()=>{
 	}else{
 		buzzer(buz.ok);
 		buzzer=function(){};
+	}
+	if (set.def.info){
+		UI.btn.ntfy("_sel",3,"BUZZER",set.def.buzz?"ENABLED":"DISABED",15,1);
+		UIc.tap.bar.replaceWith(new Function("x",'return;'));
 	}
 };
