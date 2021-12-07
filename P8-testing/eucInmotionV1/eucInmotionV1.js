@@ -214,7 +214,7 @@ euc.conn=function(mac){
 			euc.rCha.on('characteristicvaluechanged', function(event) {
 				if (set.bt===2&&set.dbg==3) console.log("Inmotion: packet in ",event.target.value.buffer); 
 				if (euc.busy) return;
-				if (euc.tmp.alive) {clearTimeout(euc.tmp.alive); euc.tmp.alive=0;}
+				if (euc.tmp.alive) {clearInterval(euc.tmp.alive); euc.tmp.alive=0;}
 				//gather package
 				let inc=event.target.value.buffer;
 				euc.tmp.tot=E.toUint8Array(euc.tmp.last,inc);
@@ -280,8 +280,8 @@ euc.conn=function(mac){
 			euc.dash.lock=0;
 			//write function
 			euc.tmp.live= function(){
-				if (euc.tmp.alive) {clearTimeout(euc.tmp.alive); euc.tmp.alive=0;}
-				euc.tmp.alive=setTimeout(function(){euc.tmp.alive=0;euc.busy=0;euc.tmp.live();},500);
+				if (euc.tmp.alive) {clearInterval(euc.tmp.alive); euc.tmp.alive=0;}
+				euc.tmp.alive=setInterval(function(){euc.tmp.alive=0;euc.busy=0;euc.tmp.live();},500);
 				if (euc.busy) return;
 				euc.wCha.writeValue([170, 170, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125]).then(function() {
 					return euc.wCha.writeValue([85, 85, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125]);
@@ -291,7 +291,7 @@ euc.conn=function(mac){
 				
 			};
 			euc.wri=function(cmd,value){
-				if (euc.tmp.alive) {clearTimeout(euc.tmp.alive); euc.tmp.alive=0;}
+				if (euc.tmp.alive) {clearInterval(euc.tmp.alive); euc.tmp.alive=0;}
 				euc.busy=1;
 				if (euc.tmp.loop) {clearTimeout(euc.tmp.loop); euc.tmp.loop=0;}
 				if (set.bt===2) console.log("Inmotion cmd: ", cmd);
@@ -306,8 +306,8 @@ euc.conn=function(mac){
 								return euc.wCha.writeValue(euc.cmd("end"));
 							}).then(function()  {
 								euc.tmp.loop=0;
-								if (euc.tmp.alive) {clearTimeout(euc.tmp.alive); euc.tmp.alive=0;}
-								euc.tmp.alive=setTimeout(function(){euc.tmp.alive=0;euc.horn=0;euc.busy=0;euc.tmp.live();},500);
+								if (euc.tmp.alive) {clearInterval(euc.tmp.alive); euc.tmp.alive=0;}
+								euc.tmp.alive=setInterval(function(){euc.tmp.alive=0;euc.horn=0;euc.busy=0;euc.tmp.live();},500);
 							});
 				  	},150);
 				}else if (cmd==="hornOff") {
@@ -401,7 +401,7 @@ euc.conn=function(mac){
 
 euc.off=function(err){
 	if (set.bt===2) console.log("EUC:", err);
-	if (euc.tmp.alive) {clearTimeout(euc.tmp.alive); euc.tmp.alive=0;}
+	if (euc.tmp.alive) {clearInterval(euc.tmp.alive); euc.tmp.alive=0;}
 	//  global.error.push("EUC :"+err);
 	if (euc.tmp.loop) {clearTimeout(euc.tmp.loop);euc.tmp.loop=0;}
 	if (euc.reconnect) {clearTimeout(euc.reconnect); euc.reconnect=0;}
