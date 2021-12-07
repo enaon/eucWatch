@@ -84,7 +84,7 @@ UI={
 		w.gfx.setColor(0,bclr);
 		w.gfx.fillRect(p[0],p[1],p[2],p[3]);
 		w.gfx.setColor(1,fclr);
-        w.gfx.setFont("Vector",(p[3]-p[1])/5);	
+        w.gfx.setFont("Vector",(p[3]-p[1])/4.5);	
         w.gfx.drawString("<",p[0]+5,y-((p[3]-p[1])/4)); w.gfx.drawString(">",p[2]+-5-w.gfx.stringWidth(">"),y-((p[3]-p[1])/4));
         w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-((p[3]-p[1])/4)); 
         w.gfx.setFont("Vector",UI.pos[no][0]);	

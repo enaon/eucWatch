@@ -6,7 +6,6 @@ let tout=(set.def.off[face.appRoot[0]])?set.def.off[face.appRoot[0]]:3000;
 let tm=(tout/((this.tout<60000)?"1000":(this.tout<3600000)?"60000":"3600000"))+ ((tout<60000)?"sec":(tout<3600000)?"min":"hours");
 UI.ele.ind("top",1,1);
 UI.btn.img("_fold",1,UI.icon.themes,6<face.appRoot[0].length?face.appRoot[0].substr(0,6)+"..":face.appRoot[0],14,1,1);
-//UI.btn.img("_fold",1,UI.icon.themes,15<face.appRoot[0].length?face.appRoot[0].subst(0,15)+"..":face.appRoot[0].toUpperCase(),15,1);
 UI.btn.c2l("_2x3",3,"TIMEOUT",tm,0,3);
 UI.btn.c2l("_2x3",4,"COLOR","BLK",0,3);
 UI.btn.c2l("_2x3",5,"STYLE","NEW",0,3);
@@ -14,10 +13,7 @@ UI.btn.c2l("_2x3",6,"TEXT",set.def.info?"ON":"OFF",set.def.info?15:0,set.def.inf
 if (set.def.bpp) w.gfx.flip();
 //get coordinates
 UIc.tap.btn.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.cord+'},0);'));
-//UIc.tap.btn = new Function("x", "y",'setTimeout(()=>{'+UIc.cord+'},0);'); 
 UIc.get=0;UIc.cord="";
-//TC.on('tc5',UIc.tap.btn);
-
 //
 
 face[0].btn._fold_1=()=>{buzzer(buz.ok);eval(require('Storage').read('set_set'));};
@@ -29,12 +25,12 @@ face[0].btn._2x3_3=()=>{
 };
 face[0].btn._2x3_4=()=>{
 	buzzer(buz.na);
-	UI.btn.ntfy("_sel",3,"NOT YET",0,15,7);
+	UI.btn.ntfy("_sel",3,"NOT YET","",15,7);
 	UIc.tap.bar.replaceWith(new Function("x",'return;'));
 };
 face[0].btn._2x3_5=()=>{
 	buzzer(buz.na);
-	UI.btn.ntfy("_sel",3,"NOT YET",0,15,7);
+	UI.btn.ntfy("_sel",3,"NOT YET","",15,7);
 	UIc.tap.bar.replaceWith(new Function("x",'return;'));
 };
 face[0].btn._2x3_6=()=>{
