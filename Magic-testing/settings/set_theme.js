@@ -27,9 +27,15 @@ face[0].btn._2x3_3=()=>{
 	UIc.tap.bar.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.cord+'},0);'));
 	UIc.get=0;UIc.cord="";
 };
-face[0].btn._2x3_4=()=>{buzzer(buz.na);};
+face[0].btn._2x3_4=()=>{
+	buzzer(buz.na);
+	UI.btn.ntfy("_sel",3,"NOT YET",0,15,7);
+	UIc.tap.bar.replaceWith(new Function("x",'return;'));
+};
 face[0].btn._2x3_5=()=>{
-	buzzer(buz.ok);
+	buzzer(buz.na);
+	UI.btn.ntfy("_sel",3,"NOT YET",0,15,7);
+	UIc.tap.bar.replaceWith(new Function("x",'return;'));
 };
 face[0].btn._2x3_6=()=>{
 	buzzer(buz.ok);
