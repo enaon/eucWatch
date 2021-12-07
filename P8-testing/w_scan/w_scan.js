@@ -94,16 +94,16 @@ face[0] = {
       this.g.flip();
       this.g.setFont("Vector",28);
       for (var entry=this.line;entry<this.line+4&&entry<scan.mac.length;entry++) {
-        print(entry,this.go);
-		print("got :"+scan.mac[entry]);
-		print("id :"+scan.mac[entry].substring(0,17),"name :"+scan.mac[entry].split("|")[1]);
+        //print(entry,this.go);
+		//print("got :"+scan.mac[entry]);
+		//print("id :"+scan.mac[entry].substring(0,17),"name :"+scan.mac[entry].split("|")[1]);
 		this.g.setColor(0,(this.go==entry)?4:(entry % 2)?1:2);
         this.g.fillRect(0,(this.top-14)+((entry-this.line)*this.top),239,(this.top+36)+((entry-this.line)*this.top)); 
 		this.g.setColor(1,(this.go==entry)?14:15);
 		//let dr=scan.mac[entry].substring(0,17);
 		if (scan.mac[entry].split("|")[1]!=="undefined"){
 			dr=E.toJS(scan.mac[entry].split("|")[1].replace(/\0/g, ''));
-			print ("test",dr,dr.replace(/\0/g, ''),dr.replace(/\u0000/g, '') )
+			//print ("test",dr,dr.replace(/\0/g, ''),dr.replace(/\u0000/g, '') )
 		}else dr=scan.mac[entry].substring(0,17);
 		//let dr=scan.mac[entry].substring(0,17);
 		//let dr=(scan.mac[entry].split("|")[1]!=="undefined")?scan.mac[entry].split("|")[1]:scan.mac[entry].substring(0,17);
