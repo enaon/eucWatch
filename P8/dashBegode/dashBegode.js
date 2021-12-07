@@ -122,7 +122,7 @@ touchHandler[0]=function(e,x,y){
 			return;	
 		}else if ( x<=120 && 100<=y ) { //tpms
 			buzzer([30,50,30]);		
-			if (!euc.dash.tpms) face[0].ntfy("HOLD-> ON/OFF",4);
+			if (!euc.dash.tpms) face[0].ntfy("HOLD-> ON/OFF",4,20);
 			else {
 				tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.tpms);
 				face.go("tpmsFace",0);
@@ -163,14 +163,14 @@ touchHandler[0]=function(e,x,y){
 			if (euc.dash.tpms) {
 				euc.dash.tpms=0;
 				face[0].btn("TPMS",18,60,115,1,0,100,119,195,"OFF",28,60,155); //3
-				face[0].ntfy("TPMS DISABLED",1);
+				face[0].ntfy("TPMS DISABLED",1,20);
 				return;
 			}else{
 				if (global.tpms){ 
 					tpms.scan();
 					face.go("tpmsFace",0);
 				}else 
-					face[0].ntfy("NOT INSTALLED",7);
+					face[0].ntfy("NOT INSTALLED",7,20);
 			}
 			return;
 		}else if ( 120<=x && 100<=y ) { //off

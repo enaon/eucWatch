@@ -133,7 +133,7 @@ touchHandler[0]=function(e,x,y){
 				return;	
 			}else if ( x<=120 && 100<=y ) { //tpms
 				buzzer([30,50,30]);		
-				if (!euc.dash.tpms) face[0].ntfy("HOLD-> ON/OFF",4);
+				if (!euc.dash.tpms) face[0].ntfy("HOLD-> ON/OFF","",20,4,1); 
 				else {
 					tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.tpms);
 					face.go("tpmsFace",0);

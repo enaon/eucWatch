@@ -20,7 +20,7 @@ if(!global.scan){
 						euc.dash.mac=0;
 					}else{
 						set.write("setting",app+"Mac",found[0].split("|")[0]);
-						set.write("setting",app+"Name",found[0].split("|")[1]);
+						set.write("setting",app+"Name",found[0].split("|")[1].replace(/\0/g, ''));
 						set.write("setting",app+"Go","0");
 					}
 					scan.mac=found;
@@ -103,6 +103,7 @@ face[0] = {
 		//let dr=scan.mac[entry].substring(0,17);
 		if (scan.mac[entry].split("|")[1]!=="undefined"){
 			dr=E.toJS(scan.mac[entry].split("|")[1].replace(/\0/g, ''));
+			print ("test",dr,dr.replace(/\0/g, ''),dr.replace(/\u0000/g, '') )
 		}else dr=scan.mac[entry].substring(0,17);
 		//let dr=scan.mac[entry].substring(0,17);
 		//let dr=(scan.mac[entry].split("|")[1]!=="undefined")?scan.mac[entry].split("|")[1]:scan.mac[entry].substring(0,17);
@@ -172,7 +173,7 @@ touchHandler[0]=function(e,x,y){
 		if (this.mac!=undefined) {
 			buzzer([30,50,30]);
 			if (face.appRoot[0]!="repellent"){
-				if (this.name) set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",this.name);
+				if (this.name) set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",this.name.replace(/\0/g, ''));
                 //set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Mac",this.mac);
 				euc.mac=this.mac;
 				euc.tgl();
