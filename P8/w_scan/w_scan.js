@@ -102,7 +102,7 @@ face[0] = {
 		this.g.setColor(1,(this.go==entry)?14:15);
 		//let dr=scan.mac[entry].substring(0,17);
 		if (scan.mac[entry].split("|")[1]!=="undefined"){
-			dr=E.toJS(scan.mac[entry].split("|")[1]);
+			dr=E.toJS(scan.mac[entry].split("|")[1].replace(/\0/g, ''));
 		}else dr=scan.mac[entry].substring(0,17);
 		//let dr=scan.mac[entry].substring(0,17);
 		//let dr=(scan.mac[entry].split("|")[1]!=="undefined")?scan.mac[entry].split("|")[1]:scan.mac[entry].substring(0,17);
