@@ -26,11 +26,11 @@ UIc.tap.btn.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.cord+'},0);
 UIc.get=0;UIc.cord="";
 //TC.on('tc5',UIc.tap.btn);
 //
-face[0].btn._fold_1=()=>{buzzer(buz.ok);eval(require('Storage').read('set_set'));};
+face[0].btn._fold_1=()=>{buzzer(buz.na);/*eval(require('Storage').read('set_set'));*/};
 face[0].btn._2x3_3=()=>{buzzer(buz.ok);set.def.cli=1-set.def.cli;UI.btn.img("_2x3",3,UI.icon.cli,"CLI",set.def.cli?15:0,set.def.cli?4:3);
-setter.updateBT();};
+if (set.def.info) {UI.btn.ntfy("_sel",3,"LOADER ACCESS",set.def.cli?"ENABLED":"DISABLED",15,6);UIc.tap.bar.replaceWith(new Function("x",'return;'));}setter.updateBT();};
 face[0].btn._2x3_4=()=>{buzzer(buz.ok);set.def.gb=1-set.def.gb;UI.btn.img("_2x3",4,UI.icon.gb,"GB",set.def.gb?15:0,set.def.gb?4:3);
-setter.updateBT();};
+if (set.def.info) {UI.btn.ntfy("_sel",3,"GADGET BRIDGE",set.def.gb?"ENABLED":"DISABLED",15,6);UIc.tap.bar.replaceWith(new Function("x",'return;'));}setter.updateBT();};
 face[0].btn._2x3_5=()=>{buzzer(buz.ok);set.def.emuZ=1-set.def.emuZ;UI.btn.img("_2x3",5,UI.icon.proxy,"PROXY",set.def.emuZ?15:0,set.def.emuZ?4:3);
-setter.updateBT();};
-face[0].btn._2x3_6=()=>{buzzer(buz.na);/*set.def.hid=1-set.def.hid;setter.updateBT();buzzer(buz.ok);*/};
+if (set.def.info) {UI.btn.ntfy("_sel",3,"EUC PROXY",set.def.emuZ?"ENABLED":"DISABLED",15,6);UIc.tap.bar.replaceWith(new Function("x",'return;'));}setter.updateBT();};
+face[0].btn._2x3_6=()=>{buzzer(buz.na);if (set.def.info) {UI.btn.ntfy("_sel",3,"NOT AVAILABLE","YET",15,7);UIc.tap.bar.replaceWith(new Function("x",'return;'));}/*set.def.hid=1-set.def.hid;setter.updateBT();buzzer(buz.ok);*/};
