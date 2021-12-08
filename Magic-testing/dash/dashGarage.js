@@ -29,7 +29,6 @@ face[0] = {
 		this.dash.slot4Mac?UI.btn.c2l("main",[1,1,0],"_2x2",4,this.dash.slot4Maker.toUpperCase(),this.dash.slot4Name.toUpperCase(),this.dash.slot==4?14:0,this.dash.slot==4?4:3):UI.btn.c2l("main",[1,1,0],"_2x2",4,"","",0,0);
 		UIc.end();
 		UI.ele.title("btmS","GARAGE",15,1);
-		if (set.def.bpp) w.gfx.flip();
 		UIc.tap.main._2x2=this.tap;
 		UIc.hold.main._2x2=this.hold;
 		//end bar
