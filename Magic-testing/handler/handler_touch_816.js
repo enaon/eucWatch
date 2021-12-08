@@ -21,12 +21,7 @@ var TC={
 		if (this.ntid&&set.def.rstR==229) {clearWatch(this.ntid);this.ntid=0;}
 	}
 };
-var UIc={
-	get:1,
-	cord:"",
-	tap:{btn:()=>{},bar:()=>{}},
-	hold:{btn:()=>{},bar:()=>{}},
-};
+
 /*TC.on('tc1',x=>{print(x);});
 TC.on('tc2',x=>{print(x);});
 TC.on('tc3',x=>{print(x);});

@@ -66,12 +66,7 @@ var TC={
 		this.time = 0;
 	}
 };
-var UIc={
-	get:1,
-	cord:"",
-	tap:{btn:()=>{},bar:()=>{}},
-	hold:{btn:()=>{},bar:()=>{}},
-};
+
 /*
 TC.on('tc5',x=>{print(x);});
 TC.on('tc12',x=>{print(x);});

@@ -20,36 +20,48 @@ face[0] = {
 	},
 	bar : function(){
 		//start bar
-		UIc.start();	
-		this.dash.slot1Mac?UI.btn.c2l("main",[1,1,0],"_2x2",1,this.dash.slot1Maker.toUpperCase(),this.dash.slot1Name.toUpperCase(),this.dash.slot==1?14:0,this.dash.slot==1?4:3):UI.btn.c2l("main",[1,1,0],"_2x2",1,"","",0,0);
-		this.dash.slot2Mac?UI.btn.c2l("main",[1,1,0],"_2x2",2,this.dash.slot2Maker.toUpperCase(),this.dash.slot2Name.toUpperCase(),this.dash.slot==2?14:0,this.dash.slot==2?4:3):UI.btn.c2l("main",[1,1,0],"_2x2",2,"","",0,0);
-		this.dash.slot3Mac?UI.btn.c2l("main",[1,1,0],"_2x2",3,this.dash.slot3Maker.toUpperCase(),this.dash.slot3Name.toUpperCase(),this.dash.slot==3?14:0,this.dash.slot=3?4:3):UI.btn.c2l("main",[1,1,0],"_2x2",3,"","",0,0); 
-		this.dash.slot4Mac?UI.btn.c2l("main",[1,1,0],"_2x2",4,this.dash.slot4Maker.toUpperCase(),this.dash.slot4Name.toUpperCase(),this.dash.slot==4?14:0,this.dash.slot==4?4:3):UI.btn.c2l("main",[1,1,0],"_2x2",4,"","",0,0);
+		UIc.get=1;	
+		UIc.xy={tap:"",hold:"",up:"",down:"",back:"",next:""};
+		this.dash.slot1Mac?UI.btn.c2l([1,1,0],"_2x2",1,this.dash.slot1Maker.toUpperCase(),this.dash.slot1Name.toUpperCase(),this.dash.slot==1?14:0,this.dash.slot==1?4:3):UI.btn.c2l([1,1,0],"_2x2",1,"","",0,0);
+		this.dash.slot2Mac?UI.btn.c2l([1,1,0],"_2x2",2,this.dash.slot2Maker.toUpperCase(),this.dash.slot2Name.toUpperCase(),this.dash.slot==2?14:0,this.dash.slot==2?4:3):UI.btn.c2l([1,1,0],"_2x2",2,"","",0,0);
+		this.dash.slot3Mac?UI.btn.c2l([1,1,0],"_2x2",3,this.dash.slot3Maker.toUpperCase(),this.dash.slot3Name.toUpperCase(),this.dash.slot==3?14:0,this.dash.slot=3?4:3):UI.btn.c2l([1,1,0],"_2x2",3,"","",0,0); 
+		this.dash.slot4Mac?UI.btn.c2l([1,1,0],"_2x2",4,this.dash.slot4Maker.toUpperCase(),this.dash.slot4Name.toUpperCase(),this.dash.slot==4?14:0,this.dash.slot==4?4:3):UI.btn.c2l([1,1,0],"_2x2",4,"","",0,0);
 		if (set.def.bpp) w.gfx.flip();
-		//
-
-
+		UIc.tap.btn.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.xy.tap+'},0);'));
+		UIc.hold.btn.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.xy.hold+'},0);'));
 		TC.removeAllListeners("tc5");
 		TC.removeAllListeners("tc12");
 		TC.on('tc5',UIc.tap.btn);
 		TC.on('tc12',UIc.hold.btn);
-		//
-		
-		UIc.end();
+		UIc.get=0;
 		UI.ele.title("btmS","GARAGE",15,1);
 		if (set.def.bpp) w.gfx.flip();
 		//end bar
 	},
-	slot : function(){
-		
-	
-	},
 	btn:{
-		tap_2x2:function(p){
-			face[0].tap(p);
+		tap_2x2_1:function(){
+			face[0].tap(1);
 		},
-		hold_2x2:function(p){
-			face[0].hold(p);
+		tap_2x2_2:function(){
+			face[0].tap(2);
+		},
+		tap_2x2_3:function(){
+			face[0].tap(3);
+		},
+		tap_2x2_4:function(){
+			face[0].tap(4);
+		},
+		hold_2x2_1:function(){
+			face[0].hold(1);
+		},
+		hold_2x2_2:function(){
+			face[0].hold(2);
+		},
+		hold_2x2_3:function(){
+			face[0].hold(3);
+		},
+		hold_2x2_4:function(){
+			face[0].hold(4);
 		}
 	},
 	tap:function(no){
@@ -60,11 +72,11 @@ face[0] = {
 			if (Boolean(require("Storage").read('eucSlot'+no+'.json'))){
 				dash.live=require("Storage").readJSON('eucSlot'+no+'.json',1);
 			}else dash.live=require("Storage").readJSON("eucSlot.json",1);
-			//this.slot();
-			UI.btn.ntfy("_sel",4,"","",15,6,2);
+			this.bar();
+			UI.btn.ntfy("_sel",4,"HOLD -> OPTIONS","",15,6);
 		} else{
-			//UI.btn.img([1,0,0],"_2x2",no,UI.icon.scan,"SCAN",15,2);
-			UI.btn.ntfy("_sel",4,"","",15,2,2);
+			UI.btn.img([1,0,0],"_2x2",no,UI.icon.scan,"SCAN",15,2);
+			UI.btn.ntfy("_sel",4,"HOLD -> SCAN","",15,2);
 		}
 	
 	},
@@ -73,8 +85,8 @@ face[0] = {
 		if (this.dash["slot"+no+"Mac"]){
 			this.clear();
 			UI.ele.title("top",face[0].dash["slot"+no+"Mac"],15,4);
-			UI.btn.c2l("main",[1,0,0],"_2x1",1,"WATCH ALERTS",0,15,4); 	
-			UI.btn.c2l("main",[1,0,0],"_2x1",2,"DELETE WHEEL",0,15,7); 	
+			UI.btn.c2l([1,0,0],"_2x1",1,"WATCH ALERTS",0,15,4); 	
+			UI.btn.c2l([1,0,0],"_2x1",2,"DELETE WHEEL",0,15,7); 	
 		}else {
 			dash.live=require("Storage").readJSON("eucSlot.json",1);
 			face.go("dashScan",0);
@@ -178,8 +190,8 @@ touc=function(e,x,y){
 			if (face[0].dash["slot"+this.s+"Mac"]){
 				face[0].clear();
 				UI.ele.title("top",face[0].dash["slot"+this.s+"Mac"],15,4);
-				UI.btn.c2l("main",[1,0,0],"_2x1",1,"WATCH ALERTS",0,15,4); 	
-				UI.btn.c2l("main",[1,0,0],"_2x1",2,"DELETE WHEEL",0,15,7); 	
+				UI.btn.c2l([1,0,0],"_2x1",1,"WATCH ALERTS",0,15,4); 	
+				UI.btn.c2l([1,0,0],"_2x1",2,"DELETE WHEEL",0,15,7); 	
 				face[0].set=1;
 			}else {
 				dash.live=require("Storage").readJSON("eucSlot.json",1);

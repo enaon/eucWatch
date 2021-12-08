@@ -20,15 +20,28 @@ face[0] = {
 		//start bar
 		TC.removeListener("tc5",UIc.tap.bar);
 		UI.ele.fill("_ele","btmL",0);
-		UIc.get=1;UIc.cord="";
-		UI.btn.img("_bar",1,UI.icon.torch,0,3,0);//btn2
-		UI.btn.img("_bar",2,UI.icon.settings,0,14,0);//btn2
-		UI.btn.img("_bar",3,UI.icon.alarm,0,3,0);//btn2
+		UIc.get=1;
+		UIc.xy={tap:"",hold:"",up:"",down:"",back:"",next:""};
+		UI.btn.img([1,0,0],"_bar",1,UI.icon.torch,0,3,0);//btn2
+		UI.btn.img([1,0,0],"_bar",2,UI.icon.settings,0,14,0);//btn2
+		UI.btn.img([1,0,0],"_bar",3,UI.icon.alarm,0,3,0);//btn2
 		if (set.def.bpp) w.gfx.flip();
-		UIc.tap.bar.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.cord+'},0);'));
+		UIc.tap.bar.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.xy.tap+'},0);'));
 		TC.on('tc5',UIc.tap.bar);
-		UIc.get=0;UIc.cord="";
+		UIc.get=0;
 		//end bar
+	},
+	btn : function(){
+		tap_2x2:function(p){
+			face[0].tap(p);
+		},
+		hold_2x2:function(p){
+			face[0].hold(p);
+		},
+		bar:function(p){
+			face[0].hold(p);
+		},
+	
 	},
 	clear : function(o){
 		TC.removeAllListeners();
@@ -85,10 +98,10 @@ TC.on('tc4',tcL);
 
 
 //bar
-face[0].btn._bar_1=()=>{buzzer(buz.na);};
-face[0].btn._bar_2=()=>{
+face[0].btn.tap_bar_1=()=>{buzzer(buz.na);};
+face[0].btn.tap_bar_2=()=>{
 if (Boolean(require("Storage").read(face.faceSave[0].substring(0,4)+"Options"))){
 	buzzer(buz.ok);face.go(face.faceSave[0].substring(0,4)+"Options",0);
 }else buzzer(buz.na);
 };
-face[0].btn._bar_3=()=>{buzzer(buz.ok);face.go('alarm',0);};
+face[0].btn.tap_bar_3=()=>{buzzer(buz.ok);face.go('alarm',0);};

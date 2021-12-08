@@ -16,10 +16,10 @@ face[0] = {
 	this.set=n;
 	let txt1=["INMOTION","BEGODE","NINEBOT","NINEBOT"];
 	let txt2=["V5/V8/V10","","ONE Z10","ONE S2"];
-	UI.btn.c2l("_2x1",1,txt1[n-1],txt2[n-1],15,6); 
+	UI.btn.c2l([0,0,0],"_2x1",1,txt1[n-1],txt2[n-1],15,6); 
 	txt1=["INMOTION V11","VETERAN","NINEBOT","KINGSONG"];
 	txt2=["","","ONE C/E/P",""];	
-	UI.btn.c2l("_2x1",2,txt1[n-1],txt2[n-1],15,6); 
+	UI.btn.c2l([0,0,0],"_2x1",2,txt1[n-1],txt2[n-1],15,6); 
 	UI.ele.ind("top",n,4);
 	if (set.def.bpp) w.gfx.flip();
   },
