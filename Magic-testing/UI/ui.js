@@ -38,7 +38,7 @@ UI={
         w.gfx.setFont("Vector",UI.pos[no][0]);	
         w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height-3);
       }else{  
-        w.gfx.setFont("Vector",UI.pos[no][0]);	
+        w.gfx.setFont("Vector",UI.pos[no][0]*((p[2]-p[0])/100 ));	
         w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-(w.gfx.stringMetrics(txt1).height/2)); 
       }
       if (!set.def.bpp) w.gfx.flip();
@@ -86,14 +86,14 @@ UI={
 		w.gfx.fillRect(p[0],p[1],p[2],p[3]);
 		w.gfx.setColor(1,fclr);
         w.gfx.setFont("Vector",(p[3]-p[1])/4.5);	
-        w.gfx.drawString("<",p[0]+5,y-((p[3]-p[1])/4)); w.gfx.drawString(">",p[2]+-5-w.gfx.stringWidth(">"),y-((p[3]-p[1])/4));
+        if (sel) {w.gfx.drawString("<",p[0]+5,y-((p[3]-p[1])/4)); w.gfx.drawString(">",p[2]+-5-w.gfx.stringWidth(">"),y-((p[3]-p[1])/4));}
         w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-((p[3]-p[1])/4)); 
         w.gfx.setFont("Vector",UI.pos[no][0]);	
         w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height-10);
         w.gfx.flip(); //if (!set.def.bpp) w.gfx.flip();
 		if (UI.ntid) clearTimeout(UI.ntid);
 		UIc.cord=`if ( x< ${(p[2]-p[0])/2} && ${p[1]}<y&&y<${p[3]} ) face[0].btn.sel_rigth(); else if(${(p[2]-p[0])/2}<x && ${p[1]}<y&&y<${p[3]}) face[0].btn.sel_left();`;	
-		UI.ntid=setTimeout(function(t){UI.ntid=0;UI.emit('ntfy',"ok");if (face[0].bar) face[0].bar(); },tmot?tmot:1000);
+		UI.ntid=setTimeout(function(t){UI.ntid=0;UI.emit('ntfy',"ok");if (face[0].bar) face[0].bar(); },tmot?tmot*1000:1000);
 	},
 	sel:(no,po,txt1,txt2,fclr,bclr,vert)=>{
       "ram";

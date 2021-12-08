@@ -21,7 +21,7 @@ UIc.get=0;UIc.cord="";
 face[0].btn._fold_1=()=>{buzzer(buz.ok);eval(require('Storage').read('set_set'));};
 face[0].btn._2x3_3=()=>{
 	buzzer(buz.ok);
-	UI.btn.ntfy("_sel",3,"ala","lala",15,1);
+	UI.btn.ntfy("_sel",3,"ala","lala",15,1,2,1);
 	UIc.tap.bar.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.cord+'},0);'));
 	UIc.get=0;UIc.cord="";
 };
