@@ -14,53 +14,35 @@ face[0] = {
 		this['s'+this.dash.slot]=1;
 		this.set=0;
 		this.run=false;	
+		TC.on('tc5',UIc.tap.xy);
+		TC.on('tc12',UIc.hold.xy);
 	},
 	show : function(o){
-		if (!this.run) return;
+		if (!face[0].run) return;
 	},
 	bar : function(){
 		//start bar
-		UIc.start();	
+		UIc.start(1,1);	
 		this.dash.slot1Mac?UI.btn.c2l("main",[1,1,0],"_2x2",1,this.dash.slot1Maker.toUpperCase(),this.dash.slot1Name.toUpperCase(),this.dash.slot==1?14:0,this.dash.slot==1?4:3):UI.btn.c2l("main",[1,1,0],"_2x2",1,"","",0,0);
 		this.dash.slot2Mac?UI.btn.c2l("main",[1,1,0],"_2x2",2,this.dash.slot2Maker.toUpperCase(),this.dash.slot2Name.toUpperCase(),this.dash.slot==2?14:0,this.dash.slot==2?4:3):UI.btn.c2l("main",[1,1,0],"_2x2",2,"","",0,0);
 		this.dash.slot3Mac?UI.btn.c2l("main",[1,1,0],"_2x2",3,this.dash.slot3Maker.toUpperCase(),this.dash.slot3Name.toUpperCase(),this.dash.slot==3?14:0,this.dash.slot=3?4:3):UI.btn.c2l("main",[1,1,0],"_2x2",3,"","",0,0); 
 		this.dash.slot4Mac?UI.btn.c2l("main",[1,1,0],"_2x2",4,this.dash.slot4Maker.toUpperCase(),this.dash.slot4Name.toUpperCase(),this.dash.slot==4?14:0,this.dash.slot==4?4:3):UI.btn.c2l("main",[1,1,0],"_2x2",4,"","",0,0);
-		if (set.def.bpp) w.gfx.flip();
-		//
-
-
-		TC.removeAllListeners("tc5");
-		TC.removeAllListeners("tc12");
-		TC.on('tc5',UIc.tap.btn);
-		TC.on('tc12',UIc.hold.btn);
-		//
-		
 		UIc.end();
 		UI.ele.title("btmS","GARAGE",15,1);
 		if (set.def.bpp) w.gfx.flip();
+		UIc.tap.main._2x2=this.tap;
+		UIc.hold.main._2x2=this.hold;
 		//end bar
-	},
-	slot : function(){
-		
-	
-	},
-	btn:{
-		tap_2x2:function(p){
-			face[0].tap(p);
-		},
-		hold_2x2:function(p){
-			face[0].hold(p);
-		}
 	},
 	tap:function(no){
 		buzzer(buz.ok);
-		if (this.dash["slot"+no+"Mac"]){
+		if (face[0].dash["slot"+no+"Mac"]){
 			setter.write("dash","slot",no);
 			set.def.dash.slot=no;
 			if (Boolean(require("Storage").read('eucSlot'+no+'.json'))){
 				dash.live=require("Storage").readJSON('eucSlot'+no+'.json',1);
 			}else dash.live=require("Storage").readJSON("eucSlot.json",1);
-			//this.slot();
+			//face[0].slot();
 			UI.btn.ntfy("_sel",4,"","",15,6,2);
 		} else{
 			//UI.btn.img([1,0,0],"_2x2",no,UI.icon.scan,"SCAN",15,2);
@@ -70,8 +52,8 @@ face[0] = {
 	},
 	hold:function(no){
 		buzzer(buz.ok);
-		if (this.dash["slot"+no+"Mac"]){
-			this.clear();
+		if (face[0].dash["slot"+no+"Mac"]){
+			//face[0].clear();
 			UI.ele.title("top",face[0].dash["slot"+no+"Mac"],15,4);
 			UI.btn.c2l("main",[1,0,0],"_2x1",1,"WATCH ALERTS",0,15,4); 	
 			UI.btn.c2l("main",[1,0,0],"_2x1",2,"DELETE WHEEL",0,15,7); 	

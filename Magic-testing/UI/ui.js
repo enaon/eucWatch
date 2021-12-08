@@ -97,7 +97,7 @@ UI={
 		  if (type[1]) UIc.xy.hold=UIc.xy.hold+`${UIc.xy.hold!=""?'else ':''}if (${p[0]}<x&&x<${p[2]}&&${p[1]}<y&&y<${p[3]}) face[0].btn.hold${no}_${po}();`;	
 		}else w.gfx.flip();
 		*/
-		UIc.xy.tap=`if ( x< ${(p[2]-p[0])/2} && ${p[1]}<y&&y<${p[3]} ) face[0].btn.sel_rigth(); else if(${(p[2]-p[0])/2}<x && ${p[1]}<y&&y<${p[3]}) face[0].btn.sel_left();`;	
+		UIc.xy.tap.bar=`if ( x< ${(p[2]-p[0])/2} && ${p[1]}<y&&y<${p[3]} ) face[0].btn.sel_rigth(); else if(${(p[2]-p[0])/2}<x && ${p[1]}<y&&y<${p[3]}) face[0].btn.sel_left();`;	
 		UI.ntid=setTimeout(function(t){UI.ntid=0;UI.emit('ntfy',"ok");if (face[0].bar) face[0].bar(); },tmot?tmot*1000:1000);
 	}
   },
@@ -177,16 +177,16 @@ UI.icon={
 
 
 var UIc={
-	start:function(main,bar){
-	  if (main) {UIc.xy.tap.main=" ";UIc.xy.hold.main=" ";UIc.main=1;}
-	  if (bar) {UIc.xy.tap.bar=" ";UIc.xy.hold.bar=" ";UIc.bar=1;}
+	start:function(m,b){
+	  if (m) {UIc.xy.tap.main=" ";UIc.xy.hold.main=" ";UIc.main=1;}
+	  if (b) {UIc.xy.tap.bar=" ";UIc.xy.hold.bar=" ";UIc.bar=1;}
 	  UIc.get=1;
 	},
 	end:function(){
 		w.gfx.flip();
 		UIc.get=0,UIc.main=0;UIc.bar=0;
-		UIc.tap.yx.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.xy.tap.main+UIc.xy.tap.bar+'},0);'));
-		UIc.hold.yx.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.xy.hold.main+UIc.xy.hold.bar+'},0);'));
+		UIc.tap.xy.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.xy.tap.main+UIc.xy.tap.bar+'},0);'));
+		UIc.hold.xy.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.xy.hold.main+UIc.xy.hold.bar+'},0);'));
     	//TC.removeAllListeners("tc5");
 		//TC.removeAllListeners("tc12");
 		//TC.on('tc5',UIc.tap.btn);
@@ -194,7 +194,7 @@ var UIc={
 		//UIc.xy={tap:0,hold:0,up:0,down:0,back:0,next:0};
 	},
 	get:1,
-	xy:{tap:0,hold:" ",up:" ",down:" ",back:" ",next:" "},
+	xy:{tap:{main:" ",bar:" "},hold:{main:" ",bar:" "},up:" ",down:" ",back:" ",next:" "},
 	tap:{xy:()=>{},main:{},bar:{}},
 	hold:{xy:()=>{},main:{},bar:{}},
 };

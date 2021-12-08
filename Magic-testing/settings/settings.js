@@ -10,7 +10,8 @@ face[0] = {
 		UI.ele.fill("_ele","topS",1);
 		eval(require('Storage').read(o?'set_apps':'set_set')); 
 		this.bar();
-		TC.on('tc5',UIc.tap.btn);
+		TC.on('tc5',UIc.tap.xy);
+		TC.on('tc12',UIc.hold.xy);
 		//this.run=false;
 	},
 	show : function(s){
@@ -20,29 +21,16 @@ face[0] = {
 		//start bar
 		TC.removeListener("tc5",UIc.tap.bar);
 		UI.ele.fill("_ele","btmL",0);
-		UIc.get=1;
-		UIc.xy={tap:"",hold:"",up:"",down:"",back:"",next:""};
-		UI.btn.img([1,0,0],"_bar",1,UI.icon.torch,0,3,0);//btn2
-		UI.btn.img([1,0,0],"_bar",2,UI.icon.settings,0,14,0);//btn2
-		UI.btn.img([1,0,0],"_bar",3,UI.icon.alarm,0,3,0);//btn2
-		if (set.def.bpp) w.gfx.flip();
-		UIc.tap.bar.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.xy.tap+'},0);'));
-		TC.on('tc5',UIc.tap.bar);
-		UIc.get=0;
+		UIc.start(0,1);
+		UI.btn.img("bar",[1,0,0],"_bar",1,UI.icon.torch,0,3,0);//btn2
+		UI.btn.img("bar",[1,0,0],"_bar",2,UI.icon.settings,0,14,0);//btn2
+		UI.btn.img("bar",[1,0,0],"_bar",3,UI.icon.alarm,0,3,0);//btn2
+		UIc.end();
+		UIc.tap.bar._bar=this.tap;
+		UIc.hold.main._2x2=this.hold;
 		//end bar
 	},
-	btn : function(){
-		tap_2x2:function(p){
-			face[0].tap(p);
-		},
-		hold_2x2:function(p){
-			face[0].hold(p);
-		},
-		bar:function(p){
-			face[0].hold(p);
-		},
-	
-	},
+
 	clear : function(o){
 		TC.removeAllListeners();
 		//pal[0]=0;
