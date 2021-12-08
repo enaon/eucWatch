@@ -43,7 +43,7 @@ UI={
 		  if (type[1]&&UIc[loc]) UIc.xy.hold[loc]=UIc.xy.hold[loc]+`${UIc.xy.hold[loc]==" "?'':'else '}if (${p[0]}<x&&x<${p[2]}&&${p[1]}<y&&y<${p[3]})  UIc.hold.${loc}.${no}(${po});`;	
 	  }else w.gfx.flip();
     },
-    img:function(type,no,po,img,txt,fclr,bclr,side,tran){
+    img:function(loc,type,no,po,img,txt,fclr,bclr,side,tran){
       "ram";
       let p=(UI.pos[no][po]);
 	  let x=p[0]+((p[2]-p[0])/2);
@@ -178,11 +178,13 @@ UI.icon={
 
 var UIc={
 	start:function(m,b){
+	"ram";
 	  if (m) {UIc.xy.tap.main=" ";UIc.xy.hold.main=" ";UIc.main=1;}
 	  if (b) {UIc.xy.tap.bar=" ";UIc.xy.hold.bar=" ";UIc.bar=1;}
 	  UIc.get=1;
 	},
 	end:function(){
+	"ram";
 		w.gfx.flip();
 		UIc.get=0,UIc.main=0;UIc.bar=0;
 		UIc.tap.xy.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.xy.tap.main+UIc.xy.tap.bar+'},0);'));
