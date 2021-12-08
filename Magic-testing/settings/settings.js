@@ -1,28 +1,24 @@
 //settings
 face[0] = {
+	run:false,
 	btn:{},
 	g:w.gfx,
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
 	bpp:set.def.bpp?0:1,
 	init: function(o){ 
-		
 		if (face.faceSave==-1) face.faceSave=[face.appPrev,face.pagePrev,face.pageArg];
 		UI.ele.fill("_ele","topS",1);
 		eval(require('Storage').read(o?'set_apps':'set_set')); 
 		this.bar();
 		TC.on('tc5',UIc.tap.btn);
-		this.run=false;
+		//this.run=false;
 	},
 	show : function(s){
 		if (!this.run) return;
-		//loop
-		this.tid=setTimeout(function(t,o){
-			t.tid=-1;
-			t.show(o);
-		},100,this);
 	},
 	bar : function(){
 		//start bar
+		TC.removeListener("tc5",UIc.tap.bar);
 		UI.ele.fill("_ele","btmL",0);
 		UIc.get=1;UIc.cord="";
 		UI.btn.img("_bar",1,UI.icon.torch,0,3,0);//btn2
@@ -34,25 +30,8 @@ face[0] = {
 		UIc.get=0;UIc.cord="";
 		//end bar
 	},
-	sel : function(){
-		//start bar
-		UIc.get=1;UIc.cord="";
-		UI.btn.img("_bar",1,UI.icon.torch,0,14,0);//btn2
-		UI.btn.img("_bar",2,UI.icon.settings,0,14,0);//btn2
-		UI.btn.img("_bar",3,UI.icon.alarm,0,14,0);//btn2
-		UIc.tap.bar = new Function("x", "y",'setTimeout(()=>{'+UIc.cord+'},0);'); 
-		TC.on('tc5',UIc.tap.bar);
-		UIc.get=0;UIc.cord="";
-		//end bar
-	},
-	run:false,
 	clear : function(o){
-		TC.removeAllListeners("tc5");
-		TC.removeAllListeners("tc12");
-		TC.removeAllListeners("tc1");
-		TC.removeAllListeners("tc2");
-		TC.removeAllListeners("tc3");
-		TC.removeAllListeners("tc4");
+		TC.removeAllListeners();
 		//pal[0]=0;
 		//this.g.clear();
 		if (set.tor==1){

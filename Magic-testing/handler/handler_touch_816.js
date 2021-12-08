@@ -24,7 +24,8 @@ var TC={
 var UIc={
 	get:1,
 	cord:"",
-	tap:{btn:()=>{},sel:()=>{},bar:()=>{}},
+	tap:{btn:()=>{},bar:()=>{}},
+	hold:{btn:()=>{},bar:()=>{}},
 };
 /*TC.on('tc1',x=>{print(x);});
 TC.on('tc2',x=>{print(x);});

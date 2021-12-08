@@ -10,10 +10,10 @@ UI={
   pos:{
 	_fold:[12,[0,30,160,110],[80,30,240,110],[0,130,120,220],[120,130,240,220]], 
   	//_2x2:[35,[0,35,120,130],[121,35,240,130],[0,131,120,220],[121,131,240,220]],
-  	_2x2:[35,[0,35,120,135],[121,35,240,135],[0,136,120,235],[121,136,240,235]],
+  	_2x2:[35,[0,30,120,132],[121,30,240,132],[0,133,120,235],[121,133,240,235]],
 	_2x3:[25,[0,30,80,110],[81,30,160,110],[161,30,239,110],[0,111,80,190],[81,111,160,190],[161,111,239,190]],
-	_2x1:[35,[0,40,239,140],[0,141,239,235]],
-	_sel:[20,[0,236,239,279],[0,221,239,279],[0,191,239,279] ],
+	_2x1:[35,[0,30,239,135],[0,136,239,235]],
+	_sel:[20,[0,236,239,279],[0,221,239,279],[0,191,239,279],[0,236,239,279]],
 	_ele:{topS:[0,0,239,29],topS1:[0,0,239,27],top:[0,0,239,40],btmS:[0,236,239,279],btmM:[0,221,239,279],btmL:[0,191,239,279]},
 	_ind:{btm:[75,265,165,270],top:[75,9,165,14]},
 	_bar:[20,[0,195,80,279],[80,200,160,279],[160,195,239,279]],
@@ -42,7 +42,7 @@ UI={
         w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-(w.gfx.stringMetrics(txt1).height/2)); 
       }
       if (!set.def.bpp) w.gfx.flip();
-      if (UIc.get) UIc.cord=UIc.cord+`${UIc.cord!=""?'else ':''}if (${p[0]}<x&&x<${p[2]}&&${p[1]}<y&&y<${p[3]}) face[0].btn.${no}_${po}();`;	
+	  if (UIc.get) UIc.cord=UIc.cord+`${UIc.cord!=""?'else ':''}if (${p[0]}<x&&x<${p[2]}&&${p[1]}<y&&y<${p[3]}) face[0].btn.${no}_${po}();`;	
 	  else w.gfx.flip();
     },
     img:(no,po,img,txt,fclr,bclr,side,tran)=>{
@@ -94,25 +94,7 @@ UI={
 		if (UI.ntid) clearTimeout(UI.ntid);
 		UIc.cord=`if ( x< ${(p[2]-p[0])/2} && ${p[1]}<y&&y<${p[3]} ) face[0].btn.sel_rigth(); else if(${(p[2]-p[0])/2}<x && ${p[1]}<y&&y<${p[3]}) face[0].btn.sel_left();`;	
 		UI.ntid=setTimeout(function(t){UI.ntid=0;UI.emit('ntfy',"ok");if (face[0].bar) face[0].bar(); },tmot?tmot*1000:1000);
-	},
-	sel:(no,po,txt1,txt2,fclr,bclr,vert)=>{
-      "ram";
-      let p=(UI.pos[no][po]);
-      let x=p[2]-((p[2]-p[0])/2);
-      let y=p[3]-((p[3]-p[1])/2);
-      w.gfx.setColor(0,bclr);
-      w.gfx.fillRect(p[0],p[1],p[2],p[3]);
-      w.gfx.setColor(1,fclr);
-      w.gfx.setFont("Vector",(p[3]-p[1])/3);	
-      w.gfx.drawString("<",p[0]+5,y-((p[3]-p[1])/4)); w.gfx.drawString(">",p[2]+-5-w.gfx.stringWidth(">"),y-((p[3]-p[1])/4));
-      w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-((p[3]-p[1])/4)); 
-      w.gfx.setFont("Vector",UI.pos[no][0]);	
-      w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height-3);
-      //if (!set.def.bpp) w.gfx.flip();
-      w.gfx.flip();
-      UIc.cord=`if ( x< ${(p[2]-p[0])/2} && ${p[1]}<y&&y<${p[3]} ) face[0].btn.sel_rigth(); else if(${(p[2]-p[0])/2}<x && ${p[1]}<y&&y<${p[3]}) face[0].btn.sel_left();`;	
-    },
-    
+	}
   }  
 };
 UI.ele={
@@ -163,8 +145,6 @@ UI.ntfy={
 	},	
 	
 	
-	
-	
 };
 	
 UI.icon={	
@@ -183,7 +163,8 @@ UI.icon={
 	gb:require("heatshrink").decompress(atob("mEwwIFCg4LEh/AAocfAok/Aol/zAFEnwREvwoD43+FAfw/ngFAX8/vwAoX+vP4DgX/uYFEs4RCv4FB84FDh/vAoP/h0f5+AAoMBn+fAoWOn8/CIXAv9/DoXg/xOCv5HB/g1C+H5HYfwuf6JoX5gf2AoeD8hlC/P75AFC/v5QgUH/v8mAFC///L4UDAoJ9CAosBAoKoCAopaB/5kBAqQdFgfwg41D8ABBAqgdEJpA1FII4A==")),
 	proxy:require("heatshrink").decompress(atob("mEwwIcZn////+AoIEBAAOAgIFD4EDAofgg/gCgMD+EH4AFBgPwh+AE4X4h4tDvAFFj8DwITBvkegeDD4M8AoPDAoQRBwYRCj4jKGopBFJosD/AFBj/gMopxFPo0PAoIaCEIIrCAqg9CEgQiDH4P8Wgg0CAAM+nwbC//8j5NBg4/BIYKzBApQZBRgojDF447FI4pTFABI")),
 	hid:require("heatshrink").decompress(atob("mEwwIOLkAEDgPwAocHAok/AocB/4FDh4FEv4FDgf/AocfAogEBAoQhBApnxAomBAof8JoQ/CAohZDgP8AongAuF9AoZ4BAoaJDAoJ+BAoc/ApSbCMgIFCEAQRCEAQFC4AIEwAUEXgRBBP4IFCZAgFF4DlDEAIFEeIcP/wFDgb9EAAoA=")),
-	info:require("heatshrink").decompress(atob("mE3wIcZn////+AoIEBAAOAgIFD4ED4AOBgfgg+ADYXwh4hDvEOAoc4AoscgEBD4McAoIhBgEYAoMHAoIMBAoPwAoYRCAoQdChAFBAAQjCApcBJ4I1FAoQ1CAoY1BAvBHFAoU8SoRZBTYytFXIqNDM4LRB/EPaILdB/kf/4OBj/+n/4DQUPvAmDh6zCEIQFEFYYABXIQAkA=="))
+	info:require("heatshrink").decompress(atob("mE3wIcZn////+AoIEBAAOAgIFD4ED4AOBgfgg+ADYXwh4hDvEOAoc4AoscgEBD4McAoIhBgEYAoMHAoIMBAoPwAoYRCAoQdChAFBAAQjCApcBJ4I1FAoQ1CAoY1BAvBHFAoU8SoRZBTYytFXIqNDM4LRB/EPaILdB/kf/4OBj/+n/4DQUPvAmDh6zCEIQFEFYYABXIQAkA==")),
+	scan:require("heatshrink").decompress(atob("mEwwIcZg/+Aocfx+AAoV4gPgAoQDBuAEBgPAgE4AoQVBjgFBgYCBhgoCAQMGAQUgAolACggFL6AFGGQQFJEZsGsAFEIIhNFLIplFgBxBnwFCPYP/AoU8gf/BwKVB/+/SAUD/kf+CjDh/4V4n8AoYeBAoq1DgIqDAAP/XYcAv4qEn4qEGwsfC4kPEYkHF4Z1DACA="))
 
 };
 
