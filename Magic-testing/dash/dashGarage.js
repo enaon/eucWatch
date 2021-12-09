@@ -1,6 +1,6 @@
 //Dash Garage
 face[0] = { 
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
+	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:15000,
 	bpp:set.def.bpp?0:1,
 	g:w.gfx, 
 	dash:0,
@@ -12,25 +12,24 @@ face[0] = {
 		this.bar();
 		this.run=false;	
 		TC.on('tc5',UIc.xy);
-		TC.on('tc12',UIc.hold.xy);
+		UIc.clear();
 	},
 	show : function(o){
 		if (!face[0].run) return;
 	},
 	bar : function(){
 		//start bar
-		UIc.start(1,1);	
-		this.dash.slot1Mac?UI.btn.c2l("main","_2x2",1,this.dash.slot1Maker.toUpperCase(),this.dash.slot1Name.toUpperCase(),this.dash.slot==1?14:0,this.dash.slot==1?4:3):UI.btn.c2l("main","_2x2",1,"","",0,0);
-		this.dash.slot2Mac?UI.btn.c2l("main","_2x2",2,this.dash.slot2Maker.toUpperCase(),this.dash.slot2Name.toUpperCase(),this.dash.slot==2?14:0,this.dash.slot==2?4:3):UI.btn.c2l("main","_2x2",2,"","",0,0);
-		this.dash.slot3Mac?UI.btn.c2l("main","_2x2",3,this.dash.slot3Maker.toUpperCase(),this.dash.slot3Name.toUpperCase(),this.dash.slot==3?14:0,this.dash.slot=3?4:3):UI.btn.c2l("main","_2x2",3,"","",0,0); 
-		this.dash.slot4Mac?UI.btn.c2l("main","_2x2",4,this.dash.slot4Maker.toUpperCase(),this.dash.slot4Name.toUpperCase(),this.dash.slot==4?14:0,this.dash.slot==4?4:3):UI.btn.c2l("main","_2x2",4,"","",0,0);
-		UIc.end();
+		UIc.start(1,0);	
+		this.dash.slot1Mac?UI.btn.c2l("main","_2x2",1,this.dash.slot1Maker.toUpperCase(),this.dash.slot1Model.toUpperCase(),this.dash.slot==1?14:0,this.dash.slot==1?4:3):UI.btn.c2l("main","_2x2",1,"","",0,0);
+		this.dash.slot2Mac?UI.btn.c2l("main","_2x2",2,this.dash.slot2Maker.toUpperCase(),this.dash.slot2Model.toUpperCase(),this.dash.slot==2?14:0,this.dash.slot==2?4:3):UI.btn.c2l("main","_2x2",2,"","",0,0);
+		this.dash.slot3Mac?UI.btn.c2l("main","_2x2",3,this.dash.slot3Maker.toUpperCase(),this.dash.slot3Model.toUpperCase(),this.dash.slot==3?14:0,this.dash.slot=3?4:3):UI.btn.c2l("main","_2x2",3,"","",0,0); 
+		this.dash.slot4Mac?UI.btn.c2l("main","_2x2",4,this.dash.slot4Maker.toUpperCase(),this.dash.slot4Model.toUpperCase(),this.dash.slot==4?14:0,this.dash.slot==4?4:3):UI.btn.c2l("main","_2x2",4,"","",0,0);
 		UI.ele.title("btmS","GARAGE",15,1);
-		UIc.main._2x2_1=()=>{face[0].tap(1)};
-		UIc.main._2x2_2=()=>{face[0].tap(2)};
-		UIc.main._2x2_3=()=>{face[0].tap(3)};
-		UIc.main._2x2_4=()=>{face[0].tap(4)};
-		
+		UIc.end();
+		UIc.main._2x2_1=function(){face[0].tap(1);};
+		UIc.main._2x2_2=function(){face[0].tap(2);};
+		UIc.main._2x2_3=function(){face[0].tap(3);};
+		UIc.main._2x2_4=function(){face[0].tap(4);};
 		//end bar
 	},
 	tap:function(no){
@@ -42,12 +41,51 @@ face[0] = {
 				dash.live=require("Storage").readJSON('eucSlot'+no+'.json',1);
 			}else dash.live=require("Storage").readJSON("eucSlot.json",1);
 			//face[0].slot();
-			UI.btn.ntfy("_sel",4,"","",15,6,2);
+				UI.btn.ntfy("_2x2",3,"","",15,6,4);
+				UIc.start(1,0);	
+				UI.txt.block("_2x1",1,"Press & hold the side button to start or end the EUC connection.",15,1);
+				UI.btn.img("main","_2x2",3,UI.icon.settings,"Setup",15,6);
+				UI.btn.img("main","_2x2",4,UI.icon.trash,"Delete",15,6);
+				UIc.end();	
+				UIc.main._2x2_3=function(){buzzer(buz.ok);face.go("dashAlerts",0);};
+				UIc.main._2x2_4=function(){buzzer(buz.ok);face[0].del(no);};
 		} else{
-			//UI.btn.img("_2x2",no,UI.icon.scan,"SCAN",15,2);
-			UI.btn.ntfy("_sel",4,"","",15,2,2);
+			UI.btn.ntfy("_2x2",3,"","",15,6,4);
+			//UI.btn.ntfy("_2X3",1,"","",15,2,3);
+			UI.txt.block("_2x1",1,"Tap to scan for a new wheel and add it to this slot. ",15,1);
+			UIc.start(1,0);	
+			UI.btn.img("main","_2x1",2,UI.icon.scan,"",15,6,1);
+			UIc.end();
+			UIc.main._2x1_2=function(){
+				buzzer(buz.ok);
+				setter.write("dash","slot",no);
+				set.def.dash.slot=no;			
+				face.go("dashScan",0);
+			};
+
 		}
 	
+	},
+	del:function(no){
+		UI.btn.ntfy("_2x1",2,"","",15,7,4);
+		UI.btn.c2l("main","_2x1",1,"DELETE",`SLOT ${no} ?`,15,1,1);
+		UIc.start(1,0);	
+		UI.btn.c2l("main","_2x1",2,"TAP TO","CONFIRM",15,7,1);
+		UIc.end();
+		UIc.main._2x1_2=function(){
+			buzzer(buz.ok);
+		    setter.write("dash",`slot${no}Mac`);
+			setter.write("dash",`slot${no}Model`);
+			setter.write("dash",`slot${no}Maker`);
+			require("Storage").erase(`logDaySlot${no}.json`);
+			require("Storage").erase(`logWeekSlot${no}.json`);
+			require("Storage").erase(`logYearlot${no}.json`);
+			set.def.dash.slot=0;
+			require("Storage").erase(`eucSlot${no}.json`);
+			dash.live=require("Storage").readJSON("eucSlot.json",1);				
+			UI.btn.ntfy("_sel",4,"DELETED","SLOT "+no,15,2,2);
+			w.gfx.flip();
+		};
 	},
 	tid:-1,
 	run:false,
@@ -87,7 +125,12 @@ touchHandler[0]=function(){};
 TC.on('tc1',tcDn); 	
 TC.on('tc2',tcUp); 	
 UIc.back=(x,y)=>{
-	if (!dash.live.maker||!set.def.dash.slot||!require("Storage").readJSON("logDaySlot"+set.def.dash.slot+".json",1))
+	buzzer(buz.ok);
+	if (UI.ntid&&face[0].bar) {
+		clearTimeout(UI.ntid);
+		UI.ntid=0;
+		face[0].bar();
+	}else if (!dash.live.maker||!set.def.dash.slot||!require("Storage").readJSON("logDaySlot"+set.def.dash.slot+".json",1))
 		face.go("main",0); 
 	else   
 		face.go("dashOff",0);
@@ -97,62 +140,3 @@ UIc.next=(x,y)=>{
 };	
 TC.on('tc3',UIc.next); 	
 TC.on('tc4',UIc.back); 
-
-touc=function(e,x,y){ 
-	switch (e) {
-	case 5: //tap event
-	case 12: //long press event
-		buzzer(100);
-		if ( face[0].set ) {
-			if ( y<=120 ) {
-				w.gfx.setColor(0,0);
-				w.gfx.drawLine (0,98,239,98);
-				w.gfx.drawLine (0,99,239,99);
-				w.gfx.flip();
-				w.gfx.drawLine (120,0,120,195);
-				w.gfx.drawLine (121,0,121,195);
-				w.gfx.flip();
-				face.go("dashAlerts",0);return;
-			} else {
-                setter.write("dash", "slot"+setter.read("dash","slot")+"Mac");
-                setter.write("dash","slot"+setter.read("dash","slot")+"Maker");
-                setter.write("dash","slot"+setter.read("dash","slot")+"Name");
-				require("Storage").erase('logDaySlot'+setter.read("dash","slot")+'.json');
-				require("Storage").erase('logWeekSlot'+setter.read("dash","slot")+'.json');
-				require("Storage").erase('logYearSlot'+setter.read("dash","slot")+'.json');
-				set.def.dash.slot=0;
-				require("Storage").erase('eucSlot'+setter.read("dash","slot")+'.json');
-				dash.live=require("Storage").readJSON("eucSlot.json",1);				
-				face[0].sv=[-1,-1,-1,-1,-1];
-                w.gfx.setColor(0,0);w.gfx.fillRect(0,0,239,195);w.gfx.flip();
-              	face[0].dash=require("Storage").readJSON("dash.json",1);
-				face[0].run=true;face[0].set=0;face[0].show();
-                return;
-			}
-		} else { 
-			if	( x<=120 &&  y<=100 ) this.s=1;	//slot1
-			else if( 120<=x && y<=100 ) this.s=2;	//slot2 
-			else if( x<=120 && 100<=y ) this.s=3;   //slot3 
-			else if( 120<=x && 100<=y ) this.s=4;	//slot4
-            setter.write("dash","slot",this.s);
-			set.def.dash.slot=this.s;
-			if (Boolean(require("Storage").read('eucSlot'+this.s+'.json')))
-				dash.live=require("Storage").readJSON('eucSlot'+this.s+'.json',1);
-			else dash.live=require("Storage").readJSON("eucSlot.json",1);
-			if (face[0].dash["slot"+this.s+"Mac"]){
-				face[0].clear();
-				UI.ele.title("top",face[0].dash["slot"+this.s+"Mac"],15,4);
-				UI.btn.c2l("main","_2x1",1,"WATCH ALERTS",0,15,4); 	
-				UI.btn.c2l("main","_2x1",2,"DELETE WHEEL",0,15,7); 	
-				face[0].set=1;
-			}else {
-				dash.live=require("Storage").readJSON("eucSlot.json",1);
-				face.go("dashScan",0);
-                return;
-            }
-		}
-		break;
-  }
-};
-
-

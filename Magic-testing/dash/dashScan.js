@@ -60,16 +60,16 @@ touchHandler[0]=function(e,x,y){
 	buzzer(buz.ok);
     let target;
 	if(0<y&&y<120) 
-		target=[0,["InmotionV1","V?","ffb0"],["Begode","BG-NO NAME","ffe0"],["NinebotZ","Z10","e7fe"],["NinebotS","S2","e7fe"]] ;
+		target=[0,["InmotionV1","Vx","ffb0"],["Begode","BG","ffe0"],["NinebotZ","Z10","e7fe"],["NinebotS","S2","e7fe"]] ;
 	else 
-	  target=[0,["Inmotion","V11","ffe0"],["Veteran","SM-NO NAME","ffe0"],["Ninebot","E+-NO NAME","ffe0"],["Kingsong","KS-NO NAME","fff0"]] ;
+	  target=[0,["Inmotion","V11","ffe0"],["Veteran","SM","ffe0"],["Ninebot","E+","ffe0"],["Kingsong","KS","fff0"]] ;
 	if (!Boolean(require("Storage").read("euc"+target[face[0].set][0]))) {
 			UI.ntfy.simple("btmS","INSTALL MODULE",0,15,7);
 			UI.on('ntfy','UI.ele.title("btmS","GARAGE",15,1);');
 			return; 
 	}
 	setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker",target[face[0].set][0]);
-	setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",target[face[0].set][1]);
+	setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Model",target[face[0].set][1]);
 	dash.live.name=0;
 	dash.live.maker=target[face[0].set][0];
 	face.go('w_scan',0,target[face[0].set][2]);

@@ -29,7 +29,6 @@ UIc.main._2x3_3=()=>{
 	UI.btn.img("main","_2x3",3,UI.icon.cli,"CLI",set.def.cli?15:0,set.def.cli?4:3);
 	if (set.def.info) {
 		UI.btn.ntfy("_sel",3,"LOADER ACCESS",set.def.cli?"ENABLED":"DISABLED",15,6);
-		UIc.bar..replaceWith(new Function("x",'return;'));
 	}
 	setter.updateBT();
 };
@@ -39,7 +38,6 @@ UIc.main._2x3_4=()=>{
 	UI.btn.img("main","_2x3",4,UI.icon.gb,"GB",set.def.gb?15:0,set.def.gb?4:3);
 	if (set.def.info) {
 		UI.btn.ntfy("_sel",3,"GADGET BRIDGE",set.def.gb?"ENABLED":"DISABLED",15,6);
-		UIc.bar..replaceWith(new Function("x",'return;'));
 	}
 	setter.updateBT();
 };
@@ -48,7 +46,7 @@ UIc.main._2x3_5=()=>{
 	set.def.emuZ=1-set.def.emuZ;
 	UI.btn.img("main","_2x3",5,UI.icon.proxy,"PROXY",set.def.emuZ?15:0,set.def.emuZ?4:3);
 	if (set.def.info) {
-		UI.btn.ntfy("_sel",3,"EUC PROXY",set.def.emuZ?"ENABLED":"DISABLED",15,6);UIc.bar..replaceWith(new Function("x",'return;'));
+		UI.btn.ntfy("_sel",3,"EUC PROXY",set.def.emuZ?"ENABLED":"DISABLED",15,6);
 	}
 	setter.updateBT();
 };
@@ -56,6 +54,5 @@ UIc.main._2x3_6=()=>{
 	buzzer(buz.na);
 	if (set.def.info) {
 		UI.btn.ntfy("_sel",3,"NOT AVAILABLE","YET",15,7);
-		UIc.bar..replaceWith(new Function("x",'return;'));
 	}/*set.def.hid=1-set.def.hid;setter.updateBT();buzzer(buz.ok);*/
 };

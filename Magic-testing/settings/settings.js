@@ -18,7 +18,7 @@ face[0] = {
 	},
 	bar : function(){
 		UI.ele.fill("_ele","btmL",0);
-		UIc.start();
+		UIc.start(0,1);
 		UI.btn.img("bar","_bar",1,UI.icon.torch,0,3,0);//btn2
 		UI.btn.img("bar","_bar",2,UI.icon.settings,0,14,0);//btn2
 		UI.btn.img("bar","_bar",3,UI.icon.alarm,0,3,0);//btn2
@@ -77,7 +77,11 @@ TC.on('tc1',tcDn);
 TC.on('tc2',tcUp); 	
 tcL=(x,y)=>{
 	buzzer(buz.ok);
-	if (face[0].page=="set"){
+	if (UI.ntid&&face[0].bar) {
+		clearTimeout(UI.ntid);
+		UI.ntid=0;
+		face[0].bar();
+	}else if (face[0].page=="set"){
 		eval(require('Storage').read('set_apps')); 
 	}else  { 
 		eval(require('Storage').read('set_set')); 

@@ -18,7 +18,6 @@ UIc.main._fold_1=()=>{buzzer(buz.ok);eval(require('Storage').read('set_set'));};
 UIc.main._2x3_3=()=>{
 	buzzer(buz.ok);
 	UI.btn.ntfy("_sel",3,"ala","lala",15,1,2,1);
-	UIc.get=0;UIc.cord="";
 };
 UIc.main._2x3_4=()=>{
 	buzzer(buz.na);

@@ -147,7 +147,7 @@ touchHandler[0]=function(e,x,y){
 		if (this.mac!=undefined) {
 			buzzer(buz.ok);
 			if (face.appRoot[0]!="repellent"){
-				if (this.name) setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",this.name);
+				setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",this.name?this.name:"UNKN");
                 //setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Mac",this.mac);
 				euc.mac=this.mac;
 				euc.tgl();
