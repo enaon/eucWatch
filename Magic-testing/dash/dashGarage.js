@@ -115,8 +115,8 @@ touchHandler[0]=function(){};
 TC.on('tc1',tcDn); 	
 TC.on('tc2',tcUp); 	
 UIc.back=(x,y)=>{
-	buzzer(buz.ok);
 	if (UI.ntid&&face[0].bar) {
+		buzzer(buz.ok);
 		clearTimeout(UI.ntid);
 		UI.ntid=0;
 		face[0].bar();
