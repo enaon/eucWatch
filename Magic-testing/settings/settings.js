@@ -26,15 +26,23 @@ face[0] = {
 		UI.btn.img("bar",[1,0,0],"_bar",2,UI.icon.settings,0,14,0);//btn2
 		UI.btn.img("bar",[1,0,0],"_bar",3,UI.icon.alarm,0,3,0);//btn2
 		UIc.end();
-		UIc.tap.bar._bar=this.tap;
-		UIc.hold.main._2x2=this.hold;
-		//end bar
+		UIc.tap.bar._bar=function(no){
+			if (no==1){
+				buzzer(buz.na);
+		  }else if (no==2){
+			  if (Boolean(require("Storage").read(face.faceSave[0].substring(0,4)+"Options"))){
+				  buzzer(buz.ok);face.go(face.faceSave[0].substring(0,4)+"Options",0);
+		  	}else buzzer(buz.na);
+	  	}else if (no==3){
+				buzzer(buz.ok);
+				face.go('alarm',0);
+      }
+    };
+ 		UIc.hold.main._2x2=this.hold;
 	},
 
 	clear : function(o){
 		TC.removeAllListeners();
-		//pal[0]=0;
-		//this.g.clear();
 		if (set.tor==1){
 			w.gfx.bri.set(set.bri);
 			face.faceSave=-1;
@@ -83,13 +91,3 @@ tcL=(x,y)=>{
 TC.on('tc3',tcL); 	
 TC.on('tc4',tcL); 	
 
-
-
-//bar
-face[0].btn.tap_bar_1=()=>{buzzer(buz.na);};
-face[0].btn.tap_bar_2=()=>{
-if (Boolean(require("Storage").read(face.faceSave[0].substring(0,4)+"Options"))){
-	buzzer(buz.ok);face.go(face.faceSave[0].substring(0,4)+"Options",0);
-}else buzzer(buz.na);
-};
-face[0].btn.tap_bar_3=()=>{buzzer(buz.ok);face.go('alarm',0);};
