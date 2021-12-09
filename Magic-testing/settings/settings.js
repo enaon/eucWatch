@@ -10,37 +10,32 @@ face[0] = {
 		UI.ele.fill("_ele","topS",1);
 		eval(require('Storage').read(o?'set_apps':'set_set')); 
 		this.bar();
-		TC.on('tc5',UIc.tap.xy);
-		TC.on('tc12',UIc.hold.xy);
+		TC.on('tc5',UIc.xy);
 		//this.run=false;
 	},
 	show : function(s){
 		if (!this.run) return;
 	},
 	bar : function(){
-		//start bar
-		TC.removeListener("tc5",UIc.tap.bar);
 		UI.ele.fill("_ele","btmL",0);
-		UIc.start(0,1);
-		UI.btn.img("bar",[1,0,0],"_bar",1,UI.icon.torch,0,3,0);//btn2
-		UI.btn.img("bar",[1,0,0],"_bar",2,UI.icon.settings,0,14,0);//btn2
-		UI.btn.img("bar",[1,0,0],"_bar",3,UI.icon.alarm,0,3,0);//btn2
+		UIc.start();
+		UI.btn.img("bar","_bar",1,UI.icon.torch,0,3,0);//btn2
+		UI.btn.img("bar","_bar",2,UI.icon.settings,0,14,0);//btn2
+		UI.btn.img("bar","_bar",3,UI.icon.alarm,0,3,0);//btn2
 		UIc.end();
-		UIc.tap.bar._bar=function(no){
-			if (no==1){
-				buzzer(buz.na);
-		  }else if (no==2){
-			  if (Boolean(require("Storage").read(face.faceSave[0].substring(0,4)+"Options"))){
-				  buzzer(buz.ok);face.go(face.faceSave[0].substring(0,4)+"Options",0);
-		  	}else buzzer(buz.na);
-	  	}else if (no==3){
-				buzzer(buz.ok);
-				face.go('alarm',0);
-      }
-    };
- 		UIc.hold.main._2x2=this.hold;
+		UIc.bar._bar_1=()=>{
+			buzzer(buz.na);
+		};
+		UIc.bar._bar_2=()=>{
+			if (Boolean(require("Storage").read(face.faceSave[0].substring(0,4)+"Options"))){
+			  buzzer(buz.ok);face.go(face.faceSave[0].substring(0,4)+"Options",0);
+			}else buzzer(buz.na);
+		};
+		UIc.bar._bar_3=()=>{
+			buzzer(buz.ok);
+			face.go('alarm',0);
+		};
 	},
-
 	clear : function(o){
 		TC.removeAllListeners();
 		if (set.tor==1){

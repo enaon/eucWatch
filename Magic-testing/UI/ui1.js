@@ -1,6 +1,7 @@
 UI={
   pos:{
 	_fold:[12,[0,30,160,110],[80,30,240,110],[0,130,120,220],[120,130,240,220]], 
+  	//_2x2:[35,[0,35,120,130],[121,35,240,130],[0,131,120,220],[121,131,240,220]],
   	_2x2:[35,[0,30,120,132],[121,30,240,132],[0,133,120,235],[121,133,240,235]],
 	_2x3:[25,[0,30,80,110],[81,30,160,110],[161,30,239,110],[0,111,80,190],[81,111,160,190],[161,111,239,190]],
 	_2x1:[25,[0,30,239,135],[0,136,239,235]],
@@ -32,9 +33,10 @@ UI={
         w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-(w.gfx.stringMetrics(txt1).height/2)); 
       }
 	  //coordinates
-	  if (UIc.get[loc])
-		UIc.raw[loc]=UIc.raw[loc]+`${UIc.raw[loc]==" "?'':'else '}if (${p[0]}<x&&x<${p[2]}&&${p[1]}<y&&y<${p[3]}) UIc.${loc}.${no}_${po}();`;	
-	  else w.gfx.flip();
+	  if (UIc.get&&(type[0]||type[1]) ){
+		  if (type[0]&&UIc[loc]) UIc.xy.tap[loc]=UIc.xy.tap[loc]+`${UIc.xy.tap[loc]==" "?'':'else '}if (${p[0]}<x&&x<${p[2]}&&${p[1]}<y&&y<${p[3]}) UIc.tap.${loc}${no}_${po}();`;	
+		  if (type[1]&&UIc[loc]) UIc.xy.hold[loc]=UIc.xy.hold[loc]+`${UIc.xy.hold[loc]==" "?'':'else '}if (${p[0]}<x&&x<${p[2]}&&${p[1]}<y&&y<${p[3]})  UIc.hold.${loc}${no}_${po}();`;	
+	  }else w.gfx.flip();
     },
     img:function(loc,no,po,img,txt,fclr,bclr,side,tran){
       "ram";
@@ -66,9 +68,10 @@ UI={
 	  }else w.gfx.drawImage(img,x-(w.gfx.imageMetrics(img).width/2),y-(w.gfx.imageMetrics(img).width/2));
 	  img=0;
 	  //coordinates
-	  if (UIc.get[loc])
-		UIc.raw[loc]=UIc.raw[loc]+`${UIc.raw[loc]==" "?'':'else '}if (${p[0]}<x&&x<${p[2]}&&${p[1]}<y&&y<${p[3]}) UIc.${loc}.${no}_${po}();`;	
-	  else w.gfx.flip();
+	  if (UIc.get&&(type[0]||type[1]) ){
+		  if (type[0]&&UIc[loc]) UIc.xy.tap[loc]=UIc.xy.tap[loc]+`${UIc.xy.tap[loc]==" "?'':'else '}if (${p[0]}<x&&x<${p[2]}&&${p[1]}<y&&y<${p[3]}) UIc.tap.${loc}${no}_${po}();`;	
+		  if (type[1]&&UIc[loc]) UIc.xy.hold[loc]=UIc.xy.hold[loc]+`${UIc.xy.hold[loc]==" "?'':'else '}if (${p[0]}<x&&x<${p[2]}&&${p[1]}<y&&y<${p[3]})  UIc.hold.${loc}${no}_${po}();`;	
+	  }else w.gfx.flip();
 	}, 
 	ntfy:function(no,po,txt1,txt2,fclr,bclr,tmot,sel){
 		if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}
@@ -86,7 +89,12 @@ UI={
         w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height-10);
         w.gfx.flip(); //if (!set.def.bpp) w.gfx.flip();
 		if (UI.ntid) clearTimeout(UI.ntid);
-		//
+		/*if (UIc.get&&(type[0]||type[1]) ){
+		  if (type[0]) UIc.xy.tap=UIc.xy.tap+`${UIc.xy.tap!=""?'else ':''}if (${p[0]}<x&&x<${p[2]}&&${p[1]}<y&&y<${p[3]}) face[0].btn.tap${no}_${po}();`;	
+		  if (type[1]) UIc.xy.hold=UIc.xy.hold+`${UIc.xy.hold!=""?'else ':''}if (${p[0]}<x&&x<${p[2]}&&${p[1]}<y&&y<${p[3]}) face[0].btn.hold${no}_${po}();`;	
+		}else w.gfx.flip();
+		*/
+		//UIc.xy.tap.bar=`if ( x< ${(p[2]-p[0])/2} && ${p[1]}<y&&y<${p[3]} ) face[0].btn.sel_rigth(); else if(${(p[2]-p[0])/2}<x && ${p[1]}<y&&y<${p[3]}) face[0].btn.sel_left();`;	
 		UI.ntid=setTimeout(function(t){UI.ntid=0;UI.emit('ntfy',"ok");if (face[0].bar) face[0].bar(); },tmot?tmot*1000:1000);
 	}
   },
@@ -166,20 +174,26 @@ UI.icon={
 
 
 var UIc={
-	get:{bar:0,main:0},
-	raw:{main:" ",bar:" ",up:" ",down:" ",back:" ",next:" "},
-	xy:()=>{},
-	main:{},
-	bar:{},
 	start:function(m,b){
-		"ram";
-		if (m) {UIc.raw.main=" "; UIc.get.main=1;}
-		if (b) {UIc.raw.bar=" "; UIc.get.bar=1;} 
+	"ram";
+	  if (m) {UIc.xy.tap.main=" ";UIc.xy.hold.main=" ";UIc.main=1;}
+	  if (b) {UIc.xy.tap.bar=" ";UIc.xy.hold.bar=" ";UIc.bar=1;}
+	  UIc.get=1;
 	},
 	end:function(){
 	"ram";
 		w.gfx.flip();
-		UIc.get.main=0;UIc.get.bar=0;
-		UIc.xy.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.raw.main+UIc.raw.bar+'},0);'));
+		UIc.get=0;UIc.main=0;UIc.bar=0;
+		UIc.tap.xy.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.xy.tap.main+UIc.xy.tap.bar+'},0);'));
+		UIc.hold.xy.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.xy.hold.main+UIc.xy.hold.bar+'},0);'));
+    	//TC.removeAllListeners("tc5");
+		//TC.removeAllListeners("tc12");
+		//TC.on('tc5',UIc.tap.btn);
+		//TC.on('tc12',UIc.hold.btn);
+		//UIc.xy={tap:0,hold:0,up:0,down:0,back:0,next:0};
 	},
+	get:1,
+	xy:{tap:{main:" ",bar:" "},hold:{main:" ",bar:" "},up:" ",down:" ",back:" ",next:" "},
+	tap:{xy:()=>{},main:{},bar:{}},
+	hold:{xy:()=>{},main:{},bar:{}},
 };
