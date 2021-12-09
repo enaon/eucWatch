@@ -24,13 +24,14 @@ UIc.main._2x3_4=()=>{
 	if (set.bt!=3) {
 		buzzer(buz.na);
 		UI.btn.ntfy("_sel",3,"GADGET BRIDGE","not connected",15,7);
+		w.gfx.flip();
 	}else	buzzer(buz.na);};
 UIc.main._2x3_5=()=>{
 	buzzer(buz.ok);
 	set.def.acc=1-set.def.acc;
 	UI.btn.img("main","_2x3",5,UI.icon.wakeScreen,"WAKE",set.def.acc?15:0,set.def.acc?4:3);
 	setter.accR();
-	if (set.def.info) UI.btn.ntfy("_sel",3,"TURN TO WAKE",set.def.acc?"ENABLED":"DISABED",15,6);
+if (set.def.info) {UI.btn.ntfy("_sel",3,"TURN TO WAKE",set.def.acc?"ENABLED":"DISABED",15,6);}
 	
 };
 UIc.main._2x3_6=()=>{
