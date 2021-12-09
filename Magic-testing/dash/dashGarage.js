@@ -30,10 +30,7 @@ face[0] = {
 		UIc.main._2x2_2=()=>{face[0].tap(2)};
 		UIc.main._2x2_3=()=>{face[0].tap(3)};
 		UIc.main._2x2_4=()=>{face[0].tap(4)};
-		UIc.hold.main_2x2_1=()=>{face[0].hold(1)};
-		UIc.hold.main_2x2_2=()=>{face[0].hold(2)};
-		UIc.hold.main_2x2_3=()=>{face[0].hold(3)};
-		UIc.hold.main_2x2_4=()=>{face[0].hold(4)};		
+		
 		//end bar
 	},
 	tap:function(no){
@@ -51,21 +48,6 @@ face[0] = {
 			UI.btn.ntfy("_sel",4,"","",15,2,2);
 		}
 	
-	},
-	hold:function(no){
-		buzzer(buz.ok);
-		setter.write("dash","slot",no);
-		set.def.dash.slot=no;
-		if (face[0].dash["slot"+no+"Mac"]){
-			//face[0].clear();
-			UI.ele.title("top",face[0].dash["slot"+no+"Mac"],15,4);
-			UI.btn.c2l("main","_2x1",1,"WATCH ALERTS",0,15,4); 	
-			UI.btn.c2l("main","_2x1",2,"DELETE WHEEL",0,15,7); 	
-		}else {
-			dash.live=require("Storage").readJSON("eucSlot.json",1);
-			face.go("dashScan",0);
-			return;
-		}
 	},
 	tid:-1,
 	run:false,
@@ -115,10 +97,6 @@ UIc.next=(x,y)=>{
 };	
 TC.on('tc3',UIc.next); 	
 TC.on('tc4',UIc.back); 
-
-
-
-
 
 touc=function(e,x,y){ 
 	switch (e) {
