@@ -1,9 +1,7 @@
 face[0].page="set";
-let tmp={cli:-1,};
-tmp.bt=(set.def.cli||set.def.gb||set.def.emuZ)?1:0;
 UI.ele.ind("top",1,2);
 UIc.start(1,0);
-UI.btn.img("main","_2x3",1,tmp.bt?UI.icon.bt:UI.icon.plane,"BT",15,1);
+UI.btn.img("main","_2x3",1,(set.def.cli||set.def.gb||set.def.emuZ)?UI.icon.bt:UI.icon.plane,"BT",15,1);
 UI.btn.img("main","_2x3",2,UI.icon.themes,"FACE",15,1);
 UI.btn.img("main","_2x3",3,UI.icon.bri,set.def.bri,15,1,1);
 UI.btn.img("main","_2x3",4,UI.icon.findPhone,"FIND",3,0);

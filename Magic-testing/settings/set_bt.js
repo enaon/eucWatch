@@ -18,6 +18,7 @@ UI.btn.img("main","_2x3",5,UI.icon.proxy,"PROXY",set.def.emuZ?15:3,set.def.emuZ?
 //img=require("heatshrink").decompress(atob("mEwwIOLkAEDgPwAocHAok/AocB/4FDh4FEv4FDgf/AocfAogEBAoQhBApnxAomBAof8JoQ/CAohZDgP8AongAuF9AoZ4BAoaJDAoJ+BAoc/ApSbCMgIFCEAQRCEAQFC4AIEwAUEXgRBBP4IFCZAgFF4DlDEAIFEeIcP/wFDgb9EAAoA="));
 UI.btn.img("main","_2x3",6,UI.icon.hid,"HID",set.def.hid?15:3,set.def.hid?4:0);
 img=0;
+//UI.ele.fill("_bar",6,0);
 UIc.end();
 //
 UIc.main._fold_1=()=>{

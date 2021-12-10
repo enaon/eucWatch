@@ -13,7 +13,7 @@ UI={
 	_ele:{"0":25,topS:[0,0,239,19],topS1:[0,0,239,27],top:[0,0,239,40],btmS:[0,236,239,279],btmM:[0,221,239,279],btmL:[0,181,239,279],ind:[75,265,165,270]},
 	_ind:{"0":25,btm:[75,265,165,270],top:[75,7,165,12]},
 	_bar:[20,[0,181,80,279],[81,181,160,279],[161,181,239,279],[0,181,120,279],[121,181,239,279],[0,181,239,279]],
-	_main:[20,[0,20,80,180],[81,20,160,180],[161,20,239,180],[0,20,160,180],[81,20,239,180],[0,0,239,180]],
+	_main:[20,[0,20,80,180],[81,20,160,180],[161,20,239,180],[0,20,160,180],[81,20,239,180],[0,0,239,180],[0,81,239,180]],
 	_top:30,
 	_head:2,
 	_foot:255,
@@ -50,9 +50,16 @@ UI={
 	  //w.gfx.setColor(0,0);
       //w.gfx.fillRect(p[0],p[1],p[2],p[3]);
       if (!tran){ 
-		w.gfx.setColor(0,bclr);
 		//w.gfx.fillRect(p[0]+3,p[1]+3,p[2]-3,p[3]-3);
-		w.gfx.fillRect(p[0],p[1],p[2],p[3]);
+		if (bclr==4){
+			w.gfx.setColor(0,0);
+			w.gfx.fillRect(p[0],p[1],p[2],p[3]);
+			w.gfx.setColor(0,bclr);
+			w.gfx.fillRect(p[0]+2,p[1]+3,p[2]-2,p[3]-3);
+	    }else {		
+  			w.gfx.setColor(0,bclr);
+			w.gfx.fillRect(p[0],p[1],p[2],p[3]);
+	    }
 	  }
       w.gfx.setColor(1,fclr);	
 	  if  (txt&&side){
@@ -212,8 +219,8 @@ UI.icon={
 	scan:require("heatshrink").decompress(atob("mEwwIcZg/+Aocfx+AAoV4gPgAoQDBuAEBgPAgE4AoQVBjgFBgYCBhgoCAQMGAQUgAolACggFL6AFGGQQFJEZsGsAFEIIhNFLIplFgBxBnwFCPYP/AoU8gf/BwKVB/+/SAUD/kf+CjDh/4V4n8AoYeBAoq1DgIqDAAP/XYcAv4qEn4qEGwsfC4kPEYkHF4Z1DACA=")),
 	trash:require("heatshrink").decompress(atob("mEwwI1yg/4AocP/gFDhkMApE//4ABAo4PCAUIACAv4FQATkGAQMYXwSgBYAUBAoPgdsg")),
 	tmout:require("heatshrink").decompress(atob("mEwwIjggf+AofD//ABQXh//gAoMH8EH/AFCB4P8CIQCBvwlEj4CBsEB4EPwEA+EBDwIFEgfAAYIFHAIQHEEgIDCAovwAopABAoVwGIIFMDYIFCgBkBAoZkBAoZkBFIIFBn4FCOwMfwAFDh+BKYSFB4JVDgeDLoJPCCoQFCFoV4AoKJCviVEGYMAnwICVokPRwK5Cgf//58DAoLRCDwP/XocPCwQAXA==")),
-	tmout32:require("heatshrink").decompress(atob("kEgwIQNkf8AYNwvwDB+EPwEAoED4AIBwPgh0BwADC4FwAYUwhgDBnEAAYMYAYcYAZHgAYIwBjEcgF4AYU8nEMgEcnEOgEMmEHJIQDC8EDwAkBEQMHJ4P4j4NBn/+AYMP/ByM"))
-
+	tmout32:require("heatshrink").decompress(atob("kEgwIQNkf8AYNwvwDB+EPwEAoED4AIBwPgh0BwADC4FwAYUwhgDBnEAAYMYAYcYAZHgAYIwBjEcgF4AYU8nEMgEcnEOgEMmEHJIQDC8EDwAkBEQMHJ4P4j4NBn/+AYMP/ByM")),
+	time:require("heatshrink").decompress(atob("mEwwIFCj/4BYf//4ECg4FB8AQC/1/+AFBn/Agf8AoN+AQghCn8AgPwgOAh+AgfggfAg4BBA4IeB8ANC4AVBj8AAoMA+EeAod4ngFJnk4Aol4AoceuAFJhxbBApEPAopzBAp4XBgIIBApBdBAo5BBLoI7BAQIFCjwFCNAMeMoIFCjgCBBIIHBAooCBgEMD4KVBAAXwUIIEBUIKvBAoS3BbQQJBgZICCoMBaIQhCborpFj/8eocH///EwUAAoI+Dj4lCA="))
 };
 
 

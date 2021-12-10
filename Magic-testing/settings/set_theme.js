@@ -7,9 +7,9 @@ UIc.start(1,0)
 //UI.btn.img("main","_fold",1,UI.icon.themes,6<face.appRoot[0].length?face.appRoot[0].substr(0,6)+"..":face.appRoot[0],14,1,1);
 UI.btn.img("main","_fold",1,UI.icon.themes,"FACE",14,1,1);
 //UI.btn.c2l("main","_2x3",3,"TIMEOUT",tm,3,0);
-UI.btn.img("main","_2x3",3,UI.icon.tmout,set.def.info?"TIMER":"",14,0);
-UI.btn.c2l("main","_2x3",4,"COLOR",0,3,0);
-UI.btn.c2l("main","_2x3",5,"STYLE",0,3,0);
+UI.btn.img("main","_2x3",3,UI.icon.tmout,set.def.info?"TIMER":"",14,1);
+UI.btn.c2l("main","_2x3",4,"CLR",0,3,0);
+UI.btn.c2l("main","_2x3",5,"STL",0,3,0);
 UI.btn.img("main","_2x3",6,UI.icon.info,set.def.info?"INFO":"",set.def.info?15:3,set.def.info?4:0);
 //UI.btn.c2l("main","_2x3",6,"TEXT",set.def.info?"ON":"OFF",set.def.info?15:0,set.def.info?4:3);
 UIc.end();
@@ -18,7 +18,7 @@ UIc.end();
 UIc.main._fold_1=()=>{buzzer(buz.ok);eval(require('Storage').read('set_set'));};
 UIc.main._2x3_3=()=>{
 	buzzer(buz.ok);
-	UI.btn.ntfy("_bar",6,"ala","lala",15,1,2,1);
+	UI.btn.ntfy("_main",7,"ala","lala",15,1,2,1);
 	w.gfx.flip();
 };
 UIc.main._2x3_4=()=>{
