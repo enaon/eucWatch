@@ -42,12 +42,12 @@ face[0] = {
 				UI.btn.ntfy("_ele","topS","","",15,4,3);
 				UI.ele.ind("top",1,1);
 				UIc.start(1,0);	
-				if (set.def.info)UI.txt.block("_barT",4,"Press & hold the side button to start or end the EUC connection.",15,1);
-				UI.btn.img("main","_barT",1,UI.icon.settings,"Setup",15,12);
-				UI.btn.img("main","_barT",2,UI.icon.trash,"Delete",15,7);
+				if (set.def.info)UI.txt.block("_main",6,"Press & hold the side button to start or end the EUC connection.",20,15,0);
+				UI.btn.img("main","_bar",4,UI.icon.settings,"Setup",15,12);
+				UI.btn.img("main","_bar",5,UI.icon.trash,"Delete",15,7);
 				UIc.end();	
-				UIc.main._barT_1=function(){buzzer(buz.ok);face.go("dashAlerts",0);};
-				UIc.main._barT_2=function(){buzzer(buz.ok);face[0].del(no);};
+				UIc.main._bar_4=function(){buzzer(buz.ok);face.go("dashAlerts",0);};
+				UIc.main._bar_5=function(){buzzer(buz.ok);face[0].del(no);};
 			}else{
 				setter.write("dash","slot",no);
 				set.def.dash.slot=no;	
@@ -63,13 +63,15 @@ face[0] = {
 			//UI.ele.fill("_ele","topS",0);
 			UI.btn.ntfy("_ele","topS","","",15,4,3);
 			UI.ele.ind("top",1,1);
-			UI.ele.title("btmS","SLOT "+no,15,4);
+			//UI.ele.title("btmS","SLOT "+no,15,4);
 			//UI.btn.ntfy("_2X3",1,"","",15,2,3);
-			if (set.def.info)UI.txt.block("_barT",4,"Tap to scan for a wheel and save it to:",15,0);
+			if (set.def.info)UI.txt.block("_main",6,"Tap to scan for a wheel and save it to:",20,15,0);
 			UIc.start(1,0);	
-			UI.btn.img("main","_barT",3,UI.icon.scan,"",15,4);
+			UI.btn.img("main","_bar",6,UI.icon.scan,"SLOT "+no,15,4);
+			
+			//UI.ele.title("btmS","SLOT "+no,15,0);
 			UIc.end();
-			UIc.main._barT_3=function(){
+			UIc.main._bar_6=function(){
 				buzzer(buz.ok);
 				setter.write("dash","slot",no);
 				set.def.dash.slot=no;			

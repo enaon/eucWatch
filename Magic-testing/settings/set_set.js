@@ -6,9 +6,9 @@ UIc.start(1,0);
 UI.btn.img("main","_2x3",1,tmp.bt?UI.icon.bt:UI.icon.plane,"BT",15,1);
 UI.btn.img("main","_2x3",2,UI.icon.themes,"FACE",15,1);
 UI.btn.img("main","_2x3",3,UI.icon.bri,set.def.bri,15,1,1);
-UI.btn.img("main","_2x3",4,UI.icon.findPhone,"FIND",0,3);
-UI.btn.img("main","_2x3",5,UI.icon.wakeScreen,"WAKE ",set.def.acc?15:0,set.def.acc?4:3);
-UI.btn.img("main","_2x3",6,set.def.buzz?UI.icon.dndOn:UI.icon.dndOff,"BUZZ",set.def.buzz?15:0,set.def.buzz?4:3);
+UI.btn.img("main","_2x3",4,UI.icon.findPhone,"FIND",3,0);
+UI.btn.img("main","_2x3",5,UI.icon.wakeScreen,"WAKE ",set.def.acc?15:3,set.def.acc?4:0);
+UI.btn.img("main","_2x3",6,set.def.buzz?UI.icon.dndOn:UI.icon.dndOff,"BUZZ",set.def.buzz?15:3,set.def.buzz?4:0);
 UIc.end();
 //
 UIc.main._2x3_1=()=>{buzzer(buz.ok);eval(require('Storage').read('set_bt'));};
@@ -29,7 +29,7 @@ UIc.main._2x3_4=()=>{
 UIc.main._2x3_5=()=>{
 	buzzer(buz.ok);
 	set.def.acc=1-set.def.acc;
-	UI.btn.img("main","_2x3",5,UI.icon.wakeScreen,"WAKE",set.def.acc?15:0,set.def.acc?4:3);
+	UI.btn.img("main","_2x3",5,UI.icon.wakeScreen,"WAKE",set.def.acc?15:3,set.def.acc?4:0);
 	setter.accR();
 if (set.def.info) {UI.btn.ntfy("_sel",3,"TURN TO WAKE",set.def.acc?"ENABLED":"DISABED",15,6);}
 	
@@ -37,7 +37,7 @@ if (set.def.info) {UI.btn.ntfy("_sel",3,"TURN TO WAKE",set.def.acc?"ENABLED":"DI
 UIc.main._2x3_6=()=>{
 	
 	set.def.buzz=1-set.def.buzz;
-	UI.btn.img("main","_2x3",6,set.def.buzz?UI.icon.dndOn:UI.icon.dndOff,"BUZZ",set.def.buzz?15:0,set.def.buzz?4:3);
+	UI.btn.img("main","_2x3",6,set.def.buzz?UI.icon.dndOn:UI.icon.dndOff,"BUZZ",set.def.buzz?15:3,set.def.buzz?4:0);
 	if (set.def.buzz){
 		buzzer=digitalPulse.bind(null,ew.pin.BUZZ,0);
 		buzzer(buz.ok);
