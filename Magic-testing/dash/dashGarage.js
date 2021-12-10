@@ -15,51 +15,61 @@ face[0] = {
 	show : function(o){return;},
 	bar : function(){
 		//start bar
-		UI.ele.fill("_ele","topS",4);
-		UI.ele.ind("top",2,2);
-		UIc.start(1,0);	
-		this.dash.slot1Mac?UI.btn.c2l("main","_2x2",1,this.dash.slot1Maker.toUpperCase(),this.dash.slot1Model.toUpperCase(),this.dash.slot==1?14:0,this.dash.slot==1?4:3):UI.btn.c2l("main","_2x2",1,"","",0,0);
-		this.dash.slot2Mac?UI.btn.c2l("main","_2x2",2,this.dash.slot2Maker.toUpperCase(),this.dash.slot2Model.toUpperCase(),this.dash.slot==2?14:0,this.dash.slot==2?4:3):UI.btn.c2l("main","_2x2",2,"","",0,0);
-		this.dash.slot3Mac?UI.btn.c2l("main","_2x2",3,this.dash.slot3Maker.toUpperCase(),this.dash.slot3Model.toUpperCase(),this.dash.slot==3?14:0,this.dash.slot=3?4:3):UI.btn.c2l("main","_2x2",3,"","",0,0); 
-		this.dash.slot4Mac?UI.btn.c2l("main","_2x2",4,this.dash.slot4Maker.toUpperCase(),this.dash.slot4Model.toUpperCase(),this.dash.slot==4?14:0,this.dash.slot==4?4:3):UI.btn.c2l("main","_2x2",4,"","",0,0);
-		UI.ele.title("btmS","GARAGE",15,1);
-		UIc.end();
+		this.renew();
 		UIc.main._2x2_1=function(){face[0].tap(1);};
 		UIc.main._2x2_2=function(){face[0].tap(2);};
 		UIc.main._2x2_3=function(){face[0].tap(3);};
 		UIc.main._2x2_4=function(){face[0].tap(4);};
 		//end bar
 	},
+	renew : function(){
+		UI.ele.fill("_ele","topS",4);
+		UI.ele.ind("top",2,2);
+		UIc.start(1,0);	
+		this.dash.slot1Mac?UI.btn.c2l("main","_2x2",1,this.dash.slot1Maker.toUpperCase(),this.dash.slot1Model.toUpperCase(),this.dash.slot==1?14:3,this.dash.slot==1?4:1):UI.btn.c2l("main","_2x2",1,"","",1,0);
+		this.dash.slot2Mac?UI.btn.c2l("main","_2x2",2,this.dash.slot2Maker.toUpperCase(),this.dash.slot2Model.toUpperCase(),this.dash.slot==2?14:3,this.dash.slot==2?4:1):UI.btn.c2l("main","_2x2",2,"","",1,0);
+		this.dash.slot3Mac?UI.btn.c2l("main","_2x2",3,this.dash.slot3Maker.toUpperCase(),this.dash.slot3Model.toUpperCase(),this.dash.slot==3?14:3,this.dash.slot=3?4:1):UI.btn.c2l("main","_2x2",3,"","",1,0); 
+		this.dash.slot4Mac?UI.btn.c2l("main","_2x2",4,this.dash.slot4Maker.toUpperCase(),this.dash.slot4Model.toUpperCase(),this.dash.slot==4?14:3,this.dash.slot==4?4:1):UI.btn.c2l("main","_2x2",4,"","",1,0);
+		UI.ele.title("btmS","GARAGE",15,0);
+		UIc.end();
+	},
 	tap:function(no){
 		buzzer(buz.ok);
 		if (face[0].dash["slot"+no+"Mac"]){
-			setter.write("dash","slot",no);
-			set.def.dash.slot=no;
-			this.dash=require("Storage").readJSON("dash.json",1);
+			if (set.def.dash.slot==no) {
+				//UI.ele.fill("_ele","topS",12);
+				UI.ele.title("btmS","SLOT "+no,15,1);
+				UI.btn.ntfy("_ele","topS","","",15,4,3);
+				UI.ele.ind("top",1,1);
+				UIc.start(1,0);	
+				if (set.def.info)UI.txt.block("_barT",4,"Press & hold the side button to start or end the EUC connection.",15,1);
+				UI.btn.img("main","_barT",1,UI.icon.settings,"Setup",15,12);
+				UI.btn.img("main","_barT",2,UI.icon.trash,"Delete",15,7);
+				UIc.end();	
+				UIc.main._barT_1=function(){buzzer(buz.ok);face.go("dashAlerts",0);};
+				UIc.main._barT_2=function(){buzzer(buz.ok);face[0].del(no);};
+			}else{
+				setter.write("dash","slot",no);
+				set.def.dash.slot=no;	
+				this.dash=require("Storage").readJSON("dash.json",1);
+				this.renew();
+			}	
 			if (Boolean(require("Storage").read('eucSlot'+no+'.json')))
 				dash.live=require("Storage").readJSON('eucSlot'+no+'.json',1);
 			else 
 				dash.live=require("Storage").readJSON("eucSlot.json",1);
-			UI.ele.ind("top",1,1);
-			UI.ele.title("btmS","SLOT "+no,15,1);
-			UI.btn.ntfy("_2x2",3,"","",15,6,4);
-			UIc.start(1,0);	
-			if (set.def.info)UI.txt.block("_barT",4,"Press & hold the side button to start or end the EUC connection.",15,1);
-			UI.btn.img("main","_barT",1,UI.icon.settings,"Setup",15,4);
-			UI.btn.img("main","_barT",2,UI.icon.trash,"Delete",15,7);
-			UIc.end();	
-			UIc.main._1x2_1=function(){buzzer(buz.ok);face.go("dashAlerts",0);};
-			UIc.main._1x2_2=function(){buzzer(buz.ok);face[0].del(no);};
+
 		} else{
+			//UI.ele.fill("_ele","topS",0);
+			UI.btn.ntfy("_ele","topS","","",15,4,3);
 			UI.ele.ind("top",1,1);
-			UI.ele.title("btmS","SLOT "+no,15,1);
-			UI.btn.ntfy("_2x2",3,"","",15,6,4);
+			UI.ele.title("btmS","SLOT "+no,15,4);
 			//UI.btn.ntfy("_2X3",1,"","",15,2,3);
-			if (set.def.info)UI.txt.block("_barT",4,"Tap above to scan for a wheel and save it to:",15,1);
+			if (set.def.info)UI.txt.block("_barT",4,"Tap to scan for a wheel and save it to:",15,0);
 			UIc.start(1,0);	
 			UI.btn.img("main","_barT",3,UI.icon.scan,"",15,4);
 			UIc.end();
-			UIc.main._2x1_2=function(){
+			UIc.main._barT_3=function(){
 				buzzer(buz.ok);
 				setter.write("dash","slot",no);
 				set.def.dash.slot=no;			
@@ -69,7 +79,7 @@ face[0] = {
 	},
 	del:function(no){
 		UI.ele.title("btmS","",15,7);
-		UI.btn.ntfy("_2x1",2,"","",15,7,4);
+		UI.btn.ntfy("_barT",1,"","",15,7,4);
 		UI.btn.c2l("main","_2x1",1,"DELETE",`SLOT ${no} ?`,15,0,1);
 		UIc.start(1,0);	
 		UI.btn.c2l("main","_2x1",2,"TAP TO","CONFIRM",15,7,1);
