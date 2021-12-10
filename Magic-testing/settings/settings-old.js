@@ -2,8 +2,8 @@
 
 face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
-	bpp:set.def.bpp?0:1,
 	g:w.gfx,
+	bpp:set.def.bpp?0:1,
 		init: function(){ 
 		face.mode=0;
 		if (face.faceSave==-1) face.faceSave=[face.appPrev,face.pagePrev,face.pageArg];
