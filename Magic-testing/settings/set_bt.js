@@ -52,7 +52,7 @@ UIc.main._2x3_5=()=>{
 };
 UIc.main._2x3_6=()=>{
 	buzzer(buz.na);
-	if (set.def.info)
+	//if (set.def.info)
 	UI.btn.ntfy("_bar",6,"NOT AVAILABLE","YET",15,7);
 	w.gfx.flip();
 };
