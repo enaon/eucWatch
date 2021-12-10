@@ -13,10 +13,15 @@ face[0] = {
 		this.len=24;
 		this.pos=this.ref;
 		this.disp=0;
-		//this.g.setColor(0,0);
-		//this.g.flip();
-		this.btn(1,"24HRS",30,65,13,4,4,0,0,119,50);
-		this.btn(1,"INFO",30,185,10,0,4,120,0,239,50);
+		UIc.start(1,0);	
+		//UI.txt.block("_1x2T",3,"Press & hold the side button to start or end the EUC connection.",15,1);
+		UI.ele.fill("_ele","topS",4);
+		UI.ele.ind("top",1,2);
+		UI.btn.c2l("main","_barT",1,"24HRS","",15,4);
+		UI.btn.c2l("main","_barT",2,"INFO","",15,0);
+		UIc.end();	
+		//this.btn(1,"24HRS",30,65,13,4,4,0,0,119,50);
+		//this.btn(1,"INFO",30,185,10,0,4,120,0,239,50);
 		this.sc();
 		this.sel(this.comf((this.totD*((set.def.dash.mph)?0.625:1)).toFixed((this.page)?(this.page==1)?1:0:2)),"<   TOTAL   >");
 		this.lg();
@@ -47,12 +52,12 @@ face[0] = {
 	},
 	lg: function(){
 		this.g.setColor(0,0);
-		this.g.fillRect(0,176,239,239);
+		this.g.fillRect(0,176,239,235);
 		this.g.setColor(1,14);
 		for (let i = 0; i < this.len; i++) {
    		let h=(this.ref-i<0)?this.len+(this.ref-i):this.ref-i;
 			if (this.log[h]) {
-				this.g.fillRect(239-(i*(240/this.len)),(this.log[h])?239-(this.log[h]*this.scale):239, 239-((i*(240/this.len))+((240/this.len)-2)),239);		
+				this.g.fillRect(239-(i*(240/this.len)),(this.log[h])?239-(this.log[h]*this.scale):239, 239-((i*(240/this.len))+((240/this.len)-2)),235);		
 				if (this.old)this.g.flip(); 
 			}
 		}
@@ -70,14 +75,14 @@ face[0] = {
     },
 	sel: function(txt1,txt2){
 		this.g.setColor(0,1);
-		this.g.fillRect(0,51,239,175);
+		this.g.fillRect(0,91,239,175);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",53);	
 		let size=this.g.stringWidth(txt1);
-		this.g.drawString(txt1,105-(this.g.stringWidth(txt1)/2),68); 
+		//this.g.drawString(txt1,105-(this.g.stringWidth(txt1)/2),68); 
 		this.g.setFont("Vector",27);	
-		this.g.drawString((set.def.dash.mph)?" mi":" km",125+(size/2)-(this.g.stringWidth((set.def.dash.mph)?" mi":" km")/2),86);
-		this.g.drawString(txt2,120-(this.g.stringWidth(txt2)/2),137);
+		//this.g.drawString((set.def.dash.mph)?" mi":" km",125+(size/2)-(this.g.stringWidth((set.def.dash.mph)?" mi":" km")/2),86);
+		//this.g.drawString(txt2,120-(this.g.stringWidth(txt2)/2),137);
 		this.g.flip();
     },
 	ind: function(pos){
@@ -85,11 +90,11 @@ face[0] = {
 		//print(pos,this.pos,this.len,this.ref);
 		this.g.setColor(0,0);
 		this.g.setColor(1,13);
-		this.g.fillRect(pos,(this.log[this.pos])?239-(this.log[this.pos]*this.scale):239,pos+((240/this.len)-2),239);
+		this.g.fillRect(pos,(this.log[this.pos])?239-(this.log[this.pos]*this.scale):239,pos+((240/this.len)-2),235);
 				if (this.old)this.g.flip(); 
 		if (this.rowL&&this.rowL!==pos){
 			this.g.setColor(1,14);
-			this.g.fillRect(this.rowL,(this.log[this.posL])?239-(this.log[this.posL]*this.scale):239,this.rowL+((240/this.len)-2),239);
+			this.g.fillRect(this.rowL,(this.log[this.posL])?239-(this.log[this.posL]*this.scale):239,this.rowL+((240/this.len)-2),235);
 				if (this.old)this.g.flip(); 
 		}
 		this.rowL=pos;
@@ -103,7 +108,7 @@ face[0] = {
     },
 	ntfy: function(txt1,txt0,size,clr,bt){
 		this.g.setColor(0,clr);
-		this.g.fillRect(0,180,239,239);
+		this.g.fillRect(0,180,239,235);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",size);
 		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
@@ -112,7 +117,7 @@ face[0] = {
 		this.ntid=setTimeout(function(t){
 			t.ntid=0;
 			t.g.setColor(0,0);
-			t.g.fillRect(0,196,239,239);
+			t.g.fillRect(0,196,239,235);
 			t.g.setColor(1,15);
 			t.g.setFont("Vector",20);
 			t.g.drawString(dash.live.maker,120-(t.g.stringWidth(dash.live.maker)/2),217); 
@@ -155,7 +160,6 @@ face[1] = {
 		return;
 	},
 };	
-
 //touch-main
 touchHandler[0]=function(e,x,y){
 	switch (e) {
@@ -196,7 +200,7 @@ touchHandler[0]=function(e,x,y){
 				face[0].btn(1,"24HRS",30,65,13,0,0,0,0,119,50);
 				face[0].page=2;	
 				w.gfx.setColor(0,0);
-				w.gfx.fillRect(0,51,239,239); 
+				w.gfx.fillRect(0,51,239,235); 
 				w.gfx.setColor(1,15);
 				w.gfx.setFontVector(30);
 				w.gfx.drawString(((dash.live.name)?dash.live.name:dash.live.maker),120-w.gfx.stringWidth(((dash.live.name)?dash.live.name:dash.live.maker))/2,62);
