@@ -210,7 +210,9 @@ UI.icon={
 	hid:require("heatshrink").decompress(atob("mEwwIOLkAEDgPwAocHAok/AocB/4FDh4FEv4FDgf/AocfAogEBAoQhBApnxAomBAof8JoQ/CAohZDgP8AongAuF9AoZ4BAoaJDAoJ+BAoc/ApSbCMgIFCEAQRCEAQFC4AIEwAUEXgRBBP4IFCZAgFF4DlDEAIFEeIcP/wFDgb9EAAoA=")),
 	info:require("heatshrink").decompress(atob("mE3wIcZn////+AoIEBAAOAgIFD4ED4AOBgfgg+ADYXwh4hDvEOAoc4AoscgEBD4McAoIhBgEYAoMHAoIMBAoPwAoYRCAoQdChAFBAAQjCApcBJ4I1FAoQ1CAoY1BAvBHFAoU8SoRZBTYytFXIqNDM4LRB/EPaILdB/kf/4OBj/+n/4DQUPvAmDh6zCEIQFEFYYABXIQAkA==")),
 	scan:require("heatshrink").decompress(atob("mEwwIcZg/+Aocfx+AAoV4gPgAoQDBuAEBgPAgE4AoQVBjgFBgYCBhgoCAQMGAQUgAolACggFL6AFGGQQFJEZsGsAFEIIhNFLIplFgBxBnwFCPYP/AoU8gf/BwKVB/+/SAUD/kf+CjDh/4V4n8AoYeBAoq1DgIqDAAP/XYcAv4qEn4qEGwsfC4kPEYkHF4Z1DACA=")),
-	trash:require("heatshrink").decompress(atob("mEwwI1yg/4AocP/gFDhkMApE//4ABAo4PCAUIACAv4FQATkGAQMYXwSgBYAUBAoPgdsg"))
+	trash:require("heatshrink").decompress(atob("mEwwI1yg/4AocP/gFDhkMApE//4ABAo4PCAUIACAv4FQATkGAQMYXwSgBYAUBAoPgdsg")),
+	tmout:require("heatshrink").decompress(atob("mEwwIjggf+AofD//ABQXh//gAoMH8EH/AFCB4P8CIQCBvwlEj4CBsEB4EPwEA+EBDwIFEgfAAYIFHAIQHEEgIDCAovwAopABAoVwGIIFMDYIFCgBkBAoZkBAoZkBFIIFBn4FCOwMfwAFDh+BKYSFB4JVDgeDLoJPCCoQFCFoV4AoKJCviVEGYMAnwICVokPRwK5Cgf//58DAoLRCDwP/XocPCwQAXA==")),
+	tmout32:require("heatshrink").decompress(atob("kEgwIQNkf8AYNwvwDB+EPwEAoED4AIBwPgh0BwADC4FwAYUwhgDBnEAAYMYAYcYAZHgAYIwBjEcgF4AYU8nEMgEcnEOgEMmEHJIQDC8EDwAkBEQMHJ4P4j4NBn/+AYMP/ByM"))
 
 };
 

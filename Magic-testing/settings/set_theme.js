@@ -6,7 +6,8 @@ UI.ele.ind("top",1,1);
 UIc.start(1,0)
 //UI.btn.img("main","_fold",1,UI.icon.themes,6<face.appRoot[0].length?face.appRoot[0].substr(0,6)+"..":face.appRoot[0],14,1,1);
 UI.btn.img("main","_fold",1,UI.icon.themes,"FACE",14,1,1);
-UI.btn.c2l("main","_2x3",3,"TIMEOUT",tm,3,0);
+//UI.btn.c2l("main","_2x3",3,"TIMEOUT",tm,3,0);
+UI.btn.img("main","_2x3",3,UI.icon.tmout,set.def.info?"TIMER":"",14,0);
 UI.btn.c2l("main","_2x3",4,"COLOR",0,3,0);
 UI.btn.c2l("main","_2x3",5,"STYLE",0,3,0);
 UI.btn.img("main","_2x3",6,UI.icon.info,set.def.info?"INFO":"",set.def.info?15:3,set.def.info?4:0);
