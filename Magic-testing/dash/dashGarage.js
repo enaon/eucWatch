@@ -82,9 +82,9 @@ face[0] = {
 	del:function(no){
 		UI.ele.title("btmS","",15,7);
 		UI.btn.ntfy("_barT",1,"","",15,7,4);
-		UI.btn.c2l("main","_2x1",1,"DELETE",`SLOT ${no} ?`,15,0,1);
+		UI.btn.c2l("main","_main",6,"DELETE",`SLOT ${no} ?`,15,0,1);
 		UIc.start(1,0);	
-		UI.btn.c2l("main","_2x1",2,"TAP TO","CONFIRM",15,7,1);
+		UI.btn.c2l("main","_bar",6,"TAP TO","CONFIRM",15,7,1);
 		UIc.end();
 		UIc.main._2x1_2=function(){
 			buzzer(buz.ok);
