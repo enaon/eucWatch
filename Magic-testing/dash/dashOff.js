@@ -47,12 +47,12 @@ face[0] = {
 					if (this.scale<this.log[i] ) this.scale=this.log[i];
 				}
 			}
-			this.scale=60/this.scale;		
+			this.scale=40/this.scale;		
 			return this.scale;
 	},
 	lg: function(){
 		this.g.setColor(0,0);
-		this.g.fillRect(0,176,239,235);
+		this.g.fillRect(0,196,239,235);
 		this.g.setColor(1,14);
 		for (let i = 0; i < this.len; i++) {
    		let h=(this.ref-i<0)?this.len+(this.ref-i):this.ref-i;
@@ -75,14 +75,14 @@ face[0] = {
     },
 	sel: function(txt1,txt2){
 		this.g.setColor(0,1);
-		this.g.fillRect(0,91,239,175);
+		this.g.fillRect(0,81,239,195);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",53);	
 		let size=this.g.stringWidth(txt1);
-		//this.g.drawString(txt1,105-(this.g.stringWidth(txt1)/2),68); 
+		this.g.drawString(txt1,105-(this.g.stringWidth(txt1)/2),90); 
 		this.g.setFont("Vector",27);	
-		//this.g.drawString((set.def.dash.mph)?" mi":" km",125+(size/2)-(this.g.stringWidth((set.def.dash.mph)?" mi":" km")/2),86);
-		//this.g.drawString(txt2,120-(this.g.stringWidth(txt2)/2),137);
+		this.g.drawString((set.def.dash.mph)?" mi":" km",125+(size/2)-(this.g.stringWidth((set.def.dash.mph)?" mi":" km")/2),105);
+		this.g.drawString(txt2,120-(this.g.stringWidth(txt2)/2),165);
 		this.g.flip();
     },
 	ind: function(pos){
@@ -101,9 +101,9 @@ face[0] = {
 		this.posL=this.pos;
 		pos=pos-1;
 		this.g.setColor(0,0);
-		this.g.fillRect(0,176,239,178);
+		this.g.fillRect(0,196,239,198);
 		this.g.setColor(1,13);
-		this.g.fillRect(pos,176,pos+(240/this.len),178);
+		this.g.fillRect(pos,196,pos+(240/this.len),198);
 				if (this.old)this.g.flip(); 
     },
 	ntfy: function(txt1,txt0,size,clr,bt){
