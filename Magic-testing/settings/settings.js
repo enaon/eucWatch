@@ -18,10 +18,14 @@ face[0] = {
 	},
 	bar : function(){
 		//UI.ele.fill("_ele","btmL",0);
+		if (this.page=="main") eval(require('Storage').read(o?'set_apps':'set_set')); 
+
+		UI.ele.fill("_bar",1,0);
+		UI.ele.fill("_bar",3,0);
 		UIc.start(0,1);
-		UI.btn.img("bar","_bar",1,UI.icon.torch,0,3,0);//btn2
+		//UI.btn.img("bar","_bar",1,UI.icon.torch,0,3,0);//btn2
 		UI.btn.img("bar","_bar",2,UI.icon.settings,0,14,this.page=="main"?4:0);//btn2
-		UI.btn.img("bar","_bar",3,UI.icon.dash,0,14,this.page=="dash"?4:0);//btn2
+		//UI.btn.img("bar","_bar",3,UI.icon.dash,0,14,this.page=="dash"?4:0);//btn2
 		//UI.btn.img("bar","_bar",3,UI.icon.alarm,0,3,0);//btn2
 		UIc.end();
 		UIc.bar._bar_1=()=>{
