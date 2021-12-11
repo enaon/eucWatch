@@ -18,8 +18,7 @@ face[0] = {
 	},
 	bar : function(){
 		//UI.ele.fill("_ele","btmL",0);
-		if (this.page=="main") eval(require('Storage').read(o?'set_apps':'set_set')); 
-
+		if (this.page=="main") eval(require('Storage').read('set_set')); 
 		UI.ele.fill("_bar",1,0);
 		UI.ele.fill("_bar",3,0);
 		UIc.start(0,1);
@@ -32,11 +31,9 @@ face[0] = {
 			buzzer(buz.na);
 		};
 		UIc.bar._bar_2=()=>{
-			buzzer(buz.ok);
 			if (Boolean(require("Storage").read("set_"+face.faceSave[0].substring(0,4)))){
 			  buzzer(buz.ok);
 			  eval(require('Storage').read("set_"+face.faceSave[0].substring(0,4)));
-			  //face.go(face.faceSave[0].substring(0,4)+"Options",0);
 			}else buzzer(buz.na);
 		};
 		UIc.bar._bar_3=()=>{

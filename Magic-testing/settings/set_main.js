@@ -47,6 +47,7 @@ UIc.main._2x3_5=()=>{
 };
 UIc.main._2x3_6=()=>{
 	buzzer(buz.ok);
+	UIc.start(1,1);UIc.end();
 	let s=(getTime()-set.boot)|0;
 	let d=0;
 	let h=0;
