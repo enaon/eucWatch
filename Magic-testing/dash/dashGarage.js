@@ -39,7 +39,7 @@ face[0] = {
 			if (set.def.dash.slot==no) {
 				//UI.ele.fill("_ele","topS",12);
 				UI.ele.title("btmS","SLOT "+no,15,1);
-				UI.btn.ntfy("_ele","topS","","",15,4,3);
+				UI.btn.ntfy(0,3,0,"_ele","topS","","",15,4);
 				UI.ele.ind("top",1,1);
 				UIc.start(1,0);	
 				if (set.def.info)UI.txt.block("_main",6,"Press & hold the side button to start or end the EUC connection.",20,15,0);
@@ -61,11 +61,12 @@ face[0] = {
 
 		} else{
 			//UI.ele.fill("_ele","topS",0);
-			UI.btn.ntfy("_ele","topS","","",15,4,3);
+			UI.btn.ntfy(0,3,0,"_ele","topS","","",15,4);
 			UI.ele.ind("top",1,1);
 			//UI.ele.title("btmS","SLOT "+no,15,4);
-			//UI.btn.ntfy("_2X3",1,"","",15,2,3);
+			//UI.btn.ntfy(0,3,0,"_2X3",1,"","",15,2);
 			if (set.def.info)UI.txt.block("_main",6,"Tap to scan for a wheel and save it to:",20,15,0);
+			UI.btn.img("main","_2x2",no,UI.icon.scan,"SLOT "+no,3,0);
 			UIc.start(1,0);	
 			UI.btn.img("main","_bar",6,UI.icon.scan,"SLOT "+no,15,4);
 			
@@ -81,7 +82,7 @@ face[0] = {
 	},
 	del:function(no){
 		UI.ele.title("btmS","",15,7);
-		UI.btn.ntfy("_barT",1,"","",15,7,4);
+		UI.btn.ntfy(0,4,0,"_barT",1,"","",15,7);
 		UI.btn.c2l("main","_main",6,"DELETE",`SLOT ${no} ?`,15,0,1);
 		UIc.start(1,0);	
 		UI.btn.c2l("main","_bar",6,"TAP TO","CONFIRM",15,7,1);
@@ -97,7 +98,7 @@ face[0] = {
 			set.def.dash.slot=0;
 			require("Storage").erase(`eucSlot${no}.json`);
 			dash.live=require("Storage").readJSON("eucSlot.json",1);				
-			UI.btn.ntfy("_sel",4,"DELETED","SLOT "+no,15,2,2);
+			UI.btn.ntfy(0,2,0,"_sel",4,"DELETED","SLOT "+no,15,2);
 			w.gfx.flip();
 			face[0].dash=require("Storage").readJSON("dash.json",1);
 

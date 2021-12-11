@@ -7,18 +7,19 @@ UI={
 	
 	//_1x2B:[30,[0,160,120,235],[121,160,240,235],[0,30,240,159]],
   	_2x2:[35,[0,20,120,127],[121,20,240,127],[0,128,120,235],[121,128,240,235]],
-	_2x3:[25,[0,20,80,100],[81,20,160,100],[161,20,239,100],[0,101,80,180],[81,101,160,180],[161,101,239,180]],
+	_2x3:[22,[0,20,80,100],[81,20,160,100],[161,20,239,100],[0,101,80,180],[81,101,160,180],[161,101,239,180]],
 	_2x1:[25,[0,20,239,130],[0,131,239,235]],
 	_sel:[15,[0,236,239,279],[0,221,239,279],[0,181,239,279],[0,30,239,235]],
 	_ele:{"0":25,topS:[0,0,239,19],topS1:[0,0,239,27],top:[0,0,239,40],btmS:[0,236,239,279],btmM:[0,221,239,279],btmL:[0,181,239,279],ind:[75,265,165,270]},
 	_ind:{"0":25,btm:[75,265,165,270],top:[80,7,160,12]},
-	_bar:[20,[0,181,80,279],[81,181,160,279],[161,181,239,279],[0,181,120,279],[121,181,239,279],[0,181,239,279]],
+	_bar:[22,[0,181,80,279],[81,181,160,279],[161,181,239,279],[0,181,120,279],[121,181,239,279],[0,181,239,279]],
 	_main:[20,[0,20,80,180],[81,20,160,180],[161,20,239,180],[0,20,160,180],[81,20,239,180],[0,0,239,180],[0,20,239,100],[0,101,239,180],[0,81,239,180]],
-	_top:30,
+	_top:20,
 	_head:2,
 	_foot:255,
   },
   btn:{
+    size:{_xs:28,_s:22,_m:28,_l:35,_xl:45,txt:1,len:1},
     c2l:function(loc,no,po,txt1,txt2,fclr,bclr){//type:main|bar,
       "ram";
 	  //draw
@@ -31,10 +32,10 @@ UI={
       if (txt2&&txt2!=""){
         w.gfx.setFont("Vector",(p[3]-p[1])/5);
         w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-((p[3]-p[1])/3.5)); 
-        w.gfx.setFont("Vector",UI.pos[no][0]);	
+        w.gfx.setFont("Vector",UI.pos[no][0]*(100<p[2]-p[0]?1:1.3));	
         w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height-10);
       }else{  
-        w.gfx.setFont("Vector",UI.pos[no][0]*( (100 < p[2]-p[0])?1:((p[2]-p[0])/100)) );	
+        w.gfx.setFont("Vector",loc=="bar"&&po==2?40:UI.pos[no][0]*(100<p[2]-p[0]?1:1.3) );	
         w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-(w.gfx.stringMetrics(txt1).height/2)); 
       }
 	  //coordinates
@@ -69,7 +70,7 @@ UI={
 	      w.gfx.drawImage(img,xa,y-(w.gfx.imageMetrics(img).width/2));
 		 // w.gfx.setColor(1,bclr==3?0:3);
 		  w.gfx.drawString(txt,xa+5+w.gfx.imageMetrics(img).width,y-(w.gfx.stringMetrics(txt).height/2)+2); 
-	  }else if (set.def.info&&txt) {
+	  }else if (set.def.txt&&txt) {
 		  w.gfx.drawImage(img,x-24*0.85,y-35,{scale:0.85});
 		  //w.gfx.setColor(1,bclr==3?0:14);
 		  w.gfx.setColor(1,fclr);
@@ -84,24 +85,27 @@ UI={
 		UIc.raw[loc]=UIc.raw[loc]+`${UIc.raw[loc]==" "?'':'else '}if (${p[0]}<x&&x<${p[2]}&&${p[1]}<y&&y<${p[3]}) UIc.${loc}.${no}_${po}();`;	
 	  else w.gfx.flip();
 	}, 
-	ntfy:function(no,po,txt1,txt2,fclr,bclr,tmot,sel){
+	ntfy:function(rst,tmot,ignr,no,po,txt1,txt2,fclr,bclr,sel){
 		if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}
-		UI.removeAllListeners("ntfy");
-		let p=(UI.pos[no][po]);
-		let x=p[2]-((p[2]-p[0])/2);
-		let y=p[3]-((p[3]-p[1])/2);
-		w.gfx.setColor(0,bclr);
-		w.gfx.fillRect(p[0],p[1],p[2],p[3]);
-		w.gfx.setColor(1,fclr);
-        w.gfx.setFont("Vector",UI.pos[no][0]*( (100 < p[2]-p[0])?1:((p[2]-p[0])/100)));	
-        if (sel) {w.gfx.drawString("<",p[0]+5,y-((p[3]-p[1])/4)); w.gfx.drawString(">",p[2]+-5-w.gfx.stringWidth(">"),y-((p[3]-p[1])/4));}
-        w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-((p[3]-p[1])/4)); 
-        w.gfx.setFont("Vector",UI.pos[no][0]*( (100 < p[2]-p[0])?1:((p[2]-p[0])/100)));	
-        w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height-10);
-        //w.gfx.flip(); //if (!set.def.bpp) w.gfx.flip();
-		if (UI.ntid) clearTimeout(UI.ntid);
-		//
-		UI.ntid=setTimeout(function(t){UI.ntid=0;UI.emit('ntfy',"ok");if (face[0].bar) face[0].bar(); },tmot?tmot*1000:1000);
+		if (rst) UIc.xy.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.raw.main+'},0);'));
+		if (!ignr){
+			//UI.removeAllListeners("ntfy");
+			let p=(UI.pos[no][po]);
+			let x=p[2]-((p[2]-p[0])/2);
+			let y=p[3]-((p[3]-p[1])/2);
+			w.gfx.setColor(0,bclr);
+			w.gfx.fillRect(p[0],p[1],p[2],p[3]);
+			w.gfx.setColor(1,fclr);
+			//w.gfx.setFont("Vector",p[2]-p[0]this.size.);	
+			w.gfx.setFont("Vector",UI.pos[no][0]*( (80 < p[2]-p[0])?1:((p[2]-p[0])/80)));	
+			if (sel) {w.gfx.drawString("<",p[0]+5,y-((p[3]-p[1])/4)); w.gfx.drawString(">",p[2]+-5-w.gfx.stringWidth(">"),y-((p[3]-p[1])/4));}
+			w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-((p[3]-p[1])/4)); 
+			w.gfx.setFont("Vector",UI.pos[no][0]*( (100 < p[2]-p[0])?1:((p[2]-p[0])/100)));	
+			w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height-10);
+			//w.gfx.flip(); //if (!set.def.bpp) w.gfx.flip();
+		} else 	
+		UIc.xy.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.raw.main+'},0);'));
+		UI.ntid=setTimeout(function(t){UI.ntid=0;/*UI.emit('ntfy',"ok");*/if (face[0].bar) face[0].bar(); },tmot?tmot*1000:1000);
 	}
   },
   ele:{
@@ -179,26 +183,6 @@ UI={
   
 };
 
-
-UI.ntfy={
-	simple:function(po,txt1,txt2,fclr,bclr,tmot){
-			UI.removeAllListeners("ntfy");
-			let p=(UI.pos._ele[po]);
-			let x=4+p[2]-((p[2]-p[0])/2);
-			let y=p[3]-((p[3]-p[1])/1.5);			
-			w.gfx.setColor(0,bclr);
-			w.gfx.fillRect(p[0],p[1],p[2],p[3]);
-			w.gfx.setColor(1,fclr);
-			w.gfx.setFont("Vector",(p[3]-p[1])/2);	
-			w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y); 
-			if (!set.def.bpp) w.gfx.flip();
-			if (UI.ntid) clearTimeout(UI.ntid);
-			UI.ntid=setTimeout(function(t){UI.ntid=0;UI.emit('ntfy',"ok");},tmot?tmot:1000);
-	},	
-	
-	
-};
-	
 UI.icon={	
 	bt:require("heatshrink").decompress(atob("mEwwIXUgYFFwAFE4AFE8AFE/AFE/gFE/wFE/4FE74qCgUD54qCg8D44qCh+D4fwAoXDAocD8YRDgPzDocA/YpDgF/Gok/IIkfJokPLIkHFwQFHCIodFFIo1FIIhNFLIplFOIp9FRIqVFUI6tFXIrFFaIrdFdIr/IABY=")),
 	plane:require("heatshrink").decompress(atob("lkwwIPMg4FE/AKE4AFDtwEDg1gAocjAgcDnAFDmOAAgUBxgKDjAbChkBwwJC8EMmAEBh8A4IbC+EEjAKDsBCC7/+g//4EN//gv//wFAEgUMgw0DsBQDgQKEkAKDg0EBQfgFYf4FYf8IIMGhhBDoJMDhhMCh0A4YhC4BtDPAOOPAifDgYaCAAMzRwcCPoQABsyvEXQl8AgcPDQcAuD/XABYA=")),
@@ -221,7 +205,9 @@ UI.icon={
 	tmout:require("heatshrink").decompress(atob("mEwwIjggf+AofD//ABQXh//gAoMH8EH/AFCB4P8CIQCBvwlEj4CBsEB4EPwEA+EBDwIFEgfAAYIFHAIQHEEgIDCAovwAopABAoVwGIIFMDYIFCgBkBAoZkBAoZkBFIIFBn4FCOwMfwAFDh+BKYSFB4JVDgeDLoJPCCoQFCFoV4AoKJCviVEGYMAnwICVokPRwK5Cgf//58DAoLRCDwP/XocPCwQAXA==")),
 	tmout32:require("heatshrink").decompress(atob("kEgwIQNkf8AYNwvwDB+EPwEAoED4AIBwPgh0BwADC4FwAYUwhgDBnEAAYMYAYcYAZHgAYIwBjEcgF4AYU8nEMgEcnEOgEMmEHJIQDC8EDwAkBEQMHJ4P4j4NBn/+AYMP/ByM")),
 	time:require("heatshrink").decompress(atob("mEwwIFCj/4BYf//4ECg4FB8AQC/1/+AFBn/Agf8AoN+AQghCn8AgPwgOAh+AgfggfAg4BBA4IeB8ANC4AVBj8AAoMA+EeAod4ngFJnk4Aol4AoceuAFJhxbBApEPAopzBAp4XBgIIBApBdBAo5BBLoI7BAQIFCjwFCNAMeMoIFCjgCBBIIHBAooCBgEMD4KVBAAXwUIIEBUIKvBAoS3BbQQJBgZICCoMBaIQhCborpFj/8eocH///EwUAAoI+Dj4lCA=")),
-	txt:require("heatshrink").decompress(atob("mEwwJC/ABEH/4AC8EPAofwAosfAof4ApnAkfEgYFCkOEAocxxgFC+AsBh4FCAQIFC+P8n+PBYQFBCIYFECIwdEFIvx+OPCIfhw4LC/Pj4+fL5oFEQZaVFa/Y"))
+	txt:require("heatshrink").decompress(atob("mEwwJC/ABEH/4AC8EPAofwAosfAof4ApnAkfEgYFCkOEAocxxgFC+AsBh4FCAQIFC+P8n+PBYQFBCIYFECIwdEFIvx+OPCIfhw4LC/Pj4+fL5oFEQZaVFa/Y")),
+	power1:require("heatshrink").decompress(atob("lEqwIKHvwEMhl+mAEBn1+vgEBv9+/wEB/9+/8Agf+v1/wED/l+n/Ag/wv0P8ABBvwHBj/Av0DAgOAv0B/AEEn47C/gEDvk+AgYCBAIQEEI4IEBnwELMoRmDAgosBAAN8GwIABHYQECJQMAJ4YECh/AOoPwNAMANAMH/EAj/gQIKNB4EB//D/4bB/4ABTQX/TQUf/4aBEAP/EgKlCZQw=")),
+	power:require("heatshrink").decompress(atob("lkuwIKHgP4AocfwAKN+P4+AJCz+fBYMH/P5/wKB/4KBCAMfBQP/wED/0fw/8gF/4P4n/gg/wFYIbB/w2BBAXABQM/wP8BQMD/AIBAIWD/BMC/k/JgUP4fwBQd+BQUH8/gBQV+BSJwCBQQABBQw2BAAI2CAoRBBRgUfNYKbDMQIFBMQQEBMQMPEwV/AIQlBQYIQBSIIXBCAN/4EB//An4pBh//AAIdCAgISBCAP/HIQQCaoa5BAoU/IYQAEA="))
 };
 
 

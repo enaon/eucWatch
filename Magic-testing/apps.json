@@ -87,7 +87,7 @@
 	{ "id": "settings",
 		"name": "Settings",
 		"icon": "icon.png",
-		"version":"1.00",
+		"version":"1.01",
 		"description": "Settings face",
 		"tags": "apps",
 		"type":"main",
@@ -97,7 +97,9 @@
 			{"name":"C:set_set","url":"set_set.js"},
 			{"name":"C:set_apps","url":"set_apps.js"},
 			{"name":"C:set_bt","url":"set_bt.js"},
-			{"name":"C:set_theme","url":"set_theme.js"}
+			{"name":"C:set_theme","url":"set_theme.js"},
+			{"name":"C:set_main","url":"set_main.js"},
+			{"name":"C:set_dash","url":"set_dash.js"}
 		]
 	},
 	{ "id": "alarm",

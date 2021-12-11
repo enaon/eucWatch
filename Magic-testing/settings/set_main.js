@@ -1,12 +1,13 @@
 //clock settings
 face[0].page="clock";
+UI.btn.ntfy(0,5,0,"_ele","topS", "","",15,1);
 UI.ele.ind("top",1,1);
 UIc.start(1,0);
 UI.btn.img("main","_2x3",1,(set.def.cli||set.def.gb||set.def.emuZ)?UI.icon.bt:UI.icon.plane,"BT",15,1);
 UI.btn.img("main","_2x3",2,UI.icon.themes,"FACE",15,1);
 UI.btn.img("main","_2x3",3,UI.icon.bri,set.def.bri,15,1,1);
-UI.btn.img("main","_2x3",4,UI.icon.findPhone,"FIND",3,0);
-UI.btn.img("main","_2x3",5,UI.icon.wakeScreen,"WAKE ",set.def.acc?15:3,set.def.acc?4:0);
+UI.btn.img("main","_2x3",4,UI.icon.time,"TIME",15,1);
+UI.btn.img("main","_2x3",5,UI.icon.power,"RESTART",15,1);
 UI.btn.img("main","_2x3",6,UI.icon.info,"ABOUT",15,12);
 UIc.end();
 //
@@ -18,8 +19,12 @@ UIc.main._2x3_3=()=>{
 };
 UIc.main._2x3_4=()=>{
 	buzzer(buz.na);
+};
 UIc.main._2x3_5=()=>{
 	buzzer(buz.ok);
+	UI.btn.ntfy(1,3,1,"_bar",6,"","",15,0);
+	UI.btn.c2l("bar","_bar",4,"RESTART","& SAVE",15,4);
+	UI.btn.c2l("bar","_bar",5,"DEVMODE","",15,7);
 	
 };
 UIc.main._2x3_6=()=>{
@@ -33,17 +38,17 @@ UIc.main._2x3_6=()=>{
 	while (s>3600) {s=s-3600;h++;}
 	while (s>60) {s=s-60;m++;}
 	w.gfx.setColor(0,0);
-	w.gfx.clear();
+	this.g.fillRect(0,20,239,279);
 	w.gfx.setColor(1,14);
 	w.gfx.setFont("Vector",18);
-	w.gfx.drawString("MEMORY: "+process.memory().free+"/"+process.memory().total,120-(w.gfx.stringWidth("MEMORY: "+process.memory().free+"/"+process.memory().total)/2),0);  
-	w.gfx.drawString("IMAGE: "+process.version,120-(w.gfx.stringWidth("IMAGE: "+process.version)/2),25);  
-	w.gfx.drawString("ACC TYPE: "+set.def.acctype,120-(w.gfx.stringWidth("ACC TYPE: "+set.def.acctype)/2),50);  
-	w.gfx.drawString("TOUCH TYPE: "+set.def.touchtype,120-(w.gfx.stringWidth("TOUCH TYPE: "+set.def.touchtype)/2),75);  
-	w.gfx.drawString("UPTIME: "+d+"D-"+h+"H-"+m+"M",120-(w.gfx.stringWidth("UPTIME: "+d+"D-"+h+"H-"+m+"M")/2),100);  
-	w.gfx.drawString("FLASH: "+require("Storage").getFree(),120-(w.gfx.stringWidth("FLASH: "+require("Storage").getFree())/2),125); 
-	w.gfx.drawString("TEMPERATURE: "+E.getTemperature(),120-(w.gfx.stringWidth("TEMPERATURE: "+E.getTemperature())/2),150);  
-	w.gfx.drawString("NAME: "+set.def.name,120-(w.gfx.stringWidth("NAME: "+set.def.name)/2),175);  
+	w.gfx.drawString("MEMORY: "+process.memory().free+"/"+process.memory().total,120-(w.gfx.stringWidth("MEMORY: "+process.memory().free+"/"+process.memory().total)/2),35);  
+	w.gfx.drawString("IMAGE: "+process.version,120-(w.gfx.stringWidth("IMAGE: "+process.version)/2),65);  
+	w.gfx.drawString("ACC TYPE: "+set.def.acctype,120-(w.gfx.stringWidth("ACC TYPE: "+set.def.acctype)/2),95);  
+	w.gfx.drawString("TOUCH TYPE: "+set.def.touchtype,120-(w.gfx.stringWidth("TOUCH TYPE: "+set.def.touchtype)/2),125);  
+	w.gfx.drawString("UPTIME: "+d+"D-"+h+"H-"+m+"M",120-(w.gfx.stringWidth("UPTIME: "+d+"D-"+h+"H-"+m+"M")/2),155);  
+	w.gfx.drawString("FLASH: "+require("Storage").getFree(),120-(w.gfx.stringWidth("FLASH: "+require("Storage").getFree())/2),185); 
+	w.gfx.drawString("TEMPERATURE: "+E.getTemperature(),120-(w.gfx.stringWidth("TEMPERATURE: "+E.getTemperature())/2),215);  
+	w.gfx.drawString("NAME: "+set.def.name,120-(w.gfx.stringWidth("NAME: "+set.def.name)/2),245);  
 	w.gfx.flip();
 };
 

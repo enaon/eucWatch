@@ -21,22 +21,21 @@ UIc.main._2x3_3=()=>{
 UIc.main._2x3_4=()=>{
 	if (set.bt!=3) {
 		buzzer(buz.na);
-		UI.btn.ntfy("_bar",6,"GADGET BRIDGE","not connected",15,7);
+		UI.btn.ntfy(1,0,0,"_bar",6,"GADGET BRIDGE","not connected",15,7);
 		w.gfx.flip();
 	}else	buzzer(buz.na);};
 UIc.main._2x3_5=()=>{
 	buzzer(buz.ok);
 	set.def.acc=1-set.def.acc;
-	UI.btn.ntfy("_bar",6,"TURN TO WAKE",set.def.acc?"ENABLED":"DISABED",15,set.def.acc?4:0);
+	if (set.def.info) UI.btn.ntfy(1,0,0,"_bar",6,"TURN TO WAKE",set.def.acc?"ENABLED":"DISABED",15,set.def.acc?4:0);
 	UI.btn.img("main","_2x3",5,UI.icon.wakeScreen,"WAKE",set.def.acc?15:3,set.def.acc?4:0);
 	setter.accR();
-	//if (set.def.info) {UI.btn.ntfy("_bar",6,"TURN TO WAKE",set.def.acc?"ENABLED":"DISABED",15,6);}
 	
 };
 UIc.main._2x3_6=()=>{
 	
 	set.def.buzz=1-set.def.buzz;
-	UI.btn.ntfy("_bar",6,"BUZZER",set.def.buzz?"ENABLED":"DISABED",15,set.def.buzz?4:0);
+	if (set.def.info) UI.btn.ntfy(1,0,0,"_bar",6,"BUZZER",set.def.buzz?"ENABLED":"DISABED",15,set.def.buzz?4:0);
 	UI.btn.img("main","_2x3",6,set.def.buzz?UI.icon.dndOn:UI.icon.dndOff,"BUZZ",set.def.buzz?15:3,set.def.buzz?4:0);
 	if (set.def.buzz){
 		buzzer=digitalPulse.bind(null,ew.pin.BUZZ,0);
@@ -45,6 +44,5 @@ UIc.main._2x3_6=()=>{
 		buzzer(buz.ok);
 		buzzer=function(){};
 	}
-	//if (set.def.info) UI.btn.ntfy("_bar",6,"BUZZER",set.def.buzz?"ENABLED":"DISABED",15,6);
 	
 };
