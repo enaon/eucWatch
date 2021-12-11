@@ -1,7 +1,7 @@
 if (set.def.touchtype!="816"&&set.def.touchtype!="716"){
 	i2c.writeTo(0x15,0xa5,3);
 	i2c.writeTo(0x15,0xE5,3);
-	digitalPulse(set.def.rstP,1,[5,50]);
+	digitalPulse(set.def.rstP,1,[5,150]);
 	i2c.writeTo(0x15,0x80);
 	set.def.touchtype=( i2c.readFrom(0x15,1)[0] == 96 )?"816":"716";
 }
@@ -10,6 +10,7 @@ if (set.def.touchtype=="816"){ //816
 }else {
 	eval(require('Storage').read('handler_touch_716'));
 }
+
 tcDn=(x,y)=>{
 	print("down",x,y);
 	if (global.euc&& euc.sate=="READY")
@@ -23,12 +24,6 @@ tcDn=(x,y)=>{
 	   // if (face.appPrev=="settings"||face.appPrev==face.faceSave[0].substring(0,4)+"Options") {face.appPrev="main";face.pagePrev=0;}
 	  // face.go(face.appPrev,face.pagePrev,face.pageArg);return;
 	}
-	TC.removeAllListeners("tcDn");
-	TC.removeAllListeners("tcUp");
-	TC.removeAllListeners("tcT");
-	TC.removeAllListeners("tcH");
-	TC.removeAllListeners("tcL");
-	TC.removeAllListeners("tcR");
 };	
 tcUp=(x,y)=>{
 	print("up",x,y);

@@ -20,13 +20,15 @@ face[0] = {
 		//UI.ele.fill("_ele","btmL",0);
 		UIc.start(0,1);
 		UI.btn.img("bar","_bar",1,UI.icon.torch,0,3,0);//btn2
-		UI.btn.img("bar","_bar",2,UI.icon.settings,0,14,0);//btn2
-		UI.btn.img("bar","_bar",3,UI.icon.alarm,0,3,0);//btn2
+		UI.btn.img("bar","_bar",2,UI.icon.settings,0,14,this.page=="main"?4:0);//btn2
+		UI.btn.img("bar","_bar",3,UI.icon.dash,0,14,this.page=="dash"?4:0);//btn2
+		//UI.btn.img("bar","_bar",3,UI.icon.alarm,0,3,0);//btn2
 		UIc.end();
 		UIc.bar._bar_1=()=>{
 			buzzer(buz.na);
 		};
 		UIc.bar._bar_2=()=>{
+			buzzer(buz.ok);
 			if (Boolean(require("Storage").read("set_"+face.faceSave[0].substring(0,4)))){
 			  buzzer(buz.ok);
 			  eval(require('Storage').read("set_"+face.faceSave[0].substring(0,4)));
