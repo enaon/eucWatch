@@ -2,12 +2,12 @@
 face[0].page="clock";
 UI.ele.ind("top",1,1);
 UIc.start(1,0);
-UI.btn.img("main","_2x3",1,(set.def.cli||set.def.gb||set.def.emuZ)?UI.icon.bt:UI.icon.plane,"BT",15,1);
-UI.btn.img("main","_2x3",2,UI.icon.themes,"FACE",15,1);
-UI.btn.img("main","_2x3",3,UI.icon.bri,set.def.bri,15,1,1);
-UI.btn.img("main","_2x3",4,UI.icon.findPhone,"FIND",3,0);
-UI.btn.img("main","_2x3",5,UI.icon.wakeScreen,"WAKE ",set.def.acc?15:3,set.def.acc?4:0);
-UI.btn.img("main","_2x3",6,UI.icon.info,"ABOUT",15,12);
+UI.btn.img("main","_2x3",1,(set.def.cli||set.def.gb||set.def.emuZ)?_icon.bt:_icon.plane,"BT",15,1);
+UI.btn.img("main","_2x3",2,_icon.themes,"FACE",15,1);
+UI.btn.img("main","_2x3",3,_icon.bri,set.def.bri,15,1,1);
+UI.btn.img("main","_2x3",4,_icon.findPhone,"FIND",3,0);
+UI.btn.img("main","_2x3",5,_icon.wakeScreen,"WAKE ",set.def.acc?15:3,set.def.acc?4:0);
+UI.btn.img("main","_2x3",6,_icon.info,"ABOUT",15,12);
 UIc.end();
 //
 UIc.main._2x3_1=()=>{buzzer(buz.ok);};

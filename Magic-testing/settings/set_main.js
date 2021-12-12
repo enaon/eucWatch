@@ -1,18 +1,15 @@
 //clock settings
 face[0].page="main";
-UI.btn.ntfy(0,5,1,"_ele","topS", "","",15,12);
-UI.ele.fill("_ele","topS",12);
+UI.ele.fill("_ele","topS",6);
 UI.ele.ind("top",1,1);
 UIc.start(1,0);
 UI.ele.fill("_2x3",1,0);
 UI.ele.fill("_2x3",2,0);
 UI.btn.c2l("main","_2x3",3,set.def.hr24?"24 H":"12 H","",15,set.def.hr24?4:0);
-UI.ele.fill("_2x3",4,12);
-UI.btn.img("main","_2x3",5,UI.icon.power,"POWER",14,12);
-UI.btn.img("main","_2x3",6,UI.icon.info,"ABOUT",14,12);
+UI.ele.fill("_2x3",4,6);
+UI.btn.img("main","_2x3",5,_icon.power,"POWER",14,6);
+UI.btn.img("main","_2x3",6,_icon.info,"ABOUT",14,6);
 UIc.end();
-UI.btn.img("bar","_bar",2,UI.icon.settings,0,14,12);
-UI.btn.img("bar","_bar",3,UI.icon.dash,0,14,0);
 
 //
 UIc.main._2x3_1=()=>{buzzer(buz.ok);};
@@ -76,11 +73,32 @@ UIc.main._2x3_6=()=>{
 	w.gfx.flip();
 };
 
+face[0].bar = function(){
+		//UI.ele.fill("_ele","btmL",0);
+		UIc.start(0,1);
+		UI.ele.fill("_bar",1,0);
+		UI.btn.img("bar","_bar",1,_icon.watch,0,14,6);
+		UI.btn.img("bar","_bar",2,_icon.settings,0,3,0);
+		UI.btn.img("bar","_bar",3,_icon.dash,0,3,0);
+		UIc.end();
+		UIc.bar._bar_1=()=>{
+			buzzer(buz.na);
+		};
+		UIc.bar._bar_2=()=>{
+			  buzzer(buz.ok);
+			  eval(require('Storage').read("set_set"));
+        face[0].bar();
+    };
+		UIc.bar._bar_3=()=>{
+			  buzzer(buz.ok);
+			  eval(require('Storage').read("set_dash"));
+		};
+};
+face[0].bar();
+tcNext.replaceWith(new Function('buzzer(buz.na);if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;eval(require("Storage").read("set_main"));}'));
+tcBack.replaceWith(new Function('buzzer(buz.na);if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;eval(require("Storage").read("set_main"));}'));
 
 /*
-set.def.hr24=1-set.def.hr24;
-face[0].btn(1,(set.def.hr24)?"24 H":"12 H",26,180,25,4,0,120,0,239,79);//2
-
 }else if (face[0].set=="more") {
 	if (30 <= y && y <= 80 ) {
 		set.def.rstR=(set.def.rstR==165)?229:165;

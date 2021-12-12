@@ -4,12 +4,13 @@ if (!set.def.dash.rtr) set.def.dash.rtr=5;
 UI.ele.fill("_ele","topS",6);
 this.bar = function(){
 		UIc.start(0,1);
-		UI.ele.fill("_bar",1,0);
-		UI.btn.img("bar","_bar",2,UI.icon.settings,0,14,0);
-		UI.btn.img("bar","_bar",3,UI.icon.dash,0,14,6);
+		UI.btn.img("bar","_bar",1,_icon.watch,0,3,0);
+		UI.btn.img("bar","_bar",2,_icon.settings,0,3,0);
+		UI.btn.img("bar","_bar",3,_icon.dash,0,14,6);
 		UIc.end();
 		UIc.bar._bar_1=()=>{
-			buzzer(buz.na);
+			buzzer(buz.ok);
+			eval(require('Storage').read("set_main"));
 		};
 		UIc.bar._bar_2=()=>{
 			  buzzer(buz.ok);

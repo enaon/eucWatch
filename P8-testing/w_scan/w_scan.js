@@ -102,7 +102,7 @@ face[0] = {
 		this.g.setColor(1,(this.go==entry)?14:15);
 		//let dr=scan.mac[entry].substring(0,17);
 		if (scan.mac[entry].split("|")[1]!=="undefined"){
-			dr=E.toJS(scan.mac[entry].split("|")[1].replace(/\0/g, ''));
+			dr=E.toSting(scan.mac[entry].split("|")[1].replace(/\0/g, ''));
 			//print ("test",dr,dr.replace(/\0/g, ''),dr.replace(/\u0000/g, '') )
 		}else dr=scan.mac[entry].substring(0,17);
 		//let dr=scan.mac[entry].substring(0,17);
@@ -173,7 +173,7 @@ touchHandler[0]=function(e,x,y){
 		if (this.mac!=undefined) {
 			buzzer([30,50,30]);
 			if (face.appRoot[0]!="repellent"){
-				if (this.name) set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",E.toJS(this.name).replace(/\0/g, ''));
+				if (this.name) set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",this.name?E.toJS(this.name).replace(/\0/g, ''):"NA");
                 //set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Mac",this.mac);
 				euc.mac=this.mac;
 				euc.tgl();
