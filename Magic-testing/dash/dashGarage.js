@@ -66,7 +66,7 @@ face[0] = {
 			//UI.ele.title("btmS","SLOT "+no,15,4);
 			//UI.btn.ntfy(0,3,0,"_2X3",1,"","",15,2);
 			if (set.def.info)UI.txt.block("_main",6,"Tap to scan for a wheel and save it to:",20,15,0);
-			UI.btn.img("main","_2x2",no,UI.icon.scan,"SLOT "+no,3,0);
+			//UI.btn.img("main","_2x2",no,UI.icon.scan,"SLOT "+no,3,0);
 			UIc.start(1,0);	
 			UI.btn.img("main","_bar",6,UI.icon.scan,"SLOT "+no,15,4);
 			

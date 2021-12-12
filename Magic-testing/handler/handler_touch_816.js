@@ -1,3 +1,5 @@
+set.def.touchtype="816";
+
 var TC={
 	ntid:0,
 	act:{main:{},bar:{},titl:{}},

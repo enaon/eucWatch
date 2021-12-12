@@ -149,11 +149,13 @@ var bpp=(require("Storage").read("setting.json") && require("Storage").readJSON(
 var g=Graphics.createArrayBuffer(240,280,bpp);
 var pal;
 g.sc=g.setColor;
-g.col=Uint16Array([ 0x000,1365,2730,3549,1629,2474,1963,3840,143,3935,2220,0x5ff,170,4080,1535,4095 ]);
+g.col=Uint16Array([ 0x000,1365,2730,3549,1629,83,72,3840,143,3935,2220,0x5ff,115,4080,1535,4095 ]);
+//1622 dgray 1610 dbue 1655-good grey 1672  dblack 50,68.85  115, 152 green
+//54,
 
 switch(bpp){
   case 1:
-    pal= Uint16Array([ 0x000,1365,2730,3549,1629,2474,1963,3840,143,3935,2220,0x5ff,170,4080,1535,4095 ]);
+    pal= g.col;
     g.buffer=new ArrayBuffer(8400);
     c1=pal[1]; //save color 1
     g.setColor=function(c,v){ 
@@ -168,11 +170,8 @@ switch(bpp){
     break; 
   case 4: 
 	g.buffer=new ArrayBuffer(33600);
-	pal= Uint16Array([0x000,1365,2730,3549,1629,2474,1963,3840,143,3935,2220,0x5ff,170,4080,1535,4095]);
-	g.setColor=function(c,v){ 
-		"ram";
-		g.sc(v);
-	}; 
+	pal= g.col;
+	g.setColor=(c,v)=>{g.sc(v);}; 
     break;
 }
 // preallocate setwindow command buffer for flip

@@ -1,3 +1,4 @@
+set.def.touchtype="716";
 var TC={
 	tid:0,
 	x:0,

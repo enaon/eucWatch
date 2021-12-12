@@ -8,7 +8,7 @@ face[0] = {
 	init: function(o){ 
 		if (face.faceSave==-1) face.faceSave=[face.appPrev,face.pagePrev,face.pageArg];
 		UI.ele.fill("_ele","topS",1);
-		eval(require('Storage').read(o?'set_apps':'set_set')); 
+		eval(require('Storage').read(o?'set_apps':face.faceSave[0].substring(0,4)=="dash"?'set_dash':'set_set')); 
 		this.bar();
 		TC.on('tc5',UIc.xy);
 		//this.run=false;
@@ -16,31 +16,7 @@ face[0] = {
 	show : function(s){
 		if (!this.run) return;
 	},
-	bar : function(){
-		//UI.ele.fill("_ele","btmL",0);
-		if (this.page=="main") eval(require('Storage').read('set_set')); 
-		UI.ele.fill("_bar",1,0);
-		UI.ele.fill("_bar",3,0);
-		UIc.start(0,1);
-		//UI.btn.img("bar","_bar",1,UI.icon.torch,0,3,0);//btn2
-		UI.btn.img("bar","_bar",2,UI.icon.settings,0,14,this.page=="main"?4:0);//btn2
-		//UI.btn.img("bar","_bar",3,UI.icon.dash,0,14,this.page=="dash"?4:0);//btn2
-		//UI.btn.img("bar","_bar",3,UI.icon.alarm,0,3,0);//btn2
-		UIc.end();
-		UIc.bar._bar_1=()=>{
-			buzzer(buz.na);
-		};
-		UIc.bar._bar_2=()=>{
-			if (Boolean(require("Storage").read("set_"+face.faceSave[0].substring(0,4)))){
-			  buzzer(buz.ok);
-			  eval(require('Storage').read("set_"+face.faceSave[0].substring(0,4)));
-			}else buzzer(buz.na);
-		};
-		UIc.bar._bar_3=()=>{
-			buzzer(buz.ok);
-			face.go('alarm',0);
-		};
-	},
+
 	clear : function(o){
 		TC.removeAllListeners();
 		if (set.tor==1){
@@ -80,20 +56,12 @@ face[1] = {
 touchHandler[0]=function(){};
 TC.on('tc1',tcDn); 	
 TC.on('tc2',tcUp); 	
-tcL=(x,y)=>{
+tcNext=(x,y)=>{
 	buzzer(buz.ok);
-	/*if (UI.ntid&&face[0].bar) {
-		clearTimeout(UI.ntid);
-		UI.ntid=0;
-		face[0].bar();
-	}else */if (face[0].page=="set"){
-		eval(require('Storage').read('set_apps')); 
-	}else  { 
-		eval(require('Storage').read('set_set')); 
-	}
-	if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;if (face[0].bar) face[0].bar();}
-
 };	
-TC.on('tc3',tcL); 	
-TC.on('tc4',tcL); 	
+tcBack=(x,y)=>{
+	buzzer(buz.ok);
+};	
+TC.on('tc3',tcNext); 	
+TC.on('tc4',tcBack); 	
 

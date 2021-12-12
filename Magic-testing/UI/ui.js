@@ -56,7 +56,7 @@ UI={
 			w.gfx.setColor(0,0);
 			w.gfx.fillRect(p[0],p[1],p[2],p[3]);
 			w.gfx.setColor(0,bclr);
-			w.gfx.fillRect(p[0]+2,p[1]+3,p[2]-2,p[3]-3);
+			w.gfx.fillRect(p[0]+2,p[1]+2,p[2]-2,p[3]-2);
 	    }else {		
   			w.gfx.setColor(0,bclr);
 			w.gfx.fillRect(p[0],p[1],p[2],p[3]);
@@ -87,23 +87,30 @@ UI={
 	}, 
 	ntfy:function(rst,tmot,ignr,no,po,txt1,txt2,fclr,bclr,sel){
 		if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}
-		if (rst) UIc.xy.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.raw.main+'},0);'));
+		if (rst&&!sel) UIc.xy.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.raw.main+'},0);'));	
 		if (!ignr){
-			//UI.removeAllListeners("ntfy");
 			let p=(UI.pos[no][po]);
 			let x=p[2]-((p[2]-p[0])/2);
 			let y=p[3]-((p[3]-p[1])/2);
 			w.gfx.setColor(0,bclr);
 			w.gfx.fillRect(p[0],p[1],p[2],p[3]);
 			w.gfx.setColor(1,fclr);
-			//w.gfx.setFont("Vector",p[2]-p[0]this.size.);	
-			w.gfx.setFont("Vector",UI.pos[no][0]*( (80 < p[2]-p[0])?1:((p[2]-p[0])/80)));	
-			if (sel) {w.gfx.drawString("<",p[0]+5,y-((p[3]-p[1])/4)); w.gfx.drawString(">",p[2]+-5-w.gfx.stringWidth(">"),y-((p[3]-p[1])/4));}
-			w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-((p[3]-p[1])/4)); 
+			if (txt1) {//w.gfx.setFont("Vector",p[2]-p[0]this.size.);	
+				w.gfx.setFont("Vector",UI.pos[no][0]*( (80 < p[2]-p[0])?1:((p[2]-p[0])/80)));	
+				w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-((p[3]-p[1])/4)); 
+			}
 			w.gfx.setFont("Vector",UI.pos[no][0]*( (100 < p[2]-p[0])?1:((p[2]-p[0])/100)));	
-			w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height-10);
-			//w.gfx.flip(); //if (!set.def.bpp) w.gfx.flip();
-		} 
+			if (txt2) 	w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height-10);
+			if (sel) {
+				w.gfx.drawString("<",p[0]+7,y-((p[3]-p[1])/4));
+				w.gfx.drawString(">",p[2]+-5-w.gfx.stringWidth(">"),y-((p[3]-p[1])/4));
+				if (rst) {
+					w.gfx.flip();
+					UIc.raw.bar=`if (x<120&&${p[1]}<y&&y<${p[3]}) UIc.bar._sel_left(); else if (120<x&&${p[1]}<y&&y<${p[3]}) UIc.bar._sel_right();`;
+					UIc.xy.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.raw.main+UIc.raw.bar+'},0);'));	
+				}
+			}
+		}
 		UI.ntid=setTimeout(function(t){UI.ntid=0;/*UI.emit('ntfy',"ok");*/if (face[0].bar) face[0].bar(); },tmot?tmot*1000:1000);
 	}
   },
@@ -207,7 +214,7 @@ UI.icon={
 	txt:require("heatshrink").decompress(atob("mEwwJC/ABEH/4AC8EPAofwAosfAof4ApnAkfEgYFCkOEAocxxgFC+AsBh4FCAQIFC+P8n+PBYQFBCIYFECIwdEFIvx+OPCIfhw4LC/Pj4+fL5oFEQZaVFa/Y")),
 	power1:require("heatshrink").decompress(atob("lEqwIKHvwEMhl+mAEBn1+vgEBv9+/wEB/9+/8Agf+v1/wED/l+n/Ag/wv0P8ABBvwHBj/Av0DAgOAv0B/AEEn47C/gEDvk+AgYCBAIQEEI4IEBnwELMoRmDAgosBAAN8GwIABHYQECJQMAJ4YECh/AOoPwNAMANAMH/EAj/gQIKNB4EB//D/4bB/4ABTQX/TQUf/4aBEAP/EgKlCZQw=")),
 	power:require("heatshrink").decompress(atob("lkuwIKHgP4AocfwAKN+P4+AJCz+fBYMH/P5/wKB/4KBCAMfBQP/wED/0fw/8gF/4P4n/gg/wFYIbB/w2BBAXABQM/wP8BQMD/AIBAIWD/BMC/k/JgUP4fwBQd+BQUH8/gBQV+BSJwCBQQABBQw2BAAI2CAoRBBRgUfNYKbDMQIFBMQQEBMQMPEwV/AIQlBQYIQBSIIXBCAN/4EB//An4pBh//AAIdCAgISBCAP/HIQQCaoa5BAoU/IYQAEA=")),
-	dash:require("heatshrink").decompress(atob("lstwIspgf4AgUB//8AoU//4LCg////wAoN/h0f4AKB8Fwn4KBvkDwF8BQPAjkBCwN/BoIWBg4qBFwMAnvggEPvED44QBuPgjw6Ch8BB4IABnkPAYMeBINwEAPwg41BFYMAnE8BQP4gPhDYMfwEPh/wgf8g/4v+An/An/B/gKBgJxCn40Dgf+Qwc/OgRXDJYaRDNYI/BDYSWDCAKKBAAUcadMAA=="))
+	dash:require("heatshrink").decompress(atob("mEwwIjgn/8AgUB///wAFBg4FB8AFBh/BwfwCwUBwAYCv4FB/wFB/eAgPfEQPhAoOHwED4InBwfAgYsCgfAg4FCgPgg/AH4Xgh44CgHwh1gAgMMuEePId4jgWDnAFCEAIFDj8AAoUDJgM4ngQBLAM8n+Ag/wgP8AoXgAoIRCHoM8DoRJBFIYABAphNDgl4h1wAoMGuEPTAQ3BOIcDO4J9ERIcBR4S5BHoUAAoQPCAoI4DAqIAVA=="))
 };
 
 

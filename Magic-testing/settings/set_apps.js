@@ -2,7 +2,7 @@ face[0].page="app";
 
 UI.ele.ind("top",2,2);
 let img;
-UIc.start(1,0)
+UIc.start(1,0);
 if (require("Storage").read("calc",1)) {
 	img=E.toArrayBuffer(atob("MDCBAAAAAAAAAAAAAAAAAAAAAAAAAA//+B//8B///D//+B///n//+B///n//+B///n//+B///n//+B///n//+B///n//+BwADn//+BwADn//+BwADn//+B///n//+B///n//+B///n//+B///nAAOB///nAAOB///nAAOB///n//+A///H//+Af/8H//+AAAAH//+AAAAH//+Af/8HAAOA///HAAOB///nAAOB/j/n//+B/j/n//+B/j/n//+B/j/n//+B/j/n//+B/j/n//+BwADn//+BwADn//+BwADn//+B/j/n//+B/j/n//+B/j/n//+B/j/n//+B/j/n//+B///n//+B///D//+A//+B//8AAAAAAAAAAAAAAAAAAAAAAAAA=="));
 	UI.btn.img("main","_2x3",1,img,"Calc",15,1);
@@ -36,3 +36,27 @@ UIc.main._2x3_3=()=>{buzzer(buz.ok);face.go('tpmsFace',0);};
 UIc.main._2x3_4=()=>{buzzer(buz.ok);face.go('hello',0);};
 UIc.main._2x3_5=()=>{buzzer(buz.na);};
 UIc.main._2x3_6=()=>{buzzer(buz.na);};
+
+tcNext.replaceWith((x,y)=>{
+	buzzer(buz.na);
+});
+tcBack.replaceWith(new Function('buzzer(buz.ok);eval(require("Storage").read("set_set"));'));
+face[0].bar = function(){
+		//UI.ele.fill("_ele","btmL",0);
+		UIc.start(0,1);
+		UI.ele.fill("_bar",1,0);
+		UI.btn.img("bar","_bar",2,UI.icon.settings,0,14,0);
+		UI.btn.img("bar","_bar",3,UI.icon.dash,0,14,0);
+		UIc.end();
+		UIc.bar._bar_1=()=>{
+			buzzer(buz.na);
+		};
+		UIc.bar._bar_2=()=>{
+			  buzzer(buz.na);
+		};
+		UIc.bar._bar_3=()=>{
+			  buzzer(buz.ok);
+			  eval(require('Storage').read("set_dash"));
+		};
+};
+
