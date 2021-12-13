@@ -23,14 +23,14 @@ face[0] = {
 		//end bar
 	},
 	renew : function(){
-		UI.ele.fill("_ele","topS",4);
+		UI.ele.fill("_ele","topS",6);
+		UI.ele.title("btmS","GARAGE",15,6);
 		UI.ele.ind("top",2,2);
 		UIc.start(1,0);	
-		this.dash.slot1Mac?UI.btn.c2l("main","_2x2",1,this.dash.slot1Maker.toUpperCase(),this.dash.slot1Model.toUpperCase(),this.dash.slot==1?14:3,this.dash.slot==1?4:1):UI.btn.c2l("main","_2x2",1,"","",1,0);
-		this.dash.slot2Mac?UI.btn.c2l("main","_2x2",2,this.dash.slot2Maker.toUpperCase(),this.dash.slot2Model.toUpperCase(),this.dash.slot==2?14:3,this.dash.slot==2?4:1):UI.btn.c2l("main","_2x2",2,"","",1,0);
-		this.dash.slot3Mac?UI.btn.c2l("main","_2x2",3,this.dash.slot3Maker.toUpperCase(),this.dash.slot3Model.toUpperCase(),this.dash.slot==3?14:3,this.dash.slot=3?4:1):UI.btn.c2l("main","_2x2",3,"","",1,0); 
-		this.dash.slot4Mac?UI.btn.c2l("main","_2x2",4,this.dash.slot4Maker.toUpperCase(),this.dash.slot4Model.toUpperCase(),this.dash.slot==4?14:3,this.dash.slot==4?4:1):UI.btn.c2l("main","_2x2",4,"","",1,0);
-		UI.ele.title("btmS","GARAGE",15,0);
+		this.dash.slot1Mac?UI.btn.c2l("main","_2x2",1,this.dash.slot1Maker.toUpperCase(),this.dash.slot1Model.toUpperCase(),this.dash.slot==1?14:3,this.dash.slot==1?4:1):UI.btn.img("main","_2x2",1,_icon.scan,"",2,0);
+		this.dash.slot2Mac?UI.btn.c2l("main","_2x2",2,this.dash.slot2Maker.toUpperCase(),this.dash.slot2Model.toUpperCase(),this.dash.slot==2?14:3,this.dash.slot==2?4:1):UI.btn.img("main","_2x2",2,_icon.scan,"",2,0);
+		this.dash.slot3Mac?UI.btn.c2l("main","_2x2",3,this.dash.slot3Maker.toUpperCase(),this.dash.slot3Model.toUpperCase(),this.dash.slot==3?14:3,this.dash.slot=3?4:1): UI.btn.img("main","_2x2",3,_icon.scan,"",2,0);
+		this.dash.slot4Mac?UI.btn.c2l("main","_2x2",4,this.dash.slot4Maker.toUpperCase(),this.dash.slot4Model.toUpperCase(),this.dash.slot==4?14:3,this.dash.slot==4?4:1):UI.btn.img("main","_2x2",4,_icon.scan,"",2,0);
 		UIc.end();
 	},
 	tap:function(no){
@@ -39,11 +39,11 @@ face[0] = {
 			if (set.def.dash.slot==no) {
 				//UI.ele.fill("_ele","topS",12);
 				UI.ele.title("btmS","SLOT "+no,15,1);
-				UI.btn.ntfy(0,3,0,"_ele","topS","","",15,4);
+				UI.btn.ntfy(0,3,0,"_ele","topS","","",15,6);
 				UI.ele.ind("top",1,1);
 				UIc.start(1,0);	
-				if (set.def.info)UI.txt.block("_main",6,"Press & hold the side button to start or end the EUC connection.",20,15,0);
-				UI.btn.img("main","_bar",4,_icon.settings,"Setup",15,12);
+				if (set.def.info)UI.txt.block("_main",6,"Press & hold the side btn to start/end the connction.",15,15,0);
+				UI.btn.img("main","_bar",4,_icon.settings,"Setup",15,6);
 				UI.btn.img("main","_bar",5,_icon.trash,"Delete",15,7);
 				UIc.end();	
 				UIc.main._bar_4=function(){buzzer(buz.ok);face.go("dashAlerts",0);};
@@ -61,14 +61,16 @@ face[0] = {
 
 		} else{
 			//UI.ele.fill("_ele","topS",0);
-			UI.btn.ntfy(0,3,0,"_ele","topS","","",15,4);
+			UI.btn.ntfy(0,3,0,"_ele","topS","","",15,6);
 			UI.ele.ind("top",1,1);
 			//UI.ele.title("btmS","SLOT "+no,15,4);
 			//UI.btn.ntfy(0,3,0,"_2X3",1,"","",15,2);
-			if (set.def.info)UI.txt.block("_main",6,"Tap to scan for a wheel and save it to:",20,15,0);
+			
+			if (set.def.info)UI.txt.block("_main",6,"SLOT "+no+" is empty. Scan for a Wheel.",14,15,0);
+			
 			//UI.btn.img("main","_2x2",no,_icon.scan,"SLOT "+no,3,0);
 			UIc.start(1,0);	
-			UI.btn.img("main","_bar",6,_icon.scan,"SLOT "+no,15,4);
+			UI.btn.img("main","_bar",6,_icon.scan,"SCAN",15,6);
 			
 			//UI.ele.title("btmS","SLOT "+no,15,0);
 			UIc.end();
@@ -81,13 +83,12 @@ face[0] = {
 		}
 	},
 	del:function(no){
-		UI.ele.title("btmS","",15,7);
-		UI.btn.ntfy(0,4,0,"_barT",1,"","",15,7);
-		UI.btn.c2l("main","_main",6,"DELETE",`SLOT ${no} ?`,15,0,1);
+		UI.btn.ntfy(0,4,1);
+		UI.btn.c2l("main","_main",6,`SLOT ${no}`,"REALLY DELETE ?",15,0,1);
 		UIc.start(1,0);	
-		UI.btn.c2l("main","_bar",6,"TAP TO","CONFIRM",15,7,1);
+		UI.btn.img("main","_bar",6,_icon.trash,"CONFIRM",15,7);
 		UIc.end();
-		UIc.main._2x1_2=function(){
+		UIc.main._bar_6=function(){
 			buzzer(buz.ok);
 		    setter.write("dash",`slot${no}Mac`);
 			setter.write("dash",`slot${no}Model`);
@@ -97,8 +98,9 @@ face[0] = {
 			require("Storage").erase(`logYearlot${no}.json`);
 			set.def.dash.slot=0;
 			require("Storage").erase(`eucSlot${no}.json`);
-			dash.live=require("Storage").readJSON("eucSlot.json",1);				
-			UI.btn.ntfy(0,2,0,"_sel",4,"DELETED","SLOT "+no,15,2);
+			dash.live=require("Storage").readJSON("eucSlot.json",1);	
+			UI.btn.ntfy(1,2,1);
+			UI.btn.c2l("main","_main",6,`SLOT ${no}`,"DELETED",15,0);
 			w.gfx.flip();
 			face[0].dash=require("Storage").readJSON("dash.json",1);
 

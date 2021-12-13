@@ -8,8 +8,8 @@ face[0] = {
 	init: function(o){ 
 		if (face.faceSave==-1) face.faceSave=[face.appPrev,face.pagePrev,face.pageArg];
 		UI.ele.fill("_ele","topS",1);
-		eval(require('Storage').read(o?'set_apps':'set_set')); 
-		//eval(require('Storage').read(o?'set_apps':face.faceSave[0].substring(0,4)=="dash"?'set_dash':'set_set')); 
+		//eval(require('Storage').read(o?'set_apps':'set_set')); 
+		eval(require('Storage').read(o?'set_apps':face.faceSave[0].substring(0,4)=="dash"?'set_dash':'set_set')); 
 		this.bar();
 		TC.on('tc5',UIc.xy);
 		//this.run=false;
