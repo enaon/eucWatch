@@ -68,7 +68,7 @@ face[0] = {
     if (!this.run) return;
     if (!this.start){ 
 		//UI.ele.title("top","SCANNING",15,4);
-		UI.btn.img("main","_sel",4,UI.icon.scan,"SCANNING",14,1);
+		UI.btn.img("main","_sel",4,_icon.scan,"SCANNING",14,1);
 		w.gfx.flip();
     }else if (scan.mac!=""&&this.start==1){
       this.start=2;
