@@ -10,7 +10,7 @@ face[0] = {
 		this.bar();
 		this.run=false;	
 		TC.on('tc5',UIc.xy);
-		UIc.clear();
+		//UIc.clear();
 	},
 	show : function(o){return;},
 	bar : function(){
@@ -24,7 +24,7 @@ face[0] = {
 	},
 	renew : function(){
 		UI.ele.fill("_ele","topS",6);
-		UI.ele.title("btmS","GARAGE",15,6);
+		UI.ele.title("btmS","GARAGE",15,0);
 		UI.ele.ind("top",2,2);
 		UIc.start(1,0);	
 		this.dash.slot1Mac?UI.btn.c2l("main","_2x2",1,this.dash.slot1Maker.toUpperCase(),this.dash.slot1Model.toUpperCase(),this.dash.slot==1?14:3,this.dash.slot==1?4:1):UI.btn.img("main","_2x2",1,_icon.scan,"",2,0);
@@ -54,25 +54,18 @@ face[0] = {
 				this.dash=require("Storage").readJSON("dash.json",1);
 				this.renew();
 			}	
+			
 			if (Boolean(require("Storage").read('eucSlot'+no+'.json')))
 				dash.live=require("Storage").readJSON('eucSlot'+no+'.json',1);
 			else 
 				dash.live=require("Storage").readJSON("eucSlot.json",1);
 
 		} else{
-			//UI.ele.fill("_ele","topS",0);
 			UI.btn.ntfy(0,3,0,"_ele","topS","","",15,6);
 			UI.ele.ind("top",1,1);
-			//UI.ele.title("btmS","SLOT "+no,15,4);
-			//UI.btn.ntfy(0,3,0,"_2X3",1,"","",15,2);
-			
 			if (set.def.info)UI.txt.block("_main",6,"SLOT "+no+" is empty. Scan for a Wheel.",14,15,0);
-			
-			//UI.btn.img("main","_2x2",no,_icon.scan,"SLOT "+no,3,0);
 			UIc.start(1,0);	
 			UI.btn.img("main","_bar",6,_icon.scan,"SCAN",15,6);
-			
-			//UI.ele.title("btmS","SLOT "+no,15,0);
 			UIc.end();
 			UIc.main._bar_6=function(){
 				buzzer(buz.ok);

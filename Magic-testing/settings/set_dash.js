@@ -25,8 +25,8 @@ face[0].d1=function(){
 	face[0].page="dash1";
 	UI.ele.ind("top",1,2);
 	UIc.start(1,0);
-	UI.btn.c2l("main","_2x3",1,(set.def.dash.mph)?"MPH":"KPH",0,15,set.def.dash.mph?0:4);
-	UI.btn.c2l("main","_2x3",2,(set.def.dash.farn)?"°F":"°C",0,15,set.def.dash.farn?0:4);
+	UI.btn.c2l("main","_2x3",1,(set.def.dash.mph)?"MPH":"KPH",0,15,0);
+	UI.btn.c2l("main","_2x3",2,(set.def.dash.farn)?"°F":"°C",0,15,0);
 	UI.ele.fill("_2x3",3,0);
 	UI.btn.c2l("main","_2x3",4,"SPEED X",dash.live.spdF,15,6); //4
 	UI.btn.c2l("main","_2x3",5,"DIST X",dash.live.trpF,15,6); //5
@@ -36,14 +36,14 @@ face[0].d1=function(){
 	UIc.main._2x3_1=()=>{
 		buzzer(buz.ok);
 		set.def.dash.mph=1-set.def.dash.mph;
-		if (set.def.info) UI.btn.ntfy(1,1.5,0,"_bar",6,"SPEED & DISTANCE",(set.def.dash.mph)?"MILES":"KILOMETERS",15,set.def.dash.mph?0:4);
-		UI.btn.c2l("main","_2x3",1,(set.def.dash.mph)?"MPH":"KPH",0,15,set.def.dash.mph?0:4);
+		if (set.def.info) UI.btn.ntfy(1,1.5,0,"_bar",6,"SPEED & DISTANCE",(set.def.dash.mph)?"MILES":"KILOMETERS",15,0);
+		UI.btn.c2l("main","_2x3",1,(set.def.dash.mph)?"MPH":"KPH",0,15,0);
 	};
 	UIc.main._2x3_2=()=>{
 		buzzer(buz.ok);
 		set.def.dash.farn=1-set.def.dash.farn;
-		if (set.def.info)  UI.btn.ntfy(1,1.5,0,"_bar",6,"TEMPERATURE",(set.def.dash.farn)?"FAHRENHEIT":"CELSIUS",15,set.def.dash.farn?0:4);
-		UI.btn.c2l("main","_2x3",2,(set.def.dash.farn)?"°F":"°C",0,15,set.def.dash.farn?0:4);
+		if (set.def.info)  UI.btn.ntfy(1,1.5,0,"_bar",6,"TEMPERATURE",(set.def.dash.farn)?"FAHRENHEIT":"CELSIUS",15,0);
+		UI.btn.c2l("main","_2x3",2,(set.def.dash.farn)?"°F":"°C",0,15,0);
 	};
 	UIc.main._2x3_3=()=>{
 		buzzer(buz.na);
@@ -51,7 +51,7 @@ face[0].d1=function(){
 	};
 	UIc.main._2x3_4=()=>{
 		buzzer(buz.ok);
-		UI.btn.ntfy(1,3,0,"_bar",6,"SPEED","FACTOR",15,6,1);
+		UI.btn.ntfy(1,3,0,"_bar",6,"SPEED","FACTOR",15,1,1);
 		//UI.btn.c2l("main","_2x3",4,"SPEED X",dash.live.spdF,15,6); //4
 		UIc.bar._sel_left=()=>{
 			buzzer(buz.ok);
@@ -70,7 +70,7 @@ face[0].d1=function(){
 	};
 	UIc.main._2x3_5=()=>{
 		buzzer(buz.ok);
-		UI.btn.ntfy(1,3,0,"_bar",6,"DISTANCE","FACTOR",15,6,1);
+		UI.btn.ntfy(1,3,0,"_bar",6,"DISTANCE","FACTOR",15,1,1);
 		//UI.btn.c2l("main","_2x3",5,"DIST X",dash.live.trpF,15,6); //5
 		UIc.bar._sel_left=()=>{
 			buzzer(buz.ok);
@@ -89,7 +89,7 @@ face[0].d1=function(){
 	};
 	UIc.main._2x3_6=()=>{
 		buzzer(buz.ok); 
-		UI.btn.ntfy(1,3,0,"_bar",6,"NO OF RETRIES","ON 'LOST'",15,6,1);
+		UI.btn.ntfy(1,3,0,"_bar",6,"NO OF RETRIES","ON 'LOST'",15,1,1);
 		//UI.btn.c2l("main","_2x3",6,"RETRY",set.def.dash.rtr,15,6); //6
 		UIc.bar._sel_left=()=>{
 			buzzer(buz.ok);
@@ -114,7 +114,7 @@ face[0].d2=function(){
 	UI.ele.ind("top",2,2);
 	UI.btn.c2l("main","_2x3",1,"FULL",dash.live.batF/100,15,0); //1
 	UI.ele.fill("_2x3",2,0);
-	UI.btn.c2l("main","_2x3",3,"AMP",dash.live.ampR?"R":"N",15,dash.live.ampR?0:4); //3
+	UI.btn.c2l("main","_2x3",3,"AMP",dash.live.ampR?"R":"N",15,0); //3
 	UI.btn.c2l("main","_2x3",4,"EMPTY",dash.live.batE/100,15,6); //4
 	UI.ele.fill("_2x3",5,6);
 	UI.btn.c2l("main","_2x3",6,"PACK",dash.live.bms*67.2|0,15,6); //6
@@ -122,7 +122,7 @@ face[0].d2=function(){
 //
 	UIc.main._2x3_1=()=>{
 		buzzer(buz.ok);
-		UI.btn.ntfy(1,3,0,"_bar",6,"100% CELL","VOLT",15,6,1);
+		UI.btn.ntfy(1,3,0,"_bar",6,"100% CELL","VOLT",15,1,1);
 		//UI.btn.c2l("main","_2x3",1,"FULL",dash.live.batF/100,15,0); //1
 		UIc.bar._sel_left=()=>{
 			buzzer(buz.ok);
@@ -142,14 +142,14 @@ face[0].d2=function(){
 			buzzer(buz.ok); 
 	};
 	UIc.main._2x3_3=()=>{
-			dash.live.ampR=1-dash.live.ampR;
-			if (set.def.info) UI.btn.ntfy(1,0,0,"_bar",6,"AMPERAGE REPORT",dash.live.ampR?"REVERSED":"NORMAL",15,dash.live.ampR?0:4);
-			UI.btn.c2l("main","_2x3",3,"AMP",dash.live.ampR?"R":"N",15,dash.live.ampR?0:4); //3
 			buzzer(buz.ok);
+			dash.live.ampR=1-dash.live.ampR;
+			if (set.def.info) UI.btn.ntfy(1,0,0,"_bar",6,"AMPERAGE REPORT",dash.live.ampR?"REVERSED":"NORMAL",15,0);
+			UI.btn.c2l("main","_2x3",3,"AMP",dash.live.ampR?"R":"N",15,0); //3
 	};
 	UIc.main._2x3_4=()=>{
 		buzzer(buz.ok);
-		UI.btn.ntfy(1,3,0,"_bar",6,"0% CELL","VOLT",15,6,1);
+		UI.btn.ntfy(1,3,0,"_bar",6,"0% CELL","VOLT",15,1,1);
 		//UI.btn.c2l("main","_2x3",4,"EMPTY",dash.live.batE/100,15,6); //4
 		UIc.bar._sel_left=()=>{
 			buzzer(buz.ok);
@@ -173,7 +173,7 @@ face[0].d2=function(){
 			buzzer(buz.ok); 
 			if (1.5<=dash.live.bms) dash.live.bms=1;
 			else dash.live.bms=dash.live.bms+0.25;
-			if (set.def.info) UI.btn.ntfy(1,1.5,0,"_bar",6,"WHEEL","VOLTAGE",15,6);
+			if (set.def.info) UI.btn.ntfy(1,1.5,0,"_bar",6,"WHEEL","VOLTAGE",15,0);
 			UI.btn.c2l("main","_2x3",6,"PACK",dash.live.bms*67.2|0,15,6); //6
 	};
 };

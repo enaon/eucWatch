@@ -5,10 +5,10 @@ UI.ele.ind("top",1,1);
 UIc.start(1,0);
 UI.ele.fill("_2x3",1,0);
 UI.ele.fill("_2x3",2,0);
-UI.btn.c2l("main","_2x3",3,set.def.hr24?"24 H":"12 H","",15,set.def.hr24?4:0);
+UI.btn.c2l("main","_2x3",3,set.def.hr24?"24 H":"12 H","",15,0);
 UI.ele.fill("_2x3",4,6);
-UI.btn.img("main","_2x3",5,_icon.power,"POWER",14,6);
-UI.btn.img("main","_2x3",6,_icon.info,"ABOUT",14,6);
+UI.btn.img("main","_2x3",5,_icon.power,"POWER",15,6);
+UI.btn.img("main","_2x3",6,_icon.info,"ABOUT",15,6);
 UIc.end();
 
 //
@@ -17,8 +17,8 @@ UIc.main._2x3_2=()=>{buzzer(buz.ok);};
 UIc.main._2x3_3=()=>{
 	buzzer(buz.ok);
 	set.def.hr24=1-set.def.hr24;
-	if (set.def.info) UI.btn.ntfy(1,1.5,0,"_bar",6,"CLOCK MODE",set.def.hr24?"24 HOURS":"A.M. / P.M.",15,set.def.hr24?4:0);
-	UI.btn.c2l("main","_2x3",3,set.def.hr24?"24 H":"12 H","",15,set.def.hr24?4:0);
+	if (set.def.info) UI.btn.ntfy(1,1.5,0,"_bar",6,"CLOCK MODE",set.def.hr24?"24 HOURS":"A.M. / P.M.",15,0);
+	UI.btn.c2l("main","_2x3",3,set.def.hr24?"24 H":"12 H","",15,0);
 };
 UIc.main._2x3_4=()=>{
 	buzzer(buz.na);
@@ -27,8 +27,8 @@ UIc.main._2x3_5=()=>{
 	buzzer(buz.ok);
 	UI.btn.ntfy(0,3,1,"_bar",6,"","",15,0);
 	UIc.start(0,1);
-	UI.btn.c2l("bar","_bar",4,"RESTART","",15,4);
-	UI.btn.c2l("bar","_bar",5,"DEVMODE","",15,7);
+	UI.btn.img("bar","_bar",4,_icon.restart,"Restart",15,1);
+	UI.btn.img("bar","_bar",5,_icon.cli,"Devmode",15,7);
 	UIc.end();
 	UIc.bar._bar_4=()=>{
 		setter.updateSettings();
