@@ -32,7 +32,7 @@ UI={
       if (txt2&&txt2!=""){
         w.gfx.setFont("Vector",(p[3]-p[1])/5);
         w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-((p[3]-p[1])/3.5)); 
-        w.gfx.setFont("Vector",UI.pos[no][0]*(100<p[2]-p[0]?1:1.3));	
+        w.gfx.setFont("Vector",UI.pos[no][0]*(100<p[2]-p[0]?0.8:1.3));	
         w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height-10);
       }else{  
         w.gfx.setFont("Vector",loc=="bar"&&po==2?40:UI.pos[no][0]*(100<p[2]-p[0]?1:1.3) );	

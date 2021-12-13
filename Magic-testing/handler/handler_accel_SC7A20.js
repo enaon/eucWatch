@@ -7,6 +7,7 @@ set.def.acctype="SC7A20";
 		ori:[65,66],
 		loop:0,
 		tid:0,
+		tmr:100,
 		on:function(v){
 			i2c.writeTo(0x18,0x20,0x4f); //CTRL_REG1 20h ODR3 ODR2 ODR1 ODR0 LPen Zen Yen Xen , 50hz, lpen1. zyx
 			i2c.writeTo(0x18,0x21,0x00); //highpass filter disabled
@@ -47,12 +48,14 @@ set.def.acctype="SC7A20";
 								face.go(set.dash[set.def.dash.face],0);
 						}else {
 							let tout=set.def.off[face.appCurr];
-							if ( !tout || ( tout &&  tout <= 60000)) 
-								if (face[0].clear) face.go(face.appCurr,-1); else face.off(1500);
+							this.tmr=1500;
+							if ( !tout || ( tout &&  tout <= 60000)) {
+								face.off(1000);
+							}
 						}
 						this.up=0;
-					} else this.up=1;
-				},100);
+					} else {this.up=1;this.tmr=50;}
+				},this.tmr);
 				return true;
 			}else if (!this.tid) {
 				i2c.writeTo(0x18,0x32,20); //int1_ths-threshold = 250 milli g's
@@ -67,8 +70,10 @@ set.def.acctype="SC7A20";
 						else face.off(); 
 					} else {
 						let tout=set.def.off[face.appCurr];
-						if ( !tout || ( tout &&  tout <= 60000)) 
+						if ( !tout || ( tout &&  tout <= 60000)) {
+							//face.off(500);
 							if (face[0].clear) face.go(face.appCurr,-1); else face.off(500);
+						}
 					}
 				},ew.pin.acc.INT,{repeat:true,edge:"rising",debounce:50});
 				return true;

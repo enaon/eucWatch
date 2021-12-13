@@ -6,11 +6,11 @@ face[0] = {
 	slot:0,
 	init: function(o){ 
 		this.sv=[-1,-1,-1,-1,-1];
-		this.dash=require("Storage").readJSON("dash.json",1);
+		this.slot=require("Storage").readJSON("dash.json",1);
 		this.bar();
 		this.run=false;	
 		TC.on('tc5',UIc.xy);
-		//UIc.clear();
+		UIc.clear();
 	},
 	show : function(o){return;},
 	bar : function(){
@@ -26,7 +26,7 @@ face[0] = {
 		UI.ele.fill("_ele","topS",6);
 		UI.ele.title("btmS","GARAGE",15,0);
 		UI.ele.ind("top",2,2);
-		UIc.start(1,0);	
+		UIc.start(1,1);	
 		this.slot.slot1Mac?UI.btn.c2l("main","_2x2",1,this.slot.slot1Maker.toUpperCase(),this.slot.slot1Model.toUpperCase(),this.slot.slot==1?14:3,this.slot.slot==1?4:1):UI.btn.img("main","_2x2",1,_icon.scan,"",2,0);
 		this.slot.slot2Mac?UI.btn.c2l("main","_2x2",2,this.slot.slot2Maker.toUpperCase(),this.slot.slot2Model.toUpperCase(),this.slot.slot==2?14:3,this.slot.slot==2?4:1):UI.btn.img("main","_2x2",2,_icon.scan,"",2,0);
 		this.slot.slot3Mac?UI.btn.c2l("main","_2x2",3,this.slot.slot3Maker.toUpperCase(),this.slot.slot3Model.toUpperCase(),this.slot.slot==3?14:3,this.slot.slot=3?4:1): UI.btn.img("main","_2x2",3,_icon.scan,"",2,0);
@@ -35,7 +35,7 @@ face[0] = {
 	},
 	tap:function(no){
 		buzzer(buz.ok);
-		if (face[0].dash["slot"+no+"Mac"]){
+		if (face[0].slot["slot"+no+"Mac"]){
 			if (set.def.dash.slot==no) {
 				//UI.ele.fill("_ele","topS",12);
 				UI.ele.title("btmS","SLOT "+no,15,1);
@@ -49,6 +49,7 @@ face[0] = {
 				UIc.main._bar_4=function(){buzzer(buz.ok);face.go("dashAlerts",0);};
 				UIc.main._bar_5=function(){buzzer(buz.ok);face[0].del(no);};
 			}else{
+				//require("Storage").writeJSON('eucSlot'+no+'.json',dash.live);
 				setter.write("dash","slot",no);
 				set.def.dash.slot=no;	
 				this.slot=require("Storage").readJSON("dash.json",1);
@@ -95,7 +96,7 @@ face[0] = {
 			UI.btn.ntfy(1,2,1);
 			UI.btn.c2l("main","_main",6,`SLOT ${no}`,"DELETED",15,0);
 			w.gfx.flip();
-			face[0].dash=require("Storage").readJSON("dash.json",1);
+			face[0].slot=require("Storage").readJSON("dash.json",1);
 
 		};
 	},
