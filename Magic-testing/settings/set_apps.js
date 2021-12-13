@@ -45,18 +45,20 @@ face[0].bar = function(){
 		//UI.ele.fill("_ele","btmL",0);
 		UIc.start(0,1);
 		UI.ele.fill("_bar",1,0);
-		UI.btn.img("bar","_bar",2,_icon.settings,0,14,0);
-		UI.btn.img("bar","_bar",3,_icon.dash,0,14,0);
+		UI.btn.img("bar","_bar",1,_icon.settings,0,3,0);
+		UI.btn.img("bar","_bar",2,_icon.watch,0,14,1);
+		UI.btn.img("bar","_bar",3,_icon.dash,0,3,0);
 		UIc.end();
 		UIc.bar._bar_1=()=>{
-			buzzer(buz.na);
+			buzzer(buz.ok);
+			eval(require('Storage').read("set_main"));
 		};
 		UIc.bar._bar_2=()=>{
-			  buzzer(buz.na);
+			buzzer(buz.na);
 		};
 		UIc.bar._bar_3=()=>{
-			  buzzer(buz.ok);
-			  eval(require('Storage').read("set_dash"));
+			buzzer(buz.ok);
+			eval(require('Storage').read("set_dash"));
 		};
 };
 

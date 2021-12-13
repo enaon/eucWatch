@@ -48,7 +48,7 @@ set.def.acctype="SC7A20";
 						}else {
 							let tout=set.def.off[face.appCurr];
 							if ( !tout || ( tout &&  tout <= 60000)) 
-								face.off(1500);
+								if (face[0].clear) face.go(face.appCurr,-1); else face.off(1500);
 						}
 						this.up=0;
 					} else this.up=1;
@@ -68,7 +68,7 @@ set.def.acctype="SC7A20";
 					} else {
 						let tout=set.def.off[face.appCurr];
 						if ( !tout || ( tout &&  tout <= 60000)) 
-							face.off(500);
+							if (face[0].clear) face.go(face.appCurr,-1); else face.off(500);
 					}
 				},ew.pin.acc.INT,{repeat:true,edge:"rising",debounce:50});
 				return true;
