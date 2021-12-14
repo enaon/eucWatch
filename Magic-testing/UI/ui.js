@@ -3,9 +3,6 @@ UI={
   pos:{
 	_fold:[12,[0,20,160,105],[80,20,240,105],[0,106,120,220],[120,106,240,220]], 
 	_barT:[30,[0,20,120,80],[121,20,240,80],[0,20,240,80],[0,81,240,235]],
-	//_barT:[30,[0,180,120,238],[121,180,240,238],[0,180,240,238],[0,0,240,179]],
-	
-	//_1x2B:[30,[0,160,120,235],[121,160,240,235],[0,30,240,159]],
   	_2x2:[35,[0,20,120,127],[121,20,240,127],[0,128,120,235],[121,128,240,235]],
 	_2x3:[22,[0,20,80,100],[81,20,160,100],[161,20,239,100],[0,101,80,180],[81,101,160,180],[161,101,239,180]],
 	_2x1:[25,[0,20,239,130],[0,131,239,235]],
@@ -30,9 +27,9 @@ UI={
       w.gfx.fillRect(p[0],p[1],p[2],p[3]);
       w.gfx.setColor(1,fclr);
       if (txt2&&txt2!=""){
-        w.gfx.setFont("Vector",(p[3]-p[1])/5);
+        w.gfx.setFont("Vector", (p[3]-p[1])/(100<p[2]-p[0]?6.5:5.3));
         w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-((p[3]-p[1])/3.5)); 
-        w.gfx.setFont("Vector",UI.pos[no][0]*(100<p[2]-p[0]?0.8:1.3));	
+        w.gfx.setFont("Vector",UI.pos[no][0]*(100<p[2]-p[0]?1:1.3));	
         w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height-10);
       }else{  
         w.gfx.setFont("Vector",loc=="bar"&&po==2?40:UI.pos[no][0]*(100<p[2]-p[0]?1:1.3) );	
@@ -74,8 +71,8 @@ UI={
 		  w.gfx.drawImage(img,x-24*0.75,p[1]+7,{scale:0.75});
 		  //w.gfx.setColor(1,bclr==3?0:14);
 		  w.gfx.setColor(1,fclr);
-		  let size=(p[3]-p[1])/4.8;
-		  if (26<size) size=26;
+		  let size=(p[3]-p[1])/4.9;
+		  if (24<size) size=24;
 		  w.gfx.setFont("Vector",size);	
 		  w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y+19); 
 	  }else w.gfx.drawImage(img,x-(w.gfx.imageMetrics(img).width/2),y-(w.gfx.imageMetrics(img).width/2));
@@ -224,7 +221,7 @@ _icon={
 var UIc={
 	get:{bar:0,main:0},
 	raw:{main:" ",bar:" ",up:" ",down:" ",back:" ",next:" "},
-	xy:()=>{},
+	xy:function(){"ram";},
 	main:{},
 	bar:{},
 	start:function(m,b){
