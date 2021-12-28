@@ -3,12 +3,12 @@ if (global.euc&&!euc.proxy){
 euc.proxy={
 	f:0,
 	r:(o)=>{
-    "ram";
+    //"ram";
 		if (1<set.dbg)print("relay-in:",o.data);
 		if (euc.state=="READY") euc.wri(o.data);
 	},
 	w:(o)=>{
-    "ram";
+    //"ram";
 		if (set.bt!=4) {if (1<set.dbg) print("relay-out:",o);return;}
 		NRF.updateServices({0xffe0:{0xffe1:{value:o,notify:true}},});
 	},

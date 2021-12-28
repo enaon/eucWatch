@@ -4,7 +4,7 @@ face[0] = {
 	old:set.def.bpp?0:1,
 	g:w.gfx,
 	init: function(){
-		this.g.clear();
+		this.g.clear(1);
 		this.startTime=getTime();
 		this.v=w.batt(1);
 		//top

@@ -12,27 +12,60 @@ face[0].d1=function(){
 	UI.btn.c2l("main","_2x3",5,"DIST X",dash.live.trpF,15,6); //5
 	UI.btn.c2l("main","_2x3",6,"PACK",dash.live.bms*67.2|0,15,6); //6
 	UIc.end();
+	//
+	
+	/*
 	UIc.main._2x3_1=()=>{
 		buzzer(buz.ok);
-		UI.btn.ntfy(1,3,0,"_bar",6,"100% CELL","| |    VOLT    | |",15,1,1);
+		UI.btn.ntfy(1,3,0,"_bar",6,"100% CELL","VOLT",15,1,1);
+		//UI.btn.c2l("main","_2x3",1,"FULL",dash.live.batF/100,15,0); //1
+		UIc.bar._sel_left=()=>{
+			buzzer(buz.ok);
+			dash.live.batF--; if ( dash.live.batF <= 400 ) dash.live.batF = 400;
+			UI.btn.ntfy(0,3,1);
+			UI.btn.c2l("main","_2x3",1,"FULL",dash.live.batF/100,15,0); //1
+
+		};
+		UIc.bar._sel_right=()=>{
+			buzzer(buz.ok);
+			dash.live.batF++; if (425 <= dash.live.batF) dash.live.batF = 425;
+			UI.btn.ntfy(0,3,1);
+			UI.btn.c2l("main","_2x3",1,"FULL",dash.live.batF/100,15,0); //1
+		};
+	};
+	*/
+	UIc.main._2x3_1=()=>{
+		buzzer(buz.ok);
+		//UI.btn.ntfy(1,3,0,"_bar",6,"100% CELL","VOLT",15,1,1);
+		UI.btn.ntfy(1,3,0,"_bar",6,"100% CELL","| | | -VOLT- | | |",15,1,1);
 		set.bar=1;
 		TC.val={cur:dash.live.batF,dn:400,up:425,tmp:0};
 		UIc.tcBar=(a,b)=>{ 
+			buzzer(buz.na);
 			UI.btn.ntfy(0,2,1);
 			UI.btn.c2l("main","_2x3",1,"FULL",b/100,15,0); //1
 			dash.live.batF=b;
+			face.off();
 		};
 	};
 	UIc.main._2x3_2=()=>{
 		buzzer(buz.ok);
 		UI.btn.ntfy(1,3,0,"_bar",6,"SPEED","FACTOR",15,1,1);
-		set.bar=1;
-		TC.val={cur:dash.live.spdF*100,dn:50,up:150,tmp:0};
-		UIc.tcBar=(a,b)=>{ 
-			UI.btn.ntfy(0,2,1);
-			UI.btn.c2l("main","_2x3",2,"SPEED X",b/100,15,0); //4
-			dash.live.spdF=b/100;
-		};		
+		//UI.btn.c2l("main","_2x3",4,"SPEED X",dash.live.spdF,15,6); //4
+		UIc.bar._sel_left=()=>{
+			buzzer(buz.ok);
+			dash.live.spdF=(dash.live.spdF - 0.01);	if (dash.live.spdF <0.5)  dash.live.spdF=0.5;
+			UI.btn.ntfy(0,3,1);
+			UI.btn.c2l("main","_2x3",2,"SPEED X",dash.live.spdF,15,0); //4
+
+		};
+		UIc.bar._sel_right=()=>{
+			buzzer(buz.ok);
+			dash.live.spdF=(dash.live.spdF + 0.01);if (1.5 <dash.live.spdF)  dash.live.spdF=1.5;
+			UI.btn.ntfy(0,3,1);
+			UI.btn.c2l("main","_2x3",2,"SPEED X",dash.live.spdF,15,0); //4
+		};
+		
 	};	
 	UIc.main._2x3_3=()=>{
 			buzzer(buz.ok);

@@ -1,8 +1,6 @@
 //handler - enaon 2021
 //UI
 eval(require('Storage').read('UI'));
-//icon
-eval(require('Storage').read('icon'));
 //notify
 eval(require('Storage').read('handler_notify'));
 //set

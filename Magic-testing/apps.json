@@ -20,7 +20,9 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"C:.bootrst","url":"init.js"}
+			{"name":".bootrst","url":"init.js"},
+			{"name":".lcd_p8","url":"lcd_p8.js"},
+			{"name":".lcd_magic","url":"lcd_magic.js"}
 		]
 	},
 	{ "id": "UI",
@@ -32,7 +34,9 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"C:UI","url":"ui.js"}
+			{"name":"C:UI","url":"ui.js"},
+			{"name":"C:icons","url":"icons.js"}
+
 		]
 	},	
 	{ "id": "handler",
@@ -93,13 +97,13 @@
 		"type":"main",
 		"readme": "README.md",
 		"storage": [
-			{"name":"C:settings","url":"settings.js"},
-			{"name":"C:set_set","url":"set_set.js"},
-			{"name":"C:set_apps","url":"set_apps.js"},
-			{"name":"C:set_bt","url":"set_bt.js"},
-			{"name":"C:set_theme","url":"set_theme.js"},
-			{"name":"C:set_main","url":"set_main.js"},
-			{"name":"C:set_dash","url":"set_dash.js"}
+			{"name":"settings","url":"settings.js"},
+			{"name":"set_set","url":"set_set.js"},
+			{"name":"set_apps","url":"set_apps.js"},
+			{"name":"set_bt","url":"set_bt.js"},
+			{"name":"set_theme","url":"set_theme.js"},
+			{"name":"set_main","url":"set_main.js"},
+			{"name":"set_dash","url":"set_dash.js"}
 		]
 	},
 	{ "id": "alarm",

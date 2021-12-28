@@ -15,10 +15,9 @@ face[0] = {
 		this.disp=0;
 		UIc.start(1,0);	
 		//UI.txt.block("_1x2T",3,"Press & hold the side button to start or end the EUC connection.",15,1);
-		UI.ele.fill("_ele","topS",4);
-		UI.ele.ind("top",1,2);
-		UI.btn.c2l("main","_barT",1,"24HRS","",15,4);
-		UI.btn.c2l("main","_barT",2,"INFO","",15,0);
+		UI.ele.ind(1,2,6);
+		UI.btn.c2l("main","_main",1,"","24HRS",15,4);
+		UI.btn.c2l("main","_main",2,"","INFO",15,0);
 		UIc.end();	
 		//this.btn(1,"24HRS",30,65,13,4,4,0,0,119,50);
 		//this.btn(1,"INFO",30,185,10,0,4,120,0,239,50);
@@ -63,16 +62,6 @@ face[0] = {
 		}
 		if (this.old)this.g.flip(); 
     },
-    btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
-		this.g.setColor(0,(bt)?clr1:clr0);
-		this.g.fillRect(rx1,ry1,rx2,ry2);
-		this.g.setColor(1,15);
-		this.g.setFont("Vector",size1);	
-		this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1); 
-		if (txt2){this.g.setFont("Vector",size2);	
-		this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);}
-				if (this.old)this.g.flip(); 
-    },
 	sel: function(txt1,txt2){
 		this.g.setColor(0,1);
 		this.g.fillRect(0,81,239,195);
@@ -106,24 +95,6 @@ face[0] = {
 		this.g.fillRect(pos,196,pos+(240/this.len),198);
 				if (this.old)this.g.flip(); 
     },
-	ntfy: function(txt1,txt0,size,clr,bt){
-		this.g.setColor(0,clr);
-		this.g.fillRect(0,180,239,235);
-		this.g.setColor(1,15);
-		this.g.setFont("Vector",size);
-		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
-				if (this.old)this.g.flip(); 
-		if (this.ntid) clearTimeout(this.ntid);
-		this.ntid=setTimeout(function(t){
-			t.ntid=0;
-			t.g.setColor(0,0);
-			t.g.fillRect(0,196,239,235);
-			t.g.setColor(1,15);
-			t.g.setFont("Vector",20);
-			t.g.drawString(dash.live.maker,120-(t.g.stringWidth(dash.live.maker)/2),217); 
-				if (this.old)this.g.flip(); 
-		},1000,this);
-    },
 	comf: function(num){
       var parts = (''+(num<0?-num:num)).split("."), s=parts[0], L, i=L= s.length, o='';
       while(i--){ o = (i===0?'':((L-i)%3?'':',')) 
@@ -143,23 +114,7 @@ face[0] = {
 		this.clear();
 	} 
 };
-//loop face
-face[1] = {
-	offms:1000,
-	init: function(){
-	return;
-	},
-	show : function(){
-		face.go("main",0);
-		return;
-	},
-	clear: function(){
-		return;
-	},
-	off: function(){
-		return;
-	},
-};	
+
 //touch-main
 touchHandler[0]=function(e,x,y){
 	switch (e) {
@@ -196,8 +151,10 @@ touchHandler[0]=function(e,x,y){
 				buzzer(buz.ok);
 				face[0].info=1;
 				let btC=[4,1,7,7];
-				face[0].btn(1,dash.live.bat,50,180,3,btC[dash.live.batC],0,120,0,239,50,"%",20,235,35);
-				face[0].btn(1,"24HRS",30,65,13,0,0,0,0,119,50);
+				UI.btn.c2l("main","_main",1,"","24HRS",15,0);
+				UI.btn.c2l("main","_main",2,"",dash.live.bat,15,btC[dash.live.batC]);
+				//face[0].btn(1,dash.live.bat,50,180,3,btC[dash.live.batC],0,120,0,239,50,"%",20,235,35);
+				//face[0].btn(1,"24HRS",30,65,13,0,0,0,0,119,50);
 				face[0].page=2;	
 				w.gfx.setColor(0,0);
 				w.gfx.fillRect(0,51,239,235); 
@@ -226,7 +183,8 @@ touchHandler[0]=function(e,x,y){
 			}else{ //24HRS/7DAYS/month/year
 				buzzer(buz.ok);
 				face[0].info=0;
-				face[0].btn(1,"INFO",30,185,10,0,0,120,0,239,50);
+				UI.btn.c2l("main","_main",2,"","INFO",15,0);
+				//face[0].btn(1,"INFO",30,185,10,0,0,120,0,239,50);
 				face[0].once=0;
 				face[0].rowL=0;
 				if (!face[0].page){
@@ -234,7 +192,8 @@ touchHandler[0]=function(e,x,y){
 					face[0].len=7;
 					face[0].ref=Date().getDay();
 					face[0].pos=face[0].ref;
-					face[0].btn(1,"7DAYS",30,65,13,4,4,0,0,119,50);
+					UI.btn.c2l("main","_main",1,"","7DAYS",15,40);
+					//face[0].btn(1,"7DAYS",30,65,13,4,4,0,0,119,50);
 					face[0].log=require("Storage").readJSON("logWeekSlot"+set.def.dash.slot+".json",1);
 					face[0].id=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
 					face[0].id[face[0].ref]="Today";
@@ -242,8 +201,9 @@ touchHandler[0]=function(e,x,y){
 					face[0].page=2;
 					face[0].len=12;
 					face[0].ref=Date().getMonth();
-					face[0].pos=face[0].ref;
-					face[0].btn(1,"YEAR",30,65,13,4,4,0,0,119,50);
+					face[0].pos=face[0].ref;		
+					UI.btn.c2l("main","_main",1,"","YSAR",15,40);
+					//face[0].btn(1,"YEAR",30,65,13,4,4,0,0,119,50);
 					face[0].log=require("Storage").readJSON("logYearSlot"+set.def.dash.slot+".json",1);
 					face[0].id=["January","February","March","April","May","June","July","August","September","October","November","December"];
 					//face[0].id[face[0].ref]="running Month";
@@ -252,7 +212,8 @@ touchHandler[0]=function(e,x,y){
 					face[0].len=24;
 					face[0].ref=Date().getHours();
 					face[0].pos=face[0].ref;
-					face[0].btn(1,"24HRS",30,65,13,4,4,0,0,119,50);
+					UI.btn.c2l("main","_main",1,"","24HRS",15,40);
+					//face[0].btn(1,"24HRS",30,65,13,4,4,0,0,119,50);
 					face[0].log=require("Storage").readJSON("logDaySlot"+set.def.dash.slot+".json",1);
 					face[0].id=(set.def.hr24)?["00:00 - 01:00","01:00 - 02:00","02:00 - 03:00","03:00 - 04:00","04:00 - 05:00","05:00 - 06:00","06:00 - 07:00","07:00 - 08:00","08:00 - 09:00","09:00 - 10:00","10:00 - 11:00","11:00 - 12:00","12:00 - 13:00","13:00 - 14:00","14:00 - 15:00","15:00 - 16:00","16:00 - 17:00","17:00 - 18:00","18:00 - 19:00","19:00 - 20:00","20:00 - 21:00","21:00 - 22:00","22:00 - 23:00","23:00 - 00:00"]
 		:["12:00 - 1:00 AM","1:00 - 2:00 AM","2:00 - 3:00 AM","3:00 - 4:00 AM","4:00 - 5:00 AM","5:00 - 6:00 AM","6:00 - 7:00 AM","7:00 - 8:00 AM","8:00 - 9:00 AM","9:00 - 10:00 AM","10:00 - 11:00 AM","11:00 - 11:59 AM","12:00 - 1:00 PM","1:00 - 2:00 PM","2:00 - 3:00 PM","3:00 - 4:00 PM","4:00 - 5:00 PM","5:00 - 6:00 PM","6:00 - 7:00 PM","7:00 - 8:00 PM","8:00 - 9:00 PM","9:00 - 10:00 PM","10:00 - 11:00 PM","11:00 - 11:59 PM"];

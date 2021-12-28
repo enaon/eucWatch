@@ -111,7 +111,7 @@ if (!set.def.addr) set.def.addr=NRF.getAddress();
 if (!set.def.off) set.def.off={};
 //
 //buzzzer
-if (set.def.buzz) buzzer = digitalPulse.bind(null,ew.pin.BUZZ,0);
+if (set.def.buzz) buzzer = digitalPulse.bind(null,ew.pin.BUZZ,ew.pin.BUZ0);
 else buzzer=function(){return true;};
 buz={ok:[20,40,20],na:25,ln:80,on:40,off:[20,25,20]};
 //dash

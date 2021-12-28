@@ -1,7 +1,8 @@
 if (set.def.touchtype!="816"&&set.def.touchtype!="716"){
-	i2c.writeTo(0x15,0xa5,3);
-	i2c.writeTo(0x15,0xE5,3);
-	digitalPulse(set.def.rstP,1,[5,150]);
+	//i2c.writeTo(0x15,0xa5,3);
+	//i2c.writeTo(0x15,0xE5,3);
+	//i2c.writeTo(0x15,0xa5,3); digitalPulse(set.def.rstP,1,[5,500]); i2c.writeTo(0x15,0); print(i2c.readFrom(0x15,255));
+	digitalPulse(set.def.rstP,1,[5,500]); 
 	i2c.writeTo(0x15,0x80);
 	set.def.touchtype=( i2c.readFrom(0x15,1)[0] == 96 )?"816":"716";
 }

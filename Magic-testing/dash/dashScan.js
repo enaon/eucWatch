@@ -5,8 +5,7 @@ face[0] = {
   bpp:set.def.bpp?0:1,
   g:w.gfx, 
   init: function(o){ 
-	UI.ele.title("btmS","SCAN FOR",15,0);
-	UI.ele.title("topS","",0,6);
+	UI.ele.title("SCAN FOR",15,0);
 	this.bar();
   },
   show : function(o){
@@ -21,7 +20,7 @@ face[0] = {
   },
   page : function(n) {
 	this.set=n;
-	UI.ele.ind("top",n,4);
+	UI.ele.ind(n,4,6);
 	let txt1=["INMOTION","BEGODE","NINEBOT","NINEBOT"];
 	let txt2=["V5/V8/V10","","ONE Z10","ONE S2"];
 	UI.btn.c2l("main","_2x1",1,txt1[n-1],txt2[n-1],15,6); 
@@ -34,8 +33,7 @@ face[0] = {
   	let target=n==1?[0,["InmotionV1","Vx","ffb0"],["Begode","BG","ffe0"],["NinebotZ","Z10","e7fe"],["NinebotS","S2","e7fe"]]:
 					[0,["Inmotion","V11","ffe0"],["Veteran","SM","ffe0"],["Ninebot","E+","ffe0"],["Kingsong","KS","fff0"]];
 	if (!Boolean(require("Storage").read("euc"+target[face[0].set][0]))) {
-			UI.ntfy.simple("btmS","INSTALL MODULE",0,15,7);
-			UI.on('ntfy','UI.ele.title("btmS","GARAGE",15,1);');
+			//UI.on('ntfy','UI.ele.title("GARAGE",15,1);');
 			return; 
 	}
 	setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker",target[face[0].set][0]);

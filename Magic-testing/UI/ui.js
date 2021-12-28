@@ -1,22 +1,24 @@
 UI={
   size:{_2x2:20,_2x1:25,_txt:26,_sideSmall:20,sideBig:45,underSmall:20,txt:1,len:1},
   pos:{
-	_fold:[12,[0,20,160,105],[80,20,240,105],[0,106,120,220],[120,106,240,220]], 
-	_barT:[30,[0,20,120,80],[121,20,240,80],[0,20,240,80],[0,81,240,235]],
-  	_2x2:[35,[0,20,120,127],[121,20,240,127],[0,128,120,235],[121,128,240,235]],
-	_2x3:[22,[0,20,80,100],[81,20,160,100],[161,20,239,100],[0,101,80,180],[81,101,160,180],[161,101,239,180]],
-	_2x1:[25,[0,20,239,130],[0,131,239,235]],
-	_sel:[15,[0,236,239,279],[0,221,239,279],[0,181,239,279],[0,30,239,235]],
-	_ele:{"0":25,topS:[0,0,239,19],topS1:[0,0,239,27],top:[0,0,239,40],btmS:[0,236,239,279],btmM:[0,221,239,279],btmL:[0,181,239,279],ind:[75,265,165,270]},
-	_ind:{"0":25,btm:[75,265,165,270],top:[80,7,160,12]},
-	_bar:[20,[0,181,80,279],[81,181,160,279],[161,181,239,279],[0,181,120,279],[121,181,239,279],[0,181,239,279]],
-	_main:[20,[0,20,80,180],[81,20,160,180],[161,20,239,180],[0,20,160,180],[81,20,239,180],[0,20,239,180],[0,20,239,100],[0,101,239,180],[0,81,239,180]],
+	_fold:[12,[0,20,160,105,30],[80,20,240,105,30],[0,106,120,220,30],[120,106,240,220,30]], 
+  	_2x2:[35,[0,20,120,127,30],[121,20,240,127,30],[0,128,120,235,30],[121,128,240,235,30]],
+	_2x3:[22,[0,20,80,100,28],[81,20,160,100,28],[161,20,239,100,28],[0,101,80,180,28],[81,101,160,180,28],[161,101,239,180,28]],
+	_2x1:[25,[0,20,239,130,26],[0,131,239,235,26]],
+	_ele:{"0":25,title:[0,236,239,279],ind:[80,7,160,12],indF:[0,0,239,19]},
+	_bar:[20,[0,181,80,279,30],[81,181,160,279,30],[161,181,239,279,30],[0,181,120,279,30],[121,181,239,279,30],[0,181,239,279,30],[0,236,239,279,30]],
+	_main:[20,[0,20,120,80,30],[121,20,240,80,30],[0,20,239,80,30],[0,81,160,180,30],[0,181,239,235,30],[0,20,239,180,60],[0,20,239,235,30],[0,101,239,180,30],[0,81,239,180,30]],
 	_top:20,
 	_head:2,
 	_foot:255,
   },
   btn:{
     size:{_xs:28,_s:22,_m:28,_l:35,_xl:45,txt:1,len:1},
+	c29l:function(loc,no,po,txt1,txt2,fclr,bclr){//type:main|bar,
+		"ram";
+		
+	
+	},
     c2l:function(loc,no,po,txt1,txt2,fclr,bclr){//type:main|bar,
       "ram";
 	  //draw
@@ -27,14 +29,15 @@ UI={
       w.gfx.fillRect(p[0],p[1],p[2],p[3]);
       w.gfx.setColor(1,fclr);
       if (txt2&&txt2!=""){
-        w.gfx.setFont("Vector", (p[3]-p[1])/(100<p[2]-p[0]?6.5:5.3));
+        w.gfx.setFont("Vector", p[4]*0.6);
         w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-((p[3]-p[1])/3.5)); 
-        w.gfx.setFont("Vector",UI.pos[no][0]*(100<p[2]-p[0]?1:1.3));	
+        w.gfx.setFont("Vector",p[4]);	
         w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height-10);
       }else{  
-        w.gfx.setFont("Vector",loc=="bar"&&po==2?40:UI.pos[no][0]*(100<p[2]-p[0]?1:1.3) );	
+        w.gfx.setFont("Vector",p[4]*1.15);	
         w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-(w.gfx.stringMetrics(txt1).height/2)); 
       }
+	  if (!set.def.bpp) w.gfx.flip();
 	  //coordinates
 	  if (UIc.get[loc])
 		UIc.raw[loc]=UIc.raw[loc]+`${UIc.raw[loc]==" "?'':'else '}if (${p[0]}<x&&x<${p[2]}&&${p[1]}<y&&y<${p[3]}) UIc.${loc}.${no}_${po}();`;	
@@ -45,10 +48,7 @@ UI={
       let p=(UI.pos[no][po]);
 	  let x=p[0]+((p[2]-p[0])/2);
       let y=p[1]+((p[3]-p[1])/2);
-	  //w.gfx.setColor(0,0);
-      //w.gfx.fillRect(p[0],p[1],p[2],p[3]);
       if (!tran){ 
-		//w.gfx.fillRect(p[0]+3,p[1]+3,p[2]-3,p[3]-3);
 		if (bclr==4){
 			w.gfx.setColor(0,0);
 			w.gfx.fillRect(p[0],p[1],p[2],p[3]);
@@ -62,7 +62,7 @@ UI={
       w.gfx.setColor(1,fclr);	
 	  if  (txt&&side){
 		  //w.gfx.setFont("Vector",(p[3]-p[1])/2);
- 		  w.gfx.setFont("Vector",UI.pos[no][0]*2);	
+ 		  w.gfx.setFont("Vector",UI.p[4]);	
 		  let xa=x-((w.gfx.imageMetrics(img).width+w.gfx.stringWidth(txt))/2);
 	      w.gfx.drawImage(img,xa,y-(w.gfx.imageMetrics(img).height/2));
 		 // w.gfx.setColor(1,bclr==3?0:3);
@@ -71,12 +71,11 @@ UI={
 		  w.gfx.drawImage(img,x-24*0.75,p[1]+7,{scale:0.75});
 		  //w.gfx.setColor(1,bclr==3?0:14);
 		  w.gfx.setColor(1,fclr);
-		  let size=(p[3]-p[1])/4.9;
-		  if (24<size) size=24;
-		  w.gfx.setFont("Vector",size);	
+		  w.gfx.setFont("Vector",p[4]);	
 		  w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y+19); 
 	  }else w.gfx.drawImage(img,x-(w.gfx.imageMetrics(img).width/2),y-(w.gfx.imageMetrics(img).width/2));
 	  img=0;
+	  if (!set.def.bpp) w.gfx.flip();
 	  //coordinates
 	  if (UIc.get[loc])
 		UIc.raw[loc]=UIc.raw[loc]+`${UIc.raw[loc]==" "?'':'else '}if (${p[0]}<x&&x<${p[2]}&&${p[1]}<y&&y<${p[3]}) UIc.${loc}.${no}_${po}();`;	
@@ -112,9 +111,9 @@ UI={
 	}
   },
   ele:{
-	title:function(po,txt,fclr,bclr){
+	title:function(txt,fclr,bclr){
 		"ram";
-		let p=(UI.pos._ele[po]);
+		let p=(UI.pos._ele.title);
 		let x=4+p[2]-((p[2]-p[0])/2);
 		let y=p[3]-((p[3]-p[1])/1.5);
 		w.gfx.setColor(0,bclr);
@@ -124,9 +123,14 @@ UI={
 		w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y-2); 
         if (!set.def.bpp) w.gfx.flip();
 	},
-	ind:function(no,c,t){
+	ind:function(c,t,clr){
 		"ram";
-		let p=(UI.pos._ind[no?no:"btm"]);
+		if (UI.pos._ele.indF){
+			let pf=(UI.pos._ele.indF);
+			w.gfx.setColor(0,clr?clr:1);
+			w.gfx.fillRect(pf[0],pf[1],pf[2],pf[3]);
+		}
+		let p=(UI.pos._ele.ind);
 		w.gfx.setColor(0,0);
 		w.gfx.fillRect(p[0],p[1],p[2],p[3]);
 		let pa=(p[2]-p[0])/t;
@@ -166,7 +170,6 @@ UI={
 		  }
 		}
 		return line;
-	
 	},
     block:function(no,po,txt,len,fclr,bclr,tran){
 		"ram";
@@ -185,43 +188,13 @@ UI={
   }
   
 };
-
-
-_icon={	
-	bt:require("heatshrink").decompress(atob("mEwwIXUgYFFwAFE4AFE8AFE/AFE/gFE/wFE/4FE74qCgUD54qCg8D44qCh+D4fwAoXDAocD8YRDgPzDocA/YpDgF/Gok/IIkfJokPLIkHFwQFHCIodFFIo1FIIhNFLIplFOIp9FRIqVFUI6tFXIrFFaIrdFdIr/IABY=")),
-	plane:require("heatshrink").decompress(atob("lkwwIPMg4FE/AKE4AFDtwEDg1gAocjAgcDnAFDmOAAgUBxgKDjAbChkBwwJC8EMmAEBh8A4IbC+EEjAKDsBCC7/+g//4EN//gv//wFAEgUMgw0DsBQDgQKEkAKDg0EBQfgFYf4FYf8IIMGhhBDoJMDhhMCh0A4YhC4BtDPAOOPAifDgYaCAAMzRwcCPoQABsyvEXQl8AgcPDQcAuD/XABYA=")),
-	themes:require("heatshrink").decompress(atob("mEwwIHEgfwAocH/AFDh/8Aocf/wFDn//Aod/Aon//8PAQPBAomDAQMfAQMH//+AoP+BwIFC/gCE+AuB/Ef4AuC+EfwAuC8AFBgIFB4AFBgYFBwAFBFwJGBAoIuCAoQuCAoQuCAonwoAFBGgPgFIQLB4IFBQIJgB4EeRoJgB4Ecg+D/wFBjE/8P8h5XC+H4AoQzB+AFD/lAAoJdBIoIFDKIIFfQIIpDApB+BAoZsBAoX4PAPANIPwAoR1B+CtDcQaHCYAL3CTwIAC")),
-	dndOff:require("heatshrink").decompress(atob("mEwwIdag/gEAIFEuAFBhwDBA4MAn18gPAAoP4j8DwEABAMDw4KBBAMBxwiCAQMcEQQCBnACBhgCBFwUYEoQFDgPYMgQlBzAFDg4aCAoMOAokcAok4AolwAongAoZUBAoZUBAoZUBAoZUBAoZdBAoZdBAoZdBAoVgRgMGKwPBRgMDQwODRgiDCgAFBQYQFCj//AAIaBn4FERgQACXYQABEoMYS4RdBAoZdCbYQuBboRPCIoL/TAAo")),
-	dndOn:require("heatshrink").decompress(atob("mEwwIdag/gApMOuAFDn18Aof4j4ECgPAgeAAoIDBA4IiCAQIkChwCBEgUMKoQCBjACKBwUcAogaFAv4FEsACBgx8BPQQDBQwaMCTAYFH/4ACAozRNjCOCAo8MJITdHJIYAXA")),
-	findPhone:require("heatshrink").decompress(atob("mEwwILIv/+AgUD///4AFBg8//HgAoMGj/4sAFCAQIFfgYFD4EPAofghwFDuEcAoc4nAFDjkw4wFBscMuIFDx1hwwFBAYPjAofG8YdD4/HApPjAqIjEAovHsY1D45BFJopZFMopxFPosHAofwSoq/jAo0HAQL1Cgf//40BAAM87wECAAg")),
-	wakeScreen:require("heatshrink").decompress(atob("mEwwJC/AAkPwAECgP//AFCg///4FCj4FBCQU/AoPgAoN/4Ef+AFB/wZBDwMB/gCCgUDBwV+h0HDQU/jkP4AsCvg/Dh/8j5JDAokH/k+Igf4Aoc//E8AoRbBvhhEAoUD//wjAnBwIFBEIRaEn/AgIFDJ4QFIKoQdDAoibDgECbfA=")),
-	bri:require("heatshrink").decompress(atob("jEXwIHEhAKCAQcEAgMGAQMCuADB+EAgICEgYCBnYFEBwoXCDoUGiEAhw9DAQ4ABA")),
-	torch:require("heatshrink").decompress(atob("mEwwILIgOAAp0EAoMQAoMMAoMwAoMGAoNgAoMDAQPADgcBAooqEADcP///+AFNABcHCIPgKYQFHKYYFHLIYFHFQd/Aol8nwFDngFdvwFDn/+AvX8ApIADA==")),
-	settings:require("heatshrink").decompress(atob("mEwwI2zgP/Ao0f////P/nE/AoP9/88ApU4EZYADAooAICg2AApE8/+/G4P4Aon8AoscCIgjLACkf8AFE+CJDz/3/B9CAoP8ApRBBDogFJF4gAsA=")),
-	alarm:require("heatshrink").decompress(atob("mEwwIKH/ACBh8Agf+AoN/4EH/+AgH/+EP//AgP//EfAoMDAo38n4dDAoIpCj4FB8E//kHAoPA///wIFBwYFB8AFBGAI0BvkeFQIuBnkcn/wDgM4FgOAgIyC/41CAQIICn4OB/kB4EfAoP4AoMPKAPwAo8H8ABBAo8DAoJ2BAo5EBAYIFF8AFE+AFE/gFC8BMBEYQFBh+DAocHw4fCL4IJBAoZTBL4IFE/inCZAJ3EQYzaBR4abBh4aDU4QFEBYU/AoIXCvwFB3wFBvjbBjwFBXYMAAoQAEA=")),
-	cli:require("heatshrink").decompress(atob("mEmwIPMggFEj4FEn+AAonAAongAonwDon4Aon8AocP/wFDg//AocD/4wDgP/GAgFFv42RAokPBZQFFEYovFHYhHBJoZTBL4hlEh5xEFxE///4SoQFDFwIFDFwIFCXIQFCYoUP/5KEAA4")),
-	gb:require("heatshrink").decompress(atob("mEwwIFCg4LEh/AAocfAok/Aol/zAFEnwREvwoD43+FAfw/ngFAX8/vwAoX+vP4DgX/uYFEs4RCv4FB84FDh/vAoP/h0f5+AAoMBn+fAoWOn8/CIXAv9/DoXg/xOCv5HB/g1C+H5HYfwuf6JoX5gf2AoeD8hlC/P75AFC/v5QgUH/v8mAFC///L4UDAoJ9CAosBAoKoCAopaB/5kBAqQdFgfwg41D8ABBAqgdEJpA1FII4A==")),
-	proxy:require("heatshrink").decompress(atob("mEwwIcZn////+AoIEBAAOAgIFD4EDAofgg/gCgMD+EH4AFBgPwh+AE4X4h4tDvAFFj8DwITBvkegeDD4M8AoPDAoQRBwYRCj4jKGopBFJosD/AFBj/gMopxFPo0PAoIaCEIIrCAqg9CEgQiDH4P8Wgg0CAAM+nwbC//8j5NBg4/BIYKzBApQZBRgojDF447FI4pTFABI")),
-	hid:require("heatshrink").decompress(atob("mEwwIOLkAEDgPwAocHAok/AocB/4FDh4FEv4FDgf/AocfAogEBAoQhBApnxAomBAof8JoQ/CAohZDgP8AongAuF9AoZ4BAoaJDAoJ+BAoc/ApSbCMgIFCEAQRCEAQFC4AIEwAUEXgRBBP4IFCZAgFF4DlDEAIFEeIcP/wFDgb9EAAoA=")),
-	info:require("heatshrink").decompress(atob("mE3wIcZn////+AoIEBAAOAgIFD4ED4AOBgfgg+ADYXwh4hDvEOAoc4AoscgEBD4McAoIhBgEYAoMHAoIMBAoPwAoYRCAoQdChAFBAAQjCApcBJ4I1FAoQ1CAoY1BAvBHFAoU8SoRZBTYytFXIqNDM4LRB/EPaILdB/kf/4OBj/+n/4DQUPvAmDh6zCEIQFEFYYABXIQAkA==")),
-	scan:require("heatshrink").decompress(atob("mEwwIcZg/+Aocfx+AAoV4gPgAoQDBuAEBgPAgE4AoQVBjgFBgYCBhgoCAQMGAQUgAolACggFL6AFGGQQFJEZsGsAFEIIhNFLIplFgBxBnwFCPYP/AoU8gf/BwKVB/+/SAUD/kf+CjDh/4V4n8AoYeBAoq1DgIqDAAP/XYcAv4qEn4qEGwsfC4kPEYkHF4Z1DACA=")),
-	trash:require("heatshrink").decompress(atob("mEwwI1yg/4AocP/gFDhkMApE//4ABAo4PCAUIACAv4FQATkGAQMYXwSgBYAUBAoPgdsg")),
-	tmout:require("heatshrink").decompress(atob("mEwwIjggf+AofD//ABQXh//gAoMH8EH/AFCB4P8CIQCBvwlEj4CBsEB4EPwEA+EBDwIFEgfAAYIFHAIQHEEgIDCAovwAopABAoVwGIIFMDYIFCgBkBAoZkBAoZkBFIIFBn4FCOwMfwAFDh+BKYSFB4JVDgeDLoJPCCoQFCFoV4AoKJCviVEGYMAnwICVokPRwK5Cgf//58DAoLRCDwP/XocPCwQAXA==")),
-	tmout32:require("heatshrink").decompress(atob("kEgwIQNkf8AYNwvwDB+EPwEAoED4AIBwPgh0BwADC4FwAYUwhgDBnEAAYMYAYcYAZHgAYIwBjEcgF4AYU8nEMgEcnEOgEMmEHJIQDC8EDwAkBEQMHJ4P4j4NBn/+AYMP/ByM")),
-	time:require("heatshrink").decompress(atob("mEwwIFCj/4BYf//4ECg4FB8AQC/1/+AFBn/Agf8AoN+AQghCn8AgPwgOAh+AgfggfAg4BBA4IeB8ANC4AVBj8AAoMA+EeAod4ngFJnk4Aol4AoceuAFJhxbBApEPAopzBAp4XBgIIBApBdBAo5BBLoI7BAQIFCjwFCNAMeMoIFCjgCBBIIHBAooCBgEMD4KVBAAXwUIIEBUIKvBAoS3BbQQJBgZICCoMBaIQhCborpFj/8eocH///EwUAAoI+Dj4lCA=")),
-	txt:require("heatshrink").decompress(atob("mEwwJC/ABEH/4AC8EPAofwAosfAof4ApnAkfEgYFCkOEAocxxgFC+AsBh4FCAQIFC+P8n+PBYQFBCIYFECIwdEFIvx+OPCIfhw4LC/Pj4+fL5oFEQZaVFa/Y")),
-	power1:require("heatshrink").decompress(atob("lEqwIKHvwEMhl+mAEBn1+vgEBv9+/wEB/9+/8Agf+v1/wED/l+n/Ag/wv0P8ABBvwHBj/Av0DAgOAv0B/AEEn47C/gEDvk+AgYCBAIQEEI4IEBnwELMoRmDAgosBAAN8GwIABHYQECJQMAJ4YECh/AOoPwNAMANAMH/EAj/gQIKNB4EB//D/4bB/4ABTQX/TQUf/4aBEAP/EgKlCZQw=")),
-	power:require("heatshrink").decompress(atob("lkuwIKHgP4AocfwAKN+P4+AJCz+fBYMH/P5/wKB/4KBCAMfBQP/wED/0fw/8gF/4P4n/gg/wFYIbB/w2BBAXABQM/wP8BQMD/AIBAIWD/BMC/k/JgUP4fwBQd+BQUH8/gBQV+BSJwCBQQABBQw2BAAI2CAoRBBRgUfNYKbDMQIFBMQQEBMQMPEwV/AIQlBQYIQBSIIXBCAN/4EB//An4pBh//AAIdCAgISBCAP/HIQQCaoa5BAoU/IYQAEA=")),
-	dash:require("heatshrink").decompress(atob("mEwwIjgn/8AgUB///wAFBg4FB8AFBh/BwfwCwUBwAYCv4FB/wFB/eAgPfEQPhAoOHwED4InBwfAgYsCgfAg4FCgPgg/AH4Xgh44CgHwh1gAgMMuEePId4jgWDnAFCEAIFDj8AAoUDJgM4ngQBLAM8n+Ag/wgP8AoXgAoIRCHoM8DoRJBFIYABAphNDgl4h1wAoMGuEPTAQ3BOIcDO4J9ERIcBR4S5BHoUAAoQPCAoI4DAqIAVA==")),
-	watch:require("heatshrink").decompress(atob("mEwwILI///ArUBAoOAArMDAo/AAoMH8ABBAoMP4ED+AFBj4fB/AFBnwCB/gFEvgCEngCBvAOEAoUeAo9wAogyCApARFEZYFFIIoCCBAREFMoMAMoUPwBxDh59Eg/8n6JCR4q5dAoT7bAAYA=")),
-	restart:require("heatshrink").decompress(atob("lEuwIFCiAKDmAEDuAED+ADCgIEDgYEDg//4AEBh//BQU///8Agf/AgMfAgOACYQZCg/x//gFgU/DwXwh/4IAUHAgUwgYoCiEBAgQAB/xSD/1+AgV+/wECv4EBngEDCAN/DwJJBn4EODAIBBDoV8AgIxEv47DAgpvBgP+n4EC/k/OgJeBj50BNAJvCj50BGAXwUYPDQwMDR4KQBgIECEoN//5rCVwi4ECgISB"))
-	
-};
+//icon
+eval(require('Storage').read('icons'));
 
 var UIc={
 	get:{bar:0,main:0},
 	raw:{main:" ",bar:" ",up:" ",down:" ",back:" ",next:" "},
-	xy:function(){"ram";},
+	xy:function(){},
 	main:{},
 	bar:{},
 	start:function(m,b){

@@ -2,8 +2,6 @@ set.def.acctype="SC7A20";
 //accelerometer(wake on wrist turn)
 //based on work from jeffmer
 	acc={
-		up:0,
-		//ori:[65,66],
 		ori:[65,66],
 		loop:0,
 		tid:0,
@@ -42,19 +40,14 @@ set.def.acctype="SC7A20";
 				if (this.loop) { clearInterval(this.loop); this.loop=0;}
 				this.tid= setInterval(()=>{	
 					let cor=acc.read();
-					//print (cor.ax,cor.ay,cor.az);
 					if (-200<=cor.ax && cor.ay<=500  && 500<cor.az ) {
-						if (!w.gfx.isOn&&face.appCurr!=""&&this.up){  
-								face.go(set.dash[set.def.dash.face],0);
-						}else {
+					if (!w.gfx.isOn) {face.go(set.dash[set.def.dash.face],0);face.off(1000);}
+						else {
 							let tout=set.def.off[face.appCurr];
-							this.tmr=1500;
-							if ( !tout || ( tout &&  tout <= 60000)) {
-								face.off(1000);
-							}
+							changeInterval(acc.tid,1500);
+							if ( !tout || ( tout &&  tout <= 60000)) face.off(1600);
 						}
-						this.up=0;
-					} else {this.up=1;this.tmr=50;}
+					} else changeInterval(acc.tid,100);
 				},this.tmr);
 				return true;
 			}else if (!this.tid) {

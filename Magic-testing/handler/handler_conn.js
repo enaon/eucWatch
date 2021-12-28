@@ -27,7 +27,7 @@ function bcon() {
 	if (set.def.emuZ&&global.euc&&euc.state=="READY") {
 		set.bt=4;Bluetooth.removeListener('data',ccon);
 		handleInfoEvent({"src":"BT","title":"EUC-PROXY","body":"Connected"},1);
-		return
+		return;
 	}
 	E.setConsole(null,{force:true});
 	set.bt=1; 
