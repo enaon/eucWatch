@@ -1,4 +1,3 @@
-lala=1;
 Modules.addCached("eucWatch",function(){
 //screen driver
 //
@@ -90,7 +89,6 @@ function init(){
   //cmd([0x2b,0,0,0,239]);
   //cmd([0x2c]);
 }
-//var bpp=(require("Storage").read("setting.json") && require("Storage").readJSON("setting.json").bpp)?require("Storage").readJSON("setting.json").bpp:1;
 var bpp=1;
 var g=Graphics.createArrayBuffer(240,240,bpp);
 var pal;

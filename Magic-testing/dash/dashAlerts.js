@@ -41,11 +41,10 @@ face[0] = {
 		UIc.bar._bar_5=function(){
 			buzzer(buz.ok);
 			face[0].page=1;
-			//UIc.start(1,0);
+			UIc.start(1,0);
 			UI.btn.c3l("main","_main",1,"HI","",15,1);
 			UI.btn.c3l("main","_main",2,"LOW","",15,4);
-
-			//UIc.end();
+			UIc.end();
 			UI.btn.c2l("main","_main",9,dash.live[trgt],"",15,0);
 			UI.btn.ntfy(1,3,0,"_bar",6,txt,"| | | | | | | | | | |",15,6,1);
 			set.bar=1;
@@ -55,6 +54,8 @@ face[0] = {
 				UI.btn.c2l("main","_main",9,b,"",15,0);
 				dash.live[trgt]=b;
 			};
+			UIc.main._main_1=()=>{face[0].sel(3,"hapT","TEMP1","tmpH",20,100);};
+			UIc.main._main_2=()=>{face[0].sel(4,"hapB","BATT1","batL",5,75);UIc.bar._bar_5();};
 		};
 	},
 	bar:function(){

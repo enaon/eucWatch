@@ -12,10 +12,11 @@ E.showMessage=print; //apploader suport
 global.save = function() { throw new Error("You don't need to use save() on eucWatch!"); };
 D7.write(1); // turns off sp02 red led
 if (process.env.BOARD=="MAGIC3"||process.env.BOARD=="Magic3"||process.env.BOARD=="ROCK")
-//print (D4.read(),D5.read(),D9.read(),D10.read(),D11.read(),D13.read(),D24.read(),D25.read(),D27.read(),D28.read(),D29.read(),D31.read(),D33.read(),D34.read(),D35.read(),D36.read(),D37.read(),D38.read(),D40.read(),D41.read(),D42.read(),D43.read())
-ew={pin:{BAT:D30,CHRG:D8,BUZZ:D6,BUZ0:0,BL:D12,i2c:{SCL:14,SDA:15},touch:{RST:D39,INT:D32},disp:{CS:D3,DC:D47,RST:D2,BL:D12},acc:{INT:D16}}};
-else
-ew={pin:{BAT:D31,CHRG:D19,BUZZ:D16,BUZ0:1,BL:D12,i2c:{SCL:D7,SDA:D6},touch:{RST:D13,INT:D28},disp:{CS:D25,DC:D18,RST:D26,BL:D14},acc:{INT:D8}}};
+	ew={pin:{BAT:D30,CHRG:D8,BUZZ:D6,BUZ0:0,BL:D12,i2c:{SCL:14,SDA:15},touch:{RST:D39,INT:D32},disp:{CS:D3,DC:D47,RST:D2,BL:D12},acc:{INT:D16}}};
+else if ( process.env.BOARD=="BANGLEJS2")
+	ew={pin:{BAT:D3,CHRG:D23,BUZZ:D19,BUZ0:1,BL:D8,i2c:{SCL:D34,SDA:D33},touch:{RST:D35,INT:D36},disp:{CS:D25,DC:D18,RST:D26,BL:D14},acc:{INT:D39}}};
+else 
+	ew={pin:{BAT:D31,CHRG:D19,BUZZ:D16,BUZ0:1,BL:D12,i2c:{SCL:D7,SDA:D6},touch:{RST:D13,INT:D28},disp:{CS:D25,DC:D18,RST:D26,BL:D14},acc:{INT:D8}}};
 //devmode
 if (BTN1.read() || Boolean(require("Storage").read("devmode"))) { 
   let mode=(require("Storage").read("devmode"));
@@ -40,7 +41,9 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
   },BTN1,{repeat:false, edge:"rising"}); 
 }else{ //working mode
 var w;
-if (process.env.BOARD=="P8"||process.env.BOARD=="P22")
+if ( process.env.BOARD=="BANGLEJS2") 
+	eval(require('Storage').read('.lcd_bangle'));
+else if (process.env.BOARD=="P8"||process.env.BOARD=="P22")
 	eval(require('Storage').read('.lcd_p8'));
 else
 	eval(require('Storage').read('.lcd_magic'));

@@ -6,11 +6,13 @@ if (set.def.touchtype!="816"&&set.def.touchtype!="716"){
 	i2c.writeTo(0x15,0x80);
 	set.def.touchtype=( i2c.readFrom(0x15,1)[0] == 96 )?"816":"716";
 }
-if (set.def.touchtype=="816"){ //816
+if ( process.env.BOARD=="BANGLEJS2")
+	eval(require('Storage').read('handler_touch_b2'));
+else if (set.def.touchtype=="816") //816
 	eval(require('Storage').read('handler_touch_816'));
-}else {
+else 
 	eval(require('Storage').read('handler_touch_716'));
-}
+
 
 tcDn=(x,y)=>{
 	print("down",x,y);
