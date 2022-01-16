@@ -22,15 +22,15 @@ face[0] = {
 	this.set=n;
 	UI.ele.ind(n,4,6);
 	let txt1=["INMOTION","BEGODE","NINEBOT","NINEBOT"];
-	let txt2=["V5/V8/V10","","ONE Z10","ONE S2"];
+	let txt2=["V5/V8/V10","","ONE S2","ONE Z10"];
 	UI.btn.c2l("main","_2x1",1,txt1[n-1],txt2[n-1],15,6); 
-	txt1=["INMOTION V11","VETERAN","NINEBOT","KINGSONG"];
-	txt2=["","","ONE C/E/P",""];	
+	txt1=["INMOTION","VETERAN","NINEBOT","KINGSONG"];
+	txt2=["V11","","ONE C/E/P",""];	
 	UI.btn.c2l("main","_2x1",2,txt1[n-1],txt2[n-1],15,1); 
   },
   scan: function(n) {
 	buzzer(buz.ok);
-  	let target=n==1?[0,["InmotionV1","Vx","ffb0"],["Begode","BG","ffe0"],["NinebotZ","Z10","e7fe"],["NinebotS","S2","e7fe"]]:
+  	let target=n==1?[0,["InmotionV1","Vx","ffb0"],["Begode","BG","ffe0"],["NinebotS","S2","e7fe"],["NinebotZ","Z10","e7fe"]]:
 					[0,["Inmotion","V11","ffe0"],["Veteran","SM","ffe0"],["Ninebot","E+","ffe0"],["Kingsong","KS","fff0"]];
 	if (!Boolean(require("Storage").read("euc"+target[face[0].set][0]))) {
 			//UI.on('ntfy','UI.ele.title("GARAGE",15,1);');

@@ -28,10 +28,11 @@ eval(require('Storage').read('handler_button'));
 	  try { out=i2c.readFrom(i, 1); console.log(i,out); } catch (e) {}
 	}
 	*/
-	//touch
-	eval(require('Storage').read('handler_touch'));
-	//acc
-	eval(require('Storage').read('handler_accel_SC7A20'));
+//}else i2c=I2C1
+//touch
+eval(require('Storage').read('handler_touch'));
+//acc
+eval(require('Storage').read('handler_accel_SC7A20'));
 //}
 //cron
 eval(require('Storage').read('handler_cron'));

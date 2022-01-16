@@ -13,8 +13,8 @@ face[0] = {
 		UI.btn.c2l("main","_2x3",1,(set.def.dash.mph)?"MPH":"KPH",0,15,4);//1
 		UI.btn.c2l("main","_2x3",2,(set.def.dash.farn)?"°F":"°C",0,15,4);//2
 		UI.btn.c2l("main","_2x3",3,"",0,0,6); //3
-		UI.btn.c2l("main","_2x3",4,"SPEED X",dash.live.spdF,15,1); //4
-		UI.btn.c2l("main","_2x3",5,"DIST X",dash.live.trpF,15,1); //5
+		UI.btn.c2l("main","_2x3",4,"SPEED",dash.live.spdF,15,1); //4
+		UI.btn.c2l("main","_2x3",5,"DIST",dash.live.trpF,15,1); //5
 		UI.btn.c2l("main","_2x3",6,"RETRY",set.def.dash.rtr,15,1); //6
 		UI.ele.fill("_ele","btmM",0);
 		UI.ele.title("btmS","DASH OPTIONS",15,4);
@@ -28,7 +28,7 @@ face[0] = {
 			if (!face[0].page){	
 				set.def.dash.mph=1-set.def.dash.mph;
 				UI.btn.c2l("main","_2x3",1,(set.def.dash.mph)?"MPH":"KPH",0,15,4);
-				face[0].ntfy("SPEED & DISTANCE IN",(set.def.dash.mph)?"MILES":"KILOMETERS",30,1,4,1500);
+				face[0].ntfy("LENGTH UNIT",(set.def.dash.mph)?"MILE":"KILOMETER",30,1,4,1500);
 			}else{
 				face[0].set="batF";
 				UI.btn.c2l("main","_2x3",1,"FULL",dash.live.batF/100,15,1); //1
@@ -51,7 +51,7 @@ face[0] = {
 			}else{
 				dash.live.ampR=1-dash.live.ampR;
 				UI.btn.c2l("main","_2x3",3,"AMP",(dash.live.ampR)?"R":"N",15,4); //3
-				face[0].ntfy("AMPERAGE REPORT",(dash.live.ampR)?"REVERSED":"NORMAL",30,1,4,1500);
+				face[0].ntfy("AMPERAGE",(dash.live.ampR)?"REVERSED":"NORMAL",30,1,4,1500);
 				buzzer(buz.ok);
 			}
 		};

@@ -7,7 +7,6 @@ face[0] = {
 		if (face.appPrev!="settings"&&face.appPrev!="dashOptions")  face.last=face.appPrev;
        //if (!face.appPrev.startsWith("dash")) this.g.clear();
 	    UI.ele.ind(1,1,6);
-	    UI.ele.title("ALERTS",15,0);
 		UI.ele.title("ALERTS",15,0);
 		UIc.start(1,1);
 		UI.btn.img("main","_2x2",1,_icon.speed,"SPEED",15,dash.live.hapS?4:1);
@@ -54,6 +53,8 @@ face[0] = {
 				UI.btn.c2l("main","_main",9,b,"",15,0);
 				dash.live[trgt]=b;
 			};
+			
+
 			UIc.main._main_1=()=>{face[0].sel(3,"hapT","TEMP1","tmpH",20,100);};
 			UIc.main._main_2=()=>{face[0].sel(4,"hapB","BATT1","batL",5,75);UIc.bar._bar_5();};
 		};

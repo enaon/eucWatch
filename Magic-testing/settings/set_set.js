@@ -5,7 +5,7 @@ UI.btn.img("main","_2x3",1,(set.def.cli||set.def.gb||set.def.emuZ)?_icon.bt:_ico
 UI.btn.img("main","_2x3",2,_icon.themes,"FACE",15,1);
 UI.btn.img("main","_2x3",3,_icon.bri,set.def.bri,15,1,1);
 UI.btn.img("main","_2x3",4,_icon.findPhone,"FIND",3,0);
-UI.btn.img("main","_2x3",5,_icon.wakeScreen,"WAKE ",euc.state=="READY"?14:set.def.acc?15:3,euc.state=="READY"?8:set.def.acc?4:0);
+UI.btn.img("main","_2x3",5,_icon.wakeScreen,"WAKE",euc.state=="READY"?14:set.def.acc?15:3,euc.state=="READY"?8:set.def.acc?4:0);
 UI.btn.img("main","_2x3",6,set.def.buzz?_icon.buzzOn:_icon.buzzOff,"BUZZ",set.def.buzz?15:3,set.def.buzz?4:0);
 UIc.end();
 //
@@ -73,7 +73,7 @@ UIc.main._2x3_6=()=>{
 	if (set.def.info) UI.btn.ntfy(1,0,0,"_bar",6,"BUZZER",set.def.buzz?"ENABLED":"DISABED",15,0);
 	UI.btn.img("main","_2x3",6,set.def.buzz?_icon.buzzOn:_icon.buzzOff,"BUZZ",set.def.buzz?15:3,set.def.buzz?4:0);
 	if (set.def.buzz){
-		buzzer=digitalPulse.bind(null,ew.pin.BUZZ,0);
+		buzzer=digitalPulse.bind(null,ew.pin.BUZZ,ew.pin.BUZ0);
 		buzzer(buz.ok);
 	}else{
 		buzzer(buz.ok);
@@ -84,5 +84,3 @@ UIc.main._2x3_6=()=>{
 
 tcNext.replaceWith(new Function('buzzer(buz.ok);eval(require("Storage").read("set_apps"));'));
 tcBack.replaceWith(new Function("x", "y",'buzzer(buz.na);if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}'));
-tcBar=(x,y)=>{UIc.tcBar(x,y);};	
-TC.on('bar',tcBar);

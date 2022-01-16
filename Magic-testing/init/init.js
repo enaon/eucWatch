@@ -41,9 +41,11 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
   },BTN1,{repeat:false, edge:"rising"}); 
 }else{ //working mode
 var w;
-if ( process.env.BOARD=="BANGLEJS2") 
-	eval(require('Storage').read('.lcd_bangle'));
-else if (process.env.BOARD=="P8"||process.env.BOARD=="P22")
+if ( process.env.BOARD=="BANGLEJS2") {
+	Bangle.setOptions({wakeOnTouch:1,lockTimeout:0,backlightTimeout:0,wakeOnBTN1:0 });
+	E.setConsole(null,{force:true});	
+	eval(require('Storage').read('.lcd_b2'));
+}else if (process.env.BOARD=="P8"||process.env.BOARD=="P22")
 	eval(require('Storage').read('.lcd_p8'));
 else
 	eval(require('Storage').read('.lcd_magic'));

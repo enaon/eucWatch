@@ -1,60 +1,86 @@
+//bangle.js 2 
 set.def.touchtype="816";
 set.def.rstR=0xA5; //the rock has auto sleep if 254 is 0.
 var TC={
+	x:0,
+	y:0,
 	ntid:0,
+	loop:0,
 	act:{main:{},bar:{},titl:{}},
+	val:{cur:0,up:0,dn:0},
 	start:function(){ 
-    "ram";
+		"ram";
 		if (this.ntid) return;
 		digitalPulse(set.def.rstP,1,[5,50]);
-		/*setTimeout(()=>{
-			i2c.writeTo(0x15,236,0); //MotionMask 7/4/1
-			i2c.writeTo(0x15,0xF5,35); //lp scan threshold
-			i2c.writeTo(0x15,0xF6,3); //lp scan range
-			i2c.writeTo(0x15,0xF7,7); //lp scan freq
-			i2c.writeTo(0x15,0xF8,50); //lp scan current
-			i2c.writeTo(0x15,0xF9,2); //auto sleep timeout
-			i2c.writeTo(0x15,0xFA,17); //gesture mode
-			i2c.writeTo(0x15,254,0); //auto sleep on
-		},150);
-		*/
-		this.init();
+		this.ntid=1;
+		Bangle.on('drag', TC.init);
+		setTimeout(()=>{i2c.writeTo(0x15,0xFA,17);i2c.writeTo(0x15,0);},100); //gesture mode
 	},
 	init:function(){
-		Bangle.on('swipe', function (direction) {
-			i2c.writeTo(0x15,0);
+		"ram";
+		//i2c.writeTo(0x15,0);
+		var tp=i2c.readFrom(0x15,7);
+		if (set.bar&&TC.tid&&116<tp[5]) {print("in bar");return;}
+		if (face.pageCurr>=0) {
+			TC.emit("tc"+tp[0],tp[3],tp[5]);
+			touchHandler[face.pageCurr](tp[0],tp[3],tp[5]);face.off();
+		}else if (tp[0]==1) 
+			face.go(face.appCurr,0);
+		if (this.loop) {clearTimeout(this.loop); this.loop=0;}
+		this.loop=setTimeout(()=>{
+			TC.loop=0;
+			if (set.bar) {
+			if (!TC.tid) {
+					print("starting bar");
+					TC.tid=setInterval(function(){
+						TC.bar()
+					},30);
+					print(1);
+				}
+			} else if (TC.tid) {print(3);clearInterval(TC.tid); TC.tid=0;}
+		},50)
+	},
+	bar:function(){
 			var tp=i2c.readFrom(0x15,7);
-			if (face.pageCurr>=0) {
-				TC.emit("tc"+tp[1],tp[4],tp[6]);
-				touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);face.off();
-			}else if (tp[1]==1) 
-				face.go(face.appCurr,0);
-		});
-		Bangle.on('touch', function (direction) {
-			i2c.writeTo(0x15,0);
-			var tp=i2c.readFrom(0x15,7);
-			if (face.pageCurr>=0) {
-				TC.emit("tc"+tp[1],tp[4],tp[6]);
-				touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);face.off();
-			}else if (tp[1]==1) 
-				face.go(face.appCurr,0);
-		});
+			if (set.bar&&116<tp[5]) {  
+				if (tp[1]) {
+					if (this.st) {this.st=0; this.y=tp[3]; return;}
+					if (this.y!=tp[3]) {
+						this.val.tmp=this.y<tp[3]?this.val.tmp+(tp[3]-this.y):this.val.tmp-(this.y-tp[3]); 
+						let len=10;
+						let step=Math.round(this.val.tmp/len);
+						if (step ==1) step=0;
+						else if (step ==-1) step=0;
+						else if ( step ==2 || step == 3) step=1;
+						else if (step ==-2 || step == -3) step=-1;
+						else if (step) step=step*2;
+						if (step) {
+							if ( len<this.val.tmp || this.val.tmp < -len) {
+								//this.val.cur=this.val.cur+(step* (step==1||step==-1?1:Math.abs(step*2))   ); this.val.tmp=0;
+								this.val.cur=this.val.cur+step; this.val.tmp=0;
+							}
+							if (this.val.up<this.val.cur) this.val.cur=this.val.up;else if (this.val.cur<this.val.dn) this.val.cur=this.val.dn;
+							if (!this.val.tmp) {buzzer(20);TC.emit("bar",this.y<tp[3]?1:-1,this.val.cur);}
+						}
+					this.y=tp[3];
+					}
+				}else
+					{this.st=1;face.off();}
+				return;
+			}
 	},
 	stop:function(){
 		"ram";
-		Bangle.removeAllListeners("touch");
-		Bangle.removeAllListeners("swipe");
 		return true;
-		//"ram";
-		////setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100);
-		//if (this.ntid&&set.def.rstR==229) {clearWatch(this.ntid);this.ntid=0;}
 	}
 };
 
+/*
 
-
-
-
+TC.tid=setInterval(function(){
+TC.bar()
+},30);
+*/
 
 /*TC.on('tc1',x=>{print(x);});
 TC.on('tc2',x=>{print(x);});

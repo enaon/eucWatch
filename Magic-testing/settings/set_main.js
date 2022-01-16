@@ -6,8 +6,8 @@ UI.ele.fill("_2x3",1,0);
 UI.ele.fill("_2x3",2,0);
 UI.btn.c2l("main","_2x3",3,set.def.txt?"MODE":set.def.hr24?"24 H":"12 H",set.def.txt?set.def.hr24?"24 H":"12 H":"",15,0);
 UI.ele.fill("_2x3",4,6);
-UI.btn.img("main","_2x3",5,_icon.power,"POWER",15,6);
-UI.btn.img("main","_2x3",6,_icon.info,"ABOUT",15,6);
+UI.btn.img("main","_2x3",5,_icon.power,"PWR",15,6);
+UI.btn.img("main","_2x3",6,_icon.info,"INFO",15,6);
 UIc.end();
 
 //

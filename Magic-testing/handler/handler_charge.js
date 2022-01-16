@@ -4,11 +4,11 @@ setWatch(function(s){
 	let co;
 	let g=w.gfx;
 	if (!s.state) {
-		digitalPulse(ew.pin.BUZZ,0,200); 
+		buzzer(200); 
 		set.ondc=1;
 		acc.off();
 	}else {
-		digitalPulse(ew.pin.BUZZ,0,[100,80,100]);
+		buzzer([100,80,100]);
 		set.ondc=0;
 		setter.accR();
 	}

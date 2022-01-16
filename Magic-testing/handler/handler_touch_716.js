@@ -114,7 +114,7 @@ var TC={
 		this.tid=setInterval(function(){
 		//if (set.bar) { TC.bar();}
 		//else 
-      TC.init();
+			TC.init();
 		},this.loop);
 	},
 	stop:function(){

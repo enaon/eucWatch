@@ -66,6 +66,8 @@ tcNext=(x,y)=>{
 tcBack=(x,y)=>{
 	buzzer(buz.ok);
 };	
+tcBar=(x,y)=>{UIc.tcBar(x,y);};	
+TC.on('bar',tcBar);
 TC.on('tc3',tcNext); 	
 TC.on('tc4',tcBack); 	
 

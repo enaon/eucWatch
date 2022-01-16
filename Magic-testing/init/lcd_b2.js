@@ -1,23 +1,24 @@
 Modules.addCached("eucWatch",function(){
 g=global.g;
-//g.col=Uint16Array([0,2047,2016,2016,2047,2047,31,63488,63519,63519,63519,63519,63519,65504,2016,65535]);
-g.col=Uint16Array([0,2047,2016,2016,2047,2047,31,63488,63519,63519,63519,63519,63519,65504,65535,65535]);
+//g.col=Uint16Array([0,2047,2016,2016,2047,2047,31,   63488,63519,63519,63519,63519,63519,65504,2016,65535]);
+//g.col=Uint16Array([  0,   0,2016,2016,2047,2047,31,63488,63519,63519,   31,63519,63519,65504,  31,65535]);
+g.col=Uint16Array([  0,31,2016,2016,31,2047,0,63488,63519,63519,   31,63519,63519,65504,  65535,65535]);
 
 //g.col= new Uint8Array(toFlatBuffer([0,0x2,0x8,0xa,0x20,0x22,0x24,0x2a,0x15,0x17,0x1d,0x1f,0x3d,0x37,0x3d,0x3f]));
 //
 g.sc=g.setColor;
 g.setColor=(c,v)=>{g.sc(g.col[v]);}; 
-g.on= function(){return;};
-g.off= function(){return;};
+g.on= function(){g.bri.set(set.def.bri);};
+g.off= function(){Bangle.setLCDBrightness(0);};
 
 g.bri={
   lv:((require("Storage").readJSON("setting.json",1)||{}).bri)?(require("Storage").readJSON("setting.json",1)||{}).bri:3,
   set:function(o){	
     if (o) this.lv=o; else { this.lv++; if (this.lv>7) this.lv=1; o=this.lv; }
     if (this.lv==0||this.lv==7)
-      digitalWrite(ew.pin.BL,(this.lv==0)?0:1);
+		Bangle.setLCDBrightness(this.lv==0?0:1);
     else 
-	  analogWrite(ew.pin.BL,(this.lv*42.666)/256,{freq:4096});
+		Bangle.setLCDBrightness(this.lv*0.14285714285);
     set.def.bri=o;
     return o;
   }
