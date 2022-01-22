@@ -29,7 +29,15 @@ var TC={
 			"ram";
 			//i2c.writeTo(0x15,0);
 			var tp=i2c.readFrom(0x15,7);
-			if (set.bar&&180<(((tp[5]&0x0F)<<8)|tp[6])) {print("in bar");return;}
+			if  (set.bar) { 
+				if (180<(((tp[5]&0x0F)<<8)|tp[6])) {
+					//print("in bar");
+					return;
+				}else if (TC.tid){
+					//print("clear bar1");
+					clearInterval(TC.tid);TC.st=1;TC.tid=0;set.bar=0;
+				}
+			}
 			//print("in",tp);
 			if (face.pageCurr>=0) {
 				TC.emit("tc"+tp[1],tp[4],tp[6]);
@@ -40,15 +48,17 @@ var TC={
 			this.loop=setTimeout(()=>{
 				TC.loop=0;
 				if (set.bar) {
-				if (!TC.tid) {
-						print("starting bar");
+					if (!TC.tid) {
 						TC.tid=setInterval(function(){
-							TC.bar()
+							TC.bar();
 						},30);
-						print(1);
+						//print("start bar");
+					}else if ( (((tp[5]&0x0F)<<8)|tp[6])<180 ) {
+						//print("clear bar");
+						clearInterval(TC.tid);TC.st=1;TC.tid=0;
 					}
-				} else if (TC.tid) {print(3);clearInterval(TC.tid); TC.tid=0;}
-			},50)				
+				} 
+			},50);				
 		},ew.pin.touch.INT,{repeat:true, edge:"falling"}); 
 	},
 	bar:function(){

@@ -9,35 +9,8 @@ UI.btn.img("main","_2x3",5,_icon.wakeScreen,"WAKE",euc.state=="READY"?14:set.def
 UI.btn.img("main","_2x3",6,set.def.buzz?_icon.buzzOn:_icon.buzzOff,"BUZZ",set.def.buzz?15:3,set.def.buzz?4:0);
 UIc.end();
 //
-UIc.main._2x3_1=()=>{buzzer(buz.ok);eval(require('Storage').read('set_bt'));};
-UIc.main._2x3_2=()=>{buzzer(buz.ok);eval(require('Storage').read('set_theme'));};
-/*
-UIc.main._2x3_3=()=>{
-	buzzer(buz.ok);
-	//w.gfx.bri.lv++;
-	//if (7<w.gfx.bri.lv) w.gfx.bri.lv=1;
-	//w.gfx.bri.set(w.gfx.bri.lv);  
-	UI.btn.img("main","_2x3",3,_icon.bri,set.def.bri,15,1,1);
-	UI.btn.ntfy(1,3,0,"_bar",6,"BRIGHTNESS","CONTROL",15,0,1);
-	UIc.bar._sel_left=()=>{
-		buzzer(buz.ok);
-		UI.btn.ntfy(0,3,1);
-		w.gfx.bri.lv--;
-		if (w.gfx.bri.lv<1) w.gfx.bri.lv=1;
-		w.gfx.bri.set(w.gfx.bri.lv);  
-		UI.btn.img("main","_2x3",3,_icon.bri,set.def.bri,15,1,1);
-	};
-	UIc.bar._sel_right=()=>{
-		buzzer(buz.ok);
-		UI.btn.ntfy(0,3,1);
-		w.gfx.bri.lv++;
-		if (7<w.gfx.bri.lv) w.gfx.bri.lv=7;
-		w.gfx.bri.set(w.gfx.bri.lv);  
-		UI.btn.img("main","_2x3",3,_icon.bri,set.def.bri,15,1,1);
-	};
-	
-};
-*/
+UIc.main._2x3_1=()=>{buzzer(buz.ok);eval(require('Storage').read('set_bt'));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}};
+UIc.main._2x3_2=()=>{buzzer(buz.ok);eval(require('Storage').read('set_theme'));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}};
 UIc.main._2x3_3=()=>{
 	buzzer(buz.ok);
 	UI.btn.img("main","_2x3",3,_icon.bri,set.def.bri,15,1,1);
@@ -82,5 +55,5 @@ UIc.main._2x3_6=()=>{
 	
 };
 
-tcNext.replaceWith(new Function('buzzer(buz.ok);eval(require("Storage").read("set_apps"));'));
+tcNext.replaceWith(new Function('buzzer(buz.ok);eval(require("Storage").read("set_apps"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}'));
 tcBack.replaceWith(new Function("x", "y",'buzzer(buz.na);if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}'));

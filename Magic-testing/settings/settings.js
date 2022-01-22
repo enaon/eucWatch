@@ -7,7 +7,6 @@ face[0] = {
 	bpp:set.def.bpp?0:1,
 	init: function(o){ 
 		if (face.faceSave==-1) face.faceSave=[face.appPrev,face.pagePrev,face.pageArg];
-		//eval(require('Storage').read(o?'set_apps':'set_set')); 
 		eval(require('Storage').read(o?'set_apps':face.faceSave[0].substring(0,4)=="dash"?'set_dash':'set_set')); 
 		this.bar();
 		TC.on('tc5',UIc.xy);
@@ -19,7 +18,6 @@ face[0] = {
 	bar:function(){
 		"ram";
 		set.bar=0;
-		//UI.ele.ind(this.page=="dash2"||this.page=="app"?2:1,this.page=="bt"||this.page=="theme"||this.page=="main"?1:2,this.page=="main"||this.page=="dash1"||this.page=="dash2"?6:1);
 		UIc.start(0,1);
 		this.ref();
 		UIc.end();
@@ -45,7 +43,7 @@ face[0] = {
 	ref : function(s){
 	  "ram";
 		UI.btn.img("bar","_bar",1,_icon.settings,0,face[0].page=="main"?14:3,face[0].page=="main"?1:0);
-		UI.btn.img("bar","_bar",2,_icon.watch,0,face[0].page=="set"||face[0].page=="apps"?14:3,face[0].page=="set"||face[0].page=="app"?1:0);
+		UI.btn.img("bar","_bar",2,_icon.watch,0,face[0].page=="bt"||face[0].page=="theme"||face[0].page=="set"||face[0].page=="apps"?14:3,face[0].page=="bt"||face[0].page=="theme"||face[0].page=="set"||face[0].page=="app"?1:0);
 		UI.btn.img("bar","_bar",3,_icon.dash,0,face[0].page=="dash1"||face[0].page=="dash1"?14:3,face[0].page=="dash1"||face[0].page=="dash2"?1:0);
 	},
 	clear : function(o){

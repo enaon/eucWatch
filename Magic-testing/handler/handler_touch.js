@@ -16,7 +16,7 @@ else
 
 tcDn=(x,y)=>{
 	print("down",x,y);
-	if (global.euc&& euc.sate=="READY")
+	if (global.euc&& euc.state=="READY")
 		face.go(set.dash[set.def.dash.face],0);
 	else if (face.faceSave!=-1) {
 	    face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
@@ -31,9 +31,20 @@ tcDn=(x,y)=>{
 tcUp=(x,y)=>{
 	print("up",x,y);
 	if (y>170&&x<50) { 
-      if (w.gfx.bri.lv!==7) {set.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
+     /* if (w.gfx.bri.lv!==7) {set.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
       else w.gfx.bri.set(set.bri);
       buzzer(buz.ok);
+		*/
+ 		buzzer(buz.ok);
+		if (set.def.bri!==7) {
+		  set.bri=set.def.bri;
+		  w.gfx.bri.set(7);
+		}else 
+			w.gfx.bri.set(set.bri);
+		if (face.appCurr=="settings"&&face[0].page=="set") {
+			UI.btn.ntfy(0,1,0,"_bar",6,"BRIGHTNESS","GESTURE",15,4,0);
+			UI.btn.img("main","_2x3",3,_icon.bri,set.def.bri==7?7:set.bri,15,1,1);
+		}
     }else if (face.appCurr=="settings")
 		buzzer(buz.na);
 	else {face.go("settings",0);}  

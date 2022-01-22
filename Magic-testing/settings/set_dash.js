@@ -14,7 +14,7 @@ face[0].d1=function(){
 	UIc.end();
 	UIc.main._2x3_1=()=>{
 		buzzer(buz.ok);
-		UI.btn.ntfy(1,3,0,"_bar",6,"100% CELL","| |    VOLT    | |",15,1,1);
+		UI.btn.ntfy(1,3,0,"_bar",6,"100% CELL","VOLT",15,1,1);
 		set.bar=1;
 		TC.val={cur:dash.live.batF,dn:400,up:425,tmp:0};
 		UIc.tcBar=(a,b)=>{ 
@@ -43,39 +43,24 @@ face[0].d1=function(){
 	UIc.main._2x3_4=()=>{
 		buzzer(buz.ok);
 		UI.btn.ntfy(1,3,0,"_bar",6,"0% CELL","VOLT",15,1,1);
-		//UI.btn.c2l("main","_2x3",4,"EMPTY",dash.live.batE/100,15,6); //4
-		UIc.bar._sel_left=()=>{
-			buzzer(buz.ok);
-			dash.live.batE--; if ( dash.live.batE <= 300 ) dash.live.batE = 300;
-			UI.btn.ntfy(0,3,1);
-			UI.btn.c2l("main","_2x3",4,"EMPTY",dash.live.batE/100,15,6); //4
-
-		};
-		UIc.bar._sel_right=()=>{
-			buzzer(buz.ok);
-			dash.live.batE++; if (340 <= dash.live.batE) dash.live.batE = 340;
-			UI.btn.ntfy(0,3,1);
-			UI.btn.c2l("main","_2x3",4,"EMPTY",dash.live.batE/100,15,6); //4
-		};			
-			
+		set.bar=1;
+		TC.val={cur:dash.live.batE,dn:300,up:340,tmp:0};
+		UIc.tcBar=(a,b)=>{ 
+			UI.btn.ntfy(0,2,1);
+			UI.btn.c2l("main","_2x3",4,"EMPTY",b/100,15,6); //1
+			dash.live.batE=b;
+		};		
 	};
 	UIc.main._2x3_5=()=>{
 		buzzer(buz.ok);
 		UI.btn.ntfy(1,3,0,"_bar",6,"DISTANCE","FACTOR",15,1,1);
-		//UI.btn.c2l("main","_2x3",5,"DIST X",dash.live.trpF,15,6); //5
-		UIc.bar._sel_left=()=>{
-			buzzer(buz.ok);
-			dash.live.trpF=(dash.live.trpF - 0.01);if (dash.live.trpF <0.5)  dash.live.trpF=0.5;
-			UI.btn.ntfy(0,3,1);
-			UI.btn.c2l("main","_2x3",5,"DIST",dash.live.trpF,15,6); //5
-
-		};
-		UIc.bar._sel_right=()=>{
-			buzzer(buz.ok);
-			dash.live.trpF=(dash.live.trpF + 0.01);if (1.5 <dash.live.trpF)  dash.live.trpF=1.5;
-			UI.btn.ntfy(0,3,1);
-			UI.btn.c2l("main","_2x3",5,"DIST",dash.live.trpF,15,6); //5
-		};
+		set.bar=1;
+		TC.val={cur:dash.live.trpF*100,dn:50,up:150,tmp:0};
+		UIc.tcBar=(a,b)=>{ 
+			UI.btn.ntfy(0,2,1);
+			UI.btn.c2l("main","_2x3",5,"DIST",b/100,15,6); //1
+			dash.live.trpF=b/100;
+		};	
 		
 	};
 	UIc.main._2x3_6=()=>{
@@ -87,8 +72,6 @@ face[0].d1=function(){
 	};
 
 };
-
-
 face[0].d2=function(){
 	face[0].page="dash2";
 	UIc.start(1,0);
@@ -116,19 +99,13 @@ face[0].d2=function(){
 	UIc.main._2x3_6=()=>{
 		buzzer(buz.ok); 
 		UI.btn.ntfy(1,3,0,"_bar",6,"RETRIES","ON 'LOST'",15,1,1);
-		//UI.btn.c2l("main","_2x3",6,"RETRY",set.def.dash.rtr,15,6); //6
-		UIc.bar._sel_left=()=>{
-			buzzer(buz.ok);
-			set.def.dash.rtr--; if ( set.def.dash.rtr <= 1 ) set.def.dash.rtr = 1;
-			UI.btn.ntfy(0,3,1);
-			UI.btn.c2l("main","_2x3",6,"RETRY",set.def.dash.rtr,15,6); //6
-		};
-		UIc.bar._sel_right=()=>{
-			buzzer(buz.ok);
-			set.def.dash.rtr++; if (20 <= set.def.dash.rtr) set.def.dash.rtr = 20;
-			UI.btn.ntfy(0,3,1);
-			UI.btn.c2l("main","_2x3",6,"RETRY",set.def.dash.rtr,15,6); //6
-		};
+		set.bar=1;
+		TC.val={cur:set.def.dash.rtr,dn:1,up:20,tmp:0};
+		UIc.tcBar=(a,b)=>{ 
+			UI.btn.ntfy(0,2,1);
+			UI.btn.c2l("main","_2x3",6,"RETRY",b,15,6); //6
+			set.def.dash.rtr=b;
+		};	
 	};
 
 

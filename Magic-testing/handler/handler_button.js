@@ -8,8 +8,11 @@ function btn1(s){
 		if (global.euc&&euc.state=="READY"&&2<=dash.live.spd&&dash.live.horn) {euc.wri("hornOn");return;}
 		this.t1=setTimeout(() => {
 			this.t1=0;
+			E.kickWatchdog();
 			if (global.euc) {
-				euc.tgl();this.press=false;
+				euc.tgl();
+				D17.mode("input_pulldown");
+				this.press=false;
 			}
 		}, 1000);
    }else if (this.press && !s.state)  { 
@@ -34,7 +37,9 @@ function btn1(s){
 	}else if (this.press&&global.euc&&euc.state==="READY"&&euc.horn&&dash.live.horn) {euc.wri("hornOff");return;
 	}else face.off();
 }
-btn1_wid=setWatch(btn1,BTN1, {repeat:true, debounce:10,edge:0});
-D46.mode("input_pulldown")
-btn2=btn1.bind();
-btn2_wid=setWatch(btn2,D46, {repeat:true, debounce:10,edge:0});
+btn1_wid=setWatch(btn1,BTN1, {repeat:true, debounce:50,edge:0});
+if (process.env.BOARD=="ROCK"){
+	D46.mode("input_pulldown");
+	btn2=btn1.bind();
+	btn2_wid=setWatch(btn2,D46, {repeat:true, debounce:10,edge:0});
+}

@@ -20,25 +20,36 @@ var TC={
 		"ram";
 		//i2c.writeTo(0x15,0);
 		var tp=i2c.readFrom(0x15,7);
-		if (set.bar&&TC.tid&&116<tp[5]) {print("in bar");return;}
+		if  (set.bar) { 
+			if (116<tp[5]) {
+				//print("in bar");
+				return;
+			}else if (TC.tid){
+				//print("clear bar1");
+				clearInterval(TC.tid);TC.st=1;TC.tid=0;set.bar=0;
+			}
+		}
 		if (face.pageCurr>=0) {
 			TC.emit("tc"+tp[0],tp[3],tp[5]);
 			touchHandler[face.pageCurr](tp[0],tp[3],tp[5]);face.off();
 		}else if (tp[0]==1) 
 			face.go(face.appCurr,0);
 		if (this.loop) {clearTimeout(this.loop); this.loop=0;}
-		this.loop=setTimeout(()=>{
-			TC.loop=0;
-			if (set.bar) {
-			if (!TC.tid) {
-					print("starting bar");
-					TC.tid=setInterval(function(){
-						TC.bar()
-					},30);
-					print(1);
-				}
-			} else if (TC.tid) {print(3);clearInterval(TC.tid); TC.tid=0;}
-		},50)
+		if (this.loop) {clearTimeout(this.loop); this.loop=0;}
+			this.loop=setTimeout(()=>{
+				TC.loop=0;
+				if (set.bar) {
+					if (!TC.tid) {
+						TC.tid=setInterval(function(){
+							TC.bar();
+						},30);
+						//print("start bar");
+					}else if (tp[5]<116 ) {
+						//print("clear bar");
+						clearInterval(TC.tid);TC.st=1;TC.tid=0;
+					}
+				} 
+			},50);		
 	},
 	bar:function(){
 			var tp=i2c.readFrom(0x15,7);

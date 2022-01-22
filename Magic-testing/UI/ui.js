@@ -3,11 +3,11 @@ UI={
   pos:{
 	_fold:[12,[0,20,160,105,30],[80,20,240,105,30],[0,106,120,220,30],[120,106,240,220,30]], 
   	_2x2:[35,[0,20,120,127,35],[121,20,240,127,35],[0,128,120,235,35],[121,128,240,235,35]],
-	_2x3:[37,[0,20,80,100,37],[81,20,160,100,37],[161,20,239,100,37],[0,101,80,180,37],[81,101,160,180,37],[161,101,239,180,37]],
+	_2x3:[37,[0,20,80,100,35],[81,20,160,100,35],[161,20,239,100,35],[0,101,80,180,35],[81,101,160,180,35],[161,101,239,180,35]],
 	_2x1:[25,[0,20,239,130,35],[0,131,239,235,35]],
 	_ele:{"0":25,title:[0,236,239,279,28],ind:[80,7,160,12],indF:[0,0,239,19]},
 	_bar:[20,[0,181,80,279,35],[81,181,160,279,35],[161,181,239,279,35],[0,181,120,279,35],[121,181,239,279,35],[0,181,239,279,27],[0,236,239,279,27]],
-	_main:[20,[0,20,120,80,30],[121,20,240,80,30],[0,20,239,80,20],[0,81,160,180,30],[0,181,239,235,30],[0,20,239,180,60],[0,20,239,235,30],[0,101,239,180,30],[0,81,239,180,65]],
+	_main:[20,[0,20,120,80,30],[121,20,239,80,30],[0,20,239,80,20],[0,81,160,180,30],[0,81,239,235,60],[0,20,239,180,60],[0,20,239,235,30],[0,101,239,180,30],[0,81,239,180,60]],
 	_top:20,
 	_head:2,
 	_foot:255,
@@ -47,8 +47,9 @@ UI={
         w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-w.gfx.stringMetrics(txt1).height-((p[3]-p[1])/10)); 
 		//w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-((p[3]-p[1])/(UI.size.txt*3.5) )); 
         w.gfx.setFont("Vector",p[4]*UI.size.txt);	
-		    w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height-2);
-     		//w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height-( (p[3]-p[1])/20)  );
+		//w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height);
+		w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height*(1.95-UI.size.txt));
+  		//w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height-( (p[3]-p[1])*UI.size.txt/25)  );
       }else{  
         w.gfx.setFont("Vector",p[4]*UI.size.txt);	
         w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-(w.gfx.stringMetrics(txt1).height/2)); 
@@ -84,11 +85,11 @@ UI={
 		 // w.gfx.setColor(1,bclr==3?0:3);
 		  w.gfx.drawString(txt,xa+5+w.gfx.imageMetrics(img).width,y-(w.gfx.stringMetrics(txt).height/2)+2); 
 	  }else if (set.def.txt&&txt) {
-		  w.gfx.drawImage(img,x-24*0.65*UI.size.sca,p[1]+((p[3]-p[1])/10) ,{scale:0.75*UI.size.sca});
+		  w.gfx.drawImage(img,x-24*0.65*UI.size.sca,p[1]+((p[3]-p[1])*(2-UI.size.txt)/15) ,{scale:0.75*UI.size.sca});
 		  //w.gfx.setColor(1,bclr==3?0:14);
 		  w.gfx.setColor(1,fclr);
 		  w.gfx.setFont("Vector",p[4]*0.7*UI.size.txt);	
-		  w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y+((p[3]-p[1])/(6/UI.size.txt ))); 
+		  w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y+( (p[3]-p[1])*(2-UI.size.txt)/6 )); 
 	  }else w.gfx.drawImage(img,x-(w.gfx.imageMetrics(img).width*UI.size.sca/2),y-(w.gfx.imageMetrics(img).width*UI.size.sca/2),{scale:UI.size.sca});
 	  img=0;
 	  if (!set.def.bpp) w.gfx.flip();
@@ -127,7 +128,7 @@ UI={
 				}
 			}
 		}
-		UI.ntid=setTimeout(function(t){UI.ntid=0;/*UI.emit('ntfy',"ok");*/if (face[0].bar) face[0].bar(); },tmot?tmot*1000:1000);
+		UI.ntid=setTimeout(function(t){UI.ntid=0;/*UI.emit('ntfy',"ok");*/if (TC.tid) {clearTimeout(TC.tid);TC.tid=0;} set.bar=0; if (face[0].bar) face[0].bar(); },tmot?tmot*1000:1000);
 	}
   },
   ele:{
@@ -238,7 +239,7 @@ if ( process.env.BOARD=="BANGLEJS2"){
 	_2x1:[25,[0,7,175,74,26],[0,75,175,145,26]],
 	_ele:{"0":25,title:[0,146,178,178,22],ind:[60,2,115,4],indF:[0,0,175,6]},
 	_bar:[20,[0,117,58,175,22],[59,117,116,175,22],[117,117,175,175,22],[0,117,89,175,22],[90,117,175,175,22],[0,117,175,175,21],[0,146,175,175,20]],
-	_main:[20,[0,7,89,40,20],[90,7,178,40,20],[0,7,178,40,20],[0,41,178,145,20],[0,41,178,145,20],[0,7,178,145,60],[0,7,178,145,25],[0,93,178,145,20],[0,41,178,116,55]],
+	_main:[20,[0,7,89,40,20],[90,7,178,40,20],[0,7,178,40,20],[0,41,178,145,20],[0,41,178,145,55],[0,7,178,116,30],[0,7,178,145,25],[0,93,178,145,20],[0,41,178,116,70]],
 	_top:20,
 	_head:2,
 	_foot:255,
@@ -271,3 +272,4 @@ var UIc={
 		this.raw={main:" ",bar:" ",up:" ",down:" ",back:" ",next:" "};
 	}
 };
+

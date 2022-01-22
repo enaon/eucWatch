@@ -12,28 +12,6 @@ face[0].d1=function(){
 	UI.btn.c2l("main","_2x3",5,"DIST X",dash.live.trpF,15,6); //5
 	UI.btn.c2l("main","_2x3",6,"PACK",dash.live.bms*67.2|0,15,6); //6
 	UIc.end();
-	//
-	
-	/*
-	UIc.main._2x3_1=()=>{
-		buzzer(buz.ok);
-		UI.btn.ntfy(1,3,0,"_bar",6,"100% CELL","VOLT",15,1,1);
-		//UI.btn.c2l("main","_2x3",1,"FULL",dash.live.batF/100,15,0); //1
-		UIc.bar._sel_left=()=>{
-			buzzer(buz.ok);
-			dash.live.batF--; if ( dash.live.batF <= 400 ) dash.live.batF = 400;
-			UI.btn.ntfy(0,3,1);
-			UI.btn.c2l("main","_2x3",1,"FULL",dash.live.batF/100,15,0); //1
-
-		};
-		UIc.bar._sel_right=()=>{
-			buzzer(buz.ok);
-			dash.live.batF++; if (425 <= dash.live.batF) dash.live.batF = 425;
-			UI.btn.ntfy(0,3,1);
-			UI.btn.c2l("main","_2x3",1,"FULL",dash.live.batF/100,15,0); //1
-		};
-	};
-	*/
 	UIc.main._2x3_1=()=>{
 		buzzer(buz.ok);
 		//UI.btn.ntfy(1,3,0,"_bar",6,"100% CELL","VOLT",15,1,1);

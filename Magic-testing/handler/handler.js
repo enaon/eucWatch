@@ -36,3 +36,5 @@ eval(require('Storage').read('handler_accel_SC7A20'));
 //}
 //cron
 eval(require('Storage').read('handler_cron'));
+//more
+if (set.def.size) UI.size.txt=set.def.size;
