@@ -80,5 +80,5 @@ UIc.main._2x3_6=()=>{
 	UI.btn.ntfy(1,0,0,"_bar",6,"INFO ON","ACTIONS",15,0);
 	UI.btn.img("main","_2x3",6,_icon.info,"INFO",set.def.info?15:3,set.def.info?4:0);
 };
-tcNext.replaceWith(new Function('buzzer(buz.na);'));
+tcNext.replaceWith(new Function('buzzer(buz.ok);eval(require("Storage").read("set_set"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}'));
 tcBack.replaceWith(new Function('buzzer(buz.ok);eval(require("Storage").read("set_set"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}'));

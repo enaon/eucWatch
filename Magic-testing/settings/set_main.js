@@ -73,8 +73,8 @@ UIc.main._2x3_6=()=>{
 };
 
 //face[0].bar();
-tcNext.replaceWith(new Function('buzzer(buz.na);if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;eval(require("Storage").read("set_main"));face[0].bar();}'));
-tcBack.replaceWith(new Function('buzzer(buz.na);if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;eval(require("Storage").read("set_main"));face[0].bar();}'));
+tcNext.replaceWith(new Function('buzzer(buz.ok);eval(require("Storage").read("set_set"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;eval(require("Storage").read("set_main"));}face[0].bar();'));
+tcBack.replaceWith(new Function('buzzer(buz.na);if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;eval(require("Storage").read("set_main"));}face[0].bar();'));
 
 /*
 }else if (face[0].set=="more") {

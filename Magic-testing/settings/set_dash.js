@@ -117,9 +117,15 @@ tcNext.replaceWith((x,y)=>{
   if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}
 });
 tcBack.replaceWith((x,y)=>{
-  if (face[0].page=="dash1") {buzzer(buz.na); if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();} return;}
+  if (face[0].page=="dash1") {
+	buzzer(buz.ok); eval(require("Storage").read("set_apps"));
+	if (UI.ntid) {clearTimeout(UI.ntid);UI.	ntid=0;}
+	face[0].bar();
+	return;
+  }
 	buzzer(buz.ok);face[0].d1();
-  if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}
+  if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}
+  face[0].bar();
 });
 face[0].d1();
 //this.bar();

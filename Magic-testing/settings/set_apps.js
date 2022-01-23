@@ -38,7 +38,7 @@ UIc.main._2x3_5=()=>{buzzer(buz.na);};
 UIc.main._2x3_6=()=>{buzzer(buz.na);};
 
 tcNext.replaceWith((x,y)=>{
-	buzzer(buz.na);
+	buzzer(buz.ok);eval(require("Storage").read("set_dash"));face[0].bar();
 });
 tcBack.replaceWith(new Function('buzzer(buz.ok);eval(require("Storage").read("set_set"));'));
 

@@ -55,5 +55,5 @@ UIc.main._2x3_6=()=>{
 	
 };
 
-tcNext.replaceWith(new Function('buzzer(buz.ok);eval(require("Storage").read("set_apps"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}'));
-tcBack.replaceWith(new Function("x", "y",'buzzer(buz.na);if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}'));
+tcNext.replaceWith(new Function('buzzer(buz.ok);eval(require("Storage").read("set_apps"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}face[0].bar();'));
+tcBack.replaceWith(new Function("x", "y",'buzzer(buz.ok);eval(require("Storage").read("set_main"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}face[0].bar();'));

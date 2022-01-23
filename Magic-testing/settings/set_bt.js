@@ -44,7 +44,6 @@ UIc.main._2x3_6=()=>{
 };
 
 
-tcNext.replaceWith((x,y)=>{
-	buzzer(buz.na);
-});
+tcNext.replaceWith(new Function('buzzer(buz.ok);eval(require("Storage").read("set_set"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}'));
+
 tcBack.replaceWith(new Function('buzzer(buz.ok);eval(require("Storage").read("set_set"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}'));
