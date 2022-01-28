@@ -8,10 +8,8 @@ function btn1(s){
 		if (global.euc&&euc.state=="READY"&&2<=dash.live.spd&&dash.live.horn) {euc.wri("hornOn");return;}
 		this.t1=setTimeout(() => {
 			this.t1=0;
-			E.kickWatchdog();
 			if (global.euc) {
 				euc.tgl();
-				D17.mode("input_pulldown");
 				this.press=false;
 			}
 		}, 1000);
