@@ -11,18 +11,21 @@ face[0] = {
 		//this.gui={spd:UI.pos._main[9],txt:60};
 		//this.gui={spd:UI.pos._main[5],txt:UI.pos._main[5][3]-UI.pos._main[5][1]};
 		if ( process.env.BOARD=="BANGLEJS2") {
-			this.gui={spd:UI.pos._main[5],spdm:this.gui.spd[3]-((this.gui.spd[3]-this.gui.spd[1])/2),tmp:UI.pos._main[1],bat:UI.pos._main[2],txt:117*UI.size.txt,txt1:45*UI.size.txt};
+			this.gui={spd:UI.pos._main[5],spdm:7+UI.pos._main[5][3]-((UI.pos._main[5][3]-UI.pos._main[5][1])/2),tmp:UI.pos._main[1],bat:UI.pos._main[2],txt:117*UI.size.txt,txt1:45*UI.size.txt};
 			this.spdC=[15,13,7,7];
 		}else{
-			this.gui={spd:UI.pos._main[5],spdm:UI.pos._main[5][3]-((UI.pos._main[5][3]-UI.pos._main[5][1])/2),tmp:UI.pos._main[1],bat:UI.pos._main[2],txt:170*UI.size.txt,txt1:60*UI.size.txt};
+			this.gui={spd:UI.pos._main[5],spdm:10+UI.pos._main[5][3]-((UI.pos._main[5][3]-UI.pos._main[5][1])/2),tmp:UI.pos._main[1],bat:UI.pos._main[2],txt:170*UI.size.txt,txt1:60*UI.size.txt};
 			this.spdC=[0,13,7,7];
 		}
 		this.spdF=dash.live.spdF*((set.def.dash.mph)?0.625:1);
 		this.trpF=dash.live.trpF*((set.def.dash.mph)?0.625:1);
 		UI.ele.ind(0,0,1);
-		//UI.btn.c3l("main","_main",1,"TEMP","",15,1);
-		//UI.btn.c3l("main","_main",2,"BATT","",15,4);
+		UIc.start(1,1);
+		UI.btn.c3l("main","_2x2",1,_icon.speed,"SPEED",15,dash.live.hapS?4:1);
+		UI.btn.c3l("main","_2x2",1,_icon.speed,"SPEED",15,dash.live.hapS?4:1);
 		UI.ele.title("||||| ||||| ||||| ||||| |||||",15,4);
+		UIc.end();
+
 		TC.on('bar',tcBar);
 		TC.on('tc1',tcDn); 	
 		TC.on('tc2',tcUp); 
@@ -32,6 +35,7 @@ face[0] = {
 		this.run=true;
 	},
 	show : function(s){
+		"ram";
 		if (!this.run) return;
 		if (euc.state=="READY") {
 			if (this.spd!=Math.round(dash.live.spd)) this.spdf();
@@ -70,6 +74,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},
 	tmpf: function(){
+		"ram";
 		this.tmp=dash.live.tmp.toFixed(1);
 		this.g.setColor(0,this.tmpC[dash.live.tmpC]);
 		this.g.fillRect(this.gui.tmp[0],this.gui.tmp[1],this.gui.tmp[2],this.gui.tmp[3]);
@@ -88,6 +93,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},
 	clkf: function(){
+		"ram";
 		this.time=getTime();
 		this.g.setColor(0,1);
 		this.g.fillRect(this.gui.tmp[0],this.gui.tmp[1],this.gui.tmp[2],this.gui.tmp[3]);
@@ -102,6 +108,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},
 	batf: function(){
+		"ram";
 		this.bat=dash.live.bat;
 		this.g.setColor(0,this.batC[dash.live.batC]);
 		this.g.fillRect(this.gui.bat[0],this.gui.bat[1],this.gui.bat[2],this.gui.bat[3]);
@@ -113,6 +120,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},
 	vltf: function(){
+		"ram";
 		this.volt=dash.live.volt.toFixed(1);
 		this.g.setColor(0,this.batC[dash.live.batC]);
 		this.g.fillRect(this.gui.bat[0],this.gui.bat[1],this.gui.bat[2],this.gui.bat[3]);
@@ -131,6 +139,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},
 	ampf: function(){
+		"ram";
 		this.amp=dash.live.amp;
 		this.g.setColor(0,this.ampC[dash.live.ampC]);
 		this.g.fillRect(this.gui.tmp[0],this.gui.tmp[1],this.gui.tmp[2],this.gui.tmp[3]);
@@ -139,7 +148,8 @@ face[0] = {
 		this.g.drawString(this.amp|0,(122-(this.g.stringWidth(this.amp|0)/2)),5); 
 		if (this.old)this.g.flip();
 	},
-	tpmsf: function(){
+	tpmsf: function(){		
+		"ram";
 		this.tpms=tpms.euc[dash.live.tpms].alrm;
 		this.g.setColor(0,(this.tpms)?7:4);
 		this.g.clearRect(0,210,239,239); //amp 
@@ -162,6 +172,8 @@ face[0] = {
 //
 
 touchHandler[0]=function(){};
+UIc.main._2x2_1=()=>{buzzer(buz.ok);this.sel(1,"hapS","SPEED","haSv",10,100);};
+UIc.main._2x2_2=()=>{buzzer(buz.ok);this.sel(2,"hapA","AMP","haSv",10,100);};
 tcNext=(x,y)=>{
 	buzzer(buz.ok);
 	(euc.state=="READY")?face.go('dash'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0):(euc.state=="OFF")?face.go("dashGarage",0):buzzer(buz.na);
