@@ -11,10 +11,10 @@ face[0] = {
 		//this.gui={spd:UI.pos._main[9],txt:60};
 		//this.gui={spd:UI.pos._main[5],txt:UI.pos._main[5][3]-UI.pos._main[5][1]};
 		if ( process.env.BOARD=="BANGLEJS2") {
-			this.gui={spd:UI.pos._main[5],tmp:UI.pos._main[1],bat:UI.pos._main[2],txt:130,txt1:40};
+			this.gui={spd:UI.pos._main[5],spdm:this.gui.spd[3]-((this.gui.spd[3]-this.gui.spd[1])/2),tmp:UI.pos._main[1],bat:UI.pos._main[2],txt:117*UI.size.txt,txt1:45*UI.size.txt};
 			this.spdC=[15,13,7,7];
 		}else{
-			this.gui={spd:UI.pos._main[5],tmp:UI.pos._main[1],bat:UI.pos._main[2],txt:170,txt1:60};
+			this.gui={spd:UI.pos._main[5],spdm:UI.pos._main[5][3]-((UI.pos._main[5][3]-UI.pos._main[5][1])/2),tmp:UI.pos._main[1],bat:UI.pos._main[2],txt:170*UI.size.txt,txt1:60*UI.size.txt};
 			this.spdC=[0,13,7,7];
 		}
 		this.spdF=dash.live.spdF*((set.def.dash.mph)?0.625:1);
@@ -23,14 +23,18 @@ face[0] = {
 		//UI.btn.c3l("main","_main",1,"TEMP","",15,1);
 		//UI.btn.c3l("main","_main",2,"BATT","",15,4);
 		UI.ele.title("||||| ||||| ||||| ||||| |||||",15,4);
-
+		TC.on('bar',tcBar);
+		TC.on('tc1',tcDn); 	
+		TC.on('tc2',tcUp); 
+		TC.on('tc3',tcNext); 	
+		TC.on('tc4',tcBack); 	
+		TC.on('tc5',UIc.xy);
 		this.run=true;
 	},
 	show : function(s){
 		if (!this.run) return;
 		if (euc.state=="READY") {
 			if (this.spd!=Math.round(dash.live.spd)) this.spdf();
-			
 			if (!set.def.dash.clkS){	
 				if (this.tmp!=dash.live.tmp.toFixed(1))	this.tmpf();}
 			else if (60 < getTime()-this.time )	
@@ -62,7 +66,7 @@ face[0] = {
 			this.g.setFontVector(this.gui.txt-30);
 		}else 
 			this.g.setFontVector(this.gui.txt);	  
-		this.g.drawString(Math.round(this.spd*this.spdF),(10+this.gui.spd[2]/2)-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2),this.gui.spd[3]+20-this.gui.txt); 
+		this.g.drawString(Math.round(this.spd*this.spdF),(10+this.gui.spd[2]/2)-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2),this.gui.spdm-(this.gui.txt/2)); 
 		if (this.old)this.g.flip();
 	},
 	tmpf: function(){
@@ -75,12 +79,12 @@ face[0] = {
 		let size=5+this.g.stringWidth(temp[0]);
 		this.g.drawString(temp[0], 10,this.gui.tmp[1]+3); 
 		if (temp[0]<100) {
-			this.g.setFontVector(this.gui.txt1/2);
-			this.g.drawString("."+temp[1],5+size,this.gui.tmp[1]+17); 
+			this.g.setFontVector(this.gui.txt1/1.8);
+			this.g.drawString("."+temp[1],5+size,this.gui.tmp[1]+this.gui.txt1/2.6); 
 			size=size+this.g.stringWidth(temp[1]);
 		}
 		this.g.setFontVector(this.gui.txt1/4);
-		this.g.drawString((set.def.dash.farn)?"°F":"°C",size,this.gui.tmp[1]+5); 
+		this.g.drawString((set.def.dash.farn)?"°F":"°C",size,this.gui.tmp[1]+3); 
 		if (this.old)this.g.flip();
 	},
 	clkf: function(){
@@ -101,7 +105,6 @@ face[0] = {
 		this.bat=dash.live.bat;
 		this.g.setColor(0,this.batC[dash.live.batC]);
 		this.g.fillRect(this.gui.bat[0],this.gui.bat[1],this.gui.bat[2],this.gui.bat[3]);
-//		this.g.setColor(1,15);
 		this.g.setColor(1,15);
 		this.g.setFontVector(this.gui.txt1);
 		this.g.drawString(this.bat,225-(this.g.stringWidth(this.bat)),this.gui.bat[1]+3);
@@ -116,12 +119,12 @@ face[0] = {
 		this.g.setColor(1,15);
 		let volt=this.volt.toString().split(".");
 		this.g.setFontVector(this.gui.txt1/6);
-		this.g.drawString("VOLT",this.gui.bat[2]-13-this.g.stringWidth("VOLT"),this.gui.bat[1]+8); 
-		let size=this.gui.bat[2]-13;
+		this.g.drawString("VOLT",this.gui.bat[2]-13-this.g.stringWidth("VOLT"),this.gui.bat[1]+5); 
+		let size=this.gui.bat[2]-10;
 		if (volt[0]<100) {
-			this.g.setFontVector(this.gui.txt1/2);
+			this.g.setFontVector(this.gui.txt1/1.8);
 			size=size-this.g.stringWidth("."+volt[1]);
-			this.g.drawString("."+volt[1],size,this.gui.bat[1]+23); 
+			this.g.drawString("."+volt[1],size,this.gui.bat[1]+this.gui.txt1/2.6); 
 		}
 		this.g.setFontVector(this.gui.txt1);
 		this.g.drawString(volt[0], size-this.g.stringWidth(volt[0]),this.gui.bat[1]+3); 
@@ -167,16 +170,7 @@ tcBack=(x,y)=>{
 	buzzer(buz.ok);
 	face.go("main",0);
 };	
-tcBack=(x,y)=>{
-	buzzer(buz.ok);
-	face.go("main",0);
-};	
 tcDn.replaceWith(new Function('buzzer(buz.ok);if (set.def.dash.face+1>=set.dash.length) set.def.dash.face=0; else set.def.dash.face++;face.go(set.dash[set.def.dash.face],0);'));
 
 tcBar=(x,y)=>{UIc.tcBar(x,y);};	
-TC.on('bar',tcBar);
-TC.on('tc1',tcDn); 	
-TC.on('tc2',tcUp); 
-TC.on('tc3',tcNext); 	
-TC.on('tc4',tcBack); 	
-TC.on('tc5',UIc.xy);
+
