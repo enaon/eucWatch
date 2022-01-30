@@ -126,10 +126,10 @@ Using a chromium based browser, press the **connect** button (right top corner),
 
 
 >**Note** If the installation of scripts stops half way, repeat the installer proccess again.
->**Note** When all sripts are installed, press the "Disconnect" button on top right for the watch to restart in working mode.
 
 ![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/5.3.png?raw=true)
 
+>**Note** When all sripts are installed, press the "Disconnect" button on top right for the watch to restart in working mode.
 
 good luck :)
 
