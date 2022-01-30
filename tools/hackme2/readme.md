@@ -37,8 +37,12 @@ Using the DaFlasher app, you will upload three files to the watch. The second st
 > **Tip:** Disconnect the watch from the charger, make sure it is over 50% charged.
 
  
+#### Step 1.
+
+> #### Step 1.
 
 >**Step 1.**
+
 Open daFlasher, search for the Magic3/Rock and select it. The program will report a DaFit device and offer to hack it:
 
 ![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/1.png?raw=true )
@@ -68,7 +72,6 @@ When finished, press the "Disconnect" button on top right.
 
 
 >**Step 3.**
-> 
 
 Open daFlasher, search for the Magic3/Rock and select it, it will be named as "DfuTarg". 
 
