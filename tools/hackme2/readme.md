@@ -39,10 +39,6 @@ Using the DaFlasher app, you will upload three files to the watch. The second st
  
 #### Step 1.
 
-> #### Step 1.
-
->**Step 1.**
-
 Open daFlasher, search for the Magic3/Rock and select it. The program will report a DaFit device and offer to hack it:
 
 ![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/1.png?raw=true )
@@ -54,7 +50,7 @@ Press **Select File** and choose the file named step1-xxx you just downloaded, t
 When finished the watch screen will be black, like off. 
 Close DaFlasher, the next step will be done using a chrome browser, phone or PC.
 
->**Step 2.**
+#### Step 2.
 
 Using a chrome based browser, visit this [page](https://enaon.github.io/eucWatch), press the "connect" button on top right, find the watch (it will be ROCK_XXXX/MAGIC3_XXXX) and connect.
 
@@ -71,7 +67,7 @@ When finished, press the "Disconnect" button on top right.
 ![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/2.2.png?raw=true)
 
 
->**Step 3.**
+#### Step 3.
 
 Open daFlasher, search for the Magic3/Rock and select it, it will be named as "DfuTarg". 
 
@@ -86,7 +82,7 @@ Then press the **Select DFU file** button, and choose the step3 file for your wa
 When step three ends, the watch will be ready for the final step of the hacking part of the installation procedure. 
 
 
->**Step 4.**
+#### Step 4.
 
 This step is a bit tricky, we need to downgrade the bluetooth softdevice, to do that we must manually take the watch to DFU mode.  
 
