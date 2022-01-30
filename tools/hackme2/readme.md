@@ -54,7 +54,7 @@ Close DaFlasher, the next step will be done using a chrome browser, phone or PC.
 
 #### Step 2.
 
-Using a chrome based browser, visit this [page](https://enaon.github.io/eucWatch). 
+Using a chrome based browser, visit this [page](https://enaon.github.io/eucWatch/magic-testing). 
 
 Press the "connect" button on top right, find the watch (it will be ROCK_XXXX/MAGIC3_XXXX) and connect.
 
@@ -116,7 +116,7 @@ This step will take up to 5 minutes, and when done the watch screen will remain 
 ### EucWatch Installation:
 
 
-If all went ok disconnect the phone by turning off the BT radio, so that you will make sure the watch is disconnected, and go to the eucWatch [loader](https://enaon.github.io/eucWatch) using PC or android chromium based browser. 
+If all went ok disconnect the phone by turning off the BT radio, so that you will make sure the watch is disconnected, and go to the eucWatch [loader](https://enaon.github.io/eucWatch/magic-testing) using PC or android chromium based browser. 
 
 The loader is a web based app store service, using web Bluetooth technology it will connect to the watch, help install the scripts and keep you up to date by offring updates when available.
 
