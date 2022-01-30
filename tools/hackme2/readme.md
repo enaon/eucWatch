@@ -41,11 +41,11 @@ Using the DaFlasher app, you will upload three files to the watch. The second st
 >**Step 1.**
 Open daFlasher, search for the Magic3/Rock and select it. The program will report a DaFit device and offer to hack it:
 
-![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/1.png?raw=true )
+![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/1.jpg?raw=true )
 
 Press **Select File** and choose the file named step1-xxx you just downloaded, the app will begin the transfer, this step will needs a couple of minutes, you should see the bar moving within seconds, if not, close(kill) the app and try again:
 
-![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/1.3.png?raw=true)
+![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/1.3.jpg?raw=true)
  
 When finished the watch screen will be black, like off. 
 Close DaFlasher, the next step will be done using a chrome browser, phone or PC.
@@ -76,7 +76,7 @@ Unselect **Toggle Bluetooth** and select the **Use Nordic Bootloader**.
 
 Then press the **Select DFU file** button, and choose the step3 file for your watch.
 
-![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/3.png?raw=true)
+![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/3.jpg?raw=true)
 
 >**Note** please make sure you have the correct step3 file for your watch, look for Magic or Rock in the filename.
 
@@ -91,17 +91,17 @@ Go back or kill Daflasher.
 Open DaFlasher, search for the Magic3/Rock. It may be named as "MAGIC3_XXX", or it may be named "Unknown". 
 Select the watch, and on the next page press the "Start Bootloader" button.
 
-![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/4.png?raw=true)
+![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/4.jpg?raw=true)
 
 Go back or kill Daflasher. 
 Open daFlasher, search for the Magic3/Rock. It should be named "DFUTarg". 
 Select the watch, and on the next page preess the "Do DFU Update" button. (the "start bootloader" button should be grayed out)
 
-![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/4.1.png?raw=true)
+![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/4.1.jpg?raw=true)
 
 Unselect **Toggle Bluetooth** and select **Use Nordic Bootloader** option, then press the **Select DFU file** button, and choose the file step4-xxx. 
 
-![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/4.2.png?raw=true)
+![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/4.2.jpg?raw=true)
 
 This step will take up to 5 minutes, and when done the watch screen will remain black/off. 
 
@@ -115,13 +115,13 @@ The loader is a web based app store service, using web Bluetooth technology it w
 
 Using a chromium based browser, press the **connect** button (right top corner), connect to the watch (named MAGIC33xxx/ROCKxx etc), then on the installer tab select **Install All Apps**. 
 
-![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/5.png?raw=true)
+![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/5.jpg?raw=true)
 
 
 >**Note** If the installation of scripts stops half way, repeat the installer proccess again.
 >**Note** When all sripts are installed, press the "Disconnect" button on top right for the watch to restart in working mode.
 
-![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/5.3.png?raw=true)
+![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/5.3.jpg?raw=true)
 
 
 good luck :)
