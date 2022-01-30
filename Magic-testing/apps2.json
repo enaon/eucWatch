@@ -20,10 +20,10 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"C:.bootrst","url":"init.js"},
-			{"name":"C:.lcd_p8","url":"lcd_p8.js"},
-			{"name":"C:.lcd_magic","url":"lcd_magic.js"},
-			{"name":"C:.lcd_b2","url":"lcd_b2.js"}
+			{"name":".bootrst","url":"init.js"},
+			{"name":".lcd_p8","url":"lcd_p8.js"},
+			{"name":".lcd_magic","url":"lcd_magic.js"},
+			{"name":".lcd_b2","url":"lcd_b2.js"}
 		]
 	},
 	{ "id": "UI",
@@ -35,8 +35,8 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"C:UI","url":"ui.js"},
-			{"name":"C:icons","url":"icons.js"}
+			{"name":"UI","url":"ui.js"},
+			{"name":"icons","url":"icons.js"}
 
 		]
 	},	
@@ -50,20 +50,20 @@
 		"readme": "README.md",
 		"storage": [
 			{"name":"handler","url":"handler.js"},
-			{"name":"C:handler_face","url":"handler_face.js"},
+			{"name":"handler_face","url":"handler_face.js"},
 			{"name":"handler_notify","url":"handler_notify.js"},
-			{"name":"C:handler_setter","url":"handler_setter.js"},
+			{"name":"handler_setter","url":"handler_setter.js"},
 			{"name":"handler_button","url":"handler_button.js"},
-			{"name":"C:handler_conn","url":"handler_conn.js"},
+			{"name":"handler_conn","url":"handler_conn.js"},
 			{"name":"handler_cron","url":"handler_cron.js"},
 			{"name":"handler_charge","url":"handler_charge.js"},
 			{"name":"handler_touch","url":"handler_touch.js"},
-			{"name":"C:handler_touch_716","url":"handler_touch_716.js"},
-			{"name":"C:handler_touch_816","url":"handler_touch_816.js"},
+			{"name":"handler_touch_716","url":"handler_touch_716.js"},
+			{"name":"handler_touch_816","url":"handler_touch_816.js"},
 			{"name":"handler_touch_816s","url":"handler_touch_816s.js"},
 			{"name":"handler_touch_b2","url":"handler_touch_b2.js"},
-			{"name":"C:handler_accel_BMA421","url":"handler_accel_BMA421.js"},
-			{"name":"C:handler_accel_SC7A20","url":"handler_accel_SC7A20.js"}
+			{"name":"handler_accel_BMA421","url":"handler_accel_BMA421.js"},
+			{"name":"handler_accel_SC7A20","url":"handler_accel_SC7A20.js"}
 		]
 	},  
 	{ "id": "icon",
@@ -75,7 +75,7 @@
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"C:icon","url":"icon.js"}
+			{"name":"icon","url":"icon.js"}
 		]
 	},
 	{ "id": "main",
@@ -86,7 +86,7 @@
 		"tags": "apps",
 		"type":"main",
 		"storage": [
-			{"name":"C:main","url":"main.js"},
+			{"name":"main","url":"main.js"},
 			{"name":"mainOptions","url":"mainOptions.js"}
 		]
 	},  
@@ -99,8 +99,8 @@
 		"type":"main",
 		"readme": "README.md",
 		"storage": [
-			{"name":"C:settings","url":"settings.js"},
-			{"name":"C:set_set","url":"set_set.js"},
+			{"name":"settings","url":"settings.js"},
+			{"name":"set_set","url":"set_set.js"},
 			{"name":"set_apps","url":"set_apps.js"},
 			{"name":"set_bt","url":"set_bt.js"},
 			{"name":"set_theme","url":"set_theme.js"},
@@ -160,12 +160,12 @@
 		"tags": "euc",
 		"readme": "README.md",
 		"storage": [
-			{"name":"C:dash_simple","url":"dash_simple.js"},
-			{"name":"C:dash_digital","url":"dash_digital.js"},
+			{"name":"dash_simple","url":"dash_simple.js"},
+			{"name":"dash_digital","url":"dash_digital.js"},
 			{"name":"dashGarage","url":"dashGarage.js"},
 			{"name":"dashAlerts","url":"dashAlerts.js"},
 			{"name":"dashScan","url":"dashScan.js"},
-			{"name":"C:dashOff","url":"dashOff.js"},
+			{"name":"dashOff","url":"dashOff.js"},
 			{"name":"dashOptions","url":"dashOptions.js"}
 		]
 	}, 
@@ -281,7 +281,7 @@
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"C:euc","url":"euc.js"},
+			{"name":"euc","url":"euc.js"},
 			{"name":"eucSlot.json","url":"eucSlot.json"},
 			{"name":"proxyKingsong","url":"proxyKingsong.js"}
 		]
@@ -294,7 +294,7 @@
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"C:eucKingsong","url":"eucKingsong.js"}
+			{"name":"eucKingsong","url":"eucKingsong.js"}
 		]
 		},
 	{ "id": "eucNinebot",
@@ -338,7 +338,7 @@
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"C:eucInmotion","url":"eucInmotion.js"}
+			{"name":"eucInmotion","url":"eucInmotion.js"}
 		]
 	},
 	{ "id": "eucInmotionV1",
@@ -349,7 +349,7 @@
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"C:eucInmotionV1","url":"eucInmotionV1.js"}
+			{"name":"eucInmotionV1","url":"eucInmotionV1.js"}
 		]
 	},
    { "id": "eucVeteran",
@@ -360,7 +360,7 @@
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"C:eucVeteran","url":"eucVeteran.js"}
+			{"name":"eucVeteran","url":"eucVeteran.js"}
 		]
 	},
    { "id": "eucBegode",
@@ -371,7 +371,7 @@
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"C:eucBegode","url":"eucBegode.js"}
+			{"name":"eucBegode","url":"eucBegode.js"}
 		]
 	},
 	{ "id": "tpms",

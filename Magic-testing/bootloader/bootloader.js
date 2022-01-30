@@ -338,4 +338,5 @@ NRF.onRestart=function(){
   },5000);
 };
 NRF.restart();
+NRF.disconnect();
 }
