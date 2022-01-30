@@ -22,7 +22,7 @@ Using the DaFlasher app, you will upload three files to the watch. The second st
 > 
 > **Notice** Do not "right click"->"save as" on github, use the download button instead, or the following links for convenience 
 
-> ( it is safe to "right clik->save as" on the links below:)
+> ( it is safe to "right clik->save link as" on the links below:)
 >
 > [**Step1 file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme2/step1_espruino_2v10.102_magic3-dafit.bin)
 > 
