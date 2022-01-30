@@ -52,7 +52,7 @@ Close DaFlasher, the next step will be done using a chrome browser, phone or PC.
 
 >**Step 2.**
 
-Using a chrome based browser, visit this page, press the "connect" button on top right, find the watch (it will be ROCK_XXXX/MAGIC3_XXXX) and connect.
+Using a chrome based browser, visit this [page](https://enaon.github.io/eucWatch), press the "connect" button on top right, find the watch (it will be ROCK_XXXX/MAGIC3_XXXX) and connect.
 
 ![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/2.png?raw=true )
 
