@@ -91,7 +91,9 @@ When step three ends, the watch will be ready for the final step of the hacking 
 This step is a bit tricky, we need to downgrade the bluetooth softdevice, to do that we must manually take the watch to DFU mode.  
 
 Go back or kill Daflasher. 
+
 Open DaFlasher, search for the Magic3/Rock. It may be named as "MAGIC3_XXX", or it may be named "Unknown". 
+
 Select the watch, and on the next page press the "Start Bootloader" button.
 
 ![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/4.png?raw=true)
