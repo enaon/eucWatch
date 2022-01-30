@@ -43,7 +43,9 @@ Open daFlasher, search for the Magic3/Rock and select it. The program will repor
 
 ![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/1.png?raw=true )
 
-Press **Select File** and choose the file named step1-xxx you just downloaded, the app will begin the transfer, this step will needs a couple of minutes, you should see the bar moving within seconds, if not, close(kill) the app and try again:
+Press **Select File** and choose the file named step1-xxx you just downloaded from this how-to.
+
+> **Tip:** this step will needs a couple of minutes, you should see the bar moving within seconds, if not, close(kill) the app and try again:
 
 ![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/1.3.png?raw=true)
  
