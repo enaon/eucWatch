@@ -54,13 +54,15 @@ Close DaFlasher, the next step will be done using a chrome browser, phone or PC.
 
 #### Step 2.
 
-Using a chrome based browser, visit this [page](https://enaon.github.io/eucWatch), press the "connect" button on top right, find the watch (it will be ROCK_XXXX/MAGIC3_XXXX) and connect.
+Using a chrome based browser, visit this [page](https://enaon.github.io/eucWatch). 
 
-![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/2.png?raw=true )
+Press the "connect" button on top right, find the watch (it will be ROCK_XXXX/MAGIC3_XXXX) and connect.
 
 > **Tip:** If the site fails to connect, wait a few second, refresh and try again. 
 
 When connected, go to "Library" tab, then to "Core" section, and upload the "bootloader - MAGIC - ROCK (v1.00)" file to the watch using the arrow next to it. 
+
+![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/2.png?raw=true )
 
 ![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/2.1.png?raw=true)
 
@@ -95,7 +97,9 @@ Select the watch, and on the next page press the "Start Bootloader" button.
 ![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/4.png?raw=true)
 
 Go back or kill Daflasher. 
-Open daFlasher, search for the Magic3/Rock. It should be named "DFUTarg". 
+
+Open daFlasher, search for the Magic3/Rock. It should be named "DfuTarg". 
+
 Select the watch, and on the next page preess the "Do DFU Update" button. (the "start bootloader" button should be grayed out)
 
 ![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/4.1.png?raw=true)
