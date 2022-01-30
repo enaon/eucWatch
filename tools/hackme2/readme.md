@@ -14,15 +14,15 @@ Using the DaFlasher app, you will upload three files to the watch. The second st
 3. espruino image. (select the one for your watch, Magic or Rock)
 4. softDevice image, (downgrade to 6.0.0).
 
-
-> Files are mirrored [here](https://github.com/enaon/eucWatch/tree/main/tools/hackme2) 
 > 
 >  **original links:**
 > [espruino app image, bootloader & SoftDevice](https://github.com/fanoush/ds-d6/tree/master/espruino/DFU/Magic3) (step 1,2&4)
 > [espruino image](https://github.com/jeffmer/WatchApps/tree/master/firmware) (step 3)
 
 > 
-> **Notice** Do not "right click"->"save as" on github, use the download button instead, or the following links for convenience:
+> **Notice** Do not "right click"->"save as" on github, use the download button instead, or the following links for convenience 
+
+> ( it is safe to "right clik->save as" on the links below:)
 >
 > [**Step1 file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme2/step1_espruino_2v10.102_magic3-dafit.bin)
 > 
