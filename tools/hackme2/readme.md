@@ -54,17 +54,17 @@ Close DaFlasher, the next step will be done using a chrome browser, phone or PC.
 
 Using a chrome based browser, visit this [page](https://enaon.github.io/eucWatch), press the "connect" button on top right, find the watch (it will be ROCK_XXXX/MAGIC3_XXXX) and connect.
 
-![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/2.png?raw=true )
+![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/2.PNG?raw=true )
 
 > **Tip:** If the site fails to connect, wait a few second, refresh and try again. 
 
 When connected, go to "Library" tab, then to "Core" section, and upload the "bootloader - MAGIC - ROCK (v1.00)" file to the watch using the arrow next to it. 
 
-![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/2.1.png?raw=true)
+![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/2.1.PNG?raw=true)
 
 When finished, press the "Disconnect" button on top right. 
 
-![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/2.2.png?raw=true)
+![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/2.2.PNG?raw=true)
 
 
 >**Step 3.**
@@ -115,13 +115,13 @@ The loader is a web based app store service, using web Bluetooth technology it w
 
 Using a chromium based browser, press the **connect** button (right top corner), connect to the watch (named MAGIC33xxx/ROCKxx etc), then on the installer tab select **Install All Apps**. 
 
-![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/5.jpg?raw=true)
+![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/5.PNG?raw=true)
 
 
 >**Note** If the installation of scripts stops half way, repeat the installer proccess again.
 >**Note** When all sripts are installed, press the "Disconnect" button on top right for the watch to restart in working mode.
 
-![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/5.3.jpg?raw=true)
+![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/5.3.PNG?raw=true)
 
 
 good luck :)
