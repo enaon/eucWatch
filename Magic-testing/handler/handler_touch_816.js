@@ -9,7 +9,13 @@ var TC={
 	val:{cur:0,up:0,dn:0},
 	start:function(){ 
     "ram";
-		if (this.ntid) return;
+		if (this.ntid) 	{
+			i2c.writeTo(0x15,254,1); //auto sleep on
+			i2c.writeTo(0x15,0);
+			print("wake");
+
+			return;
+		}
 		digitalPulse(set.def.rstP,1,[5,50]);
 		setTimeout(()=>{
 			i2c.writeTo(0x15,236,0); //MotionMask 7/4/1
@@ -19,7 +25,7 @@ var TC={
 			i2c.writeTo(0x15,0xF8,50); //lp scan current
 			i2c.writeTo(0x15,0xF9,2); //auto sleep timeout
 			i2c.writeTo(0x15,0xFA,17); //gesture mode
-			i2c.writeTo(0x15,254,0); //auto sleep on
+			i2c.writeTo(0x15,254,1); //auto sleep on
 			i2c.writeTo(0x15,0);
 		},150);
 		this.init();
@@ -92,6 +98,9 @@ var TC={
 	},
 	stop:function(){
 		"ram";
+		i2c.writeTo(0x15,254,0); //auto sleep on
+		i2c.writeTo(0x15,0);
+		print("sleep");
 		return true;
 		//"ram";
 		////setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100);
