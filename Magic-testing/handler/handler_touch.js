@@ -14,22 +14,32 @@ else
 	eval(require('Storage').read('handler_touch_716'));
 
 
-tcDn=(x,y)=>{
-	print("down",x,y);
-	if (global.euc&& euc.state=="READY")
-		face.go(set.dash[set.def.dash.face],0);
-	else if (face.faceSave!=-1) {
+tcUp=(x,y)=>{
+	print("up",x,y);
+	if (global.euc&& euc.state=="READY"){
+		if (set.def.dash.face+1>=set.dash.length) 
+			set.def.dash.face=0; 
+		else 
+			set.def.dash.face++;
+		face.go(set.dash[set.def.dash.face],0);	
+	}else if (face.faceSave!=-1) {
+		print(10);
+		print(face.faceSave[0],face.faceSave[1],face.faceSave[2]);
 	    face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
-	}else if (face.appCurr=="main"){
+	}else 
+		buzzer(buz.na);
+	/*
+	else if (face.appCurr=="main"){
 		face.go("main",-1);
 	}else{
 		face.go("main",0);
 	   // if (face.appPrev=="settings"||face.appPrev==face.faceSave[0].substring(0,4)+"Options") {face.appPrev="main";face.pagePrev=0;}
 	  // face.go(face.appPrev,face.pagePrev,face.pageArg);return;
 	}
+	*/
 };	
-tcUp=(x,y)=>{
-	print("up",x,y);
+tcDn=(x,y)=>{
+	print("dn",x,y);
 	if (y>170&&x<50) { 
      /* if (w.gfx.bri.lv!==7) {set.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
       else w.gfx.bri.set(set.bri);
@@ -49,5 +59,17 @@ tcUp=(x,y)=>{
 		buzzer(buz.na);
 	else {face.go("settings",0);}  
 };	
-
-
+tcBack=(x,y)=>{
+	buzzer(buz.ok);
+	face.go(face.appRoot[0],face.appRoot[1]);
+};	
+tcNext=(x,y)=>{
+	buzzer(buz.na);
+};	
+tcBar=(x,y)=>{UIc.tcBar(x,y);};	
+TC.on('bar',tcBar);
+TC.on('tc1',tcDn); 	
+TC.on('tc2',tcUp); 
+TC.on('tc3',tcNext); 	
+TC.on('tc4',tcBack); 	
+TC.on('tc5',UIc.xy);

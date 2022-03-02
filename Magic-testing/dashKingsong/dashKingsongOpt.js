@@ -128,25 +128,7 @@ touchHandler[0]=function(e,x,y){
 			buzzer(buz.ok);						
 		}else buzzer(buz.ok);
 		break;
-	case 1: //slide down event
-		//face.go("main",0);
-		face.go(set.dash[set.def.dash.face],0);
-		return;	 
-	case 2: //slide up event
-		if ( 200<=y && x<=50) { //toggles full/current brightness on a left down corner swipe up. 
-			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
-			else w.gfx.bri.set(this.bri);
-			buzzer(buz.ok);
-		}else //if (y>100) {
-			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		//} else {buzzer(buz.na);}
-		break;
-	case 3: //slide left event
-		face.go("dashKingsongOpt2",0);
-		return;
-	case 4: //slide right event (back action)
-		face.go("dashKingsong",0);
-		return;
+
 	case 12: //hold event
 		if ( x<=120 && y<100 ) { //ride led
 			dash.live.lght.ride=1-dash.live.lght.ride;

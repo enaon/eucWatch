@@ -16,33 +16,36 @@ var TC={
 		"ram";
 		var tp=i2c.readFrom(0x15,7);
 		if ( tp == Uint8Array(7) || (tp[3] == 64 && this.st)  ) return;
-		if (set.bar&&180<(((tp[5]&0x0F)<<8)|tp[6])) {  
-			if (tp[2]) {
-				if (this.st) {this.st=0; this.y=tp[4]; return;}
-				if (this.y!=tp[4]) {
-					this.val.tmp=this.y<tp[4]?this.val.tmp+(tp[4]-this.y):this.val.tmp-(this.y-tp[4]); 
-					let len=10;
-					let step=Math.round(this.val.tmp/len);
-					if (step ==1) step=0;
-					else if (step ==-1) step=0;
-					else if ( step ==2 || step == 3) step=1;
-					else if (step ==-2 || step == -3) step=-1;
-					else if (step) step=Math.round(step*1.4);
-					print (step)
-					if (step) {
-						if ( len<this.val.tmp || this.val.tmp < -len) {
-							//this.val.cur=this.val.cur+(step* (step==1||step==-1?1:Math.abs(step*2))   ); this.val.tmp=0;
-							this.val.cur=this.val.cur+step; this.val.tmp=0;
+		if (set.bar){
+			if (180<(((tp[5]&0x0F)<<8)|tp[6])) {  
+				if (tp[2]) {
+					if (this.st) {this.st=0; this.y=tp[4]; return;}
+					if (this.y!=tp[4]) {
+						this.val.tmp=this.y<tp[4]?this.val.tmp+(tp[4]-this.y):this.val.tmp-(this.y-tp[4]); 
+						let len=10;
+						let step=Math.round(this.val.tmp/len);
+						if (step ==1) step=0;
+						else if (step ==-1) step=0;
+						else if ( step ==2 || step == 3) step=1;
+						else if (step ==-2 || step == -3) step=-1;
+						else if (step) step=Math.round(step*1.8);
+						//print (step)
+						if (step) {
+							if ( len<this.val.tmp || this.val.tmp < -len) {
+								//this.val.cur=this.val.cur+(step* (step==1||step==-1?1:Math.abs(step*2))   ); this.val.tmp=0;
+								this.val.cur=this.val.cur+step; this.val.tmp=0;
 
+							}
+							if (this.val.up<this.val.cur) this.val.cur=this.val.up;else if (this.val.cur<this.val.dn) this.val.cur=this.val.dn;
+							if (!this.val.tmp) {buzzer(10);TC.emit("bar",this.y<tp[4]?1:-1,this.val.cur);}
 						}
-						if (this.val.up<this.val.cur) this.val.cur=this.val.up;else if (this.val.cur<this.val.dn) this.val.cur=this.val.dn;
-						if (!this.val.tmp) {buzzer(10);TC.emit("bar",this.y<tp[4]?1:-1,this.val.cur);}
+					this.y=tp[4];
 					}
-				this.y=tp[4];
-				}
-		    }else
-				{this.st=1;face.off();}
-			return;
+				}else
+					{this.st=1;face.off();}
+				return;
+			}else set.bar=0;
+			
 		}
 		if (  tp[3] === 0 || tp[3] === 128) {
 			if (tp[2]==1 && this.st  ) {

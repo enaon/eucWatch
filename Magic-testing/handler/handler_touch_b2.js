@@ -22,10 +22,13 @@ var TC={
 		var tp=i2c.readFrom(0x15,7);
 		if  (set.bar) { 
 			if (116<tp[5]) {
-				//print("in bar");
+				if (!TC.tid) {
+					TC.tid=setInterval(function(){
+						TC.bar();
+					},30);
+				}
 				return;
 			}else if (TC.tid){
-				//print("clear bar1");
 				clearInterval(TC.tid);TC.st=1;TC.tid=0;set.bar=0;
 			}
 		}

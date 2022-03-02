@@ -225,22 +225,6 @@ touchHandler[0]=function(e,x,y){
 			}			
 		}
 		break;
-    case 1: //slide down event
-		face.go("main",0);
-		return;
-    case 2: //slide up event
-		if (y>160&&x<50) {
-			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
-			else w.gfx.bri.set(this.bri);
-			buzzer(buz.ok);
-		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
-		break;
-    case 3: //slide left event
-		face.go("dashGarage",0);
-		return;
-    case 4: //slide right event (back action)
-		face.go("main",0);
-		return;
     case 12: //touch and hold(long press) event
 		buzzer(buz.na);
 		return;

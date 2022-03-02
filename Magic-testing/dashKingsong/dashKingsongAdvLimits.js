@@ -195,32 +195,7 @@ touchHandler[0]=function(e,x,y){
 			face[0].btn(1,dash.live.lim[face[0].setEb],100,126,60,12,1,60,40,180,160);
 		}
 		break;
-	case 1: //slide down event
-		//face.go("main",0);
-        euc.wri("setSpeedLimits");
-		face.go(set.dash[set.def.dash.face],0);
-		return;	 
-	case 2: //slide up event
-		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
-			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
-			else w.gfx.bri.set(this.bri);
-			buzzer(buz.ok);
-		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		break;
-	case 3: //slide left event
-		buzzer(buz.na);
-		break;
-	case 4: //slide right event (back action)
-        if (face[0].setE) {
-          face[0].setE=0; 
-          w.gfx.clear();
-          face[0].init();
-        } else {
-        euc.wri("setSpeedLimits");
-		face.go("dashKingsongAdv",0);
-		return;
-        }
-        break;
+
    case 12: //hold event
 			if (x<=120&&y<100) { //alarm 1
                 if (dash.live.limE[1]){

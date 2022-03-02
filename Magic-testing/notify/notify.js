@@ -228,23 +228,6 @@ touchHandler[0]=function(e,x,y){
 	  } else if (160<=y&&y<239){
 		buzzer(buz.na);
       }else buzzer(buz.na);
-    }else if  (e==1){
-		//face.go("notify",-1);return;
-		face.go("main",0);return;
-    }else if  (e==2){
-	  if (y>160&&x<50) {
-        if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
-        else w.gfx.bri.set(this.bri);
-		buzzer(buz.ok);
-      }else {
-		face.go("settings",0);return;
-	  } 
-    }else if  (e==3){
-		//buzzer(buz.na);
-		face.go("main",0);return;
-    }else if  (e==4){
-		if (face.appPrev=="main")buzzer(buz.na);
-		else face.go("main",0);return;
     }else if  (e==12){
       if (y<80&&x<170){
 		buzzer([30,50,80]);notify.call=[];notify.nCall=0;face[0].nCall=-1;
@@ -294,4 +277,11 @@ touchHandler[5]=function(e,x,y){
       buzzer(buz.na);
     }
 };
-
+tcN=(x,y)=>{
+		face.go("main",0);
+};	
+tcNext.replaceWith(tcN);
+tcB=(x,y)=>{
+      buzzer(buz.na);
+};	
+tcBack.replaceWith(tcB);

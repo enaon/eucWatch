@@ -331,30 +331,6 @@ touchHandler[0]=function(e,x,y){
 			if (!notify.nInfo&&!notify.nCall&&!notify.nIm) {face[0].batt=-1;face[0].bs=0;notify.New=0;}
 			buzzer(buz.ok);
 	  }else buzzer(buz.na);
-	  
-    }else if  (e==1){
-		if (global.euc&&euc.state!="OFF")
-			face.go(set.dash[set.def.dash.face],0);
-		else
-			face.go("main",-1);
-		return;
-    }else if  (e==2){
-		if (y>160&&x<50) {
-        if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
-        else w.gfx.bri.set(this.bri);
-		buzzer(buz.ok);
-     }else //if (y>160) {
-		if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
-	  //} else buzzer(buz.na);
-    }else if  (e==3){
-		if (Boolean(require("Storage").read(set.dash[set.def.dash.face]))) {
-			(euc.state=="OFF")?face.go("dashOff",0):face.go(set.dash[set.def.dash.face],0);
-			//face.go(set.dash[set.def.dash.face],0);
-			return;
-		}else if (Boolean(require("Storage").read("alarm"))) {face.go("alarm",0);return;}
-    }else if  (e==4){
-		if (Boolean(require("Storage").read("notify"))) {face.go("notify",0);return;}
-		else buzzer(buz.na);
     }else if  (e==12){
 	if (150<y&&y<200){ 	
 		buzzer(180);
@@ -378,3 +354,15 @@ touchHandler[0]=function(e,x,y){
      }else buzzer(buz.na);
     }
 };
+
+tcN=(x,y)=>{
+	if ( euc.state!="OFF")
+		face.go(set.dash[set.def.dash.face],0);	
+	else 
+		face.go("dashGarage",0);
+};	
+tcNext.replaceWith(tcN);
+tcB=(x,y)=>{
+	face.go("notify",0);
+};	
+tcBack.replaceWith(tcB);

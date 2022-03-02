@@ -65,7 +65,9 @@ face[0].d1=function(){
 	};
 	UIc.main._2x3_6=()=>{
 			buzzer(buz.ok); 
-			if (1.5<=dash.live.bms) dash.live.bms=1;
+			if (1.5<=dash.live.bms&& dash.live.bms<=1.8) dash.live.bms=1.875;
+			else if (dash.live.bms==1.875) dash.live.bms=2;
+			else if (dash.live.bms==2) dash.live.bms=1;
 			else dash.live.bms=dash.live.bms+0.25;
 			if (set.def.info) UI.btn.ntfy(1,1.5,0,"_bar",6,"WHEEL","VOLTAGE",15,0);
 			UI.btn.c2l("main","_2x3",6,"PACK",dash.live.bms*67.2|0,15,6); //6

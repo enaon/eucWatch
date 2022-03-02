@@ -14,7 +14,7 @@ UIc.main._2x3_2=()=>{buzzer(buz.ok);eval(require('Storage').read('set_theme'));i
 UIc.main._2x3_3=()=>{
 	buzzer(buz.ok);
 	UI.btn.img("main","_2x3",3,_icon.bri,set.def.bri,15,1,1);
-	UI.btn.ntfy(1,3,0,"_bar",6,"BRIGHTNESS","| | | | | | | | | | |",15,6,1);
+	UI.btn.ntfy(1,3,0,"_bar",6,"BRIGHTNESS",". . . . . . . . .",15,6,1);
 	set.bar=1;
 	TC.val={cur:set.def.bri,dn:1,up:7,tmp:0};
 	UIc.tcBar=(a,b)=>{ 

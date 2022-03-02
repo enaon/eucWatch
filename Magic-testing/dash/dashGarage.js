@@ -8,7 +8,6 @@ face[0] = {
 		this.prevSlot=set.def.dash.slot;
 		this.bar();
 		this.run=false;	
-		TC.on('tc5',UIc.xy);
 	},
 	show : function(o){return;},
 	bar : function(){
@@ -103,14 +102,12 @@ face[0] = {
 	},
 	tid:-1,
 	run:false,
-	clear : function(){TC.removeAllListeners();if(UI.ntid){clearTimeout(UI.ntid);UI.ntid=0;} return true;},
+	clear : function(){/*TC.removeAllListeners();*/if(UI.ntid){clearTimeout(UI.ntid);UI.ntid=0;} return true;},
 	off: function(){this.g.off();this.clear();}
 };
 //
 touchHandler[0]=function(){};
-TC.on('tc1',tcDn); 	
-TC.on('tc2',tcUp); 	
-UIc.back=(x,y)=>{
+tcB=(x,y)=>{
 	if (UI.ntid&&face[0].bar) {
 		buzzer(buz.ok);
 		clearTimeout(UI.ntid);
@@ -121,8 +118,9 @@ UIc.back=(x,y)=>{
 	else   
 		face.go("dashOff",0);
 };	
-UIc.next=(x,y)=>{
+tcBack.replaceWith(tcB);
+tcN=(x,y)=>{
 	buzzer(buz.na);
-};	
-TC.on('tc3',UIc.next); 	
-TC.on('tc4',UIc.back); 
+};
+tcNext.replaceWith(tcN);
+

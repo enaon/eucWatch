@@ -9,14 +9,8 @@ var TC={
 	val:{cur:0,up:0,dn:0},
 	start:function(){ 
     "ram";
-		if (this.ntid) 	{
-			i2c.writeTo(0x15,254,1); //auto sleep on
-			i2c.writeTo(0x15,0);
-			print("wake");
-
-			return;
-		}
 		digitalPulse(set.def.rstP,1,[5,50]);
+		if (this.ntid) {clearWatch(this.ntid);this.ntid=0;}
 		setTimeout(()=>{
 			i2c.writeTo(0x15,236,0); //MotionMask 7/4/1
 			i2c.writeTo(0x15,0xF5,35); //lp scan threshold
@@ -25,10 +19,13 @@ var TC={
 			i2c.writeTo(0x15,0xF8,50); //lp scan current
 			i2c.writeTo(0x15,0xF9,2); //auto sleep timeout
 			i2c.writeTo(0x15,0xFA,17); //gesture mode
-			i2c.writeTo(0x15,254,1); //auto sleep on
+			i2c.writeTo(0x15,254,1); //auto sleep off
 			i2c.writeTo(0x15,0);
-		},150);
-		this.init();
+			print("wake");
+			//if (!this.ntid)
+			this.init();
+		},50);
+
 	},
 	init:function(){
 		this.ntid=setWatch(function(s){
@@ -37,10 +34,16 @@ var TC={
 			var tp=i2c.readFrom(0x15,7);
 			if  (set.bar) { 
 				if (180<(((tp[5]&0x0F)<<8)|tp[6])) {
-					//print("in bar");
+					print("in bar");
+					if (!TC.tid) {
+						TC.tid=setInterval(function(){
+							TC.bar();
+						},30);
+						print("start bar");
+					}
 					return;
 				}else if (TC.tid){
-					//print("clear bar1");
+					print("clear bar1");
 					clearInterval(TC.tid);TC.st=1;TC.tid=0;set.bar=0;
 				}
 			}
@@ -58,9 +61,9 @@ var TC={
 						TC.tid=setInterval(function(){
 							TC.bar();
 						},30);
-						//print("start bar");
+						print("start bar");
 					}else if ( (((tp[5]&0x0F)<<8)|tp[6])<180 ) {
-						//print("clear bar");
+						print("clear bar");
 						clearInterval(TC.tid);TC.st=1;TC.tid=0;
 					}
 				} 
@@ -80,7 +83,7 @@ var TC={
 						else if (step ==-1) step=0;
 						else if ( step ==2 || step == 3) step=1;
 						else if (step ==-2 || step == -3) step=-1;
-						else if (step) step=Math.round(step*1.4);
+						else if (step) step=Math.round(step*1.8);
 						if (step) {
 							if ( len<this.val.tmp || this.val.tmp < -len) {
 								//this.val.cur=this.val.cur+(step* (step==1||step==-1?1:Math.abs(step*2))   ); this.val.tmp=0;

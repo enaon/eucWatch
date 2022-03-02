@@ -9,7 +9,7 @@ face[0] = {
 		if (face.faceSave==-1) face.faceSave=[face.appPrev,face.pagePrev,face.pageArg];
 		eval(require('Storage').read(o?'set_apps':face.faceSave[0].substring(0,4)=="dash"?'set_dash':'set_set')); 
 		this.bar();
-		TC.on('tc5',UIc.xy);
+		//TC.on('tc5',UIc.xy);
 		//this.run=false;
 	},
 	show : function(s){
@@ -47,7 +47,7 @@ face[0] = {
 		UI.btn.img("bar","_bar",3,_icon.dash,0,face[0].page=="dash1"||face[0].page=="dash1"?14:3,face[0].page=="dash1"||face[0].page=="dash2"?1:0);
 	},
 	clear : function(o){
-		set.bar=0;TC.removeAllListeners();if (this.tid) clearTimeout(this.tid);this.tid=0;return true;
+		set.bar=0;/*TC.removeAllListeners();*/if (this.tid) clearTimeout(this.tid);this.tid=0;return true;
 	},
 	off: function(o){
 		this.g.off();this.clear(o);
@@ -56,16 +56,5 @@ face[0] = {
 //
 
 touchHandler[0]=function(){};
-TC.on('tc1',tcDn); 	
-TC.on('tc2',tcUp); 	
-tcNext=(x,y)=>{
-	buzzer(buz.ok);
-};	
-tcBack=(x,y)=>{
-	buzzer(buz.ok);
-};	
-tcBar=(x,y)=>{UIc.tcBar(x,y);};	
-TC.on('bar',tcBar);
-TC.on('tc3',tcNext); 	
-TC.on('tc4',tcBack); 	
+
 

@@ -325,6 +325,7 @@ face[1] = {
 
 //touch-main
 touchHandler[0]=function(e,x,y){
+	return;
 	switch (e) {
 	case 5: //tap event	
 		if (120<x&&y<55){//batery percentage/voltage
@@ -344,31 +345,19 @@ touchHandler[0]=function(e,x,y){
 		}else
 			buzzer(buz.na);
 		break;
-    case 1: //slide down event
-		if (set.def.dash.face+1>=set.dash.length) 
-			set.def.dash.face=0; 
-		else 
-			set.def.dash.face++;
-		face.go(set.dash[set.def.dash.face],0);
-		return;
-    case 2: //slide up event
-		if (y>160&&x<50) {
-			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
-			else w.gfx.bri.set(this.bri);
-			buzzer(buz.ok);
-		}else if (Boolean(require("Storage").read("settings"))) {
-			face.go("settings",0);
-			return;
-		}
-		break;
-    case 3: //slide left event
-		(euc.state=="READY")?face.go('dash'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0):(euc.state=="OFF")?face.go("dashGarage",0):buzzer(buz.na);
-		return;
-    case 4: //slide right event (back action)
-		face.go("main",0);
-		return;
     case 12: //touch and hold(long press) event
 		buzzer(buz.na);
 		break;
     }
 };
+tcN=(x,y)=>{
+	if ( euc.state!="OFF")
+		face.go('dash'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0)
+	else 
+		buzzer(buz.na);
+};	
+tcNext.replaceWith(tcN);
+tcB=(x,y)=>{
+	face.go("main",0);
+};	
+tcBack.replaceWith(tcB);

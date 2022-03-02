@@ -44,7 +44,7 @@ face[0] = {
   },
   tid:-1,
   run:false,
-  clear : function(){TC.removeAllListeners();if(UI.ntid){clearTimeout(UI.ntid);UI.ntid=0;} return true;},
+  clear : function(){/*TC.removeAllListeners();*/if(UI.ntid){clearTimeout(UI.ntid);UI.ntid=0;} return true;},
   off: function(){this.g.off();this.clear();}
 };
 face[1] = {
@@ -56,13 +56,14 @@ face[1] = {
 		face.go("dashGarage",0);
 		return true;
 	},
-	clear: function(){TC.removeAllListeners();if(UI.ntid){clearTimeout(UI.ntid);UI.ntid=0;}return true;},
+	clear: function(){/*TC.removeAllListeners();*/if(UI.ntid){clearTimeout(UI.ntid);UI.ntid=0;}return true;},
 	off: function(){this.clear();}
 };	
 
-UIc.back=(x,y)=>{
-	buzzer(buz.ok);
+tcB=(x,y)=>{
+	//buzzer(buz.ok);
     if ( 1 < face[0].set ) {
+		buzzer(buz.ok);
  		face[0].set -- ;
 		face[0].page(face[0].set); 
     } else {
@@ -70,18 +71,13 @@ UIc.back=(x,y)=>{
       return;
     }
 };	
-UIc.next=(x,y)=>{
+tcBack.replaceWith(tcB);
+tcN=(x,y)=>{
 	if ( face[0].set < 4 ) {
 		buzzer(buz.ok);
 		face[0].set ++ ;
 		face[0].page(face[0].set);
     }else buzzer(buz.na); 
 };	
-TC.on('tc3',UIc.next); 	
-TC.on('tc4',UIc.back); 
-TC.on('tc1',tcDn); 	
-TC.on('tc2',tcUp);
-TC.on('tc5',UIc.xy); 
-
-
+tcNext.replaceWith(tcN);
 touchHandler[0]=function(){ return;};

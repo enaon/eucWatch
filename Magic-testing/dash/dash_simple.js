@@ -23,15 +23,8 @@ face[0] = {
 		UIc.start(1,1);
 		UI.btn.c3l("main","_2x2",1,_icon.speed,"SPEED",15,dash.live.hapS?4:1);
 		UI.btn.c3l("main","_2x2",1,_icon.speed,"SPEED",15,dash.live.hapS?4:1);
-		UI.ele.title("||||| ||||| ||||| ||||| |||||",15,4);
+		UI.ele.title("||||| ||||| |||||",15,4);
 		UIc.end();
-
-		TC.on('bar',tcBar);
-		TC.on('tc1',tcDn); 	
-		TC.on('tc2',tcUp); 
-		TC.on('tc3',tcNext); 	
-		TC.on('tc4',tcBack); 	
-		TC.on('tc5',UIc.xy);
 		this.run=true;
 	},
 	show : function(s){
@@ -163,7 +156,7 @@ face[0] = {
 
 	},
 	clear : function(o){
-		set.bar=0;TC.removeAllListeners();if (this.tid) clearTimeout(this.tid);this.tid=0;return true;
+		set.bar=0;/*TC.removeAllListeners();*/if (this.tid) clearTimeout(this.tid);this.tid=0;return true;
 	},
 	off: function(o){
 		this.g.off();this.clear(o);
@@ -174,15 +167,15 @@ face[0] = {
 touchHandler[0]=function(){};
 UIc.main._2x2_1=()=>{buzzer(buz.ok);this.sel(1,"hapS","SPEED","haSv",10,100);};
 UIc.main._2x2_2=()=>{buzzer(buz.ok);this.sel(2,"hapA","AMP","haSv",10,100);};
-tcNext=(x,y)=>{
-	buzzer(buz.ok);
-	(euc.state=="READY")?face.go('dash'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0):(euc.state=="OFF")?face.go("dashGarage",0):buzzer(buz.na);
+tcN=(x,y)=>{
+	if ( euc.state!="OFF")
+		face.go('dash'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0)
+	else 
+		buzzer(buz.na);
 };	
-tcBack=(x,y)=>{
-	buzzer(buz.ok);
+tcNext.replaceWith(tcN);
+tcB=(x,y)=>{
 	face.go("main",0);
 };	
-tcDn.replaceWith(new Function('buzzer(buz.ok);if (set.def.dash.face+1>=set.dash.length) set.def.dash.face=0; else set.def.dash.face++;face.go(set.dash[set.def.dash.face],0);'));
-
-tcBar=(x,y)=>{UIc.tcBar(x,y);};	
+tcBack.replaceWith(tcB);
 
