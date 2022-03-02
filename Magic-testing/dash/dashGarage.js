@@ -35,7 +35,7 @@ face[0] = {
 			else 
 				UI.btn.c2l("main","_2x2",no,this.slot["slot"+no+"Maker"].toUpperCase(),this.slot["slot"+no+"Model"].toUpperCase(),15,8);
 			UIc.start(1,0);	
-			UI.btn.img("main","_bar",5,_icon.settings,"Setup",15,6);
+			UI.btn.img("main","_bar",5,_icon.settings,"Alerts",15,6);
 			UI.btn.img("main","_bar",4,_icon.trash,"Delete",15,7);
 			UIc.end();	
 			UIc.main._bar_5=function(){buzzer(buz.ok);face.go("dashAlerts",0);};

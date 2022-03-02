@@ -6,7 +6,24 @@ face[0] = {
 		//if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (face.appPrev!="settings"&&face.appPrev!="dashOptions")  face.last=face.appPrev;
        //if (!face.appPrev.startsWith("dash")) this.g.clear();
-	    UI.ele.ind(1,1,6);
+	    
+		if (set.def.info){
+			UI.btn.ntfy(0,3,1);
+			face[0].page=1;
+			UI.txt.block("_main",6,"Dash color coding & haptic alert",15,15,0);
+			UIc.start(1,1);
+			//UI.btn.img("bar","_bar",4,_icon.buzzOn,"Haptic",15,4);
+			UI.btn.img("bar","_bar",6,_icon.settings,"Alerts",15,6);
+			UIc.end();	
+			UIc.bar._bar_6=function(){
+				buzzer(buz.ok);
+				face[0].bar();
+			}
+			//UIc.main._bar_4=function(){buzzer(buz.ok);face[0].del(no);};
+
+			//UIc.bar._bar_4();
+		}else{
+			UI.ele.ind(1,1,6);
 		UI.ele.title("ALERTS",15,0);
 		UIc.start(1,1);
 		UI.btn.img("main","_2x2",1,_icon.speed,dash.live.spd1,15,dash.live.hapS?4:1);
@@ -19,10 +36,11 @@ face[0] = {
 		//UI.btn.c2l("bar","_2x2",4,"LOW BATT",dash.live.batL,15,dash.live.hapB?4:1);		
 		UIc.end();
 		UIc.main._2x2_1=()=>{buzzer(buz.ok);this.sel(1,"hapS","HI SPEED",set.def.dash.mph?"MPH":"KPH","spd1",10,99);};
-		UIc.main._2x2_2=()=>{buzzer(buz.ok);this.sel(2,"hapA","HI AMP","Amp","ampH",10,99);};
+		UIc.main._2x2_2=()=>{buzzer(buz.ok);this.sel(2,"hapA","HI AMP","AMP","ampH",10,99);};
 		UIc.bar._2x2_3=()=>{buzzer(buz.ok);this.sel(3,"hapT","HI TEMP",(set.def.dash.farn)?"°F":"°C","tmpH",20,99);};
 		UIc.bar._2x2_4=()=>{buzzer(buz.ok);this.sel(4,"hapB","LOW BATT","%","batL",5,75);};
         //this.run=true;
+		}
 	},
 	sel:function(no,i,txt,txt2,trgt,limD,limU,m){
 		this.slot=i;
@@ -67,16 +85,7 @@ face[0] = {
 				UI.btn.ntfy(0,0,0,"_bar",7,"HAPTIC "+(dash.live[i]?"ENABLED":"DISABLED"),"",15,dash.live[i]?4:0); w.gfx.flip();
 			}
 		};
-		if (set.def.info){
-			UI.btn.ntfy(0,3,1);
-			face[0].page=1;
-			UI.txt.block("_main",6,"Dash color coding & haptic alert",15,15,0);
-			UIc.start(0,1);
-			//UI.btn.img("bar","_bar",4,_icon.buzzOn,"Haptic",15,4);
-			UI.btn.img("bar","_bar",6,_icon.settings,"Setup",15,6);
-			UIc.end();	
-			//UIc.bar._bar_4();
-		}else UIc.bar._bar_6();
+		UIc.bar._bar_6();
 	},
 	bar:function(){
 		"ram";
