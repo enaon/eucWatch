@@ -52,7 +52,7 @@ global.euc= {
 		}else {
 			buzzer(100); 
 			this.log.trp=[0,0,0];
-			NRF.setTxPower(4);
+			NRF.setTxPower(+4);
 			this.mac=(this.mac)?this.mac:setter.read("dash","slot"+setter.read("dash","slot")+"Mac");
 			if(!this.mac) {
 				face.go('dashScan',0);return;
@@ -68,8 +68,8 @@ global.euc= {
 				this.conn(this.mac);
 				face.go(set.dash[set.def.dash.face],0);
 				this.state="ON";
-				if (set.def.acc) acc.off();
-				setTimeout(()=>{set.def.dash.accE=1;acc.on(2); },1000);
+				//if (set.def.acc) acc.off();
+				//setTimeout(()=>{set.def.dash.accE=1;acc.on(2); },1000);
 				if (dash.live.tpms&&global.tpms&&!tpms.def.int) {tpms.euc={}; setTimeout(()=>{tpms.scan(); },10000);}//tpms
 				return;
 			}

@@ -2,12 +2,12 @@ UI={
   size:{_2x2:20,_2x1:25,_txt:30,_sideSmall:20,sideBig:45,underSmall:20,txt:0.8,len:1,sca:1},
   pos:{
 	_fold:[12,[0,20,160,105,25],[80,20,240,105,25],[0,106,120,220,25],[120,106,240,220,25]], 
-  	_2x2:[35,[0,20,120,127,35],[121,20,240,127,35],[0,128,120,235,35],[121,128,240,235,35]],
+  	_2x2:[35,[0,20,120,127,30],[121,20,240,127,30],[0,128,120,235,30],[121,128,240,235,30]],
 	_2x3:[37,[0,20,80,100,35],[81,20,160,100,35],[161,20,239,100,35],[0,101,80,180,35],[81,101,160,180,35],[161,101,239,180,35]],
 	_2x1:[25,[0,20,239,130,35],[0,131,239,235,35]],
 	_ele:{"0":25,title:[0,236,239,279,28],ind:[80,7,160,12],indF:[0,0,239,19]},
 	_bar:[20,[0,181,80,279,35],[81,181,160,279,35],[161,181,239,279,35],[0,181,120,279,35],[121,181,239,279,35],[0,181,239,279,27],[0,236,239,279,27]],
-	_main:[20,[0,20,120,80,30],[121,20,239,80,30],[0,20,239,80,30],[0,81,160,180,30],[0,81,239,235,60],[0,20,239,180,60],[0,20,239,235,30],[0,101,239,180,30],[0,81,239,180,100]],
+	_main:[20,[0,20,120,80,30],[121,20,239,80,30],[0,20,239,80,30],[0,81,160,180,30],[0,81,239,235,60],[0,20,239,180,40],[0,20,239,235,60],[0,101,239,180,30],[0,81,239,180,100]],
 	_top:20,
 	_head:2,
 	_foot:255,
@@ -61,12 +61,12 @@ UI={
       w.gfx.setColor(1,fclr);
       if (txt2&&txt2!=""){
         w.gfx.setFont("Vector", p[4]*0.65*UI.size.txt);
-        w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-w.gfx.stringMetrics(txt1).height-((p[3]-p[1])/10)); 
-		//w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-((p[3]-p[1])/(UI.size.txt*3.5) )); 
-        w.gfx.setFont("Vector",p[4]*UI.size.txt);	
-		//w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height);
-		w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height*(1.95-UI.size.txt));
-  		//w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height-( (p[3]-p[1])*UI.size.txt/25)  );
+//        w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-w.gfx.stringMetrics(txt1).height-((p[3]-p[1])/10)); 
+        w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-w.gfx.stringMetrics(txt1).height-10); 
+        w.gfx.setFont("Vector",p[4]*1.1*UI.size.txt);	
+		w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),y+7*(2.00-UI.size.txt));
+		//w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),y+7*(2.10-UI.size.txt));
+		//w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height*(2.10-UI.size.txt));
       }else{  
         w.gfx.setFont("Vector",p[4]*UI.size.txt);	
         w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y+4-(w.gfx.stringMetrics(txt1).height/2)); 

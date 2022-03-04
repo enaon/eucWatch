@@ -20,11 +20,13 @@ face[0] = {
 		this.spdF=dash.live.spdF*((set.def.dash.mph)?0.625:1);
 		this.trpF=dash.live.trpF*((set.def.dash.mph)?0.625:1);
 		UI.ele.ind(0,0,1);
-		UIc.start(1,1);
-		//UI.btn.c3l("main","_2x2",1,_icon.speed,"SPEED",15,dash.live.hapS?4:1);
-		//UI.btn.c3l("main","_2x2",1,_icon.speed,"SPEED",15,dash.live.hapS?4:1);
+		/*UIc.start(1,1);
+		UI.btn.c3l("main","_2x2",1,_icon.speed,"SPEED",15,dash.live.hapS?4:1);
+		UI.btn.c3l("main","_2x2",1,_icon.speed,"SPEED",15,dash.live.hapS?4:1);
 		UI.ele.title("||||| ||||| |||||",15,4);
 		UIc.end();
+		*/
+		UI.ele.title("||||| ||||| |||||",15,4);
 		this.run=true;
 	},
 	show : function(s){
@@ -42,7 +44,7 @@ face[0] = {
 		} else  {
 			if (euc.state!=this.conn) {
 				this.conn=euc.state;
-				UI.btn.c2l("main","_main",5,euc.state,0,15,0); //4
+				UI.btn.c2l("main","_main",7,euc.state,0,15,0); //4
 				this.spd=-1;this.time=0;this.amp=-1;this.tmp=-1;this.volt=-1;this.bat=-1;this.trpL=-1;this.conn=0;this.lock=2;this.run=true;}
 		}
 		if (!this.old)this.g.flip();
@@ -96,8 +98,6 @@ face[0] = {
 		let t=(d[4]).toString().split(':');
 		this.time=(t[0]+":"+t[1]);
 		this.g.drawString(this.time,0,5); 
-		//this.g.setFontVector(13);
-		//this.g.drawString("CLOCK",1,40);
 		if (this.old)this.g.flip();
 	},
 	batf: function(){
