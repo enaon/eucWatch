@@ -15,10 +15,14 @@ face[0] = {
 		UI.ele.title("GARAGE",15,0);
 		UI.ele.ind(2,2,6);
 		UIc.start(1,1);	
+		
+		
 		this.slot.slot1Mac?UI.btn.c2l("main","_2x2",1,this.slot.slot1Maker.toUpperCase(),this.slot.slot1Model.toUpperCase(),this.slot.slot==1?15:3,this.slot.slot==1?4:1):UI.btn.img("main","_2x2",1,_icon.scan,"",2,0);
 		this.slot.slot2Mac?UI.btn.c2l("main","_2x2",2,this.slot.slot2Maker.toUpperCase(),this.slot.slot2Model.toUpperCase(),this.slot.slot==2?15:3,this.slot.slot==2?4:1):UI.btn.img("main","_2x2",2,_icon.scan,"",2,0);
 		this.slot.slot3Mac?UI.btn.c2l("main","_2x2",3,this.slot.slot3Maker.toUpperCase(),this.slot.slot3Model.toUpperCase(),this.slot.slot==3?15:3,this.slot.slot==3?4:1): UI.btn.img("main","_2x2",3,_icon.scan,"",2,0);
-		this.slot.slot4Mac?UI.btn.c2l("main","_2x2",4,this.slot.slot4Maker.toUpperCase(),this.slot.slot4Model.toUpperCase(),this.slot.slot==4?15:3,this.slot.slot==4?4:1):UI.btn.img("main","_2x2",4,_icon.scan,"",2,0);
+		//this.slot.slot4Mac?UI.btn.c2l("main","_2x2",4,this.slot.slot4Maker.toUpperCase(),this.slot.slot4Model.toUpperCase(),this.slot.slot==4?15:3,this.slot.slot==4?4:1):UI.btn.img("main","_2x2",4,_icon.scan,"",2,0);
+		this.slot.slot4Mac?UI.btn.img("main","_2x2",4,_icon.ks,this.slot.slot4Model.toUpperCase(),this.slot.slot==4?15:3,this.slot.slot==4?4:1):UI.btn.img("main","_2x2",4,_icon.scan,"",2,0);
+
 		UIc.end();
 		UIc.main._2x2_1=function(){if (face[0].slot.slot1Mac) face[0].tap(1); else face[0].empty(1) ;};
 		UIc.main._2x2_2=function(){if (face[0].slot.slot2Mac) face[0].tap(2); else face[0].empty(2) ;};
@@ -35,7 +39,7 @@ face[0] = {
 			else 
 				UI.btn.c2l("main","_2x2",no,this.slot["slot"+no+"Maker"].toUpperCase(),this.slot["slot"+no+"Model"].toUpperCase(),15,8);
 			UIc.start(1,0);	
-			UI.btn.img("main","_bar",5,_icon.settings,"Alerts",15,6);
+			UI.btn.img("main","_bar",5,_icon.alert,"Alerts",15,10);
 			UI.btn.img("main","_bar",4,_icon.trash,"Delete",15,7);
 			UIc.end();	
 			UIc.main._bar_5=function(){buzzer(buz.ok);face.go("dashAlerts",0);};

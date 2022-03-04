@@ -21,8 +21,8 @@ face[0] = {
 		this.trpF=dash.live.trpF*((set.def.dash.mph)?0.625:1);
 		UI.ele.ind(0,0,1);
 		UIc.start(1,1);
-		UI.btn.c3l("main","_2x2",1,_icon.speed,"SPEED",15,dash.live.hapS?4:1);
-		UI.btn.c3l("main","_2x2",1,_icon.speed,"SPEED",15,dash.live.hapS?4:1);
+		//UI.btn.c3l("main","_2x2",1,_icon.speed,"SPEED",15,dash.live.hapS?4:1);
+		//UI.btn.c3l("main","_2x2",1,_icon.speed,"SPEED",15,dash.live.hapS?4:1);
 		UI.ele.title("||||| ||||| |||||",15,4);
 		UIc.end();
 		this.run=true;
@@ -33,11 +33,11 @@ face[0] = {
 		if (euc.state=="READY") {
 			if (this.spd!=Math.round(dash.live.spd)) this.spdf();
 			if (!set.def.dash.clkS){	
-				if (this.tmp!=dash.live.tmp.toFixed(1))	this.tmpf();}
-			else if (60 < getTime()-this.time )	
+				if (this.tmp!=dash.live.tmp.toFixed(1))	this.tmpf();
+			}else if (60 < getTime()-this.time )	
 				this.clkf();
-			if (set.def.dash.batS){	if (this.bat!=dash.live.bat)	this.batf();}
-			else  if (this.volt!=dash.live.volt.toFixed(1)) this.vltf();
+			if (set.def.dash.batS){	if (this.bat!=dash.live.bat) this.batf();
+			}else  if (this.volt!=dash.live.volt.toFixed(1)) this.vltf();
 			else if (dash.live.tpms&&tpms.euc[dash.live.tpms]&&(this.tpms!=tpms.euc[dash.live.tpms].alrm)) this.tpmsf();
 		} else  {
 			if (euc.state!=this.conn) {
@@ -47,7 +47,7 @@ face[0] = {
 		}
 		if (!this.old)this.g.flip();
 		this.tid=setTimeout(function(t){
-			t.tid=-1;
+			t.tid=0;
 			t.show();
 		},50,this);
 	},
@@ -156,7 +156,11 @@ face[0] = {
 
 	},
 	clear : function(o){
-		set.bar=0;/*TC.removeAllListeners();*/if (this.tid) clearTimeout(this.tid);this.tid=0;return true;
+		set.bar=0;
+		this.run=false;
+		if (this.tid) clearTimeout(this.tid);this.tid=0;
+   		if (this.ntid) clearTimeout(this.ntid);this.ntid=0;
+		return true;
 	},
 	off: function(o){
 		this.g.off();this.clear(o);
@@ -169,7 +173,7 @@ UIc.main._2x2_1=()=>{buzzer(buz.ok);this.sel(1,"hapS","SPEED","haSv",10,100);};
 UIc.main._2x2_2=()=>{buzzer(buz.ok);this.sel(2,"hapA","AMP","haSv",10,100);};
 tcN=(x,y)=>{
 	if ( euc.state!="OFF")
-		face.go('dash'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0)
+		face.go('dash'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0);
 	else 
 		buzzer(buz.na);
 };	

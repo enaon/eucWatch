@@ -21,12 +21,19 @@ face[0] = {
   page : function(n) {
 	this.set=n;
 	UI.ele.ind(n,4,6);
-	let txt1=["INMOTION","BEGODE","NINEBOT","NINEBOT"];
+	//let txt1=["INMOTION","BEGODE","NINEBOT","NINEBOT"];
+	let txt1=["im","bg","nb","nb"];
 	let txt2=["V5/V8/V10","","ONE S2","ONE Z10"];
-	UI.btn.c2l("main","_2x1",1,txt1[n-1],txt2[n-1],15,6); 
-	txt1=["INMOTION","VETERAN","NINEBOT","KINGSONG"];
+	//UI.btn.c2l("main","_2x1",1,txt1[n-1],txt2[n-1],15,6); 
+	UI.btn.img("main","_2x1",1,_icon[txt1[n-1]],txt2[n-1],15,6); 
+
+	//txt1=["INMOTION","VETERAN","NINEBOT","KINGSONG"];
+	txt1=["im","vt","nb","ks"];
 	txt2=["V11","","ONE C/E/P",""];	
-	UI.btn.c2l("main","_2x1",2,txt1[n-1],txt2[n-1],15,1); 
+	//UI.btn.c2l("main","_2x1",2,txt1[n-1],txt2[n-1],15,1); 
+	UI.btn.img("main","_2x1",2,_icon[txt1[n-1]],txt2[n-1],15,1); 
+
+
   },
   scan: function(n) {
 	buzzer(buz.ok);

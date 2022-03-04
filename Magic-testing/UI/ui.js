@@ -1,7 +1,7 @@
 UI={
   size:{_2x2:20,_2x1:25,_txt:30,_sideSmall:20,sideBig:45,underSmall:20,txt:0.8,len:1,sca:1},
   pos:{
-	_fold:[12,[0,20,160,105,30],[80,20,240,105,30],[0,106,120,220,30],[120,106,240,220,30]], 
+	_fold:[12,[0,20,160,105,25],[80,20,240,105,25],[0,106,120,220,25],[120,106,240,220,25]], 
   	_2x2:[35,[0,20,120,127,35],[121,20,240,127,35],[0,128,120,235,35],[121,128,240,235,35]],
 	_2x3:[37,[0,20,80,100,35],[81,20,160,100,35],[161,20,239,100,35],[0,101,80,180,35],[81,101,160,180,35],[161,101,239,180,35]],
 	_2x1:[25,[0,20,239,130,35],[0,131,239,235,35]],
@@ -96,18 +96,20 @@ UI={
       w.gfx.setColor(1,fclr);	
 	  if  (txt&&side){
 		  //w.gfx.setFont("Vector",(p[3]-p[1])/2);
- 		  w.gfx.setFont("Vector",p[4]);	
-		  let xa=x-((w.gfx.imageMetrics(img).width*0.75+w.gfx.stringWidth(txt))/2);
+ 		  w.gfx.setFont("Vector",p[4]*1.5*UI.size.txt);	
+		  let xa=x-((w.gfx.imageMetrics(img).width+w.gfx.stringWidth(txt))/2);
+		  w.gfx.setColor(1,14);
 	      w.gfx.drawImage(img,xa,y-(w.gfx.imageMetrics(img).height/2),{scale:UI.size.sca});
 		 // w.gfx.setColor(1,bclr==3?0:3);
+		 w.gfx.setColor(1,fclr);
 		  w.gfx.drawString(txt,xa+5+w.gfx.imageMetrics(img).width,y-(w.gfx.stringMetrics(txt).height/2)+2); 
 	  }else if (set.def.txt&&txt) {
-		  w.gfx.drawImage(img,x-24*0.65*UI.size.sca,p[1]+((p[3]-p[1])*(2-UI.size.txt)/15) ,{scale:0.75*UI.size.sca});
+		  w.gfx.drawImage(img,x-(w.gfx.imageMetrics(img).width*UI.size.sca*0.75/2), p[1]+((p[3]-p[1])*(2-UI.size.txt)/15) ,{scale:0.75*UI.size.sca});
 		  //w.gfx.setColor(1,bclr==3?0:14);
 		  w.gfx.setColor(1,fclr);
 		  w.gfx.setFont("Vector",p[4]*0.7*UI.size.txt);	
 		  w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y+( (p[3]-p[1])*(2-UI.size.txt)/6 )); 
-	  }else w.gfx.drawImage(img,x-(w.gfx.imageMetrics(img).width*UI.size.sca/2),y-(w.gfx.imageMetrics(img).width*UI.size.sca/2),{scale:UI.size.sca});
+	  }else w.gfx.drawImage(img,x-(w.gfx.imageMetrics(img).width*UI.size.sca/2),y-(w.gfx.imageMetrics(img).height*UI.size.sca/2),{scale:UI.size.sca});
 	  img=0;
 	  if (!set.def.bpp) w.gfx.flip();
 	  //coordinates

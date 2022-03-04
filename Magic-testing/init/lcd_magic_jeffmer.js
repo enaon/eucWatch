@@ -16,6 +16,7 @@ function ST7789() {
         } else {
             cmd(0x01); //ST7735_SWRESET: Software reset, 0 args, w/delay: 150 ms delay
         }
+		/*
         delayms(120);   // no apps to run 
         cmd(0x11); //SLPOUT
         delayms(50);
@@ -41,6 +42,27 @@ function ST7789() {
         cmd(0xC6, 0x1F);
         //PWCTRL1: Power Control 1
         cmd(0xD0, [0xA4, 0xA1]);
+		*/
+ delayms(120);   // no apps to run 
+        cmd(0x11); //SLPOUT
+        delayms(50);
+        //MADCTL: Set Memory access control (directions), 1 arg: row addr/col addr, bottom to top refresh
+        cmd(0x36, 0x00);
+		//cmd([0x37,0,0]);
+		// These 2 rotate the screen by 180 degrees
+		//[0x36,0xC0],     // MADCTL
+		//[0x37,0,80],   // VSCSAD (37h): Vertical Scroll Start Address of RAM
+		cmd(0x3A, 0x05);  // COLMOD - interface pixel format - 03 - 12bpp, 05 - 16bpp
+        cmd(0xb2, [0x0b, 0x0b, 0x33, 0x00, 0x33]);
+		cmd(0xB7, 0x11);     // GCTRL (B7h): Gate Control
+		cmd(0xBB, 0x35);  // VCOMS (BBh): VCOM Setting 
+		cmd(0xC0, 0x2c);
+        cmd(0xc2, 0x01);
+        cmd(0xc3, 0x08);
+		cmd(0xC4, 0x20);  // VDVS (C4h): VDV Set
+		cmd(0xC6, 0x1F);   // VCMOFSET (C5h): VCOM Offset Set .
+		cmd(0xD0, [0xA4, 0xA1]);   // PWCTRL1 (D0h): Power Control 1 
+		
         // PVGAMCTRL: Positive Voltage Gamma Control
         cmd(0xe0, [0xF0, 0x04, 0x0a, 0x0a, 0x08, 0x25, 0x33, 0x27, 0x3d, 0x38, 0x14, 0x14, 0x25, 0x2a]);
         // NVGAMCTRL: Negative Voltage Gamma Contro
@@ -87,7 +109,8 @@ function ST7789() {
 			return o;
 		  }
 		};
-		g.col=Uint16Array([ 0x000,54,2730,3549,1629,83,72,3840,143,3935,2220,0x5ff,115,4080,1535,4095 ]);
+		g.col=Uint16Array([ 0x000,0x31C8,0x5B2F,0xD6BA,0x3276,0x4B16,0x3ADC,0xF165,0xEFBF,0xA815,2220,0x5ff,0x3C0C,0xFFE0,0xD7BF,0xFFFF ]);
+		//g.col=Uint16Array([ 0x000,54,2730,3549,1629,83,72,3840,143,3935,2220,0x5ff,115,4080,1535,4095 ]);
 		g.theme=  {fg:54,bg:0,fg2:2730,bg2:0,fgH:143,bgH:38400,dark:true};
 		g.sc=g.setColor;
 		g.setColor=(c,v)=>{g.sc(g.col[v]);}; 

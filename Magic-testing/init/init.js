@@ -53,7 +53,7 @@ if ( process.env.BOARD=="BANGLEJS2") {
 	eval(require('Storage').read('.lcd_p8'));
 else
 	eval(require('Storage').read('.lcd_magic'));
-w=require("eucWatch");
+if (!w) w=require("eucWatch");
 eval(require('Storage').read('handler'));
 eval(require('Storage').read('main'));
 eval(require('Storage').read('euc'));

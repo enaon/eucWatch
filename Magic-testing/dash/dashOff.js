@@ -114,7 +114,7 @@ face[0] = {
 		this.clear();
 	} 
 };
-
+/*
 //touch-main
 touchHandler[0]=function(e,x,y){
 	switch (e) {
@@ -230,3 +230,14 @@ touchHandler[0]=function(e,x,y){
 		return;
     }
 };
+*/
+
+touchHandler[0]=function(){};
+tcB=(x,y)=>{
+		face.go("main",0); 
+};	
+tcBack.replaceWith(tcB);
+tcN=(x,y)=>{
+		face.go("dashGarage",0);
+};
+tcNext.replaceWith(tcN);
