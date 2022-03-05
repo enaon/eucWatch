@@ -101,6 +101,7 @@ euc.tmp.one=function(inpk){
 				euc.wri("lightsAuto") ;
 		}
 	}
+	euc.emit("one");
 					
 };
 euc.tmp.two=function(inpk){
@@ -109,7 +110,7 @@ euc.tmp.two=function(inpk){
 	dash.live.time=Math.round((inpk[7] << 8 | inpk[6])/60);
 	dash.live.spdM=Math.round((inpk[9] << 8 | inpk[8])/100) ;
 	dash.live.fan=inpk[12];
-					
+	euc.emit("two");
 };
 euc.tmp.thre=function(inpk){
 	"ram";
@@ -133,7 +134,7 @@ euc.tmp.four=function(inpk){
 			else 
 				dash.live.bms = 1;
 		} else dash.live.bms=1.25;
-		setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",dash.live.name);
+		setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Model",dash.live.name);
 	}	
 };	
 //start

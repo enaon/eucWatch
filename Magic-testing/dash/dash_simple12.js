@@ -19,32 +19,31 @@ face[0] = {
 		this.trpF=dash.live.trpF*((set.def.dash.mph)?0.625:1);
 		UI.ele.ind(0,0,1);
 		UI.ele.title("||||| ||||| |||||",15,4);
-		this.run=false;
-		euc.on('one',face[0].show);
+		this.run=true;
 	},
 	show : function(s){
 		"ram";
-		//if (!face[0].run) return;
+		if (!this.run) return;
 		if (euc.state=="READY") {
-			if (face[0].spd!=Math.round(dash.live.spd)) face[0].spdf();
+			if (this.spd!=Math.round(dash.live.spd)) this.spdf();
 			if (!set.def.dash.clkS){	
-				if (face[0].tmp!=dash.live.tmp.toFixed(1))	face[0].tmpf();
-			}else if (60 < getTime()-face[0].time )	
-				face[0].clkf();
-			if (set.def.dash.batS){	if (face[0].bat!=dash.live.bat) face[0].batf();
-			}else  if (face[0].volt!=dash.live.volt.toFixed(1)) face[0].vltf();
-			else if (dash.live.tpms&&tpms.euc[dash.live.tpms]&&(face[0].tpms!=tpms.euc[dash.live.tpms].alrm)) face[0].tpmsf();
+				if (this.tmp!=dash.live.tmp.toFixed(1))	this.tmpf();
+			}else if (60 < getTime()-this.time )	
+				this.clkf();
+			if (set.def.dash.batS){	if (this.bat!=dash.live.bat) this.batf();
+			}else  if (this.volt!=dash.live.volt.toFixed(1)) this.vltf();
+			else if (dash.live.tpms&&tpms.euc[dash.live.tpms]&&(this.tpms!=tpms.euc[dash.live.tpms].alrm)) this.tpmsf();
 		} else  {
-			if (euc.state!=face[0].conn) {
-				face[0].conn=euc.state;
+			if (euc.state!=this.conn) {
+				this.conn=euc.state;
 				UI.btn.c2l("main","_main",7,euc.state,0,15,0); //4
-				face[0].spd=-1;face[0].time=0;face[0].amp=-1;face[0].tmp=-1;face[0].volt=-1;face[0].bat=-1;face[0].trpL=-1;face[0].conn=0;face[0].lock=2;face[0].run=true;}
+				this.spd=-1;this.time=0;this.amp=-1;this.tmp=-1;this.volt=-1;this.bat=-1;this.trpL=-1;this.conn=0;this.lock=2;this.run=true;}
 		}
-		if (!face[0].old)face[0].g.flip();
-		//face[0].tid=setTimeout(function(t){
-		//	t.tid=0;
-		//	t.show();
-		//},50,this);
+		if (!this.old)this.g.flip();
+		this.tid=setTimeout(function(t){
+			t.tid=0;
+			t.show();
+		},50,this);
 	},
 	spdf: function(){
 		"ram";
@@ -153,7 +152,6 @@ face[0] = {
 		this.run=false;
 		if (this.tid) clearTimeout(this.tid);this.tid=0;
    		if (this.ntid) clearTimeout(this.ntid);this.ntid=0;
-		euc.removeAllListeners();
 		return true;
 	},
 	off: function(o){

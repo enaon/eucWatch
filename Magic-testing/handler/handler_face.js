@@ -62,8 +62,8 @@ var face={
 		this.off();
 		face[page].init(arg);	
 		if(!w.gfx.isOn) {
-			TC.start();
 			w.gfx.on();
+			TC.start();
 		}
 		face[page].show(arg);
 		if(arg) this.pageArg=arg;

@@ -12,16 +12,14 @@ face[0] = {
 	show : function(o){return;},
 	bar : function(){
 		this.slot=require("Storage").readJSON("dash.json",1);
+		target={"InmotionV1":"im","Begode":"bg","NinebotS":"nb","NinebotZ":"nb","Inmotion":"im","Veteran":"vt","Ninebot":"nb","Kingsong":"ks"};
 		UI.ele.title("GARAGE",15,0);
 		UI.ele.ind(2,2,6);
 		UIc.start(1,1);	
-		
-		
-		this.slot.slot1Mac?UI.btn.c2l("main","_2x2",1,this.slot.slot1Maker.toUpperCase(),this.slot.slot1Model.toUpperCase(),this.slot.slot==1?15:3,this.slot.slot==1?4:1):UI.btn.img("main","_2x2",1,_icon.scan,"",2,0);
-		this.slot.slot2Mac?UI.btn.c2l("main","_2x2",2,this.slot.slot2Maker.toUpperCase(),this.slot.slot2Model.toUpperCase(),this.slot.slot==2?15:3,this.slot.slot==2?4:1):UI.btn.img("main","_2x2",2,_icon.scan,"",2,0);
-		this.slot.slot3Mac?UI.btn.c2l("main","_2x2",3,this.slot.slot3Maker.toUpperCase(),this.slot.slot3Model.toUpperCase(),this.slot.slot==3?15:3,this.slot.slot==3?4:1): UI.btn.img("main","_2x2",3,_icon.scan,"",2,0);
-		//this.slot.slot4Mac?UI.btn.c2l("main","_2x2",4,this.slot.slot4Maker.toUpperCase(),this.slot.slot4Model.toUpperCase(),this.slot.slot==4?15:3,this.slot.slot==4?4:1):UI.btn.img("main","_2x2",4,_icon.scan,"",2,0);
-		this.slot.slot4Mac?UI.btn.img("main","_2x2",4,_icon.ks,this.slot.slot4Model.toUpperCase(),this.slot.slot==4?15:3,this.slot.slot==4?4:1):UI.btn.img("main","_2x2",4,_icon.scan,"",2,0);
+		this.slot.slot1Mac?UI.btn.img("main","_2x2",1,_icon[target[this.slot.slot1Maker]],this.slot.slot1Model.toUpperCase(),this.slot.slot==1?15:3,this.slot.slot==1?4:1):UI.btn.img("main","_2x2",1,_icon.scan,"",2,0);
+		this.slot.slot2Mac?UI.btn.img("main","_2x2",2,_icon[target[this.slot.slot2Maker]],this.slot.slot2Model.toUpperCase(),this.slot.slot==2?15:3,this.slot.slot==2?4:1):UI.btn.img("main","_2x2",2,_icon.scan,"",2,0);
+		this.slot.slot3Mac?UI.btn.img("main","_2x2",3,_icon[target[this.slot.slot3Maker]],this.slot.slot3Model.toUpperCase(),this.slot.slot==3?15:3,this.slot.slot==3?4:1): UI.btn.img("main","_2x2",3,_icon.scan,"",2,0);
+		this.slot.slot4Mac?UI.btn.img("main","_2x2",4,_icon[target[this.slot.slot4Maker]],this.slot.slot4Model.toUpperCase(),this.slot.slot==4?15:3,this.slot.slot==4?4:1):UI.btn.img("main","_2x2",4,_icon.scan,"",2,0);
 
 		UIc.end();
 		UIc.main._2x2_1=function(){if (face[0].slot.slot1Mac) face[0].tap(1); else face[0].empty(1) ;};
@@ -36,10 +34,13 @@ face[0] = {
 			UI.btn.ntfy(0,1.5,1);
 			if (set.def.info)
 				UI.txt.block("_main",6,"Press & hold the side btn to start/end the connction.",15,15,0);
-			else 
-				UI.btn.c2l("main","_2x2",no,this.slot["slot"+no+"Maker"].toUpperCase(),this.slot["slot"+no+"Model"].toUpperCase(),15,8);
+			else {
+				let target={"InmotionV1":"im","Begode":"bg","NinebotS":"nb","NinebotZ":"nb","Inmotion":"im","Veteran":"vt","Ninebot":"nb","Kingsong":"ks"};
+				UI.btn.img("main","_2x2",no,_icon[target[this.slot["slot"+no+"Maker"]]],this.slot["slot"+no+"Model"].toUpperCase(),15,8);
+				//UI.btn.c2l("main","_2x2",no,this.slot["slot"+no+"Maker"].toUpperCase(),this.slot["slot"+no+"Model"].toUpperCase(),15,8);
+			}
 			UIc.start(1,0);	
-			UI.btn.img("main","_bar",5,_icon.alert,"Alerts",15,10);
+			UI.btn.img("main","_bar",5,_icon.alert,"Alerts",15,1);
 			UI.btn.img("main","_bar",4,_icon.trash,"Delete",15,7);
 			UIc.end();	
 			UIc.main._bar_5=function(){buzzer(buz.ok);face.go("dashAlerts",0);};
@@ -48,9 +49,11 @@ face[0] = {
 		}else{
 			//UI.ele.title("SLOT "+no,15,4);
 			UI.ele.title("SELECTED",15,0);
-			UI.btn.c2l("main","_2x2",no,this.slot["slot"+no+"Maker"].toUpperCase(),this.slot["slot"+no+"Model"].toUpperCase(),15,4);
+			UI.btn.img("main","_2x2",no,_icon[target[this.slot["slot"+no+"Maker"]]],this.slot["slot"+no+"Model"].toUpperCase(),15,4);
+			//UI.btn.c2l("main","_2x2",no,this.slot["slot"+no+"Maker"].toUpperCase(),this.slot["slot"+no+"Model"].toUpperCase(),15,4);
 			if (this.slot["slot"+this.prevSlot+"Mac"] ){ 
-				UI.btn.c2l("main","_2x2",this.prevSlot,this.slot["slot"+this.prevSlot+"Maker"].toUpperCase(),this.slot["slot"+this.prevSlot+"Model"].toUpperCase(),3,1);
+				UI.btn.img("main","_2x2",this.prevSlot,_icon[target[this.slot["slot"+this.prevSlot+"Maker"]]],this.slot["slot"+this.prevSlot+"Model"].toUpperCase(),3,1);
+				//UI.btn.c2l("main","_2x2",this.prevSlot,this.slot["slot"+this.prevSlot+"Maker"].toUpperCase(),this.slot["slot"+this.prevSlot+"Model"].toUpperCase(),3,1);
 				require("Storage").writeJSON('eucSlot'+this.prevSlot+'.json',dash.live);
 			}
 			setter.write("dash","slot",no);
@@ -82,7 +85,7 @@ face[0] = {
 	},
 	del:function(no){
 		UI.btn.ntfy(0,2,1);
-		if (set.def.info)UI.btn.c2l("main","_main",6,`SLOT ${no}`,"REALLY DELETE ?",15,0,1);
+		if (set.def.info)UI.btn.c2l("main","_main",6,`SLOT ${no}`,"DELETE?",15,0,1);
 		UIc.start(1,0);	
 		UI.btn.img("main","_bar",6,_icon.trash,"CONFIRM",15,7);
 		UIc.end();
@@ -98,7 +101,7 @@ face[0] = {
 			require("Storage").erase(`eucSlot${no}.json`);
 			dash.live=require("Storage").readJSON("eucSlot.json",1);	
 			UI.btn.ntfy(1,1.5,1);
-			UI.btn.c2l("main","_main",6,`SLOT ${no}`,"DELETED",15,0);
+			UI.btn.c2l("main","_main",6,`SLOT ${no}`,"DELETED",15,4);
 			set.def.dash.slot=0;
 			face[0].prevSlot=0;
 			

@@ -12,7 +12,7 @@ function btn1(s){
 				euc.tgl();
 				this.press=false;
 			}
-		}, 1000);
+		}, process.env.BOARD=="BANGLEJS2"?300:800);
    }else if (this.press && !s.state)  { 
 		this.press=false;
 		if (global.euc&&euc.state=="READY"&&euc.horn&&dash.live.horn) {euc.wri("hornOff");return;}
@@ -25,11 +25,7 @@ function btn1(s){
 				buzzer(buz.off);
 			}else{
 				face.go((euc.state!="OFF")?set.dash[set.def.dash.face]:"main",0);
-				//face.go(face.appPrev,face.pagePrev);
 				return true;
-				//let to=face.pageCurr+1;
-				//if (to>=2) to=0;
-				//face.go(face.appCurr,to);
 			}
 		}
 	}else if (this.press&&global.euc&&euc.state==="READY"&&euc.horn&&dash.live.horn) {euc.wri("hornOff");return;

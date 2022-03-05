@@ -21,8 +21,9 @@ set.def.acctype="SC7A20";
 		},
 		off:function(){
 			if (this.tid){
-				if (this.mode==2) clearInterval(this.tid);
-				else clearWatch(this.tid);
+				if (this.mode==2) {
+					clearInterval(this.tid);
+				}else clearWatch(this.tid);
 				this.tid=0;
 			}
 			i2c.writeTo(0x18,0x20,0x07); //Clear LPen-Enable all axes-Power down
@@ -37,14 +38,15 @@ set.def.acctype="SC7A20";
 				i2c.writeTo(0x18,0x30,0x00); //int1 to xh
 				i2c.writeTo(0x18,0x32,5); //int1_ths-threshold = 250 milli g's
 				i2c.writeTo(0x18,0x33,15); //duration = 1 * 20ms
-				if (this.loop) { clearInterval(this.loop); this.loop=0;}
 				this.tid= setInterval(()=>{	
 					let cor=acc.read();
 					if (-200<=cor.ax && cor.ay<=500  && 500<cor.az ) {
-					if (!w.gfx.isOn) {face.go(set.dash[set.def.dash.face],0);face.off(1000);}
-						else {
+						if (!w.gfx.isOn) {
+							face.go(set.dash[set.def.dash.face],0);
+							face.off(1000);
+						}else {
 							let tout=set.def.off[face.appCurr];
-							changeInterval(acc.tid,1500);
+							changeInterval(acc.tid,1000);
 							if ( !tout || ( tout &&  tout <= 60000)) face.off(1600);
 						}
 					} else changeInterval(acc.tid,100);

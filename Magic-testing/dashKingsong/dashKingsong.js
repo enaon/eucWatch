@@ -7,7 +7,7 @@ face[0] = {
 		UI.ele.ind(1,1,1);
 		UIc.start(1,1);
 		UI.btn.c2l("main","_2x2",1,"LIGHTS",(dash.live.aLight==="lightsOff")?"OFF":(dash.live.aLight==="lightsOn")?"ON":(dash.live.aLight==="lightsAuto"||dash.live.aLight==0)?"AUTO":"CITY",15,(dash.live.aLight==="lightsOff")?0:(dash.live.aLight==="lightsOn")?6:(dash.live.aLight=="lightsAuto"||dash.live.aLight==0)?6:4);
-		UI.btn.c2l("main","_2x2",2,"STROBE","",15,dash.live.strb?7:1);
+		UI.btn.c2l("main","_2x2",2,"STRB","",15,dash.live.strb?7:1);
 		let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
 		UI.btn.c2l("bar","_2x2",3,dash.live.tpms?dash.live.tpms:"TPMS","",15,(dash.live.tpms&&tpms.euc[dash.live.tpms]&&tpms.euc[dash.live.tpms].time&&(getTime()|0)-tpms.euc[dash.live.tpms].time<1800)?(tpms.euc[dash.live.tpms].alrm)?7:4:1);
 		UI.btn.c2l("bar","_2x2",4,"LOCK","",15,dash.live.lock?7:1);	
@@ -37,7 +37,7 @@ face[0] = {
 		UIc.main._2x2_2=()=>{
 			buzzer(buz.ok);
 			dash.live.strb=1-dash.live.strb;
-			UI.btn.c2l("main","_2x2",2,"STROBE","",15,dash.live.strb?7:1);
+			UI.btn.c2l("main","_2x2",2,"STRB","",15,dash.live.strb?7:1);
 			euc.wri((dash.live.strb)?"strobeOn":"strobeOff");
 		};
 		UIc.bar._2x2_3=()=>{
