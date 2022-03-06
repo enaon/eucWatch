@@ -41,17 +41,35 @@ set.def.acctype="SC7A20";
 				this.tid= setInterval(()=>{	
 					let cor=acc.read();
 					if (-200<=cor.ax && cor.ay<=500  && 500<cor.az ) {
-						if (!w.gfx.isOn) {
+						if (!w.gfx.isOn&&this.up) {
 							face.go(set.dash[set.def.dash.face],0);
-							face.off(1000);
+							//face.off(1000);
 						}else {
 							let tout=set.def.off[face.appCurr];
-							changeInterval(acc.tid,1000);
+							//changeInterval(acc.tid,1000);
 							if ( !tout || ( tout &&  tout <= 60000)) face.off(1600);
 						}
-					} else changeInterval(acc.tid,100);
+					} else  this.up=1;//changeInterval(acc.tid,100);
 				},this.tmr);
 				return true;
+			/*	
+				this.tid= setInterval(()=>{	
+					"ram";
+					let cor=acc.read();
+					if (-1000<=cor.ax && cor.ax<=500 && cor.ay<=500 && cor.az<=-300 ) {
+						if (!w.gfx.isOn&&this.up){  
+								face.go(set.dash[set.def.dash.face],0);
+						}else {
+							let tout=set.def.off[face.appCurr];
+							if ( !tout || ( tout &&  tout <= 60000)) 
+								face.off(1500);
+						}
+						this.up=0;
+					} else this.up=1;
+				},100);
+				
+			*/
+				
 			}else if (!this.tid) {
 				i2c.writeTo(0x18,0x32,20); //int1_ths-threshold = 250 milli g's
 				i2c.writeTo(0x18,0x33,1); //duration = 1 * 20ms

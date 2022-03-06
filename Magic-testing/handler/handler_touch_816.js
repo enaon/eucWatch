@@ -24,7 +24,7 @@ var TC={
 			print("wake");
 			//if (!this.ntid)
 			this.init();
-		},50);
+		},200);
 
 	},
 	init:function(){
