@@ -181,7 +181,7 @@ touchHandler[0]=function(e,x,y){
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","KS-NO NAME");
 			euc.dash.name=0;
 			euc.dash.maker="Kingsong"; 
-			face.go('w_scan',0,'fff0'); 
+			face.go('w_scan',0,'ffe0'); 
 		}
     }else buzzer(40); 
     break;
