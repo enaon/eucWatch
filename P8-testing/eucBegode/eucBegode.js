@@ -22,7 +22,7 @@ euc.proxy=0;
 euc.wri=function(i) {if (set.bt===2) console.log("not connected yet"); if (i=="end") euc.off(); return;};
 euc.conn=function(mac){
 	print("mac: ",mac);
-	//check
+	//check if connected
 	if ( global["\xFF"].BLE_GATTS!="undefined") {
 		if (set.def.cli) print("ble allready connected"); 
 		if (global["\xFF"].BLE_GATTS.connected) {global["\xFF"].BLE_GATTS.disconnect();return;}

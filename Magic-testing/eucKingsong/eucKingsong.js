@@ -348,7 +348,7 @@ euc.off=function(err){
 		euc.seq=1;
 		//if (set.def.cli) console.log("EUC: Restarting");
 		if ( err==="Connection Timeout"  )  {
-			//if (set.def.cli) console.log("reason :timeout");
+			if (set.def.cli) console.log("reason :timeout");
 			euc.state="LOST";
 			if ( set.def.dash.rtr < euc.run) {
 				euc.tgl();
@@ -362,14 +362,14 @@ euc.off=function(err){
 				if (euc.state!="OFF") euc.conn(euc.mac); 
 			}, 5000);
 		}else if ( err==="Disconnected"|| err==="Not connected")  {
-			//if (set.def.cli) console.log("reason :",err);
+			if (set.def.cli) console.log("reason :",err);
 			euc.state="FAR";
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
 				if (euc.state!="OFF") euc.conn(euc.mac); 
 			}, 1000);
 		} else {
-			//if (set.def.cli) console.log("reason :",err);
+			if (set.def.cli) console.log("reason :",err);
 			euc.state="RETRY";
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;

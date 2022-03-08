@@ -332,7 +332,7 @@
 	{ "id": "eucInmotion",
 		"name": "Inmotion V11 module",
 		"icon": "icon.png",
-		"version":"1.01",
+		"version":"1.02",
 		"description": "EUC module for Inmotion V11.",
 		"tags": "euc",
 		"type": "euc",
