@@ -7,3 +7,4 @@
 0.26: TIN/TON 816 standby fix.
 0.30: update
 0.50: p22 816 support, accelerator "euc mode" for wake on screen, structure change.
+1.04: Support for right hand usage on sc7a20 accelerator on euc mode. 

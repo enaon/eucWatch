@@ -1,0 +1,9 @@
+NRF.findDevices(function(device) {
+print (0,device);
+device.forEach(function(device) {
+
+print (1,device);
+
+});
+}, 1000);
+},{timeout: 1000, filters : [{services:[ "fbb0" ]}] });

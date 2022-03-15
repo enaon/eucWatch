@@ -636,6 +636,7 @@ if (set.def.acctype==="BMA421"){
 		ori:[65,66],
 		tid:0,
 		mode:0,
+		loop:100,
 		on:function(v){
 			i2c.writeTo(0x18,0x20,0x4f); //CTRL_REG1 20h ODR3 ODR2 ODR1 ODR0 LPen Zen Yen Xen , 50hz, lpen1. zyx
 			i2c.writeTo(0x18,0x21,0x00); //highpass filter disabled
@@ -669,16 +670,19 @@ if (set.def.acctype==="BMA421"){
 				this.tid= setInterval(()=>{	
 					"ram";
 					let cor=acc.read();
-					if (-1000<=cor.ax && cor.ax<=500 && cor.ay<=500 && cor.az<=-300 ) {
-						if (!w.gfx.isOn&&this.up){  
-								face.go(set.dash[set.def.dash.face],0);
-						}else {
-							let tout=set.def.off[face.appCurr];
-							if ( !tout || ( tout &&  tout <= 60000)) 
-								face.off(1500);
-						}
+					if (-1100<=cor.ax && cor.ax<=0 &&  -700<=cor.ay &&cor.ay<=1000 && cor.az<=-500 ) {
+						if (!w.gfx.isOn&&this.up)
+							face.go(set.dash[set.def.dash.face],0);
+						else if (w.gfx.isOn)  face.off(0);
 						this.up=0;
-					} else this.up=1;
+						changeInterval(acc.tid,2000)
+					} else if (!this.up) {
+						this.up=1;
+						let tout=set.def.off[face.appCurr];
+						if (w.gfx.isOn ) if ( !tout || ( tout &&  tout <= 60000)) 
+							face.off(1000);
+						changeInterval(acc.tid,100)
+					}
 				},100);
 				return true;
 			}else if (!this.tid) {
