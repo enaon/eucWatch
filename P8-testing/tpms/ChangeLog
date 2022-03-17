@@ -1,3 +1,4 @@
 0.01: New App!
 1.05: hang during scan bug fix
 1.06: date was wrong on logs fix
+1.07: loops was stopped if scan was successful fix 

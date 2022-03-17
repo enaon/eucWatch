@@ -95,22 +95,22 @@ tpms= {
 					tpms.try--;
 					tpms.status="RETRY ("+(tpms.try+1)+")";
 					tpms.find();
+					return;
 				}else {
 					tpms.busy=0;
 					tpms.status="NOT FOUND";
-					let intT=[5,5,30,60,360];
-					if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
-					if (tpms.def.int||euc.state!="OFF") {
-						if (tpms.tid) clearTimeout(tpms.tid);
-						tpms.tid=setTimeout(()=>{ 
-							tpms.tid=0;
-							tpms.scan();
-						},intT[tpms.def.int]*60000);
-					}
 				}
 			}else {
 				tpms.status="SUCCESS";
 				tpms.busy=0;
+			}
+			if (tpms.def.int||euc.state!="OFF") {
+				let intT=[5,5,30,60,360];
+				if (tpms.tid) clearTimeout(tpms.tid);
+				tpms.tid=setTimeout(()=>{ 
+					tpms.tid=0;
+					tpms.scan();
+				},intT[tpms.def.int]*60000);
 			}
 		//}, tpms.def.wait*1000);
 		}, {timeout :  tpms.def.wait*1000, filters : [{services:[ "fbb0" ]}] });
