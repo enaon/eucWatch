@@ -193,6 +193,15 @@ euc.conn=function(mac){
 				case 187://model
 					euc.tmp.four(inpk);
 					break;
+				default: 
+					if ( inpk[16] == 76) 
+						dash.live.ks.lift=inpk[2];
+					if ( inpk[16] == 85) 
+						dash.live.strb=inpk[2];
+					if ( inpk[16] == 110) 	
+						dash.live.lght.ride=1-inpk[2];
+					if (set.def.cli) console.log(inpk);
+					break;
 			}
 			//haptic
 			if (!euc.buzz && euc.alert) { 
@@ -219,8 +228,8 @@ euc.conn=function(mac){
 		if (set.def.cli) console.log("EUC Kingsong connected"); 
 		euc.wri= function(n) {
 			"ram";
-			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},100);return;} 
-			euc.busy=setTimeout(()=>{euc.busy=0;},1000);
+			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},50);return;} 
+			euc.busy=setTimeout(()=>{euc.busy=0;},200);
 			//if (n=="end") c.stopNotifications();
 			if (n=="hornOn"){
 				euc.horn=1;

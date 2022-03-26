@@ -1,0 +1,119 @@
+1503>AD17R 1700>AD16T 3111>AD4 2038>AD3 2044>AD2  874>AD1    3>AD0 1911>Rand 1>BtO 0>IAPr 11100>Bt1Bit 11100>Bt2Bit  8787>ChgC 0>CM 0>tn+ 0>tn- 0>tnOK  -1>LS  -1>RS  89>HPS 101>rAB  89>DIf 1>MoS  2400>MxL  500>BvUc  500>BvFc
+ 
+ 
+ 
+  1502>AD17R 1702>AD16T 3111>AD4 2034>AD3 2042>AD2  874>AD1    2>AD0 3003>Rand 1>BtO 0>IAPr 11100>Bt1Bit 11100>Bt2Bit  8786>ChgC 0>CM 0>tn+ 0>tn- 0>tnOK  -1>LS  -1>RS  89>HPS 101>rAB  89>DIf 1>MoS  2400>MxL  500>BvUc  500>BvFc
+ 
+ 
+ 
+  1502>AD17R 1700>AD16T 3108>AD4 2034>AD3 2044>AD2  874>AD1    3>AD0 3549>Rand 1>BtO 0>IAPr 11100>Bt1Bit 11100>Bt2Bit  8787>ChgC 0>CM 0>tn+ 0>tn- 0>tnOK  -1>LS  -1>RS  89>HPS 101>rAB  89>DIf 1>MoS  2400>MxL  500>BvUc  500>BvFc
+ 
+ 
+ 
+  1503>AD17R 1702>AD16T 3109>AD4 2033>AD3 2041>AD2  873>AD1    3>AD0 3276>Rand 1>BtO 0>IAPr 11100>Bt1Bit 11100>Bt2Bit  8788>ChgC 0>CM 0>tn+ 0>tn- 0>tnOK  -1>LS  -1>RS  89>HPS 101>rAB  89>DIf 1>MoS  2400>MxL  500>BvUc  500>BvFc
+ 
+ 
+ 
+  1502>AD17R 1701>AD16T 3112>AD4 2034>AD3 2044>AD2  875>AD1    3>AD0 3549>Rand 1>BtO 0>IAPr 11100>Bt1Bit 11100>Bt2Bit  8789>ChgC 0>CM 0>tn+ 0>tn- 0>tnOK  -1>LS  -1>RS  89>HPS 101>rAB  89>DIf 1>MoS  2400>MxL  500>BvUc  500>BvFc
+ 
+ 
+ 
+  1503>AD17R 1702>AD16T 3110>AD4 2036>AD3 2042>AD2  872>AD1    3>AD0 4095>Rand 1>BtO 0>IAPr 11100>Bt1Bit 11100>Bt2Bit  8786>ChgC 0>CM 0>tn+ 0>tn- 0>tnOK  -1>LS  -1>RS  89>HPS 101>rAB  89>DIf 1>MoS  2400>MxL  500>BvUc  500>BvFc
+ 
+ 
+ 
+  1502>AD17R 1702>AD16T 3110>AD4 2036>AD3 2042>AD2  869>AD1    3>AD0 4095>Rand 1>BtO 0>IAPr 11100>Bt1Bit 11100>Bt2Bit  8784>ChgC 0>CM 0>tn+ 0>tn- 0>tnOK  -1>LS  -1>RS  89>HPS 101>rAB  89>DIf 1>MoS  2400>MxL  500>BvUc  500>BvFc
+ 
+ 
+ 
+  1503>AD17R 1700>AD16T 3111>AD4 2035>AD3 2042>AD2  874>AD1    2>AD0 3822>Rand 1>BtO 0>IAPr 11100>Bt1Bit 11100>Bt2Bit  8790>ChgC 0>CM 0>tn+ 0>tn- 0>tnOK  -1>LS  -1>RS  89>HPS 101>rAB  89>DIf 1>MoS  2400>MxL  500>BvUc  500>BvFc
+ 
+ 
+ 
+  1503>AD17R 1702>AD16T 3109>AD4 2034>AD3 2043>AD2  871>AD1    2>AD0 3276>Rand 1>BtO 0>IAPr 11100>Bt1Bit 11100>Bt2Bit  8786>ChgC 0>CM 0>tn+ 0>tn- 0>tnOK  -1>LS  -1>RS  89>HPS 101>rAB  89>DIf 1>MoS  2400>MxL  500>BvUc  500>BvFc
+ 
+ 
+ 
+  1503>AD17R 1702>AD16T 3109>AD4 2034>AD3 2040>AD2  873>AD1    3>AD0 3822>Rand 1>BtO 0>IAPr 11100>Bt1Bit 11100>Bt2Bit  8780>ChgC 0>CM 0>tn+ 0>tn- 0>tnOK  -1>LS  -1>RS  89>HPS 101>rAB  89>DIf 1>MoS  2400>MxL  500>BvUc  500>BvFc
+ 
+ 
+ 
+  1503>AD17R 1701>AD16T 3109>AD4 2036>AD3 2044>AD2  871>AD1    3>AD0 3549>Rand 1>BtO 0>IAPr 11100>Bt1Bit 11100>Bt2Bit  8787>ChgC 0>CM 0>tn+ 0>tn- 0>tnOK  -1>LS  -1>RS  89>HPS 101>rAB  89>DIf 1>MoS  2400>MxL  500>BvUc  500>BvFc
+ 
+ 
+ 
+  1502>AD17R 1701>AD16T 3111>AD4 2035>AD3 2043>AD2  874>AD1    3>AD0 3276>Rand 1>BtO 0>IAPr 11100>Bt1Bit 11100>Bt2Bit  8790>ChgC 0>CM 0>tn+ 0>tn- 0>tnOK  -1>LS  -1>RS  89>HPS 101>rAB  89>DIf 1>MoS  2400>MxL  500>BvUc  500>BvFc
+ 
+ 
+ 
+  1502>AD17R 1701>AD16T 3111>AD4 2034>AD3 2043>AD2  871>AD1    3>AD0 1365>Rand 1>BtO 0>IAPr 11100>Bt1Bit 11100>Bt2Bit  8787>ChgC 0>CM 0>tn+ 0>tn- 0>tnOK  -1>LS  -1>RS  89>HPS 101>rAB  89>DIf 1>MoS  2400>MxL  500>BvUc  500>BvFc
+ 
+ 
+ 
+  1503>AD17R 1702>AD16T 3109>AD4 2037>AD3 2045>AD2  873>AD1    3>AD0 3822>Rand 1>BtO 0>IAPr 11100>Bt1Bit 11100>Bt2Bit  8781>ChgC 0>CM 0>tn+ 0>tn- 0>tnOK  -1>LS  -1>RS  89>HPS 101>rAB  89>DIf 1>MoS  2400>MxL  500>BvUc  500>BvFc
+>euc.wri("changePage")
+=undefined
+ 
+ 
+ 
+  1503>AD17R 1701>AD16T 3110>AD4 2036>AD3 2044>AD2  872>AD1    3>AD0 1092>Rand 1>BtO 0>IAPr 11100>Bt1Bit 11100>Bt2Bit  8783>ChgC 0>CM 0>tn+ 0>tn- 0>tnOK  -1>LS  -1>RS  89>HPS 101>rAB  89>DIf 1>MoS  2400>MxL  500>BvUc  500>BvFc
+  0: 8:12  9831>cV 3270>StV     6>CuA    -6>CuB    -8>VQ     1>VD    -5>QA     0>DA    13>Cpv   -94>pi  -248>ro    -3>Pis   -20>Tc 60001>IsfC 60001>FsfC    0>FHz    0>HHz     0>HzC    0>dKM   0>OT  31>LT   0>HT  7084.81>RkM      0>U1     0>U2     0>U3     0>U4     0>U5
+  0: 8:12  9828>cV 3270>StV     4>CuA    -6>CuB    -5>VQ     5>VD    -4>QA     0>DA    12>Cpv   -95>pi  -248>ro    -1>Pis   -14>Tc 60001>IsfC 60001>FsfC    0>FHz    0>HHz     0>HzC    0>dKM   0>OT  31>LT   0>HT  7084.81>RkM      0>U1     0>U2     0>U3     0>U4     0>U5
+  0: 8:13  9821>cV 3272>StV     3>CuA    -4>CuB    -5>VQ     3>VD    -4>QA     0>DA    19>Cpv   -96>pi  -248>ro     3>Pis   -20>Tc 60001>IsfC 60001>FsfC    0>FHz    0>HHz     0>HzC    0>dKM   0>OT  31>LT   0>HT  7084.81>RkM      0>U1     0>U2     0>U3     0>U4     0>U5
+  0: 8:13  9825>cV 3270>StV     4>CuA    -4>CuB    -4>VQ     4>VD    -3>QA     0>DA    14>Cpv   -95>pi  -248>ro     1>Pis   -15>Tc 60001>IsfC 60001>FsfC    0>FHz    0>HHz     0>HzC    0>dKM   0>OT  31>LT   0>HT  7084.81>RkM      0>U1     0>U2     0>U3     0>U4     0>U5
+  0: 8:14  9818>cV 3272>StV     3>CuA    -4>CuB    -4>VQ     3>VD    -4>QA     0>DA    12>Cpv   -95>pi  -248>ro     0>Pis   -12>Tc 60001>IsfC 60001>FsfC    0>FHz    0>HHz     0>HzC    0>dKM   0>OT  31>LT   0>HT  7084.81>RkM      0>U1     0>U2     0>U3     0>U4     0>U5
+  0: 8:14  9831>cV 3270>StV     3>CuA   -11>CuB    -2>VQ     6>VD    -2>QA     0>DA    11>Cpv   -96>pi  -248>ro     2>Pis   -24>Tc 60001>IsfC 60001>FsfC    0>FHz    0>HHz     0>HzC    0>dKM   0>OT  31>LT   0>HT  7084.81>RkM      0>U1     0>U2     0>U3     0>U4     0>U5
+  0: 8:15  9825>cV 3270>StV     3>CuA    -3>CuB    -1>VQ     5>VD     0>QA     0>DA     8>Cpv   -97>pi  -248>ro    -2>Pis    -6>Tc 60001>IsfC 60001>FsfC    0>FHz    0>HHz     0>HzC    0>dKM   0>OT  31>LT   0>HT  7084.81>RkM      0>U1     0>U2     0>U3     0>U4     0>U5
+  0: 8:15  9825>cV 3272>StV     0>CuA     0>CuB     0>VQ     5>VD     0>QA     0>DA     8>Cpv   -97>pi  -248>ro     5>Pis   -14>Tc 60001>IsfC 60001>FsfC    0>FHz    0>HHz     0>HzC    0>dKM   0>OT  31>LT   0>HT  7084.81>RkM      0>U1     0>U2     0>U3     0>U4     0>U5
+  0: 8:16  9825>cV 3270>StV     0>CuA    -1>CuB    -1>VQ     5>VD     0>QA     0>DA    12>Cpv   -96>pi  -247>ro     3>Pis   -17>Tc 60001>IsfC 60001>FsfC    0>FHz    0>HHz     0>HzC    0>dKM   0>OT  31>LT   0>HT  7084.81>RkM      0>U1     0>U2     0>U3     0>U4     0>U5
+  0: 8:16  9834>cV 3272>StV     3>CuA    -3>CuB    -3>VQ     4>VD    -2>QA     0>DA     9>Cpv   -96>pi  -247>ro     5>Pis   -13>Tc 60001>IsfC 60001>FsfC    0>FHz    0>HHz     0>HzC    0>dKM   0>OT  31>LT   0>HT  7084.81>RkM      0>U1     0>U2     0>U3     0>U4     0>U5
+  0: 8:17  9821>cV 3272>StV     4>CuA    -3>CuB    -5>VQ     4>VD    -4>QA     0>DA    11>Cpv   -95>pi  -247>ro     1>Pis   -15>Tc 60001>IsfC 60001>FsfC    0>FHz    0>HHz     0>HzC    0>dKM   0>OT  31>LT   0>HT  7084.81>RkM      0>U1     0>U2     0>U3     0>U4     0>U5
+  0: 8:17  9828>cV 3272>StV     9>CuA    -7>CuB    -7>VQ     5>VD    -5>QA     0>DA    11>Cpv   -94>pi  -247>ro     2>Pis   -14>Tc 60001>IsfC 60001>FsfC    0>FHz    0>HHz     0>HzC    0>dKM   0>OT  31>LT   0>HT  7084.81>RkM      0>U1     0>U2     0>U3     0>U4     0>U5
+  0: 8:18  9825>cV 3270>StV     3>CuA    -3>CuB    -5>VQ     5>VD    -4>QA     0>DA    14>Cpv   -95>pi  -247>ro    -2>Pis    -8>Tc 60001>IsfC 60001>FsfC    0>FHz    0>HHz     0>HzC    0>dKM   0>OT  31>LT   0>HT  7084.81>RkM      0>U1     0>U2     0>U3     0>U4     0>U5
+  0: 8:18  9825>cV 3270>StV     6>CuA    -6>CuB    -4>VQ     5>VD    -3>QA     0>DA    10>Cpv   -96>pi  -247>ro     1>Pis   -19>Tc 60001>IsfC 60001>FsfC    0>FHz    0>HHz     0>HzC    0>dKM   0>OT  31>LT   0>HT  7084.81>RkM      0>U1     0>U2     0>U3     0>U4     0>U5
+>euc.wri("changePage")
+=undefined
+ 
+ 
+ 
+    35>AX  -62>AY 1004>AZ   -3>GX   -2>GY    4>GZ 3911>6Tem 3888>STem  5524>q0  -132>q1   -14>q2 -1475>q3   -96>p  -247>r      0>y   -2>PicS    1>PiS  -11>Tc 3102>OFF    35>DaN  1b0f>P0    6c>P1  7ff5>P2    1f>P3    6c>P4  37e6>P5     0>P6     0>P7
+ 
+ 
+ 
+    23>AX  -69>AY 1014>AZ   -4>GX    0>GY   -3>GZ 3921>6Tem 3870>STem  5523>q0  -131>q1   -14>q2 -1476>q3   -96>p  -246>r      0>y   -2>PicS    2>PiS  -16>Tc 3101>OFF    35>DaN  1b0f>P0    6c>P1  7ff5>P2    1f>P3    6c>P4  37e6>P5     0>P6     0>P7
+undefined
+ 
+ 
+ 
+    18>AX  -71>AY 1005>AZ   -1>GX   -4>GY    0>GZ 3902>6Tem 3888>STem  5523>q0  -131>q1   -14>q2 -1479>q3   -96>p  -246>r      0>y   -2>PicS    2>PiS  -16>Tc 3100>OFF    35>DaN  1b0f>P0    6c>P1  7ff5>P2    1f>P3    6c>P4  37e6>P5     0>P6     0>P7
+ 
+ 
+ 
+    32>AX  -57>AY 1013>AZ   -2>GX   -6>GY   -3>GZ 3921>6Tem 3870>STem  5522>q0  -131>q1   -14>q2 -1480>q3   -95>p  -246>r      0>y   -2>PicS   -4>PiS   -4>Tc 3100>OFF    35>DaN  1b0f>P0    6c>P1  7ff5>P2    1f>P3    6c>P4  37e6>P5     0>P6     0>P7
+ 
+ 
+ 
+    27>AX  -63>AY 1011>AZ   -5>GX   -2>GY    3>GZ 3921>6Tem 3907>STem  5522>q0  -132>q1   -14>q2 -1480>q3   -95>p  -247>r      0>y   -1>PicS   -3>PiS  -13>Tc 3099>OFF    35>DaN  1b0f>P0    6c>P1  7ff5>P2    1f>P3    6c>P4  37e6>P5     0>P6     0>P7
+ 
+ 
+ 
+    25>AX  -67>AY 1014>AZ   -4>GX   -2>GY   -2>GZ 3902>6Tem 3907>STem  5522>q0  -132>q1   -14>q2 -1481>q3   -96>p  -248>r      0>y   -2>PicS    0>PiS  -16>Tc 3099>OFF    35>DaN  1b0f>P0    6c>P1  7ff5>P2    1f>P3    6c>P4  37e6>P5     0>P6     0>P7
+ 
+ 
+ 
+    23>AX  -64>AY 1008>AZ   -4>GX   -6>GY    3>GZ 3921>6Tem 3888>STem  5522>q0  -132>q1   -14>q2 -1482>q3   -96>p  -248>r      0>y   -2>PicS    2>PiS   -3>Tc 3098>OFF    35>DaN  1b0f>P0    6c>P1  7ff5>P2    1f>P3    6c>P4  37e6>P5     0>P6     0>P7
+ 
+ 
+ 
+    30>AX  -58>AY 1017>AZ   -3>GX   -6>GY    1>GZ 3921>6Tem 3907>STem  5522>q0  -132>q1   -14>q2 -1483>q3   -96>p  -248>r      0>y   -2>PicS    1>PiS  -12>Tc 3098>OFF    35>DaN  1b0f>P0    6c>P1  7ff5>P2    1f>P3    6c>P4  37e6>P5     0>P6     0>P7
+ 
+ 
+ 
+    27>AX  -63>AY 1018>AZ   -3>GX   -3>GY   -2>GZ 3921>6Tem 3870>STem  5521>q0  -132>q1   -15>q2 -1484>q3   -97>p  -248>r      0>y   -2>PicS    2>PiS  -14>Tc 3097>OFF    35>DaN  1b0f>P0    6c>P1  7ff5>P2    1f>P3    6c>P4  37e6>P5     0>P6     0>P7
+ 
+ 
+ 
+    24>AX  -68>AY 1012>AZ   -2>GX   -6>GY    3>GZ 3921>6Tem 3907>STem  5521>q0  -132>q1   -14>q2 -1485>q3   -97>p  -248>r      0>y   -2>PicS    0>PiS   -9>Tc 3097>OFF    35>DaN  1b0f>P0    6c>P1  7ff5>P2    1f>P3    6c>P4  37e6>P5     0>P6     0>P7
+ 
+ 
+ 
