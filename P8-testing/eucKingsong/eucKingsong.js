@@ -9,33 +9,93 @@ euc.tmp={};
 euc.wri=function(i) {if (set.def.cli) console.log("not connected yet"); if (i=="end") euc.off(); return;};
 euc.cmd=function(no,val){
 	switch (no) {
-		case "model":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0x9B,20,90,90]; 
-		case "serial":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0x63,20,90,90]; 
-		case "alarms":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0x98,20,90,90]; 
-		case "horn":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0x88,20,90,90]; 
-		case "info1":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0x53,20,90,90]; 
-		case "info2":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0x54,20,90,90]; 
+		case "model":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,155,20,90,90]; 
+		//case "getMode":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,155,20,90,90]; 
+		case "serial":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,99,20,90,90]; 
+		case "alarms":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,152,20,90,90]; 
+		case "getAlarms":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,152,20,90,90]; 
+		case "horn":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,136,20,90,90]; 
+		case "doBeep":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,136,20,90,90]; 
+		case "info1":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,83,20,90,90]; 
+		case "info2":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,84,20,90,90]; 
+		//
+		case "getParamA":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,146,20,90,90]; 
+		case "getParamB":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,147,20,90,90]; 
+		case "getParamC":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,148,20,90,90]; 
+
+		case "getLogin":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,69,20,90,90];
+
+		//
 		case "getHeadLight":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,81,20,90,90];
 		case "lightsOn":euc.seq=0;euc.dash.light=1;return [170,85,18,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];  
 		case "lightsOff": euc.seq=0;euc.dash.light=0;return [170,85,19,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];  
 		case "lightsAuto":euc.seq=0;euc.dash.light=2;return [170,85,20,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];
 		case "lightsCity": if (euc.night) {return euc.cmd("lightsAuto");} else {return euc.cmd("lightsOff");} break;
-		case "getStrobe":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,84,20,90,90];
+		case "getLightStrobe":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,84,20,90,90];
 		case "strobeOn":euc.dash.strobe=1;return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,83,20,90,90];
 		case "strobeOff":euc.dash.strobe=0;return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,83,20,90,90];
 		case "getLightMagic":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,81,20,90,90];
-		case "setLightMagic":return [170,85,val,0,0,0,0,0,0,0,0,0,0,0,0,0,80,20,90,90];
+		case "setLightMagic":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,20,90,90];
+		case "rideLedOn":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,108,20,90,90]; 
+		case "rideLedOff":return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,108,20,90,90];
+		case "musicLedOn":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,125,20,90,90]; 
+		case "musicLedOff":return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,125,20,90,90]; 
+		//case "setLightRideLed":return [170,85,val,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,108,20,90,90];
+		//case "setLightMusicLed":return [170,85,val,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,125,20,90,90]; 
+		case "getLightCircle":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,109,20,90,90];
+		case "setLightCircle":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,108,20,90,90];
+		case "getLightColor":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,91,20,90,90];
 		//
 		case "getVoice":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,74,20,90,90];
 		case "setVoice":return [170,85,val,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];
 		//
-		case "rideSoft":return [170,85,2,224,0,0,0,0,0,0,0,0,0,0,0,0,0x87,20,90,90];
-		case "rideMed":return [170,85,1,224,0,0,0,0,0,0,0,0,0,0,0,0,0x87,20,90,90];
-		case "rideHard":return [170,85,0,224,0,0,0,0,0,0,0,0,0,0,0,0,0x87,20,90,90];  
+		case "getMusic":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,87,20,90,90];
+		case "setMusic":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,86,20,90,90];
 		//
+		case "calibrate": return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,137,20,90,90];  
+		//case "doCalibrate": return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,137,20,90,90];  
+		case "getGyroAround":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,138,20,90,90];
+		case "setGyroAround":return [170,85,1,0,val & 255,(val >> 8) & 255,0,0,0,0,0,0,0,0,0,0,138,20,90,90];
+		case "tiltSet":
+			euc.dash.tiltSet=(99<=euc.dash.tiltSet||-99>=euc.dash.tiltSet)?0:euc.dash.tiltSet;let tiltSet=(0<=euc.dash.tiltSet)?euc.dash.tiltSet:255+euc.dash.tiltSet;
+			return [170,85,1,0,tiltSet,(tiltSet<=100)?0:255,0,0,0,0,0,0,0,0,0,0,138,20,90,90]; 
+		case "getGyroAbout":return [170,85,2,0,0,0,0,0,0,0,0,0,0,0,0,0,138,20,90,90];
+		case "setGyroAbout":return [170,85,3,0,val & 255,(val >> 8) & 255,0,0,0,0,0,0,0,0,0,0,138,20,90,90];
+		case "getBalabce":return [170,85,4,0,0,0,0,0,0,0,0,0,0,0,0,0,138,20,90,90];
+		case "getReadV":return [170,85,6,0,0,0,0,0,0,0,0,0,0,0,0,0,138,20,90,90];
+		case "getInitV":return [170,85,7,32,0,0,255,255,0,0,0,0,0,0,0,0,138,20,90,90];
+		//
+		case "liftOn":return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,126,20,90,90]; 
+		case "liftOff":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,126,20,90,90];
+		//case "getLiftHandle":return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,126,20,90,90]; 
+		case "setLiftHandle":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,126,20,90,90]; 
+
+		//
+		case "getLanguage":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,106,20,90,90];
+		case "setLanguage":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,105,20,90,90];
+		//		
+		
+		//
+		case "setBmsSn":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11,0,0,0]; 
+		case "setBMS":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,1,0,122,1,129,7]; 
+		case "getBattAInfo":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,116,20,90,90]; 
+		case "getBattBInfo":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,117,20,90,90]; 
+		case "setBattACleanFault":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,118,20,90,90]; 
+		case "setBattBCleanFault":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,119,20,90,90];	
+		case "getBattASleep":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,120,20,90,90]; 
+		case "getBattBSleep":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,121,20,90,90];
+		case "setBattACleanCycle":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,122,20,90,90]; 
+		case "setBattBCleanCycle":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,123,20,90,90];
+		//
+		case "rideSoft":return [170,85,2,224,0,0,0,0,0,0,0,0,0,0,0,0,135,20,90,90];
+		case "rideMed":return [170,85,1,224,0,0,0,0,0,0,0,0,0,0,0,0,135,20,90,90];
+		case "rideHard":return [170,85,0,224,0,0,0,0,0,0,0,0,0,0,0,0,135,20,90,90];  
+		case "setRideMode":return [170,85,val,224,0,0,0,0,0,0,0,0,0,0,0,0,135,20,90,90];  
+		//
+		case "off":euc.seq=0;return [170,85,0,224,0,0,0,0,0,0,0,0,0,0,0,0,64,20,90,90];
+		//case "powerOff":euc.seq=0;return [170,85,0,224,0,0,0,0,0,0,0,0,0,0,0,0,64,20,90,90];
 		case "getPoweOffTimeout":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,63,20,90,90];
 		case "setPoweOffTimeout":return [170,85,1,0,val & 255,(val >> 8) & 255,0,0,0,0,0,0,0,0,0,0,63,20,90,90];
-
 		//
 		case "getLock":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,94,20,90,90];
 		case "lock":euc.dash.lock=1;return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0x5d,20,90,90]; 
@@ -48,21 +108,16 @@ euc.cmd=function(no,val){
 		case "unlock5":euc.dash.lock=0;return [170,85,0,0,0,0,0,0,0,0,0x37,0x32,0x34,48,0x38,0x35,0x47,20,90,90];
 		case "unlock6":euc.dash.lock=0;return [170,85,0,0,0,0,0,0,0,0,0x38,0x37,0x35,0x34,0x36,0x37,0x5D,20,90,90]; //ok for s18 old
 		//case "unlock":euc.dash.lock=0;return [170,85,0,0,0,0,0,0,0,0,0x38,0x37,0x35,0x34,0x36,0x37,0x47,20,90,90];
-		case "off":euc.seq=0;return [170,85,0,224,0,0,0,0,0,0,0,0,0,0,0,0,0x40,20,90,90];
-		case "passSend":return    [170,85,48+Number(euc.dash.pass[0]),48+Number(euc.dash.pass[1]),48+Number(euc.dash.pass[2]),48+Number(euc.dash.pass[3]),0,0,0,0,0,0,0,0,0,0,0x44,20,90,90]; 
-		case "passChange": return [170,85,48+Number(euc.dash.pass[0]),48+Number(euc.dash.pass[1]),48+Number(euc.dash.pass[2]),48+Number(euc.dash.pass[3]),48+Number(euc.dash.passOld[0]),48+Number(euc.dash.passOld[1]),48+Number(euc.dash.passOld[2]),48+Number(euc.dash.passOld[3]),0,0,0,0,0,0,0x41,20,90,90]; //rf 43
-		case "passClear": return [170,85,48+Number(euc.dash.pass[0]),48+Number(euc.dash.pass[1]),48+Number(euc.dash.pass[2]),48+Number(euc.dash.pass[3]),0,0,0,0,0,0,0,0,0,0,0x42,20,90,90];  //rf 43
-		case "passSet": return [170,85,48+Number(euc.dash.pass[0]),48+Number(euc.dash.pass[1]),48+Number(euc.dash.pass[2]),48+Number(euc.dash.pass[3]),0,0,0,0,0,0,0,0,0,0,0x41,20,90,90]; //rf 43
-		case "calibrate":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0x89,20,90,90];  
-		case "tiltSet":euc.dash.tiltSet=(99<=euc.dash.tiltSet||-99>=euc.dash.tiltSet)?0:euc.dash.tiltSet;let tiltSet=(0<=euc.dash.tiltSet)?euc.dash.tiltSet:255+euc.dash.tiltSet;
-			return [170,85,1,0,tiltSet,(tiltSet<=100)?0:255,0,0,0,0,0,0,0,0,0,0,0x8A,20,90,90]; //rf 8A
-		case "liftOn":return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0x7E,20,90,90]; //rf 4C
-		case "liftOff":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0x7E,20,90,90];
-		case "setSpeedLimits":return [170,85,((euc.dash.limE[0])?euc.dash.lim[0]:(euc.dash.limE[1])?0x00:0xFF),0x00,(euc.dash.limE[1])?euc.dash.lim[1]:0,0x00,euc.dash.lim[2],0x00,euc.dash.lim[3],0x00,0x31,0x32,0x33,0x34,0x35,0x36,0x85,20,90,90]; //speed in kph, rf A4
-		case "rideLedOn":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0x6C,20,90,90]; //rf 6E
-		case "rideLedOff":return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0x6C,20,90,90];
-		case "musicLedOn":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0x7D,20,90,90]; //rf 6E
-		case "musicLedOff":return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0x6C,20,90,90]; //rf 4A
+		case "passSend":
+			return [170,85,48+Number(euc.dash.pass[0]),48+Number(euc.dash.pass[1]),48+Number(euc.dash.pass[2]),48+Number(euc.dash.pass[3]),0,0,0,0,0,0,0,0,0,0,0x44,20,90,90]; 
+		case "passChange":
+			return [170,85,48+Number(euc.dash.pass[0]),48+Number(euc.dash.pass[1]),48+Number(euc.dash.pass[2]),48+Number(euc.dash.pass[3]),48+Number(euc.dash.passOld[0]),48+Number(euc.dash.passOld[1]),48+Number(euc.dash.passOld[2]),48+Number(euc.dash.passOld[3]),0,0,0,0,0,0,0x41,20,90,90]; //rf 43
+		case "passClear": 
+			return [170,85,48+Number(euc.dash.pass[0]),48+Number(euc.dash.pass[1]),48+Number(euc.dash.pass[2]),48+Number(euc.dash.pass[3]),0,0,0,0,0,0,0,0,0,0,0x42,20,90,90];  //rf 43
+		case "passSet": 
+			return [170,85,48+Number(euc.dash.pass[0]),48+Number(euc.dash.pass[1]),48+Number(euc.dash.pass[2]),48+Number(euc.dash.pass[3]),0,0,0,0,0,0,0,0,0,0,0x41,20,90,90]; //rf 43
+		case "setSpeedLimits":
+			return [170,85,((euc.dash.limE[0])?euc.dash.lim[0]:(euc.dash.limE[1])?0x00:0xFF),0x00,(euc.dash.limE[1])?euc.dash.lim[1]:0,0x00,euc.dash.lim[2],0x00,euc.dash.lim[3],0x00,0x31,0x32,0x33,0x34,0x35,0x36,0x85,20,90,90]; //speed in kph, rf A4
     }
 };
 
@@ -224,7 +279,6 @@ euc.conn=function(mac){
 								euc.wri("unlock");
 						}else euc.dash.lock=0;
 						//euc.dash.lght.ride=1-inpk[2];	
-						//la[1] << 8 | la[0] 
 					}					
 					else if ( inpk[16] == 63) 
 						euc.dash.ks.offT=inpk[5] << 8 | inpk[4];
