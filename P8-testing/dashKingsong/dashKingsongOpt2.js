@@ -24,9 +24,9 @@ face[0] = {
       	this.g.fillRect(120,200,143,204);
 		this.g.flip(); 
         this.btn(euc.dash.ks.aRide,"AUTO",18,60,15,12,1,0,0,119,97,"RIDE",28,60,50);
-		this.btn(euc.dash.aOff,"AUTO",22,185,15,7,1,122,0,239,97,"OFF",28,185,50);		
+		this.btn(euc.dash.ks.aOff,"AUTO",22,185,15,7,1,122,0,239,97,"OFF",28,185,50);		
         this.btn(euc.dash.ks.aLift,"AUTO",18,60,115,12,1,0,100,119,195,"LIFT",30,60,150);
-        this.btn(euc.dash.aLock,"AUTO",18,185,115,7,1,122,100,239,195,"LOCK",30,185,150);		
+        this.btn(euc.dash.ks.aLock,"AUTO",18,185,115,7,1,122,100,239,195,"LOCK",30,185,150);		
         /*this.btn(euc.dash.aLck,"AUTO",18,60,15,7,1,0,0,119,97,"LOCK",28,60,50);
 		this.btn(0,"",22,185,17,4,1,122,0,239,97,"",22,185,55);		
         this.btn(euc.dash.aOff,"AUTO",18,60,115,7,1,0,100,119,195,"OFF",30,60,150);
@@ -115,12 +115,12 @@ touchHandler[0]=function(e,x,y){
 			if (!euc.dash.ks.aRide) euc.dash.ks.aRide=0;
 			euc.dash.ks.aRide=1-euc.dash.ks.aRide;
 	        face[0].btn(euc.dash.ks.aRide,"AUTO",18,60,15,12,1,0,0,119,97,"RIDE",28,60,50);
-			face[0].ntfy("DISCON->RIDELED OFF","RIDE LED ON",19,1,euc.dash.ks.aRide);
+			face[0].ntfy("DISCON->RIDELED OFF","AUTO R-LED DISABLED",19,1,euc.dash.ks.aRide);
 			buzzer([30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //auto off
-			euc.dash.aOff=1-euc.dash.aOff;
-            face[0].btn(euc.dash.aOff,"AUTO",22,185,15,7,1,122,0,239,97,"OFF",28,185,50);		
-            face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",(euc.dash.aOff)?17:19,1,euc.dash.aOff);
+			euc.dash.aks.Off=1-euc.dash.ks.aOff;
+            face[0].btn(euc.dash.ks.aOff,"AUTO",22,185,15,7,1,122,0,239,97,"OFF",28,185,50);		
+            face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",(euc.dash.ks.aOff)?17:19,1,euc.dash.ks.aOff);
 			buzzer([30,50,30]);		
 		}else if ( x<=120 && 100<=y ) { //auto lift
 			euc.dash.ks.aLift=1-euc.dash.ks.aLift;
@@ -128,9 +128,9 @@ touchHandler[0]=function(e,x,y){
             face[0].ntfy("CONNECT -> LIFT OFF","AUTO LIFT DISABLED",19,1,euc.dash.ks.aLift);
 			buzzer([30,50,30]);		
 		}else if  (120<=x && 100<=y ) { //auto lock
-			euc.dash.aLck=1-euc.dash.aLck;
-            face[0].btn(euc.dash.aLck,"AUTO",18,185,115,7,1,122,100,239,195,"LOCK",30,185,150);	
-            face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",19,1,euc.dash.aLck);
+			euc.dash.ks.aLock=1-euc.dash.ks.aLock;
+            face[0].btn(euc.dash.ks.aLock,"AUTO",18,185,115,7,1,122,100,239,195,"LOCK",30,185,150);	
+            face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",19,1,euc.dash.ks.aLock);
 			buzzer([30,50,30]);						
 		}else buzzer([30,50,30]);
 		break;

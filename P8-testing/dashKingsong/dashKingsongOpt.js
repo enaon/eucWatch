@@ -121,7 +121,7 @@ touchHandler[0]=function(e,x,y){
             face[0].btn(euc.dash.ks.lift,"SENSOR",18,60,115,4,1,0,100,119,195,"LIFT",30,60,150);
             face[0].ntfy("LIFT SENSOR ENABLED","LIFT SENSOR DISABLED",19,1,euc.dash.ks.lift);
 			euc.wri((euc.dash.ks.lift)?"liftOn":"liftOff");
-		}else if  (120<=x && 100<=y ) { //lock
+		}else if  (120<=x && 100<=y ) { //horn
 			euc.dash.horn=1-euc.dash.horn;
             face[0].btn(euc.dash.horn,"HORN",25,185,136,4,1,122,100,239,195);
             face[0].ntfy("SIDE BTN HORN >2KPH","HORN DISABLED",(euc.dash.horn)?19:20,1,euc.dash.horn);
@@ -168,7 +168,7 @@ touchHandler[0]=function(e,x,y){
             face[0].btn(euc.dash.ks.lift,"SENSOR",18,60,115,4,1,0,100,119,195,"LIFT",30,60,150);
             face[0].ntfy("LIFT SENSOR ENABLED","LIFT SENSOR DISABLED",19,1,euc.dash.ks.lift);
 			euc.wri((euc.dash.ks.lift)?"liftOn":"liftOff");
-		}else if  (120<=x && 100<=y ) { //lock
+		}else if  (120<=x && 100<=y ) { //horn
 			euc.dash.horn=1-euc.dash.horn;
             face[0].btn(euc.dash.horn,"HORN",25,185,136,4,1,122,100,239,195);
             face[0].ntfy("SIDE BTN HORN >2KPH","HORN DISABLED",(euc.dash.horn)?19:20,1,euc.dash.horn);
