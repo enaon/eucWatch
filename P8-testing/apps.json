@@ -178,7 +178,8 @@
 		"storage": [
 			{"name":"dashKingsong","url":"dashKingsong.js"},
 			{"name":"dashKingsongOpt","url":"dashKingsongOpt.js"},
-			{"name":"dashKingsongOpt2","url":"dashKingsongOpt2.js"},
+			{"name":"dashKingsongCon","url":"dashKingsongCon.js"},
+			{"name":"dashKingsongDis","url":"dashKingsongDis.js"},
 			{"name":"dashKingsongAdv","url":"dashKingsongAdv.js"},
 			{"name":"dashKingsongAdvCalibrate","url":"dashKingsongAdvCalibrate.js"},
 			{"name":"dashKingsongAdvLimits","url":"dashKingsongAdvLimits.js"},

@@ -13,7 +13,7 @@ face[0] = {
 		this.g.fillRect(0,205,239,239);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",20);
-		this.g.drawString("MORE",120-(this.g.stringWidth("MORE")/2),217); 
+		this.g.drawString("HEAD LIGHT",120-(this.g.stringWidth("HEAD LIGHT")/2),217); 
 		this.g.flip(); 
 		this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,204);
@@ -23,15 +23,10 @@ face[0] = {
         this.g.setColor(1,15);
       	this.g.fillRect(120,200,143,204);
 		this.g.flip(); 
-        this.btn(euc.dash.ks.aRide,"AUTO",18,60,15,12,1,0,0,119,97,"RIDE",28,60,50);
-		this.btn(euc.dash.ks.aOff,"AUTO",22,185,15,7,1,122,0,239,97,"OFF",28,185,50);		
-        this.btn(euc.dash.ks.aLift,"AUTO",18,60,115,12,1,0,100,119,195,"LIFT",30,60,150);
-        this.btn(euc.dash.ks.aLock,"AUTO",18,185,115,7,1,122,100,239,195,"LOCK",30,185,150);		
-        /*this.btn(euc.dash.aLck,"AUTO",18,60,15,7,1,0,0,119,97,"LOCK",28,60,50);
-		this.btn(0,"",22,185,17,4,1,122,0,239,97,"",22,185,55);		
-        this.btn(euc.dash.aOff,"AUTO",18,60,115,7,1,0,100,119,195,"OFF",30,60,150);
-        this.btn(euc.dash.ks.aLift,"AUTO",18,185,115,7,1,122,100,239,195,"LIFT",30,185,150);
-        */
+        this.btn((euc.dash.aLight==="lightsOn")?1:0,"ON",28,60,35,12,0,4,0,119,97,"",28,60,50);
+		this.btn((euc.dash.aLight==="lightsAuto")?1:0,"AUTO",28,185,35,0,4,122,0,239,97,"",28,185,50);		
+        this.btn((euc.dash.aLight==="lightsCity")?1:0,"CITY",28,60,135,0,4,0,100,119,195,"",30,60,150);
+        this.btn((euc.dash.aLight==="lightsOff")?1:0,"OFF",28,185,135,0,1,122,100,239,195,"",30,185,150);		
 		this.run=true;
 	},
 	show : function(){
@@ -66,7 +61,7 @@ face[0] = {
 				t.g.fillRect(0,205,239,239);
 				t.g.setColor(1,15);
 				t.g.setFont("Vector",20);
-		        t.g.drawString("MORE",120-(t.g.stringWidth("MORE")/2),217); 
+		        t.g.drawString("HEAD LIGHT",120-(t.g.stringWidth("HEAD LIGHT")/2),217); 
 				t.g.flip();
 				t.g.setColor(0,0);
 				t.g.fillRect(0,196,239,204);
@@ -111,28 +106,35 @@ touchHandler[0]=function(e,x,y){
 	face.off();
 	switch (e) {
       case 5: case 12: //tap event
-		if ( x<=120 && y<100 ) { //auto Ride
-			if (!euc.dash.ks.aRide) euc.dash.ks.aRide=0;
-			euc.dash.ks.aRide=1-euc.dash.ks.aRide;
-	        face[0].btn(euc.dash.ks.aRide,"AUTO",18,60,15,12,1,0,0,119,97,"RIDE",28,60,50);
-			face[0].ntfy("DISCON->RIDELED OFF","AUTO R-LED DISABLED",19,1,euc.dash.ks.aRide);
+		if ( x<=120 && y<100 ) { //lights on
+			if (euc.dash.aLight=="lightsOn") return;
+	        face[0].btn((euc.dash.aLight==="lightsOn")?1:0,"ON",28,60,15,12,4,0,0,119,97,"",28,60,50);
+			face[0].ntfy("HEAD LIGHT ON","NO ACTION",19,1,1);
+			euc.dash.aLight="lightsOn";
+			euc.wri("lightsOn");
 			buzzer([30,50,30]);
-		}else if ( 120<=x && y<=100 ) { //auto off
-			euc.dash.ks.aOff=1-euc.dash.ks.aOff;
-            face[0].btn(euc.dash.ks.aOff,"AUTO",22,185,15,7,1,122,0,239,97,"OFF",28,185,50);		
-            face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",(euc.dash.ks.aOff)?17:19,1,euc.dash.ks.aOff);
-			buzzer([30,50,30]);		
-		}else if ( x<=120 && 100<=y ) { //auto lift
-			euc.dash.ks.aLift=1-euc.dash.ks.aLift;
-            face[0].btn(euc.dash.ks.aLift,"AUTO",18,60,115,12,1,0,100,119,195,"LIFT",30,60,150);
-            face[0].ntfy("CONNECT -> LIFT OFF","AUTO LIFT DISABLED",19,1,euc.dash.ks.aLift);
-			buzzer([30,50,30]);		
-		}else if  (120<=x && 100<=y ) { //auto lock
-			euc.dash.ks.aLock=1-euc.dash.ks.aLock;
-            face[0].btn(euc.dash.ks.aLock,"AUTO",18,185,115,7,1,122,100,239,195,"LOCK",30,185,150);	
-            face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",19,1,euc.dash.ks.aLock);
-			buzzer([30,50,30]);						
-		}else buzzer([30,50,30]);
+		}else if ( 120<=x && y<=100 ) { //lights Auto
+			if (euc.dash.aLight=="lightsAuto") return;
+	        face[0].btn((euc.dash.aLight==="lightsAuto")?1:0,"AUTO",28,60,15,12,4,0,0,119,97,"",28,60,50);
+			face[0].ntfy("HEAD LIGHT AUTO","NO ACTION",19,1,1);
+			euc.dash.aLight="lightsAuto";
+			euc.wri("lightsAuto");
+			buzzer([30,50,30]);	
+		}else if ( x<=120 && 100<=y ) { //lights City
+			if (euc.dash.aLight=="lightsCity") return;
+	        face[0].btn((euc.dash.aLight==="lightsCity")?1:0,"CITY",28,60,15,12,4,0,0,119,97,"",28,60,50);
+			face[0].ntfy("HEAD LIGHT CITY","NO ACTION",19,1,1);
+			euc.dash.aLight="lightsCity";
+			euc.wri("lightsCity");
+			buzzer([30,50,30]);	
+		}else if  (120<=x && 100<=y ) { //lights Off
+			if (euc.dash.aLight=="lightsOff") return;
+	        face[0].btn((euc.dash.aLight==="lightsOff")?1:0,"OFF",28,60,15,12,4,0,0,119,97,"",28,60,50);
+			face[0].ntfy("HEAD LIGHT OFF","NO ACTION",19,1,1);
+			euc.dash.aLight="lightsOff";
+			euc.wri("lightsOn");
+			buzzer([30,50,30]);					
+		}else buzzer(40);
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
@@ -148,10 +150,10 @@ touchHandler[0]=function(e,x,y){
 		//} else {buzzer(40);}
 		break;
 	case 3: //slide left event
-		face.go("dashKingsongAdv",0);
+		buzzer(40);
 		return;
 	case 4: //slide right event (back action)
-		face.go("dashKingsongOpt",0);
+		face.go("dashKingsong",0);
 		return;
   }
 };

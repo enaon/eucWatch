@@ -13,7 +13,7 @@ face[0] = {
 		this.g.fillRect(0,205,239,239);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",20);
-		this.g.drawString("MORE",120-(this.g.stringWidth("MORE")/2),217); 
+		this.g.drawString("ON DISCONNECT",120-(this.g.stringWidth("ON DISCONNECT")/2),217); 
 		this.g.flip(); 
 		this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,204);
@@ -23,15 +23,10 @@ face[0] = {
         this.g.setColor(1,15);
       	this.g.fillRect(120,200,143,204);
 		this.g.flip(); 
-        this.btn(euc.dash.ks.aRide,"AUTO",18,60,15,12,1,0,0,119,97,"RIDE",28,60,50);
-		this.btn(euc.dash.ks.aOff,"AUTO",22,185,15,7,1,122,0,239,97,"OFF",28,185,50);		
-        this.btn(euc.dash.ks.aLift,"AUTO",18,60,115,12,1,0,100,119,195,"LIFT",30,60,150);
+        this.btn(euc.dash.ks.aRide,"LED",18,60,15,12,1,0,0,119,97,"RIDE",28,60,50);
+		this.btn(euc.dash.ks.aOff,"POWER",22,185,15,7,1,122,0,239,97,"OFF",28,185,50);		
+        this.btn(euc.dash.ks.aLift,"SENSOR",18,60,115,12,1,0,100,119,195,"LIFT",30,60,150);
         this.btn(euc.dash.ks.aLock,"AUTO",18,185,115,7,1,122,100,239,195,"LOCK",30,185,150);		
-        /*this.btn(euc.dash.aLck,"AUTO",18,60,15,7,1,0,0,119,97,"LOCK",28,60,50);
-		this.btn(0,"",22,185,17,4,1,122,0,239,97,"",22,185,55);		
-        this.btn(euc.dash.aOff,"AUTO",18,60,115,7,1,0,100,119,195,"OFF",30,60,150);
-        this.btn(euc.dash.ks.aLift,"AUTO",18,185,115,7,1,122,100,239,195,"LIFT",30,185,150);
-        */
 		this.run=true;
 	},
 	show : function(){
@@ -66,7 +61,7 @@ face[0] = {
 				t.g.fillRect(0,205,239,239);
 				t.g.setColor(1,15);
 				t.g.setFont("Vector",20);
-		        t.g.drawString("MORE",120-(t.g.stringWidth("MORE")/2),217); 
+		        t.g.drawString("ON DISCONNECT",120-(t.g.stringWidth("ON DISCONNECT")/2),217); 
 				t.g.flip();
 				t.g.setColor(0,0);
 				t.g.fillRect(0,196,239,204);
@@ -151,7 +146,7 @@ touchHandler[0]=function(e,x,y){
 		face.go("dashKingsongAdv",0);
 		return;
 	case 4: //slide right event (back action)
-		face.go("dashKingsongOpt",0);
+		face.go("dashKingsongCon",0);
 		return;
   }
 };

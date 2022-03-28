@@ -144,7 +144,7 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
 	case 3: //slide left event
-		face.go("dashKingsongOpt2",0);
+		face.go("dashKingsongCon",0);
 		return;
 	case 4: //slide right event (back action)
 		face.go("dashKingsong",0);

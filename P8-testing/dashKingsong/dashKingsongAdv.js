@@ -14,7 +14,7 @@ face[0] = {
 		this.g.fillRect(0,205,239,239);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",20);
-		this.g.drawString("ADVANCED",122-(this.g.stringWidth("ADVANCED")/2),217); 
+		this.g.drawString("WHEEL SETTINGS",122-(this.g.stringWidth("WHEEL SETTINGS")/2),217); 
 		this.g.flip();
 		this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,204);
@@ -158,7 +158,7 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
 	case 4: //slide right event (back action)
-		face.go("dashKingsongOpt2",0);
+		face.go("dashKingsongDis",0);
 		return;
   }
 };

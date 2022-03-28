@@ -13,7 +13,7 @@ face[0] = {
 		this.g.fillRect(0,205,239,239);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",20);
-		this.g.drawString("MORE",120-(this.g.stringWidth("MORE")/2),217); 
+		this.g.drawString("ON CONNECT",120-(this.g.stringWidth("ON CONNECT")/2),217); 
 		this.g.flip(); 
 		this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,204);
@@ -23,15 +23,10 @@ face[0] = {
         this.g.setColor(1,15);
       	this.g.fillRect(120,200,143,204);
 		this.g.flip(); 
-        this.btn(euc.dash.ks.aRide,"AUTO",18,60,15,12,1,0,0,119,97,"RIDE",28,60,50);
-		this.btn(euc.dash.ks.aOff,"AUTO",22,185,15,7,1,122,0,239,97,"OFF",28,185,50);		
-        this.btn(euc.dash.ks.aLift,"AUTO",18,60,115,12,1,0,100,119,195,"LIFT",30,60,150);
-        this.btn(euc.dash.ks.aLock,"AUTO",18,185,115,7,1,122,100,239,195,"LOCK",30,185,150);		
-        /*this.btn(euc.dash.aLck,"AUTO",18,60,15,7,1,0,0,119,97,"LOCK",28,60,50);
-		this.btn(0,"",22,185,17,4,1,122,0,239,97,"",22,185,55);		
-        this.btn(euc.dash.aOff,"AUTO",18,60,115,7,1,0,100,119,195,"OFF",30,60,150);
-        this.btn(euc.dash.ks.aLift,"AUTO",18,185,115,7,1,122,100,239,195,"LIFT",30,185,150);
-        */
+        this.btn(euc.dash.ks.aRide,"LED",18,60,15,12,1,0,0,119,97,"RIDE",28,60,50);
+		this.btn(euc.dash.ks.aOff,"VOICE",22,185,15,7,1,122,0,239,97,"MODE",28,185,50);		
+        this.btn(euc.dash.ks.aLift,"SENSOR",18,60,115,12,1,0,100,119,195,"LIFT",30,60,150);
+        this.btn(euc.dash.ks.aLock,"UNLOCK",18,185,115,7,1,122,100,239,195,"ONCE",30,185,150);		
 		this.run=true;
 	},
 	show : function(){
@@ -66,7 +61,7 @@ face[0] = {
 				t.g.fillRect(0,205,239,239);
 				t.g.setColor(1,15);
 				t.g.setFont("Vector",20);
-		        t.g.drawString("MORE",120-(t.g.stringWidth("MORE")/2),217); 
+		        t.g.drawString("ON CONNECT",120-(t.g.stringWidth("ON CONNECT")/2),217); 
 				t.g.flip();
 				t.g.setColor(0,0);
 				t.g.fillRect(0,196,239,204);
@@ -114,23 +109,23 @@ touchHandler[0]=function(e,x,y){
 		if ( x<=120 && y<100 ) { //auto Ride
 			if (!euc.dash.ks.aRide) euc.dash.ks.aRide=0;
 			euc.dash.ks.aRide=1-euc.dash.ks.aRide;
-	        face[0].btn(euc.dash.ks.aRide,"AUTO",18,60,15,12,1,0,0,119,97,"RIDE",28,60,50);
-			face[0].ntfy("DISCON->RIDELED OFF","AUTO R-LED DISABLED",19,1,euc.dash.ks.aRide);
+	        face[0].btn(euc.dash.ks.aRide,"LED",18,60,15,12,1,0,0,119,97,"RIDE",28,60,50);
+			face[0].ntfy("AUTO R-LED ENABLED","NO ACTION",19,1,euc.dash.ks.aRide);
 			buzzer([30,50,30]);
-		}else if ( 120<=x && y<=100 ) { //auto off
-			euc.dash.ks.aOff=1-euc.dash.ks.aOff;
-            face[0].btn(euc.dash.ks.aOff,"AUTO",22,185,15,7,1,122,0,239,97,"OFF",28,185,50);		
-            face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",(euc.dash.ks.aOff)?17:19,1,euc.dash.ks.aOff);
+		}else if ( 120<=x && y<=100 ) { //BT music
+			euc.dash.ks.aVoice=1-euc.dash.ks.aVoice;
+            face[0].btn(euc.dash.ks.aOff,"VOICE",22,185,15,7,1,122,0,239,97,"MODE",28,185,50);		
+            face[0].ntfy("VOICE MODE ENABLED","NO ACTION",(euc.dash.ks.aVoice)?17:19,1,euc.dash.ks.aVoice);
 			buzzer([30,50,30]);		
 		}else if ( x<=120 && 100<=y ) { //auto lift
 			euc.dash.ks.aLift=1-euc.dash.ks.aLift;
-            face[0].btn(euc.dash.ks.aLift,"AUTO",18,60,115,12,1,0,100,119,195,"LIFT",30,60,150);
-            face[0].ntfy("CONNECT -> LIFT OFF","AUTO LIFT DISABLED",19,1,euc.dash.ks.aLift);
+            face[0].btn(euc.dash.ks.aLift,"SENSOR",18,60,115,12,1,0,100,119,195,"LIFT",30,60,150);
+            face[0].ntfy("AUTO DISABLE LIFT","NO ACTION",19,1,euc.dash.ks.aLift);
 			buzzer([30,50,30]);		
-		}else if  (120<=x && 100<=y ) { //auto lock
+		}else if  (120<=x && 100<=y ) { //Unlock Once
 			euc.dash.ks.aLock=1-euc.dash.ks.aLock;
-            face[0].btn(euc.dash.ks.aLock,"AUTO",18,185,115,7,1,122,100,239,195,"LOCK",30,185,150);	
-            face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",19,1,euc.dash.ks.aLock);
+            face[0].btn(euc.dash.ks.aLock,"UNLOCK",18,185,115,7,1,122,100,239,195,"ONCE",30,185,150);	
+            face[0].ntfy("AUTO UNLOCK ENABLED","NO ACTION",19,1,euc.dash.ks.aLock);
 			buzzer([30,50,30]);						
 		}else buzzer([30,50,30]);
 		break;
@@ -148,7 +143,7 @@ touchHandler[0]=function(e,x,y){
 		//} else {buzzer(40);}
 		break;
 	case 3: //slide left event
-		face.go("dashKingsongAdv",0);
+		face.go("dashKingsongDis",0);
 		return;
 	case 4: //slide right event (back action)
 		face.go("dashKingsongOpt",0);
