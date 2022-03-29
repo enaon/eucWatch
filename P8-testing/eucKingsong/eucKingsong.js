@@ -3,7 +3,7 @@
 //euc.wri("lightsOn")
 //temp
 if (!euc.dash.lght) euc.dash.lght={"ride":0};
-if (!euc.dash.ks) euc.dash.ks={"lift":1,"aLift":0,"aRide":0,"aOff":0,"aLock":0,"aVoice":0,"HL":0};
+if (!euc.dash.ks||euc.dash.ks&&!euc.dash.ks.HL) euc.dash.ks={"lift":1,"aLift":0,"aRide":0,"aOff":0,"aLock":0,"aVoice":0,"HL":0};
 euc.tmp={};
 //commands
 euc.wri=function(i) {if (set.def.cli) console.log("not connected yet"); if (i=="end") euc.off(); return;};
