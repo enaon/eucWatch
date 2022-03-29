@@ -180,6 +180,7 @@
 			{"name":"dashKingsongOpt","url":"dashKingsongOpt.js"},
 			{"name":"dashKingsongCon","url":"dashKingsongCon.js"},
 			{"name":"dashKingsongDis","url":"dashKingsongDis.js"},
+			{"name":"dashKingsongLights","url":"dashKingsongLights.js"},
 			{"name":"dashKingsongAdv","url":"dashKingsongAdv.js"},
 			{"name":"dashKingsongAdvCalibrate","url":"dashKingsongAdvCalibrate.js"},
 			{"name":"dashKingsongAdvLimits","url":"dashKingsongAdvLimits.js"},
