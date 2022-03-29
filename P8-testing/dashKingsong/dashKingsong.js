@@ -124,9 +124,8 @@ touchHandler[0]=function(e,x,y){
 			face.go("dashKingsongLight",0,"HL");
 			return;
 		}else if ( 120<=x && y<=100 ) { //STROBE
-			euc.dash.strb=1-euc.dash.strb;
 			buzzer([30,50,30]);	
-			euc.wri((euc.dash.strb)?"strobeOn":"strobeOff");
+			euc.wri((1-euc.dash.strb)?"strobeOn":"strobeOff");
 			//face[0].ntfy("HEAD LIGHT AUTO","NO ACTION",19,1,1);
 		}else if ( x<=120 && 100<=y ) { //tpms
 			buzzer([30,50,30]);		

@@ -50,8 +50,8 @@ euc.cmd=function(no,val){
 		case "lightsCity": euc.seq=0;
 			return euc.night?[170,85,20,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90]: [170,85,19,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];
 		case "getLightStrobe":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,84,20,90,90];
-		case "strobeOn":euc.dash.strobe=1;return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,83,20,90,90];
-		case "strobeOff":euc.dash.strobe=0;return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,83,20,90,90];
+		case "strobeOn":return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,83,20,90,90];
+		case "strobeOff":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,83,20,90,90];
 		case "getHeadLight":return  [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,81,20,90,90];
 		case "getLightMagic":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,81,20,90,90];
 		case "setLightMagic":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,20,90,90];
