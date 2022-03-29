@@ -1,4 +1,4 @@
-//kingsong  set options2
+//kingsong 
 face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
 	g:w.gfx,
@@ -24,6 +24,10 @@ face[0] = {
 		this.g.setFont("Vector",20);
 		this.g.drawString("ACTIONS",120-(this.g.stringWidth("ACTIONS")/2),217); 
 		this.g.flip(); 
+		let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
+		face[0].btn(1,euc.dash.tpms?euc.dash.tpms:"TPMS",18,60,115,(euc.dash.tpms&&tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.tpms].time<1800)?(tpms.euc[euc.dash.tpms].alrm)?7:4:1,1,0,100,119,195,(euc.dash.tpms)?(tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].psi)?Math.round(tpms.euc[euc.dash.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.tpms)?32:28,60,150);
+		
+		
 		if (!euc.tmp.ls) {euc.tmp.ls=1;euc.wri("getLock");setTimeout(()=>{euc.wri("getLightStrobe");},200);}
 		this.run=true;
 	},
@@ -115,7 +119,7 @@ face[1] = {
 touchHandler[0]=function(e,x,y){ 
 	face.off();
 	switch (e) {
-      case 5: case 12: //tap event
+      case 5: //tap event
 		if ( x<=120 && y<100 ) { //lights
 			face.go("dashKingsongLight",0,"HL");
 			return;
@@ -124,12 +128,14 @@ touchHandler[0]=function(e,x,y){
 			buzzer([30,50,30]);	
 			euc.wri((euc.dash.strb)?"strobeOn":"strobeOff");
 			//face[0].ntfy("HEAD LIGHT AUTO","NO ACTION",19,1,1);
-		}else if ( x<=120 && 100<=y ) { //lights City
-			if (euc.dash.ks[face[0].led]==3) {buzzer(40);return;}
-			buzzer([30,50,30]);	
-			euc.dash.ks[face[0].led]=3;
-			euc.wri("lightsCity");
-			face[0].ntfy("HEAD LIGHT CITY","NO ACTION",19,1,1);
+		}else if ( x<=120 && 100<=y ) { //tpms
+			buzzer([30,50,30]);		
+			if (!euc.dash.tpms) face[0].ntfy("HOLD-> ON/OFF","NO ACTION",19,4,1);
+			else {
+				tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.tpms);
+				face.go("tpmsFace",0);
+				return;
+			}
 		}else if  (120<=x && 100<=y ) { //lights Off
 			//euc.dash.lock=1-euc.dash.lock;
 			buzzer([30,50,30]);	
@@ -155,5 +161,24 @@ touchHandler[0]=function(e,x,y){
 	case 4: //slide right event (back action)
 		face.go(set.dash[set.def.dash.face],0);
 		return;
+	case 12:
+		if  (x<=120 && 100<=y ) { //tpms
+			buzzer([30,50,30]);
+			if (euc.dash.tpms) {
+				euc.dash.tpms=0;
+				face[0].btn(0,"TPMS",18,60,115,4,1,0,100,119,195,"OFF",28,60,150);
+				//face[0].btn("TPMS",18,60,115,1,0,100,119,195,"OFF",28,60,155); //3
+				face[0].ntfy("TPMS DISABLED","NO ACTION",19,1,1);
+				return;
+			}else{
+				if (global.tpms){ 
+					tpms.scan();
+					face.go("tpmsFace",0);
+				}else 
+					face[0].ntfy("NO MODULE","NO ACTION",19,1,1);
+			}
+			return;
+		}else buzzer(40);
+		break;
   }
 };
