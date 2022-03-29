@@ -314,15 +314,14 @@ euc.conn=function(mac){
 							let i2 = inpk[4]==0?1:inpk[4]-48;
 							let i3 = inpk[6]==0?4:inpk[6]-48;
 							let i4 = r1 + r2 + r3;
-							let i5 = (((i2 + i4) + i3) + i1) % 10;
+							let i5 = (i2 + i4 + i3 + i1) % 10;
 							let i6 = i4 + i5;
-							let i7 = ((i3 + i6) + i1) % 10;
-							let outp= [170,85,0,0,0,0,0,0,0,0,48+i5,48+r1,48+i7,48+r2,48+(((i6 + i7) + i1) % 10),48+r3,93,20,90,90];
+							let i7 = (i3 + i6 + i1) % 10;
+							let outp= [170,85,0,0,0,0,0,0,0,0,48+i5,48+r1,48+i7,48+r2,48+(i6 + i7 + i1) % 10,48+r3,93,20,90,90];
 							print("Got new key:",outp);
 							euc.dash.lock?euc.wri ("doUnlock",outp):euc.dash.ks.lockKey=outp;
 						}
 						euc.dash.lock=inpk[2];
-						//euc.dash.lght.ride=1-inpk[2];	
 					}					
 					else if ( inpk[16] == 63) 
 						euc.dash.ks.offT=inpk[5] << 8 | inpk[4];
