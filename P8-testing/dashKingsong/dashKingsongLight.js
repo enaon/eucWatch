@@ -2,7 +2,9 @@
 face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
 	g:w.gfx,
-	init: function(){
+	init: function(val){
+		this.led=val
+		this.last=10;
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		this.g.setColor(0,0);
 		this.g.fillRect(0,98,239,99);
@@ -10,32 +12,27 @@ face[0] = {
 		this.g.fillRect(120,0,121,195);
         this.g.flip();
 		this.g.setColor(0,0);
-		this.g.fillRect(0,205,239,239);
+		this.g.fillRect(0,196,239,239);
 		this.g.setColor(1,15);
-		this.g.setFont("Vector",20);
-		this.g.drawString("HEAD LIGHT",120-(this.g.stringWidth("HEAD LIGHT")/2),217); 
+		this.g.setFont("Vector",22);
+		this.g.drawString("HEAD LIGHT",120-(this.g.stringWidth("HEAD LIGHT")/2),212); 
 		this.g.flip(); 
-		this.g.setColor(0,0);
-		this.g.fillRect(0,196,239,204);
-		this.g.setColor(1,3);
-      	this.g.fillRect(75,200,165,204);
-		this.g.flip();
-        this.g.setColor(1,15);
-      	this.g.fillRect(120,200,143,204);
-		this.g.flip(); 
-        this.btn((euc.dash.aLight==="lightsOn")?1:0,"ON",28,60,35,12,0,4,0,119,97,"",28,60,50);
-		this.btn((euc.dash.aLight==="lightsAuto")?1:0,"AUTO",28,185,35,0,4,122,0,239,97,"",28,185,50);		
-        this.btn((euc.dash.aLight==="lightsCity")?1:0,"CITY",28,60,135,0,4,0,100,119,195,"",30,60,150);
-        this.btn((euc.dash.aLight==="lightsOff")?1:0,"OFF",28,185,135,0,1,122,100,239,195,"",30,185,150);		
 		this.run=true;
 	},
 	show : function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
-        this.tid=setTimeout(function(t,o){
+		if ( this.last!=euc.dash.ks[this.led]) {
+            this.last=euc.dash.ks[this.led];
+			this.btn((euc.dash.ks[this.led]===1)?1:0,"ON",28,60,35,4,1,0,0,119,97,"",28,60,50);
+			this.btn((euc.dash.ks[this.led]===2)?1:0,"AUTO",28,185,35,4,1,122,0,239,97,"",28,185,50);		
+			this.btn((euc.dash.ks[this.led]===3)?1:0,"CITY",28,60,135,4,1,0,100,119,195,"",30,60,150);
+			this.btn((euc.dash.ks[this.led]===0)?1:0,"OFF",28,185,135,6,1,122,100,239,195,"",30,185,150);	
+		}
+		this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();
-        },1000,this);
+        },100,this);
 	},
     btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
 			this.g.setColor(0,(bt)?clr1:clr0);
@@ -58,19 +55,11 @@ face[0] = {
 			this.ntid=setTimeout(function(t){
                 t.ntid=0;
 				t.g.setColor(0,0);
-				t.g.fillRect(0,205,239,239);
+				t.g.fillRect(0,196,239,239);
 				t.g.setColor(1,15);
-				t.g.setFont("Vector",20);
-		        t.g.drawString("HEAD LIGHT",120-(t.g.stringWidth("HEAD LIGHT")/2),217); 
+				t.g.setFont("Vector",22);
+		        t.g.drawString("HEAD LIGHT",120-(t.g.stringWidth("HEAD LIGHT")/2),212); 
 				t.g.flip();
-				t.g.setColor(0,0);
-				t.g.fillRect(0,196,239,204);
-				t.g.setColor(1,3);
-				t.g.fillRect(75,200,165,204);
-				t.g.flip();
-				t.g.setColor(1,15);
-				t.g.fillRect(120,200,143,204);
-				t.g.flip(); 
 			},1000,this);
     },
 	tid:-1,
@@ -94,7 +83,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		face.go("dashKingsongOpt",0);
+		face.go("dashKingsong",0);
 		return true;
 	},
 	clear: function(){
@@ -107,33 +96,29 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
       case 5: case 12: //tap event
 		if ( x<=120 && y<100 ) { //lights on
-			if (euc.dash.aLight=="lightsOn") return;
-	        face[0].btn((euc.dash.aLight==="lightsOn")?1:0,"ON",28,60,15,12,4,0,0,119,97,"",28,60,50);
-			face[0].ntfy("HEAD LIGHT ON","NO ACTION",19,1,1);
-			euc.dash.aLight="lightsOn";
-			euc.wri("lightsOn");
+			if (euc.dash.ks[face[0].led]==1) {buzzer(40);return;}
 			buzzer([30,50,30]);
-		}else if ( 120<=x && y<=100 ) { //lights Auto
-			if (euc.dash.aLight=="lightsAuto") return;
-	        face[0].btn((euc.dash.aLight==="lightsAuto")?1:0,"AUTO",28,60,15,12,4,0,0,119,97,"",28,60,50);
-			face[0].ntfy("HEAD LIGHT AUTO","NO ACTION",19,1,1);
-			euc.dash.aLight="lightsAuto";
-			euc.wri("lightsAuto");
-			buzzer([30,50,30]);	
-		}else if ( x<=120 && 100<=y ) { //lights City
-			if (euc.dash.aLight=="lightsCity") return;
-	        face[0].btn((euc.dash.aLight==="lightsCity")?1:0,"CITY",28,60,15,12,4,0,0,119,97,"",28,60,50);
-			face[0].ntfy("HEAD LIGHT CITY","NO ACTION",19,1,1);
-			euc.dash.aLight="lightsCity";
-			euc.wri("lightsCity");
-			buzzer([30,50,30]);	
-		}else if  (120<=x && 100<=y ) { //lights Off
-			if (euc.dash.aLight=="lightsOff") return;
-	        face[0].btn((euc.dash.aLight==="lightsOff")?1:0,"OFF",28,60,15,12,4,0,0,119,97,"",28,60,50);
-			face[0].ntfy("HEAD LIGHT OFF","NO ACTION",19,1,1);
-			euc.dash.aLight="lightsOff";
+			euc.dash.ks[face[0].led]=1;
 			euc.wri("lightsOn");
-			buzzer([30,50,30]);					
+			face[0].ntfy("HEAD LIGHT ON","NO ACTION",19,1,1);
+		}else if ( 120<=x && y<=100 ) { //lights Auto
+			if (euc.dash.ks[face[0].led]==2) {buzzer(40);return;}
+			buzzer([30,50,30]);	
+			euc.dash.ks[face[0].led]=2;
+			euc.wri("lightsAuto");
+			face[0].ntfy("HEAD LIGHT AUTO","NO ACTION",19,1,1);
+		}else if ( x<=120 && 100<=y ) { //lights City
+			if (euc.dash.ks[face[0].led]==3) {buzzer(40);return;}
+			buzzer([30,50,30]);	
+			euc.dash.ks[face[0].led]=3;
+			euc.wri("lightsCity");
+			face[0].ntfy("HEAD LIGHT CITY","NO ACTION",19,1,1);
+		}else if  (120<=x && 100<=y ) { //lights Off
+			if (euc.dash.ks[face[0].led]==0) {buzzer(40);return;}
+			buzzer([30,50,30]);	
+			euc.dash.ks[face[0].led]=0;
+			euc.wri("lightsOff");
+			face[0].ntfy("HEAD LIGHT OFF","NO ACTION",19,1,1);
 		}else buzzer(40);
 		break;
 	case 1: //slide down event

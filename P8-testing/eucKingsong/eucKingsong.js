@@ -3,7 +3,7 @@
 //euc.wri("lightsOn")
 //temp
 if (!euc.dash.lght) euc.dash.lght={"ride":0};
-if (!euc.dash.ks) euc.dash.ks={"lift":1,"aLift":0,"aRide":0,"aOff":0,"aLock":0,"aVoice":0};
+if (!euc.dash.ks) euc.dash.ks={"lift":1,"aLift":0,"aRide":0,"aOff":0,"aLock":0,"aVoice":0,"HL":0};
 euc.tmp={};
 //commands
 euc.wri=function(i) {if (set.def.cli) console.log("not connected yet"); if (i=="end") euc.off(); return;};
@@ -44,10 +44,11 @@ euc.cmd=function(no,val){
 		case "getTotalRideTime":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,146,20,90,90];
 		case "setTotalRideTime":return [170,85,val,0,0,0,0,0,0,0,0,0,0,0,0,0,146,20,90,90];
 		//
-		case "lightsOn":euc.seq=0;euc.dash.light=1;return [170,85,18,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];  
-		case "lightsOff": euc.seq=0;euc.dash.light=0;return [170,85,19,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];  
-		case "lightsAuto":euc.seq=0;euc.dash.light=2;return [170,85,20,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];
-		case "lightsCity": if (euc.night) {return euc.cmd("lightsAuto");} else {return euc.cmd("lightsOff");} break;
+		case "lightsOn":euc.seq=0;return [170,85,18,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];  
+		case "lightsOff": euc.seq=0;return [170,85,19,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];  
+		case "lightsAuto":euc.seq=0;return [170,85,20,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];
+		case "lightsCity": euc.seq=0;
+			return euc.night?[170,85,20,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90]: [170,85,19,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];
 		case "getLightStrobe":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,84,20,90,90];
 		case "strobeOn":euc.dash.strobe=1;return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,83,20,90,90];
 		case "strobeOff":euc.dash.strobe=0;return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,83,20,90,90];
@@ -124,9 +125,9 @@ euc.cmd=function(no,val){
 		case "doLockOnce":euc.dash.lock=1;return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,71,20,90,90]; 
 		case "setLockOnOff":euc.dash.lock=val?1:0;return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,93,20,90,90]; 
 		case "getLock":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,94,20,90,90];
-		case "lock":euc.dash.lock=1;return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0x5d,20,90,90]; 
+		case "lock":return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0x5d,20,90,90]; 
 		case "doUnlock":return val; 
-		case "unlock":euc.dash.lock=0; return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,94,20,90,90];
+		case "unlock": return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,94,20,90,90];
 		case "unlock0":euc.dash.lock=0;return [170,85,0,0,0,0,0,0,0,0,0x37,0x32,0x34,48,0x38,0x35,0x5D,20,90,90];
 		case "unlock1":euc.dash.lock=0;return [170,85,0,0,0,0,0,0,0,0,0x31,0x35,0x36,0x38,0x32,0x32,0x5d,20,90,90];
 		case "unlock2":euc.dash.lock=0;return [170,85,0,0,0,0,0,0,0,0,0x39,0x38,0x32,0x39,0x34,0x36,0x47,20,90,90];
@@ -184,21 +185,21 @@ euc.tmp.one=function(inpk){
 	euc.dash.mode = inpk[14];
 	//City lights 
 	if ( euc.dash.aLight === "lightsCity" ) { 
-		if ( euc.dash.amp < -1 && euc.dash.light ===1 ) {
+		if ( euc.dash.amp < -1 && euc.dash.ks.HL ===1 ) {
 			euc.wri("lightsAuto"); 
 		}else if (euc.night && euc.dash.amp >= 0) {
-			if ( 20 < euc.dash.spd && euc.dash.light !== 1  ) 
+			if ( 20 < euc.dash.spd && euc.dash.ks.HL !== 1  ) 
 				euc.wri("lightsOn") ;
-			else if ( euc.dash.spd < 10 && euc.dash.light !== 2  ) 
+			else if ( euc.dash.spd < 10 && euc.dash.ks.HL !== 2  ) 
 				euc.wri("lightsAuto") ;
 		} else if (euc.dash.amp >= 0) {
 			if ( 35 < euc.dash.spd && !euc.dash.strobe  ) 
 				euc.wri("strobeOn") ;
 			else if  ( euc.dash.spd < 30 && euc.dash.strobe  ) 
 				euc.wri("strobeOff") ;
-			else if  ( 25 < euc.dash.spd && euc.dash.light !== 1  ) 
+			else if  ( 25 < euc.dash.spd && euc.dash.ks.HL !== 1  ) 
 				euc.wri("lightsOn") ;
-			else if ( euc.dash.spd < 15 && euc.dash.light !== 2  ) 
+			else if ( euc.dash.spd < 15 && euc.dash.ks.HL !== 2  ) 
 				euc.wri("lightsAuto") ;
 		}
 	}
@@ -208,8 +209,12 @@ euc.tmp.two=function(inpk){
 	euc.dash.trpL=((inpk[2] << 16) + (inpk[3] << 24) + inpk[4] + (inpk[5] << 8)) / 1000;
 	euc.dash.time=Math.round((inpk[7] << 8 | inpk[6])/60);
 	euc.dash.spdM=Math.round((inpk[9] << 8 | inpk[8])/100) ;
-	if (inpk[10]==19) euc.dash.aLight="lightsOff";
-  else if (inpk[10]==18 && euc.dash.aLight=="lightsOff")euc.dash.aLight="lightsOn";
+	euc.dash.light=19-inpk[10];
+	if (euc.dash.light!=euc.tmp.light){
+		euc.tmp.light=euc.dash.light;
+		if (euc.dash.light&&!euc.dash.ks.HL) euc.dash.ks.HL=1;
+		else if (!euc.dash.light&&euc.dash.ks.HL) euc.dash.ks.HL=0;
+	}
 	euc.dash.fan=inpk[12];
 					
 };
@@ -302,26 +307,19 @@ euc.conn=function(mac){
 						euc.dash.lght.ride=1-inpk[2];
 					else if ( inpk[16] == 95){
 						if (inpk[2]==1 ){
-							//if (inpk[4]==0&&inpk[5]==0&&inpk[6]==0&&inpk[7]==0&&inpk[8]==0&&inpk[9]==0)
-								//euc.wri("unlock6");
-							//else if (inpk[4]==48&&inpk[5]==48&&inpk[6]==48&&inpk[7]==48&&inpk[8]==48&&inpk[9]==48)	
-							//else  {
-								let r1=(Math.random()*10)|0;
-								let r2=(Math.random()*10)|0;
-								let r3=(Math.random()*10)|0;
-								let i1 = inpk[8]==0?5:inpk[8]-48;
-								let i2 = inpk[4]==0?1:inpk[4]-48;
-								let i3 = inpk[6]==0?4:inpk[6]-48;
-								let i4 = r1 + r2 + r3;
-								let i5 = (((i2 + i4) + i3) + i1) % 10;
-								let i6 = i4 + i5;
-								let i7 = ((i3 + i6) + i1) % 10;
-								let outp= [170,85,0,0,0,0,0,0,0,0,48+i5,48+r1,48+i7,48+r2,48+(((i6 + i7) + i1) % 10),48+r3,93,20,90,90];
-								print("Got new key:",outp);
-								//55 50 52 48 56 53
-								//euc.dash.ks.lockKey=outp;
-								euc.dash.lock?euc.dash.ks.lockKey=outp:euc.wri ("doUnlock",outp);
-							//}euc.wri ("doUnlock",euc.dash.ks.lockKey)
+							let r1=(Math.random()*10)|0;
+							let r2=(Math.random()*10)|0;
+							let r3=(Math.random()*10)|0;
+							let i1 = inpk[8]==0?5:inpk[8]-48;
+							let i2 = inpk[4]==0?1:inpk[4]-48;
+							let i3 = inpk[6]==0?4:inpk[6]-48;
+							let i4 = r1 + r2 + r3;
+							let i5 = (((i2 + i4) + i3) + i1) % 10;
+							let i6 = i4 + i5;
+							let i7 = ((i3 + i6) + i1) % 10;
+							let outp= [170,85,0,0,0,0,0,0,0,0,48+i5,48+r1,48+i7,48+r2,48+(((i6 + i7) + i1) % 10),48+r3,93,20,90,90];
+							print("Got new key:",outp);
+							euc.dash.lock?euc.wri ("doUnlock",outp):euc.dash.ks.lockKey=outp;
 						}
 						euc.dash.lock=inpk[2];
 						//euc.dash.lght.ride=1-inpk[2];	
@@ -456,8 +454,9 @@ euc.conn=function(mac){
 			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 			set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
 		}
-		if (global["\xFF"].bleHdl[54] && global["\xFF"].bleHdl[54].value.buffer[0]!=65 && global["\xFF"].bleHdl[54].value.buffer[0]!=188) {
+		if (global["\xFF"].bleHdl && global["\xFF"].bleHdl[54] && global["\xFF"].bleHdl[54].value.buffer[0]!=65 && global["\xFF"].bleHdl[54].value.buffer[0]!=188) {
 			setTimeout(()=>{ 
+				print("EUC: ks is initialized");
 				euc.state="READY";
 				c.startNotifications();
 			},500);
@@ -476,6 +475,7 @@ euc.conn=function(mac){
 };
 //catch
 euc.off=function(err){
+	if (set.def.cli) console.log("EUC error :",err);
 	if (euc.reconnect) {clearTimeout(euc.reconnect); euc.reconnect=0;}
 	if (euc.state!="OFF") {
 		euc.seq=1;

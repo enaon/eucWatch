@@ -2,7 +2,8 @@
 face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
 	g:w.gfx,
-	init: function(){
+	init: function(val){
+		this.last=10;
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		this.g.setColor(0,0);
 		this.g.fillRect(0,98,239,99);
@@ -10,32 +11,41 @@ face[0] = {
 		this.g.fillRect(120,0,121,195);
         this.g.flip();
 		this.g.setColor(0,0);
-		this.g.fillRect(0,205,239,239);
-		this.g.setColor(1,15);
-		this.g.setFont("Vector",20);
-		this.g.drawString("ON CONNECT",120-(this.g.stringWidth("ON CONNECT")/2),217); 
-		this.g.flip(); 
-		this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,204);
 		this.g.setColor(1,3);
       	this.g.fillRect(75,200,165,204);
 		this.g.flip();
         this.g.setColor(1,15);
-      	this.g.fillRect(120,200,143,204);
+      	this.g.fillRect(75,200,98,204);
 		this.g.flip(); 
-        this.btn(euc.dash.ks.aRide,"LED",18,60,15,12,1,0,0,119,97,"RIDE",28,60,50);
-		this.btn(euc.dash.ks.aOff,"VOICE",22,185,15,7,1,122,0,239,97,"MODE",28,185,50);		
-        this.btn(euc.dash.ks.aLift,"SENSOR",18,60,115,12,1,0,100,119,195,"LIFT",30,60,150);
-        this.btn(euc.dash.ks.aLock,"UNLOCK",18,185,115,7,1,122,100,239,195,"ONCE",30,185,150);		
+		this.g.setColor(0,0);
+		this.g.fillRect(0,205,239,239);
+		this.g.setColor(1,15);
+		this.g.setFont("Vector",20);
+		this.g.drawString("ACTIONS",120-(this.g.stringWidth("ACTIONS")/2),217); 
+		this.g.flip(); 
+		if (!euc.tmp.ls) {euc.tmp.ls=1;euc.wri("getLock");setTimeout(()=>{euc.wri("getLightStrobe");},200);}
 		this.run=true;
 	},
 	show : function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
-        this.tid=setTimeout(function(t,o){
+		if ( this.light!=euc.dash.light) {
+            this.light=euc.dash.light;
+			let val=["OFF","ON","AUTO","CITY"];
+			this.btn(euc.dash.light,"LIGHTS",18,60,15,4,1,0,0,119,97,val[euc.dash.ks.HL],28,60,50);
+		}if ( this.strb!=euc.dash.strb) {
+            this.strb=euc.dash.strb;
+			this.btn(euc.dash.strb,"STROBE",25,185,35,7,1,122,0,239,97,"",28,185,50);	
+		}
+		if ( this.lock!=euc.dash.lock) {
+        this.lock=euc.dash.lock;
+			this.btn(euc.dash.lock,"LOCK",28,185,135,7,1,122,100,239,195,"",30,185,150);	
+		}
+		this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();
-        },1000,this);
+        },100,this);
 	},
     btn: function(bt,txt1,size1,x1,y1,clr1,clr0,rx1,ry1,rx2,ry2,txt2,size2,x2,y2){
 			this.g.setColor(0,(bt)?clr1:clr0);
@@ -58,19 +68,19 @@ face[0] = {
 			this.ntid=setTimeout(function(t){
                 t.ntid=0;
 				t.g.setColor(0,0);
-				t.g.fillRect(0,205,239,239);
-				t.g.setColor(1,15);
-				t.g.setFont("Vector",20);
-		        t.g.drawString("ON CONNECT",120-(t.g.stringWidth("ON CONNECT")/2),217); 
-				t.g.flip();
-				t.g.setColor(0,0);
 				t.g.fillRect(0,196,239,204);
 				t.g.setColor(1,3);
 				t.g.fillRect(75,200,165,204);
 				t.g.flip();
 				t.g.setColor(1,15);
-				t.g.fillRect(120,200,143,204);
+				t.g.fillRect(75,200,98,204);
 				t.g.flip(); 
+				t.g.setColor(0,0);
+				t.g.fillRect(0,205,239,239);
+				t.g.setColor(1,15);
+				t.g.setFont("Vector",22);
+		        t.g.drawString("HEAD LIGHT",120-(t.g.stringWidth("HEAD LIGHT")/2),212); 
+				t.g.flip();
 			},1000,this);
     },
 	tid:-1,
@@ -94,7 +104,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		face.go("dashKingsongOpt",0);
+		face.go(set.dash[set.def.dash.face],0);
 		return true;
 	},
 	clear: function(){
@@ -106,28 +116,25 @@ touchHandler[0]=function(e,x,y){
 	face.off();
 	switch (e) {
       case 5: case 12: //tap event
-		if ( x<=120 && y<100 ) { //auto Ride
-			if (!euc.dash.ks.aRide) euc.dash.ks.aRide=0;
-			euc.dash.ks.aRide=1-euc.dash.ks.aRide;
-	        face[0].btn(euc.dash.ks.aRide,"LED",18,60,15,12,1,0,0,119,97,"RIDE",28,60,50);
-			face[0].ntfy("AUTO R-LED ENABLED","NO ACTION",19,1,euc.dash.ks.aRide);
-			buzzer([30,50,30]);
-		}else if ( 120<=x && y<=100 ) { //BT music
-			euc.dash.ks.aVoice=1-euc.dash.ks.aVoice;
-            face[0].btn(euc.dash.ks.aOff,"VOICE",22,185,15,7,1,122,0,239,97,"MODE",28,185,50);		
-            face[0].ntfy("VOICE MODE ENABLED","NO ACTION",(euc.dash.ks.aVoice)?17:19,1,euc.dash.ks.aVoice);
-			buzzer([30,50,30]);		
-		}else if ( x<=120 && 100<=y ) { //auto lift
-			euc.dash.ks.aLift=1-euc.dash.ks.aLift;
-            face[0].btn(euc.dash.ks.aLift,"SENSOR",18,60,115,12,1,0,100,119,195,"LIFT",30,60,150);
-            face[0].ntfy("AUTO DISABLE LIFT","NO ACTION",19,1,euc.dash.ks.aLift);
-			buzzer([30,50,30]);		
-		}else if  (120<=x && 100<=y ) { //Unlock Once
-			euc.dash.ks.aLock=1-euc.dash.ks.aLock;
-            face[0].btn(euc.dash.ks.aLock,"UNLOCK",18,185,115,7,1,122,100,239,195,"ONCE",30,185,150);	
-            face[0].ntfy("AUTO UNLOCK ENABLED","NO ACTION",19,1,euc.dash.ks.aLock);
-			buzzer([30,50,30]);						
-		}else buzzer([30,50,30]);
+		if ( x<=120 && y<100 ) { //lights
+			face.go("dashKingsongLight",0,"HL");
+			return;
+		}else if ( 120<=x && y<=100 ) { //STROBE
+			euc.dash.strb=1-euc.dash.strb;
+			buzzer([30,50,30]);	
+			euc.wri((euc.dash.strb)?"strobeOn":"strobeOff");
+			//face[0].ntfy("HEAD LIGHT AUTO","NO ACTION",19,1,1);
+		}else if ( x<=120 && 100<=y ) { //lights City
+			if (euc.dash.ks[face[0].led]==3) {buzzer(40);return;}
+			buzzer([30,50,30]);	
+			euc.dash.ks[face[0].led]=3;
+			euc.wri("lightsCity");
+			face[0].ntfy("HEAD LIGHT CITY","NO ACTION",19,1,1);
+		}else if  (120<=x && 100<=y ) { //lights Off
+			//euc.dash.lock=1-euc.dash.lock;
+			buzzer([30,50,30]);	
+			euc.wri((1-euc.dash.lock)?"lock":"unlock");
+		}else buzzer(40);
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
@@ -143,10 +150,10 @@ touchHandler[0]=function(e,x,y){
 		//} else {buzzer(40);}
 		break;
 	case 3: //slide left event
-		face.go("dashKingsongDis",0);
-		return;
-	case 4: //slide right event (back action)
 		face.go("dashKingsongOpt",0);
+		return;	
+	case 4: //slide right event (back action)
+		face.go(set.dash[set.def.dash.face],0);
 		return;
   }
 };
