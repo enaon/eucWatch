@@ -21,7 +21,7 @@ face[0] = {
       	this.g.fillRect(75,200,165,204);
 		this.g.flip();
         this.g.setColor(1,15);
-      	this.g.fillRect(120,200,143,204);
+      	this.g.fillRect(75,200,115,204);
 		this.g.flip(); 
 		let val=["NA","ON","OFF","AUTO","CITY"];
 	    this.btn(euc.dash.ks.aHLD,"LIGHT",18,60,15,euc.dash.ks.aHLD!=2?12:1,0,0,0,119,97,val[euc.dash.ks.aHLD],28,60,50);
@@ -70,7 +70,7 @@ face[0] = {
 				t.g.fillRect(75,200,165,204);
 				t.g.flip();
 				t.g.setColor(1,15);
-				t.g.fillRect(120,200,143,204);
+				t.g.fillRect(75,200,115,204);
 				t.g.flip(); 
 			},1000,this);
     },

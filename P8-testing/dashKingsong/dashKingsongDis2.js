@@ -21,7 +21,7 @@ face[0] = {
       	this.g.fillRect(75,200,165,204);
 		this.g.flip();
         this.g.setColor(1,15);
-      	this.g.fillRect(120,200,165,204);
+      	this.g.fillRect(125,200,165,204);
 		this.g.flip(); 
 	    this.btn(1,"",18,60,15,1,0,0,0,119,97,"",28,60,50);
         this.btn(1,"",22,185,15,1,0,122,0,239,97,"",28,185,50);		
@@ -70,7 +70,7 @@ face[0] = {
 				t.g.fillRect(75,200,165,204);
 				t.g.flip();
 				t.g.setColor(1,15);
-				t.g.fillRect(120,200,165,204);
+				this.g.fillRect(125,200,165,204);
 				t.g.flip(); 
 			},1000,this);
     },

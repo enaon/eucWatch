@@ -107,10 +107,6 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
       case 5: case 12: //tap event
 		if ( x<=120 && y<100 ) { //auto Ride
-			if (!euc.dash.ks.aRide) euc.dash.ks.aRide=0;
-			euc.dash.ks.aRide=1-euc.dash.ks.aRide;
-	        face[0].btn(euc.dash.ks.aRide,"AUTO",18,60,15,12,1,0,0,119,97,"RIDE",28,60,50);
-			face[0].ntfy("DISCON->RIDELED OFF","AUTO R-LED DISABLED",19,1,euc.dash.ks.aRide);
 			buzzer(40);
 		}else if ( 120<=x && y<=100 ) { //CONN
 			face.go("dashKingsongCon",0);
