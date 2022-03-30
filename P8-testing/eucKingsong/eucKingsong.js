@@ -43,9 +43,9 @@ euc.cmd=function(no,val){
 		case "setVoiceVolDn":return [170,85,0,255,0,0,0,0,0,0,0,0,0,0,0,0,149,20,90,90];
 		//gyro
 		case "doCalibrate": return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,137,20,90,90];  
-		case "getGyroAround":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,138,20,90,90];
-		case "setGyroAround":return [170,85,1,0,val & 255,(val >> 8) & 255,0,0,0,0,0,0,0,0,0,0,138,20,90,90];
-		case "tiltSet":
+		case "getCalibrateTilt":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,138,20,90,90];
+		case "setCalibrateTilt":return [170,85,1,0,val & 255,(val >> 8) & 255,0,0,0,0,0,0,0,0,0,0,138,20,90,90];
+		//case "setCalibrateTilt":
 			euc.dash.tiltSet=(99<=euc.dash.tiltSet||-99>=euc.dash.tiltSet)?0:euc.dash.tiltSet;let tiltSet=(0<=euc.dash.tiltSet)?euc.dash.tiltSet:255+euc.dash.tiltSet;
 			return [170,85,1,0,tiltSet,(tiltSet<=100)?0:255,0,0,0,0,0,0,0,0,0,0,138,20,90,90]; 
 		case "getGyroAbout":return [170,85,2,0,0,0,0,0,0,0,0,0,0,0,0,0,138,20,90,90];
@@ -228,6 +228,8 @@ euc.conn=function(mac){
 						euc.tmp.pass=inpk[2];
 					else if ( inpk[16] == 76) 
 						euc.dash.ks.lift=inpk[2];
+					else if ( inpk[16] == 162) 
+						euc.dash.mode=inpk[4];						
 					else if ( inpk[16] == 85) 
 						euc.dash.strb=inpk[2];
 					else if ( inpk[16] == 110) 	

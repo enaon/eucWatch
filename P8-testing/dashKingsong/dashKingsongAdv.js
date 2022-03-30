@@ -121,7 +121,7 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
       case 5:case 12: //tap event
 		if ( x<=120 && y<=100 ) { //ride mode
-			euc.dash.mode++; if (3<euc.dash.mode)euc.dash.mode=0;
+			euc.dash.mode++; if (2<euc.dash.mode)euc.dash.mode=0;
 			let m=["HARD","MED","SOFT"]
 			face[0].btn("MODE",18,60,15,4,0,0,119,97,m[euc.dash.mode],30,60,50);
 			euc.wri("setRideMode",euc.dash.mode);

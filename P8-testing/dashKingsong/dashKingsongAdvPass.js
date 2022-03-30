@@ -253,7 +253,7 @@ touchHandler[0]=function(e,x,y){
 		buzzer([30,50,30]);
         if (euc.dash.pass.length>=4){ 
 		if (y<=100) { //clear
-          euc.wri("passClear");
+          euc.wri("doPassClear");
           euc.dash.passOld="";
           euc.dash.pass="";
           euc.dash.passSend=0;
@@ -319,7 +319,7 @@ touchHandler[5]=function(e,x,y){
                   euc.dash.pass=face[5].pass;
                   buzzer(80);
                   face[5].ntfy("SUCCESS!",20,4);
-                  if (euc.dash.passOld!=""){euc.wri("passChange");}else{euc.wri("passSet");}
+                  if (euc.dash.passOld!=""){euc.wri("doPassChange");}else{euc.wri("setPass");}
        			  euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
                   euc.dash.passSend=1;
                   setTimeout(()=>{face.go("dashKingsongAdvPass",0);return;},1000);
