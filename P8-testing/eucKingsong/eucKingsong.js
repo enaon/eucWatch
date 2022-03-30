@@ -224,7 +224,9 @@ euc.conn=function(mac){
 					euc.tmp.four(inpk);
 					break;
 				default: 
-					if ( inpk[16] == 70) 
+					if ( inpk[16] == 63) 
+						euc.dash.ks.offT=inpk[5] << 8 | inpk[4];
+					else if ( inpk[16] == 70) 
 						euc.tmp.pass=inpk[2];
 					else if ( inpk[16] == 76) 
 						euc.dash.ks.lift=inpk[2];
@@ -252,8 +254,7 @@ euc.conn=function(mac){
 						euc.dash.lock=inpk[2];
 						return true;
 					}					
-					else if ( inpk[16] == 63) 
-						euc.dash.ks.offT=inpk[5] << 8 | inpk[4];
+
 					//	
 					//if (set.def.cli) console.log(inpk);
 					print(inpk[16],inpk[2]);

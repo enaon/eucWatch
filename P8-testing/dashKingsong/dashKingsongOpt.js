@@ -36,7 +36,7 @@ face[0] = {
 			this.ride=euc.dash.lght.ride;
 	        this.btn(euc.dash.lght.ride,"LED",18,60,15,4,1,0,0,119,97,"RIDE",28,60,50);//1
 		}
-		if (euc.dash.ks.lift.ride!=this.lift) {
+		if (euc.dash.ks.lift!=this.lift) {
 			this.lift=euc.dash.ks.lift;
 			this.btn(euc.dash.ks.lift,"SENSOR",18,60,115,4,1,0,100,119,195,"LIFT",30,60,150);
 		}
