@@ -24,9 +24,9 @@ face[0] = {
 		if (!this.run) return; 
 		if ( this.last!=euc.dash.ks[this.led]) {
             this.last=euc.dash.ks[this.led];
-			this.btn((euc.dash.ks[this.led]===1)?1:0,"ON",28,60,35,4,1,0,0,119,97,"",28,60,50);
-			this.btn((euc.dash.ks[this.led]===3)?1:0,"AUTO",28,185,35,4,1,122,0,239,97,"",28,185,50);		
-			this.btn((euc.dash.ks[this.led]===0)?1:0,"CITY",28,60,135,4,1,0,100,119,195,"",30,60,150);
+			this.btn((euc.dash.ks[this.led]===1)?1:0,"ON",28,60,35,4,1,0,0,119,97,"",30,60,50);
+			this.btn((euc.dash.ks[this.led]===3)?1:0,"AUTO",28,185,35,4,1,122,0,239,97,"",30,185,50);		
+			this.btn((euc.dash.ks[this.led]===0)?1:0,"eucWatch",18,60,115,4,1,0,100,119,195,"CITY",30,60,150);
 			this.btn((euc.dash.ks[this.led]===2)?1:0,"OFF",28,185,135,6,1,122,100,239,195,"",30,185,150);	
 		}
 		this.tid=setTimeout(function(t,o){

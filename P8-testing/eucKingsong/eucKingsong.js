@@ -141,8 +141,8 @@ euc.tmp.two=function(inpk){
 	euc.dash.light=inpk[10]-17;
 	if (euc.dash.light!=euc.tmp.light){
 		euc.tmp.light=euc.dash.light;
-		if (euc.dash.light!=2&&!euc.dash.ks.HL) euc.dash.ks.HL=1;
-		else if (euc.dash.light==2&&euc.dash.ks.HL) euc.dash.ks.HL=0;
+		if (euc.dash.light!=2&&euc.dash.ks.HL==2) euc.dash.ks.HL=1;
+		else if (euc.dash.light==2&&euc.dash.ks.HL!=2) euc.dash.ks.HL=2;
 	}
 	euc.dash.fan=inpk[12];
 					
