@@ -130,7 +130,7 @@ touchHandler[0]=function(e,x,y){
 			face[0].btn(euc.dash.ks.aVoiceC,"VOICE",18,185,115,euc.dash.ks.aVoiceC==1?12:1,0,122,100,239,195,"MODE",30,185,150);	
             face[0].ntfy(euc.dash.ks.aVoiceC==1?"ENABLE VOICE MODE":"DISABLE VOICE MODE","NO ACTION",20,1,euc.dash.ks.aVoiceC);
 			buzzer([30,50,30]);					
-		}else buzzer([30,50,30]);
+		}else buzzer(40);
 		break;
 	case 1: //slide down event
 		//face.go("main",0);

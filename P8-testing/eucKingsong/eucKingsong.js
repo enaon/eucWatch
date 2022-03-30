@@ -62,7 +62,7 @@ euc.cmd=function(no,val){
 		case "setLightMagic":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,20,90,90];
 		case "rideLedOn":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,108,20,90,90]; 
 		case "rideLedOff":return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,108,20,90,90];
-		case "setRideLedOnOff":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,108,20,90,90]; 
+		case "setRideLedOnOff":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,108,20,90,90]; 
 		//case "getLightCircle":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,109,20,90,90];
 		//case "setLightCircle":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,108,20,90,90];
 		//case "setLightRideLed":return [170,85,val,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,108,20,90,90];
@@ -150,6 +150,8 @@ euc.cmd=function(no,val){
 			return [170,85,48+Number(euc.dash.pass[0]),48+Number(euc.dash.pass[1]),48+Number(euc.dash.pass[2]),48+Number(euc.dash.pass[3]),0,0,0,0,0,0,0,0,0,0,0x41,20,90,90]; //rf 43
 		case "setSpeedLimits":
 			return [170,85,((euc.dash.limE[0])?euc.dash.lim[0]:(euc.dash.limE[1])?0x00:0xFF),0x00,(euc.dash.limE[1])?euc.dash.lim[1]:0,0x00,euc.dash.lim[2],0x00,euc.dash.lim[3],0x00,0x31,0x32,0x33,0x34,0x35,0x36,0x85,20,90,90]; //speed in kph, rf A4
+		default:
+			return [];
     }
 };
 
@@ -396,7 +398,7 @@ euc.conn=function(mac){
 				}).then(function() {
 					return euc.dash.ks.aUnlock?c.writeValue(euc.cmd("getLock")):"ok";
 				}).then(function() {
-					return euc.dash.ks.aRideC?c.writeValue(euc.cmd("setRideLedOnOff",2-euc.dash.ks.aRideC)):"ok";
+					return euc.dash.ks.aRideC?c.writeValue(euc.cmd("setRideLedOnOff",euc.dash.ks.aRideC-1)):"ok";
 				}).then(function() {
 					return euc.dash.ks.aHLC?c.writeValue(euc.cmd("setLights",euc.dash.ks.aHLC)):"ok";
 				}).then(function() {
@@ -421,7 +423,7 @@ euc.conn=function(mac){
 					}).then(function() {
 						return euc.dash.ks.aHLD?c.writeValue(euc.cmd("setLights",euc.dash.ks.aHLD)):"ok";
 					}).then(function() {
-						return euc.dash.ks.aRideD?c.writeValue(euc.cmd("setRideLedOnOff",2-euc.dash.ks.aRideD)):"ok";
+						return euc.dash.ks.aRideD?c.writeValue(euc.cmd("setRideLedOnOff",euc.dash.ks.aRideD-1)):"ok";
 					}).then(function() {
 						return euc.dash.ks.aLiftD?c.writeValue(euc.cmd("setLiftOnOff",2-euc.dash.ks.aLiftD)):"ok";
 					}).then(function() {

@@ -23,6 +23,7 @@ face[0] = {
         this.g.setColor(1,15);
       	this.g.fillRect(120,200,143,204);
 		this.g.flip(); 
+		let val=["NA","ON","OFF","AUTO","CITY"];
 	    this.btn(euc.dash.ks.aHLD,"LIGHT",18,60,15,euc.dash.ks.aHLD!=2?12:1,0,0,0,119,97,val[euc.dash.ks.aHLD],28,60,50);
 		this.btn(euc.dash.ks.aRideD,"LED",18,185,15,euc.dash.ks.aRideD==1?12:1,0,122,0,239,97,"RIDE",28,185,50);
         this.btn(euc.dash.ks.aLiftD,"SENSOR",18,60,115,euc.dash.ks.aLiftD==1?12:1,0,0,100,119,195,"LIFT",30,60,150);
@@ -128,6 +129,7 @@ touchHandler[0]=function(e,x,y){
 			face[0].btn(euc.dash.ks.aVoiceD,"VOICE",18,185,115,euc.dash.ks.aVoiceD==1?12:1,0,122,100,239,195,"MODE",30,185,150);	
             face[0].ntfy(euc.dash.ks.aVoiceD==1?"ENABLE VOICE MODE":"DISABLE VOICE MODE","NO ACTION",20,1,euc.dash.ks.aVoiceD);
 			buzzer([30,50,30]);		
+		}else buzzer(40);
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
@@ -143,10 +145,10 @@ touchHandler[0]=function(e,x,y){
 		//} else {buzzer(40);}
 		break;
 	case 3: //slide left event
-		face.go("dashKingsongAdv",0);
+		face.go("dashKingsongDis2",0);
 		return;
 	case 4: //slide right event (back action)
-		face.go("dashKingsongCon",0);
+		face.go("dashKingsongOpt2",0);
 		return;
   }
 };

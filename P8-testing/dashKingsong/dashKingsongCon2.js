@@ -118,7 +118,7 @@ touchHandler[0]=function(e,x,y){
             face[0].btn(euc.dash.ks.aUnlock,"UNLOCK",18,185,115,4,1,122,100,239,195,"ONCE",30,185,150);	
             face[0].ntfy("ENABLE UNLOCK ONCE","NO ACTION",19,1,euc.dash.ks.aUnlock);
 			buzzer([30,50,30]);								
-		}else buzzer([30,50,30]);
+		}else buzzer(40);
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
