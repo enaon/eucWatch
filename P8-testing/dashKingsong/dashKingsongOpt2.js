@@ -23,9 +23,9 @@ face[0] = {
         this.g.setColor(1,15);
       	this.g.fillRect(120,200,143,204);
 		this.g.flip(); 
-        this.btn(euc.dash.ks.aRide,"AUTO",18,60,15,12,1,0,0,119,97,"RIDE",28,60,50);
+        this.btn(1,"",18,60,15,1,1,0,0,119,97,"",28,60,50);
 		this.btn(1,"ON",22,185,15,12,1,122,0,239,97,"CONN",28,185,50);		
-        this.btn(euc.dash.ks.aLift,"AUTO",18,60,115,12,1,0,100,119,195,"LIFT",30,60,150);
+        this.btn(1,"",18,60,115,1,1,0,100,119,195,"",30,60,150);
         this.btn(1,"ON",18,185,115,12,1,122,100,239,195,"DISC",30,185,150);		
 		this.run=true;
 	},
@@ -111,15 +111,12 @@ touchHandler[0]=function(e,x,y){
 			euc.dash.ks.aRide=1-euc.dash.ks.aRide;
 	        face[0].btn(euc.dash.ks.aRide,"AUTO",18,60,15,12,1,0,0,119,97,"RIDE",28,60,50);
 			face[0].ntfy("DISCON->RIDELED OFF","AUTO R-LED DISABLED",19,1,euc.dash.ks.aRide);
-			buzzer([30,50,30]);
+			buzzer(40);
 		}else if ( 120<=x && y<=100 ) { //CONN
 			face.go("dashKingsongCon",0);
 			return;		
 		}else if ( x<=120 && 100<=y ) { //auto lift
-			euc.dash.ks.aLift=1-euc.dash.ks.aLift;
-            face[0].btn(euc.dash.ks.aLift,"AUTO",18,60,115,12,1,0,100,119,195,"LIFT",30,60,150);
-            face[0].ntfy("CONNECT -> LIFT OFF","AUTO LIFT DISABLED",19,1,euc.dash.ks.aLift);
-			buzzer([30,50,30]);		
+			buzzer(49);		
 		}else if  (120<=x && 100<=y ) { //disconn
 			face.go("dashKingsongDis",0);
 			return;					
