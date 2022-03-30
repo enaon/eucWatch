@@ -97,21 +97,25 @@ touchHandler[0]=function(e,x,y){
       case 5: case 12: //tap event
 		if ( x<=120 && y<100 ) { //lights on
 			if (euc.dash.ks[face[0].led]==1) {buzzer(40);return;}
+			euc.dash.ks[face[0].led]=1;
 			buzzer([30,50,30]);
 			euc.wri("setLights",1);
 			face[0].ntfy("HEAD LIGHT ON","NO ACTION",19,1,1);
 		}else if ( 120<=x && y<=100 ) { //lights Auto
 			if (euc.dash.ks[face[0].led]==3) {buzzer(40);return;}
+			euc.dash.ks[face[0].led]=3;
 			buzzer([30,50,30]);	
 			euc.wri("setLights",3);
 			face[0].ntfy("HEAD LIGHT AUTO","NO ACTION",19,1,1);
 		}else if ( x<=120 && 100<=y ) { //lights City
 			if (euc.dash.ks[face[0].led]==0) {buzzer(40);return;}
+			euc.dash.ks[face[0].led]=0;
 			buzzer([30,50,30]);	
 			euc.wri("setLights",0);
 			face[0].ntfy("HEAD LIGHT CITY","NO ACTION",19,1,1);
 		}else if  (120<=x && 100<=y ) { //lights Off
 			if (euc.dash.ks[face[0].led]==2) {buzzer(40);return;}
+			euc.dash.ks[face[0].led]=2;
 			buzzer([30,50,30]);	
 			euc.wri("setLights",2);
 			face[0].ntfy("HEAD LIGHT OFF","NO ACTION",19,1,1);
