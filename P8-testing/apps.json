@@ -178,10 +178,14 @@
 		"storage": [
 			{"name":"dashKingsong","url":"dashKingsong.js"},
 			{"name":"dashKingsongOpt","url":"dashKingsongOpt.js"},
+			{"name":"dashKingsongOpt2","url":"dashKingsongOpt2.js"},
 			{"name":"dashKingsongCon","url":"dashKingsongCon.js"},
+			{"name":"dashKingsongCon2","url":"dashKingsongCon2.js"},
 			{"name":"dashKingsongDis","url":"dashKingsongDis.js"},
+			{"name":"dashKingsongDis2","url":"dashKingsongDis2.js"},
 			{"name":"dashKingsongLight","url":"dashKingsongLight.js"},
 			{"name":"dashKingsongAdv","url":"dashKingsongAdv.js"},
+			{"name":"dashKingsongAdv2","url":"dashKingsongAdv2.js"},
 			{"name":"dashKingsongAdvCalibrate","url":"dashKingsongAdvCalibrate.js"},
 			{"name":"dashKingsongAdvLimits","url":"dashKingsongAdvLimits.js"},
 			{"name":"dashKingsongAdvPass","url":"dashKingsongAdvPass.js"}
