@@ -125,7 +125,7 @@ touchHandler[0]=function(e,x,y){
 			return;
 		}else if ( 120<=x && y<=100 ) { //STROBE
 			buzzer([30,50,30]);	
-			euc.wri("setStrobe",1-euc.dash.strb);
+			euc.wri("setStrobeOnOff",1-euc.dash.strb);
 		}else if ( x<=120 && 100<=y ) { //tpms
 			buzzer([30,50,30]);		
 			if (!euc.dash.tpms) face[0].ntfy("HOLD-> ON/OFF","NO ACTION",19,4,1);

@@ -25,9 +25,9 @@ face[0] = {
 		if ( this.last!=euc.dash.ks[this.led]) {
             this.last=euc.dash.ks[this.led];
 			this.btn((euc.dash.ks[this.led]===1)?1:0,"ON",28,60,35,4,1,0,0,119,97,"",28,60,50);
-			this.btn((euc.dash.ks[this.led]===2)?1:0,"AUTO",28,185,35,4,1,122,0,239,97,"",28,185,50);		
-			this.btn((euc.dash.ks[this.led]===3)?1:0,"CITY",28,60,135,4,1,0,100,119,195,"",30,60,150);
-			this.btn((euc.dash.ks[this.led]===0)?1:0,"OFF",28,185,135,6,1,122,100,239,195,"",30,185,150);	
+			this.btn((euc.dash.ks[this.led]===3)?1:0,"AUTO",28,185,35,4,1,122,0,239,97,"",28,185,50);		
+			this.btn((euc.dash.ks[this.led]===0)?1:0,"CITY",28,60,135,4,1,0,100,119,195,"",30,60,150);
+			this.btn((euc.dash.ks[this.led]===2)?1:0,"OFF",28,185,135,6,1,122,100,239,195,"",30,185,150);	
 		}
 		this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
@@ -102,22 +102,19 @@ touchHandler[0]=function(e,x,y){
 			euc.wri("setLights",1);
 			face[0].ntfy("HEAD LIGHT ON","NO ACTION",19,1,1);
 		}else if ( 120<=x && y<=100 ) { //lights Auto
-			if (euc.dash.ks[face[0].led]==2) {buzzer(40);return;}
-			buzzer([30,50,30]);	
-			euc.dash.ks[face[0].led]=2;
-			euc.wri("setLights",2);
-			face[0].ntfy("HEAD LIGHT AUTO","NO ACTION",19,1,1);
-		}else if ( x<=120 && 100<=y ) { //lights City
 			if (euc.dash.ks[face[0].led]==3) {buzzer(40);return;}
 			buzzer([30,50,30]);	
-			euc.dash.ks[face[0].led]=3;
+			euc.wri("setLights",3);
+			face[0].ntfy("HEAD LIGHT AUTO","NO ACTION",19,1,1);
+		}else if ( x<=120 && 100<=y ) { //lights City
+			if (euc.dash.ks[face[0].led]==0) {buzzer(40);return;}
+			buzzer([30,50,30]);	
 			euc.wri("setLights",0);
 			face[0].ntfy("HEAD LIGHT CITY","NO ACTION",19,1,1);
 		}else if  (120<=x && 100<=y ) { //lights Off
-			if (euc.dash.ks[face[0].led]==0) {buzzer(40);return;}
+			if (euc.dash.ks[face[0].led]==2) {buzzer(40);return;}
 			buzzer([30,50,30]);	
-			euc.dash.ks[face[0].led]=0;
-			euc.wri("setLights",3);
+			euc.wri("setLights",2);
 			face[0].ntfy("HEAD LIGHT OFF","NO ACTION",19,1,1);
 		}else buzzer(40);
 		break;
