@@ -98,7 +98,6 @@ touchHandler[0]=function(e,x,y){
 		if ( x<=120 && y<100 ) { //lights on
 			if (euc.dash.ks[face[0].led]==1) {buzzer(40);return;}
 			buzzer([30,50,30]);
-			euc.dash.ks[face[0].led]=1;
 			euc.wri("setLights",1);
 			face[0].ntfy("HEAD LIGHT ON","NO ACTION",19,1,1);
 		}else if ( 120<=x && y<=100 ) { //lights Auto

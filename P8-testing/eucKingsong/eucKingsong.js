@@ -22,7 +22,7 @@ euc.cmd=function(no,val){
 		case "setPowerOff":return [170,85,1,0,val & 255,(val >> 8) & 255,0,0,0,0,0,0,0,0,0,0,63,20,90,90];
 		case "doPowerOff":return [170,85,0,224,0,0,0,0,0,0,0,0,0,0,0,0,64,20,90,90];
 		//leds
-		case "setLights": if(!val)val=euc.night?2:3; return [170,85,17+val,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];  
+		case "setLights": if(!val)val=euc.night?3:2; return [170,85,17+val,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];  
 		case "getStrobe":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,84,20,90,90];
 		case "setStrobeOnOff":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,83,20,90,90];
 		case "getLedMagic":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,81,20,90,90];
@@ -138,11 +138,11 @@ euc.tmp.two=function(inpk){
 	euc.dash.trpL=((inpk[2] << 16) + (inpk[3] << 24) + inpk[4] + (inpk[5] << 8)) / 1000;
 	euc.dash.time=Math.round((inpk[7] << 8 | inpk[6])/60);
 	euc.dash.spdM=Math.round((inpk[9] << 8 | inpk[8])/100) ;
-	euc.dash.light=19-inpk[10];
+	euc.dash.light=inpk[10]-17;
 	if (euc.dash.light!=euc.tmp.light){
 		euc.tmp.light=euc.dash.light;
-		if (euc.dash.light&&!euc.dash.ks.HL) euc.dash.ks.HL=1;
-		else if (!euc.dash.light&&euc.dash.ks.HL) euc.dash.ks.HL=0;
+		if (euc.dash.light!=2&&!euc.dash.ks.HL) euc.dash.ks.HL=1;
+		else if (euc.dash.light==2&&euc.dash.ks.HL) euc.dash.ks.HL=0;
 	}
 	euc.dash.fan=inpk[12];
 					
