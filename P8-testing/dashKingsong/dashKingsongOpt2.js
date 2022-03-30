@@ -123,7 +123,6 @@ touchHandler[0]=function(e,x,y){
 		}else buzzer([30,50,30]);
 		break;
 	case 1: //slide down event
-		//face.go("main",0);
 		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
@@ -131,9 +130,8 @@ touchHandler[0]=function(e,x,y){
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 			buzzer([30,50,30]);
-		}else //if (y>100) {
+		}else 
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		//} else {buzzer(40);}
 		break;
 	case 3: //slide left event
 		face.go("dashKingsongAdv",0);
