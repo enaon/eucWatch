@@ -3,7 +3,7 @@
 //euc.wri("lightsOn")
 //temp
 if (!euc.dash.lght) euc.dash.lght={"ride":0};
-if (!euc.dash.ks||euc.dash.ks&&!euc.dash.ks.HL) euc.dash.ks={"lift":1,"aLift":0,"aRide":0,"aOff":0,"aLock":0,"aVoice":0,"HL":0};
+if (!euc.dash.ks||(euc.dash.ks&&euc.dash.ks.ver!=2)) euc.dash.ks={"ver":2,"lift":1,"aLiftC":0,"aRideC":0,"aVoiceC":0,"aLiftD":0,"aRideD":0,"aVoiceD":0,"HL":0,"aHLC":0,"aHLD":0,"aOff":0,"aLock":0,"aUnlock":0};
 euc.tmp={};
 //commands
 euc.wri=function(i) {if (set.def.cli) console.log("not connected yet"); if (i=="end") euc.off(); return;};
@@ -22,8 +22,8 @@ euc.cmd=function(no,val){
 		case "info1":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,83,20,90,90]; 
 		case "info2":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,84,20,90,90]; 
 		//
-		case "off":euc.seq=0;return [170,85,0,224,0,0,0,0,0,0,0,0,0,0,0,0,64,20,90,90];
-		//case "doPowerOff":euc.seq=0;return [170,85,0,224,0,0,0,0,0,0,0,0,0,0,0,0,64,20,90,90];
+		case "off":return [170,85,0,224,0,0,0,0,0,0,0,0,0,0,0,0,64,20,90,90];
+		//case "doPowerOff":return [170,85,0,224,0,0,0,0,0,0,0,0,0,0,0,0,64,20,90,90];
 		case "getPowerOff":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,63,20,90,90];
 		case "setPowerOff":return [170,85,1,0,val & 255,(val >> 8) & 255,0,0,0,0,0,0,0,0,0,0,63,20,90,90];
 		case "getLogin":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,69,20,90,90];
@@ -44,10 +44,10 @@ euc.cmd=function(no,val){
 		case "getTotalRideTime":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,146,20,90,90];
 		case "setTotalRideTime":return [170,85,val,0,0,0,0,0,0,0,0,0,0,0,0,0,146,20,90,90];
 		//
-		case "lightsOn":euc.seq=0;return [170,85,18,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];  
-		case "lightsOff": euc.seq=0;return [170,85,19,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];  
-		case "lightsAuto":euc.seq=0;return [170,85,20,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];
-		case "lightsCity": euc.seq=0;
+		case "lightsOn":return [170,85,18,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];  
+		case "lightsOff": return [170,85,19,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];  
+		case "lightsAuto":return [170,85,20,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];
+		case "lightsCity": 
 			return euc.night?[170,85,20,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90]: [170,85,19,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];
 		case "getLightStrobe":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,84,20,90,90];
 		case "strobeOn":return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,83,20,90,90];
@@ -57,6 +57,7 @@ euc.cmd=function(no,val){
 		case "setLightMagic":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,20,90,90];
 		case "rideLedOn":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,108,20,90,90]; 
 		case "rideLedOff":return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,108,20,90,90];
+		case "setRideLedOnOff":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,108,20,90,90]; 
 		//case "getLightCircle":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,109,20,90,90];
 		//case "setLightCircle":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,108,20,90,90];
 		//case "setLightRideLed":return [170,85,val,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,108,20,90,90];
@@ -94,9 +95,7 @@ euc.cmd=function(no,val){
 		//
 		case "liftOn":return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,126,20,90,90]; 
 		case "liftOff":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,126,20,90,90];
-		//case wrong "getLiftOnOff":return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,126,20,90,90]; 
 		case "setLiftOnOff":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,126,20,90,90]; 
-		// wrong case "getLiftOnOff":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,126,20,90,90]; 
 		//
 		case "getLanguage":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,106,20,90,90];
 		case "setLanguage":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,105,20,90,90];
@@ -255,16 +254,12 @@ euc.conn=function(mac){
 	  return s.getCharacteristic(0xffe1);
 	//read
 	}).then(function(c) {
-//		inpk=new Uint8Array(event.target.value.buffer);
 		var inpk=new Uint8Array(20);
 		c.on('characteristicvaluechanged', function(event) {
 			inpk.set(event.target.value.buffer);
-			//let inpk=event.target.value.buffer;
-			//console.log("in :",inpk);
-			//return;
-            if (euc.busy) return;
+            if (euc.busy||inpk[0]==188){print("drop",inpk); return;}
 			euc.alert=0;
-			//if (set.def.cli) console.log("lll",inpk);
+			//if (set.def.cli) console.log("INPUT :",inpk);
 			switch (inpk[16]){				
 				case  169:
 					euc.tmp.one(inpk);
@@ -299,7 +294,9 @@ euc.conn=function(mac){
 					euc.tmp.four(inpk);
 					break;
 				default: 
-					if ( inpk[16] == 76) 
+					if ( inpk[16] == 70) 
+						euc.tmp.pass=inpk[2];
+					else if ( inpk[16] == 76) 
 						euc.dash.ks.lift=inpk[2];
 					else if ( inpk[16] == 85) 
 						euc.dash.strb=inpk[2];
@@ -318,10 +315,10 @@ euc.conn=function(mac){
 							let i6 = i4 + i5;
 							let i7 = (i3 + i6 + i1) % 10;
 							let outp= [170,85,0,0,0,0,0,0,0,0,48+i5,48+r1,48+i7,48+r2,48+(i6 + i7 + i1) % 10,48+r3,93,20,90,90];
-							print("Got new key:",outp);
-							euc.dash.lock?euc.wri ("doUnlock",outp):euc.dash.ks.lockKey=outp;
+							euc.dash.lock&&face.appCurr=="dashKingsong"?euc.wri("doUnlock",outp):outp[16]=71;euc.tmp.lockKey=outp;
 						}
 						euc.dash.lock=inpk[2];
+						return true;
 					}					
 					else if ( inpk[16] == 63) 
 						euc.dash.ks.offT=inpk[5] << 8 | inpk[4];
@@ -388,27 +385,27 @@ euc.conn=function(mac){
 				if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 				return;
 			} else if (n==="start") {
-				c.writeValue(euc.cmd((euc.dash.passSend)?"passSend":(euc.dash.ks.aLock)?"getLock":(euc.dash.aLight)?euc.dash.aLight:"lightsAuto")).then(function() {
+				euc.state="READY";
+				c.writeValue(euc.cmd("model")).then(function() {
+					return euc.dash.passSend?c.writeValue(euc.cmd("passSend")):"ok";
 				}).then(function() {
-					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-					return c.writeValue(euc.cmd((euc.dash.ks.aLock&&euc.dash.passSend)?"getLock":(euc.seq==0)?(euc.dash.lght.ride)?"rideLedOn":"rideLedOff":(euc.dash.aLight)?euc.dash.aLight:"lightsAuto"));
+					return euc.dash.ks.aUnlock?c.writeValue(euc.cmd("getLock")):"ok";
 				}).then(function() {
-					return (euc.seq==0)?(euc.dash.ks.aLock||euc.dash.passSend)?c.writeValue(euc.cmd((euc.dash.lght.ride)?"rideLedOn":"rideLedOff")):"ok":c.writeValue(euc.cmd((euc.dash.aLight)?euc.dash.aLight:"lightsAuto"));
+					return euc.dash.ks.aRideC?c.writeValue(euc.cmd("setRideLedOnOff",2-euc.dash.ks.aRideC)):"ok";
 				}).then(function() {
-					return ((euc.dash.ks.aLock&&euc.dash.passSend)?c.writeValue(euc.cmd((euc.dash.lght.ride)?"rideLedOn":"rideLedOff")):"ok");
+					let val=["NA","CITY","AUTO","ON","OFF"];
+					return euc.dash.aHLC?c.writeValue(euc.cmd(euc.dash.aLight)):"ok";
 				}).then(function() {
-					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 					return c.writeValue(euc.cmd("alarms"));	
 				}).then(function() {
-					euc.run=1;
-					return c.writeValue(euc.cmd("model"));
+					return euc.dash.ks.aLiftC?c.writeValue(euc.cmd("setLiftOnOff",2-euc.dash.ks.aLiftC)):"ok";
 				}).then(function() {
-					if (euc.dash.ks.aLift) euc.dash.ks.lift=0;
-					return ((euc.dash.ks.aLift)?c.writeValue(euc.cmd("liftOff")):"ok");
+					return euc.dash.ks.aVoiceC?c.writeValue(euc.cmd("setVoiceOnOff",2-euc.dash.ks.aVoiceC)):"ok";
+				}).then(function() {
+					print("dd",euc.dash.lock,euc.dash.ks.aUnlock,euc.tmp.lockKey);
+					return (euc.dash.lock&&euc.dash.ks.aUnlock&&euc.tmp.lockKey)?c.writeValue(euc.cmd("doUnlock",euc.tmp.lockKey)):"ok";	
 				}).then(function() {
 					euc.run=1;
-					print("dd",euc.dash.lock,euc.dash.ks.lockKey)
-					return (euc.dash.lock&&euc.dash.ks.lockKey)?c.writeValue(euc.cmd("doUnlock",euc.dash.ks.lockKey)):"ok";	
 				}).catch(function(err)  {
 					if (global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected) global["\xFF"].BLE_GATTS.disconnect();
 					else euc.off("err-start");
@@ -418,11 +415,13 @@ euc.conn=function(mac){
 					c.writeValue(euc.cmd((euc.dash.ks.aLock)?"lock":"lightsOff")).then(function() {
 						return ((euc.dash.ks.aOff)?c.writeValue(euc.cmd("off")):true);	
 					}).then(function() {
-						return ((euc.seq)?c.writeValue(euc.cmd("lightsOff")):true);
+						return euc.dash.aLightD?c.writeValue(euc.cmd("lightsOff")):"ok";
 					}).then(function() {
-						return ((euc.dash.ks.aRide)?c.writeValue(euc.cmd("rideLedOff")):true);	
+						return euc.dash.ks.aRideD?c.writeValue(euc.cmd("rideLedOff",2-euc.dash.ks.aRideD)):"ok";	
 					}).then(function() {
-						return ((euc.dash.ks.aLift)?c.writeValue(euc.cmd("liftOn")):true);
+						return euc.dash.ks.aLiftD?c.writeValue(euc.cmd("setLiftOnOff",2-euc.dash.ks.aLiftD)):"ok";
+					}).then(function() {
+						return euc.dash.ks.aVoiceD?c.writeValue(euc.cmd("setVoiceOnOff",2-euc.dash.ks.aVoiceD)):"ok";
 					}).then(function() {
 						euc.run=0;
 						return global["\xFF"].BLE_GATTS.disconnect();	
@@ -453,18 +452,16 @@ euc.conn=function(mac){
 			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 			set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
 		}
-		if (global["\xFF"].bleHdl && global["\xFF"].bleHdl[54] && global["\xFF"].bleHdl[54].value.buffer[0]!=65 && global["\xFF"].bleHdl[54].value.buffer[0]!=188) {
+		if (global["\xFF"].bleHdl && global["\xFF"].bleHdl[54] && global["\xFF"].bleHdl[54].value.buffer[0]==170 && global["\xFF"].bleHdl[54].value.buffer[1]==85) {
 			setTimeout(()=>{ 
 				print("EUC: ks is initialized");
 				euc.state="READY";
 				c.startNotifications();
 			},500);
 		}else {
-			euc.dash.ks.lockKey=0;
 			buzzer([90,40,150]);
 			c.startNotifications().then(function() {
 				euc.wri("start");
-				euc.state="READY";
 			});
 		}
 	//reconect
@@ -477,7 +474,6 @@ euc.off=function(err){
 	if (set.def.cli) console.log("EUC error :",err);
 	if (euc.reconnect) {clearTimeout(euc.reconnect); euc.reconnect=0;}
 	if (euc.state!="OFF") {
-		euc.seq=1;
 		//if (set.def.cli) console.log("EUC: Restarting");
 		if ( err==="Connection Timeout"  )  {
 			//if (set.def.cli) console.log("reason :timeout");

@@ -158,7 +158,7 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
 	case 4: //slide right event (back action)
-		face.go("dashKingsongDis",0);
+		face.go("dashKingsongOpt2",0);
 		return;
   }
 };

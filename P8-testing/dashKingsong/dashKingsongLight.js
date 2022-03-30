@@ -135,7 +135,7 @@ touchHandler[0]=function(e,x,y){
 		//} else {buzzer(40);}
 		break;
 	case 3: //slide left event
-		buzzer(40);
+		face.go("dashKingsong",0);
 		return;
 	case 4: //slide right event (back action)
 		face.go("dashKingsong",0);
