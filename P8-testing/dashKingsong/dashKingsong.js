@@ -28,7 +28,7 @@ face[0] = {
 		face[0].btn(1,euc.dash.tpms?euc.dash.tpms:"TPMS",18,60,115,(euc.dash.tpms&&tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.tpms].time<1800)?(tpms.euc[euc.dash.tpms].alrm)?7:4:1,1,0,100,119,195,(euc.dash.tpms)?(tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].psi)?Math.round(tpms.euc[euc.dash.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.tpms)?32:28,60,150);
 		
 		
-		if (!euc.tmp.ls) {euc.tmp.ls=1;euc.wri("getLock");setTimeout(()=>{euc.wri("getLightStrobe");},200);}
+		if (!euc.tmp.ls) {euc.tmp.ls=1;euc.wri("getLock");setTimeout(()=>{euc.wri("getStrobe");},200);}
 		this.run=true;
 	},
 	show : function(){
@@ -125,8 +125,7 @@ touchHandler[0]=function(e,x,y){
 			return;
 		}else if ( 120<=x && y<=100 ) { //STROBE
 			buzzer([30,50,30]);	
-			euc.wri((1-euc.dash.strb)?"strobeOn":"strobeOff");
-			//face[0].ntfy("HEAD LIGHT AUTO","NO ACTION",19,1,1);
+			euc.wri("setStrobe",1-euc.dash.strb);
 		}else if ( x<=120 && 100<=y ) { //tpms
 			buzzer([30,50,30]);		
 			if (!euc.dash.tpms) face[0].ntfy("HOLD-> ON/OFF","NO ACTION",19,4,1);
@@ -135,10 +134,10 @@ touchHandler[0]=function(e,x,y){
 				face.go("tpmsFace",0);
 				return;
 			}
-		}else if  (120<=x && 100<=y ) { //lights Off
+		}else if  (120<=x && 100<=y ) { //Lock
 			//euc.dash.lock=1-euc.dash.lock;
 			buzzer([30,50,30]);	
-			euc.wri((1-euc.dash.lock)?"lock":"unlock");
+			euc.wri((1-euc.dash.lock)?"doLock":"getLock");
 		}else buzzer(40);
 		break;
 	case 1: //slide down event

@@ -110,7 +110,7 @@ touchHandler[0]=function(e,x,y){
 			buzzer([30,50,30]);
             face[0].btn(euc.dash.lght.ride,"LED",18,60,15,4,1,0,0,119,97,"RIDE",28,60,50);//1
             face[0].ntfy("RIDE LED ON","RIDE LED OFF",20,1,euc.dash.lght.ride);
-			euc.wri((euc.dash.lght.ride)?"rideLedOn":"rideLedOff");
+			euc.wri("setLedRideOnOff",euc.dash.lght.ride);
 		}else if ( 120<=x && y<=100 ) { //watch alerts
 			buzzer([30,50,30]);						
 			face.go("dashAlerts",0);
@@ -120,7 +120,8 @@ touchHandler[0]=function(e,x,y){
 			buzzer([30,50,30]);		
             face[0].btn(euc.dash.ks.lift,"SENSOR",18,60,115,4,1,0,100,119,195,"LIFT",30,60,150);
             face[0].ntfy("LIFT SENSOR ENABLED","LIFT SENSOR DISABLED",19,1,euc.dash.ks.lift);
-			euc.wri((euc.dash.ks.lift)?"liftOn":"liftOff");
+			euc.wri("setLiftOnOff",euc.dash.ks.lift);
+			//euc.wri((euc.dash.ks.lift)?"liftOn":"liftOff");
 		}else if  (120<=x && 100<=y ) { //horn
 			euc.dash.horn=1-euc.dash.horn;
             face[0].btn(euc.dash.horn,"HORN",25,185,136,4,1,122,100,239,195);
@@ -155,7 +156,7 @@ touchHandler[0]=function(e,x,y){
 			buzzer([30,50,30]);
             face[0].btn(euc.dash.lght.ride,"LED",18,60,15,4,1,0,0,119,97,"RIDE",28,60,50);//1
             face[0].ntfy("RIDE LED ON","RIDE LED OFF",20,1,euc.dash.lght.ride);
-			euc.wri((euc.dash.lght.ride)?"rideLedOn":"rideLedOff");
+			euc.wri("setLedRideOnOff",euc.dash.lght.ride);
 		}else if ( 120<=x && y<=100 ) { //haptic
 			if (euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB) {euc.dash.hapS=0;euc.dash.hapA=0;euc.dash.hapT=0;euc.dash.hapB=0;}
 			else {euc.dash.hapS=1;euc.dash.hapA=1;euc.dash.hapT=1;euc.dash.hapB=1;}
@@ -167,7 +168,7 @@ touchHandler[0]=function(e,x,y){
 			buzzer([30,50,30]);		
             face[0].btn(euc.dash.ks.lift,"SENSOR",18,60,115,4,1,0,100,119,195,"LIFT",30,60,150);
             face[0].ntfy("LIFT SENSOR ENABLED","LIFT SENSOR DISABLED",19,1,euc.dash.ks.lift);
-			euc.wri((euc.dash.ks.lift)?"liftOn":"liftOff");
+			euc.wri("setLiftOnOff",euc.dash.ks.lift);
 		}else if  (120<=x && 100<=y ) { //horn
 			euc.dash.horn=1-euc.dash.horn;
             face[0].btn(euc.dash.horn,"HORN",25,185,136,4,1,122,100,239,195);

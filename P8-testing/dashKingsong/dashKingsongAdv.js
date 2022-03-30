@@ -121,9 +121,10 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
       case 5:case 12: //tap event
 		if ( x<=120 && y<=100 ) { //ride mode
-			if (euc.dash.mode==0) {euc.dash.mode=1;euc.wri("rideMed");face[0].btn("MODE",18,60,15,6,0,0,119,97,"MED",30,60,50);}
-			else if (euc.dash.mode==1) {euc.dash.mode=2;euc.wri("rideSoft");face[0].btn("MODE",18,60,15,4,0,0,119,97,"SOFT",30,60,50);}
-			else if (euc.dash.mode==2) {euc.dash.mode=0;euc.wri("rideHard");face[0].btn("MODE",18,60,15,5,0,0,119,97,"HARD",30,60,50);}
+			euc.dash.mode++; if (3<euc.dash.mode)euc.dash.mode=0;
+			let m=["HARD","MED","SOFT"]
+			face[0].btn("MODE",18,60,15,4,0,0,119,97,m[euc.dash.mode],30,60,50);
+			euc.wri("setRideMode",euc.dash.mode);
 			buzzer([30,50,30]);		
 		}else if ( 120<=x  && y<=100 ) { //calibrate
             buzzer([30,50,30]);

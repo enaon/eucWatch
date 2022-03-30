@@ -99,25 +99,25 @@ touchHandler[0]=function(e,x,y){
 			if (euc.dash.ks[face[0].led]==1) {buzzer(40);return;}
 			buzzer([30,50,30]);
 			euc.dash.ks[face[0].led]=1;
-			euc.wri("lightsOn");
+			euc.wri("setLights",1);
 			face[0].ntfy("HEAD LIGHT ON","NO ACTION",19,1,1);
 		}else if ( 120<=x && y<=100 ) { //lights Auto
 			if (euc.dash.ks[face[0].led]==2) {buzzer(40);return;}
 			buzzer([30,50,30]);	
 			euc.dash.ks[face[0].led]=2;
-			euc.wri("lightsAuto");
+			euc.wri("setLights",2);
 			face[0].ntfy("HEAD LIGHT AUTO","NO ACTION",19,1,1);
 		}else if ( x<=120 && 100<=y ) { //lights City
 			if (euc.dash.ks[face[0].led]==3) {buzzer(40);return;}
 			buzzer([30,50,30]);	
 			euc.dash.ks[face[0].led]=3;
-			euc.wri("lightsCity");
+			euc.wri("setLights",0);
 			face[0].ntfy("HEAD LIGHT CITY","NO ACTION",19,1,1);
 		}else if  (120<=x && 100<=y ) { //lights Off
 			if (euc.dash.ks[face[0].led]==0) {buzzer(40);return;}
 			buzzer([30,50,30]);	
 			euc.dash.ks[face[0].led]=0;
-			euc.wri("lightsOff");
+			euc.wri("setLights",3);
 			face[0].ntfy("HEAD LIGHT OFF","NO ACTION",19,1,1);
 		}else buzzer(40);
 		break;

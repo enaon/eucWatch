@@ -11,38 +11,80 @@ euc.cmd=function(no,val){
 	switch (no) {
 		//euc.wri("getParamA");
 		case "manual":return val; 
-		case "getModel":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,155,20,90,90]; 
-		case "getSerial":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,99,20,90,90]; 
+		case "model":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,155,20,90,90]; 
+		//case "getMode":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,155,20,90,90]; 
+		case "serial":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,99,20,90,90]; 
+		case "getSerialNo":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,99,20,90,90]; 
+		case "alarms":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,152,20,90,90]; 
 		case "getAlarms":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,152,20,90,90]; 
-		case "doHorn":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,136,20,90,90]; 
+		case "horn":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,136,20,90,90]; 
 		case "doBeep":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,136,20,90,90]; 
-		case "setLiftOnOff":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,126,20,90,90]; 
-		//power
+		case "info1":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,83,20,90,90]; 
+		case "info2":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,84,20,90,90]; 
+		//
+		case "off":return [170,85,0,224,0,0,0,0,0,0,0,0,0,0,0,0,64,20,90,90];
+		//case "doPowerOff":return [170,85,0,224,0,0,0,0,0,0,0,0,0,0,0,0,64,20,90,90];
 		case "getPowerOff":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,63,20,90,90];
 		case "setPowerOff":return [170,85,1,0,val & 255,(val >> 8) & 255,0,0,0,0,0,0,0,0,0,0,63,20,90,90];
-		case "doPowerOff":return [170,85,0,224,0,0,0,0,0,0,0,0,0,0,0,0,64,20,90,90];
-		//leds
-		case "setLights": if(!val)val=euc.night?2:3; return [170,85,17+val,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];  
-		case "getStrobe":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,84,20,90,90];
+		case "getLogin":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,69,20,90,90];
+		case "getOldMode":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,72,20,90,90];
+		case "setOldMode":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,124,20,90,90];
+		case "setNumRV":return [170,85,58,163,0,0,0,0,0,0,0,0,0,0,0,0,99,20,90,90];
+		case "setNumSV":return [170,85,26,161,0,0,0,0,0,0,0,0,0,0,0,0,99,20,90,90];
+		case "setTestMode":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,103,20,90,90];
+		case "doUpdateFirmware":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,112,20,90,90]; 
+		case "getScooter":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,139,20,90,90]; 
+		case "getParamA":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,146,20,90,90]; 
+		case "getParamB":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,147,20,90,90]; 
+		case "getParamC":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,148,20,90,90]; 
+		//
+		case "doResetFactoryDefauts":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,101,20,90,90];
+		case "doResetFactorySetA":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,102,20,90,90];
+		//
+		case "getTotalRideTime":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,146,20,90,90];
+		case "setTotalRideTime":return [170,85,val,0,0,0,0,0,0,0,0,0,0,0,0,0,146,20,90,90];
+		//
+		
+		case "setLights":return [170,85,17+val,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];  
+		case "lightsOn":return [170,85,18,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];  
+		case "lightsOff": return [170,85,19,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];  
+		case "lightsAuto":return [170,85,20,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];
+		case "lightsCity": 
+			return euc.night?[170,85,20,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90]: [170,85,19,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];
+		case "getLightStrobe":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,84,20,90,90];
 		case "setStrobeOnOff":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,83,20,90,90];
-		case "getLedMagic":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,81,20,90,90];
-		case "setLedMagicOnOff":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,20,90,90];
-		case "getLedRide":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,109,20,90,90];
-		case "setLedRideOnOff":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,108,20,90,90];
-		case "getSpetrum":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,124,20,90,90]; // to b checked
-		case "setSpetrumOnOff":return [170,85,val,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,125,20,90,90]; 
-		case "getSpetrumMode":return [170,85,val,0,0,0,0,0,0,0,0,0,0,0,0,0,150,20,90,90];
-		case "setSpetrumModeOnOff":return [170,85,val,0,0,0,0,0,0,0,0,0,0,0,0,0,151,20,90,90];
-		//BT music mode
-		case "getBTMusic":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,87,20,90,90];
-		case "setBTMusicOnOff":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,86,20,90,90];
-		//voice
-		case "getVoice":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,74,20,90,90];
+		case "getStrobe":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,84,20,90,90];
+
+		case "strobeOn":return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,83,20,90,90];
+		case "strobeOff":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,83,20,90,90];
+		case "getHeadLight":return  [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,81,20,90,90];
+		case "getLightMagic":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,81,20,90,90];
+		case "setLightMagic":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,20,90,90];
+		case "rideLedOn":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,108,20,90,90]; 
+		case "rideLedOff":return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,108,20,90,90];
+		case "setRideLedOnOff":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,108,20,90,90]; 
+		//case "getLightCircle":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,109,20,90,90];
+		//case "setLightCircle":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,108,20,90,90];
+		//case "setLightRideLed":return [170,85,val,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,108,20,90,90];
+		case "musicLedOn":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,125,20,90,90]; 
+		case "musicLedOff":return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,125,20,90,90]; 
+		case "setLightMusicOnOff":return [170,85,val,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,125,20,90,90]; 
+		case "setLightMusicMode":return [170,85,val,0,0,0,0,0,0,0,0,0,0,0,0,0,151,20,90,90];
+		case "getLightMusicMode":return [170,85,val,0,0,0,0,0,0,0,0,0,0,0,0,0,150,20,90,90];
+		case "getLightColor":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,91,20,90,90];
+		//
+		case "getVoiceOnOff":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,74,20,90,90];
 		case "setVoiceOnOff":return [170,85,val,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];
 		case "setVoiceVolUp":return [170,85,255,0,0,0,0,0,0,0,0,0,0,0,0,0,149,20,90,90];
 		case "setVoiceVolDn":return [170,85,0,255,0,0,0,0,0,0,0,0,0,0,0,0,149,20,90,90];
-		//gyro
-		case "doCalibrate": return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,137,20,90,90];  
+		//
+		case "getMusic":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,87,20,90,90];
+		case "setMusic":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,86,20,90,90];
+		case "setMusicNext":return [170,85,0,0,255,0,0,0,0,0,0,0,0,0,0,0,149,20,90,90];
+		case "setMusicPrev":return [170,85,0,0,0,255,0,0,0,0,0,0,0,0,0,0,149,20,90,90];
+		//
+		case "calibrate": return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,137,20,90,90];  
+		//case "doCalibrate": return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,137,20,90,90];  
 		case "getGyroAround":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,138,20,90,90];
 		case "setGyroAround":return [170,85,1,0,val & 255,(val >> 8) & 255,0,0,0,0,0,0,0,0,0,0,138,20,90,90];
 		case "tiltSet":
@@ -50,29 +92,52 @@ euc.cmd=function(no,val){
 			return [170,85,1,0,tiltSet,(tiltSet<=100)?0:255,0,0,0,0,0,0,0,0,0,0,138,20,90,90]; 
 		case "getGyroAbout":return [170,85,2,0,0,0,0,0,0,0,0,0,0,0,0,0,138,20,90,90];
 		case "setGyroAbout":return [170,85,3,0,val & 255,(val >> 8) & 255,0,0,0,0,0,0,0,0,0,0,138,20,90,90];
-		//ride mode 0=hard,1=med,2=soft
+		case "getBalabce":return [170,85,4,0,0,0,0,0,0,0,0,0,0,0,0,0,138,20,90,90];
+		case "getReadV":return [170,85,6,0,0,0,0,0,0,0,0,0,0,0,0,0,138,20,90,90];
+		case "setReadV":
+			return [170,85,7,206,val & 255,(val >> 8) & 255,(~(val >> 8) & 255) & 255,(~(~(val >> 8) & 255) & 255) & 255,0,0,0,0,0,0,0,0,138,20,90,90];
+		case "getInitV":return [170,85,7,32,0,0,255,255,0,0,0,0,0,0,0,0,138,20,90,90];
+		//
+		case "setLiftOnOff":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,126,20,90,90]; 
+		//
+		case "getLanguage":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,106,20,90,90];
+		case "setLanguage":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,105,20,90,90];
+		//		
+		case "setBmsSn":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11,0,0,0]; 
+		case "setBMS":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,1,0,122,1,129,7]; 
+		case "getBattAInfo":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,116,20,90,90]; 
+		case "getBattBInfo":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,117,20,90,90]; 
+		case "setBattACleanFault":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,118,20,90,90]; 
+		case "setBattBCleanFault":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,119,20,90,90];	
+		case "getBattASleep":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,120,20,90,90]; 
+		case "getBattBSleep":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,121,20,90,90];
+		case "setBattACleanCycle":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,122,20,90,90]; 
+		case "setBattBCleanCycle":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,123,20,90,90];
+		//
+		case "rideSoft":return [170,85,2,224,0,0,0,0,0,0,0,0,0,0,0,0,135,20,90,90];
+		case "rideMed":return [170,85,1,224,0,0,0,0,0,0,0,0,0,0,0,0,135,20,90,90];
+		case "rideHard":return [170,85,0,224,0,0,0,0,0,0,0,0,0,0,0,0,135,20,90,90];  
 		case "setRideMode":return [170,85,val,224,0,0,0,0,0,0,0,0,0,0,0,0,135,20,90,90];  
 		case "getRideParamA":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,146,20,90,90]; 
 		case "getRideParamB":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,147,20,90,90]; 
 		case "getRideParamC":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,148,20,90,90]; 
-		//lock
-		case "doUnlock":return val; 
-		case "doLock":return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,93,20,90,90]; 
-		case "doLockOnce":;return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,71,20,90,90]; 
-		case "getLock":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,94,20,90,90];
-		case "getLockOnce":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,72,20,90,90];
+		//
+		case "doLockOnce":euc.dash.lock=1;return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,71,20,90,90]; 
 		case "setLockOnOff":euc.dash.lock=val?1:0;return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,93,20,90,90]; 
-		//pass
-		case "setPass": 
-			return [170,85,48+Number(euc.dash.pass[0]),48+Number(euc.dash.pass[1]),48+Number(euc.dash.pass[2]),48+Number(euc.dash.pass[3]),0,0,0,0,0,0,0,0,0,0,65,20,90,90];
-		case "doPassClear": 
-			return [170,85,48+Number(euc.dash.pass[0]),48+Number(euc.dash.pass[1]),48+Number(euc.dash.pass[2]),48+Number(euc.dash.pass[3]),0,0,0,0,0,0,0,0,0,0,66,20,90,90];
-		case "doPassSend":
+		case "getLock":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,94,20,90,90];
+		case "lock":return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0x5d,20,90,90]; 
+		case "doUnlock":return val; 
+		case "unlock": return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,94,20,90,90];
+		case "passSend":
 			return [170,85,48+Number(euc.dash.pass[0]),48+Number(euc.dash.pass[1]),48+Number(euc.dash.pass[2]),48+Number(euc.dash.pass[3]),0,0,0,0,0,0,0,0,0,0,68,20,90,90]; 
-		case "doPassChange":
-			return [170,85,48+Number(euc.dash.pass[0]),48+Number(euc.dash.pass[1]),48+Number(euc.dash.pass[2]),48+Number(euc.dash.pass[3]),48+Number(euc.dash.passOld[0]),48+Number(euc.dash.passOld[1]),48+Number(euc.dash.passOld[2]),48+Number(euc.dash.passOld[3]),0,0,0,0,0,0,65,20,90,90]; //rf 43
+		case "passChange":
+			return [170,85,48+Number(euc.dash.pass[0]),48+Number(euc.dash.pass[1]),48+Number(euc.dash.pass[2]),48+Number(euc.dash.pass[3]),48+Number(euc.dash.passOld[0]),48+Number(euc.dash.passOld[1]),48+Number(euc.dash.passOld[2]),48+Number(euc.dash.passOld[3]),0,0,0,0,0,0,0x41,20,90,90]; //rf 43
+		case "passClear": 
+			return [170,85,48+Number(euc.dash.pass[0]),48+Number(euc.dash.pass[1]),48+Number(euc.dash.pass[2]),48+Number(euc.dash.pass[3]),0,0,0,0,0,0,0,0,0,0,0x42,20,90,90];  //rf 43
+		case "passSet": 
+			return [170,85,48+Number(euc.dash.pass[0]),48+Number(euc.dash.pass[1]),48+Number(euc.dash.pass[2]),48+Number(euc.dash.pass[3]),0,0,0,0,0,0,0,0,0,0,0x41,20,90,90]; //rf 43
 		case "setSpeedLimits":
-			return [170,85,((euc.dash.limE[0])?euc.dash.lim[0]:(euc.dash.limE[1])?0x00:0xFF),0x00,(euc.dash.limE[1])?euc.dash.lim[1]:0,0x00,euc.dash.lim[2],0x00,euc.dash.lim[3],0x00,0x31,0x32,0x33,0x34,0x35,0x36,0x85,20,90,90];
+			return [170,85,((euc.dash.limE[0])?euc.dash.lim[0]:(euc.dash.limE[1])?0x00:0xFF),0x00,(euc.dash.limE[1])?euc.dash.lim[1]:0,0x00,euc.dash.lim[2],0x00,euc.dash.lim[3],0x00,0x31,0x32,0x33,0x34,0x35,0x36,0x85,20,90,90]; //speed in kph, rf A4
 		default:
 			return [];
     }
@@ -283,24 +348,29 @@ euc.conn=function(mac){
 		euc.wri= function(n,v) {
 			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},20);return;} 
 			euc.busy=setTimeout(()=>{euc.busy=0;},50);
+			//if (n=="end") c.stopNotifications();
 			if (n=="hornOn"){
 				euc.horn=1;
 				if (euc.tmp.horn) {clearTimeout(euc.tmp.horn);euc.tmp.horn=0;}
 				c.writeValue(euc.cmd("lock")).then(function() {
-					return c.writeValue(euc.cmd("setLights",1));
+					euc.dash.lock=1;
+					return c.writeValue(euc.cmd("lightsOn"));
 				}).then(function() {	
-					return c.writeValue(euc.cmd("setStrobeOnOff",1));
+					euc.dash.strb=1;
+					return c.writeValue(euc.cmd("strobeOn"));
 				}).then(function() {
 					if (euc.tmp.horn) {clearInterval(euc.tmp.horn);euc.tmp.horn=0;}
 					euc.tmp.horn=setInterval(() => {
 						if (!BTN1.read()){
 							if (euc.tmp.horn) {clearInterval(euc.tmp.horn);euc.tmp.horn=0;}
 							c.writeValue(euc.cmd("unlock")).then(function() {		
-								return c.writeValue(euc.cmd("setStrobeOnOff",0));
+								euc.dash.lock=0;
+								euc.dash.strb=0;
+								return c.writeValue(euc.cmd("strobeOff"));
 							}).then(function() {
 								euc.horn=0;
 								if (euc.busy){clearTimeout(euc.busy);euc.busy=0;}
-								return c.writeValue(euc.cmd(euc.dash.ks.HL));
+								return c.writeValue(euc.cmd(euc.dash.aLight));
 							});
 						}
 					}, 200); 
@@ -311,12 +381,12 @@ euc.conn=function(mac){
 				return;
 			} else if (n==="start") {
 				euc.state="READY";
-				c.writeValue(euc.cmd("getModel")).then(function() {
-					return euc.dash.passSend?c.writeValue(euc.cmd("doPassSend")):"ok";
+				c.writeValue(euc.cmd("model")).then(function() {
+					return euc.dash.passSend?c.writeValue(euc.cmd("passSend")):"ok";
 				}).then(function() {
 					return euc.dash.ks.aUnlock?c.writeValue(euc.cmd("getLock")):"ok";
 				}).then(function() {
-					return euc.dash.ks.aRideC?c.writeValue(euc.cmd("setLedRideOnOff",euc.dash.ks.aRideC-1)):"ok";
+					return euc.dash.ks.aRideC?c.writeValue(euc.cmd("setRideLedOnOff",euc.dash.ks.aRideC-1)):"ok";
 				}).then(function() {
 					return euc.dash.ks.aHLC?c.writeValue(euc.cmd("setLights",euc.dash.ks.aHLC)):"ok";
 				}).then(function() {
@@ -341,7 +411,7 @@ euc.conn=function(mac){
 					}).then(function() {
 						return euc.dash.ks.aHLD?c.writeValue(euc.cmd("setLights",euc.dash.ks.aHLD)):"ok";
 					}).then(function() {
-						return euc.dash.ks.aRideD?c.writeValue(euc.cmd("setLedRideOnOff",euc.dash.ks.aRideD-1)):"ok";
+						return euc.dash.ks.aRideD?c.writeValue(euc.cmd("setRideLedOnOff",euc.dash.ks.aRideD-1)):"ok";
 					}).then(function() {
 						return euc.dash.ks.aLiftD?c.writeValue(euc.cmd("setLiftOnOff",2-euc.dash.ks.aLiftD)):"ok";
 					}).then(function() {
@@ -443,37 +513,3 @@ euc.off=function(err){
 		NRF.setTxPower(set.def.rfTX);
     }
 };
-
-/*
-		case "getInfo1":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,83,20,90,90]; 
-		case "getInfo2":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,84,20,90,90]; 
-		//
-		case "getLogin":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,69,20,90,90];
-		case "getOldMode":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,72,20,90,90];
-		case "setOldMode":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,124,20,90,90];
-		case "setNumRV":return [170,85,58,163,0,0,0,0,0,0,0,0,0,0,0,0,99,20,90,90];
-		case "setNumSV":return [170,85,26,161,0,0,0,0,0,0,0,0,0,0,0,0,99,20,90,90];
-		case "setTestMode":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,103,20,90,90];
-		case "doUpdateFirmware":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,112,20,90,90]; 
-		case "getScooter":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,139,20,90,90]; 
-		case "getParamA":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,146,20,90,90]; 
-		case "getParamB":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,147,20,90,90]; 
-		case "getParamC":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,148,20,90,90]; 
-		//
-		case "doResetFactoryDefauts":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,101,20,90,90];
-		case "doResetFactorySetA":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,102,20,90,90];
-		//
-		case "getTotalRideTime":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,146,20,90,90];
-		case "setTotalRideTime":return [170,85,val,0,0,0,0,0,0,0,0,0,0,0,0,0,146,20,90,90];
-		//
-		case "getBTMusic":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,87,20,90,90];
-		case "setBTMusic":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,86,20,90,90];
-		case "setMusicNext":return [170,85,0,0,255,0,0,0,0,0,0,0,0,0,0,0,149,20,90,90];
-		case "setMusicPrev":return [170,85,0,0,0,255,0,0,0,0,0,0,0,0,0,0,149,20,90,90];
-		//
-		case "getLanguage":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,106,20,90,90];
-		case "setLanguage":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,105,20,90,90];
-		//
-		case "getLedColor":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,91,20,90,90];
-
-*/
