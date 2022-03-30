@@ -1,4 +1,4 @@
-//kingsong  set options2
+//kingsong  set DIS
 face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
 	g:w.gfx,
@@ -23,10 +23,10 @@ face[0] = {
         this.g.setColor(1,15);
       	this.g.fillRect(120,200,143,204);
 		this.g.flip(); 
-        this.btn(euc.dash.ks.aRide,"LED",18,60,15,12,1,0,0,119,97,"RIDE",28,60,50);
-		this.btn(euc.dash.ks.aOff,"POWER",22,185,15,7,1,122,0,239,97,"OFF",28,185,50);		
-        this.btn(euc.dash.ks.aLift,"SENSOR",18,60,115,12,1,0,100,119,195,"LIFT",30,60,150);
-        this.btn(euc.dash.ks.aLock,"AUTO",18,185,115,7,1,122,100,239,195,"LOCK",30,185,150);		
+	    this.btn(euc.dash.ks.aHLD,"LIGHT",18,60,15,euc.dash.ks.aHLD!=2?12:1,0,0,0,119,97,val[euc.dash.ks.aHLD],28,60,50);
+		this.btn(euc.dash.ks.aRideD,"LED",18,185,15,euc.dash.ks.aRideD==1?12:1,0,122,0,239,97,"RIDE",28,185,50);
+        this.btn(euc.dash.ks.aLiftD,"SENSOR",18,60,115,euc.dash.ks.aLiftD==1?12:1,0,0,100,119,195,"LIFT",30,60,150);
+        this.btn(euc.dash.ks.aVoiceD,"VOICE",18,185,115,euc.dash.ks.aVoiceD==1?12:1,0,122,100,239,195,"MODE",30,185,150);	
 		this.run=true;
 	},
 	show : function(){
@@ -107,27 +107,27 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
       case 5: case 12: //tap event
 		if ( x<=120 && y<100 ) { //auto Ride
-			if (!euc.dash.ks.aRide) euc.dash.ks.aRide=0;
-			euc.dash.ks.aRide=1-euc.dash.ks.aRide;
-	        face[0].btn(euc.dash.ks.aRide,"AUTO",18,60,15,12,1,0,0,119,97,"RIDE",28,60,50);
-			face[0].ntfy("DISCON->RIDELED OFF","AUTO R-LED DISABLED",19,1,euc.dash.ks.aRide);
+			euc.dash.ks.aHLD++;  if (4<euc.dash.ks.aHLD) euc.dash.ks.aHLD=0;
+			//let val=["NA","CITY","AUTO","ON","OFF"];
+			let val=["NA","ON","OFF","AUTO","CITY"];
+			face[0].btn(euc.dash.ks.aHLD,"LIGHT",18,60,15,euc.dash.ks.aHLD!=2?12:1,0,0,0,119,97,val[euc.dash.ks.aHLD],28,60,50);
+            face[0].ntfy("SET LIGHT "+val[euc.dash.ks.aHLD],"NO ACTION",20,1,euc.dash.ks.aHLD);
 			buzzer([30,50,30]);
-		}else if ( 120<=x && y<=100 ) { //auto off
-			euc.dash.ks.aOff=1-euc.dash.ks.aOff;
-            face[0].btn(euc.dash.ks.aOff,"AUTO",22,185,15,7,1,122,0,239,97,"OFF",28,185,50);		
-            face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",(euc.dash.ks.aOff)?17:19,1,euc.dash.ks.aOff);
-			buzzer([30,50,30]);		
+		}else if ( 120<=x && y<=100 ) { //BT music
+			euc.dash.ks.aRideD++; if (2<euc.dash.ks.aRideD) euc.dash.ks.aRideD=0;
+			face[0].btn(euc.dash.ks.aRideD,"LED",18,185,15,euc.dash.ks.aRideD==1?12:1,0,122,0,239,97,"RIDE",28,185,50);
+			face[0].ntfy(euc.dash.ks.aRideD==1?"ENABLE RIDE LED":"DISABLE RIDE LED","NO ACTION",20,1,euc.dash.ks.aRideD);
+			buzzer([30,50,30]);
 		}else if ( x<=120 && 100<=y ) { //auto lift
-			euc.dash.ks.aLift=1-euc.dash.ks.aLift;
-            face[0].btn(euc.dash.ks.aLift,"AUTO",18,60,115,12,1,0,100,119,195,"LIFT",30,60,150);
-            face[0].ntfy("CONNECT -> LIFT OFF","AUTO LIFT DISABLED",19,1,euc.dash.ks.aLift);
+			euc.dash.ks.aLiftD++; if (2<euc.dash.ks.aLiftD) euc.dash.ks.aLiftD=0;
+            face[0].btn(euc.dash.ks.aLiftD,"SENSOR",18,60,115,euc.dash.ks.aLiftD==1?12:1,0,0,100,119,195,"LIFT",30,60,150);
+            face[0].ntfy(euc.dash.ks.aLiftD==1?"ENABLE LIFT HANDLE":"DISABLE LIFT HANDLE","NO ACTION",20,1,euc.dash.ks.aLiftD);
 			buzzer([30,50,30]);		
-		}else if  (120<=x && 100<=y ) { //auto lock
-			euc.dash.ks.aLock=1-euc.dash.ks.aLock;
-            face[0].btn(euc.dash.ks.aLock,"AUTO",18,185,115,7,1,122,100,239,195,"LOCK",30,185,150);	
-            face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",19,1,euc.dash.ks.aLock);
-			buzzer([30,50,30]);						
-		}else buzzer([30,50,30]);
+		}else if  (120<=x && 100<=y ) { //Unlock Once
+			euc.dash.ks.aVoiceD++;  if (2<euc.dash.ks.aVoiceD) euc.dash.ks.aVoiceD=0;
+			face[0].btn(euc.dash.ks.aVoiceD,"VOICE",18,185,115,euc.dash.ks.aVoiceD==1?12:1,0,122,100,239,195,"MODE",30,185,150);	
+            face[0].ntfy(euc.dash.ks.aVoiceD==1?"ENABLE VOICE MODE":"DISABLE VOICE MODE","NO ACTION",20,1,euc.dash.ks.aVoiceD);
+			buzzer([30,50,30]);		
 		break;
 	case 1: //slide down event
 		//face.go("main",0);

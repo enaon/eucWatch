@@ -1,4 +1,4 @@
-//kingsong  set CON2
+//kingsong  set DIS2
 face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
 	g:w.gfx,
@@ -13,7 +13,7 @@ face[0] = {
 		this.g.fillRect(0,205,239,239);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",20);
-		this.g.drawString("ON CONNECT",120-(this.g.stringWidth("ON CONNECT")/2),217); 
+		this.g.drawString("ON DISCONNECT",120-(this.g.stringWidth("ON DISCONNECT")/2),217); 
 		this.g.flip(); 
 		this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,204);
@@ -26,7 +26,7 @@ face[0] = {
 	    this.btn(1,"",18,60,15,1,0,0,0,119,97,"",28,60,50);
         this.btn(1,"",22,185,15,1,0,122,0,239,97,"",28,185,50);		
         this.btn(1,"",18,60,115,1,0,0,100,119,195,"",30,60,150);
-        this.btn(euc.dash.ks.aUnlock,"UNLOCK",18,185,115,4,1,122,100,239,195,"ONCE",30,185,150);	
+        this.btn(euc.dash.ks.aLock,"AUTO",18,185,115,4,1,122,100,239,195,"LOCK",30,185,150);	
 
 		this.run=true;
 	},
@@ -62,7 +62,7 @@ face[0] = {
 				t.g.fillRect(0,205,239,239);
 				t.g.setColor(1,15);
 				t.g.setFont("Vector",20);
-		        t.g.drawString("ON CONNECT",120-(t.g.stringWidth("ON CONNECT")/2),217); 
+		        t.g.drawString("ON DISCONNECT",120-(t.g.stringWidth("ON DISCONNECT")/2),217); 
 				t.g.flip();
 				t.g.setColor(0,0);
 				t.g.fillRect(0,196,239,204);
@@ -114,9 +114,9 @@ touchHandler[0]=function(e,x,y){
 		}else if ( x<=120 && 100<=y ) { //auto lift
 			buzzer(40);		
 		}else if  (120<=x && 100<=y ) { //Unlock Once
-			euc.dash.ks.aUnlock=1-euc.dash.ks.aUnlock;
-            face[0].btn(euc.dash.ks.aUnlock,"UNLOCK",18,185,115,4,1,122,100,239,195,"ONCE",30,185,150);	
-            face[0].ntfy("ENABLE UNLOCK ONCE","NO ACTION",19,1,euc.dash.ks.aUnlock);
+			euc.dash.ks.aLock=1-euc.dash.ks.aLock;
+            face[0].btn(euc.dash.ks.aLock,"AUTO",18,185,115,7,1,122,100,239,195,"LOCK",30,185,150);	
+            face[0].ntfy("ENABLE AUTO LOCK","NO ACTION",19,1,euc.dash.ks.aLock);
 			buzzer([30,50,30]);								
 		}else buzzer([30,50,30]);
 		break;
@@ -137,7 +137,7 @@ touchHandler[0]=function(e,x,y){
 		buzzer(40);
 		return;
 	case 4: //slide right event (back action)
-		face.go("dashKingsongCon",0);
+		face.go("dashKingsongDis",0);
 		return;
   }
 };
