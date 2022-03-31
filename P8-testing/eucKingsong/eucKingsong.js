@@ -65,11 +65,11 @@ euc.cmd=function(no,val){
 		//pass
 		case "setPass": 
 			return [170,85,48+Number(euc.dash.pass[0]),48+Number(euc.dash.pass[1]),48+Number(euc.dash.pass[2]),48+Number(euc.dash.pass[3]),0,0,0,0,0,0,0,0,0,0,65,20,90,90];
-		case "doPassClear": 
+		case "setPassClear": 
 			return [170,85,48+Number(euc.dash.pass[0]),48+Number(euc.dash.pass[1]),48+Number(euc.dash.pass[2]),48+Number(euc.dash.pass[3]),0,0,0,0,0,0,0,0,0,0,66,20,90,90];
-		case "doPassSend":
+		case "setPassSend":
 			return [170,85,48+Number(euc.dash.pass[0]),48+Number(euc.dash.pass[1]),48+Number(euc.dash.pass[2]),48+Number(euc.dash.pass[3]),0,0,0,0,0,0,0,0,0,0,68,20,90,90]; 
-		case "doPassChange":
+		case "setPassChange":
 			return [170,85,48+Number(euc.dash.pass[0]),48+Number(euc.dash.pass[1]),48+Number(euc.dash.pass[2]),48+Number(euc.dash.pass[3]),48+Number(euc.dash.passOld[0]),48+Number(euc.dash.passOld[1]),48+Number(euc.dash.passOld[2]),48+Number(euc.dash.passOld[3]),0,0,0,0,0,0,65,20,90,90]; //rf 43
 		case "setSpeedLimits":
 			return [170,85,((euc.dash.limE[0])?euc.dash.lim[0]:(euc.dash.limE[1])?0x00:0xFF),0x00,(euc.dash.limE[1])?euc.dash.lim[1]:0,0x00,euc.dash.lim[2],0x00,euc.dash.lim[3],0x00,0x31,0x32,0x33,0x34,0x35,0x36,0x85,20,90,90];
