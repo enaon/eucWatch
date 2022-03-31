@@ -137,7 +137,10 @@ touchHandler[0]=function(e,x,y){
 		}else if ( 120<=x && 100<=y ) { //pass
 			buzzer([30,50,30]);		
 			if (euc.dash.pass.length>=4) face.go("dashKingsongAdvPass",5);
-			else face.go("dashKingsongAdvPass",0);
+			else {
+				euc.wri("getPass");
+				face.go("dashKingsongAdvPass",0);
+			}
 			return;
 		}else buzzer([30,50,30]);
 		this.timeout();

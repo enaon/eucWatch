@@ -2,7 +2,8 @@
 face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
 	g:w.gfx,
-	init: function(){
+	init: function(v){
+   		if (!v&&euc.dash.pass) {face.go("dashKingsongAdv",0);return;}
    		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		//if (!face[5].pass) {
 		//	face[5].ntfy("EMPTY PASSWORD",20,4);
@@ -34,13 +35,13 @@ face[0] = {
 			this.g.drawString("PASS",122-(this.g.stringWidth("PASS")/2),150); 
 			this.g.flip();
         }else {
-			this.g.setColor(0,12);
+			this.g.setColor(0,euc.tmp.pass?9:12);
 			this.g.fillRect(0,0,239,195);
 			this.g.setColor(1,15);
 			this.g.setFont("Vector",18);
 			this.g.drawString("WHEEL IS",120-(this.g.stringWidth("WHEEL IS")/2),55); 
 			this.g.setFont("Vector",30);
-			this.g.drawString("PASS FREE",120-(this.g.stringWidth("PASS FREE")/2),90); 
+			this.g.drawString(euc.tmp.pass?"PASS LOCKED":"PASS FREE",120-(this.g.stringWidth(euc.tmp.pass?"PASS LOCKED":"PASS FREE")/2),90); 
 			this.g.flip();
         }
         //info
@@ -101,6 +102,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
+		print(face.pageCurr);
 		face.go("dashKingsongAdv",0);
 		return true;
 	},
@@ -205,6 +207,7 @@ face[5] = {
 		this.clear();
 	}
 };
+
 //touch
 touchHandler[0]=function(e,x,y){ 
 	switch (e) {
@@ -252,18 +255,18 @@ touchHandler[0]=function(e,x,y){
 	case 12: //long press event
 		buzzer([30,50,30]);
         if (euc.dash.pass.length>=4){ 
-		if (y<=100) { //clear
-          euc.wri("setPassClear");
-          euc.dash.passOld="";
-          euc.dash.pass="";
-          euc.dash.passSend=0;
-		  euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
-          face.go("dashKingsongAdvPass",0);
-		}else  { //change
-            face.go("dashKingsongAdvPass",5);
-            face[0].passSet=1;
-            return;		
-        }
+			if (y<=100) { //clear
+			  euc.wri("setPassClear");
+			  euc.dash.passOld="";
+			  euc.dash.pass="";
+			  euc.dash.passSend=0;
+			  euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
+			  face.go("dashKingsongAdvPass",0);
+			}else  { //change
+				face.go("dashKingsongAdvPass",5);
+				face[0].passSet=1;
+				return;		
+			}
         }else { //enable
           euc.dash.pass="";
           face.go("dashKingsongAdvPass",5);
@@ -308,7 +311,7 @@ touchHandler[5]=function(e,x,y){
           face[5].btn(162,131,239,194,i,195,153);  
         }else if (195<=y) {i=0;
           face[5].btn(82,197,158,239,0,115,207);  
-          i=0;face[5].pass=face[5].pass+0;
+          face[5].pass=face[5].pass+0;
         }
         if (face[5].pass.length>=4){
           if (face[5].tid0) {clearTimeout(face[5].tid0); face[5].tid0=0;}
@@ -319,10 +322,17 @@ touchHandler[5]=function(e,x,y){
                   euc.dash.pass=face[5].pass;
                   buzzer(80);
                   face[5].ntfy("SUCCESS!",20,4);
-                  if (euc.dash.passOld!=""){euc.wri("setPassChange");}else{euc.wri("setPass");}
+                  if (euc.dash.passOld!="")
+					euc.wri("setPassChange");
+				  else{
+					if (euc.tmp.pass) 
+						euc.wri("start");
+					else 
+						euc.wri("setPass");
+				  }
        			  euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
                   euc.dash.passSend=1;
-                  setTimeout(()=>{face.go("dashKingsongAdvPass",0);return;},1000);
+                  setTimeout(()=>{face.go(face.appPrev=="dashKingsongAdv"?"dashKingsongAdvPass":set.dash[set.def.dash.face],0);return;},1000);
                 }else{
                   buzzer(120);
                   face[5].ntfy("NOT THE SAME",20,7);
@@ -339,7 +349,7 @@ touchHandler[5]=function(e,x,y){
               if (face[5].pass==euc.dash.pass) {
                 buzzer(80);
                 face[5].ntfy("PASSWORD ACCEPTED",20,4);
-                setTimeout(()=>{face.go("dashKingsongAdvPass",0);return;},1000);
+                setTimeout(()=>{face.go("dashKingsongAdvPass",0,1);return;},1000);
               } else {
                 
                 buzzer(120);
