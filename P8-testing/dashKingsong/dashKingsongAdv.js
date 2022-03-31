@@ -25,21 +25,14 @@ face[0] = {
       	this.g.fillRect(143,200,165,204);
 		this.g.flip(); 
 		//ride mode
-		this.b1=euc.dash.mode;
-		if (!this.b1) {
-			this.b1t="HARD";this.b1c=4;
-		}else if (this.b1==1) {
-			this.b1t="MED";this.b1c=5;
-		}else if (this.b1==2) {
-			this.b1t="SOFT";this.b1c=6;
-		}
-		this.g.setColor(0,this.b1c);
+		let md=["HARD","MED","SOFT"];
+		this.g.setColor(0,4);
 		this.g.fillRect(0,0,119,97);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",18);	
 		this.g.drawString("MODE",60-(this.g.stringWidth("MODE")/2),15); 
 		this.g.setFont("Vector",30);	
-		this.g.drawString(this.b1t,60-(this.g.stringWidth(this.b1t)/2),50); 
+		this.g.drawString(ms[euc.dash.mode],60-(this.g.stringWidth(md[euc.dash.mode])/2),50); 
 		this.g.flip();
 		//calibrate
 		this.g.setColor(0,12);

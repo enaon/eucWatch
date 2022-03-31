@@ -316,7 +316,7 @@ euc.conn=function(mac){
 			} else if (n==="start") {
 				euc.state="READY";
 				c.writeValue(euc.cmd("getModel")).then(function() {
-					return euc.dash.passSend?c.writeValue(euc.cmd("doPassSend")):"ok";
+					return euc.dash.passSend?c.writeValue(euc.cmd("setPassSend")):"ok";
 				}).then(function() {
 					return euc.dash.ks.aUnlock?c.writeValue(euc.cmd("getLock")):"ok";
 				}).then(function() {
@@ -332,8 +332,15 @@ euc.conn=function(mac){
 				}).then(function() {
 					print("dd",euc.dash.lock,euc.dash.ks.aUnlock,euc.tmp.lockKey);
 					return (euc.dash.lock&&euc.dash.ks.aUnlock&&euc.tmp.lockKey)?c.writeValue(euc.cmd("doUnlock",euc.tmp.lockKey)):"ok";	
-				}).then(function() {
-					euc.run=1;
+				}).then(function() {euc.run=1;
+					if (euc.tmp.pass) {
+						print(2);
+						euc.dash.pass2=euc.dash.pass;
+						euc.dash.pass="";
+						face.go("dashKingsongAdvPass",0,1);
+						
+						return;
+					}
 				}).catch(function(err)  {
 					if (global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected) global["\xFF"].BLE_GATTS.disconnect();
 					else euc.off("err-start");
