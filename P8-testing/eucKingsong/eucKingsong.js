@@ -63,7 +63,7 @@ euc.cmd=function(no,val){
 		case "getLockOnce":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,72,20,90,90];
 		case "setLockOnOff":euc.dash.lock=val?1:0;return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,93,20,90,90]; 
 		//pass
-		case "getPass": [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,69,20,90,90];
+		case "getPass": return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,69,20,90,90];
 		case "setPass": 
 			return [170,85,48+Number(euc.dash.pass[0]),48+Number(euc.dash.pass[1]),48+Number(euc.dash.pass[2]),48+Number(euc.dash.pass[3]),0,0,0,0,0,0,0,0,0,0,65,20,90,90];
 		case "setPassClear": 
