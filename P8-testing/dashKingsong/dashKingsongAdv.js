@@ -32,7 +32,7 @@ face[0] = {
 		this.g.setFont("Vector",18);	
 		this.g.drawString("MODE",60-(this.g.stringWidth("MODE")/2),15); 
 		this.g.setFont("Vector",30);	
-		this.g.drawString(ms[euc.dash.mode],60-(this.g.stringWidth(md[euc.dash.mode])/2),50); 
+		this.g.drawString(md[euc.dash.mode],60-(this.g.stringWidth(md[euc.dash.mode])/2),50); 
 		this.g.flip();
 		//calibrate
 		this.g.setColor(0,12);
