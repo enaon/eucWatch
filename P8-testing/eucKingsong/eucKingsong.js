@@ -248,9 +248,7 @@ euc.conn=function(mac){
 							let i5 = (i2 + i4 + i3 + i1) % 10;
 							let i6 = i4 + i5;
 							let i7 = (i3 + i6 + i1) % 10;
-							let outp= [170,85,0,0,0,0,0,0,0,0,48+i5,48+r1,48+i7,48+r2,48+(i6 + i7 + i1) % 10,48+r3,93,20,90,90];
-							//euc.dash.lock&&face.appCurr=="dashKingsong"?euc.wri("doUnlock",outp):outp[16]=71;
-							euc.tmp.lockKey=outp;
+							euc.tmp.lockKey= [170,85,0,0,0,0,0,0,0,0,48+i5,48+r1,48+i7,48+r2,48+(i6 + i7 + i1) % 10,48+r3,93,20,90,90];
 						}
 						euc.dash.lock=inpk[2];
 						//return true;
