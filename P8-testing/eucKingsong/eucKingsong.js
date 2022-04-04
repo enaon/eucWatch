@@ -53,7 +53,7 @@ euc.cmd=function(no,val){
 		//lock
 		case "doUnlock":return val; 
 		case "doLock":return [170,85,1,0,0,0,0,0,0,0,0,0,0,0,0,0,93,20,90,90]; 
-		case "doLockOnce":;return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,71,20,90,90]; 
+		case "doLockOnce":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,71,20,90,90]; 
 		case "getLock":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,94,20,90,90];
 		case "getLockOnce":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,72,20,90,90];
 		case "setLockOnOff":euc.dash.lock=val?1:0;return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,93,20,90,90]; 
@@ -249,7 +249,8 @@ euc.conn=function(mac){
 							let i6 = i4 + i5;
 							let i7 = (i3 + i6 + i1) % 10;
 							let outp= [170,85,0,0,0,0,0,0,0,0,48+i5,48+r1,48+i7,48+r2,48+(i6 + i7 + i1) % 10,48+r3,93,20,90,90];
-							euc.dash.lock&&face.appCurr=="dashKingsong"?euc.wri("doUnlock",outp):outp[16]=71;euc.tmp.lockKey=outp;
+							//euc.dash.lock&&face.appCurr=="dashKingsong"?euc.wri("doUnlock",outp):outp[16]=71;
+							euc.tmp.lockKey=outp;
 						}
 						euc.dash.lock=inpk[2];
 						//return true;
@@ -321,7 +322,10 @@ euc.conn=function(mac){
 				}).then(function() {
 					return euc.dash.ks.aVoiceC?c.writeValue(euc.cmd("setVoiceOnOff",2-euc.dash.ks.aVoiceC)):"ok";
 				}).then(function() {
-					return (euc.dash.lock&&euc.dash.ks.aUnlock&&euc.tmp.lockKey)?c.writeValue(euc.cmd("doUnlock",euc.tmp.lockKey)):"ok";	
+					if (euc.dash.lock&&euc.dash.ks.aUnlock&&euc.tmp.lockKey) {
+						let onceUL=euc.tmp.lockKey;onceUL[16]=71;
+						return c.writeValue(euc.cmd("doUnlock",onceUL));
+					}
 				}).then(function() {euc.run=1;
 					if (euc.tmp.pass) {
 						euc.dash.pass2=euc.dash.pass;

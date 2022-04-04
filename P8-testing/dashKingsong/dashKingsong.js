@@ -28,7 +28,7 @@ face[0] = {
 		face[0].btn(1,euc.dash.tpms?euc.dash.tpms:"TPMS",18,60,115,(euc.dash.tpms&&tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.tpms].time<1800)?(tpms.euc[euc.dash.tpms].alrm)?7:4:1,1,0,100,119,195,(euc.dash.tpms)?(tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].psi)?Math.round(tpms.euc[euc.dash.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.tpms)?32:28,60,150);
 		
 		
-		if (!euc.tmp.ls) {euc.tmp.ls=1;euc.wri("getLock");setTimeout(()=>{euc.wri("getStrobe");},200);}
+		if (!euc.tmp.ls) {euc.tmp.ls=1;euc.wri("getLock");setTimeout(()=>{euc.wri("getStrobe");},400);}
 		this.run=true;
 	},
 	show : function(){
@@ -44,7 +44,7 @@ face[0] = {
 		}
 		if ( this.lock!=euc.dash.lock) {
         this.lock=euc.dash.lock;
-			this.btn(euc.dash.lock,"LOCK",28,185,135,7,1,122,100,239,195,"",30,185,150);	
+			this.btn(euc.dash.lock,"LOCK",28,185,135,euc.dash.ks.aUnlock?9:7,1,122,100,239,195,"",30,185,150);	
 		}
 		this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
@@ -137,7 +137,7 @@ touchHandler[0]=function(e,x,y){
 		}else if  (120<=x && 100<=y ) { //Lock
 			//euc.dash.lock=1-euc.dash.lock;
 			buzzer([30,50,30]);	
-			euc.wri((1-euc.dash.lock)?"doLock":"getLock");
+			euc.wri((1-euc.dash.lock)?"doLock":"doUnlock",euc.tmp.lockKey);
 		}else buzzer(40);
 		break;
 	case 1: //slide down event
