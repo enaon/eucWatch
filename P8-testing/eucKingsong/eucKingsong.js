@@ -15,7 +15,7 @@ euc.cmd=function(no,val){
 		case "getSerial":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,99,20,90,90]; 
 		case "getAlarms":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,152,20,90,90]; 
 		case "doHorn":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,136,20,90,90]; 
-		case "doBeep":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,136,20,90,90]; 
+		case "doBeep":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,124,20,90,90]; 
 		case "setLiftOnOff":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,126,20,90,90]; 
 		//power
 		case "getPowerOff":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,63,20,90,90];
@@ -29,10 +29,10 @@ euc.cmd=function(no,val){
 		case "setLedMagicOnOff":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,80,20,90,90];
 		case "getLedRide":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,109,20,90,90];
 		case "setLedRideOnOff":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,108,20,90,90];
-		case "getSpetrum":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,124,20,90,90]; // to b checked
-		case "setSpetrumOnOff":return [170,85,val,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,125,20,90,90]; 
-		case "getSpetrumMode":return [170,85,val,0,0,0,0,0,0,0,0,0,0,0,0,0,150,20,90,90];
-		case "setSpetrumModeOnOff":return [170,85,val,0,0,0,0,0,0,0,0,0,0,0,0,0,151,20,90,90];
+		case "getSpectrum":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,128,20,90,90]; // to b checked
+		case "setSpectrumOnOff":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,125,20,90,90]; 
+		case "getSpectrumMode":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,150,20,90,90];
+		case "setSpectrumMode":return [170,85,val,0,0,0,0,0,0,0,0,0,0,0,0,0,151,20,90,90];
 		//BT music mode
 		case "getBTMusic":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,87,20,90,90];
 		case "setBTMusicOnOff":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,86,20,90,90];
@@ -185,21 +185,26 @@ euc.conn=function(mac){
 			inpk.set(event.target.value.buffer);
             if (euc.busy||inpk[0]==188){if (euc.dbg)  print("drop",inpk); return;}
 			euc.alert=0;
-			//if (euc.dbg) console.log("INPUT :",inpk);
+			if (8<euc.dbg) console.log("INPUT :",inpk);
 			switch (inpk[16]){				
 				case  169:
+					if (euc.dbg==4) console.log("INPUT :",inpk);
 					euc.tmp.one(inpk);
 					break;
 				case 185://trip-time-max_speed
+					if (euc.dbg==5) console.log("INPUT :",inpk);
 					euc.tmp.two(inpk);
 					break;
 				case 245:
+					if (euc.dbg==6) console.log("INPUT :",inpk);
 					euc.dash.pwr=inpk[15];
 					break;
 				case 246:
+					if (euc.dbg==7) console.log("INPUT :",inpk);
 					euc.tmp.thre(inpk);
 					break;	
 				case 181:
+					if (euc.dbg==8) console.log("INPUT :",inpk);
 					if (inpk[4]==0||inpk[4]==255) euc.dash.limE[0]=0;
 					else {
 						euc.dash.lim[0]=inpk[4];
@@ -224,8 +229,12 @@ euc.conn=function(mac){
 						euc.dash.ks.offT=inpk[5] << 8 | inpk[4];
 					else if ( inpk[16] == 70) 
 						euc.tmp.pass=inpk[2];
+					else if ( inpk[16] == 74) 
+						euc.dash.ks.spectrum=inpk[2];
 					else if ( inpk[16] == 76) 
 						euc.dash.ks.lift=inpk[2];
+					else if ( inpk[16] == 77) 
+						euc.dash.ks.spectrumMode=inpk[2];
 					else if ( inpk[16] == 162) 
 						euc.dash.mode=inpk[4];						
 					else if ( inpk[16] == 85) 
@@ -253,8 +262,8 @@ euc.conn=function(mac){
 						euc.dash.lock=inpk[2];
 						//return true;
 					}					
-					if (euc.dbg==3) print("responce:",inpk);
-					if (euc.dbg) print("responce:",inpk[16],inpk[2]);
+					if (2<euc.dbg) print("responce:",inpk);
+					if (1<euc.dbg) print("responce:",inpk[16],inpk[2]);
 					break;
 			}
 			//haptic
