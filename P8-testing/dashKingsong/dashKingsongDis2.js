@@ -24,7 +24,7 @@ face[0] = {
       	this.g.fillRect(125,200,165,204);
 		this.g.flip(); 
 	    this.btn(1,"",18,60,15,1,0,0,0,119,97,"",28,60,50);
-        this.btn(1,"",22,185,15,1,0,122,0,239,97,"",28,185,50);		
+        this.btn(euc.dash.ks.aOff,"AUTO",22,185,15,7,1,122,0,239,97,"OFF",28,185,50);		
         this.btn(1,"",18,60,115,1,0,0,100,119,195,"",30,60,150);
         this.btn(euc.dash.ks.aLock,"AUTO",18,185,115,7,1,122,100,239,195,"LOCK",30,185,150);	
 
@@ -70,7 +70,7 @@ face[0] = {
 				t.g.fillRect(75,200,165,204);
 				t.g.flip();
 				t.g.setColor(1,15);
-				this.g.fillRect(125,200,165,204);
+				t.g.fillRect(125,200,165,204);
 				t.g.flip(); 
 			},1000,this);
     },
@@ -109,8 +109,11 @@ touchHandler[0]=function(e,x,y){
       case 5: case 12: //tap event
 		if ( x<=120 && y<100 ) { //auto Ride
 			buzzer(40);		
-		}else if ( 120<=x && y<=100 ) { //BT music
-			buzzer(40);		
+		}else if ( 120<=x && y<=100 ) { //auto Off
+			euc.dash.ks.aOff=1-euc.dash.ks.aOff;
+			face[0].btn(euc.dash.ks.aOff,"AUTO",22,185,15,7,1,122,0,239,97,"OFF",28,185,50);		
+            face[0].ntfy("ENABLE AUTO OFF","NO ACTION",19,1,euc.dash.ks.aOff);
+			buzzer([30,50,30]);	
 		}else if ( x<=120 && 100<=y ) { //auto lift
 			buzzer(40);		
 		}else if  (120<=x && 100<=y ) { //Unlock Once

@@ -19,7 +19,7 @@ euc.cmd=function(no,val){
 		case "setLiftOnOff":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,126,20,90,90]; 
 		//power
 		case "getPowerOff":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,63,20,90,90];
-		case "setPowerOff":return [170,85,1,0,val & 255,(val >> 8) & 255,0,0,0,0,0,0,0,0,0,0,63,20,90,90];
+		case "setPowerOff":return [170,85,1,0,(val & 255),((val >> 8) & 255),0,0,0,0,0,0,0,0,0,0,63,20,90,90];
 		case "doPowerOff":return [170,85,0,224,0,0,0,0,0,0,0,0,0,0,0,0,64,20,90,90];
 		//leds
 		case "setLights": if(!val)val=euc.night?3:2; return [170,85,17+val,1,0,0,0,0,0,0,0,0,0,0,0,0,115,20,90,90];  
@@ -257,7 +257,8 @@ euc.conn=function(mac){
 						euc.dash.lock=inpk[2];
 						return true;
 					}					
-					if (euc.dbg==3) print("responce:",inpk[16],inpk[2]);
+					if (euc.dbg==3) print("responce:",inpk);
+					if (euc.dbg) print("responce:",inpk[16],inpk[2]);
 					break;
 			}
 			//haptic
@@ -289,21 +290,15 @@ euc.conn=function(mac){
 			if (n=="hornOn"){
 				euc.horn=1;
 				if (euc.tmp.horn) {clearTimeout(euc.tmp.horn);euc.tmp.horn=0;}
-				c.writeValue(euc.cmd("lock")).then(function() {
-					return c.writeValue(euc.cmd("setLights",1));
-				}).then(function() {	
+				c.writeValue(euc.cmd("doHorn")).then(function() {
 					return c.writeValue(euc.cmd("setStrobeOnOff",1));
 				}).then(function() {
 					if (euc.tmp.horn) {clearInterval(euc.tmp.horn);euc.tmp.horn=0;}
 					euc.tmp.horn=setInterval(() => {
 						if (!BTN1.read()){
 							if (euc.tmp.horn) {clearInterval(euc.tmp.horn);euc.tmp.horn=0;}
-							c.writeValue(euc.cmd("unlock")).then(function() {		
-								return c.writeValue(euc.cmd("setStrobeOnOff",0));
-							}).then(function() {
+							c.writeValue(euc.cmd("setStrobeOnOff",0)).then(function() {		
 								euc.horn=0;
-								if (euc.busy){clearTimeout(euc.busy);euc.busy=0;}
-								return c.writeValue(euc.cmd(euc.dash.ks.HL));
 							});
 						}
 					}, 200); 
@@ -344,7 +339,7 @@ euc.conn=function(mac){
 			}else if (euc.state=="OFF"||n=="end") {
 				if (global['\xFF'].BLE_GATTS && global['\xFF'].BLE_GATTS.connected) {
 					c.writeValue(euc.cmd((euc.dash.ks.aLock)?"doLock":"na")).then(function() {
-						return euc.dash.ks.aOff?c.writeValue(euc.cmd("off")):true;	
+						return euc.dash.ks.aOff?c.writeValue(euc.cmd("doPowerOff")):true;	
 					}).then(function() {
 						return euc.dash.ks.aHLD?c.writeValue(euc.cmd("setLights",euc.dash.ks.aHLD)):"ok";
 					}).then(function() {
@@ -402,7 +397,7 @@ euc.conn=function(mac){
 };
 //catch
 euc.off=function(err){
-	if (euc.dbg) console.log("EUC error :",err);
+	if (euc.dbg) console.log("EUC.off :",err);
 	if (euc.reconnect) {clearTimeout(euc.reconnect); euc.reconnect=0;}
 	if (euc.state!="OFF") {
 		//if (euc.dbg) console.log("EUC: Restarting");
@@ -439,7 +434,7 @@ euc.off=function(err){
 		if (euc.dbg) console.log("EUC OUT:",err);
 		if (euc.busy) { clearTimeout(euc.busy);euc.busy=0;} 
 		if ( euc.aOff==0 || euc.aOff==1 ) {euc.dash.ks.aOff=euc.aOff;	delete euc.aOff;}
-		if ( euc.aLck==0 || euc.aLck==1 )  {euc.dash.ks.aLock=euc.aLck;	delete euc.aLck;}
+		if ( euc.aLck==0 || euc.aLck==1 )  {euc.dash.ks.aLock=euc.aLock;	delete euc.aLck;}
 		euc.off=function(err){if (euc.dbg) console.log("EUC off, not connected",err);};
 		euc.wri=function(err){if (euc.dbg) console.log("EUC write, not connected",err);};
 		euc.conn=function(err){if (euc.dbg) console.log("EUC conn, not connected",err);};

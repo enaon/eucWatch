@@ -174,9 +174,9 @@ touchHandler[0]=function(e,x,y){
 			return;
 		}else if ( 120<=x && 100<=y ) { //off
 			euc.aOff=euc.dash.aOff;
-			euc.aLck=euc.dash.aLck;
+			euc.aLck=euc.dash.aLock;
 			euc.dash.aOff=1;
-			euc.dash.aLck=0;
+			euc.dash.aLock=0;
 			euc.tgl();
 	    }else buzzer(100);
 		break;

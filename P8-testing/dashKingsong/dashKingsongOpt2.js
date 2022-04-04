@@ -22,8 +22,15 @@ face[0] = {
 		this.g.flip();
         this.g.setColor(1,15);
       	this.g.fillRect(120,200,143,204);
-		this.g.flip(); 
-        this.btn(1,"OFF",18,60,15,1,1,0,0,119,97,"TIMER",28,60,50);
+		this.g.flip();
+		let offM=0;
+		let offH=0;
+		if (Math.floor(euc.dash.ks.offT/60)) {
+			if ( 3600 < Math.floor(euc.dash.ks.offT) ) 
+			offH=Math.floor(euc.dash.ks.offT/3600);
+			offM=euc.dash.ks.offT/60 %60;
+		}	
+        this.btn(1,"IDLE",18,60,15,1,1,0,0,119,97,!euc.dash.ks.offT?"-":offH+"h:"+offM+"m",28,60,50);
 		this.btn(1,"ON",22,185,15,12,1,122,0,239,97,"CONN",28,185,50);		
         this.btn(1,"TURN",18,60,115,1,1,0,100,119,195,"OFF",30,60,150);
         this.btn(1,"ON",18,185,115,12,1,122,100,239,195,"DISC",30,185,150);		
@@ -47,27 +54,26 @@ face[0] = {
             this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);}
 			this.g.flip();
     },
-	cho: function(){
+	cho: function(title,val,button,button2,color){
 		this.g.setColor(0,1);
 		this.g.fillRect(0,0,239,177);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",20);
-		this.g.drawString("SET IDLE TIMEOUT",120-(this.g.stringWidth("SET IDLE TIMEOUT")/2),10); 		
-//		this.g.drawString("MANUALY SET PEDAL TILT",120-(this.g.stringWidth("MANUALY SET PEDAL TILT")/2),5);
-		this.g.drawImage(require("heatshrink").decompress(atob("oFAwJC/AAs8A41+A43/AwsDA40HA40PA40f/wHFn/8Fw34AwkB//wGw3AGw2AGxk/Gw1/Gw4uFGwPgGxguBGwsfGw4uGv5lFGw4HBGwoHJC4wnHG45HHK45nHO444JGAynHW47HHHBKBHNJ44QA4o4BA4owBA41+A408A4wA6A==")),0,70);
-		this.g.drawImage(require("heatshrink").decompress(atob("oFAwJC/AAU8A41+A43/A4/AA43gA43wA4t//AHFn/8A4sfGA0P/+AA4kDHA0BHCAwGn/+GA4HFg44QGA3/NJ44QA5oXHE443HI4xXHM453HGw6XHU44uGY442Hc473HMo9/Voy9Ifw42FA4IGFgF+A408A4wA9A=")),180,70);
+		this.g.drawString(title,120-(this.g.stringWidth(title)/2),10); 		
+		this.g.drawString("<",5,90); this.g.drawString(">",230,90); 		
+		this.g.setFont("Vector",55);
+		this.g.drawString(val,130-(this.g.stringWidth(val)/2),70); 		
 		this.g.flip(); 
-		this.g.setColor(1,15);
-		this.g.setFont("Vector",80);
-		this.g.drawString(euc.dash.tiltSet,130-(this.g.stringWidth(euc.dash.ks.offT)/2),65); 		
-		this.g.flip(); 
-		this.g.setColor(0,12);
+		//if (!this.page){
+
+		this.g.setColor(0,color);
 		this.g.fillRect(0,177,239,239);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",20);
-   		this.g.drawString("TURN OFF ",120-(this.g.stringWidth("TURN OFF")/2),188); 
-		this.g.drawString("NOW",120-(this.g.stringWidth("NOW")/2),216); 
+   		this.g.drawString(button,120-(this.g.stringWidth(button)/2),188); 
+		if (button2) this.g.drawString(button2,120-(this.g.stringWidth(button2)/2),216); 
 		this.g.flip(); 
+		//}
     },
     ntfy: function(txt1,txt0,size,clr,bt){
             this.g.setColor(0,clr);
@@ -128,8 +134,38 @@ touchHandler[0]=function(e,x,y){
 	face.off();
 	switch (e) {
       case 5: case 12: //tap event
-		if ( x<=120 && y<100 ) { //set timeout
-			face[0].cho();
+		if (face[0].page=="idle"){
+			if ( 180 < y  ){
+				euc.aOff=euc.dash.ks.aOff;
+				euc.aLck=euc.dash.ks.aLock;
+				euc.dash.ks.aOff=1;
+				euc.dash.ks.aLock=0;
+				euc.tgl();
+				return;
+			}else if ( x<=120)
+				euc.dash.ks.offT=euc.dash.ks.offT-600;
+			else euc.dash.ks.offT=euc.dash.ks.offT+600;
+			if (euc.dash.ks.offT <60 )euc.dash.ks.offT=60;
+			if (14400<euc.dash.ks.offT  )euc.dash.ks.offT=14400;
+			let offM=0;
+			let offH=0;
+			//if (Math.floor(euc.dash.ks.offT/60)) {
+				if ( 3600 < Math.floor(euc.dash.ks.offT) ) 
+				offH=Math.floor(euc.dash.ks.offT/3600);
+				offM=euc.dash.ks.offT/60 %60;
+			//}
+			face[0].cho("SET IDLE TIMEOUT",offH+"h:"+offM+"m","TURN OFF","NOW",7);
+			return;
+		}else if ( x<=120 && y<100 ) { //set timeout
+			let offM=0;
+			let offH=0;
+			if (Math.floor(euc.dash.ks.offT/60)) {
+				if ( 3600 < Math.floor(euc.dash.ks.offT) ) 
+				offH=Math.floor(euc.dash.ks.offT/3600);
+				offM=euc.dash.ks.offT/60 %60;
+			}
+			face[0].page="idle";
+			face[0].cho("SET IDLE TIMEOUT",offH+"h:"+offM+"m","TURN OFF","NOW",7);
 			return;
 		}else if ( 120<=x && y<=100 ) { //CONN
 			face.go("dashKingsongCon",0);
@@ -153,10 +189,21 @@ touchHandler[0]=function(e,x,y){
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		break;
 	case 3: //slide left event
-		face.go("dashKingsongAdv",0);
+		if (face[0].page=="idle"){
+			face[0].page=0;
+			euc.wri("setPowerOff",euc.dash.ks.offT);
+			face.go("dashKingsongOpt2",0);
+		}else 
+			face.go("dashKingsongAdv",0);
 		return;
 	case 4: //slide right event (back action)
-		face.go("dashKingsongOpt",0);
+		if (face[0].page=="idle"){
+			face[0].page=0;
+			euc.wri("setPowerOff",euc.dash.ks.offT);
+			face.go("dashKingsongOpt2",0);
+
+		}else 
+			face.go("dashKingsongOpt",0);
 		return;
   }
 };
