@@ -45,11 +45,6 @@ euc.cmd=function(no,val){
 		case "doCalibrate": return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,137,20,90,90];  
 		case "getCalibrateTilt":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,138,20,90,90];
 		case "setCalibrateTilt":return [170,85,1,0,val & 255,(val >> 8) & 255,0,0,0,0,0,0,0,0,0,0,138,20,90,90];
-		//case "setCalibrateTilt":
-			euc.dash.tiltSet=(99<=euc.dash.tiltSet||-99>=euc.dash.tiltSet)?0:euc.dash.tiltSet;let tiltSet=(0<=euc.dash.tiltSet)?euc.dash.tiltSet:255+euc.dash.tiltSet;
-			return [170,85,1,0,tiltSet,(tiltSet<=100)?0:255,0,0,0,0,0,0,0,0,0,0,138,20,90,90]; 
-		case "getGyroAbout":return [170,85,2,0,0,0,0,0,0,0,0,0,0,0,0,0,138,20,90,90];
-		case "setGyroAbout":return [170,85,3,0,val & 255,(val >> 8) & 255,0,0,0,0,0,0,0,0,0,0,138,20,90,90];
 		//ride mode 0=hard,1=med,2=soft
 		case "setRideMode":return [170,85,val,224,0,0,0,0,0,0,0,0,0,0,0,0,135,20,90,90];  
 		case "getRideParamA":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,146,20,90,90]; 
@@ -239,6 +234,8 @@ euc.conn=function(mac){
 						euc.dash.ks.BTMusic=inpk[2];
 					else if ( inpk[16] == 110) 	
 						euc.dash.lght.ride=1-inpk[2];
+					else if ( inpk[16] == 138) 	
+						euc.dash.tiltSet=inpk[5] << 8 | inpk[4];
 					else if ( inpk[16] == 95){
 						if (inpk[2]==1 ){
 							let r1=(Math.random()*10)|0;
@@ -255,7 +252,7 @@ euc.conn=function(mac){
 							euc.dash.lock&&face.appCurr=="dashKingsong"?euc.wri("doUnlock",outp):outp[16]=71;euc.tmp.lockKey=outp;
 						}
 						euc.dash.lock=inpk[2];
-						return true;
+						//return true;
 					}					
 					if (euc.dbg==3) print("responce:",inpk);
 					if (euc.dbg) print("responce:",inpk[16],inpk[2]);

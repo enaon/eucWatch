@@ -121,6 +121,7 @@ touchHandler[0]=function(e,x,y){
 			buzzer([30,50,30]);		
 		}else if ( 120<=x  && y<=100 ) { //calibrate
             buzzer([30,50,30]);
+			euc.wri("getCalibrateTilt");
 			face.go("dashKingsongAdvCalibrate",0);
 			return;
 		}else if ( x<=120 && 100<=y ) {   //limits

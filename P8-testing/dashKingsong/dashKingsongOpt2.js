@@ -4,6 +4,7 @@ face[0] = {
 	g:w.gfx,
 	init: function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
+		if (!euc.dash.ks.offT) euc.wri("getPowerOff");
 		this.g.setColor(0,0);
 		this.g.fillRect(0,98,239,99);
         this.g.flip();	
@@ -23,16 +24,11 @@ face[0] = {
         this.g.setColor(1,15);
       	this.g.fillRect(120,200,143,204);
 		this.g.flip();
-		let offM=0;
-		let offH=0;
-		if (Math.floor(euc.dash.ks.offT/60)) {
-			if ( 3600 < Math.floor(euc.dash.ks.offT) ) 
-			offH=Math.floor(euc.dash.ks.offT/3600);
-			offM=euc.dash.ks.offT/60 %60;
-		}	
+		let offH=Math.floor(euc.dash.ks.offT/3600);
+		let offM=euc.dash.ks.offT/60 %60;	
         this.btn(1,"IDLE",18,60,15,1,1,0,0,119,97,!euc.dash.ks.offT?"-":offH+"h:"+offM+"m",28,60,50);
 		this.btn(1,"ON",22,185,15,12,1,122,0,239,97,"CONN",28,185,50);		
-        this.btn(1,"TURN",18,60,115,1,1,0,100,119,195,"OFF",30,60,150);
+        this.btn(1,"",18,60,115,1,1,0,100,119,195,"",30,60,150);
         this.btn(1,"ON",18,185,115,12,1,122,100,239,195,"DISC",30,185,150);		
 		this.run=true;
 	},
@@ -121,7 +117,9 @@ face[1] = {
 	init: function(){
 		return true;
 	},
-	show : function(){
+	show : function(){		
+		if (face[0].page=="idle")
+			euc.wri("setPowerOff",euc.dash.ks.offT);
 		face.go("dashKingsongOpt",0);
 		return true;
 	},
@@ -145,25 +143,17 @@ touchHandler[0]=function(e,x,y){
 			}else if ( x<=120)
 				euc.dash.ks.offT=euc.dash.ks.offT-600;
 			else euc.dash.ks.offT=euc.dash.ks.offT+600;
+			buzzer([30,50,30]);
 			if (euc.dash.ks.offT <60 )euc.dash.ks.offT=60;
+			if (euc.dash.ks.offT ==660 )euc.dash.ks.offT=600;
 			if (14400<euc.dash.ks.offT  )euc.dash.ks.offT=14400;
-			let offM=0;
-			let offH=0;
-			//if (Math.floor(euc.dash.ks.offT/60)) {
-				if ( 3600 < Math.floor(euc.dash.ks.offT) ) 
-				offH=Math.floor(euc.dash.ks.offT/3600);
-				offM=euc.dash.ks.offT/60 %60;
-			//}
+			let offH=Math.floor(euc.dash.ks.offT/3600);
+			let offM=euc.dash.ks.offT/60 %60;
 			face[0].cho("SET IDLE TIMEOUT",offH+"h:"+offM+"m","TURN OFF","NOW",7);
 			return;
 		}else if ( x<=120 && y<100 ) { //set timeout
-			let offM=0;
-			let offH=0;
-			if (Math.floor(euc.dash.ks.offT/60)) {
-				if ( 3600 < Math.floor(euc.dash.ks.offT) ) 
-				offH=Math.floor(euc.dash.ks.offT/3600);
-				offM=euc.dash.ks.offT/60 %60;
-			}
+			let offH=Math.floor(euc.dash.ks.offT/3600);
+			let offM=euc.dash.ks.offT/60 %60;
 			face[0].page="idle";
 			face[0].cho("SET IDLE TIMEOUT",offH+"h:"+offM+"m","TURN OFF","NOW",7);
 			return;
@@ -178,6 +168,8 @@ touchHandler[0]=function(e,x,y){
 		}else buzzer([30,50,30]);
 		break;
 	case 1: //slide down event
+		if (face[0].page=="idle")
+			euc.wri("setPowerOff",euc.dash.ks.offT);
 		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
