@@ -27,7 +27,7 @@ face[0] = {
 	    this.btn(euc.dash.ks.aHLC,"LIGHT",18,60,15,euc.dash.ks.aHLC!=2?12:1,0,0,0,119,97,val[euc.dash.ks.aHLC],28,60,50);
 		this.btn(euc.dash.ks.aRideC,"LED",18,185,15,euc.dash.ks.aRideC==1?12:1,0,122,0,239,97,"RIDE",28,185,50);
         this.btn(euc.dash.ks.aLiftC,"SENSOR",18,60,115,euc.dash.ks.aLiftC==1?12:1,0,0,100,119,195,"LIFT",30,60,150);
-        this.btn(euc.dash.ks.aVoiceC,"VOICE",18,185,115,euc.dash.ks.aVoiceC==1?12:1,0,122,100,239,195,"MODE",30,185,150);	
+        this.btn(euc.dash.ks.aVoiceC,"VOICE",18,185,115,euc.dash.ks.aVoiceC==2?12:1,0,122,100,239,195,"MODE",30,185,150);	
 
 		this.run=true;
 	},
@@ -108,14 +108,14 @@ touchHandler[0]=function(e,x,y){
 	face.off();
 	switch (e) {
       case 5: case 12: //tap event
-		if ( x<=120 && y<100 ) { //auto Ride
+		if ( x<=120 && y<100 ) { //light
 			euc.dash.ks.aHLC++;  if (4<euc.dash.ks.aHLC) euc.dash.ks.aHLC=0;
 			//let val=["NA","CITY","AUTO","ON","OFF"];
 			let val=["NA","ON","OFF","AUTO","CITY"];
 			face[0].btn(euc.dash.ks.aHLC,"LIGHT",18,60,15,euc.dash.ks.aHLC!=2?12:1,0,0,0,119,97,val[euc.dash.ks.aHLC],28,60,50);
             face[0].ntfy("SET LIGHT "+val[euc.dash.ks.aHLC],"NO ACTION",20,1,euc.dash.ks.aHLC);
 			buzzer([30,50,30]);
-		}else if ( 120<=x && y<=100 ) { //BT music
+		}else if ( 120<=x && y<=100 ) { //ride
 			euc.dash.ks.aRideC++; if (2<euc.dash.ks.aRideC) euc.dash.ks.aRideC=0;
 			face[0].btn(euc.dash.ks.aRideC,"LED",18,185,15,euc.dash.ks.aRideC==1?12:1,0,122,0,239,97,"RIDE",28,185,50);
 			face[0].ntfy(euc.dash.ks.aRideC==1?"ENABLE RIDE LED":"DISABLE RIDE LED","NO ACTION",20,1,euc.dash.ks.aRideC);
@@ -125,10 +125,10 @@ touchHandler[0]=function(e,x,y){
             face[0].btn(euc.dash.ks.aLiftC,"SENSOR",18,60,115,euc.dash.ks.aLiftC==1?12:1,0,0,100,119,195,"LIFT",30,60,150);
             face[0].ntfy(euc.dash.ks.aLiftC==1?"ENABLE LIFT HANDLE":"DISABLE LIFT HANDLE","NO ACTION",20,1,euc.dash.ks.aLiftC);
 			buzzer([30,50,30]);		
-		}else if  (120<=x && 100<=y ) { //Unlock Once
+		}else if  (120<=x && 100<=y ) { //voice
 			euc.dash.ks.aVoiceC++;  if (2<euc.dash.ks.aVoiceC) euc.dash.ks.aVoiceC=0;
-			face[0].btn(euc.dash.ks.aVoiceC,"VOICE",18,185,115,euc.dash.ks.aVoiceC==1?12:1,0,122,100,239,195,"MODE",30,185,150);	
-            face[0].ntfy(euc.dash.ks.aVoiceC==1?"ENABLE VOICE MODE":"DISABLE VOICE MODE","NO ACTION",20,1,euc.dash.ks.aVoiceC);
+			face[0].btn(euc.dash.ks.aVoiceC,"VOICE",18,185,115,euc.dash.ks.aVoiceC==2?12:1,0,122,100,239,195,"MODE",30,185,150);	
+            face[0].ntfy(euc.dash.ks.aVoiceC==2?"ENABLE VOICE MODE":"DISABLE VOICE MODE","NO ACTION",20,1,euc.dash.ks.aVoiceC);
 			buzzer([30,50,30]);					
 		}else buzzer(40);
 		break;
