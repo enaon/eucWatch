@@ -135,6 +135,10 @@ euc.tmp.two=function(inpk){
 	euc.dash.time=Math.round((inpk[7] << 8 | inpk[6])/60);
 	euc.dash.spdM=Math.round((inpk[9] << 8 | inpk[8])/100) ;
 	euc.dash.light=inpk[10]-17;
+	euc.dash.ks.onOffState=inpk[11];
+	euc.dash.ks.fan=inpk[12];
+	euc.dash.ks.charge=inpk[13];
+	euc.dash.ks.tempMotor=Math.round((inpk[15] << 8 | inpk[14])/100) ;
 	if (euc.dash.light!=euc.tmp.light){
 		euc.tmp.light=euc.dash.light;
 		if (euc.dash.light!=2&&euc.dash.ks.HL==2) euc.dash.ks.HL=1;
@@ -145,6 +149,9 @@ euc.tmp.two=function(inpk){
 };
 euc.tmp.thre=function(inpk){
 	euc.dash.spdL=(inpk[3] << 8 | inpk[2])/100;
+	euc.dash.ks.totRideTime=(inpk[13] << 8 | inpk[12]);
+	euc.dash.ks.errorCode=(inpk[15] << 8 | inpk[14]);
+
 	euc.dash.alrm=(euc.dash.spdL < euc.dash.spdT && euc.dash.spdL-5 < euc.dash.spd)?1:0;
 	almL.unshift(euc.dash.alrm);
 	if (20<almL.length) almL.pop();
@@ -197,6 +204,11 @@ euc.conn=function(mac){
 					break;
 				case 245:
 					if (euc.dbg==6) console.log("INPUT :",inpk);
+					euc.dash.ks.motorLine=inpk[6];
+					euc.dash.ks.gyro=inpk[7];
+					euc.dash.ks.motorHolzer=inpk[8];
+					euc.dash.ks.cpuRate=inpk[14];
+					euc.dash.ks.outputRate=inpk[15];
 					euc.dash.pwr=inpk[15];
 					break;
 				case 246:
@@ -219,7 +231,9 @@ euc.conn=function(mac){
 					euc.dash.lim[3]=inpk[10];
 					break;
 				case 179://serial
+					if (2<euc.dbg) print("responce:",inpk);
 					euc.dash.serial=String.fromCharCode.apply(String,inpk.slice(2,14))+String.fromCharCode.apply(String,inpk.slice(17,3));
+					euc.dash.ks.manDate=(inpk[7]+inpk[8]+"-"+inpk[9]+inpk[10]+"-"+inpk[11]+inpk[12]);
 					break;
 				case 187://model
 					euc.tmp.four(inpk);
@@ -229,22 +243,34 @@ euc.conn=function(mac){
 						euc.dash.ks.offT=inpk[5] << 8 | inpk[4];
 					else if ( inpk[16] == 70) 
 						euc.tmp.pass=inpk[2];
+					else if ( inpk[16] == 70) 
+						euc.dash.ks.oldMode=inpk[2];
 					else if ( inpk[16] == 74) 
 						euc.dash.ks.spectrum=inpk[2];
 					else if ( inpk[16] == 76) 
 						euc.dash.ks.lift=inpk[2];
 					else if ( inpk[16] == 77) 
 						euc.dash.ks.spectrumMode=inpk[2];
-					else if ( inpk[16] == 162) 
-						euc.dash.mode=inpk[4];						
+					else if ( inpk[16] == 82) 
+						euc.dash.ks.modeId=inpk[2];
 					else if ( inpk[16] == 85) 
 						euc.dash.strb=inpk[2];
 					else if ( inpk[16] == 88) 
 						euc.dash.ks.BTMusic=inpk[2];
+					else if ( inpk[16] == 107) 
+						euc.dash.ks.lang=inpk[2];
 					else if ( inpk[16] == 110) 	
 						euc.dash.lght.ride=1-inpk[2];
 					else if ( inpk[16] == 138) 	
-						euc.dash.tiltSet=inpk[5] << 8 | inpk[4];
+						if ( inpk[2] == 1)  euc.dash.tiltSet=inpk[5] << 8 | inpk[4];
+					else if ( inpk[16] == 162) 
+						euc.dash.mode=inpk[4];	
+					else if ( inpk[16] == 172||inpk[16] == 173||inpk[16] == 174) //Prapam
+						print("in ",inpk[16]);
+					else if ( inpk[16] == 201) 
+						euc.lala=inpk;	
+					else if ( inpk[16] == 231) //speedPswd
+						print("in 231");
 					else if ( inpk[16] == 95){
 						if (inpk[2]==1 ){
 							let r1=(Math.random()*10)|0;
@@ -260,7 +286,6 @@ euc.conn=function(mac){
 							euc.tmp.lockKey= [170,85,0,0,0,0,0,0,0,0,48+i5,48+r1,48+i7,48+r2,48+(i6 + i7 + i1) % 10,48+r3,93,20,90,90];
 						}
 						euc.dash.lock=inpk[2];
-						//return true;
 					}					
 					if (2<euc.dbg) print("responce:",inpk);
 					if (1<euc.dbg) print("responce:",inpk[16],inpk[2]);
@@ -455,8 +480,6 @@ euc.off=function(err){
 };
 
 /*
-		case "getInfo1":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,83,20,90,90]; 
-		case "getInfo2":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,84,20,90,90]; 
 		//
 		case "getLogin":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,69,20,90,90];
 		case "getOldMode":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,72,20,90,90];
