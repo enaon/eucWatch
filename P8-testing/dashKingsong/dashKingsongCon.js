@@ -109,9 +109,9 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
       case 5: case 12: //tap event
 		if ( x<=120 && y<100 ) { //light
-			euc.dash.ks.aHLC++;  if (4<euc.dash.ks.aHLC) euc.dash.ks.aHLC=0;
+			euc.dash.ks.aHLC++;  if (3<euc.dash.ks.aHLC) euc.dash.ks.aHLC=0;
 			//let val=["NA","CITY","AUTO","ON","OFF"];
-			let val=["NA","ON","OFF","AUTO","CITY"];
+			let val=["NA","ON","OFF","AUTO"];
 			face[0].btn(euc.dash.ks.aHLC,"LIGHT",18,60,15,euc.dash.ks.aHLC!=2?12:1,0,0,0,119,97,val[euc.dash.ks.aHLC],28,60,50);
             face[0].ntfy("SET LIGHT "+val[euc.dash.ks.aHLC],"NO ACTION",20,1,euc.dash.ks.aHLC);
 			buzzer([30,50,30]);

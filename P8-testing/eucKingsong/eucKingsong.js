@@ -75,21 +75,30 @@ euc.cmd=function(no,val){
 };
 euc.tmp.city=function(){
 	if ( euc.dash.amp < -1 && euc.dash.ks.HL ===1 ) {
-		euc.wri("lightsAuto"); 
+		euc.dash.ks.HL =3;
+		euc.wri("setLights",3); 
 	}else if (euc.night && euc.dash.amp >= 0) {
-		if ( 20 < euc.dash.spd && euc.dash.ks.HL !== 1  ) 
-			euc.wri("lightsOn") ;
-		else if ( euc.dash.spd < 10 && euc.dash.ks.HL !== 2  ) 
-			euc.wri("lightsAuto") ;
+		if ( 15 < euc.dash.spd && euc.dash.ks.HL !== 1  ) {
+			euc.dash.ks.HL =1;
+			euc.wri("setLights",1); 
+		}else if ( euc.dash.spd < 10 && euc.dash.ks.HL !== 3  ) {
+			euc.dash.ks.HL =3;
+			euc.wri("setLights",3); 
+		}
 	} else if (euc.dash.amp >= 0) {
-		if ( 35 < euc.dash.spd && !euc.dash.strobe  ) 
-			euc.wri("strobeOn") ;
-		else if  ( euc.dash.spd < 30 && euc.dash.strobe  ) 
-			euc.wri("strobeOff") ;
-		else if  ( 25 < euc.dash.spd && euc.dash.ks.HL !== 1  ) 
-			euc.wri("lightsOn") ;
-		else if ( euc.dash.spd < 15 && euc.dash.ks.HL !== 2  ) 
-			euc.wri("lightsAuto") ;
+		if ( 35 < euc.dash.spd && !euc.dash.strobe  ) {
+			euc.dash.strobe=1;
+			euc.wri("setStrobeOnOff",1) ;
+		}else if  ( euc.dash.spd < 30 && euc.dash.strobe  ) { 
+			euc.dash.strobe=0;
+			euc.wri("setStrobeOnOff",0) ;
+		}else if  ( 15 < euc.dash.spd && euc.dash.ks.HL !== 1  ) {
+			euc.dash.ks.HL =1;
+			euc.wri("setLights",1); 
+		}else if ( euc.dash.spd < 10 && euc.dash.ks.HL !== 3  ) {
+			euc.dash.ks.HL =3;
+			euc.wri("setLights",3); 
+		}
 	}
 };
 //
@@ -128,29 +137,10 @@ euc.tmp.one=function(inpk){
 	//mode
 	euc.dash.mode = inpk[14];
 	//City lights 
-	if ( euc.dash.aLight === "lightsCity" ) { 
+	if ( euc.dash.ks.city ) { 
 		euc.tmp.city();
 	}
 					
-};
-euc.tmp.city=function(){
-	if ( euc.dash.amp < -1 && euc.dash.ks.HL ===1 ) {
-		euc.wri("lightsAuto"); 
-	}else if (euc.night && euc.dash.amp >= 0) {
-		if ( 20 < euc.dash.spd && euc.dash.ks.HL !== 1  ) 
-			euc.wri("lightsOn") ;
-		else if ( euc.dash.spd < 10 && euc.dash.ks.HL !== 2  ) 
-			euc.wri("lightsAuto") ;
-	} else if (euc.dash.amp >= 0) {
-		if ( 35 < euc.dash.spd && !euc.dash.strobe  ) 
-			euc.wri("strobeOn") ;
-		else if  ( euc.dash.spd < 30 && euc.dash.strobe  ) 
-			euc.wri("strobeOff") ;
-		else if  ( 25 < euc.dash.spd && euc.dash.ks.HL !== 1  ) 
-			euc.wri("lightsOn") ;
-		else if ( euc.dash.spd < 15 && euc.dash.ks.HL !== 2  ) 
-			euc.wri("lightsAuto") ;
-	}
 };
 euc.tmp.two=function(inpk){
 	euc.dash.trpL=((inpk[2] << 16) + (inpk[3] << 24) + inpk[4] + (inpk[5] << 8)) / 1000;
