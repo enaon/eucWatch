@@ -73,7 +73,26 @@ euc.cmd=function(no,val){
 			return [];
     }
 };
-
+euc.tmp.city=function(){
+	if ( euc.dash.amp < -1 && euc.dash.ks.HL ===1 ) {
+		euc.wri("lightsAuto"); 
+	}else if (euc.night && euc.dash.amp >= 0) {
+		if ( 20 < euc.dash.spd && euc.dash.ks.HL !== 1  ) 
+			euc.wri("lightsOn") ;
+		else if ( euc.dash.spd < 10 && euc.dash.ks.HL !== 2  ) 
+			euc.wri("lightsAuto") ;
+	} else if (euc.dash.amp >= 0) {
+		if ( 35 < euc.dash.spd && !euc.dash.strobe  ) 
+			euc.wri("strobeOn") ;
+		else if  ( euc.dash.spd < 30 && euc.dash.strobe  ) 
+			euc.wri("strobeOff") ;
+		else if  ( 25 < euc.dash.spd && euc.dash.ks.HL !== 1  ) 
+			euc.wri("lightsOn") ;
+		else if ( euc.dash.spd < 15 && euc.dash.ks.HL !== 2  ) 
+			euc.wri("lightsAuto") ;
+	}
+};
+//
 euc.tmp.one=function(inpk){
 	//speed
 	euc.dash.spd=(inpk[5] << 8 | inpk[4])/100; 
@@ -110,25 +129,28 @@ euc.tmp.one=function(inpk){
 	euc.dash.mode = inpk[14];
 	//City lights 
 	if ( euc.dash.aLight === "lightsCity" ) { 
-		if ( euc.dash.amp < -1 && euc.dash.ks.HL ===1 ) {
-			euc.wri("lightsAuto"); 
-		}else if (euc.night && euc.dash.amp >= 0) {
-			if ( 20 < euc.dash.spd && euc.dash.ks.HL !== 1  ) 
-				euc.wri("lightsOn") ;
-			else if ( euc.dash.spd < 10 && euc.dash.ks.HL !== 2  ) 
-				euc.wri("lightsAuto") ;
-		} else if (euc.dash.amp >= 0) {
-			if ( 35 < euc.dash.spd && !euc.dash.strobe  ) 
-				euc.wri("strobeOn") ;
-			else if  ( euc.dash.spd < 30 && euc.dash.strobe  ) 
-				euc.wri("strobeOff") ;
-			else if  ( 25 < euc.dash.spd && euc.dash.ks.HL !== 1  ) 
-				euc.wri("lightsOn") ;
-			else if ( euc.dash.spd < 15 && euc.dash.ks.HL !== 2  ) 
-				euc.wri("lightsAuto") ;
-		}
+		euc.tmp.city();
 	}
 					
+};
+euc.tmp.city=function(){
+	if ( euc.dash.amp < -1 && euc.dash.ks.HL ===1 ) {
+		euc.wri("lightsAuto"); 
+	}else if (euc.night && euc.dash.amp >= 0) {
+		if ( 20 < euc.dash.spd && euc.dash.ks.HL !== 1  ) 
+			euc.wri("lightsOn") ;
+		else if ( euc.dash.spd < 10 && euc.dash.ks.HL !== 2  ) 
+			euc.wri("lightsAuto") ;
+	} else if (euc.dash.amp >= 0) {
+		if ( 35 < euc.dash.spd && !euc.dash.strobe  ) 
+			euc.wri("strobeOn") ;
+		else if  ( euc.dash.spd < 30 && euc.dash.strobe  ) 
+			euc.wri("strobeOff") ;
+		else if  ( 25 < euc.dash.spd && euc.dash.ks.HL !== 1  ) 
+			euc.wri("lightsOn") ;
+		else if ( euc.dash.spd < 15 && euc.dash.ks.HL !== 2  ) 
+			euc.wri("lightsAuto") ;
+	}
 };
 euc.tmp.two=function(inpk){
 	euc.dash.trpL=((inpk[2] << 16) + (inpk[3] << 24) + inpk[4] + (inpk[5] << 8)) / 1000;
@@ -158,21 +180,108 @@ euc.tmp.thre=function(inpk){
 	//haptic
 	if (euc.dash.alrm) euc.alert=20;
 };
-euc.tmp.four=function(inpk){
-	//console.log("model");
-	if (!euc.dash.name) {
-		euc.dash.model=String.fromCharCode.apply(String,inpk.slice(2,11));
-		euc.dash.name=String.fromCharCode.apply(String,inpk.slice(5,8));
-		if (euc.dash.model.includes("-")) {
-			let model=euc.dash.name.split("-")[0];
-			if (model.includes("S18") || model.includes("18L") ||  model.includes("18XL") || model.includes("16X") )
-				euc.dash.bms = 1.25;
-			else 
-				euc.dash.bms = 1;
-		} else euc.dash.bms=1.25;
-		set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",euc.dash.name);
-	}	
-};	
+//
+euc.tmp.resp=function(inpk){
+	if ( inpk[16] == 63 ) 
+		euc.dash.ks.offT=inpk[5] << 8 | inpk[4];
+	else if ( inpk[16] == 70 ) 
+		euc.tmp.pass=inpk[2];
+	else if ( inpk[16] == 72 ) 
+		euc.dash.ks.oldMode=inpk[2];
+	else if ( inpk[16] == 74) 
+		euc.dash.ks.spectrum=inpk[2];
+	else if ( inpk[16] == 76 ) 
+		euc.dash.ks.lift=inpk[2];
+	else if ( inpk[16] == 77 ) 
+		euc.dash.ks.spectrumMode=inpk[2];
+	else if ( inpk[16] == 82 ) 
+		euc.dash.ks.modeId=inpk[2];
+	else if ( inpk[16] == 85 ) 
+		euc.dash.strb=inpk[2];
+	else if ( inpk[16] == 88 ) 
+		euc.dash.ks.BTMusic=inpk[2];
+	else if ( inpk[16] == 107 ) 
+		euc.dash.ks.lang=inpk[2];
+	else if ( inpk[16] == 110 ) 	
+		euc.dash.lght.ride=1-inpk[2];
+	else if ( inpk[16] == 138 ){ 	
+		if ( inpk[2] == 1)  euc.dash.tiltSet=inpk[5] << 8 | inpk[4];
+	}else if ( inpk[16] == 162 ) 
+		euc.dash.mode=inpk[4];	
+	else if ( inpk[16] == 172 || inpk[16] == 173 || inpk[16] == 174  ) //Prapam
+		print("in ",inpk[16]);
+	else if ( inpk[16] == 179 ){
+		euc.dash.ks.serial=String.fromCharCode.apply(String,inpk.slice(2,16))+String.fromCharCode.apply(String,inpk.slice(17,20));
+		euc.dash.ks.manDate=E.toString(inpk[11],inpk[12],"-",inpk[13],inpk[14],"-20",inpk[9],inpk[10]);
+		let wc={"W":"WHITE","B":"BLACK","S":"SILVER GRAY","Y":"YELLOW","R":"RED","D":"RUBBER BLACK","C":"CUSTOM"};
+		let model={
+			"14D":[0,340,420,680,840],
+			"16D":[0,340,420,680,840,520], 
+			"16S":[0,680,840,0,420], 
+			"16X":[0.,777,1554], 
+			"18A":[0,0,0,0,520,680,1360,840,1680],
+			"18S":[0,0,0,680,1360,840,1680],
+			"18L":[0,0,1036,0,1554],
+			"S18":[0,1110],
+			"S20":[0,2220]
+		};
+		euc.dash.ks.wheelColor=wc[E.toString(inpk[8])];
+		euc.dash.ks.model=E.toString(inpk.slice(4,7));
+		euc.dash.ks.batCap=model[euc.dash.ks.model][inpk[7]-48];
+		
+	}else if ( inpk[16] == 181 ){
+		if (inpk[4]==0||inpk[4]==255) euc.dash.limE[0]=0;
+		else {
+			euc.dash.lim[0]=inpk[4];
+			euc.dash.limE[0]=1;
+		}
+		if (inpk[6]==0) euc.dash.limE[1]=0; 
+		else {
+			euc.dash.lim[1]=inpk[6];
+			euc.dash.limE[1]=1;
+		}
+		euc.dash.lim[2]=inpk[8];
+		euc.dash.lim[3]=inpk[10];
+	}else if ( inpk[16] == 187 ){
+		if (!euc.dash.name) {
+			euc.dash.model=String.fromCharCode.apply(String,inpk.slice(2,11));
+			euc.dash.ks.name=E.toString(inpk.slice(2,inpk.indexOf(0)));
+			euc.dash.ks.firm=euc.dash.ks.model.split("-")[2];
+
+			euc.dash.name=String.fromCharCode.apply(String,inpk.slice(5,8));
+			if (euc.dash.model.includes("-")) {
+				let model=euc.dash.name.split("-")[0];
+				if (model.includes("S18") || model.includes("18L") ||  model.includes("18XL") || model.includes("16X") )
+					euc.dash.bms = 1.25;
+				else 
+					euc.dash.bms = 1;
+			} else euc.dash.bms=1.25;
+			//set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",euc.dash.name);
+		}	
+	}else if ( inpk[16] == 201 ) 
+		euc.lala=inpk;	
+	else if ( inpk[16] == 231 ) //speedPswd
+		print("in 231");
+	else if ( inpk[16] == 95 ){
+		if (inpk[2]==1 ){
+			let r1=(Math.random()*10)|0;
+			let r2=(Math.random()*10)|0;
+			let r3=(Math.random()*10)|0;
+			let i1 = inpk[8]==0?5:inpk[8]-48;
+			let i2 = inpk[4]==0?1:inpk[4]-48;
+			let i3 = inpk[6]==0?4:inpk[6]-48;
+			let i4 = r1 + r2 + r3;
+			let i5 = (i2 + i4 + i3 + i1) % 10;
+			let i6 = i4 + i5;
+			let i7 = (i3 + i6 + i1) % 10;
+			euc.tmp.lockKey= [170,85,0,0,0,0,0,0,0,0,48+i5,48+r1,48+i7,48+r2,48+(i6 + i7 + i1) % 10,48+r3,93,20,90,90];
+		}
+		euc.dash.lock=inpk[2];
+	}					
+	if (2<euc.dbg) print("responce:",inpk);
+	if (1<euc.dbg) print("responce:",inpk[16],inpk[2]);
+};
+
 //start
 euc.conn=function(mac){
 	if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
@@ -193,104 +302,25 @@ euc.conn=function(mac){
             if (euc.busy||inpk[0]==188){if (euc.dbg)  print("drop",inpk); return;}
 			euc.alert=0;
 			if (8<euc.dbg) console.log("INPUT :",inpk);
-			switch (inpk[16]){				
-				case  169:
-					if (euc.dbg==4) console.log("INPUT :",inpk);
-					euc.tmp.one(inpk);
-					break;
-				case 185://trip-time-max_speed
-					if (euc.dbg==5) console.log("INPUT :",inpk);
-					euc.tmp.two(inpk);
-					break;
-				case 245:
-					if (euc.dbg==6) console.log("INPUT :",inpk);
-					euc.dash.ks.motorLine=inpk[6];
-					euc.dash.ks.gyro=inpk[7];
-					euc.dash.ks.motorHolzer=inpk[8];
-					euc.dash.ks.cpuRate=inpk[14];
-					euc.dash.ks.outputRate=inpk[15];
-					euc.dash.pwr=inpk[15];
-					break;
-				case 246:
-					if (euc.dbg==7) console.log("INPUT :",inpk);
-					euc.tmp.thre(inpk);
-					break;	
-				case 181:
-					if (euc.dbg==8) console.log("INPUT :",inpk);
-					if (inpk[4]==0||inpk[4]==255) euc.dash.limE[0]=0;
-					else {
-						euc.dash.lim[0]=inpk[4];
-						euc.dash.limE[0]=1;
-					}
-					if (inpk[6]==0) euc.dash.limE[1]=0; 
-					else {
-						euc.dash.lim[1]=inpk[6];
-						euc.dash.limE[1]=1;
-					}
-					euc.dash.lim[2]=inpk[8];
-					euc.dash.lim[3]=inpk[10];
-					break;
-				case 179://serial
-					if (2<euc.dbg) print("responce:",inpk);
-					euc.dash.serial=String.fromCharCode.apply(String,inpk.slice(2,14))+String.fromCharCode.apply(String,inpk.slice(17,3));
-					euc.dash.ks.manDate=(inpk[7]+inpk[8]+"-"+inpk[9]+inpk[10]+"-"+inpk[11]+inpk[12]);
-					break;
-				case 187://model
-					euc.tmp.four(inpk);
-					break;
-				default: 
-					if ( inpk[16] == 63) 
-						euc.dash.ks.offT=inpk[5] << 8 | inpk[4];
-					else if ( inpk[16] == 70) 
-						euc.tmp.pass=inpk[2];
-					else if ( inpk[16] == 70) 
-						euc.dash.ks.oldMode=inpk[2];
-					else if ( inpk[16] == 74) 
-						euc.dash.ks.spectrum=inpk[2];
-					else if ( inpk[16] == 76) 
-						euc.dash.ks.lift=inpk[2];
-					else if ( inpk[16] == 77) 
-						euc.dash.ks.spectrumMode=inpk[2];
-					else if ( inpk[16] == 82) 
-						euc.dash.ks.modeId=inpk[2];
-					else if ( inpk[16] == 85) 
-						euc.dash.strb=inpk[2];
-					else if ( inpk[16] == 88) 
-						euc.dash.ks.BTMusic=inpk[2];
-					else if ( inpk[16] == 107) 
-						euc.dash.ks.lang=inpk[2];
-					else if ( inpk[16] == 110) 	
-						euc.dash.lght.ride=1-inpk[2];
-					else if ( inpk[16] == 138) 	
-						if ( inpk[2] == 1)  euc.dash.tiltSet=inpk[5] << 8 | inpk[4];
-					else if ( inpk[16] == 162) 
-						euc.dash.mode=inpk[4];	
-					else if ( inpk[16] == 172||inpk[16] == 173||inpk[16] == 174) //Prapam
-						print("in ",inpk[16]);
-					else if ( inpk[16] == 201) 
-						euc.lala=inpk;	
-					else if ( inpk[16] == 231) //speedPswd
-						print("in 231");
-					else if ( inpk[16] == 95){
-						if (inpk[2]==1 ){
-							let r1=(Math.random()*10)|0;
-							let r2=(Math.random()*10)|0;
-							let r3=(Math.random()*10)|0;
-							let i1 = inpk[8]==0?5:inpk[8]-48;
-							let i2 = inpk[4]==0?1:inpk[4]-48;
-							let i3 = inpk[6]==0?4:inpk[6]-48;
-							let i4 = r1 + r2 + r3;
-							let i5 = (i2 + i4 + i3 + i1) % 10;
-							let i6 = i4 + i5;
-							let i7 = (i3 + i6 + i1) % 10;
-							euc.tmp.lockKey= [170,85,0,0,0,0,0,0,0,0,48+i5,48+r1,48+i7,48+r2,48+(i6 + i7 + i1) % 10,48+r3,93,20,90,90];
-						}
-						euc.dash.lock=inpk[2];
-					}					
-					if (2<euc.dbg) print("responce:",inpk);
-					if (1<euc.dbg) print("responce:",inpk[16],inpk[2]);
-					break;
-			}
+			if (inpk[16] == 169){
+				if (euc.dbg==4) console.log("INPUT :",inpk);
+				euc.tmp.one(inpk);
+			}else if (inpk[16] == 185){//trip-time-max_speed
+				if (euc.dbg==5) console.log("INPUT :",inpk);
+				euc.tmp.two(inpk);
+			}else if (inpk[16] == 245){
+				if (euc.dbg==6) console.log("INPUT :",inpk);
+				euc.dash.ks.motorLine=inpk[6];
+				euc.dash.ks.gyro=inpk[7];
+				euc.dash.ks.motorHolzer=inpk[8];
+				euc.dash.ks.cpuRate=inpk[14];
+				euc.dash.ks.outputRate=inpk[15];
+				euc.dash.pwr=inpk[15];
+			}else if (inpk[16] == 246){
+				if (euc.dbg==7) console.log("INPUT :",inpk);
+				euc.tmp.thre(inpk);
+			}else
+				euc.tmp.resp(inpk);
 			//haptic
 			if (!euc.buzz && euc.alert) { 
 				if (!w.gfx.isOn&&(euc.dash.spdC||euc.dash.ampC||euc.dash.alrm)) face.go(set.dash[set.def.dash.face],0);
@@ -365,6 +395,10 @@ euc.conn=function(mac){
 						face.go("dashKingsongAdvPass",0,1);
 						return;
 					}
+				}).then(function() {
+					if (!euc.dash.ks.serial) {
+						return c.writeValue(euc.cmd("getSerial"));
+					}
 				}).catch(function(err)  {
 					if (global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected) global["\xFF"].BLE_GATTS.disconnect();
 					else euc.off("err-start");
@@ -433,9 +467,8 @@ euc.off=function(err){
 	if (euc.dbg) console.log("EUC.off :",err);
 	if (euc.reconnect) {clearTimeout(euc.reconnect); euc.reconnect=0;}
 	if (euc.state!="OFF") {
-		//if (euc.dbg) console.log("EUC: Restarting");
+		if (euc.dbg) console.log("EUC: Restarting");
 		if ( err==="Connection Timeout"  )  {
-			//if (euc.dbg) console.log("reason :timeout");
 			euc.state="LOST";
 			if ( set.def.dash.rtr < euc.run) {
 				euc.tgl();
@@ -449,14 +482,12 @@ euc.off=function(err){
 				if (euc.state!="OFF") euc.conn(euc.mac); 
 			}, 5000);
 		}else if ( err==="Disconnected"|| err==="Not connected")  {
-			//if (euc.dbg) console.log("reason :",err);
 			euc.state="FAR";
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
 				if (euc.state!="OFF") euc.conn(euc.mac); 
 			}, 1000);
 		} else {
-			//if (euc.dbg) console.log("reason :",err);
 			euc.state="RETRY";
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
