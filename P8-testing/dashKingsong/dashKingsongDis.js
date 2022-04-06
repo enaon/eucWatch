@@ -126,8 +126,8 @@ touchHandler[0]=function(e,x,y){
 			buzzer([30,50,30]);		
 		}else if  (120<=x && 100<=y ) { //voice
 			euc.dash.ks.aVoiceD++;  if (2<euc.dash.ks.aVoiceD) euc.dash.ks.aVoiceD=0;
-			face[0].btn(euc.dash.ks.aVoiceD,"VOICE",18,185,115,euc.dash.ks.aVoiceD==2?12:1,0,122,100,239,195,"MODE",30,185,150);	
-            face[0].ntfy(euc.dash.ks.aVoiceD==2?"ENABLE VOICE MODE":"DISABLE VOICE MODE","NO ACTION",20,1,euc.dash.ks.aVoiceD);
+			face[0].btn(euc.dash.ks.aVoiceD,"VOICE",18,185,115,euc.dash.ks.aVoiceD==1?12:1,0,122,100,239,195,"MODE",30,185,150);	
+            face[0].ntfy(euc.dash.ks.aVoiceD==1?"ENABLE VOICE MODE":"DISABLE VOICE MODE","NO ACTION",20,1,euc.dash.ks.aVoiceD);
 			buzzer([30,50,30]);		
 		}else buzzer(40);
 		break;
