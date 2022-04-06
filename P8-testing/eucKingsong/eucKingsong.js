@@ -146,16 +146,18 @@ euc.tmp.two=function(inpk){
 	euc.dash.trpL=((inpk[2] << 16) + (inpk[3] << 24) + inpk[4] + (inpk[5] << 8)) / 1000;
 	euc.dash.time=Math.round((inpk[7] << 8 | inpk[6])/60);
 	euc.dash.spdM=Math.round((inpk[9] << 8 | inpk[8])/100) ;
-	euc.dash.light=inpk[10]-17;
+	//euc.dash.light=inpk[10]-17;
+	euc.dash.ks.HL=inpk[10]-17;
 	euc.dash.ks.onOffState=inpk[11];
 	euc.dash.ks.fan=inpk[12];
 	euc.dash.ks.charge=inpk[13];
 	euc.dash.ks.tempMotor=Math.round((inpk[15] << 8 | inpk[14])/100) ;
-	if (euc.dash.light!=euc.tmp.light){
-		euc.tmp.light=euc.dash.light;
-		if (euc.dash.light!=2&&euc.dash.ks.HL==2) euc.dash.ks.HL=1;
-		else if (euc.dash.light==2&&euc.dash.ks.HL!=2) euc.dash.ks.HL=2;
-	}
+	euc.dash.fan=inpk[12];
+	//if (euc.dash.light!=euc.tmp.light){
+	//	euc.tmp.light=euc.dash.light;
+	//	if (!=2&&euc.dash.ks.HL==2) euc.dash.ks.HL=1;
+	//	else if (euc.dash.light==2&&euc.dash.ks.HL!=2) euc.dash.ks.HL=2;
+	//}
 	euc.dash.fan=inpk[12];
 					
 };

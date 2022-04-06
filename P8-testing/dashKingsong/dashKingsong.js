@@ -34,10 +34,10 @@ face[0] = {
 	show : function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
-		if ( this.light!=euc.dash.light) {
-            this.light=euc.dash.light;
+		if ( this.light!=euc.dash.ks.HL) {
+            this.light=euc.dash.ks.HL;
 			let val=["CITY","ON","OFF","AUTO"];
-			this.btn(euc.dash.light!=2,euc.dash.ks.city?"CITY":"LIGHTS",18,60,15,euc.dash.ks.city?12:4,1,0,0,119,97,val[euc.dash.ks.HL],28,60,50);
+			this.btn(euc.dash.ks.HL!=2,euc.dash.ks.city?"CITY":"LIGHTS",18,60,15,euc.dash.ks.city?12:4,1,0,0,119,97,val[euc.dash.ks.HL],28,60,50);
 		}if ( this.strb!=euc.dash.strb) {
             this.strb=euc.dash.strb;
 			this.btn(euc.dash.strb,"STROBE",25,185,35,7,1,122,0,239,97,"",28,185,50);	
