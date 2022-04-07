@@ -137,7 +137,7 @@ euc.tmp.one=function(inpk){
 	//mode
 	euc.dash.mode = inpk[14];
 	//City lights 
-	if ( euc.dash.ks.city ) { 
+	if ( euc.dash.ks.city && euc.dash.spd) { 
 		euc.tmp.city();
 	}
 					
@@ -335,8 +335,8 @@ euc.conn=function(mac){
 	}).then(function(c) {
 		if (euc.dbg) console.log("EUC Kingsong connected"); 
 		euc.wri= function(n,v) {
-			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},20);return;} 
-			euc.busy=setTimeout(()=>{euc.busy=0;},50);
+			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},100);return;} 
+			euc.busy=setTimeout(()=>{euc.busy=0;},150);
 			if (n=="hornOn"){
 				euc.horn=1;
 				if (euc.tmp.horn) {clearTimeout(euc.tmp.horn);euc.tmp.horn=0;}
