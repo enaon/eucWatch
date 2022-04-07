@@ -36,9 +36,8 @@ face[0] = {
 		};
 		UIc.main._2x2_2=()=>{
 			buzzer(buz.ok);
-			dash.live.strb=1-dash.live.strb;
-			UI.btn.c2l("main","_2x2",2,"STRB","",15,dash.live.strb?7:1);
-			euc.wri((dash.live.strb)?"strobeOn":"strobeOff");
+			//UI.btn.c2l("main","_2x2",2,"STRB","",15,dash.live.strb?7:1);
+			euc.wri((dash.live.strb)?"setStrobeOnOff",1-dash.live.strobe);
 		};
 		UIc.bar._2x2_3=()=>{
 			buzzer(buz.ok);		
@@ -52,19 +51,31 @@ face[0] = {
 		};
 		UIc.bar._2x2_4=()=>{
 			buzzer(buz.ok);	
-			dash.live.lock=1-dash.live.lock;
-			UI.btn.c2l("bar","_2x2",4,"LOCK","",15,dash.live.lock?7:1);	
+			//UI.btn.c2l("bar","_2x2",4,"LOCK","",15,dash.live.lock?7:1);	
             //face[0].ntfy("HOLD -> POWER OFF",7);
-			euc.wri((dash.live.lock)?"lock":"unlock");
+			euc.wri((1-dash.live.lock)?"doLock":"doUnlock",euc.tmp.lockKey);
 		};
 	},
 	show : function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
-        this.tid=setTimeout(function(t,o){
+		if ( this.light!=dash.live.ks.HL) {
+            this.light=dash.live.ks.HL;
+			let val=["CITY","ON","OFF","AUTO"];
+			this.btn(dash.live.ks.HL!=2?1:0,dash.live.ks.city?"CITY":"LIGHTS",18,60,15,dash.live.ks.city?12:4,1,0,0,119,97,val[dash.live.ks.HL],28,60,50);
+		}if ( this.strb!=dash.live.strb) {
+            this.strb=dash.live.strb;
+			this.btn(dash.live.strb,"STROBE",25,185,35,7,1,122,0,239,97,"",28,185,50);	
+		}
+		if ( this.lock!=dash.live.lock) {
+        this.lock=dash.live.lock;
+			this.btn(dash.live.lock,"LOCK",28,185,135,dash.live.ks.aUnlock?9:7,1,122,100,239,195,"",30,185,150);	
+		}		
+		
+		this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();
-        },1000,this);
+        },100,this);
 	},
 	tid:-1,
 	run:false,

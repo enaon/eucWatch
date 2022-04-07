@@ -86,12 +86,12 @@ euc.tmp.city=function(){
 			euc.dash.ks.HL =3;
 		}
 	} else if (euc.dash.amp >= 0) {
-		if ( 35 < euc.dash.spd && !euc.dash.strobe  ) {
+		if ( 35 < euc.dash.spd && !euc.dash.strb  ) {
 			euc.wri("setStrobeOnOff",1) ;
-			euc.dash.strobe=1;
-		}else if  ( euc.dash.spd < 30 && euc.dash.strobe  ) { 
+			euc.dash.strb=1;
+		}else if  ( euc.dash.spd < 30 && euc.dash.strb  ) { 
 			euc.wri("setStrobeOnOff",0) ;
-			euc.dash.strobe=0;
+			euc.dash.strb=0;
 		}else if  ( 15 < euc.dash.spd && euc.dash.ks.HL !== 1  ) {
 			euc.wri("setLights",1); 
 			euc.dash.ks.HL =1;
@@ -290,6 +290,7 @@ euc.conn=function(mac){
 		c.on('characteristicvaluechanged', function(event) {
 			inpk.set(event.target.value.buffer);
             if (euc.busy||inpk[0]==188){if (euc.dbg)  print("drop",inpk); return;}
+			//if (set.bt==4) 	euc.proxy.w(event.target.value.buffer);
 			euc.alert=0;
 			if (8<euc.dbg) console.log("INPUT :",inpk);
 			if (inpk[16] == 169){
@@ -423,6 +424,14 @@ euc.conn=function(mac){
 					euc.off("not connected");
 					return;
 				}
+			//forward if cmd unknown	
+			}else if (!euc.cmd(n)) {
+				c.writeValue(n).then(function() {
+					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+				}).catch(function(err)  {
+					clearTimeout(euc.busy);euc.busy=0;euc.off("err-fwd");
+				});
+			//rest					
 			}else { 
 				c.writeValue(euc.cmd(n,v)).then(function() {
 					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
