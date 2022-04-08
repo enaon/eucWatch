@@ -2,8 +2,7 @@
 //euc.conn(euc.mac);
 //euc.wri("lightsOn")
 //temp
-if (!dash.live.lght) dash.live.lght={"ride":0};
-if (!dash.live.ks||(dash.live.ks&&dash.live.ks.ver!=5)) dash.live.ks={"ver":5,"lift":1,"aLiftC":0,"aRideC":0,"aVoiceC":2,"aLiftD":0,"aRideD":0,"aVoiceD":0,"HL":0,"aHLC":3,"aHLD":2,"aOff":0,"aLock":0,"aUnlock":0,"city":0};
+if (!dash.live.ks||(dash.live.ks&&dash.live.ks.ver!=5)) dash.live.ks={"ver":5,"lift":1,"aLiftC":0,"aRideC":0,"aVoiceC":2,"aLiftD":0,"aRideD":0,"aVoiceD":0,"HL":0,"aHLC":3,"aHLD":2,"aOff":0,"aLock":0,"aUnlock":0,"city":0,"offT":0};
 euc.tmp={};
 //commands
 euc.wri=function(i) {if (euc.dbg) console.log("not connected yet"); if (i=="end") euc.off(); return;};
