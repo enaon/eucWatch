@@ -424,13 +424,6 @@ euc.conn=function(mac){
 					euc.off("not connected");
 					return;
 				}
-			//forward if cmd unknown	
-			}else if (!euc.cmd(n)) {
-				c.writeValue(n).then(function() {
-					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-				}).catch(function(err)  {
-					clearTimeout(euc.busy);euc.busy=0;euc.off("err-fwd");
-				});
 			//rest					
 			}else { 
 				c.writeValue(euc.cmd(n,v)).then(function() {
