@@ -333,7 +333,7 @@ touchHandler[5]=function(e,x,y){
           if (face[0].passSet){
 			 if (euc.tmp.pass){
 					euc.dash.passOld=euc.dash.pass;
-					euc.dash.pass=face[5].pass;				
+					euc.dash.pass=face[5].pass;		
 					euc.wri("setPassSend");
 					buzzer(80);
 					face[5].ntfy("PLEASE WAIT",20,1);
