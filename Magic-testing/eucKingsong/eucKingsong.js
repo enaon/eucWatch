@@ -3,7 +3,7 @@
 //euc.wri("lightsOn")
 //temp
 if (!dash.live.lght) dash.live.lght={"ride":0};
-if (!dash.live.ks||(dash.live.ks&&dash.live.ks.ver!=5)) dash.live.ks={"ver":5,"lift":1,"aLiftC":0,"aRideC":0,"aVoiceC":2,"aLiftD":0,"aRideD":0,"aVoiceD":0,"HL":0,"aHLC":3,"aHLD":2,"aOff":0,"aLock":0,"aUnlock":0};
+if (!dash.live.ks||(dash.live.ks&&dash.live.ks.ver!=5)) dash.live.ks={"ver":5,"lift":1,"aLiftC":0,"aRideC":0,"aVoiceC":2,"aLiftD":0,"aRideD":0,"aVoiceD":0,"HL":0,"aHLC":3,"aHLD":2,"aOff":0,"aLock":0,"aUnlock":0,"city":0};
 euc.tmp={};
 //commands
 euc.wri=function(i) {if (euc.dbg) console.log("not connected yet"); if (i=="end") euc.off(); return;};
@@ -74,6 +74,7 @@ euc.cmd=function(no,val){
     }
 };
 euc.tmp.city=function(){
+	"ram";
 	if ( dash.live.amp < -1 && dash.live.ks.HL ===1 ) {
 		euc.wri("setLights",3); 
 		dash.live.ks.HL =3;
@@ -103,6 +104,7 @@ euc.tmp.city=function(){
 };
 //
 euc.tmp.one=function(inpk){
+	"ram";
 	//speed
 	dash.live.spd=(inpk[5] << 8 | inpk[4])/100; 
 	dash.live.spdC = ( dash.live.spd1 <= dash.live.spd )? 2 : ( dash.live.spd2 <= dash.live.spd )? 1 : 0 ;	
@@ -143,6 +145,7 @@ euc.tmp.one=function(inpk){
 					
 };
 euc.tmp.two=function(inpk){
+	"ram";
 	dash.live.trpL=((inpk[2] << 16) + (inpk[3] << 24) + inpk[4] + (inpk[5] << 8)) / 1000;
 	dash.live.time=Math.round((inpk[7] << 8 | inpk[6])/60);
 	dash.live.spdM=Math.round((inpk[9] << 8 | inpk[8])/100) ;
@@ -162,6 +165,7 @@ euc.tmp.two=function(inpk){
 					
 };
 euc.tmp.thre=function(inpk){
+	"ram";
 	dash.live.spdL=(inpk[3] << 8 | inpk[2])/100;
 	dash.live.ks.totRideTime=(inpk[13] << 8 | inpk[12]);
 	dash.live.ks.errorCode=(inpk[15] << 8 | inpk[14]);
@@ -174,6 +178,7 @@ euc.tmp.thre=function(inpk){
 };
 //
 euc.tmp.resp=function(inpk){
+	"ram";
 	if ( inpk[16] == 63 ) 
 		dash.live.ks.offT=inpk[5] << 8 | inpk[4];
 	else if ( inpk[16] == 70 ) 
@@ -195,7 +200,7 @@ euc.tmp.resp=function(inpk){
 	else if ( inpk[16] == 107 ) 
 		dash.live.ks.lang=inpk[2];
 	else if ( inpk[16] == 110 ) 	
-		dash.live.lght.ride=1-inpk[2];
+		dash.live.ks.ride=1-inpk[2];
 	else if ( inpk[16] == 138 ){ 	
 		if ( inpk[2] == 1)  dash.live.tiltSet=inpk[5] << 8 | inpk[4];
 	}else if ( inpk[16] == 162 ) 
@@ -274,6 +279,7 @@ euc.tmp.resp=function(inpk){
 
 //start
 euc.conn=function(mac){
+	"ram";
 	if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
 		if (euc.dbg) console.log("ble allready connected"); 
 		global["\xFF"].BLE_GATTS.disconnect();return;
@@ -336,8 +342,8 @@ euc.conn=function(mac){
 	}).then(function(c) {
 		if (euc.dbg) console.log("EUC Kingsong connected"); 
 		euc.wri= function(n,v) {
-			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},100);return;} 
-			euc.busy=setTimeout(()=>{euc.busy=0;},150);
+			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},10);return;} 
+			euc.busy=setTimeout(()=>{euc.busy=0;},20);
 			if (n=="hornOn"){
 				euc.horn=1;
 				if (euc.tmp.horn) {clearTimeout(euc.tmp.horn);euc.tmp.horn=0;}
@@ -424,14 +430,6 @@ euc.conn=function(mac){
 					euc.off("not connected");
 					return;
 				}
-			//forward if cmd unknown	
-			}else if (!euc.cmd(n)) {
-				c.writeValue(n).then(function() {
-					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-				}).catch(function(err)  {
-					clearTimeout(euc.busy);euc.busy=0;euc.off("err-fwd");
-				});
-			//rest					
 			}else { 
 				c.writeValue(euc.cmd(n,v)).then(function() {
 					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
@@ -464,6 +462,7 @@ euc.conn=function(mac){
 };
 //catch
 euc.off=function(err){
+	"ram";
 	if (euc.dbg) console.log("EUC.off :",err);
 	if (euc.reconnect) {clearTimeout(euc.reconnect); euc.reconnect=0;}
 	if (euc.state!="OFF") {

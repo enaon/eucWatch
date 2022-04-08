@@ -6,7 +6,8 @@ face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
 	bpp:set.def.bpp?0:1,
 	init: function(o){ 
-		if (face.faceSave==-1) face.faceSave=[face.appPrev,face.pagePrev,face.pageArg];
+		//if (face.faceSave==-1) 
+		face.faceSave=[face.appPrev,face.pagePrev,face.pageArg];
 		eval(require('Storage').read(o?'set_apps':face.faceSave[0].substring(0,4)=="dash"?'set_dash':'set_set')); 
 		this.bar();
 		//TC.on('tc5',UIc.xy);

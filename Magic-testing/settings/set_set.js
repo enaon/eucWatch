@@ -27,8 +27,7 @@ UIc.main._2x3_3=()=>{
 UIc.main._2x3_4=()=>{
 	if (set.bt!=3) {
 		buzzer(buz.na);
-		UI.btn.ntfy(1,0,0,"_bar",6,"GADGET BRIDGE","not connected",15,7);
-		w.gfx.flip();
+		UI.btn.ntfy(1,0,0,"_bar",6,"GADGET BRIDGE","not connected",15,7);w.gfx.flip();
 	}else	
 		buzzer(buz.na);};
 	UIc.main._2x3_5=()=>{
