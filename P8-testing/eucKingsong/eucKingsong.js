@@ -444,7 +444,9 @@ euc.conn=function(mac){
 			setTimeout(()=>{ 
 				if (euc.dbg)  print("EUC: ks is initialized");
 				euc.state="READY";
-				c.startNotifications();
+				c.startNotifications().then(function() {
+					return euc.dash.ks.aVoiceC?euc.wri("setVoiceOnOff",2- euc.dash.ks.aVoiceC):"ok";
+				});
 			},500);
 		}else {
 			buzzer([90,40,150]);
