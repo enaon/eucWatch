@@ -171,7 +171,7 @@
 	{ "id": "dashKingsong",
 		"name": "Kingsong Settings",
 		"icon": "icon.png",
-		"version":"1.05",
+		"version":"1.06",
 		"description": "EUC dashboard, Kingsong settings gui files.",
 		"tags": "euc",
 		"readme": "README.md",

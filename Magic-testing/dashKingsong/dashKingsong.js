@@ -18,14 +18,14 @@ face[0] = {
 			if ( this.light!=dash.live.ks.HL) {
 				this.light=dash.live.ks.HL;
 				let val=["CITY","ON","OFF","AUTO"];
-				UI.btn.c2l("main","_2x2",1,dash.live.ks.city?"CITY":"LIGHTS",val[dash.live.ks.HL],15,dash.live.ks.HL!=2?dash.live.ks.city?12:4:1);
+				UI.btn.c2l("main","_2x2",1,"LIGHTS",val[dash.live.ks.HL],15,dash.live.ks.city?12:dash.live.ks.HL!=2?4:1);
 			}if ( this.strb!=dash.live.strb) {
 				this.strb=dash.live.strb;
-				UI.btn.c2l("main","_2x2",2,"STRB","",15,dash.live.strb?7:1);
+				UI.btn.c2l("main","_2x2",2,"STRB","",15,dash.live.strb?13:1);
 			}
 			if ( this.lock!=dash.live.lock) {
 				this.lock=dash.live.lock;
-				UI.btn.c2l("bar","_2x2",4,"LOCK","",15,dash.live.lock?7:1);	
+				UI.btn.c2l("bar","_2x2",4,"LOCK","",15,dash.live.lock?13:1);	
 			}		
 		}else if (this.page=="light"){
 			if ( this.last!=dash.live.ks.HL) {
@@ -44,10 +44,6 @@ face[0] = {
 				this.ride=dash.live.ks.ride;
 				UI.btn.c2l("main","_2x2",3,"SENSOR","LIFT",15,dash.live.ks.lift?4:1);
 			}
-		}else if (this.page=="automation"){
-	
-		}else if (this.page=="wheel"){
-			
 		}
 		this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
@@ -57,7 +53,7 @@ face[0] = {
 	bar:function(){
 		"ram";
 		set.bar=0;
-		UI.ele.title(this.page.toUpperCase(),15,4);w.gfx.flip();
+		UI.ele.title(this.page.toUpperCase(),15,0);w.gfx.flip();
 	},
 	tid:-1,
 	run:false,

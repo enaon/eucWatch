@@ -3,12 +3,12 @@ if (global.euc&&!euc.proxy){
 euc.proxy={
 	f:0,
 	r:(o)=>{
-    //"ram";
+    "ram";
 		if (1<set.dbg)print("relay-in:",o.data);
-		if (euc.state=="READY") euc.wri(o.data);
+		if (euc.state=="READY") euc.wri("proxy",o.data);
 	},
 	w:(o)=>{
-    //"ram";
+    "ram";
 		if (set.bt!=4) {if (1<set.dbg) print("relay-out:",o);return;}
 		NRF.updateServices({0xffe0:{0xffe1:{value:o,notify:true}},});
 	},
@@ -22,7 +22,7 @@ euc.proxy={
 				readable:true,
 				description:"Characteristic 1"
 		  	}
-      },0xffe0: {
+			},0xffe0: {
 				0xffe1: {
 					value : [0x00],
 					maxLen : 20,
@@ -36,7 +36,13 @@ euc.proxy={
 				}
 			}
 		}, {advertise: ['0xfff0'],uart:false });
-		NRF.setAdvertising({}, { name:dash.live.model,connectable:true });
+		//NRF.setAdvertising({}, { name:dash.live.ks.name,connectable:true });
+		//NRF.setAdvertising({}, { name:"KS-S180531",connectable:true });
+		NRF.setAdvertising([[
+			0x02,0x01,0x06,
+			0x03,0x02,0xf0,0xff,
+			0x05,0x12,0x60,0x00,0x0c,0x00,
+		]], { name:dash.live.ks.name,connectable:true });
 		NRF.setAddress(euc.mac);
 		//NRF.setAddress("eu:cW:at:ch:00:01 public");
 		NRF.restart();

@@ -27,7 +27,7 @@ face[0] = {
 	    this.btn(euc.dash.ks.aHLC,"LIGHT",18,60,15,euc.dash.ks.aHLC!=2?12:1,0,0,0,119,97,val[euc.dash.ks.aHLC],28,60,50);
 		this.btn(euc.dash.ks.aRideC,"LED",18,185,15,euc.dash.ks.aRideC==1?12:1,0,122,0,239,97,"RIDE",28,185,50);
         this.btn(euc.dash.ks.aLiftC,"SENSOR",18,60,115,euc.dash.ks.aLiftC==1?12:1,0,0,100,119,195,"LIFT",30,60,150);
-        this.btn(euc.dash.ks.aVoiceC,"VOICE",18,185,115,euc.dash.ks.aVoiceC==2?12:1,0,122,100,239,195,"MODE",30,185,150);	
+        this.btn(euc.dash.ks.aVoiceC,"VOICE",18,185,115,euc.dash.ks.aVoiceC==1?12:1,0,122,100,239,195,"MODE",30,185,150);	
 
 		this.run=true;
 	},

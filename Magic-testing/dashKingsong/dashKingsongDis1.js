@@ -2,10 +2,10 @@ face[0].page="on disconnect";
 UI.ele.ind(2,2,1);
 face[0].bar();
 UIc.start(1,1);
-UI.btn.c2l("main","_2x2",1,"IDLE",!dash.live.ks.offT?"-":offH+"h:"+offM+"m",15,1);
-UI.btn.c2l("main","_2x2",2,"ON","CONN",15,1);
-UI.btn.c2l("main","_2x2",4,"ON","DISC",15,1);	
+UI.btn.c2l("main","_2x2",2,"AUTO","OFF",15,dash.live.ks.aOff?4:0);
+UI.btn.c2l("main","_2x2",4,"AUTO","LOCK",15,dash.live.ks.aLock?4:0);	
 UIc.end();
+UI.btn.c2l("main","_2x2",1,"","",15,1);
 UI.btn.c2l("main","_2x2",3,"","",15,1);
 //
 UIc.main._2x2_1=()=>{
@@ -15,7 +15,9 @@ UIc.main._2x2_1=()=>{
 };
 UIc.main._2x2_2=()=>{
 	buzzer(buz.ok);
-	//euc.wri("setStrobeOnOff",1-dash.live.strb);
+	dash.live.ks.aOff=1-dash.live.ks.aOff;
+	UI.btn.ntfy(1,2,0,"_bar",7,dash.live.ks.aOff?"POWER OFF":"NO ACTION","",15,0);
+	UI.btn.c2l("main","_2x2",2,"AUTO","OFF",15,dash.live.ks.aOff?4:0);
 };
 UIc.main._2x2_3=()=>{
 	buzzer(buz.ok);		
@@ -23,16 +25,19 @@ UIc.main._2x2_3=()=>{
 };
 UIc.main._2x2_4=()=>{
 	buzzer(buz.ok);	
+	dash.live.ks.aLock=1-dash.live.ks.aLock;
+	UI.btn.ntfy(1,2,0,"_bar",7,dash.live.ks.aLock?"LOCK":"NO ACTION","",15,0);
+	UI.btn.c2l("main","_2x2",4,"AUTO","LOCK",15,dash.live.ks.aLock?4:0);	
 };
 
 //touch
 tcN=(x,y)=>{
-		eval(require('Storage').read("dashKingsongAdv")); 
+	buzzer(buz.na);
 };	
 tcNext.replaceWith(tcN);
 tcB=(x,y)=>{
 	if (UI.ntid) {/*buzzer(buz.ok);*/clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}
-	eval(require('Storage').read("dashKingsongOpt")); 
+	eval(require('Storage').read("dashKingsongDis")); 
 
 };	
 tcBack.replaceWith(tcB);

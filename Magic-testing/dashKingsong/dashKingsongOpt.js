@@ -31,6 +31,7 @@ UIc.main._2x2_4=()=>{
 };
 //touch
 tcN=(x,y)=>{
+	if (!dash.live.ks.offT) euc.wri("getPowerOff");
 	eval(require('Storage').read("dashKingsongAuto")); 
 };	
 tcNext.replaceWith(tcN);

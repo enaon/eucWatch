@@ -10,23 +10,24 @@ var face={
 	offid:0,
 	offms:-1,
 	off:function(t){ 
-		"ram"
+		"ram";
 		if (this.pageCurr===-1) return;
 		if (this.offid) {clearTimeout(this.offid); this.offid=0;}
 		this.offms=(t)?t:face[this.pageCurr].offms;
 		this.offid=setTimeout((c)=>{
-			face.offid=0; face.off1(c);
+			face.offid=0; //face.off1(c);
+			face.go(this.appCurr,-1);
 		},this.offms,this.pageCurr);
 	},
 	off1:function(c){ 
     "ram";
 		face.batt=0;
-		if (this.appCurr==="main") {
-			if (face[c].off) {
-				TC.stop();	
-				face[c].off();this.pageCurr=-1;face.pagePrev=c;
-			}
-		}else face.go(this.appCurr,1);
+		//if (this.appCurr==="main") {
+		if (face[c].off) {
+			TC.stop();	
+			face[c].off();this.pageCurr=-1;face.pagePrev=c;
+		//}
+		}else face.go(this.appCurr,-1);
 	},
 	go:function(app,page,arg){
     "ram";

@@ -284,7 +284,7 @@ euc.conn=function(mac){
 		global["\xFF"].BLE_GATTS.disconnect();return;
 	}
 	//connect 
-	NRF.connect(mac,{minInterval:7.5, maxInterval:15})
+	NRF.connect(mac,{minInterval:7.5, maxInterval:7.5})
 	.then(function(g) {
 	   return g.getPrimaryService(0xffe0);
 	}).then(function(s) {
@@ -295,7 +295,7 @@ euc.conn=function(mac){
 		c.on('characteristicvaluechanged', function(event) {
 			inpk.set(event.target.value.buffer);
             if (euc.busy||inpk[0]==188){if (euc.dbg)  print("drop",inpk); return;}
-			//if (set.bt==4) 	euc.proxy.w(event.target.value.buffer);
+			if (set.bt==4) 	euc.proxy.w(event.target.value.buffer);
 			euc.alert=0;
 			if (8<euc.dbg) console.log("INPUT :",inpk);
 			if (inpk[16] == 169){
@@ -429,6 +429,12 @@ euc.conn=function(mac){
 					euc.off("not connected");
 					return;
 				}
+			}else if (n==="proxy") {
+				c.writeValue(v).then(function() {
+                    clearTimeout(euc.busy);euc.busy=0;
+				}).catch(function(err)  {
+					clearTimeout(euc.busy);euc.busy=0;euc.off("err-fwd");
+				});
 			}else { 
 				c.writeValue(euc.cmd(n,v)).then(function() {
 					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
