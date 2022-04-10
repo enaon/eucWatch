@@ -1,5 +1,5 @@
 face[0].page="on disconnect";
-UI.ele.ind(2,2,1);
+UI.ele.ind(2,2,12);
 face[0].bar();
 UIc.start(1,1);
 UI.btn.c2l("main","_2x2",2,"AUTO","OFF",15,dash.live.ks.aOff?4:0);

@@ -201,7 +201,10 @@ euc.tmp.resp=function(inpk){
 	else if ( inpk[16] == 110 ) 	
 		dash.live.ks.ride=1-inpk[2];
 	else if ( inpk[16] == 138 ){ 	
-		if ( inpk[2] == 1)  dash.live.tiltSet=inpk[5] << 8 | inpk[4];
+		if ( inpk[2] == 1)  {
+			dash.live.tiltSet=((inpk[5]& 0xff)  << 8) | (inpk[4] & 0xff);
+			if ( 32767 < dash.live.tiltSet ) dash.live.tiltSet = dash.live.tiltSet - 65536;
+		}
 	}else if ( inpk[16] == 162 ) 
 		dash.live.mode=inpk[4];	
 	else if ( inpk[16] == 172 || inpk[16] == 173 || inpk[16] == 174  ) //Prapam
@@ -294,7 +297,8 @@ euc.conn=function(mac){
 		var inpk=new Uint8Array(20);
 		c.on('characteristicvaluechanged', function(event) {
 			inpk.set(event.target.value.buffer);
-            if (euc.busy||inpk[0]==188){if (euc.dbg)  print("drop",inpk); return;}
+            if (inpk[0]==188){if (euc.dbg)  print("drop",inpk); return;}
+            //if (euc.busy||inpk[0]==188){if (euc.dbg)  print("drop",inpk); return;}
 			if (set.bt==4) 	euc.proxy.w(event.target.value.buffer);
 			euc.alert=0;
 			if (8<euc.dbg) console.log("INPUT :",inpk);
@@ -322,13 +326,13 @@ euc.conn=function(mac){
 				if (!w.gfx.isOn&&(dash.live.spdC||dash.live.ampC||dash.live.alrm)) face.go(set.dash[set.def.dash.face],0);
 				euc.buzz=1;
 				if (20 <= euc.alert) euc.alert = 20;
-				var a=[];
+				var a=[200];
 				while (5 <= euc.alert) {
 					a.push(200,500);
 					euc.alert = euc.alert - 5;
 				}
 				for (let i = 0; i < euc.alert ; i++) a.push(200,150);
-				digitalPulse(ew.pin.BUZZ,0,a); 
+				global.buzz(a);
 				setTimeout(() => { euc.buzz = 0; }, 3000);
 			}
 		});
@@ -341,8 +345,8 @@ euc.conn=function(mac){
 	}).then(function(c) {
 		if (euc.dbg) console.log("EUC Kingsong connected"); 
 		euc.wri= function(n,v) {
-			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},10);return;} 
-			euc.busy=setTimeout(()=>{euc.busy=0;},20);
+			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},100);return;} 
+			euc.busy=setTimeout(()=>{euc.busy=0;},150);
 			if (n=="hornOn"){
 				euc.horn=1;
 				if (euc.tmp.horn) {clearTimeout(euc.tmp.horn);euc.tmp.horn=0;}
@@ -391,8 +395,8 @@ euc.conn=function(mac){
 					if (euc.tmp.pass) {
 						dash.live.pass2=dash.live.pass;
 						dash.live.pass="";
-						face.go("dashKingsongAdvPass",0,1);
-						return;
+						//face.go("dashKingsongAdvPass",0,1);
+						//return;
 					}
 				}).then(function() {
 					if (!dash.live.ks.serial) {
@@ -454,7 +458,9 @@ euc.conn=function(mac){
 			setTimeout(()=>{ 
 				if (euc.dbg)  print("EUC: ks is initialized");
 				euc.state="READY";
-				c.startNotifications();
+				c.startNotifications().then(function() {
+					return euc.dash.ks.aVoiceC?euc.wri("setVoiceOnOff",2- euc.dash.ks.aVoiceC):"ok";
+				});
 			},500);
 		}else {
 			buzzer([90,40,150]);

@@ -33,6 +33,7 @@ eval(require('Storage').read('handler_button'));
 eval(require('Storage').read('handler_touch'));
 //acc
 if ( process.env.BOARD!="BANGLEJS2") eval(require('Storage').read('handler_accel_SC7A20'));
+else acc={on:function(){},off:function(){} };
 //}
 //cron
 eval(require('Storage').read('handler_cron'));

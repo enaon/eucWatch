@@ -37,7 +37,7 @@ UIc.main._2x3_5=()=>{
 UIc.main._2x3_6=()=>{
 	buzzer(buz.na);
 	//if (set.def.info)
-	UI.btn.ntfy(1,0,0,"_bar",6,"NOT AVAILABLE","YET",15,7);
+	UI.btn.ntfy(1,0,0,"_bar",6,"NOT AVAILABLE","YET",15,13);
 	w.gfx.flip();
 };
 tcNext.replaceWith(new Function('buzzer(buz.ok);eval(require("Storage").read("set_set"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}'));

@@ -18,7 +18,7 @@ face[0] = {
 			if ( this.light!=dash.live.ks.HL) {
 				this.light=dash.live.ks.HL;
 				let val=["CITY","ON","OFF","AUTO"];
-				UI.btn.c2l("main","_2x2",1,"LIGHTS",val[dash.live.ks.HL],15,dash.live.ks.city?12:dash.live.ks.HL!=2?4:1);
+				UI.btn.c2l("main","_2x2",1,"LIGHTS",val[dash.live.ks.HL],15,dash.live.ks.city?12:dash.live.ks.HL!=2?4:0);
 			}if ( this.strb!=dash.live.strb) {
 				this.strb=dash.live.strb;
 				UI.btn.c2l("main","_2x2",2,"STRB","",15,dash.live.strb?13:1);
@@ -32,7 +32,7 @@ face[0] = {
 				this.last=dash.live.ks.HL;
 				UI.btn.c2l("main","_2x2",1,"ON","",15,dash.live.ks.HL==1?4:1);
 				UI.btn.c2l("main","_2x2",2,"AUTO","",15,dash.live.ks.HL==3?4:1);
-				UI.btn.c2l("main","_2x2",4,"OFF","",15,dash.live.ks.HL==2?4:1);	
+				UI.btn.c2l("main","_2x2",4,"OFF","",15,dash.live.ks.HL==2?0:1);	
 				UI.btn.c2l("main","_2x2",3,"eucWatch","CITY",15,dash.live.ks.city?12:1);
 			}
 		}else if (this.page=="options"){
@@ -44,11 +44,17 @@ face[0] = {
 				this.ride=dash.live.ks.ride;
 				UI.btn.c2l("main","_2x2",3,"SENSOR","LIFT",15,dash.live.ks.lift?4:1);
 			}
+		//}else if (this.page=="calibrate"){
+		//	if ( this.tilt!=dash.live.tiltSet) {
+		//		this.tilt=dash.live.tiltSet;
+		//		UI.btn.c1l("main","_main",9,dash.live.tiltSet,"",15,0);
+		//		euc.wri("setCalibrateTilt",dash.live.tiltSet);
+		//	}
 		}
 		this.tid=setTimeout(function(t,o){
-		  t.tid=-1;
-		  t.show();
-		},100,this);
+		  face[0].tid=0;
+		  face[0].show();
+		},100);
 	},
 	bar:function(){
 		"ram";

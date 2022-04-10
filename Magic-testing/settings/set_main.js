@@ -27,7 +27,7 @@ UIc.main._2x3_5=()=>{
 	UI.btn.ntfy(0,3,1,"_bar",6,"","",15,0);
 	UIc.start(0,1);
 	UI.btn.img("bar","_bar",4,_icon.restart,"RESTART",15,1);
-	UI.btn.img("bar","_bar",5,_icon.cli,"DEVMOD",15,7);
+	UI.btn.img("bar","_bar",5,_icon.cli,"DEVMOD",15,13);
 	UIc.end();
 	UIc.bar._bar_4=()=>{
 		setter.updateSettings();

@@ -41,7 +41,7 @@ face[0] = {
 			}
 			UIc.start(1,0);	
 			UI.btn.img("main","_bar",5,_icon.alert,"Alerts",15,1);
-			UI.btn.img("main","_bar",4,_icon.trash,"Delete",15,7);
+			UI.btn.img("main","_bar",4,_icon.trash,"Delete",15,13);
 			UIc.end();	
 			UIc.main._bar_5=function(){buzzer(buz.ok);face.go("dashAlerts",0);};
 			UIc.main._bar_4=function(){buzzer(buz.ok);face[0].del(no);};
@@ -87,7 +87,7 @@ face[0] = {
 		UI.btn.ntfy(0,2,1);
 		if (set.def.info)UI.btn.c2l("main","_main",6,`SLOT ${no}`,"DELETE?",15,0,1);
 		UIc.start(1,0);	
-		UI.btn.img("main","_bar",6,_icon.trash,"CONFIRM",15,7);
+		UI.btn.img("main","_bar",6,_icon.trash,"CONFIRM",15,13);
 		UIc.end();
 		UIc.main._bar_6=function(){
 			buzzer(buz.ok);

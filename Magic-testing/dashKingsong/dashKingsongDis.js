@@ -1,5 +1,5 @@
 face[0].page="on disconnect";
-UI.ele.ind(1,2,1);
+UI.ele.ind(1,2,12);
 face[0].bar();
 UIc.start(1,1);
 let val=["NA","ON","OFF","AUTO","CITY"];
@@ -41,8 +41,8 @@ tcN=(x,y)=>{
 };	
 tcNext.replaceWith(tcN);
 tcB=(x,y)=>{
+	buzzer(buz.ok);	
 	if (UI.ntid) {/*buzzer(buz.ok);*/clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}
 	eval(require('Storage').read("dashKingsongAuto")); 
-
 };	
 tcBack.replaceWith(tcB);

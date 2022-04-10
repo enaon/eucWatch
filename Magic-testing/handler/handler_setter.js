@@ -114,6 +114,7 @@ if (!set.def.off) set.def.off={};
 if (set.def.buzz) buzzer = digitalPulse.bind(null,ew.pin.BUZZ,ew.pin.BUZ0);
 else buzzer=function(){return true;};
 buz={ok:[20,40,20],na:25,ln:80,on:40,off:[20,25,20]};
+buzz = digitalPulse.bind(null,ew.pin.BUZZ,ew.pin.BUZ0);
 //dash
 require('Storage').list("dash_").forEach(dashfile=>{
 	set.dash.push(dashfile);

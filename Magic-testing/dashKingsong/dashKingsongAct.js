@@ -2,7 +2,7 @@ face[0].page="actions";
 UI.ele.ind(1,4,1);
 UIc.start(1,1);
 let val=["CITY","ON","OFF","AUTO"];
-UI.btn.c2l("main","_2x2",1,"LIGHTS",val[dash.live.ks.HL],15,dash.live.ks.city?12:dash.live.ks.HL!=2?4:1);
+UI.btn.c2l("main","_2x2",1,"LIGHTS",val[dash.live.ks.HL],15,dash.live.ks.city?12:dash.live.ks.HL!=2?4:0);
 UI.btn.c2l("main","_2x2",2,"STRB","",15,dash.live.strb?13:1);
 let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
 UI.btn.c2l("main","_2x2",3,dash.live.tpms?dash.live.tpms:"TPMS","",15,(dash.live.tpms&&tpms.euc[dash.live.tpms]&&tpms.euc[dash.live.tpms].time&&(getTime()|0)-tpms.euc[dash.live.tpms].time<1800)?(tpms.euc[dash.live.tpms].alrm)?13:4:1);

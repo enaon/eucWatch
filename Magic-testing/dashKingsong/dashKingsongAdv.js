@@ -1,6 +1,6 @@
 face[0].page="wheel setup";
 UI.ele.ind(4,4,1);
-//face[0].bar();
+face[0].bar();
 UIc.start(1,1);
 let md=["HARD","MED","SOFT"];
 UI.btn.c2l("main","_2x2",1,"MODE",md[dash.live.mode],15,4);

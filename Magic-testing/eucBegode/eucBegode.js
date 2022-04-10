@@ -54,7 +54,7 @@ euc.conn=function(mac){
 					euc.alert = 1 + Math.round((dash.live.spd-dash.live.spd1) / dash.live.spdS) ; 	
 				//battery
 				dash.live.volt=(event.target.value.getUint16(2)*dash.live.bms)/100; //bms=1 67.2 ,1.25 84, 1.5 100,8
-				dash.live.bat=Math.round( 100*(dash.live.volt*( 100/(16*dash.live.bms)) - dash.live.batE ) / (420-dash.live.batE) );
+				dash.live.bat=Math.round( 100*(dash.live.volt*( 100/(16*dash.live.bms)) - dash.live.batE ) / (dash.live.batF-dash.live.batE) );
 				//dash.live.bat = Math.round(((dash.live.volt / (16*dash.live.bms)) * 100 - 310 ) * 0.909);
 				batL.unshift(dash.live.bat);
 				if (20<batL.length) batL.pop();

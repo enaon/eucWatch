@@ -253,7 +253,7 @@ euc.tmp.resp=function(inpk){
 	else if ( inpk[16] == 231 ) //speedPswd
 		print("in 231");
 	else if ( inpk[16] == 95 ){
-		if (inpk[2]==1 ){
+		//if (inpk[2]==1 ){
 			let r1=(Math.random()*10)|0;
 			let r2=(Math.random()*10)|0;
 			let r3=(Math.random()*10)|0;
@@ -265,7 +265,7 @@ euc.tmp.resp=function(inpk){
 			let i6 = i4 + i5;
 			let i7 = (i3 + i6 + i1) % 10;
 			euc.tmp.lockKey= [170,85,0,0,0,0,0,0,0,0,48+i5,48+r1,48+i7,48+r2,48+(i6 + i7 + i1) % 10,48+r3,93,20,90,90];
-		}
+		//}
 		euc.dash.lock=inpk[2];
 	}					
 	if (2<euc.dbg) print("responce:",inpk);
