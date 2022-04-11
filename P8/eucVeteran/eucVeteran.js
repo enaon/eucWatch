@@ -13,6 +13,9 @@ euc.cmd=function(no){
 		case "setVolUp":return "SetFctVol+";
 		case "setVolDn":return "SetFctVol-";
 		case "clearMeter":return "CLEARMETER";
+		case "switchPackets": euc.tmp=1; return "CHANGESTRORPACK";
+		case "changePage": euc.tmp++; return "CHANGESHOWPAGE";
+		case "returnMain": euc.tmp=0;return "CHANGESTRORPACK";
     }
 };
 euc.proxy=0;
@@ -31,6 +34,7 @@ euc.conn=function(mac){
 		return;
 	}
 	euc.proxy=0;
+	euc.pac=[]; 
 	//connect 
 	NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 	.then(function(g) {
@@ -46,6 +50,15 @@ euc.conn=function(mac){
 			if (!euc.run) return;
 			ev.set(event.target.value.buffer);
 			euc.alert=0;
+			/*if (euc.tmp) {
+				euc.tot=E.toUint8Array(euc.pac,event.target.value.buffer);
+				if ( (event.target.value.buffer[event.target.value.buffer.length - 2]== 85 && event.target.value.buffer[event.target.value.buffer.length - 1]==53) ||(event.target.value.buffer[event.target.value.buffer.length - 2]== 80 && event.target.value.buffer[event.target.value.buffer.length - 1]==55)||(event.target.value.buffer[event.target.value.buffer.length - 2]== 70 && event.target.value.buffer[event.target.value.buffer.length - 1]==99) ) {
+					euc.pac=[];
+					print(E.toString(euc.tot));
+				} else euc.pac=euc.tot;
+				return;
+			}
+			*/
 			//print(this.ev);
 			if  ( ev[0]===220 && ev[1]===90 && ev[2]===92 ) {
 				//volt-bat
@@ -253,3 +266,6 @@ euc.off=function(err){
     }
 };
 
+//euc.wri("changePage")
+//euc.wri("switchPackets")
+//euc.wri("returnMain")

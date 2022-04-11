@@ -14,7 +14,7 @@ face[0] = {
 		this.g.fillRect(0,205,239,239);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",20);
-		this.g.drawString("ADVANCED",122-(this.g.stringWidth("ADVANCED")/2),217); 
+		this.g.drawString("WHEEL SETTINGS",122-(this.g.stringWidth("WHEEL SETTINGS")/2),217); 
 		this.g.flip();
 		this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,204);
@@ -25,21 +25,14 @@ face[0] = {
       	this.g.fillRect(143,200,165,204);
 		this.g.flip(); 
 		//ride mode
-		this.b1=euc.dash.mode;
-		if (!this.b1) {
-			this.b1t="HARD";this.b1c=4;
-		}else if (this.b1==1) {
-			this.b1t="MED";this.b1c=5;
-		}else if (this.b1==2) {
-			this.b1t="SOFT";this.b1c=6;
-		}
-		this.g.setColor(0,this.b1c);
+		let md=["HARD","MED","SOFT"];
+		this.g.setColor(0,4);
 		this.g.fillRect(0,0,119,97);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",18);	
 		this.g.drawString("MODE",60-(this.g.stringWidth("MODE")/2),15); 
 		this.g.setFont("Vector",30);	
-		this.g.drawString(this.b1t,60-(this.g.stringWidth(this.b1t)/2),50); 
+		this.g.drawString(md[euc.dash.mode],60-(this.g.stringWidth(md[euc.dash.mode])/2),50); 
 		this.g.flip();
 		//calibrate
 		this.g.setColor(0,12);
@@ -121,12 +114,14 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
       case 5:case 12: //tap event
 		if ( x<=120 && y<=100 ) { //ride mode
-			if (euc.dash.mode==0) {euc.dash.mode=1;euc.wri("rideMed");face[0].btn("MODE",18,60,15,6,0,0,119,97,"MED",30,60,50);}
-			else if (euc.dash.mode==1) {euc.dash.mode=2;euc.wri("rideSoft");face[0].btn("MODE",18,60,15,4,0,0,119,97,"SOFT",30,60,50);}
-			else if (euc.dash.mode==2) {euc.dash.mode=0;euc.wri("rideHard");face[0].btn("MODE",18,60,15,5,0,0,119,97,"HARD",30,60,50);}
+			euc.dash.mode++; if (2<euc.dash.mode)euc.dash.mode=0;
+			let m=["HARD","MED","SOFT"]
+			face[0].btn("MODE",18,60,15,4,0,0,119,97,m[euc.dash.mode],30,60,50);
+			euc.wri("setRideMode",euc.dash.mode);
 			buzzer([30,50,30]);		
 		}else if ( 120<=x  && y<=100 ) { //calibrate
             buzzer([30,50,30]);
+			euc.wri("getCalibrateTilt");
 			face.go("dashKingsongAdvCalibrate",0);
 			return;
 		}else if ( x<=120 && 100<=y ) {   //limits
@@ -136,7 +131,10 @@ touchHandler[0]=function(e,x,y){
 		}else if ( 120<=x && 100<=y ) { //pass
 			buzzer([30,50,30]);		
 			if (euc.dash.pass.length>=4) face.go("dashKingsongAdvPass",5);
-			else face.go("dashKingsongAdvPass",0);
+			else {
+				euc.wri("getPass");
+				face.go("dashKingsongAdvPass",0);
+			}
 			return;
 		}else buzzer([30,50,30]);
 		this.timeout();

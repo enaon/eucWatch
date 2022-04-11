@@ -123,10 +123,10 @@ touchHandler[0]=function(e,x,y){
 	case 5: //tap event
         if (!face[0].calibrate){
 		if (x<=120&&y<175) { //tilt forward
-			euc.dash.tiltSet--;euc.wri("tiltSet");
+			euc.dash.tiltSet--;euc.wri("setCalibrateTilt",euc.dash.tiltSet);
 			buzzer([30,50,30]);
 		}else if (120<=x&&y<=175) { //tilt back
-			euc.dash.tiltSet++;euc.wri("tiltSet");
+			euc.dash.tiltSet++;euc.wri("setCalibrateTilt",euc.dash.tiltSet);
 			buzzer([30,50,30]);
 		}else if (175<=y) { //calibrate
             face[0].calibrate=1;
@@ -143,7 +143,7 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.flip();	
 				face.go("dashKingsongAdv",0);return;
 			}else if (175<=y&&x<=120) 
-				euc.wri("calibrate");
+				euc.wri("doCalibrate");
 			else buzzer(40);
         }
 		this.timeout();

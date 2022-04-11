@@ -4,7 +4,6 @@ face[0] = {
 	g:w.gfx,
 	init: function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
-		if (!euc.dash.ks.offT) euc.wri("getPowerOff");
 		this.g.setColor(0,0);
 		this.g.fillRect(0,98,239,99);
         this.g.flip();	
@@ -14,7 +13,7 @@ face[0] = {
 		this.g.fillRect(0,205,239,239);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",20);
-		this.g.drawString("MORE",120-(this.g.stringWidth("MORE")/2),217); 
+		this.g.drawString("ON CONNECT",120-(this.g.stringWidth("ON CONNECT")/2),217); 
 		this.g.flip(); 
 		this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,204);
@@ -23,13 +22,11 @@ face[0] = {
 		this.g.flip();
         this.g.setColor(1,15);
       	this.g.fillRect(120,200,143,204);
-		this.g.flip();
-		let offH=Math.floor(euc.dash.ks.offT/3600);
-		let offM=euc.dash.ks.offT/60 %60;	
-        this.btn(1,"IDLE",18,60,15,1,1,0,0,119,97,!euc.dash.ks.offT?"-":offH+"h:"+offM+"m",28,60,50);
-		this.btn(1,"ON",22,185,15,12,1,122,0,239,97,"CONN",28,185,50);		
-        this.btn(1,"",18,60,115,1,1,0,100,119,195,"",30,60,150);
-        this.btn(1,"ON",18,185,115,12,1,122,100,239,195,"DISC",30,185,150);		
+		this.g.flip(); 
+        this.btn(euc.dash.ks.aRide,"LED",18,60,15,12,1,0,0,119,97,"RIDE",28,60,50);
+		this.btn(euc.dash.ks.aOff,"VOICE",22,185,15,7,1,122,0,239,97,"MODE",28,185,50);		
+        this.btn(euc.dash.ks.aLift,"SENSOR",18,60,115,12,1,0,100,119,195,"LIFT",30,60,150);
+        this.btn(euc.dash.ks.aLock,"UNLOCK",18,185,115,7,1,122,100,239,195,"ONCE",30,185,150);		
 		this.run=true;
 	},
 	show : function(){
@@ -50,27 +47,6 @@ face[0] = {
             this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);}
 			this.g.flip();
     },
-	cho: function(title,val,button,button2,color){
-		this.g.setColor(0,1);
-		this.g.fillRect(0,0,239,177);
-		this.g.setColor(1,15);
-		this.g.setFont("Vector",20);
-		this.g.drawString(title,120-(this.g.stringWidth(title)/2),10); 		
-		this.g.drawString("<",5,90); this.g.drawString(">",230,90); 		
-		this.g.setFont("Vector",55);
-		this.g.drawString(val,130-(this.g.stringWidth(val)/2),70); 		
-		this.g.flip(); 
-		//if (!this.page){
-
-		this.g.setColor(0,color);
-		this.g.fillRect(0,177,239,239);
-		this.g.setColor(1,15);
-		this.g.setFont("Vector",20);
-   		this.g.drawString(button,120-(this.g.stringWidth(button)/2),188); 
-		if (button2) this.g.drawString(button2,120-(this.g.stringWidth(button2)/2),216); 
-		this.g.flip(); 
-		//}
-    },
     ntfy: function(txt1,txt0,size,clr,bt){
             this.g.setColor(0,clr);
 			this.g.fillRect(0,198,239,239);
@@ -85,7 +61,7 @@ face[0] = {
 				t.g.fillRect(0,205,239,239);
 				t.g.setColor(1,15);
 				t.g.setFont("Vector",20);
-		        t.g.drawString("MORE",120-(t.g.stringWidth("MORE")/2),217); 
+		        t.g.drawString("ON CONNECT",120-(t.g.stringWidth("ON CONNECT")/2),217); 
 				t.g.flip();
 				t.g.setColor(0,0);
 				t.g.fillRect(0,196,239,204);
@@ -117,9 +93,7 @@ face[1] = {
 	init: function(){
 		return true;
 	},
-	show : function(){		
-		if (face[0].page=="idle")
-			euc.wri("setPowerOff",euc.dash.ks.offT);
+	show : function(){
 		face.go("dashKingsongOpt",0);
 		return true;
 	},
@@ -132,44 +106,31 @@ touchHandler[0]=function(e,x,y){
 	face.off();
 	switch (e) {
       case 5: case 12: //tap event
-		if (face[0].page=="idle"){
-			if ( 180 < y  ){
-				euc.aOff=euc.dash.ks.aOff;
-				euc.aLck=euc.dash.ks.aLock;
-				euc.dash.ks.aOff=1;
-				euc.dash.ks.aLock=0;
-				euc.tgl();
-				return;
-			}else if ( x<=120)
-				euc.dash.ks.offT=euc.dash.ks.offT-600;
-			else euc.dash.ks.offT=euc.dash.ks.offT+600;
+		if ( x<=120 && y<100 ) { //auto Ride
+			if (!euc.dash.ks.aRide) euc.dash.ks.aRide=0;
+			euc.dash.ks.aRide=1-euc.dash.ks.aRide;
+	        face[0].btn(euc.dash.ks.aRide,"LED",18,60,15,12,1,0,0,119,97,"RIDE",28,60,50);
+			face[0].ntfy("AUTO R-LED ENABLED","NO ACTION",19,1,euc.dash.ks.aRide);
 			buzzer([30,50,30]);
-			if (euc.dash.ks.offT <60 )euc.dash.ks.offT=60;
-			if (euc.dash.ks.offT ==660 )euc.dash.ks.offT=600;
-			if (14400<euc.dash.ks.offT  )euc.dash.ks.offT=14400;
-			let offH=Math.floor(euc.dash.ks.offT/3600);
-			let offM=euc.dash.ks.offT/60 %60;
-			face[0].cho("SET IDLE TIMEOUT",offH+"h:"+offM+"m","TURN OFF","NOW",7);
-			return;
-		}else if ( x<=120 && y<100 ) { //set timeout
-			let offH=Math.floor(euc.dash.ks.offT/3600);
-			let offM=euc.dash.ks.offT/60 %60;
-			face[0].page="idle";
-			face[0].cho("SET IDLE TIMEOUT",offH+"h:"+offM+"m","TURN OFF","NOW",7);
-			return;
-		}else if ( 120<=x && y<=100 ) { //CONN
-			face.go("dashKingsongCon",0);
-			return;		
+		}else if ( 120<=x && y<=100 ) { //BT music
+			euc.dash.ks.aVoice=1-euc.dash.ks.aVoice;
+            face[0].btn(euc.dash.ks.aOff,"VOICE",22,185,15,7,1,122,0,239,97,"MODE",28,185,50);		
+            face[0].ntfy("VOICE MODE ENABLED","NO ACTION",(euc.dash.ks.aVoice)?17:19,1,euc.dash.ks.aVoice);
+			buzzer([30,50,30]);		
 		}else if ( x<=120 && 100<=y ) { //auto lift
-			buzzer(49);		
-		}else if  (120<=x && 100<=y ) { //disconn
-			face.go("dashKingsongDis",0);
-			return;					
+			euc.dash.ks.aLift=1-euc.dash.ks.aLift;
+            face[0].btn(euc.dash.ks.aLift,"SENSOR",18,60,115,12,1,0,100,119,195,"LIFT",30,60,150);
+            face[0].ntfy("AUTO DISABLE LIFT","NO ACTION",19,1,euc.dash.ks.aLift);
+			buzzer([30,50,30]);		
+		}else if  (120<=x && 100<=y ) { //Unlock Once
+			euc.dash.ks.aLock=1-euc.dash.ks.aLock;
+            face[0].btn(euc.dash.ks.aLock,"UNLOCK",18,185,115,7,1,122,100,239,195,"ONCE",30,185,150);	
+            face[0].ntfy("AUTO UNLOCK ENABLED","NO ACTION",19,1,euc.dash.ks.aLock);
+			buzzer([30,50,30]);						
 		}else buzzer([30,50,30]);
 		break;
 	case 1: //slide down event
-		if (face[0].page=="idle")
-			euc.wri("setPowerOff",euc.dash.ks.offT);
+		//face.go("main",0);
 		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
@@ -177,25 +138,15 @@ touchHandler[0]=function(e,x,y){
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 			buzzer([30,50,30]);
-		}else 
+		}else //if (y>100) {
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
+		//} else {buzzer(40);}
 		break;
 	case 3: //slide left event
-		if (face[0].page=="idle"){
-			face[0].page=0;
-			euc.wri("setPowerOff",euc.dash.ks.offT);
-			face.go("dashKingsongOpt2",0);
-		}else 
-			face.go("dashKingsongAdv",0);
+		face.go("dashKingsongDis",0);
 		return;
 	case 4: //slide right event (back action)
-		if (face[0].page=="idle"){
-			face[0].page=0;
-			euc.wri("setPowerOff",euc.dash.ks.offT);
-			face.go("dashKingsongOpt2",0);
-
-		}else 
-			face.go("dashKingsongOpt",0);
+		face.go("dashKingsongOpt",0);
 		return;
   }
 };
