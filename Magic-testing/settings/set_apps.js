@@ -30,12 +30,21 @@ img=0;
 UIc.end();
 //TC.on('tc5',UIc.tap.btn);
 //
-UIc.main._2x3_1=()=>{buzzer(buz.ok);face.go('calc',0);};
-UIc.main._2x3_2=()=>{buzzer(buz.ok);face.go('repellent',0);};
-UIc.main._2x3_3=()=>{buzzer(buz.ok);face.go('tpmsFace',0);};
-UIc.main._2x3_4=()=>{buzzer(buz.ok);face.go('hello',0);};
-UIc.main._2x3_5=()=>{buzzer(buz.na);};
-UIc.main._2x3_6=()=>{buzzer(buz.na);};
+UIc.main._2x3=(i)=>{
+	if (i==1){
+		buzzer(buz.ok);face.go('calc',0);
+	}else if (i==2){
+		buzzer(buz.ok);face.go('repellent',0);
+	}else if (i==3){
+		buzzer(buz.ok);face.go('tpmsFace',0);
+	}else if (i==4){
+		buzzer(buz.ok);face.go('hello',0);
+	}else if (i==5){
+		buzzer(buz.na);	
+	}else if (i==6){
+		buzzer(buz.na);
+	}
+};
 
 tcNext.replaceWith((x,y)=>{
 	buzzer(buz.ok);eval(require("Storage").read("set_dash"));face[0].bar();

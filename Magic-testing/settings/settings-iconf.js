@@ -18,7 +18,6 @@ face[0] = {
 	},
 	bar:function(){
 		"ram";
-		//UI.ele.ind(this.page=="dash2"||this.page=="app"?2:1,this.page=="bt"||this.page=="theme"||this.page=="main"?1:2,this.page=="main"||this.page=="dash1"||this.page=="dash2"?6:1);
 		UIc.start(0,1);
 		this.ref();
 		UIc.end();

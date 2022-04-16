@@ -14,7 +14,7 @@ var TC={
 		digitalPulse(set.def.rstP,1,[5,50]);
 		this.ntid=1;
 		Bangle.on('drag', TC.init);
-		setTimeout(()=>{i2c.writeTo(0x15,0xFA,17);i2c.writeTo(0x15,0);},100); //gesture mode
+		setTimeout(()=>{i2c.writeTo(0x15,0xFA,17);i2c.writeTo(0x15,0);},1000); //gesture mode
 	},
 	init:function(){
 		"ram";

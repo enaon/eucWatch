@@ -22,23 +22,23 @@ face[0] = {
 		UIc.start(0,1);
 		this.ref();
 		UIc.end();
-		UIc.bar._bar_1=()=>{
+		UIc.bar._bar=(i)=>{
+			if (i==1){
 			if (this.page=="main") {buzzer(buz.na);return;}
-			  buzzer(buz.ok);
-			  eval(require('Storage').read("set_main"));
-			  setTimeout(function(){ face[0].ref();},0);
-		};
-		UIc.bar._bar_2=()=>{
-			if (this.page=="set") {buzzer(buz.na);return;}
-			  buzzer(buz.ok);
-			  eval(require('Storage').read("set_set"));
-			  setTimeout(function(){ face[0].ref();},0);
-		};
-		UIc.bar._bar_3=()=>{
-			  if (this.page=="dash1") {buzzer(buz.na);return;}
-			  buzzer(buz.ok);
-			  eval(require('Storage').read("set_dash"));
-			  setTimeout(function(){ face[0].ref();},0);
+				buzzer(buz.ok);
+				eval(require('Storage').read("set_main"));
+				setTimeout(function(){ face[0].ref();},0);
+			}else if (i==2){
+				if (this.page=="set") {buzzer(buz.na);return;}
+				buzzer(buz.ok);
+				eval(require('Storage').read("set_set"));
+				setTimeout(function(){ face[0].ref();},0);
+			}else if (i==3){
+				if (this.page=="dash1") {buzzer(buz.na);return;}
+				buzzer(buz.ok);
+				eval(require('Storage').read("set_dash"));
+				setTimeout(function(){ face[0].ref();},0);
+			}
     };
 	},
 	ref : function(s){

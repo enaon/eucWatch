@@ -37,7 +37,7 @@ face[0] = {
     if (!this.run) return;
     if (scan.run) {
 	  UI.ele.title("WAIT 5 SECS",15,0);
-	  UI.btn.img("main","_main",7,_icon.scan,"SCANNING",14,1);
+	  UI.btn.img("main","_main",12,_icon.scan,"SCANNING",14,1);
     }else if (scan.mac.length){
       this.g.setFont("Vector",28);
       for (var entry=this.line;entry<this.line+4&&entry<scan.mac.length;entry++) {
@@ -149,11 +149,11 @@ touchHandler[0]=function(e,x,y){
         else w.gfx.bri.set(this.bri);
 		buzzer(buz.ok);
 	  } else buzzer(buz.na);
-    }else if  (e==3){
-	  buzzer(buz.na);    
-    }else if  (e==4){
-		face.go(face.appRoot[0],face.appRoot[1]);
-	  return;
+   // }else if  (e==3){
+	//  buzzer(buz.na);    
+    //}else if  (e==4){
+	//	face.go(face.appRoot[0],face.appRoot[1]);
+	 // return;
     }
 };
 

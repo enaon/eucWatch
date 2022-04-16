@@ -9,10 +9,34 @@ face[0] = {
 		this.tmpC=[1,2992,7,7];
 		this.batC=[4,1,7,7];
 		if ( process.env.BOARD=="BANGLEJS2") {
-			this.gui={spd:UI.pos._main[5],spdm:7+UI.pos._main[5][3]-((UI.pos._main[5][3]-UI.pos._main[5][1])/2),tmp:UI.pos._main[1],bat:UI.pos._main[2],txt:117*UI.size.txt,txt1:45*UI.size.txt};
+			this.gui={
+				spd:[0,40,180,150],
+				spdm:100,
+				tmp:[0,0,90,40],
+				bat:[91,0,180,40],
+				txt:110*UI.size.txt,
+				txt1:40*UI.size.txt
+				//spd:UI.pos._main[5],
+				//spdm:7+UI.pos._main[5][3]-((UI.pos._main[5][3]-UI.pos._main[5][1])/2),
+				//tmp:UI.pos._main[1],
+				//bat:UI.pos._main[2],
+				//txt:117*UI.size.txt,
+				//txt1:45*UI.size.txt
+			};
 			this.spdC=[15,13,7,7];
 		}else{
-			this.gui={spd:UI.pos._main[5],spdm:10+UI.pos._main[5][3]-((UI.pos._main[5][3]-UI.pos._main[5][1])/2),tmp:UI.pos._main[1],bat:UI.pos._main[2],txt:170*UI.size.txt,txt1:60*UI.size.txt};
+			this.gui={
+				//spd:UI.pos._main[5],
+				//spdm:10+UI.pos._main[5][3]-((UI.pos._main[5][3]-UI.pos._main[5][1])/2),
+				//tmp:UI.pos._main[1],
+				//bat:UI.pos._main[2],txt:170*UI.size.txt,
+				spd:[0,60,240,240],
+				spdm:140,
+				tmp:[0,0,120,60],
+				bat:[121,0,240,60],
+				txt:170*UI.size.txt,
+				txt1:60*UI.size.txt
+				};
 			this.spdC=[0,13,7,7];
 		}
 		this.spdF=dash.live.spdF*((set.def.dash.mph)?0.625:1);

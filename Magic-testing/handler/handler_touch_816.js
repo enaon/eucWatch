@@ -79,11 +79,12 @@ var TC={
 						this.val.tmp=this.y<tp[4]?this.val.tmp+(tp[4]-this.y):this.val.tmp-(this.y-tp[4]); 
 						let len=15;
 						let step=Math.round(this.val.tmp/len);
-						if (step ==1) step=0;
-						else if (step ==-1) step=0;
-						else if ( step ==2 || step == 3) step=1;
-						else if (step ==-2 || step == -3) step=-1;
-						else if (step) step=Math.round(step*1.8);
+						if ( step ==1 || step ==-1) step=step;
+						else if ( step == 2 || step == 3) step=1;
+						else if ( step == -2 || step == -3) step=-1;
+						else if ( step == 4 || step == 5) step=2;
+						else if ( step == -4 || step == -5) step=-2;
+						else if (step) step=Math.round(step*3);
 						if (step) {
 							if ( len<this.val.tmp || this.val.tmp < -len) {
 								//this.val.cur=this.val.cur+(step* (step==1||step==-1?1:Math.abs(step*2))   ); this.val.tmp=0;

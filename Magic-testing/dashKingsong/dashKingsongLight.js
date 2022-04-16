@@ -9,29 +9,28 @@ UIc.end();
 face[0].bar();
 
 //
-UIc.main._2x2_1=()=>{
-	dash.live.ks.city=0;
-	buzzer(buz.ok);
-	euc.wri("setLights",1);
-	eval(require('Storage').read("dashKingsongAct")); 
-};
-UIc.main._2x2_2=()=>{
-	dash.live.ks.city=0;
-	buzzer(buz.ok);
-	euc.wri("setLights",3);
-	eval(require('Storage').read("dashKingsongAct")); 
-};
-UIc.main._2x2_3=()=>{
-	dash.live.ks.city=1-dash.live.ks.city;
-	buzzer(buz.ok);		
-	UI.btn.c2l("main","_2x2",3,"eucWatch","CITY",15,dash.live.ks.city?12:1);
-	eval(require('Storage').read("dashKingsongAct")); 
-};
-UIc.main._2x2_4=()=>{
-	dash.live.ks.city=0;
-	buzzer(buz.ok);	
-	euc.wri("setLights",2);
-	eval(require('Storage').read("dashKingsongAct")); 
+UIc.main._2x2=(i)=>{
+	if (i==1){
+		dash.live.ks.city=0;
+		buzzer(buz.ok);
+		euc.wri("setLights",1);
+		eval(require('Storage').read("dashKingsongAct")); 
+	}else if (i==2){
+		dash.live.ks.city=0;
+		buzzer(buz.ok);
+		euc.wri("setLights",3);
+		eval(require('Storage').read("dashKingsongAct")); 
+	}else if (i==3){
+		dash.live.ks.city=1-dash.live.ks.city;
+		buzzer(buz.ok);		
+		UI.btn.c2l("main","_2x2",3,"eucWatch","CITY",15,dash.live.ks.city?12:1);
+		eval(require('Storage').read("dashKingsongAct")); 
+	}else if (i==4){
+		dash.live.ks.city=0;
+		buzzer(buz.ok);	
+		euc.wri("setLights",2);
+		eval(require('Storage').read("dashKingsongAct")); 
+	}
 };
 //touch
 tcB=(x,y)=>{

@@ -15,8 +15,9 @@ face[0] = {
 	UIc.start(1,1);
 	this.page(1);
 	UIc.end();
-	UIc.main._2x1_1=function(n) {face[0].scan(1);};
-	UIc.main._2x1_2=function(n) {face[0].scan(2);};
+	UIc.main._2x1=(i)=>{
+		face[0].scan(i);
+	};
   },
   page : function(n) {
 	this.set=n;

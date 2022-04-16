@@ -2,6 +2,7 @@
 //euc.conn(euc.mac);
 //euc.wri("lightsOn")
 //temp
+
 if (!dash.live.ks||(dash.live.ks&&dash.live.ks.ver!=5)) dash.live.ks={"ver":5,"lift":1,"aLiftC":0,"aRideC":0,"aVoiceC":2,"aLiftD":0,"aRideD":0,"aVoiceD":0,"HL":0,"aHLC":3,"aHLD":2,"aOff":0,"aLock":0,"aUnlock":0,"city":0,"offT":0};
 euc.tmp={};
 //commands
@@ -66,8 +67,8 @@ euc.cmd=function(no,val){
 			return [170,85,48+Number(dash.live.pass[0]),48+Number(dash.live.pass[1]),48+Number(dash.live.pass[2]),48+Number(dash.live.pass[3]),0,0,0,0,0,0,0,0,0,0,68,20,90,90]; 
 		case "setPassChange":
 			return [170,85,48+Number(dash.live.pass[0]),48+Number(dash.live.pass[1]),48+Number(dash.live.pass[2]),48+Number(dash.live.pass[3]),48+Number(dash.live.passOld[0]),48+Number(dash.live.passOld[1]),48+Number(dash.live.passOld[2]),48+Number(dash.live.passOld[3]),0,0,0,0,0,0,65,20,90,90]; //rf 43
-		case "setSpeedLimits":
-			return [170,85,((dash.live.limE[0])?dash.live.lim[0]:(dash.live.limE[1])?0x00:0xFF),0x00,(dash.live.limE[1])?dash.live.lim[1]:0,0x00,dash.live.lim[2],0x00,dash.live.lim[3],0x00,0x31,0x32,0x33,0x34,0x35,0x36,0x85,20,90,90];
+		case "setAlarms":
+			return [170,85,dash.live.limE[0]?dash.live.lim[0]:0,0,dash.live.limE[1]?dash.live.lim[1]:0,0,dash.live.lim[2],0,dash.live.lim[3],0,49,50,51,52,53,54,133,20,90,90];
 		default:
 			return val?val:[];
     }
@@ -180,7 +181,12 @@ euc.tmp.resp=function(inpk){
 	"ram";
 	if ( inpk[16] == 63 ) 
 		dash.live.ks.offT=inpk[5] << 8 | inpk[4];
-	else if ( inpk[16] == 70 ) 
+	else if ( inpk[16] == 67 ) {
+		if (inpk[6]==1){
+			if (inpk[2]==255) dash.live.pass="";
+			else dash.live.pass=""+(inpk[2]-48)+(inpk[3]-48)+(inpk[4]-48)+(inpk[5]-48);
+		}
+	}else if ( inpk[16] == 70 ) 
 		euc.tmp.pass=inpk[2];
 	else if ( inpk[16] == 72 ) 
 		dash.live.ks.oldMode=inpk[2];
@@ -201,7 +207,7 @@ euc.tmp.resp=function(inpk){
 	else if ( inpk[16] == 110 ) 	
 		dash.live.ks.ride=1-inpk[2];
 	else if ( inpk[16] == 138 ){ 	
-		if ( inpk[2] == 1)  {
+		if ( inpk[2] == 0)  {
 			dash.live.tiltSet=((inpk[5]& 0xff)  << 8) | (inpk[4] & 0xff);
 			if ( 32767 < dash.live.tiltSet ) dash.live.tiltSet = dash.live.tiltSet - 65536;
 		}
@@ -252,7 +258,7 @@ euc.tmp.resp=function(inpk){
 				dash.live.ks.firm=dash.live.ks.type.split("-")[2];
 				dash.live.ks.name=dash.live.ks.type.split("-")[1];
 				dash.live.name=dash.live.ks.name;
-				setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",dash.live.name);
+				setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Model",dash.live.name);
 			}
 		}	
 	}else if ( inpk[16] == 201 ) 
@@ -260,7 +266,7 @@ euc.tmp.resp=function(inpk){
 	else if ( inpk[16] == 231 ) //speedPswd
 		print("in 231");
 	else if ( inpk[16] == 95 ){
-		if (inpk[2]==1 ){
+		//if (inpk[2]==1 ){
 			let r1=(Math.random()*10)|0;
 			let r2=(Math.random()*10)|0;
 			let r3=(Math.random()*10)|0;
@@ -272,7 +278,7 @@ euc.tmp.resp=function(inpk){
 			let i6 = i4 + i5;
 			let i7 = (i3 + i6 + i1) % 10;
 			euc.tmp.lockKey= [170,85,0,0,0,0,0,0,0,0,48+i5,48+r1,48+i7,48+r2,48+(i6 + i7 + i1) % 10,48+r3,93,20,90,90];
-		}
+		//}
 		dash.live.lock=inpk[2];
 	}					
 	if (2<euc.dbg) print("responce:",inpk);
@@ -395,8 +401,8 @@ euc.conn=function(mac){
 					if (euc.tmp.pass) {
 						dash.live.pass2=dash.live.pass;
 						dash.live.pass="";
-						//face.go("dashKingsongAdvPass",0,1);
-						//return;
+						face.go("dashKingsong",0);
+						return;
 					}
 				}).then(function() {
 					if (!dash.live.ks.serial) {
@@ -436,6 +442,7 @@ euc.conn=function(mac){
 			}else if (n==="proxy") {
 				c.writeValue(v).then(function() {
                     clearTimeout(euc.busy);euc.busy=0;
+					return;
 				}).catch(function(err)  {
 					clearTimeout(euc.busy);euc.busy=0;euc.off("err-fwd");
 				});
@@ -459,7 +466,7 @@ euc.conn=function(mac){
 				if (euc.dbg)  print("EUC: ks is initialized");
 				euc.state="READY";
 				c.startNotifications().then(function() {
-					return euc.dash.ks.aVoiceC?euc.wri("setVoiceOnOff",2- euc.dash.ks.aVoiceC):"ok";
+					return dash.live.ks.aVoiceC?euc.wri("setVoiceOnOff",2- dash.live.ks.aVoiceC):"ok";
 				});
 			},500);
 		}else {

@@ -68,7 +68,7 @@ euc.cmd=function(no,val){
 		case "setPassChange":
 			return [170,85,48+Number(euc.dash.pass[0]),48+Number(euc.dash.pass[1]),48+Number(euc.dash.pass[2]),48+Number(euc.dash.pass[3]),48+Number(euc.dash.passOld[0]),48+Number(euc.dash.passOld[1]),48+Number(euc.dash.passOld[2]),48+Number(euc.dash.passOld[3]),0,0,0,0,0,0,65,20,90,90]; //rf 43
 		case "setSpeedLimits":
-			return [170,85,((euc.dash.limE[0])?euc.dash.lim[0]:(euc.dash.limE[1])?0x00:0xFF),0x00,(euc.dash.limE[1])?euc.dash.lim[1]:0,0x00,euc.dash.lim[2],0x00,euc.dash.lim[3],0x00,0x31,0x32,0x33,0x34,0x35,0x36,0x85,20,90,90];
+			return [170,85,euc.dash.limE[0]?euc.dash.lim[0]:0,0,euc.dash.limE[1]?euc.dash.lim[1]:0,0,euc.dash.lim[2],0,euc.dash.lim[3],0,49,50,51,52,53,54,133,20,90,90];	
 		default:
 			return [];
     }
@@ -176,7 +176,12 @@ euc.tmp.thre=function(inpk){
 euc.tmp.resp=function(inpk){
 	if ( inpk[16] == 63 ) 
 		euc.dash.ks.offT=inpk[5] << 8 | inpk[4];
-	else if ( inpk[16] == 70 ) 
+	else if ( inpk[16] == 67 ) {
+		if (inpk[6]==1){
+			if (inpk[2]==255) euc.dash.pass="";
+			else euc.dash.pass=""+(inpk[2]-48)+(inpk[3]-48)+(inpk[4]-48)+(inpk[5]-48);
+		}
+  }else if ( inpk[16] == 70 ) 
 		euc.tmp.pass=inpk[2];
 	else if ( inpk[16] == 72 ) 
 		euc.dash.ks.oldMode=inpk[2];
@@ -197,7 +202,10 @@ euc.tmp.resp=function(inpk){
 	else if ( inpk[16] == 110 ) 	
 		euc.dash.lght.ride=1-inpk[2];
 	else if ( inpk[16] == 138 ){ 	
-		if ( inpk[2] == 1)  euc.dash.tiltSet=inpk[5] << 8 | inpk[4];
+		if ( inpk[2] == 0)  {
+			euc.dash.tiltSet=((inpk[5]& 0xff)  << 8) | (inpk[4] & 0xff);
+			if ( 32767 < euc.dash.tiltSet ) euc.dash.tiltSet = euc.dash.tiltSet - 65536;
+		}
 	}else if ( inpk[16] == 162 ) 
 		euc.dash.mode=inpk[4];	
 	else if ( inpk[16] == 172 || inpk[16] == 173 || inpk[16] == 174  ) //Prapam

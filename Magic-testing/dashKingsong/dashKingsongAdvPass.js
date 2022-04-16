@@ -1,352 +1,169 @@
-//kingsong  set adv password
-face[0] = {
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
-	g:w.gfx,
-	init: function(){
-   		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
-		//if (!face[5].pass) {
-		//	face[5].ntfy("EMPTY PASSWORD",20,4);
-        //    setTimeout(()=>{face.go("dashKingsongOpt",0);return;},1000);
-		//	return;
-		//}	
-        //status
-        if (dash.live.pass.length>=4){
-			this.g.setColor(0,4);
-			this.g.fillRect(0,0,239,97);
-			this.g.setColor(1,15);
-			this.g.setFont("Vector",16);
-			this.g.drawString("WHEEL IS",120-(this.g.stringWidth("WHEEL IS")/2),18); 
-			this.g.setFont("Vector",26);
-			this.g.drawString("PASS LOCKED",120-(this.g.stringWidth("PASS LOCKED")/2),50); 
-			this.g.flip();
-			//line
-			this.g.setColor(0,0);
-			this.g.drawLine (0,98,239,98);
-			this.g.drawLine (0,99,239,99);
-			this.g.flip();
-			//change
-			this.g.setColor(0,12);
-			this.g.fillRect(0,100,239,195);
-			this.g.setColor(1,15);
-			this.g.setFont("Vector",16);
-			this.g.drawString("CHANGE",122-(this.g.stringWidth("CHANGE")/2),118); 
-			this.g.setFont("Vector",26);
-			this.g.drawString("PASS",122-(this.g.stringWidth("PASS")/2),150); 
-			this.g.flip();
-        }else {
-			this.g.setColor(0,12);
-			this.g.fillRect(0,0,239,195);
-			this.g.setColor(1,15);
-			this.g.setFont("Vector",18);
-			this.g.drawString("WHEEL IS",120-(this.g.stringWidth("WHEEL IS")/2),55); 
-			this.g.setFont("Vector",30);
-			this.g.drawString("PASS FREE",120-(this.g.stringWidth("PASS FREE")/2),90); 
-			this.g.flip();
-        }
-        //info
-        this.g.setColor(0,0);
-		this.g.fillRect(0,195,239,239);
-		this.g.setColor(1,15);
-		this.g.setFont("Vector",20);
-		this.g.drawString("PASS SETTINGS",120-(this.g.stringWidth("PASS SETTINGS")/2),214); 
-		this.g.flip(); 
-		this.run=false;
-	},
-	show : function(){
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
-		if (!this.run) return; 
-         this.tid=setTimeout(function(t,o){
-		  t.tid=-1;
-		  t.show();
-        },1000,this);
-	},
-    ntfy: function(txt,size,clr){
-			this.info=1;
-            this.g.setColor(0,clr);
-			this.g.fillRect(0,196,239,239);
-			this.g.setColor(1,15);
-			this.g.setFont("Vector",size);
-			this.g.drawString(txt,122-(this.g.stringWidth(txt)/2),212); 
-			this.info=1;
-			this.g.flip();
-			if (this.ntid) clearTimeout(this.ntid);
-			this.ntid=setTimeout(function(t){
-                t.ntid=0;
-				t.g.setColor(0,0);
-				t.g.fillRect(0,196,239,239);
-				t.g.setColor(1,15);
-				t.g.setFont("Vector",20);
-		        t.g.drawString("PASS SETTINGS",120-(t.g.stringWidth("PASS SETTINGS")/2),214); 
-				t.g.flip();
-			},1000,this);
-    },
-	tid:-1,
-	run:false,
-	clear : function(){
-		//this.g.clear();
-		this.run=false;
-		if (this.tid>=0) clearTimeout(this.tid);this.tid=-1;
-   		if (this.itid) clearTimeout(this.itid);this.itid=0;
-		return true;
-	},
-	off: function(){
-		this.g.off();
-		this.clear();
+face[0].page="pass settings";
+UI.ele.ind(1,1,1);
+face[0].bar();
+face[0].lastpass="";
+//
+face[0].keypad=()=>{
+	"ram";
+	UIc.start(1,1);
+	for (let i=1;i<10;i++){
+		UI.btn.c2l("main","_kp4x3",i,i<10?i:bp[i-10],"",15,i<10||i==11?6:1);
 	}
-};
-//loop face
-face[1] = {
-	offms:1000,
-	init: function(){
-		return true;
-	},
-	show : function(){
-		face.go("dashKingsongAdv",0);
-		return true;
-	},
-	clear: function(){
-		return true;
-	},
-};	
-face[5] = {
-	offms: 30000,
-	g:w.gfx,
-	init: function(){
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
-		this.g.setColor(0,12);
-		this.g.fillRect(0,0,239,195);
-		this.g.setColor(1,15);
-		this.g.setFont("Vector",30);
-		this.g.drawString(1,34,18);this.g.drawString(2,115,18);this.g.drawString(3,195,18);
-		this.g.drawString(4,34,85);this.g.drawString(5,115,85);this.g.drawString(6,195,85);
-		this.g.drawString(7,34,153);this.g.drawString(8,115,153);this.g.drawString(9,195,153);
-		this.g.flip(); 
-        this.g.setColor(0,0);
-        this.g.drawLine(0,64,239,64);
-        this.g.drawLine(0,65,239,65);
-   		this.g.flip(); 
-        this.g.drawLine(0,129,239,129);
-        this.g.drawLine(0,130,239,130);
-   		this.g.flip(); 
-        this.g.drawLine(80,0,80,195);
-   		this.g.flip();
-        this.g.drawLine(160,0,160,195);
-   		this.g.flip();
-        this.pass="";
-		this.run=false;
-		this.ntfy("ENTER PASSWORD",20,0);
+	for (let i=10;i<13;i++){
+		UI.btn.c2l("bar","_kp4x3",i,i==11?"0":"","",15,i==11?6:1);
+	}
+	UIc.end();
+	face[0].pass="";
+	face[0].passone="";
+	//
+	UIc.main._kp4x3=(i)=>{
+		"ram";
+		if (i==10||i==12) return;
+		buzzer(buz.ok);	
+		face[0].pass=face[0].pass+(i==11?"0":i);
+		UI.btn.c2l("main","_kp4x3",i,i==11?0:i,"",15,4);
+		//highlight button
+		if (face[0]["tid"+i]) clearTimeout(face[0]["tid"+i]);
+		face[0]["tid"+i]=setTimeout(function(i){
+			face[0]["tid"+i]=0;
+			if ((i!=11||!UI.ntid)) UI.btn.c2l("main","_kp4x3",i,i==11?0:i,"",15,6);
+		},800,i);
+		if (face[0].pass.length==4) face[0].act();
+	};
+	UIc.bar._kp4x3=UIc.main._kp4x3;
 
-	},
-	show : function(){
-		if (!this.run) return; 
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
-        this.tid=setTimeout(function(t,o){
-		  t.tid=-1;
-		  t.show();
-        },200,this);
-	},
-    ntfy: function(txt,size,clr){
-			this.info=1;
-            this.g.setColor(0,clr);
-			this.g.fillRect(0,196,239,239);
-			this.g.setColor(1,15);
-			this.g.setFont("Vector",size);
-			this.g.drawString(txt,122-(this.g.stringWidth(txt)/2),212); 
-			this.info=1;
-			this.g.flip();
-			if (this.ntid) clearTimeout(this.ntid);
-			this.ntid=setTimeout(function(t){
-                t.ntid=0;
-				t.g.setColor(0,0);
-				t.g.fillRect(0,196,239,239);
-				t.g.flip();
-				t.g.setColor(0,12);
-				t.g.fillRect(82,198,158,239);
-				t.g.setColor(1,15);
-				t.g.setFont("Vector",30);
-				t.g.drawString(0,115,207); 
-				if (t.pass.length >=4) t.pass="";
-				t.g.flip();
-			},1200,this);
-    },
-    btn: function(x1,y1,x2,y2,bt,xb,yb){
-            this.g.setColor(0,7);
-			this.g.fillRect(x1,y1,x2,y2);
-			this.g.setColor(1,15);
-			this.g.setFont("Vector",30);
-			this.g.drawString(bt,xb,yb); 
-			this.g.flip();
-			if (this["tid"+bt]) clearTimeout(this["tid"+bt]);
-			this["tid"+bt]=setTimeout(function(t,x1,y1,x2,y2,bt,xb,yb){
-                t["tid"+bt]=0;
-				t.g.setColor(0,12);
-			    t.g.fillRect(x1,y1,x2,y2);
-				t.g.setColor(1,15);
-				t.g.setFont("Vector",30);
-				t.g.drawString(bt,xb,yb); 
-				t.g.flip();
-			},500,this,x1,y1,x2,y2,bt,xb,yb);
-    },
-	tid:-1,
-	run:false,
-	clear : function(){
-		//this.g.clear();
-		this.run=false;
-		if (this.tid>=0) clearTimeout(this.tid);this.tid=-1;
-   		if (this.ntid) clearTimeout(this.ntid);this.ntid=0;
-        let i;
-        for (i = 0; i < 10; i++) {
-          if (this["tid"+i]) clearTimeout(this["tid"+i]);this["tid"+i]=0;
-        }
-		return true;
-	},
-	off: function(){
-		this.g.off();
-		this.clear();
-	}
 };
-//touch
-touchHandler[0]=function(e,x,y){ 
-	switch (e) {
-	case 5: //tap event
-        if (dash.live.pass.length>=4){
-   		buzzer(buz.ok);
-		if (y<=100) { //enable/disable
-          face[0].ntfy("HOLD -> CLEAR",20,1);
-		}else  { //change
-           face[0].ntfy("HOLD -> CHANGE",20,1);
+
+face[0].opt=()=>{
+	UIc.start(1,0);
+	UI.btn.c2l("main","_2x1",1,"PASSWORD","CHANGE",15,6);
+	UI.btn.c2l("bar","_2x1",2,"PASSWORD","CLEAR",15,1);
+	UIc.end();
+	UIc.main._2x1=(i)=>{
+		if (i==1){
+			buzzer(buz.ok);		
+			face[0].page="change password";
+			UI.ele.title(face[0].page.toUpperCase(),3,0);
+			face[0].keypad();
 		}
-        } else {
-          buzzer(buz.na);
-          face[0].ntfy("HOLD -> SET",20,1);
-
-        }
-		break;
-	case 1: //slide down event
-		//face.go("main",0);
-		face.go(set.dash[set.def.dash.face],0);
-		return;	 
-	case 2: //slide up event
-		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
-			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
-			else w.gfx.bri.set(this.bri);
-			buzzer(buz.ok);
-		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		break;
-	case 3: //slide left event
-		buzzer(buz.na);
-		break;
-	case 4: //slide right event (back action)
-		w.gfx.setColor(0,0);
-		w.gfx.drawLine (0,98,239,98);
-		w.gfx.drawLine (0,99,239,99);
-        w.gfx.flip();
-		w.gfx.drawLine (120,0,120,195);
-      	w.gfx.drawLine (121,0,121,195);
-        w.gfx.flip();	
-		face.go("dashKingsongAdv",0);
-		return;
-	case 12: //long press event
-		buzzer(buz.ok);
-        if (dash.live.pass.length>=4){ 
-		if (y<=100) { //clear
-          euc.wri("passClear");
-          dash.live.passOld="";
-          dash.live.pass="";
-          dash.live.passSend=0;
-		  euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
-          face.go("dashKingsongAdvPass",0);
-		}else  { //change
-            face.go("dashKingsongAdvPass",5);
-            face[0].passSet=1;
-            return;		
-        }
-        }else { //enable
-          dash.live.pass="";
-          face.go("dashKingsongAdvPass",5);
-          face[0].passSet=1;
-        }  
-		break;
-  }
+	};
+	UIc.bar._2x1=(i)=>{
+		if (i==2){
+			buzzer(buz.ok);		
+			UI.btn.ntfy(0,1,1);
+			UIc.start(0,1);
+			UI.btn.c2l("bar","_bar",6,"TAP TO","CONFIRM",15,13);
+			UIc.end();
+			UIc.bar._bar=(i)=>{
+				if (i==6) 	{
+					buzzer(buz.ok);	
+					euc.wri("setPassClear");					
+					UI.btn.ntfy(1,1,0,"_bar",6,"PASSWORD","REMOVED",15,4);w.gfx.flip();
+					setTimeout(()=>{eval(require('Storage').read("dashKingsongAdv")); },1000);
+				}
+			}
+		}
+	};
 };
-touchHandler[5]=function(e,x,y){ 
-	switch (e) {
-	case 5: //tap event
-        if (face[5].pass.length>=4) {buzzer(buz.na);return;}
-		buzzer(buz.ok);
-        let i;
-        if (x<=80&&y<=65) {i=1;
-          face[5].btn(0,0,79,63,i,34,18); 
-          face[5].pass=face[5].pass+i;
-        }else if (80<=x&&x<=160&&y<=65) {i=2;
-          face[5].pass=face[5].pass+i;
-          face[5].btn(82,0,158,63,i,115,18); 
-        }else if (160<=x&&y<=65) {i=3;
-          face[5].btn(162,0,239,63,i,195,18);  
-          face[5].pass=face[5].pass+i;
-        }else if (x<=80&&65<=y&&y<=130) {i=4;
-          face[5].btn(0,66,79,129,i,34,85);  
-          face[5].pass=face[5].pass+i; 
-         }else if (80<=x&&x<=160&&65<=y&&y<=130) {i=5; 
-          face[5].pass=face[5].pass+i;
-          face[5].btn(82,66,158,129,i,115,85);  
-        }else if (160<=x&&65<=y&&y<=130) {i=6;
-          face[5].pass=face[5].pass+i;
-          i=6;face[5].btn(162,66,239,129,i,195,85);  
-        }else if (x<=80&&130<=y&&y<=195) {i=7;
-          face[5].btn(0,131,79,194,i,34,153);  
-          face[5].pass=face[5].pass+i;
-        }else if (80<=x&&x<=160&&130<=y&&y<=195) {i=8;
-          face[5].btn(82,131,158,194,i,115,153);
-          face[5].pass=face[5].pass+i;
-        }else if (160<=x&&130<=y&&y<=195) {i=9; 
-          face[5].pass=face[5].pass+i;
-          face[5].btn(162,131,239,194,i,195,153);  
-        }else if (195<=y) {i=0;
-          face[5].btn(82,197,158,239,0,115,207);  
-          i=0;face[5].pass=face[5].pass+0;
-        }
-        if (face[5].pass.length>=4){
-          if (face[5].tid0) {clearTimeout(face[5].tid0); face[5].tid0=0;}
-          if (face[0].passSet){
-             if (face[0].passSet>=2){
-                if (face[5].pass==face[5].passTemp){
-                  dash.live.passOld=dash.live.pass;
-                  dash.live.pass=face[5].pass;
-                  buzzer(80);
-                  face[5].ntfy("SUCCESS!",20,4);
-                  if (dash.live.passOld!=""){euc.wri("passChange");}else{euc.wri("passSet");}
-       			  euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
-                  dash.live.passSend=1;
-                  setTimeout(()=>{face.go("dashKingsongAdvPass",0);return;},1000);
-                }else{
-                  buzzer(120);
-                  face[5].ntfy("NOT THE SAME",20,7);
-                  face[0].passSet=1;
-                  face[5].passTemp="";
-                }
-              }else {
-                 face[5].passTemp=face[5].pass;
-                 buzzer(80);
-                 face[0].passSet=2;
-                 face[5].ntfy("RE-ENTER->CONFIRM",20,4);
-             }
-          }else{
-              if (face[5].pass==dash.live.pass) {
-                buzzer(80);
-                face[5].ntfy("PASSWORD ACCEPTED",20,4);
-                setTimeout(()=>{face.go("dashKingsongAdvPass",0);return;},1000);
-              } else {
-                
-                buzzer(120);
-       	  	    face[5].ntfy("WRONG PASSWORD",20,7);
-              }
-          }
-        }       
-		break;
+face[0].act=()=>{
+	"ram";
+	if (face[0].page=="password?"){
+		if (dash.live.pass==face[0].pass){
+			buzzer([20,100,90,40,80]);
+			face[0].page="pass options";
+			UI.btn.ntfy(1,1,0,"_bar",6,"CODE","ACCEPTED",15,4);w.gfx.flip();
+			setTimeout(()=>{face[0].opt(); },1000);
+		}else {
+			buzzer([20,100,200]);
+			face[0].pass="";
+			UI.btn.ntfy(1,1.5,0,"_bar",6,"CODE","IS WRONG",15,13);w.gfx.flip();
+		}
+	}else if (face[0].page=="set password"||face[0].page=="change password"){
+		if (!face[0].passone){
+			face[0].passone=face[0].pass;
+			face[0].pass="";
+			UI.btn.ntfy(1,1,0,"_bar",6,"RE-ENTER","TO VERIFY",15,4);w.gfx.flip();
+		}else {
+			if (face[0].pass==face[0].passone) {
+				if (face[0].page=="change password"){
+					dash.live.passOld=dash.live.pass;
+					dash.live.pass=face[0].pass;
+					euc.wri("setPassChange");					
+					UI.btn.ntfy(1,1,0,"_bar",6,"CODE","CHANGED",15,4);w.gfx.flip();
+				}else{
+					dash.live.passBck=dash.live.pass;
+					dash.live.pass=face[0].pass;
+					euc.wri("setPass");						
+					UI.btn.ntfy(1,1,0,"_bar",6,"CODE","APPLIED",15,4);w.gfx.flip();
+				}
+				setTimeout(()=>{eval(require('Storage').read("dashKingsongAdv")); },1000);
+			}else{
+				buzzer([20,100,200]);
+				UI.btn.ntfy(1,1,0,"_bar",6,"MISMATCH","TRY AGAIN",15,13);w.gfx.flip();
+				face[0].pass="";
+				face[0].passone="";
 
-	case 12: //long press event
-		buzzer(100);
-		break;
-  }
+			}
+		}		
+	}else if (face[0].page=="enter password"){
+		dash.live.ks.passOld=dash.live.pass;
+		dash.live.pass=face[0].pass;		
+		euc.wri("setPassSend");
+		UI.btn.ntfy(1,3,0,"_bar",6,"PLEASE","WAIT",15,1);w.gfx.flip();
+		setTimeout(()=>{
+			if (euc.tmp.pass){
+				buzzer([20,100,200]);
+				dash.live.pass="";
+				face[0].pass="";
+				UI.btn.ntfy(1,1.5,0,"_bar",6,"CODE","IS WRONG",15,13);w.gfx.flip();
+			}else {
+				UI.btn.ntfy(1,3,0,"_bar",6,"CODE","ACCEPTED",15,4);w.gfx.flip();
+				setTimeout(()=>{
+					dash.live.passSend=1;
+					euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
+					euc.wri("start");
+					face.go(set.dash[set.def.dash.face],0);
+					return;
+				},800);
+			}
+		},800);		
+	}
 };
+if (euc.tmp.pass){
+	buzzer(buz.ok);		
+	face[0].page="enter password";
+	UI.ele.title(face[0].page.toUpperCase(),3,0);
+	face[0].keypad();
+}else if (dash.live.pass.length>=4){
+	face[0].page="password?";
+	face[0].keypad();
+}else {
+	UIc.start(1,0);
+	UI.btn.c2l("main","_2x1",1,"PASSWORD","SET",15,1);
+	UIc.end();
+	UI.btn.c2l("main","_2x1",2,"","",15,6);
+	UIc.main._2x1=(i)=>{
+		buzzer(buz.ok);		
+		face[0].page="set password";
+		UI.ele.title(face[0].page.toUpperCase(),3,0);
+		face[0].keypad();
+	};
+}
+//touch
+tcN=(x,y)=>{
+		buzzer(buz.na);		
+};	
+tcNext.replaceWith(tcN);
+tcB=(x,y)=>{
+	buzzer(buz.ok);	
+	for (let i = 0; i < 10; i++) {
+          if (face[0]["tid"+i]) clearTimeout(face[0]["tid"+i]);face[0]["tid"+i]=0;
+    }
+	if (UI.ntid) {
+		clearTimeout(UI.ntid);UI.ntid=0;
+		eval(require('Storage').read("dashKingsongAdvPass")); 
+	}else 
+		eval(require('Storage').read("dashKingsongAdv")); 
+
+};	
+tcBack.replaceWith(tcB);

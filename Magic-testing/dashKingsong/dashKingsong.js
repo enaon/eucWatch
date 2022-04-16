@@ -5,9 +5,12 @@ face[0] = {
 	page:"dashKS",
 	init: function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
-		if (!euc.tmp.ls) {euc.tmp.ls=1;setTimeout(()=>{euc.wri("getLock");setTimeout(()=>{euc.wri("getStrobe");},100);},300);}
-		eval(require('Storage').read("dashKingsongAct")); 
-		this.bar();
+		if (euc.tmp.pass)  eval(require('Storage').read("dashKingsongAdvPass")); 
+		else {
+			if (!euc.tmp.ls) {euc.tmp.ls=1;setTimeout(()=>{euc.wri("getLock");setTimeout(()=>{euc.wri("getStrobe");},100);},300);}
+			eval(require('Storage').read("dashKingsongAct")); 
+			this.bar();
+		}
 		this.run=1;
 	},
 	show : function(){
@@ -41,15 +44,9 @@ face[0] = {
 				UI.btn.c2l("main","_2x2",1,"LED","RIDE",15,dash.live.ks.ride?4:1);
 			}
 			if ( this.lift!=dash.live.ks.lift) {
-				this.ride=dash.live.ks.ride;
+				this.lift=dash.live.ks.lift;
 				UI.btn.c2l("main","_2x2",3,"SENSOR","LIFT",15,dash.live.ks.lift?4:1);
 			}
-		//}else if (this.page=="calibrate"){
-		//	if ( this.tilt!=dash.live.tiltSet) {
-		//		this.tilt=dash.live.tiltSet;
-		//		UI.btn.c1l("main","_main",9,dash.live.tiltSet,"",15,0);
-		//		euc.wri("setCalibrateTilt",dash.live.tiltSet);
-		//	}
 		}
 		this.tid=setTimeout(function(t,o){
 		  face[0].tid=0;
@@ -59,11 +56,29 @@ face[0] = {
 	bar:function(){
 		"ram";
 		set.bar=0;
-		UI.ele.title(this.page.toUpperCase(),15,0);w.gfx.flip();
+		if (this.page.includes("password")){
+			UIc.start(0,1);
+			for (let i=10;i<13;i++){
+				UI.btn.c2l("bar","_kp4x3",i,i==11?"0":"","",15,i==11?6:1);
+			}
+			UIc.end();
+		}
+		if (this.page=="pass options"){
+			UIc.start(0,1);
+			for (let i=10;i<13;i++){
+				UI.btn.c2l("bar","_2x1",2,"PASSWORD","CLEAR",15,1);
+			}
+			UIc.end();
+		}
+		
+		UI.ele.title(this.page.toUpperCase(),3,0);w.gfx.flip();
 	},
 	tid:-1,
 	run:false,
 	clear : function(){
+		for (let i = 0; i < 10; i++) {
+			if (this["tid"+i]) clearTimeout(this["tid"+i]);this["tid"+i]=0;
+		}
 		set.bar=0;if (this.tid) clearTimeout(this.tid);this.tid=0;return true;
 	},
 	off: function(){

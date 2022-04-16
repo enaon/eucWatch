@@ -13,19 +13,15 @@ face[0] = {
 	bar : function(){
 		this.slot=require("Storage").readJSON("dash.json",1);
 		target={"InmotionV1":"im","Begode":"bg","NinebotS":"nb","NinebotZ":"nb","Inmotion":"im","Veteran":"vt","Ninebot":"nb","Kingsong":"ks"};
-		UI.ele.title("GARAGE",15,0);
+		UI.ele.title("GARAGE",3,0);
 		UI.ele.ind(2,2,6);
 		UIc.start(1,1);	
 		this.slot.slot1Mac?UI.btn.img("main","_2x2",1,_icon[target[this.slot.slot1Maker]],this.slot.slot1Model.toUpperCase(),this.slot.slot==1?15:3,this.slot.slot==1?4:1):UI.btn.img("main","_2x2",1,_icon.scan,"",2,0);
 		this.slot.slot2Mac?UI.btn.img("main","_2x2",2,_icon[target[this.slot.slot2Maker]],this.slot.slot2Model.toUpperCase(),this.slot.slot==2?15:3,this.slot.slot==2?4:1):UI.btn.img("main","_2x2",2,_icon.scan,"",2,0);
 		this.slot.slot3Mac?UI.btn.img("main","_2x2",3,_icon[target[this.slot.slot3Maker]],this.slot.slot3Model.toUpperCase(),this.slot.slot==3?15:3,this.slot.slot==3?4:1): UI.btn.img("main","_2x2",3,_icon.scan,"",2,0);
 		this.slot.slot4Mac?UI.btn.img("main","_2x2",4,_icon[target[this.slot.slot4Maker]],this.slot.slot4Model.toUpperCase(),this.slot.slot==4?15:3,this.slot.slot==4?4:1):UI.btn.img("main","_2x2",4,_icon.scan,"",2,0);
-
 		UIc.end();
-		UIc.main._2x2_1=function(){if (face[0].slot.slot1Mac) face[0].tap(1); else face[0].empty(1) ;};
-		UIc.main._2x2_2=function(){if (face[0].slot.slot2Mac) face[0].tap(2); else face[0].empty(2) ;};
-		UIc.main._2x2_3=function(){if (face[0].slot.slot3Mac) face[0].tap(3); else face[0].empty(3) ;};
-		UIc.main._2x2_4=function(){if (face[0].slot.slot4Mac) face[0].tap(4); else face[0].empty(4) ;};
+		UIc.main._2x2=(i)=>{if (face[0].slot["slot"+i+"Mac"]) face[0].tap(i); else face[0].empty(i) ;};
 	},
 	tap:function(no){
 		buzzer(buz.ok);
@@ -33,27 +29,30 @@ face[0] = {
 			UI.ele.ind(1,1,6);
 			UI.btn.ntfy(0,1.5,1);
 			if (set.def.info)
-				UI.txt.block("_main",6,"Press & hold the side btn to start/end the connction.",15,15,0);
+				UI.txt.block("_main",9,"Press & hold\n\nthe side btn\n\nto start/end\nthe connection.",80,15,0);
 			else {
 				let target={"InmotionV1":"im","Begode":"bg","NinebotS":"nb","NinebotZ":"nb","Inmotion":"im","Veteran":"vt","Ninebot":"nb","Kingsong":"ks"};
 				UI.btn.img("main","_2x2",no,_icon[target[this.slot["slot"+no+"Maker"]]],this.slot["slot"+no+"Model"].toUpperCase(),15,8);
-				//UI.btn.c2l("main","_2x2",no,this.slot["slot"+no+"Maker"].toUpperCase(),this.slot["slot"+no+"Model"].toUpperCase(),15,8);
 			}
 			UIc.start(1,0);	
 			UI.btn.img("main","_bar",5,_icon.alert,"Alerts",15,1);
 			UI.btn.img("main","_bar",4,_icon.trash,"Delete",15,13);
 			UIc.end();	
-			UIc.main._bar_5=function(){buzzer(buz.ok);face.go("dashAlerts",0);};
-			UIc.main._bar_4=function(){buzzer(buz.ok);face[0].del(no);};
-			return;
+			UIc.main._bar=(i)=>{
+				if (i==5){
+					buzzer(buz.ok);
+					face.go("dashAlerts",0);
+        }else if (i==4){
+					buzzer(buz.ok);
+					face[0].del(no);
+				}
+				return;
+      };
 		}else{
-			//UI.ele.title("SLOT "+no,15,4);
 			UI.ele.title("SELECTED",15,0);
 			UI.btn.img("main","_2x2",no,_icon[target[this.slot["slot"+no+"Maker"]]],this.slot["slot"+no+"Model"].toUpperCase(),15,4);
-			//UI.btn.c2l("main","_2x2",no,this.slot["slot"+no+"Maker"].toUpperCase(),this.slot["slot"+no+"Model"].toUpperCase(),15,4);
 			if (this.slot["slot"+this.prevSlot+"Mac"] ){ 
 				UI.btn.img("main","_2x2",this.prevSlot,_icon[target[this.slot["slot"+this.prevSlot+"Maker"]]],this.slot["slot"+this.prevSlot+"Model"].toUpperCase(),3,1);
-				//UI.btn.c2l("main","_2x2",this.prevSlot,this.slot["slot"+this.prevSlot+"Maker"].toUpperCase(),this.slot["slot"+this.prevSlot+"Model"].toUpperCase(),3,1);
 				require("Storage").writeJSON('eucSlot'+this.prevSlot+'.json',dash.live);
 			}
 			setter.write("dash","slot",no);
@@ -70,17 +69,20 @@ face[0] = {
 		UI.btn.ntfy(0,1.5,1);
 		UI.ele.ind(1,1,6);
 		if (set.def.info)
-			UI.txt.block("_main",6,"SLOT "+no+" is empty. Scan for a Wheel.",14,15,0); 
+			UI.txt.block("_main",9,"SLOT "+no+" is empty. Scan for a Wheel.",14,15,0); 
 		else 
 			UI.btn.img("main","_2x2",no,_icon.scan,"",3,1);
 		UIc.start(1,0);	
 		UI.btn.img("main","_bar",6,_icon.scan,"SCAN",15,6);
 		UIc.end();
-		UIc.main._bar_6=function(){
-			buzzer(buz.ok);
-			setter.write("dash","slot",no);
-			set.def.dash.slot=no;			
-			face.go("dashScan",0);
+		UIc.main._bar=(i)=>{
+			if (i==6){
+				buzzer(buz.ok);
+				dash.live=require("Storage").readJSON("eucSlot.json",1);	
+				setter.write("dash","slot",no);
+				set.def.dash.slot=no;			
+				face.go("dashScan",0);
+			}
 		};
 	},
 	del:function(no){
@@ -89,22 +91,23 @@ face[0] = {
 		UIc.start(1,0);	
 		UI.btn.img("main","_bar",6,_icon.trash,"CONFIRM",15,13);
 		UIc.end();
-		UIc.main._bar_6=function(){
-			buzzer(buz.ok);
-		    setter.write("dash",`slot${no}Mac`);
-			setter.write("dash",`slot${no}Model`);
-			setter.write("dash",`slot${no}Maker`);
-			setter.write("dash",`slot${no}Name`);
-			require("Storage").erase(`logDaySlot${no}.json`);
-			require("Storage").erase(`logWeekSlot${no}.json`);
-			require("Storage").erase(`logYearlot${no}.json`);
-			require("Storage").erase(`eucSlot${no}.json`);
-			dash.live=require("Storage").readJSON("eucSlot.json",1);	
-			UI.btn.ntfy(1,1.5,1);
-			UI.btn.c2l("main","_main",6,`SLOT ${no}`,"DELETED",15,4);
-			set.def.dash.slot=0;
-			face[0].prevSlot=0;
-			
+		UIc.main._bar=(i)=>{
+			if(i==6){
+				buzzer(buz.ok);
+				setter.write("dash",`slot${no}Mac`);
+				setter.write("dash",`slot${no}Name`);
+				setter.write("dash",`slot${no}Maker`);
+				//setter.write("dash",`slot${no}Name`);
+				require("Storage").erase(`logDaySlot${no}.json`);
+				require("Storage").erase(`logWeekSlot${no}.json`);
+				require("Storage").erase(`logYearlot${no}.json`);
+				require("Storage").erase(`eucSlot${no}.json`);
+				dash.live=require("Storage").readJSON("eucSlot.json",1);	
+				UI.btn.ntfy(1,1.5,1);
+				UI.btn.c2l("main","_bar",6,`SLOT ${no}`,"DELETED",15,4);
+				set.def.dash.slot=0;
+				face[0].prevSlot=0;
+			}
 		};
 	},
 	tid:-1,
