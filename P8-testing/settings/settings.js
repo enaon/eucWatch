@@ -249,7 +249,7 @@ face[5] = {
 		this.g.setColor(1,15);
 		this.g.drawString("RESTART",18,213);
 		this.g.flip();	
-		this.g.setColor(0,4);
+		this.g.setColor(0,7);
 		this.g.fillRect(121,200,239,239);
 		this.g.setColor(1,15);
 		this.g.drawString("SHUTDOWN",136,213);
