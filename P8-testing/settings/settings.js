@@ -522,7 +522,17 @@ touchHandler[5]=function(e,x,y){
 			NRF.disconnect();
 			w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
 			reset();
-		} else  buzzer(40);
+		} else if (x>120 && y>190) {
+			//SHUTDOWN
+			set.updateSettings();
+			NRF.disconnect();
+			require("Storage").write("devmode","shutdown");
+			set.def.acc=0;
+			set.accR();
+			if (global.tfk) tfk.exit(); 
+			w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();w.gfx.off();
+			E.reboot();
+		}else  buzzer(40);
     }else if  (e==1){
 		face[0].btSetOn=1;
 		face.go("settings",0);return;
@@ -552,7 +562,7 @@ touchHandler[5]=function(e,x,y){
 			require("Storage").write("devmode","shutdown");
 			set.def.acc=0;
 			set.accR();
-			if (tfk) tfk.exit(); 
+			if (global.tfk) tfk.exit(); 
 			w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();w.gfx.off();
 			E.reboot();
 		}else buzzer(40);
