@@ -1,3 +1,17 @@
+
+tcB=(x,y)=>{
+	buzzer(buz.ok);	
+	if (UI.ntid) {
+		clearTimeout(UI.ntid);UI.ntid=0;
+		euc.wri("setCalibrateTilt",dash.live.tiltSet);
+		eval(require('Storage').read("dashKingsongAdv")); 
+	}else 
+		eval(require('Storage').read("dashKingsongAdv")); 
+
+};	
+tcBack.replaceWith(tcB);
+tcNext.replaceWith(tcB);
+//
 face[0].page="calibrate";
 UI.ele.ind(1,1,12);
 //face[0].bar();
@@ -39,15 +53,3 @@ UIc.tcBar=(a,b)=>{
 	UI.btn.c1l("main","_lcd",1,dash.live.tiltSet,"",15,0);
 };
 
-tcB=(x,y)=>{
-	buzzer(buz.ok);	
-	if (UI.ntid) {
-		clearTimeout(UI.ntid);UI.ntid=0;
-		euc.wri("setCalibrateTilt",dash.live.tiltSet);
-		eval(require('Storage').read("dashKingsongAdv")); 
-	}else 
-		eval(require('Storage').read("dashKingsongAdv")); 
-
-};	
-tcBack.replaceWith(tcB);
-tcNext.replaceWith(tcB);

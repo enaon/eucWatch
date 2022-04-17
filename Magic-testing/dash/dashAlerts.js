@@ -1,3 +1,27 @@
+
+//touch
+touchHandler[0]=function(){};
+tcN=(x,y)=>{
+	if (face[0].tab==1&&!face[0].page) {
+		buzzer(buz.ok);
+		face[0].tab=2;
+		face[0].bar();
+	}else
+		buzzer(buz.na);
+};	
+tcNext.replaceWith(tcN);
+tcB=(x,y)=>{
+	if (UI.ntid) {/*buzzer(buz.ok);*/clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();
+	}else if (face[0].tab==2) {
+		buzzer(buz.ok);
+		face[0].tab=1;
+		face[0].bar();
+	}else if (face.appPrev!="settings")
+		face.go(face.appPrev,0);
+	else
+		face.go("main",0);
+};	
+tcBack.replaceWith(tcB);
 //dash  Alerts
 face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:9000,
@@ -141,28 +165,3 @@ face[0] = {
 	clear : function(){set.bar=0;/*TC.removeAllListeners();*/if (this.tid) clearTimeout(this.tid);this.tid=0;return true;},
 	off: function(){this.g.off();this.clear();}
 };
-
-//touch
-touchHandler[0]=function(){};
-tcN=(x,y)=>{
-	if (face[0].tab==1&&!face[0].page) {
-		buzzer(buz.ok);
-		face[0].tab=2;
-		face[0].bar();
-	}else
-		buzzer(buz.na);
-};	
-tcNext.replaceWith(tcN);
-tcB=(x,y)=>{
-	if (UI.ntid) {/*buzzer(buz.ok);*/clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();
-	}else if (face[0].tab==2) {
-		buzzer(buz.ok);
-		face[0].tab=1;
-		face[0].bar();
-	}else if (face.appPrev!="settings")
-		face.go(face.appPrev,0);
-	else
-		face.go("main",0);
-};	
-tcBack.replaceWith(tcB);
-

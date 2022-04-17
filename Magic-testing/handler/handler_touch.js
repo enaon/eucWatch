@@ -15,6 +15,7 @@ else
 
 
 tcDn=(x,y)=>{
+	"ram";
 	print("dn",x,y);
 	if (global.euc&& euc.state=="READY"){
 		if (set.def.dash.face+1>=set.dash.length) 
@@ -34,6 +35,7 @@ tcDn=(x,y)=>{
 	}
 };	
 tcUp=(x,y)=>{
+	"ram";
 	print("up",x,y);
 	if (y>170&&x<50) { 
      /* if (w.gfx.bri.lv!==7) {set.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
@@ -57,10 +59,12 @@ tcUp=(x,y)=>{
 	else {face.go("settings",0);}  
 };	
 tcBack=(x,y)=>{
+	"ram";
 	buzzer(buz.ok);
 	face.go(face.appRoot[0],face.appRoot[1]);
 };	
 tcNext=(x,y)=>{
+	"ram";
 	buzzer(buz.na);
 };	
 tcBar=(x,y)=>{UIc.tcBar(x,y);};	

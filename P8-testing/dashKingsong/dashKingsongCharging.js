@@ -4,11 +4,11 @@ face[0] = {
 	g:w.gfx,
 	init: function(){
 		//if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
-		this.g.setColor(0,1);
-		this.g.fillRect(0,0,239,40);
+		this.g.setColor(0,euc.charge?4:1);
+		this.g.fillRect(0,0,239,35);
 		this.g.setColor(1,15);
-		this.g.setFont("Vector",20);
-		this.g.drawString(euc.charge?"CHARGING":"DISCHARGING",(125-this.g.stringWidth(euc.charge?"CHARGING":"DISCHARGING")/2),5);
+		this.g.setFont("Vector",22);
+		this.g.drawString((euc.charge?"CHARGING ":"DISCHARGING ")+euc.dash.bat+" %",(125-this.g.stringWidth((euc.charge?"CHARGING ":"DISCHARGING ")+euc.dash.bat+" %")/2),7);
 		this.g.flip();
         this.run=true;
 	},
@@ -16,7 +16,7 @@ face[0] = {
 		//if (!euc.charge) {face.go(set.dash[set.def.dash.face],0);return;}
 
 		this.g.setColor(0,0);
-		this.g.fillRect(0,42,239,239);
+		this.g.fillRect(0,37,239,239);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",20);
 		this.g.drawString("mA: "+(-euc.dash.amp*100),(125-this.g.stringWidth("AMP: "+(-euc.dash.amp*100))/2),60);

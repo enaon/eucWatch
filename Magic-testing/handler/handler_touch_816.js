@@ -50,7 +50,8 @@ var TC={
 			//print("in",tp);
 			if (face.pageCurr>=0) {
 				TC.emit("tc"+tp[1],tp[4],tp[6]);
-				touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);face.off();
+				//touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);
+				face.off();
 			}else if (tp[1]==1) 
 				face.go(face.appCurr,0);
 			if (this.loop) {clearTimeout(this.loop); this.loop=0;}
@@ -88,10 +89,13 @@ var TC={
 						if (step) {
 							if ( len<this.val.tmp || this.val.tmp < -len) {
 								//this.val.cur=this.val.cur+(step* (step==1||step==-1?1:Math.abs(step*2))   ); this.val.tmp=0;
-								this.val.cur=this.val.cur+step; this.val.tmp=0;
+								this.val.cur=this.val.cur+step; 
+								this.val.tmp=0;
+								if (this.val.up<this.val.cur) this.val.cur=this.val.up;
+								else if (this.val.cur<this.val.dn) this.val.cur=this.val.dn;
+								buzzer(20);TC.emit("bar",this.y<tp[4]?1:-1,this.val.cur);
 							}
-							if (this.val.up<this.val.cur) this.val.cur=this.val.up;else if (this.val.cur<this.val.dn) this.val.cur=this.val.dn;
-							if (!this.val.tmp) {buzzer(20);TC.emit("bar",this.y<tp[4]?1:-1,this.val.cur);}
+							//if (!this.val.tmp) {buzzer(20);TC.emit("bar",this.y<tp[4]?1:-1,this.val.cur);}
 						}
 					this.y=tp[4];
 					}

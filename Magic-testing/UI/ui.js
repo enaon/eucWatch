@@ -141,6 +141,7 @@ UI={
 	  else w.gfx.flip();
 	}, 
 	ntfy:function(rst,tmot,ignr,no,po,txt1,txt2,fclr,bclr,sel){
+		"ram";
 		if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}
 		if (rst&&!sel) UIc.xy.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.raw.main+'},0);'));	
 		if (!ignr){
@@ -204,6 +205,7 @@ UI={
         if (!set.def.bpp) w.gfx.flip();
 	},
 	fill:function(no,po,clr){
+		"ram";
 		let p=(UI.pos[no]);
 	  	let len=p[1].length;
 		let x=p[1][(po-1)%len];

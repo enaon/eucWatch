@@ -59,9 +59,11 @@ var TC={
 			if ( this.do && getTime() - this.time > 1 && tp[2]==1 ) { 
 				this.do = 0 ;
 				//setTimeout(function() {touchHandler[face.pageCurr](12,TC.x+(TC.x/10),TC.y);},0);
-				touchHandler[face.pageCurr](12,TC.x+(TC.x/10),TC.y);
+				//touchHandler[face.pageCurr](12,TC.x+(TC.x/10),TC.y);
+				//setTimeout(function() {TC.emit("tc12",TC.x+(TC.x/10),TC.y);},0);
 				TC.emit("tc12",TC.x+(TC.x/10),TC.y);
-				setTimeout(function() {face.off();},10);
+				face.off();
+				//setTimeout(function() {face.off();},200);
 			}else if ( this.do&&tp[2]==1) {
 				var a=0;
 				if ((((tp[5]&0x0F)<<8)|tp[6])>=this.y+30) a = 1;
@@ -71,10 +73,11 @@ var TC={
 				if ( a != 0 && this.aLast != a ) {
 					this.aLast=a;
 					this.do=0;
-					//setTimeout(function() {touchHandler[face.pageCurr](a,TC.x+(TC.x/10),TC.y);},0);
-					touchHandler[face.pageCurr](a,TC.x+(TC.x/10),TC.y);
+					//setTimeout(function() {TC.emit("tc"+a,TC.x+(TC.x/10),TC.y);},0);
+					//touchHandler[face.pageCurr](a,TC.x+(TC.x/10),TC.y);
 					TC.emit("tc"+a,TC.x+(TC.x/10),TC.y);
-					setTimeout(function() {face.off();},10);
+					face.off();
+					//setTimeout(function() {face.off();},200);
 				}
 				return;
 			}
@@ -82,9 +85,11 @@ var TC={
 			if (this.do===1){
 				this.do=0;
 				//setTimeout(function() {touchHandler[face.pageCurr](5,TC.x+(TC.x/10),TC.y);},0);
-				touchHandler[face.pageCurr](5,TC.x+(TC.x/10),TC.y);
+				//touchHandler[face.pageCurr](5,TC.x+(TC.x/10),TC.y);
 				TC.emit("tc5",TC.x+(TC.x/10),TC.y);
-				setTimeout(function() {face.off();},10);
+				face.off();
+				//setTimeout(function() {TC.emit("tc5",TC.x+(TC.x/10),TC.y);},0);
+				//setTimeout(function() {face.off();},200);
 			}
 			this.aLast=0;
 			this.st = 1;

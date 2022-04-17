@@ -1,4 +1,22 @@
 //dash  Options
+//tcNext.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.raw.main+UIc.raw.bar+'},0);'));
+tcNext.replaceWith((x,y)=>{
+  if (face[0].page=="dash2") {buzzer(buz.na);return;}
+	buzzer(buz.ok);face[0].d2();
+  if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}
+});
+tcBack.replaceWith((x,y)=>{
+  if (face[0].page=="dash1") {
+	buzzer(buz.ok); eval(require("Storage").read("set_apps"));
+	if (UI.ntid) {clearTimeout(UI.ntid);UI.	ntid=0;}
+	face[0].bar();
+	return;
+  }
+	buzzer(buz.ok);face[0].d1();
+  if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}
+  face[0].bar();
+});
+//
 face[0].page="dash1";
 if (!set.def.dash.rtr) set.def.dash.rtr=5;
 face[0].d1=function(){
@@ -106,23 +124,6 @@ face[0].d2=function(){
 		}
 	};
 };
-//tcNext.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.raw.main+UIc.raw.bar+'},0);'));
-tcNext.replaceWith((x,y)=>{
-  if (face[0].page=="dash2") {buzzer(buz.na);return;}
-	buzzer(buz.ok);face[0].d2();
-  if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}
-});
-tcBack.replaceWith((x,y)=>{
-  if (face[0].page=="dash1") {
-	buzzer(buz.ok); eval(require("Storage").read("set_apps"));
-	if (UI.ntid) {clearTimeout(UI.ntid);UI.	ntid=0;}
-	face[0].bar();
-	return;
-  }
-	buzzer(buz.ok);face[0].d1();
-  if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}
-  face[0].bar();
-});
 face[0].d1();
 //this.bar();
 

@@ -1,3 +1,5 @@
+tcNext.replaceWith(new Function('buzzer(buz.ok);eval(require("Storage").read("set_set"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;eval(require("Storage").read("set_main"));}face[0].bar();'));
+tcBack.replaceWith(new Function('buzzer(buz.na);if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;eval(require("Storage").read("set_main"));}face[0].bar();'));
 //clock settings
 face[0].page="main";
 UI.ele.ind(1,1,6);
@@ -26,8 +28,8 @@ UIc.main._2x3=(i)=>{
 		buzzer(buz.ok);
 		UI.btn.ntfy(0,3,1,"_bar",6,"","",15,0);
 		UIc.start(0,1);
-		UI.btn.img("bar","_bar",4,_icon.restart,"RESTART",15,1);
-		UI.btn.img("bar","_bar",5,_icon.cli,"DEVMOD",15,13);
+		UI.btn.img("bar","_bar",4,_icon.restart,"RST",15,6);
+		UI.btn.img("bar","_bar",5,_icon.power,"OFF",15,13);
 		UIc.end();
 		UIc.bar._bar=(i)=>{
 			if (i==4){
@@ -39,8 +41,11 @@ UIc.main._2x3=(i)=>{
 			}else if (i==5){
 				setter.updateSettings();
 				NRF.disconnect();
-				require("Storage").write("devmode","dev");
-				w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
+				require("Storage").write("devmode","shutdown");
+				set.def.acc=0;
+				setter.accR();
+				TC.stop();
+				w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();w.gfx.off();
 				E.reboot();
 			}
 		};
@@ -76,7 +81,4 @@ UIc.main._2x3=(i)=>{
 	}
 };
 //face[0].bar();
-tcNext.replaceWith(new Function('buzzer(buz.ok);eval(require("Storage").read("set_set"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;eval(require("Storage").read("set_main"));}face[0].bar();'));
-tcBack.replaceWith(new Function('buzzer(buz.na);if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;eval(require("Storage").read("set_main"));}face[0].bar();'));
-
 

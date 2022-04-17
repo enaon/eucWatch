@@ -1,3 +1,22 @@
+//touch
+tcN=(x,y)=>{
+		buzzer(buz.na);		
+};	
+tcNext.replaceWith(tcN);
+tcB=(x,y)=>{
+	buzzer(buz.ok);	
+	for (let i = 0; i < 10; i++) {
+          if (face[0]["tid"+i]) clearTimeout(face[0]["tid"+i]);face[0]["tid"+i]=0;
+    }
+	if (UI.ntid) {
+		clearTimeout(UI.ntid);UI.ntid=0;
+		eval(require('Storage').read("dashKingsongAdvPass")); 
+	}else 
+		eval(require('Storage').read("dashKingsongAdv")); 
+
+};	
+tcBack.replaceWith(tcB);
+//
 face[0].page="pass settings";
 UI.ele.ind(1,1,1);
 face[0].bar();
@@ -149,21 +168,3 @@ if (euc.tmp.pass){
 		face[0].keypad();
 	};
 }
-//touch
-tcN=(x,y)=>{
-		buzzer(buz.na);		
-};	
-tcNext.replaceWith(tcN);
-tcB=(x,y)=>{
-	buzzer(buz.ok);	
-	for (let i = 0; i < 10; i++) {
-          if (face[0]["tid"+i]) clearTimeout(face[0]["tid"+i]);face[0]["tid"+i]=0;
-    }
-	if (UI.ntid) {
-		clearTimeout(UI.ntid);UI.ntid=0;
-		eval(require('Storage').read("dashKingsongAdvPass")); 
-	}else 
-		eval(require('Storage').read("dashKingsongAdv")); 
-
-};	
-tcBack.replaceWith(tcB);

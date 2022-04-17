@@ -1,3 +1,15 @@
+//touch
+tcB=(x,y)=>{
+	buzzer(buz.ok);	
+	if (UI.ntid) {/*buzzer(buz.ok);*/clearTimeout(UI.ntid);UI.ntid=0;face[0].start();}
+	else {
+		euc.wri("setAlarms");
+		eval(require('Storage').read("dashKingsongAdv")); 
+	}
+};	
+tcBack.replaceWith(tcB);
+tcNext.replaceWith(tcB);
+//
 face[0].page="wheel alarms";
 face[0].start=()=>{
 	UI.ele.ind(1,1,1);
@@ -43,14 +55,4 @@ face[0].set=(i)=>{
 };
 
 face[0].start();
-//touch
-tcB=(x,y)=>{
-	buzzer(buz.ok);	
-	if (UI.ntid) {/*buzzer(buz.ok);*/clearTimeout(UI.ntid);UI.ntid=0;face[0].start();}
-	else {
-		euc.wri("setAlarms");
-		eval(require('Storage').read("dashKingsongAdv")); 
-	}
-};	
-tcBack.replaceWith(tcB);
-tcNext.replaceWith(tcB);
+

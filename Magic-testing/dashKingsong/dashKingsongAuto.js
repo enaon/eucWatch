@@ -1,3 +1,27 @@
+
+//touch
+tcN=(x,y)=>{
+	buzzer(buz.ok);	
+	if (UI.ntid) {
+		clearTimeout(UI.ntid);UI.ntid=0;
+		if (dash.live.ks.offT) euc.wri("setPowerOff",dash.live.ks.offT);
+		eval(require('Storage').read("dashKingsongAuto")); 
+	}else 
+		eval(require('Storage').read("dashKingsongAdv")); 
+};	
+tcNext.replaceWith(tcN);
+tcB=(x,y)=>{
+	buzzer(buz.ok);	
+	if (UI.ntid) {
+		clearTimeout(UI.ntid);UI.ntid=0;
+		if (dash.live.ks.offT) euc.wri("setPowerOff",dash.live.ks.offT);
+		eval(require('Storage').read("dashKingsongAuto")); 
+	}else 
+		eval(require('Storage').read("dashKingsongOpt")); 
+
+};	
+tcBack.replaceWith(tcB);
+//
 face[0].page="automation";
 UI.ele.ind(3,4,1);
 face[0].bar();
@@ -94,26 +118,3 @@ UIc.main._4x1=(i)=>{
 		eval(require('Storage').read("dashKingsongDis")); 
 	}
 };
-
-//touch
-tcN=(x,y)=>{
-	buzzer(buz.ok);	
-	if (UI.ntid) {
-		clearTimeout(UI.ntid);UI.ntid=0;
-		if (dash.live.ks.offT) euc.wri("setPowerOff",dash.live.ks.offT);
-		eval(require('Storage').read("dashKingsongAuto")); 
-	}else 
-		eval(require('Storage').read("dashKingsongAdv")); 
-};	
-tcNext.replaceWith(tcN);
-tcB=(x,y)=>{
-	buzzer(buz.ok);	
-	if (UI.ntid) {
-		clearTimeout(UI.ntid);UI.ntid=0;
-		if (dash.live.ks.offT) euc.wri("setPowerOff",dash.live.ks.offT);
-		eval(require('Storage').read("dashKingsongAuto")); 
-	}else 
-		eval(require('Storage').read("dashKingsongOpt")); 
-
-};	
-tcBack.replaceWith(tcB);

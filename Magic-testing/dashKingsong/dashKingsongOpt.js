@@ -1,3 +1,17 @@
+//touch
+tcN=(x,y)=>{
+	buzzer(buz.ok);	
+	if (!dash.live.ks.offT) euc.wri("getPowerOff");
+	eval(require('Storage').read("dashKingsongAuto")); 
+};	
+tcNext.replaceWith(tcN);
+tcB=(x,y)=>{
+	buzzer(buz.ok);	
+	if (UI.ntid) {/*buzzer(buz.ok);*/clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}
+	eval(require('Storage').read("dashKingsongAct")); 
+};	
+tcBack.replaceWith(tcB);
+//
 face[0].page="options";
 UI.ele.ind(2,4,1);
 UIc.start(1,1);
@@ -25,16 +39,3 @@ UIc.main._2x2=(i)=>{
 		UI.btn.c2l("main","_2x2",4,"HORN","",15,dash.live.horn?4:1);
 	}
 };
-//touch
-tcN=(x,y)=>{
-	buzzer(buz.ok);	
-	if (!dash.live.ks.offT) euc.wri("getPowerOff");
-	eval(require('Storage').read("dashKingsongAuto")); 
-};	
-tcNext.replaceWith(tcN);
-tcB=(x,y)=>{
-	buzzer(buz.ok);	
-	if (UI.ntid) {/*buzzer(buz.ok);*/clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}
-	eval(require('Storage').read("dashKingsongAct")); 
-};	
-tcBack.replaceWith(tcB);
