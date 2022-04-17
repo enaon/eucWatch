@@ -51,7 +51,7 @@ face[0] = {
 	  UI.ele.title("WAIT 5 SECS",15,0);
 	  UI.btn.img("main","_main",12,_icon.scan,"SCANNING",14,1);
     }else if (scan.mac.length){
-      this.g.setFont("Vector",28);
+		UI.btn.c2l("main","_main",12,"","",15,6);
       for (var entry=this.line;entry<this.line+4&&entry<scan.mac.length;entry++) {
         //print(entry,this.go);
 		//print("got :"+scan.mac[entry]);
