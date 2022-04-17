@@ -53,21 +53,17 @@ face[0] = {
     }else if (scan.mac.length){
       this.g.setFont("Vector",28);
       for (var entry=this.line;entry<this.line+4&&entry<scan.mac.length;entry++) {
-        print(entry,this.go);
-		print("got :"+scan.mac[entry]);
-		print("id :"+scan.mac[entry][0],"name :"+scan.mac[entry][1]);
-		//this.g.setColor(0,/*this.go==entry?4:*/entry%2?1:2);
-        //this.g.fillRect(0,(this.top-14)+((entry-this.line)*this.top),239,(this.top+36)+((entry-this.line)*this.top)); 
-		//this.g.setColor(1,/*this.go==entry?14:*/15);
+        //print(entry,this.go);
+		//print("got :"+scan.mac[entry]);
+		//print("id :"+scan.mac[entry][0],"name :"+scan.mac[entry][1]);
 		if (scan.mac[entry][1]!="undefined"){
 			dr=E.toString(scan.mac[entry][1].substring(0,14));
 		}else dr=scan.mac[entry][0].substring(0,17);
 		UIc.start(1,1);
-		//this.g.drawString(dr,1,this.top+((entry-this.line)*this.top));
 		UI.btn.c2l("main","_4x1",entry+1,dr,"",15,1);
 		UIc.end();
       }
-      UI.ele.title((entry+1)+"/"+scan.mac.length,15,4);
+      UI.ele.title((entry)+"/"+scan.mac.length,15,4);
       this.g.flip();
 		UIc.main._4x1=(i)=>{
 			//print(i);
