@@ -1,3 +1,14 @@
+//touch
+tcN=(x,y)=>{
+		buzzer(buz.na);	
+};	
+tcNext.replaceWith(tcN);
+tcB=(x,y)=>{
+	buzzer(buz.ok);	
+	face.go("dashScan",0);
+
+};	
+tcBack.replaceWith(tcB);
 //scan face-used by dash/repellent
 if(!global.scan){
 	scan={
@@ -27,7 +38,8 @@ face[0] = {
 	init: function(service){
 		this.go=0;
 		this.start=1;
-		scan.go(face.appPrev,service);
+		this.serv=service;
+		scan.go(face.appPrev,this.serv);
 		UI.ele.ind(1,1,1);
 		this.line=0;
 		this.top=50;
@@ -44,23 +56,44 @@ face[0] = {
         print(entry,this.go);
 		print("got :"+scan.mac[entry]);
 		print("id :"+scan.mac[entry][0],"name :"+scan.mac[entry][1]);
-		this.g.setColor(0,/*this.go==entry?4:*/entry%2?1:2);
-        this.g.fillRect(0,(this.top-14)+((entry-this.line)*this.top),239,(this.top+36)+((entry-this.line)*this.top)); 
-		this.g.setColor(1,/*this.go==entry?14:*/15);
+		//this.g.setColor(0,/*this.go==entry?4:*/entry%2?1:2);
+        //this.g.fillRect(0,(this.top-14)+((entry-this.line)*this.top),239,(this.top+36)+((entry-this.line)*this.top)); 
+		//this.g.setColor(1,/*this.go==entry?14:*/15);
 		if (scan.mac[entry][1]!="undefined"){
 			dr=E.toString(scan.mac[entry][1].substring(0,14));
 		}else dr=scan.mac[entry][0].substring(0,17);
-		this.g.drawString(dr,1,this.top+((entry-this.line)*this.top));
+		UIc.start(1,1);
+		//this.g.drawString(dr,1,this.top+((entry-this.line)*this.top));
+		UI.btn.c2l("main","_4x1",entry+1,dr,"",15,1);
+		UIc.end();
       }
-      UI.ele.title(scan.mac.length+"/"+scan.mac.length,15,4);
+      UI.ele.title((entry+1)+"/"+scan.mac.length,15,4);
       this.g.flip();
+		UIc.main._4x1=(i)=>{
+			//print(i);
+			buzzer(buz.ok);
+			this.mac=scan.mac[i-1][0];this.name=(scan.mac[i-1][1]!="undefined")?scan.mac[i-1][1]:0;
+			setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",this.name?this.name:"UNKN");
+            //setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Mac",this.mac);
+			euc.mac=this.mac;
+			euc.tgl();
+			return;
+		};
 	  return;
     }else {
-	  UI.btn.c2l("main","_main",7,"TAP TO\n\nRESCAN","",15,1);
-	  UI.ele.title("NOT FOUND",15,7);
-      this.done=0;
-      this.g.flip();
-      return;
+		UI.ele.title("NOT FOUND",15,13);
+		UIc.start(1,1);
+		UI.btn.c2l("main","_main",12,"TAP TO\n\nRESCAN","",15,1);
+		UIc.end();
+		UIc.main._main=(i)=>{
+			if (i==12){
+				buzzer(buz.ok);	
+				face[0].init(face[0].serv);
+				face[0].show();
+			}
+		}
+		this.done=0;
+		return;
     }
     this.tid=setTimeout(function(t){
       t.tid=-1;
@@ -89,7 +122,6 @@ face[1] = {
   return true;
   },
   show : function(){
-	  //face.go(face.appRoot[0],face.appRoot[1]);
       face.go("main",0);
 	  return true;
   },
@@ -99,32 +131,6 @@ face[1] = {
 };	
 //
 
-/*
-UIc.back=(x,y)=>{
-	buzzer(buz.ok);
-    if ( 1 < face[0].set ) {
- 		face[0].set -- ;
-		face[0].page(face[0].set); 
-    } else {
-      face.go("dashGarage",0);
-      return;
-    }
-};	
-UIc.next=(x,y)=>{
-	if ( face[0].set < 4 ) {
-		buzzer(buz.ok);
-		face[0].set ++ ;
-		face[0].page(face[0].set);
-    }else buzzer(buz.na); 
-};	
-TC.on('tc3',UIc.next); 	
-TC.on('tc4',UIc.back); 
-TC.on('tc1',tcDn); 	
-TC.on('tc2',tcUp);
-TC.on('tc5',UIc.xy); 
-
-
-*/
 touchHandler[0]=function(e,x,y){
     if (e==5||e==12){
 		if (scan.run) { buzzer(buz.na);return;}
@@ -156,5 +162,3 @@ touchHandler[0]=function(e,x,y){
 	 // return;
     }
 };
-
-
