@@ -49,7 +49,7 @@ face[0] = {
 		this.g.setFont("Vector",22);	
 		this.g.drawString("WHEEL",60-(this.g.stringWidth("WHEEL")/2),115); 
 //		this.g.setFont("Vector",25);
-		this.g.drawString("ALERTS",60-(this.g.stringWidth("ALERTS")/2),150); 
+		this.g.drawString("ALARMS",60-(this.g.stringWidth("ALARMS")/2),150); 
 //		this.g.drawString(euc.dash.spdT,60-(this.g.stringWidth(euc.dash.spdT)/2),150); 
 		this.g.flip();
 		//pass

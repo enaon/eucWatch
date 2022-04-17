@@ -125,7 +125,7 @@ face[0] = {
 		this.g.setColor(0,7);
 		this.g.fillRect(120,195,239,239);
 		this.g.setColor(1,15);
-		this.g.drawString("DEVMODE",136,210);
+		this.g.drawString("SHUTDOWN",130,210);
 		this.g.flip();		
 	},
 	setTime:function(){
@@ -272,8 +272,11 @@ touchHandler[0]=function(e,x,y){
 				}else if ( 120 <= x && 190 <= y) {
 					set.updateSettings();
 					NRF.disconnect();
-					require("Storage").write("devmode","dev");
-					w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
+					require("Storage").write("devmode","shutdown");
+					set.def.acc=0;
+					set.accR();
+					if (global.tfk) tfk.exit(); 
+					w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();w.gfx.off();
 					E.reboot();
 				}else {
 					//face[0].set=0;

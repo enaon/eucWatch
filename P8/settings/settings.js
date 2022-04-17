@@ -249,10 +249,10 @@ face[5] = {
 		this.g.setColor(1,15);
 		this.g.drawString("RESTART",18,213);
 		this.g.flip();	
-		this.g.setColor(0,4);
+		this.g.setColor(0,7);
 		this.g.fillRect(121,200,239,239);
 		this.g.setColor(1,15);
-		this.g.drawString("DEVMODE",136,213);
+		this.g.drawString("SHUTDOWN",136,213);
 		this.g.flip();
 		face[0].appImgNone=0;
 	},
@@ -522,7 +522,17 @@ touchHandler[5]=function(e,x,y){
 			NRF.disconnect();
 			w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
 			reset();
-		} else  buzzer(40);
+		} else if (x>120 && y>190) {
+			//SHUTDOWN
+			set.updateSettings();
+			NRF.disconnect();
+			require("Storage").write("devmode","shutdown");
+			set.def.acc=0;
+			set.accR();
+			if (global.tfk) tfk.exit(); 
+			w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();w.gfx.off();
+			E.reboot();
+		}else  buzzer(40);
     }else if  (e==1){
 		face[0].btSetOn=1;
 		face.go("settings",0);return;
@@ -546,11 +556,14 @@ touchHandler[5]=function(e,x,y){
 			w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
 			reset();
 		}else if (x>120 && y>190) {
-			//devmode
+			//SHUTDOWN
 			set.updateSettings();
 			NRF.disconnect();
-			require("Storage").write("devmode","dev");
-			w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
+			require("Storage").write("devmode","shutdown");
+			set.def.acc=0;
+			set.accR();
+			if (global.tfk) tfk.exit(); 
+			w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();w.gfx.off();
 			E.reboot();
 		}else buzzer(40);
     }

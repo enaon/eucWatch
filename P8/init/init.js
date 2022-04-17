@@ -16,6 +16,9 @@ if (BTN1.read() || Boolean(require("Storage").read("devmode"))) {
   let mode=(require("Storage").read("devmode"));
   if ( mode=="loader"){ 
     digitalPulse(ew.pin.BUZZ,1,80);
+  } else if ( mode=="shutdown"){ 
+    digitalPulse(ew.pin.BUZZ,1,300);
+	NRF.sleep();
   } else {
     require("Storage").write("devmode","done");
     NRF.setAdvertising({}, { name:"Espruino-devmode",connectable:true });
