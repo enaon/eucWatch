@@ -151,6 +151,7 @@ euc.tmp.two=function(inpk){
 	euc.dash.ks.onOffState=inpk[11];
 	euc.dash.ks.fan=inpk[12];
 	euc.dash.ks.charge=inpk[13];
+	euc.charge=euc.dash.ks.charge?1:0;
 	euc.dash.ks.tempMotor=Math.round((inpk[15] << 8 | inpk[14])/100) ;
 	euc.dash.fan=inpk[12];
 	//if (euc.dash.light!=euc.tmp.light){

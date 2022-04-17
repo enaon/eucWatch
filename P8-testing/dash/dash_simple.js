@@ -37,6 +37,7 @@ face[0] = {
 	show : function(o){
 		if (!this.run) return;
 		if (euc.state=="READY") {
+			if (euc.charge)  	{this.charge();return;}
 			this.g.setColor(0,0);
 			//this.g.fillRect(0,0,0,0);
 			this.g.flip();
@@ -163,6 +164,9 @@ face[0] = {
 		this.g.setFontVector(25);
 		this.g.drawString("TPMS",85,215); 
 		this.g.flip();
+	},
+	charge: function(){
+		face.go("dashKingsongCharging",0);return;
 	},
 	tid:-1,
 	run:false,

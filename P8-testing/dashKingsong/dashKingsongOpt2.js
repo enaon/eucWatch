@@ -27,8 +27,9 @@ face[0] = {
 		let offH=Math.floor(euc.dash.ks.offT/3600);
 		let offM=euc.dash.ks.offT/60 %60;	
         this.btn(1,"IDLE",18,60,15,1,1,0,0,119,97,!euc.dash.ks.offT?"-":offH+"h:"+offM+"m",28,60,50);
-		this.btn(1,"ON",22,185,15,12,1,122,0,239,97,"CONN",28,185,50);		
-        this.btn(1,"",18,60,115,1,1,0,100,119,195,"",30,60,150);
+		this.btn(1,"ON",18,185,15,12,1,122,0,239,97,"CONN",28,185,50);		
+        //this.btn(1,"INFO",18,60,115,1,1,0,100,119,195,"",30,60,150);
+        this.btn(1,"INFO",25,60,135,1,1,0,100,119,195,"",30,60,150);
         this.btn(1,"ON",18,185,115,12,1,122,100,239,195,"DISC",30,185,150);		
 		this.run=true;
 	},
@@ -160,8 +161,8 @@ touchHandler[0]=function(e,x,y){
 		}else if ( 120<=x && y<=100 ) { //CONN
 			face.go("dashKingsongCon",0);
 			return;		
-		}else if ( x<=120 && 100<=y ) { //auto lift
-			buzzer(49);		
+		}else if ( x<=120 && 100<=y ) { //info
+			face.go("dashKingsongCharging",0);return;
 		}else if  (120<=x && 100<=y ) { //disconn
 			face.go("dashKingsongDis",0);
 			return;					

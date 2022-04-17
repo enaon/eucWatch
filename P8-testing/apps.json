@@ -188,7 +188,8 @@
 			{"name":"dashKingsongAdv2","url":"dashKingsongAdv2.js"},
 			{"name":"dashKingsongAdvCalibrate","url":"dashKingsongAdvCalibrate.js"},
 			{"name":"dashKingsongAdvLimits","url":"dashKingsongAdvLimits.js"},
-			{"name":"dashKingsongAdvPass","url":"dashKingsongAdvPass.js"}
+			{"name":"dashKingsongAdvPass","url":"dashKingsongAdvPass.js"},
+			{"name":"dashKingsongCharging","url":"dashKingsongCharging.js"}
 		]
 	}, 
 	{ "id": "dashNinebot",
