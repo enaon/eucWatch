@@ -73,23 +73,20 @@ var TC={
 				if ( a != 0 && this.aLast != a ) {
 					this.aLast=a;
 					this.do=0;
-					//setTimeout(function() {TC.emit("tc"+a,TC.x+(TC.x/10),TC.y);},0);
-					//touchHandler[face.pageCurr](a,TC.x+(TC.x/10),TC.y);
+					//let tc=["0","tcDn","tcUp","tcNext","tcBack"];
+					//setTimeout(function() {eval(`${tc[a]}(${TC.x},${TC.y});`);});
+					//new Function("x", "y",'setTimeout(()=>{'+act+'},0);');	
 					TC.emit("tc"+a,TC.x+(TC.x/10),TC.y);
-					face.off();
-					//setTimeout(function() {face.off();},200);
+					setTimeout(function() {face.off();},500);
 				}
 				return;
 			}
 		}else if ( tp[3] == 64 && !this.st ) {
 			if (this.do===1){
 				this.do=0;
-				//setTimeout(function() {touchHandler[face.pageCurr](5,TC.x+(TC.x/10),TC.y);},0);
-				//touchHandler[face.pageCurr](5,TC.x+(TC.x/10),TC.y);
-				TC.emit("tc5",TC.x+(TC.x/10),TC.y);
-				face.off();
-				//setTimeout(function() {TC.emit("tc5",TC.x+(TC.x/10),TC.y);},0);
-				//setTimeout(function() {face.off();},200);
+				setTimeout(function() {UIc.xy(TC.x+(TC.x/10),TC.y);},40);
+				//TC.emit("tc5",TC.x+(TC.x/10),TC.y);
+				setTimeout(function() {face.off();},500);
 			}
 			this.aLast=0;
 			this.st = 1;

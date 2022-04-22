@@ -8,8 +8,8 @@ UI.ele.fill("_2x3",1,0);
 UI.ele.fill("_2x3",2,0);
 UI.btn.c2l("main","_2x3",3,set.def.txt?"MODE":set.def.hr24?"24 H":"12 H",set.def.txt?set.def.hr24?"24 H":"12 H":"",15,0);
 UI.ele.fill("_2x3",4,6);
-UI.btn.img("main","_2x3",5,_icon.power,"PWR",15,6);
-UI.btn.img("main","_2x3",6,_icon.info,"INFO",15,6);
+UI.btn.img("main","_2x3",5,"power","PWR",15,6);
+UI.btn.img("main","_2x3",6,"info","INFO",15,6);
 UIc.end();
 //
 UIc.main._2x3=(i)=>{
@@ -28,8 +28,8 @@ UIc.main._2x3=(i)=>{
 		buzzer(buz.ok);
 		UI.btn.ntfy(0,3,1,"_bar",6,"","",15,0);
 		UIc.start(0,1);
-		UI.btn.img("bar","_bar",4,_icon.restart,"RST",15,6);
-		UI.btn.img("bar","_bar",5,_icon.power,"OFF",15,13);
+		UI.btn.img("bar","_bar",4,"restart","RST",15,6);
+		UI.btn.img("bar","_bar",5,"power","OFF",15,13);
 		UIc.end();
 		UIc.bar._bar=(i)=>{
 			if (i==4){

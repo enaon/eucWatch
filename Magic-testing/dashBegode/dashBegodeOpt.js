@@ -2,14 +2,14 @@
 //touch
 tcNext.replaceWith((x,y)=>{
 	"ram";
-	buzzer(buz.na);	
-	return; 
+	buzzer(buz.ok);	
+	face.go("dashBegodeAdv",0);return; 
 });
 tcBack.replaceWith((x,y)=>{
 	"ram";
 	buzzer(buz.ok);	
 	if (UI.ntid) {/*buzzer(buz.ok);*/clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}
-	face.go("dashBegodeOpt",0);return; 
+	face.go("dashBegode",0);return; 
 });
 //
 face[0] = {
@@ -18,7 +18,7 @@ face[0] = {
 	page:dash.live.maker+" "+dash.live.name,
 	init: function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
-		UI.ele.ind(3,3,1);
+		UI.ele.ind(2,3,1);
 		UI.ele.title(this.page.toUpperCase(),3,0);
 		UIc.start(1,1);
 		this.run=1;

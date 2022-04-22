@@ -4,11 +4,11 @@ let tout=(set.def.off[face.appRoot[0]])?set.def.off[face.appRoot[0]]:3000;
 let tm=(tout/(tout<60000?"1000":tout<3600000?"60000":"3600000"))+ (tout<60000?"''":tout<3600000?"'":"h");
 UI.ele.ind(1,1,1);
 UIc.start(1,0);
-UI.btn.img("main","_fold",1,_icon.themes,"FACE",14,1,1);
+UI.btn.img("main","_fold",1,"themes","FACE",14,1,1);
 UI.btn.c2l("main","_2x3",3,set.def.txt?"OFF":tm,set.def.txt?tm:"",15,1);
 UI.btn.c2l("main","_2x3",4,"SIZE",UI.size.txt*100,15,0); //4
-UI.btn.img("main","_2x3",5,_icon.txt,"TXT",set.def.txt?15:3,set.def.txt?4:0);
-UI.btn.img("main","_2x3",6,_icon.info,"INFO",set.def.info?15:3,set.def.info?4:0);
+UI.btn.img("main","_2x3",5,"txt","TXT",set.def.txt?15:3,set.def.txt?4:0);
+UI.btn.img("main","_2x3",6,"info","INFO",set.def.info?15:3,set.def.info?4:0);
 UIc.end();
 UIc.main._fold=()=>{
 	buzzer(buz.na);
@@ -60,14 +60,14 @@ UIc.main._2x3=(i)=>{
 		buzzer(buz.ok);
 		set.def.txt=1-set.def.txt;
 		if (set.def.info) UI.btn.ntfy(1,0,0,"_bar",6,"TEXT UNDER","ICON",15,0);
-		UI.btn.img("main","_2x3",5,_icon.txt,"TXT",set.def.txt?15:3,set.def.txt?4:0);
-		UI.btn.img("main","_2x3",6,_icon.info,"INFO",set.def.info?15:3,set.def.info?4:0);
+		UI.btn.img("main","_2x3",5,"txt","TXT",set.def.txt?15:3,set.def.txt?4:0);
+		UI.btn.img("main","_2x3",6,"info","INFO",set.def.info?15:3,set.def.info?4:0);
 		UI.btn.c2l("main","_2x3",3,set.def.txt?"OFF":tm,set.def.txt?tm:"",15,1);
 	}else if (i==6){
 		buzzer(buz.ok);
 		set.def.info=1-set.def.info;
 		UI.btn.ntfy(1,0,0,"_bar",6,"INFO ON","ACTIONS",15,0);
-		UI.btn.img("main","_2x3",6,_icon.info,"INFO",set.def.info?15:3,set.def.info?4:0);
+		UI.btn.img("main","_2x3",6,"info","INFO",set.def.info?15:3,set.def.info?4:0);
 	}
 };
 //

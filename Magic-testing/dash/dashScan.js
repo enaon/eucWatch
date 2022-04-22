@@ -1,54 +1,136 @@
+//touch
+tcBack.replaceWith((x,y)=>{
+	"ram";
+	buzzer(buz.ok);
+	if (UI.ntid) {
+		clearTimeout(UI.ntid);UI.ntid=0;
+		face[0].show( face[0].page);
+	}else if ( 1 < face[0].page ) {
+ 		face[0].page -- ;
+		face[0].show( face[0].page);
+    } else {
+      face.go("dashGarage",0);
+      return;
+    }
+});
+tcNext.replaceWith((x,y)=>{
+	"ram";
+	if (UI.ntid) {
+		clearTimeout(UI.ntid);UI.ntid=0;
+		face[0].show( face[0].page);
+	}else if ( face[0].page < 3 ) {
+		buzzer(buz.ok);
+		face[0].page ++ ;
+		face[0].show( face[0].page);
+    }else buzzer(buz.na); 
+});
 //Dash Scan
 face[0] = { 
   btn:{},
   offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
   bpp:set.def.bpp?0:1,
+  icon:"",
   g:w.gfx, 
   init: function(o){ 
-	UI.ele.title("SCAN FOR",15,0);
-	this.bar();
+	this.maker={
+		kingsong:["Kingsong","KS","fff0"],
+		begode:["Begode","BG","ffe0"],
+		inmotionV10:["InmotionV10","V10","ffb0"],
+		inmotionV11:["InmotionV11","V11","ffe0"],
+		veteran:["Veteran","SM","ffe0"],
+		ninebotE:["NinebotE","E+","ffe0"],
+		ninebotS:["NinebotS","S2","e7fe"],
+		ninebotZ:["NinebotZ","Z10","e7fe"]
+
+	};
+
   },
-  show : function(o){
-	return;
+  show : function(o) {
+   this.bar(o?o:1);
   },
-  bar: function(n) {
+  bar: function(o) {
+  	UI.ele.title("SCAN FOR",15,0);
+	this.page=(o?o:1);
+	UI.ele.ind(this.page,3,6);
+	let txt1=["ks","im","nb"];
+	let txt2=["","",""];
 	UIc.start(1,1);
-	this.page(1);
+	UI.btn.img("main","_2x1",1,this.icon+txt1[this.page-1],txt2[this.page-1],15,6); 
+	txt1=["bg","vt2","rw"];
+	txt2=["","",""];	
+	UI.btn.img("main","_2x1",2,this.icon+txt1[this.page-1],txt2[this.page-1],15,1); 
 	UIc.end();
 	UIc.main._2x1=(i)=>{
-		face[0].scan(i);
+		if (i==1){
+			if (face[0].page==1) face[0].scan(face[0].maker.kingsong); //kingsong
+			else if (face[0].page==2){ //inmotion
+				buzzer(buz.ok);
+				UIc.start(1,1);
+				UI.btn.img("main","_2x1",1,face[0].icon+"imV10","V5 V8 V10",15,4); 
+				UI.btn.img("main","_2x2",3,face[0].icon+"imV11","V11",15,4); 
+				UI.btn.img("main","_2x2",4,face[0].icon+"imV12","V12",15,6); 
+				UIc.end();
+				UIc.main._2x1=(i)=>{//V5
+					face[0].scan(face[0].maker.inmotionV10);		
+				};
+				UIc.main._2x2=(i)=>{
+					if (i==4){//V12
+						buzzer(buz.ok);
+						UI.btn.ntfy(1,2,0,"_bar",6,"COMING","SOON",15,13);w.gfx.flip();
+					}	else {//V11
+							face[0].scan(face[0].maker.inmotionV11);		
+					}
+				};
+			}else if (face[0].page==3){ //ninebot
+				buzzer(buz.ok);
+				UIc.start(1,1);
+				UI.btn.img("main","_2x2",1,face[0].icon+"nbZ","Z10",15,4); 
+				UI.btn.img("main","_2x2",2,face[0].icon+"nbS","S2 A1",15,4); 
+				UI.btn.img("main","_2x1",2,face[0].icon+"nbE","one C/E/P",15,6); 
+				UIc.end();
+				UIc.main._2x1=(i)=>{//oneE
+					face[0].scan(face[0].maker.ninebotE);		
+				};
+				UIc.main._2x2=(i)=>{
+					buzzer(buz.ok);
+					if (i==1){//oneZ10
+						face[0].scan(face[0].maker.ninebotZ);		
+					}	else {//oneS2
+						face[0].scan(face[0].maker.ninebotS);		
+					}
+				};
+			}
+		}else if (i==2){ //reciowheel
+			if (face[0].page==3){
+				buzzer(buz.ok);
+				UIc.start(1,1);
+				UI.btn.c2l("main","_2x1",1,"R16","",15,6); 
+				UI.btn.c2l("main","_2x1",2,"R18","",15,1); 
+				UIc.end();
+				UIc.main._2x1=(i)=>{
+					face[0].scan(face[0].maker.begode);		
+				};
+			}else if (face[0].page==1){//begode
+				face[0].scan(face[0].maker.begode);
+			}else {//veteran
+				face[0].scan(face[0].maker.veteran);
+			}
+		}
 	};
   },
-  page : function(n) {
-	this.set=n;
-	UI.ele.ind(n,4,6);
-	//let txt1=["INMOTION","BEGODE","NINEBOT","NINEBOT"];
-	let txt1=["im","bg","nb","nb"];
-	let txt2=["V5/V8/V10","","ONE S2","ONE Z10"];
-	//UI.btn.c2l("main","_2x1",1,txt1[n-1],txt2[n-1],15,6); 
-	UI.btn.img("main","_2x1",1,_icon[txt1[n-1]],txt2[n-1],15,6); 
-
-	//txt1=["INMOTION","VETERAN","NINEBOT","KINGSONG"];
-	txt1=["im","vt","nb","ks"];
-	txt2=["V11","","ONE C/E/P",""];	
-	//UI.btn.c2l("main","_2x1",2,txt1[n-1],txt2[n-1],15,1); 
-	UI.btn.img("main","_2x1",2,_icon[txt1[n-1]],txt2[n-1],15,1); 
-
-
-  },
-  scan: function(n) {
+  scan: function(o) {
 	buzzer(buz.ok);
-  	let target=n==1?[0,["InmotionV1","Vx","ffb0"],["Begode","BG","ffe0"],["NinebotS","S2","e7fe"],["NinebotZ","Z10","e7fe"]]:
-					[0,["Inmotion","V11","ffe0"],["Veteran","SM","ffe0"],["Ninebot","E+","ffe0"],["Kingsong","KS","fff0"]];
-	if (!Boolean(require("Storage").read("euc"+target[face[0].set][0]))) {
-			//UI.on('ntfy','UI.ele.title("GARAGE",15,1);');
+  	let target=o;
+	//let ==1?[0,["InmotionV1","Vx","ffb0"],["Begode","BG","ffe0"],["NinebotS","S2","e7fe"],["NinebotZ","Z10","e7fe"]]:					[0,["Inmotion","V11","ffe0"],["Veteran","SM","ffe0"],["Ninebot","E+","ffe0"],["Kingsong","KS","fff0"]];
+	if (!Boolean(require("Storage").read("euc"+target[0]))) {
+			UI.btn.ntfy(1,3,1,"_bar",6,"MODULE","MISSING",15,7);w.gfx.flip();
 			return; 
 	}
-	setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker",target[face[0].set][0]);
-	setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Model",target[face[0].set][1]);
+	setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker",target[0]);
+	setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Model",target[1]);
 	dash.live.name=0;
-	dash.live.maker=target[face[0].set][0];
-	face.go('w_scan',0,target[face[0].set][2]);
+	dash.live.maker=target[0];
+	face.go('w_scan',0,target[2]);
   },
   tid:-1,
   run:false,
@@ -68,24 +150,3 @@ face[1] = {
 	off: function(){this.clear();}
 };	
 
-tcB=(x,y)=>{
-	//buzzer(buz.ok);
-    if ( 1 < face[0].set ) {
-		buzzer(buz.ok);
- 		face[0].set -- ;
-		face[0].page(face[0].set); 
-    } else {
-      face.go("dashGarage",0);
-      return;
-    }
-};	
-tcBack.replaceWith(tcB);
-tcN=(x,y)=>{
-	if ( face[0].set < 4 ) {
-		buzzer(buz.ok);
-		face[0].set ++ ;
-		face[0].page(face[0].set);
-    }else buzzer(buz.na); 
-};	
-tcNext.replaceWith(tcN);
-touchHandler[0]=function(){ return;};

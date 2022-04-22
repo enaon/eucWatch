@@ -1,10 +1,9 @@
 //touch
-tcN=(x,y)=>{
+tcNext.replaceWith((x,y)=>{
 		buzzer(buz.na);		
 		//eval(require('Storage').read("dashKingsongAdv")); 
-};	
-tcNext.replaceWith(tcN);
-tcB=(x,y)=>{
+});
+tcBack.replaceWith((x,y)=>{
 	buzzer(buz.ok);	
 	if (UI.ntid) {
 		clearTimeout(UI.ntid);UI.ntid=0;
@@ -12,8 +11,7 @@ tcB=(x,y)=>{
 	}else 
 		eval(require('Storage').read("dashKingsongAuto")); 
 
-};	
-tcBack.replaceWith(tcB);
+});
 //
 face[0].page="wheel setup";
 UI.ele.ind(4,4,1);
@@ -42,7 +40,7 @@ UIc.main._2x2=(i)=>{
 		return;
 	}else if (i==3){
 		buzzer(buz.ok);		
-		eval(require('Storage').read("dashKingsongAdvLimits")); 
+		eval(require('Storage').read("dashKingsongAdvAlarms")); 
 		return;
 	}else if (i==4){
 		buzzer(buz.ok);	

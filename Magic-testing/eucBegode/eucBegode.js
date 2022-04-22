@@ -203,14 +203,8 @@ euc.conn=function(mac){
 			}else if (n=="calibrate") {
 				c.writeValue(99);
 				setTimeout(()=>{c.writeValue(121);if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}},500);
-			/*//rest
-			} else if (!euc.cmd(n)) {
-				c.writeValue(n).then(function() {
-				}).catch(function(err)  {
-					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-					euc.off("err");
-				});   
-			*/}else{
+			//rest
+			}else{
 				c.writeValue(euc.cmd(n)).then(function() {
 					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 				}).catch(function(err)  {

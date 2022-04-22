@@ -356,6 +356,7 @@ touchHandler[0]=function(e,x,y){
 };
 
 tcN=(x,y)=>{
+	buzzer(buz.ok);
 	if ( euc.state!="OFF")
 		face.go(set.dash[set.def.dash.face],0);	
 	else 
@@ -363,6 +364,7 @@ tcN=(x,y)=>{
 };	
 tcNext.replaceWith(tcN);
 tcB=(x,y)=>{
+	buzzer(buz.ok);
 	face.go("notify",0);
 };	
 tcBack.replaceWith(tcB);

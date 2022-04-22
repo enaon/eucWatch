@@ -85,5 +85,3 @@ face[0] = {
 		this.g.off();this.clear();
 	}
 };
-//touch
-touchHandler[0]=function(){return;};

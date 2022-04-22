@@ -1,0 +1,19 @@
+_icon.garage={
+	scan:require("heatshrink").decompress(atob("mEwwIcZg/+Aocfx+AAoV4gPgAoQDBuAEBgPAgE4AoQVBjgFBgYCBhgoCAQMGAQUgAolACggFL6AFGGQQFJEZsGsAFEIIhNFLIplFgBxBnwFCPYP/AoU8gf/BwKVB/+/SAUD/kf+CjDh/4V4n8AoYeBAoq1DgIqDAAP/XYcAv4qEn4qEGwsfC4kPEYkHF4Z1DACA=")),
+	trash:require("heatshrink").decompress(atob("mEwwI1yg/4AocP/gFDhkMApE//4ABAo4PCAUIACAv4FQATkGAQMYXwSgBYAUBAoPgdsg")),
+};
+_icon.garage.alerts={
+	speed:require("heatshrink").decompress(atob("mEwwJC/ABUP8AFDv/+AgUD///0AFBg4SBoAFBhkAgXQAoMYgEB3AFBkAZB/gFBCgMHnwFBwAdBjwUBAoMej4FBBoM+h4JBAAM8g+AgQFBvAFBBYX4g/AAgMB+ED4EEGgIFCL4cDMIUfAok/4AFFOIYFLj45DFILK/ABQ")),	
+	speedR:require("heatshrink").decompress(atob("mEjwIROj/4Aod//4ECgPwg+AAoMDwEB8AFBg4CB+ACBhwCBnACBjkA8EYBAUH+AIBIAMOiEMAoNwAYMGAoNgCoIFFFgXgCIMDAoPAh4FC//AgYBB/4FBCYIFBCIIrBC4cAjAFCsAFHF4QFCHYVwjlwAoUwj49CNAoCDNYR3CmCDERIRMBgI+BTYUPTYSnB/ytDh6zEABIA==")),
+	speedS:require("heatshrink").decompress(atob("jkcwIcZgP4AYPz8EAjEFwECgEsgFAg3ghEA4wyCuEAgeDAwN4nEAh8DwEB8AGBnwpCEoIXBJDIA=")),
+	amp:require("heatshrink").decompress(atob("mEwwIqn//gAgUB//wApEDCIgFB4AFCg4FGwAFCh4FGGgcfAov+Aoc//gFJv/4AohBE/5NEAoILCLAIFGJoRYBI4YFCMghBDC4JHEgZBEgZBEg46DAoJGDOIIFFRAYFBQQZ3BXAkeAok+Aok8Aok4AolwAokgfEA=")),	
+	ampR:require("heatshrink").decompress(atob("mEjwIROj/4Aod//4ECgPwg+AAoMDwEB8AFBg4CB+ACBhwCBnACBjkB4EYBAQFBjhACgfAhgFBuED8EGAoNggdgAocGmAsCB4IZBAoPAAof/EIMYgf/AooRBj/8C4YFEsEYhgFDmEGF4QFCHYVwAokwJAJTCNAYCENYR3CmCDERIRwBPAKbDh6bCU4P+VocPWYgAJ")),
+	ampS:require("heatshrink").decompress(atob("jEYwIKHiACEnACHvACEv/AgH/AQcB/+AAQsAh4UBAQUOAQ8EAQgAEA==")),
+	temp:require("heatshrink").decompress(atob("mEwwIFCgfABYcH+AFDhkwAocYjAF/Av4FHjOYAocb7AFnnfcAodj4wFDs/mAofP+YFD7/7AqodFFIo1FnEcAocf/AFDg/gAYIA==")),
+	tempS:require("heatshrink").decompress(atob("jkcwILIg4DC/ACBj/AgEBxwGBjHggEDAxuuAwMaAwMBAwU6BooGCg8nAwNnmEAg37AwNv2ANBuYGBuFwDYP+IogKBLI4")),	
+	tempR:require("heatshrink").decompress(atob("mEjwIROj/4Aod//4ECgPwg+AAoMDwEB8AFBg4CB+ACBhwCBnACBjgCBjAICj/8BAUwAoMMAoNwgGAgwFBsAFHFgQyBwEDAoPAAof/Aof/AooRFAowpCAoovCHYpHFmAFBKYRoBwBfCNYp3CCgKDDRIUD4EBHwKbCh6bCU4P+VocPWYgAJA==")),
+	battSC:require("heatshrink").decompress(atob("jEYwIKHiACEnACHvACEv/AgH/AQcB/+AAQsAh4UBAQUOAQ8EAQgAEA==")),
+	battS:require("heatshrink").decompress(atob("jEYwIEBngCDg//4EGgFgggCZgv/ASUEAQQaBHYPgJYQ=")),
+	batt:require("heatshrink").decompress(atob("mEwwIFCj/4BYYFKg////gAoMPAoPwAo8cAQM4Av4FcMoIFhF/4vkepcDAoPAgAA=")),	
+	battR:require("heatshrink").decompress(atob("mEjwIROj/4Aod//4ECgPwg+AAoMDwEB8AFBg4CB+ACBhwCBnACBjgCBjAICh/gBAUwhlwhgFBuEIjEGAoNgAo4sC8EImEDAoPAhlgAoP/4ApBgf/AoMMvAFBCIIdBC4cIhgFCFIIFGF4Q7FJYM4AoUwh/wKYRfB4BfCNYp3CmCDERIUD4EB4CbDh6bCU4P+VocPWYgAJ")),
+};

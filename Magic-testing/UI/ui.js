@@ -6,7 +6,7 @@ UI={
  	_2x2:[27,[60,180],[80,200],[120,120],[120,120]],
 	_2x3:[30,[40,120,200],[65,155],[80,80,80],[90,90] ],
 	_3x1:[25,[120],[40,120,200]],
-	_4x1:[24,[120],[50,110,170,230],[240],[60,60,60,60]],
+	_4x1:[27,[120],[50,110,170,230],[240],[60,60,60,60]],
 	_kp4x4:[28,[30,90,150,210],[50,110,170,230]],
 	_kp4x3:[35,[40,120,200],[50,110,170,230],[80,80,80],[60,60,60,60]],
 	_ele:{"0":25,title:[0,260,239,279,19],ind:[80,7,160,12],indF:[0,0,239,19]},
@@ -101,6 +101,9 @@ UI={
     },
     img:function(loc,no,po,img,txt,fclr,bclr,side,tran){
       "ram";
+		//print (img);
+		//img=eval(img);
+		img=require("heatshrink").decompress(atob(_icon[img]));
 		let p=(UI.pos[no]);
 	  	let len=p[1].length;
 		let x=p[1][(po-1)%len];
@@ -119,19 +122,21 @@ UI={
 	    }
 	  }
       w.gfx.setColor(1,fclr);	
+	  let imgW=w.gfx.imageMetrics(img).width;
+	  let imgH=w.gfx.imageMetrics(img).height;
 	  if  (txt&&side){
  		  w.gfx.setFont("Vector",p[0]*1.7*UI.size.txt);	
-		  let xa=x-((w.gfx.imageMetrics(img).width+w.gfx.stringWidth(txt))/2);
+		  let xa=x-((imgW+w.gfx.stringWidth(txt))/2);
 		  w.gfx.setColor(1,14);
-	      w.gfx.drawImage(img,xa,y-(w.gfx.imageMetrics(img).height/2),{scale:UI.size.sca});
+	      w.gfx.drawImage(img,xa,y-(imgH/2),{scale:UI.size.sca});
 		 w.gfx.setColor(1,fclr);
-		  w.gfx.drawString(txt,xa+5+w.gfx.imageMetrics(img).width,y-(w.gfx.stringMetrics(txt).height/2)+2); 
+		  w.gfx.drawString(txt,xa+5+imgW,y-(imgH/2)+2); 
 	  }else if (set.def.txt&&txt) {
-		  w.gfx.drawImage(img,x-(w.gfx.imageMetrics(img).width*UI.size.sca*0.75/2), (y-szY)+ ((szY*2) *(2-UI.size.txt)/15)  ,{scale:0.75*UI.size.sca});
+		  w.gfx.drawImage(img,x-(imgW*UI.size.sca*0.75/2), (y-szY)+ ((szY*2) *(2-UI.size.txt)/15)  ,{scale:0.75*UI.size.sca});
 		  w.gfx.setColor(1,fclr);
 			w.gfx.setFont("Vector",p[0]*(no=="_2x3"?0.85:1)*UI.size.txt);	
 		  w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y+( (szY*2)*(2-UI.size.txt)/6 )); 
-	  }else w.gfx.drawImage(img,x-(w.gfx.imageMetrics(img).width*UI.size.sca/2),y-(w.gfx.imageMetrics(img).height*UI.size.sca/2),{scale:UI.size.sca});
+	  }else w.gfx.drawImage(img,x-(imgW*UI.size.sca/2),y-(imgH*UI.size.sca/2),{scale:UI.size.sca});
 	  img=0;
 	  if (!set.def.bpp) w.gfx.flip();
 	  //coordinates
@@ -267,8 +272,8 @@ UI={
 		if (!tran) 	w.gfx.fillRect(x-szX,y-szY,x+szX,y+szY);
 		w.gfx.setColor(1,fclr);	
 		w.gfx.setFont("Vector",UI.size._txt*UI.size.txt);	
-		//w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y-szY+((szY*2)/10)); 
-		w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y-szY); 
+		w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y-szY+(szY/10)); 
+		//w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y-szY); 
 
 		if (!set.def.bpp) w.gfx.flip();
 	}

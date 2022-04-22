@@ -50,7 +50,7 @@ var TC={
 			//print("in",tp);
 			if (face.pageCurr>=0) {
 				TC.emit("tc"+tp[1],tp[4],tp[6]);
-				//touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);
+				touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);
 				face.off();
 			}else if (tp[1]==1) 
 				face.go(face.appCurr,0);

@@ -49,7 +49,7 @@ face[0] = {
     if (!this.run) return;
     if (scan.run) {
 	  UI.ele.title("WAIT 5 SECS",15,0);
-	  UI.btn.img("main","_main",12,_icon.scan,"SCANNING",14,1);
+	  UI.btn.img("main","_main",12,"scan","SCANNING",14,1);
     }else if (scan.mac.length){
 		UI.btn.c2l("main","_main",12,"","",15,6);
       for (var entry=this.line;entry<this.line+4&&entry<scan.mac.length;entry++) {
@@ -102,7 +102,7 @@ face[0] = {
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
     if (this.loop>=0) clearInterval(this.loop);
-	if (!set.gIsB /*&&face.appCurr!="w_scan"*/) delete global.scan;
+	if (!set.gIsB &&!scan.run) delete global.scan;
     this.tid=-1;
     return true;
   },

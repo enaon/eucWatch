@@ -16,7 +16,7 @@ else
 
 tcDn=(x,y)=>{
 	"ram";
-	print("dn",x,y);
+	buzzer(buz.ok);
 	if (global.euc&& euc.state=="READY"){
 		if (set.def.dash.face+1>=set.dash.length) 
 			set.def.dash.face=0; 
@@ -36,7 +36,7 @@ tcDn=(x,y)=>{
 };	
 tcUp=(x,y)=>{
 	"ram";
-	print("up",x,y);
+	buzzer(buz.ok);
 	if (y>170&&x<50) { 
      /* if (w.gfx.bri.lv!==7) {set.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
       else w.gfx.bri.set(set.bri);
@@ -71,6 +71,10 @@ tcBar=(x,y)=>{UIc.tcBar(x,y);};
 TC.on('bar',tcBar);
 TC.on('tc1',tcDn); 	
 TC.on('tc2',tcUp); 
-TC.on('tc3',tcNext); 	
-TC.on('tc4',tcBack); 	
+//TC.on('tc2',`setTimeout(()=>{tcUp()},50)`);
+//TC.on('tc3',tcNext); 	
+TC.on('tc3',`setTimeout(()=>{tcNext()},50)`);
+//TC.on('tc4',tcBack); 	
+TC.on('tc4',`setTimeout(()=>{tcBack()},50)`);
 TC.on('tc5',UIc.xy);
+//TC.on('tc5',`setTimeout(()=>{UIc.xy(x,y)},50)`);

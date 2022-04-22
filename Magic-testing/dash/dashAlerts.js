@@ -11,9 +11,9 @@ tcN=(x,y)=>{
 };	
 tcNext.replaceWith(tcN);
 tcB=(x,y)=>{
+	buzzer(buz.ok);
 	if (UI.ntid) {/*buzzer(buz.ok);*/clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();
 	}else if (face[0].tab==2) {
-		buzzer(buz.ok);
 		face[0].tab=1;
 		face[0].bar();
 	}else if (face.appPrev!="settings")
@@ -36,8 +36,7 @@ face[0] = {
 			face[0].page=1;
 			UI.txt.block("_main",6,"Dash color coding & haptic alert",15,15,0);
 			UIc.start(1,1);
-			//UI.btn.img("bar","_bar",4,_icon.buzzOn,"Haptic",15,4);
-			UI.btn.img("bar","_bar",6,_icon.alert,"Alerts",15,6);
+			UI.btn.img("bar","_bar",6,"alert","Alerts",15,6);
 			UIc.end();	
 			UIc.bar._bar=(i)=>{
 				if (i==6){
@@ -49,10 +48,10 @@ face[0] = {
 			UI.ele.ind(1,2,1);
 			UI.ele.title("ALERTS",15,0);
 			UIc.start(1,1);
-			UI.btn.img("main","_2x2",1,_icon.speedS,dash.live.spd1,dash.live.hapS?15:3,dash.live.hapS?4:1,1);
-			UI.btn.img("main","_2x2",2,_icon.battSC,dash.live.ampH,dash.live.hapA?15:3,dash.live.hapA?4:1,1);
-			UI.btn.img("bar","_2x2",3,_icon.tempS,dash.live.tmpH,dash.live.hapT?15:3,dash.live.hapT?4:1,1);
-			UI.btn.img("bar","_2x2",4,_icon.battS,dash.live.batL,dash.live.hapB?15:3,dash.live.hapB?4:1,1);	
+			UI.btn.img("main","_2x2",1,"speedS",dash.live.spd1,dash.live.hapS?15:3,dash.live.hapS?4:1,1);
+			UI.btn.img("main","_2x2",2,"battSC",dash.live.ampH,dash.live.hapA?15:3,dash.live.hapA?4:1,1);
+			UI.btn.img("bar","_2x2",3,"tempS",dash.live.tmpH,dash.live.hapT?15:3,dash.live.hapT?4:1,1);
+			UI.btn.img("bar","_2x2",4,"battS",dash.live.batL,dash.live.hapB?15:3,dash.live.hapB?4:1,1);	
 			UIc.end();
 			UIc.main._2x2=(i)=>{
 				if(i==1){
@@ -79,6 +78,7 @@ face[0] = {
 				UI.ele.ind(1,1,1);
 				UIc.start(1,0);
 				//if (m) 
+				print(i);
 				if (i == "hapA" ) {
 					UI.btn.c2l("main","_main",1,trgt=="ampH"?"HI":"LOW","",15,1);
 					UI.btn.c2l("main","_main",2,"HAPTIC","",15,dash.live[i]?4:1);
@@ -131,10 +131,10 @@ face[0] = {
 			this.page=0;
 			UIc.start(1,0);
 			if (face[0].tab==1){
-				UI.btn.img("main","_2x2",1,_icon.speedS,dash.live.spd1,dash.live.hapS?15:3,dash.live.hapS?4:1,1);
-				UI.btn.img("main","_2x2",2,_icon.battSC,dash.live.ampH,dash.live.hapA?15:3,dash.live.hapA?4:1,1);
+				UI.btn.img("main","_2x2",1,"speedS",dash.live.spd1,dash.live.hapS?15:3,dash.live.hapS?4:1,1);
+				UI.btn.img("main","_2x2",2,"battSC",dash.live.ampH,dash.live.hapA?15:3,dash.live.hapA?4:1,1);
 			}else{
-				UI.btn.img("main","_2x1",1,_icon.speed,dash.live.spd1,15,dash.live.hapS?4:1,1);
+				UI.btn.img("main","_2x1",1,"speed",dash.live.spd1,15,dash.live.hapS?4:1,1);
 			}
 			UIc.end();
 			UIc.main._2x2_1=()=>{buzzer(buz.ok);this.sel(1,"hapS","HI SPEED",set.def.dash.mph?"MPH":"KPH","spd1",10,99);};
@@ -142,10 +142,10 @@ face[0] = {
 		//}
 		UIc.start(0,1);
 		if (face[0].tab==1){
-			UI.btn.img("bar","_2x2",3,_icon.tempS,dash.live.tmpH,dash.live.hapT?15:3,dash.live.hapT?4:1,1);
-			UI.btn.img("bar","_2x2",4,_icon.battS,dash.live.batL,dash.live.hapB?15:3,dash.live.hapB?4:1,1);	
+			UI.btn.img("bar","_2x2",3,"tempS",dash.live.tmpH,dash.live.hapT?15:3,dash.live.hapT?4:1,1);
+			UI.btn.img("bar","_2x2",4,"battS",dash.live.batL,dash.live.hapB?15:3,dash.live.hapB?4:1,1);	
 		}else{
-				UI.btn.img("main","_2x1",2,_icon.temp,dash.live.spd1,15,dash.live.hapS?4:1,1);
+				UI.btn.img("main","_2x1",2,"temp",dash.live.spd1,15,dash.live.hapS?4:1,1);
 		}		
 		UI.ele.title("ALERTS",15,0);
 		UIc.end();
