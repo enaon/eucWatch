@@ -60,8 +60,8 @@ g.flip();
 g.setColor(1,1);
 g.fillRect(160,80,239,155);
 g.setColor(0,15);
-if (require("Storage").read("w_testScreen",1)) {
-	this.appDo6="face.go('w_testScreen',0)";
+if (require("Storage").read("w_testTP",1)) {
+	this.appDo6="face.go('w_testTP',0)";
 	img = require("heatshrink").decompress(atob("nE4wIifwAGLsGDAwkwwwGEjEMAwkIEIsD8AFDgPHuPABgfmmYOEhkYDYgG/j5+EAwJaDCgX+Awt/YIYGBsf4AwN+AwNh7gGB44GCTYXDxgGE4PMAwlg9kQAwl8gAGDmE8UYIGCjEcAYMGAQMcYQQGChkEAwgCCAYcDAwx0CAwUBAwsAPYQGDsAGFuAGFmA7CAwSmCAwYDCWAcOSwQGCg4lEH4PggK2E///Ygkf/jSEACIA=="));
 	g.drawImage(this.img,176,94);
 }else g.drawImage(this.appImgNone,176,94);

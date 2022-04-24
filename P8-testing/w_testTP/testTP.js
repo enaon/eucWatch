@@ -1,5 +1,4 @@
-//Hello face
-//code is based on a structure fanoush had on dsd6 scripts. 
+//test TP
 face[0] = { //the first face of the hello app, called by using `face.go("hello",0)` from the cli.
   offms: 10000, //face timeout, will fall to face[1] after it, face[1] is a redirection face, not actually visible.
   g:w.gfx, //set graphics as this.g variable
@@ -63,12 +62,9 @@ face[1] = {
   return true;
   },//only use this part of the face to set redirection.
   show : function(){
-   	face.go(face.appRoot[0],face.appRoot[1]); //go to the previous face on screen of the previous app.  
-	//face.go(face.appPrev,face.pagePrev); //go to the previous face on screen, even if it was on the same app. 
-  	//face.go("hello",-1); //sleep and set this face as the on_wake face. 
-	//face.go("main",-1);//sleep and set this face as the on_wake face. 
-	//face.go("main",0);//go to main Clock face. 
-    return true;
+	set.testTP=0;
+	face.go("main",0);//go to main Clock face. 
+ 	return true;
   },
    clear: function(){
    return true;
