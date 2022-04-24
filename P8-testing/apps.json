@@ -415,7 +415,7 @@
 	{ "id": "w_apps",
 		"name": "App Loader widget",
 		"icon": "icon.png",
-		"version":"1.01",
+		"version":"1.02",
 		"description": "Extends settings face with an app drawer.",
 		"tags": "system",
 		"type": "system",
@@ -432,6 +432,17 @@
 		"type": "system",
 		"storage": [
 			{"name":"w_scan","url":"w_scan.js"}
+		]
+	},
+	{ "id": "w_testScreen",
+		"name": "Touch screen tester",
+		"icon": "icon.png",
+		"version":"1.00",
+		"description": "Tool for recording TP output.",
+		"tags": "system",
+		"type": "system",
+		"storage": [
+			{"name":"w_testScreen","url":"w_testScreen.js"}
 		]
 	},
 	{ "id": "Font7x11Numeric7Seg",

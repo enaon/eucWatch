@@ -9,8 +9,7 @@ face[0] = {
 		this.buff={spd:-1,spdL:-1,spdM:-1,amp:-10,tmp:-1,bat:-1,volt:-1,buzz:-1,alrm:-1,conn:"OFF",lock:2,trpL:-1,bar:0};
 		if ( euc.day[0] < Date().getHours() && Date().getHours() < euc.day[1] ) euc.night=0; else euc.night=1;
         if (this.old&&face.appPrev.startsWith("dash_")) {
-			this.g.setColor(0,0);
-			if (this.old)this.g.flip();	
+			this.g.setColor(0,0);this.g.flip();	
 		}else this.g.clear();
 		this.spdC=[0,0,7,7];
 		this.ampC=[1,2992,7,7];
@@ -19,7 +18,7 @@ face[0] = {
 		this.batL=new Uint8Array(20);
 		this.ampL = new Uint8Array(20);
 		this.al=new Uint8Array(20);
-		this.ampL.fill(1,0,1);
+		//this.ampL.fill(1,0,1);
 		this.fact=dash.live.spdF*((set.def.dash.mph)?0.625:1);		
 		this.trpF=dash.live.trpF*((set.def.dash.mph)?0.625:1);
 		this.run=true;
@@ -34,13 +33,15 @@ face[0] = {
 		this.pos.btn3=[200,72,239,132];
 		this.pos.btn4=[200,135,239,193];
 		this.pos.btm=[0,196,239,217];
+		this.pos.bar=[0,240,239,280];
+
 	},
 	show : function(o){
 		if (!this.run) return;
 		if (euc.state=="READY") {
-			this.g.setColor(0,0);
+			//this.g.setColor(0,0);
 			//this.g.fillRect(0,0,0,0);
-			if (this.old)this.g.flip();
+			//if (this.old)this.g.flip();
 			if (this.buff.spd != Math.round(dash.live.spd)) this.spdF();
 			// alarm events time graph
 			if (5<=this.buff.spd && this.al!=almL) this.alF();
@@ -63,6 +64,7 @@ face[0] = {
 			if (set.def.dash.amp){
 				if (this.ampL!=ampL) this.amLF();				
 			}else if (this.buff.tmp!=dash.live.tmp.toFixed(1)) this.tmFF();
+			//batery field
 			//batery field
 			if (!set.def.dash.bat){
 				if (this.buff.volt!=dash.live.volt.toFixed(2)) this.vltF();
@@ -92,7 +94,7 @@ face[0] = {
 		this.tid=setTimeout(function(t){
 			t.tid=-1;
 			t.show();
-		},100,this);
+		},200,this);
 	},
 	spdF: function(){
 		"ram";
@@ -135,9 +137,9 @@ face[0] = {
 		this.g.fillRect(this.pos.btn1[0],this.pos.btn1[1],this.pos.btn1[2],this.pos.btn1[3]);
 		this.g.setColor(1,15);
 		this.g.setFontVector(12);
-		this.g.drawString("AMP", 8,59);
+		this.g.drawString("AMP", 8,this.pos.btn1[1]+5);
 		this.g.setFontVector(32);
-		this.g.drawString(this.buff.amp|0, 22-(this.g.stringWidth(this.buff.amp|0)/2),this.pos.btn1[1]); 
+		this.g.drawString(this.buff.amp|0, 22-(this.g.stringWidth(this.buff.amp|0)/2),this.pos.btn1[1]+20); 
 		if (this.old)this.g.flip();
 	},
 	tmpF: function(){
@@ -146,10 +148,10 @@ face[0] = {
 		this.g.fillRect(this.pos.btn1[0],this.pos.btn1[1],this.pos.btn1[2],this.pos.btn1[3]);
 		this.g.setColor(1,15);
 		this.g.setFontVector(11);
-		this.g.drawString("TEMP", 6,59);
+		this.g.drawString("TEMP", 6,this.pos.btn1[1]+5);
 		let temp=(set.def.dash.farn)?Math.round(this.buff.tmp*1.8+32):Math.round(this.buff.tmp);
 		this.g.setFontVector((100<temp)?20:32);
-		this.g.drawString(temp,22-(this.g.stringWidth(temp)/2),this.pos.btn1[1]); 
+		this.g.drawString(temp,22-(this.g.stringWidth(temp)/2),this.pos.btn1[1]+20); 
 		//this.g.drawString(Math.round(this.buff.tmp), 22-(this.g.stringWidth(Math.round(this.buff.tmp))/2),80); 
 		if (this.old)this.g.flip();
 	},
@@ -168,9 +170,9 @@ face[0] = {
 		this.g.fillRect(this.pos.btn3[0],this.pos.btn3[1],this.pos.btn3[2],this.pos.btn3[3]);
 		this.g.setColor(1,15);
 		this.g.setFontVector(12);
-		this.g.drawString("TOP", 208,59);
+		this.g.drawString("TOP", 208,this.pos.btn3[1]+5);
 		this.g.setFontVector(32);
-		this.g.drawString(Math.round(this.buff.spdM*this.fact), 222-(this.g.stringWidth(Math.round(this.buff.spdM*this.fact))/2),this.pos.btn3[1]); 
+		this.g.drawString(Math.round(this.buff.spdM*this.fact), 222-(this.g.stringWidth(Math.round(this.buff.spdM*this.fact))/2),this.pos.btn3[1]+20); 
 		if (this.old)this.g.flip();
 	},	
 	spLF: function(){
@@ -179,9 +181,9 @@ face[0] = {
 		this.g.fillRect(this.pos.btn4[0],this.pos.btn4[1],this.pos.btn4[2],this.pos.btn4[3]); 
 		this.g.setColor(1,15);
 		this.g.setFontVector(11);
-		this.g.drawString("LIMIT", 205,120);
+		this.g.drawString("LIMIT", 205,this.pos.btn4[1]+5);
 		this.g.setFontVector(32);
-		this.g.drawString(Math.round(this.buff.spdL*this.fact), 202,this.pos.btn4[1]); 
+		this.g.drawString(Math.round(this.buff.spdL*this.fact), 202,this.pos.btn4[1]+20); 
 		if (this.old)this.g.flip();
 	},	
 	alrF: function(){
@@ -202,10 +204,10 @@ face[0] = {
 		let temp=(set.def.dash.farn)?this.buff.tmp*1.8+32:this.buff.tmp;
 		temp=(temp<100)?Number(temp).toFixed(1):Math.round(temp);
 		let size=this.g.stringWidth(temp);
-		this.g.drawString(temp, 0,3); 
+		this.g.drawString(temp, 0,this.pos.topl[1]+3); 
 
 		this.g.setFontVector(16);
-		this.g.drawString((set.def.dash.farn)?"°F":"°C",size-1,5); 
+		this.g.drawString((set.def.dash.farn)?"°F":"°C",size-1,this.pos.topl[1]+5); 
 		if (this.old)this.g.flip();
 	},	
 	amLF: function(){
@@ -214,7 +216,7 @@ face[0] = {
 		this.g.fillRect(this.pos.topl[0],this.pos.topl[1],this.pos.topl[2],this.pos.topl[3]);       
 		this.g.setColor(0,15);
 		for (let i in this.ampL ){
-			w.gfx.fillRect(118-(i*6),(this.ampL[i]<200)?50-(this.ampL[i]*1.2):1,118-(i*6)-1,(this.ampL[i]<200)?50:(255-this.ampL[i])*2);
+			w.gfx.fillRect(118-(i*6),(this.ampL[i]<200)?this.pos.topl[1]+50-(this.ampL[i]*1.2):this.pos.topl[1]+1,118-(i*6)-1,(this.ampL[i]<200)?this.pos.topl[1]+50:(this.pos.topl[1]+255-this.ampL[i])*2);
 		}
 		if (this.old)this.g.flip();
 	},	
@@ -268,17 +270,18 @@ face[0] = {
 	mileage: function(){
 		this.buff.trpL=dash.live.trpL.toFixed(2);
 		this.g.setColor(0,0);
-		this.g.fillRect(0,203,239,279);
+		this.g.fillRect(this.pos.bar[0],this.pos.bar[1],this.pos.bar[2],this.pos.bar[3]);
+		//this.g.fillRect(0,203,239,279);
 		this.g.setColor(1,14);
 		this.g.setFontVector(35);
-		this.g.drawString((this.buff.trpL*this.trpF).toFixed(2),0,208); 
+		this.g.drawString((this.buff.trpL*this.trpF).toFixed(2),0,this.pos.bar[1]); 
 		if (!set.def.dash.clck) {//clock
 			let d=(Date()).toString().split(' ');
 			let t=(d[4]).toString().split(':');
 			this.time=(t[0]+":"+t[1]);
-			this.g.drawString(this.time, 240-(this.g.stringWidth(this.time)),208); //temp
+			this.g.drawString(this.time, this.pos.bar[2]-(this.g.stringWidth(this.time)),this.pos.bar[1]); //temp
 		}else 	
-			this.g.drawString(Math.round(dash.live.trpT*this.trpF),240-(this.g.stringWidth(Math.round(dash.live.trpT*this.trpF))),208); 
+			this.g.drawString(Math.round(dash.live.trpT*this.trpF),240-(this.g.stringWidth(Math.round(dash.live.trpT*this.trpF))),this.pos.bar[1]); 
 		if (this.old)this.g.flip();
 	},
 	barF: function(){
@@ -325,9 +328,9 @@ face[1] = {
 };	
 
 UIc.start(1,0);
-UI.btn.c2l("main","_main",1,"","",15,4);
-UI.btn.c2l("main","_main",2,"","",15,4);
-UI.btn.c2l("main","_bar",6,"","",15,4);
+UI.ele.coord("main","_main",1);
+UI.ele.coord("main","_main",2);
+UI.ele.coord("main","_bar",6);
 UIc.end();
 
 
@@ -349,7 +352,7 @@ UIc.main._bar=(i)=>{
 	set.def.dash.clck=1-set.def.dash.clck;
 	face[0].buff.trpL=-1;face[0].barF();
 	buzzer(buz.ok);
-}
+};
 //
 tcNext.replaceWith((x,y)=>{
 	buzzer(buz.ok);

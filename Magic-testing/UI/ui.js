@@ -232,6 +232,16 @@ UI={
 		w.gfx.fillRect(x-szX,y-szY,x+szX,y+szY);
         if (!set.def.bpp) w.gfx.flip();
 	},
+	coord:function(loc,no,po){
+      "ram";
+		let p=(UI.pos[no]);
+	  	let len=p[1].length;
+		let x=p[1][(po-1)%len];
+		let y=p[2][((po-1)/len)|0];
+		let szX= p[3][(po-1)%len]/2;
+		let szY= p[4][((po-1)/len)|0]/2;	
+		UIc.raw[loc]=UIc.raw[loc]+`${UIc.raw[loc]==" "?'':'else '}if (${x}-${szX}<x&&x<${x}+${szX}&&${y}-${szY}<y&&y<${y}+${szY}) UIc.${loc}.${no}(${po});`;
+	}
   },
   txt:{
 	wrap:function(str,len){
