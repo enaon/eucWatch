@@ -1,2 +1,0 @@
-##### Touch Screen tester. 
-

@@ -434,15 +434,15 @@
 			{"name":"w_scan","url":"w_scan.js"}
 		]
 	},
-	{ "id": "w_testScreen",
-		"name": "Touch screen tester",
+	{ "id": "w_testTP",
+		"name": "Touch panel tester",
 		"icon": "icon.png",
 		"version":"1.00",
 		"description": "Tool for recording TP output.",
 		"tags": "system",
 		"type": "system",
 		"storage": [
-			{"name":"w_testScreen","url":"w_testScreen.js"}
+			{"name":"w_testTP","url":"w_testTP.js"}
 		]
 	},
 	{ "id": "Font7x11Numeric7Seg",
