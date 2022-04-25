@@ -437,7 +437,7 @@
 	{ "id": "w_testTP",
 		"name": "Touch panel tester",
 		"icon": "icon.png",
-		"version":"1.00",
+		"version":"1.01",
 		"description": "Tool for recording TP output.",
 		"tags": "system",
 		"type": "system",
