@@ -1,11 +1,10 @@
 //test TP
-face[0] = { //the first face of the hello app, called by using `face.go("hello",0)` from the cli.
-  offms: 10000, //face timeout, will fall to face[1] after it, face[1] is a redirection face, not actually visible.
-  g:w.gfx, //set graphics as this.g variable
-  init: function(o){ //put here the elements of the page that will not need refreshing and initializations.
+face[0] = { /
+  offms: 300000, 
+  g:w.gfx, 
+  init: function(o){ 
+	if (set.TP) { clearWatch(set.TP); set.TP=0;);
    	this.g.clear();
-    this.msg=(global.hello)?hello:"Hello"; //check if global.hello var exists and get val or set to "hello". 
-    //the way g.setColor is used on this project is not the espruino default. You can see changes on it at the init file. The screen driver is set at two colors mode to save on ram, and a flip is used when more colors are needed. The first argument is the color space, 0 or 1, the second argument is the actual color in 12-bit Color code. https://rangevoting.org/ColorCode.html#
     this.g.setColor(1,14);
     this.g.fillRect(30,10,210,100);
     this.g.drawRect(30,130,115,200);
@@ -73,43 +72,12 @@ face[1] = {
    this.clear();
   }
 };	
-//touch actions are set here, e is the event, x,y are the coordinates on screen.
+//touch
 touchHandler[0]=function(e,x,y){ 
-  switch (e) {
-  case 5: //tap event
-    if(30<x&&x<115&&130<y&&y<200) {
-	  buzzer([30,50,30]);//send double buzz pulse to indicate tap was acknowledged.
-      face[0].btn=1-face[0].btn;
-    }else if(125<x&&x<210&&130<y&&y<200) {
-	  buzzer([30,50,30]);
-      face.go("alarm",0);return;
-    }else buzzer(40); //send short buzz pulse to indicate tap was not acknowledged.
-    break;
-  case 1: //slide down event-on directional swipes the x,y indicate the point of starting the swipe, so one can swipe up/dn on buttons like on the brightenss button at the main settings face. 
-	if (face.faceSave!=-1) {
-		  face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
-	}else
-		face.go("main",0);
-	return; 
-	//break;
-  case 2: //slide up event
-    if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
-      if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
-      else w.gfx.bri.set(this.bri);
-      buzzer([30,50,30]);
-    } else buzzer(40);
-    break;
-  case 3: //slide left event
-    buzzer(40);    
-    break;
-  case 4: //slide right event (back action)
-    face.go(face.appPrev,face.pagePrev,1);return;
-    //break;
-  case 12: //touch and hold(long press) event
-    buzzer(40);  
-    break;
-  default: //reset face timeout on every touch action, this function is in the handler file. 
-    this.timeout();
+  
+  
+  
+  
   }
 };
 
