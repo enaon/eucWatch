@@ -50,7 +50,7 @@
 	{ "id": "handler",
 		"name": "Handler - P8 - P22 A/B/C/C1",
 		"icon": "icon.png",
-		"version":"1.05",
+		"version":"1.06",
 		"description": "P8/P22 functions handler",
 		"tags": "core",
 		"type":"core",
@@ -62,7 +62,7 @@
 	{ "id": "handler_pt",
 		"name": "Handler - Pinetime",
 		"icon": "icon.png",
-		"version":"1.05",
+		"version":"1.06",
 		"description": "Pinetime functions handler",
 		"tags": "core",
 		"type":"core",
@@ -74,7 +74,7 @@
 	{ "id": "handler_p22b1",
 		"name": "Handler - P22 B1/D",
 		"icon": "icon.png",
-		"version":"1.04",
+		"version":"1.05",
 		"description": "P22 B1/D functions handler",
 		"tags": "core",
 		"type":"core",
@@ -415,7 +415,7 @@
 	{ "id": "w_apps",
 		"name": "App Loader widget",
 		"icon": "icon.png",
-		"version":"1.01",
+		"version":"1.02",
 		"description": "Extends settings face with an app drawer.",
 		"tags": "system",
 		"type": "system",
@@ -432,6 +432,17 @@
 		"type": "system",
 		"storage": [
 			{"name":"w_scan","url":"w_scan.js"}
+		]
+	},
+	{ "id": "w_testTP",
+		"name": "Touch panel tester",
+		"icon": "icon.png",
+		"version":"1.00",
+		"description": "Tool for recording TP output.",
+		"tags": "system",
+		"type": "system",
+		"storage": [
+			{"name":"w_testTP","url":"w_testTP.js"}
 		]
 	},
 	{ "id": "Font7x11Numeric7Seg",

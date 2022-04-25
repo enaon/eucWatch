@@ -403,15 +403,15 @@ var i2c=new I2C();
 i2c.setup({scl:D7, sda:D6, bitrate:100000});
 
 set.def.touchtype="816";
-setWatch(function(s){
+set.TP=setWatch(function(s){
 	i2c.writeTo(0x15,0);
 	var tp=i2c.readFrom(0x15,7);
 	//print("touch816 :",tp);
 	if (face.pageCurr>=0) {
 		if (tp[1]== 0 && tp[3]==64) tp[1]=5;
 		if (tp[1]== 12 ) tp[6]=tp[6]+25;
-		touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);}
-	else if (tp[1]==1) {
+		touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);
+	}else if (tp[1]==1) {
 		face.go(face.appCurr,0);
 	}
 },D28,{repeat:true, edge:"rising"}); 
@@ -461,13 +461,13 @@ acc={
 						face.go(set.dash[set.def.dash.face],0);
 					else if (w.gfx.isOn)  face.off(0);
 					this.up=0;
-					changeInterval(acc.tid,2000)
+					changeInterval(acc.tid,2000);
 				} else if (!this.up) {
 					this.up=1;
 					let tout=set.def.off[face.appCurr];
 					if (w.gfx.isOn ) if ( !tout || ( tout &&  tout <= 60000)) 
 						face.off(1000);
-					changeInterval(acc.tid,100)
+					changeInterval(acc.tid,100);
 				}
 			},100);
 			return true;
