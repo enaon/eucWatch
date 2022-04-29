@@ -392,6 +392,16 @@
 			{"name":"tpmsOptions","url":"tpmsOptions.js"}
 		]
 	},
+	{ "id": "ledBT",
+		"name": "BT RGB led strip",
+		"icon": "icon.png",
+		"version":"1.08",
+		"description": "for use wit <marvel light> bt rgb led controlers",
+		"tags": "euc",
+		"storage": [
+			{"name":"ledBT","url":"ledBT.js"}
+		]
+	},	
 	{ "id": "repellent",
 		"name": "Repellent",
 		"icon": "icon.png",

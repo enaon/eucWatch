@@ -1,0 +1,72 @@
+[
+	{ "id": "init",
+		"name": "DSD6 core",
+		"icon": "icon.png",
+		"version":"0.01",
+		"description": "init file, watchdog and screen driver. ",
+		"tags": "core",
+		"type":"core",
+		"readme": "README.md",
+		"storage": [
+			{"name":".bootrst","url":"init.js"}
+		]
+	},
+	{ "id": "apps",
+		"name": "EUC Dash-Kingsong",
+		"icon": "icon.png",
+		"version":"0.01",
+		"description":"Dash KS",
+		"tags": "euc",
+		"type":"euc",
+		"readme": "README.md",
+		"storage": [
+			{"name":"sysInit","url":"sysInit.js"},
+			{"name":"sysOled","url":"sysOled.js"},
+			{"name":"eucScan","url":"eucScan.js"},
+			{"name":"Font7x11Numeric7Seg","url":"Font7x11Numeric7Seg.js"},
+			{"name":"FontDylex7x13","url":"FontDylex7x13.js"},				
+			{"name":"clock","url":"clock.js"},
+			{"name":"euc","url":"euc.js"},
+			{"name":"eucDash","url":"eucDash.js"},
+			{"name":"eucScan","url":"eucScan.js"},
+			{"name":"eucSlot.json","url":"eucSlot.json"},
+			{"name":"eucKingsong","url":"eucKingsong.js"}
+		]
+	},	
+	{ "id": "apps",
+		"name": "Serial",
+		"icon": "iconSerial.png",
+		"version":"0.01",
+		"description":"Serial Support",
+		"tags": "euc",
+		"type":"euc",
+		"readme": "README.md",
+		"storage": [
+			{"name":"sysSerial","url":"sysSerial.js"}
+		]
+	},
+	{ "id": "apps",
+		"name": "Gadgetbridge",
+		"icon": "iconGb.png",
+		"version":"0.01",
+		"description":"Gadgetbridge support",
+		"tags": "euc",
+		"type":"euc",
+		"readme": "README.md",
+		"storage": [
+			{"name":"gadgetbridge","url":"gadgetbridge.js"}
+		]
+	},
+  	{ "id": "apps",
+		"name": "Fonts",
+		"icon": "iconFonts.png",
+		"version":"0.20",
+		"description": "font files",
+		"tags": "core",
+		"type": "core",
+		"storage": [
+			{"name":"Font7x11Numeric7Seg","url":"Font7x11Numeric7Seg.js"},
+			{"name":"FontDylex7x13","url":"FontDylex7x13.js"}
+		]
+	}
+]

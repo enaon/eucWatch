@@ -1,113 +1,83 @@
 [
-	{ "id": "init",
+	{ "id": "core",
 		"name": "DSD6 core",
 		"icon": "icon.png",
 		"version":"0.01",
-		"description": "init file, watchdog and screen driver. ",
+		"description": "init file",
 		"tags": "core",
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":".bootrst","url":"init.js"}
+			{"name":".bootrst","url":"sysInit.js"}
 		]
 	},
-	{ "id": "handler",
-		"name": "dsd6 handler",
-		"icon": "icon.png",
+	{ "id": "oled",
+		"name": "DSD6 oled",
+		"icon": "../core/icon.png",
 		"version":"0.01",
-		"description": "handler file.",
+		"description": "oled support",
 		"tags": "core",
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"handler","url":"handler.js"}
+			{"name":"sysOled","url":"../core/sysOled.js"}
 		]
 	},
-	{ "id": "main",
-		"name": "dsd6 main clock",
-		"icon": "icon.png",
+	{ "id": "ks",
+		"name": "EUC Dash-Kingsong",
+		"icon": "../euc/icon.png",
 		"version":"0.01",
-		"description": "clock file.",
-		"tags": "core",
-		"type":"core",
-		"readme": "README.md",
-		"storage": [
-			{"name":"main","url":"main.js"}
-		]
-	},
-	{ "id": "settings",
-		"name": "dsd6 settings",
-		"icon": "icon.png",
-		"version":"0.01",
-		"description": "settings file.",
-		"tags": "core",
-		"type":"core",
-		"readme": "README.md",
-		"storage": [
-			{"name":"settings","url":"settings.js"}
-		]
-	},
-	{ "id": "dash",
-		"name": "dsd6 dash",
-		"icon": "icon.png",
-		"version":"0.01",
-		"description": "dash file.",
-		"tags": "core",
-		"type":"core",
-		"readme": "README.md",
-		"storage": [
-			  {"name":"dash","url":"dash.js"},
-			  {"name":"dash.json","url":"dash.json"}
-			]
-	},
-	{ "id": "euc",
-		"name": "euc loader",
-		"icon": "icon.png",
-		"version":"0.01",
-		"description": "euc loader",
+		"description":"Dash KS",
 		"tags": "euc",
 		"type":"euc",
 		"readme": "README.md",
 		"storage": [
-			  {"name":"euc","url":"euc.js"},
-			  {"name":"eucScan","url":"eucScan.js"},
-			  {"name":"eucSlot.json","url":"eucSlot.json"}
+			{"name":".bootrst","url":"../core/sysInit.js"},
+			{"name":"sysOled","url":"../core/sysOled.js"},
+			{"name":"Font7x11Numeric7Seg","url":"../core/sysFont7x11Numeric7Seg.js"},
+			{"name":"FontDylex7x13","url":"../core/sysFontDylex7x13.js"},			
+			{"name":"clock","url":"../clock/clock.js"},
+			{"name":"euc","url":"../euc/euc.js"},
+			{"name":"eucDash","url":"../euc/eucDash.js"},
+			{"name":"eucScan","url":"../euc/eucScan.js"},
+			{"name":"eucSlot.json","url":"../euc/eucSlot.json"},
+			{"name":"eucKingsong","url":"../euc/eucKingsong.js"}
 		]
-	},
-	{ "id": "eucKingsong",
-		"name": "Kingsong module",
-		"icon": "icon.png",
+	},	
+	{ "id": "serial",
+		"name": "Serial",
+		"icon": "../core/icon.png",
 		"version":"0.01",
-		"description": "Kingsong module",
-		"tags": "euc",
-		"type":"euc",
-		"readme": "README.md",
-		"storage": [
-			{"name":"eucKingsong","url":"eucKingsong.js"}
-		]
-	},
-	{ "id": "m_gb_console",
-		"name": "Gadgetbridge cli",
-		"icon": "icon.png",
-		"version":"0.01",
-		"description":"Gadgetbridge serial console output for degug",
+		"description":"Serial Support",
 		"tags": "core",
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"m_gb","url":"m_gb.js"}
+			{"name":"sysSerial","url":"../core/sysSerial.js"}
+		]
+	},
+	{ "id": "gadgetbridge",
+		"name": "Gadgetbridge",
+		"icon": "icon.png",
+		"version":"0.01",
+		"description":"Gadgetbridge support",
+		"tags": "apps",
+		"type":"apps",
+		"readme": "README.md",
+		"storage": [
+			{"name":"gadgetbridge","url":"gadgetbridge.js"}
 		]
 	},
   	{ "id": "fonts",
 		"name": "Fonts",
-		"icon": "icon.png",
+		"icon": "../core/icon.png",
 		"version":"0.20",
 		"description": "font files",
 		"tags": "core",
 		"type": "core",
 		"storage": [
-			{"name":"Font7x11Numeric7Seg","url":"Font7x11Numeric7Seg.js"},
-			{"name":"FontDylex7x13","url":"FontDylex7x13.js"}
+			{"name":"Font7x11Numeric7Seg","url":"../core/sysFont7x11Numeric7Seg.js"},
+			{"name":"FontDylex7x13","url":"../core/sysFontDylex7x13.js"}
 		]
 	}
 ]

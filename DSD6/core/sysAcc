@@ -1,0 +1,67 @@
+
+Modules.addCached("DSD6",function(){
+	// D3 pin is battery voltage
+	// D2 pin is analog charger voltage
+	// with known 5V input  5.0/analogRead(D2) gave me 6.61207596594
+	// feel free to recalibrate yourself
+	exports.battVoltage=function(){
+		  var v=6.61207596594*analogRead(D3);
+		  poke32(0x5000070c,2); // disconnect pin for power saving, otherwise it draws 70uA more
+		  return v;
+	};
+	exports.chargerVoltage=function(){
+		  var v=6.61207596594*analogRead(D2);
+		  poke32(0x50000708,2); // disconnect pin for power saving, otherwise it draws 70uA more
+		  return v;
+	};
+	exports.chargerState=function(){
+		  var v=digitalRead(D2);
+		  poke32(0x50000708,2); // disconnect pin for power saving, otherwise it draws 70uA more
+		  return v;
+	};
+	exports.initOLED=function(rot,f){
+		require("Font8x16").add(Graphics);
+		if (require('Storage').read('Font7x11Numeric7Seg')) {eval(require('Storage').read('Font7x11Numeric7Seg')); require('Font7x11Numeric7Seg').add(Graphics);}
+		if (require('Storage').read('FontDylex7x13.js')) {eval(require('Storage').read('FontDylex7x13.js')); require('FontDylex7x13').add(Graphics);}	
+		var spi=SPI1; //new SPI()
+		spi.setup({mosi:D6,sck:D5,baud:8000000});
+		if (f===undefined) f=function(){
+			 o.gfx.setFont8x16();
+			 o.gfx.drawString("EucWatch DSD6",20,12);
+			 o.flip();
+		};
+		if(rot===undefined) rot=0;
+		var o=require("DSD6OLED").connectSPI(spi,D28,D4,f,{cs:D29,rotation:rot});
+		exports.OLED=o;
+	};	var tOff=0; // offset to remember total runtime when changing clock
+	//("2019-08-26T14:48:00",2)
+	exports.setClock = function(t, z) {
+		var c=getTime();
+		if(z!==void(0))E.setTimeZone(z);
+		setTime(Date.parse(t)/1E3);
+		tOff+=getTime()-c;
+	};
+	exports.getUptime = function() {
+		return getTime()-tOff;
+	};
+	function accRead(reg,len){i2c.writeTo(0x1f,reg);return i2c.readFrom(0x1f,len);}
+	function accWrite(reg,data){i2c.writeTo(0x1f,reg,data);}
+	var i2c=new I2C();
+	//var i2c=I2C1;
+	exports.initAccel=function(){
+		i2c.setup({scl:13, sda:14, bitrate:100000});
+	};
+	function accRegDump(reg){
+		val=accRead(reg,1)[0];return val.toString(10)+" 0x"+val.toString(16)+" %"+val.toString(2);
+	}
+	exports.accINSDump=function(){
+		console.log("tscp:",accRegDump(0x10),"INS1:",accRegDump(0x12),"INS2:",accRegDump(0x13),"INS3:",accRegDump(0x14));
+	};
+	exports.accelCoords=function(){
+		coords=new Int16Array(accRead(0x06,6).buffer);
+		return {x:coords[0],y:coords[1],z:coords[2]};
+	};
+	exports.accRead=accRead;
+	exports.accWrite=accWrite;
+	exports.accRegDump=accRegDump;
+)};
