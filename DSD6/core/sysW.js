@@ -31,3 +31,17 @@ w={
 	}
 };
 	
+/*
+function vibon(vib){
+ if(vib.i>=1)D25.set();else analogWrite(D25,vib.i);
+ setTimeout(viboff,vib.on,vib);
+}
+function viboff(vib){
+ D25.reset();
+ if (vib.c>1){vib.c=vib.c-1;setTimeout(vibon,vib.off,vib);}
+}
+exports.vibrate=function(intensity,count,onms,offms){
+ vibon({i:intensity,c:count,on:onms,off:offms});
+};
+
+?*

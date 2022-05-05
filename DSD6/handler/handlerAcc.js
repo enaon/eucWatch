@@ -5,7 +5,7 @@ function tilt(i){print(i);}
 function tap(i,o){print(i,o);}
 var acc={
 	mode:0,
-	on:function(i){
+	wake:function(i){
 		if (set.tid.acc) {clearWatch(set.tid.acc);set.tid.acc=0;}
 		w.initAccel();
 		w.accWrite(0x7f,0x00); 
@@ -50,22 +50,26 @@ var acc={
 				if (state[2]==1) {
 					if (state[0]==32||state[0]==4||state[0]==8) {
 						w.accWrite(0x19,0x2c);
-						tilt("up");
+						acc.emit("face",1);
+						//tilt("up");
 					}else {
 						w.accWrite(0x19,0x10);
-						tilt("dn");
+						acc.emit("face",0);
+						//tilt("dn");
 					}
 				}else {
 					if  (state[2]==4) {
-						tap("single",state[1]);
+						//tap("single",state[1]);
+						acc.emit("tap",state[1]);
 					}else
-						tap("double",state[1]);
+						//tap("double",state[1]);
+						acc.emit("double",state[1]);
 					}
 			}
 			w.accRegDump(0x17);
 		},D15,true);  
 	},
-	off:function(app){
+	sleep:function(app){
 		if (set.tid.acc) {clearWatch(set.tid.acc);set.tid.acc=0;}
 		w.accWrite(0x7f,0x00); 
 		w.accWrite(0x18,0x00); 
@@ -74,4 +78,4 @@ var acc={
 //		w.accWrite(0x1A,0x00); //cntrl3 slow
 	}
 };
-acc.off();
+acc.wake(2);

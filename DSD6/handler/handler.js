@@ -1,8 +1,12 @@
 //dsd6 handler 
-//charge pin
-set.charge=setWatch(function(s){
-	if (digitalRead(D2)==1) 
-		w.vibrate(0.85,1,200,600);
-	else
-		w.vibrate(0.85,2,100,100);
-},D2,true);  
+if (require('Storage').read("handlerSet")) eval(require('Storage').read("handlerSet"));
+
+if (require('Storage').read("handlerAcc")) eval(require('Storage').read("handlerAcc"));
+
+if (require('Storage').read("handlerBT")) eval(require('Storage').read("handlerBT"));
+
+if (require('Storage').read("handlerBtn")) eval(require('Storage').read("handlerBtn"));
+
+if (require('Storage').read("handlerCharge")) eval(require('Storage').read("handlerCharge"));
+
+if (require('Storage').read("handlerFace")) eval(require('Storage').read("handlerFace"));

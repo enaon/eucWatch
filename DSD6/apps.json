@@ -44,6 +44,30 @@
 			{"name":"eucKingsong","url":"../euc/eucKingsong.js"}
 		]
 	},	
+	{ "id": "ks-light",
+		"name": "EUC Light-Kingsong",
+		"icon": "../euc/icon.png",
+		"version":"0.01",
+		"description":"Light KS",
+		"tags": "euc",
+		"type":"euc",
+		"readme": "README.md",
+		"storage": [
+			{"name":"sysW","url":"../core/sysW.js"},
+			{"name":"sysAcc","url":"../core/sysAcc.js"},
+			{"name":"handler","url":"../handler/handler.js"},
+			{"name":"handlerSet","url":"../handler/handlerSet.js"},
+			{"name":"handlerCharge","url":"../handler/handlerCharge.js"},
+			{"name":"handlerAcc","url":"../handler/handlerAcc.js"},
+			{"name":"dash.json","url":"../euc/dash.json"},
+			{"name":"euc","url":"../euc/euc.js"},
+			{"name":"eucSlot.json","url":"../euc/eucSlot.json"},
+			{"name":"proxyKingsong","url":"../euc/proxyKingsong.js"},
+			{"name":"eucKingsong","url":"../euc/eucKingsongSlim.js"},
+			{"name":"eucLight","url":"../euc/eucLight.js"}
+
+		]
+	},
 	{ "id": "serial",
 		"name": "Serial",
 		"icon": "../core/icon.png",
