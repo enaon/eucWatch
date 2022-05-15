@@ -4,7 +4,7 @@ function kickWd(){
   if(!BTN.read())E.kickWatchdog();
 }
 var wdint=setInterval(kickWd,1000);
-E.enableWatchdog(3, false);
+E.enableWatchdog(2, false);
 pin=function(o){
 	if (o=="chargeVoltage") return D02; 
 	if (o=="battVoltage") return D03; 
@@ -27,11 +27,11 @@ pin=function(o){
 	if (o=="btn") return D30; 
 };
 global.save = function() { throw new Error("You don't need to use save() on DSD6!"); };
-global.w={};
 //errata 108 fix // poke32(0x40000EE4,0x4f)
 buzzer = digitalPulse.bind(null,D25,1);
 if (require('Storage').read('sysOled')) eval(require('Storage').read('sysOled')); 
 if (require('Storage').read('sysSerial')) {eval(require('Storage').read('sysSerial')); startSerial();}
+if (require('Storage').read('sysW')) eval(require('Storage').read('sysW')); 
 
 //load in devmode
 if (BTN1.read() || require("Storage").read("devmode")) { 
@@ -44,7 +44,24 @@ if (BTN1.read() || require("Storage").read("devmode")) {
 		buzzer(250);
 	} else {
 		require("Storage").write("devmode","done");
-		NRF.setAdvertising({}, { name:"Espruino-devmode",connectable:true });
+		NRF.setAdvertising({}, { name:"eL-"+process.env.SERIAL.substring(15)+"-0-OFF-"+w.isCharging()+"-"+w.batt(1)+"%",manufacturerData:[[0,0,w.isCharging(),w.batt(1)]],connectable:true });
+		
+		NRF.setServices({
+			0xffa0: {
+				0xffa1: {
+					value : [0x00],
+					maxLen : 20,
+					writable:true,
+					onWrite : function(evt) {
+						print(1);
+						//set.emit("btIn",evt);
+					},
+					readable:true,
+					notify:true,
+				   description:"Key Press State"
+				}
+			}
+		}, {advertise: ['0xffa0'],uart:true});
 		buzzer(100);
 		print("Welcome!\n*** DevMode ***\nShort press the button\nto restart in WorkingMode");
 		if (global.o) {
@@ -54,7 +71,7 @@ if (BTN1.read() || require("Storage").read("devmode")) {
 				o.gfx.drawString("DEV mode",20,12);
 				o.flip();
 			},200);
-		}
+		}else 	global.gotosleep=setTimeout(()=>{NRF.sleep();},300000);
 	}
 	setWatch(function(){
 		require("Storage").erase("devmode");
@@ -66,14 +83,13 @@ if (BTN1.read() || require("Storage").read("devmode")) {
 		}, 500);
 	},BTN1,{repeat:false, edge:"rising"}); 
 }else{ //load in working mode
-	if (require('Storage').read('sysW')) eval(require('Storage').read('sysW')); 
 	if (require('Storage').read('sysAcc')) eval(require('Storage').read('sysAcc')); 
 	if (require('Storage').read('handler')) eval(require('Storage').read('handler')); //call handler
 	if (require('Storage').read('euc')) eval(require('Storage').read('euc')); //call euc
 	if (require('Storage').read('eucLight')) eval(require('Storage').read('eucLight')); //call euc
 
 	print("Welcome!\n*** WorkingMode ***\nLong hold the button\nto restart in DevMode");
-    buzzer([100,50,100]);
+    buzzer(300);
 	if (global.o) o.off();
 }
   

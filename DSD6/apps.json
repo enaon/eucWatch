@@ -58,6 +58,7 @@
 			{"name":"handler","url":"../handler/handler.js"},
 			{"name":"handlerSet","url":"../handler/handlerSet.js"},
 			{"name":"handlerCharge","url":"../handler/handlerCharge.js"},
+			{"name":"handlerBtn","url":"../handler/handlerBtn.js"},
 			{"name":"handlerAcc","url":"../handler/handlerAcc.js"},
 			{"name":"dash.json","url":"../euc/dash.json"},
 			{"name":"euc","url":"../euc/euc.js"},

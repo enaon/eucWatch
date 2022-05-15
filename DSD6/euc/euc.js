@@ -5,12 +5,17 @@ global.euc= {
     busy:0,
 	night:1,
 	day:[7,19],
+	run:0,
 	update:function(slot){require('Storage').write('eucSlot'+slot+'.json', dash.live);},
 	start:function(){
 	if (this.state!="OFF") {print(1);return;}
-		NRF.setTxPower(4);
+		NRF.setTxPower(0);
+		//buzzer([100,80,100,80,100]);
+		buzzer(300);
+
 		//this.mac=require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Mac"];
 		this.mac="64:69:4e:75:89:4d public";
+		//this.mac="f8:33:31:a5:ef:fe public";
 		if(!this.mac) {
 			print("nomac");
 			//eval(require('Storage').read('eucScan'));
@@ -19,26 +24,23 @@ global.euc= {
 			print("on");
 			eval(require('Storage').read('euc'+require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]));
 			this.state="ON";
-			if (require('Storage').read('proxy'+dash.live.maker)&&set.bt==0){
-				
+			if (require('Storage').read('proxy'+dash.live.maker)&&set.bt==4){
 				eval(require('Storage').read('proxy'+dash.live.maker));
 			}	
 			//if (global.acc) acc.on(2);
 			this.conn(this.mac); 
-			euc.emit("state",1);
 		}
 	},
 	end:function(){
 			if (this.state=="OFF") return;
 			print("off");
-			set.bt=1;
+			//set.bt=4;
 			euc.update(require("Storage").readJSON("dash.json",1).slot);
 			setTimeout(()=>{
 				if (this.proxy) this.proxy.e();
 			},250);
 			this.state="OFF";
 			euc.wri("end");
-			euc.emit("state",0);
 			return;
 	},
 	tgl:function(){ 
@@ -56,6 +58,6 @@ dash.live=require("Storage").readJSON('eucSlot'+require("Storage").readJSON("set
 }else dash.live=require("Storage").readJSON("eucSlot.json",1);
 //
 ampL=[];batL=[];almL=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-set.bt=0;
+set.bt=4;
 global.dash.live.maker="Kingsong";
 

@@ -140,6 +140,7 @@ euc.conn=function(mac){
 				}).then(function() {
 					return c.writeValue(euc.cmd("getAlarms"));	
 				}).then(function() {
+					euc.emit("state",1);
 					if (!dash.live.ks.serial) {
 						return c.writeValue(euc.cmd("getSerial"));
 					}
@@ -181,7 +182,7 @@ euc.conn=function(mac){
 				});
 			},500);
 		}else {
-			buzzer([90,40,150]);
+			buzzer(100);
 			euc.wri("start");
 		}
 	//reconect
@@ -204,19 +205,21 @@ euc.off=function(err){
 			}
 			euc.run=euc.run+1;
 			if (dash.live.lock==1) buzzer(250);
-			else  buzzer([250,200,250,200,250]);
+			else  buzzer([100,80,100,80,100]);
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
 				if (euc.state!="OFF") euc.conn(euc.mac); 
 			}, 5000);
 		}else if ( err==="Disconnected"|| err==="Not connected")  {
 			euc.state="FAR";
+			buzzer([100,80,100]);
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
 				if (euc.state!="OFF") euc.conn(euc.mac); 
 			}, 1000);
 		} else {
 			euc.state="RETRY";
+			buzzer(100);
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
 				if (euc.state!="OFF") euc.conn(euc.mac); 
@@ -225,6 +228,7 @@ euc.off=function(err){
 	} else {
 		if (euc.dbg) console.log("EUC OUT:",err);
 		if (euc.busy) { clearTimeout(euc.busy);euc.busy=0;} 
+		euc.emit("state",0);
 		euc.off=function(err){if (euc.dbg) console.log("EUC off, not connected",err);};
 		euc.wri=function(err){if (euc.dbg) console.log("EUC write, not connected",err);};
 		euc.conn=function(err){if (euc.dbg) console.log("EUC conn, not connected",err);};

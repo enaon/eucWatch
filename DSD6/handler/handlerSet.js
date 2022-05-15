@@ -30,8 +30,26 @@ var set={
 	},
 	updateBT:function(){ //run this for settings changes to take effect.
 		if (set.def.hid===1) {set.def.hid=0; return;}
+		//NRF.setAdvertising({}, { name:set.def.name+" Light",connectable:true });
+		NRF.setAdvertising({}, { name:"eL-"+process.env.SERIAL.substring(15)+"-1-OFF-"+w.isCharging()+"-"+w.batt(1)+"%",manufacturerData:[[1,0,w.isCharging(),w.batt(1)]],connectable:true });
+		NRF.setAddress(set.def.addr+" random");
+		NRF.setServices({
+			0xffa0: {
+				0xffa1: {
+					value : [0x00],
+					maxLen : 20,
+					writable:true,
+					onWrite : function(evt) {
+						set.emit("btIn",evt);
+					},
+					readable:true,
+					notify:true,
+				   description:"Key Press State"
+				}
+			}
+		}, {advertise: ['0xffaa'],uart:(set.def.cli||set.def.gb)?true:false });
 		//NRF.setServices(undefined,{uart:(set.def.cli||set.def.gb)?true:false,hid:(set.def.hid&&set.hidM)?set.hidM.report:undefined });
-		NRF.setServices(undefined,{uart:(set.def.cli||set.def.gb)?true:false });
+		//NRF.setServices(undefined,{uart:(set.def.cli||set.def.gb)?true:false });
 		if (set.def.gb) 
 			eval(require('Storage').read('m_gb'));
 		else {
@@ -48,12 +66,12 @@ var set={
 		name:"DSD6",   
 		rfTX:-4,  
 		bri:2, //Screen brightness 1..7
-		dash:0,  
 		cli:1,
-		retry:10,
+		retry:4,
 		addr:NRF.getAddress(),
 		off:{},
-		buzz:0
+		buzz:1,
+		dash:{retry:10}
 		};
 		set.updateSettings();
 	},
@@ -68,3 +86,4 @@ else
 if (set.def.buzz) 
 buzzer = digitalPulse.bind(null,D25,1);
 else buzzer=function(){return true;};
+set.updateBT();

@@ -1,21 +1,20 @@
 //dsd6 btn handler 
-var press;
-var long=0;
-function button(o){
-	face.go("main");
-}
-function buttonHandler(s){
-	if (digitalRead(BTN)==1) { 
+set.btn=(x)=>{
+	let press;
+	let long=0;
+	if (x) { 
 		press=true;
 		if (long) {clearTimeout(long);}
 		long=setTimeout(() => {
-			button("long");
+			set.emit("button","long");
 			press=false;
-		}, 1000);
+		}, 100);
 		return;
 	}else if (press)  { 
 		if (long) {clearTimeout(long);}
-		button("short");
+		set.emit("button","short");
 	}
-}
-set.tid.btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:"both"});
+};
+set.tid.btn=setWatch(set.btn,BTN1, {repeat:true, debounce:10,edge:"both"});
+
+set.on("button",`buzzer(300);`);

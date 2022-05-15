@@ -4,17 +4,17 @@ if(!global.scan){
 		mac:[],
 		go:function(app,service){
 			set.gIsB=1;
+			if (app=="repellent") this.filter = [{serviceData:{"fe95":{}}}];
+			else {
+				app="dash";
+				if (euc.dash.maker=="NinebotZ"|| euc.dash.maker=="NinebotS")  this.filter = [{manufacturer:16974}];  
+				else if (euc.dash.maker=="InmotionV11")  this.filter = [{ namePrefix: 'V11-' }];
+				else this.filter = [{services:[service]}];
+			}
 			NRF.findDevices(function(devices) {
 				this.slot="";
-				if (app=="repellent") this.filter = [{serviceData:{"fe95":{}}}];
-				else {
-					app="dash";
-					if (euc.dash.maker=="NinebotZ"|| euc.dash.maker=="NinebotS")  this.filter = [{manufacturer:16974}];  
-					else if (euc.dash.maker=="InmotionV11")  this.filter = [{ namePrefix: 'V11-' }];
-					else this.filter = [{services:[service]}];
-				}
-				var found=[];
-				NRF.filterDevices(devices, this.filter).forEach(function(entry) {found.push(entry.id+"|"+entry.name);});
+				let found=[];
+				devices.forEach(function(entry) {found.push(entry.id+"|"+entry.name);});
 				if (found!=""&&found!=undefined){ 
 					if (app=="dash"){
 						euc.dash.mac=0;
@@ -28,7 +28,7 @@ if(!global.scan){
 				set.gIsB=0;
 				face[0].start=1;
 				if (face.appCurr!="w_scan") {delete scan.go;delete scan;}
-			}, 2000);
+			}, {timeout : 2000, active:true,filters:this.filter});
 		}	
 	};
 }
