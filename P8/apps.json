@@ -347,6 +347,17 @@
 			{"name":"eucInmotion","url":"eucInmotion.js"}
 		]
 	},
+	{ "id": "eucInmotionV14",
+		"name": "Inmotion V11 module, V1.4",
+		"icon": "../eucInmotion/icon.png",
+		"version":"1.03",
+		"description": "EUC module for Inmotion V11, to be used with dignome's image.",
+		"tags": "euc",
+		"type": "euc",
+		"storage": [
+			{"name":"eucInmotion","url":"../eucInmotion/eucInmotionV14.js"}
+		]
+	},
 	{ "id": "eucInmotionV1",
 		"name": "Inmotion V5/8/10 module",
 		"icon": "icon.png",
@@ -392,6 +403,16 @@
 			{"name":"tpmsOptions","url":"tpmsOptions.js"}
 		]
 	},
+	{ "id": "ledBT",
+		"name": "BT RGB led strip",
+		"icon": "icon.png",
+		"version":"1.08",
+		"description": "for use wit <marvel light> bt rgb led controlers",
+		"tags": "euc",
+		"storage": [
+			{"name":"ledBT","url":"ledBT.js"}
+		]
+	},	
 	{ "id": "repellent",
 		"name": "Repellent",
 		"icon": "icon.png",

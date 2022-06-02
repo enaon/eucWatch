@@ -8,7 +8,7 @@ set.tid.charge=setWatch(function(s){
 
 set.charger=(x)=>{
 	"ram";
-	print("count",set.chargeTick);
+	//print("count",set.chargeTick);
 	set.chargeTick++;
 	if (set.tid.chargeDelay) clearTimeout(set.tid.chargeDelay);
 	set.tid.chargeDelay=setTimeout((x)=>{
@@ -21,9 +21,8 @@ set.charger=(x)=>{
 	NRF.setAdvertising({}, { name:"eL-"+process.env.SERIAL.substring(15)+"-1-"+euc.state+"-"+w.isCharging()+"-"+w.batt(1)+"%",manufacturerData:[[1,0,x,w.batt(1)]],connectable:true });
 	//NRF.setAdvertising({}, { name:"eL-"+process.env.SERIAL.substring(15)+"-1-"+euc.state+"-"+w.isCharging()+"-"+w.batt(1)+"%",manufacturerData:[[1,0,w.isCharging(),w.batt(1)]],connectable:true });
 	if (3<set.chargeTick&&x) {
-		print ("tick");
-		clearTimeout(set.tid.chargeDelay);
-		set.tid.chargeDelay=0;
+		//print ("tick");
+		if (set.tid.chargeDelay) {clearTimeout(set.tid.chargeDelay);set.tid.chargeDelay=0;}
 	}
 	
 };	

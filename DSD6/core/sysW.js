@@ -23,7 +23,8 @@ global.w={
 		  return v;
 	},
 	isCharging:function(){
-		  var v=digitalRead(D2);
+		  //var v=digitalRead(D2);
+ 		  let v=D2.read();
 		  poke32(0x50000708,2); // disconnect pin for power saving, otherwise it draws 70uA more
 		  return v;
 	},

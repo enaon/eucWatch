@@ -83,6 +83,7 @@ if (BTN1.read() || require("Storage").read("devmode")) {
 		}, 500);
 	},BTN1,{repeat:false, edge:"rising"}); 
 }else{ //load in working mode
+	NRF.disconnect();
 	if (require('Storage').read('sysAcc')) eval(require('Storage').read('sysAcc')); 
 	if (require('Storage').read('handler')) eval(require('Storage').read('handler')); //call handler
 	if (require('Storage').read('euc')) eval(require('Storage').read('euc')); //call euc

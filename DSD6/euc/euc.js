@@ -8,13 +8,14 @@ global.euc= {
 	run:0,
 	update:function(slot){require('Storage').write('eucSlot'+slot+'.json', dash.live);},
 	start:function(){
-	if (this.state!="OFF") {print(1);return;}
+		if (this.state!="OFF") {print(1);return;}
 		NRF.setTxPower(0);
 		//buzzer([100,80,100,80,100]);
 		buzzer(300);
 
 		//this.mac=require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Mac"];
-		this.mac="64:69:4e:75:89:4d public";
+		this.mac=set.def.mac;
+		//this.mac="64:69:4e:75:89:4d public";
 		//this.mac="f8:33:31:a5:ef:fe public";
 		if(!this.mac) {
 			print("nomac");
@@ -35,10 +36,7 @@ global.euc= {
 			if (this.state=="OFF") return;
 			print("off");
 			//set.bt=4;
-			euc.update(require("Storage").readJSON("dash.json",1).slot);
-			setTimeout(()=>{
-				if (this.proxy) this.proxy.e();
-			},250);
+			//euc.update(require("Storage").readJSON("dash.json",1).slot);
 			this.state="OFF";
 			euc.wri("end");
 			return;

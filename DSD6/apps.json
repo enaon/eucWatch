@@ -23,8 +23,8 @@
 			{"name":"sysOled","url":"../core/sysOled.js"}
 		]
 	},
-	{ "id": "ks",
-		"name": "EUC Dash-Kingsong",
+	{ "id": "dash",
+		"name": "Dash",
 		"icon": "../euc/icon.png",
 		"version":"0.01",
 		"description":"Dash KS",
@@ -40,12 +40,38 @@
 			{"name":"euc","url":"../euc/euc.js"},
 			{"name":"eucDash","url":"../euc/eucDash.js"},
 			{"name":"eucScan","url":"../euc/eucScan.js"},
-			{"name":"eucSlot.json","url":"../euc/eucSlot.json"},
-			{"name":"eucKingsong","url":"../euc/eucKingsong.js"}
+			{"name":"eucSlot.json","url":"../euc/eucSlot.json"}
 		]
 	},	
-	{ "id": "ks-light",
-		"name": "EUC Light-Kingsong",
+	{ "id": "euc",
+		"name": "EUC core",
+		"icon": "../euc/icon.png",
+		"version":"0.01",
+		"description":"euc core files",
+		"tags": "euc",
+		"type":"euc",
+		"readme": "README.md",
+		"storage": [
+			{"name":"euc","url":"../euc/euc.js"},
+			{"name":"dash.json","url":"../euc/dash.json"},
+			{"name":"eucSlot.json","url":"../euc/eucSlot.json"}
+		]
+	},	
+	{ "id": "Kingsong",
+		"name": "Kingsong",
+		"icon": "../euc/icon.png",
+		"version":"0.01",
+		"description":"Kingsong support",
+		"tags": "euc",
+		"type":"euc",
+		"readme": "README.md",
+		"storage": [
+			{"name":"proxyKingsong","url":"../euc/proxyKingsong.js"},
+			{"name":"eucKingsong","url":"../euc/eucKingsong.js"}
+		]
+	},		
+	{ "id": "eucLight",
+		"name": "eucLight",
 		"icon": "../euc/icon.png",
 		"version":"0.01",
 		"description":"Light KS",
@@ -60,11 +86,6 @@
 			{"name":"handlerCharge","url":"../handler/handlerCharge.js"},
 			{"name":"handlerBtn","url":"../handler/handlerBtn.js"},
 			{"name":"handlerAcc","url":"../handler/handlerAcc.js"},
-			{"name":"dash.json","url":"../euc/dash.json"},
-			{"name":"euc","url":"../euc/euc.js"},
-			{"name":"eucSlot.json","url":"../euc/eucSlot.json"},
-			{"name":"proxyKingsong","url":"../euc/proxyKingsong.js"},
-			{"name":"eucKingsong","url":"../euc/eucKingsongSlim.js"},
 			{"name":"eucLight","url":"../euc/eucLight.js"}
 
 		]

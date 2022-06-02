@@ -32,7 +32,49 @@ var set={
 		if (set.def.hid===1) {set.def.hid=0; return;}
 		//NRF.setAdvertising({}, { name:set.def.name+" Light",connectable:true });
 		NRF.setAdvertising({}, { name:"eL-"+process.env.SERIAL.substring(15)+"-1-OFF-"+w.isCharging()+"-"+w.batt(1)+"%",manufacturerData:[[1,0,w.isCharging(),w.batt(1)]],connectable:true });
-		NRF.setAddress(set.def.addr+" random");
+		//NRF.setAddress(set.def.addr+" random");
+		NRF.setAddress(set.def.mac);
+		NRF.setServices({
+			0xfff0: {
+				0xfff1: {
+					value : [0x01],
+					maxLen : 20,
+					writable : false,
+					readable:true,
+					description:"Characteristic 1"
+				},
+			},
+			0xffa0: {
+				0xffa1: {
+					value : [0x01],
+					maxLen : 20,
+					writable:true,
+					onWrite : function(evt) {
+						set.emit("btIn",evt);
+					},
+					readable:true,
+					notify:true,
+				   description:"ew"
+				}
+			},
+			0xffe0: {
+				0xffe1: {
+					value : [0x00],
+					maxLen : 20,
+					writable:true,
+					onWrite : function(evt) {
+						euc.proxy.r(evt);
+					},
+					readable:true,
+					notify:true,
+				   description:"Kingsong"
+				}
+			}
+		}, {advertise: ['0xfff0','0xffa0'],uart:false });
+		
+		
+		/*
+		
 		NRF.setServices({
 			0xffa0: {
 				0xffa1: {
@@ -47,7 +89,8 @@ var set={
 				   description:"Key Press State"
 				}
 			}
-		}, {advertise: ['0xffaa'],uart:(set.def.cli||set.def.gb)?true:false });
+		}, {advertise: ['0xffaa','0xffab'],uart:(set.def.cli||set.def.gb)?true:false });
+		*/
 		//NRF.setServices(undefined,{uart:(set.def.cli||set.def.gb)?true:false,hid:(set.def.hid&&set.hidM)?set.hidM.report:undefined });
 		//NRF.setServices(undefined,{uart:(set.def.cli||set.def.gb)?true:false });
 		if (set.def.gb) 
@@ -69,6 +112,7 @@ var set={
 		cli:1,
 		retry:4,
 		addr:NRF.getAddress(),
+		mac:"64:69:4e:75:89:4d public",
 		off:{},
 		buzz:1,
 		dash:{retry:10}
