@@ -12,11 +12,19 @@ function handleInfoEvent(event,disc) {
     let ti=(""+d[4]+" "+d[0]+" "+d[2]);
 	notify.info.unshift("{\"src\":\""+event.src+"\",\"title\":\""+event.title+"\",\"body\":\""+event.body+"\",\"time\":\""+ti+"\"}");
 	if (notify.info.length>10) notify.info.pop();
-	buzzer([80,50,80]);
-	if (set.def.buzz&&!notify.ring&&!disc) {
-		if (face.appCurr!="main"||face.pageCurr!=0) {
-			face.go("main",0);
-			face.appPrev="main";face.pagePrev=-1;
-        }
+	//buzzer([80,50,80]);
+	if (set.def.buzz&&!notify.ring) {
+		buzzer([80,50,80]);
+		if (!disc){
+			if (face.appCurr!="main"||face.pageCurr!=0) {
+				face.go("main",0);
+				face.appPrev="main";face.pagePrev=-1;
+			}
+		}else {
+			if (face[0].bar){
+				UI.btn.ntfy(1,2,0,"_bar",6,event.title,event.body,15,4);w.gfx.flip();
+			}
+		
+		}
 	}
 }

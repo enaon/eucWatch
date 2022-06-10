@@ -96,6 +96,29 @@
 			{"name":"set_dash","url":"set_dash.js"}
 		]
 	},
+	{ "id": "notify",
+		"name": "Notifications",
+		"icon": "icon.png",
+		"version":"0.94",
+		"description": "Notifications face for system, atc and gadgetbridge",
+		"tags": "apps",
+		"type": "notify",
+		"storage": [
+			{"name":"notify","url":"notify.js"}
+		]
+	},
+	{ "id": "m_gb",
+		"name": "Gadgetbridge",
+		"icon": "icon.png",
+		"version":"0.94",
+		"description": "Gadgetbridge support for notifications, calls, weather and gps navigation",
+		"tags": "system",
+		"type": "notify",
+		"readme": "README.md",
+		"storage": [
+			{"name":"m_gb","url":"m_gb.js"}
+		]
+	},
 	{ "id": "dash",
 		"name": "EUC Dashboard",
 		"icon": "icon.png",
@@ -322,6 +345,18 @@
 		"type": "euc",
 		"storage": [
 			{"name":"C:eucBegode","url":"eucBegode.js"}
+		]
+	},
+	{ "id": "tpms",
+		"name": "TPMS Sensor",
+		"icon": "icon.png",
+		"version":"1.02",
+		"description": "BLE TPMS Sensors (Tire pressure measuring, TP630 etc)",
+		"tags": "euc",
+		"storage": [
+			{"name":"tpms","url":"tpms.js"},
+			{"name":"tpmsFace","url":"tpmsFace.js"},
+			{"name":"tpmsOptions","url":"tpmsOptions.js"}
 		]
 	},
 	{ "id": "w_scan",
