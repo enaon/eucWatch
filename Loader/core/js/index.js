@@ -654,12 +654,12 @@ htmlToArray(document.querySelectorAll(".btn.updateapps")).map(button => button.a
 }));
 connectMyDeviceBtn.addEventListener("click", () => {
   if (connectMyDeviceBtn.classList.contains('is-connected')) {
-	Puck.write('require("Storage").erase("devmode");reset();\n')  
+	Puck.write('require("Storage").erase("devmode");setTimeout(()=>{reset();},500);\n')  
 	setTimeout(() => {
 	  Comms.disconnectDevice();
     }, 1000);
   } else {
-	Puck.write('require("Storage").write("devmode","loader");reset();\n')  
+	Puck.write('require("Storage").write("devmode","loader");setTimeout(()=>{reset();},500);\n')  
     getInstalledApps(true).catch(err => {
       showToast("Device connection failed, "+err,"error");
     });

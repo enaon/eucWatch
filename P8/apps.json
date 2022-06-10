@@ -154,7 +154,7 @@
 	{ "id": "dash",
 		"name": "EUC Dashboard",
 		"icon": "icon.png",
-		"version":"1.02",
+		"version":"1.03",
 		"description": "EUC dashboard. Garage, scan and dash faces. Depends on EUC modules.",
 		"tags": "euc",
 		"readme": "README.md",

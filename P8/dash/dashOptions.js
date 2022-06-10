@@ -242,7 +242,9 @@ touchHandler[0]=function(e,x,y){
 			}else if (75<= x && x < 155 && 75 <y && y < 155) { //5
 				buzzer(40);
 			}else if (155 <= x && 75 <y && y < 155) { //6
-				if (1.5<=euc.dash.bms) euc.dash.bms=1;
+				if (1.5<=euc.dash.bms&& euc.dash.bms<=1.8) euc.dash.bms=1.875;
+				else if (euc.dash.bms==1.875) euc.dash.bms=2;
+				else if (euc.dash.bms==2) euc.dash.bms=1;
 				else euc.dash.bms=euc.dash.bms+0.25;
 				face[0].btn(1,"PACK",15,200,90,4,0,160,80,239,155,euc.dash.bms*67.2|0,30,200,120); //6
 				face[0].ntfy("BATTERY VOLTAGE",euc.dash.bms*67.2,40,1,4,1500);
