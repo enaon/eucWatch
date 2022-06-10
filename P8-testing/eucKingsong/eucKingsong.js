@@ -183,9 +183,10 @@ euc.tmp.resp=function(inpk){
 			if (inpk[2]==255) euc.dash.pass="";
 			else euc.dash.pass=""+(inpk[2]-48)+(inpk[3]-48)+(inpk[4]-48)+(inpk[5]-48);
 		}
-  }else if ( inpk[16] == 70 ) 
+	}else if ( inpk[16] == 70 ) {
+		if (2<euc.dbg) print("bt pass state:",inpk);
 		euc.tmp.pass=inpk[2];
-	else if ( inpk[16] == 72 ) 
+  }else if ( inpk[16] == 72 ) 
 		euc.dash.ks.oldMode=inpk[2];
 	else if ( inpk[16] == 74) 
 		euc.dash.ks.spectrum=inpk[2];
@@ -299,8 +300,8 @@ euc.conn=function(mac){
 		var inpk=new Uint8Array(20);
 		c.on('characteristicvaluechanged', function(event) {
 			inpk.set(event.target.value.buffer);
-            if (euc.busy||inpk[0]==188){if (euc.dbg)  print("drop",inpk); return;}
-			//if (set.bt==4) 	euc.proxy.w(event.target.value.buffer);
+            //if (euc.busy&&euc.dbg)  print("busy",inpk);
+            if (inpk[0]==188) return;
 			euc.alert=0;
 			if (8<euc.dbg) console.log("INPUT :",inpk);
 			if (inpk[16] == 169){
@@ -346,8 +347,8 @@ euc.conn=function(mac){
 	}).then(function(c) {
 		if (euc.dbg) console.log("EUC Kingsong connected"); 
 		euc.wri= function(n,v) {
-			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},20);return;} 
-			euc.busy=setTimeout(()=>{euc.busy=0;},50);
+			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},100);return;} 
+			euc.busy=setTimeout(()=>{euc.busy=0;},200);
 			if (n=="hornOn"){
 				euc.horn=1;
 				if (euc.tmp.horn) {clearTimeout(euc.tmp.horn);euc.tmp.horn=0;}
