@@ -178,6 +178,7 @@ euc.tmp.resp=function(inpk){
 	if ( inpk[16] == 63 ) 
 		euc.dash.ks.offT=inpk[5] << 8 | inpk[4];
 	else if ( inpk[16] == 67 ) {
+		if (2<euc.dbg) print("bt pass:",inpk);
 		if (inpk[6]==1){
 			if (inpk[2]==255) euc.dash.pass="";
 			else euc.dash.pass=""+(inpk[2]-48)+(inpk[3]-48)+(inpk[4]-48)+(inpk[5]-48);
