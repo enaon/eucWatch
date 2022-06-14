@@ -15,7 +15,7 @@ global.save = function() { throw new Error("You don't need to use save() on eucW
 //spi.send([0xab],D5);  //wake
 //spi.send([0xb9],D5); //powerdown
 //spi.send([0x9f,0,0,0],D5); //check status
-//var spi=new SPI();spi.setup({sck:D2,mosi:D3,miso:D4,mode:0});spi.send([0x9f,0,0,0],D5); ;
+//var spi=new SPI();spi.setup({sck:D2,mosi:D3,miso:D4,mode:0});spi.send([0x9f,0,0,0],D5); //check status ;
 ew={pin:{BAT:D31,CHRG:D19,BUZZ:D16,BL:D12,i2c:{SCL:D7,SDA:D6},touch:{RST:D13,INT:D28},disp:{CS:D25,DC:D18,RST:D26,BL:D14},acc:{INT:D8}}};
 //devmode
 if (BTN1.read() || Boolean(require("Storage").read("devmode"))) { 
@@ -224,7 +224,6 @@ g.on=function(){
 //  this.setBrightness();
 };
 
-
 g.off=function(){
   if (!this.isOn) return;
   //cmd(0x28);
@@ -254,8 +253,6 @@ module.exports = {
 };
 });
 w=require("eucWatch");
-//load
-//w.gfx.init();
 eval(require('Storage').read('handler'));
 eval(require('Storage').read('main'));
 eval(require('Storage').read('euc'));
@@ -263,8 +260,8 @@ eval(require('Storage').read('euc'));
 //require('Storage').list(/m_/).forEach(modfile=>{eval(require('Storage').read(modfile));});
 digitalPulse(ew.pin.BUZZ,1,[100,30,100]);
 setTimeout(function(){
-if (global.face) face.go('main',0);
-setTimeout(function(){ if (global.set) set.accR(); },1000); 
-digitalPulse(ew.pin.BUZZ,1,[100]);  
+	if (global.face) face.go('main',0);
+	setTimeout(function(){ if (global.set) set.accR(); },1000); 
+	digitalPulse(ew.pin.BUZZ,1,[100]);  
 },200); 
 }

@@ -1,6 +1,8 @@
 //Kingsong Proxy
 if (global.euc&&!euc.proxy){
 euc.proxy={
+	addr:NRF.getAddress(),
+	prxy:NRF.getAddress().substr(0,15)+"aa",
 	f:0,
 	r:(o)=>{
     "ram";
@@ -45,12 +47,13 @@ euc.proxy={
 		]], { name:dash.live.ks.name,connectable:true });
 		NRF.setAddress(euc.mac);
 		//NRF.setAddress("eu:cW:at:ch:00:01 public");
+		//NRF.setAddress("eu:cW:at:ch:00:01 public");
 		NRF.restart();
 		NRF.disconnect();
 	}, 
 	e:(o)=>{
 		NRF.setAdvertising({}, { name:set.def.name,connectable:true });
-		NRF.setAddress(set.def.addr+" random");
+		NRF.setAddress(this.addr+" random");
 		set.updateBT();
 		NRF.restart();
 		NRF.disconnect();
@@ -58,6 +61,6 @@ euc.proxy={
 	}
 };
 euc.proxy.s();
-set.bt=4;
+//set.bt=4;
 }
 

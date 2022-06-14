@@ -15,6 +15,7 @@ euc.cmd=function(no){
 		case "rideSoft":return [115]; 
 		case "rideMed":return [102]; 
 		case "rideHard":return [104]; 
+		default: return [];
     }
 };
 euc.proxy=0;
@@ -43,6 +44,7 @@ euc.conn=function(mac){
 	//read
 	}).then(function(c) {
 		c.on('characteristicvaluechanged', function(event) {
+			if (set.bt==5) 	euc.proxy.w(event.target.value.buffer);
 			if  ( event.target.value.buffer[0]==85 && event.target.value.buffer[1]==170 && event.target.value.buffer[18]==0 && event.target.value.buffer[19]==24 ) {
 				//print( event.target.value.buffer);
 				euc.alert=0;
@@ -64,7 +66,7 @@ euc.conn=function(mac){
 				euc.dash.trpL=event.target.value.getUint32(6)/1000;
 				//euc.dash.trpL=(event.target.value.getUint32(6)/1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1);
 				//amp
-				euc.dash.amp=event.target.value.getInt16(10)/1000;
+				euc.dash.amp=(event.target.value.getInt16(10)/1000)*3;
 				if (euc.dash.ampR) euc.dash.amp=-euc.dash.amp;
 				ampL.unshift(Math.round(euc.dash.amp));
 				if (20<ampL.length) ampL.pop();
@@ -203,14 +205,14 @@ euc.conn=function(mac){
 			}else if (n=="calibrate") {
 				c.writeValue(99);
 				setTimeout(()=>{c.writeValue(121);if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}},500);
-			/*//rest
-			} else if (!euc.cmd(n)) {
-				c.writeValue(n).then(function() {
+			}else if (n==="proxy") {
+				c.writeValue(v).then(function() {
+                    if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+					return;
 				}).catch(function(err)  {
-					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-					euc.off("err");
-				});   
-			*/}else{
+                    if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+				});	   
+			}else{
 				c.writeValue(euc.cmd(n)).then(function() {
 					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 				}).catch(function(err)  {
@@ -278,7 +280,8 @@ euc.off=function(err){
 		euc.run=0;
 		euc.tmp=0;
 		global["\xFF"].bleHdl=[];
-		NRF.setTxPower(set.def.rfTX);	
+		NRF.setTxPower(set.def.rfTX);
+		if (this.proxy) this.proxy.e();
 		if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
 			if (set.bt===2) console.log("ble still connected"); 
 			global["\xFF"].BLE_GATTS.disconnect();return;

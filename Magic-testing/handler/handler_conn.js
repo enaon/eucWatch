@@ -8,19 +8,19 @@ function ccon(l){
 		Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
 		return; 
 	}else {
-	if (set.def.cli) {
-		if (l.startsWith(cli)) {
-			set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
-			handleInfoEvent({"src":"IDE","title":"LOADER","body":"Connected"},1);
+		if (set.def.cli) {
+			if (l.startsWith(cli)) {
+				set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
+				handleInfoEvent({"src":"IDE","title":"LOADER","body":"Connected"},1);
+			}
 		}
-	}
-	if (set.def.gb) {
-		if (l.startsWith(gb)){
-			set.bt=3;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
-			handleInfoEvent({"src":"BT","title":"GB","body":"Connected"},1);
+		if (set.def.gb) {
+			if (l.startsWith(gb)){
+				set.bt=3;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
+				handleInfoEvent({"src":"BT","title":"GB","body":"Connected"},1);
+			}
 		}
-	}
-	if (l.length>5)  NRF.disconnect();
+		if (l.length>5)  NRF.disconnect();
 	}
 }
 function bcon() {

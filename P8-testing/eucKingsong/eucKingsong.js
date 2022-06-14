@@ -300,6 +300,8 @@ euc.conn=function(mac){
 		var inpk=new Uint8Array(20);
 		c.on('characteristicvaluechanged', function(event) {
 			inpk.set(event.target.value.buffer);
+			if (set.bt==5) 	euc.proxy.w(event.target.value.buffer);
+
             //if (euc.busy&&euc.dbg)  print("busy",inpk);
             if (inpk[0]==188) return;
 			euc.alert=0;
@@ -435,6 +437,13 @@ euc.conn=function(mac){
 					euc.off("not connected");
 					return;
 				}
+			}else if (n==="proxy") {
+				c.writeValue(v).then(function() {
+                    if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+					return;
+				}).catch(function(err)  {
+                    if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+				});
 			//rest					
 			}else { 
 				c.writeValue(euc.cmd(n,v)).then(function() {
@@ -512,6 +521,7 @@ euc.off=function(err){
 		euc.run=0;
 		euc.tmp=0;
 		global["\xFF"].bleHdl=[];
+		if (this.proxy) this.proxy.e();
 		NRF.setTxPower(set.def.rfTX);
     }
 };

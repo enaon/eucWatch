@@ -14,11 +14,11 @@ euc.brakeLight={
 				if (dash.live.amp<0) {
 					euc.brakeLight.lp=0;
 					D25.set();
-				}else if  (9<euc.brakeLight.lp) {
+				}else if  (10<euc.brakeLight.lp) {
 					euc.brakeLight.lp=0;
-				}else if (euc.brakeLight.lp==6) {
+				}else if (euc.brakeLight.lp==7) {
 					digitalPulse(D25,1,[40,40,40]);
-				}else if (euc.brakeLight.lp==5){
+				}else if (euc.brakeLight.lp==6){
 					digitalPulse(D25,1,40);
 				}else if (euc.brakeLight.lp==1||euc.brakeLight.lp==3) {
 					digitalPulse(D25,1,80);
@@ -31,9 +31,12 @@ euc.brakeLight={
 		euc.brakeLight.lp=0;
 		euc.brakeLight.tid=setInterval(()=>{
 			euc.brakeLight.lp++;
-			if(!euc.brakeLight.en||5<euc.brakeLight.lp) { clearInterval(euc.brakeLight.tid);euc.brakeLight.tid=0;return;}
+			if(!euc.brakeLight.en||5<euc.brakeLight.lp) { //clearInterval(euc.brakeLight.tid);euc.brakeLight.tid=0;return;}
+				euc.brakeLight.end();
+				return;
+			}
 			digitalPulse(D25,1,[80,150,80]);
-		},2000);
+		},2200);
 	},
 	brakes:function(x){
 		"ram";
@@ -54,17 +57,17 @@ euc.brakeLight={
 euc.on("brakeLight",(x)=>{
 	euc.brakeLight.en=x?1:0;
 	if (euc.brakeLight.en) digitalPulse(D25,1,600);//else digitalPulse(D25,1,[500,250,100]);
-	if(x) euc.brakeLight.motion();
+	if(x) euc.brakeLight.still();
 	else  euc.brakeLight.end();
 });
 euc.on("amp",(x)=>{ 
 	"ram";
 	if (x<0){
-		if (1<dash.live.spd||dash.live.spd<-1) {
+		if (3<dash.live.spd||dash.live.spd<-3) {
 			if (euc.status!="brakes") { euc.status="brakes"; euc.emit("status","brakes"); }
 		}else if (euc.status!="still") { euc.status="still"; euc.emit("status","still");}
 	}else {
-		if (1<dash.live.spd||dash.live.spd<-1) {
+		if (3<dash.live.spd||dash.live.spd<-3) {
 			if (euc.status!="motion")  { euc.status="motion"; euc.emit("status","motion");}
 		}else if (euc.status!="still")  { euc.status="still"; euc.emit("status","still");}
 	} 

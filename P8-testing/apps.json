@@ -48,15 +48,28 @@
 		]
 	},
 	{ "id": "handler",
-		"name": "Handler - P8 - P22 A/B/C/C1",
+		"name": "Handler - P8 - P22",
 		"icon": "icon.png",
-		"version":"1.06",
+		"version":"1.07",
 		"description": "P8/P22 functions handler",
 		"tags": "core",
 		"type":"core",
 		"readme": "README.md",
 		"storage": [
-			{"name":"handler","url":"handler.js"}
+			{"name":"handler","url":"handler.js"},
+			{"name":"handlerConn","url":"handlerConn.js"},
+			{"name":"handlerBtn","url":"handlerBtn.js"},
+			{"name":"handlerCron","url":"handlerCron.js"},
+			{"name":"handlerNotify","url":"handlerNotify.js"},
+			{"name":"handlerTouch","url":"handlerTouch.js"},
+			{"name":"handlerTouch716","url":"handlerTouch716.js"},
+			{"name":"handlerTouch816","url":"handlerTouch816.js"},
+			{"name":"handlerTouch816s","url":"handlerTouch816s.js"},
+			{"name":"handlerAccSC7A20","url":"handlerAccSC7A20.js"},
+			{"name":"handlerAccBMA421","url":"handlerAccBMA421.js"},
+			{"name":"handlerCharge","url":"handlerCharge.js"},
+			{"name":"handlerFace","url":"handlerFace.js"},
+			{"name":"handlerSet","url":"handlerSet.js"}
 		]
 	},  
 	{ "id": "handler_pt",
@@ -64,18 +77,6 @@
 		"icon": "icon.png",
 		"version":"1.06",
 		"description": "Pinetime functions handler",
-		"tags": "core",
-		"type":"core",
-		"readme": "README.md",
-		"storage": [
-			{"name":"handler","url":"handler.js"}
-		]
-	}, 
-	{ "id": "handler_p22b1",
-		"name": "Handler - P22 B1/D",
-		"icon": "icon.png",
-		"version":"1.05",
-		"description": "P22 B1/D functions handler",
 		"tags": "core",
 		"type":"core",
 		"readme": "README.md",
@@ -282,7 +283,7 @@
 	{ "id": "euc",
 		"name": "EUC modules support",
 		"icon": "icon.png",
-		"version":"1.01",
+		"version":"1.02",
 		"description": "EUC module switcher, depends on wheel module.",
 		"tags": "euc",
 		"type": "euc",
@@ -295,12 +296,13 @@
 	{ "id": "eucKingsong",
 		"name": "Kingsong module",
 		"icon": "icon.png",
-		"version":"1.06",
+		"version":"1.07",
 		"description": "EUC module for Kingsong.",
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"eucKingsong","url":"eucKingsong.js"}
+			{"name":"eucKingsong","url":"eucKingsong.js"},
+			{"name":"proxyKingsong","url":"proxyKingsong.js"}
 		]
 		},
 	{ "id": "eucNinebot",
@@ -372,23 +374,25 @@
    { "id": "eucVeteran",
 		"name": "Veteran module",
 		"icon": "icon.png",
-		"version":"1.00",
+		"version":"1.01",
 		"description": "EUC module for Veteran Sherman",
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"eucVeteran","url":"eucVeteran.js"}
+			{"name":"eucVeteran","url":"eucVeteran.js"},
+			{"name":"proxyVeteran","url":"proxyVeteran.js"}
 		]
 	},
    { "id": "eucBegode",
 		"name": "Begode module",
 		"icon": "icon.png",
-		"version":"1.01",
+		"version":"1.02",
 		"description": "EUC module for Begode (Gotway)",
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"eucBegode","url":"eucBegode.js"}
+			{"name":"eucBegode","url":"eucBegode.js"},
+			{"name":"proxyBegode","url":"proxyBegode.js"}
 		]
 	},
 	{ "id": "tpms",

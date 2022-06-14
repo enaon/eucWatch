@@ -55,6 +55,9 @@ global.euc= {
 				face.go('dashScan',0);return;
 			}else {
 				eval(require('Storage').read('euc'+require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]));
+				if (set.def.prxy&&require('Storage').read('proxy'+euc.dash.maker)){
+					eval(require('Storage').read('proxy'+euc.dash.maker));
+				}	
 				this.state="ON";
 				if (this.dash.bms==undefined) this.dash.bms=1.5;
 				if (this.dash.batF<=10) this.dash.batF=420;
