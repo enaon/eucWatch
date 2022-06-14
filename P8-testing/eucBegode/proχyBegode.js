@@ -44,7 +44,7 @@ if (global.euc&&!euc.proxy){
 			}, {advertise: ['0xffe0'],uart:false });
 			NRF.setAdvertising({}, { name:"Gotway_"+set.def.name,connectable:true });
 			//NRF.setAddress(euc.mac);
-			NRF.setAddress(NRF.getAddress().substr(0,15)+"aa");
+			NRF.setAddress(NRF.getAddress().substr(0,15)+"aa public");
 			NRF.disconnect();
 			NRF.restart();
 		}, 
