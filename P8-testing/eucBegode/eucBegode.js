@@ -123,7 +123,7 @@ euc.conn=function(mac){
 	}).then(function(c) {
 		console.log("EUC Begode connected!"); 
 		buzzer([90,40,150,40,90]);
-		euc.wri= function(n) {
+		euc.wri= function(n,v) {
 			//print(n);
 			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},500);return;} euc.busy=euc.busy=setTimeout(()=>{euc.busy=0;},500);
 			//end
