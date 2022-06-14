@@ -2,9 +2,6 @@
 if (global.euc&&!euc.proxy){
 	euc.proxy={
 		state:0,
-		addr:NRF.getAddress(),
-		prxy:NRF.getAddress().substr(0,15)+"aa",
-		f:0,
 		r:(o)=>{
 		"ram";
 			if (1<set.dbg)print("relay-in:",o.data);
@@ -40,7 +37,7 @@ if (global.euc&&!euc.proxy){
 						},
 						readable:true,
 						notify:true,
-					   description:"Kingsong"
+					   description:"Veteran"
 					}
 				}
 			}, {advertise: ['0xffe0'],uart:false });

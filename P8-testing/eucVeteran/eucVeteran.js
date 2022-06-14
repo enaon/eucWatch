@@ -19,7 +19,7 @@ euc.cmd=function(no){
 		default: return [];
     }
 };
-euc.proxy=0;
+euc.isProxy=0;
 //start
 euc.wri=function(i) {if (set.def.cli) console.log("not connected yet"); if (i=="end") euc.off(); return;};
 euc.conn=function(mac){
@@ -29,12 +29,12 @@ euc.conn=function(mac){
 		if (global["\xFF"].BLE_GATTS.connected) {global["\xFF"].BLE_GATTS.disconnect();return;}
 	}
 	//check if proxy
-	if (mac.includes("private-resolvable")&&!euc.proxy ){
+	if (mac.includes("private-resolvable")&&!euc.isProxy ){
 		let name=require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Name"];
-		NRF.requestDevice({ timeout:2000, filters: [{ namePrefix: name }] }).then(function(device) { euc.proxy=1;euc.conn(device.id);}  ).catch(function(err) {print ("error "+err);euc.conn(euc.mac); });
+		NRF.requestDevice({ timeout:2000, filters: [{ namePrefix: name }] }).then(function(device) { euc.isProxy=1;euc.conn(device.id);}  ).catch(function(err) {print ("error "+err);euc.conn(euc.mac); });
 		return;
 	}
-	euc.proxy=0;
+	euc.isProxy=0;
 	euc.pac=[]; 
 	//connect 
 	NRF.connect(mac,{minInterval:7.5, maxInterval:15})
@@ -81,7 +81,7 @@ euc.conn=function(mac){
 				euc.dash.trpT=(ev[14] << 24 | ev[15] << 16 | ev[12] << 8  | ev[13])/1000;
 				euc.log.trp.forEach(function(val,pos){ if (!val) euc.log.trp[pos]=euc.dash.trpT;});
 				//amp
-				euc.dash.amp=(32766<(ev[16]<<8|ev[17]))?(((ev[16]<<8|ev[17])-65535)/100)*3:((ev[16]<<8|ev[17])/100)*3 ;
+				euc.dash.amp=(32766<(ev[16]<<8|ev[17]))?((ev[16]<<8|ev[17])-65535)/100:(ev[16]<<8|ev[17])/100 ;
 				if (euc.dash.ampR) euc.dash.amp=-euc.dash.amp;				
 				ampL.unshift(euc.dash.amp);
 				if (20<ampL.length) ampL.pop();
@@ -126,8 +126,8 @@ euc.conn=function(mac){
 		console.log("EUC Veteran connected!!"); 
 		euc.wri= function(n,v) {
             //console.log("got :", n);
-			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},150);return;} 
-			euc.busy=setTimeout(()=>{euc.busy=0;},1000);
+			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},100);return;} 
+			euc.busy=setTimeout(()=>{euc.busy=0;},200);
             //end
 			if (n=="hornOn") {
 				euc.horn=1;

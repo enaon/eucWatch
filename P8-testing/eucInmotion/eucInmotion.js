@@ -90,7 +90,7 @@ function validateChecksum(buffer) {
 	return receivedChecksum == calculatedChecksum;
 }
 //
-euc.proxy=0;
+euc.isProxy=0;
 euc.wri=function(i) {if (set.bt===2) console.log("not connected yet"); if (i=="end") euc.off(); return;};
 euc.conn=function(mac){
 	//check if connected
@@ -98,12 +98,12 @@ euc.conn=function(mac){
 		return global['\xFF'].BLE_GATTS.disconnect();
 	}
 	//check if proxy
-	if (mac.includes("private-resolvable")&&!euc.proxy ){
+	if (mac.includes("private-resolvable")&&!euc.isProxy ){
 		let name=require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Name"];
-		NRF.requestDevice({ timeout:2000, filters: [{ namePrefix: name }] }).then(function(device) { euc.proxy=1;euc.conn(device.id);}  ).catch(function(err) {print ("error "+err);euc.conn(euc.mac); });
+		NRF.requestDevice({ timeout:2000, filters: [{ namePrefix: name }] }).then(function(device) { euc.isProxy=1;euc.conn(device.id);}  ).catch(function(err) {print ("error "+err);euc.conn(euc.mac); });
 		return;
 	}
-	euc.proxy=0;
+	euc.isProxy=0;
 	if (euc.reconnect) {clearTimeout(euc.reconnect); euc.reconnect=0;}
 	NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 		.then(function(g) {

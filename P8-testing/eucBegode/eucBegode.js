@@ -18,7 +18,7 @@ euc.cmd=function(no){
 		default: return [];
     }
 };
-euc.proxy=0;
+euc.isProxy=0;
 //start
 euc.wri=function(i) {if (set.bt===2) console.log("not connected yet"); if (i=="end") euc.off(); return;};
 euc.conn=function(mac){
@@ -29,12 +29,12 @@ euc.conn=function(mac){
 		if (global["\xFF"].BLE_GATTS.connected) {global["\xFF"].BLE_GATTS.disconnect();return;}
 	}
 	//check if proxy
-	if (mac.includes("private-resolvable")&&!euc.proxy ){
+	if (mac.includes("private-resolvable")&&!euc.isProxy ){
 		let name=require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Name"];
-		NRF.requestDevice({ timeout:2000, filters: [{ namePrefix: name }] }).then(function(device) { euc.proxy=1;euc.conn(device.id);}  ).catch(function(err) {print ("error "+err);euc.conn(euc.mac); });
+		NRF.requestDevice({ timeout:2000, filters: [{ namePrefix: name }] }).then(function(device) { euc.isProxy=1;euc.conn(device.id);}  ).catch(function(err) {print ("error "+err);euc.conn(euc.mac); });
 		return;
 	}
-	euc.proxy=0;
+	euc.isProxy=0;
 	//connect 
 	NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 	.then(function(g) {
@@ -45,6 +45,7 @@ euc.conn=function(mac){
 	}).then(function(c) {
 		c.on('characteristicvaluechanged', function(event) {
 			if (set.bt==5) 	euc.proxy.w(event.target.value.buffer);
+			if (euc.dbg)  console.log("input",event.target.value.buffer);
 			if  ( event.target.value.buffer[0]==85 && event.target.value.buffer[1]==170 && event.target.value.buffer[18]==0 && event.target.value.buffer[19]==24 ) {
 				//print( event.target.value.buffer);
 				euc.alert=0;
@@ -66,7 +67,7 @@ euc.conn=function(mac){
 				euc.dash.trpL=event.target.value.getUint32(6)/1000;
 				//euc.dash.trpL=(event.target.value.getUint32(6)/1000)*euc.dash.trpF*((set.def.dash.mph)?0.625:1);
 				//amp
-				euc.dash.amp=(event.target.value.getInt16(10)/1000)*3;
+				euc.dash.amp=event.target.value.getInt16(10)/1000;
 				if (euc.dash.ampR) euc.dash.amp=-euc.dash.amp;
 				ampL.unshift(Math.round(euc.dash.amp));
 				if (20<ampL.length) ampL.pop();
@@ -125,7 +126,8 @@ euc.conn=function(mac){
 		buzzer([90,40,150,40,90]);
 		euc.wri= function(n,v) {
 			//print(n);
-			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},500);return;} euc.busy=euc.busy=setTimeout(()=>{euc.busy=0;},500);
+			if (euc.busy) { clearTimeout(euc.busy);euc.busy=setTimeout(()=>{euc.busy=0;},100);return;} 
+			euc.busy=setTimeout(()=>{euc.busy=0;},200);	
 			//end
 			if (n=="hornOn") {
 				euc.horn=1;

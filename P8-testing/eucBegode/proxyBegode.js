@@ -2,15 +2,13 @@
 if (global.euc&&!euc.proxy){
 	euc.proxy={
 		state:0,
-		f:0,
 		r:(o)=>{
 		"ram";
-			if (1<set.dbg)print("relay-in:",o.data);
 			if (euc.state=="READY") euc.wri("proxy",o.data);
 		},
 		w:(o)=>{
 		"ram";
-			if (set.bt!=5) {if (1<set.dbg) print("relay-out:",o);return;}
+			if (set.bt!=5) return;
 			NRF.updateServices({0xffe0:{0xffe1:{value:o,notify:true}},});
 		},
 		s:(o)=>{
@@ -38,7 +36,7 @@ if (global.euc&&!euc.proxy){
 						},
 						readable:true,
 						notify:true,
-					   description:"Kingsong"
+					   description:"Begode"
 					}
 				}
 			}, {advertise: ['0xffe0'],uart:false });
