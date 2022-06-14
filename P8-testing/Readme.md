@@ -1,5 +1,5 @@
 #### P8 watch Espruino scripts.
 
 
-#### [App Loader](https://enaon.github.io/eucWatch/p8)
+#### [App Loader](https://enaon.github.io/eucWatch/p8-testing)
 
