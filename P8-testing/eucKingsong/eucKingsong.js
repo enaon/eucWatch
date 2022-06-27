@@ -300,8 +300,8 @@ euc.conn=function(mac){
 		var inpk=new Uint8Array(20);
 		c.on('characteristicvaluechanged', function(event) {
 			inpk.set(event.target.value.buffer);
-			if (set.bt==5) 	euc.proxy.w(event.target.value.buffer);
-
+			if (set.bt==5) NRF.updateServices({0xffe0:{0xffe1:{value:event.target.value.buffer,notify:true}}});
+			//if (set.bt==5) euc.proxy.w(event.target.value.buffer);
             //if (euc.busy&&euc.dbg)  print("busy",inpk);
             if (inpk[0]==188) return;
 			euc.alert=0;
@@ -369,7 +369,6 @@ euc.conn=function(mac){
 				});
 			} else if (n=="hornOff") {
 				euc.horn=0;
-				if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 				return;
 			} else if (n==="start") {
 				euc.state="READY";
@@ -427,29 +426,24 @@ euc.conn=function(mac){
 						return global["\xFF"].BLE_GATTS.disconnect();	
 					}).catch(function(err)  {
 						euc.state="OFF";
-						if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 						if (global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected) global["\xFF"].BLE_GATTS.disconnect();
 						else euc.off("err-off");
 					});
 				}else {
-					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 					euc.state="OFF";
 					euc.off("not connected");
 					return;
 				}
 			}else if (n==="proxy") {
 				c.writeValue(v).then(function() {
-                    if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 					return;
 				}).catch(function(err)  {
                     if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 				});
 			//rest					
 			}else { 
-				c.writeValue(euc.cmd(n,v)).then(function() {
-					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
+					c.writeValue(euc.cmd(n,v)).then(function() {
 				}).catch(function(err)  {
-					if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 					euc.off("err-rest");
 				});
 			}

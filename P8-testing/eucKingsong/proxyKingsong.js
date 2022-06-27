@@ -6,11 +6,12 @@ if (global.euc&&!euc.proxy){
 		"ram";
 			if (euc.state=="READY") euc.wri("proxy",o.data);
 		},
-		w:(o)=>{
+		/*w:(o)=>{
 		"ram";
 			if (set.bt!=5) {if (1<set.dbg) print("relay-out:",o);return;}
 			NRF.updateServices({0xffe0:{0xffe1:{value:o,notify:true}},});
 		},
+		*/
 		s:(o)=>{
 			NRF.setServices({
 				0xfff0: {
@@ -41,7 +42,8 @@ if (global.euc&&!euc.proxy){
 						maxLen : 20,
 						writable:true,
 						onWrite : function(evt) {
-							euc.proxy.r(evt);
+							euc.wri("proxy",evt.data);
+							//euc.proxy.r(evt);
 						},
 						readable:true,
 						notify:true,
@@ -58,6 +60,8 @@ if (global.euc&&!euc.proxy){
 		e:(o)=>{
 			euc.proxy=0;
 			set.upd();
+			NRF.disconnect();
+			NRF.restart();
 			return;
 		}
 	};

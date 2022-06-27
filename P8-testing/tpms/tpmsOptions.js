@@ -150,7 +150,11 @@ touchHandler[0]=function(e,x,y){
 				require("Storage").erase("tpmsLog"+face[0].tpms[tpms.def.pos]+".json",1);
 				face[0].ntfy(face[0].tpms[tpms.def.pos]+" CLEARED","",25,7,1,2,0,1,0);
 				tpms.def.pos=0;
-				face.go("tpmsFace",0);
+				let got=require("Storage").readJSON("tpms.json",1);
+				got.def=tpms.def;
+				require("Storage").writeJSON("tpms.json",got);
+				got=0;
+				setTimeout(()=>{face.go("tpmsFace",0);},1000);
 				return;
 			}else if (face[0].act=="del"){
 				buzzer([30,50,30]);
@@ -239,7 +243,7 @@ touchHandler[0]=function(e,x,y){
 					return;
 				}else if ( 160 < x ){
 					buzzer([30,50,30]);
-					face[0].ntfy("DELETE",face[0].tpms[tpms.def.pos].toUpperCase(),25,1,1,2,0,1,1);
+					face[0].ntfy("DELETE",face[0].tpms[tpms.def.pos],25,1,1,2,0,1,1);
 					face[0].act="del";
 				}else {
 					buzzer(40);
@@ -269,7 +273,7 @@ touchHandler[0]=function(e,x,y){
 		}else {
 			let got=require("Storage").readJSON("tpms.json",1);
 			got.def=tpms.def;
-			require("Storage").writeJSON("tpms.json",got);
+			require("Storage").writeJSON("tpms.json",got);got=0;
 			if (tpms.def.int) tpms.scan(); else if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
 			face.go("settings",0,1);
 		}
@@ -283,9 +287,9 @@ touchHandler[0]=function(e,x,y){
 			if (face[0].ntid) {clearTimeout(face[0].ntid);face[0].ntid=0;}
 			face[0].barS();
 		}else {	
-			got=require("Storage").readJSON("tpms.json",1);
+			let got=require("Storage").readJSON("tpms.json",1);
 			got.def=tpms.def;
-			require("Storage").writeJSON("tpms.json",got);
+			require("Storage").writeJSON("tpms.json",got);got=0;
 			if (tpms.def.int) tpms.scan(); else if (tpms.tid) {clearTimeout(tpms.tid); tpms.tid=0;}
 			face.go("tpmsFace",0,1);
 			return;

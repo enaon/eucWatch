@@ -238,7 +238,7 @@ touchHandler[0]=function(e,x,y){
 					return;
 				}else if ( 160 < x ){
 					buzzer(buz.ok);
-					face[0].ntfy("DELETE",face[0].tpms[tpms.def.pos].toUpperCase(),25,1,1,2,0,1,1);
+					face[0].ntfy("DELETE",face[0].tpms[tpms.def.pos],25,1,1,2,0,1,1);
 					face[0].act="del";
 				}else {
 					buzzer(buz.na);

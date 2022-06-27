@@ -29,7 +29,7 @@ function ccon(l){
 	}
 }
 function bcon() {
-	if (set.def.prxy&&global.euc&&global.euc.state=="READY") {
+	if (set.def.prxy&&global.euc&&global.euc.state!="OFF") {
 		set.bt=5;
 		Bluetooth.removeListener('data',ccon);
 		handleInfoEvent({"src":"BT","title":"EUC-PROXY","body":"Client Connected"},1);
@@ -39,14 +39,14 @@ function bcon() {
 	set.bt=1; 
 	if (set.def.cli||set.def.gb||set.def.emuZ) { Bluetooth.on('data',ccon);}
 	setTimeout(()=>{
-    if (set.bt==1){ 
-		if (!set.def.cli) 
-			NRF.disconnect(); 
-		else{ 
-			handleInfoEvent({"src":"DEBUG","title":"RELAY","body":"Relay Connected"});
-			set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
+		if (set.bt==1){ 
+			if (!set.def.cli) 
+				NRF.disconnect(); 
+			else{ 
+				handleInfoEvent({"src":"DEBUG","title":"RELAY","body":"Relay Connected"});
+				set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
+			}
 		}
-	}
 	},5000);
 }
 function bdis() {

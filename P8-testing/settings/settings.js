@@ -30,7 +30,8 @@ face[0] = {
 		this.g.setColor(1,14);
 		this.g.drawImage(require("heatshrink").decompress(atob("mEwwILIgOAAp0EAoMQAoMMAoMwAoMGAoNgAoMDAQPADgcBAooqEADcP///+AFNABcHCIPgKYQFHKYYFHLIYFHFQd/Aol8nwFDngFdvwFDn/+AvX8ApIADA==")),10,195);
 		this.g.drawImage(require("heatshrink").decompress(atob("mEwwI2zgP/Ao0f////P/nE/AoP9/88ApU4EZYADAooAICg2AApE8/+/G4P4Aon8AoscCIgjLACkf8AFE+CJDz/3/B9CAoP8ApRBBDogFJF4gAsA=")),95,195);	//this.g.drawImage(require("heatshrink").decompress(atob("mE3wIcZn////+AoIEBAAOAgIFD4ED4AOBgfgg+ADYXwh4hDvEOAoc4AoscgEBD4McAoIhBgEYAoMHAoIMBAoPwAoYRCAoQdChAFBAAQjCApcBJ4I1FAoQ1CAoY1BAvBHFAoU8SoRZBTYytFXIqNDM4LRB/EPaILdB/kf/4OBj/+n/4DQUPvAmDh6zCEIQFEFYYABXIQAkA==")),94,195);
-		this.g.drawImage(require("heatshrink").decompress(atob("mEwwIKH/ACBh8Agf+AoN/4EH/+AgH/+EP//AgP//EfAoMDAo38n4dDAoIpCj4FB8E//kHAoPA///wIFBwYFB8AFBGAI0BvkeFQIuBnkcn/wDgM4FgOAgIyC/41CAQIICn4OB/kB4EfAoP4AoMPKAPwAo8H8ABBAo8DAoJ2BAo5EBAYIFF8AFE+AFE/gFC8BMBEYQFBh+DAocHw4fCL4IJBAoZTBL4IFE/inCZAJ3EQYzaBR4abBh4aDU4QFEBYU/AoIXCvwFB3wFBvjbBjwFBXYMAAoQAEA=")),180,195);
+		this.g.drawImage(require("heatshrink").decompress(atob("mEwwIjgn/8AgUB///wAFBg4FB8AFBh/BwfwCwUBwAYCv4FB/wFB/eAgPfEQPhAoOHwED4InBwfAgYsCgfAg4FCgPgg/AH4Xgh44CgHwh1gAgMMuEePId4jgWDnAFCEAIFDj8AAoUDJgM4ngQBLAM8n+Ag/wgP8AoXgAoIRCHoM8DoRJBFIYABAphNDgl4h1wAoMGuEPTAQ3BOIcDO4J9ERIcBR4S5BHoUAAoQPCAoI4DAqIAVA==")),180,195);
+		//dash:"mEwwIjgn/8AgUB///wAFBg4FB8AFBh/BwfwCwUBwAYCv4FB/wFB/eAgPfEQPhAoOHwED4InBwfAgYsCgfAg4FCgPgg/AH4Xgh44CgHwh1gAgMMuEePId4jgWDnAFCEAIFDj8AAoUDJgM4ngQBLAM8n+Ag/wgP8AoXgAoIRCHoM8DoRJBFIYABAphNDgl4h1wAoMGuEPTAQ3BOIcDO4J9ERIcBR4S5BHoUAAoQPCAoI4DAqIAVA==",
 		this.g.flip();
 		this.run=true;
 	},
@@ -136,7 +137,7 @@ face[0] = {
 			//acc on/off
 			if (set.def.acc!=this.acc) {
 				this.acc=set.def.acc;
-				this.btn(this.acc,80,80,155,155,require("heatshrink").decompress(atob("mEwwJC/AAkPwAECgP//AFCg///4FCj4FBCQU/AoPgAoN/4Ef+AFB/wZBDwMB/gCCgUDBwV+h0HDQU/jkP4AsCvg/Dh/8j5JDAokH/k+Igf4Aoc//E8AoRbBvhhEAoUD//wjAnBwIFBEIRaEn/AgIFDJ4QFIKoQdDAoibDgECbfA=")),95,94,14,4,14,(euc.state=="READY")?4:2);
+				this.btn(this.acc,80,80,155,155,require("heatshrink").decompress(atob("mEwwJC/AAkPwAECgP//AFCg///4FCj4FBCQU/AoPgAoN/4Ef+AFB/wZBDwMB/gCCgUDBwV+h0HDQU/jkP4AsCvg/Dh/8j5JDAokH/k+Igf4Aoc//E8AoRbBvhhEAoUD//wjAnBwIFBEIRaEn/AgIFDJ4QFIKoQdDAoibDgECbfA=")),95,94,14,global.euc.state!="OFF"?12:4,14,global.euc.state!="OFF"?12:2 );
 			}
 			//brightness level
 			if (this.g.bri.lv!=this.bri) {
@@ -365,7 +366,10 @@ touchHandler[0]=function(e,x,y){
 				set.upd();buzzer([30,50,30]);
 			}else if (face[0].themeSet) {
 				buzzer(40);
-			}else {set.def.acc=1-set.def.acc;set.accR();buzzer([30,50,30]);}
+			}else {
+				if (global.euc.state!="OFF"){ buzzer(40);return;}
+				set.def.acc=1-set.def.acc;set.accR();buzzer([30,50,30]);
+				}
 		}else if(158<x&&x<239&&77<y&&y<159) {//btn6
 			if (face.mode) {if (face[0].appDo6) {buzzer([30,50,30]);eval(face[0].appDo6);return;} else buzzer(40);
 			}else if (face[0].btSet) {
@@ -406,14 +410,15 @@ touchHandler[0]=function(e,x,y){
 			return;  
 		}else if(77<x&&x<157&&158<y&&y<239){//btn8	
 			buzzer([30,50,30]);
-			if (Boolean(require("Storage").read(face.faceSave[0].substring(0,4)+"Options"))){
-				face.go(face.faceSave[0].substring(0,4)+"Options",0);
-			}else face.go("settings",5);
+			//if (Boolean(require("Storage").read(face.faceSave[0].substring(0,4)+"Options"))){
+				//face.go(face.faceSave[0].substring(0,4)+"Options",0);
+			//}else 
+			face.go("mainOptions",0);
 			return;
 		}else if(158<x&&x<239&&160<y&&y<239){ //btn9
 			buzzer([30,50,30]);
-			if (Boolean(require("Storage").read("alarm")))
-			face.go("alarm",0);return;
+			if (require("Storage").read("dashOptions"))
+			face.go("dashOptions",0);return;
 		} else buzzer(40);
 	}else if  (e==1){
 		//if (face[0].btSet) {
@@ -546,7 +551,8 @@ touchHandler[5]=function(e,x,y){
 			set.accR();
 			if (global.tfk) tfk.exit(); 
 			w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();w.gfx.off();
-			E.reboot();
+			setTimeout(()=>{E.reboot();},500);
+			return;
 		}else  buzzer(40);
     }else if  (e==1){
 		face[0].btSetOn=1;
@@ -579,7 +585,8 @@ touchHandler[5]=function(e,x,y){
 			set.accR();
 			if (global.tfk) tfk.exit(); 
 			w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();w.gfx.off();
-			E.reboot();
+			setTimeout(()=>{E.reboot();},500);
+			return;
 		}else buzzer(40);
     }
    this.timeout();

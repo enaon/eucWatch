@@ -168,17 +168,18 @@ euc.conn=function(mac){
 			}
 			return true;
 		};
-		if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {
+		/*if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {
 			dash.live.mac=euc.mac; dash.live.batF=420;dash.live.batE=320;
 			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 			set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
 		}
+		*/
 		if (global["\xFF"].bleHdl && global["\xFF"].bleHdl[54] && global["\xFF"].bleHdl[54].value.buffer[0]==170 && global["\xFF"].bleHdl[54].value.buffer[1]==85) {
 			setTimeout(()=>{ 
 				if (euc.dbg)  print("EUC: ks is initialized");
 				euc.state="READY";
+				euc.emit("connState",1);
 				c.startNotifications().then(function() {
-					euc.emit("connState",1);
 					return dash.live.ks.aVoiceC?euc.wri("setVoiceOnOff",2- dash.live.ks.aVoiceC):"ok";
 				});
 			},500);

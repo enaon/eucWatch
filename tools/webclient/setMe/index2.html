@@ -1,0 +1,84 @@
+<html>
+ <head>
+  <title>Dashboard</title>
+  <meta name="viewport" content="width=210, initial-scale=1">
+ </head>
+ <body style="width:210px;height:450px">
+  <link href="https://espruino.github.io/TinyDash/tinydash.css" rel="stylesheet">
+  <script src="https://espruino.github.io/TinyDash/tinydash.js"></script>
+  <script src="https://www.puck-js.com/puck.js"></script>  
+  <script>
+  // Called when we get a line of data - updates the light color
+  function onLine(line) {
+    try {
+      var j = JSON.parse(line);
+      console.log("Received JSON: ",j);
+      elements.battery.setValue(j.battery);
+      //elements.memory.setData(j.memuse);
+      elements.memory.setValue((100/j.memtot)*j.memfree);
+    } catch(e) {
+      console.log("Received: ",line);
+    }
+  }
+  var connection;
+  function connectDevice() {
+    Puck.connect(function(c) {
+      if (!c) {
+        alert("Couldn't connect!");
+        return;
+      }
+      connection = c;
+      // remove modal window
+      elements.modal.remove();
+      // Handle the data we get back, and call 'onLine'
+      // whenever we get a line
+      var buf = "";
+      connection.on("data", function(d) {
+        buf += d;
+        var i = buf.indexOf("\n");
+        while (i>=0) {
+          onLine(buf.substr(0,i));
+          buf = buf.substr(i+1);
+          i = buf.indexOf("\n");
+        }
+      });
+      // First, reset Puck.js
+      connection.write("\x03\n", function() {
+        // Wait for it to reset itself
+        setTimeout(function() {
+          // Now tell it to write data on the current light level to Bluetooth
+          // 10 times a second. Also ensure that when disconnected, Puck.js
+          // resets so the setInterval doesn't keep draining battery.
+          connection.write("setInterval(function(){Bluetooth.println(JSON.stringify({battery:w.batt(1),memtot:process.memory().total,memfree:process.memory().free}));},100);NRF.on('disconnect', function() {buzzer([100,50,100])});\n",
+            function() { console.log("Ready..."); });
+          }, 1500);
+        });
+      });
+
+  }
+  // Set up the controls we see on the screen    
+  var elements = {
+    heading : TD.label({x:10,y:10,width:190,height:50,label:"My eucWatch"}),
+    battery : TD.gauge({x:10,y:70,width:300,height:300,label:"Battery",value:0,min:0,max:100}),
+	memory : TD.value({x:10,y:500,width:200,height:100,label:"Memory",value:0,min:0,max:100}),
+
+    modal: TD.modal({x:10,y:10,width:600,height:430,label:"Click to connect",onchange:connectDevice}),
+    //bat : TD.gauge({x:10,y:70,width:190,height:220,label:"Battery Level",value:0,min:0,max:100}),
+    memor : TD.graph({x:210,y:10,width:400,height:180,label:"Memory"}),
+    redled : TD.toggle({x:210,y:200,width:200,height:90,label:"Red LED",value:0,onchange:function(el,v) {
+      Puck.write("LED1.write("+v+");\n");
+    }}),
+    flash : TD.button({x:420,y:200,width:190,height:90,label:"Flash!",onchange:function(){
+      Puck.write("digitalPulse(LED3,1,500);\n");
+    }})	
+  }
+  for (var i in elements)
+    document.body.appendChild(elements[i]);
+	 
+  </script>
+	
+	
+	
+  </script>
+ </body>
+</html>
