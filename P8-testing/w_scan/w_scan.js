@@ -9,6 +9,7 @@ if(!global.scan){
 				app="dash";
 				if (euc.dash.maker=="NinebotZ"|| euc.dash.maker=="NinebotS")  this.filter = [{manufacturer:16974}];  
 				else if (euc.dash.maker=="InmotionV11")  this.filter = [{ namePrefix: 'V11-' }];
+				else if (euc.dash.maker=="InmotionV12")  this.filter = [{ namePrefix: 'V12-' }];
 				else this.filter = [{services:[service]}];
 			}
 			NRF.findDevices(function(devices) {
