@@ -8,6 +8,7 @@ var set={
 	fmp:0, //find my phone-n.u.s.
 	boot:getTime(), 
 	dash:[],
+	tid:{},
 	read:function(file,name){
 		let got=require("Storage").readJSON([file+".json"],1);
 		if (got==undefined) return false;

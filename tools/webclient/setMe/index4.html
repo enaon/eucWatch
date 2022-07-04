@@ -1,0 +1,64 @@
+<html>
+<head>
+  <script src="https://www.puck-js.com/puck.js"></script>
+</head>
+<body>
+<p>Click 'Add Device' to add a new device. Once added, you can toggle
+LED1 by pressing the button, and the current temperature will be reported
+to the right-hand side.</p>
+<div id="devices"></div>
+<button id="addDevice">Add Device</button>
+<script>
+var _counter = 0;
+
+document.getElementById("addDevice").addEventListener('click', event => {
+  Puck.connect(function(connection) {
+    if (connection===null) {
+      console.log("Connection failed!");
+      return;
+    }
+
+    // Work out a connection number so we can display it on the screen
+    // conId/conName are local variables (like connection) so there will
+    // be copies of these for each device that is connected to.
+    _counter++;    
+    var conId = _counter;
+    var conName = "dev"+conId;
+    // Add an HTML line for the device with a button
+    var div = document.createElement("div");
+    div.innerHTML =
+      `<div>Device ${conId}: <button id="btn${conId}">LED</button>&nbsp;<span id="${conName}" style="font-family: monospace;"></span>`;
+    document.getElementById("devices").append(div);
+    // reset the device and upload code to print the temperature every second (and reset when we disconnect)
+    connection.write("\x03\n", function() {
+      setTimeout(function() {
+        //connection.write("\x10setInterval(()=>Bluetooth.println(E.getTemperature()), 1000);NRF.on('disconnect',()=>reset());\n", function() {  
+          connection.write("setInterval(function(){Bluetooth.println(JSON.stringify({battery:w.batt(1),memtot:process.memory().total,memfree:process.memory().free}));},100);NRF.on('disconnect', function() {buzzer([100,50,100])});\n",function() {  
+		 console.log(conName, "connected successfully");
+        });
+      },500);
+    });
+    // When the button is pressed, send a command to toggle the LED
+    document.getElementById("btn"+conId).addEventListener('click', event => {
+      console.log(conName, "Sending LED.toggle()");
+      connection.write("\x10euc.tgl()\n");
+    });
+    // Handle data coming back
+    var line = "";
+    connection.on('data',function(d) {
+      // This code detects each new line coming in
+      line += d;
+      var lines = line.split("\n");
+      line = lines.pop();
+      // For each new line
+      lines.forEach(function(l) {
+        // display the line on the webpage
+        console.log(conName, "Got "+l);
+        document.getElementById(conName).innerText = l;
+      });
+    });
+  });
+});
+</script>
+</body>
+</html>

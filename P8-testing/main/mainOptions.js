@@ -275,9 +275,8 @@ touchHandler[0]=function(e,x,y){
 					require("Storage").write("devmode","shutdown");
 					set.def.acc=0;
 					set.accR();
-					if (global.tfk) tfk.exit(); 
-					w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();w.gfx.off();
-					E.reboot();
+					face.go("main",-1);
+					setTimeout(()=>{E.reboot();},500);
 				}else {
 					//face[0].set=0;
 			   		//if (face[0].ntid) clearTimeout(face[0].ntid);face[0].ntid=0;
