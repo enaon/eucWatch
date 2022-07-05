@@ -35,8 +35,6 @@ Using the app, you will upload four files to the P8 watch:
 > 
 > [**Step3 file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme/step3-p8-sdk11-to-sdk12.zip)
 > 
-> **NEW 2.10 image is allowing for more free ram, please ( [**upgrade**](https://github.com/enaon/eucWatch/wiki/Firmware) )
-> 
 > [**Step4 P8 file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme/step4-78mtu-3150vars-espruino_2v12.98_p8_SDK12_SD30_SPIFLASH4M.zip)   or   [**Step4 P22/Pinetime file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme/step4-78mtu-3150vars-espruino_2v12.98_p22_SDK12_SD30_SPIFLASH4M.zip)
 
 **latest 2v12.98 79mtu espruino firmware build is by dignome, thanks!
