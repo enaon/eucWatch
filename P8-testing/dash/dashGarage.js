@@ -40,13 +40,18 @@ face[0] = {
 	},
 	btn: function(slotNumber,active,x,y,y1,y2,rx1,ry1,rx2,ry2 ){
 			if (this.dash["slot"+slotNumber+"Mac"]) {
-				this.g.setColor(0,(active)?4:1);
+				this.g.setColor(0,active?this.dash["slot"+slotNumber+"Name"].includes("Proxy")?12:4:1);
 				this.g.fillRect(rx1,ry1,rx2,ry2);	
 				this.g.setColor(1,15);
 				this.g.setFont("Vector",18);	
+				//if (euc.dash.model) this.g.drawString(euc.dash.model.toUpperCase(),x-(this.g.stringWidth(euc.dash.model.toUpperCase())/2),y); 
 				this.g.drawString(this.dash["slot"+slotNumber+"Maker"].toUpperCase(),x-(this.g.stringWidth(this.dash["slot"+slotNumber+"Maker"].toUpperCase())/2),y); 
-				if ( (this.dash["slot"+slotNumber+"Name"]).includes("Proxy")) { this.g.setFont("Vector",30);this.dash["slot"+slotNumber+"Name"]="Proxy";}
-				else this.g.setFont("Vector",35);
+				if ( (this.dash["slot"+slotNumber+"Name"]).includes("Proxy")) { 
+					this.g.setFont("Vector",30);
+					this.dash["slot"+slotNumber+"Name"]="Proxy";
+				}else 
+					this.g.setFont("Vector",30);
+				if (8<this.dash["slot"+slotNumber+"Name"].split("-")[0].length) this.g.setFont("Vector",20); //else this.g.setFont("Vector",30);
 				this.g.drawString(this.dash["slot"+slotNumber+"Name"].split("-")[0],x-(this.g.stringWidth(this.dash["slot"+slotNumber+"Name"].split("-")[0])/2),y1); 
 				this.g.flip();
 			}else if (active) {

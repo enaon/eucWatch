@@ -61,6 +61,10 @@ global.euc= {
 				this.state="ON";
 				if (this.dash.bms==undefined) this.dash.bms=1.5;
 				if (this.dash.batF<=10) this.dash.batF=420;
+				if (!euc.dash.pwmL) euc.dash.pwmL=70;
+				if (!euc.dash.hapP) euc.dash.hapP=0;
+				if (!euc.dash.auto) euc.dash.auto={};
+				if (!euc.dash.info) euc.dash.info={};				
 				if (this.dash.maker!=="Kingsong"||this.dash.maker!=="inmotionV11") this.dash.spdM=0;
 				this.conn(this.mac);
 				face.go(set.dash[set.def.dash.face],0);

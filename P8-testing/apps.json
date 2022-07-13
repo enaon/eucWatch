@@ -287,8 +287,12 @@
 		"storage": [
 			{"name":"dashBegode","url":"dashBegode.js"},
 			{"name":"dashBegodeAdv","url":"dashBegodeAdv.js"},
-			{"name":"dashBegodeLimits","url":"dashBegodeLimits.js"},
-			{"name":"dashBegodeCalibrate","url":"dashBegodeCalibrate.js"}
+			{"name":"dashBegodeOpt","url":"dashBegodeOpt.js"},
+			{"name":"dashBegodeOpt2","url":"dashBegodeOpt2.js"},
+			{"name":"dashBegodeCon","url":"dashBegodeCon.js"},
+			{"name":"dashBegodeDis","url":"dashBegodeDis.js"},
+			{"name":"dashBegodeAdvLimits","url":"dashBegodeAdvLimits.js"},
+			{"name":"dashBegodeAdvCalibrate","url":"dashBegodeAdvCalibrate.js"}
 		]
 	},
 	{ "id": "euc",

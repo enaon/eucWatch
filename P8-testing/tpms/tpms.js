@@ -105,7 +105,7 @@ tpms= {
 				tpms.busy=0;
 			}
 			if (tpms.def.int||euc.state!="OFF") {
-				let intT=[5,5,30,60,360];
+				let intT=[2,5,30,60,360];
 				if (tpms.tid) clearTimeout(tpms.tid);
 				tpms.tid=setTimeout(()=>{ 
 					tpms.tid=0;

@@ -319,14 +319,17 @@ euc.conn=function(mac){
 				euc.dash.ks.motorHolzer=inpk[8];
 				euc.dash.ks.cpuRate=inpk[14];
 				euc.dash.ks.outputRate=inpk[15];
-				euc.dash.pwr=inpk[15];
+				euc.dash.pwm=inpk[15];
 			}else if (inpk[16] == 246){
 				if (euc.dbg==7) console.log("INPUT :",inpk);
 				euc.tmp.thre(inpk);
 			}else
 				euc.tmp.resp(inpk);
 			//haptic
-			if (!euc.buzz && euc.alert) { 
+			if (euc.dash.hapP && (euc.dash.alrm || euc.dash.pwmL<=euc.dash.pwm)){
+				digitalPulse(ew.pin.BUZZ,1,60);
+				euc.alert=0;
+			}else if (!euc.buzz && euc.alert) { 
 				if (!w.gfx.isOn&&(euc.dash.spdC||euc.dash.ampC||euc.dash.alrm)) face.go(set.dash[set.def.dash.face],0);
 				euc.buzz=1;
 				if (20 <= euc.alert) euc.alert = 20;

@@ -20,13 +20,13 @@ face[0] = {
 		this.amp=-10;
 		this.tmp=-1;
 		this.bat=-1;
+		this.almT=-1
 		this.batL=new Uint8Array(20);
 		this.ampL = new Uint8Array(20);
 		this.al=new Uint8Array(20);
-		this.ampL.fill(1,0,1)
+		this.ampL.fill(1,0,1);
 		this.volt=-1;
 		this.buzz=-1;
-		this.spdM=-1;
 		this.alrm=-1;
 		this.conn="OFF";
 		this.lock=2;
@@ -44,9 +44,12 @@ face[0] = {
 			this.g.flip();
 			if (this.spd != Math.round(euc.dash.spd)) this.spdF();
 			// alarm events time graph
-			if (5<=this.spd && this.al!=almL) this.alF();
-			else if (5<=this.spd && !euc.buzz && euc.dash.maker=="Kingsong") this.pwrF();
-			else if (!this.bar) { this.bar=1; this.barF();}
+			if (5<=this.spd&&(euc.dash.maker=="Kingsong"||euc.dash.maker=="Begode")){
+				this.pwmF();
+				//if (this.al!=almL) 
+				this.alF();
+				this.bar=0;
+			} else if (!this.bar) { this.bar=1; this.barF();}
 			//tmp/amp block
 			if (!set.def.dash.amp) {
 				if (this.amp!=Math.round(euc.dash.amp)) this.ampF();
@@ -57,7 +60,7 @@ face[0] = {
 			//spdMspeed block
 			if (this.spdM!=euc.dash.spdM.toFixed(1)) this.spMF(); 
 			//buzzer/health block
-			if (euc.dash.maker=="Kingsong") {
+			if (euc.dash.maker=="Kingsong"||euc.dash.maker=="Begode") {
 				if (this.spdL!=euc.dash.spdL) this.spLF();
 			}else if (this.alrm!=euc.dash.alrm) this.alrF();	
 			//tmp/amp field
@@ -71,7 +74,9 @@ face[0] = {
 				if (euc.dash.bat!=this.bat) this.batF();
 			}else if (this.batL!=batL) this.baLF();			
 			//Mileage
-			if (this.trpL!=euc.dash.trpL.toFixed(2)) this.mileage();    
+			//if (this.almT!=euc.dash.almT) this.almTF();
+			if (euc.dash.almT) this.almTF();
+			else if (this.trpL!=euc.dash.trpL.toFixed(2)) this.mileage();    
 		//off
 		} else if (euc.state=="OFF")  {
 			setTimeout(function(){
@@ -89,7 +94,7 @@ face[0] = {
 				this.g.drawString(euc.state,(125-this.g.stringWidth(euc.state)/2),95);
 				this.g.flip();
 				this.spd=-1;this.amp=-1;this.tmp=-1;this.bat=-1;this.trpL=-1;this.conn=0;this.lock=2;
-				this.buzz=-1;this.volt=-1;this.spdM=-1;this.alrm=-1;this.spdL=-1;this.spdM=-1;this.bar=0;
+				this.buzz=-1;this.volt=-1;this.alrm=-1;this.spdL=-1;this.spdM=-1;this.bar=0;
 				this.ampL.fill(1,0,1);this.batL.fill(1,0,1);
 				this.run=true;
 			}
@@ -120,18 +125,26 @@ face[0] = {
 		}
 	},
 	alF: function(){
-		this.al.set(almL);
-		//print(this.al,almL);
-		this.g.setColor(0,1);
-		this.g.clearRect(0,176,239,197);
-		this.g.setColor(1,15);
-		//graph
-		//this.al.forEach(function(val,i){
-		for (let i in this.al ){
-			w.gfx.fillRect(237-(i*12),(this.al[i])?181:191,237-((i*12)+8),191);
+		//this.al.set(almL);
+		this.g.setColor(0,2);
+		this.g.clearRect(0,195,239,200);
+		this.g.setColor(1,13);
+		for (let i in almL ){
+			if (almL[i]) w.gfx.fillRect(237-(i*12),(almL[i])?195:200,237-((i*12)+10),200);
 		}
-		//});
 		this.g.flip();
+	},
+	pwmF: function(){
+		"ram";
+		this.g.setColor(0,euc.dash.pwmL<=euc.dash.pwm?7:1);
+		this.g.fillRect(0,176,239,193); 
+		this.g.setColor(1,50<=euc.dash.pwm?13:15);
+		this.g.setFontVector(23);
+		this.g.drawString(euc.dash.pwm,3,175);
+		this.g.setFontVector(14);
+		this.g.drawString("%",45,178);
+		this.g.fillRect(80,180,80+euc.dash.pwm*1.6,187); 
+		w.gfx.flip();
 	},
 	ampF: function(){
 		this.amp=Math.round(euc.dash.amp);
@@ -192,9 +205,9 @@ face[0] = {
 		this.alrm=euc.dash.alrm;
 		this.g.setColor(0,1);
 		this.g.fillRect(200,115,239,173); 
-		this.g.setColor(1,0);
-		this.g.setFontVector(35);
-		this.g.drawString("B", 212,130); 
+		//this.g.setColor(1,0);
+		//this.g.setFontVector(35);
+		//this.g.drawString("B", 212,130); 
 		this.g.flip();
 	},	
 	tmFF: function(){
@@ -226,18 +239,6 @@ face[0] = {
 		//});
 		this.g.flip();
 	},	
-	pwrF: function(){
-		this.g.setColor(0,1);
-		//this.g.setColor(0,7);
-		this.g.fillRect(0,176,239,197); 
-		//this.g.fillRect(euc.dash.pwr*2.4,176,239,197); 
-		this.g.setColor(1,(50<=euc.dash.pwr)?(80<=euc.dash.pwr)?7:13:15);
-		this.g.setFontVector(25);
-		this.g.drawString(euc.dash.pwr,3,177);
-		//this.g.drawString(((euc.dash.pwr/euc.dash.spd)*10).toFixed(1),3,177);
-		this.g.fillRect(80,182,80+euc.dash.pwr*1.6,192); 
-		w.gfx.flip();
-	},
 	vltF: function(){
 		this.volt=euc.dash.volt.toFixed(2);
 		this.g.setColor(0,this.batC[euc.dash.batC]);
@@ -274,6 +275,16 @@ face[0] = {
 		//});
 		this.g.flip();
 	},	
+	almTF: function(){
+		if (this.almT==euc.dash.almT) return;
+		this.almT=euc.dash.almT;
+		this.g.setColor(0,7);
+		this.g.fillRect(0,203,239,239);
+		this.g.setColor(1,14);
+		this.g.setFontVector(24);
+		this.g.drawString(euc.dash.almT, 120-(this.g.stringWidth(euc.dash.almT)/2),212); 
+		this.g.flip();
+	},
 	mileage: function(){
 		this.trpL=euc.dash.trpL.toFixed(2);
 		this.g.setColor(0,0);
@@ -293,7 +304,7 @@ face[0] = {
 	},
 	barF: function(){
 		this.g.setColor(1,1);
-		this.g.fillRect(0,176,239,197); //mileage
+		this.g.fillRect(0,176,239,200); //mileage
 		this.g.setColor(0,15);
 		this.g.setFontVector(16); //mileage
 		//if (euc.dash.maker=="Ninebot") {
@@ -354,10 +365,11 @@ touchHandler[0]=function(e,x,y){
  			face[0].tmp=-1;face[0].amp=-1;face[0].ampL.fill(1,0,1);
 			buzzer([30,50,30]);
 		}else if (190<y){//mileage/time
+			buzzer([30,50,30]);
+			if (euc.dash.almT) {euc.dash.almT=0;face[0].almT=-1;face[0].trpL=-1;return}
 			if (set.def.dash.clck==undefined) set.def.dash.clck=0;
 			set.def.dash.clck=1-set.def.dash.clck;
  			face[0].trpL=-1;face[0].barF();
-			buzzer([30,50,30]);
 		}else
 			buzzer(40);
 		this.timeout();
