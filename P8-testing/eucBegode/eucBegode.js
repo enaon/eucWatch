@@ -209,7 +209,7 @@ euc.tmp.exit=function(c) {
 euc.isProxy=0;
 euc.run=0;
 //start
-euc.wri=function(i) {if (set.bt===2) console.log("not connected yet"); if (i=="end") euc.off(); return;};
+euc.wri=function(i) {if (euc.dbg) console.log("not connected yet"); if (i=="end") euc.off(); return;};
 euc.conn=function(mac){
 	//check if connected
 	if ( global["\xFF"].BLE_GATTS!="undefined") {
@@ -300,10 +300,9 @@ euc.conn=function(mac){
 euc.off=function(err){
 	if (euc.reconnect) {clearTimeout(euc.reconnect);euc.reconnect=0;}
 	if (euc.state!="OFF") {
-		if (set.def.cli) 
-			console.log("EUC: Restarting");
+		if (euc.dbg) console.log("EUC: Restarting");
 		if ( err==="Connection Timeout"  )  {
-			if (set.bt===2) console.log("reason :timeout");
+			if (euc.dbg) console.log("reason :timeout");
 			euc.state="LOST";
 			if ( set.def.dash.rtr < euc.run) {
 				euc.tgl();
@@ -318,7 +317,7 @@ euc.off=function(err){
 			}, 5000);
 		}
 		else if ( err==="Disconnected"|| err==="Not connected")  {
-			if (set.bt===2) console.log("reason :",err);
+			if (euc.dbg) console.log("reason :",err);
 			euc.state="FAR";
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
@@ -326,7 +325,7 @@ euc.off=function(err){
 			}, 500);
 		}
 		else {
-			if (set.bt===2) console.log("reason :",err);
+			if (euc.dbg) console.log("reason :",err);
 			euc.state="RETRY";
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;
@@ -334,19 +333,19 @@ euc.off=function(err){
 			}, 1000);
 		}
 	} else {
-		if (set.def.cli) console.log("EUC OUT:",err);
+		if (euc.dbg) console.log("EUC OUT:",err);
 		if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
-		euc.off=function(err){if (set.bt===2) console.log("EUC off, not connected",err);};
-		euc.wri=function(err){if (set.bt===2) console.log("EUC write, not connected",err);};
-		euc.conn=function(err){if (set.bt===2) console.log("EUC conn, not connected",err);};
-		euc.cmd=function(err){if (set.bt===2) console.log("EUC cmd, not connected",err);};
+		euc.off=function(err){if (euc.dbg) console.log("EUC off, not connected",err);};
+		euc.wri=function(err){if (euc.dbg) console.log("EUC write, not connected",err);};
+		euc.conn=function(err){if (euc.dbg) console.log("EUC conn, not connected",err);};
+		euc.cmd=function(err){if (seuc.dbg) console.log("EUC cmd, not connected",err);};
 		euc.run=0;
 		euc.tmp=0;
 		global["\xFF"].bleHdl=[];
 		NRF.setTxPower(set.def.rfTX);
 		if (this.proxy) this.proxy.e();
 		if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
-			if (set.bt===2) console.log("ble still connected"); 
+			if (euc.dbg) console.log("ble still connected"); 
 			global["\xFF"].BLE_GATTS.disconnect();return;
 		}
     }

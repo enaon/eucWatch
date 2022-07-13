@@ -71,9 +71,11 @@ tpms= {
 							//tpms.new.time=time;
 							if (dev.psi<tpms.def.list[id].lowP) {
 								alrm=1;
+								if (euc.state=="READY") euc.dash.almT="LOW PRESSURE";
 								handleInfoEvent({"src":"TPMS","title":id,"body":"LOW PRESSURE."+"  "+dev[tpms.def.metric]+" "+tpms.def.metric+"  "},1);
 							}else if (tpms.def.list[id].hiP <=dev.psi) {
 								alrm=2;
+								if (euc.state=="READY") euc.dash.almT="HI PRESSURE";
 								handleInfoEvent({"src":"TPMS","title":id,"body":"HI PRESSURE."+"  "+dev[tpms.def.metric]+" "+tpms.def.metric+"  "},1);
 							} else alrm=0;
 							if (euc.state!="OFF") tpms.euc[id]={"time":time,"alrm":alrm,"psi":dev.psi};
