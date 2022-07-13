@@ -156,7 +156,7 @@ face[0] = {
 		this.g.setFontVector(32);
 		this.g.drawString(this.amp|0, 22-(this.g.stringWidth(this.amp|0)/2),80); 
 		this.g.flip();
-	},
+	},/*
 	tmpF: function(){
 		this.tmp=Math.round(euc.dash.tmp);
 		this.g.setColor(0,this.tmpC[euc.dash.tmpC]);
@@ -169,6 +169,24 @@ face[0] = {
 		this.g.drawString(temp,22-(this.g.stringWidth(temp)/2),80); 
 		//this.g.drawString(Math.round(this.tmp), 22-(this.g.stringWidth(Math.round(this.tmp))/2),80); 
 		this.g.flip();
+	},*/
+	tmpf: function(){
+		this.tmp=euc.dash.tmp.toFixed(1);
+		this.g.setColor(0,this.tmpC[euc.dash.tmpC]);
+		this.g.fillRect(0,0,119,50);       
+		this.g.setColor(1,15);
+		this.g.setFontVector(50);
+		let temp=((set.def.dash.farn)?this.tmp*1.8+32:this.tmp).toString().split(".");
+		let size=5+this.g.stringWidth(temp[0]);
+		this.g.drawString(temp[0], 5,3); 
+		if (temp[0]<100) {
+			this.g.setFontVector(35);
+			this.g.drawString("."+temp[1],size,17); 
+			size=size+this.g.stringWidth(temp[1]);
+		}
+		this.g.setFontVector(16);
+		this.g.drawString((set.def.dash.farn)?"°F":"°C",3+size,5); 
+		this.g.flip();
 	},
 	buzF: function(){
 		this.buzz=euc.buzz;
@@ -176,9 +194,10 @@ face[0] = {
 			this.g.setColor(0,4);
 			this.g.fillRect(0,115,40,173); 
 			this.g.setColor(1,14);
-			this.g.setFontVector(18);
-			this.g.drawString("PWM", 19,115);
-			this.g.drawString("TILT", 19,155); 
+			this.g.setFontVector(14);
+			this.g.drawString("PWM", 5,130);
+			this.g.drawString("TILT", 4,145); 			
+			this.g.flip();
 		}else {
 			this.g.setColor(0,(this.buzz)?7:1);
 			this.g.fillRect(0,115,40,173); 
