@@ -185,15 +185,15 @@ euc.tmp.init=function(c) {
 };
 euc.tmp.exit=function(c) {
 	if (global['\xFF'].BLE_GATTS && global['\xFF'].BLE_GATTS.connected) {
-		c.stopNotifications().then(function() {
-			let hld=[0,"lightsOn","lightsOff","lightsStrobe"];
-			return euc.dash.auto.HLD?c.writeValue(euc.cmd(hld[euc.dash.auto.HLD])):"ok";
-		}).then(function() {	
+		let hld=["none","lightsOn","lightsOff","lightsStrobe"];
+		c.writeValue(euc.cmd(hld[euc.dash.auto.HLD])).then(function() {
 			return euc.dash.auto.ledD?euc.wri("ledMode",euc.dash.auto.ledD-1):"ok";
-		}).then(function() {
+		}).then(function() {	
 			return euc.dash.auto.BEPD?c.writeValue(euc.cmd("beep")):"ok";
 		}).then(function() {
 			euc.run=0;
+			return c.stopNotifications();
+		}).then(function() {
 			global["\xFF"].BLE_GATTS.disconnect(); 
 		}).catch(function(err)  {
 			if (global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected) global["\xFF"].BLE_GATTS.disconnect();
