@@ -115,9 +115,9 @@ touchHandler[0]=function(e,x,y){
 			if (euc.dash.rolA==0)
 				euc.wri("rollAngleMedium");
 			else if (euc.dash.rolA==1)
-				euc.wri("rollAngleSoft");
+				euc.wri("rollAngleLow");
 			else if (euc.dash.rolA==2)
-				euc.wri("rollAngleHard");
+				euc.wri("rollAngleHigh");
 		}else buzzer([30,50,30]);
 		this.timeout();
 		break;

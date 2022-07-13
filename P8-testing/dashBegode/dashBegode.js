@@ -40,7 +40,7 @@ face[0] = {
 		if ( this.led!=euc.dash.led) {
 			let val=["OFF","ON","ON"];
 			this.led=euc.dash.led;
-			this.btn(euc.dash.led,"LED",20,185,120,4,1,122,100,239,195,euc.dash.led,25,185,155);	
+			this.btn(euc.dash.led,"LED",20,185,120,4,1,122,100,239,195,euc.dash.led+"",25,185,155);	
 		}
 		
 		this.tid=setTimeout(function(t,o){
