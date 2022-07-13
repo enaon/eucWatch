@@ -43,9 +43,9 @@ face[0] = {
 				this.g.setColor(0,active?this.dash["slot"+slotNumber+"Name"].includes("Proxy")?12:4:1);
 				this.g.fillRect(rx1,ry1,rx2,ry2);	
 				this.g.setColor(1,15);
-				this.g.setFont("Vector",18);	
-				//if (euc.dash.model) this.g.drawString(euc.dash.model.toUpperCase(),x-(this.g.stringWidth(euc.dash.model.toUpperCase())/2),y); 
-				this.g.drawString(this.dash["slot"+slotNumber+"Maker"].toUpperCase(),x-(this.g.stringWidth(this.dash["slot"+slotNumber+"Maker"].toUpperCase())/2),y); 
+				this.g.setFont("Vector",17);	
+				if (this.dash["slot"+slotNumber+"Model"]) this.g.drawString(this.dash["slot"+slotNumber+"Model"].toUpperCase().substr(0,9),x-(this.g.stringWidth(this.dash["slot"+slotNumber+"Model"].toUpperCase().substr(0,9))/2),y); 
+				else this.g.drawString(this.dash["slot"+slotNumber+"Maker"].toUpperCase(),x-(this.g.stringWidth(this.dash["slot"+slotNumber+"Maker"].toUpperCase())/2),y); 
 				if ( (this.dash["slot"+slotNumber+"Name"]).includes("Proxy")) { 
 					this.g.setFont("Vector",30);
 					this.dash["slot"+slotNumber+"Name"]="Proxy";

@@ -175,7 +175,10 @@ euc.tmp.init=function(c) {
 		return euc.wri(euc.dash.auto.ledC?("ledMode",euc.dash.auto.ledC-1):"none");
 	}).then(function() {
 		euc.run=1;
-		c.startNotifications();
+		return c.startNotifications();
+	}).then(function() {
+		if (!set.read("dash","slot"+set.read("dash","slot")+"Model"))
+			return c.writeValue(euc.cmd("fetchModel")); 
 	}).catch(function(err)  {
 		if (global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected) global["\xFF"].BLE_GATTS.disconnect();
 		else euc.off("err-start");
@@ -238,7 +241,9 @@ euc.conn=function(mac){
 			} else if (event.target.value.getUint16(0) == 0x5A5A && event.target.value.byteLength == 20) {
 				euc.tmp.rsmp(event.target.value);
 			} else if (event.target.value.getUint32(0) == 0x4E414D45) {
-				euc.dash.name =  E.toString(event.target.value.buffer).slice(5).trim();
+				euc.dash.model =  E.toString(event.target.value.buffer).slice(5).trim();
+				if (!set.read("dash","slot"+set.read("dash","slot")+"Model")) 
+					set.write("dash","slot"+set.read("dash","slot")+"Model",euc.dash.model);
 			} else if (event.target.value.getInt16(0) == 0x4757) {
 				euc.dash.firm = E.toString(event.target.value.buffer).slice(2);
 			} else if (event.target.value.getInt32(0) == 0x204D5055) {
