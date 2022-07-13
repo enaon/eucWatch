@@ -113,21 +113,14 @@ euc.tmp.rfmp=function(data) {
 	if (euc.dash.hapT && euc.dash.tmpC==2) euc.alert++;
 	//resets
 	euc.dash.rsts=data.getInt16(14);
-	//if (euc.dash.rsts > 10) euc.dash.rsts -= 9;
 	//volume
 	euc.dash.vol=data.getInt16(16);
 };
 
 euc.tmp.rsmp=function(data) {
-	//} else if ( data.buffer[0]==90 && data.buffer[1]==90 && data.buffer[4]==85 && data.buffer[5]==170) {
-	//trip Total
-	//euc.alert=0;
 	euc.dash.trpT=data.getUint32(6)/1000;
 	euc.log.trp.forEach(function(val,pos){ if (!val) euc.log.trp[pos]=euc.dash.trpT;});
-	
-	//euc.dash.mode = (data.getUint8(10) >> 4) & 0x0F;
 	let mode=data.getUint16(10);
-	//euc.dash.alrm = data.getUint8(10) & 0x0F;
 	euc.dash.mode	= mode >> 13 & 0x3;
 	euc.dash.almS	= mode >> 10 & 0x3;
 	euc.dash.rolA	= mode >>  7 & 0x3;
@@ -135,9 +128,7 @@ euc.tmp.rsmp=function(data) {
 	//
 	euc.dash.offT = data.getUint16(12);
 	euc.dash.spdT = data.getUint16(14);
-	//euc.dash.spdT = data.getUint8(15);
 	euc.dash.led = data.getUint16(16)
-	//euc.dash.light = data.getUint8(17);
 	//alarm
 	euc.dash.alrm = data.getUint8(18);	
 	if (euc.dash.alrm){
@@ -148,8 +139,6 @@ euc.tmp.rsmp=function(data) {
 		}
 		faultAlarmLine = faultAlarmLine.slice(0, -2);
 		euc.dash.almT=faultAlarmLine;
-		//if (faultAlarm & 0x1 && (pwmAlarmSpeed == 0 || speed < pwmAlarmSpeed))
-		//updatePwmAlarmSpeed()
 	}
 	//log
 	almL.unshift(euc.dash.alrm);
@@ -180,11 +169,12 @@ euc.tmp.rsmp=function(data) {
 };
 euc.tmp.init=function(c) {
 	c.startNotifications().then(function() {
-		return euc.dash.auto.seadS!=-1?c.writeValue(euc.cmd("setPassSend")):"ok";
+		let hlc=[0,"lightsOn","lightsOff","lightsStrobe"];
+		return euc.dash.auto.HLC?c.writeValue(euc.cmd(hlc[euc.dash.auto.HLC])):"ok";
 	}).then(function() {	
-		return euc.dash.auto.ledS!=-1?c.writeValue(euc.cmd("setPassSend")):"ok";
+		return euc.dash.auto.ledC?euc.wri("ledMode",euc.dash.auto.ledC-1):"ok";
 	}).then(function() {
-		return euc.dash.auto.beepS?c.writeValue(euc.cmd("getLock")):"ok";
+		return euc.dash.auto.BEPC?c.writeValue(euc.cmd("beep")):"ok";
 	}).then(function() {
 		euc.run=1;
 	}).catch(function(err)  {
@@ -195,16 +185,20 @@ euc.tmp.init=function(c) {
 };
 euc.tmp.exit=function(c) {
 	if (global['\xFF'].BLE_GATTS && global['\xFF'].BLE_GATTS.connected) {
-		c.writeValue(euc.cmd("lightsOff")).then(function() {
-			c.writeValue(euc.cmd("beep")).then(function() {
-				c.stopNotifications(); 
-				if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
-				global["\xFF"].BLE_GATTS.disconnect();         
-			});
+		c.stopNotifications().then(function() {
+			let hld=[0,"lightsOn","lightsOff","lightsStrobe"];
+			return euc.dash.auto.HLD?c.writeValue(euc.cmd(hld[euc.dash.auto.HLD])):"ok";
+		}).then(function() {	
+			return euc.dash.auto.ledD?euc.wri("ledMode",euc.dash.auto.ledD-1):"ok";
+		}).then(function() {
+			return euc.dash.auto.BEPD?c.writeValue(euc.cmd("beep")):"ok";
+		}).then(function() {
+			euc.run=0;
+			global["\xFF"].BLE_GATTS.disconnect(); 
 		}).catch(function(err)  {
-			if (euc.kill) {clearTimout(euc.kill);euc.kill=0;}
-			global["\xFF"].BLE_GATTS.disconnect();  
-		});  
+			if (global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected) global["\xFF"].BLE_GATTS.disconnect();
+			else euc.off("err-start");
+		});
 	}else {
 		if (euc.busy) {clearTimeout(euc.busy);euc.busy=0;}
 		euc.state="OFF";
