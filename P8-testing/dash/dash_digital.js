@@ -44,7 +44,9 @@ face[0] = {
 			this.g.flip();
 			if (this.spd != Math.round(euc.dash.spd)) this.spdF();
 			// alarm events time graph
-			if (5<=this.spd&&(euc.dash.maker=="Kingsong"||euc.dash.maker=="Begode")){
+			//if (5<=this.spd&&(euc.dash.maker=="Kingsong"||euc.dash.maker=="Begode")){
+			if (5<=this.spd&&(euc.dash.maker=="Kingsong")){
+	
 				this.pwmF();
 				//if (this.al!=almL) 
 				this.alF();
