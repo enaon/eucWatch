@@ -39,7 +39,7 @@ euc.cmd=function(cmd, param) {
     case 'tiltbackSpeed':   return [87, 89, param / 10 + 48, param % 10 + 48];
     case 'volume':          return [87, 66, 48 + param];
     case 'ledMode':         return [87, 77, 48 + param];
-    default:                return cmd;
+    default:                return [];
   }
 };
 euc.tmp={};
