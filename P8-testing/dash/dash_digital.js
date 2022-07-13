@@ -172,12 +172,21 @@ face[0] = {
 	},
 	buzF: function(){
 		this.buzz=euc.buzz;
-		this.g.setFontVector(35);
-		this.g.setColor(0,(this.buzz)?7:1);
-		this.g.fillRect(0,115,40,173); 
-		this.g.setColor(1,(this.buzz)?15:0);
-		this.g.drawString("!", 19,130); 
-		this.g.flip();
+		if (!this.buzz&&euc.dash.maker=="Begode"&&euc.dash.almS==3){
+			this.g.setColor(0,4);
+			this.g.fillRect(0,115,40,173); 
+			this.g.setColor(1,14);
+			this.g.setFontVector(18);
+			this.g.drawString("PWM", 19,115);
+			this.g.drawString("TILT", 19,155); 
+		}else {
+			this.g.setColor(0,(this.buzz)?7:1);
+			this.g.fillRect(0,115,40,173); 
+			this.g.setColor(1,(this.buzz)?15:0);
+			this.g.setFontVector(35);
+			this.g.drawString("!", 19,130); 
+			this.g.flip();
+		}
 	},
 	spMF: function(){
 		this.spdM=euc.dash.spdM.toFixed(1);
