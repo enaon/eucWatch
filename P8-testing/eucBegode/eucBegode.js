@@ -128,7 +128,7 @@ euc.tmp.rsmp=function(data) {
 	//
 	euc.dash.offT = data.getUint16(12);
 	euc.dash.spdT = data.getUint16(14);
-	euc.dash.led = data.getUint16(16)
+	euc.dash.led = data.getUint16(16);
 	//alarm
 	euc.dash.alrm = data.getUint8(18);	
 	if (euc.dash.alrm){
@@ -168,15 +168,14 @@ euc.tmp.rsmp=function(data) {
 	}
 };
 euc.tmp.init=function(c) {
-	c.startNotifications().then(function() {
-		let hlc=[0,"lightsOn","lightsOff","lightsStrobe"];
-		return euc.dash.auto.HLC?c.writeValue(euc.cmd(hlc[euc.dash.auto.HLC])):"ok";
-	}).then(function() {	
-		return euc.dash.auto.ledC?euc.wri("ledMode",euc.dash.auto.ledC-1):"ok";
+	let hlc=[0,"lightsOn","lightsOff","lightsStrobe"];
+	c.writeValue(euc.cmd(euc.dash.auto.HLC?hlc[euc.dash.auto.HLC]:"none")).then(function() {
+		return c.writeValue(euc.cmd(euc.dash.auto.BEPC?"beep":"none"));
 	}).then(function() {
-		return euc.dash.auto.BEPC?c.writeValue(euc.cmd("beep")):"ok";
+		return euc.wri(euc.dash.auto.ledC?("ledMode",euc.dash.auto.ledC-1):"none");
 	}).then(function() {
 		euc.run=1;
+		c.startNotifications();
 	}).catch(function(err)  {
 		if (global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected) global["\xFF"].BLE_GATTS.disconnect();
 		else euc.off("err-start");
@@ -187,9 +186,9 @@ euc.tmp.exit=function(c) {
 	if (global['\xFF'].BLE_GATTS && global['\xFF'].BLE_GATTS.connected) {
 		let hld=["none","lightsOn","lightsOff","lightsStrobe"];
 		c.writeValue(euc.cmd(hld[euc.dash.auto.HLD])).then(function() {
-			return euc.dash.auto.ledD?euc.wri("ledMode",euc.dash.auto.ledD-1):"ok";
+			return c.writeValue(euc.cmd(euc.dash.auto.BEPD?"beep":"none"));
 		}).then(function() {	
-			return euc.dash.auto.BEPD?c.writeValue(euc.cmd("beep")):"ok";
+			return euc.wri(euc.dash.auto.ledD?("ledMode",euc.dash.auto.ledD-1):"none");
 		}).then(function() {
 			euc.run=0;
 			return c.stopNotifications();
