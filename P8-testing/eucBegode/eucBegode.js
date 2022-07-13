@@ -22,7 +22,7 @@ euc.cmd=function(cmd, param) {
     case 'lightsOff':       return [69];
     case 'lightsStrobe':    return [84];
     case 'alertsTwo':       return [117];
-	case "alertOneTwo":		return [111];		
+	case "alertsOneTwo":		return [111];		
     case 'alertsOff':       return [105];
     case 'alertsTiltback':  return [73];
     case 'pedalSoft':       return [115];
@@ -274,6 +274,7 @@ euc.conn=function(mac){
 				euc.state="READY";
 			}else{
 				let cob=euc.cmd(n,v)
+				if (!cob[0]) return;
 				c.writeValue(cob[0]).then(function() {
 					return cob[1]? c.writeValue(cob[1]):"ok";
 				}).then(function() {

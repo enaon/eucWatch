@@ -118,7 +118,7 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5://tap event
         if (!face[0].setE){//select page
-			if (y<100) { //alarm 1
+			if (y<100) { //sped alarms
 				buzzer([30,50,30]);		
 				if (!euc.dash.almS)
 					euc.wri("alertsTwo");
@@ -126,7 +126,7 @@ touchHandler[0]=function(e,x,y){
 					euc.wri("alertsOff");
 				else if (2<=euc.dash.almS)
 		   			euc.wri("alertsOneTwo");
-			}else if (x<=120&&100<=y<=200) { //alarm 3
+			}else if (x<=120&&100<=y<=200) { //pwm tiltback
 				buzzer([30,50,30]);	
 					if (euc.dash.almS!=3)
 						euc.wri("alertsTiltback");
