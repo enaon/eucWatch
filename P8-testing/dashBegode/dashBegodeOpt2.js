@@ -159,11 +159,14 @@ touchHandler[0]=function(e,x,y){
 				return;					
 			}else buzzer(40);
 		}else {
-			buzzer([30,50,30]);
-			if ( x<=120)
-				euc.wri("volume",euc.dash.vol+1);
-			else 
+			if ( x<=120&&2<=euc.dash.vol) {
+				buzzer([30,50,30]);
 				euc.wri("volume",euc.dash.vol-1);
+			}else if ( euc.dash.vol<=8) {
+				buzzer([30,50,30]);
+				euc.wri("volume",euc.dash.vol+1);
+			}else 
+				buzzer(40);
 		}
 		break;
 	case 1: //slide down event

@@ -109,7 +109,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		face.go("dashKingsong",0);
+		face.go("dashBegode",0);
 		return true;
 	},
 	clear: function(){

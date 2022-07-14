@@ -4,7 +4,6 @@ face[0] = {
 	g:w.gfx,
 	init: function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
-        //if (!face.appPrev.startsWith("dash")) this.g.clear();
 		this.g.setColor(0,0);
 		this.g.fillRect(0,98,239,99);
         this.g.flip();	
@@ -24,9 +23,6 @@ face[0] = {
         this.g.setColor(1,15);
       	this.g.fillRect(143,201,165,204);
 		this.g.flip(); 
-		//ride mode
-		let md=["HARD","MED","SOFT"];
-		let amd=["MIN","MED","MAX"];
 		this.btn(1,"CALIBRATE",18,185,35,12,1,122,0,239,97,"",25,185,55);		
         this.btn(1,"WHEEL",18,185,120,12,1,122,100,239,195,"ALERTS",22,185,155);
 		this.mode=-1
@@ -36,16 +32,15 @@ face[0] = {
 	show : function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
-		
 		if ( this.mode!=euc.dash.mode) {
             this.mode=euc.dash.mode;
-			let md=["HARD","MED","SOFT"];
-			this.btn(euc.dash.mode,"MODE",18,60,20,euc.dash.mode==1?2:6,1,0,0,119,97,md[euc.dash.mode],25,60,55);
+			let md=["SOFT","MED","HARD"];
+			this.btn(euc.dash.mode,"MODE",18,60,20,euc.dash.mode==1?2:4,1,0,0,119,97,md[euc.dash.mode],25,60,55);
 		}
 		if ( this.rolA!=euc.dash.rolA) {
             this.rolA=euc.dash.rolA;
-			let amd=["MAX","MED","MIN"];
-			this.btn(euc.dash.rolA,"ANGLE",18,60,120,euc.dash.rolA==1?2:6,1,0,100,119,195,amd[euc.dash.rolA],22,60,155);	
+			let amd=["LOW","MED","HI"];
+			this.btn(euc.dash.rolA,"ANGLE",18,60,120,euc.dash.rolA==1?2:4,1,0,100,119,195,amd[euc.dash.rolA],22,60,155);	
 		}
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
@@ -99,9 +94,9 @@ touchHandler[0]=function(e,x,y){
 			if (euc.dash.mode==0)
 				euc.wri("pedalMedium");
 			else if (euc.dash.mode==1)
-				euc.wri("pedalSoft");
-			else if (euc.dash.mode==2)
 				euc.wri("pedalHard");
+			else if (euc.dash.mode==2)
+				euc.wri("pedalSoft");
 		}else if ( 120<=x  && y<=100 ) { //calibrate
             buzzer([30,50,30]);
 			face.go("dashBegodeAdvCalibrate",0);
@@ -115,9 +110,9 @@ touchHandler[0]=function(e,x,y){
 			if (euc.dash.rolA==0)
 				euc.wri("rollAngleMedium");
 			else if (euc.dash.rolA==1)
-				euc.wri("rollAngleLow");
-			else if (euc.dash.rolA==2)
 				euc.wri("rollAngleHigh");
+			else if (euc.dash.rolA==2)
+				euc.wri("rollAngleLow");
 		}else buzzer([30,50,30]);
 		this.timeout();
 		break;
