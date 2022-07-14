@@ -12,7 +12,7 @@ var set={
 	read:function(file,name){
 		let got=require("Storage").readJSON([file+".json"],1);
 		if (got==undefined) return false;
-		if (name) {
+		if (name || name==0) {
 			if (require("Storage").readJSON([file+".json"],1)[name])
 			return require("Storage").readJSON([file+".json"],1)[name];
 			else return false;

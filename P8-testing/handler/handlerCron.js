@@ -16,7 +16,7 @@ cron={
 				let pr=(!x)?23:x-1;
 				if (euc.log.trp[0]) {
 					let v=set.read("logDaySlot"+set.def.dash.slot,pr);
-					set.write("logDaySlot"+set.def.dash.slot,pr,((euc.log.trp[0])?euc.dash.trpT-euc.log.trp[0]:0)+((v)?v:0));
+					set.write("logDaySlot"+set.def.dash.slot,pr, (euc.log.trp[0]?euc.dash.trpT-euc.log.trp[0]:0)+(v?v:0) );
 				}
 				require('Storage').list("logDaySlot").forEach(logfile=>{set.write(logfile.split(".")[0],x);});
 				euc.log.trp[0]=0;
