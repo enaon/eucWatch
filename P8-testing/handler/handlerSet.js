@@ -21,9 +21,9 @@ var set={
 	write:function(file,name,value,value2,value3){
 		let got=require("Storage").readJSON([file+".json"],1);
 		if (got==undefined) got={};
-		if (!value)  delete got[name]; //delete
+		if (!value&&value!=0)  delete got[name]; //delete
 		else {
-			if (value2 && got[name] ) 
+			if ((value2||value2==0 )&& got[name] ) 
 				if (value3 || value3==0) got[name][value][value2]=value3;
 				else got[name][value]=value2;
 			else 
