@@ -246,9 +246,7 @@ euc.conn=function(mac){
 			if (euc.dbg)  console.log("input",event.target.value.buffer);
 			//gather package
 				let part=JSON.parse(JSON.stringify(event.target.value.buffer));
-				//let startP=part.indexOf((85,170));
 				let startP=part.indexOf(170)?part[part.indexOf(170)-1]==85?part.indexOf(85):-1:-1;
-				//let endP=part.indexOf((90,90,90,90));
 				let endP=part.indexOf(90)!=-1?part[part.indexOf(90)+1]==90?part[part.indexOf(90)+3]==90?part.indexOf(90)+4:-1:-1:-1;
 
 				if (startP!=-1) {
