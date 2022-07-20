@@ -211,9 +211,9 @@ euc.tmp.exit=function(c) {
 
 euc.tmp.packet=function(pakt){
 	if (pakt.byteLength == 24){
-		if (pakt[18]==0)	euc.tmp.rfmp(pakt);
-		else if (pakt[18]==1) euc.tmp.rsmp(pakt);
-		else if (pakt[18]==4)	return;			
+		if (pakt.buffer[18]==0)	euc.tmp.rfmp(pakt);
+		else if (pakt.buffer[18]==1) euc.tmp.rsmp(pakt);
+		else if (pakt.buffer[18]==4)	return;			
 	}	
 };
 euc.isProxy=0;
