@@ -257,12 +257,12 @@ euc.conn=function(mac){
 					euc.tmp.last=[];	
 				}
 			
-			if (event.getUint32(0) == 0x4E414D45) {
-				euc.dash.model =  E.toString(event.buffer).slice(5).trim();
+			if (event.target.value.getUint32(0) == 0x4E414D45) {
+				euc.dash.model =  E.toString(event.target.value.buffer).slice(5).trim();
 				if (!set.read("dash","slot"+set.read("dash","slot")+"Model")) 
 					set.write("dash","slot"+set.read("dash","slot")+"Model",euc.dash.model);
-			} else if (event.getInt16(0) == 0x4757) {
-				euc.dash.firm = E.toString(event.buffer).slice(2);
+			} else if (event.target.value.getInt16(0) == 0x4757) {
+				euc.dash.firm = E.toString(event.target.value.buffer).slice(2);
 			} 
 					
 		});
