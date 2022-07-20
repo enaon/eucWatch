@@ -252,7 +252,7 @@ euc.conn=function(mac){
 				if (startP!=-1) {
 					if  (endP!=-1) euc.tmp.packet(E.toUint8Array(euc.tmp.last,part.slice(0,endP)));	
 					euc.tmp.last=part.slice(startP,part.length);
-				} else {
+				} else if (endP!=-1) {
 					euc.tmp.packet(E.toUint8Array(euc.tmp.last,part.slice(0,endP)));
 					euc.tmp.last=[];	
 				}
