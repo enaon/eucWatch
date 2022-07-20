@@ -28,7 +28,7 @@ face[0] = {
 		if (!this.setE) {
 			if (this.almS!=euc.dash.almS){
 				this.almS=euc.dash.almS;
-				this.btn(euc.dash.almS,"SPEED ALARMS",18,120,20,euc.dash.almS==1?12:1,4,0,0,239,97,euc.dash.almS?euc.dash.almS>=2?"DISABLE BOTH":"2nd ONLY":"1st & 2nd",22,120,55);
+				this.btn(euc.dash.almS,"SPEED ALARMS",18,120,20,euc.dash.almS==1?12:1,4,0,0,239,97,euc.dash.almS?euc.dash.almS>=2?"Both Disabled":"2nd only":"1st & 2nd",22,120,55);
 				this.btn(euc.dash.almS==3?1:0,"PWM TILT",18,60,120,4,1,0,100,119,195,"FREESTYL3R\n FIRMWARE",16,60,155);
 			}
 			if (this.spdT!=euc.dash.spdT){
@@ -118,7 +118,7 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5://tap event
         if (!face[0].setE){//select page
-			if (y<100) { //sped alarms
+			if (y<100) { //speed alarms
 				buzzer([30,50,30]);		
 				if (!euc.dash.almS)
 					euc.wri("alertsTwo");
@@ -126,25 +126,32 @@ touchHandler[0]=function(e,x,y){
 					euc.wri("alertsOff");
 				else if (2<=euc.dash.almS)
 		   			euc.wri("alertsOneTwo");
-			}else if (x<=120&&100<=y<=200) { //pwm tiltback
+			}else if (x<=120&&y<=200) { //pwm tiltback
 				buzzer([30,50,30]);	
 					if (euc.dash.almS!=3)
 						euc.wri("alertsTiltback");
 					else 
 						euc.wri("alertsOff");
-			}else if (120<=x<=239&&100<=y<=200) { //tiltback
+			}else if (120<=x&&y<=200) { //tiltback
 				face[0].set(euc.dash.spdT,"TITLBACK ("+(set.def.dash.mph?"MPH)":"KPH)") );
 				face[0].btn(100<=euc.dash.spdT?0:1,100<=euc.dash.spdT?"TILTBACK DISABLED":"TILTBACK ENABLED",18,120,215,4,1,0,198,239,239);
 				buzzer([30,50,30]);						
-			}else buzzer([30,50,30]);
+			}else buzzer(40);
 		}else {//set page
 			if (120<=x&&y<=195) { //up
-				if (100<=face[0].setEb) {buzzer(40);return;}	
-                if (face[0].setEb<99) face[0].setEb++;
+				if (100<=face[0].setEb) {
+					buzzer(40);
+					return;
+				}	else if (99<=face[0].setEb) {
+					face[0].btn(0,"TILTBACK DISABLED",18,120,215,4,1,0,198,239,239);
+				}	
+                if (face[0].setEb<100) face[0].setEb++;
                 //else face[0].ntfy("THE LIMIT IS 99KpH","",20,7,1);
             }else  if (x<=120&&y<=195){  //dn
-				if (100<=face[0].setEb) {buzzer(40);return;}	
-				if (10<face[0].setEb) face[0].setEb--;
+				if (5<face[0].setEb) face[0].setEb--;
+				if (99<=face[0].setEb) {
+					face[0].btn(1,"TILTBACK ENABLED",18,120,215,4,1,0,198,239,239);
+				}	
 				//else face[0].ntfy("NO LESS THAN 10KpH","",20,7,1);
             } else {
 				if (100<=face[0].setEb) {

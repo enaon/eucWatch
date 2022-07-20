@@ -26,23 +26,25 @@ face[0] = {
 		this.g.flip(); 
 		let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
 		face[0].btn(1,euc.dash.tpms?euc.dash.tpms:"TPMS",18,60,120,(euc.dash.tpms&&tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.tpms].time<1800)?(tpms.euc[euc.dash.tpms].alrm)?7:4:1,1,0,100,119,195,(euc.dash.tpms)?(tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].psi)?Math.round(tpms.euc[euc.dash.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.tpms)?28:25,60,155);
+		this.light=-1;
+		this.led=-1;
 		this.run=true;
 	},
 	show : function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
-		if ( this.light!=euc.dash.light) {
-            this.light=euc.dash.light;
-			let val=["OFF","ON","ON"];
-			this.btn(euc.dash.light?1:0,"LIGHTS",18,60,20,4,1,0,0,119,97,val[euc.dash.light],25,60,55);
-			this.btn(euc.dash.light==2?1:0,"STROBE",18,185,20,7,1,122,0,239,97,euc.dash.light==2?"ON":"OFF",25,185,55);	
+		if (!face[0].setE){
+			if ( this.light!=euc.dash.light) {
+				this.light=euc.dash.light;
+				let val=["OFF","ON","ON"];
+				this.btn(euc.dash.light?1:0,"LIGHTS",18,60,20,4,1,0,0,119,97,val[euc.dash.light],25,60,55);
+				this.btn(euc.dash.light==2?1:0,"STROBE",18,185,20,7,1,122,0,239,97,euc.dash.light==2?"ON":"OFF",25,185,55);	
+			}
+			if ( this.led!=euc.dash.led) {
+				this.led=euc.dash.led;
+				this.btn(euc.dash.led,"LED",20,185,120,4,1,122,100,239,195,euc.dash.led+"",25,185,155);	
+			}
 		}
-		if ( this.led!=euc.dash.led) {
-			let val=["OFF","ON","ON"];
-			this.led=euc.dash.led;
-			this.btn(euc.dash.led,"LED",20,185,120,4,1,122,100,239,195,euc.dash.led+"",25,185,155);	
-		}
-		
 		this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();
@@ -58,6 +60,18 @@ face[0] = {
             this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);}
 			this.g.flip();
     },
+	set: function(b,txt){
+        this.setE=1;
+        this.setEb=b;
+		this.g.setColor(0,1);
+		this.g.fillRect(0,0,239,195);
+		this.g.setColor(1,15);
+		this.g.setFont("Vector",20);
+		this.g.drawString(txt,120-(this.g.stringWidth(txt)/2),10); 		
+		this.g.drawString("<",5,90); this.g.drawString(">",230,90); 
+		this.g.flip(); 
+        this.btn(0,b,100,126,60,12,1,60,40,180,160);
+    },	
     ntfy: function(txt1,txt0,size,clr,bt){
             this.g.setColor(0,clr);
 			this.g.fillRect(0,198,239,239);
@@ -117,29 +131,43 @@ touchHandler[0]=function(e,x,y){
 	face.off();
 	switch (e) {
       case 5: //tap event
-		if ( x<=120 && y<100 ) { //lights
-			buzzer([30,50,30]);	
-			if (euc.dash.light) euc.wri("lightsOff"); else euc.wri("lightsOn");
-			return;
-		}else if ( 120<=x && y<=100 ) { //STROBE
-			buzzer([30,50,30]);	
-			if (euc.dash.light==2) euc.wri("lightsOff"); else euc.wri("lightsStrobe");
-		}else if ( x<=120 && 100<=y ) { //tpms
-			buzzer([30,50,30]);		
-			if (!euc.dash.tpms) face[0].ntfy("HOLD-> ON/OFF","NO ACTION",19,4,1);
-			else {
-				tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.tpms);
-				face.go("tpmsFace",0);
+   		if (!face[0].setE){//select page
+			if ( x<=120 && y<100 ) { //lights
+				buzzer([30,50,30]);	
+				if (euc.dash.light) {euc.dash.light=0;euc.wri("lightsOff");} else {euc.dash.light=1;euc.wri("lightsOn");} 
 				return;
-			}
-		}else if  (120<=x && 100<=y ) { //led
-			//euc.dash.led=1-euc.dash.led;
-			buzzer([30,50,30]);	
-			if (euc.dash.led<5) euc.wri("ledMode",euc.dash.led+1); else  euc.wri("ledMode","0");
-		}else buzzer(40);
+			}else if ( 120<=x && y<=100 ) { //STROBE
+				buzzer([30,50,30]);	
+				if (euc.dash.light==2) {euc.dash.light=0;euc.wri("lightsOff");} else {euc.dash.light=2;euc.wri("lightsStrobe");}
+			}else if ( x<=120 && 100<=y ) { //tpms
+				buzzer([30,50,30]);		
+				if (!euc.dash.tpms) face[0].ntfy("HOLD-> ON/OFF","NO ACTION",19,4,1);
+				else {
+					tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.tpms);
+					face.go("tpmsFace",0);
+					return;
+				}
+			}else if  (120<=x && 100<=y ) { //led
+				buzzer([30,50,30]);	
+				face[0].set(euc.dash.led,"LED MODE");				
+				//if (euc.dash.led<5) euc.wri("ledMode",euc.dash.led+1); else  euc.wri("ledMode","0");
+			}else buzzer(40);
+		}else {
+			if ( x <= 120 && 0<face[0].setEb  ) {
+				buzzer([30,50,30]);
+				face[0].setEb--;
+			}else if ( 120 <= x  && face[0].setEb<9) {
+				buzzer([30,50,30]);
+				face[0].setEb++;
+			}else buzzer(40);
+			face[0].btn(0,face[0].setEb,100,126,60,12,1,60,40,180,160);
+		}
 		break;
 	case 1: //slide down event
-		//face.go("main",0);
+		if (face[0].setE) {
+			face[0].setE=0; 
+			face[0].init();
+        } else 
 		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
@@ -152,9 +180,19 @@ touchHandler[0]=function(e,x,y){
 		//} else {buzzer(40);}
 		break;
 	case 3: //slide left event
+		if (face[0].setE) {
+			//face[0].setE=0; 
+			buzzer(40);
+			return;
+        } 
 		face.go("dashBegodeOpt",0);
 		return;	
 	case 4: //slide right event (back action)
+		if (face[0].setE) {
+			face[0].setE=0; 
+			//w.gfx.clear();
+			face[0].init();
+        } else 
 		face.go(set.dash[set.def.dash.face],0);
 		return;
 	case 12:

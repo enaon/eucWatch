@@ -118,19 +118,19 @@ euc.tmp.rfmp=function(data) {
 };
 
 euc.tmp.rsmp=function(data) {
-	euc.dash.trpT=data.getUint32(6)/1000;
+	euc.dash.trpT=data.getUint32(2)/1000;
 	euc.log.trp.forEach(function(val,pos){ if (!val) euc.log.trp[pos]=euc.dash.trpT;});
-	let mode=data.getUint16(10);
+	let mode=data.getUint16(6);
 	euc.dash.mode	= mode >> 13 & 0x3;
 	euc.dash.almS	= mode >> 10 & 0x3;
 	euc.dash.rolA	= mode >>  7 & 0x3;
 	euc.dash.spdU	= mode >>  4 & 0x1;
 	//
-	euc.dash.offT = data.getUint16(12);
-	euc.dash.spdT = data.getUint16(14);
-	euc.dash.led = data.getUint16(16);
+	euc.dash.offT = data.getUint16(8);
+	euc.dash.spdT = data.getUint16(10);
+	euc.dash.led = data.getUint16(12);
 	//alarm
-	euc.dash.alrm = data.getUint8(18);	
+	euc.dash.alrm = data.getUint8(14);	
 	if (euc.dash.alrm){
 		let faultAlarmLine = '';
 		for (let bit = 0; bit < 8; bit++) {
@@ -144,7 +144,7 @@ euc.tmp.rsmp=function(data) {
 	almL.unshift(euc.dash.alrm);
 	if (20<almL.length) almL.pop();	
 	//light status
-	euc.dash.light = data.getUint8(19);
+	euc.dash.light = data.getUint8(15);
 	//haptic
 	//if (euc.dash.hapP && (euc.dash.alrm || euc.dash.pwmL<=euc.dash.pwm)){
 	//	digitalPulse(ew.pin.BUZZ,1,80);
@@ -208,6 +208,14 @@ euc.tmp.exit=function(c) {
 		return;
 	}
 };
+
+euc.tmp.packet=function(pakt){
+	if (pakt.byteLength == 24){
+		if (pakt[18]==0)	euc.tmp.rfmp(pakt);
+		else if (pakt[18]==1) euc.tmp.rsmp(pakt);
+		else if (pakt[18]==4)	return;			
+	}	
+};
 euc.isProxy=0;
 euc.run=0;
 //start
@@ -232,25 +240,30 @@ euc.conn=function(mac){
 	  return s.getCharacteristic(0xffe1);
 	//read
 	}).then(function(c) {
+		euc.tmp.last= [];
 		c.on('characteristicvaluechanged', function(event) {
 			if (set.bt==5) 	euc.proxy.w(event.target.value.buffer);
 			if (euc.dbg)  console.log("input",event.target.value.buffer);
-			// packet types
-			if (event.target.value.getInt16(0) == 0x55AA && event.target.value.byteLength == 20) {
-				euc.tmp.rfmp(event.target.value);
-			} else if (event.target.value.getUint16(0) == 0x5A5A && event.target.value.byteLength == 20) {
-				euc.tmp.rsmp(event.target.value);
-			} else if (event.target.value.getUint32(0) == 0x4E414D45) {
-				euc.dash.model =  E.toString(event.target.value.buffer).slice(5).trim();
+			//gather package
+			let part=JSON.parse(JSON.stringify(event.target.value.buffer));
+			let startP=part.indexOf((85,170));
+			let endP=part.indexOf((90,90,90,90));
+			if (startP!=-1) {
+				if  (endP!=-1) euc.tmp.packet(E.toUint8Array(euc.tmp.last,part.slice(0,endP+4)));	
+				euc.tmp.last=part.slice(startP-1,part.length);
+			} else {
+				euc.tmp.packet(E.toUint8Array(euc.tmp.last,part.slice(0,endP+4)));
+				euc.tmp.last=[];	
+			}
+			
+			if (event.target.value.buffer.getUint32(0) == 0x4E414D45) {
+				euc.dash.model =  E.toString(event.target.value.buffer.buffer).slice(5).trim();
 				if (!set.read("dash","slot"+set.read("dash","slot")+"Model")) 
 					set.write("dash","slot"+set.read("dash","slot")+"Model",euc.dash.model);
-			} else if (event.target.value.getInt16(0) == 0x4757) {
-				euc.dash.firm = E.toString(event.target.value.buffer).slice(2);
-			} else if (event.target.value.getInt32(0) == 0x204D5055) {
-				euc.dash.imu = E.toString(event.target.value.buffer).slice(1, 8);
-			} else {
-				return;
-			}
+			} else if (event.target.value.buffer.getInt16(0) == 0x4757) {
+				euc.dash.firm = E.toString(event.target.value.buffer.buffer).slice(2);
+			} 
+					
 		});
 		//on disconnect
 		global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {

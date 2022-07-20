@@ -45,7 +45,7 @@ face[0] = {
 			}
 			if (euc.dash.vol!=this.vol) {
 				this.vol=euc.dash.vol;
-		        this.btn(0,"VOLUME",18,60,120,12,1,0,100,119,195,euc.dash.vol,25,60,155);
+		        this.btn(0,"VOLUME",18,60,120,12,1,0,100,119,195,this.vol,25,60,155);
 			}
 		} else if (euc.dash.vol!=this.vol)  {
 			this.vol=euc.dash.vol;
@@ -150,19 +150,19 @@ touchHandler[0]=function(e,x,y){
 				buzzer([30,50,30]);
 				face.go("dashBegodeCon",0);
 				return;		
-			}else if ( x<=120 && 100<=y ) { //volume
+			}else if ( x<=120 && y<=200 ) { //volume
 				buzzer([30,50,30]);
 				face[0].set(euc.dash.vol,"VOLUME");
-			}else if  (120<=x && 100<=y ) { //disconn
+			}else if  (120<=x && y<=200 ) { //disconn
 				buzzer([30,50,30]);
 				face.go("dashBegodeDis",0);
 				return;					
 			}else buzzer(40);
 		}else {
-			if ( x<=120&&2<=euc.dash.vol) {
+			if ( x <= 120 && 2 <= euc.dash.vol ) {
 				buzzer([30,50,30]);
 				euc.wri("volume",euc.dash.vol-1);
-			}else if ( euc.dash.vol<=8) {
+			}else if ( 120 <= x && euc.dash.vol <= 8 ) {
 				buzzer([30,50,30]);
 				euc.wri("volume",euc.dash.vol+1);
 			}else 
@@ -186,6 +186,9 @@ touchHandler[0]=function(e,x,y){
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		break;
 	case 3: //slide left event
+		if (face[0].setE) {
+			face[0].setE=0; 
+        } 
 		face.go("dashBegodeAdv",0);
 		return;
 	case 4: //slide right event (back action)

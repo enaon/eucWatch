@@ -187,9 +187,9 @@ touchHandler[0]=function(e,x,y){
 		}else {
 			buzzer([30,50,30]);
 			if  ( 120 < x ) { //info
-				if (face[0].info) return;
-				face[0].info=1;
 				let btC=[4,1,7,7];
+				if (face[0].info) {face[0].btn(1,euc.dash.volt,35,180,3,btC[euc.dash.batC],0,120,0,239,50,"VOLT",10,220,40);return;}
+				face[0].info=1;
 				face[0].btn(1,euc.dash.bat,50,180,3,btC[euc.dash.batC],0,120,0,239,50,"%",20,235,8);
 				face[0].btn(1,"24HRS",30,60,13,0,0,0,0,119,50);
 				face[0].page=2;	
