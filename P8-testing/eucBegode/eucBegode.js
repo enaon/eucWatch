@@ -245,19 +245,19 @@ euc.conn=function(mac){
 			if (set.bt==5) 	euc.proxy.w(event.target.value.buffer);
 			if (euc.dbg)  console.log("input",event.target.value.buffer);
 			//gather package
-			let part=JSON.parse(JSON.stringify(event.target.value.buffer));
-			//let startP=part.indexOf((85,170));
-			let startP=part.indexOf(170)?part[part.indexOf(170)-1]==85?part.indexOf(85):-1:-1;
-			//let endP=part.indexOf((90,90,90,90));
-			let endP=part.indexOf(90)!=-1?part[part.indexOf(90)+1]==90?part[part.indexOf(90)+3]==90?part.indexOf(90)+4:-1:-1:-1;
+				let part=JSON.parse(JSON.stringify(event.target.value.buffer));
+				//let startP=part.indexOf((85,170));
+				let startP=part.indexOf(170)?part[part.indexOf(170)-1]==85?part.indexOf(85):-1:-1;
+				//let endP=part.indexOf((90,90,90,90));
+				let endP=part.indexOf(90)!=-1?part[part.indexOf(90)+1]==90?part[part.indexOf(90)+3]==90?part.indexOf(90)+4:-1:-1:-1;
 
-			if (startP!=-1) {
-				if  (endP!=-1) euc.tmp.packet(E.toUint8Array(euc.tmp.last,part.slice(0,endP)));	
-				euc.tmp.last=part.slice(startP,part.length);
-			} else {
-				euc.tmp.packet(E.toUint8Array(euc.tmp.last,part.slice(0,endP)));
-				euc.tmp.last=[];	
-			}
+				if (startP!=-1) {
+					if  (endP!=-1) euc.tmp.packet(E.toUint8Array(euc.tmp.last,part.slice(0,endP)));	
+					euc.tmp.last=part.slice(startP,part.length);
+				} else {
+					euc.tmp.packet(E.toUint8Array(euc.tmp.last,part.slice(0,endP)));
+					euc.tmp.last=[];	
+				}
 			
 			if (event.target.value.buffer.getUint32(0) == 0x4E414D45) {
 				euc.dash.model =  E.toString(event.target.value.buffer.buffer).slice(5).trim();
