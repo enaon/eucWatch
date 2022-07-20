@@ -250,10 +250,10 @@ euc.conn=function(mac){
 				let endP=part.indexOf(90)!=-1?part[part.indexOf(90)+1]==90?part[part.indexOf(90)+3]==90?part.indexOf(90)+4:-1:-1:-1;
 
 				if (startP!=-1) {
-					if  (endP!=-1) euc.tmp.packet(E.toUint8Array(euc.tmp.last,part.slice(0,endP)));	
+					if  (endP!=-1) euc.tmp.packet(new DataView(E.toUint8Array(euc.tmp.last,part.slice(0,endP)).buffer));	
 					euc.tmp.last=part.slice(startP,part.length);
 				} else if (endP!=-1) {
-					euc.tmp.packet(E.toUint8Array(euc.tmp.last,part.slice(0,endP)));
+					euc.tmp.packet(new DataView(E.toUint8Array(euc.tmp.last,part.slice(0,endP)).buffer));
 					euc.tmp.last=[];	
 				}
 			
