@@ -246,13 +246,16 @@ euc.conn=function(mac){
 			if (euc.dbg)  console.log("input",event.target.value.buffer);
 			//gather package
 			let part=JSON.parse(JSON.stringify(event.target.value.buffer));
-			let startP=part.indexOf((85,170));
-			let endP=part.indexOf((90,90,90,90));
+			//let startP=part.indexOf((85,170));
+			let startP=part.indexOf(170)?part[part.indexOf(170)-1]==85?part.indexOf(85):-1:-1;
+			//let endP=part.indexOf((90,90,90,90));
+			let endP=part.indexOf(90)!=-1?part[part.indexOf(90)+1]==90?part[part.indexOf(90)+3]==90?part.indexOf(90)+4:-1:-1:-1;
+
 			if (startP!=-1) {
-				if  (endP!=-1) euc.tmp.packet(E.toUint8Array(euc.tmp.last,part.slice(0,endP+4)));	
-				euc.tmp.last=part.slice(startP-1,part.length);
+				if  (endP!=-1) euc.tmp.packet(E.toUint8Array(euc.tmp.last,part.slice(0,endP)));	
+				euc.tmp.last=part.slice(startP,part.length);
 			} else {
-				euc.tmp.packet(E.toUint8Array(euc.tmp.last,part.slice(0,endP+4)));
+				euc.tmp.packet(E.toUint8Array(euc.tmp.last,part.slice(0,endP)));
 				euc.tmp.last=[];	
 			}
 			
@@ -286,7 +289,7 @@ euc.conn=function(mac){
 				else euc.tmp.init(c);
 				euc.state="READY";
 			}else{
-				let cob=euc.cmd(n,v)
+				let cob=euc.cmd(n,v);
 				if (!cob[0]) return;
 				c.writeValue(cob[0]).then(function() {
 					return cob[1]? c.writeValue(cob[1]):"ok";
