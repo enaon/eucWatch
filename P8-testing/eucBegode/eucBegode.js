@@ -210,10 +210,10 @@ euc.tmp.exit=function(c) {
 };
 
 euc.tmp.packet=function(pakt){
-	if (pakt.byteLength == 24){
+	if (pakt.byteLength == 24 && pakt.getInt16(0) == 0x55AA ){
 		if (pakt.buffer[18]==0)	euc.tmp.rfmp(pakt);
 		else if (pakt.buffer[18]==4) euc.tmp.rsmp(pakt);
-		else if (pakt.buffer[18]==1)	return;			
+		else if (pakt.buffer[18]==1)	return;	//master		
 	}	
 };
 euc.isProxy=0;

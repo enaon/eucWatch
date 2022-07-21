@@ -4,6 +4,7 @@ face[0] = {
 	g:w.gfx,
 	init: function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
+		if (!euc.dash.vol) euc.dash.vol=1;
 		this.g.setColor(0,0);
 		this.g.fillRect(0,98,239,99);
         this.g.flip();	
@@ -159,20 +160,20 @@ touchHandler[0]=function(e,x,y){
 				return;					
 			}else buzzer(40);
 		}else {
-			if ( x <= 120 && 2 <= euc.dash.vol ) {
+			if ( x <= 120  && 1<face[0].setEb ) {
 				buzzer([30,50,30]);
-				euc.wri("volume",euc.dash.vol-1);
-			}else if ( 120 <= x && euc.dash.vol <= 8 ) {
+				face[0].setEb--;
+			}else if ( 120 <= x && face[0].setEb<9 ) {
 				buzzer([30,50,30]);
-				euc.wri("volume",euc.dash.vol+1);
+				face[0].setEb++;
 			}else 
 				buzzer(40);
+			face[0].btn(0,face[0].setEb,100,126,60,12,1,60,40,180,160);
 		}
 		break;
 	case 1: //slide down event
       if (face[0].setE) {
 			face[0].setE=0; 
-			//w.gfx.clear();
 			face[0].init();
         } else 
 			face.go(set.dash[set.def.dash.face],0);
@@ -187,14 +188,16 @@ touchHandler[0]=function(e,x,y){
 		break;
 	case 3: //slide left event
 		if (face[0].setE) {
-			face[0].setE=0; 
+			buzzer(40);
+			return;
         } 
 		face.go("dashBegodeAdv",0);
 		return;
 	case 4: //slide right event (back action)
-	    if (face[0].setE) {
+	    if (face[0].setE) {				
+			euc.wri("volume",face[0].setEb);
+			euc.dash.vol=face[0].setEb;
 			face[0].setE=0; 
-			//w.gfx.clear();
 			face[0].init();
         } else
 		face.go("dashBegodeOpt",0);

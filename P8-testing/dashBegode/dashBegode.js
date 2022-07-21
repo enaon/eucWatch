@@ -5,6 +5,8 @@ face[0] = {
 	init: function(val){
 		this.last=10;
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
+		if (!euc.dash.light) euc.dash.light=0;
+		if (!euc.dash.led) euc.dash.led=0;		
 		this.g.setColor(0,0);
 		this.g.fillRect(0,98,239,99);
         this.g.flip();	
@@ -42,7 +44,7 @@ face[0] = {
 			}
 			if ( this.led!=euc.dash.led) {
 				this.led=euc.dash.led;
-				this.btn(euc.dash.led,"LED",20,185,120,4,1,122,100,239,195,euc.dash.led+"",25,185,155);	
+				this.btn(1,"LED",20,185,120,12,1,122,100,239,195,euc.dash.led+"",25,185,155);	
 			}
 		}
 		this.tid=setTimeout(function(t,o){
@@ -150,7 +152,6 @@ touchHandler[0]=function(e,x,y){
 			}else if  (120<=x && 100<=y ) { //led
 				buzzer([30,50,30]);	
 				face[0].set(euc.dash.led,"LED MODE");				
-				//if (euc.dash.led<5) euc.wri("ledMode",euc.dash.led+1); else  euc.wri("ledMode","0");
 			}else buzzer(40);
 		}else {
 			if ( x <= 120 && 0<face[0].setEb  ) {
@@ -165,6 +166,8 @@ touchHandler[0]=function(e,x,y){
 		break;
 	case 1: //slide down event
 		if (face[0].setE) {
+			euc.wri("ledMode",face[0].setEb);
+			euc.dash.led=face[0].setEb;
 			face[0].setE=0; 
 			face[0].init();
         } else 
@@ -181,7 +184,6 @@ touchHandler[0]=function(e,x,y){
 		break;
 	case 3: //slide left event
 		if (face[0].setE) {
-			//face[0].setE=0; 
 			buzzer(40);
 			return;
         } 
@@ -189,8 +191,9 @@ touchHandler[0]=function(e,x,y){
 		return;	
 	case 4: //slide right event (back action)
 		if (face[0].setE) {
+			euc.wri("ledMode",face[0].setEb);
+			euc.dash.led=face[0].setEb;
 			face[0].setE=0; 
-			//w.gfx.clear();
 			face[0].init();
         } else 
 		face.go(set.dash[set.def.dash.face],0);

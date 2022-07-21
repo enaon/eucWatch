@@ -4,6 +4,9 @@ face[0] = {
 	g:w.gfx,
 	init: function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
+		if (!euc.dash.mode) euc.dash.mode=0;
+		if (!euc.dash.rolA) euc.dash.rolA=0;
+
 		this.g.setColor(0,0);
 		this.g.fillRect(0,98,239,99);
         this.g.flip();	
@@ -91,12 +94,16 @@ touchHandler[0]=function(e,x,y){
       case 5:case 12: //tap event
 		if ( x<=120 && y<=100 ) { //ride mode
 			buzzer([30,50,30]);	
-			if (euc.dash.mode==0)
+			if (euc.dash.mode==0){
 				euc.wri("pedalMedium");
-			else if (euc.dash.mode==1)
+				euc.dash.mode=1;
+			}else if (euc.dash.mode==1){
 				euc.wri("pedalHard");
-			else if (euc.dash.mode==2)
+				euc.dash.mode=2;
+			}else if (euc.dash.mode==2){
 				euc.wri("pedalSoft");
+				euc.dash.mode=0;
+			}
 		}else if ( 120<=x  && y<=100 ) { //calibrate
             buzzer([30,50,30]);
 			face.go("dashBegodeAdvCalibrate",0);
@@ -107,12 +114,16 @@ touchHandler[0]=function(e,x,y){
 			return;
 		}else if ( x<=120 && 100<=y ) {   //angle
 			buzzer([30,50,30]);		
-			if (euc.dash.rolA==0)
+			if (euc.dash.rolA==0){
 				euc.wri("rollAngleMedium");
-			else if (euc.dash.rolA==1)
+				euc.dash.rolA=1;
+			}else if (euc.dash.rolA==1){
 				euc.wri("rollAngleHigh");
-			else if (euc.dash.rolA==2)
+				euc.dash.rolA=2;
+			}else if (euc.dash.rolA==2){
 				euc.wri("rollAngleLow");
+				euc.dash.rolA=0;
+			}
 		}else buzzer([30,50,30]);
 		this.timeout();
 		break;

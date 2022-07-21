@@ -383,6 +383,10 @@ touchHandler[0]=function(e,x,y){
 			if (set.def.dash.clck==undefined) set.def.dash.clck=0;
 			set.def.dash.clck=1-set.def.dash.clck;
  			face[0].trpL=-1;face[0].barF();
+		}else if (110<y&&y<195&&x<55&&euc.dash.maker=="Begode"){
+			buzzer([30,50,30]);
+			face.go("dashBegodeAdvLimits",0);
+			return;
 		}else
 			buzzer(40);
 		this.timeout();
