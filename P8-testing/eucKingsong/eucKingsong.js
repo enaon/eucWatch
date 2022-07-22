@@ -166,7 +166,7 @@ euc.tmp.thre=function(inpk){
 	euc.dash.spdL=(inpk[3] << 8 | inpk[2])/100;
 	euc.dash.ks.totRideTime=(inpk[13] << 8 | inpk[12]);
 	euc.dash.ks.errorCode=(inpk[15] << 8 | inpk[14]);
-
+	if (euc.dash.ks.errorCode) euc.dash.almT=euc.tmp.faultAlarms(euc.dash.ks.errorCode);
 	euc.dash.alrm=(euc.dash.spdL < euc.dash.spdT && euc.dash.spdL-5 < euc.dash.spd)?1:0;
 	almL.unshift(euc.dash.alrm);
 	if (20<almL.length) almL.pop();
@@ -282,7 +282,16 @@ euc.tmp.resp=function(inpk){
 	if (2<euc.dbg) print("responce:",inpk);
 	if (1<euc.dbg) print("responce:",inpk[16],inpk[2]);
 };
-
+euc.tmp.faultAlarms =function(code) {
+	switch(code) {
+		case 202: return 'overcurrent error';
+		case 203: return 'motor blocked';
+		case 217: return 'hall sensor error';
+		case 232: return 'lift sensor error';
+		case 220: return 'overvoltage error';
+		default: return code;
+	}
+};
 //start
 euc.conn=function(mac){
 	if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {

@@ -122,9 +122,9 @@ euc.tmp.rsmp=function(data) {
 	euc.log.trp.forEach(function(val,pos){ if (!val) euc.log.trp[pos]=euc.dash.trpT;});
 	let mode=data.getUint16(6);
 	euc.dash.mode	= mode >> 13 & 0x3;
-	euc.dash.almS	= mode >> 10 & 0x3;
+	euc.dash.almS	= mode >> 10 & 0x3; //alarm state
 	euc.dash.rolA	= mode >>  7 & 0x3;
-	euc.dash.spdU	= mode >>  4 & 0x1;
+	euc.dash.spdU	= mode 0x1; //speedunit
 	//
 	euc.dash.offT = data.getUint16(8);
 	euc.dash.spdT = data.getUint16(10);
@@ -245,26 +245,28 @@ euc.conn=function(mac){
 			if (set.bt==5) 	euc.proxy.w(event.target.value.buffer);
 			if (euc.dbg)  console.log("input",event.target.value.buffer);
 			//gather package
-				let part=JSON.parse(JSON.stringify(event.target.value.buffer));
-				let startP=part.indexOf(170)?part[part.indexOf(170)-1]==85?part.indexOf(85):-1:-1;
-				let endP=part.indexOf(90)!=-1?part[part.indexOf(90)+1]==90?part[part.indexOf(90)+3]==90?part.indexOf(90)+4:-1:-1:-1;
-
-				if (startP!=-1) {
-					if  (endP!=-1) euc.tmp.packet(new DataView(E.toUint8Array(euc.tmp.last,part.slice(0,endP)).buffer));	
-					euc.tmp.last=part.slice(startP,part.length);
-				} else if (endP!=-1) {
-					euc.tmp.packet(new DataView(E.toUint8Array(euc.tmp.last,part.slice(0,endP)).buffer));
-					euc.tmp.last=[];	
-				}
-			
+			let part=JSON.parse(JSON.stringify(event.target.value.buffer));
+			let startP=part.indexOf(170)?part[part.indexOf(170)-1]==85?part.indexOf(85):-1:-1;
+			let endP=part.indexOf(90)!=-1?part[part.indexOf(90)+1]==90?part[part.indexOf(90)+3]==90?part.indexOf(90)+4:-1:-1:-1;
+			if (startP!=-1) {
+				if  (endP!=-1) euc.tmp.packet(new DataView(E.toUint8Array(euc.tmp.last,part.slice(0,endP)).buffer));	
+				euc.tmp.last=part.slice(startP,part.length);
+				return;
+			} else if (endP!=-1) {
+				euc.tmp.packet(new DataView(E.toUint8Array(euc.tmp.last,part.slice(0,endP)).buffer));
+				euc.tmp.last=[];	
+				return;
+			}
+			//
 			if (event.target.value.getUint32(0) == 0x4E414D45) {
 				euc.dash.model =  E.toString(event.target.value.buffer).slice(5).trim();
 				if (!set.read("dash","slot"+set.read("dash","slot")+"Model")) 
 					set.write("dash","slot"+set.read("dash","slot")+"Model",euc.dash.model);
+				euc.dash.bms=euc.tmp.modelParams(euc.dash.model).voltMultiplier;
+				euc.dash.batE=euc.tmp.modelParams(euc.dash.model).minCellVolt*100;
 			} else if (event.target.value.getInt16(0) == 0x4757) {
 				euc.dash.firm = E.toString(event.target.value.buffer).slice(2);
 			} 
-					
 		});
 		//on disconnect
 		global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', function(reason) {
