@@ -226,17 +226,31 @@ face[0] = {
 		this.g.setColor(0,this.tmpC[euc.dash.tmpC]);
 		this.g.fillRect(0,0,119,50);       
 		this.g.setColor(1,15);
-		this.g.setFontVector(50);
-		let temp=((set.def.dash.farn)?this.tmp*1.8+32:this.tmp).toString().split(".");
-		let size=5+this.g.stringWidth(temp[0]);
-		this.g.drawString(temp[0], 5,3); 
-		if (temp[0]<100) {
+		if (euc.dash.maker=="Kingsong"){
 			this.g.setFontVector(35);
-			this.g.drawString("."+temp[1],size,17); 
-			size=size+this.g.stringWidth(temp[1]);
+			let temp=((set.def.dash.farn)?this.tmp*1.8+32:this.tmp).toString().split(".");
+			let tempM=((set.def.dash.farn)?euc.dash.ks.tempMotor*1.8+32:euc.dash.ks.tempMotor);
+			let size=3+this.g.stringWidth(temp[0]);
+			this.g.drawString(temp[0], 5,3); 
+			this.g.setFontVector(16);
+			this.g.drawString((set.def.dash.farn)?"°F":"°C",3+size,5); 
+			this.g.setFontVector(25);
+			this.g.drawString(temp[0], 120-this.g.stringWidth(temp[0]),7); 
+			this.g.setFontVector(8);
+			this.g.drawString("MOSFET           MOTOR", 10,40); 
+		}else{
+			this.g.setFontVector(50);
+			let temp=((set.def.dash.farn)?this.tmp*1.8+32:this.tmp).toString().split(".");
+			let size=5+this.g.stringWidth(temp[0]);
+			this.g.drawString(temp[0], 5,3); 
+			if (temp[0]<100) {
+				this.g.setFontVector(35);
+				this.g.drawString("."+temp[1],size,17); 
+				size=size+this.g.stringWidth(temp[1]);
+			}
+			this.g.setFontVector(16);
+			this.g.drawString((set.def.dash.farn)?"°F":"°C",3+size,5); 
 		}
-		this.g.setFontVector(16);
-		this.g.drawString((set.def.dash.farn)?"°F":"°C",3+size,5); 
 		this.g.flip();
 	},
 	amLF: function(){
