@@ -10,13 +10,18 @@ if(!global.scan){
 				if (euc.dash.maker=="NinebotZ"|| euc.dash.maker=="NinebotS")  this.filter = [{manufacturer:16974}];  
 				else if (euc.dash.maker=="InmotionV11")  this.filter = [{ namePrefix: 'V11-' }];
 				else if (euc.dash.maker=="InmotionV12")  this.filter = [{ namePrefix: 'V12-' }];
-				else if (euc.dash.maker=="KingsongN")  this.filter = [{ manufacturerData:{0x6170:{}} }] ;
+				else if (euc.dash.maker=="Kingsong")  this.filter =  [{ ks: '' }]; 
 				else this.filter = [{services:[service]}];
 			}
 			NRF.findDevices(function(devices) {
 				this.slot="";
 				let found=[];
-				devices.forEach(function(entry) {found.push(entry.id+"|"+entry.name);});
+				if (euc.dash.maker=="Kingsong") {
+					devices.forEach(function(entry) {
+						if (entry.shortName&&entry.shortName.startsWith("KSN-")) found.push(entry.id+"|"+entry.shortName);
+						if (entry.name&&entry.name.startsWith("KS-"))  found.push(entry.id+"|"+entry.name);
+					});
+				}else devices.forEach(function(entry) {found.push(entry.id+"|"+entry.name);});
 				if (found!=""&&found!=undefined){ 
 					if (app=="dash"){
 						euc.dash.mac=0;
@@ -30,7 +35,7 @@ if(!global.scan){
 				set.gIsB=0;
 				face[0].start=1;
 				if (face.appCurr!="w_scan") {delete scan.go;delete scan;}
-			}, {timeout : 2000, active:true,filters:this.filter});
+			}, {timeout : 2000, filters:this.filter,active:true});
 		}	
 	};
 }
@@ -165,6 +170,7 @@ face[1] = {
 };	
 //
 touchHandler[0]=function(e,x,y){
+	this.timeout();
     if (e==5||e==12){
 		if (!face[0].start||face[0].start==1) { buzzer(40);return;}
 		if (face[0].start==3) { buzzer([30,50,30]);face[0].find(face.pageArg); return;}
@@ -200,7 +206,6 @@ touchHandler[0]=function(e,x,y){
 		face.go(face.appRoot[0],face.appRoot[1]);
 	  return;
     }
-    this.timeout();
 };
 
 
