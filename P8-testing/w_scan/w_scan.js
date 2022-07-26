@@ -8,6 +8,7 @@ if(!global.scan){
 			else {
 				app="dash";
 				if (euc.dash.maker=="NinebotZ"|| euc.dash.maker=="NinebotS")  this.filter = [{manufacturer:16974}];  
+				if (euc.dash.maker=="Ninebot")  this.filter = [{ namePrefix: 'NOC' },{ namePrefix: 'NOE' },{ namePrefix: 'NOP' }];
 				else if (euc.dash.maker=="InmotionV11")  this.filter = [{ namePrefix: 'V11-' }];
 				else if (euc.dash.maker=="InmotionV12")  this.filter = [{ namePrefix: 'V12-' }];
 				else if (euc.dash.maker=="Begode")  this.filter = [{ namePrefix: 'GotWay_' }];
@@ -21,7 +22,6 @@ if(!global.scan){
 			scan.found=[];
 			if (scan.tid) {clearTimeout(scan.tid);scan.tid=0;}
 			NRF.setScan(function(devices) {		
-				print("ll",devices);
 				if (euc.dash.maker=="Kingsong") {
 						if (devices.shortName&&devices.shortName.startsWith("KSN-")&&!scan.found.includes(devices.id+"|"+devices.shortName) ) scan.found.push(devices.id+"|"+devices.shortName);
 						if (devices.name&&devices.name.startsWith("KS-")&&!scan.found.includes(devices.id+"|"+devices.name) )  scan.found.push(devices.id+"|"+devices.name);
