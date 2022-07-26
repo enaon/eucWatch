@@ -19,15 +19,17 @@ if(!global.scan){
 			//NRF.findDevices(function(devices) {
 			this.slot="";
 			scan.found=[];
+			if (scan.tid) {clearTimeout(scan.tid);scan.tid=0;}
 			NRF.setScan(function(devices) {		
 				print("ll",devices);
 				if (euc.dash.maker=="Kingsong") {
 						if (devices.shortName&&devices.shortName.startsWith("KSN-")&&!scan.found.includes(devices.id+"|"+devices.shortName) ) scan.found.push(devices.id+"|"+devices.shortName);
 						if (devices.name&&devices.name.startsWith("KS-")&&!scan.found.includes(devices.id+"|"+devices.name) )  scan.found.push(devices.id+"|"+devices.name);
-				}else scan.found.push(devices.id+"|"+devices.name);
+				}else if (!scan.found.includes(devices.id+"|"+devices.name)) scan.found.push(devices.id+"|"+devices.name);
         
 			},{filters:this.filter ,active:true });
-       		setTimeout(()=>{
+       		scan.tid=setTimeout(()=>{
+				scan.tid=0;
 				NRF.setScan();
 				if (scan.found!=""&&scan.found!=undefined){ 
 					if (app=="dash"){
