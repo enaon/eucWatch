@@ -12,32 +12,38 @@ if(!global.scan){
 				else if (euc.dash.maker=="InmotionV12")  this.filter = [{ namePrefix: 'V12-' }];
 				else if (euc.dash.maker=="Begode")  this.filter = [{ namePrefix: 'GotWay_' }];
 				else if (euc.dash.maker=="Veteran")  this.filter = [{ namePrefix: 'LK_' }];
-				else if (euc.dash.maker=="Kingsong")  this.filter =  [{ ks: '' }]; 
+				//else if (euc.dash.maker=="Kingsong")  this.filter = [{ namePrefix: 'KS-' }];
+				else if (euc.dash.maker=="Kingsong")  this.filter =  [{}]; 
 				else this.filter = [{services:[service]}];
 			}
-			NRF.findDevices(function(devices) {
-				this.slot="";
-				let found=[];
+			//NRF.findDevices(function(devices) {
+			this.slot="";
+			scan.found=[];
+			NRF.setScan(function(devices) {		
+				print("ll",devices);
 				if (euc.dash.maker=="Kingsong") {
-					devices.forEach(function(entry) {
-						if (entry.shortName&&entry.shortName.startsWith("KSN-")) found.push(entry.id+"|"+entry.shortName);
-						if (entry.name&&entry.name.startsWith("KS-"))  found.push(entry.id+"|"+entry.name);
-					});
-				}else devices.forEach(function(entry) {found.push(entry.id+"|"+entry.name);});
-				if (found!=""&&found!=undefined){ 
+						if (devices.shortName&&devices.shortName.startsWith("KSN-")&&!scan.found.includes(devices.id+"|"+devices.shortName) ) scan.found.push(devices.id+"|"+devices.shortName);
+						if (devices.name&&devices.name.startsWith("KS-")&&!scan.found.includes(devices.id+"|"+devices.name) )  scan.found.push(devices.id+"|"+devices.name);
+				}else scan.found.push(devices.id+"|"+devices.name);
+        
+			},{filters:this.filter ,active:true });
+       		setTimeout(()=>{
+				NRF.setScan();
+				if (scan.found!=""&&scan.found!=undefined){ 
 					if (app=="dash"){
 						euc.dash.mac=0;
 					}else{
-						set.write("setting",app+"Mac",found[0].split("|")[0]);
-						set.write("setting",app+"Name",found[0].split("|")[1].replace(/\0/g, ''));
+						set.write("setting",app+"Mac",scan.found[0].split("|")[0]);
+						set.write("setting",app+"Name",scan.found[0].split("|")[1].replace(/\0/g, ''));
 						set.write("setting",app+"Go","0");
 					}
-					scan.mac=found;
+					scan.mac=scan.found;
 				} else scan.mac=[];
 				set.gIsB=0;
 				face[0].start=1;
 				if (face.appCurr!="w_scan") {delete scan.go;delete scan;}
-			}, {timeout : 2000, filters:this.filter,active:true});
+			},2500);
+
 		}	
 	};
 }
