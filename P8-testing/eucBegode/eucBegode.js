@@ -264,7 +264,7 @@ euc.conn=function(mac){
 				euc.dash.slot.bms=euc.temp.modelParams(euc.dash.slot.modl).voltMultiplier;
 				euc.dash.opt.batE=euc.temp.modelParams(euc.dash.slot.modl).minCellVolt*100;
 			} else if (event.target.value.getInt16(0) == 0x4757) {
-				euc.dash.firm = E.toString(event.target.value.buffer).slice(2);
+				euc.dash.slot.firm = E.toString(event.target.value.buffer).slice(2);
 			} 
 		});
 		//on disconnect

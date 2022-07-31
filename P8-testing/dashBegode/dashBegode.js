@@ -190,11 +190,9 @@ touchHandler[0]=function(e,x,y){
 	case 4: //slide right event (back action)
 		if (face[0].setE) {
 			euc.wri("ledMode",face[0].setEb);
-			euc.dash.set.led=face[0].setEb;
-			face[0].setE=0; 
-			setTimeout(()=>{face[0].init();euc.dash.set.led=face[0].setEb;},300);
+			setTimeout(()=>{face[0].setE=0;face[0].init();euc.dash.set.led=face[0].setEb;},100);
         } else 
-		face.go(set.dash[set.def.dash.face],0);
+			face.go(set.dash[set.def.dash.face],0);
 		return;
 	case 12:
 		if  (x<=120 && 100<=y ) { //tpms
