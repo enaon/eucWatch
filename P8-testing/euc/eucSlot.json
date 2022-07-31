@@ -4,10 +4,9 @@
 	"info": {"fan":"","chrg":0,"time":0,"tRdT":0,"err":0,"alrm":0},
 	"live": {"spd":0,"volt":0,"amp":0,"bat":0,"tmp":0,"tmpM":0 },
 	"trip": {"totl":0,"last":0,"left":0,"topS":0,"avrS":0,"time":0},
-	"hapt": {"spd":1,"spdH":40,"spdS":1,"amp":1,"ampL":-10,"ampH":20,"ampS":1,"tmp":1,"tmpH":60,"bat":1,"batL":25,"save":"spd1","pwm":0,"pwmH":50},
+	"hapt": {"spd":1,"spdH":40,"spdS":1,"amp":1,"ampL":-10,"ampH":20,"ampS":1,"tmp":1,"tmpH":70,"bat":1,"batL":15,"save":"spd1","pwm":1,"pwmH":80},
 	"opt":  {"spdF":1,"trpF":1,"batF":420,"batE":320,"spdR":0,"ampR":0,"pLck":0,"far":83,"near":65,"emu":0,"city":0,"horn":0},
 	"set": {"HL":0,"strb":0,"led":0,"vol":1,"lock":0,"pTlt":0,"pass":"","mode":2,"rolA":0,"lift":1,"offT":0,"horn":0},
 	"limt": {"en":{"spd":0,"spd1":0},"spd":20,"spd1":30,"spd2":40,"tilt":0,"mode":0},
 	"alrm":  {"beep":0,"err":0,"txt":0,"spd":0,"amp":0,"bat":0,"tmp":0,"pwm":0,"tilt":0}
 }
-//	"lim":[10,20,30,45],
