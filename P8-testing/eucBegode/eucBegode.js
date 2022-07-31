@@ -306,8 +306,7 @@ euc.conn=function(mac){
 		};
 		//init garage slot
 		if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {
-			euc.dash.slot.mac=euc.mac; euc.dash.opt.batF=420;euc.dash.opt.batE=325;
-			//euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
+			euc.dash.slot.mac=euc.mac;
 			set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
 		}	
 		//start wheel init
