@@ -14,14 +14,14 @@ euc.cmd=function(cmd, param) {
     case 'mainPacket':      return [44];
     case 'extendedPacket':  return [107];
     case 'fetchModel':      return [78];
-    case 'fetchModelCode':  return [86];
+    case 'fetchFirmware':  return [86];
     case 'fetchGreet':      return [103];
     case 'beep':            return [98];
     case 'lightsOn':        return [81];
     case 'lightsOff':       return [69];
     case 'lightsStrobe':    return [84];
     case 'alertsTwo':       return [117];
-	case "alertsOneTwo":		return [111];		
+	case "alertsOneTwo":	return [111];		
     case 'alertsOff':       return [105];
     case 'alertsTiltback':  return [73];
     case 'pedalSoft':       return [115];
@@ -177,6 +177,9 @@ euc.temp.init=function(c) {
 	}).then(function() {
 		if (!set.read("dash","slot"+set.read("dash","slot")+"Model"))
 			return c.writeValue(euc.cmd("fetchModel")); 
+	}).then(function() {
+		if (!euc.dash.slot.firm)
+			return c.writeValue(euc.cmd("fetchFirmware")); 
 	}).catch(function(err)  {
 		if (global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected) global["\xFF"].BLE_GATTS.disconnect();
 		else euc.off("err-start");
@@ -256,13 +259,13 @@ euc.conn=function(mac){
 				return;
 			}
 			//
-			if (event.target.value.getUint32(0) == 0x4E414D45) {
+			if (event.target.value.getUint32(0) == 0x4E414D45) { //fetchModel
 				euc.dash.slot.modl =  E.toString(event.target.value.buffer).slice(5).trim();
 				if (!set.read("dash","slot"+set.read("dash","slot")+"Model")) 
 					set.write("dash","slot"+set.read("dash","slot")+"Model",euc.dash.slot.modl);
 				euc.dash.slot.bms=euc.temp.modelParams(euc.dash.slot.modl).voltMultiplier;
 				euc.dash.opt.batE=euc.temp.modelParams(euc.dash.slot.modl).minCellVolt*100;
-			} else if (event.target.value.getInt16(0) == 0x4757) {
+			} else if (event.target.value.getInt16(0) == 0x4757) { //fetchFirmware
 				euc.dash.slot.firm = E.toString(event.target.value.buffer).slice(2);
 			} 
 		});
