@@ -247,10 +247,9 @@ euc.conn=function(mac){
 			if (set.bt==5) 	euc.proxy.w(event.target.value.buffer);
 			if (euc.dbg)  console.log("input",event.target.value.buffer);
 			//gather package
-			let array = new Uint8Array(event.target.value.buffer)
 			let part=JSON.parse(JSON.stringify(event.target.value.buffer));
-			let startP = array.findIndex((el, idx, arr) => {return arr[idx] == 85 && arr[idx + 1] == 170});
-			let endP = array.findIndex((el, idx, arr) => {return arr[idx] == 90 && arr[idx + 1] == 90 && arr[idx + 2] == 90 && arr[idx + 3] == 90});
+			let startP = event.target.value.buffer.findIndex((el, idx, arr) => {return arr[idx] == 85 && arr[idx + 1] == 170});
+			let endP = event.target.value.buffer.findIndex((el, idx, arr) => {return arr[idx] == 90 && arr[idx + 1] == 90 && arr[idx + 2] == 90 && arr[idx + 3] == 90});
 			//let startP=part.indexOf(170)?part[part.indexOf(170)-1]==85?part.indexOf(85):-1:-1;
 			//let endP=part.indexOf(90)!=-1?part[part.indexOf(90)+1]==90?part[part.indexOf(90)+3]==90?part.indexOf(90)+4:-1:-1:-1;
 			if (startP!=-1) {
