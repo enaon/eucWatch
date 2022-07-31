@@ -74,7 +74,7 @@ euc.temp.faultAlarms =function(code) {
 		case 7: return 'transport mode';
 	}
 };
-euc.temp.rfmp=function(data) {
+euc.temp.one=function(data) {
 	//if  ( data.buffer[0]==85 && data.buffer[1]==170 && data.buffer[18]==0 && data.buffer[19]==24 ) {
 	euc.alert=0;
 	//volt-battery
@@ -115,7 +115,7 @@ euc.temp.rfmp=function(data) {
 	euc.dash.vol=data.getInt16(16);
 };
 
-euc.temp.rsmp=function(data) {
+euc.temp.two=function(data) {
 	euc.dash.trip.totl=data.getUint32(2)/1000;
 	euc.log.trip.forEach(function(val,pos){ if (!val) euc.log.trip[pos]=euc.dash.trip.totl;});
 	let mode=data.getUint16(6);
@@ -144,10 +144,9 @@ euc.temp.rsmp=function(data) {
 	//light status
 	euc.dash.set.HL = data.getUint8(15);
 	//haptic
-	//if (euc.dash.hapt.pwm && (euc.dash.alrm.err || euc.dash.hapt.pwmH<=euc.dash.live.pwm)){
-	//	digitalPulse(ew.pin.BUZZ,1,80);
-	//}else 
-	if (!euc.buzz && euc.alert) {  
+	if (euc.dash.hapt.pwm && (euc.dash.alrm.err || euc.dash.hapt.pwmH<=euc.dash.live.pwm)){
+		digitalPulse(ew.pin.BUZZ,1,80);
+	}else 	if (!euc.buzz && euc.alert) {  
 		if (!w.gfx.isOn&&(euc.dash.alrm.spd||euc.dash.alrm.amp||euc.dash.alrm.err)) face.go(set.dash[set.def.dash.face],0);
 		//else face.off(6000);
 		euc.buzz=1;
@@ -175,7 +174,7 @@ euc.temp.init=function(c) {
 		euc.run=1;
 		return c.startNotifications();
 	}).then(function() {
-		if (!set.read("dash","slot"+set.read("dash","slot")+"Model"))
+		if (!euc.dash.slot.modl)
 			return c.writeValue(euc.cmd("fetchModel")); 
 	}).then(function() {
 		if (!euc.dash.slot.firm)
@@ -212,8 +211,8 @@ euc.temp.exit=function(c) {
 
 euc.temp.packet=function(pakt){
 	if (pakt.byteLength == 24 && pakt.getInt16(0) == 0x55AA ){
-		if (pakt.buffer[18]==0)	euc.temp.rfmp(pakt);
-		else if (pakt.buffer[18]==4) euc.temp.rsmp(pakt);
+		if (pakt.buffer[18]==0)	euc.temp.one(pakt);
+		else if (pakt.buffer[18]==4) euc.temp.two(pakt);
 		else if (pakt.buffer[18]==1)	return;	//master		
 	}	
 };
