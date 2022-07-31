@@ -247,6 +247,7 @@ euc.conn=function(mac){
 			if (set.bt==5) 	euc.proxy.w(event.target.value.buffer);
 			if (euc.dbg)  console.log("input",event.target.value.buffer);
 			//gather package
+			let array = new Uint8Array(event.target.value.buffer)
 			let part=JSON.parse(JSON.stringify(event.target.value.buffer));
 			let startP = array.findIndex((el, idx, arr) => {return arr[idx] == 85 && arr[idx + 1] == 170});
 			let endP = array.findIndex((el, idx, arr) => {return arr[idx] == 90 && arr[idx + 1] == 90 && arr[idx + 2] == 90 && arr[idx + 3] == 90});
