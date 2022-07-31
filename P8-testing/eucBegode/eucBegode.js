@@ -14,7 +14,7 @@ euc.cmd=function(cmd, param) {
     case 'mainPacket':      return [44];
     case 'extendedPacket':  return [107];
     case 'fetchModel':      return [78];
-    case 'fetchFirmware':  return [86];
+    case 'fetchFirmware': 	return [86];
     case 'fetchGreet':      return [103];
     case 'beep':            return [98];
     case 'lightsOn':        return [81];
@@ -62,7 +62,6 @@ euc.temp.modelParams=function(model) {
     default:            return { 'voltMultiplier': 1,    'minCellVolt': 3.3 };
   }
 };
-
 euc.temp.faultAlarms =function(code) {
 	switch(code) {
 		case 0: return 'high power';
@@ -75,18 +74,19 @@ euc.temp.faultAlarms =function(code) {
 		case 7: return 'transport mode';
 	}
 };
-
 euc.temp.rfmp=function(data) {
 	//if  ( data.buffer[0]==85 && data.buffer[1]==170 && data.buffer[18]==0 && data.buffer[19]==24 ) {
 	euc.alert=0;
 	//volt-battery
 	euc.dash.live.volt=(data.getUint16(2)*euc.dash.slot.bms)/100; //bms=1 67.2 ,1.25 84, 1.5 100,8
 	euc.dash.live.bat=Math.round( 100*(euc.dash.live.volt*( 100/(16*euc.dash.slot.bms)) - euc.dash.opt.batE ) / (euc.dash.opt.batF-euc.dash.opt.batE) );
-	//euc.dash.live.bat = Math.round(((euc.dash.live.volt / (16*euc.dash.slot.bms)) * 100 - 310 ) * 0.909);
 	batL.unshift(euc.dash.live.bat);
 	if (20<batL.length) batL.pop();
 	euc.dash.alrm.bat = (50 <= euc.dash.live.bat)? 0 : (euc.dash.live.bat <= euc.dash.hapt.batL)? 2 : 1;	
 	if ( euc.dash.hapt.bat && euc.dash.alrm.bat ==2 )  euc.alert ++;   
+	// calculate pwm limit. 
+    let rdct = 1 - (100 - euc.dash.live.bat) / 450;
+	euc.dash.alrm.tilt = euc.dash.slot.maxSpeedFull * rdct;
 	//speed
 	euc.dash.live.spd = Math.abs((data.getInt16(4) * 3.6)/100); 
 	if (euc.dash.trip.topS < euc.dash.live.spd) euc.dash.trip.topS = euc.dash.live.spd;

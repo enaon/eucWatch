@@ -1,5 +1,5 @@
 {
-	"slot": {"make":"","modl":"","firm":"","serl":"","manD":"","colr":0,"id":"","bms":1.5,"mac":"","mAh":0,"time":0,"spin":0},
+	"slot": {"make":"","modl":"","firm":"","serl":"","manD":"","colr":0,"id":"","bms":1.5,"mac":"","mAh":0,"time":0,"maxSpeedFull":70},
 	"auto": {"onC":{"HL":0,"led":0,"beep":0,"unlk":0,"lift":0,"talk":1,"pass":0},"onD":{"HL":0,"led":0,"beep":0,"lock":0,"lift":0,"talk":0,"off":0}},
 	"info": {"fan":"","chrg":0,"time":0,"tRdT":0,"err":0,"alrm":0},
 	"live": {"spd":0,"volt":0,"amp":0,"bat":0,"tmp":0,"tmpM":0,"pwm":0 },
