@@ -196,10 +196,8 @@ touchHandler[0]=function(e,x,y){
 	case 4: //slide right event (back action)
 	    if (face[0].setE) {				
 			euc.wri("volume",face[0].setEb);
-			euc.dash.vol=face[0].setEb;
-			face[0].setE=0; 
-			face[0].init();
-        } else
+			setTimeout(()=>{face[0].setE=0;face[0].init();euc.dash.vol=face[0].setEb;},100);
+		} else
 		face.go("dashBegodeOpt",0);
 		return;
 	case 12: //hold event
