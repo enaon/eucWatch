@@ -192,7 +192,7 @@ touchHandler[0]=function(e,x,y){
 			euc.wri("ledMode",face[0].setEb);
 			euc.dash.set.led=face[0].setEb;
 			face[0].setE=0; 
-			face[0].init();
+			setTimeout(()=>{face[0].init();euc.dash.set.led=face[0].setEb;},300);
         } else 
 		face.go(set.dash[set.def.dash.face],0);
 		return;
