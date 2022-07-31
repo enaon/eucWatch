@@ -123,7 +123,7 @@ euc.temp.rsmp=function(data) {
 	euc.dash.set.mode	= mode >> 13 & 0x3; //riding mode
 	euc.dash.alrm.mode	= mode >> 10 & 0x3; //warnings mode
 	euc.dash.set.rolA	= mode >>  7 & 0x3; //roll angle
-	euc.dash.set.unit	= mode 0x1; //speed unit
+	euc.dash.set.unit	= mode & 0x1; //speed unit
 	//
 	euc.dash.set.offT = data.getUint16(8);
 	euc.dash.limt.tilt= data.getUint16(10);
