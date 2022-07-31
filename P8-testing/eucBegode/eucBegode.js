@@ -174,8 +174,10 @@ euc.temp.init=function(c) {
 		euc.run=1;
 		return c.startNotifications();
 	}).then(function() {
-		if (!euc.dash.slot.modl)
-			return c.writeValue(euc.cmd("fetchModel")); 
+		if (!euc.dash.slot.modl){
+			console.log("odel not found,fetch");
+			return c.writeValue(euc.cmd("fetchModel"));
+		}
 	}).then(function() {
 		if (!euc.dash.slot.firm)
 			return c.writeValue(euc.cmd("fetchFirmware")); 
@@ -259,6 +261,7 @@ euc.conn=function(mac){
 			}
 			//
 			if (event.target.value.getUint32(0) == 0x4E414D45) { //fetchModel
+				console.log("model fetch responce:",event.target.value.buffer);
 				euc.dash.slot.modl =  E.toString(event.target.value.buffer).slice(5).trim();
 				if (!set.read("dash","slot"+set.read("dash","slot")+"Model")) 
 					set.write("dash","slot"+set.read("dash","slot")+"Model",euc.dash.slot.modl);
