@@ -35,7 +35,7 @@ global.emuZ={
 			return;
 		case "Z\xA5\1>\x14\1\xB0\x20\xDB\xFE"://live
 			if (set.bt!=4) {set.bt=4;handleInfoEvent({"src":"BT","title":"BRIDGE","body":"Connected"});}
-			this.send(new Uint8Array( [32, 20, 62, 4, 176, 0, 0, 0, 0, 0, 0, 0, 0, euc.dash.bat, 0,this.d2h(euc.dash.spd,100,16,2),this.d2h(euc.dash.spd,100,16,1),0,0,euc.dash.trpT, 0,0,0,0, 1, 0,0,this.d2h(euc.dash.tmp,10,16,2),this.d2h(euc.dash.tmp,10,16,1),this.d2h(euc.dash.volt,100,16,2), this.d2h(euc.dash.volt,100,16,1), this.d2h(euc.dash.amp,100,16,2), this.d2h(euc.dash.amp,100,16,1), this.d2h(euc.dash.spd,100,16,2),this.d2h(euc.dash.spd,100,16,1), 0, 0]));
+			this.send(new Uint8Array( [32, 20, 62, 4, 176, 0, 0, 0, 0, 0, 0, 0, 0, euc.dash.live.bat, 0,this.d2h(euc.dash.live.spd,100,16,2),this.d2h(euc.dash.live.spd,100,16,1),0,0,euc.dash.trip.totl, 0,0,0,0, 1, 0,0,this.d2h(euc.dash.live.tmp,10,16,2),this.d2h(euc.dash.live.tmp,10,16,1),this.d2h(euc.dash.live.volt,100,16,2), this.d2h(euc.dash.live.volt,100,16,1), this.d2h(euc.dash.live.amp,100,16,2), this.d2h(euc.dash.live.amp,100,16,1), this.d2h(euc.dash.live.spd,100,16,2),this.d2h(euc.dash.live.spd,100,16,1), 0, 0]));
 			break;
 		case "Z\xA5\1>\x14\1\x25\x0c\x7a\xFF":return this.send(new Uint8Array([0x0c,0x14,0x3e,0x04,0x25,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00]));  //live2  
 		case  "Z\xA5\1>\x14\1\x61\x04\x46\xFF":return this.send(new Uint8Array([0x04,0x14,0x3e,0x04,0x61,0x00,0x00,0x00,0x00]));  //live3 
@@ -58,7 +58,7 @@ global.emuZ={
 		case "Z\xA5\1>\x12\1\x10\x1a\x83\xFF":return this.send(new Uint8Array([0x1a,0x12,0x3e,0x04,0x10,0x00,0x00,0x00,0x00,0x0b,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00]));  
 		case "Z\xA5\1>\x12\1\x3b\x02\x70\xFF":return this.send(new Uint8Array([0x02,0x12,0x3e,0x04,0x3b,0x00,0x00])) ; 
 		case "Z\xA5\1>\x12\1\x20\x02\x8b\xFF":return this.send(new Uint8Array([0x02,0x12,0x3e,0x04,0x20,0x00,0x00]));  
-		case "Z\xA5\1>\x14\1\x3e\x02\x6b\xFF":return this.send(new Uint8Array([0x02,0x14,0x3e,0x04,0x3e,this.d2h(euc.dash.tmp,10,16,2),this.d2h(euc.dash.tmp,10,16,1)]));   //temp
+		case "Z\xA5\1>\x14\1\x3e\x02\x6b\xFF":return this.send(new Uint8Array([0x02,0x14,0x3e,0x04,0x3e,this.d2h(euc.dash.live.tmp,10,16,2),this.d2h(euc.dash.live.tmp,10,16,1)]));   //temp
 		case "Z\xA5\1>\x14\1\x43\x0a\x5e\xFF":return this.send(new Uint8Array([0x0a,0x14,0x3e,0x04,0x43,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00]));  
 		case "Z\xA5\1>\x14\1\xd2\x04\xd5\xFF":return this.send(new Uint8Array([0x04,0x14,0x3e,0x04,0xd2,0x00,0x00,0x00,0x00]));  
 		case "Z\xA5\1>\x11\1\x30\x0e\x70\xFF":return this.send(new Uint8Array([0x0e,0x11,0x3e,0x04,0x30,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00]));  

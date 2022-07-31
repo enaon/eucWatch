@@ -188,7 +188,7 @@ face[0] = {
 						this.g.flip();
 				}else {
 					this.g.setFont("Vector",35);
-					//this.g.drawString(euc.dash.maker,119-(this.g.stringWidth(euc.dash.maker)/2),170)); 
+					//this.g.drawString(euc.dash.slot.make,119-(this.g.stringWidth(euc.dash.slot.make)/2),170)); 
 					this.g.drawString(set.def.name,119-(this.g.stringWidth(set.def.name)/2),155);
 					this.g.setFont("Vector",30);
 					if (euc.state !== "OFF") {

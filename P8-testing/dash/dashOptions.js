@@ -26,10 +26,10 @@ face[0] = {
 		//let makr=set.read("dash","slot"+set.read("dash","slot")+"Maker"); 
 		//if (makr) {
 			//if (makr=="Begode"){
-		//this.btn(1,"EMPTY",15,200,10,1,0,160,0,239,75,euc.dash.batE/100,30,200,35); //3
+		//this.btn(1,"EMPTY",15,200,10,1,0,160,0,239,75,euc.dash.opt.batE/100,30,200,35); //3
 		this.btn(1,"",15,200,10,1,0,160,0,239,75); //3
-		this.btn(1,"SPEED X",15,40,90,1,0,0,80,75,155,euc.dash.spdF,30,40,120); //4
-		this.btn(1,"DIST X",15,120,90,1,0,80,80,155,155,euc.dash.trpF,30,120,120); //5
+		this.btn(1,"SPEED X",15,40,90,1,0,0,80,75,155,euc.dash.opt.spdF,30,40,120); //4
+		this.btn(1,"DIST X",15,120,90,1,0,80,80,155,155,euc.dash.opt.trpF,30,120,120); //5
 		this.btn(1,"RETRY",15,200,90,1,0,160,80,239,155,set.def.dash.rtr,30,200,120); //6
         //this.run=true;
 	},
@@ -66,12 +66,12 @@ face[0] = {
                 t.ntid=0;
 				t.set=0;
 				if (!t.page){
-					t.btn(1,"SPEED X",15,40,90,1,0,0,80,75,155,euc.dash.spdF,30,40,120); //4
-					t.btn(1,"DIST X",15,120,90,1,0,80,80,155,155,euc.dash.trpF,30,120,120); //5
+					t.btn(1,"SPEED X",15,40,90,1,0,0,80,75,155,euc.dash.opt.spdF,30,40,120); //4
+					t.btn(1,"DIST X",15,120,90,1,0,80,80,155,155,euc.dash.opt.trpF,30,120,120); //5
 					t.btn(1,"RETRY",15,200,90,1,0,160,80,239,155,set.def.dash.rtr,30,200,120); //6
 				}else {
-					face[0].btn(1,"FULL",15,40,10,1,0,0,0,75,75,euc.dash.batF/100,30,40,35); //1
-					face[0].btn(1,"EMPTY",15,40,90,1,0,0,80,75,155,euc.dash.batE/100,30,40,120); //4
+					face[0].btn(1,"FULL",15,40,10,1,0,0,0,75,75,euc.dash.opt.batF/100,30,40,35); //1
+					face[0].btn(1,"EMPTY",15,40,90,1,0,0,80,75,155,euc.dash.opt.batE/100,30,40,120); //4
 				}
 				t.g.setColor(0,0);
 				t.g.fillRect(0,156,239,239);
@@ -127,13 +127,13 @@ touchHandler[0]=function(e,x,y){
 			if (y < 155) {
 				face[0].set=0;
 				if (!face[0].page){
-					//face[0].btn(1,"EMPTY",15,200,10,1,0,160,0,239,75,euc.dash.batE/100,30,200,35); //3
-					face[0].btn(1,"SPEED X",15,40,90,1,0,0,80,75,155,euc.dash.spdF,30,40,120); //4
-					face[0].btn(1,"DIST X",15,120,90,1,0,80,80,155,155,euc.dash.trpF,30,120,120); //5
+					//face[0].btn(1,"EMPTY",15,200,10,1,0,160,0,239,75,euc.dash.opt.batE/100,30,200,35); //3
+					face[0].btn(1,"SPEED X",15,40,90,1,0,0,80,75,155,euc.dash.opt.spdF,30,40,120); //4
+					face[0].btn(1,"DIST X",15,120,90,1,0,80,80,155,155,euc.dash.opt.trpF,30,120,120); //5
 					face[0].btn(1,"RETRY",15,200,90,1,0,160,80,239,155,set.def.dash.rtr,30,200,120); //6
 				}else {
-					face[0].btn(1,"FULL",15,40,10,1,0,0,0,75,75,euc.dash.batF/100,30,40,35); //1
-					face[0].btn(1,"EMPTY",15,40,90,1,0,0,80,75,155,euc.dash.batE/100,30,40,120); //4
+					face[0].btn(1,"FULL",15,40,10,1,0,0,0,75,75,euc.dash.opt.batF/100,30,40,35); //1
+					face[0].btn(1,"EMPTY",15,40,90,1,0,0,80,75,155,euc.dash.opt.batE/100,30,40,120); //4
 				}
 				touchHandler[0](e,x,y);
 				return;
@@ -141,24 +141,24 @@ touchHandler[0]=function(e,x,y){
 				buzzer([30,50,30]);
 				if (face[0].set=="spdF") { 
 					if (x<120){ //spd
-						euc.dash.spdF=(euc.dash.spdF - 0.01);
-						if (euc.dash.spdF <0.5)  euc.dash.spdF=0.5;
+						euc.dash.opt.spdF=(euc.dash.opt.spdF - 0.01);
+						if (euc.dash.opt.spdF <0.5)  euc.dash.opt.spdF=0.5;
 					}else{
-						euc.dash.spdF=(euc.dash.spdF + 0.01);
-						if (1.5 <euc.dash.spdF)  euc.dash.spdF=1.5;
+						euc.dash.opt.spdF=(euc.dash.opt.spdF + 0.01);
+						if (1.5 <euc.dash.opt.spdF)  euc.dash.opt.spdF=1.5;
 					}
-					face[0].btn(1,"SPEED X",15,40,90,12,0,0,80,75,155,euc.dash.spdF,30,40,120); //4
-					face[0].ntfy("SPEED FACTOR",euc.dash.spdF,40,1,12,5000,1);
+					face[0].btn(1,"SPEED X",15,40,90,12,0,0,80,75,155,euc.dash.opt.spdF,30,40,120); //4
+					face[0].ntfy("SPEED FACTOR",euc.dash.opt.spdF,40,1,12,5000,1);
 				}else if (face[0].set=="trpF") { 
 					if (x<120){ //spd
-						euc.dash.trpF=(euc.dash.trpF - 0.01);
-						if (euc.dash.trpF <0.5)  euc.dash.trpF=0.5;
+						euc.dash.opt.trpF=(euc.dash.opt.trpF - 0.01);
+						if (euc.dash.opt.trpF <0.5)  euc.dash.opt.trpF=0.5;
 					}else{
-						euc.dash.trpF=(euc.dash.trpF + 0.01);
-						if (1.5 <euc.dash.trpF)  euc.dash.trpF=1.5;
+						euc.dash.opt.trpF=(euc.dash.opt.trpF + 0.01);
+						if (1.5 <euc.dash.opt.trpF)  euc.dash.opt.trpF=1.5;
 					}
-					face[0].btn(1,"DIST X",15,120,90,12,0,80,80,155,155,euc.dash.trpF,30,120,120); //5
-					face[0].ntfy("DISTANCE FACTOR",euc.dash.trpF,40,1,12,5000,1);
+					face[0].btn(1,"DIST X",15,120,90,12,0,80,80,155,155,euc.dash.opt.trpF,30,120,120); //5
+					face[0].ntfy("DISTANCE FACTOR",euc.dash.opt.trpF,40,1,12,5000,1);
 				}else if (face[0].set=="rtr") { //temp
 				  if (x<120){ //
 						set.def.dash.rtr--; if ( set.def.dash.rtr <= 1 ) set.def.dash.rtr = 1;
@@ -169,25 +169,25 @@ touchHandler[0]=function(e,x,y){
 					face[0].ntfy("NUMBER OF RETRIES",set.def.dash.rtr,40,1,12,5000,1);
 				}else if (face[0].set=="batF") { //bat
 					if (x<120){ //
-						euc.dash.batF--; if ( euc.dash.batF <= 400 ) euc.dash.batF = 400;
+						euc.dash.opt.batF--; if ( euc.dash.opt.batF <= 400 ) euc.dash.opt.batF = 400;
 					}else{ //back
-						euc.dash.batF++; if (425 <= euc.dash.batF) euc.dash.batF = 425;
+						euc.dash.opt.batF++; if (425 <= euc.dash.opt.batF) euc.dash.opt.batF = 425;
 					}
-					face[0].btn(1,"FULL",15,40,10,12,0,0,0,75,75,euc.dash.batF/100,30,40,35); //1
-					face[0].ntfy("100% WHEN CELL IS AT",euc.dash.batF/100 + " Volt",30,1,12,3000,1);
+					face[0].btn(1,"FULL",15,40,10,12,0,0,0,75,75,euc.dash.opt.batF/100,30,40,35); //1
+					face[0].ntfy("100% WHEN CELL IS AT",euc.dash.opt.batF/100 + " Volt",30,1,12,3000,1);
 				}else if (face[0].set=="batE") { //bat
 					if (x<120){ //
-						euc.dash.batE--; if ( euc.dash.batE <= 300 ) euc.dash.batE = 300;
+						euc.dash.opt.batE--; if ( euc.dash.opt.batE <= 300 ) euc.dash.opt.batE = 300;
 					}else{ //back
-						euc.dash.batE++; if (340 <= euc.dash.batE) euc.dash.batE = 340;
+						euc.dash.opt.batE++; if (340 <= euc.dash.opt.batE) euc.dash.opt.batE = 340;
 					}
-					face[0].btn(1,"EMPTY",15,40,90,12,0,0,80,75,155,euc.dash.batE/100,30,40,120); //4
-					face[0].ntfy("0% WHEN CELL IS AT",euc.dash.batE/100 + " Volt",30,1,12,3000,1);	
+					face[0].btn(1,"EMPTY",15,40,90,12,0,0,80,75,155,euc.dash.opt.batE/100,30,40,120); //4
+					face[0].ntfy("0% WHEN CELL IS AT",euc.dash.opt.batE/100 + " Volt",30,1,12,3000,1);	
 				}else  {
 					buzzer(40);
 					face[0].set=0;
-					face[0].btn(1,"SPEED X",15,40,90,1,4,0,80,75,155,euc.dash.spdF,30,40,120); //4
-					face[0].btn(1,"DIST X",15,120,90,1,4,80,80,155,155,euc.dash.trpF,30,120,120); //5
+					face[0].btn(1,"SPEED X",15,40,90,1,4,0,80,75,155,euc.dash.opt.spdF,30,40,120); //4
+					face[0].btn(1,"DIST X",15,120,90,1,4,80,80,155,155,euc.dash.opt.trpF,30,120,120); //5
 				}
 			}
 		}else if (!face[0].page){	
@@ -208,13 +208,13 @@ touchHandler[0]=function(e,x,y){
 			}else if (x<75 && 75 <y && y < 155) { //4
 				buzzer([30,50,30]);
 				face[0].set="spdF";
-				face[0].btn(1,"SPEED X",15,40,90,12,0,0,80,75,155,euc.dash.spdF,30,40,120); //4
-				face[0].ntfy("SPEED FACTOR",euc.dash.spdF,40,1,12,3000,1);
+				face[0].btn(1,"SPEED X",15,40,90,12,0,0,80,75,155,euc.dash.opt.spdF,30,40,120); //4
+				face[0].ntfy("SPEED FACTOR",euc.dash.opt.spdF,40,1,12,3000,1);
 			}else if (75<= x && x < 155 && 75 <y && y < 155) { //5
 				buzzer([30,50,30]);
 				face[0].set="trpF";
-				face[0].btn(1,"DIST X",15,120,90,12,0,80,80,155,155,euc.dash.trpF,30,120,120); //5
-				face[0].ntfy("DISTANCE FACTOR",euc.dash.trpF,40,1,12,3000,1);
+				face[0].btn(1,"DIST X",15,120,90,12,0,80,80,155,155,euc.dash.opt.trpF,30,120,120); //5
+				face[0].ntfy("DISTANCE FACTOR",euc.dash.opt.trpF,40,1,12,3000,1);
 			}else if (155 <= x && 75 <y && y < 155) { //6
 				buzzer([30,50,30]);
 				face[0].set="rtr";
@@ -225,29 +225,29 @@ touchHandler[0]=function(e,x,y){
 			if (x<75 && y<75) { //1
 				buzzer([30,50,30]);     
 				face[0].set="batF";
-				face[0].btn(1,"FULL",15,40,10,12,0,0,0,75,75,euc.dash.batF/100,30,40,35); //1
-				face[0].ntfy("100% WHEN CELL IS AT",euc.dash.batF/100 + " Volt",30,1,12,3000,1);
+				face[0].btn(1,"FULL",15,40,10,12,0,0,0,75,75,euc.dash.opt.batF/100,30,40,35); //1
+				face[0].ntfy("100% WHEN CELL IS AT",euc.dash.opt.batF/100 + " Volt",30,1,12,3000,1);
 			}else if (75<= x && x < 155 && y < 75) { //2
 				buzzer(50);  
 			}else if (155 <= x && y < 75) { //3
-				euc.dash.ampR=1-euc.dash.ampR;
-				face[0].btn(1,"AMP",15,200,10,4,1,160,0,239,75,(euc.dash.ampR)?"R":"N",30,200,35); //3
-				face[0].ntfy("AMPERAGE REPORT",(euc.dash.ampR)?"REVERSED":"NORMAL",30,1,4,1500);
+				euc.dash.opt.ampR=1-euc.dash.opt.ampR;
+				face[0].btn(1,"AMP",15,200,10,4,1,160,0,239,75,(euc.dash.opt.ampR)?"R":"N",30,200,35); //3
+				face[0].ntfy("AMPERAGE REPORT",(euc.dash.opt.ampR)?"REVERSED":"NORMAL",30,1,4,1500);
 				buzzer([30,50,30]);
-			}else if (x<75 && 75 <y && y < 155) { //4   15,40,90,12,0,0,80,75,155,euc.dash.spdF,30,40,120); 
+			}else if (x<75 && 75 <y && y < 155) { //4   15,40,90,12,0,0,80,75,155,euc.dash.opt.spdF,30,40,120); 
 				buzzer([30,50,30]);   
 				face[0].set="batE";
-				face[0].btn(1,"EMPTY",15,40,90,12,0,0,80,75,155,euc.dash.batE/100,30,40,120); //4
-				face[0].ntfy("0% WHEN CELL IS AT",euc.dash.batE/100 + " Volt",30,1,12,3000,1);
+				face[0].btn(1,"EMPTY",15,40,90,12,0,0,80,75,155,euc.dash.opt.batE/100,30,40,120); //4
+				face[0].ntfy("0% WHEN CELL IS AT",euc.dash.opt.batE/100 + " Volt",30,1,12,3000,1);
 			}else if (75<= x && x < 155 && 75 <y && y < 155) { //5
 				buzzer(40);
 			}else if (155 <= x && 75 <y && y < 155) { //6
-				if (1.5<=euc.dash.bms&& euc.dash.bms<=1.8) euc.dash.bms=1.875;
-				else if (euc.dash.bms==1.875) euc.dash.bms=2;
-				else if (euc.dash.bms==2) euc.dash.bms=1;
-				else euc.dash.bms=euc.dash.bms+0.25;
-				face[0].btn(1,"PACK",15,200,90,4,0,160,80,239,155,euc.dash.bms*67.2|0,30,200,120); //6
-				face[0].ntfy("BATTERY VOLTAGE",euc.dash.bms*67.2,40,1,4,1500);
+				if (1.5<=euc.dash.slot.bms&& euc.dash.slot.bms<=1.8) euc.dash.slot.bms=1.875;
+				else if (euc.dash.slot.bms==1.875) euc.dash.slot.bms=2;
+				else if (euc.dash.slot.bms==2) euc.dash.slot.bms=1;
+				else euc.dash.slot.bms=euc.dash.slot.bms+0.25;
+				face[0].btn(1,"PACK",15,200,90,4,0,160,80,239,155,euc.dash.slot.bms*67.2|0,30,200,120); //6
+				face[0].ntfy("BATTERY VOLTAGE",euc.dash.slot.bms*67.2,40,1,4,1500);
 				buzzer([30,50,30]);   
 			}else buzzer(40);		
 		}
@@ -279,12 +279,12 @@ touchHandler[0]=function(e,x,y){
 		//yhis.timeout();
 		if (!face[0].page) {
 			face[0].page=1;
-			face[0].btn(1,"FULL",15,40,10,1,0,0,0,75,75,euc.dash.batF/100,30,40,35); //1
+			face[0].btn(1,"FULL",15,40,10,1,0,0,0,75,75,euc.dash.opt.batF/100,30,40,35); //1
 			face[0].btn(1,"",20,100,20,1,0,80,0,155,75,"",30,120,25);//2
-			face[0].btn(1,"AMP",15,200,10,4,0,160,0,239,75,(euc.dash.ampR)?"R":"N",30,200,35); //3
-			face[0].btn(1,"EMPTY",15,40,90,1,0,0,80,75,155,euc.dash.batE/100,30,40,120); //4
+			face[0].btn(1,"AMP",15,200,10,4,0,160,0,239,75,(euc.dash.opt.ampR)?"R":"N",30,200,35); //3
+			face[0].btn(1,"EMPTY",15,40,90,1,0,0,80,75,155,euc.dash.opt.batE/100,30,40,120); //4
 			face[0].btn(1,"",15,120,90,1,0,80,80,155,155,"",30,120,120); //5
-			face[0].btn(1,"PACK",15,200,90,4,0,160,80,239,155,euc.dash.bms*67.2|0,30,200,120); //6
+			face[0].btn(1,"PACK",15,200,90,4,0,160,80,239,155,euc.dash.slot.bms*67.2|0,30,200,120); //6
 			if (face[0].ntid) {
 				clearTimeout(face[0].ntid);face[0].ntid=0;
 				w.gfx.setColor(0,0);
@@ -312,9 +312,9 @@ touchHandler[0]=function(e,x,y){
 			face[0].btn(1,(set.def.dash.mph)?"MPH":"KPH",30,40,25,4,0,0,0,75,75);//1
 			face[0].btn(1,"o",20,100,20,4,0,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);//2
 			face[0].btn(1,"",15,200,10,1,0,160,0,239,75); //3
-			//face[0].btn(1,"EMPTY",15,200,10,1,0,160,0,239,75,euc.dash.batE/100,30,200,35); //3
-			face[0].btn(1,"SPEED X",15,40,90,1,0,0,80,75,155,euc.dash.spdF,30,40,120); //4
-			face[0].btn(1,"DIST X",15,120,90,1,0,80,80,155,155,euc.dash.trpF,30,120,120); //5
+			//face[0].btn(1,"EMPTY",15,200,10,1,0,160,0,239,75,euc.dash.opt.batE/100,30,200,35); //3
+			face[0].btn(1,"SPEED X",15,40,90,1,0,0,80,75,155,euc.dash.opt.spdF,30,40,120); //4
+			face[0].btn(1,"DIST X",15,120,90,1,0,80,80,155,155,euc.dash.opt.trpF,30,120,120); //5
 			face[0].btn(1,"RETRY",15,200,90,1,0,160,80,239,155,set.def.dash.rtr,30,200,120); //6
 			if (face[0].ntid) {
 				clearTimeout(face[0].ntid);face[0].ntid=0;

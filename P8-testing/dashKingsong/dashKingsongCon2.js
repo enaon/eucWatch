@@ -23,10 +23,10 @@ face[0] = {
         this.g.setColor(1,15);
       	this.g.fillRect(120,200,165,204);
 		this.g.flip(); 
-	    this.btn(1,"",18,60,15,1,0,0,0,119,97,"",28,60,50);
-        this.btn(1,"",22,185,15,1,0,122,0,239,97,"",28,185,50);		
-        this.btn(1,"",18,60,115,1,0,0,100,119,195,"",30,60,150);
-        this.btn(euc.dash.ks.aUnlock,"UNLOCK",18,185,115,4,1,122,100,239,195,"ONCE",30,185,150);	
+	    this.btn(1,"",18,60,20,1,0,0,0,119,97,"",25,60,55);
+        this.btn(1,"",22,185,15,1,0,122,0,239,97,"",25,185,55);		
+        this.btn(1,"",18,60,115,1,0,0,100,119,195,"",25,60,150);
+        this.btn(euc.dash.auto.onC.unlk,"UNLOCK",18,185,115,4,1,122,100,239,195,"ONCE",25,185,155);	
 
 		this.run=true;
 	},
@@ -114,9 +114,9 @@ touchHandler[0]=function(e,x,y){
 		}else if ( x<=120 && 100<=y ) { //auto lift
 			buzzer(40);		
 		}else if  (120<=x && 100<=y ) { //Unlock Once
-			euc.dash.ks.aUnlock=1-euc.dash.ks.aUnlock;
-            face[0].btn(euc.dash.ks.aUnlock,"UNLOCK",18,185,115,4,1,122,100,239,195,"ONCE",30,185,150);	
-            face[0].ntfy("ENABLE UNLOCK ONCE","NO ACTION",19,1,euc.dash.ks.aUnlock);
+			euc.dash.auto.onC.unlk=1-euc.dash.auto.onC.unlk;
+            face[0].btn(euc.dash.auto.onC.unlk,"UNLOCK",18,185,115,4,1,122,100,239,195,"ONCE",25,185,155);	
+            face[0].ntfy("ENABLE UNLOCK ONCE","NO ACTION",19,1,euc.dash.auto.onC.unlk);
 			buzzer([30,50,30]);								
 		}else buzzer(40);
 		break;

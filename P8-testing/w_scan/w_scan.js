@@ -7,33 +7,32 @@ if(!global.scan){
 			if (app=="repellent") this.filter = [{serviceData:{"fe95":{}}}];
 			else {
 				app="dash";
-				if (euc.dash.maker=="NinebotZ"|| euc.dash.maker=="NinebotS")  this.filter = [{manufacturer:16974}];  
-				if (euc.dash.maker=="Ninebot")  this.filter = [{ namePrefix: 'NOC' },{ namePrefix: 'NOE' },{ namePrefix: 'NOP' }];
-				else if (euc.dash.maker=="InmotionV11")  this.filter = [{ namePrefix: 'V11-' }];
-				else if (euc.dash.maker=="InmotionV12")  this.filter = [{ namePrefix: 'V12-' }];
-				else if (euc.dash.maker=="Begode")  this.filter = [{ namePrefix: 'GotWay_' }];
-				else if (euc.dash.maker=="Veteran")  this.filter = [{ namePrefix: 'LK_' }];
-				//else if (euc.dash.maker=="Kingsong")  this.filter = [{ namePrefix: 'KS-' }];
-				else if (euc.dash.maker=="Kingsong")  this.filter =  [{}]; 
+				if (euc.dash.slot.make=="NinebotS")  this.filter = [{manufacturer:16974}];  
+				else if (euc.dash.slot.make=="NinebotZ")  this.filter = [{ namePrefix: 'N3' }];
+				if (euc.dash.slot.make=="Ninebot")  this.filter = [{ namePrefix: 'NOC' },{ namePrefix: 'NOE' },{ namePrefix: 'NOP' }];
+				else if (euc.dash.slot.make=="InmotionV11")  this.filter = [{ namePrefix: 'V11-' }];
+				else if (euc.dash.slot.make=="InmotionV12")  this.filter = [{ namePrefix: 'V12-' }];
+				else if (euc.dash.slot.make=="Begode")  this.filter = [{ namePrefix: 'GotWay_' }];
+				else if (euc.dash.slot.make=="Veteran")  this.filter = [{ namePrefix: 'LK_' }];
+				//else if (euc.dash.slot.make=="Kingsong")  this.filter = [{ namePrefix: 'KS-' }];
+				else if (euc.dash.slot.make=="Kingsong")  this.filter =  [{}]; 
 				else this.filter = [{services:[service]}];
 			}
-			//NRF.findDevices(function(devices) {
 			this.slot="";
 			scan.found=[];
 			if (scan.tid) {clearTimeout(scan.tid);scan.tid=0;}
 			NRF.setScan(function(devices) {		
-				if (euc.dash.maker=="Kingsong") {
+				if (euc.dash.slot.make=="Kingsong") {
 						if (devices.shortName&&devices.shortName.startsWith("KSN-")&&!scan.found.includes(devices.id+"|"+devices.shortName) ) scan.found.push(devices.id+"|"+devices.shortName);
 						if (devices.name&&devices.name.startsWith("KS-")&&!scan.found.includes(devices.id+"|"+devices.name) )  scan.found.push(devices.id+"|"+devices.name);
 				}else if (!scan.found.includes(devices.id+"|"+devices.name)) scan.found.push(devices.id+"|"+devices.name);
-        
 			},{filters:this.filter ,active:true });
        		scan.tid=setTimeout(()=>{
 				scan.tid=0;
 				NRF.setScan();
 				if (scan.found!=""&&scan.found!=undefined){ 
 					if (app=="dash"){
-						euc.dash.mac=0;
+						euc.dash.slot.mac=0;
 					}else{
 						set.write("setting",app+"Mac",scan.found[0].split("|")[0]);
 						set.write("setting",app+"Name",scan.found[0].split("|")[1].replace(/\0/g, ''));
@@ -45,7 +44,6 @@ if(!global.scan){
 				face[0].start=1;
 				if (face.appCurr!="w_scan") {delete scan.go;delete scan;}
 			},2500);
-
 		}	
 	};
 }

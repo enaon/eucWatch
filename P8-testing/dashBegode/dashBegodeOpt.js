@@ -23,10 +23,8 @@ face[0] = {
         this.g.setColor(1,15);
       	this.g.fillRect(98,201,120,204);
 		this.g.flip(); 
-        //this.btn(euc.dash.lght.ride,"LED",18,60,15,4,1,0,0,119,97,"RIDE",28,60,50);//1
-        this.btn(0,"",18,60,15,4,1,0,0,119,97,"",28,60,50);//1
-		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",18,185,20,4,1,122,0,239,97,"ALERTS",22,185,55);		
-        //this.btn(euc.dash.ks.lift,"SENSOR",18,60,115,4,1,0,100,119,195,"LIFT",30,60,150);
+        this.btn(0,"",18,60,20,4,1,0,0,119,97,"",25,60,55);//1
+		this.btn((euc.dash.hapt.spd||euc.dash.hapt.amp||euc.dash.hapt.tmp||euc.dash.hapt.bat),"WATCH",18,185,20,4,1,122,0,239,97,"ALERTS",22,185,55);		
         this.btn(0,"INFO",25,60,140,12,1,0,100,119,195,"",25,60,155);
         this.btn(euc.dash.horn,"HORN",25,185,136,4,1,122,100,239,195);		
         this.run=true;

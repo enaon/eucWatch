@@ -4,7 +4,7 @@ function buttonHandler(s){
 	if (face.offid) {clearTimeout(face.offid);face.offid=0;}
 	if (s.state) { 
 		this.press=true;
-		if (global.euc&&euc.state=="READY"&&2<=euc.dash.spd&&euc.dash.horn) {euc.wri("hornOn");return;}
+		if (global.euc&&euc.state=="READY"&&2<=euc.dash.live.spd&&euc.dash.horn) {euc.wri("hornOn");return;}
 		this.t1=setTimeout(() => {
 			this.t1=0;
 			if (global.euc) {

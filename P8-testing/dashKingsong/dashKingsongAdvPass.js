@@ -3,7 +3,7 @@ face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
 	g:w.gfx,
 	init: function(v){
-   		if (!v&&euc.dash.pass) {face.go("dashKingsongAdv",0);return;}
+   		if (!v&&euc.dash.set.pass) {face.go("dashKingsongAdv",0);return;}
    		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		//if (!face[5].pass) {
 		//	face[5].ntfy("EMPTY PASSWORD",20,4);
@@ -11,7 +11,7 @@ face[0] = {
 		//	return;
 		//}	
         //status
-        if (euc.dash.pass.length>=4&&!euc.tmp.pass){
+        if (euc.dash.set.pass.length>=4&&!euc.temp.pass){
 			this.g.setColor(0,4);
 			this.g.fillRect(0,0,239,97);
 			this.g.setColor(1,15);
@@ -35,7 +35,7 @@ face[0] = {
 			this.g.drawString("PASS",122-(this.g.stringWidth("PASS")/2),150); 
 			this.g.flip();
         }else {
-			if (euc.tmp.pass){
+			if (euc.temp.pass){
 				this.g.setColor(0,1);
 				this.g.fillRect(0,0,239,195);
 				this.g.setColor(1,15);
@@ -56,11 +56,11 @@ face[0] = {
 			this.g.flip();
         }
         //info
-        this.g.setColor(0,euc.tmp.pass?7:0);
+        this.g.setColor(0,euc.temp.pass?7:0);
 		this.g.fillRect(0,195,239,239);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",20);
-		this.g.drawString(euc.tmp.pass?"CODE PROTECTED":"PASS SETTINGS",120-(this.g.stringWidth(euc.tmp.pass?"CODE PROTECTED":"PASS SETTINGS")/2),214); 
+		this.g.drawString(euc.temp.pass?"CODE PROTECTED":"PASS SETTINGS",120-(this.g.stringWidth(euc.temp.pass?"CODE PROTECTED":"PASS SETTINGS")/2),214); 
 		this.g.flip(); 
 		this.run=false;
 	},
@@ -223,7 +223,7 @@ face[5] = {
 touchHandler[0]=function(e,x,y){ 
 	switch (e) {
 	case 5: //tap event
-        if (euc.dash.pass.length>=4){
+        if (euc.dash.set.pass.length>=4){
 			buzzer([30,50,30]);
 			if (y<=100) { //enable/disable
 			  face[0].ntfy("HOLD -> CLEAR",20,1);
@@ -232,7 +232,7 @@ touchHandler[0]=function(e,x,y){
 			}
         } else {
 			buzzer(40);
-			if (euc.tmp.pass) {
+			if (euc.temp.pass) {
 				face.go("dashKingsongAdvPass",5);
 				face[0].passSet=1;
 				return;
@@ -269,12 +269,12 @@ touchHandler[0]=function(e,x,y){
 		return;
 	case 12: //long press event
 		buzzer([30,50,30]);
-        if (euc.dash.pass.length>=4){ 
+        if (euc.dash.set.pass.length>=4){ 
 			if (y<=100) { //clear
 			  euc.wri("setPassClear");
-			  euc.dash.passOld="";
-			  euc.dash.pass="";
-			  euc.dash.passSend=0;
+			  euc.dash.set.passOld="";
+			  euc.dash.set.pass="";
+			  euc.dash.auto.onC.pass=0;
 			  euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 			  face.go("dashKingsongAdvPass",0);
 			}else  { //change
@@ -283,7 +283,7 @@ touchHandler[0]=function(e,x,y){
 				return;		
 			}
         }else { //enable
-          euc.dash.pass="";
+          euc.dash.set.pass="";
           face.go("dashKingsongAdvPass",5);
           face[0].passSet=1;
         }  
@@ -331,20 +331,20 @@ touchHandler[5]=function(e,x,y){
         if (face[5].pass.length>=4){
           if (face[5].tid0) {clearTimeout(face[5].tid0); face[5].tid0=0;}
           if (face[0].passSet){
-			 if (euc.tmp.pass){
-					euc.dash.passOld=euc.dash.pass;
-					euc.dash.pass=face[5].pass;		
+			 if (euc.temp.pass){
+					euc.dash.set.passOld=euc.dash.set.pass;
+					euc.dash.set.pass=face[5].pass;		
 					euc.wri("setPassSend");
 					buzzer(80);
 					face[5].ntfy("PLEASE WAIT",20,1);
 					setTimeout(()=>{
-						if (euc.tmp.pass){
-							euc.dash.pass="";
+						if (euc.temp.pass){
+							euc.dash.set.pass="";
 							face[5].ntfy("CODE IS WRONG",20,7);
 						}else {
 							face[5].ntfy("CODE ACCEPTED",20,4);
 							setTimeout(()=>{
-								euc.dash.passSend=1;
+								euc.dash.auto.onC.pass=1;
 								euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 								euc.wri("start");
 								face.go(set.dash[set.def.dash.face],0);
@@ -354,19 +354,19 @@ touchHandler[5]=function(e,x,y){
 					},800);
              }else if (face[0].passSet>=2){
                 if (face[5].pass==face[5].passTemp){
-                  euc.dash.passOld=euc.dash.pass;
-                  euc.dash.pass=face[5].pass;
+                  euc.dash.set.passOld=euc.dash.set.pass;
+                  euc.dash.set.pass=face[5].pass;
                   buzzer(80);
                   face[5].ntfy("SUCCESS!",20,4);
-                  if (euc.dash.passOld!="")
+                  if (euc.dash.set.passOld!="")
 					euc.wri("setPassChange");
 				  else{
-					if (euc.tmp.pass) 
+					if (euc.temp.pass) 
 						euc.wri("start");
 					else 
 						euc.wri("setPass");
 				  }
-                  euc.dash.passSend=1;
+                  euc.dash.auto.onC.pass=1;
        			  euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
                   setTimeout(()=>{face.go(face.appPrev=="dashKingsongAdv"?"dashKingsongAdvPass":set.dash[set.def.dash.face],0);return;},1000);
                 }else{
@@ -382,7 +382,7 @@ touchHandler[5]=function(e,x,y){
                  face[5].ntfy("RE-ENTER->CONFIRM",20,4);
              }
           }else{
-              if (face[5].pass==euc.dash.pass) {
+              if (face[5].pass==euc.dash.set.pass) {
                 buzzer(80);
                 face[5].ntfy("PASSWORD ACCEPTED",20,4);
                 setTimeout(()=>{face.go("dashKingsongAdvPass",0,1);return;},1000);

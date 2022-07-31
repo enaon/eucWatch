@@ -24,10 +24,10 @@ face[0] = {
       	this.g.fillRect(75,200,120,204);
 		this.g.flip(); 
 		let val=["NA","ON","OFF","AUTO","CITY"];
-	    this.btn(euc.dash.ks.aHLC,"LIGHT",18,60,15,euc.dash.ks.aHLC!=2?12:1,0,0,0,119,97,val[euc.dash.ks.aHLC],28,60,50);
-		this.btn(euc.dash.ks.aRideC,"LED",18,185,15,euc.dash.ks.aRideC==1?12:1,0,122,0,239,97,"RIDE",28,185,50);
-        this.btn(euc.dash.ks.aLiftC,"SENSOR",18,60,115,euc.dash.ks.aLiftC==1?12:1,0,0,100,119,195,"LIFT",30,60,150);
-        this.btn(euc.dash.ks.aVoiceC,"VOICE",18,185,115,euc.dash.ks.aVoiceC==1?12:1,0,122,100,239,195,"MODE",30,185,150);	
+	    this.btn(euc.dash.auto.onC.HL,"LIGHT",18,60,20,euc.dash.auto.onC.HL!=2?12:1,0,0,0,119,97,val[euc.dash.auto.onC.HL],25,60,55);
+		this.btn(euc.dash.auto.onC.led,"LED",18,185,20,euc.dash.auto.onC.led==1?12:1,0,122,0,239,97,"RIDE",25,185,55);
+        this.btn(euc.dash.auto.onC.lift,"SENSOR",18,60,115,euc.dash.auto.onC.lift==1?12:1,0,0,100,119,195,"LIFT",25,60,150);
+        this.btn(euc.dash.auto.onC.talk,"VOICE",18,185,115,euc.dash.auto.onC.talk==1?12:1,0,122,100,239,195,"MODE",25,185,155);	
 
 		this.run=true;
 	},
@@ -109,26 +109,26 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
       case 5: case 12: //tap event
 		if ( x<=120 && y<100 ) { //light
-			euc.dash.ks.aHLC++;  if (3<euc.dash.ks.aHLC) euc.dash.ks.aHLC=0;
+			euc.dash.auto.onC.HL++;  if (3<euc.dash.auto.onC.HL) euc.dash.auto.onC.HL=0;
 			//let val=["NA","CITY","AUTO","ON","OFF"];
 			let val=["NA","ON","OFF","AUTO"];
-			face[0].btn(euc.dash.ks.aHLC,"LIGHT",18,60,15,euc.dash.ks.aHLC!=2?12:1,0,0,0,119,97,val[euc.dash.ks.aHLC],28,60,50);
-            face[0].ntfy("SET LIGHT "+val[euc.dash.ks.aHLC],"NO ACTION",20,1,euc.dash.ks.aHLC);
+			face[0].btn(euc.dash.auto.onC.HL,"LIGHT",18,60,20,euc.dash.auto.onC.HL!=2?12:1,0,0,0,119,97,val[euc.dash.auto.onC.HL],25,60,55);
+            face[0].ntfy("SET LIGHT "+val[euc.dash.auto.onC.HL],"NO ACTION",20,1,euc.dash.auto.onC.HL);
 			buzzer([30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //ride
-			euc.dash.ks.aRideC++; if (2<euc.dash.ks.aRideC) euc.dash.ks.aRideC=0;
-			face[0].btn(euc.dash.ks.aRideC,"LED",18,185,15,euc.dash.ks.aRideC==1?12:1,0,122,0,239,97,"RIDE",28,185,50);
-			face[0].ntfy(euc.dash.ks.aRideC==1?"ENABLE RIDE LED":"DISABLE RIDE LED","NO ACTION",20,1,euc.dash.ks.aRideC);
+			euc.dash.auto.onC.led++; if (2<euc.dash.auto.onC.led) euc.dash.auto.onC.led=0;
+			face[0].btn(euc.dash.auto.onC.led,"LED",18,185,20,euc.dash.auto.onC.led==1?12:1,0,122,0,239,97,"RIDE",25,185,55);
+			face[0].ntfy(euc.dash.auto.onC.led==1?"ENABLE RIDE LED":"DISABLE RIDE LED","NO ACTION",20,1,euc.dash.auto.onC.led);
 			buzzer([30,50,30]);
 		}else if ( x<=120 && 100<=y ) { //auto lift
-			euc.dash.ks.aLiftC++; if (2<euc.dash.ks.aLiftC) euc.dash.ks.aLiftC=0;
-            face[0].btn(euc.dash.ks.aLiftC,"SENSOR",18,60,115,euc.dash.ks.aLiftC==1?12:1,0,0,100,119,195,"LIFT",30,60,150);
-            face[0].ntfy(euc.dash.ks.aLiftC==1?"ENABLE LIFT HANDLE":"DISABLE LIFT HANDLE","NO ACTION",20,1,euc.dash.ks.aLiftC);
+			euc.dash.auto.onC.lift++; if (2<euc.dash.auto.onC.lift) euc.dash.auto.onC.lift=0;
+            face[0].btn(euc.dash.auto.onC.lift,"SENSOR",18,60,115,euc.dash.auto.onC.lift==1?12:1,0,0,100,119,195,"LIFT",25,60,150);
+            face[0].ntfy(euc.dash.auto.onC.lift==1?"ENABLE LIFT HANDLE":"DISABLE LIFT HANDLE","NO ACTION",20,1,euc.dash.auto.onC.lift);
 			buzzer([30,50,30]);		
 		}else if  (120<=x && 100<=y ) { //voice
-			euc.dash.ks.aVoiceC++;  if (2<euc.dash.ks.aVoiceC) euc.dash.ks.aVoiceC=0;
-			face[0].btn(euc.dash.ks.aVoiceC,"VOICE",18,185,115,euc.dash.ks.aVoiceC==1?12:1,0,122,100,239,195,"MODE",30,185,150);	
-            face[0].ntfy(euc.dash.ks.aVoiceC==1?"ENABLE VOICE MODE":"DISABLE VOICE MODE","NO ACTION",20,1,euc.dash.ks.aVoiceC);
+			euc.dash.auto.onC.talk++;  if (2<euc.dash.auto.onC.talk) euc.dash.auto.onC.talk=0;
+			face[0].btn(euc.dash.auto.onC.talk,"VOICE",18,185,115,euc.dash.auto.onC.talk==1?12:1,0,122,100,239,195,"MODE",25,185,155);	
+            face[0].ntfy(euc.dash.auto.onC.talk==1?"ENABLE VOICE MODE":"DISABLE VOICE MODE","NO ACTION",20,1,euc.dash.auto.onC.talk);
 			buzzer([30,50,30]);					
 		}else buzzer(40);
 		break;

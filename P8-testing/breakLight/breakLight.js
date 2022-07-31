@@ -99,13 +99,13 @@ face[0] = {
 		this.g.flip(); 
 		this.btn(ledBT.run,ledBT.run?"ON":"OFF",25,60,35,4,1,0,0,119,97);
 		
-		this.btn(1,"SOLID",18,185,15,12,1,122,0,239,97,this.color[ledBT.color],25,185,50);	
+		this.btn(1,"SOLID",18,185,20,12,1,122,0,239,97,this.color[ledBT.color],25,185,50);	
 		this.btn(1,"WHITE",18,60,115,4,1,0,100,119,195,"ONCE",25,60,150);
 		this.btn(1,"PATERN",18,185,115,12,1,122,100,239,195,this.patern[ledBT.patern],25,185,150);	
-/*		this.btn(1,"ON",18,60,15,4,1,0,0,119,97,"",28,60,50);
-		this.btn(1,"OFF",25,185,35,7,1,122,0,239,97,"",28,185,50);	
-		this.btn(1,"WHITE",18,60,115,4,1,0,100,119,195,"",30,60,150);
-		this.btn(1,"POLICE",22,185,135,4,1,122,100,239,195,"",30,185,150);	
+/*		this.btn(1,"ON",18,60,20,4,1,0,0,119,97,"",25,60,55);
+		this.btn(1,"OFF",18,185,20,7,1,122,0,239,97,"",25,185,55);	
+		this.btn(1,"WHITE",18,60,115,4,1,0,100,119,195,"",25,60,150);
+		this.btn(1,"POLICE",22,185,135,4,1,122,100,239,195,"",25,185,155);	
 */
 	},
 	show : function(){
@@ -180,7 +180,7 @@ touchHandler[0]=function(e,x,y){
 		}else if ( 120<=x && y<=100 ) { //solid
 			buzzer([30,50,30]);	
 			if (ledBT.color < face[0].color.length-1) ledBT.color++; else ledBT.color=0;
-			face[0].btn(1,"SOLID",18,185,15,12,1,122,0,239,97,face[0].color[ledBT.color],25,185,50);		
+			face[0].btn(1,"SOLID",18,185,20,12,1,122,0,239,97,face[0].color[ledBT.color],25,185,50);		
 			ledBT.do(face[0].color[ledBT.color]);
   	}else if ( x<=120 && 100<=y ) { //once white
 			buzzer([30,50,30]);		

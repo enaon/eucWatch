@@ -1,1 +1,13 @@
-{"lim":[10,20,30,45],"limE":[0,0,0],"spd":0,"spdF":1,"spdA":0,"spdR":0,"spdM":0,"spdC":0,"spd1":20,"spd2":30,"spd3":40,"spd1E":0,"spd2E":0,"spdT":45,"spdS":1,"hapS":0,"haSv":"spd1","hapA":0,"hapT":0,"hapB":0,"volt":0,"amp":0,"ampC":0,"ampL":-6,"ampH":18,"ampS":1,"ampR":0,"bat":0,"batF":420,"batE":320,"batC":3,"batH":75,"batM":50,"batL":25,"tmp":0,"tmpC":0,"tmpH":60,"trpF":1,"trpU":0,"trpL":0,"trpT":0,"trpR":0,"trpC":0,"lock":0,"aOff":0,"aLck":0,"pLck":0,"far":83,"near":65,"tiltSet":0,"horn":0,"time":0,"emu":0,"pass":"","passSend":0,"mode":2,"aLight":0,"light":0,"strb":0,"maker":"","model":"","mac":"","ampR":0,"bms":1.5,"led":0,"rolA":0,"vol":1}
+{
+	"slot": {"make":"","modl":"","firm":"","serl":"","manD":"","colr":0,"id":"","bms":1.5,"mac":"","mAh":0,"time":0,"spin":0},
+	"auto": {"onC":{"HL":0,"led":0,"bep":0,"unlk":0,"lift":0,"talk":0,"pass":0},"onD":{"HL":0,"led":0,"beep":0,"lock":0,"lift":0,"talk":0,"off":0}},
+	"info": {"fan":"","chrg":0,"time":0,"tRdT":0,"err":0,"alrm":0},
+	"live": {"spd":0,"volt":0,"amp":0,"bat":0,"tmp":0,"tmpM":0 },
+	"trip": {"totl":0,"last":0,"left":0,"topS":0,"avrS":0,"time":0},
+	"hapt": {"spd":1,"spdH":40,"spdS":1,"amp":1,"ampL":-10,"ampH":20,"ampS":1,"tmp":1,"tmpH":60,"bat":1,"batL":25,"save":"spd1","pwm":0,"pwmH":50},
+	"opt":  {"spdF":1,"trpF":1,"batF":420,"batE":320,"spdR":0,"ampR":0,"pLck":0,"far":83,"near":65,"emu":0,"city":0,"horn":0},
+	"set": {"HL":0,"strb":0,"led":0,"vol":1,"lock":0,"pTlt":0,"pass":"","mode":2,"rolA":0,"lift":1,"offT":0,"horn":0},
+	"limt": {"en":{"spd":0,"spd1":0},"spd":20,"spd1":30,"spd2":40,"tilt":0,"mode":0},
+	"alrm":  {"beep":0,"err":0,"txt":0,"spd":0,"amp":0,"bat":0,"tmp":0,"pwm":0,"tilt":0}
+}
+//	"lim":[10,20,30,45],

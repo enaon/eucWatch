@@ -10,10 +10,10 @@ face[0] = {
 		this.g.setFont("Vector",20);
 		this.g.drawString("WHEEL ALERTS",120-(this.g.stringWidth("WHEEL ALERTS")/2),214); 
 		this.g.flip(); 
-		this.btn(euc.dash.limE[0],"ALARM 1",18,60,15,12,1,0,0,119,97,(euc.dash.limE[0])?euc.dash.lim[0]:"OFF",28,60,50);
-		this.btn(euc.dash.limE[1],"ALARM 2",18,185,15,12,1,122,0,239,97,(euc.dash.limE[1])?euc.dash.lim[1]:"OFF",28,185,50);
-		this.btn(1,"ALARM 3",18,60,115,12,0,0,100,119,195,euc.dash.lim[2],28,60,150);
-        this.btn(1,"TILTBACK",18,185,115,4,0,122,100,239,195,euc.dash.lim[3],28,185,150);		
+		this.btn(euc.dash.limt.en.spd,"ALARM 1",18,60,20,12,1,0,0,119,97,(euc.dash.limt.en.spd)?euc.dash.limt.spd:"OFF",25,60,55);
+		this.btn(euc.dash.limt.en.spd1,"ALARM 2",18,185,20,12,1,122,0,239,97,(euc.dash.limt.en.spd1)?euc.dash.limt.spd1:"OFF",25,185,55);
+		this.btn(1,"ALARM 3",18,60,115,12,0,0,100,119,195,euc.dash.limt.spd2,28,60,150);
+        this.btn(1,"TILTBACK",18,185,115,4,0,122,100,239,195,euc.dash.limt.tilt,28,185,150);		
         if (!face.appPrev.startsWith("dashSet")){
 		this.g.setColor(0,0);
 		this.g.drawLine (0,98,239,98);
@@ -73,8 +73,8 @@ face[0] = {
 		this.g.drawImage(require("heatshrink").decompress(atob("oFAwJC/AAs8A41+A43/AwsDA40HA40PA40f/wHFn/8Fw34AwkB//wGw3AGw2AGxk/Gw1/Gw4uFGwPgGxguBGwsfGw4uGv5lFGw4HBGwoHJC4wnHG45HHK45nHO444JGAynHW47HHHBKBHNJ44QA4o4BA4owBA41+A408A4wA6A==")),0,75);
 		this.g.drawImage(require("heatshrink").decompress(atob("oFAwJC/AAU8A41+A43/A4/AA43gA43wA4t//AHFn/8A4sfGA0P/+AA4kDHA0BHCAwGn/+GA4HFg44QGA3/NJ44QA5oXHE443HI4xXHM453HGw6XHU44uGY442Hc473HMo9/Voy9Ifw42FA4IGFgF+A408A4wA9A=")),180,75);
 		this.g.flip(); 
-        this.btn(1,euc.dash.lim[b],100,126,60,12,1,60,40,180,160);
-        euc.dash.limE[b]=1;
+        this.btn(1,euc.dash.limt[b],100,126,60,12,1,60,40,180,160);
+        euc.dash.limt.en[b]=1;
     },
 	tid:-1,
 	run:false,
@@ -112,34 +112,29 @@ touchHandler[0]=function(e,x,y){
 	case 5://tap event
         if (!face[0].setE){//select page
 			if (x<=120&&y<100) { //alarm 1
-                if (euc.dash.limE[0]){
-					euc.dash.limE[0]=0;
-					face[0].btn(1,"ALARM 1",18,60,15,1,0,0,0,119,97,"OFF",28,60,50);
+                if (euc.dash.limt.en.spd){
+					euc.dash.limt.en.spd=0;
+					face[0].btn(1,"ALARM 1",18,60,20,1,0,0,0,119,97,"OFF",25,60,55);
 					face[0].ntfy("ALARM 1-> DISABLED","",20,1,1);
 					buzzer([30,50,30]);
 				}else {
-					//if (euc.dash.limE[1]){
-						euc.dash.limE[0]=1;
-                        if (euc.dash.lim[1]<=euc.dash.lim[0] ) euc.dash.lim[0]=euc.dash.lim[1]-1;
-						face[0].btn(1,"ALARM 1",18,60,15,12,0,0,0,119,97,euc.dash.lim[0],28,60,50);
-						face[0].ntfy("ALARM 1-> ENABLED","",20,1,1);
-						buzzer([30,50,30]);
-                   // }else {face[0].ntfy("ENABLE ALARM 2","",20,7,1);buzzer(40);}
+					euc.dash.limt.en.spd=1;
+					if (euc.dash.limt.spd1<=euc.dash.limt.spd ) euc.dash.limt.spd=euc.dash.limt.spd1-1;
+					face[0].btn(1,"ALARM 1",18,60,20,12,0,0,0,119,97,euc.dash.limt.spd,25,60,55);
+					face[0].ntfy("ALARM 1-> ENABLED","",20,1,1);
+					buzzer([30,50,30]);
                 }
 			}else if (120<=x<=239&&y<=100) { //alarm 2
-				if ( euc.dash.limE[1]){
-					//if (euc.dash.limE[0]) {face[0].ntfy("DISABLE ALARM 1","",20,7,1);buzzer(40);}
-					//else {
-						euc.dash.limE[1]=0;
-						buzzer([30,50,30]);
-						face[0].btn(1,"ALARM 2",18,185,15,1,0,122,0,239,97,"OFF",28,185,50);
-						face[0].ntfy("ALARM 2 -> DISABLED","",20,1,1);
-					//}
-				}else {
-					euc.dash.limE[1]=1;
-                    if (euc.dash.lim[2]<=euc.dash.lim[1]) euc.dash.lim[1]=euc.dash.lim[2]-1;
+				if ( euc.dash.limt.en.spd1){
+					euc.dash.limt.en.spd1=0;
 					buzzer([30,50,30]);
-					face[0].btn(euc.dash.limE[1],"ALARM 2",18,185,15,12,1,122,0,239,97,(euc.dash.limE[1])?euc.dash.lim[1]:"OFF",28,185,50);
+					face[0].btn(1,"ALARM 2",18,185,20,1,0,122,0,239,97,"OFF",25,185,55);
+					face[0].ntfy("ALARM 2 -> DISABLED","",20,1,1);
+				}else {
+					euc.dash.limt.en.spd1=1;
+                    if (euc.dash.limt.spd2<=euc.dash.limt.spd1) euc.dash.limt.spd1=euc.dash.limt.spd2-1;
+					buzzer([30,50,30]);
+					face[0].btn(euc.dash.limt.en.spd1,"ALARM 2",18,185,20,12,1,122,0,239,97,(euc.dash.limt.en.spd1)?euc.dash.limt.spd1:"OFF",25,185,55);
 					face[0].ntfy("ALARM 2 -> ENABLED","",20,1,1);
 				}
 			}else if (x<=120&&100<=y<=200) { //alarm 3
@@ -151,48 +146,42 @@ touchHandler[0]=function(e,x,y){
 			}else buzzer([30,50,30]);
 		}else {//set page
 			if (120<=x) { //up
-                if (face[0].setEb==0) 
-					//if (euc.dash.limE[1])
-					if (euc.dash.lim[0]+1<euc.dash.lim[1])  euc.dash.lim[0]++;
+                if (face[0].setEb=="spd") 
+					if (euc.dash.limt.spd+1<euc.dash.limt.spd1)  euc.dash.limt.spd++;
                     else face[0].ntfy("MOVE ALARM 2","",20,7,1);
-					//else face[0].ntfy("ENABLE ALARM 2","",20,7,1);
-                else if (face[0].setEb==1) 
-                    if (euc.dash.lim[1]+1<euc.dash.lim[2]) euc.dash.lim[1]++;
+                else if (face[0].setEb=="spd1") 
+                    if (euc.dash.limt.spd1+1<euc.dash.limt.spd2) euc.dash.limt.spd1++;
                     else face[0].ntfy("MOVE ALARM 3","",20,7,1);
-                else if (face[0].setEb==2) 
-                    if (euc.dash.lim[2]<euc.dash.lim[3]) euc.dash.lim[2]++;
+                else if (face[0].setEb=="spd2") 
+                    if (euc.dash.limt.spd2<euc.dash.limt.tilt) euc.dash.limt.spd2++;
                     else face[0].ntfy("MOVE TILTBACK","",20,7,1);
-                else{ 
-                    if (euc.dash.lim[3]<50) euc.dash.lim[3]++;
-                    else face[0].ntfy("THE LIMIT IS 50KpH","",20,7,1);
+                else if (face[0].setEb=="tilt") { 
+                    if (euc.dash.limt.tilt<75) euc.dash.limt.tilt++;
+                    else face[0].ntfy("THE LIMIT IS 75KpH","",20,7,1);
                     } 
             }else {  //dn
-                if (face[0].setEb=="0") {
-					if (5<euc.dash.lim[0]) euc.dash.lim[0]--;
-                    //if (euc.dash.lim[0]==0)  {euc.dash.lim[0]=1;face[0].ntfy("DISABLED","",20,7,1);euc.dash.limE[0]=0;buzzer(40);return;}
-                }else if (face[0].setEb=="1"){
-					if (euc.dash.limE[0]){
-						if (euc.dash.lim[1]<=5) { face[0].ntfy("AL1 DN LIMIT IS 5KpH","",20,7,1);buzzer(40);return;}
-						if (euc.dash.lim[0]+1<euc.dash.lim[1]) euc.dash.lim[1]--;
+                if (face[0].setEb=="spd") {
+					if (5<euc.dash.limt.spd) euc.dash.limt.spd--;
+                }else if (face[0].setEb=="spd1"){
+					if (euc.dash.limt.en.spd){
+						if (euc.dash.limt.spd1<=5) { face[0].ntfy("AL1 DN LIMIT IS 5KpH","",20,7,1);buzzer(40);return;}
+						if (euc.dash.limt.spd+1<euc.dash.limt.spd1) euc.dash.limt.spd1--;
 						else face[0].ntfy("MOVE ALARM 1","",20,7,1);
-					}else if (5<euc.dash.lim[1]) euc.dash.lim[1]--;
+					}else if (5<euc.dash.limt.spd1) euc.dash.limt.spd1--;
 					else face[0].ntfy("AL1 DN LIMIT IS 5KpH","",20,7,1);
-                }else if (face[0].setEb=="2") {
-					if (euc.dash.limE[1]){
-						if (euc.dash.lim[1]+1<euc.dash.lim[2]) euc.dash.lim[2]--;
+                }else if (face[0].setEb=="spd2") {
+					if (euc.dash.limt.en.spd1){
+						if (euc.dash.limt.spd1+1<euc.dash.limt.spd2) euc.dash.limt.spd2--;
 						else face[0].ntfy("MOVE ALARM 2","",20,7,1);
-					}else if (10<euc.dash.lim[2]) euc.dash.lim[2]--;
-					else face[0].ntfy("AL2 DN LIMIT IS 10KpH","",20,7,1);
-                }else if (face[0].setEb=="3"){
-					if (euc.dash.limE[2]){
-						if (euc.dash.lim[2]<euc.dash.lim[3]) euc.dash.lim[3]--;
-						else face[0].ntfy("MOVE ALARM 3","",20,7,1);
-					}else if (5<euc.dash.lim[3]) euc.dash.lim[3]--;
-					else face[0].ntfy("THE DN LIMIT IS 5KpH","",20,7,1);
+					}else if (10<euc.dash.limt.spd2) euc.dash.limt.spd2--;
+					else face[0].ntfy("AL2 N LIMIT IS 10KpH","",20,7,1);
+                }else if (face[0].setEb=="tilt"){
+					if (euc.dash.limt.spd2<euc.dash.limt.tilt) euc.dash.limt.tilt--;
+					else face[0].ntfy("MOVE ALARM 3","",20,7,1);
                 } 
             } 
             buzzer([30,50,30]);
-			face[0].btn(1,euc.dash.lim[face[0].setEb],100,126,60,12,1,60,40,180,160);
+			face[0].btn(1,euc.dash.limt[face[0].setEb],100,126,60,12,1,60,40,180,160);
 		}
 		this.timeout();
 		break;
@@ -225,22 +214,22 @@ touchHandler[0]=function(e,x,y){
         break;
    case 12: //hold event
 			if (x<=120&&y<100) { //alarm 1
-               // if (euc.dash.limE[1]){
-                if (euc.dash.lim[0]>=euc.dash.lim[1]) 
-				euc.dash.lim[0]=euc.dash.lim[1]-1;
-				face[0].set("0","ALARM 1");
+               // if (euc.dash.limt.en.spd1){
+                if (euc.dash.limt.spd>=euc.dash.limt.spd1) 
+				euc.dash.limt.spd=euc.dash.limt.spd1-1;
+				face[0].set("spd","ALARM 1");
 				buzzer([30,50,30]);
                // }else  {face[0].ntfy("ENABLE ALARM 2","",20,7,1);buzzer(40);}
 			}else if (120<=x<=239&&y<=100) { //alarm 2
-                if (euc.dash.lim[1]>=euc.dash.lim[2]) euc.dash.lim[1]=euc.dash.lim[2]-1;
-				face[0].set("1","ALARM 2");
+                if (euc.dash.limt.spd1>=euc.dash.limt.spd2) euc.dash.limt.spd1=euc.dash.limt.spd2-1;
+				face[0].set("spd1","ALARM 2");
 				buzzer([30,50,30]);
 			}else if (x<=120&&100<=y<=200) { //alarm 3
-                if (euc.dash.lim[2]>=euc.dash.lim[3]) euc.dash.lim[2]=euc.dash.lim[3];
-                face[0].set("2","ALARM 3");
+                if (euc.dash.limt.spd2>=euc.dash.limt.tilt) euc.dash.limt.spd2=euc.dash.limt.tilt;
+                face[0].set("spd2","ALARM 3");
 				buzzer([30,50,30]);		
 			}else if (120<=x<=239&&100<=y<=200) { //tiltback
-                face[0].set("3","TITLBACK");
+                face[0].set("tilt","TITLBACK");
 				buzzer([30,50,30]);						
 			}else buzzer([30,50,30]);
 			

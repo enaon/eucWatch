@@ -24,10 +24,10 @@ face[0] = {
       	this.g.fillRect(75,200,115,204);
 		this.g.flip(); 
 		let val=["NA","ON","OFF","AUTO","CITY"];
-	    this.btn(euc.dash.ks.aHLD,"LIGHT",18,60,15,euc.dash.ks.aHLD!=2?12:1,0,0,0,119,97,val[euc.dash.ks.aHLD],28,60,50);
-		this.btn(euc.dash.ks.aRideD,"LED",18,185,15,euc.dash.ks.aRideD==1?12:1,0,122,0,239,97,"RIDE",28,185,50);
-        this.btn(euc.dash.ks.aLiftD,"SENSOR",18,60,115,euc.dash.ks.aLiftD==1?12:1,0,0,100,119,195,"LIFT",30,60,150);
-        this.btn(euc.dash.ks.aVoiceD,"VOICE",18,185,115,euc.dash.ks.aVoiceD==1?12:1,0,122,100,239,195,"MODE",30,185,150);	
+	    this.btn(euc.dash.auto.onD.HL,"LIGHT",18,60,20,euc.dash.auto.onD.HL!=2?12:1,0,0,0,119,97,val[euc.dash.auto.onD.HL],25,60,55);
+		this.btn(euc.dash.auto.onD.led,"LED",18,185,20,euc.dash.auto.onD.led==1?12:1,0,122,0,239,97,"RIDE",25,185,55);
+        this.btn(euc.dash.auto.onD.lift,"SENSOR",18,60,115,euc.dash.auto.onD.lift==1?12:1,0,0,100,119,195,"LIFT",25,60,150);
+        this.btn(euc.dash.auto.onD.talk,"VOICE",18,185,115,euc.dash.auto.onD.talk==1?12:1,0,122,100,239,195,"MODE",25,185,155);	
 		this.run=true;
 	},
 	show : function(){
@@ -108,25 +108,25 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
       case 5: case 12: //tap event
 		if ( x<=120 && y<100 ) { //lights
-			euc.dash.ks.aHLD++;  if (3<euc.dash.ks.aHLD) euc.dash.ks.aHLD=0;
+			euc.dash.auto.onD.HL++;  if (3<euc.dash.auto.onD.HL) euc.dash.auto.onD.HL=0;
 			let val=["NA","ON","OFF","AUTO"];
-			face[0].btn(euc.dash.ks.aHLD,"LIGHT",18,60,15,euc.dash.ks.aHLD!=2?12:1,0,0,0,119,97,val[euc.dash.ks.aHLD],28,60,50);
-            face[0].ntfy("SET LIGHT "+val[euc.dash.ks.aHLD],"NO ACTION",20,1,euc.dash.ks.aHLD);
+			face[0].btn(euc.dash.auto.onD.HL,"LIGHT",18,60,20,euc.dash.auto.onD.HL!=2?12:1,0,0,0,119,97,val[euc.dash.auto.onD.HL],25,60,55);
+            face[0].ntfy("SET LIGHT "+val[euc.dash.auto.onD.HL],"NO ACTION",20,1,euc.dash.auto.onD.HL);
 			buzzer([30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //ride
-			euc.dash.ks.aRideD++; if (2<euc.dash.ks.aRideD) euc.dash.ks.aRideD=0;
-			face[0].btn(euc.dash.ks.aRideD,"LED",18,185,15,euc.dash.ks.aRideD==1?12:1,0,122,0,239,97,"RIDE",28,185,50);
-			face[0].ntfy(euc.dash.ks.aRideD==1?"ENABLE RIDE LED":"DISABLE RIDE LED","NO ACTION",20,1,euc.dash.ks.aRideD);
+			euc.dash.auto.onD.led++; if (2<euc.dash.auto.onD.led) euc.dash.auto.onD.led=0;
+			face[0].btn(euc.dash.auto.onD.led,"LED",18,185,20,euc.dash.auto.onD.led==1?12:1,0,122,0,239,97,"RIDE",25,185,55);
+			face[0].ntfy(euc.dash.auto.onD.led==1?"ENABLE RIDE LED":"DISABLE RIDE LED","NO ACTION",20,1,euc.dash.auto.onD.led);
 			buzzer([30,50,30]);
 		}else if ( x<=120 && 100<=y ) { //auto lift
-			euc.dash.ks.aLiftD++; if (2<euc.dash.ks.aLiftD) euc.dash.ks.aLiftD=0;
-            face[0].btn(euc.dash.ks.aLiftD,"SENSOR",18,60,115,euc.dash.ks.aLiftD==1?12:1,0,0,100,119,195,"LIFT",30,60,150);
-            face[0].ntfy(euc.dash.ks.aLiftD==1?"ENABLE LIFT HANDLE":"DISABLE LIFT HANDLE","NO ACTION",20,1,euc.dash.ks.aLiftD);
+			euc.dash.auto.onD.lift++; if (2<euc.dash.auto.onD.lift) euc.dash.auto.onD.lift=0;
+            face[0].btn(euc.dash.auto.onD.lift,"SENSOR",18,60,115,euc.dash.auto.onD.lift==1?12:1,0,0,100,119,195,"LIFT",25,60,150);
+            face[0].ntfy(euc.dash.auto.onD.lift==1?"ENABLE LIFT HANDLE":"DISABLE LIFT HANDLE","NO ACTION",20,1,euc.dash.auto.onD.lift);
 			buzzer([30,50,30]);		
 		}else if  (120<=x && 100<=y ) { //voice
-			euc.dash.ks.aVoiceD++;  if (2<euc.dash.ks.aVoiceD) euc.dash.ks.aVoiceD=0;
-			face[0].btn(euc.dash.ks.aVoiceD,"VOICE",18,185,115,euc.dash.ks.aVoiceD==1?12:1,0,122,100,239,195,"MODE",30,185,150);	
-            face[0].ntfy(euc.dash.ks.aVoiceD==1?"ENABLE VOICE MODE":"DISABLE VOICE MODE","NO ACTION",20,1,euc.dash.ks.aVoiceD);
+			euc.dash.auto.onD.talk++;  if (2<euc.dash.auto.onD.talk) euc.dash.auto.onD.talk=0;
+			face[0].btn(euc.dash.auto.onD.talk,"VOICE",18,185,115,euc.dash.auto.onD.talk==1?12:1,0,122,100,239,195,"MODE",25,185,155);	
+            face[0].ntfy(euc.dash.auto.onD.talk==1?"ENABLE VOICE MODE":"DISABLE VOICE MODE","NO ACTION",20,1,euc.dash.auto.onD.talk);
 			buzzer([30,50,30]);		
 		}else buzzer(40);
 		break;

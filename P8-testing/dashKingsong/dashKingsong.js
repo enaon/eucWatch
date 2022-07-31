@@ -26,25 +26,24 @@ face[0] = {
 		this.g.flip(); 
 		let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
 		face[0].btn(1,euc.dash.tpms?euc.dash.tpms:"TPMS",18,60,115,(euc.dash.tpms&&tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.tpms].time<1800)?(tpms.euc[euc.dash.tpms].alrm)?7:4:1,1,0,100,119,195,(euc.dash.tpms)?(tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].psi)?Math.round(tpms.euc[euc.dash.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.tpms)?32:28,60,150);
-		
-		
-		if (!euc.tmp.ls) {euc.tmp.ls=1;setTimeout(()=>{euc.wri("getLock");setTimeout(()=>{euc.wri("getStrobe");},100);},300);}
+		if (!euc.temp.ls) {euc.temp.ls=1;setTimeout(()=>{euc.wri("getLock");setTimeout(()=>{euc.wri("getStrobe");},100);},300);}
 		this.run=true;
 	},
 	show : function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
-		if ( this.light!=euc.dash.ks.HL) {
-            this.light=euc.dash.ks.HL;
+		if ( this.light!=euc.dash.set.HL) {
+            this.light=euc.dash.set.HL;
 			let val=["CITY","ON","OFF","AUTO"];
-			this.btn(euc.dash.ks.HL!=2?1:0,euc.dash.ks.city?"CITY":"LIGHTS",18,60,15,euc.dash.ks.city?12:4,1,0,0,119,97,val[euc.dash.ks.HL],28,60,50);
-		}if ( this.strb!=euc.dash.strb) {
-            this.strb=euc.dash.strb;
-			this.btn(euc.dash.strb,"STROBE",25,185,35,7,1,122,0,239,97,"",28,185,50);	
+			this.btn(euc.dash.set.HL!=2?1:0,euc.dash.opt.city?"CITY":"LIGHTS",18,60,20,euc.dash.opt.city?12:4,1,0,0,119,97,val[euc.dash.set.HL],25,60,55);
+		}if ( this.strb!=euc.dash.set.strb) {
+            this.strb=euc.dash.set.strb;
+			this.btn(euc.dash.set.strb,"STROBE",18,185,20,7,1,122,0,239,97,euc.dash.set.strb?"ON":"OFF",25,185,55);	
+			//this.btn(euc.dash.set.strb,"STROBE",18,185,20,7,1,122,0,239,97,"",25,185,55);	
 		}
-		if ( this.lock!=euc.dash.lock) {
-        this.lock=euc.dash.lock;
-			this.btn(euc.dash.lock,"LOCK",28,185,135,euc.dash.ks.aUnlock?9:7,1,122,100,239,195,"",30,185,150);	
+		if ( this.lock!=euc.dash.set.lock) {
+			this.lock=euc.dash.set.lock;
+			this.btn(euc.dash.set.lock,"LOCK",25,185,136,euc.dash.auto.onC.unlk?9:7,1,122,100,239,195,"",25,185,155);	
 		}
 		this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
@@ -125,7 +124,7 @@ touchHandler[0]=function(e,x,y){
 			return;
 		}else if ( 120<=x && y<=100 ) { //STROBE
 			buzzer([30,50,30]);	
-			euc.wri("setStrobeOnOff",1-euc.dash.strb);
+			euc.wri("setStrobeOnOff",1-euc.dash.set.strb);
 		}else if ( x<=120 && 100<=y ) { //tpms
 			buzzer([30,50,30]);		
 			if (!euc.dash.tpms) face[0].ntfy("HOLD-> ON/OFF","NO ACTION",19,4,1);
@@ -135,9 +134,9 @@ touchHandler[0]=function(e,x,y){
 				return;
 			}
 		}else if  (120<=x && 100<=y ) { //Lock
-			//euc.dash.lock=1-euc.dash.lock;
+			//euc.dash.set.lock=1-euc.dash.set.lock;
 			buzzer([30,50,30]);	
-			euc.wri((1-euc.dash.lock)?"doLock":"doUnlock",euc.tmp.lockKey);
+			euc.wri((1-euc.dash.set.lock)?"doLock":"doUnlock",euc.temp.lockKey);
 		}else buzzer(40);
 		break;
 	case 1: //slide down event

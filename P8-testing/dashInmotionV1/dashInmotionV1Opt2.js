@@ -23,11 +23,11 @@ face[0] = {
         this.g.setColor(1,15);
       	this.g.fillRect(120,200,143,204);
 		this.g.flip(); 
-        this.btn(euc.dash.lght.aHead,"AUTO",18,60,15,7,1,0,0,119,97,"LIGHT",28,60,50);
-		this.btn(0,"",22,185,17,4,1,122,0,239,97,"",22,185,55);		
-        this.btn(euc.dash.ctrl.aOff,"AUTO",18,60,115,7,1,0,100,119,195,"OFF",30,60,150);
-        this.btn(euc.dash.ctrl.aLift,"",18,185,115,7,1,122,100,239,195);
-		//this.btn(euc.dash.ctrl.aLift,"AUTO",18,185,115,7,1,122,100,239,195,"LIFT",30,185,150);	
+        this.btn(euc.dash.auto.onC.HL,"AUTO",18,60,20,7,1,0,0,119,97,"LIGHT",25,60,55);
+		this.btn(0,"",18,185,20,4,1,122,0,239,97,"",22,185,55);		
+        this.btn(euc.dash.auto.onD.off,"AUTO",18,60,115,7,1,0,100,119,195,"OFF",25,60,150);
+        this.btn(euc.dash.auto.onC.lift,"",18,185,115,7,1,122,100,239,195);
+		//this.btn(euc.dash.auto.onC.lift,"AUTO",18,185,115,7,1,122,100,239,195,"LIFT",25,185,155);	
 		this.run=true;
 	},
 	show : function(){
@@ -107,28 +107,28 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
       case 5: //tap event
 		if ( x<=120 && y<100 ) { //auto light
-			euc.dash.lght.aHead=1-euc.dash.lght.aHead;
-            face[0].btn(euc.dash.lght.aHead,"AUTO",18,60,15,7,1,0,0,119,97,"LIGHT",28,60,50);
-            face[0].ntfy("AUTO LIGHT ON","AUTO LIGHT OFF",18,1,euc.dash.lght.aHead);
+			euc.dash.auto.onC.HL=1-euc.dash.auto.onC.HL;
+            face[0].btn(euc.dash.auto.onC.HL,"AUTO",18,60,20,7,1,0,0,119,97,"LIGHT",25,60,55);
+            face[0].ntfy("AUTO LIGHT ON","AUTO LIGHT OFF",18,1,euc.dash.auto.onC.HL);
 			buzzer([30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //watch alerts
 			buzzer(40);						
 			//face.go("dashAlerts",0);
 		}else if ( x<=120 && 100<=y ) { //auto off
-			euc.dash.ctrl.aOff=1-euc.dash.ctrl.aOff;
-            face[0].btn(euc.dash.ctrl.aOff,"AUTO",18,60,115,7,1,0,100,119,195,"OFF",30,60,150);
-            face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",16,1,euc.dash.ctrl.aOff);
+			euc.dash.auto.onD.off=1-euc.dash.auto.onD.off;
+            face[0].btn(euc.dash.auto.onD.off,"AUTO",18,60,115,7,1,0,100,119,195,"OFF",25,60,150);
+            face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",16,1,euc.dash.auto.onD.off);
 			buzzer([30,50,30]);		
 		//}else if  (120<=x && 100<=y ) { //auto lift
-			//euc.dash.ctrl.aLift=1-euc.dash.ctrl.aLift;
-         //   face[0].btn(euc.dash.ctrl.aLift,"AUTO",18,185,115,7,1,122,100,239,195,"LIFT",30,185,150);	
-			//face[0].ntfy("CONNECT -> LIFT OFF","AUTO LIFT DISABLED",18,1,euc.dash.ctrl.aLift);
+			//euc.dash.auto.onC.lift=1-euc.dash.auto.onC.lift;
+         //   face[0].btn(euc.dash.auto.onC.lift,"AUTO",18,185,115,7,1,122,100,239,195,"LIFT",25,185,155);	
+			//face[0].ntfy("CONNECT -> LIFT OFF","AUTO LIFT DISABLED",18,1,euc.dash.auto.onC.lift);
 			//buzzer([30,50,30]);						
 		}else buzzer(40);
 		this.timeout();
 		break;
 	case 1: //slide down event
-		setTimeout(function(){euc.busy=0;euc.tmp.live();},800);
+		setTimeout(function(){euc.busy=0;euc.temp.live();},800);
 		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
@@ -149,14 +149,14 @@ touchHandler[0]=function(e,x,y){
 		return;
 	case 12: //hold event
 		if ( x<=120 && y<100 ) { //auto light
-			euc.dash.lght.aHead=1-euc.dash.lght.aHead;
-            face[0].btn(euc.dash.lght.aHead,"AUTO",18,60,15,7,1,0,0,119,97,"LIGHT",28,60,50);
-            face[0].ntfy("AUTO LIGHT ON","AUTO LIGHT OFF",18,1,euc.dash.lght.aHead);
+			euc.dash.auto.onC.HL=1-euc.dash.auto.onC.HL;
+            face[0].btn(euc.dash.auto.onC.HL,"AUTO",18,60,20,7,1,0,0,119,97,"LIGHT",25,60,55);
+            face[0].ntfy("AUTO LIGHT ON","AUTO LIGHT OFF",18,1,euc.dash.auto.onC.HL);
 			buzzer([30,50,30]);
 		}else if ( x<=120 && 100<=y ) { //auto off
-			euc.dash.ctrl.aOff=1-euc.dash.ctrl.aOff;
-            face[0].btn(euc.dash.ctrl.aOff,"AUTO",18,60,115,7,1,0,100,119,195,"OFF",30,60,150);
-            face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",16,1,euc.dash.ctrl.aOff);
+			euc.dash.auto.onD.off=1-euc.dash.auto.onD.off;
+            face[0].btn(euc.dash.auto.onD.off,"AUTO",18,60,115,7,1,0,100,119,195,"OFF",25,60,150);
+            face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",16,1,euc.dash.auto.onD.off);
 			buzzer([30,50,30]);		
 		}else buzzer(40);
 		this.timeout();

@@ -31,7 +31,7 @@ face[0] = {
 		this.g.setFont("Vector",18);	
 		this.g.drawString("MODE",60-(this.g.stringWidth("MODE")/2),15); 
 		this.g.setFont("Vector",30);	
-		this.g.drawString(md[euc.dash.mode],60-(this.g.stringWidth(md[euc.dash.mode])/2),50); 
+		this.g.drawString(md[euc.dash.set.mode],60-(this.g.stringWidth(md[euc.dash.set.mode])/2),50); 
 		this.g.flip();
 		//calibrate
 		this.g.setColor(0,12);
@@ -45,11 +45,11 @@ face[0] = {
 		this.g.setColor(0,12);
 		this.g.fillRect(0,100,119,195);
 		this.g.setColor(1,15);
-		this.g.setFont("Vector",22);	
-		this.g.drawString("WHEEL",60-(this.g.stringWidth("WHEEL")/2),115); 
-//		this.g.setFont("Vector",25);
-		this.g.drawString("ALARMS",60-(this.g.stringWidth("ALARMS")/2),150); 
-//		this.g.drawString(euc.dash.spdT,60-(this.g.stringWidth(euc.dash.spdT)/2),150); 
+		this.g.setFont("Vector",18);	
+		this.g.drawString("WHEEL",60-(this.g.stringWidth("WHEEL")/2),120); 
+		this.g.setFont("Vector",22);
+		this.g.drawString("ALERTS",60-(this.g.stringWidth("ALARMS")/2),155); 
+//		this.g.drawString(euc.dash.limt.tilt,60-(this.g.stringWidth(euc.dash.limt.tilt)/2),150); 
 		this.g.flip();
 		//pass
 		this.g.setColor(0,12);
@@ -113,10 +113,10 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
       case 5:case 12: //tap event
 		if ( x<=120 && y<=100 ) { //ride mode
-			euc.dash.mode++; if (2<euc.dash.mode)euc.dash.mode=0;
+			euc.dash.set.mode++; if (2<euc.dash.set.mode)euc.dash.set.mode=0;
 			let m=["HARD","MED","SOFT"]
-			face[0].btn("MODE",18,60,15,4,0,0,119,97,m[euc.dash.mode],30,60,50);
-			euc.wri("setRideMode",euc.dash.mode);
+			face[0].btn("MODE",18,60,20,4,0,0,119,97,m[euc.dash.set.mode],30,60,50);
+			euc.wri("setRideMode",euc.dash.set.mode);
 			buzzer([30,50,30]);		
 		}else if ( 120<=x  && y<=100 ) { //calibrate
             buzzer([30,50,30]);
@@ -129,7 +129,7 @@ touchHandler[0]=function(e,x,y){
 			return;
 		}else if ( 120<=x && 100<=y ) { //pass
 			buzzer([30,50,30]);		
-			if (euc.dash.pass.length>=4) face.go("dashKingsongAdvPass",5);
+			if (euc.dash.set.pass.length>=4) face.go("dashKingsongAdvPass",5);
 			else {
 				euc.wri("getPass");
 				face.go("dashKingsongAdvPass",0);

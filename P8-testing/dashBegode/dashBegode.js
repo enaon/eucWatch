@@ -5,8 +5,6 @@ face[0] = {
 	init: function(val){
 		this.last=10;
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
-		if (!euc.dash.light) euc.dash.light=0;
-		if (!euc.dash.led) euc.dash.led=0;		
 		this.g.setColor(0,0);
 		this.g.fillRect(0,98,239,99);
         this.g.flip();	
@@ -36,15 +34,15 @@ face[0] = {
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
 		if (!face[0].setE){
-			if ( this.light!=euc.dash.light) {
-				this.light=euc.dash.light;
+			if ( this.light!=euc.dash.set.HL) {
+				this.light=euc.dash.set.HL;
 				let val=["OFF","ON","ON"];
-				this.btn(euc.dash.light?1:0,"LIGHTS",18,60,20,4,1,0,0,119,97,val[euc.dash.light],25,60,55);
-				this.btn(euc.dash.light==2?1:0,"STROBE",18,185,20,7,1,122,0,239,97,euc.dash.light==2?"ON":"OFF",25,185,55);	
+				this.btn(euc.dash.set.HL?1:0,"LIGHTS",18,60,20,4,1,0,0,119,97,val[euc.dash.set.HL],25,60,55);
+				this.btn(euc.dash.set.HL==2?1:0,"STROBE",18,185,20,7,1,122,0,239,97,euc.dash.set.HL==2?"ON":"OFF",25,185,55);	
 			}
-			if ( this.led!=euc.dash.led) {
-				this.led=euc.dash.led;
-				this.btn(1,"LED",20,185,120,12,1,122,100,239,195,euc.dash.led+"",25,185,155);	
+			if ( this.led!=euc.dash.set.led) {
+				this.led=euc.dash.set.led;
+				this.btn(1,"LED",20,185,120,12,1,122,100,239,195,euc.dash.set.led+"",25,185,155);	
 			}
 		}
 		this.tid=setTimeout(function(t,o){
@@ -136,11 +134,11 @@ touchHandler[0]=function(e,x,y){
    		if (!face[0].setE){//select page
 			if ( x<=120 && y<100 ) { //lights
 				buzzer([30,50,30]);	
-				if (euc.dash.light) {euc.dash.light=0;euc.wri("lightsOff");} else {euc.dash.light=1;euc.wri("lightsOn");} 
+				if (euc.dash.set.HL) {euc.dash.set.HL=0;euc.wri("lightsOff");} else {euc.dash.set.HL=1;euc.wri("lightsOn");} 
 				return;
 			}else if ( 120<=x && y<=100 ) { //STROBE
 				buzzer([30,50,30]);	
-				if (euc.dash.light==2) {euc.dash.light=0;euc.wri("lightsOff");} else {euc.dash.light=2;euc.wri("lightsStrobe");}
+				if (euc.dash.set.HL==2) {euc.dash.set.HL=0;euc.wri("lightsOff");} else {euc.dash.set.HL=2;euc.wri("lightsStrobe");}
 			}else if ( x<=120 && 100<=y ) { //tpms
 				buzzer([30,50,30]);		
 				if (!euc.dash.tpms) face[0].ntfy("HOLD-> ON/OFF","NO ACTION",19,4,1);
@@ -151,7 +149,7 @@ touchHandler[0]=function(e,x,y){
 				}
 			}else if  (120<=x && 100<=y ) { //led
 				buzzer([30,50,30]);	
-				face[0].set(euc.dash.led,"LED MODE");				
+				face[0].set(euc.dash.set.led,"LED MODE");				
 			}else buzzer(40);
 		}else {
 			if ( x <= 120 && 0<face[0].setEb  ) {
@@ -167,7 +165,7 @@ touchHandler[0]=function(e,x,y){
 	case 1: //slide down event
 		if (face[0].setE) {
 			euc.wri("ledMode",face[0].setEb);
-			euc.dash.led=face[0].setEb;
+			euc.dash.set.led=face[0].setEb;
 			face[0].setE=0; 
 			face[0].init();
         } else 
@@ -192,7 +190,7 @@ touchHandler[0]=function(e,x,y){
 	case 4: //slide right event (back action)
 		if (face[0].setE) {
 			euc.wri("ledMode",face[0].setEb);
-			euc.dash.led=face[0].setEb;
+			euc.dash.set.led=face[0].setEb;
 			face[0].setE=0; 
 			face[0].init();
         } else 

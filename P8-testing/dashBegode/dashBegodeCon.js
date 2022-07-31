@@ -4,9 +4,9 @@ face[0] = {
 	g:w.gfx,
 	init: function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
-		if (euc.dash.auto.HLC==undefined) euc.dash.auto.HLC=0;
-		if (euc.dash.auto.BEPC==undefined) euc.dash.auto.BEPC=0;
-		if (euc.dash.auto.ledC==undefined) euc.dash.auto.ledC=0;
+		if (euc.dash.auto.onC.HL==undefined) euc.dash.auto.onC.HL=0;
+		if (euc.dash.auto.onC.beep==undefined) euc.dash.auto.onC.beep=0;
+		if (euc.dash.auto.onC.led==undefined) euc.dash.auto.onC.led=0;
 		this.g.setColor(0,0);
 		this.g.fillRect(0,98,239,99);
         this.g.flip();	
@@ -22,12 +22,12 @@ face[0] = {
 		this.g.fillRect(0,196,239,204);
 		this.g.flip();
 		let val=["NA","ON","OFF","STOBE"];
-		this.btn(euc.dash.auto.HLC,"LIGHT",18,60,20,euc.dash.auto.HLC==3?7:euc.dash.auto.HLC==1?4:1,0,0,0,119,97,val[euc.dash.auto.HLC],25,60,55);
-		this.btn(euc.dash.auto.ledC,"LED",18,185,20,12,0,122,0,239,97,euc.dash.auto.ledC?euc.dash.auto.ledC-1+"":"NA",25,185,55);
-		//this.btn(euc.dash.auto.LEDC,"LED",18,185,20,euc.dash.auto.LED==1?12:1,0,122,0,239,97,"LED",25,185,55);
-        this.btn(euc.dash.auto.BEPC,"BEEP",18,60,120,euc.dash.auto.BEPC==1?12:1,0,0,100,119,195,euc.dash.auto.BEPC?"ON":"NA",25,60,155);
-        //this.btn(euc.dash.ks.aVoiceC,"VOICE",18,185,115,euc.dash.ks.aVoiceC==1?12:1,0,122,100,239,195,"MODE",30,185,150);	
-        this.btn(0,"",18,185,115,1,0,122,100,239,195,"",30,185,150);	
+		this.btn(euc.dash.auto.onC.HL,"LIGHT",18,60,20,euc.dash.auto.onC.HL==3?7:euc.dash.auto.onC.HL==1?4:1,0,0,0,119,97,val[euc.dash.auto.onC.HL],25,60,55);
+		this.btn(euc.dash.auto.onC.led,"LED",18,185,20,12,0,122,0,239,97,euc.dash.auto.onC.led?euc.dash.auto.onC.led-1+"":"NA",25,185,55);
+		//this.btn(euc.dash.auto.onC.led,"LED",18,185,20,euc.dash.auto.LED==1?12:1,0,122,0,239,97,"LED",25,185,55);
+        this.btn(euc.dash.auto.onC.beep,"BEEP",18,60,120,euc.dash.auto.onC.beep==1?12:1,0,0,100,119,195,euc.dash.auto.onC.beep?"ON":"NA",25,60,155);
+        //this.btn(euc.dash.auto.onC.talk,"VOICE",18,185,115,euc.dash.auto.onC.talk==1?12:1,0,122,100,239,195,"MODE",25,185,155);	
+        this.btn(0,"",18,185,115,1,0,122,100,239,195,"",25,185,155);	
 
 		this.run=true;
 	},
@@ -104,21 +104,21 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
       case 5: case 12: //tap event
 		if ( x<=120 && y<100 ) { //light
-			euc.dash.auto.HLC++;  if (3<euc.dash.auto.HLC) euc.dash.auto.HLC=0;
+			euc.dash.auto.onC.HL++;  if (3<euc.dash.auto.onC.HL) euc.dash.auto.onC.HL=0;
 			//let val=["NA","CITY","AUTO","ON","OFF"];
 			let val=["NA","ON","OFF","STOBE"];
-			face[0].btn(euc.dash.auto.HLC,"LIGHT",18,60,20,euc.dash.auto.HLC==3?7:euc.dash.auto.HLC==1?4:1,0,0,0,119,97,val[euc.dash.auto.HLC],25,60,55);
-            face[0].ntfy("SET LIGHT "+val[euc.dash.auto.HLC],"NO ACTION",20,1,euc.dash.auto.HLC);
+			face[0].btn(euc.dash.auto.onC.HL,"LIGHT",18,60,20,euc.dash.auto.onC.HL==3?7:euc.dash.auto.onC.HL==1?4:1,0,0,0,119,97,val[euc.dash.auto.onC.HL],25,60,55);
+            face[0].ntfy("SET LIGHT "+val[euc.dash.auto.onC.HL],"NO ACTION",20,1,euc.dash.auto.onC.HL);
 			buzzer([30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //led
-			euc.dash.auto.ledC++; if (10<euc.dash.auto.ledC) euc.dash.auto.ledC=0;
-			face[0].btn(euc.dash.auto.ledC,"LED",18,185,20,12,0,122,0,239,97,euc.dash.auto.ledC?euc.dash.auto.ledC-1+"":"NA",25,185,55);
-			face[0].ntfy("LED MODE","NO ACTION",20,1,euc.dash.auto.ledC);
+			euc.dash.auto.onC.led++; if (10<euc.dash.auto.onC.led) euc.dash.auto.onC.led=0;
+			face[0].btn(euc.dash.auto.onC.led,"LED",18,185,20,12,0,122,0,239,97,euc.dash.auto.onC.led?euc.dash.auto.onC.led-1+"":"NA",25,185,55);
+			face[0].ntfy("LED MODE","NO ACTION",20,1,euc.dash.auto.onC.led);
 			buzzer([30,50,30]);
 		}else if ( x<=120 && 100<=y ) { //beep
-			euc.dash.auto.BEPC=1-euc.dash.auto.BEPC;
-            face[0].btn(euc.dash.auto.BEPC,"BEEP",18,60,120,euc.dash.auto.BEPC==1?12:1,0,0,100,119,195,euc.dash.auto.BEPC?"ON":"NA",25,60,155);
-            face[0].ntfy("BEEP ON CONNECT","NO ACTION",20,1,euc.dash.auto.BEPC);
+			euc.dash.auto.onC.beep=1-euc.dash.auto.onC.beep;
+            face[0].btn(euc.dash.auto.onC.beep,"BEEP",18,60,120,euc.dash.auto.onC.beep==1?12:1,0,0,100,119,195,euc.dash.auto.onC.beep?"ON":"NA",25,60,155);
+            face[0].ntfy("BEEP ON CONNECT","NO ACTION",20,1,euc.dash.auto.onC.beep);
 			buzzer([30,50,30]);		
 		}else if  (120<=x && 100<=y ) {
 			buzzer(40);					

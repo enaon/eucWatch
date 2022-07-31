@@ -51,7 +51,7 @@ if (global.euc&&!euc.proxy){
 					}
 				}
 			}, {advertise: ['0xfff0','0xffa0'],uart:false });
-			NRF.setAdvertising({}, { name:"KS-"+euc.dash.name+"-"+set.def.name,connectable:true });
+			NRF.setAdvertising({}, { name:"KS-"+euc.dash.slot.name+"-"+set.def.name,connectable:true });
 			//NRF.setAddress(euc.mac);
 			NRF.setAddress(NRF.getAddress().substr(0,15)+"aa public");
 			NRF.disconnect();

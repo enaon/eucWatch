@@ -21,10 +21,10 @@ face[0] = {
 		this.g.drawString("SETTINGS",120-(this.g.stringWidth("SETTINGS")/2),217); 
 		this.g.flip();
 		//
-        this.btn(euc.dash.aLck,"AUTO",18,60,15,7,1,0,0,119,97,"LOCK",28,60,50);
-		this.btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,4,1,122,0,239,97,"ALERTS",22,185,55);		
-        this.btn(euc.dash.light,"RING",25,60,136,4,1,0,100,119,195);
-        this.btn(1,"MODE:"+euc.dash.mode,25,185,136,12,0,122,100,239,195);	
+        this.btn(euc.dash.aLck,"AUTO",18,60,20,7,1,0,0,119,97,"LOCK",25,60,55);
+		this.btn((euc.dash.hapt.spd||euc.dash.hapt.amp||euc.dash.hapt.tmp||euc.dash.hapt.bat),"WATCH",18,185,20,4,1,122,0,239,97,"ALERTS",22,185,55);		
+        this.btn(euc.dash.set.HL,"RING",25,60,136,4,1,0,100,119,195);
+        this.btn(1,"MODE:"+euc.dash.set.mode,25,185,136,12,0,122,100,239,195);	
 		this.run=true;
 	},
 	show : function(){
@@ -100,7 +100,7 @@ touchHandler[0]=function(e,x,y){
 	case 5: //tap event
 		if (face[0].set) { 
 			if ( 100 < y ) {
-			  euc.wri(30+euc.dash.mode);
+			  euc.wri(30+euc.dash.set.mode);
               w.gfx.setColor(0,0);
               w.gfx.drawLine(120,0,120,97);
               w.gfx.drawLine(121,0,121,97);
@@ -108,15 +108,15 @@ touchHandler[0]=function(e,x,y){
               face[0].init();return;
             }
 			else if ( x<=120 && y<100 ) { //decrease
-				if (0<euc.dash.mode) euc.dash.mode--;
-			}else if (euc.dash.mode<9) euc.dash.mode++;
+				if (0<euc.dash.set.mode) euc.dash.set.mode--;
+			}else if (euc.dash.set.mode<9) euc.dash.set.mode++;
 			buzzer([30,50,30]);
-			face[0].btn(1,"SET RIDE MODE",20,125,5,12,0,0,0,239,97,euc.dash.mode.toString(),60,125,37,1);
+			face[0].btn(1,"SET RIDE MODE",20,125,5,12,0,0,0,239,97,euc.dash.set.mode.toString(),60,125,37,1);
 		}
 		else {
 			if ( x<=120 && y<100 ) { //auto lock
 				euc.dash.aLck=1-euc.dash.aLck;
-				face[0].btn(euc.dash.aLck,"AUTO",18,60,15,7,1,0,0,119,97,"LOCK",28,60,50);
+				face[0].btn(euc.dash.aLck,"AUTO",18,60,20,7,1,0,0,119,97,"LOCK",25,60,55);
 				face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,(euc.dash.aLck)?7:1,euc.dash.aLck);
 				buzzer([30,50,30]);
 			}else if ( 120<=x && y<=100 ) { //watch alerts
@@ -124,14 +124,14 @@ touchHandler[0]=function(e,x,y){
 				face.go("dashAlerts",0);
 				return;	
 			}else if ( x<=120 && 100<=y ) { //ring lights
-				euc.dash.light=1-euc.dash.light;
-				face[0].btn(euc.dash.light,"RING",25,60,136,4,1,0,100,119,195);
-				face[0].ntfy("RING ON","RING OFF",20,(euc.dash.light)?4:1,euc.dash.light);
-                euc.wri(25+euc.dash.light);
+				euc.dash.set.HL=1-euc.dash.set.HL;
+				face[0].btn(euc.dash.set.HL,"RING",25,60,136,4,1,0,100,119,195);
+				face[0].ntfy("RING ON","RING OFF",20,(euc.dash.set.HL)?4:1,euc.dash.set.HL);
+                euc.wri(25+euc.dash.set.HL);
 				buzzer([30,50,30]);	
 			}else if ( 120<=x && 100<=y ) { //mode
 				face[0].set=1;
-				face[0].btn(1,"SET RIDE MODE",20,125,5,12,0,0,0,239,97,euc.dash.mode.toString(),60,125,37,1);
+				face[0].btn(1,"SET RIDE MODE",20,125,5,12,0,0,0,239,97,euc.dash.set.mode.toString(),60,125,37,1);
 				buzzer([30,50,30]);						
 			}else buzzer([30,50,30]);
 		}
@@ -139,7 +139,7 @@ touchHandler[0]=function(e,x,y){
 		break;
 	case 1: //slide down event
 	    if (face[0].set) {
-			euc.wri(30+euc.dash.mode);
+			euc.wri(30+euc.dash.set.mode);
 			setTimeout(()=>{euc.busy=0;euc.wri(1);},500);
         }
 		//face.go("main",0);
@@ -160,7 +160,7 @@ touchHandler[0]=function(e,x,y){
 		break;
 	case 4: //slide right event (back action)
         if (face[0].set) {
-			  euc.wri(30+euc.dash.mode);
+			  euc.wri(30+euc.dash.set.mode);
               w.gfx.setColor(0,0);
               w.gfx.drawLine(120,0,120,97);
               w.gfx.drawLine(121,0,121,97);
@@ -178,24 +178,24 @@ touchHandler[0]=function(e,x,y){
 			buzzer([30,50,30]);	
         }else if ( x<=120 && y<100 ) { //auto lock
 			euc.dash.aLck=1-euc.dash.aLck;
-            face[0].btn(euc.dash.aLck,"AUTO",18,60,15,7,1,0,0,119,97,"LOCK",28,60,50);
+            face[0].btn(euc.dash.aLck,"AUTO",18,60,20,7,1,0,0,119,97,"LOCK",25,60,55);
             face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,1,euc.dash.aLck);
 			buzzer([30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //watch alerts
-			if (euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB) {euc.dash.hapS=0;euc.dash.hapA=0;euc.dash.hapT=0;euc.dash.hapB=0;}
-			else {euc.dash.hapS=1;euc.dash.hapA=1;euc.dash.hapT=1;euc.dash.hapB=1;}
-			face[0].btn((euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB),"WATCH",22,185,17,4,1,122,0,239,97,"ALERTS",22,185,55);		
-            face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",19,1,(euc.dash.hapS||euc.dash.hapA||euc.dash.hapT||euc.dash.hapB));
+			if (euc.dash.hapt.spd||euc.dash.hapt.amp||euc.dash.hapt.tmp||euc.dash.hapt.bat) {euc.dash.hapt.spd=0;euc.dash.hapt.amp=0;euc.dash.hapt.tmp=0;euc.dash.hapt.bat=0;}
+			else {euc.dash.hapt.spd=1;euc.dash.hapt.amp=1;euc.dash.hapt.tmp=1;euc.dash.hapt.bat=1;}
+			face[0].btn((euc.dash.hapt.spd||euc.dash.hapt.amp||euc.dash.hapt.tmp||euc.dash.hapt.bat),"WATCH",18,185,20,4,1,122,0,239,97,"ALERTS",22,185,55);		
+            face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",19,1,(euc.dash.hapt.spd||euc.dash.hapt.amp||euc.dash.hapt.tmp||euc.dash.hapt.bat));
 			buzzer([30,50,30]);
 		}else if ( x<=120 && 100<=y ) { //ring lights
-			euc.dash.light=1-euc.dash.light;
-            face[0].btn(euc.dash.light,"RING",25,60,136,4,1,0,100,119,195);
-            face[0].ntfy("RING ON","RING OFF",20,1,euc.dash.light);
-            euc.wri(25+euc.dash.light);
+			euc.dash.set.HL=1-euc.dash.set.HL;
+            face[0].btn(euc.dash.set.HL,"RING",25,60,136,4,1,0,100,119,195);
+            face[0].ntfy("RING ON","RING OFF",20,1,euc.dash.set.HL);
+            euc.wri(25+euc.dash.set.HL);
 			buzzer([30,50,30]);		
 		}else if ( 120<=x && 100<=y ) { //mode
 			face[0].set=1;
-			face[0].btn(1,"SET RIDE MODE",20,120,5,12,0,0,0,239,97,euc.dash.mode.toString(),60,125,37);
+			face[0].btn(1,"SET RIDE MODE",20,120,5,12,0,0,0,239,97,euc.dash.set.mode.toString(),60,125,37);
 			buzzer([30,50,30]);	
 		}else buzzer([30,50,30]);
 		

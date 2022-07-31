@@ -8,8 +8,9 @@ global.euc= {
 	buzz:0,
 	day:[7,19],
 	log:{
-		trp:[0,0,0]//hour/day/month
+		trip:[0,0,0]//hour/day/month
 	},
+	temp:{},
 	updateDash:function(slot){require('Storage').write('eucSlot'+slot+'.json', euc.dash);},
 	off:function(err){if (set.def.cli) console.log("EUC off, not connected",err);},
 	wri:function(err){if (set.def.cli) console.log("EUC write, not connected",err);},
@@ -22,9 +23,9 @@ global.euc= {
 		if (this.state!="OFF" ) {
 			buzzer([90,60,90]); 
 			//log
-			if (this.log.trp[0]&& 0<this.dash.trpT-this.log.trp[0] ) 
-				set.write("logDaySlot"+set.def.dash.slot,Date().getHours(),(this.dash.trpT-this.log.trp[0])+((set.read("logDaySlot"+set.def.dash.slot,Date().getHours()))?set.read("logDaySlot"+set.def.dash.slot,Date().getHours()):0));
-			this.log.trp[0]=0;
+			if (this.log.trip[0]&& 0<this.dash.trip.totl-this.log.trip[0] ) 
+				set.write("logDaySlot"+set.def.dash.slot,Date().getHours(),(this.dash.trip.totl-this.log.trip[0])+((set.read("logDaySlot"+set.def.dash.slot,Date().getHours()))?set.read("logDaySlot"+set.def.dash.slot,Date().getHours()):0));
+			this.log.trip[0]=0;
 			set.def.dash.accE=0;
 			this.mac=0;
 			this.state="OFF";
@@ -32,15 +33,15 @@ global.euc= {
 			this.wri("end");
 			setTimeout(()=>{
 				//print("log");
-				if (this.log.trp[1]&& 0<this.dash.trpT-this.log.trp[1] ) {
+				if (this.log.trip[1]&& 0<this.dash.trip.totl-this.log.trip[1] ) {
 					//print("week");
-					set.write("logWeekSlot"+set.def.dash.slot,Date().getDay(),(euc.dash.trpT-this.log.trp[1])+( (set.read("logWeekSlot"+set.def.dash.slot,Date().getDay()))?set.read("logWeekSlot"+set.def.dash.slot,Date().getDay()):0));
+					set.write("logWeekSlot"+set.def.dash.slot,Date().getDay(),(euc.dash.trip.totl-this.log.trip[1])+( (set.read("logWeekSlot"+set.def.dash.slot,Date().getDay()))?set.read("logWeekSlot"+set.def.dash.slot,Date().getDay()):0));
 				}
-				if (this.log.trp[2]&& 0<this.dash.trpT-this.log.trp[2] ) {
-					set.write("logYearSlot"+set.def.dash.slot,Date().getMonth(),(euc.dash.trpT-this.log.trp[2])+( (set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()))?set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()):0));	
+				if (this.log.trip[2]&& 0<this.dash.trip.totl-this.log.trip[2] ) {
+					set.write("logYearSlot"+set.def.dash.slot,Date().getMonth(),(euc.dash.trip.totl-this.log.trip[2])+( (set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()))?set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()):0));	
 				}
 				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
-				this.log.trp=[0,0,0];
+				this.log.trip=[0,0,0];
 				if (face.appCurr!=="dashOff") face.go('dashOff',0);
 				if (set.def.acc) acc.on(1);
 			},1000);
@@ -48,24 +49,19 @@ global.euc= {
 			return;
 		}else {
 			buzzer(100); 
-			this.log.trp=[0,0,0];
+			this.log.trip=[0,0,0];
 			NRF.setTxPower(4);
 			this.mac=(this.mac)?this.mac:set.read("dash","slot"+set.read("dash","slot")+"Mac");
 			if(!this.mac) {
 				face.go('dashScan',0);return;
 			}else {
+				euc.temp={count:0,loop:0,last:0,rota:0};
 				eval(require('Storage').read('euc'+require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]));
-				if (set.def.prxy&&require('Storage').read('proxy'+euc.dash.maker)){
-					eval(require('Storage').read('proxy'+euc.dash.maker));
+				if (set.def.prxy&&require('Storage').read('proxy'+euc.dash.slot.make)){
+					eval(require('Storage').read('proxy'+euc.dash.slot.make));
 				}	
 				this.state="ON";
-				if (this.dash.bms==undefined) this.dash.bms=1.5;
-				if (this.dash.batF<=10) this.dash.batF=420;
-				if (!euc.dash.pwmL) euc.dash.pwmL=70;
-				if (!euc.dash.hapP) euc.dash.hapP=0;
-				if (!euc.dash.auto) euc.dash.auto={};
-				if (!euc.dash.info) euc.dash.info={};				
-				if (this.dash.maker!=="Kingsong"||this.dash.maker!=="inmotionV11") this.dash.spdM=0;
+				if (this.dash.slot.make!=="Kingsong"||this.dash.slot.make!=="inmotionV11") this.dash.trip.topS=0;
 				this.conn(this.mac);
 				face.go(set.dash[set.def.dash.face],0);
 				this.state="ON";

@@ -8,7 +8,7 @@ face[0] = {
 		this.g.fillRect(0,0,239,35);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",22);
-		this.g.drawString((euc.charge?"CHARGING ":"DISCHARGING ")+euc.dash.bat+" %",(125-this.g.stringWidth((euc.charge?"CHARGING ":"DISCHARGING ")+euc.dash.bat+" %")/2),7);
+		this.g.drawString((euc.charge?"CHARGING ":"DISCHARGING ")+euc.dash.live.bat+" %",(125-this.g.stringWidth((euc.charge?"CHARGING ":"DISCHARGING ")+euc.dash.live.bat+" %")/2),7);
 		this.g.flip();
         this.run=true;
 	},
@@ -19,10 +19,10 @@ face[0] = {
 		this.g.fillRect(0,37,239,239);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",20);
-		this.g.drawString("mA: "+(-euc.dash.amp*100),(125-this.g.stringWidth("AMP: "+(-euc.dash.amp*100))/2),60);
-		this.g.drawString("V: "+euc.dash.volt,(125-this.g.stringWidth("VOLT: "+euc.dash.volt)/2),100);
-		this.g.drawString("W: "+(-euc.dash.amp*euc.dash.volt),(125-this.g.stringWidth("POWER: "+(-euc.dash.amp*euc.dash.volt))/2),140);
-		this.g.drawString("%: "+euc.dash.bat,(125-this.g.stringWidth("%: "+euc.dash.bat)/2),200);
+		this.g.drawString("mA: "+(-euc.dash.live.amp*100),(125-this.g.stringWidth("AMP: "+(-euc.dash.live.amp*100))/2),60);
+		this.g.drawString("V: "+euc.dash.live.volt,(125-this.g.stringWidth("VOLT: "+euc.dash.live.volt)/2),100);
+		this.g.drawString("W: "+(-euc.dash.live.amp*euc.dash.live.volt),(125-this.g.stringWidth("POWER: "+(-euc.dash.live.amp*euc.dash.live.volt))/2),140);
+		this.g.drawString("%: "+euc.dash.live.bat,(125-this.g.stringWidth("%: "+euc.dash.live.bat)/2),200);
 		this.g.flip();
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
@@ -100,17 +100,17 @@ touchHandler[0]=function(e,x,y){
       case 5: //tap event
 		/*if ( x<=120 && y<100 ) { //ride led
 			buzzer([30,50,30]);
-			euc.wri("setLedRideOnOff",euc.dash.lght.ride);
-            face[0].ntfy("RIDE LED ON","RIDE LED OFF",20,1,euc.dash.lght.ride);
+			euc.wri("setLedRideOnOff",euc.dash.set.led);
+            face[0].ntfy("RIDE LED ON","RIDE LED OFF",20,1,euc.dash.set.led);
 		}else if ( 120<=x && y<=100 ) { //watch alerts
 			buzzer([30,50,30]);						
 			face.go("dashAlerts",0);
 			return;		
 		}else if ( x<=120 && 100<=y ) { //lift sensor
 			buzzer([30,50,30]);		
-            face[0].ntfy("LIFT SENSOR ENABLED","LIFT SENSOR DISABLED",19,1,euc.dash.ks.lift);
-			euc.wri("setLiftOnOff",1-euc.dash.ks.lift);
-			//euc.wri((euc.dash.ks.lift)?"liftOn":"liftOff");
+            face[0].ntfy("LIFT SENSOR ENABLED","LIFT SENSOR DISABLED",19,1,euc.dash.set.lift);
+			euc.wri("setLiftOnOff",1-euc.dash.set.lift);
+			//euc.wri((euc.dash.set.lift)?"liftOn":"liftOff");
 		}else if  (120<=x && 100<=y ) { //horn
 			euc.dash.horn=1-euc.dash.horn;
             face[0].btn(euc.dash.horn,"HORN",25,185,136,4,1,122,100,239,195);

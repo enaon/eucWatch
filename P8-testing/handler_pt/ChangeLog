@@ -1,3 +1,4 @@
+1.80: rework
 1.06: TP test
 1.05: Better support for bma421 on euc mode. 
 1.04: Support for right hand usage on sc7a20 accelerator on euc mode. 

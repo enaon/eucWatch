@@ -4,9 +4,6 @@ face[0] = {
 	g:w.gfx,
 	init: function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
-		if (!euc.dash.mode) euc.dash.mode=0;
-		if (!euc.dash.rolA) euc.dash.rolA=0;
-
 		this.g.setColor(0,0);
 		this.g.fillRect(0,98,239,99);
         this.g.flip();	
@@ -35,15 +32,15 @@ face[0] = {
 	show : function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
-		if ( this.mode!=euc.dash.mode) {
-            this.mode=euc.dash.mode;
+		if ( this.mode!=euc.dash.set.mode) {
+            this.mode=euc.dash.set.mode;
 			let md=["SOFT","MED","HARD"];
-			this.btn(euc.dash.mode,"MODE",18,60,20,euc.dash.mode==1?2:4,1,0,0,119,97,md[euc.dash.mode],25,60,55);
+			this.btn(euc.dash.set.mode,"MODE",18,60,20,euc.dash.set.mode==1?2:4,1,0,0,119,97,md[euc.dash.set.mode],25,60,55);
 		}
-		if ( this.rolA!=euc.dash.rolA) {
-            this.rolA=euc.dash.rolA;
+		if ( this.rolA!=euc.dash.set.rolA) {
+            this.rolA=euc.dash.set.rolA;
 			let amd=["LOW","MED","HI"];
-			this.btn(euc.dash.rolA,"ANGLE",18,60,120,euc.dash.rolA==1?2:4,1,0,100,119,195,amd[euc.dash.rolA],22,60,155);	
+			this.btn(euc.dash.set.rolA,"ANGLE",18,60,120,euc.dash.set.rolA==1?2:4,1,0,100,119,195,amd[euc.dash.set.rolA],22,60,155);	
 		}
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
@@ -94,15 +91,15 @@ touchHandler[0]=function(e,x,y){
       case 5:case 12: //tap event
 		if ( x<=120 && y<=100 ) { //ride mode
 			buzzer([30,50,30]);	
-			if (euc.dash.mode==0){
+			if (euc.dash.set.mode==0){
 				euc.wri("pedalMedium");
-				euc.dash.mode=1;
-			}else if (euc.dash.mode==1){
+				euc.dash.set.mode=1;
+			}else if (euc.dash.set.mode==1){
 				euc.wri("pedalHard");
-				euc.dash.mode=2;
-			}else if (euc.dash.mode==2){
+				euc.dash.set.mode=2;
+			}else if (euc.dash.set.mode==2){
 				euc.wri("pedalSoft");
-				euc.dash.mode=0;
+				euc.dash.set.mode=0;
 			}
 		}else if ( 120<=x  && y<=100 ) { //calibrate
             buzzer([30,50,30]);
@@ -114,15 +111,15 @@ touchHandler[0]=function(e,x,y){
 			return;
 		}else if ( x<=120 && 100<=y ) {   //angle
 			buzzer([30,50,30]);		
-			if (euc.dash.rolA==0){
+			if (euc.dash.set.rolA==0){
 				euc.wri("rollAngleMedium");
-				euc.dash.rolA=1;
-			}else if (euc.dash.rolA==1){
+				euc.dash.set.rolA=1;
+			}else if (euc.dash.set.rolA==1){
 				euc.wri("rollAngleHigh");
-				euc.dash.rolA=2;
-			}else if (euc.dash.rolA==2){
+				euc.dash.set.rolA=2;
+			}else if (euc.dash.set.rolA==2){
 				euc.wri("rollAngleLow");
-				euc.dash.rolA=0;
+				euc.dash.set.rolA=0;
 			}
 		}else buzzer([30,50,30]);
 		this.timeout();

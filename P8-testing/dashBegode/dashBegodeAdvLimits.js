@@ -4,7 +4,6 @@ face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
 	g:w.gfx,
 	init: function(){
-		if (!euc.dash.spdT) euc.dash.spdT=100;
         this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,239);
 		this.g.setColor(1,15);
@@ -27,13 +26,13 @@ face[0] = {
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
 		if (!this.setE) {
-			if (this.almS!=euc.dash.almS){
-				this.almS=euc.dash.almS;
-				this.btn(euc.dash.almS,"SPEED ALARMS",18,120,20,euc.dash.almS==1?12:1,4,0,0,239,97,euc.dash.almS?euc.dash.almS>=2?"Both Disabled":"2nd only":"1st & 2nd",22,120,55);
-				this.btn(euc.dash.almS==3?1:0,"PWM TILT",18,60,120,4,1,0,100,119,195,"FREESTYL3R\n FIRMWARE",16,60,155);
+			if (this.almS!=euc.dash.alrm.mode){
+				this.almS=euc.dash.alrm.mode;
+				this.btn(euc.dash.alrm.mode,"SPEED ALARMS",18,120,20,euc.dash.alrm.mode==1?12:1,4,0,0,239,97,euc.dash.alrm.mode?euc.dash.alrm.mode>=2?"Both Disabled":"2nd only":"1st & 2nd",22,120,55);
+				this.btn(euc.dash.alrm.mode==3?1:0,"PWM TILT",18,60,120,4,1,0,100,119,195,"FREESTYL3R\n FIRMWARE",16,60,155);
 			}
-			if (this.spdT!=euc.dash.spdT){
-				this.spdT=euc.dash.spdT;
+			if (this.spdT!=euc.dash.limt.tilt){
+				this.spdT=euc.dash.limt.tilt;
 				this.btn(100<=this.spdT?0:1,"TILTBACK",18,185,120,12,1,122,100,239,195,100<=this.spdT?"OFF":set.def.dash.mph?(0.625*this.spdT).toFixed(0):this.spdT,25,185,155);
 			}
 		}
@@ -81,8 +80,6 @@ face[0] = {
 		this.g.setFont("Vector",20);
 		this.g.drawString(txt,120-(this.g.stringWidth(txt)/2),10); 		
 		this.g.drawString("<",5,90); this.g.drawString(">",230,90); 
-		//this.g.drawImage(require("heatshrink").decompress(atob("oFAwJC/AAs8A41+A43/AwsDA40HA40PA40f/wHFn/8Fw34AwkB//wGw3AGw2AGxk/Gw1/Gw4uFGwPgGxguBGwsfGw4uGv5lFGw4HBGwoHJC4wnHG45HHK45nHO444JGAynHW47HHHBKBHNJ44QA4o4BA4owBA41+A408A4wA6A==")),0,75);
-		//this.g.drawImage(require("heatshrink").decompress(atob("oFAwJC/AAU8A41+A43/A4/AA43gA43wA4t//AHFn/8A4sfGA0P/+AA4kDHA0BHCAwGn/+GA4HFg44QGA3/NJ44QA5oXHE443HI4xXHM453HGw6XHU44uGY442Hc473HMo9/Voy9Ifw42FA4IGFgF+A408A4wA9A=")),180,75);
 		this.g.flip(); 
         this.btn(0,b<100?set.def.dash.mph?(0.625*b.toFixed(0)):b:"-",100,126,60,12,1,60,40,180,160);
     },
@@ -122,28 +119,28 @@ touchHandler[0]=function(e,x,y){
         if (!face[0].setE){//select page
 			if (y<100) { //speed alarms
 				buzzer([30,50,30]);		
-				if (!euc.dash.almS){
+				if (!euc.dash.alrm.mode){
 					euc.wri("alertsTwo");
-					euc.dash.almS=1;
-				}else if (euc.dash.almS==1){
+					euc.dash.alrm.mode=1;
+				}else if (euc.dash.alrm.mode==1){
 					euc.wri("alertsOff");
-					euc.dash.almS=2;
-				}else if (2<=euc.dash.almS){
+					euc.dash.alrm.mode=2;
+				}else if (2<=euc.dash.alrm.mode){
 		   			euc.wri("alertsOneTwo");
-					euc.dash.almS=0;
+					euc.dash.alrm.mode=0;
 				}
 			}else if (x<=120&&y<=200) { //pwm tiltback
 				buzzer([30,50,30]);	
-					if (euc.dash.almS!=3){
+					if (euc.dash.alrm.mode!=3){
 						euc.wri("alertsTiltback");
-						euc.dash.almS=3;
+						euc.dash.alrm.mode=3;
 					}else{ 
 						euc.wri("alertsOff");
-						euc.dash.almS=2;
+						euc.dash.alrm.mode=2;
 					}
 			}else if (120<=x&&y<=200) { //tiltback
-				face[0].set(euc.dash.spdT,"TITLBACK ("+(set.def.dash.mph?"MPH)":"KPH)") );
-				face[0].btn(100<=euc.dash.spdT?0:1,100<=euc.dash.spdT?"TILTBACK DISABLED":"TILTBACK ENABLED",18,120,215,4,1,0,198,239,239);
+				face[0].set(euc.dash.limt.tilt,"TITLBACK ("+(set.def.dash.mph?"MPH)":"KPH)") );
+				face[0].btn(100<=euc.dash.limt.tilt?0:1,100<=euc.dash.limt.tilt?"TILTBACK DISABLED":"TILTBACK ENABLED",18,120,215,4,1,0,198,239,239);
 				buzzer([30,50,30]);						
 			}else buzzer(40);
 		}else {//set page
@@ -155,13 +152,11 @@ touchHandler[0]=function(e,x,y){
 					face[0].btn(0,"TILTBACK DISABLED",18,120,215,4,1,0,198,239,239);
 				}	
                 if (face[0].setEb<100) face[0].setEb++;
-                //else face[0].ntfy("THE LIMIT IS 99KpH","",20,7,1);
             }else  if (x<=120&&y<=195){  //dn
 				if (5<face[0].setEb) face[0].setEb--;
 				if (99<=face[0].setEb) {
 					face[0].btn(1,"TILTBACK ENABLED",18,120,215,4,1,0,198,239,239);
 				}	
-				//else face[0].ntfy("NO LESS THAN 10KpH","",20,7,1);
             } else {
 				if (100<=face[0].setEb) {
 					face[0].setEb=50;
@@ -180,7 +175,7 @@ touchHandler[0]=function(e,x,y){
         if (face[0].setE) {
 			if (100<=face[0].setEb) euc.wri("tiltbackOff");
 			else euc.wri("tiltbackSpeed",face[0].setEb);
-			euc.dash.spdT=face[0].setEb;
+			euc.dash.limt.tilt=face[0].setEb;
 			face[0].setE=0; 
 			w.gfx.clear();
 			face[0].init();
@@ -202,7 +197,7 @@ touchHandler[0]=function(e,x,y){
         if (face[0].setE) {
 			if (100<=face[0].setEb) euc.wri("tiltbackOff");
 			else euc.wri("tiltbackSpeed",face[0].setEb);
-			euc.dash.spdT=face[0].setEb;
+			euc.dash.limt.tilt=face[0].setEb;
 			face[0].setE=0; 
 			w.gfx.clear();
 			face[0].init();

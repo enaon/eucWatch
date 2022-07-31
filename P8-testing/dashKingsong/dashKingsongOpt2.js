@@ -4,7 +4,7 @@ face[0] = {
 	g:w.gfx,
 	init: function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
-		if (!euc.dash.ks.offT) euc.wri("getPowerOff");
+		if (!euc.dash.set.offT) euc.wri("getPowerOff");
 		this.g.setColor(0,0);
 		this.g.fillRect(0,98,239,99);
         this.g.flip();	
@@ -24,13 +24,13 @@ face[0] = {
         this.g.setColor(1,15);
       	this.g.fillRect(120,200,143,204);
 		this.g.flip();
-		let offH=Math.floor(euc.dash.ks.offT/3600);
-		let offM=euc.dash.ks.offT/60 %60;	
-        this.btn(1,"IDLE",18,60,15,1,1,0,0,119,97,!euc.dash.ks.offT?"-":offH+"h:"+offM+"m",28,60,50);
-		this.btn(1,"ON",18,185,15,12,1,122,0,239,97,"CONN",28,185,50);		
-        //this.btn(1,"INFO",18,60,115,1,1,0,100,119,195,"",30,60,150);
-        this.btn(1,"INFO",25,60,135,12,1,0,100,119,195,"",30,60,150);
-        this.btn(1,"ON",18,185,115,12,1,122,100,239,195,"DISC",30,185,150);		
+		let offH=Math.floor(euc.dash.set.offT/3600);
+		let offM=euc.dash.set.offT/60 %60;	
+        this.btn(1,"IDLE",18,60,20,1,1,0,0,119,97,!euc.dash.set.offT?"-":offH+"h:"+offM+"m",25,60,55);
+		this.btn(1,"ON",18,185,20,12,1,122,0,239,97,"CONN",25,185,55);		
+        //this.btn(1,"INFO",18,60,115,1,1,0,100,119,195,"",25,60,150);
+        this.btn(1,"INFO",25,60,135,12,1,0,100,119,195,"",25,60,150);
+        this.btn(1,"ON",18,185,115,12,1,122,100,239,195,"DISC",25,185,155);		
 		this.run=true;
 	},
 	show : function(){
@@ -120,7 +120,7 @@ face[1] = {
 	},
 	show : function(){		
 		if (face[0].page=="idle")
-			euc.wri("setPowerOff",euc.dash.ks.offT);
+			euc.wri("setPowerOff",euc.dash.set.offT);
 		face.go("dashKingsongOpt",0);
 		return true;
 	},
@@ -135,26 +135,26 @@ touchHandler[0]=function(e,x,y){
       case 5: case 12: //tap event
 		if (face[0].page=="idle"){
 			if ( 180 < y  ){
-				euc.aOff=euc.dash.ks.aOff;
-				euc.aLck=euc.dash.ks.aLock;
-				euc.dash.ks.aOff=1;
-				euc.dash.ks.aLock=0;
+				euc.aOff=euc.dash.auto.onD.off;
+				euc.aLck=euc.dash.auto.onD.lock;
+				euc.dash.auto.onD.off=1;
+				euc.dash.auto.onD.lock=0;
 				euc.tgl();
 				return;
 			}else if ( x<=120)
-				euc.dash.ks.offT=euc.dash.ks.offT-600;
-			else euc.dash.ks.offT=euc.dash.ks.offT+600;
+				euc.dash.set.offT=euc.dash.set.offT-600;
+			else euc.dash.set.offT=euc.dash.set.offT+600;
 			buzzer([30,50,30]);
-			if (euc.dash.ks.offT <60 )euc.dash.ks.offT=60;
-			if (euc.dash.ks.offT ==660 )euc.dash.ks.offT=600;
-			if (14400<euc.dash.ks.offT  )euc.dash.ks.offT=14400;
-			let offH=Math.floor(euc.dash.ks.offT/3600);
-			let offM=euc.dash.ks.offT/60 %60;
+			if (euc.dash.set.offT <60 )euc.dash.set.offT=60;
+			if (euc.dash.set.offT ==660 )euc.dash.set.offT=600;
+			if (14400<euc.dash.set.offT  )euc.dash.set.offT=14400;
+			let offH=Math.floor(euc.dash.set.offT/3600);
+			let offM=euc.dash.set.offT/60 %60;
 			face[0].cho("SET IDLE TIMEOUT",offH+"h:"+offM+"m","TURN OFF","NOW",7);
 			return;
 		}else if ( x<=120 && y<100 ) { //set timeout
-			let offH=Math.floor(euc.dash.ks.offT/3600);
-			let offM=euc.dash.ks.offT/60 %60;
+			let offH=Math.floor(euc.dash.set.offT/3600);
+			let offM=euc.dash.set.offT/60 %60;
 			face[0].page="idle";
 			face[0].cho("SET IDLE TIMEOUT",offH+"h:"+offM+"m","TURN OFF","NOW",7);
 			return;
@@ -170,7 +170,7 @@ touchHandler[0]=function(e,x,y){
 		break;
 	case 1: //slide down event
 		if (face[0].page=="idle")
-			euc.wri("setPowerOff",euc.dash.ks.offT);
+			euc.wri("setPowerOff",euc.dash.set.offT);
 		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
@@ -184,15 +184,16 @@ touchHandler[0]=function(e,x,y){
 	case 3: //slide left event
 		if (face[0].page=="idle"){
 			face[0].page=0;
-			euc.wri("setPowerOff",euc.dash.ks.offT);
+			euc.wri("setPowerOff",euc.dash.set.offT);
 			face.go("dashKingsongOpt2",0);
 		}else 
+			if (face.appPrev!="dashKingsongAdv") euc.wri("getAlarms");
 			face.go("dashKingsongAdv",0);
 		return;
 	case 4: //slide right event (back action)
 		if (face[0].page=="idle"){
 			face[0].page=0;
-			euc.wri("setPowerOff",euc.dash.ks.offT);
+			euc.wri("setPowerOff",euc.dash.set.offT);
 			face.go("dashKingsongOpt2",0);
 
 		}else 
