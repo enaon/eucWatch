@@ -3,7 +3,6 @@
 //euc.wri("lightsOn")
 //commands
 //tilt speed = 87 - 89 - 3(speed1) - 3(speed2) 
-
 /*
 +        max_speed = 72;
 +        speed_reduction = 1 - (100 - euc.dash.live.bat) / 450;
