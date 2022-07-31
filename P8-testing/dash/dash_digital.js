@@ -210,7 +210,7 @@ face[0] = {
 		this.g.setFontVector(10);
 		this.g.drawString("LIMIT", 207,120);
 		this.g.setFontVector(29);
-		this.g.drawString(Math.round(this.aTlt*this.fact), 205,140); 
+		this.g.drawString(Math.round(this.aTlt*this.fact), 222-(this.g.stringWidth(Math.round(this.aTlt*this.fact))/2),140); 
 		this.g.flip();
 	},	
 	alrF: function(){
