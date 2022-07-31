@@ -74,6 +74,16 @@ euc.temp.faultAlarms =function(code) {
 		case 7: return 'transport mode';
 	}
 };
+euc.temp.updatePwmAlarmSpeed=function() {
+  let rdct = 1 - (100 - euc.dash.live.bat) / 450
+  let alarmSpeed100 = (euc.dash.live.spd / rdct).toFixed(1)
+  setField('pwm-alarm-100', alarmSpeed100)
+
+  alarmSpeeds = [10, 20, 30, 40, 50, 60, 70, 80, 90].forEach(batt => {
+    speedReduction = 1 - (100 - batt) / 450
+    setField(`pwm-alarm-${batt}`, (alarmSpeed100 * speedReduction).toFixed(1))
+  })
+};
 euc.temp.one=function(data) {
 	//if  ( data.buffer[0]==85 && data.buffer[1]==170 && data.buffer[18]==0 && data.buffer[19]==24 ) {
 	euc.alert=0;
@@ -137,6 +147,12 @@ euc.temp.two=function(data) {
 		}
 		faultAlarmLine = faultAlarmLine.slice(0, -2);
 		euc.dash.alrm.txt=faultAlarmLine;
+		
+		
+		if (euc.dash.alrm.err & 0x1 && (euc.dash.alrm.pwm == 0 || euc.dash.live.spd < euc.dash.slot.))
+			euc.temp.updatePwmAlarmSpeed();
+	
+	
 	}
 	//log
 	almL.unshift(euc.dash.alrm.err);
@@ -164,6 +180,7 @@ euc.temp.two=function(data) {
 		setTimeout(() => { euc.buzz = 0; }, 3000);
 	}
 };
+
 euc.temp.init=function(c) {
 	let hlc=[0,"lightsOn","lightsOff","lightsStrobe"];
 	c.writeValue(euc.cmd(euc.dash.auto.onC.HL?hlc[euc.dash.auto.onC.HL]:"none")).then(function() {
@@ -248,10 +265,10 @@ euc.conn=function(mac){
 			if (euc.dbg)  console.log("input",event.target.value.buffer);
 			//gather package
 			let part=JSON.parse(JSON.stringify(event.target.value.buffer));
-			let startP = event.target.value.buffer.findIndex((el, idx, arr) => {return arr[idx] == 85 && arr[idx + 1] == 170});
-			let endP = event.target.value.buffer.findIndex((el, idx, arr) => {return arr[idx] == 90 && arr[idx + 1] == 90 && arr[idx + 2] == 90 && arr[idx + 3] == 90});
-			//let startP=part.indexOf(170)?part[part.indexOf(170)-1]==85?part.indexOf(85):-1:-1;
-			//let endP=part.indexOf(90)!=-1?part[part.indexOf(90)+1]==90?part[part.indexOf(90)+3]==90?part.indexOf(90)+4:-1:-1:-1;
+			//let startP = event.target.value.buffer.findIndex((el, idx, arr) => {return arr[idx] == 85 && arr[idx + 1] == 170});
+			//let endP = event.target.value.buffer.findIndex((el, idx, arr) => {return arr[idx] == 90 && arr[idx + 1] == 90 && arr[idx + 2] == 90 && arr[idx + 3] == 90});
+			let startP=part.indexOf(170)?part[part.indexOf(170)-1]==85?part.indexOf(85):-1:-1;
+			let endP=part.indexOf(90)!=-1?part[part.indexOf(90)+1]==90?part[part.indexOf(90)+3]==90?part.indexOf(90)+4:-1:-1:-1;
 			if (startP!=-1) {
 				if  (endP!=-1) euc.temp.packet(new DataView(E.toUint8Array(euc.temp.last,part.slice(0,endP)).buffer));	
 				euc.temp.last=part.slice(startP,part.length);
