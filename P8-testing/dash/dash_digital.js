@@ -19,6 +19,7 @@ face[0] = {
 		this.topS=-1;
 		this.amp=-10;
 		this.tmp=-1;
+		this.pwm=-1;
 		this.bat=-1;
 		this.almT=-1
 		this.batL=new Uint8Array(20);
@@ -45,12 +46,12 @@ face[0] = {
 			if (this.spd != Math.round(euc.dash.live.spd)) this.spdF();
 			// alarm events time graph
 			//if (5<=this.spd&&(euc.dash.info.get.makr=="Kingsong"||euc.dash.info.get.makr=="Begode")){
-			if (5<=this.spd&&(euc.dash.info.get.makr=="Kingsong")){
-				this.pwmF();
-				if (almL.indexOf(1)!=-1) {
-					this.alF();
-					this.bar=0;
-				} else if (!this.bar) { this.bar=1; this.barF();}
+			//if (5<=this.spd&&(euc.dash.info.get.makr=="Kingsong")){
+			if (almL.includes(1)) {
+				this.alF();
+				this.bar=0;
+			} else if (5<=this.spd&& euc.dash.info.get.makr=="Kingsong"){
+				if (this.pwm!=euc.dash.live.pwm) {this.pwm=euc.dash.live.pwm; this.pwmF();}
 			} else if (!this.bar) { this.bar=1; this.barF();}
 			//tmp/amp block
 			if (!set.def.dash.amp) {
@@ -95,7 +96,7 @@ face[0] = {
 				this.g.setFont("Vector",50);
 				this.g.drawString(euc.state,(125-this.g.stringWidth(euc.state)/2),95);
 				this.g.flip();
-				this.spd=-1;this.amp=-1;this.tmp=-1;this.bat=-1;this.trpL=-1;this.conn=0;this.lock=2;
+				this.spd=-1;this.pwm=-1;this.amp=-1;this.tmp=-1;this.bat=-1;this.trpL=-1;this.conn=0;this.lock=2;
 				this.buzz=-1;this.volt=-1;this.alrm=-1;this.aTlt=-1;this.topS=-1;this.bar=0;
 				this.ampL.fill(1,0,1);this.batL.fill(1,0,1);
 				this.run=true;
@@ -126,18 +127,18 @@ face[0] = {
 		}
 	},
 	alF: function(){
-		this.g.setColor(0,2);
-		this.g.clearRect(0,195,239,200);
+		this.g.setColor(0,7);
+		this.g.clearRect(0,176,239,200);
 		this.g.setColor(1,13);
 		for (let i in almL ){
-			if (almL[i]) w.gfx.fillRect(237-(i*12),(almL[i])?195:200,237-((i*12)+10),200);
+			if (almL[i]) w.gfx.fillRect(237-(i*12),(almL[i])?180:195,237-((i*12)+10),195);
 		}
 		this.g.flip();
 	},
 	pwmF: function(){
 		"ram";
 		this.g.setColor(0,euc.dash.alrt.pwm.hapt.hi<=euc.dash.live.pwm?7:1);
-		this.g.fillRect(0,176,239,193); 
+		this.g.fillRect(0,176,239,200); 
 		this.g.setColor(1,50<=euc.dash.live.pwm?13:15);
 		this.g.setFontVector(23);
 		this.g.drawString(euc.dash.live.pwm,3,175);

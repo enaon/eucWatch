@@ -239,6 +239,7 @@ euc.temp.resp=function(inpk){
 		}
 		euc.dash.alrt.spd.thre.val=inpk[8];
 		euc.dash.alrt.spd.tilt.val=inpk[10];
+		euc.dash.alrt.spd.tilt.val=inpk[10];
 	}else if ( inpk[16] == 187 ){
 		if (!euc.dash.info.get.name) {
 			euc.dash.info.get.id=E.toString(inpk.slice(2,inpk.indexOf(0)));
