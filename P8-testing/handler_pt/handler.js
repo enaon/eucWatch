@@ -374,7 +374,7 @@ function buttonHandler(s){
 	if (face.offid) {clearTimeout(face.offid);face.offid=0;}
 	if (s.state) { 
 		this.press=true;
-		if (global.euc&&euc.state=="READY"&&2<=euc.dash.live.spd&&euc.dash.horn) {euc.wri("hornOn");return;}
+		if (global.euc&&euc.state=="READY"&&2<=euc.dash.live.spd&&euc.dash.opt.horn.en) {euc.wri("hornOn");return;}
 		this.t1=setTimeout(() => {
 			this.t1=0;
 			if (global.euc) {
@@ -383,7 +383,7 @@ function buttonHandler(s){
 		}, 1000);
    }else if (this.press && !s.state)  { 
 		this.press=false;
-		if (global.euc&&euc.state=="READY"&&euc.horn&&euc.dash.horn) {euc.wri("hornOff");return;}
+		if (global.euc&&euc.state=="READY"&&euc.horn&&euc.dash.opt.horn.en) {euc.wri("hornOff");return;}
 		if (face.pageCurr==-1) {
 			buzzer([60,40,60]);
 			face.go((global.euc&&euc.state!="OFF")?set.dash[set.def.dash.face]:face.appCurr,0);
@@ -397,7 +397,7 @@ function buttonHandler(s){
 				face.go(face.appCurr,to);
 			}
 		}
-	}else if (this.press&&global.euc&&euc.state==="READY"&&euc.horn&&euc.dash.horn) {euc.wri("hornOff");return;
+	}else if (this.press&&global.euc&&euc.state==="READY"&&euc.horn&&euc.dash.opt.horn.en) {euc.wri("hornOff");return;
 	}else face.off();
 }
 btn=setWatch(buttonHandler,D13, {repeat:true, debounce:10,edge:0});
@@ -778,7 +778,7 @@ cron={
 				let pr=(!x)?23:x-1;
 				if (euc.log.trip[0]) {
 					let v=set.read("logDaySlot"+set.def.dash.slot,pr);
-					set.write("logDaySlot"+set.def.dash.slot,pr,((euc.log.trip[0])?euc.dash.trip.totl-euc.log.trip[0]:0)+((v)?v:0));
+					set.write("logDaySlot"+set.def.dash.slot,pr,((euc.log.trip[0])?euc.dash.info.trip.totl-euc.log.trip[0]:0)+((v)?v:0));
 				}
 				require('Storage').list("logDaySlot").forEach(logfile=>{set.write(logfile.split(".")[0],x);});
 				euc.log.trip[0]=0;
@@ -787,7 +787,7 @@ cron={
 				let pr=(!x)?6:x-1;
 				if (euc.log.trip[1]) {
 					let v=set.read("logWeekSlot"+set.def.dash.slot,pr);
-					set.write("logWeekSlot"+set.def.dash.slot,pr,((euc.log.trip[1])?euc.dash.trip.totl-euc.log.trip[1]:0)+((v)?v:0));
+					set.write("logWeekSlot"+set.def.dash.slot,pr,((euc.log.trip[1])?euc.dash.info.trip.totl-euc.log.trip[1]:0)+((v)?v:0));
 				}
 				require('Storage').list("logWeekSlot").forEach(logfile=>{set.write(logfile.split(".")[0],x);});
 				euc.log.trip[1]=0;
@@ -796,7 +796,7 @@ cron={
 				let pr=(!x)?11:x-1;
 				if (euc.log.trip[2]) {
 					let v=set.read("logYearSlot"+set.def.dash.slot,pr);
-					set.write("logYearSlot"+set.def.dash.slot,pr,((euc.log.trip[2])?euc.dash.trip.totl-euc.log.trip[2]:0)+((v)?v:0));
+					set.write("logYearSlot"+set.def.dash.slot,pr,((euc.log.trip[2])?euc.dash.info.trip.totl-euc.log.trip[2]:0)+((v)?v:0));
 				}
 				require('Storage').list("logYearSlot").forEach(logfile=>{set.write(logfile.split(".")[0],x);});
 				euc.log.trip[2]=0;

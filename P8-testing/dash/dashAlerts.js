@@ -15,16 +15,16 @@ face[0] = {
 		this.g.fillRect(0,196,239,197);
         this.g.flip();		
 		if (this.page){
-			this.btn(euc.dash.hapt.pwm,euc.dash.hapt.pwm?"PWM: "+euc.dash.hapt.pwmH+" %":"PWM DISABLED",25,120,37,4,1,0,0,239,97);
+			this.btn(euc.dash.alrt.pwm.hapt.en,euc.dash.alrt.pwm.hapt.en?"PWM: "+euc.dash.alrt.pwm.hapt.hi+" %":"PWM DISABLED",25,120,37,4,1,0,0,239,97);
 			this.btn(0,"",25,120,37,4,0,0,100,239,195);
 		}else{	
-			this.btn(euc.dash.hapt.spd,"SPEED",25,60,37,4,1,0,0,119,97);
-			this.btn(euc.dash.hapt.amp,"AMP",25,180,37,4,1,122,0,239,97);
-			this.btn(euc.dash.hapt.tmp,"TEMP",25,60,136,4,1,0,100,119,195);
-			this.btn(euc.dash.hapt.bat,"BATT",25,180,136,4,1,122,100,239,195);			
+			this.btn(euc.dash.alrt.spd.hapt.en,"SPEED",25,60,37,4,1,0,0,119,97);
+			this.btn(euc.dash.alrt.amp.hapt.en,"AMP",25,180,37,4,1,122,0,239,97);
+			this.btn(euc.dash.alrt.tmp.hapt.en,"TEMP",25,60,136,4,1,0,100,119,195);
+			this.btn(euc.dash.alrt.bat.hapt.en,"BATT",25,180,136,4,1,122,100,239,195);			
 		}
-      	//if ( euc.dash.slot.make=="Kingsong" ||euc.dash.slot.make=="Begode" || euc.dash.slot.make=="Veteran" ) {
-      	if ( euc.dash.slot.make=="Kingsong"  ) {
+      	//if ( euc.dash.info.get.makr=="Kingsong" ||euc.dash.info.get.makr=="Begode" || euc.dash.info.get.makr=="Veteran" ) {
+      	if ( euc.dash.info.get.makr=="Kingsong"  ) {
 			this.g.setColor(0,0);
 			this.g.fillRect(0,196,239,204);
 			this.g.setColor(1,3);
@@ -122,111 +122,111 @@ touchHandler[0]=function(e,x,y){
 				buzzer([30,50,30]);
 				if (y<=120){ 
 					if (x<=120){ 
-						if (1<euc.dash.live.spd1) euc.dash.live.spd1--;
-					}else if (euc.dash.live.spd1<99) 
-						euc.dash.live.spd1++;
+						if (1<euc.dash.alrt.spd.hapt.hi) euc.dash.alrt.spd.hapt.hi--;
+					}else if (euc.dash.alrt.spd.hapt.hi<99) 
+						euc.dash.alrt.spd.hapt.hi++;
 
 					if (!face[0].spds) { face[0].spds=1;face[0].spdr=0;
-						face[0].btn(1,"RESOLUTION:",18,120,110,2,0,0,100,239,195,euc.dash.hapt.spdS,50,125,140);
+						face[0].btn(1,"RESOLUTION:",18,120,110,2,0,0,100,239,195,euc.dash.alrt.spd.hapt.step,50,125,140);
 					}
 					return setTimeout(function() {
-						face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,12,0,0,0,239,97,(set.def.dash.mph)?(euc.dash.hapt.spdH*0.625).toFixed(1):euc.dash.hapt.spdH,50,125,40,1);
-						face[0].ntfy("ALERT IF OVER "+((set.def.dash.mph)?(euc.dash.hapt.spdH*0.625).toFixed(1):euc.dash.hapt.spdH) +((set.def.dash.mph)?" MPH":" Km/h"),"",18,12,1);
+						face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,12,0,0,0,239,97,(set.def.dash.mph)?(euc.dash.alrt.spd.hapt.hi*0.625).toFixed(1):euc.dash.alrt.spd.hapt.hi,50,125,40,1);
+						face[0].ntfy("ALERT IF OVER "+((set.def.dash.mph)?(euc.dash.alrt.spd.hapt.hi*0.625).toFixed(1):euc.dash.alrt.spd.hapt.hi) +((set.def.dash.mph)?" MPH":" Km/h"),"",18,12,1);
 					},0);
 				}else if  (y<=195) { //RESOLUTION
 					if (x<=120){ 
-						if (1<euc.dash.hapt.spdS) euc.dash.hapt.spdS--;
-					}else if (euc.dash.hapt.spdS<5)
-						euc.dash.hapt.spdS++;
+						if (1<euc.dash.alrt.spd.hapt.step) euc.dash.alrt.spd.hapt.step--;
+					}else if (euc.dash.alrt.spd.hapt.step<5)
+						euc.dash.alrt.spd.hapt.step++;
 					if (!face[0].spdr) { face[0].spdr=1;face[0].spds=0;
-						face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,1,0,0,0,239,97,(set.def.dash.mph)?(euc.dash.hapt.spdH*0.625).toFixed(1):euc.dash.hapt.spdH,50,125,40);
+						face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,1,0,0,0,239,97,(set.def.dash.mph)?(euc.dash.alrt.spd.hapt.hi*0.625).toFixed(1):euc.dash.alrt.spd.hapt.hi,50,125,40);
 					}
 					return setTimeout(function() {
-						face[0].btn(1,"RESOLUTION:",18,120,110,12,0,0,100,239,195,euc.dash.hapt.spdS,50,125,140,1);
-						face[0].ntfy("1 PULSE PER "+euc.dash.hapt.spdS+((set.def.dash.mph)?" MPH":"KPH")+" > "+((set.def.dash.mph)?Math.round(euc.dash.hapt.spdH*0.625):euc.dash.hapt.spdH),"",18,12,1);
+						face[0].btn(1,"RESOLUTION:",18,120,110,12,0,0,100,239,195,euc.dash.alrt.spd.hapt.step,50,125,140,1);
+						face[0].ntfy("1 PULSE PER "+euc.dash.alrt.spd.hapt.step+((set.def.dash.mph)?" MPH":"KPH")+" > "+((set.def.dash.mph)?Math.round(euc.dash.alrt.spd.hapt.hi*0.625):euc.dash.alrt.spd.hapt.hi),"",18,12,1);
 						},0);
 				}  else {
-					euc.dash.hapt.spd=1-euc.dash.hapt.spd;
-					face[0].btn(euc.dash.hapt.spd,euc.dash.hapt.spd?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
+					euc.dash.alrt.spd.hapt.en=1-euc.dash.alrt.spd.hapt.en;
+					face[0].btn(euc.dash.alrt.spd.hapt.en,euc.dash.alrt.spd.hapt.en?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
 				}
 			}else if (face[0].set=="pwm") {
 				buzzer([30,50,30]);
 				if (y<=140){ //pwm
-					if (x<=120)
-						if (50<euc.dash.hapt.pwmH) euc.dash.hapt.pwmH--;
-					else if (euc.dash.hapt.pwmH<90) 
-						euc.dash.hapt.pwmH++;
-					face[0].btn(1,euc.dash.hapt.pwmH,50,120,70,1,0,80,60,150,130);
-					face[0].ntfy("ALERT IF OVER "+euc.dash.hapt.pwmH+" %","",18,12,1);
+					if (x<=120) {
+						if (50<euc.dash.alrt.pwm.hapt.hi) euc.dash.alrt.pwm.hapt.hi--;
+					}else if (euc.dash.alrt.pwm.hapt.hi<90) 
+						euc.dash.alrt.pwm.hapt.hi++;
+					face[0].btn(1,euc.dash.alrt.pwm.hapt.hi,50,120,70,1,0,80,60,150,130);
+					face[0].ntfy("ALERT IF OVER "+euc.dash.alrt.pwm.hapt.hi+" %","",18,12,1);
 				}else if  (y<=195) { 
 					
 				}  else { //haptic
-					euc.dash.hapt.pwm=1-euc.dash.hapt.pwm;
-					face[0].btn(euc.dash.hapt.pwm,euc.dash.hapt.pwm?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
+					euc.dash.alrt.pwm.hapt.en=1-euc.dash.alrt.pwm.hapt.en;
+					face[0].btn(euc.dash.alrt.pwm.hapt.en,euc.dash.alrt.pwm.hapt.en?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
 				}
 					
 			}else if (face[0].set=="amp") { //amp
 				buzzer([30,50,30]);
 				if (y<=65){ //uphill
-					if (120<=x&&euc.dash.hapt.ampH<50) euc.dash.hapt.ampH++;
-					else if (x<=120&&10<euc.dash.hapt.ampH) euc.dash.hapt.ampH--;
+					if (120<=x&&euc.dash.alrt.amp.hapt.hi<50) euc.dash.alrt.amp.hapt.hi++;
+					else if (x<=120&&10<euc.dash.alrt.amp.hapt.hi) euc.dash.alrt.amp.hapt.hi--;
 					if (!face[0].ampa) { face[0].ampa=1;face[0].ampd=0;face[0].ampr=0;
-						face[0].btn(1,"BRAKING:",20,65,90,1,0,0,66,239,132,euc.dash.hapt.ampL+ " A",35,182,84);
-						face[0].btn(1,"RESOLUTION:",17,70,157,2,0,0,135,239,195,euc.dash.hapt.ampS+ " A",35,190,150);
-						face[0].ntfy("ALERT IF OVER "+euc.dash.hapt.ampH+" A","",18,1,1);						
+						face[0].btn(1,"BRAKING:",20,65,90,1,0,0,66,239,132,euc.dash.alrt.amp.hapt.low+ " A",35,182,84);
+						face[0].btn(1,"RESOLUTION:",17,70,157,2,0,0,135,239,195,euc.dash.alrt.amp.hapt.step+ " A",35,190,150);
+						face[0].ntfy("ALERT IF OVER "+euc.dash.alrt.amp.hapt.hi+" A","",18,1,1);						
 					}
 					return setTimeout(function() {
-						face[0].btn(1,"UPHILL:",20,65,23,12,0,0,0,239,63,euc.dash.hapt.ampH+" A",35,180,16);
-						face[0].ntfy("ALERT IF OVER "+euc.dash.hapt.ampH+" A","",18,12,1);						
+						face[0].btn(1,"UPHILL:",20,65,23,12,0,0,0,239,63,euc.dash.alrt.amp.hapt.hi+" A",35,180,16);
+						face[0].ntfy("ALERT IF OVER "+euc.dash.alrt.amp.hapt.hi+" A","",18,12,1);						
 					},0);
 				}else if (65<=y&&y<=133){//braking
-					if (x<=120&&euc.dash.hapt.ampL<-5) euc.dash.hapt.ampL++;
-					else if (120<=x&&-40<euc.dash.hapt.ampL) euc.dash.hapt.ampL--;
+					if (x<=120&&euc.dash.alrt.amp.hapt.low<-5) euc.dash.alrt.amp.hapt.low++;
+					else if (120<=x&&-40<euc.dash.alrt.amp.hapt.low) euc.dash.alrt.amp.hapt.low--;
 					if (!face[0].ampd) { face[0].ampa=0;face[0].ampd=1;face[0].ampr=0;
-						face[0].btn(1,"UPHILL:",20,65,23,2,0,0,0,239,63,euc.dash.hapt.ampH+" A",35,180,16);
-						face[0].btn(1,"RESOLUTION:",17,70,157,2,0,0,135,239,195,euc.dash.hapt.ampS+ " A",35,190,150);
+						face[0].btn(1,"UPHILL:",20,65,23,2,0,0,0,239,63,euc.dash.alrt.amp.hapt.hi+" A",35,180,16);
+						face[0].btn(1,"RESOLUTION:",17,70,157,2,0,0,135,239,195,euc.dash.alrt.amp.hapt.step+ " A",35,190,150);
 					}
    					return setTimeout(function() {
-						face[0].btn(1,"BRAKING:",20,65,90,12,0,0,66,239,132,euc.dash.hapt.ampL+ " A",35,182,84);
-						face[0].ntfy("ALERT IF UNDER "+euc.dash.hapt.ampL+" A","",18,12,1);   
+						face[0].btn(1,"BRAKING:",20,65,90,12,0,0,66,239,132,euc.dash.alrt.amp.hapt.low+ " A",35,182,84);
+						face[0].ntfy("ALERT IF UNDER "+euc.dash.alrt.amp.hapt.low+" A","",18,12,1);   
 					},0);
 				}else  if  (y<=195) {//RESOLUTION
-					if (120<=x&&euc.dash.hapt.ampS<3) euc.dash.hapt.ampS++;
-					else if (x<=120&&1<euc.dash.hapt.ampS) euc.dash.hapt.ampS--;
+					if (120<=x&&euc.dash.alrt.amp.hapt.step<3) euc.dash.alrt.amp.hapt.step++;
+					else if (x<=120&&1<euc.dash.alrt.amp.hapt.step) euc.dash.alrt.amp.hapt.step--;
 					if (!face[0].ampr) { face[0].ampa=0;face[0].ampd=0;face[0].ampr=1;
-						face[0].btn(1,"BRAKING:",20,65,90,1,0,0,66,239,132,euc.dash.hapt.ampL+ " A",35,182,84);
-						face[0].btn(1,"UPHILL:",20,65,23,2,0,0,0,239,63,euc.dash.hapt.ampH+" A",35,180,16);
-						face[0].ntfy("ONE PULSE PER "+euc.dash.hapt.ampS+ " A","",18,1,1);
+						face[0].btn(1,"BRAKING:",20,65,90,1,0,0,66,239,132,euc.dash.alrt.amp.hapt.low+ " A",35,182,84);
+						face[0].btn(1,"UPHILL:",20,65,23,2,0,0,0,239,63,euc.dash.alrt.amp.hapt.hi+" A",35,180,16);
+						face[0].ntfy("ONE PULSE PER "+euc.dash.alrt.amp.hapt.step+ " A","",18,1,1);
 					}
 					return setTimeout(function() {
-						face[0].btn(1,"RESOLUTION:",17,70,157,12,0,0,135,239,195,euc.dash.hapt.ampS+ " A",35,190,150);
-						face[0].ntfy("ONE PULSE PER "+euc.dash.hapt.ampS+ " A","",18,12,1);
+						face[0].btn(1,"RESOLUTION:",17,70,157,12,0,0,135,239,195,euc.dash.alrt.amp.hapt.step+ " A",35,190,150);
+						face[0].ntfy("ONE PULSE PER "+euc.dash.alrt.amp.hapt.step+ " A","",18,12,1);
 					},0);
 				}  else {
-					euc.dash.hapt.amp=1-euc.dash.hapt.amp;
-					face[0].btn(euc.dash.hapt.amp,euc.dash.hapt.amp?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
+					euc.dash.alrt.amp.hapt.en=1-euc.dash.alrt.amp.hapt.en;
+					face[0].btn(euc.dash.alrt.amp.hapt.en,euc.dash.alrt.amp.hapt.en?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
 				}
             }else if (face[0].set=="temp") { //temp
 				if (y<=120){ //
 					buzzer([30,50,30]);
-					if (120<=x&&euc.dash.hapt.tmpH<90) euc.dash.hapt.tmpH++;
-					else if (x<=120&&25<euc.dash.hapt.tmpH) euc.dash.hapt.tmpH--;
+					if (120<=x&&euc.dash.alrt.tmp.hapt.hi<90) euc.dash.alrt.tmp.hapt.hi++;
+					else if (x<=120&&25<euc.dash.alrt.tmp.hapt.hi) euc.dash.alrt.tmp.hapt.hi--;
 					return setTimeout(function() {
-						face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,120,8,12,0,0,0,239,97,(set.def.dash.farn)?(euc.dash.hapt.tmpH*1.8+32).toFixed(1):euc.dash.hapt.tmpH,50,125,40,1);
-						face[0].ntfy("ALERT IF OVER "+((set.def.dash.farn)?Math.round(euc.dash.hapt.tmpH*1.8+32):euc.dash.hapt.tmpH)+((set.def.dash.farn)?" F":" C"),"",18,12,1);
+						face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,120,8,12,0,0,0,239,97,(set.def.dash.farn)?(euc.dash.alrt.tmp.hapt.hi*1.8+32).toFixed(1):euc.dash.alrt.tmp.hapt.hi,50,125,40,1);
+						face[0].ntfy("ALERT IF OVER "+((set.def.dash.farn)?Math.round(euc.dash.alrt.tmp.hapt.hi*1.8+32):euc.dash.alrt.tmp.hapt.hi)+((set.def.dash.farn)?" F":" C"),"",18,12,1);
 					},0);
 				}else  if  (195<=y) {
 					buzzer([30,50,30]);
-					euc.dash.hapt.tmp=1-euc.dash.hapt.tmp;
-					face[0].btn(euc.dash.hapt.tmp,euc.dash.hapt.tmp?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
-					face[0].btn(euc.dash.hapt.tmp,"TEMP",25,60,136,4,1,0,100,119,195);
+					euc.dash.alrt.tmp.hapt.en=1-euc.dash.alrt.tmp.hapt.en;
+					face[0].btn(euc.dash.alrt.tmp.hapt.en,euc.dash.alrt.tmp.hapt.en?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
+					face[0].btn(euc.dash.alrt.tmp.hapt.en,"TEMP",25,60,136,4,1,0,100,119,195);
 				}else if (120<=x) {
 					buzzer([30,50,30]);
 					face[0].set="batt";
-					face[0].btn(1,"SET LOW-BATT (in %)",18,120,8,12,0,0,0,239,97,euc.dash.hapt.batL,50,125,40,1);
-					face[0].btn(euc.dash.hapt.bat,euc.dash.hapt.bat?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
+					face[0].btn(1,"SET LOW-BATT (in %)",18,120,8,12,0,0,0,239,97,euc.dash.alrt.bat.hapt.low,50,125,40,1);
+					face[0].btn(euc.dash.alrt.bat.hapt.en,euc.dash.alrt.bat.hapt.en?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
 					face[0].hapSw=function(){ 
-						face[0].btn(euc.dash.hapt.bat,euc.dash.hapt.bat?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
+						face[0].btn(euc.dash.alrt.bat.hapt.en,euc.dash.alrt.bat.hapt.en?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
 					}
 				}else{ //back
 					buzzer(40);
@@ -234,24 +234,24 @@ touchHandler[0]=function(e,x,y){
             }else if (face[0].set=="batt") { //bat
 				if (y<=120){ //
 					buzzer([30,50,30]);
-					if (120<=x&&euc.dash.hapt.batL<60) euc.dash.hapt.batL++;
-   			  		else if (x<=120&&5<euc.dash.hapt.batL) euc.dash.hapt.batL--;
+					if (120<=x&&euc.dash.alrt.bat.hapt.low<60) euc.dash.alrt.bat.hapt.low++;
+   			  		else if (x<=120&&5<euc.dash.alrt.bat.hapt.low) euc.dash.alrt.bat.hapt.low--;
 					return setTimeout(function() {
-						face[0].btn(1,"SET LOW-BATT (in %)",18,120,8,12,0,0,0,239,97,euc.dash.hapt.batL,50,125,40,1);
-						face[0].ntfy("ALERT IF UNDER "+euc.dash.hapt.batL+" %","",18,12,1);
+						face[0].btn(1,"SET LOW-BATT (in %)",18,120,8,12,0,0,0,239,97,euc.dash.alrt.bat.hapt.low,50,125,40,1);
+						face[0].ntfy("ALERT IF UNDER "+euc.dash.alrt.bat.hapt.low+" %","",18,12,1);
 					},0);
 				}else  if  (195<=y) {
 					buzzer([30,50,30]);
-					euc.dash.hapt.bat=1-euc.dash.hapt.bat;
-					face[0].btn(euc.dash.hapt.bat,euc.dash.hapt.bat?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
-					face[0].btn(euc.dash.hapt.bat,"BATT",25,180,136,4,1,122,100,239,195);			
+					euc.dash.alrt.bat.hapt.en=1-euc.dash.alrt.bat.hapt.en;
+					face[0].btn(euc.dash.alrt.bat.hapt.en,euc.dash.alrt.bat.hapt.en?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
+					face[0].btn(euc.dash.alrt.bat.hapt.en,"BATT",25,180,136,4,1,122,100,239,195);			
 				}else if (x<=120) {
 					buzzer([30,50,30]);
 					face[0].set="temp";
-					face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,120,8,12,0,0,0,239,97,(set.def.dash.farn)?(euc.dash.hapt.tmpH*1.8+32).toFixed(1):euc.dash.hapt.tmpH,50,125,40,1);
-					face[0].btn(euc.dash.hapt.tmp,euc.dash.hapt.tmp?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
+					face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,120,8,12,0,0,0,239,97,(set.def.dash.farn)?(euc.dash.alrt.tmp.hapt.hi*1.8+32).toFixed(1):euc.dash.alrt.tmp.hapt.hi,50,125,40,1);
+					face[0].btn(euc.dash.alrt.tmp.hapt.en,euc.dash.alrt.tmp.hapt.en?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
 					face[0].hapSw=function(){ 
-						face[0].btn(euc.dash.hapt.tmp,euc.dash.hapt.tmp?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
+						face[0].btn(euc.dash.alrt.tmp.hapt.en,euc.dash.alrt.tmp.hapt.en?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
 					}
 				}else{
 					buzzer(40);
@@ -261,25 +261,25 @@ touchHandler[0]=function(e,x,y){
 			if (y<100) { //pwm
 				face[0].set="pwm";
 				buzzer([30,50,30]);
-				face[0].btn(1,"PWM LIMIT (IN %)",18,120,20,1,0,0,0,239,145,euc.dash.hapt.pwmH,50,125,70,1);
-				if ( euc.dash.slot.make=="Begode")
+				face[0].btn(1,"PWM LIMIT (IN %)",18,120,20,1,0,0,0,239,145,euc.dash.alrt.pwm.hapt.hi,50,125,70,1);
+				if ( euc.dash.info.get.makr=="Begode")
 					face[0].btn(1,"CALIBRATE PWM",19,120,160,2,0,0,148,239,195);
 				else 
 					face[0].btn(0,"",19,120,160,0,0,0,148,239,195);
-				face[0].btn(euc.dash.hapt.pwm,euc.dash.hapt.pwm?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
+				face[0].btn(euc.dash.alrt.pwm.hapt.en,euc.dash.alrt.pwm.hapt.en?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
 				face[0].hapSw=function(){ 
-					face[0].btn(euc.dash.hapt.pwm,euc.dash.hapt.pwm?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
+					face[0].btn(euc.dash.alrt.pwm.hapt.en,euc.dash.alrt.pwm.hapt.en?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
 				}
 			}else buzzer(40);	 
 		}else {
 			if (x<=120&&y<100) { //spd
 				face[0].set="spd";
 				buzzer([30,50,30]);
-				face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,1,0,0,0,239,97,(set.def.dash.mph)?(euc.dash.hapt.spdH*0.625).toFixed(1):euc.dash.hapt.spdH,50,125,40);
-				face[0].btn(1,"RESOLUTION:",18,120,110,2,0,0,100,239,195,euc.dash.hapt.spdS,50,125,140);
-				face[0].btn(euc.dash.hapt.spd,euc.dash.hapt.spd?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
+				face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,1,0,0,0,239,97,(set.def.dash.mph)?(euc.dash.alrt.spd.hapt.hi*0.625).toFixed(1):euc.dash.alrt.spd.hapt.hi,50,125,40);
+				face[0].btn(1,"RESOLUTION:",18,120,110,2,0,0,100,239,195,euc.dash.alrt.spd.hapt.step,50,125,140);
+				face[0].btn(euc.dash.alrt.spd.hapt.en,euc.dash.alrt.spd.hapt.en?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
 				face[0].hapSw=function(){ 
-					face[0].btn(euc.dash.hapt.spd,euc.dash.hapt.spd?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
+					face[0].btn(euc.dash.alrt.spd.hapt.en,euc.dash.alrt.spd.hapt.en?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
 				}
 			}else if (120<=x&&y<=100) { //amp
 				face[0].set="amp";
@@ -287,30 +287,30 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.setColor(0,0);
 				w.gfx.fillRect(0,64,239,65);
 				w.gfx.flip();
-				face[0].btn(1,"UPHILL:",20,65,23,2,0,0,0,239,63,euc.dash.hapt.ampH+" A",35,180,16);
-				face[0].btn(1,"BRAKING:",20,65,90,1,0,0,66,239,132,euc.dash.hapt.ampL+ " A",35,182,84);
-				face[0].btn(1,"RESOLUTION:",17,70,157,2,0,0,135,239,195,euc.dash.hapt.ampS+ " A",35,190,150);
-				face[0].btn(euc.dash.hapt.amp,euc.dash.hapt.amp?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
+				face[0].btn(1,"UPHILL:",20,65,23,2,0,0,0,239,63,euc.dash.alrt.amp.hapt.hi+" A",35,180,16);
+				face[0].btn(1,"BRAKING:",20,65,90,1,0,0,66,239,132,euc.dash.alrt.amp.hapt.low+ " A",35,182,84);
+				face[0].btn(1,"RESOLUTION:",17,70,157,2,0,0,135,239,195,euc.dash.alrt.amp.hapt.step+ " A",35,190,150);
+				face[0].btn(euc.dash.alrt.amp.hapt.en,euc.dash.alrt.amp.hapt.en?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
 				face[0].hapSw=function(){ 
-					face[0].btn(euc.dash.hapt.amp,euc.dash.hapt.amp?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
+					face[0].btn(euc.dash.alrt.amp.hapt.en,euc.dash.alrt.amp.hapt.en?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
 				}
 			}else if (x<=120&&100<=y&&y<=195) { //temp
 				face[0].set="temp";
 				buzzer([30,50,30]);
 				//face[0].btn(1,"TEMP",25,60,136,12,0,0,100,119,195);
-				face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,120,8,12,0,0,0,239,97,(set.def.dash.farn)?(euc.dash.hapt.tmpH*1.8+32).toFixed(1):euc.dash.hapt.tmpH,50,125,40,1);
-				face[0].btn(euc.dash.hapt.tmp,euc.dash.hapt.tmp?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
+				face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,120,8,12,0,0,0,239,97,(set.def.dash.farn)?(euc.dash.alrt.tmp.hapt.hi*1.8+32).toFixed(1):euc.dash.alrt.tmp.hapt.hi,50,125,40,1);
+				face[0].btn(euc.dash.alrt.tmp.hapt.en,euc.dash.alrt.tmp.hapt.en?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
 				face[0].hapSw=function(){ 
-					face[0].btn(euc.dash.hapt.tmp,euc.dash.hapt.tmp?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
+					face[0].btn(euc.dash.alrt.tmp.hapt.en,euc.dash.alrt.tmp.hapt.en?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
 				}
 			}else if (120<=x&&100<=y&&y<=195) { //batt
 				face[0].set="batt";
 				buzzer([30,50,30]);
 				//face[0].btn(1,"BATT",25,180,136,12,0,122,100,239,195);	
-				face[0].btn(1,"SET LOW-BATT (in %)",18,120,8,12,0,0,0,239,97,euc.dash.hapt.batL,50,125,40,1);
-				face[0].btn(euc.dash.hapt.bat,euc.dash.hapt.bat?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
+				face[0].btn(1,"SET LOW-BATT (in %)",18,120,8,12,0,0,0,239,97,euc.dash.alrt.bat.hapt.low,50,125,40,1);
+				face[0].btn(euc.dash.alrt.bat.hapt.en,euc.dash.alrt.bat.hapt.en?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
 				face[0].hapSw=function(){ 
-					face[0].btn(euc.dash.hapt.bat,euc.dash.hapt.bat?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
+					face[0].btn(euc.dash.alrt.bat.hapt.en,euc.dash.alrt.bat.hapt.en?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
 				}
 			}else buzzer(40);		
 		}
@@ -345,8 +345,8 @@ touchHandler[0]=function(e,x,y){
 		
 		break;
 	case 3: //slide left event
-		//if ( !face[0].set &&!face[0].page&& (euc.dash.slot.make=="Kingsong" ||euc.dash.slot.make=="Begode" || euc.dash.slot.make=="Veteran" )) {
-		if ( !face[0].set &&!face[0].page&& euc.dash.slot.make=="Kingsong" ) {
+		//if ( !face[0].set &&!face[0].page&& (euc.dash.info.get.makr=="Kingsong" ||euc.dash.info.get.makr=="Begode" || euc.dash.info.get.makr=="Veteran" )) {
+		if ( !face[0].set &&!face[0].page&& euc.dash.info.get.makr=="Kingsong" ) {
 			face[0].page=1
 			face[0].init();return;	
 			//face.go("dashAlertsPwm",0);

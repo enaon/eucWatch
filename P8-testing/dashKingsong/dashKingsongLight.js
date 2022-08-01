@@ -22,12 +22,12 @@ face[0] = {
 	show : function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
-		if ( this.last!=euc.dash.set[this.led]) {
-            this.last=euc.dash.set[this.led];
-			this.btn((euc.dash.set[this.led]===1)?1:0,"ON",28,60,35,4,1,0,0,119,97,"",30,60,50);
-			this.btn((euc.dash.set[this.led]===3)?1:0,"AUTO",28,185,35,4,1,122,0,239,97,"",30,185,50);		
-			this.btn((euc.dash.opt.city)?1:0,"eucWatch",18,60,115,12,1,0,100,119,195,"CITY",25,60,150);
-			this.btn((euc.dash.set[this.led]===2)?1:0,"OFF",25,185,136,6,1,122,100,239,195,"",25,185,155);	
+		if ( this.last!=euc.dash.opt.lght[this.led]) {
+            this.last=euc.dash.opt.lght[this.led];
+			this.btn((euc.dash.opt.lght[this.led]===1)?1:0,"ON",28,60,35,4,1,0,0,119,97,"",30,60,50);
+			this.btn((euc.dash.opt.lght[this.led]===3)?1:0,"AUTO",28,185,35,4,1,122,0,239,97,"",30,185,50);		
+			this.btn((euc.dash.opt.lght.city)?1:0,"eucWatch",18,60,115,12,1,0,100,119,195,"CITY",25,60,150);
+			this.btn((euc.dash.opt.lght[this.led]===2)?1:0,"OFF",25,185,136,6,1,122,100,239,195,"",25,185,155);	
 		}
 		this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
@@ -96,29 +96,29 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
       case 5: case 12: //tap event
 		if ( x<=120 && y<100 ) { //lights on
-			if (euc.dash.set[face[0].led]==1) {buzzer(40);return;}
-			//euc.dash.set[face[0].led]=1;
-			euc.dash.opt.city=0;
+			if (euc.dash.opt.lght[face[0].led]==1) {buzzer(40);return;}
+			//euc.dash.opt.lght[face[0].led]=1;
+			euc.dash.opt.lght.city=0;
 			buzzer([30,50,30]);
 			euc.wri("setLights",1);
 			face[0].ntfy("HEAD LIGHT ON","NO ACTION",19,1,1);
 		}else if ( 120<=x && y<=100 ) { //lights Auto
-			if (euc.dash.set[face[0].led]==3) {buzzer(40);return;}
-			//euc.dash.set[face[0].led]=3;
-			euc.dash.opt.city=0;
+			if (euc.dash.opt.lght[face[0].led]==3) {buzzer(40);return;}
+			//euc.dash.opt.lght[face[0].led]=3;
+			euc.dash.opt.lght.city=0;
 			buzzer([30,50,30]);	
 			euc.wri("setLights",3);
 			face[0].ntfy("HEAD LIGHT AUTO","NO ACTION",19,1,1);
 		}else if ( x<=120 && 100<=y ) { //lights City
-			euc.dash.opt.city=1-euc.dash.opt.city;
-			face[0].btn((euc.dash.opt.city)?1:0,"eucWatch",18,60,115,12,1,0,100,119,195,"CITY",25,60,150);
+			euc.dash.opt.lght.city=1-euc.dash.opt.lght.city;
+			face[0].btn((euc.dash.opt.lght.city)?1:0,"eucWatch",18,60,115,12,1,0,100,119,195,"CITY",25,60,150);
 			buzzer([30,50,30]);	
 			//euc.wri("setLights",0);
-			face[0].ntfy("HEAD LIGHT CITY","NO ACTION",19,1,euc.dash.opt.city);
+			face[0].ntfy("HEAD LIGHT CITY","NO ACTION",19,1,euc.dash.opt.lght.city);
 		}else if  (120<=x && 100<=y ) { //lights Off
-			if (euc.dash.set[face[0].led]==2) {buzzer(40);return;}
-			//euc.dash.set[face[0].led]=2;
-			euc.dash.opt.city=0;
+			if (euc.dash.opt.lght[face[0].led]==2) {buzzer(40);return;}
+			//euc.dash.opt.lght[face[0].led]=2;
+			euc.dash.opt.lght.city=0;
 			buzzer([30,50,30]);	
 			euc.wri("setLights",2);
 			face[0].ntfy("HEAD LIGHT OFF","NO ACTION",19,1,1);

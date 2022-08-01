@@ -25,25 +25,25 @@ face[0] = {
 		this.g.drawString("ACTIONS",120-(this.g.stringWidth("ACTIONS")/2),217); 
 		this.g.flip(); 
 		let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
-		face[0].btn(1,euc.dash.tpms?euc.dash.tpms:"TPMS",18,60,115,(euc.dash.tpms&&tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.tpms].time<1800)?(tpms.euc[euc.dash.tpms].alrm)?7:4:1,1,0,100,119,195,(euc.dash.tpms)?(tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].psi)?Math.round(tpms.euc[euc.dash.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.tpms)?32:28,60,150);
+		face[0].btn(1,euc.dash.opt.tpms?euc.dash.opt.tpms:"TPMS",18,60,115,(euc.dash.opt.tpms&&tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.opt.tpms].time<1800)?(tpms.euc[euc.dash.opt.tpms].alrm)?7:4:1,1,0,100,119,195,(euc.dash.opt.tpms)?(tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].psi)?Math.round(tpms.euc[euc.dash.opt.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.opt.tpms)?32:28,60,150);
 		if (!euc.temp.ls) {euc.temp.ls=1;setTimeout(()=>{euc.wri("getLock");setTimeout(()=>{euc.wri("getStrobe");},100);},300);}
 		this.run=true;
 	},
 	show : function(){
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
-		if ( this.light!=euc.dash.set.HL) {
-            this.light=euc.dash.set.HL;
+		if ( this.light!=euc.dash.opt.lght.HL) {
+            this.light=euc.dash.opt.lght.HL;
 			let val=["CITY","ON","OFF","AUTO"];
-			this.btn(euc.dash.set.HL!=2?1:0,euc.dash.opt.city?"CITY":"LIGHTS",18,60,20,euc.dash.opt.city?12:4,1,0,0,119,97,val[euc.dash.set.HL],25,60,55);
-		}if ( this.strb!=euc.dash.set.strb) {
-            this.strb=euc.dash.set.strb;
-			this.btn(euc.dash.set.strb,"STROBE",18,185,20,7,1,122,0,239,97,euc.dash.set.strb?"ON":"OFF",25,185,55);	
-			//this.btn(euc.dash.set.strb,"STROBE",18,185,20,7,1,122,0,239,97,"",25,185,55);	
+			this.btn(euc.dash.opt.lght.HL!=2?1:0,euc.dash.opt.lght.city?"CITY":"LIGHTS",18,60,20,euc.dash.opt.lght.city?12:4,1,0,0,119,97,val[euc.dash.opt.lght.HL],25,60,55);
+		}if ( this.strb!=euc.dash.opt.lght.strb) {
+            this.strb=euc.dash.opt.lght.strb;
+			this.btn(euc.dash.opt.lght.strb,"STROBE",18,185,20,7,1,122,0,239,97,euc.dash.opt.lght.strb?"ON":"OFF",25,185,55);	
+			//this.btn(euc.dash.opt.lght.strb,"STROBE",18,185,20,7,1,122,0,239,97,"",25,185,55);	
 		}
-		if ( this.lock!=euc.dash.set.lock) {
-			this.lock=euc.dash.set.lock;
-			this.btn(euc.dash.set.lock,"LOCK",25,185,136,euc.dash.auto.onC.unlk?9:7,1,122,100,239,195,"",25,185,155);	
+		if ( this.lock!=euc.dash.opt.lock.en) {
+			this.lock=euc.dash.opt.lock.en;
+			this.btn(euc.dash.opt.lock.en,"LOCK",25,185,136,euc.dash.auto.onC.unlk?9:7,1,122,100,239,195,"",25,185,155);	
 		}
 		this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
@@ -124,19 +124,19 @@ touchHandler[0]=function(e,x,y){
 			return;
 		}else if ( 120<=x && y<=100 ) { //STROBE
 			buzzer([30,50,30]);	
-			euc.wri("setStrobeOnOff",1-euc.dash.set.strb);
+			euc.wri("setStrobeOnOff",1-euc.dash.opt.lght.strb);
 		}else if ( x<=120 && 100<=y ) { //tpms
 			buzzer([30,50,30]);		
-			if (!euc.dash.tpms) face[0].ntfy("HOLD-> ON/OFF","NO ACTION",19,4,1);
+			if (!euc.dash.opt.tpms) face[0].ntfy("HOLD-> ON/OFF","NO ACTION",19,4,1);
 			else {
-				tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.tpms);
+				tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.opt.tpms);
 				face.go("tpmsFace",0);
 				return;
 			}
 		}else if  (120<=x && 100<=y ) { //Lock
-			//euc.dash.set.lock=1-euc.dash.set.lock;
+			//euc.dash.opt.lock.en=1-euc.dash.opt.lock.en;
 			buzzer([30,50,30]);	
-			euc.wri((1-euc.dash.set.lock)?"doLock":"doUnlock",euc.temp.lockKey);
+			euc.wri((1-euc.dash.opt.lock.en)?"doLock":"doUnlock",euc.temp.lockKey);
 		}else buzzer(40);
 		break;
 	case 1: //slide down event
@@ -161,8 +161,8 @@ touchHandler[0]=function(e,x,y){
 	case 12:
 		if  (x<=120 && 100<=y ) { //tpms
 			buzzer([30,50,30]);
-			if (euc.dash.tpms) {
-				euc.dash.tpms=0;
+			if (euc.dash.opt.tpms) {
+				euc.dash.opt.tpms=0;
 				face[0].btn(0,"TPMS",18,60,115,4,1,0,100,119,195,"OFF",28,60,150);
 				//face[0].btn("TPMS",18,60,115,1,0,100,119,195,"OFF",28,60,155); //3
 				face[0].ntfy("TPMS DISABLED","NO ACTION",19,1,1);

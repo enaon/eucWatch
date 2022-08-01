@@ -32,8 +32,8 @@ face[0] = {
 		this.lock=2;
 		this.trpL=-1;
 		this.bar=0;
-		this.fact=euc.dash.opt.spdF*((set.def.dash.mph)?0.625:1);		
-		this.trpF=euc.dash.opt.trpF*((set.def.dash.mph)?0.625:1);
+		this.fact=euc.dash.opt.unit.fact.spd*((set.def.dash.mph)?0.625:1);		
+		this.trpF=euc.dash.opt.unit.fact.dist*((set.def.dash.mph)?0.625:1);
 		this.run=true;
 	},
 	show : function(o){
@@ -44,13 +44,13 @@ face[0] = {
 			this.g.flip();
 			if (this.spd != Math.round(euc.dash.live.spd)) this.spdF();
 			// alarm events time graph
-			//if (5<=this.spd&&(euc.dash.slot.make=="Kingsong"||euc.dash.slot.make=="Begode")){
-			if (5<=this.spd&&(euc.dash.slot.make=="Kingsong")){
-	
+			//if (5<=this.spd&&(euc.dash.info.get.makr=="Kingsong"||euc.dash.info.get.makr=="Begode")){
+			if (5<=this.spd&&(euc.dash.info.get.makr=="Kingsong")){
 				this.pwmF();
-				//if (this.al!=almL) 
-				this.alF();
-				this.bar=0;
+				if (almL.indexOf(1)!=-1) {
+					this.alF();
+					this.bar=0;
+				} else if (!this.bar) { this.bar=1; this.barF();}
 			} else if (!this.bar) { this.bar=1; this.barF();}
 			//tmp/amp block
 			if (!set.def.dash.amp) {
@@ -60,11 +60,11 @@ face[0] = {
 			//alarm block
 			if (this.buzz!=euc.buzz) this.buzF(); 
 			//spdMspeed block
-			if (this.topS!=euc.dash.trip.topS.toFixed(1)) this.spMF(); 
+			if (this.topS!=euc.dash.info.trip.topS.toFixed(1)) this.spMF(); 
 			//buzzer/health block
-			if (euc.dash.slot.make=="Kingsong"||euc.dash.slot.make=="Begode") {
-				if (this.aTlt!=euc.dash.alrm.tilt) this.limF();
-			}else if (this.alrm!=euc.dash.alrm) this.alrF();	
+			if (euc.dash.info.get.makr=="Kingsong"||euc.dash.info.get.makr=="Begode") {
+				if (this.aTlt!=euc.dash.alrt.spd.max) this.limF();
+			}else if (this.alrm!=euc.dash.alrt.pwr) this.alrF();	
 			//tmp/amp field
 			if (set.def.dash.amp){
 				if (this.ampL!=ampL) this.amLF();				
@@ -76,9 +76,9 @@ face[0] = {
 				if (euc.dash.live.bat!=this.bat) this.batF();
 			}else if (this.batL!=batL) this.baLF();			
 			//Mileage
-			//if (this.almT!=euc.dash.alrm.txt) this.almTF();
-			if (euc.dash.alrm.txt) this.almTF();
-			else if (this.trpL!=euc.dash.trip.last.toFixed(2)) this.mileage();    
+			//if (this.almT!=euc.dash.alrt.warn.txt) this.almTF();
+			if (euc.dash.alrt.warn.txt) this.almTF();
+			else if (this.trpL!=euc.dash.info.trip.last.toFixed(2)) this.mileage();    
 		//off
 		} else if (euc.state=="OFF")  {
 			setTimeout(function(){
@@ -110,9 +110,9 @@ face[0] = {
 	},
 	spdF: function(){
 		this.spd=Math.round(euc.dash.live.spd);
-		this.g.setColor(0,(euc.dash.alrm.spd==1)?0:this.spdC[euc.dash.alrm.spd]);
+		this.g.setColor(0,(euc.dash.alrt.spd.cc==1)?0:this.spdC[euc.dash.alrt.spd.cc]);
 		this.g.fillRect(43,54,197,170);
-		this.g.setColor(1,(euc.dash.alrm.spd==1)?13:15);
+		this.g.setColor(1,(euc.dash.alrt.spd.cc==1)?13:15);
 		if (100 <= this.spd) {
 			if (150 < this.spd)  this.spd=150;
 			this.g.setFontVector(80);
@@ -126,7 +126,6 @@ face[0] = {
 		}
 	},
 	alF: function(){
-		//this.al.set(almL);
 		this.g.setColor(0,2);
 		this.g.clearRect(0,195,239,200);
 		this.g.setColor(1,13);
@@ -137,7 +136,7 @@ face[0] = {
 	},
 	pwmF: function(){
 		"ram";
-		this.g.setColor(0,euc.dash.hapt.pwmH<=euc.dash.live.pwm?7:1);
+		this.g.setColor(0,euc.dash.alrt.pwm.hapt.hi<=euc.dash.live.pwm?7:1);
 		this.g.fillRect(0,176,239,193); 
 		this.g.setColor(1,50<=euc.dash.live.pwm?13:15);
 		this.g.setFontVector(23);
@@ -149,7 +148,7 @@ face[0] = {
 	},
 	ampF: function(){
 		this.amp=Math.round(euc.dash.live.amp);
-		this.g.setColor(0,this.ampC[euc.dash.alrm.amp]);
+		this.g.setColor(0,this.ampC[euc.dash.alrt.amp.cc]);
 		this.g.fillRect(0,53,40,112);
 		this.g.setColor(1,15);
 		this.g.setFontVector(10);
@@ -160,7 +159,7 @@ face[0] = {
 	},
 	tmpF: function(){
 		this.tmp=Math.round(euc.dash.live.tmp);
-		this.g.setColor(0,this.tmpC[euc.dash.alrm.tmp]);
+		this.g.setColor(0,this.tmpC[euc.dash.alrt.tmp.cc]);
 		this.g.fillRect(0,53,40,112);
 		this.g.setColor(1,15);
 		this.g.setFontVector(10);
@@ -172,7 +171,7 @@ face[0] = {
 	},
 	buzF: function(){
 		this.buzz=euc.buzz;
-		if (!this.buzz&&euc.dash.slot.make=="Begode"&&euc.dash.alrm.mode==3){
+		if (!this.buzz&&euc.dash.info.get.makr=="Begode"&&euc.dash.alrt.mode==3){
 			this.g.setColor(0,4);
 			this.g.fillRect(0,115,40,173); 
 			this.g.setColor(1,14);
@@ -190,7 +189,7 @@ face[0] = {
 		}
 	},
 	spMF: function(){
-		this.topS=euc.dash.trip.topS.toFixed(1);
+		this.topS=euc.dash.info.trip.topS.toFixed(1);
 		this.g.setColor(0,1);
 		this.g.fillRect(200,53,239,112); 
 		this.g.setColor(1,15);
@@ -201,8 +200,8 @@ face[0] = {
 		this.g.flip();
 	},	
 	limF: function(){
-		this.aTlt=euc.dash.alrm.tilt;
-		//if (euc.dash.slot.make=="Begode") this.g.setColor(0,(euc.dash.limt.tilt<=this.aTlt)?1:7);
+		this.aTlt=euc.dash.alrt.spd.max;
+		//if (euc.dash.info.get.makr=="Begode") this.g.setColor(0,(euc.dash.alrt.spd.tilt.val<=this.aTlt)?1:7);
 		//else 
 		this.g.setColor(0,(euc.dash.live.spd+5<=this.aTlt)?1:7);	
 		this.g.fillRect(200,115,239,173); 
@@ -214,7 +213,7 @@ face[0] = {
 		this.g.flip();
 	},	
 	alrF: function(){
-		this.alrm=euc.dash.alrm;
+		this.alrm=euc.dash.alrt.pwr;
 		this.g.setColor(0,1);
 		this.g.fillRect(200,115,239,173); 
 		//this.g.setColor(1,0);
@@ -224,10 +223,10 @@ face[0] = {
 	},
 	tmFF: function(){
 		this.tmp=euc.dash.live.tmp.toFixed(1);
-		this.g.setColor(0,this.tmpC[euc.dash.alrm.tmp]);
+		this.g.setColor(0,this.tmpC[euc.dash.alrt.tmp.cc]);
 		this.g.fillRect(0,0,119,50);       
 		this.g.setColor(1,15);
-		if (euc.dash.slot.make=="Kingsong"){
+		if (euc.dash.info.get.makr=="Kingsong"){
 			this.g.setFontVector(35);
 			let temp= Math.round(((set.def.dash.farn)?euc.dash.live.tmp* 1.8+32:this.tmp));
 			let tempM=Math.round(((set.def.dash.farn)?euc.dash.live.tmpM*1.8+32:euc.dash.live.tmpM));
@@ -256,7 +255,7 @@ face[0] = {
 	},
 	amLF: function(){
 		this.ampL.set(ampL);
-		this.g.setColor(1,(1<euc.dash.alrm.amp)?7:1);
+		this.g.setColor(1,(1<euc.dash.alrt.amp.cc)?7:1);
 		this.g.fillRect(0,0,119,50);       
 		this.g.setColor(0,15);
 		//this.ampL.forEach(function(val,i){
@@ -269,7 +268,7 @@ face[0] = {
 	},	
 	vltF: function(){
 		this.volt=euc.dash.live.volt.toFixed(2);
-		this.g.setColor(0,this.batC[euc.dash.alrm.bat]);
+		this.g.setColor(0,this.batC[euc.dash.alrt.bat.cc]);
 		this.g.fillRect(122,0,239,50);
 		this.g.setColor(1,15);
 		this.g.setFontVector((this.volt<100)?40:35);
@@ -280,7 +279,7 @@ face[0] = {
 	},	
 	batF: function(){
 		this.bat=euc.dash.live.bat;
-		this.g.setColor(0,this.batC[euc.dash.alrm.bat]);
+		this.g.setColor(0,this.batC[euc.dash.alrt.bat.cc]);
 		this.g.fillRect(122,0,239,50);
 		this.g.setColor(1,15);
 		this.g.setFontVector(50);
@@ -291,7 +290,7 @@ face[0] = {
 	},
 	baLF: function(){
 		this.batL.set(batL);
-		this.g.setColor(0,this.batC[euc.dash.alrm.bat]);
+		this.g.setColor(0,this.batC[euc.dash.alrt.bat.cc]);
 		this.g.fillRect(122,0,239,50);       
 		this.g.setColor(1,15);
 		//graph
@@ -304,17 +303,17 @@ face[0] = {
 		this.g.flip();
 	},	
 	almTF: function(){
-		if (this.almT==euc.dash.alrm.txt) return;
-		this.almT=euc.dash.alrm.txt;
+		if (this.almT==euc.dash.alrt.warn.txt) return;
+		this.almT=euc.dash.alrt.warn.txt;
 		this.g.setColor(0,7);
 		this.g.fillRect(0,203,239,239);
 		this.g.setColor(1,14);
 		this.g.setFontVector(24);
-		this.g.drawString(euc.dash.alrm.txt, 120-(this.g.stringWidth(euc.dash.alrm.txt)/2),212); 
+		this.g.drawString(euc.dash.alrt.warn.txt, 120-(this.g.stringWidth(euc.dash.alrt.warn.txt)/2),212); 
 		this.g.flip();
 	},
 	mileage: function(){
-		this.trpL=euc.dash.trip.last.toFixed(2);
+		this.trpL=euc.dash.info.trip.last.toFixed(2);
 		this.g.setColor(0,0);
 		this.g.fillRect(0,203,239,239);
 		this.g.setColor(1,14);
@@ -326,7 +325,7 @@ face[0] = {
 			this.time=(t[0]+":"+t[1]);
 			this.g.drawString(this.time, 240-(this.g.stringWidth(this.time)),208);
 		}else 	
-			this.g.drawString(Math.round(euc.dash.trip.totl*this.trpF),240-(this.g.stringWidth(Math.round(euc.dash.trip.totl*this.trpF))),208); 
+			this.g.drawString(Math.round(euc.dash.info.trip.totl*this.trpF),240-(this.g.stringWidth(Math.round(euc.dash.info.trip.totl*this.trpF))),208); 
 		//}
 		this.g.flip();
 	},
@@ -335,7 +334,7 @@ face[0] = {
 		this.g.fillRect(0,176,239,200); //mileage
 		this.g.setColor(0,15);
 		this.g.setFontVector(14); //mileage
-		//if (euc.dash.slot.make=="Ninebot") {
+		//if (euc.dash.info.get.makr=="Ninebot") {
 		//	this.g.drawString("TRIP",2,180); 
 		//	this.g.drawString("TOT",101,180); 
 		//	this.g.drawString("LEFT",197,180); 
@@ -394,11 +393,11 @@ touchHandler[0]=function(e,x,y){
 			buzzer([30,50,30]);
 		}else if (190<y){//mileage/time
 			buzzer([30,50,30]);
-			if (euc.dash.alrm.txt) {euc.dash.alrm.txt=0;face[0].almT=-1;face[0].trpL=-1;return}
+			if (euc.dash.alrt.warn.txt) {euc.dash.alrt.warn.txt=0;face[0].almT=-1;face[0].trpL=-1;return}
 			if (set.def.dash.clck==undefined) set.def.dash.clck=0;
 			set.def.dash.clck=1-set.def.dash.clck;
  			face[0].trpL=-1;face[0].barF();
-		}else if (110<y&&y<195&&x<55&&euc.dash.slot.make=="Begode"){
+		}else if (110<y&&y<195&&x<55&&euc.dash.info.get.makr=="Begode"){
 			buzzer([30,50,30]);
 			face.go("dashBegodeAdvLimits",0);
 			return;

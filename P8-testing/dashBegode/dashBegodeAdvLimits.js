@@ -26,13 +26,13 @@ face[0] = {
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
 		if (!this.setE) {
-			if (this.almS!=euc.dash.alrm.mode){
-				this.almS=euc.dash.alrm.mode;
-				this.btn(euc.dash.alrm.mode,"SPEED ALARMS",18,120,20,euc.dash.alrm.mode==1?12:1,4,0,0,239,97,euc.dash.alrm.mode?euc.dash.alrm.mode>=2?"Both Disabled":"2nd only":"1st & 2nd",22,120,55);
-				this.btn(euc.dash.alrm.mode==3?1:0,"PWM TILT",18,60,120,4,1,0,100,119,195,"FREESTYL3R\n FIRMWARE",16,60,155);
+			if (this.almS!=euc.dash.alrt.mode){
+				this.almS=euc.dash.alrt.mode;
+				this.btn(euc.dash.alrt.mode,"SPEED ALARMS",18,120,20,euc.dash.alrt.mode==1?12:1,4,0,0,239,97,euc.dash.alrt.mode?euc.dash.alrt.mode>=2?"Both Disabled":"2nd only":"1st & 2nd",22,120,55);
+				this.btn(euc.dash.alrt.mode==3?1:0,"PWM TILT",18,60,120,4,1,0,100,119,195,"FREESTYL3R\n FIRMWARE",16,60,155);
 			}
-			if (this.spdT!=euc.dash.limt.tilt){
-				this.spdT=euc.dash.limt.tilt;
+			if (this.spdT!=euc.dash.alrt.spd.tilt.val){
+				this.spdT=euc.dash.alrt.spd.tilt.val;
 				this.btn(100<=this.spdT?0:1,"TILTBACK",18,185,120,12,1,122,100,239,195,100<=this.spdT?"OFF":set.def.dash.mph?(0.625*this.spdT).toFixed(0):this.spdT,25,185,155);
 			}
 		}
@@ -119,28 +119,28 @@ touchHandler[0]=function(e,x,y){
         if (!face[0].setE){//select page
 			if (y<100) { //speed alarms
 				buzzer([30,50,30]);		
-				if (!euc.dash.alrm.mode){
+				if (!euc.dash.alrt.mode){
 					euc.wri("alertsTwo");
-					euc.dash.alrm.mode=1;
-				}else if (euc.dash.alrm.mode==1){
+					euc.dash.alrt.mode=1;
+				}else if (euc.dash.alrt.mode==1){
 					euc.wri("alertsOff");
-					euc.dash.alrm.mode=2;
-				}else if (2<=euc.dash.alrm.mode){
+					euc.dash.alrt.mode=2;
+				}else if (2<=euc.dash.alrt.mode){
 		   			euc.wri("alertsOneTwo");
-					euc.dash.alrm.mode=0;
+					euc.dash.alrt.mode=0;
 				}
 			}else if (x<=120&&y<=200) { //pwm tiltback
 				buzzer([30,50,30]);	
-					if (euc.dash.alrm.mode!=3){
+					if (euc.dash.alrt.mode!=3){
 						euc.wri("alertsTiltback");
-						euc.dash.alrm.mode=3;
+						euc.dash.alrt.mode=3;
 					}else{ 
 						euc.wri("alertsOff");
-						euc.dash.alrm.mode=2;
+						euc.dash.alrt.mode=2;
 					}
 			}else if (120<=x&&y<=200) { //tiltback
-				face[0].set(euc.dash.limt.tilt,"TITLBACK ("+(set.def.dash.mph?"MPH)":"KPH)") );
-				face[0].btn(100<=euc.dash.limt.tilt?0:1,100<=euc.dash.limt.tilt?"TILTBACK DISABLED":"TILTBACK ENABLED",18,120,215,4,1,0,198,239,239);
+				face[0].set(euc.dash.alrt.spd.tilt.val,"TITLBACK ("+(set.def.dash.mph?"MPH)":"KPH)") );
+				face[0].btn(100<=euc.dash.alrt.spd.tilt.val?0:1,100<=euc.dash.alrt.spd.tilt.val?"TILTBACK DISABLED":"TILTBACK ENABLED",18,120,215,4,1,0,198,239,239);
 				buzzer([30,50,30]);						
 			}else buzzer(40);
 		}else {//set page
@@ -175,7 +175,7 @@ touchHandler[0]=function(e,x,y){
         if (face[0].setE) {
 			if (100<=face[0].setEb) euc.wri("tiltbackOff");
 			else euc.wri("tiltbackSpeed",face[0].setEb);
-			euc.dash.limt.tilt=face[0].setEb;
+			euc.dash.alrt.spd.tilt.val=face[0].setEb;
 			face[0].setE=0; 
 			w.gfx.clear();
 			face[0].init();
@@ -197,7 +197,7 @@ touchHandler[0]=function(e,x,y){
         if (face[0].setE) {
 			if (100<=face[0].setEb) euc.wri("tiltbackOff");
 			else euc.wri("tiltbackSpeed",face[0].setEb);
-			euc.dash.limt.tilt=face[0].setEb;
+			euc.dash.alrt.spd.tilt.val=face[0].setEb;
 			face[0].setE=0; 
 			w.gfx.clear();
 			face[0].init();

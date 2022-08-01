@@ -5,7 +5,7 @@ face[0] = {
 	spd:[],
 	init: function(){
 		this.log=require("Storage").readJSON("logDaySlot"+set.def.dash.slot+".json",1);
-		if (!euc.dash.slot.make||!set.def.dash.slot||!this.log) {face.go((face.appPrev=="dashGarage")?"main":"dashGarage",0);return;}
+		if (!euc.dash.info.get.makr||!set.def.dash.slot||!this.log) {face.go((face.appPrev=="dashGarage")?"main":"dashGarage",0);return;}
 		this.rowL=0;
 		this.posL=0;
 		this.ref=Date().getHours();
@@ -113,7 +113,7 @@ face[0] = {
 			t.g.fillRect(0,196,239,239);
 			t.g.setColor(1,15);
 			t.g.setFont("Vector",20);
-			t.g.drawString(euc.dash.slot.make,120-(t.g.stringWidth(euc.dash.slot.make)/2),217); 
+			t.g.drawString(euc.dash.info.get.makr,120-(t.g.stringWidth(euc.dash.info.get.makr)/2),217); 
 			t.g.flip();
 		},1000,this);
     },
@@ -188,21 +188,21 @@ touchHandler[0]=function(e,x,y){
 			buzzer([30,50,30]);
 			if  ( 120 < x ) { //info
 				let btC=[4,1,7,7];
-				if (face[0].info) {face[0].btn(1,euc.dash.live.volt,35,180,3,btC[euc.dash.alrm.bat],0,120,0,239,50,"VOLT",10,220,40);return;}
+				if (face[0].info) {face[0].btn(1,euc.dash.live.volt,35,180,3,btC[euc.dash.alrt.bat.cc],0,120,0,239,50,"VOLT",10,220,40);return;}
 				face[0].info=1;
-				face[0].btn(1,euc.dash.live.bat,50,180,3,btC[euc.dash.alrm.bat],0,120,0,239,50,"%",20,235,8);
+				face[0].btn(1,euc.dash.live.bat,50,180,3,btC[euc.dash.alrt.bat.cc],0,120,0,239,50,"%",20,235,8);
 				face[0].btn(1,"24HRS",30,60,13,0,0,0,0,119,50);
 				face[0].page=2;	
 				w.gfx.setColor(0,0);
 				w.gfx.fillRect(0,51,239,239); 
 				w.gfx.setColor(1,15);
 				w.gfx.setFontVector(30);
-				w.gfx.drawString(((euc.dash.slot.name)?euc.dash.slot.name:euc.dash.slot.make),120-w.gfx.stringWidth(((euc.dash.slot.name)?euc.dash.slot.name:euc.dash.slot.make))/2,62);
+				w.gfx.drawString(((euc.dash.info.get.name)?euc.dash.info.get.name:euc.dash.info.get.makr),120-w.gfx.stringWidth(((euc.dash.info.get.name)?euc.dash.info.get.name:euc.dash.info.get.makr))/2,62);
 				w.gfx.setFontVector(28);
-				w.gfx.drawString(euc.dash.trip.topS*((set.def.dash.mph)?0.625:1)*euc.dash.opt.spdF,185-w.gfx.stringWidth(euc.dash.trip.topS*((set.def.dash.mph)?0.625:1)*euc.dash.opt.spdF),99);
-				w.gfx.drawString(euc.dash.trip.time,185-w.gfx.stringWidth(euc.dash.trip.time),139); 
-				w.gfx.drawString(face[0].comf((euc.dash.trip.last*((set.def.dash.mph)?0.625:1)).toFixed(0)),185-w.gfx.stringWidth(face[0].comf((euc.dash.trip.last*((set.def.dash.mph)?0.625:1)).toFixed(0))),178); 
-				w.gfx.drawString(face[0].comf((euc.dash.trip.totl*((set.def.dash.mph)?0.625:1)).toFixed(1)),185-w.gfx.stringWidth(face[0].comf((euc.dash.trip.totl*((set.def.dash.mph)?0.625:1)).toFixed(1))),217); 
+				w.gfx.drawString(euc.dash.info.trip.topS*((set.def.dash.mph)?0.625:1)*euc.dash.opt.unit.fact.spd,185-w.gfx.stringWidth(euc.dash.info.trip.topS*((set.def.dash.mph)?0.625:1)*euc.dash.opt.unit.fact.spd),99);
+				w.gfx.drawString(euc.dash.info.trip.time,185-w.gfx.stringWidth(euc.dash.info.trip.time),139); 
+				w.gfx.drawString(face[0].comf((euc.dash.info.trip.last*((set.def.dash.mph)?0.625:1)).toFixed(0)),185-w.gfx.stringWidth(face[0].comf((euc.dash.info.trip.last*((set.def.dash.mph)?0.625:1)).toFixed(0))),178); 
+				w.gfx.drawString(face[0].comf((euc.dash.info.trip.totl*((set.def.dash.mph)?0.625:1)).toFixed(1)),185-w.gfx.stringWidth(face[0].comf((euc.dash.info.trip.totl*((set.def.dash.mph)?0.625:1)).toFixed(1))),217); 
 				w.gfx.flip();	
 				w.gfx.setColor(1,3);
 				w.gfx.setFontVector(24);

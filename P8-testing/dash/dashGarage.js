@@ -140,10 +140,10 @@ face[0] = {
 				this.g.fillRect(0,0,239,195); 
 				this.g.setColor(1,15);
 				this.g.setFontVector(18);
-				this.g.drawString(euc.dash.slot.firm,45,20);
-				this.g.drawString(euc.dash.slot.serl,45,60); 
-				this.g.drawString(euc.dash.slot.manD,45,100); 
-				this.g.drawString(euc.dash.slot.mac.split(" ")[0],45,140); 
+				this.g.drawString(euc.dash.info.get.firm,45,20);
+				this.g.drawString(euc.dash.info.get.serl,45,60); 
+				this.g.drawString(euc.dash.info.get.manD,45,100); 
+				this.g.drawString(euc.dash.info.get.mac.split(" ")[0],45,140); 
 				this.g.flip();	
 				this.g.setColor(1,3);
 				this.g.setFontVector(14);

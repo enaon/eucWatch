@@ -10,8 +10,8 @@ face[0] = {
 		this.g.setFont("Vector",20);
 		this.g.drawString("SPEED LIMITS",120-(this.g.stringWidth("SPEED LIMITS")/2),214); 
 		this.g.flip(); 
-		this.btn(euc.dash.limt.en.spd,"ALARM 1",18,60,20,7,2,0,0,119,97,(euc.dash.limt.en.spd)?"ON":"OFF",25,60,55);
-		this.btn(euc.dash.live.spd2E,"ALARM 2",18,185,20,7,2,122,0,239,97,(euc.dash.live.spd2E)?"ON":"OFF",25,185,55);
+		this.btn(euc.dash.alrt.spd.one.en,"ALARM 1",18,60,20,7,2,0,0,119,97,(euc.dash.alrt.spd.one.en)?"ON":"OFF",25,60,55);
+		this.btn(euc.dash.alrt.spd.two.en,"ALARM 2",18,185,20,7,2,122,0,239,97,(euc.dash.alrt.spd.two.en)?"ON":"OFF",25,185,55);
 		this.btn(1,"ALARM 3",18,60,115,7,5,0,100,119,195,"80 %",28,60,150);
         this.btn(1,"TILTBACK",18,185,115,7,7,122,100,239,195,euc.dash.live.spd3,38,185,145);		
         if (!face.appPrev.startsWith("dashSet")){
@@ -111,32 +111,32 @@ touchHandler[0]=function(e,x,y){
 	case 5://tap event
         if (!face[0].setE){//select page
 			if (x<=120&&y<100) { //alarm 1
-                if (euc.dash.limt.en.spd){
-					euc.dash.limt.en.spd=0;
-					face[0].btn(euc.dash.limt.en.spd,"ALARM 1",18,60,20,7,1,0,0,119,97,(euc.dash.limt.en.spd)?"ON":"OFF",25,60,55);
+                if (euc.dash.alrt.spd.one.en){
+					euc.dash.alrt.spd.one.en=0;
+					face[0].btn(euc.dash.alrt.spd.one.en,"ALARM 1",18,60,20,7,1,0,0,119,97,(euc.dash.alrt.spd.one.en)?"ON":"OFF",25,60,55);
 					face[0].ntfy("ALARM 1-> DISABLED","",20,1,1);
 					buzzer([30,50,30]);
 				}else {
-					if (euc.dash.live.spd2E){
-						euc.dash.limt.en.spd=1;
-						face[0].btn(euc.dash.limt.en.spd,"ALARM 1",18,60,20,7,1,0,0,119,97,(euc.dash.limt.en.spd)?"ON":"OFF",25,60,55);
+					if (euc.dash.alrt.spd.two.en){
+						euc.dash.alrt.spd.one.en=1;
+						face[0].btn(euc.dash.alrt.spd.one.en,"ALARM 1",18,60,20,7,1,0,0,119,97,(euc.dash.alrt.spd.one.en)?"ON":"OFF",25,60,55);
 						face[0].ntfy("ALARM 1-> ENABLED","",20,1,1);
 						buzzer([30,50,30]);
                     }else {face[0].ntfy("ENABLE ALARM 2","",20,7,1);buzzer(40);}
                 }
 			}else if (120<=x<=239&&y<=100) { //alarm 2
-				if ( euc.dash.live.spd2E){
-					if (euc.dash.limt.en.spd) {face[0].ntfy("DISABLE ALARM 1","",20,7,1);buzzer(40);}
+				if ( euc.dash.alrt.spd.two.en){
+					if (euc.dash.alrt.spd.one.en) {face[0].ntfy("DISABLE ALARM 1","",20,7,1);buzzer(40);}
 					else {
-						euc.dash.live.spd2E=0;
+						euc.dash.alrt.spd.two.en=0;
 						buzzer([30,50,30]);
-						face[0].btn(euc.dash.live.spd2E,"ALARM 2",18,185,20,7,2,122,0,239,97,(euc.dash.live.spd2E)?"ON":"OFF",25,185,55);
+						face[0].btn(euc.dash.alrt.spd.two.en,"ALARM 2",18,185,20,7,2,122,0,239,97,(euc.dash.alrt.spd.two.en)?"ON":"OFF",25,185,55);
 						face[0].ntfy("ALARM 2 -> DISABLED","",20,1,1);
 					}
 				}else {
-					euc.dash.live.spd2E=1;
+					euc.dash.alrt.spd.two.en=1;
 					buzzer([30,50,30]);
-					face[0].btn(euc.dash.live.spd2E,"ALARM 2",18,185,20,7,2,122,0,239,97,(euc.dash.live.spd2E)?"ON":"OFF",25,185,55);
+					face[0].btn(euc.dash.alrt.spd.two.en,"ALARM 2",18,185,20,7,2,122,0,239,97,(euc.dash.alrt.spd.two.en)?"ON":"OFF",25,185,55);
 					face[0].ntfy("ALARM 2 -> ENABLED","",20,1,1);
 				}
 			}else if (x<=120&&100<=y<=200) { //alarm 3

@@ -26,12 +26,12 @@ face[0] = {
       	this.g.fillRect(75,200,120,204);
 		this.g.flip();
 		//
-        this.btn(euc.dash.set.HL,"LIGHT",28,60,35,4,1,0,0,119,97);
-		this.btn((euc.dash.hapt.spd||euc.dash.hapt.amp||euc.dash.hapt.tmp||euc.dash.hapt.bat),"WATCH",18,185,20,4,1,122,0,239,97,"ALERTS",22,185,55);		
+        this.btn(euc.dash.opt.lght.HL,"LIGHT",28,60,35,4,1,0,0,119,97);
+		this.btn((euc.dash.alrt.spd.hapt.en||euc.dash.alrt.amp.hapt.en||euc.dash.alrt.tmp.hapt.en||euc.dash.alrt.bat.hapt.en),"WATCH",18,185,20,4,1,122,0,239,97,"ALERTS",22,185,55);		
 		let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
-		this.btn(euc.dash.tpms,(euc.dash.tpms)?euc.dash.tpms:"TPMS",18,60,115,(euc.dash.tpms&&tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.tpms].time<1800)?(tpms.euc[euc.dash.tpms].alrm)?7:4:1,1,0,100,119,195,(euc.dash.tpms)?(tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].psi)?Math.round(tpms.euc[euc.dash.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.tpms)?32:28,60,150); //3				
+		this.btn(euc.dash.opt.tpms,(euc.dash.opt.tpms)?euc.dash.opt.tpms:"TPMS",18,60,115,(euc.dash.opt.tpms&&tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.opt.tpms].time<1800)?(tpms.euc[euc.dash.opt.tpms].alrm)?7:4:1,1,0,100,119,195,(euc.dash.opt.tpms)?(tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].psi)?Math.round(tpms.euc[euc.dash.opt.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.opt.tpms)?32:28,60,150); //3				
 		let md={"1":"SOFT","2":"MEDIUM","3":"STRONG"};
-        this.btn(1,"RIDE",25,185,115,12,0,122,100,239,195,md[euc.dash.set.mode],25,185,155);
+        this.btn(1,"RIDE",25,185,115,12,0,122,100,239,195,md[euc.dash.opt.ride.mode],25,185,155);
 		this.run=true;
 	},
 	show : function(){
@@ -122,10 +122,10 @@ touchHandler[0]=function(e,x,y){
 		}
 		else {
 			if ( x<=120 && y<100 ) { 
-				euc.dash.set.HL= 1- euc.dash.set.HL;
-				face[0].btn(euc.dash.set.HL,"LIGHT",28,60,35,4,1,0,0,119,97);
-				euc.wri((euc.dash.set.HL)?"setLightOn":"setLightOff");
-			face[0].ntfy("LIGHT ON","LIGHT OFF",22,(euc.dash.set.HL)?4:1,euc.dash.set.HL);
+				euc.dash.opt.lght.HL= 1- euc.dash.opt.lght.HL;
+				face[0].btn(euc.dash.opt.lght.HL,"LIGHT",28,60,35,4,1,0,0,119,97);
+				euc.wri((euc.dash.opt.lght.HL)?"setLightOn":"setLightOff");
+			face[0].ntfy("LIGHT ON","LIGHT OFF",22,(euc.dash.opt.lght.HL)?4:1,euc.dash.opt.lght.HL);
 				buzzer([30,50,30]);
 			}else if ( 120<=x && y<=100 ) { //watch alerts
 				buzzer([30,50,30]);						
@@ -133,18 +133,18 @@ touchHandler[0]=function(e,x,y){
 				return;	
 			}else if ( x<=120 && 100<=y ) { //tpms
 				buzzer([30,50,30]);		
-				if (!euc.dash.tpms) face[0].ntfy("HOLD-> ON/OFF","",20,4,1); 
+				if (!euc.dash.opt.tpms) face[0].ntfy("HOLD-> ON/OFF","",20,4,1); 
 				else {
-					tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.tpms);
+					tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.opt.tpms);
 					face.go("tpmsFace",0);
 					return;
 				}
 			}else if ( 120<=x && 100<=y ) { //mode
-				if (euc.dash.set.mode==1) {euc.dash.set.mode=2;euc.wri("rideMed");}
-				else if (euc.dash.set.mode==2) {euc.dash.set.mode=3;euc.wri("rideStrong"); }
-				else if (euc.dash.set.mode==3) {euc.dash.set.mode=1;euc.wri("rideSoft");}
+				if (euc.dash.opt.ride.mode==1) {euc.dash.opt.ride.mode=2;euc.wri("rideMed");}
+				else if (euc.dash.opt.ride.mode==2) {euc.dash.opt.ride.mode=3;euc.wri("rideStrong"); }
+				else if (euc.dash.opt.ride.mode==3) {euc.dash.opt.ride.mode=1;euc.wri("rideSoft");}
 				let md={"1":"SOFT","2":"MEDIUM","3":"STRONG"};
-				face[0].btn(1,"RIDE",25,185,115,12,0,122,100,239,195,md[euc.dash.set.mode],25,185,155);
+				face[0].btn(1,"RIDE",25,185,115,12,0,122,100,239,195,md[euc.dash.opt.ride.mode],25,185,155);
 				buzzer([30,50,30]);						
 			}else buzzer([30,50,30]);
 		}
@@ -180,21 +180,21 @@ touchHandler[0]=function(e,x,y){
 			face[0].set=0;face[0].init();
 			buzzer([30,50,30]);	
         }else if ( x<=120 && y<100 ) { // light
-			euc.dash.set.HL= 1- euc.dash.set.HL;
-			face[0].btn(euc.dash.set.HL,"LIGHT",28,60,35,4,1,0,0,119,97);
-			euc.wri((euc.dash.set.HL)?"setLightOn":"setLightOff");
-			face[0].ntfy("LIGHT ON","LIGHT OFF",22,1,euc.dash.set.HL);
+			euc.dash.opt.lght.HL= 1- euc.dash.opt.lght.HL;
+			face[0].btn(euc.dash.opt.lght.HL,"LIGHT",28,60,35,4,1,0,0,119,97);
+			euc.wri((euc.dash.opt.lght.HL)?"setLightOn":"setLightOff");
+			face[0].ntfy("LIGHT ON","LIGHT OFF",22,1,euc.dash.opt.lght.HL);
 			buzzer([30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //watch alerts
-			if (euc.dash.hapt.spd||euc.dash.hapt.amp||euc.dash.hapt.tmp||euc.dash.hapt.bat) {euc.dash.hapt.spd=0;euc.dash.hapt.amp=0;euc.dash.hapt.tmp=0;euc.dash.hapt.bat=0;}
-			else {euc.dash.hapt.spd=1;euc.dash.hapt.amp=1;euc.dash.hapt.tmp=1;euc.dash.hapt.bat=1;}
-			face[0].btn((euc.dash.hapt.spd||euc.dash.hapt.amp||euc.dash.hapt.tmp||euc.dash.hapt.bat),"WATCH",18,185,20,4,1,122,0,239,97,"ALERTS",22,185,55);		
-            face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",19,1,(euc.dash.hapt.spd||euc.dash.hapt.amp||euc.dash.hapt.tmp||euc.dash.hapt.bat));
+			if (euc.dash.alrt.spd.hapt.en||euc.dash.alrt.amp.hapt.en||euc.dash.alrt.tmp.hapt.en||euc.dash.alrt.bat.hapt.en) {euc.dash.alrt.spd.hapt.en=0;euc.dash.alrt.amp.hapt.en=0;euc.dash.alrt.tmp.hapt.en=0;euc.dash.alrt.bat.hapt.en=0;}
+			else {euc.dash.alrt.spd.hapt.en=1;euc.dash.alrt.amp.hapt.en=1;euc.dash.alrt.tmp.hapt.en=1;euc.dash.alrt.bat.hapt.en=1;}
+			face[0].btn((euc.dash.alrt.spd.hapt.en||euc.dash.alrt.amp.hapt.en||euc.dash.alrt.tmp.hapt.en||euc.dash.alrt.bat.hapt.en),"WATCH",18,185,20,4,1,122,0,239,97,"ALERTS",22,185,55);		
+            face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",19,1,(euc.dash.alrt.spd.hapt.en||euc.dash.alrt.amp.hapt.en||euc.dash.alrt.tmp.hapt.en||euc.dash.alrt.bat.hapt.en));
 			buzzer([30,50,30]);
 		}else if  (x<=120 && 100<=y ) { //tpms
 			buzzer([30,50,30]);
-			if (euc.dash.tpms) {
-				euc.dash.tpms=0;
+			if (euc.dash.opt.tpms) {
+				euc.dash.opt.tpms=0;
 				face[0].btn(1,"TPMS",18,60,115,1,0,0,100,119,195,"OFF",28,60,155); //3
 				face[0].ntfy("TPMS DISABLED","TPMS ",20,1,1);
 				return;
@@ -207,11 +207,11 @@ touchHandler[0]=function(e,x,y){
 			}
 			return;
 		}else if ( 120<=x && 100<=y ) { //mode
-			if (euc.dash.set.mode==1) {euc.dash.set.mode=2;euc.wri("rideMed");}
-			else if (euc.dash.set.mode==2) {euc.dash.set.mode=3;euc.wri("rideStrong"); }
-			else if (euc.dash.set.mode==3) {euc.dash.set.mode=1;euc.wri("rideSoft");}
+			if (euc.dash.opt.ride.mode==1) {euc.dash.opt.ride.mode=2;euc.wri("rideMed");}
+			else if (euc.dash.opt.ride.mode==2) {euc.dash.opt.ride.mode=3;euc.wri("rideStrong"); }
+			else if (euc.dash.opt.ride.mode==3) {euc.dash.opt.ride.mode=1;euc.wri("rideSoft");}
 			let md={"1":"SOFT","2":"MEDIUM","3":"STRONG"};
-			face[0].btn(1,"RIDE",25,185,115,12,0,122,100,239,195,md[euc.dash.set.mode],25,185,155);
+			face[0].btn(1,"RIDE",25,185,115,12,0,122,100,239,195,md[euc.dash.opt.ride.mode],25,185,155);
 			buzzer([30,50,30]);	
 		}else buzzer([30,50,30]);
 		break;

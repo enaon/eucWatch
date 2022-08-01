@@ -52,10 +52,10 @@ face[0] = {
         this.g.setColor(1,15);
       	this.g.fillRect(75,200,98,204);
 		this.g.flip(); 
-        this.btn(euc.dash.set.HL,"LIGHT",18,60,20,4,1,0,0,119,97,(euc.dash.set.HL)?"ON":"OFF",25,60,55);
-		this.btn(euc.dash.set.vol,"VOLUME",22,185,15,12,7,122,0,239,97,(euc.dash.set.vol)?euc.dash.set.vol:"MUTE",30,185,50);//2
+        this.btn(euc.dash.opt.lght.HL,"LIGHT",18,60,20,4,1,0,0,119,97,(euc.dash.opt.lght.HL)?"ON":"OFF",25,60,55);
+		this.btn(euc.dash.opt.snd.vol,"VOLUME",22,185,15,12,7,122,0,239,97,(euc.dash.opt.snd.vol)?euc.dash.opt.snd.vol:"MUTE",30,185,50);//2
 		let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
-		this.btn(euc.dash.tpms,(euc.dash.tpms)?euc.dash.tpms:"TPMS",18,60,115,(euc.dash.tpms&&tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.tpms].time<1800)?(tpms.euc[euc.dash.tpms].alrm)?7:4:1,1,0,100,119,195,(euc.dash.tpms)?(tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].psi)?Math.round(tpms.euc[euc.dash.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.tpms)?32:28,60,150); //3				
+		this.btn(euc.dash.opt.tpms,(euc.dash.opt.tpms)?euc.dash.opt.tpms:"TPMS",18,60,115,(euc.dash.opt.tpms&&tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.opt.tpms].time<1800)?(tpms.euc[euc.dash.opt.tpms].alrm)?7:4:1,1,0,100,119,195,(euc.dash.opt.tpms)?(tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].psi)?Math.round(tpms.euc[euc.dash.opt.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.opt.tpms)?32:28,60,150); //3				
    		this.btn(1,"OFF",25,185,136,1,1,122,100,239,195); //4
 		this.run=true;
 	},
@@ -138,14 +138,14 @@ touchHandler[0]=function(e,x,y){
 		if (face[0].sub) {
 			if (face[0].sub==="volume") {
 				if ( x<=120 && y <= 170 ){
-					euc.dash.set.vol=euc.dash.set.vol-10;if (euc.dash.set.vol<=0)euc.dash.set.vol=0;
-					face.menu.full("VOLUME",20,euc.dash.set.vol,80,1453,1365);
-					euc.wri("setVolume",euc.dash.set.vol);
+					euc.dash.opt.snd.vol=euc.dash.opt.snd.vol-10;if (euc.dash.opt.snd.vol<=0)euc.dash.opt.snd.vol=0;
+					face.menu.full("VOLUME",20,euc.dash.opt.snd.vol,80,1453,1365);
+					euc.wri("setVolume",euc.dash.opt.snd.vol);
 					buzzer([30,50,30]);
 				}else if ( 120 <=x  && y <= 170 ) {
-					euc.dash.set.vol=euc.dash.set.vol+10;if (100<=euc.dash.set.vol)euc.dash.set.vol=100;
-					face.menu.full("SET VOLUME",20,euc.dash.set.vol,80,1453,1365);
-					euc.wri("setVolume",euc.dash.set.vol);
+					euc.dash.opt.snd.vol=euc.dash.opt.snd.vol+10;if (100<=euc.dash.opt.snd.vol)euc.dash.opt.snd.vol=100;
+					face.menu.full("SET VOLUME",20,euc.dash.opt.snd.vol,80,1453,1365);
+					euc.wri("setVolume",euc.dash.opt.snd.vol);
 					buzzer([30,50,30]);
 				}else {
 					face[0].sub=0;
@@ -159,21 +159,21 @@ touchHandler[0]=function(e,x,y){
 			return;
 		}else {	
 			if ( x<=120 && y<=100 ) { //lights
-				euc.dash.set.HL=1-euc.dash.set.HL;
-				euc.wri("setLights",(euc.dash.set.HL)?1:0);
-				face[0].btn(euc.dash.set.HL,"LIGHT",18,60,20,4,1,0,0,119,97,(euc.dash.set.HL)?"ON":"OFF",25,60,55);
-				face[0].ntfy("LIGHT ON","LIGHT OFF",20,(euc.dash.set.HL)?4:1,euc.dash.set.HL);
+				euc.dash.opt.lght.HL=1-euc.dash.opt.lght.HL;
+				euc.wri("setLights",(euc.dash.opt.lght.HL)?1:0);
+				face[0].btn(euc.dash.opt.lght.HL,"LIGHT",18,60,20,4,1,0,0,119,97,(euc.dash.opt.lght.HL)?"ON":"OFF",25,60,55);
+				face[0].ntfy("LIGHT ON","LIGHT OFF",20,(euc.dash.opt.lght.HL)?4:1,euc.dash.opt.lght.HL);
 				buzzer([30,50,30]);
 			}else if ( 120<=x && y<=100 ) { //Volume
 				buzzer([30,50,30]);
-				face.menu.full("VOLUME",20,euc.dash.set.vol,80,1453,1365,1);
+				face.menu.full("VOLUME",20,euc.dash.opt.snd.vol,80,1453,1365,1);
 				face[0].ntfy("SET VOLUME","SET VOLUME",20,4,1);
 				face[0].sub="volume";
 			}else if ( x<=120 && 100<=y ) { //tpms
 				buzzer([30,50,30]);		
-				if (!euc.dash.tpms) face[0].ntfy("HOLD-> ON/OFF","",20,4,1); 
+				if (!euc.dash.opt.tpms) face[0].ntfy("HOLD-> ON/OFF","",20,4,1); 
 				else {
-					tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.tpms);
+					tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.opt.tpms);
 					face.go("tpmsFace",0);
 					return;
 				}	
@@ -217,8 +217,8 @@ touchHandler[0]=function(e,x,y){
 			euc.tgl();
 		}else if  (x<=120 && 100<=y ) { //tpms
 			buzzer([30,50,30]);
-			if (euc.dash.tpms) {
-				euc.dash.tpms=0;
+			if (euc.dash.opt.tpms) {
+				euc.dash.opt.tpms=0;
 				face[0].btn("TPMS",18,60,115,1,0,100,119,195,"OFF",28,60,155); //3
 				face[0].ntfy("TPMS DISABLED","",20,1,1);
 				return;

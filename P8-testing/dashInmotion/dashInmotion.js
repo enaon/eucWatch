@@ -14,11 +14,11 @@ face[0] = {
 		this.g.drawString("SETTINGS",120-(this.g.stringWidth("SETTINGS")/2),217); 
 		this.g.flip();
 		//
-        this.btn(euc.dash.set.HL,"LIGHT",18,60,20,4,1,0,0,119,97,(euc.dash.set.HL)?"ON":"OFF",25,60,55);
-		this.btn((euc.dash.hapt.spd||euc.dash.hapt.amp||euc.dash.hapt.tmp||euc.dash.hapt.bat),"WATCH",18,185,20,4,1,122,0,239,97,"ALERTS",22,185,55);		
+        this.btn(euc.dash.opt.lght.HL,"LIGHT",18,60,20,4,1,0,0,119,97,(euc.dash.opt.lght.HL)?"ON":"OFF",25,60,55);
+		this.btn((euc.dash.alrt.spd.hapt.en||euc.dash.alrt.amp.hapt.en||euc.dash.alrt.tmp.hapt.en||euc.dash.alrt.bat.hapt.en),"WATCH",18,185,20,4,1,122,0,239,97,"ALERTS",22,185,55);		
 		let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
-		this.btn(euc.dash.tpms,(euc.dash.tpms)?euc.dash.tpms:"TPMS",18,60,115,(euc.dash.tpms&&tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.tpms].time<1800)?(tpms.euc[euc.dash.tpms].alrm)?7:4:1,1,0,100,119,195,(euc.dash.tpms)?(tpms.euc[euc.dash.tpms]&&tpms.euc[euc.dash.tpms].psi)?Math.round(tpms.euc[euc.dash.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.tpms)?32:28,60,150); //3				
-        this.btn(euc.dash.horn,"HORN",25,185,136,4,1,122,100,239,195);	
+		this.btn(euc.dash.opt.tpms,(euc.dash.opt.tpms)?euc.dash.opt.tpms:"TPMS",18,60,115,(euc.dash.opt.tpms&&tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.opt.tpms].time<1800)?(tpms.euc[euc.dash.opt.tpms].alrm)?7:4:1,1,0,100,119,195,(euc.dash.opt.tpms)?(tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].psi)?Math.round(tpms.euc[euc.dash.opt.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.opt.tpms)?32:28,60,150); //3				
+        this.btn(euc.dash.opt.horn.en,"HORN",25,185,136,4,1,122,100,239,195);	
 		this.run=true;
 	},
 	show : function(){
@@ -102,10 +102,10 @@ touchHandler[0]=function(e,x,y){
 		}
 		else {
 			if ( x<=120 && y<100 ) { //Light
-				euc.dash.set.HL=1-euc.dash.set.HL;
-				euc.wri((euc.dash.set.HL)?"lightsOn":"lightsOff");
-		        face[0].btn(euc.dash.set.HL,"LIGHT",18,60,20,4,1,0,0,119,97,(euc.dash.set.HL)?"ON":"OFF",25,60,55);
-				face[0].ntfy("LIGHT ON","LIGHT OFF",20,(euc.dash.set.HL)?4:1,euc.dash.set.HL);
+				euc.dash.opt.lght.HL=1-euc.dash.opt.lght.HL;
+				euc.wri((euc.dash.opt.lght.HL)?"lightsOn":"lightsOff");
+		        face[0].btn(euc.dash.opt.lght.HL,"LIGHT",18,60,20,4,1,0,0,119,97,(euc.dash.opt.lght.HL)?"ON":"OFF",25,60,55);
+				face[0].ntfy("LIGHT ON","LIGHT OFF",20,(euc.dash.opt.lght.HL)?4:1,euc.dash.opt.lght.HL);
 				buzzer([30,50,30]);
 			}else if ( 120<=x && y<=100 ) { //watch alerts
 				buzzer([30,50,30]);						
@@ -113,16 +113,16 @@ touchHandler[0]=function(e,x,y){
 				return;	
 			}else if ( x<=120 && 100<=y ) { //tpms
 				buzzer([30,50,30]);		
-				if (!euc.dash.tpms) face[0].ntfy("HOLD-> ON/OFF","",20,1,1);
+				if (!euc.dash.opt.tpms) face[0].ntfy("HOLD-> ON/OFF","",20,1,1);
 				else {
-					tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.tpms);
+					tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.opt.tpms);
 					face.go("tpmsFace",0);
 					return;
 				}	
 			}else if ( 120<=x && 100<=y ) { //HORN
-				euc.dash.horn=1-euc.dash.horn;
-				face[0].btn(euc.dash.horn,"HORN",25,185,136,4,1,122,100,239,195);	
-				face[0].ntfy("BUTTON IS HORN >2KPH","HORN DISABLED",(euc.dash.horn)?18:20,(euc.dash.horn)?4:1,euc.dash.horn);
+				euc.dash.opt.horn.en=1-euc.dash.opt.horn.en;
+				face[0].btn(euc.dash.opt.horn.en,"HORN",25,185,136,4,1,122,100,239,195);	
+				face[0].ntfy("BUTTON IS HORN >2KPH","HORN DISABLED",(euc.dash.opt.horn.en)?18:20,(euc.dash.opt.horn.en)?4:1,euc.dash.opt.horn.en);
 				buzzer([30,50,30]);						
 			}else buzzer([30,50,30]);
 		}
@@ -156,8 +156,8 @@ touchHandler[0]=function(e,x,y){
 	case 12: //long press event
 		if  (x<=120 && 100<=y ) { //tpms
 			buzzer([30,50,30]);
-			if (euc.dash.tpms) {
-				euc.dash.tpms=0;
+			if (euc.dash.opt.tpms) {
+				euc.dash.opt.tpms=0;
 				face[0].btn(1,"TPMS",18,60,115,1,0,0,100,119,195,"OFF",28,60,155); //3
 				face[0].ntfy("TPMS DISABLED","",20,1,1);
 				return;

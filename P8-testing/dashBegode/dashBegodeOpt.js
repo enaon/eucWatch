@@ -24,9 +24,9 @@ face[0] = {
       	this.g.fillRect(98,201,120,204);
 		this.g.flip(); 
         this.btn(0,"",18,60,20,4,1,0,0,119,97,"",25,60,55);//1
-		this.btn((euc.dash.hapt.spd||euc.dash.hapt.amp||euc.dash.hapt.tmp||euc.dash.hapt.bat),"WATCH",18,185,20,4,1,122,0,239,97,"ALERTS",22,185,55);		
+		this.btn((euc.dash.alrt.spd.hapt.en||euc.dash.alrt.amp.hapt.en||euc.dash.alrt.tmp.hapt.en||euc.dash.alrt.bat.hapt.en),"WATCH",18,185,20,4,1,122,0,239,97,"ALERTS",22,185,55);		
         this.btn(0,"INFO",25,60,140,12,1,0,100,119,195,"",25,60,155);
-        this.btn(euc.dash.horn,"HORN",25,185,136,4,1,122,100,239,195);		
+        this.btn(euc.dash.opt.horn.en,"HORN",25,185,136,4,1,122,100,239,195);		
         this.run=true;
 	},
 	show : function(){
@@ -129,9 +129,9 @@ touchHandler[0]=function(e,x,y){
 				buzzer(40);
 				face[0].ntfy("NOT YET","",20,7,1);				
 			}else if  (120<=x && 100<=y ) { //horn
-				euc.dash.horn=1-euc.dash.horn;
-				face[0].btn(euc.dash.horn,"HORN",25,185,136,4,1,122,100,239,195);
-				face[0].ntfy("SIDE BTN HORN >2KPH","HORN DISABLED",(euc.dash.horn)?19:20,1,euc.dash.horn);
+				euc.dash.opt.horn.en=1-euc.dash.opt.horn.en;
+				face[0].btn(euc.dash.opt.horn.en,"HORN",25,185,136,4,1,122,100,239,195);
+				face[0].ntfy("SIDE BTN HORN >2KPH","HORN DISABLED",(euc.dash.opt.horn.en)?19:20,1,euc.dash.opt.horn.en);
 				buzzer([30,50,30]);						
 			}else buzzer([30,50,30]);
 		}else{

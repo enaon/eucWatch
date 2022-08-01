@@ -135,31 +135,31 @@ touchHandler[0]=function(e,x,y){
 			if (!Boolean(require("Storage").read('eucInmotionV1'))) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","InmotionV1");
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","V?");
-			euc.dash.slot.name=0;
-			euc.dash.slot.make="InmotionV1";
+			euc.dash.info.get.name=0;
+			euc.dash.info.get.makr="InmotionV1";
 			face.go('w_scan',0,'ffb0');
 			return;
 		}else if ( face[0].set === 2 ) { //begode
 			if (!Boolean(require("Storage").read('eucBegode'))) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Begode");
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","BG-NO NAME");
-			euc.dash.slot.name=0;
-			euc.dash.slot.make="Begode";
+			euc.dash.info.get.name=0;
+			euc.dash.info.get.makr="Begode";
 			face.go('w_scan',0,'ffe0'); 
 			//face[0].ntfy("NOT YET","",20,7,1);
 		}else if ( face[0].set === 3 ) { //Ninebot Z
 			if (!Boolean(require("Storage").read('eucNinebotZ'))) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","NinebotZ");
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","Z10");
-			euc.dash.slot.name=0;
-			euc.dash.slot.make="NinebotZ";
+			euc.dash.info.get.name=0;
+			euc.dash.info.get.makr="NinebotZ";
 			face.go('w_scan',0,'e7fe');
 		}else if ( face[0].set === 4 ) { //Ninebot S
 			if (!Boolean(require("Storage").read('eucNinebotS'))) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","NinebotS");
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","S2");
-			euc.dash.slot.name=0;
-			euc.dash.slot.make="NinebotS";
+			euc.dash.info.get.name=0;
+			euc.dash.info.get.makr="NinebotS";
 			face.go('w_scan',0,'e7fe');
 		}
 	}else if(100<y&&y<200) {
@@ -169,15 +169,15 @@ touchHandler[0]=function(e,x,y){
 				if (!Boolean(require("Storage").read('eucInmotion'))) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
 				set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Inmotion");
 				set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","V11");
-				euc.dash.slot.name=0;
-				euc.dash.slot.make="InmotionV11";
+				euc.dash.info.get.name=0;
+				euc.dash.info.get.makr="InmotionV11";
 				face.go('w_scan',0,'ffe0');
 			}else {
 				if (!Boolean(require("Storage").read('eucInmotionV12'))) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
 				set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","InmotionV12");
 				set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","V12");
-				euc.dash.slot.name=0;
-				euc.dash.slot.make="InmotionV12";
+				euc.dash.info.get.name=0;
+				euc.dash.info.get.makr="InmotionV12";
 				face.go('w_scan',0,'ffe0');
 			}
 			return;
@@ -185,22 +185,22 @@ touchHandler[0]=function(e,x,y){
 			if (!Boolean(require("Storage").read('eucVeteran'))) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Veteran");
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","SM-NO NAME");
-			euc.dash.slot.name=0;
-			euc.dash.slot.make="Veteran";
+			euc.dash.info.get.name=0;
+			euc.dash.info.get.makr="Veteran";
 			face.go('w_scan',0,'ffe0'); return;
 		}else if ( face[0].set === 3 ) {
 			if (!Boolean(require("Storage").read("eucNinebot"))) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Ninebot");
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","E+-NO NAME");
-			euc.dash.slot.name=0;
-			euc.dash.slot.make="Ninebot";
+			euc.dash.info.get.name=0;
+			euc.dash.info.get.makr="Ninebot";
 			face.go('w_scan',0,'ffe0'); return;
 		}else if ( face[0].set === 4 ) { //Kingsong
 			if (!Boolean(require("Storage").read('eucKingsong'))) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Kingsong");
 			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","KS-NO NAME");
-			euc.dash.slot.name=0;
-			euc.dash.slot.make="Kingsong"; 
+			euc.dash.info.get.name=0;
+			euc.dash.info.get.makr="Kingsong"; 
 			face.go('w_scan',0,'fff0'); 
 		}
     }else buzzer(40); 

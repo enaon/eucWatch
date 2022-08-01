@@ -100,21 +100,21 @@ touchHandler[0]=function(e,x,y){
       case 5: //tap event
 		/*if ( x<=120 && y<100 ) { //ride led
 			buzzer([30,50,30]);
-			euc.wri("setLedRideOnOff",euc.dash.set.led);
-            face[0].ntfy("RIDE LED ON","RIDE LED OFF",20,1,euc.dash.set.led);
+			euc.wri("setLedRideOnOff",euc.dash.opt.lght.led);
+            face[0].ntfy("RIDE LED ON","RIDE LED OFF",20,1,euc.dash.opt.lght.led);
 		}else if ( 120<=x && y<=100 ) { //watch alerts
 			buzzer([30,50,30]);						
 			face.go("dashAlerts",0);
 			return;		
 		}else if ( x<=120 && 100<=y ) { //lift sensor
 			buzzer([30,50,30]);		
-            face[0].ntfy("LIFT SENSOR ENABLED","LIFT SENSOR DISABLED",19,1,euc.dash.set.lift);
-			euc.wri("setLiftOnOff",1-euc.dash.set.lift);
-			//euc.wri((euc.dash.set.lift)?"liftOn":"liftOff");
+            face[0].ntfy("LIFT SENSOR ENABLED","LIFT SENSOR DISABLED",19,1,euc.dash.opt.snsr.lift);
+			euc.wri("setLiftOnOff",1-euc.dash.opt.snsr.lift);
+			//euc.wri((euc.dash.opt.snsr.lift)?"liftOn":"liftOff");
 		}else if  (120<=x && 100<=y ) { //horn
-			euc.dash.horn=1-euc.dash.horn;
-            face[0].btn(euc.dash.horn,"HORN",25,185,136,4,1,122,100,239,195);
-            face[0].ntfy("SIDE BTN HORN >2KPH","HORN DISABLED",(euc.dash.horn)?19:20,1,euc.dash.horn);
+			euc.dash.opt.horn.en=1-euc.dash.opt.horn.en;
+            face[0].btn(euc.dash.opt.horn.en,"HORN",25,185,136,4,1,122,100,239,195);
+            face[0].ntfy("SIDE BTN HORN >2KPH","HORN DISABLED",(euc.dash.opt.horn.en)?19:20,1,euc.dash.opt.horn.en);
 			buzzer([30,50,30]);						
 		}else buzzer([30,50,30]);
 		this.timeout();

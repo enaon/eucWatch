@@ -121,14 +121,14 @@ euc.conn=function(mac){
 				if (euc.busy) return;
 				if ( euc.temp.last === "stats" ) {
 					//trip total
-					euc.dash.trip.totl=event.target.value.getUint32(5, true)/100;
-						euc.log.trip.forEach(function(val,pos){ if (!val) euc.log.trip[pos]=euc.dash.trip.totl;});
+					euc.dash.info.trip.totl=event.target.value.getUint32(5, true)/100;
+						euc.log.trip.forEach(function(val,pos){ if (!val) euc.log.trip[pos]=euc.dash.info.trip.totl;});
 					//time
-					euc.dash.trip.time=(event.target.value.getUint32(17, true)/60)|0;
+					euc.dash.info.trip.time=(event.target.value.getUint32(17, true)/60)|0;
 					euc.dash.timR=(event.target.value.getUint32(21, true)/60)|0;
 					//deb
-					if (set.bt===2) print("trip total :", euc.dash.trip.totl);
-					if (set.bt===2) print("on time :", euc.dash.trip.time);
+					if (set.bt===2) print("trip total :", euc.dash.info.trip.totl);
+					if (set.bt===2) print("on time :", euc.dash.info.trip.time);
 					if (set.bt===2) print("ride time :", euc.dash.timR);
 
 					return;
@@ -142,50 +142,50 @@ euc.conn=function(mac){
 				//volt
 				euc.dash.live.volt=event.target.value.getUint16(5, true)/100;
 				//batt
-				euc.dash.live.bat=Math.round(100*(euc.dash.live.volt*5 - euc.dash.opt.batE ) / (euc.dash.opt.batF-euc.dash.opt.batE) );
+				euc.dash.live.bat=Math.round(100*(euc.dash.live.volt*5 - euc.dash.opt.bat.low ) / (euc.dash.opt.bat.hi-euc.dash.opt.bat.low) );
 				batL.unshift(euc.dash.live.bat);
 				if (20<batL.length) batL.pop();
-				euc.dash.alrm.bat = (50 <= euc.dash.live.bat)? 0 : (euc.dash.live.bat <= euc.dash.hapt.batL)? 2 : 1;	
-				if ( euc.dash.hapt.bat && euc.dash.alrm.bat ==2 )  euc.alert ++;
+				euc.dash.alrt.bat.cc = (50 <= euc.dash.live.bat)? 0 : (euc.dash.live.bat <= euc.dash.alrt.bat.hapt.low)? 2 : 1;	
+				if ( euc.dash.alrt.bat.hapt.en && euc.dash.alrt.bat.cc ==2 )  euc.alert ++;
 				//trip 
-				euc.dash.trip.last=event.target.value.getUint16(17, true)/100;
-				euc.dash.trip.left=(event.target.value.getUint16(19, true))*10; //remain
+				euc.dash.info.trip.last=event.target.value.getUint16(17, true)/100;
+				euc.dash.info.trip.left=(event.target.value.getUint16(19, true))*10; //remain
 				//temp
 				euc.dash.live.tmp=(event.target.value.buffer[22] & 0xff) + 80 - 256;
-				euc.dash.alrm.tmp=(euc.dash.hapt.tmpH - 5 <= euc.dash.live.tmp )? (euc.dash.hapt.tmpH <= euc.dash.live.tmp )?2:1:0;
-				if (euc.dash.hapt.tmp && euc.dash.alrm.tmp==2) euc.alert++;
+				euc.dash.alrt.tmp.cc=(euc.dash.alrt.tmp.hapt.hi - 5 <= euc.dash.live.tmp )? (euc.dash.alrt.tmp.hapt.hi <= euc.dash.live.tmp )?2:1:0;
+				if (euc.dash.alrt.tmp.hapt.en && euc.dash.alrt.tmp.cc==2) euc.alert++;
 				//amp
 				euc.dash.live.amp= event.target.value.getInt16(7, true) / 100;
 				//log
 				ampL.unshift(Math.round(euc.dash.live.amp));
 				if (20<ampL.length) ampL.pop();
-				euc.dash.alrm.amp = ( euc.dash.hapt.ampH <= euc.dash.live.amp || euc.dash.live.amp <= euc.dash.hapt.ampL )? 2 : ( euc.dash.live.amp  <= -0.5 || 15 <= euc.dash.live.amp)? 1 : 0;
-				if (euc.dash.hapt.amp && euc.dash.alrm.amp==2) {
-					if (euc.dash.hapt.ampH<=euc.dash.live.amp)	euc.alert =  euc.alert + 1 + Math.round( (euc.dash.live.amp - euc.dash.hapt.ampH) / euc.dash.hapt.ampS) ;
-					else euc.alert =  euc.alert + 1 + Math.round(-(euc.dash.live.amp - euc.dash.hapt.ampL) / euc.dash.hapt.ampS) ;
+				euc.dash.alrt.amp.cc = ( euc.dash.alrt.amp.hapt.hi <= euc.dash.live.amp || euc.dash.live.amp <= euc.dash.alrt.amp.hapt.low )? 2 : ( euc.dash.live.amp  <= -0.5 || 15 <= euc.dash.live.amp)? 1 : 0;
+				if (euc.dash.alrt.amp.hapt.en && euc.dash.alrt.amp.cc==2) {
+					if (euc.dash.alrt.amp.hapt.hi<=euc.dash.live.amp)	euc.alert =  euc.alert + 1 + Math.round( (euc.dash.live.amp - euc.dash.alrt.amp.hapt.hi) / euc.dash.alrt.amp.hapt.step) ;
+					else euc.alert =  euc.alert + 1 + Math.round(-(euc.dash.live.amp - euc.dash.alrt.amp.hapt.low) / euc.dash.alrt.amp.hapt.step) ;
 				}
 				//alarm
-				euc.dash.alrm=event.target.value.buffer[52];
+				euc.dash.alrt.pwr=event.target.value.buffer[52];
 				//log
-				almL.unshift(euc.dash.alrm);
+				almL.unshift(euc.dash.alrt.pwr);
 				if (20<almL.length) almL.pop();		
 				//haptic
-				if (euc.dash.alrm) euc.alert=20;
+				if (euc.dash.alrt.pwr) euc.alert=20;
 				//speed
-				//euc.dash.live.spd=Math.round((event.target.value.getInt16(9, true) / 100)*euc.dash.opt.spdF*((set.def.dash.mph)?0.625:1));
+				//euc.dash.live.spd=Math.round((event.target.value.getInt16(9, true) / 100)*euc.dash.opt.unit.fact.spd*((set.def.dash.mph)?0.625:1));
 				euc.dash.live.spd=event.target.value.getInt16(9, true) / 100;
-				if (euc.dash.trip.topS < euc.dash.live.spd) euc.dash.trip.topS = euc.dash.live.spd;
+				if (euc.dash.info.trip.topS < euc.dash.live.spd) euc.dash.info.trip.topS = euc.dash.live.spd;
 				if (euc.dash.live.spd<0) euc.dash.live.spd=-euc.dash.live.spd;
-				euc.dash.alrm.spd = ( euc.dash.live.spd1 <= euc.dash.live.spd )? 2 : ( euc.dash.live.spd2 <= euc.dash.live.spd )? 1 : 0 ;	
-				if ( euc.dash.hapt.spd && euc.dash.alrm.spd == 2 ) 
-					euc.alert = 1 + Math.round((euc.dash.live.spd-euc.dash.live.spd1) / euc.dash.hapt.spdS) ; 	
+				euc.dash.alrt.spd.cc = ( euc.dash.alrt.spd.hapt.hi <= euc.dash.live.spd )? 2 : ( euc.dash.alrt.spd.hapt.low <= euc.dash.live.spd )? 1 : 0 ;	
+				if ( euc.dash.alrt.spd.hapt.en && euc.dash.alrt.spd.cc == 2 ) 
+					euc.alert = 1 + Math.round((euc.dash.live.spd-euc.dash.alrt.spd.hapt.hi) / euc.dash.alrt.spd.hapt.step) ; 	
 				//average
-				//euc.dash.trip.avrS=(event.target.value.getUint16(17, true))/100;
-				//euc.dash.trip.topS=(event.target.value.getUint16(19, true))/100;
+				//euc.dash.info.trip.avrS=(event.target.value.getUint16(17, true))/100;
+				//euc.dash.info.trip.topS=(event.target.value.getUint16(19, true))/100;
 				//haptic
 				//euc.new=1;
 				if (!euc.buzz && euc.alert) {  
-					if (!w.gfx.isOn&&(euc.dash.alrm.spd||euc.dash.alrm.amp||euc.dash.alrm)) face.go(set.dash[set.def.dash.face],0);
+					if (!w.gfx.isOn&&(euc.dash.alrt.spd.cc||euc.dash.alrt.amp.cc||euc.dash.alrt.pwr)) face.go(set.dash[set.def.dash.face],0);
 					//else face.off(6000);
 					euc.buzz=1;
 					if (20 <= euc.alert) euc.alert = 20;
@@ -212,7 +212,7 @@ euc.conn=function(mac){
 			if (set.bt===2) console.log("EUC: Connected"); 
 			euc.state="READY"; //connected
 			buzzer([90,40,150,40,90]);
-			euc.dash.set.lock=0;
+			euc.dash.opt.lock.en=0;
 			//write function
 			euc.wri=function(cmd,value){
 				if (euc.state==="OFF"||cmd==="end") {
@@ -239,7 +239,7 @@ euc.conn=function(mac){
 					
 				}else if (cmd==="start") {
 					euc.busy=0;
-					euc.wCha.writeValue(euc.cmd((euc.dash.set.HL)?"lightsOn":"lightsOff")).then(function() {
+					euc.wCha.writeValue(euc.cmd((euc.dash.opt.lght.HL)?"lightsOn":"lightsOff")).then(function() {
 						euc.rCha.startNotifications();	
 						if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 						euc.loop=setTimeout(function(){ 
@@ -282,7 +282,7 @@ euc.conn=function(mac){
 				}
 			};
 			if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {
-				euc.dash.slot.mac=euc.mac; euc.dash.opt.batF=420;
+				euc.dash.info.get.mac=euc.mac; euc.dash.opt.bat.hi=420;
 				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 				set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
 			}			
@@ -308,7 +308,7 @@ euc.off=function(err){
 				return;
 			}
 			euc.run=euc.run+1;
-			if (euc.dash.set.lock==1) buzzer(250);
+			if (euc.dash.opt.lock.en==1) buzzer(250);
 			else  buzzer([250,200,250,200,250]);
 			euc.reconnect=setTimeout(() => {
 				euc.reconnect=0;

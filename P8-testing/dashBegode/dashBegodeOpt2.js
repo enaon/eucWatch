@@ -25,7 +25,7 @@ face[0] = {
       	this.g.fillRect(120,201,143,204);
 		this.g.flip();
 		let date = new Date(0);
-		date.setSeconds(euc.dash.set.offT);
+		date.setSeconds(euc.dash.auto.offT);
 		let offTimeout = date.toISOString().substr(11, 8);
 		this.btn(1,"ON",18,185,20,12,1,122,0,239,97,"CONN",25,185,55);		
         this.btn(1,"ON",18,185,120,12,1,122,100,239,195,"DISC",25,185,155);		
@@ -37,10 +37,10 @@ face[0] = {
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		if (!this.run) return; 
 		if (!face[0].setE){
-			if (euc.dash.set.offT!=this.offT) {
-				this.offT=euc.dash.set.offT;
+			if (euc.dash.auto.offT!=this.offT) {
+				this.offT=euc.dash.auto.offT;
 				let date = new Date(0);
-				date.setSeconds(euc.dash.set.offT);
+				date.setSeconds(euc.dash.auto.offT);
 				let offTimeout = date.toISOString().substr(11, 8);
 				this.btn(1,"AUTO OFF",18,60,20,1,1,0,0,119,97,offTimeout,25,60,55);
 			}
