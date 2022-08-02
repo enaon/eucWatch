@@ -158,7 +158,7 @@ euc.conn=function(mac){
 				//batt
 				euc.dash.live.bat=Math.round(100*(euc.dash.live.volt*5 - euc.dash.opt.bat.low ) / (euc.dash.opt.bat.hi-euc.dash.opt.bat.low) );
 				euc.log.batL.unshift(euc.dash.live.bat);
-				if (20<euc.log.batL.unshift) euc.log.batL.pop();
+				if (20<euc.log.batL.length) euc.log.batL.pop();
 				euc.dash.alrt.bat.cc = (50 <= euc.dash.live.bat)? 0 : (euc.dash.live.bat <= euc.dash.alrt.bat.hapt.low)? 2 : 1;	
 				if ( euc.dash.alrt.bat.hapt.en && euc.dash.alrt.bat.cc ==2 )  euc.is.alert ++;
 				//trip 
@@ -175,7 +175,7 @@ euc.conn=function(mac){
 				euc.dash.live.amp= event.target.value.getInt16(7, true) / 100;
 				//log
 				euc.log.ampL.unshift(Math.round(euc.dash.live.amp));
-				if (20<euc.log.ampL.unshift) euc.log.ampL.pop();
+				if (20<euc.log.ampL.length) euc.log.ampL.pop();
 				euc.dash.alrt.amp.cc = ( euc.dash.alrt.amp.hapt.hi <= euc.dash.live.amp || euc.dash.live.amp <= euc.dash.alrt.amp.hapt.low )? 2 : ( euc.dash.live.amp  <= -0.5 || 15 <= euc.dash.live.amp)? 1 : 0;
 				if (euc.dash.alrt.amp.hapt.en && euc.dash.alrt.amp.cc==2) {
 					if (euc.dash.alrt.amp.hapt.hi<=euc.dash.live.amp)	euc.is.alert =  euc.is.alert + 1 + Math.round( (euc.dash.live.amp - euc.dash.alrt.amp.hapt.hi) / euc.dash.alrt.amp.hapt.step) ;
@@ -186,7 +186,7 @@ euc.conn=function(mac){
 				euc.dash.alrt.pwr=0;
 				//log
 				euc.log.almL.unshift(euc.dash.alrt.pwr);
-				if (20<euc.log.almL.unshift) euc.log.almL.pop();		
+				if (20<euc.log.almL.length) euc.log.almL.pop();		
 				//haptic
 				if (euc.dash.alrt.pwr) euc.is.alert=20;
 				//speed

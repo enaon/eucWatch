@@ -22,10 +22,10 @@ face[0] = {
 		this.pwm=-1;
 		this.bat=-1;
 		this.almT=-1
-		this.batL=new Uint8Array(20);
-		this.ampL = new Uint8Array(20);
-		this.al=new Uint8Array(20);
-		this.ampL.fill(1,0,1);
+//		this.batL=new Uint8Array(20);
+//		this.ampL = new Uint8Array(20);
+//		this.al=new Uint8Array(20);
+//		this.ampL.fill(1,0,1);
 		this.volt=-1;
 		this.buzz=-1;
 		this.alrm=-1;
@@ -386,12 +386,12 @@ touchHandler[0]=function(e,x,y){
 	case 5: //tap event	
 		if (120<x&&y<55){//batery percentage/voltage
 			if (set.def.dash.bat==undefined || 1 < set.def.dash.bat) set.def.dash.bat=0; else set.def.dash.bat++;
-			face[0].bat=-1;face[0].volt=-1;face[0].batL.fill(1,0,1);
+			face[0].bat=-1;face[0].volt=-1;//face[0].batL.fill(1,0,1);
 			buzzer([30,50,30]);
 		}else if (x<120&&y<55){//tmp/amp
 			if (set.def.dash.amp==undefined) set.def.dash.amp=0;
 			set.def.dash.amp=1-set.def.dash.amp;
- 			face[0].tmp=-1;face[0].amp=-1;face[0].ampL.fill(1,0,1);
+ 			face[0].tmp=-1;face[0].amp=-1;//face[0].ampL.fill(1,0,1);
 			buzzer([30,50,30]);
 		}else if (190<y){//mileage/time
 			buzzer([30,50,30]);
