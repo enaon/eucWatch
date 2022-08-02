@@ -3,6 +3,13 @@
 //euc.wri("lightsOn")
 //commands
 euc.cmd=function(cmd, param) {
+  if (cmd=='extendedPacket') {
+	euc.temp.ext=1;
+	euc.temp.read.replaceWith(euc.temp.extd);
+  }else if (euc.temp.ext)
+  	euc.temp.ext=0;
+	euc.temp.read.replaceWith(euc.temp.main);
+  }
   switch(cmd) {
     case 'mainPacket':      return [44];
     case 'extendedPacket':  return [107];
@@ -284,6 +291,8 @@ euc.temp.exit=function(c) {
 	}
 };
 
+euc.temp.read=function(){};
+euc.temp.read.replaceWith(euc.temp.main);
 euc.isProxy=0;
 euc.is.run=0;
 //start
@@ -309,8 +318,7 @@ euc.conn=function(mac){
 	//read
 	}).then(function(c) {
 		euc.temp.last= [];
-		c.on('characteristicvaluechanged',  euc.temp.main);
-		//on disconnect
+		c.on('characteristicvaluechanged',  euc.temp.read);
 		global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', euc.off);
 		return  c;
 	//write
