@@ -13,6 +13,7 @@ face[0] = {
 		this.spd=-1;
 		this.amp=-1;
 		this.tmp=-1;
+		this.pwm=-1;
 		this.bat=-1;
 		this.volt=-1;
 		this.conn=0;
@@ -26,6 +27,7 @@ face[0] = {
 			this.g.setColor(0,0);
 			//this.g.fillRect(0,0,0,0);
 			this.g.flip();
+			if (this.pwm!=euc.dash.live.pwm) this.pwmf();
 			if (this.spd!=Math.round(euc.dash.live.spd)) this.spdf();
 			if (this.tmp!=euc.dash.live.tmp.toFixed(1))	this.tmpf();
 			if (set.def.dash.batS){	if (this.bat!=euc.dash.live.bat)	this.batf();}
@@ -53,6 +55,15 @@ face[0] = {
 			t.tid=-1;
 			t.show();
 		},100,this);
+	},
+	pwmf: function(){
+		this.pwm=euc.dash.live.pwm;
+		this.g.setColor(0,1);
+		this.g.fillRect(0,0,239,50); //amp 
+		this.g.setColor(1,15);
+		this.g.setFontVector(40);
+		this.g.drawString(this.pwm,(125-(this.g.stringWidth(this.pwm)/2)),10); 
+		this.g.flip();
 	},
 	tmpf: function(){
 		this.tmp=euc.dash.live.tmp.toFixed(1);
@@ -111,7 +122,7 @@ face[0] = {
 			this.g.setFontVector(90);
 		}else 
 			this.g.setFontVector(135);	  
-		this.g.drawString(Math.round(this.spd*this.spdF),132-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2),60); 
+		this.g.drawString(Math.round(this.spd*this.spdF),130-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2),60); 
 		this.g.flip();
 	},
 	ampf: function(){
