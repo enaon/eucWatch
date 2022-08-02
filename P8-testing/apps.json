@@ -162,6 +162,7 @@
 		"storage": [
 			{"name":"dash_simple","url":"dash_simple.js"},
 			{"name":"dash_digital","url":"dash_digital.js"},
+			{"name":"dash_pwm","url":"dash_pwm.js"},
 			{"name":"dashGarage","url":"dashGarage.js"},
 			{"name":"dashAlerts","url":"dashAlerts.js"},
 			{"name":"dashScan","url":"dashScan.js"},
