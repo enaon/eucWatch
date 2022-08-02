@@ -3,7 +3,7 @@ face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
 	g:w.gfx,
 	init: function(){
-		//euc.busy=1;//stop bt loop-accept commands.
+		//euc.is.busy=1;//stop bt loop-accept commands.
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
  		if (!this.set&&(face.appPrev.startsWith("dash_")||face.appPrev==="settings")) this.g.clear();
         this.set=0;
@@ -77,7 +77,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		//euc.busy=0;euc.wri("live");
+		//euc.is.busy=0;euc.wri("live");
 		face.go(set.dash[set.def.dash.face],0);
 		return;
 	},
@@ -153,7 +153,7 @@ touchHandler[0]=function(e,x,y){
 			w.gfx.flip();
 			face[0].init();
         } else {
-			//euc.busy=0;euc.wri("live");
+			//euc.is.busy=0;euc.wri("live");
 			face.go(set.dash[set.def.dash.face],0);
 			return;
         }

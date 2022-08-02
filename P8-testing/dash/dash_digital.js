@@ -4,7 +4,7 @@ face[0] = {
 	g:w.gfx,
 	spd:[],
 	init: function(){
-		if ( euc.day[0] < Date().getHours() && Date().getHours() < euc.day[1] ) euc.night=0; else euc.night=1;
+		if ( euc.is.day[0] < Date().getHours() && Date().getHours() < euc.is.day[1] ) euc.is.night=0; else euc.is.night=1;
         if (face.appPrev.startsWith("dash_")) {
 			this.g.setColor(0,0);
 			this.g.fillRect(0,51,239,239);
@@ -47,7 +47,7 @@ face[0] = {
 			// alarm events time graph
 			//if (5<=this.spd&&(euc.dash.info.get.makr=="Kingsong"||euc.dash.info.get.makr=="Begode")){
 			//if (5<=this.spd&&(euc.dash.info.get.makr=="Kingsong")){
-			if (almL.includes(1)) {
+			if (euc.log.almL.includes(1)) {
 				this.alF();
 				this.bar=0;
 			} else if (5<=this.spd&& euc.dash.info.get.makr=="Kingsong"){
@@ -59,7 +59,7 @@ face[0] = {
 			}else 
 				if (this.tmp!=Math.round(euc.dash.live.tmp))	this.tmpF();
 			//alarm block
-			if (this.buzz!=euc.buzz) this.buzF(); 
+			if (this.buzz!=euc.is.buzz) this.buzF(); 
 			//spdMspeed block
 			if (this.topS!=euc.dash.info.trip.topS.toFixed(1)) this.spMF(); 
 			//buzzer/health block
@@ -68,14 +68,15 @@ face[0] = {
 			}else if (this.alrm!=euc.dash.alrt.pwr) this.alrF();	
 			//tmp/amp field
 			if (set.def.dash.amp){
-				if (this.ampL!=ampL) this.amLF();				
+				//if (this.ampL!=euc.log.ampL) 
+				this.amLF();				
 			}else if (this.tmp!=euc.dash.live.tmp.toFixed(1)) this.tmFF();
 			//batery field
 			if (!set.def.dash.bat){
 				if (this.volt!=euc.dash.live.volt.toFixed(2)) this.vltF();
 			}else if (set.def.dash.bat==1) {
 				if (euc.dash.live.bat!=this.bat) this.batF();
-			}else if (this.batL!=batL) this.baLF();			
+			}else this.baLF();//if (this.batL!=euc.log.batL) this.baLF();			
 			//Mileage
 			//if (this.almT!=euc.dash.alrt.warn.txt) this.almTF();
 			if (euc.dash.alrt.warn.txt) this.almTF();
@@ -98,7 +99,7 @@ face[0] = {
 				this.g.flip();
 				this.spd=-1;this.pwm=-1;this.amp=-1;this.tmp=-1;this.bat=-1;this.trpL=-1;this.conn=0;this.lock=2;
 				this.buzz=-1;this.volt=-1;this.alrm=-1;this.aTlt=-1;this.topS=-1;this.bar=0;
-				this.ampL.fill(1,0,1);this.batL.fill(1,0,1);
+				//this.ampL.fill(1,0,1);this.batL.fill(1,0,1);
 				this.run=true;
 			}
 		}
@@ -130,8 +131,8 @@ face[0] = {
 		this.g.setColor(0,7);
 		this.g.clearRect(0,176,239,200);
 		this.g.setColor(1,13);
-		for (let i in almL ){
-			if (almL[i]) w.gfx.fillRect(237-(i*12),(almL[i])?180:195,237-((i*12)+10),195);
+		for (let i in euc.log.almL ){
+			if (euc.log.almL[i]) w.gfx.fillRect(237-(i*12),(euc.log.almL[i])?180:195,237-((i*12)+10),195);
 		}
 		this.g.flip();
 	},
@@ -171,7 +172,7 @@ face[0] = {
 		this.g.flip();
 	},
 	buzF: function(){
-		this.buzz=euc.buzz;
+		this.buzz=euc.is.buzz;
 		if (!this.buzz&&euc.dash.info.get.makr=="Begode"&&euc.dash.alrt.mode==3){
 			this.g.setColor(0,4);
 			this.g.fillRect(0,115,40,173); 
@@ -255,13 +256,13 @@ face[0] = {
 		this.g.flip();
 	},
 	amLF: function(){
-		this.ampL.set(ampL);
+		//this.ampL.set(euc.log.ampL);
 		this.g.setColor(1,(1<euc.dash.alrt.amp.cc)?7:1);
 		this.g.fillRect(0,0,119,50);       
 		this.g.setColor(0,15);
 		//this.ampL.forEach(function(val,i){
-		for (let i in this.ampL ){
-			w.gfx.fillRect(118-(i*6),(this.ampL[i]<200)?50-(this.ampL[i]*1.2):1,118-(i*6)-1,(this.ampL[i]<200)?50:(255-this.ampL[i])*2);
+		for (let i in euc.log.ampL ){
+			w.gfx.fillRect(118-(i*6),(euc.log.ampL[i]<200)?50-(euc.log.ampL[i]*1.2):1,118-(i*6)-1,(euc.log.ampL[i]<200)?50:(255-euc.log.ampL[i])*2);
 		}
 		//w.gfx.fillRect(118-(i*6),(val<200)?50-(val*1.2):1,118-(i*6)-1,(val<200)?50:(255-val)*2);
 		//});
@@ -290,14 +291,14 @@ face[0] = {
 		this.g.flip();
 	},
 	baLF: function(){
-		this.batL.set(batL);
+		//this.batL.set(euc.log.batL);
 		this.g.setColor(0,this.batC[euc.dash.alrt.bat.cc]);
 		this.g.fillRect(122,0,239,50);       
 		this.g.setColor(1,15);
 		//graph
 		//this.batL.forEach(function(val,i){
-		for (let i in this.batL ){
-			w.gfx.fillRect(238-(i*6),50-(this.batL[i]/2),238-(i*6)-1,50);
+		for (let i in euc.log.batL ){
+			w.gfx.fillRect(238-(i*6),50-(euc.log.batL[i]/2),238-(i*6)-1,50);
 		}
 		//	w.gfx.fillRect(238-(i*6),50-(val/2),238-(i*6)-1,50);
 		//});

@@ -3,7 +3,7 @@ face[0] = {
 	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
 	g:w.gfx,
 	init: function(){
-		euc.busy=1;//stop bt loop-accept commands.
+		euc.is.busy=1;//stop bt loop-accept commands.
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
  		//if (!this.set&&(face.appPrev.startsWith("dash_")||face.appPrev==="settings")) this.g.clear();
 		this.g.setColor(0,0);
@@ -85,7 +85,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		euc.busy=0;euc.wri(1);
+		euc.is.busy=0;euc.wri(1);
 		face.go(set.dash[set.def.dash.face],0);
 		return;
 	},
@@ -140,7 +140,7 @@ touchHandler[0]=function(e,x,y){
 	case 1: //slide down event
 	    if (face[0].set) {
 			euc.wri(30+euc.dash.opt.ride.mode);
-			setTimeout(()=>{euc.busy=0;euc.wri(1);},500);
+			setTimeout(()=>{euc.is.busy=0;euc.wri(1);},500);
         }
 		//face.go("main",0);
 		
@@ -167,7 +167,7 @@ touchHandler[0]=function(e,x,y){
               w.gfx.flip();
               face[0].init();return;
         } else {
-		  euc.busy=0;euc.wri(1);
+		  euc.is.busy=0;euc.wri(1);
           face.go(set.dash[set.def.dash.face],0);
           return;
         }

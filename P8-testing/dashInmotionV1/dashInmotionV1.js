@@ -31,7 +31,7 @@ face[0] = {
 	g:w.gfx,
 	init: function(){
 		if (euc.temp.alive) {clearInterval(euc.temp.alive); euc.temp.alive=0;}
-		euc.busy=1;//stop bt loop-accept commands.
+		euc.is.busy=1;//stop bt loop-accept commands.
 		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
 		this.g.setColor(0,0);
 		this.g.fillRect(0,98,239,99);
@@ -123,7 +123,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		setTimeout(function(){euc.busy=0;euc.temp.live();},800);
+		setTimeout(function(){euc.is.busy=0;euc.temp.live();},800);
 		face.go(set.dash[set.def.dash.face],0);
 		return true;
 	},
@@ -186,7 +186,7 @@ touchHandler[0]=function(e,x,y){
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
-		setTimeout(function(){euc.busy=0;euc.temp.live();},800);
+		setTimeout(function(){euc.is.busy=0;euc.temp.live();},800);
 		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
@@ -207,7 +207,7 @@ touchHandler[0]=function(e,x,y){
 			face[0].init();
 			return;
 		}
-		setTimeout(function(){euc.busy=0;euc.temp.live();},800);
+		setTimeout(function(){euc.is.busy=0;euc.temp.live();},800);
 		face.go(set.dash[set.def.dash.face],0);
 		return;
 	case 12: //long press event

@@ -10,14 +10,6 @@ face[0] = {
 			this.g.fillRect(0,51,239,239);
 			this.g.flip();	
 		}else this.g.clear();
-		if (euc.dash.opt.tpms&&!tpms.euc[euc.dash.opt.tpms]){
-			this.g.setColor(0,1);
-			this.g.clearRect(0,210,239,239); 
-			this.g.setColor(1,3);
-			this.g.setFontVector(18);
-			this.g.drawString("WAITING FOR TPMS",25,220); 
-			this.g.flip();
-		}else this.tpms=-1;
 		this.spdC=[0,13,7,7];
 		this.ampC=[1,2992,7,7];
 		this.tmpC=[1,2992,7,7];
@@ -29,7 +21,6 @@ face[0] = {
 		this.bat=-1;
 		this.volt=-1;
 		this.conn=0;
-		this.lock=2;
 		this.spdF=euc.dash.opt.unit.fact.spd*((set.def.dash.mph)?0.625:1);
 		this.trpF=euc.dash.opt.unit.fact.dist*((set.def.dash.mph)?0.625:1);
 		this.run=true;
@@ -37,7 +28,6 @@ face[0] = {
 	show : function(o){
 		if (!this.run) return;
 		if (euc.state=="READY") {
-			//if (euc.charge)  	{this.charge();return;}
 			this.g.setColor(0,0);
 			//this.g.fillRect(0,0,0,0);
 			this.g.flip();
@@ -75,31 +65,31 @@ face[0] = {
 	tmpf: function(){
 		this.tmp=euc.dash.live.tmp.toFixed(1);
 		this.g.setColor(0,this.tmpC[euc.dash.alrt.tmp.cc]);
-		this.g.fillRect(0,0,119,50);       
+		this.g.fillRect(0,150,119,200);       
 		this.g.setColor(1,15);
 		this.g.setFontVector(50);
 		let temp=((set.def.dash.farn)?this.tmp*1.8+32:this.tmp).toString().split(".");
 		let size=5+this.g.stringWidth(temp[0]);
-		this.g.drawString(temp[0], 5,3); 
+		this.g.drawString(temp[0], 5,153); 
 		if (temp[0]<100) {
 			this.g.setFontVector(35);
-			this.g.drawString("."+temp[1],size,17); 
+			this.g.drawString("."+temp[1],size,167); 
 			size=size+this.g.stringWidth(temp[1]);
 		}
 		this.g.setFontVector(16);
-		this.g.drawString((set.def.dash.farn)?"°F":"°C",3+size,5); 
+		this.g.drawString((set.def.dash.farn)?"°F":"°C",3+size,155); 
 		this.g.flip();
 	},
 	clkf: function(){
 		this.time=getTime();
 		this.g.setColor(0,1);
-		this.g.fillRect(0,0,119,50);       
+		this.g.fillRect(150,0,200,50);       
 		this.g.setColor(1,14);
 		this.g.setFontVector(45);
 		let d=(Date()).toString().split(' ');
 		let t=(d[4]).toString().split(':');
 		this.time=(t[0]+":"+t[1]);
-		this.g.drawString(this.time,0,5); 
+		this.g.drawString(this.time,0,155); 
 		//this.g.setFontVector(13);
 		//this.g.drawString("CLOCK",1,40);
 		this.g.flip();
@@ -107,44 +97,44 @@ face[0] = {
 	batf: function(){
 		this.bat=euc.dash.live.bat;
 		this.g.setColor(0,this.batC[euc.dash.alrt.bat.cc]);
-		this.g.fillRect(122,0,239,50);
+		this.g.fillRect(122,150,239,200);
 //		this.g.setColor(1,15);
 		this.g.setColor(1,15);
 		this.g.setFontVector(50);
-		this.g.drawString(this.bat,225-(this.g.stringWidth(this.bat)),3);
+		this.g.drawString(this.bat,225-(this.g.stringWidth(this.bat)),153);
 		this.g.setFontVector(20);
-		this.g.drawString("%",227,8);
+		this.g.drawString("%",227,158);
 		this.g.flip();
 	},
 	vltf: function(){
 		this.volt=euc.dash.live.volt.toFixed(1);
 		this.g.setColor(0,this.batC[euc.dash.alrt.bat.cc]);
-		this.g.fillRect(122,0,239,50);
+		this.g.fillRect(122,150,239,200);
 		this.g.setColor(1,15);
 		let volt=this.volt.toString().split(".");
 		this.g.setFontVector(14);
-		this.g.drawString("V",230,30); 
+		this.g.drawString("V",230,180); 
 		let size=230;
 		if (volt[0]<100) {
 			this.g.setFontVector(35);
 			size=size-this.g.stringWidth("."+volt[1]);
-			this.g.drawString("."+volt[1],size,15); 
+			this.g.drawString("."+volt[1],size,165); 
 		}
 		this.g.setFontVector(50);
-		this.g.drawString(volt[0], size-this.g.stringWidth(volt[0]),3); 
+		this.g.drawString(volt[0], size-this.g.stringWidth(volt[0]),153); 
 		this.g.flip();
 	},
 	spdf: function(){
 		this.spd=Math.round(euc.dash.live.spd);
 		this.g.setColor(0,(euc.dash.alrt.spd.cc==1)?0:this.spdC[euc.dash.alrt.spd.cc]);
-		this.g.fillRect(0,55,239,210);
+		this.g.fillRect(0,0,239,145);
 		this.g.setColor(1,(euc.dash.alrt.spd.cc==1)?13:15);
 		if (100 <= this.spd) {
 			if (120 < this.spd)  this.spd=120;
 			this.g.setFontVector(130);
 		}else 
 			this.g.setFontVector(185);	  
-		this.g.drawString(Math.round(this.spd*this.spdF),132-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2),55); 
+		this.g.drawString(Math.round(this.spd*this.spdF),132-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2),5); 
 		this.g.flip();
 	},
 	ampf: function(){
@@ -159,14 +149,11 @@ face[0] = {
 	tpmsf: function(){
 		this.tpms=tpms.euc[euc.dash.opt.tpms].alrm;
 		this.g.setColor(0,(this.tpms)?7:4);
-		this.g.clearRect(0,210,239,239); //amp 
+		this.g.clearRect(0,200,239,239); //amp 
 		this.g.setColor(1,14);
 		this.g.setFontVector(25);
 		this.g.drawString("TPMS",85,215); 
 		this.g.flip();
-	},
-	charge: function(){
-		face.go("dashKingsongCharging",0);return;
 	},
 	tid:-1,
 	run:false,

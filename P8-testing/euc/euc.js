@@ -1,14 +1,10 @@
 global.euc= {
+	is:{run:0,reconnect:0,busy:0,chrg:0,night:1,day:[7,19],buzz:0},
 	state: "OFF",
-	reconnect:0,
-    busy:0,
-    chrg:0,
-	kill:0,
-	night:1,
-	buzz:0,
-	day:[7,19],
+	proxy: 0,
 	log:{
-		trip:[0,0,0]//hour/day/month
+		trip:[0,0,0],//hour/day/month
+		ampL:[],batL:[],almL:[]
 	},
 	temp:{},
 	updateDash:function(slot){require('Storage').write('eucSlot'+slot+'.json', euc.dash);},
@@ -16,10 +12,8 @@ global.euc= {
 	wri:function(err){if (set.def.cli) console.log("EUC write, not connected",err);},
 	tgl:function(){ 
 		face.off();
-		if (this.reconnect) {clearTimeout(this.reconnect); this.reconnect=0;}
+		if (this.is.reconnect) {clearTimeout(this.is.reconnect); this.is.reconnect=0;}
 		if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
-		this.seq=1;
-		ampL=[];batL=[];almL=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 		if (this.state!="OFF" ) {
 			buzzer([90,60,90]); 
 			//log

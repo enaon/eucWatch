@@ -224,7 +224,7 @@ touchHandler[0]=function(e,x,y){
         this.timeout();
 		break;
 	case 1: //slide down event
-		setTimeout(function(){euc.busy=0;euc.temp.live();},800);
+		setTimeout(function(){euc.is.busy=0;euc.temp.live();},800);
 		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event

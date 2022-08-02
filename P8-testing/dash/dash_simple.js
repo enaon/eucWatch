@@ -4,7 +4,7 @@ face[0] = {
 	g:w.gfx,
 	spd:[],
 	init: function(){
-		if ( euc.day[0] < Date().getHours() && Date().getHours() < euc.day[1] ) euc.night=0; else euc.night=1;
+		if ( euc.is.day[0] < Date().getHours() && Date().getHours() < euc.is.day[1] ) euc.is.night=0; else euc.is.night=1;
         if (face.appPrev.startsWith("dash_")) {
 			this.g.setColor(0,0);
 			this.g.fillRect(0,51,239,239);
