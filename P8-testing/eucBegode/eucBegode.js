@@ -68,10 +68,73 @@ euc.temp.faultAlarms =function(code) {
 		case 7: return 'transport mode';
 	}
 };
-euc.temp.extP= function(event) {
- 
-}
-euc.temp.main=function(p){
+euc.temp.line="";
+euc.temp.extd= function(event) {	
+	if (set.bt==5) 	euc.proxy.w(event.target.value.buffer);
+	if (euc.dbg)  console.log("input",event.target.value.buffer);
+	let fragment = E.toString(event.target.value);
+	let lineEnd = fragment.indexOf('\n');
+	if (lineEnd == -1){
+		euc.temp.line += fragment;
+	}else {
+		euc.temp.line += fragment.slice(0, lineEnd);
+		let keys = euc.temp.line.match(/[A-z\/=]+/g);
+		keys = keys.map(l => l.split('=')[0]);
+		let values = euc.temp.line.match(/[-0-9]+/g);
+		//get values
+		let pwmIndex = keys.indexOf('PWM');
+		if (pwmIndex == -1)
+		  pwmIndex = keys.indexOf('pwmmmm');
+		//pwm
+		if (pwmIndex != -1)
+		  euc.dash.live.pwm = Math.abs(values[pwmIndex] / 100).toFixed(1);
+		//tmp
+		let tempIndex = keys.indexOf('Tem');
+		if (tempIndex != -1)
+		  euc.dash.live.tmp  = (values[tempIndex] / 333.87 + 21.0).toFixed(2); // MPU6500 format
+		//spd
+		let spdIndex = keys.indexOf('M/s');
+		if (spdIndex != -1)
+			euc.dash.live.spd = Math.abs((values[spdIndex] * 3.6)/100); 
+		//volt	
+		let voltIndex = keys.indexOf('Voltage');
+		if (voltIndex != -1){
+			euc.dash.live.volt =Math.abs(values[voltIndex] / 100).toFixed(1);		
+			euc.dash.live.bat=Math.round( 100*(euc.dash.live.volt*( 100/(16*euc.dash.opt.bat.pack)) - euc.dash.opt.bat.low ) / (euc.dash.opt.bat.hi-euc.dash.opt.bat.low) );
+		}
+		//keys.forEach((key, i) => print(key+"="+values[i]));
+		euc.temp.line = fragment.slice(lineEnd + 1);
+	}
+};
+euc.temp.main=function(event){
+	if (set.bt==5) 	euc.proxy.w(event.target.value.buffer);
+	if (euc.dbg)  console.log("input",event.target.value.buffer);
+	//gather packet
+	let part=JSON.parse(JSON.stringify(event.target.value.buffer));
+	let startP = part.findIndex((el, idx, arr) => {return arr[idx] == 85 && arr[idx + 1] == 170;});
+	let endP = part.findIndex((el, idx, arr) => {return arr[idx] == 90 && arr[idx + 1] == 90 && arr[idx + 2] == 90 && arr[idx + 3] == 90;});
+	//format packet
+	if (startP!=-1) {
+		if (endP!=-1) 
+			euc.temp.type(new DataView(E.toUint8Array(euc.temp.last,part.slice(0,endP+4)).buffer));	
+		euc.temp.last=part.slice(startP,part.length);
+	} else if (endP!=-1) {
+		euc.temp.type(new DataView(E.toUint8Array(euc.temp.last,part.slice(0,endP+4)).buffer));
+		euc.temp.last=[];	
+	} else {// model/firm
+		if (event.target.value.getUint32(0) == 0x4E414D45) { //fetchModel
+			console.log("model fetch responce:",event.target.value.buffer);
+			euc.dash.info.get.modl =  E.toString(event.target.value.buffer).slice(5).trim();
+			if (!set.read("dash","slot"+set.read("dash","slot")+"Model")) 
+				set.write("dash","slot"+set.read("dash","slot")+"Model",euc.dash.info.get.modl);
+			euc.dash.opt.bat.pack=euc.temp.modelParams(euc.dash.info.get.modl).voltMultiplier;
+			euc.dash.opt.bat.low=euc.temp.modelParams(euc.dash.info.get.modl).minCellVolt*100;
+		} else if (event.target.value.getInt16(0) == 0x4757) { //fetchFirmware
+			euc.dash.info.get.firm = E.toString(event.target.value.buffer).slice(2);
+		} 
+	}
+};
+euc.temp.type=function(p){
 	if (p.byteLength == 24 && p.getInt16(0) == 0x55AA ){
 		euc.is.alert=0;
 		if (p.buffer[18]==0)	euc.temp.pck0(p);
@@ -246,34 +309,7 @@ euc.conn=function(mac){
 	//read
 	}).then(function(c) {
 		euc.temp.last= [];
-		c.on('characteristicvaluechanged', function(event) {
-			if (set.bt==5) 	euc.proxy.w(event.target.value.buffer);
-			if (euc.dbg)  console.log("input",event.target.value.buffer);
-			//gather packet
-			let part=JSON.parse(JSON.stringify(event.target.value.buffer));
-			let startP = part.findIndex((el, idx, arr) => {return arr[idx] == 85 && arr[idx + 1] == 170;});
-			let endP = part.findIndex((el, idx, arr) => {return arr[idx] == 90 && arr[idx + 1] == 90 && arr[idx + 2] == 90 && arr[idx + 3] == 90;});
-			//format packet
-			if (startP!=-1) {
-				if (endP!=-1) 
-					euc.temp.main(new DataView(E.toUint8Array(euc.temp.last,part.slice(0,endP+4)).buffer));	
-				euc.temp.last=part.slice(startP,part.length);
-			} else if (endP!=-1) {
-				euc.temp.main(new DataView(E.toUint8Array(euc.temp.last,part.slice(0,endP+4)).buffer));
-				euc.temp.last=[];	
-			} else {// model/firm
-				if (event.target.value.getUint32(0) == 0x4E414D45) { //fetchModel
-					console.log("model fetch responce:",event.target.value.buffer);
-					euc.dash.info.get.modl =  E.toString(event.target.value.buffer).slice(5).trim();
-					if (!set.read("dash","slot"+set.read("dash","slot")+"Model")) 
-						set.write("dash","slot"+set.read("dash","slot")+"Model",euc.dash.info.get.modl);
-					euc.dash.opt.bat.pack=euc.temp.modelParams(euc.dash.info.get.modl).voltMultiplier;
-					euc.dash.opt.bat.low=euc.temp.modelParams(euc.dash.info.get.modl).minCellVolt*100;
-				} else if (event.target.value.getInt16(0) == 0x4757) { //fetchFirmware
-					euc.dash.info.get.firm = E.toString(event.target.value.buffer).slice(2);
-				} 
-			}
-		});
+		c.on('characteristicvaluechanged',  euc.temp.main);
 		//on disconnect
 		global["\u00ff"].BLE_GATTS.device.on('gattserverdisconnected', euc.off);
 		return  c;
