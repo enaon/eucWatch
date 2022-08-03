@@ -117,11 +117,11 @@ euc.temp.extd= function(event) {
 		  pwmIndex = keys.indexOf('pwmmmm');
 		//pwm
 		if (pwmIndex != -1)
-		  euc.dash.live.pwm = Math.abs(values[pwmIndex] / 100);
+		  euc.dash.live.pwm = Math.abs(values[pwmIndex] / 100).toFixed(1);
 		//tmp
 		let tempIndex = keys.indexOf('Tem');
 		if (tempIndex != -1)
-		  euc.dash.live.tmp  = (values[tempIndex] / 333.87 + 21.0); // MPU6500 format
+		  euc.dash.live.tmp  = (values[tempIndex] / 333.87 + 21.0).toFixed(2); // MPU6500 format
 		//spd
 		let spdIndex = keys.indexOf('M/s');
 		if (spdIndex != -1)
@@ -129,7 +129,7 @@ euc.temp.extd= function(event) {
 		//volt	
 		let voltIndex = keys.indexOf('Voltage');
 		if (voltIndex != -1){
-			euc.dash.live.volt =Math.abs(values[voltIndex] / 100);		
+			euc.dash.live.volt =Math.abs(values[voltIndex] / 100).toFixed(1);		
 			euc.dash.live.bat=Math.round( 100*(euc.dash.live.volt*( 100/(16*euc.dash.opt.bat.pack)) - euc.dash.opt.bat.low ) / (euc.dash.opt.bat.hi-euc.dash.opt.bat.low) );
 		}
 		//keys.forEach((key, i) => print(key+"="+values[i]));
