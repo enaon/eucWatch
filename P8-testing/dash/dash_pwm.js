@@ -83,7 +83,6 @@ face[0] = {
 			this.g.fillRect(155,51,5+this.pwm1*2.4,70); //amp 	
 			this.g.flip();	
 		}
-		this.g.flip();
 		this.g.setColor(1,1);
 		this.g.fillRect(5+this.pwm1*2.4,51,239,70); //amp 	
 		this.g.flip();	
