@@ -51,7 +51,7 @@ face[0] = {
 						else name="GW-"+name.substr(name.length -5,name.length);
 					}else if (name.startsWith("LK")) {
 						if ( (name).includes("Proxy")) name="LK-Proxy";
-						else name="LK-"+name.substr(name.length -45,name.length);
+						else name="LK-"+name.substr(name.length -4,name.length);
 					}else if (name.startsWith("KS")) {
 						if ( (name).includes("Proxy")) name="KS-Proxy";
 						else name="KS-"+name.substr(name.length -4,name.length);
