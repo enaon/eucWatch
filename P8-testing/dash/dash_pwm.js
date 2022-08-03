@@ -4,8 +4,15 @@ face[0] = {
 	g:w.gfx,
 	spd:[],
 	init: function(){
-		if (euc.dash.info.get.makr=="Begode") euc.wri("extendedPacket");
-		this.g.clear();
+		//this.g.clear();
+		//this.g.flip();
+		if (euc.dash.info.get.makr=="Begode"&&!euc.temp.ext) euc.wri("extendedPacket");
+		this.g.setColor(0,1);
+		this.g.fillRect(0,0,239,75); //
+		this.g.setColor(1,14);
+		this.g.setFont("Vector",16);
+		this.g.drawString("WHEEL PWM %",20,10);
+		this.g.flip();
 		this.spdC=[0,13,7,7];
 		this.ampC=[1,2992,7,7];
 		this.tmpC=[1,2992,7,7];
@@ -20,12 +27,6 @@ face[0] = {
 		this.conn=0;
 		this.spdF=euc.dash.opt.unit.fact.spd*((set.def.dash.mph)?0.625:1);
 		this.trpF=euc.dash.opt.unit.fact.dist*((set.def.dash.mph)?0.625:1);
-		this.g.setColor(0,1);
-		this.g.fillRect(0,0,239,75); //amp 
-		this.g.setColor(1,14);
-		this.g.setFont("Vector",16);
-		this.g.drawString("WHEEL PWM %",20,10);
-		this.g.flip();
 		this.run=true;
 	},
 	show : function(o){
