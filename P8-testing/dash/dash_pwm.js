@@ -4,9 +4,8 @@ face[0] = {
 	g:w.gfx,
 	spd:[],
 	init: function(){
-		//this.g.clear();
-		//this.g.flip();
 		if (euc.dash.info.get.makr=="Begode"&&!euc.temp.ext) euc.wri("extendedPacket");
+		this.g.clear();
 		this.g.setColor(0,1);
 		this.g.fillRect(0,0,239,75); //
 		this.g.setColor(1,14);
@@ -28,6 +27,7 @@ face[0] = {
 		this.spdF=euc.dash.opt.unit.fact.spd*((set.def.dash.mph)?0.625:1);
 		this.trpF=euc.dash.opt.unit.fact.dist*((set.def.dash.mph)?0.625:1);
 		this.run=true;
+		print(euc.state)
 	},
 	show : function(o){
 		if (!this.run) return;
@@ -48,7 +48,7 @@ face[0] = {
 			if (euc.state!=this.conn) {
 				this.conn=euc.state;
 				this.g.setColor(0,0);
-				this.g.fillRect(0,0,239,239);
+				this.g.fillRect(0,80,239,239);
 				this.g.setColor(1,15);
 				this.g.setFont("Vector",50);
 				this.g.drawString(euc.state,(125-this.g.stringWidth(euc.state)/2),95);
