@@ -18,7 +18,7 @@ face[0] = {
 		this.spd=euc.dash.live.spd-1;
 		this.amp=-1;
 		this.tmp=-1;
-		this.pwm=-1;
+		this.pwm=Math.round(euc.dash.live.pwm)-1;
 		this.pwm1=-1;
 		this.bat=-1;
 		this.volt=-1;
@@ -30,12 +30,12 @@ face[0] = {
 	show : function(o){
 		if (!this.run) return;
 		if (euc.state=="READY") {
-			if (this.pwm!=euc.dash.live.pwm|0) this.pwmf();
+			if (this.pwm!=Math.round(euc.dash.live.pwm)) this.pwmf();
 			if (this.spd!=Math.round(euc.dash.live.spd)) this.spdf();
 			if (this.tmp!=euc.dash.live.tmp.toFixed(1))	this.tmpf();
 			if (set.def.dash.batS){	if (this.bat!=euc.dash.live.bat)	this.batf();}
 			else  if (this.volt!=euc.dash.live.volt.toFixed(1)) this.vltf();
-			if (this.pwm1!=euc.dash.live.pwm) this.pwmE();
+			//if (this.pwm1!=euc.dash.live.pwm) this.pwmE();
 			if (euc.dash.info.get.makr=="Begode"&&!euc.temp.ext) euc.wri("extendedPacket");
 		} else if (euc.state=="OFF")  {
 			setTimeout(function(){
@@ -52,7 +52,7 @@ face[0] = {
 				this.g.setFont("Vector",50);
 				this.g.drawString(euc.state,(125-this.g.stringWidth(euc.state)/2),95);
 				this.g.flip();
-				this.spd=euc.dash.live.spd-1;this.pwm=-1;this.pwm1=-1;this.time=0;this.amp=-1;this.tmp=-1;this.volt=-1;this.bat=-1;this.trpL=-1;this.conn=0;this.lock=2;this.run=true;}
+				this.spd=euc.dash.live.spd-1;this.pwm=Math.round(euc.dash.live.pwm)-1;;this.pwm1=-1;this.time=0;this.amp=-1;this.tmp=-1;this.volt=-1;this.bat=-1;this.trpL=-1;this.conn=0;this.lock=2;this.run=true;}
 		}
 		//refresh 
 		this.tid=setTimeout(function(t){
@@ -61,30 +61,51 @@ face[0] = {
 		},50,this);
 	},
 	pwmf: function(){
-		this.pwm=euc.dash.live.pwm|0;
+		if ( Math.abs(euc.dash.live.pwm-this.pwm) <5 ) this.pwm =Math.round(euc.dash.live.pwm);
+		else if (euc.dash.live.pwm<this.pwm){
+			this.pwm=Math.round(this.pwm-(this.pwm-euc.dash.live.pwm)/2); 
+			
+		}else {
+			this.pwm=Math.round(this.pwm+(euc.dash.live.pwm-this.pwm)/2); 
+		}
 		this.g.setColor(0,75<this.pwm?7:1);
 		this.g.fillRect(155,0,239,35); //amp 
 		this.g.setColor(1,15);
 		this.g.setFontVector(43);
-	this.g.drawString(this.pwm,(200-(this.g.stringWidth(this.pwm)/2)),-2); 
+		this.g.drawString(this.pwm,(200-(this.g.stringWidth(this.pwm)/2)),-2); 
 		this.g.flip();
-	},
-	pwmE: function(){
-		this.pwm1=euc.dash.live.pwm;
 		if (this.pwm<65) {
 			this.g.setColor(1,3);
-			this.g.fillRect(5,51,5+this.pwm1*2.4,70); //amp 	
+			this.g.fillRect(5,51,5+this.pwm*2.4,70); //amp 	
 			this.g.flip();	
 		}else if (65 <= this.pwm) {
 			this.g.setColor(1,3);
 			this.g.fillRect(5,51,150,70); //amp 	
 			this.g.flip();	
 			this.g.setColor(1,13);
-			this.g.fillRect(155,51,5+this.pwm1*2.4,70); //amp 	
+			this.g.fillRect(155,51,5+this.pwm*2.4,70); //amp 	
 			this.g.flip();	
 		}
 		this.g.setColor(1,1);
-		this.g.fillRect(5+this.pwm1*2.4,51,239,70); //amp 	
+		this.g.fillRect(5+this.pwm*2.4,51,239,70); //amp 	
+		this.g.flip();
+	},
+	pwmE: function(){
+		//this.pwm1=euc.dash.live.pwm;
+		if (this.pwm<65) {
+			this.g.setColor(1,3);
+			this.g.fillRect(5,51,5+this.pwm*2.4,70); //amp 	
+			this.g.flip();	
+		}else if (65 <= this.pwm) {
+			this.g.setColor(1,3);
+			this.g.fillRect(5,51,150,70); //amp 	
+			this.g.flip();	
+			this.g.setColor(1,13);
+			this.g.fillRect(155,51,5+this.pwm*2.4,70); //amp 	
+			this.g.flip();	
+		}
+		this.g.setColor(1,1);
+		this.g.fillRect(5+this.pwm*2.4,51,239,70); //amp 	
 		this.g.flip();	
 	},
 	tmpf: function(){
@@ -135,14 +156,14 @@ face[0] = {
 		this.g.flip();
 	},
 	spdf: function(){
-		/*if ( Math.round(euc.dash.live.spd)-this.spd
-		if (Math.round(euc.dash.live.spd)<this.spd){
-			this.spd=this.spd-( this.spd-Math.round(euc.dash.live.spd)<this.spd)      (--; 
+		if ( Math.abs(euc.dash.live.spd-this.spd) <5 ) this.spd =Math.round(euc.dash.live.spd);
+		else if (euc.dash.live.spd<this.spd){
+			this.spd=Math.round(this.spd-(this.spd-euc.dash.live.spd)/2); 
 			
 		}else {
-			this.spd++;
-		}*/
-		this.spd=Math.round(euc.dash.live.spd);
+			this.spd=Math.round(this.spd+(euc.dash.live.spd-this.spd)/2); 
+		}
+		//this.spd=Math.round(euc.dash.live.spd);
 		this.g.setColor(0,(euc.dash.alrt.spd.cc==1)?0:this.spdC[euc.dash.alrt.spd.cc]);
 		this.g.fillRect(0,80,239,195);
 		this.g.setColor(1,(euc.dash.alrt.spd.cc==1)?13:15);

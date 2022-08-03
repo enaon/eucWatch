@@ -341,7 +341,7 @@ euc.conn=function(mac){
 			} else if (n==="start") {
 				if (euc.is.run) c.startNotifications();
 				else euc.temp.init(c);
-				euc.state="READY";
+				setTimeout(()=>{euc.state="READY";},500);
 			}else{
 				let cob=euc.cmd(n,v);
 				if (!cob[0]) return;
