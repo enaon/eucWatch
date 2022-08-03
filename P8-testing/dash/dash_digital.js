@@ -103,7 +103,10 @@ face[0] = {
 		},150,this);
 	},
 	spdF: function(){
-		this.spd=Math.round(euc.dash.live.spd);
+		if ( Math.abs(euc.dash.live.spd-this.spd) <5 ) this.spd =Math.round(euc.dash.live.spd);
+		else if (euc.dash.live.spd<this.spd) this.spd=Math.round(this.spd-(this.spd-euc.dash.live.spd)/2); 
+		else this.spd=Math.round(this.spd+(euc.dash.live.spd-this.spd)/2); 
+		//this.spd=Math.round(euc.dash.live.spd);
 		this.g.setColor(0,(euc.dash.alrt.spd.cc==1)?0:this.spdC[euc.dash.alrt.spd.cc]);
 		this.g.fillRect(43,54,197,170);
 		this.g.setColor(1,(euc.dash.alrt.spd.cc==1)?13:15);

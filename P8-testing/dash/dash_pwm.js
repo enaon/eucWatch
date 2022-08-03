@@ -157,12 +157,8 @@ face[0] = {
 	},
 	spdf: function(){
 		if ( Math.abs(euc.dash.live.spd-this.spd) <5 ) this.spd =Math.round(euc.dash.live.spd);
-		else if (euc.dash.live.spd<this.spd){
-			this.spd=Math.round(this.spd-(this.spd-euc.dash.live.spd)/2); 
-			
-		}else {
-			this.spd=Math.round(this.spd+(euc.dash.live.spd-this.spd)/2); 
-		}
+		else if (euc.dash.live.spd<this.spd) this.spd=Math.round(this.spd-(this.spd-euc.dash.live.spd)/2); 
+		else this.spd=Math.round(this.spd+(euc.dash.live.spd-this.spd)/2); 
 		//this.spd=Math.round(euc.dash.live.spd);
 		this.g.setColor(0,(euc.dash.alrt.spd.cc==1)?0:this.spdC[euc.dash.alrt.spd.cc]);
 		this.g.fillRect(0,80,239,195);
