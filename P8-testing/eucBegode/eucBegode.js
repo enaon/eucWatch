@@ -125,7 +125,7 @@ euc.temp.extd= function(event) {
 		//spd
 		let spdIndex = keys.indexOf('M/s');
 		if (spdIndex != -1)
-			euc.dash.live.spd = Math.abs((values[spdIndex] * 3.6)/100); 
+			euc.dash.live.spd = Math.abs((values[spdIndex] * 3.6)/1000); 
 		//volt	
 		let voltIndex = keys.indexOf('Voltage');
 		if (voltIndex != -1){

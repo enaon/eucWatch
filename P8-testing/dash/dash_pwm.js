@@ -27,7 +27,6 @@ face[0] = {
 		this.spdF=euc.dash.opt.unit.fact.spd*((set.def.dash.mph)?0.625:1);
 		this.trpF=euc.dash.opt.unit.fact.dist*((set.def.dash.mph)?0.625:1);
 		this.run=true;
-		print(euc.state)
 	},
 	show : function(o){
 		if (!this.run) return;
