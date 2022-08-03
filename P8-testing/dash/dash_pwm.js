@@ -32,7 +32,7 @@ face[0] = {
 	show : function(o){
 		if (!this.run) return;
 		if (euc.state=="READY") {
-			if (this.pwm!=euc.dash.live.pwm) this.pwmf();
+			if (this.pwm!=euc.dash.live.pwm|0) this.pwmf();
 			if (this.spd!=Math.round(euc.dash.live.spd)) this.spdf();
 			if (this.tmp!=euc.dash.live.tmp.toFixed(1))	this.tmpf();
 			if (set.def.dash.batS){	if (this.bat!=euc.dash.live.bat)	this.batf();}
@@ -62,12 +62,12 @@ face[0] = {
 		},50,this);
 	},
 	pwmf: function(){
-		this.pwm=euc.dash.live.pwm;
+		this.pwm=euc.dash.live.pwm|0;
 		this.g.setColor(0,75<this.pwm?7:1);
 		this.g.fillRect(155,0,239,35); //amp 
 		this.g.setColor(1,15);
 		this.g.setFontVector(43);
-		this.g.drawString(this.pwm,(200-(this.g.stringWidth(this.pwm)/2)),-2); 
+	this.g.drawString(this.pwm,(200-(this.g.stringWidth(this.pwm)/2)),-2); 
 		this.g.flip();
 	},
 	pwmE: function(){
@@ -136,8 +136,8 @@ face[0] = {
 		this.g.flip();
 	},
 	spdf: function(){
-		if (Math.round(euc.dash.live.spd)<this.spd) this.spd--; else this.spd++;
-		//this.spd=Math.round(euc.dash.live.spd);
+		//if (Math.round(euc.dash.live.spd)<this.spd) this.spd--; else this.spd++;
+		this.spd=Math.round(euc.dash.live.spd);
 		this.g.setColor(0,(euc.dash.alrt.spd.cc==1)?0:this.spdC[euc.dash.alrt.spd.cc]);
 		this.g.fillRect(0,80,239,195);
 		this.g.setColor(1,(euc.dash.alrt.spd.cc==1)?13:15);

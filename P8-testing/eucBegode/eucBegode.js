@@ -121,7 +121,7 @@ euc.temp.extd= function(event) {
 		//tmp
 		let tempIndex = keys.indexOf('Tem');
 		if (tempIndex != -1)
-		  euc.dash.live.tmp  = (values[tempIndex] / 333.87 + 21.0); // MPU6500 format
+		  euc.dash.live.tmp  = values[tempIndex] / 333.87 + 21.0; // MPU6500 format
 		//spd
 		let spdIndex = keys.indexOf('M/s');
 		if (spdIndex != -1)
