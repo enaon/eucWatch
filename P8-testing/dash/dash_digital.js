@@ -9,7 +9,7 @@ face[0] = {
 			this.g.setColor(0,0);
 			this.g.fillRect(0,51,239,239);
 			this.g.flip();	
-		}else this.g.clear();
+		}else 	this.g.clear();
 		this.spdC=[0,0,7,7];
 		this.ampC=[1,2992,7,7];
 		this.tmpC=[1,2992,7,7];
@@ -22,10 +22,6 @@ face[0] = {
 		this.pwm=-1;
 		this.bat=-1;
 		this.almT=-1
-//		this.batL=new Uint8Array(20);
-//		this.ampL = new Uint8Array(20);
-//		this.al=new Uint8Array(20);
-//		this.ampL.fill(1,0,1);
 		this.volt=-1;
 		this.buzz=-1;
 		this.alrm=-1;
@@ -41,12 +37,9 @@ face[0] = {
 		if (!this.run) return;
 		if (euc.state=="READY") {
 			this.g.setColor(0,0);
-			//this.g.fillRect(0,0,0,0);
 			this.g.flip();
 			if (this.spd != Math.round(euc.dash.live.spd)) this.spdF();
 			// alarm events time graph
-			//if (5<=this.spd&&(euc.dash.info.get.makr=="Kingsong"||euc.dash.info.get.makr=="Begode")){
-			//if (5<=this.spd&&(euc.dash.info.get.makr=="Kingsong")){
 			if (euc.log.almL.includes(1)) {
 				this.alF();
 				this.bar=0;
@@ -78,7 +71,6 @@ face[0] = {
 				if (euc.dash.live.bat!=this.bat) this.batF();
 			}else this.baLF();//if (this.batL!=euc.log.batL) this.baLF();			
 			//Mileage
-			//if (this.almT!=euc.dash.alrt.warn.txt) this.almTF();
 			if (euc.dash.alrt.warn.txt) this.almTF();
 			else if (this.trpL!=euc.dash.info.trip.last.toFixed(2)) this.mileage();    
 		//off
@@ -115,12 +107,9 @@ face[0] = {
 		this.g.setColor(0,(euc.dash.alrt.spd.cc==1)?0:this.spdC[euc.dash.alrt.spd.cc]);
 		this.g.fillRect(43,54,197,170);
 		this.g.setColor(1,(euc.dash.alrt.spd.cc==1)?13:15);
-		if (100 <= this.spd) {
-			if (150 < this.spd)  this.spd=150;
-			this.g.setFontVector(80);
-		}else 
-			this.g.setFontVector(130);
-		this.g.drawString(Math.round(this.spd*this.fact),129-(this.g.stringWidth(Math.round(this.spd*this.fact))/2),57); 
+		if (100 <= this.spd) this.g.setFontVector(80);
+		else this.g.setFontVector(130);
+		this.g.drawString(Math.round(this.spd*this.fact),129-(this.g.stringWidth(Math.round(this.spd*this.fact))/2),(100 <= this.spd)?75:57); 
 		this.g.flip();
 		if (this.spd==0) { 
 			this.bar=1;
@@ -262,9 +251,8 @@ face[0] = {
 		this.g.setColor(0,15);
 		//this.ampL.forEach(function(val,i){
 		for (let i in euc.log.ampL ){
-			w.gfx.fillRect(118-(i*6),(euc.log.ampL[i]<200)?50-(euc.log.ampL[i]*1.2):1,118-(i*6)-1,(euc.log.ampL[i]<200)?50:(255-euc.log.ampL[i])*2);
+			w.gfx.fillRect(118-(i*6),(0<=euc.log.ampL[i])?50-(euc.log.ampL[i]*1.2):1,118-(i*6)-1,(0<=euc.log.ampL[i])?50:-euc.log.ampL[i]*2);
 		}
-		//w.gfx.fillRect(118-(i*6),(val<200)?50-(val*1.2):1,118-(i*6)-1,(val<200)?50:(255-val)*2);
 		//});
 		this.g.flip();
 	},	

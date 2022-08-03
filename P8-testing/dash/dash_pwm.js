@@ -10,29 +10,33 @@ face[0] = {
 		this.ampC=[1,2992,7,7];
 		this.tmpC=[1,2992,7,7];
 		this.batC=[4,1,7,7];
-		this.spd=-1;
+		this.spd=euc.dash.live.spd-1;
 		this.amp=-1;
 		this.tmp=-1;
 		this.pwm=-1;
+		this.pwm1=-1;
 		this.bat=-1;
 		this.volt=-1;
 		this.conn=0;
 		this.spdF=euc.dash.opt.unit.fact.spd*((set.def.dash.mph)?0.625:1);
 		this.trpF=euc.dash.opt.unit.fact.dist*((set.def.dash.mph)?0.625:1);
+		this.g.setColor(0,1);
+		this.g.fillRect(0,0,239,75); //amp 
+		this.g.setColor(1,14);
+		this.g.setFont("Vector",16);
+		this.g.drawString("WHEEL PWM %",20,10);
+		this.g.flip();
 		this.run=true;
 	},
 	show : function(o){
 		if (!this.run) return;
 		if (euc.state=="READY") {
-			this.g.setColor(0,0);
-			//this.g.fillRect(0,0,0,0);
-			this.g.flip();
 			if (this.pwm!=euc.dash.live.pwm) this.pwmf();
 			if (this.spd!=Math.round(euc.dash.live.spd)) this.spdf();
 			if (this.tmp!=euc.dash.live.tmp.toFixed(1))	this.tmpf();
 			if (set.def.dash.batS){	if (this.bat!=euc.dash.live.bat)	this.batf();}
 			else  if (this.volt!=euc.dash.live.volt.toFixed(1)) this.vltf();
-    
+			if (this.pwm1!=euc.dash.live.pwm) this.pwmE();
 		} else if (euc.state=="OFF")  {
 			setTimeout(function(){
 				face.go("dashOff",0);
@@ -48,22 +52,41 @@ face[0] = {
 				this.g.setFont("Vector",50);
 				this.g.drawString(euc.state,(125-this.g.stringWidth(euc.state)/2),95);
 				this.g.flip();
-				this.spd=-1;this.time=0;this.amp=-1;this.tmp=-1;this.volt=-1;this.bat=-1;this.trpL=-1;this.conn=0;this.lock=2;this.run=true;}
+				this.spd=euc.dash.live.spd-1;this.pwm=-1;this.pwm1=-1;this.time=0;this.amp=-1;this.tmp=-1;this.volt=-1;this.bat=-1;this.trpL=-1;this.conn=0;this.lock=2;this.run=true;}
 		}
 		//refresh 
 		this.tid=setTimeout(function(t){
 			t.tid=-1;
 			t.show();
-		},100,this);
+		},50,this);
 	},
 	pwmf: function(){
 		this.pwm=euc.dash.live.pwm;
-		this.g.setColor(0,1);
-		this.g.fillRect(0,0,239,50); //amp 
+		this.g.setColor(0,75<this.pwm?7:1);
+		this.g.fillRect(155,0,239,35); //amp 
 		this.g.setColor(1,15);
-		this.g.setFontVector(40);
-		this.g.drawString(this.pwm,(125-(this.g.stringWidth(this.pwm)/2)),10); 
+		this.g.setFontVector(43);
+		this.g.drawString(this.pwm,(200-(this.g.stringWidth(this.pwm)/2)),-2); 
 		this.g.flip();
+	},
+	pwmE: function(){
+		this.pwm1=euc.dash.live.pwm;
+		if (this.pwm<65) {
+			this.g.setColor(1,3);
+			this.g.fillRect(5,51,5+this.pwm1*2.4,70); //amp 	
+			this.g.flip();	
+		}else if (65 <= this.pwm) {
+			this.g.setColor(1,3);
+			this.g.fillRect(5,51,150,70); //amp 	
+			this.g.flip();	
+			this.g.setColor(1,13);
+			this.g.fillRect(155,51,5+this.pwm1*2.4,70); //amp 	
+			this.g.flip();	
+		}
+		this.g.flip();
+		this.g.setColor(1,1);
+		this.g.fillRect(5+this.pwm1*2.4,51,239,70); //amp 	
+		this.g.flip();	
 	},
 	tmpf: function(){
 		this.tmp=euc.dash.live.tmp.toFixed(1);
@@ -113,16 +136,13 @@ face[0] = {
 		this.g.flip();
 	},
 	spdf: function(){
-		this.spd=Math.round(euc.dash.live.spd);
+		if (Math.round(euc.dash.live.spd)<this.spd) this.spd--; else this.spd++;
+		//this.spd=Math.round(euc.dash.live.spd);
 		this.g.setColor(0,(euc.dash.alrt.spd.cc==1)?0:this.spdC[euc.dash.alrt.spd.cc]);
-		this.g.fillRect(0,55,239,195);
+		this.g.fillRect(0,80,239,195);
 		this.g.setColor(1,(euc.dash.alrt.spd.cc==1)?13:15);
-		if (100 <= this.spd) {
-			if (120 < this.spd)  this.spd=120;
-			this.g.setFontVector(90);
-		}else 
-			this.g.setFontVector(135);	  
-		this.g.drawString(Math.round(this.spd*this.spdF),130-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2),60); 
+		this.g.setFontVector(110);	  
+		this.g.drawString(Math.round(this.spd*this.spdF),130-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2),90); 
 		this.g.flip();
 	},
 	ampf: function(){

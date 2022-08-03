@@ -139,12 +139,9 @@ face[0] = {
 		this.g.setColor(0,(euc.dash.alrt.spd.cc==1)?0:this.spdC[euc.dash.alrt.spd.cc]);
 		this.g.fillRect(0,55,239,210);
 		this.g.setColor(1,(euc.dash.alrt.spd.cc==1)?13:15);
-		if (100 <= this.spd) {
-			if (120 < this.spd)  this.spd=120;
-			this.g.setFontVector(130);
-		}else 
-			this.g.setFontVector(185);	  
-		this.g.drawString(Math.round(this.spd*this.spdF),132-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2),55); 
+		if (100 <= this.spd) this.g.setFontVector(130);
+		else this.g.setFontVector(185);	  
+		this.g.drawString(Math.round(this.spd*this.spdF),132-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2),(100 <= this.spd)?75:55); 
 		this.g.flip();
 	},
 	ampf: function(){

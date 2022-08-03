@@ -4,11 +4,11 @@
 //commands
 euc.cmd=function(cmd, param) {
   if (cmd=='extendedPacket') {
-	euc.temp.ext=1;
-	euc.temp.read.replaceWith(euc.temp.extd);
-  }else if (euc.temp.ext)
+	  euc.temp.ext=1;
+	  euc.temp.read.replaceWith(euc.temp.extd);
+  }else if (euc.temp.ext){
   	euc.temp.ext=0;
-	euc.temp.read.replaceWith(euc.temp.main);
+	  euc.temp.read.replaceWith(euc.temp.main);
   }
   switch(cmd) {
     case 'mainPacket':      return [44];
@@ -75,11 +75,34 @@ euc.temp.faultAlarms =function(code) {
 		case 7: return 'transport mode';
 	}
 };
+euc.temp.hapt=function(){
+	//haptic
+	if (euc.dash.alrt.pwm.hapt.en && (euc.dash.alrt.warn.code || euc.dash.alrt.pwm.hapt.hi<=euc.dash.live.pwm)){
+		digitalPulse(ew.pin.BUZZ,1,80);
+	}else 	if (!euc.is.buzz && euc.is.alert) {  
+		if (!w.gfx.isOn&&(euc.dash.alrt.spd.cc||euc.dash.alrt.amp.cc||euc.dash.alrt.warn.code)) face.go(set.dash[set.def.dash.face],0);
+		//else face.off(6000);
+		euc.is.buzz=1;
+		if (20 <= euc.is.alert) euc.is.alert = 20;
+		var a=[];
+		while (5 <= euc.is.alert) {
+			a.push(200,500);
+			euc.is.alert = euc.is.alert - 5;
+		}
+		let i;
+		for (i = 0; i < euc.is.alert ; i++) {
+			a.push(200,150);
+		}
+		digitalPulse(ew.pin.BUZZ,0,a);  
+		setTimeout(() => { euc.is.buzz = 0; }, 3000);
+	}	
+	
+};
 euc.temp.line="";
 euc.temp.extd= function(event) {	
 	if (set.bt==5) 	euc.proxy.w(event.target.value.buffer);
 	if (euc.dbg)  console.log("input",event.target.value.buffer);
-	let fragment = E.toString(event.target.value);
+	let fragment = E.toString(event.target.value.buffer);
 	let lineEnd = fragment.indexOf('\n');
 	if (lineEnd == -1){
 		euc.temp.line += fragment;
@@ -141,32 +164,15 @@ euc.temp.main=function(event){
 		} 
 	}
 };
-euc.temp.type=function(p){
-	if (p.byteLength == 24 && p.getInt16(0) == 0x55AA ){
+
+euc.temp.type=function(data){
+	if (data.byteLength == 24 && data.getInt16(0) == 0x55AA ){
 		euc.is.alert=0;
-		if (p.buffer[18]==0)	euc.temp.pck0(p);
-		else if (p.buffer[18]==4) euc.temp.pck4(p);
-		else if (p.buffer[18]==1)	euc.temp.pck1(p);	//master		
+		if (data.buffer[18]==0)	euc.temp.pck0(data);
+		else if (data.buffer[18]==4) euc.temp.pck4(data);
+		else if (data.buffer[18]==1)	euc.temp.pck1(data);	//master		
 		//haptic
-		if (euc.dash.alrt.pwm.hapt.en && (euc.dash.alrt.warn.code || euc.dash.alrt.pwm.hapt.hi<=euc.dash.live.pwm)){
-			digitalPulse(ew.pin.BUZZ,1,80);
-		}else 	if (!euc.is.buzz && euc.is.alert) {  
-			if (!w.gfx.isOn&&(euc.dash.alrt.spd.cc||euc.dash.alrt.amp.cc||euc.dash.alrt.warn.code)) face.go(set.dash[set.def.dash.face],0);
-			//else face.off(6000);
-			euc.is.buzz=1;
-			if (20 <= euc.is.alert) euc.is.alert = 20;
-			var a=[];
-			while (5 <= euc.is.alert) {
-				a.push(200,500);
-				euc.is.alert = euc.is.alert - 5;
-			}
-			let i;
-			for (i = 0; i < euc.is.alert ; i++) {
-				a.push(200,150);
-			}
-			digitalPulse(ew.pin.BUZZ,0,a);  
-			setTimeout(() => { euc.is.buzz = 0; }, 3000);
-		}
+		euc.temp.hapt();
 	}	
 };
 euc.temp.pck0=function(data) {
