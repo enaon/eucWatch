@@ -5,7 +5,7 @@
 euc.cmd=function(cmd, param) {
   if (cmd=='extendedPacket') {
 	  euc.temp.ext=1;
-	  euc.temp.read.replaceWith(euc.temp.extd);
+	setTimeout(()=>{euc.temp.read.replaceWith(euc.temp.extd);},500);
   }else if (euc.temp.ext){
   	euc.temp.ext=0;
 	  euc.temp.read.replaceWith(euc.temp.main);
