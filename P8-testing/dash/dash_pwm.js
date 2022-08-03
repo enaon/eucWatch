@@ -4,7 +4,6 @@ face[0] = {
 	g:w.gfx,
 	spd:[],
 	init: function(){
-		if (euc.dash.info.get.makr=="Begode"&&!euc.temp.ext) euc.wri("extendedPacket");
 		this.g.clear();
 		this.g.setColor(0,1);
 		this.g.fillRect(0,0,239,75); //
@@ -37,6 +36,7 @@ face[0] = {
 			if (set.def.dash.batS){	if (this.bat!=euc.dash.live.bat)	this.batf();}
 			else  if (this.volt!=euc.dash.live.volt.toFixed(1)) this.vltf();
 			if (this.pwm1!=euc.dash.live.pwm) this.pwmE();
+			if (euc.dash.info.get.makr=="Begode"&&!euc.temp.ext) euc.wri("extendedPacket");
 		} else if (euc.state=="OFF")  {
 			setTimeout(function(){
 				face.go("dashOff",0);
@@ -135,7 +135,13 @@ face[0] = {
 		this.g.flip();
 	},
 	spdf: function(){
-		//if (Math.round(euc.dash.live.spd)<this.spd) this.spd--; else this.spd++;
+		/*if ( Math.round(euc.dash.live.spd)-this.spd
+		if (Math.round(euc.dash.live.spd)<this.spd){
+			this.spd=this.spd-( this.spd-Math.round(euc.dash.live.spd)<this.spd)      (--; 
+			
+		}else {
+			this.spd++;
+		}*/
 		this.spd=Math.round(euc.dash.live.spd);
 		this.g.setColor(0,(euc.dash.alrt.spd.cc==1)?0:this.spdC[euc.dash.alrt.spd.cc]);
 		this.g.fillRect(0,80,239,195);
