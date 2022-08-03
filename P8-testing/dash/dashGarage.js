@@ -46,10 +46,10 @@ face[0] = {
 					this.g.setColor(1,15);
 					
 					this.g.setFont("Vector",16);	
-					if (name.startsWith("GotWay_")) {
+					if (name.startsWith("GotWay")) {
 						if ( (name).includes("Proxy")) name="GW-Proxy";
 						else name="GW-"+name.substr(name.length -5,name.length);
-					}else if (name.startsWith("LK_")) {
+					}else if (name.startsWith("LK")) {
 						if ( (name).includes("Proxy")) name="LK-Proxy";
 						else name="LK-"+name.substr(name.length -45,name.length);
 					}else if (name.startsWith("KS")) {
