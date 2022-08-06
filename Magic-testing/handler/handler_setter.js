@@ -10,9 +10,35 @@ var set={
 	dash:[],
 	hidM:undefined, //not user settable.
 	clin:0,//not settable
+	read:function(file,name){
+		"ram";
+		let got=require("Storage").readJSON([file+".json"],1);
+		if (got==undefined) return false;
+		if (name) {
+			if (require("Storage").readJSON([file+".json"],1)[name])
+			return require("Storage").readJSON([file+".json"],1)[name];
+			else return false;
+		}else return require("Storage").readJSON([file+".json"],1);
+	},	
+	write:function(file,name,value,value2,value3){
+		"ram";
+		let got=require("Storage").readJSON([file+".json"],1);
+		if (got==undefined) got={};
+		if (!value)  delete got[name]; //delete
+		else {
+			if (value2 && got[name] ) 
+				if (value3 || value3==0) got[name][value][value2]=value3;
+				else got[name][value]=value2;
+			else 
+				got[name]=value;
+		}
+		require("Storage").writeJSON([file+".json"],got);
+		return true;
+	}
 };
 
 var setter={
+
 	accR:function(){if(!set.def.dash.accE) { if (set.def.acc)acc.on(); else acc.off();}},
 	updateSettings:function(){require('Storage').write('setting.json', set.def);},
 	resetSettings:function() {

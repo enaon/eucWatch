@@ -87,7 +87,7 @@ face[0].opt=()=>{
 face[0].act=()=>{
 	"ram";
 	if (face[0].page=="password?"){
-		if (dash.live.pass==face[0].pass){
+		if (euc.dash.opt.lock.pass==face[0].pass){
 			buzzer([20,100,90,40,80]);
 			face[0].page="pass options";
 			UI.btn.ntfy(1,1,0,"_bar",6,"CODE","ACCEPTED",15,4);w.gfx.flip();
@@ -105,13 +105,13 @@ face[0].act=()=>{
 		}else {
 			if (face[0].pass==face[0].passone) {
 				if (face[0].page=="change password"){
-					dash.live.passOld=dash.live.pass;
-					dash.live.pass=face[0].pass;
+					euc.dash.opt.lock.passOld=euc.dash.opt.lock.pass;
+					euc.dash.opt.lock.pass=face[0].pass;
 					euc.wri("setPassChange");					
 					UI.btn.ntfy(1,1,0,"_bar",6,"CODE","CHANGED",15,4);w.gfx.flip();
 				}else{
-					dash.live.passBck=dash.live.pass;
-					dash.live.pass=face[0].pass;
+					euc.dash.opt.lock.passBck=euc.dash.opt.lock.pass;
+					euc.dash.opt.lock.pass=face[0].pass;
 					euc.wri("setPass");						
 					UI.btn.ntfy(1,1,0,"_bar",6,"CODE","APPLIED",15,4);w.gfx.flip();
 				}
@@ -125,20 +125,20 @@ face[0].act=()=>{
 			}
 		}		
 	}else if (face[0].page=="enter password"){
-		dash.live.ks.passOld=dash.live.pass;
-		dash.live.pass=face[0].pass;		
+		euc.dash.opt.lock.passOld=euc.dash.opt.lock.pass;
+		euc.dash.opt.lock.pass=face[0].pass;		
 		euc.wri("setPassSend");
 		UI.btn.ntfy(1,3,0,"_bar",6,"PLEASE","WAIT",15,1);w.gfx.flip();
 		setTimeout(()=>{
-			if (euc.tmp.pass){
+			if (euc.temp.pass){
 				buzzer([20,100,200]);
-				dash.live.pass="";
+				euc.dash.opt.lock.pass="";
 				face[0].pass="";
 				UI.btn.ntfy(1,1.5,0,"_bar",6,"CODE","IS WRONG",15,13);w.gfx.flip();
 			}else {
 				UI.btn.ntfy(1,3,0,"_bar",6,"CODE","ACCEPTED",15,4);w.gfx.flip();
 				setTimeout(()=>{
-					dash.live.passSend=1;
+					euc.dash.opt.lock.passSend=1;
 					euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 					euc.wri("start");
 					face.go(set.dash[set.def.dash.face],0);
@@ -148,12 +148,12 @@ face[0].act=()=>{
 		},800);		
 	}
 };
-if (euc.tmp.pass){
+if (euc.temp.pass){
 	buzzer(buz.ok);		
 	face[0].page="enter password";
 	UI.ele.title(face[0].page.toUpperCase(),3,0);
 	face[0].keypad();
-}else if (dash.live.pass.length>=4){
+}else if (euc.dash.opt.lock.pass.length>=4){
 	face[0].page="password?";
 	face[0].keypad();
 }else {

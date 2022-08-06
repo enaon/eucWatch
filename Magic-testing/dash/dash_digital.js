@@ -7,7 +7,7 @@ face[0] = {
 	spd:[],
 	init: function(){
 		this.buff={spd:-1,spdL:-1,spdM:-1,amp:-10,tmp:-1,bat:-1,volt:-1,buzz:-1,alrm:-1,conn:"OFF",lock:2,trpL:-1,bar:0};
-		if ( euc.day[0] < Date().getHours() && Date().getHours() < euc.day[1] ) euc.night=0; else euc.night=1;
+		if ( euc.is.day[0] < Date().getHours() && Date().getHours() < euc.is.day[1] ) euc.is.night=0; else euc.is.night=1;
         if (this.old&&face.appPrev.startsWith("dash_")) {
 			this.g.setColor(0,0);this.g.flip();	
 		}else this.g.clear();
@@ -19,8 +19,8 @@ face[0] = {
 		this.ampL = new Uint8Array(20);
 		this.al=new Uint8Array(20);
 		//this.ampL.fill(1,0,1);
-		this.fact=dash.live.spdF*((set.def.dash.mph)?0.625:1);		
-		this.trpF=dash.live.trpF*((set.def.dash.mph)?0.625:1);
+		this.fact=euc.dash.opt.unit.fact.spd*((set.def.dash.mph)?0.625:1);		
+		this.trpF=euc.dash.opt.unit.fact.dist*((set.def.dash.mph)?0.625:1);
 		this.run=true;
 		this.pos={};
 		this.pos.topl=[0,20,119,70];
@@ -42,37 +42,37 @@ face[0] = {
 			//this.g.setColor(0,0);
 			//this.g.fillRect(0,0,0,0);
 			//if (this.old)this.g.flip();
-			if (this.buff.spd != Math.round(dash.live.spd)) this.spdF();
+			if (this.buff.spd != Math.round(euc.dash.live.spd)) this.spdF();
 			// alarm events time graph
 			if (5<=this.buff.spd && this.al!=almL) this.alF();
-			else if (5<=this.buff.spd && !euc.buzz && dash.live.maker=="Kingsong") this.pwrF();
+			else if (5<=this.buff.spd && !euc.buzz && euc.dash.info.get.makr=="Kingsong") this.pwrF();
 			else if (!this.buff.bar) { this.buff.bar=1; this.barF();}
 			//tmp/amp block
 			if (!set.def.dash.amp||set.def.dash.amp==2) {
-				if (this.buff.amp!=Math.round(dash.live.amp)) this.ampF();
+				if (this.buff.amp!=Math.round(euc.dash.live.amp)) this.ampF();
 			}else 
-				if (this.buff.tmp!=Math.round(dash.live.tmp))	this.tmpF();
+				if (this.buff.tmp!=Math.round(euc.dash.live.tmp))	this.tmpF();
 			//alarm block
 			if (this.buff.buzz!=euc.buzz) this.buzF(); 
 			//spdMspeed block
-			if (this.buff.spdM!=dash.live.spdM.toFixed(1)) this.spMF(); 
+			if (this.buff.spdM!=euc.dash.trip.topS.toFixed(1)) this.spMF(); 
 			//buzzer/health block
-			if (dash.live.maker=="Kingsong") {
-				if (this.buff.spdL!=dash.live.spdL) this.spLF();
-			}else if (this.buff.alrm!=dash.live.alrm) this.alrF();	
+			if (euc.dash.info.get.makr=="Kingsong") {
+				if (this.buff.spdL!=euc.dash.alrt.spd.max) this.spLF();
+			}else if (this.buff.alrm!=euc.dash.live.alrm) this.alrF();	
 			//tmp/amp field
 			if (set.def.dash.amp){
 				if (this.ampL!=ampL) this.amLF();				
-			}else if (this.buff.tmp!=dash.live.tmp.toFixed(1)) this.tmFF();
+			}else if (this.buff.tmp!=euc.dash.live.tmp.toFixed(1)) this.tmFF();
 			//batery field
 			//batery field
 			if (!set.def.dash.bat){
-				if (this.buff.volt!=dash.live.volt.toFixed(2)) this.vltF();
+				if (this.buff.volt!=euc.dash.live.volt.toFixed(2)) this.vltF();
 			}else if (set.def.dash.bat==1) {
-				if (dash.live.bat!=this.bat) this.batF();
+				if (euc.dash.live.bat!=this.bat) this.batF();
 			}else if (this.batL!=batL) this.baLF();			
 			//Mileage
-			if (this.buff.trpL!=dash.live.trpL.toFixed(2)) this.mileage();    
+			if (this.buff.trpL!=euc.dash.trip.last.toFixed(2)) this.mileage();    
 		//rest
 		} else  {
 			if (euc.state!=this.buff.conn) {
@@ -98,17 +98,17 @@ face[0] = {
 	},
 	spdF: function(){
 		"ram";
-		this.buff.spd=Math.round(dash.live.spd);
-		this.g.setColor(0,(dash.live.spdC==1)?0:this.spdC[dash.live.spdC]);
+		this.buff.spd=Math.round(euc.dash.live.spd);
+		this.g.setColor(0,(euc.dash.alrt.spd.cc==1)?0:this.spdC[euc.dash.alrt.spd.cc]);
 		
 		this.g.fillRect(this.pos.spd[0],this.pos.spd[1],this.pos.spd[2],this.pos.spd[3]);
-		this.g.setColor(1,(dash.live.spdC==1)?13:15);
+		this.g.setColor(1,(euc.dash.alrt.spd.cc==1)?13:15);
 		if (100 <= this.buff.spd) {
 			if (150 < this.buff.spd)  this.buff.spd=150;
 			this.g.setFontVector(80);
 		}else 
 			this.g.setFontVector(130);
-		//this.g.drawString((set.def.dashSpd)?dash.live.spd:Math.round(dash.live.spd/1.6),129-(this.g.stringWidth((set.def.dashSpd)?dash.live.spd:Math.round(dash.live.spd/1.6))/2),57); 
+		//this.g.drawString((set.def.dashSpd)?euc.dash.live.spd:Math.round(euc.dash.live.spd/1.6),129-(this.g.stringWidth((set.def.dashSpd)?euc.dash.live.spd:Math.round(euc.dash.live.spd/1.6))/2),57); 
 		this.g.drawString(Math.round(this.buff.spd*this.fact),129-(this.g.stringWidth(Math.round(this.buff.spd*this.fact))/2),this.pos.spd[1]); 
 		if (this.old)this.g.flip();
 		if (this.buff.spd==0) { 
@@ -132,8 +132,8 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},
 	ampF: function(){
-		this.buff.amp=Math.round(dash.live.amp);
-		this.g.setColor(0,this.ampC[dash.live.ampC]);
+		this.buff.amp=Math.round(euc.dash.live.amp);
+		this.g.setColor(0,this.ampC[euc.dash.alrt.amp.cc]);
 		this.g.fillRect(this.pos.btn1[0],this.pos.btn1[1],this.pos.btn1[2],this.pos.btn1[3]);
 		this.g.setColor(1,15);
 		this.g.setFontVector(12);
@@ -143,8 +143,8 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},
 	tmpF: function(){
-		this.buff.tmp=Math.round(dash.live.tmp);
-		this.g.setColor(0,this.tmpC[dash.live.tmpC]);
+		this.buff.tmp=Math.round(euc.dash.live.tmp);
+		this.g.setColor(0,this.tmpC[euc.dash.live.tmpC]);
 		this.g.fillRect(this.pos.btn1[0],this.pos.btn1[1],this.pos.btn1[2],this.pos.btn1[3]);
 		this.g.setColor(1,15);
 		this.g.setFontVector(11);
@@ -165,7 +165,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},
 	spMF: function(){
-		this.buff.spdM=dash.live.spdM.toFixed(1);
+		this.buff.spdM=euc.dash.trip.topS.toFixed(1);
 		this.g.setColor(0,1);
 		this.g.fillRect(this.pos.btn3[0],this.pos.btn3[1],this.pos.btn3[2],this.pos.btn3[3]);
 		this.g.setColor(1,15);
@@ -176,8 +176,8 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},	
 	spLF: function(){
-		this.buff.spdL=dash.live.spdL;
-		this.g.setColor(0,(dash.live.lim[3]<=this.buff.spdL)?1:7);	
+		this.buff.spdL=euc.dash.alrt.spd.max;
+		this.g.setColor(0,(euc.dash.alrt.spd.tilt.val<=this.buff.spdL)?1:7);	
 		this.g.fillRect(this.pos.btn4[0],this.pos.btn4[1],this.pos.btn4[2],this.pos.btn4[3]); 
 		this.g.setColor(1,15);
 		this.g.setFontVector(11);
@@ -187,7 +187,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},	
 	alrF: function(){
-		this.buff.alrm=dash.live.alrm;
+		this.buff.alrm=euc.dash.live.alrm;
 		this.g.setColor(0,1);
 		this.g.fillRect(this.pos.btn4[0],this.pos.btn4[1],this.pos.btn4[2],this.pos.btn4[3]); 
 		this.g.setColor(1,0);
@@ -196,8 +196,8 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},	
 	tmFF: function(){
-		this.buff.tmp=dash.live.tmp.toFixed(1);
-		this.g.setColor(0,this.tmpC[dash.live.tmpC]);
+		this.buff.tmp=euc.dash.live.tmp.toFixed(1);
+		this.g.setColor(0,this.tmpC[euc.dash.live.tmpC]);
 		this.g.fillRect(this.pos.topl[0],this.pos.topl[1],this.pos.topl[2],this.pos.topl[3]);       
 		this.g.setColor(1,15);
 		this.g.setFontVector(50);
@@ -212,7 +212,7 @@ face[0] = {
 	},	
 	amLF: function(){
 		this.ampL.set(ampL);
-		this.g.setColor(1,(1<dash.live.ampC)?7:1);
+		this.g.setColor(1,(1<euc.dash.alrt.amp.cc)?7:1);
 		this.g.fillRect(this.pos.topl[0],this.pos.topl[1],this.pos.topl[2],this.pos.topl[3]);       
 		this.g.setColor(0,15);
 		for (let i in this.ampL ){
@@ -224,16 +224,16 @@ face[0] = {
 		this.g.setColor(0,1);
 		//this.g.setColor(0,7);
 		this.g.fillRect(this.pos.pwm[0],this.pos.pwm[1],this.pos.pwm[2],this.pos.pwm[3]); 
-		//this.g.fillRect(dash.live.pwr*2.4,176,239,197); 
-		this.g.setColor(1,(50<=dash.live.pwr)?(80<=dash.live.pwr)?7:13:15);
+		//this.g.fillRect(euc.dash.live.pwr*2.4,176,239,197); 
+		this.g.setColor(1,(50<=euc.dash.live.pwr)?(80<=euc.dash.live.pwr)?7:13:15);
 		this.g.setFontVector(25);
-		this.g.drawString(((dash.live.pwr/dash.live.spd)*10).toFixed(1),3,this.pos.pwm[1]);
-		this.g.fillRect(80,182,80+dash.live.pwr*1.6,192); 
+		this.g.drawString(((euc.dash.live.pwr/euc.dash.live.spd)*10).toFixed(1),3,this.pos.pwm[1]);
+		this.g.fillRect(80,182,80+euc.dash.live.pwr*1.6,192); 
 		w.gfx.flip();
 	},
 	vltF: function(){
-		this.buff.volt=dash.live.volt.toFixed(2);
-		this.g.setColor(0,this.batC[dash.live.batC]);
+		this.buff.volt=euc.dash.live.volt.toFixed(2);
+		this.g.setColor(0,this.batC[euc.dash.alrt.bat.cc]);
 		this.g.fillRect(this.pos.topr[0],this.pos.topr[1],this.pos.topr[2],this.pos.topr[3]);       
 		this.g.setColor(1,15);
 		this.g.setFontVector((this.buff.volt<100)?40:35);
@@ -243,8 +243,8 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},	
 	batF: function(){
-		this.buff.bat=dash.live.bat;
-		this.g.setColor(0,this.batC[dash.live.batC]);
+		this.buff.bat=euc.dash.live.bat;
+		this.g.setColor(0,this.batC[euc.dash.alrt.bat.cc]);
 		this.g.fillRect(this.pos.topr[0],this.pos.topr[1],this.pos.topr[2],this.pos.topr[3]);       
 		this.g.setColor(1,15);
 		this.g.setFontVector(50);
@@ -255,7 +255,7 @@ face[0] = {
 	},
 	baLF: function(){
 		this.batL.set(batL);
-		this.g.setColor(0,this.batC[dash.live.batC]);
+		this.g.setColor(0,this.batC[euc.dash.alrt.bat.cc]);
 		this.g.fillRect(this.pos.topr[0],this.pos.topr[1],this.pos.topr[2],this.pos.topr[3]);       
 		this.g.setColor(1,15);
 		//graph
@@ -268,7 +268,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},	
 	mileage: function(){
-		this.buff.trpL=dash.live.trpL.toFixed(2);
+		this.buff.trpL=euc.dash.trip.last.toFixed(2);
 		this.g.setColor(0,0);
 		this.g.fillRect(this.pos.bar[0],this.pos.bar[1],this.pos.bar[2],this.pos.bar[3]);
 		//this.g.fillRect(0,203,239,279);
@@ -281,7 +281,7 @@ face[0] = {
 			this.time=(t[0]+":"+t[1]);
 			this.g.drawString(this.time, this.pos.bar[2]-(this.g.stringWidth(this.time)),this.pos.bar[1]); //temp
 		}else 	
-			this.g.drawString(Math.round(dash.live.trpT*this.trpF),240-(this.g.stringWidth(Math.round(dash.live.trpT*this.trpF))),this.pos.bar[1]); 
+			this.g.drawString(Math.round(euc.dash.trip.totl*this.trpF),240-(this.g.stringWidth(Math.round(euc.dash.trip.totl*this.trpF))),this.pos.bar[1]); 
 		if (this.old)this.g.flip();
 	},
 	barF: function(){

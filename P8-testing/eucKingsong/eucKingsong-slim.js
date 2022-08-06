@@ -77,16 +77,16 @@ euc.conn=function(mac){
 					euc.dash.alrt.tmp.cc=(euc.dash.alrt.tmp.hapt.hi - 5 <= euc.dash.live.tmp )? (euc.dash.alrt.tmp.hapt.hi <= euc.dash.live.tmp )?2:1:0;
 					if (euc.dash.alrt.tmp.hapt.en && euc.dash.alrt.tmp.cc==2) euc.is.alert++; 
 					//total mileage
-					euc.dash.info.trip.totl = ((inpk[6] << 16) + (inpk[7] << 24) + inpk[8] + (inpk[9] << 8)) / 1000;
-					euc.log.trip.forEach(function(val,pos){ if (!val) euc.log.trip[pos]=euc.dash.info.trip.totl;});
+					euc.dash.trip.totl = ((inpk[6] << 16) + (inpk[7] << 24) + inpk[8] + (inpk[9] << 8)) / 1000;
+					euc.log.trip.forEach(function(val,pos){ if (!val) euc.log.trip[pos]=euc.dash.trip.totl;});
 					//mode
 					euc.dash.opt.ride.mode = inpk[14];
 					//City lights 
 						break;
 				case 185://trip-time-max_speed
-					euc.dash.info.trip.last=((inpk[2] << 16) + (inpk[3] << 24) + inpk[4] + (inpk[5] << 8)) / 1000;
-					euc.dash.info.trip.time=Math.round((inpk[7] << 8 | inpk[6])/60);
-					euc.dash.info.trip.topS=Math.round((inpk[9] << 8 | inpk[8])/100) ;
+					euc.dash.trip.last=((inpk[2] << 16) + (inpk[3] << 24) + inpk[4] + (inpk[5] << 8)) / 1000;
+					euc.dash.trip.time=Math.round((inpk[7] << 8 | inpk[6])/60);
+					euc.dash.trip.topS=Math.round((inpk[9] << 8 | inpk[8])/100) ;
 					euc.dash.opt.snsr.fan=inpk[12];
 					break;
 				case 246:

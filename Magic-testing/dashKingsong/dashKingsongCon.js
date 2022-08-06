@@ -3,34 +3,34 @@ UI.ele.ind(1,2,12);
 face[0].bar();
 UIc.start(1,1);
 let val=["NA","ON","OFF","AUTO","CITY"];
-UI.btn.c2l("main","_2x2",1,"LIGHT",val[dash.live.ks.aHLC],15,dash.live.ks.aHLC?dash.live.ks.aHLC!=2?12:1:0);
-UI.btn.c2l("main","_2x2",2,"LED","RIDE",15,dash.live.ks.aRideC?dash.live.ks.aRideC==1?12:1:0);
-UI.btn.c2l("main","_2x2",3,"SENSOR","LIFT",15,dash.live.ks.aLiftC?dash.live.ks.aLiftC==1?12:1:0);
-UI.btn.c2l("main","_2x2",4,"VOICE","MODE",15,dash.live.ks.aVoiceC?dash.live.ks.aVoiceC==2?12:1:0);	
+UI.btn.c2l("main","_2x2",1,"LIGHT",val[euc.dash.auto.onC.HL],15,euc.dash.auto.onC.HL?euc.dash.auto.onC.HL!=2?12:1:0);
+UI.btn.c2l("main","_2x2",2,"LED","RIDE",15,euc.dash.auto.onC.led?euc.dash.auto.onC.led==1?12:1:0);
+UI.btn.c2l("main","_2x2",3,"SENSOR","LIFT",15,euc.dash.auto.onC.lift?euc.dash.auto.onC.lift==1?12:1:0);
+UI.btn.c2l("main","_2x2",4,"VOICE","MODE",15,euc.dash.auto.onC.talk?euc.dash.auto.onC.talk==2?12:1:0);	
 UIc.end();
 //
 UIc.main._2x2=(i)=>{
 	if (i==1){
 		buzzer(buz.ok);
-		dash.live.ks.aHLC++;  if (3<dash.live.ks.aHLC) dash.live.ks.aHLC=0;
+		euc.dash.auto.onC.HL++;  if (3<euc.dash.auto.onC.HL) euc.dash.auto.onC.HL=0;
 		let val=["NA","ON","OFF","AUTO"];
-		UI.btn.ntfy(1,2,0,"_bar",7,dash.live.ks.aHLC?"SET LIGHT "+val[dash.live.ks.aHLC]:"NO ACTION","",15,0);
-		UI.btn.c2l("main","_2x2",1,"LIGHT",val[dash.live.ks.aHLC],15,dash.live.ks.aHLC?dash.live.ks.aHLC!=2?12:1:0);
+		UI.btn.ntfy(1,2,0,"_bar",7,euc.dash.auto.onC.HL?"SET LIGHT "+val[euc.dash.auto.onC.HL]:"NO ACTION","",15,0);
+		UI.btn.c2l("main","_2x2",1,"LIGHT",val[euc.dash.auto.onC.HL],15,euc.dash.auto.onC.HL?euc.dash.auto.onC.HL!=2?12:1:0);
 	}else if (i==2){
 		buzzer(buz.ok);
-		dash.live.ks.aRideC++; if (2<dash.live.ks.aRideC) dash.live.ks.aRideC=0;
-		UI.btn.ntfy(1,2,0,"_bar",7,dash.live.ks.aRideC?dash.live.ks.aRideC==1?"ENABLE":"DISABLE":"NO ACTION","",15,0);
-		UI.btn.c2l("main","_2x2",2,"LED","RIDE",15,dash.live.ks.aRideC?dash.live.ks.aRideC==1?12:1:0);
+		euc.dash.auto.onC.led++; if (2<euc.dash.auto.onC.led) euc.dash.auto.onC.led=0;
+		UI.btn.ntfy(1,2,0,"_bar",7,euc.dash.auto.onC.led?euc.dash.auto.onC.led==1?"ENABLE":"DISABLE":"NO ACTION","",15,0);
+		UI.btn.c2l("main","_2x2",2,"LED","RIDE",15,euc.dash.auto.onC.led?euc.dash.auto.onC.led==1?12:1:0);
 	}else if (i==3){
 		buzzer(buz.ok);		
-		dash.live.ks.aLiftC++; if (2<dash.live.ks.aLiftC) dash.live.ks.aLiftC=0;
-		UI.btn.ntfy(1,2,0,"_bar",7,dash.live.ks.aLiftC?dash.live.ks.aLiftC==1?"ENABLE":"DISABLE":"NO ACTION","",15,0);
-		UI.btn.c2l("main","_2x2",3,"SENSOR","LIFT",15,dash.live.ks.aLiftC?dash.live.ks.aLiftC==1?12:1:0);
+		euc.dash.auto.onC.lift++; if (2<euc.dash.auto.onC.lift) euc.dash.auto.onC.lift=0;
+		UI.btn.ntfy(1,2,0,"_bar",7,euc.dash.auto.onC.lift?euc.dash.auto.onC.lift==1?"ENABLE":"DISABLE":"NO ACTION","",15,0);
+		UI.btn.c2l("main","_2x2",3,"SENSOR","LIFT",15,euc.dash.auto.onC.lift?euc.dash.auto.onC.lift==1?12:1:0);
 	}else if (i==4){
 		buzzer(buz.ok);	
-		dash.live.ks.aVoiceC++;  if (2<dash.live.ks.aVoiceC) dash.live.ks.aVoiceC=0;
-		UI.btn.ntfy(1,2,0,"_bar",7,dash.live.ks.aVoiceC?dash.live.ks.aVoiceC==1?"ENABLE":"DISABLE":"NO ACTION","",15,0);
-		UI.btn.c2l("main","_2x2",4,"VOICE","MODE",15,dash.live.ks.aVoiceC?dash.live.ks.aVoiceC==2?12:1:0);	
+		euc.dash.auto.onC.talk++;  if (2<euc.dash.auto.onC.talk) euc.dash.auto.onC.talk=0;
+		UI.btn.ntfy(1,2,0,"_bar",7,euc.dash.auto.onC.talk?euc.dash.auto.onC.talk==1?"ENABLE":"DISABLE":"NO ACTION","",15,0);
+		UI.btn.c2l("main","_2x2",4,"VOICE","MODE",15,euc.dash.auto.onC.talk?euc.dash.auto.onC.talk==2?12:1:0);	
   }
 };
 

@@ -72,14 +72,14 @@ euc.conn=function(mac){
 				if ( euc.dash.alrt.bat.hapt.en && euc.dash.alrt.bat.cc ==2 )  euc.is.alert ++;   
 				//spd
 				euc.dash.live.spd=(ev[6] << 8 | ev[7]) / 10;
-				if (euc.dash.info.trip.topS < euc.dash.live.spd) euc.dash.info.trip.topS = euc.dash.live.spd;
+				if (euc.dash.trip.topS < euc.dash.live.spd) euc.dash.trip.topS = euc.dash.live.spd;
 				euc.dash.alrt.spd.cc = ( euc.dash.alrt.spd.hapt.hi <= euc.dash.live.spd )? 2 : ( euc.dash.alrt.spd.hapt.low <= euc.dash.live.spd )? 1 : 0 ;	
 				if ( euc.dash.alrt.spd.hapt.en && euc.dash.alrt.spd.cc == 2 ) 
 					euc.is.alert = 1 + Math.round((euc.dash.live.spd-euc.dash.alrt.spd.hapt.hi) / euc.dash.alrt.spd.hapt.step) ; 	
 				//trip
-				euc.dash.info.trip.last=(ev[10] << 24 | ev[11] << 16 | ev[8] << 8  | ev[9])/1000;
-				euc.dash.info.trip.totl=(ev[14] << 24 | ev[15] << 16 | ev[12] << 8  | ev[13])/1000;
-				euc.log.trip.forEach(function(val,pos){ if (!val) euc.log.trip[pos]=euc.dash.info.trip.totl;});
+				euc.dash.trip.last=(ev[10] << 24 | ev[11] << 16 | ev[8] << 8  | ev[9])/1000;
+				euc.dash.trip.totl=(ev[14] << 24 | ev[15] << 16 | ev[12] << 8  | ev[13])/1000;
+				euc.log.trip.forEach(function(val,pos){ if (!val) euc.log.trip[pos]=euc.dash.trip.totl;});
 				//amp
 				euc.dash.live.amp=(32766<(ev[16]<<8|ev[17]))?((ev[16]<<8|ev[17])-65535)/100:(ev[16]<<8|ev[17])/100 ;
 				if (euc.dash.opt.unit.ampR) euc.dash.live.amp=-euc.dash.live.amp;				
@@ -95,7 +95,7 @@ euc.conn=function(mac){
 				euc.dash.alrt.tmp.cc=(euc.dash.alrt.tmp.hapt.hi - 5 <= euc.dash.live.tmp )? (euc.dash.alrt.tmp.hapt.hi <= euc.dash.live.tmp )?2:1:0;
 				if (euc.dash.alrt.tmp.hapt.en && euc.dash.alrt.tmp.cc==2) euc.is.alert++;
 			} else {
-				euc.dash.info.trip.avrS=((ev[4] << 8 | ev[5]) / 10)|0;
+				euc.dash.trip.avrS=((ev[4] << 8 | ev[5]) / 10)|0;
 				if (!euc.dash.info.get.modl) euc.dash.info.get.modl=(ev[8] << 8 | ev[9]);
 				euc.dash.opt.ride.mode=(ev[10] << 8 | ev[11]);
 				euc.dash.live.pwm=event.target.value.getInt16(12)/100;

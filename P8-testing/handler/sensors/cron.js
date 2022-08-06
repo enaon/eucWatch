@@ -18,7 +18,7 @@ cron={
     euc:{
 		Hour:x=>{
 			let v=set.read("logDaySlot"+set.def.dash.slot,x-1);
-			set.write("logDaySlot"+set.def.dash.slot,x-1,((euc.log.tripS)?euc.dash.info.trip.totl-euc.log.tripS:0)+((v)?v:0));
+			set.write("logDaySlot"+set.def.dash.slot,x-1,((euc.log.tripS)?euc.dash.trip.totl-euc.log.tripS:0)+((v)?v:0));
 			set.write("logDaySlot"+set.def.dash.slot,x,0); 
 		}
     }

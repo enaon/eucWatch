@@ -24,11 +24,11 @@ face[0] = {
         this.g.setColor(1,15);
       	this.g.fillRect(75,200,120,204);
 		this.g.flip(); 
-		this.btn("LIGHTS",18,60,15,(dash.live.aLight==="lightsOff")?0:(dash.live.aLight==="lightsOn")?4:7,0,0,119,97,(dash.live.aLight==="lightsOff")?"OFF":(dash.live.aLight==="lightsOn")?"ON":"STROBE",28,60,50); //1
-		this.btn("WATCH",22,185,17,(dash.live.hapS||dash.live.hapA||dash.live.hapT||dash.live.hapB)?4:1,122,0,239,97,"ALERTS",22,185,55);//2
+		this.btn("LIGHTS",18,60,15,(euc.dash.live.aLight==="lightsOff")?0:(euc.dash.live.aLight==="lightsOn")?4:7,0,0,119,97,(euc.dash.live.aLight==="lightsOff")?"OFF":(euc.dash.live.aLight==="lightsOn")?"ON":"STROBE",28,60,50); //1
+		this.btn("WATCH",22,185,17,(euc.dash.live.hapS||euc.dash.live.hapA||euc.dash.live.hapT||euc.dash.live.hapB)?4:1,122,0,239,97,"ALERTS",22,185,55);//2
 		let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
-		this.btn((dash.live.tpms)?dash.live.tpms:"TPMS",18,60,115,(dash.live.tpms&&tpms.euc[dash.live.tpms]&&tpms.euc[dash.live.tpms].time&&(getTime()|0)-tpms.euc[dash.live.tpms].time<1800)?(tpms.euc[dash.live.tpms].alrm)?7:4:1,0,100,119,195,(dash.live.tpms)?(tpms.euc[dash.live.tpms]&&tpms.euc[dash.live.tpms].psi)?Math.round(tpms.euc[dash.live.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(dash.live.tpms)?32:28,60,150); //3		
-   		this.btn("HORN",25,185,137,(dash.live.horn)?4:1,122,100,239,195); //4
+		this.btn((euc.dash.opt.tpms)?euc.dash.opt.tpms:"TPMS",18,60,115,(euc.dash.opt.tpms&&tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.opt.tpms].time<1800)?(tpms.euc[euc.dash.opt.tpms].alrm)?7:4:1,0,100,119,195,(euc.dash.opt.tpms)?(tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].psi)?Math.round(tpms.euc[euc.dash.opt.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.opt.tpms)?32:28,60,150); //3		
+   		this.btn("HORN",25,185,137,(euc.dash.opt.horn.en)?4:1,122,100,239,195); //4
 		this.run=true;
 	},
 	show : function(){
@@ -110,9 +110,9 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
 		if ( x<=120 && y<=100 ) { //lights
-			if (dash.live.aLight=="lightsOff") { dash.live.aLight="lightsOn"; euc.wri("lightsOn"); face[0].btn("LIGHTS",18,60,15,4,0,0,119,97,"ON",28,60,50); }
-			else if (dash.live.aLight=="lightsOn") { dash.live.aLight="lightsOff"; euc.wri("lightsOff"); face[0].btn("LIGHTS",18,60,15,0,0,0,119,97,"OFF",28,60,50); }
-			else  { dash.live.aLight="lightsOn"; euc.wri("lightsOn"); face[0].btn("LIGHTS",18,60,15,4,0,0,119,97,"ON",28,60,50); }
+			if (euc.dash.live.aLight=="lightsOff") { euc.dash.live.aLight="lightsOn"; euc.wri("lightsOn"); face[0].btn("LIGHTS",18,60,15,4,0,0,119,97,"ON",28,60,50); }
+			else if (euc.dash.live.aLight=="lightsOn") { euc.dash.live.aLight="lightsOff"; euc.wri("lightsOff"); face[0].btn("LIGHTS",18,60,15,0,0,0,119,97,"OFF",28,60,50); }
+			else  { euc.dash.live.aLight="lightsOn"; euc.wri("lightsOn"); face[0].btn("LIGHTS",18,60,15,4,0,0,119,97,"ON",28,60,50); }
             face[0].ntfy("HOLD -> STROBE",1);
 			buzzer(buz.ok);
 		}else if ( 120<=x && y<=100 ) { //haptic
@@ -121,16 +121,16 @@ touchHandler[0]=function(e,x,y){
 			return;	
 		}else if ( x<=120 && 100<=y ) { //tpms
 			buzzer(buz.ok);		
-			if (!dash.live.tpms) face[0].ntfy("HOLD-> ON/OFF",4);
+			if (!euc.dash.opt.tpms) face[0].ntfy("HOLD-> ON/OFF",4);
 			else {
-				tpms.def.pos=Object.keys(tpms.def.list).indexOf(dash.live.tpms);
+				tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.opt.tpms);
 				face.go("tpmsFace",0);
 				return;
 			}
 		}else if (120<=x && 100<=y ) { //horn
-			dash.live.horn=1-dash.live.horn;
-            face[0].btn("HORN",25,185,136,(dash.live.horn)?4:1,122,100,239,195);//2
-            face[0].ntfy((dash.live.horn)?"BUTTON IS HORN >2KPH":"HORN DISABLED",(dash.live.horn)?4:1,(dash.live.horn)?18:20);
+			euc.dash.opt.horn.en=1-euc.dash.opt.horn.en;
+            face[0].btn("HORN",25,185,136,(euc.dash.opt.horn.en)?4:1,122,100,239,195);//2
+            face[0].ntfy((euc.dash.opt.horn.en)?"BUTTON IS HORN >2KPH":"HORN DISABLED",(euc.dash.opt.horn.en)?4:1,(euc.dash.opt.horn.en)?18:20);
 			buzzer(buz.ok);						
 		}else buzzer(buz.na);
 		break;
@@ -154,13 +154,13 @@ touchHandler[0]=function(e,x,y){
 	case 12: //long press event
 		if ( x<=120 && y<100 ) { //lights
 			face[0].btn("LIGHTS",18,60,15,7,0,0,119,97,"STROBE",28,60,50);
-			dash.live.aLight="lightsStrobe";
+			euc.dash.live.aLight="lightsStrobe";
 			euc.wri("lightsStrobe");
 			buzzer(buz.ok);
 		}else if  (x<=120 && 100<=y ) { //tpms
 			buzzer(buz.ok);
-			if (dash.live.tpms) {
-				dash.live.tpms=0;
+			if (euc.dash.opt.tpms) {
+				euc.dash.opt.tpms=0;
 				face[0].btn("TPMS",18,60,115,1,0,100,119,195,"OFF",28,60,155); //3
 				face[0].ntfy("TPMS DISABLED",1);
 				return;

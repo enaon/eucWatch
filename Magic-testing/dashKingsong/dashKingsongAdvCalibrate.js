@@ -3,7 +3,7 @@ tcB=(x,y)=>{
 	buzzer(buz.ok);	
 	if (UI.ntid) {
 		clearTimeout(UI.ntid);UI.ntid=0;
-		euc.wri("setCalibrateTilt",dash.live.tiltSet);
+		euc.wri("setCalibrateTilt",euc.dash.live.tiltSet);
 		eval(require('Storage').read("dashKingsongAdv")); 
 	}else 
 		eval(require('Storage').read("dashKingsongAdv")); 
@@ -34,22 +34,22 @@ UIc.main._main=(i)=>{
 		};
 	}
 };
-UI.btn.c2l("main","_lcd",1,dash.live.tiltSet,"",15,0);
+UI.btn.c2l("main","_lcd",1,euc.dash.live.tiltSet,"",15,0);
 UI.btn.ntfy(1,40,0,"_bar",6,"ADJUST","TILT",15,6,1);
 /*
 UIc.bar._sel_left=()=>{ 
 	buzzer(buz.ok);
-	euc.wri("setCalibrateTilt",dash.live.tiltSet-1);
+	euc.wri("setCalibrateTilt",euc.dash.live.tiltSet-1);
 };
 UIc.bar._sel_right=()=>{ 
  	buzzer(buz.ok);
-	euc.wri("setCalibrateTilt",dash.live.tiltSet+1);
+	euc.wri("setCalibrateTilt",euc.dash.live.tiltSet+1);
 };
 */
 set.bar=1;
-TC.val={cur:dash.live.tiltSet,dn:-99,up:99,tmp:0};
+TC.val={cur:euc.dash.live.tiltSet,dn:-99,up:99,tmp:0};
 UIc.tcBar=(a,b)=>{ 
-	dash.live.tiltSet=b;
-	UI.btn.c1l("main","_lcd",1,dash.live.tiltSet,"",15,0);
+	euc.dash.live.tiltSet=b;
+	UI.btn.c1l("main","_lcd",1,euc.dash.live.tiltSet,"",15,0);
 };
 

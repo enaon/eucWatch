@@ -17,11 +17,11 @@ face[0].page="actions";
 UI.ele.ind(1,4,1);
 UIc.start(1,1);
 let val=["CITY","ON","OFF","AUTO"];
-UI.btn.c2l("main","_2x2",1,"LIGHTS",val[dash.live.ks.HL],15,dash.live.ks.city?12:dash.live.ks.HL!=2?4:0);
-UI.btn.c2l("main","_2x2",2,"STRB","",15,dash.live.strb?13:1);
+UI.btn.c2l("main","_2x2",1,"LIGHTS",val[euc.dash.opt.lght.HL],15,euc.dash.opt.lght.city?12:euc.dash.opt.lght.HL!=2?4:0);
+UI.btn.c2l("main","_2x2",2,"STRB","",15,euc.dash.live.strb?13:1);
 let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
-UI.btn.c2l("main","_2x2",3,dash.live.tpms?dash.live.tpms:"TPMS","",15,(dash.live.tpms&&tpms.euc[dash.live.tpms]&&tpms.euc[dash.live.tpms].time&&(getTime()|0)-tpms.euc[dash.live.tpms].time<1800)?(tpms.euc[dash.live.tpms].alrm)?13:4:6);
-UI.btn.c2l("main","_2x2",4,"LOCK","",15,dash.live.lock?13:1);	
+UI.btn.c2l("main","_2x2",3,euc.dash.opt.tpms?euc.dash.opt.tpms:"TPMS","",15,(euc.dash.opt.tpms&&tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.opt.tpms].time<1800)?(tpms.euc[euc.dash.opt.tpms].alrm)?13:4:6);
+UI.btn.c2l("main","_2x2",4,"LOCK","",15,euc.dash.opt.lock.en?13:1);	
 UIc.end();
 face[0].bar();
 
@@ -33,20 +33,20 @@ UIc.main._2x2=(i)=>{
 		//face[0].ntfy("HOLD -> LIGHTS OFF",1);
 	}else if (i==2){
 		buzzer(buz.ok);
-		euc.wri("setStrobeOnOff",1-dash.live.strb);
+		euc.wri("setStrobeOnOff",1-euc.dash.live.strb);
 	}else if (i==3){
 		buzzer(buz.ok);		
-		if (!dash.live.tpms) 
+		if (!euc.dash.opt.tpms) 
 			print(1);
 		else {
-			tpms.def.pos=Object.keys(tpms.def.list).indexOf(dash.live.tpms);
+			tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.opt.tpms);
 			face.go("tpmsFace",0);
 			return;
 		}
 	}else if (i==4){
 
 	buzzer(buz.ok);	
-	euc.wri((1-dash.live.lock)?"doLock":"doUnlock",euc.tmp.lockKey);
+	euc.wri((1-euc.dash.opt.lock.en)?"doLock":"doUnlock",euc.temp.lockKey);
 	}
 };
 

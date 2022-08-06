@@ -54,7 +54,7 @@ face[0] = {
 			//alarm block
 			if (this.buzz!=euc.is.buzz) this.buzF(); 
 			//spdMspeed block
-			if (this.topS!=euc.dash.info.trip.topS.toFixed(1)) this.spMF(); 
+			if (this.topS!=euc.dash.trip.topS.toFixed(1)) this.spMF(); 
 			//buzzer/health block
 			if (euc.dash.info.get.makr=="Kingsong"||euc.dash.info.get.makr=="Begode") {
 				if (this.aTlt!=euc.dash.alrt.spd.max) this.limF();
@@ -72,7 +72,7 @@ face[0] = {
 			}else this.baLF();//if (this.batL!=euc.log.batL) this.baLF();			
 			//Mileage
 			if (euc.dash.alrt.warn.txt) this.almTF();
-			else if (this.trpL!=euc.dash.info.trip.last.toFixed(2)) this.mileage();    
+			else if (this.trpL!=euc.dash.trip.last.toFixed(2)) this.mileage();    
 		//off
 		} else if (euc.state=="OFF")  {
 			setTimeout(function(){
@@ -183,7 +183,7 @@ face[0] = {
 		}
 	},
 	spMF: function(){
-		this.topS=euc.dash.info.trip.topS.toFixed(1);
+		this.topS=euc.dash.trip.topS.toFixed(1);
 		this.g.setColor(0,1);
 		this.g.fillRect(200,53,239,112); 
 		this.g.setColor(1,15);
@@ -306,7 +306,7 @@ face[0] = {
 		this.g.flip();
 	},
 	mileage: function(){
-		this.trpL=euc.dash.info.trip.last.toFixed(2);
+		this.trpL=euc.dash.trip.last.toFixed(2);
 		this.g.setColor(0,0);
 		this.g.fillRect(0,203,239,239);
 		this.g.setColor(1,14);
@@ -318,7 +318,7 @@ face[0] = {
 			this.time=(t[0]+":"+t[1]);
 			this.g.drawString(this.time, 240-(this.g.stringWidth(this.time)),208);
 		}else 	
-			this.g.drawString(Math.round(euc.dash.info.trip.totl*this.trpF),240-(this.g.stringWidth(Math.round(euc.dash.info.trip.totl*this.trpF))),208); 
+			this.g.drawString(Math.round(euc.dash.trip.totl*this.trpF),240-(this.g.stringWidth(Math.round(euc.dash.trip.totl*this.trpF))),208); 
 		//}
 		this.g.flip();
 	},

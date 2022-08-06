@@ -14,11 +14,11 @@ face[0] = {
 		this.g.drawString("SETTINGS",120-(this.g.stringWidth("SETTINGS")/2),217); 
 		this.g.flip();
 		//
-        this.btn(dash.live.light,"LIGHT",18,60,15,4,1,0,0,119,97,(dash.live.light)?"ON":"OFF",28,60,50);
-		this.btn((dash.live.hapS||dash.live.hapA||dash.live.hapT||dash.live.hapB),"WATCH",22,185,17,4,1,122,0,239,97,"ALERTS",22,185,55);		
+        this.btn(euc.dash.live.light,"LIGHT",18,60,15,4,1,0,0,119,97,(euc.dash.live.light)?"ON":"OFF",28,60,50);
+		this.btn((euc.dash.live.hapS||euc.dash.live.hapA||euc.dash.live.hapT||euc.dash.live.hapB),"WATCH",22,185,17,4,1,122,0,239,97,"ALERTS",22,185,55);		
 		let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
-		this.btn(dash.live.tpms,(dash.live.tpms)?dash.live.tpms:"TPMS",18,60,115,(dash.live.tpms&&tpms.euc[dash.live.tpms]&&tpms.euc[dash.live.tpms].time&&(getTime()|0)-tpms.euc[dash.live.tpms].time<1800)?(tpms.euc[dash.live.tpms].alrm)?7:4:1,1,0,100,119,195,(dash.live.tpms)?(tpms.euc[dash.live.tpms]&&tpms.euc[dash.live.tpms].psi)?Math.round(tpms.euc[dash.live.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(dash.live.tpms)?32:28,60,150); //3				
-        this.btn(dash.live.horn,"HORN",25,185,136,4,1,122,100,239,195);	
+		this.btn(euc.dash.opt.tpms,(euc.dash.opt.tpms)?euc.dash.opt.tpms:"TPMS",18,60,115,(euc.dash.opt.tpms&&tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.opt.tpms].time<1800)?(tpms.euc[euc.dash.opt.tpms].alrm)?7:4:1,1,0,100,119,195,(euc.dash.opt.tpms)?(tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].psi)?Math.round(tpms.euc[euc.dash.opt.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.opt.tpms)?32:28,60,150); //3				
+        this.btn(euc.dash.opt.horn.en,"HORN",25,185,136,4,1,122,100,239,195);	
 		this.run=true;
 	},
 	show : function(){
@@ -101,10 +101,10 @@ touchHandler[0]=function(e,x,y){
 		}
 		else {
 			if ( x<=120 && y<100 ) { //Light
-				dash.live.light=1-dash.live.light;
-				euc.wri((dash.live.light)?"lightsOn":"lightsOff");
-		        face[0].btn(dash.live.light,"LIGHT",18,60,15,4,1,0,0,119,97,(dash.live.light)?"ON":"OFF",28,60,50);
-				face[0].ntfy("LIGHT ON","LIGHT OFF",20,(dash.live.light)?4:1,dash.live.light);
+				euc.dash.live.light=1-euc.dash.live.light;
+				euc.wri((euc.dash.live.light)?"lightsOn":"lightsOff");
+		        face[0].btn(euc.dash.live.light,"LIGHT",18,60,15,4,1,0,0,119,97,(euc.dash.live.light)?"ON":"OFF",28,60,50);
+				face[0].ntfy("LIGHT ON","LIGHT OFF",20,(euc.dash.live.light)?4:1,euc.dash.live.light);
 				buzzer(buz.ok);
 			}else if ( 120<=x && y<=100 ) { //watch alerts
 				buzzer(buz.ok);						
@@ -112,16 +112,16 @@ touchHandler[0]=function(e,x,y){
 				return;	
 			}else if ( x<=120 && 100<=y ) { //tpms
 				buzzer(buz.ok);		
-				if (!dash.live.tpms) face[0].ntfy("HOLD-> ON/OFF",4);
+				if (!euc.dash.opt.tpms) face[0].ntfy("HOLD-> ON/OFF",4);
 				else {
-					tpms.def.pos=Object.keys(tpms.def.list).indexOf(dash.live.tpms);
+					tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.opt.tpms);
 					face.go("tpmsFace",0);
 					return;
 				}	
 			}else if ( 120<=x && 100<=y ) { //HORN
-				dash.live.horn=1-dash.live.horn;
-				face[0].btn(dash.live.horn,"HORN",25,185,136,4,1,122,100,239,195);	
-				face[0].ntfy("BUTTON IS HORN >2KPH","HORN DISABLED",(dash.live.horn)?18:20,(dash.live.horn)?4:1,dash.live.horn);
+				euc.dash.opt.horn.en=1-euc.dash.opt.horn.en;
+				face[0].btn(euc.dash.opt.horn.en,"HORN",25,185,136,4,1,122,100,239,195);	
+				face[0].ntfy("BUTTON IS HORN >2KPH","HORN DISABLED",(euc.dash.opt.horn.en)?18:20,(euc.dash.opt.horn.en)?4:1,euc.dash.opt.horn.en);
 				buzzer(buz.ok);						
 			}else buzzer(buz.ok);
 		}
@@ -155,8 +155,8 @@ touchHandler[0]=function(e,x,y){
 	case 12: //long press event
 		if  (x<=120 && 100<=y ) { //tpms
 			buzzer(buz.ok);
-			if (dash.live.tpms) {
-				dash.live.tpms=0;
+			if (euc.dash.opt.tpms) {
+				euc.dash.opt.tpms=0;
 				face[0].btn(1,"TPMS",18,60,115,1,0,0,100,119,195,"OFF",28,60,155); //3
 				face[0].ntfy("TPMS DISABLED","TPMS ",20,1,1);
 				return;

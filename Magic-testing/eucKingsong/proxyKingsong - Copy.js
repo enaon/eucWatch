@@ -1,6 +1,8 @@
 //Kingsong Proxy
 if (global.euc&&!euc.proxy){
 euc.proxy={
+	addr:NRF.getAddress(),
+	prxy:NRF.getAddress().substr(0,15)+"aa",
 	f:0,
 	r:(o)=>{
     "ram";
@@ -36,51 +38,29 @@ euc.proxy={
 				}
 			}
 		}, {advertise: ['0xfff0'],uart:false });
-		//NRF.setAdvertising({}, { name:euc.dash.info.get.name,connectable:true });
+		//NRF.setAdvertising({}, { name:dash.live.ks.name,connectable:true });
 		//NRF.setAdvertising({}, { name:"KS-S180531",connectable:true });
 		NRF.setAdvertising([[
 			0x02,0x01,0x06,
 			0x03,0x02,0xf0,0xff,
 			0x05,0x12,0x60,0x00,0x0c,0x00,
-		]], { name:euc.dash.info.get.name,connectable:true });
+		]], { name:dash.live.ks.name,connectable:true });
 		NRF.setAddress(euc.mac);
+		//NRF.setAddress("eu:cW:at:ch:00:01 public");
 		//NRF.setAddress("eu:cW:at:ch:00:01 public");
 		NRF.restart();
 		NRF.disconnect();
 	}, 
 	e:(o)=>{
 		NRF.setAdvertising({}, { name:set.def.name,connectable:true });
-		NRF.setAddress(set.def.addr+" random");
-		setter.updateBT();
+		NRF.setAddress(this.addr+" random");
+		set.updateBT();
 		NRF.restart();
 		NRF.disconnect();
 		euc.proxy=0;
 	}
 };
 euc.proxy.s();
+//set.bt=4;
 }
 
-/*
-NRF.setAdvertising([[
-0x02,0x01,0x06,
-0x03,0x02,0xf0,0xff,
-0x05,0x12,0x60,0x00,0x0c,0x00,
-0x07,0xFF,0x48,0x43,0x2D,0x30,0x38,0x00,
-]],{ name:"K-S18AA1"});
-
-NRF.setAdvertising([[
-0x02,0x01,0x06,
-0x03,0x02,0xf0,0xff,
-0x05,0x12,0x60,0x00,0x0c,0x00,
-0x07,0xFF,0x48,0x43,0x2D,0x30,0x38,0x00,
-]],{ name:euc.dash.opt.ride.model});
-
-*/
-
-/*
-NRF.setAdvertising([[
-0x02,0x01,0x06,
-0x03,0x02,0xf0,0xff,
-0x05,0x12,0x60,0x00,0x0c,0x00,
- ]],{ name:set.def.name});
-*/

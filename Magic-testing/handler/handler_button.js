@@ -5,7 +5,7 @@ function btn1(s){
 	if (face.offid) {clearTimeout(face.offid);face.offid=0;}
 	if (s.state) { 
 		this.press=true;
-		if (global.euc&&euc.state=="READY"&&2<=dash.live.spd&&dash.live.horn) {euc.wri("hornOn");return;}
+		if (global.euc&&euc.state=="READY"&&2<=euc.dash.live.spd&&euc.dash.opt.horn.en) {euc.wri("hornOn");return;}
 		this.t1=setTimeout(() => {
 			this.t1=0;
 			if (global.euc) {
@@ -15,7 +15,7 @@ function btn1(s){
 		}, process.env.BOARD=="BANGLEJS2"?300:800);
    }else if (this.press && !s.state)  { 
 		this.press=false;
-		if (global.euc&&euc.state=="READY"&&euc.horn&&dash.live.horn) {euc.wri("hornOff");return;}
+		if (global.euc&&euc.state=="READY"&&euc.horn&&euc.dash.opt.horn.en) {euc.wri("hornOff");return;}
 		if (face.pageCurr==-1) {
 			buzzer(buz.on);
 			face.go((euc.state!="OFF")?set.dash[set.def.dash.face]:face.appCurr,0);
@@ -28,7 +28,7 @@ function btn1(s){
 				return true;
 			}
 		}
-	}else if (this.press&&global.euc&&euc.state==="READY"&&euc.horn&&dash.live.horn) {euc.wri("hornOff");return;
+	}else if (this.press&&global.euc&&euc.state==="READY"&&euc.horn&&euc.dash.opt.horn.en) {euc.wri("hornOff");return;
 	}else face.off();
 }
 btn1_wid=setWatch(btn1,BTN1, {repeat:true, debounce:50,edge:0});

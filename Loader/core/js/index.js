@@ -577,7 +577,7 @@ function installMultipleApps(appIds, promptName, defaults) {
   let appCount = apps.length;
   return showPrompt("Install Defaults",`Remove everything and install ${promptName} apps?`).then(() => {
 	Progress.hide({sticky:true});
-    showToast(`Enabling flash.`);  
+    //showToast(`Enabling flash.`);  
 	return Comms.enableFlash();    
   }).then(()=>{
 	Progress.hide({sticky:true});
@@ -585,7 +585,7 @@ function installMultipleApps(appIds, promptName, defaults) {
     return Comms.removeAllApps();
   }).then(()=>{
 	Progress.hide({sticky:true});
-    showToast(`Erase Complete, writing default settings`);  
+    //showToast(`Erase Complete, writing default settings`);  
 	return Comms.writeSettings(defaults);
   }).then(()=>{
     Progress.hide({sticky:true});

@@ -85,10 +85,10 @@
 		]
 	}, 
 	{ "id": "main",
-		"name": "Clock",
+		"name": "Clock face",
 		"icon": "icon.png",
 		"version":"1.80",
-		"description": "Main Clock/notifications face",
+		"description": "clock face",
 		"tags": "apps",
 		"type":"main",
 		"storage": [
@@ -160,14 +160,44 @@
 		"tags": "euc",
 		"readme": "README.md",
 		"storage": [
-			{"name":"dash_simple","url":"dash_simple.js"},
-			{"name":"dash_digital","url":"dash_digital.js"},
-			{"name":"dash_pwm","url":"dash_pwm.js"},
 			{"name":"dashGarage","url":"dashGarage.js"},
 			{"name":"dashAlerts","url":"dashAlerts.js"},
 			{"name":"dashScan","url":"dashScan.js"},
 			{"name":"dashOff","url":"dashOff.js"},
 			{"name":"dashOptions","url":"dashOptions.js"}
+		]
+	},
+	{ "id": "Dashboard Digital",
+		"name": "EUC digital Dashboard",
+		"icon": "../dash/icon.png",
+		"version":"1.82",
+		"description": "EUC simple digital",
+		"tags": "euc",
+		"readme": "README.md",
+		"storage": [
+			{"name":"dash_digital","url":"../dash/dash_digital.js"}
+		]
+	}, 	
+	{ "id": "Dashboard Simple",
+		"name": "EUC simple Dashboard",
+		"icon": "../dash/icon.png",
+		"version":"1.82",
+		"description": "EUC simple Dashboard",
+		"tags": "euc",
+		"readme": "README.md",
+		"storage": [
+			{"name":"dash_simple","url":"../dash/dash_simple.js"}
+		]
+	}, 
+	{ "id": "Dashboard PWM",
+		"name": "EUC pwm Dashboard",
+		"icon": "../dash/icon.png",
+		"version":"1.82",
+		"description": "EUC pwm Dashboard",
+		"tags": "euc",
+		"readme": "README.md",
+		"storage": [
+			{"name":"dash_pwm","url":"../dash/dash_pwm.js"}
 		]
 	}, 
 	{ "id": "dashKingsong",

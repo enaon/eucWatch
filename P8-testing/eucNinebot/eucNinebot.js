@@ -55,7 +55,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 		case 38://speed
 			//euc.dash.live.spd=Math.round((this.in16/1000)*euc.dash.opt.unit.fact.spd*((set.def.dash.mph)?0.625:1));
 			euc.dash.live.spd=this.in16/1000;
-			if (euc.dash.info.trip.topS < euc.dash.live.spd) euc.dash.info.trip.topS = euc.dash.live.spd;
+			if (euc.dash.trip.topS < euc.dash.live.spd) euc.dash.trip.topS = euc.dash.live.spd;
 				euc.dash.alrt.spd.cc = ( euc.dash.alrt.spd.hapt.hi <= euc.dash.live.spd )? 2 : ( euc.dash.alrt.spd.hapt.low <= euc.dash.live.spd )? 1 : 0 ;	
 				if ( euc.dash.alrt.spd.hapt.en && euc.dash.alrt.spd.cc == 2 ) 
 					euc.is.alert = 1 + Math.round((euc.dash.live.spd-euc.dash.alrt.spd.hapt.hi) / euc.dash.alrt.spd.hapt.step) ; 	
@@ -74,11 +74,11 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			}
 			break;
 		case 41://total distance
-			euc.dash.info.trip.totl=event.target.value.getUint32(6, true)/1000;
-			euc.log.trip.forEach(function(val,pos){ if (!val) euc.log.trip[pos]=euc.dash.info.trip.totl;});
+			euc.dash.trip.totl=event.target.value.getUint32(6, true)/1000;
+			euc.log.trip.forEach(function(val,pos){ if (!val) euc.log.trip[pos]=euc.dash.trip.totl;});
 			break;
 		case 185://trip
-			euc.dash.info.trip.last=this.in16/100;
+			euc.dash.trip.last=this.in16/100;
 			break;
 		case 71://battery fixed/voltage
 			euc.dash.live.volt=this.in16/100;
@@ -90,7 +90,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			if ( euc.dash.alrt.bat.hapt.en && euc.dash.alrt.bat.cc ==2 )  euc.is.alert ++; 
 			break;
 		case 37: //remaining
-			euc.dash.info.trip.left=this.in16/100;
+			euc.dash.trip.left=this.in16/100;
 			break;
 		case 62: //temp
 			euc.dash.live.tmp=this.in16/10;
@@ -98,14 +98,14 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			if (euc.dash.alrt.tmp.hapt.en && euc.dash.alrt.tmp.cc==2) euc.is.alert++; 	  
 			break;
 		case 182: //average
-			euc.dash.info.trip.avrS=(this.in16/1000).toFixed(1);
+			euc.dash.trip.avrS=(this.in16/1000).toFixed(1);
 			break;
 		case 58: //runtime
-			euc.dash.info.trip.time=Math.round(this.in16/60);
+			euc.dash.trip.time=Math.round(this.in16/60);
 			break;
 		case 210: //riding Mode
 			if (this.in16 >=10)  {
-              if (face.appCurr=="dashNinebot") face[0].ntfy("MODE CHANGED","",22,col("raf"),1);
+              if (face.appCurr=="dashNinebot") face[0].ntfy("MODE CHANGED","",22,4,1);
               buzzer([80,40,80]);  
             }else euc.dash.opt.ride.mode=this.in16;
 			break;

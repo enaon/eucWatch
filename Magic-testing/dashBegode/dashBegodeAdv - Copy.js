@@ -25,7 +25,7 @@ face[0] = {
       	this.g.fillRect(120,200,165,204);
 		this.g.flip(); 
 		//ride mode
-		this.b1=dash.live.mode;
+		this.b1=euc.dash.opt.ride.mode;
 		if (this.b1==4) {
 			this.b1t="HARD";this.b1c=4;
 		}else if (this.b1==2) {
@@ -56,7 +56,7 @@ face[0] = {
 		this.g.setFont("Vector",18);	
 		this.g.drawString("SPEED",60-(this.g.stringWidth("SPEED")/2),115); 
 		this.g.setFont("Vector",40);	
-		this.g.drawString(dash.live.spdT,60-(this.g.stringWidth(dash.live.spdT)/2),145); 
+		this.g.drawString(euc.dash.live.spdT,60-(this.g.stringWidth(euc.dash.live.spdT)/2),145); 
 		this.g.flip();
 		//pass
 		this.g.setColor(0,1);
@@ -121,23 +121,23 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
       case 5:case 12: //tap event
 		if ( x<=120 && y<=100 ) { //ride mode
-			if (dash.live.mode==0) {dash.live.mode=2;euc.wri("rideMed");face[0].btn("MODE",18,60,15,6,0,0,119,97,"MED",30,60,50);}
-			else if (dash.live.mode==2) {dash.live.mode=4;euc.wri("rideHard");face[0].btn("MODE",18,60,15,4,0,0,119,97,"HARD",30,60,50);}
-			else if (dash.live.mode==4) {dash.live.mode=0;euc.wri("rideSoft");face[0].btn("MODE",18,60,15,5,0,0,119,97,"SOFT",30,60,50);}
+			if (euc.dash.opt.ride.mode==0) {euc.dash.opt.ride.mode=2;euc.wri("rideMed");face[0].btn("MODE",18,60,15,6,0,0,119,97,"MED",30,60,50);}
+			else if (euc.dash.opt.ride.mode==2) {euc.dash.opt.ride.mode=4;euc.wri("rideHard");face[0].btn("MODE",18,60,15,4,0,0,119,97,"HARD",30,60,50);}
+			else if (euc.dash.opt.ride.mode==4) {euc.dash.opt.ride.mode=0;euc.wri("rideSoft");face[0].btn("MODE",18,60,15,5,0,0,119,97,"SOFT",30,60,50);}
 			buzzer(buz.ok);		
 		}else if ( 120<=x  && y<=100 ) { //calibrate
             buzzer(buz.ok);
 			face.go("dashBegodeCalibrate",0);
 			return;
 		}else if ( x<=120 && 100<=y ) {   //limits
-			dash.live.spd3=dash.live.spdT;
-			if (99 < dash.live.spd3 ) dash.live.spd3=99;
+			euc.dash.alrt.spd.tilt.val=euc.dash.live.spdT;
+			if (99 < euc.dash.alrt.spd.tilt.val ) euc.dash.alrt.spd.tilt.val=99;
 			buzzer(buz.ok);		
 			face.go("dashBegodeLimits",0);
 			return;
 /*		}else if ( 120<=x && 100<=y ) { //pass
 			buzzer(buz.ok);		
-			if (dash.live.pass.length>=4) face.go("dashBegodePass",5);
+			if (euc.dash.opt.lock.pass.length>=4) face.go("dashBegodePass",5);
 			else face.go("dashBegodePass",0);
 			return;
 */		}else buzzer(buz.ok);

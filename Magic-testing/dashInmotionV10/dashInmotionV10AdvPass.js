@@ -10,7 +10,7 @@ face[0] = {
 		//	return;
 		//}	
         //status
-        if (dash.live.pass.length>=4){
+        if (euc.dash.opt.lock.pass.length>=4){
 			this.g.setColor(0,4);
 			this.g.fillRect(0,0,239,97);
 			this.g.setColor(1,15);
@@ -209,7 +209,7 @@ face[5] = {
 touchHandler[0]=function(e,x,y){ 
 	switch (e) {
 	case 5: //tap event
-        if (dash.live.pass.length>=4){
+        if (euc.dash.opt.lock.pass.length>=4){
    		buzzer(buz.ok);
 		if (y<=100) { //enable/disable
           face[0].ntfy("HOLD -> CLEAR",20,1);
@@ -223,7 +223,7 @@ touchHandler[0]=function(e,x,y){
         }
 		break;
 	case 1: //slide down event
-		setTimeout(function(){euc.busy=0;euc.tmp.live();},800);
+		setTimeout(function(){euc.busy=0;euc.temp.live();},800);
 		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
@@ -248,12 +248,12 @@ touchHandler[0]=function(e,x,y){
 		return;
 	case 12: //long press event
 		buzzer(buz.ok);
-        if (dash.live.pass.length>=4){ 
+        if (euc.dash.opt.lock.pass.length>=4){ 
 		if (y<=100) { //clear
           euc.wri("passClear");
-          dash.live.passOld="";
-          dash.live.pass="";
-          dash.live.passSend=0;
+          euc.dash.opt.lock.passOld="";
+          euc.dash.opt.lock.pass="";
+          euc.dash.opt.lock.passSend=0;
 		  euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
           face.go("dashInmotionV1AdvPass",0);
 		}else  { //change
@@ -262,7 +262,7 @@ touchHandler[0]=function(e,x,y){
             return;		
         }
         }else { //enable
-          dash.live.pass="";
+          euc.dash.opt.lock.pass="";
           face.go("dashInmotionV1AdvPass",5);
           face[0].passSet=1;
         }  
@@ -311,13 +311,13 @@ touchHandler[5]=function(e,x,y){
           if (face[0].passSet){
              if (face[0].passSet>=2){
                 if (face[5].pass==face[5].passTemp){
-                  dash.live.passOld=dash.live.pass;
-                  dash.live.pass=face[5].pass;
+                  euc.dash.opt.lock.passOld=euc.dash.opt.lock.pass;
+                  euc.dash.opt.lock.pass=face[5].pass;
                   buzzer(80);
                   face[5].ntfy("SUCCESS!",20,4);
-                  if (dash.live.passOld!=""){euc.wri("passChange");}else{euc.wri("passSet");}
+                  if (euc.dash.opt.lock.passOld!=""){euc.wri("passChange");}else{euc.wri("passSet");}
        			  euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
-                  dash.live.passSend=1;
+                  euc.dash.opt.lock.passSend=1;
                   setTimeout(()=>{face.go("dashInmotionV1AdvPass",0);return;},1000);
                 }else{
                   buzzer(120);
@@ -332,7 +332,7 @@ touchHandler[5]=function(e,x,y){
                  face[5].ntfy("RE-ENTER->CONFIRM",20,4);
              }
           }else{
-              if (face[5].pass==dash.live.pass) {
+              if (face[5].pass==euc.dash.opt.lock.pass) {
                 buzzer(80);
                 face[5].ntfy("PASSWORD ACCEPTED",20,4);
                 setTimeout(()=>{face.go("dashInmotionV1AdvPass",0);return;},1000);

@@ -14,7 +14,7 @@ face[0] = {
 		this.g.flip(); 
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",80);
-		this.g.drawString(dash.live.tiltSet,130-(this.g.stringWidth(dash.live.tiltSet)/2),65); 		
+		this.g.drawString(euc.dash.live.tiltSet,130-(this.g.stringWidth(euc.dash.live.tiltSet)/2),65); 		
 		this.g.flip(); 
         this.g.setColor(0,12);
 		this.g.fillRect(0,177,239,239);
@@ -54,12 +54,12 @@ face[0] = {
             this.g.drawString("CANCEL",140,200); 	
 		    this.g.flip();
        		this.run=false;
-        }else if (this.tilt!=dash.live.tiltSet){ //tilt Set
+        }else if (this.tilt!=euc.dash.live.tiltSet){ //tilt Set
 		    this.g.setColor(0,1);
 		    this.g.fillRect(50,50,190,150);                    
             this.g.setColor(1,15);
 		    this.g.setFont("Vector",80);
-		    this.g.drawString(dash.live.tiltSet,130-(this.g.stringWidth(dash.live.tiltSet)/2),65); 		
+		    this.g.drawString(euc.dash.live.tiltSet,130-(this.g.stringWidth(euc.dash.live.tiltSet)/2),65); 		
 		    this.g.flip();
 		}
 
@@ -123,12 +123,12 @@ touchHandler[0]=function(e,x,y){
 	case 5: //tap event
         if (!face[0].calibrate){
 		if (x<=120&&y<175) { //tilt forward
-			dash.live.tiltSet--;
-			euc.wri("setPpedalTilt",dash.live.tiltSet);
+			euc.dash.live.tiltSet--;
+			euc.wri("setPpedalTilt",euc.dash.live.tiltSet);
 			buzzer(buz.ok);
 		}else if (120<=x&&y<=175) { //tilt back
-			dash.live.tiltSet++;
-			euc.wri("setPpedalTilt",dash.live.tiltSet);
+			euc.dash.live.tiltSet++;
+			euc.wri("setPpedalTilt",euc.dash.live.tiltSet);
 			buzzer(buz.ok);
 		}else if (175<=y) { //calibrate
             face[0].calibrate=1;
@@ -151,7 +151,7 @@ touchHandler[0]=function(e,x,y){
         }
 		break;
 	case 1: //slide down event
-		setTimeout(function(){euc.busy=0;euc.tmp.live();},800);
+		setTimeout(function(){euc.busy=0;euc.temp.live();},800);
 		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event

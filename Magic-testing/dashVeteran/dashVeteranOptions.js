@@ -26,10 +26,10 @@ face[0] = {
       	this.g.fillRect(121,200,165,204);
 		this.g.flip();
 		//
-        this.btn(dash.live.lock,"BEEP",28,60,35,4,1,0,0,119,97);
+        this.btn(euc.dash.opt.lock.en,"BEEP",28,60,35,4,1,0,0,119,97);
 		this.btn(1,"WHEEL",22,185,17,4,1,122,0,239,97,"ALERTS",22,185,55);		
         this.btn(1,"CLEAR",25,60,115,1,1,0,100,119,195,"METER",22,60,155);
-        this.btn(dash.live.horn,"HORN",25,185,135,4,1,122,100,239,195);
+        this.btn(euc.dash.opt.horn.en,"HORN",25,185,135,4,1,122,100,239,195);
 		this.run=true;
 	},
 	show : function(){
@@ -119,9 +119,9 @@ touchHandler[0]=function(e,x,y){
 		}
 		else {
 			if ( x<=120 && y<100 ) { 
-				dash.live.lock= 1- dash.live.lock;
-				face[0].btn(dash.live.lock,"BEEP",28,60,35,4,1,0,0,119,97);
-				face[0].ntfy("BEEP ON CON/DIS","NO BEEP",22,(dash.live.lock)?4:1,dash.live.lock);
+				euc.dash.opt.lock.en= 1- euc.dash.opt.lock.en;
+				face[0].btn(euc.dash.opt.lock.en,"BEEP",28,60,35,4,1,0,0,119,97);
+				face[0].ntfy("BEEP ON CON/DIS","NO BEEP",22,(euc.dash.opt.lock.en)?4:1,euc.dash.opt.lock.en);
 				buzzer(buz.ok);
 			}else if ( 120<=x && y<=100 ) { //
 				buzzer(buz.na);	
@@ -132,9 +132,9 @@ touchHandler[0]=function(e,x,y){
 	            face[0].ntfy("HOLD -> CLEAR METER","",19,1,1);
 				buzzer(buz.ok);	
 			}else if ( 120<=x && 100<=y ) { //horn        
-				dash.live.horn=1-dash.live.horn;
-				face[0].btn(dash.live.horn,"HORN",25,185,135,4,1,122,100,239,195);
-				face[0].ntfy("BUTTON IS HORN >2KPH","HORN DISABLED",(dash.live.horn)?18:20,(dash.live.horn)?4:1,dash.live.horn);
+				euc.dash.opt.horn.en=1-euc.dash.opt.horn.en;
+				face[0].btn(euc.dash.opt.horn.en,"HORN",25,185,135,4,1,122,100,239,195);
+				face[0].ntfy("BUTTON IS HORN >2KPH","HORN DISABLED",(euc.dash.opt.horn.en)?18:20,(euc.dash.opt.horn.en)?4:1,euc.dash.opt.horn.en);
 				buzzer(buz.ok);						
 			}else buzzer(buz.ok);
 		}

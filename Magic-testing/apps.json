@@ -131,7 +131,7 @@
 			{"name":"dashKingsongDis1","url":"dashKingsongDis1.js"},
 			{"name":"dashKingsongAdv","url":"dashKingsongAdv.js"},
 			{"name":"dashKingsongAdvCalibrate","url":"dashKingsongAdvCalibrate.js"},
-			{"name":"dashKingsongAdvAlarms","url":"dashKingsongAdvAlarms.js"},
+			{"name":"dashKingsongAdvAlert","url":"dashKingsongAdvAlert.js"},
 			{"name":"dashKingsongAdvPass","url":"dashKingsongAdvPass.js"}
 		]
 	}, 

@@ -39,8 +39,8 @@ face[0] = {
 				};
 			this.spdC=[0,13,7,7];
 		}
-		this.spdF=dash.live.spdF*((set.def.dash.mph)?0.625:1);
-		this.trpF=dash.live.trpF*((set.def.dash.mph)?0.625:1);
+		this.spdF=euc.dash.opt.unit.fact.spd*((set.def.dash.mph)?0.625:1);
+		this.trpF=euc.dash.opt.unit.fact.dist*((set.def.dash.mph)?0.625:1);
 		UI.ele.ind(0,0,1);
 		UI.ele.title("||||| ||||| |||||",15,4);
 		this.run=false;
@@ -50,14 +50,14 @@ face[0] = {
 		"ram";
 		//if (!face[0].run) return;
 		if (euc.state=="READY") {
-			if (face[0].spd!=Math.round(dash.live.spd)) face[0].spdf();
+			if (face[0].spd!=Math.round(euc.dash.live.spd)) face[0].spdf();
 			if (!set.def.dash.clkS){	
-				if (face[0].tmp!=dash.live.tmp.toFixed(1))	face[0].tmpf();
+				if (face[0].tmp!=euc.dash.live.tmp.toFixed(1))	face[0].tmpf();
 			}else if (60 < getTime()-face[0].time )	
 				face[0].clkf();
-			if (set.def.dash.batS){	if (face[0].bat!=dash.live.bat) face[0].batf();
-			}else  if (face[0].volt!=dash.live.volt.toFixed(1)) face[0].vltf();
-			else if (dash.live.tpms&&tpms.euc[dash.live.tpms]&&(face[0].tpms!=tpms.euc[dash.live.tpms].alrm)) face[0].tpmsf();
+			if (set.def.dash.batS){	if (face[0].bat!=euc.dash.live.bat) face[0].batf();
+			}else  if (face[0].volt!=euc.dash.live.volt.toFixed(1)) face[0].vltf();
+			else if (euc.dash.opt.tpms&&tpms.euc[euc.dash.opt.tpms]&&(face[0].tpms!=tpms.euc[euc.dash.opt.tpms].alrm)) face[0].tpmsf();
 		} else  {
 			if (euc.state!=face[0].conn) {
 				face[0].conn=euc.state;
@@ -72,11 +72,11 @@ face[0] = {
 	},
 	spdf: function(){
 		"ram";
-		this.spd=Math.round(dash.live.spd);
-		this.g.setColor(0,(dash.live.spdC==1)?0:this.spdC[dash.live.spdC]);
+		this.spd=Math.round(euc.dash.live.spd);
+		this.g.setColor(0,(euc.dash.alrt.spd.cc==1)?0:this.spdC[euc.dash.alrt.spd.cc]);
 		this.g.fillRect(this.gui.spd[0],this.gui.spd[1],this.gui.spd[2],this.gui.spd[3]);
 		if ( process.env.BOARD=="BANGLEJS2") this.g.setColor(1,0);
-		else this.g.setColor(1,(dash.live.spdC==1)?13:15);
+		else this.g.setColor(1,(euc.dash.alrt.spd.cc==1)?13:15);
 		if (100 <= this.spd) {
 			if (120 < this.spd)  this.spd=120;
 			this.g.setFontVector(this.gui.txt-30);
@@ -87,8 +87,8 @@ face[0] = {
 	},
 	tmpf: function(){
 		"ram";
-		this.tmp=dash.live.tmp.toFixed(1);
-		this.g.setColor(0,this.tmpC[dash.live.tmpC]);
+		this.tmp=euc.dash.live.tmp.toFixed(1);
+		this.g.setColor(0,this.tmpC[euc.dash.live.tmpC]);
 		this.g.fillRect(this.gui.tmp[0],this.gui.tmp[1],this.gui.tmp[2],this.gui.tmp[3]);
 		this.g.setColor(1,15);
 		this.g.setFontVector(this.gui.txt1);	  
@@ -119,8 +119,8 @@ face[0] = {
 	},
 	batf: function(){
 		"ram";
-		this.bat=dash.live.bat;
-		this.g.setColor(0,this.batC[dash.live.batC]);
+		this.bat=euc.dash.live.bat;
+		this.g.setColor(0,this.batC[euc.dash.alrt.bat.cc]);
 		this.g.fillRect(this.gui.bat[0],this.gui.bat[1],this.gui.bat[2],this.gui.bat[3]);
 		this.g.setColor(1,15);
 		this.g.setFontVector(this.gui.txt1);
@@ -131,8 +131,8 @@ face[0] = {
 	},
 	vltf: function(){
 		"ram";
-		this.volt=dash.live.volt.toFixed(1);
-		this.g.setColor(0,this.batC[dash.live.batC]);
+		this.volt=euc.dash.live.volt.toFixed(1);
+		this.g.setColor(0,this.batC[euc.dash.alrt.bat.cc]);
 		this.g.fillRect(this.gui.bat[0],this.gui.bat[1],this.gui.bat[2],this.gui.bat[3]);
 		this.g.setColor(1,15);
 		let volt=this.volt.toString().split(".");
@@ -150,8 +150,8 @@ face[0] = {
 	},
 	ampf: function(){
 		"ram";
-		this.amp=dash.live.amp;
-		this.g.setColor(0,this.ampC[dash.live.ampC]);
+		this.amp=euc.dash.live.amp;
+		this.g.setColor(0,this.ampC[euc.dash.alrt.amp.cc]);
 		this.g.fillRect(this.gui.tmp[0],this.gui.tmp[1],this.gui.tmp[2],this.gui.tmp[3]);
 		this.g.setColor(1,15);
 		this.g.setFontVector(33);
@@ -160,7 +160,7 @@ face[0] = {
 	},
 	tpmsf: function(){		
 		"ram";
-		this.tpms=tpms.euc[dash.live.tpms].alrm;
+		this.tpms=tpms.euc[euc.dash.opt.tpms].alrm;
 		this.g.setColor(0,(this.tpms)?7:4);
 		this.g.clearRect(0,210,239,239); //amp 
 		this.g.setColor(1,14);

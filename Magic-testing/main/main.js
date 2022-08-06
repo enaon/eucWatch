@@ -183,7 +183,7 @@ face[0] = {
 				this.g.setColor(0,0);
 				this.g.fillRect(0,151,239,239);
 				this.g.setColor(1,15);//
-				this.mac=(this.mac)?this.mac:setter.read("dash","slot"+setter.read("dash","slot")+"Mac");
+				this.mac=(this.mac)?this.mac:set.read("dash","slot"+set.read("dash","slot")+"Mac");
 				if(!this.mac) {
 						this.g.setFont("Vector",25);
 						this.g.drawString("eucWatch",119-(this.g.stringWidth("eucWatch")/2),170); 
@@ -192,7 +192,7 @@ face[0] = {
 						if (this.old)this.g.flip();
 				}else {
 					this.g.setFont("Vector",35);
-					//this.g.drawString(dash.live.maker,119-(this.g.stringWidth(dash.live.maker)/2),170)); 
+					//this.g.drawString(euc.dash.info.get.makr,119-(this.g.stringWidth(euc.dash.info.get.makr)/2),170)); 
 					this.g.drawString(set.def.name,119-(this.g.stringWidth(set.def.name)/2),155);
 					this.g.setFont("Vector",30);
 					if (euc.state !== "OFF") {

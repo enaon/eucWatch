@@ -23,10 +23,10 @@ face[0] = {
         this.g.setColor(1,15);
       	this.g.fillRect(98,200,120,204);
 		this.g.flip(); 
-        this.btn(dash.live.lght.ring,"LED",18,60,15,4,1,0,0,119,97,"RING",28,60,50);//1
-		this.btn((dash.live.hapS||dash.live.hapA||dash.live.hapT||dash.live.hapB),"WATCH",22,185,17,4,12,122,0,239,97,"ALERTS",22,185,55);		
-        this.btn(dash.live.ctrl.lift,"SENSOR",18,60,115,4,1,0,100,119,195,"LIFT",30,60,150);
-        this.btn(dash.live.horn,"HORN",25,185,136,4,1,122,100,239,195);		
+        this.btn(euc.dash.live.lght.ring,"LED",18,60,15,4,1,0,0,119,97,"RING",28,60,50);//1
+		this.btn((euc.dash.live.hapS||euc.dash.live.hapA||euc.dash.live.hapT||euc.dash.live.hapB),"WATCH",22,185,17,4,12,122,0,239,97,"ALERTS",22,185,55);		
+        this.btn(euc.dash.live.ctrl.lift,"SENSOR",18,60,115,4,1,0,100,119,195,"LIFT",30,60,150);
+        this.btn(euc.dash.opt.horn.en,"HORN",25,185,136,4,1,122,100,239,195);		
         this.run=true;
 	},
 	show : function(){
@@ -108,14 +108,14 @@ touchHandler[0]=function(e,x,y){
 	  if (face[0].sub) {
 			if (face[0].sub==="horn") {
 				if ( x<=120 && y <= 170 ){
-					dash.live.ctrl.horn=dash.live.ctrl.horn-1;if (dash.live.ctrl.horn<=1)dash.live.ctrl.horn=1;
-					face.menu.full("SELECT SOUND",20,dash.live.ctrl.horn,80,1453,1365);
-					euc.wri("playSound",dash.live.ctrl.horn);
+					euc.dash.live.ctrl.horn=euc.dash.live.ctrl.horn-1;if (euc.dash.live.ctrl.horn<=1)euc.dash.live.ctrl.horn=1;
+					face.menu.full("SELECT SOUND",20,euc.dash.live.ctrl.horn,80,1453,1365);
+					euc.wri("playSound",euc.dash.live.ctrl.horn);
 					buzzer(buz.ok);
 				}else if ( 120 <=x  && y <= 170 ) {
-					dash.live.ctrl.horn=dash.live.ctrl.horn+1;if (22<=dash.live.ctrl.horn)dash.live.ctrl.horn=22;
-					face.menu.full("SELECT SOUND",20,dash.live.ctrl.horn,80,1453,1365);
-					euc.wri("playSound",dash.live.ctrl.horn);
+					euc.dash.live.ctrl.horn=euc.dash.live.ctrl.horn+1;if (22<=euc.dash.live.ctrl.horn)euc.dash.live.ctrl.horn=22;
+					face.menu.full("SELECT SOUND",20,euc.dash.live.ctrl.horn,80,1453,1365);
+					euc.wri("playSound",euc.dash.live.ctrl.horn);
 					buzzer(buz.ok);
 				}else {
 					face[0].sub=0;
@@ -128,31 +128,31 @@ touchHandler[0]=function(e,x,y){
 			return;
 		}else {
 			if ( x<=120 && y<100 ) { //RING led
-				dash.live.lght.ring=1-dash.live.lght.ring;
+				euc.dash.live.lght.ring=1-euc.dash.live.lght.ring;
 				buzzer(buz.ok);
-				face[0].btn(dash.live.lght.ring,"LED",18,60,15,4,1,0,0,119,97,"RING",28,60,50);//1
-				face[0].ntfy("RING LED ON","RING LED OFF",18,(dash.live.lght.ring)?4:1,dash.live.lght.ring);
-				euc.wri("control",(dash.live.lght.ring)?15:16);
+				face[0].btn(euc.dash.live.lght.ring,"LED",18,60,15,4,1,0,0,119,97,"RING",28,60,50);//1
+				face[0].ntfy("RING LED ON","RING LED OFF",18,(euc.dash.live.lght.ring)?4:1,euc.dash.live.lght.ring);
+				euc.wri("control",(euc.dash.live.lght.ring)?15:16);
 			}else if ( 120<=x && y<=100 ) { //watch alerts
 				buzzer(buz.ok);						
 				face.go("dashAlerts",0);
 				return;		
 			}else if ( x<=120 && 100<=y ) { //lift sensor
-				dash.live.ctrl.lift=1-dash.live.ctrl.lift;
+				euc.dash.live.ctrl.lift=1-euc.dash.live.ctrl.lift;
 				buzzer(buz.ok);		
-				face[0].btn(dash.live.ctrl.lift,"SENSOR",18,60,115,4,1,0,100,119,195,"LIFT",30,60,150);
-				face[0].ntfy("LIFT SENSOR ENABLED","LIFT SENSOR DISABLED",16,(dash.live.ctrl.lift)?4:1,dash.live.ctrl.lift);
-				euc.wri("sethandleButton",(dash.live.ctrl.lift)?1:0);
+				face[0].btn(euc.dash.live.ctrl.lift,"SENSOR",18,60,115,4,1,0,100,119,195,"LIFT",30,60,150);
+				face[0].ntfy("LIFT SENSOR ENABLED","LIFT SENSOR DISABLED",16,(euc.dash.live.ctrl.lift)?4:1,euc.dash.live.ctrl.lift);
+				euc.wri("sethandleButton",(euc.dash.live.ctrl.lift)?1:0);
 			}else if  (120<=x && 100<=y ) { //horn
-				dash.live.horn=1-dash.live.horn;
-				face[0].btn(dash.live.horn,"HORN",25,185,136,4,1,122,100,239,195);
-				face[0].ntfy("BUTTON IS HORN >2KPH","HOLD -> OPTIONS",18,(dash.live.horn)?4:1,dash.live.horn);
+				euc.dash.opt.horn.en=1-euc.dash.opt.horn.en;
+				face[0].btn(euc.dash.opt.horn.en,"HORN",25,185,136,4,1,122,100,239,195);
+				face[0].ntfy("BUTTON IS HORN >2KPH","HOLD -> OPTIONS",18,(euc.dash.opt.horn.en)?4:1,euc.dash.opt.horn.en);
 				buzzer(buz.ok);						
 			}else buzzer(buz.na);
 		}
 		break;
 	case 1: //slide down event
-		setTimeout(function(){euc.busy=0;euc.tmp.live();},800);
+		setTimeout(function(){euc.busy=0;euc.temp.live();},800);
 		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
@@ -177,13 +177,13 @@ touchHandler[0]=function(e,x,y){
 		return;
 	case 12: //hold event
 	if ( 120<=x && y<=100 ) { //haptic
-			if (dash.live.hapS||dash.live.hapA||dash.live.hapT||dash.live.hapB) {dash.live.hapS=0;dash.live.hapA=0;dash.live.hapT=0;dash.live.hapB=0;}
-			else {dash.live.hapS=1;dash.live.hapA=1;dash.live.hapT=1;dash.live.hapB=1;}
-			face[0].btn((dash.live.hapS||dash.live.hapA||dash.live.hapT||dash.live.hapB),"WATCH",22,185,17,4,12,122,0,239,97,"ALERTS",22,185,55);		
-			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",19,1,(dash.live.hapS||dash.live.hapA||dash.live.hapT||dash.live.hapB));
+			if (euc.dash.live.hapS||euc.dash.live.hapA||euc.dash.live.hapT||euc.dash.live.hapB) {euc.dash.live.hapS=0;euc.dash.live.hapA=0;euc.dash.live.hapT=0;euc.dash.live.hapB=0;}
+			else {euc.dash.live.hapS=1;euc.dash.live.hapA=1;euc.dash.live.hapT=1;euc.dash.live.hapB=1;}
+			face[0].btn((euc.dash.live.hapS||euc.dash.live.hapA||euc.dash.live.hapT||euc.dash.live.hapB),"WATCH",22,185,17,4,12,122,0,239,97,"ALERTS",22,185,55);		
+			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",19,1,(euc.dash.live.hapS||euc.dash.live.hapA||euc.dash.live.hapT||euc.dash.live.hapB));
 			buzzer(buz.ok);
 		}else if  (120<=x && 100<=y ) { //horn
-			face.menu.full("SELECT SOUND",20,dash.live.ctrl.horn,80,1453,1365,1);
+			face.menu.full("SELECT SOUND",20,euc.dash.live.ctrl.horn,80,1453,1365,1);
 			face[0].ntfy("SELECT SOUND","",20,4,1);
 			face[0].sub="horn";
 			buzzer(buz.ok);						

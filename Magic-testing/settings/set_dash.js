@@ -23,12 +23,12 @@ face[0].d1=function(){
 	face[0].page="dash1";
 	UI.ele.ind(1,2,6);
 	UIc.start(1,0);
-	UI.btn.c2l("main","_2x3",1,"FULL",dash.live.batF/100,15,0); //1
-	UI.btn.c2l("main","_2x3",2,"SPEED",dash.live.spdF,15,0); //4
-	UI.btn.c2l("main","_2x3",3,"AMP",dash.live.ampR?"R":"N",15,0); //3
-	UI.btn.c2l("main","_2x3",4,"EMPTY",dash.live.batE/100,15,6); //4
-	UI.btn.c2l("main","_2x3",5,"DIST",dash.live.trpF,15,6); //5
-	UI.btn.c2l("main","_2x3",6,"PACK",dash.live.bms*67.2|0,15,6); //6
+	UI.btn.c2l("main","_2x3",1,"FULL",euc.dash.opt.bat.hi/100,15,0); //1
+	UI.btn.c2l("main","_2x3",2,"SPEED",euc.dash.opt.unit.fact.spd,15,0); //4
+	UI.btn.c2l("main","_2x3",3,"AMP",euc.dash.live.ampR?"R":"N",15,0); //3
+	UI.btn.c2l("main","_2x3",4,"EMPTY",euc.dash.opt.bat.low/100,15,6); //4
+	UI.btn.c2l("main","_2x3",5,"DIST",euc.dash.opt.unit.fact.dist,15,6); //5
+	UI.btn.c2l("main","_2x3",6,"PACK",euc.dash.live.bms*67.2|0,15,6); //6
 	UIc.end();
 	//
 	UIc.main._2x3=(i)=>{
@@ -36,55 +36,55 @@ face[0].d1=function(){
 			buzzer(buz.ok);
 			UI.btn.ntfy(1,3,0,"_bar",6,"100% CELL","VOLT",15,1,1);
 			set.bar=1;
-			TC.val={cur:dash.live.batF,dn:400,up:425,tmp:0};
+			TC.val={cur:euc.dash.opt.bat.hi,dn:400,up:425,tmp:0};
 			UIc.tcBar=(a,b)=>{ 
 				UI.btn.ntfy(0,2,1);
 				UI.btn.c2l("main","_2x3",1,"FULL",b/100,15,0); //1
-				dash.live.batF=b;
+				euc.dash.opt.bat.hi=b;
 			};
 		}else if (i==2){
 			buzzer(buz.ok);
 			UI.btn.ntfy(1,3,0,"_bar",6,"SPEED","FACTOR",15,1,1);
 			set.bar=1;
-			TC.val={cur:dash.live.spdF*100,dn:50,up:150,tmp:0};
+			TC.val={cur:euc.dash.opt.unit.fact.spd*100,dn:50,up:150,tmp:0};
 			UIc.tcBar=(a,b)=>{ 
 				UI.btn.ntfy(0,2,1);
 				UI.btn.c2l("main","_2x3",2,"SPEED",b/100,15,0); //4
-				dash.live.spdF=b/100;
+				euc.dash.opt.unit.fact.spd=b/100;
 			};			
 		}else if (i==3){
 			buzzer(buz.ok);
-			dash.live.ampR=1-dash.live.ampR;
-			if (set.def.info) UI.btn.ntfy(1,0,0,"_bar",6,"AMPERAGE",dash.live.ampR?"REVERSED":"NORMAL",15,0);
-			UI.btn.c2l("main","_2x3",3,"AMP",dash.live.ampR?"R":"N",15,0); //3
+			euc.dash.live.ampR=1-euc.dash.live.ampR;
+			if (set.def.info) UI.btn.ntfy(1,0,0,"_bar",6,"AMPERAGE",euc.dash.live.ampR?"REVERSED":"NORMAL",15,0);
+			UI.btn.c2l("main","_2x3",3,"AMP",euc.dash.live.ampR?"R":"N",15,0); //3
 		}else if (i==4){
 			buzzer(buz.ok);
 			UI.btn.ntfy(1,3,0,"_bar",6,"0% CELL","VOLT",15,1,1);
 			set.bar=1;
-			TC.val={cur:dash.live.batE,dn:300,up:340,tmp:0};
+			TC.val={cur:euc.dash.opt.bat.low,dn:300,up:340,tmp:0};
 			UIc.tcBar=(a,b)=>{ 
 				UI.btn.ntfy(0,2,1);
 				UI.btn.c2l("main","_2x3",4,"EMPTY",b/100,15,6); //1
-				dash.live.batE=b;
+				euc.dash.opt.bat.low=b;
 			};		
 		}else if (i==5){
 			buzzer(buz.ok);
 			UI.btn.ntfy(1,3,0,"_bar",6,"DISTANCE","FACTOR",15,1,1);
 			set.bar=1;
-			TC.val={cur:dash.live.trpF*100,dn:50,up:150,tmp:0};
+			TC.val={cur:euc.dash.opt.unit.fact.dist*100,dn:50,up:150,tmp:0};
 			UIc.tcBar=(a,b)=>{ 
 				UI.btn.ntfy(0,2,1);
 				UI.btn.c2l("main","_2x3",5,"DIST",b/100,15,6); //1
-				dash.live.trpF=b/100;
+				euc.dash.opt.unit.fact.dist=b/100;
 			};	
 		}else if (i==6){
 			buzzer(buz.ok); 
-			if (1.5<=dash.live.bms&& dash.live.bms<=1.8) dash.live.bms=1.875;
-			else if (dash.live.bms==1.875) dash.live.bms=2;
-			else if (dash.live.bms==2) dash.live.bms=1;
-			else dash.live.bms=dash.live.bms+0.25;
+			if (1.5<=euc.dash.live.bms&& euc.dash.live.bms<=1.8) euc.dash.live.bms=1.875;
+			else if (euc.dash.live.bms==1.875) euc.dash.live.bms=2;
+			else if (euc.dash.live.bms==2) euc.dash.live.bms=1;
+			else euc.dash.live.bms=euc.dash.live.bms+0.25;
 			if (set.def.info) UI.btn.ntfy(1,1.5,0,"_bar",6,"WHEEL","VOLTAGE",15,0);
-			UI.btn.c2l("main","_2x3",6,"PACK",dash.live.bms*67.2|0,15,6); //6
+			UI.btn.c2l("main","_2x3",6,"PACK",euc.dash.live.bms*67.2|0,15,6); //6
 		}
 	};
 };

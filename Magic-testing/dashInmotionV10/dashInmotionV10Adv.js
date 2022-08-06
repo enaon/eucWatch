@@ -25,13 +25,13 @@ face[0] = {
       	this.g.fillRect(143,200,165,204);
 		this.g.flip(); 
 		//ride mode
-		this.g.setColor(0,(dash.live.ride.mode)?4:1);
+		this.g.setColor(0,(euc.dash.live.ride.mode)?4:1);
 		this.g.fillRect(0,0,119,97);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",18);	
 		this.g.drawString("MODE",60-(this.g.stringWidth("MODE")/2),15); 
 		this.g.setFont("Vector",23);	
-		this.g.drawString((dash.live.ride.mode)?"CLASIC":"COMFORT",60-(this.g.stringWidth((dash.live.ride.mode)?"CLASIC":"COMFORT")/2),55); 
+		this.g.drawString((euc.dash.live.ride.mode)?"CLASIC":"COMFORT",60-(this.g.stringWidth((euc.dash.live.ride.mode)?"CLASIC":"COMFORT")/2),55); 
 		this.g.flip();
 		//calibrate
 		this.g.setColor(0,12);
@@ -49,7 +49,7 @@ face[0] = {
 		this.g.drawString("WHEEL",60-(this.g.stringWidth("WHEEL")/2),115); 
 //		this.g.setFont("Vector",25);
 		this.g.drawString("ALERTS",60-(this.g.stringWidth("ALERTS")/2),150); 
-//		this.g.drawString(dash.live.spdT,60-(this.g.stringWidth(dash.live.spdT)/2),150); 
+//		this.g.drawString(euc.dash.live.spdT,60-(this.g.stringWidth(euc.dash.live.spdT)/2),150); 
 		this.g.flip();
 		//pass
 		this.g.setColor(0,12);
@@ -113,9 +113,9 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
       case 5:case 12: //tap event
 		if ( x<=120 && y<=100 ) { //ride mode
-			dash.live.ride.mode=1-dash.live.ride.mode;
-			face[0].btn("MODE",18,60,15,(dash.live.ride.mode)?4:1,0,0,119,97,(dash.live.ride.mode)?"CLASIC":"COMFORT",23,60,55);
-			euc.wri("setRideMode",dash.live.ride.mode);
+			euc.dash.live.ride.mode=1-euc.dash.live.ride.mode;
+			face[0].btn("MODE",18,60,15,(euc.dash.live.ride.mode)?4:1,0,0,119,97,(euc.dash.live.ride.mode)?"CLASIC":"COMFORT",23,60,55);
+			euc.wri("setRideMode",euc.dash.live.ride.mode);
 			buzzer(buz.ok);		
 		}else if ( 120<=x  && y<=100 ) { //calibrate
             buzzer(buz.ok);
@@ -127,13 +127,13 @@ touchHandler[0]=function(e,x,y){
 		//	return;
 		//}else if ( 120<=x && 100<=y ) { //pass
 		//	buzzer(buz.ok);		
-		//	if (dash.live.pass.length>=4) face.go("dashInmotionV1AdvPass",5);
+		//	if (euc.dash.opt.lock.pass.length>=4) face.go("dashInmotionV1AdvPass",5);
 		//	else face.go("dashInmotionV1AdvPass",0);
 		//	return;
 		}else buzzer(buz.na);
 		break;
 	case 1: //slide down event
-		setTimeout(function(){euc.busy=0;euc.tmp.live();},800);
+		setTimeout(function(){euc.busy=0;euc.temp.live();},800);
 		face.go(set.dash[set.def.dash.face],0);
 		return;	 
 	case 2: //slide up event

@@ -17,8 +17,8 @@ global.euc= {
 		if (this.state!="OFF" ) {
 			buzzer([90,60,90]); 
 			//log
-			if (this.log.trip[0]&& 0<euc.dash.info.trip.totl-this.log.trip[0] ) 
-				set.write("logDaySlot"+set.def.dash.slot,Date().getHours(),(euc.dash.info.trip.totl-this.log.trip[0])+((set.read("logDaySlot"+set.def.dash.slot,Date().getHours()))?set.read("logDaySlot"+set.def.dash.slot,Date().getHours()):0));
+			if (this.log.trip[0]&& 0<euc.dash.trip.totl-this.log.trip[0] ) 
+				set.write("logDaySlot"+set.def.dash.slot,Date().getHours(),(euc.dash.trip.totl-this.log.trip[0])+((set.read("logDaySlot"+set.def.dash.slot,Date().getHours()))?set.read("logDaySlot"+set.def.dash.slot,Date().getHours()):0));
 			this.log.trip[0]=0;
 			set.def.dash.accE=0;
 			this.mac=0;
@@ -27,16 +27,16 @@ global.euc= {
 			this.wri("end");
 			setTimeout(()=>{
 				//print("log");
-				if (this.log.trip[1]&& 0<euc.dash.info.trip.totl-this.log.trip[1] ) {
+				if (this.log.trip[1]&& 0<euc.dash.trip.totl-this.log.trip[1] ) {
 					//print("week");
-					set.write("logWeekSlot"+set.def.dash.slot,Date().getDay(),(euc.dash.info.trip.totl-this.log.trip[1])+( (set.read("logWeekSlot"+set.def.dash.slot,Date().getDay()))?set.read("logWeekSlot"+set.def.dash.slot,Date().getDay()):0));
+					set.write("logWeekSlot"+set.def.dash.slot,Date().getDay(),(euc.dash.trip.totl-this.log.trip[1])+( (set.read("logWeekSlot"+set.def.dash.slot,Date().getDay()))?set.read("logWeekSlot"+set.def.dash.slot,Date().getDay()):0));
 				}
-				if (this.log.trip[2]&& 0<euc.dash.info.trip.totl-this.log.trip[2] ) {
-					set.write("logYearSlot"+set.def.dash.slot,Date().getMonth(),(euc.dash.info.trip.totl-this.log.trip[2])+( (set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()))?set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()):0));	
+				if (this.log.trip[2]&& 0<euc.dash.trip.totl-this.log.trip[2] ) {
+					set.write("logYearSlot"+set.def.dash.slot,Date().getMonth(),(euc.dash.trip.totl-this.log.trip[2])+( (set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()))?set.read("logYearSlot"+set.def.dash.slot,Date().getMonth()):0));	
 				}
 				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 				this.log.trip=[0,0,0];
-				if (face.appCurr!=="dashOff") face.go('dashOff',0);
+				if (face.appCurr=="dashOff") face.go('dashOff',0);
 				if (set.def.acc) acc.on(1);
 			},1000);
 			
@@ -55,13 +55,13 @@ global.euc= {
 					eval(require('Storage').read('proxy'+euc.dash.info.get.makr));
 				}	
 				this.state="ON";
-				if (euc.dash.info.get.makr!=="Kingsong"||euc.dash.info.get.makr!=="inmotionV11") euc.dash.info.trip.topS=0;
+				if (euc.dash.info.get.makr!=="Kingsong"||euc.dash.info.get.makr!=="inmotionV11") euc.dash.trip.topS=0;
 				this.conn(this.mac);
-				face.go(set.dash[set.def.dash.face],0);
 				this.state="ON";
 				if (set.def.acc) acc.off();
 				setTimeout(()=>{set.def.dash.accE=1;acc.on(2); },1000);
 				if (euc.dash.opt.tpms&&global.tpms&&!tpms.def.int) {tpms.euc={}; setTimeout(()=>{tpms.scan(); },10000);}//tpms
+				face.go(set.dash[set.def.dash.face],0);
 				return;
 			}
 		}

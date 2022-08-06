@@ -126,10 +126,10 @@ face[0] = {
 			UI.btn.ntfy(1,3,1,"_bar",6,"MODULE","MISSING",15,7);w.gfx.flip();
 			return; 
 	}
-	setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker",target[0]);
-	setter.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Model",target[1]);
-	dash.live.name=0;
-	dash.live.maker=target[0];
+	set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker",target[0]);
+	set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Model",target[1]);
+	euc.dash.info.get.name=0;
+	euc.dash.info.get.makr=target[0];
 	face.go('w_scan',0,target[2]);
   },
   tid:-1,
