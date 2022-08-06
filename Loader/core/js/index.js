@@ -591,7 +591,7 @@ function installMultipleApps(appIds, promptName, defaults) {
     Progress.hide({sticky:true});
 	//Puck.write(`require('Storage').write('devmode','loader');`);
     appsInstalled = [];
-    showToast(`Installing  ${appCount} apps...`);
+    //showToast(`Installing  ${appCount} apps...`);
     return new Promise((resolve,reject) => {
       function upload() {
         let app = apps.shift();
