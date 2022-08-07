@@ -598,12 +598,12 @@ function installMultipleApps(appIds, promptName, defaults) {
         if (app===undefined) return resolve();
         Progress.show({title:`${app.name} (${appCount-apps.length}/${appCount})`,sticky:true});
         checkDependencies(app,"skip_reset")
-          //.then(()=>Comms.uploadApp(app,"skip_reset"))
-		  .then(()=>Comms.uploadApp(app,(app.name=="Handler")?0:"skip_reset"))
+          .then(()=>Comms.uploadApp(app,"skip_reset"))
+		  //.then(()=>Comms.uploadApp(app,(app.name=="Handler")?0:"skip_reset"))
           .then((appJSON) => {
             Progress.hide({sticky:true});
             if (appJSON) appsInstalled.push(appJSON);
-            showToast(`(${appCount-apps.length}/${appCount}) ${app.name} Uploaded`);
+           // showToast(`(${appCount-apps.length}/${appCount}) ${app.name} Uploaded`);
     		//if (app.name=="P8 core") Comms.reset().then(upload()); else upload();
 			 upload();
           }).catch(function() {
