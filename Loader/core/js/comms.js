@@ -36,7 +36,7 @@ const Comms = {
 	});
   }),
   uploadApp : (app,skipReset) => { // expects an apps.json structure (i.e. with `storage`)
-    //Progress.show({title:`Uploading ${app.name}`,sticky:true});
+    Progress.show({title:`Uploading ${app.name}`,sticky:true});
     return AppInfo.getFiles(app, {
       fileGetter : httpGet,
       settings : SETTINGS
@@ -60,7 +60,7 @@ const Comms = {
           if (fileContents.length==0) {
             Puck.write(`\x10print('Tap BTN1\\nto boot')\n`,(result) => {
             //Puck.write(`require("Storage").erase("devmode");\n`,(result) => {
-              //Progress.hide({sticky:true});
+              Progress.hide({sticky:true});
               if (result===null) return reject("");
               resolve(appInfo);
             });
@@ -80,7 +80,7 @@ const Comms = {
             currentBytes += cmd.length;
             Puck.write(`${cmd};Bluetooth.println("OK")\n`,(result) => {
               if (!result || result.trim()!="OK") {
-                //Progress.hide({sticky:true});
+                Progress.hide({sticky:true});
                 return reject("Unexpected response "+(result||""));
               }
               uploadCmd();
