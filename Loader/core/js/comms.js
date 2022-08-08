@@ -36,13 +36,13 @@ const Comms = {
 	});
   }),
   uploadApp : (app,skipReset) => { // expects an apps.json structure (i.e. with `storage`)
-    Progress.show({title:`Uploading ${app.name}`,sticky:true});
+    //Progress.show({title:`Uploading ${app.name}`,sticky:true});
     return AppInfo.getFiles(app, {
       fileGetter : httpGet,
       settings : SETTINGS
     }).then(fileContents => {
       return new Promise((resolve,reject) => {
-        console.log("<COMMS> uploadApp:",fileContents.map(f=>f.name).join(", "));
+       // console.log("<COMMS> uploadApp:",fileContents.map(f=>f.name).join(", "));
         let maxBytes = fileContents.reduce((b,f)=>b+f.cmd.length, 0)||1;
         let currentBytes = 0;
 
@@ -60,14 +60,14 @@ const Comms = {
           if (fileContents.length==0) {
             Puck.write(`\x10print('Tap BTN1\\nto boot')\n`,(result) => {
             //Puck.write(`require("Storage").erase("devmode");\n`,(result) => {
-              Progress.hide({sticky:true});
+              //Progress.hide({sticky:true});
               if (result===null) return reject("");
               resolve(appInfo);
             });
             return;
           }
           let f = fileContents.shift();
-          console.log(`<COMMS> Upload ${f.name} => ${JSON.stringify(f.content)}`);
+          //console.log(`<COMMS> Upload ${f.name} => ${JSON.stringify(f.content)}`);
           // Chould check CRC here if needed instead of returning 'OK'...
           // E.CRC32(require("Storage").read(${JSON.stringify(app.name)}))
           let cmds = f.cmd.split("\n");
@@ -80,7 +80,7 @@ const Comms = {
             currentBytes += cmd.length;
             Puck.write(`${cmd};Bluetooth.println("OK")\n`,(result) => {
               if (!result || result.trim()!="OK") {
-                Progress.hide({sticky:true});
+                //Progress.hide({sticky:true});
                 return reject("Unexpected response "+(result||""));
               }
               uploadCmd();
@@ -92,7 +92,7 @@ const Comms = {
         function doUpload() {
           Puck.write(`\x10print('Uploading\\n${app.id}...')\n`,(result) => {
             if (result===null) {
-              Progress.hide({sticky:true});
+              //Progress.hide({sticky:true});
               return reject("");
             }
             doUploadFiles();
@@ -102,7 +102,7 @@ const Comms = {
           doUpload();
         } else {
         // reset to ensure we have enough memory to upload what we need to
-		  Puck.write(`require('Storage').write('devmode','loader')\n`);
+		  //Puck.write(`require('Storage').write('devmode','loader')\n`);
           Comms.reset().then(doUpload, reject);
         }
       });

@@ -596,18 +596,18 @@ function installMultipleApps(appIds, promptName, defaults) {
       function upload() {
         let app = apps.shift();
         if (app===undefined) return resolve();
-        //Progress.show({title:`${app.name} (${appCount-apps.length}/${appCount})`,sticky:true});
+        Progress.show({title:`${app.name} (${appCount-apps.length}/${appCount})`,sticky:true});
         checkDependencies(app,"skip_reset")
           .then(()=>Comms.uploadApp(app,"skip_reset"))
 		  //.then(()=>Comms.uploadApp(app,(app.name=="Handler")?0:"skip_reset"))
           .then((appJSON) => {
-            //Progress.hide({sticky:true});
+            Progress.hide({sticky:true});
             if (appJSON) appsInstalled.push(appJSON);
            // showToast(`(${appCount-apps.length}/${appCount}) ${app.name} Uploaded`);
     		//if (app.name=="P8 core") Comms.reset().then(upload()); else upload();
 			 upload();
           }).catch(function() {
-            Progress.hide({sticky:true});
+            //Progress.hide({sticky:true});
             reject();
           });
       }
