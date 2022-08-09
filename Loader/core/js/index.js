@@ -608,13 +608,15 @@ function installMultipleApps(appIds, promptName) {
     Progress.hide({sticky:true});
     device.appsInstalled = [];
     showToast(`Existing apps removed. Installing  ${appCount} apps...`);
+	Puck.write(`require('Storage').write('devmode','loader');`);
     return new Promise((resolve,reject) => {
       function upload() {
         let app = apps.shift();
         if (app===undefined) return resolve();
         Progress.show({title:`${app.name} (${appCount-apps.length}/${appCount})`,sticky:true});
         checkDependencies(app,"skip_reset")
-          .then(()=>Comms.uploadApp(app,"skip_reset"))
+		  .then(()=>Comms.uploadApp(app,app.name.startsWith("Handler")?0:"skip_reset"))
+          //.then(()=>Comms.uploadApp(app,"skip_reset"))
           .then((appJSON) => {
             Progress.hide({sticky:true});
             if (appJSON) device.appsInstalled.push(appJSON);
@@ -666,7 +668,11 @@ htmlToArray(document.querySelectorAll(".btn.updateapps")).map(button => button.a
 }));
 connectMyDeviceBtn.addEventListener("click", () => {
   if (connectMyDeviceBtn.classList.contains('is-connected')) {
-    Comms.disconnectDevice();
+    Puck.write('require("Storage").erase("devmode");setTimeout(()=>{reset();},500);\n')  
+	setTimeout(() => {
+	  Comms.disconnectDevice();
+    }, 1000);
+	//Comms.disconnectDevice();
   } else {
     getInstalledApps(true).catch(err => {
       showToast("Device connection failed, "+err,"error");

@@ -576,39 +576,38 @@ function installMultipleApps(appIds, promptName, defaults) {
     return Promise.reject("Not all apps found");
   let appCount = apps.length;
   return showPrompt("Install Defaults",`Remove everything and install ${promptName} apps?`).then(() => {
-	//Progress.hide({sticky:true});
-    //showToast(`Enabling flash.`);  
+	Progress.hide({sticky:true});
+    showToast(`Enabling flash.`);  
 	return Comms.enableFlash();    
   }).then(()=>{
-	//Progress.hide({sticky:true});
-    //showToast(`Erasing.`); 
+	Progress.hide({sticky:true});
+    showToast(`Erasing.`); 
     return Comms.removeAllApps();
   }).then(()=>{
-	//Progress.hide({sticky:true});
-    //showToast(`Erase Complete, writing default settings`);  
+	Progress.hide({sticky:true});
+    showToast(`Erase Complete, writing default settings`);  
 	return Comms.writeSettings(defaults);
   }).then(()=>{
-    //Progress.hide({sticky:true});
+    Progress.hide({sticky:true});
 	//Puck.write(`require('Storage').write('devmode','loader');`);
     appsInstalled = [];
-    //showToast(`Installing  ${appCount} apps...`);
+    showToast(`Installing  ${appCount} apps...`);
     return new Promise((resolve,reject) => {
       function upload() {
         let app = apps.shift();
         if (app===undefined) return resolve();
-        //Progress.show({title:`${app.name} (${appCount-apps.length}/${appCount})`,sticky:true});
+        Progress.show({title:`${app.name} (${appCount-apps.length}/${appCount})`,sticky:true});
         checkDependencies(app,"skip_reset")
-          .then(()=>Comms.uploadApp(app,"skip_reset"))
-		  //.then(()=>Comms.uploadApp(app,app.name.startsWith("Handler")?0:"skip_reset"))
+          //.then(()=>Comms.uploadApp(app,"skip_reset"))
+		  .then(()=>Comms.uploadApp(app,app.name.startsWith("Handler")?0:"skip_reset"))
           .then((appJSON) => {
-			 console.log("name",app.name);
-            //Progress.hide({sticky:true});
+            Progress.hide({sticky:true});
             if (appJSON) appsInstalled.push(appJSON);
-           // showToast(`(${appCount-apps.length}/${appCount}) ${app.name} Uploaded`);
+            showToast(`(${appCount-apps.length}/${appCount}) ${app.name} Uploaded`);
     		//if (app.name=="P8 core") Comms.reset().then(upload()); else upload();
 			 upload();
           }).catch(function() {
-            //Progress.hide({sticky:true});
+            Progress.hide({sticky:true});
             reject();
           });
       }
@@ -660,7 +659,7 @@ connectMyDeviceBtn.addEventListener("click", () => {
 	  Comms.disconnectDevice();
     }, 1000);
   } else {
-	//Puck.write('require("Storage").write("devmode","loader");setTimeout(()=>{reset();},1000);\n')  
+	Puck.write('require("Storage").write("devmode","loader");setTimeout(()=>{reset();},3000);\n')  
     getInstalledApps(true).catch(err => {
       showToast("Device connection failed, "+err,"error");
     });

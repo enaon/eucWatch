@@ -16,7 +16,7 @@ const Comms = {
 				Puck.write("\x03",rstHandler);
 			} else {
 				console.log(`<COMMS> reset: complete.`);
-				setTimeout(resolve,50);
+				setTimeout(resolve,250);
 				/*setTimeout(()=>{
 				Comms.readSettings("setting","acctype").then(function(c) {
 					return localStorage.setItem("p8acc", c);
@@ -42,7 +42,7 @@ const Comms = {
       settings : SETTINGS
     }).then(fileContents => {
       return new Promise((resolve,reject) => {
-       // console.log("<COMMS> uploadApp:",fileContents.map(f=>f.name).join(", "));
+        console.log("<COMMS> uploadApp:",fileContents.map(f=>f.name).join(", "));
         let maxBytes = fileContents.reduce((b,f)=>b+f.cmd.length, 0)||1;
         let currentBytes = 0;
 
@@ -67,7 +67,7 @@ const Comms = {
             return;
           }
           let f = fileContents.shift();
-          //console.log(`<COMMS> Upload ${f.name} => ${JSON.stringify(f.content)}`);
+          console.log(`<COMMS> Upload ${f.name} => ${JSON.stringify(f.content)}`);
           // Chould check CRC here if needed instead of returning 'OK'...
           // E.CRC32(require("Storage").read(${JSON.stringify(app.name)}))
           let cmds = f.cmd.split("\n");
@@ -92,7 +92,7 @@ const Comms = {
         function doUpload() {
           Puck.write(`\x10print('Uploading\\n${app.id}...')\n`,(result) => {
             if (result===null) {
-              //Progress.hide({sticky:true});
+              Progress.hide({sticky:true});
               return reject("");
             }
             doUploadFiles();
@@ -102,7 +102,7 @@ const Comms = {
           doUpload();
         } else {
         // reset to ensure we have enough memory to upload what we need to
-		  //Puck.write(`require('Storage').write('devmode','loader')\n`);
+		  Puck.write(`require('Storage').write('devmode','loader')\n`);
           Comms.reset().then(doUpload, reject);
         }
       });
