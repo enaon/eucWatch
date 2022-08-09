@@ -797,7 +797,7 @@ if (btn) btn.addEventListener("click",event=>{
 // Install all apps in one go
 btn = document.getElementById("installall");
 if (btn) btn.addEventListener("click",event=>{
-  httpGet(`${APP_SOURCECODE_DEV}/all.json`).then(json=>{
+  httpGet(`${APP_SOURCECODE_DEV}/All.json`).then(json=>{
 //  httpGet("defaultapps.json").then(json=>{
     return installMultipleApps(JSON.parse(json), "default");
   }).catch(err=>{
