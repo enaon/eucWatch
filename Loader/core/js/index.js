@@ -599,8 +599,9 @@ function installMultipleApps(appIds, promptName, defaults) {
         //Progress.show({title:`${app.name} (${appCount-apps.length}/${appCount})`,sticky:true});
         checkDependencies(app,"skip_reset")
           //.then(()=>Comms.uploadApp(app,"skip_reset"))
-		  .then(()=>Comms.uploadApp(app,(app.name=="Handler")?0:"skip_reset"))
+		  .then(()=>Comms.uploadApp(app,app.name.startsWith("Handler")?0:"skip_reset"))
           .then((appJSON) => {
+			 console.log("name",app.name);
             //Progress.hide({sticky:true});
             if (appJSON) appsInstalled.push(appJSON);
            // showToast(`(${appCount-apps.length}/${appCount}) ${app.name} Uploaded`);
@@ -659,7 +660,7 @@ connectMyDeviceBtn.addEventListener("click", () => {
 	  Comms.disconnectDevice();
     }, 1000);
   } else {
-	Puck.write('require("Storage").write("devmode","loader");setTimeout(()=>{reset();},3000);\n')  
+	Puck.write('require("Storage").write("devmode","loader");setTimeout(()=>{reset();},1000);\n')  
     getInstalledApps(true).catch(err => {
       showToast("Device connection failed, "+err,"error");
     });

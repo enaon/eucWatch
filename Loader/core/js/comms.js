@@ -16,7 +16,7 @@ const Comms = {
 				Puck.write("\x03",rstHandler);
 			} else {
 				console.log(`<COMMS> reset: complete.`);
-				setTimeout(resolve,250);
+				setTimeout(resolve,50);
 				/*setTimeout(()=>{
 				Comms.readSettings("setting","acctype").then(function(c) {
 					return localStorage.setItem("p8acc", c);
