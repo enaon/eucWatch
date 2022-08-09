@@ -250,6 +250,7 @@ function getAppHTML(app, appInstalled, forInterface) {
   let html = `<div class="tile column col-6 col-sm-12 col-xs-12">
   <div class="tile-icon">
 	<figure class="avatar"><img src="${APP_SOURCECODE_DEV}/${app.icon?`${app.id}/${app.icon}`:"unknown.png"}" alt="${escapeHtml(app.name)}"></figure><br/>
+
   </div>
   <div class="tile-content">
     <p class="tile-title text-bold"><a name="${appurl}"></a>${escapeHtml(app.name)} ${versionInfo}</p>
