@@ -121,14 +121,14 @@ euc.conn=function(mac){
 				if (euc.is.busy) return;
 				if ( euc.temp.last === "stats" ) {
 					//trip total
-					euc.dash.trip.totl=event.target.value.getUint32(5, true)/100;
-						euc.log.trip.forEach(function(val,pos){ if (!val) euc.log.trip[pos]=euc.dash.trip.totl;});
+					euc.dash.info.trip.totl=event.target.value.getUint32(5, true)/100;
+						euc.log.trip.forEach(function(val,pos){ if (!val) euc.log.trip[pos]=euc.dash.info.trip.totl;});
 					//time
-					euc.dash.trip.time=(event.target.value.getUint32(17, true)/60)|0;
+					euc.dash.info.trip.time=(event.target.value.getUint32(17, true)/60)|0;
 					euc.dash.timR=(event.target.value.getUint32(21, true)/60)|0;
 					//deb
-					if (set.bt===2) print("trip total :", euc.dash.trip.totl);
-					if (set.bt===2) print("on time :", euc.dash.trip.time);
+					if (set.bt===2) print("trip total :", euc.dash.info.trip.totl);
+					if (set.bt===2) print("on time :", euc.dash.info.trip.time);
 					if (set.bt===2) print("ride time :", euc.dash.timR);
 
 					return;
@@ -148,8 +148,8 @@ euc.conn=function(mac){
 				euc.dash.alrt.bat.cc = (50 <= euc.dash.live.bat)? 0 : (euc.dash.live.bat <= euc.dash.alrt.bat.hapt.low)? 2 : 1;	
 				if ( euc.dash.alrt.bat.hapt.en && euc.dash.alrt.bat.cc ==2 )  euc.is.alert ++;
 				//trip 
-				euc.dash.trip.last=event.target.value.getUint16(17, true)/100;
-				euc.dash.trip.left=(event.target.value.getUint16(19, true))*10; //remain
+				euc.dash.info.trip.last=event.target.value.getUint16(17, true)/100;
+				euc.dash.info.trip.left=(event.target.value.getUint16(19, true))*10; //remain
 				//temp
 				euc.dash.live.tmp=(event.target.value.buffer[22] & 0xff) + 80 - 256;
 				euc.dash.alrt.tmp.cc=(euc.dash.alrt.tmp.hapt.hi - 5 <= euc.dash.live.tmp )? (euc.dash.alrt.tmp.hapt.hi <= euc.dash.live.tmp )?2:1:0;
@@ -174,14 +174,14 @@ euc.conn=function(mac){
 				//speed
 				//euc.dash.live.spd=Math.round((event.target.value.getInt16(9, true) / 100)*euc.dash.opt.unit.fact.spd*((set.def.dash.mph)?0.625:1));
 				euc.dash.live.spd=event.target.value.getInt16(9, true) / 100;
-				if (euc.dash.trip.topS < euc.dash.live.spd) euc.dash.trip.topS = euc.dash.live.spd;
+				if (euc.dash.info.trip.topS < euc.dash.live.spd) euc.dash.info.trip.topS = euc.dash.live.spd;
 				if (euc.dash.live.spd<0) euc.dash.live.spd=-euc.dash.live.spd;
 				euc.dash.alrt.spd.cc = ( euc.dash.alrt.spd.hapt.hi <= euc.dash.live.spd )? 2 : ( euc.dash.alrt.spd.hapt.low <= euc.dash.live.spd )? 1 : 0 ;	
 				if ( euc.dash.alrt.spd.hapt.en && euc.dash.alrt.spd.cc == 2 ) 
 					euc.is.alert = 1 + Math.round((euc.dash.live.spd-euc.dash.alrt.spd.hapt.hi) / euc.dash.alrt.spd.hapt.step) ; 	
 				//average
-				//euc.dash.trip.avrS=(event.target.value.getUint16(17, true))/100;
-				//euc.dash.trip.topS=(event.target.value.getUint16(19, true))/100;
+				//euc.dash.info.trip.avrS=(event.target.value.getUint16(17, true))/100;
+				//euc.dash.info.trip.topS=(event.target.value.getUint16(19, true))/100;
 				//haptic
 				//euc.new=1;
 				if (!euc.is.buzz && euc.is.alert) {  

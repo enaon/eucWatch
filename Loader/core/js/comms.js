@@ -265,6 +265,50 @@ const Comms = {
     let cmd = "reset();load()\n";
     return Comms.write(cmd);
   },
+  
+  writeSettings : (val) => {
+    return new Promise((resolve,reject) => {
+      let cmd = '\x03\x10';
+	cmd += `require('Storage').write('setting.json', ${val});`;
+      Puck.write(cmd, (result) => {
+        if (result===null) return reject("");
+        resolve();
+      });
+    });
+  },
+  enableFlash : () => {
+    return new Promise((resolve,reject) => {
+      let cmd = '\x03\x10';
+	cmd += `var spi=new SPI();spi.setup({sck:D2,mosi:D3,miso:D4,mode:0}); spi.send([0xab],D5);`;
+      Puck.write(cmd, (result) => {
+        if (result===null) return reject("");
+        resolve();
+      });
+    });
+  },
+  changeSettings : (file,id,val) => {
+    return new Promise((resolve,reject) => {
+      let cmd = '\x03\x10';
+      cmd += "(s=>{s&&(s."+id+"='"+val+"')&&require('Storage').write('"+file+".json',s);})(require('Storage').readJSON('"+file+".json',1))\n";
+      Puck.write(cmd, (result) => {
+        if (result===null) return reject("");
+        resolve();
+      });
+    });
+  },
+  readSettings : (file,id) => {
+		return new Promise((resolve,reject) => {
+			//let cmd = '\x03\x10';
+			cmd = '';
+			cmd += "require('Storage').readJSON('"+file+".json',1)."+id+"\n";
+			Puck.eval(cmd, (resp,err) => {
+				if (resp===null||resp===undefined) return reject(err || "");
+				console.log("<COMMS> resp", resp);
+				resolve(resp);
+			});
+		});
+	},  
+ 
   // Force a disconnect from the device
   disconnectDevice: () => {
     let connection = Puck.getConnection();

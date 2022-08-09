@@ -7,7 +7,7 @@ function KickWd(){
 }
 var wdint=setInterval(KickWd,3000);
 E.enableWatchdog(30, false);
-E.showMessage=function(){} //apploader suport
+E.showMessage=print; //apploader suport
 global.save = function() { throw new Error("You don't need to use save() on eucWatch!"); };
 //d25.write(0)
 //spi flash-notes

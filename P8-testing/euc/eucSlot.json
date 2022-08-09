@@ -1,9 +1,9 @@
 {
 	"info": {
 		"get": {"makr":"","modl":"","firm":"","serl":"","manD":"","colr":0,"id":"","mac":""},
+		"trip": {"totl":0,"last":0,"left":0,"topS":0,"avrS":0,"time":0},
 		"tRdT":0
 	},
-	"trip": {"totl":0,"last":0,"left":0,"topS":0,"avrS":0,"time":0},
 	"auto": {
 		"offT":0,
 		"onC":{"HL":0,"led":0,"beep":0,"unlk":0,"lift":0,"talk":1,"pass":0},
@@ -20,8 +20,7 @@
 				"ampR":0,"mile":0
 			},
 			"snd":{"vol":1},
-			"snsr":{"lift":1,"fan":0,"chrg":0},
-			"tpms":0
+			"snsr":{"lift":1,"fan":0,"chrg":0}
 	},
 	"alrt": {
 			"mode":0,

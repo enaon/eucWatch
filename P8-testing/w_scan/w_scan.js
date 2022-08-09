@@ -9,7 +9,7 @@ if(!global.scan){
 				app="dash";
 				if (euc.dash.info.get.makr=="NinebotS")  this.filter = [{manufacturer:16974}];  
 				else if (euc.dash.info.get.makr=="NinebotZ")  this.filter = [{ namePrefix: 'N3' }];
-				else if (euc.dash.info.get.makr=="NinebotE")  this.filter = [{ namePrefix: 'NOC' },{ namePrefix: 'NOE' },{ namePrefix: 'NOP' }];
+				if (euc.dash.info.get.makr=="Ninebot")  this.filter = [{ namePrefix: 'NOC' },{ namePrefix: 'NOE' },{ namePrefix: 'NOP' }];
 				else if (euc.dash.info.get.makr=="InmotionV11")  this.filter = [{ namePrefix: 'V11-' }];
 				else if (euc.dash.info.get.makr=="InmotionV12")  this.filter = [{ namePrefix: 'V12-' }];
 				else if (euc.dash.info.get.makr=="Begode")  this.filter = [{ namePrefix: 'GotWay' }];
@@ -71,6 +71,7 @@ face[0] = {
     scan.mac=(require("Storage").readJSON("setting.json",1)||{})[face.appPrev+"Mac"];
 	this.go=(require("Storage").readJSON("setting.json",1)||{})[face.appPrev+"_go"];
 	this.go=0;
+
     this.start=1;
 	if(!scan.mac) {scan.mac=[];this.find(o);}
     this.g.setColor(0,0); //header
@@ -108,12 +109,19 @@ face[0] = {
       this.g.flip();
       this.g.setFont("Vector",28);
       for (var entry=this.line;entry<this.line+4&&entry<scan.mac.length;entry++) {
+        //print(entry,this.go);
+		//print("got :"+scan.mac[entry]);
+		//print("id :"+scan.mac[entry].substring(0,17),"name :"+scan.mac[entry].split("|")[1]);
 		this.g.setColor(0,(this.go==entry)?4:(entry % 2)?1:2);
         this.g.fillRect(0,(this.top-14)+((entry-this.line)*this.top),239,(this.top+36)+((entry-this.line)*this.top)); 
 		this.g.setColor(1,(this.go==entry)?14:15);
+		//let dr=scan.mac[entry].substring(0,17);
 		if (scan.mac[entry].split("|")[1]!=="undefined"){
 			dr=E.toString(scan.mac[entry].split("|")[1].replace(/\0/g, ''));
+			//print ("test",dr,dr.replace(/\0/g, ''),dr.replace(/\u0000/g, '') )
 		}else dr=scan.mac[entry].substring(0,17);
+		//let dr=scan.mac[entry].substring(0,17);
+		//let dr=(scan.mac[entry].split("|")[1]!=="undefined")?scan.mac[entry].split("|")[1]:scan.mac[entry].substring(0,17);
 		this.g.drawString(dr,1,this.top+((entry-this.line)*this.top));
 		this.g.flip();
       }
@@ -124,11 +132,14 @@ face[0] = {
       this.g.fillRect(0,36,239,239);
       this.g.setColor(1,14);
       this.g.setFont("Vector",25);
+//      this.g.drawString((face.appPrev=="repellent")?"REPELLENT":"EUC",120-(this.g.stringWidth((face.appPrev=="repellent")?"REPELLENT":"EUC")/2),50);
       this.g.drawString("NOT FOUND",120-(this.g.stringWidth("NOT FOUND")/2),80);
       this.g.setFont("Vector",20);
       this.g.drawString("TOUCH TO RESCAN",120-(this.g.stringWidth("TOUCH TO RESCAN")/2),150);
+
       this.done=0;
       this.g.flip();
+      //return;
     }
     this.tid=setTimeout(function(t){
       t.tid=-1;

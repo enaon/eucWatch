@@ -34,6 +34,9 @@ tpms= {
 	find:(rp,sl)=>{
 		//if (!this.try && this.status!="SCANNING") this.try=this.def.try
 		NRF.findDevices(function(devices) {
+			//let filter = [{services:[ "fbb0" ]}];
+			//NRF.filterDevices(devices, filter).forEach(function(device) {
+			//print (device);
 			devices.forEach(function(device) {
 				if (device != [ ] && device.id ) {
 					let mac =device.id.split(" ")[0].split(":");

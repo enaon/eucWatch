@@ -244,7 +244,7 @@ function getAppHTML(app, appInstalled, forInterface) {
   let readme = `<a class="c-hand" onclick="showReadme('${app.id}')">Read more...</a>`;
   let favourite = SETTINGS.favourites.find(e => e == app.id);
   let githubLink = Const.APP_SOURCECODE_URL ?
-    `<a href="${Const.APP_SOURCECODE_URL}/${app.id}" target="_blank" class="link-github"><img src="core/img/github-icon-sml.png" alt="See the code on GitHub"/></a>` : "";
+    `<a href="${Const.APP_SOURCECODE_URL}/${app.id}" target="_blank" class="link-github"><img src="Loader/core/img/github-icon-sml.png" alt="See the code on GitHub"/></a>` : "";
   let appurl = window.location.origin + window.location.pathname + "#" + encodeURIComponent(app.id);
 
   let html = `<div class="tile column col-6 col-sm-12 col-xs-12">
@@ -604,7 +604,14 @@ function installMultipleApps(appIds, promptName) {
     return Promise.reject("Not all apps found");
   let appCount = apps.length;
   return showPrompt("Install Defaults",`Remove everything and install ${promptName} apps?`).then(() => {
+    //return Comms.removeAllApps();
+	return Comms.enableFlash();   
+  }).then(()=>{
+	//Progress.hide({sticky:true});
+    //showToast(`Erasing.`); 
     return Comms.removeAllApps();
+  }).then(()=>{
+	return Comms.writeSettings(defaults);
   }).then(()=>{
     Progress.hide({sticky:true});
     device.appsInstalled = [];
@@ -714,7 +721,91 @@ sortContainer.addEventListener('click', ({ target }) => {
   refreshLibrary();
   window.location.hash = activeFilter;
 });
+//change options to setting.json on Watch
+function changeSettings() {
+  // Pops up an IFRAME that allows an app to be customised
+  return new Promise((resolve,reject) => {
+    let modal = htmlElement(`<div class="modal active">
+      <a href="#close" class="modal-overlay " aria-label="Close"></a>
+      <div class="modal-container" style="height:100%">
+        <div class="modal-header">
+          <a href="#close" class="btn btn-clear float-right" aria-label="Close"></a>
+          <div class="modal-title h5">Change Settings</div>
+        </div>
+        <div class="modal-body" style="height:100%">
+          <div class="content" style="height:100%">
+            <iframe src="${APP_SOURCECODE_DEV}/settings.html" style="width:100%;height:100%;border:0px;">
+          </div>
+        </div>
+      </div>
+    </div>`);
+    document.body.append(modal);
+    htmlToArray(modal.getElementsByTagName("a")).forEach(button => {
+      button.addEventListener("click",event => {
+        event.preventDefault();
+        modal.remove();
+        reject("Window closed");
+      });
+    });
 
+    let iframe = modal.getElementsByTagName("iframe")[0];
+    iframe.contentWindow.addEventListener("message", function(event) {
+	  	Comms.changeSettings('setting','acctype',localStorage.p8acc).then(function() {
+			Comms.changeSettings('setting','touchtype',localStorage.p8touch)
+			}).then(function() {
+			return Comms.changeSettings('setting','name', localStorage.p8name)
+	//		}).then(function() {
+	//		Comms.reset()
+	//		return;
+			}).then(function() {
+			showToast("Settings Updated","success");
+		});
+		console.log("Sending new Setting");
+		modal.remove();
+		return true;
+      }, false);
+  });
+}
+//write options to setting.json on Watch
+function installerOptions(installtype) {
+  // Pops up an IFRAME that allows an app to be customised
+  return new Promise((resolve,reject) => {
+    let modal = htmlElement(`<div class="modal active">
+      <a href="#close" class="modal-overlay " aria-label="Close"></a>
+      <div class="modal-container" style="height:100%">
+        <div class="modal-header">
+          <a href="#close" class="btn btn-clear float-right" aria-label="Close"></a>
+          <div class="modal-title h5">Install Options</div>
+        </div>
+        <div class="modal-body" style="height:100%">
+          <div class="content" style="height:100%">
+            <iframe src="${APP_SOURCECODE_DEV}/installer.html" style="width:100%;height:100%;border:0px;">
+          </div>
+        </div>
+      </div>
+    </div>`);
+    document.body.append(modal);
+    htmlToArray(modal.getElementsByTagName("a")).forEach(button => {
+      button.addEventListener("click",event => {
+        event.preventDefault();
+        modal.remove();
+        reject("Window closed");
+      });
+    });
+
+    let iframe = modal.getElementsByTagName("iframe")[0];
+    iframe.contentWindow.addEventListener("message", function(event) {
+      console.log("Received customm Setting");
+       modal.remove();
+    httpGet(`${APP_SOURCECODE_DEV}/${installtype}.json`).then(json=>{
+    return installMultipleApps(JSON.parse(json), installtype,event.data);
+  }).catch(err=>{
+    Progress.hide({sticky:true});
+    showToast("Install failed, "+err,"error");
+  });
+    }, false);
+  });
+}
 // =========================================== About
 
 // Settings
@@ -762,7 +853,24 @@ if (btn) btn.addEventListener("click",event=>{
   loadSettings(); // update all settings
   refreshLibrary(); // favourites were in settings
 });
+btn = document.getElementById("settings");
+if (btn) btn.addEventListener("click",event=>{ 
+    changeSettings().then(() => {
+    }).catch(err=>{
+    Progress.hide({sticky:true});
+    showToast("Change Settings failed, "+err,"error");
+  });
+});
 
+
+btn = document.getElementById("restart");
+if (btn) btn.addEventListener("click",event=>{
+  Comms.reset().then(()=>{
+    showToast("Restart successfully","success");
+  }, err=>{
+    showToast("Error, "+err,"error");
+  });
+});
 btn = document.getElementById("resetwatch");
 if (btn) btn.addEventListener("click",event=>{
   Comms.resetDevice().then(()=>{
@@ -806,7 +914,7 @@ if (btn) btn.addEventListener("click",event=>{
 });
 
 // Install all apps in one go
-btn = document.getElementById("installall");
+/*btn = document.getElementById("installall");
 if (btn) btn.addEventListener("click",event=>{
   httpGet(`${APP_SOURCECODE_DEV}/All.json`).then(json=>{
 //  httpGet("defaultapps.json").then(json=>{
@@ -814,6 +922,16 @@ if (btn) btn.addEventListener("click",event=>{
   }).catch(err=>{
     Progress.hide({sticky:true});
     showToast("App Install failed, "+err,"error");
+  });
+});
+*/
+
+btn = document.getElementById("installall");
+if (btn) btn.addEventListener("click",event=>{ 
+    installerOptions("All").then(() => {
+    }).catch(err=>{
+    Progress.hide({sticky:true});
+    showToast("FULL Install failed, "+err,"error");
   });
 });
 

@@ -199,10 +199,10 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.setFontVector(30);
 				w.gfx.drawString(((euc.dash.info.get.name)?euc.dash.info.get.name:euc.dash.info.get.makr),120-w.gfx.stringWidth(((euc.dash.info.get.name)?euc.dash.info.get.name:euc.dash.info.get.makr))/2,62);
 				w.gfx.setFontVector(28);
-				w.gfx.drawString(euc.dash.trip.topS*((set.def.dash.mph)?0.625:1)*euc.dash.opt.unit.fact.spd,185-w.gfx.stringWidth(euc.dash.trip.topS*((set.def.dash.mph)?0.625:1)*euc.dash.opt.unit.fact.spd),99);
-				w.gfx.drawString(euc.dash.trip.time,185-w.gfx.stringWidth(euc.dash.trip.time),139); 
-				w.gfx.drawString(face[0].comf((euc.dash.trip.last*((set.def.dash.mph)?0.625:1)).toFixed(0)),185-w.gfx.stringWidth(face[0].comf((euc.dash.trip.last*((set.def.dash.mph)?0.625:1)).toFixed(0))),178); 
-				w.gfx.drawString(face[0].comf((euc.dash.trip.totl*((set.def.dash.mph)?0.625:1)).toFixed(1)),185-w.gfx.stringWidth(face[0].comf((euc.dash.trip.totl*((set.def.dash.mph)?0.625:1)).toFixed(1))),217); 
+				w.gfx.drawString(euc.dash.info.trip.topS*((set.def.dash.mph)?0.625:1)*euc.dash.opt.unit.fact.spd,185-w.gfx.stringWidth(euc.dash.info.trip.topS*((set.def.dash.mph)?0.625:1)*euc.dash.opt.unit.fact.spd),99);
+				w.gfx.drawString(euc.dash.info.trip.time,185-w.gfx.stringWidth(euc.dash.info.trip.time),139); 
+				w.gfx.drawString(face[0].comf((euc.dash.info.trip.last*((set.def.dash.mph)?0.625:1)).toFixed(0)),185-w.gfx.stringWidth(face[0].comf((euc.dash.info.trip.last*((set.def.dash.mph)?0.625:1)).toFixed(0))),178); 
+				w.gfx.drawString(face[0].comf((euc.dash.info.trip.totl*((set.def.dash.mph)?0.625:1)).toFixed(1)),185-w.gfx.stringWidth(face[0].comf((euc.dash.info.trip.totl*((set.def.dash.mph)?0.625:1)).toFixed(1))),217); 
 				w.gfx.flip();	
 				w.gfx.setColor(1,3);
 				w.gfx.setFontVector(24);

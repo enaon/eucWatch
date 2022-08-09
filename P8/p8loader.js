@@ -1,8 +1,25 @@
+
 /* BLE debug info */
-Puck.debug = 3;
+//Puck.debug = 3;
+//Const.SINGLE_APP_ONLY = false;
+APP_SOURCECODE_DEV ="P8-testing";
+Const.APP_SOURCECODE_URL = `https://github.com/enaon/eucWatch/tree/main/`;
+
+
+document.getElementById("apploaderlinks").innerHTML =  'This is not the <a href="https://espruino.com/apps/">official Espruino App Loader</a>.';
+
+
+
+/* BLE debug info */
+
+
+
+//Puck.debug = 3;
 /* Are we only putting a single app on a device? If so
 apps should all be saved as .bootcde and we write info
 about the current app into app.info */
+/*
+
 Const.SINGLE_APP_ONLY = false;
 
 if (window.location.host=="espruino.com") {
@@ -28,6 +45,7 @@ var APP_SOURCECODE_DEV;
   APP_SOURCECODE_DEV = `P8`;
 })();
 
+
 const DEVICEINFO = {
   "PUCKJS" : {
     features : ["BLE","BLEHID","NFC"]
@@ -39,3 +57,6 @@ const DEVICEINFO = {
     features : ["BLE","BLEHID","NFC","GRAPHICS"]
   }
 };
+
+
+*/
