@@ -28,6 +28,7 @@ var APP_SOURCECODE_DEV;
   APP_SOURCECODE_DEV = `P8-testing`;
 })();
 
+/*
 const DEVICEINFO = {
   "PUCKJS" : {
     features : ["BLE","BLEHID","NFC"]
@@ -39,3 +40,4 @@ const DEVICEINFO = {
     features : ["BLE","BLEHID","NFC","GRAPHICS"]
   }
 };
+*/

@@ -44,10 +44,15 @@ function toJS(txt) {
 
 // Run JS through EspruinoTools to pull in modules/etc
 function parseJS(storageFile, options) {
-  if (storageFile.url && storageFile.url.endsWith(".js") && !storageFile.url.endsWith(".min.js")) { // if original file ends in '.js'...
+  if (storageFile.url && storageFile.url.endsWith(".js") && !storageFile.url.endsWith(".min.js")) {
+    // if original file ends in '.js'...
+    let localModulesURL = "modules";
+    if (typeof window!=="undefined")
+      localModulesURL = window.location.origin + window.location.pathname.replace(/[^/]*$/,"") + "modules";
     return Espruino.transform(storageFile.content, {
       SET_TIME_ON_WRITE : false,
       PRETOKENISE : options.settings.pretokenise,
+      MODULE_URL : localModulesURL+"|https://www.espruino.com/modules",
       //MINIFICATION_LEVEL : "ESPRIMA", // disable due to https://github.com/espruino/BangleApps/pull/355#issuecomment-620124162
       builtinModules : "Flash,Storage,heatshrink,tensorflow,locale,notify"
     }).then(content => {
@@ -68,28 +73,38 @@ const AppInfo = {
   getFiles : (app,options) => {
     return new Promise((resolve,reject) => {
       // Load all files
-      Promise.all(app.storage.map(storageFile => {
+      const appFiles = [].concat(
+        app.storage,
+        app.data&&app.data.filter(f=>f.url||f.content).map(f=>(f.noOverwrite=true,f))||[]);
+      //console.log(appFiles)
+
+      Promise.all(appFiles.map(storageFile => {
         if (storageFile.content!==undefined)
           return Promise.resolve(storageFile).then(storageFile => parseJS(storageFile,options));
         else if (storageFile.url)
           return options.fileGetter(`${APP_SOURCECODE_DEV}/${app.id}/${storageFile.url}`).then(content => {
             return {
               name : storageFile.name,
+              url : storageFile.url,
               content : content,
-              evaluate : storageFile.evaluate
+              evaluate : storageFile.evaluate,
+              noOverwrite : storageFile.noOverwrite
             }}).then(storageFile => parseJS(storageFile,options));
         else return Promise.resolve();
       })).then(fileContents => { // now we just have a list of files + contents...
         // filter out empty files
         fileContents = fileContents.filter(x=>x!==undefined);
-        // What about minification?
+        // if it's a 'ram' app, don't add any app JSON file
+        if (app.type=="RAM") return fileContents;
         // Add app's info JSON
         return AppInfo.createAppJSON(app, fileContents);
       }).then(fileContents => {
         // then map each file to a command to load into storage
         fileContents.forEach(storageFile => {
           // format ready for Espruino
-          if (storageFile.evaluate) {
+          if (storageFile.name=="RAM") {
+            storageFile.cmd = "\x10"+storageFile.content.trim();
+          } else if (storageFile.evaluate) {
             let js = storageFile.content.trim();
             if (js.endsWith(";"))
               js = js.slice(0,-1);
@@ -101,6 +116,12 @@ const AppInfo = {
             storageFile.cmd = `\x10require('Storage').write(${JSON.stringify(storageFile.name)},${toJS(code.substr(0,CHUNKSIZE))},0,${code.length});`;
             for (let i=CHUNKSIZE;i<code.length;i+=CHUNKSIZE)
               storageFile.cmd += `\n\x10require('Storage').write(${JSON.stringify(storageFile.name)},${toJS(code.substr(i,CHUNKSIZE))},${i});`;
+          }
+          // if we're not supposed to overwrite this file... this gets set
+          // automatically for data files that are loaded
+          if (storageFile.noOverwrite) {
+            storageFile.cmd = `\x10var _e = require('Storage').read(${JSON.stringify(storageFile.name)})===undefined;\n` +
+                              storageFile.cmd.replace(/\x10/g,"\x10if(_e)") + "delete _e;";
           }
         });
         resolve(fileContents);
@@ -132,7 +153,8 @@ const AppInfo = {
         json.icon = app.id+".img";
       if (app.sortorder) json.sortorder = app.sortorder;
       if (app.version) json.version = app.version;
-      let fileList = fileContents.map(storageFile=>storageFile.name);
+      if (app.tags) json.tags = app.tags;
+      let fileList = fileContents.map(storageFile=>storageFile.name).filter(n=>n!="RAM");
       fileList.unshift(appInfoFileName); // do we want this? makes life easier!
       json.files = fileList.join(",");
       if ('data' in app) {
