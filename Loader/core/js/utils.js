@@ -15,7 +15,7 @@ const Const = {
 
   /* base URL, eg https://github.com/${username}/BangleApps/tree/master/apps for
   links when people click on the GitHub link next to an app. undefined = no link*/
-  //APP_SOURCECODE_URL : undefined,
+  APP_SOURCECODE_URL : undefined,
   //APP_SOURCECODE_URL : `https://github.com/enaon/eucWatch/tree/main/P8/`,
 
 

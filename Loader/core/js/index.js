@@ -598,7 +598,7 @@ function getInstalledApps(refresh) {
 }
 
 /// Removes everything and install the given apps, eg: installMultipleApps(["boot","mclock"], "minimal")
-function installMultipleApps(appIds, promptName) {
+function installMultipleApps(appIds, promptName, defaults) {
   let apps = appIds.map( appid => appJSON.find(app=>app.id==appid) );
   if (apps.some(x=>x===undefined))
     return Promise.reject("Not all apps found");
