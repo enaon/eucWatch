@@ -69,7 +69,7 @@ function showReadme(appid) {
 }
 function getAppDescription(app) {
   let appPath = `${APP_SOURCECODE_DEV}/${app.id}/`;
-  console.log("ll",APP_SOURCECODE_DEV);
+  //console.log("ll",APP_SOURCECODE_DEV);
 //  let appPath = `apps/${app.id}/`;
   let markedOptions = { baseUrl : appPath };
   return marked(app.description, markedOptions);
