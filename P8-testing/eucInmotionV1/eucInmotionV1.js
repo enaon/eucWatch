@@ -105,7 +105,7 @@ euc.temp.liveParse= function (inc){
 	//spd
 	euc.dash.live.spd=(lala.getInt32(31, true)+lala.getInt32(35, true))/2000;
 	
-	if (euc.dash.info.trip.topS < euc.dash.live.spd) euc.dash.info.trip.topS = euc.dash.live.spd;
+	if (euc.dash.trip.topS < euc.dash.live.spd) euc.dash.trip.topS = euc.dash.live.spd;
 	if (euc.dash.live.spd<0) euc.dash.live.spd=-euc.dash.live.spd;
 	euc.dash.alrt.spd.cc = ( euc.dash.alrt.spd.hapt.hi <= euc.dash.live.spd )? 2 : ( euc.dash.alrt.spd.hapt.low <= euc.dash.live.spd )? 1 : 0 ;	
 	if ( euc.dash.alrt.spd.hapt.en && euc.dash.alrt.spd.cc == 2 ) 
@@ -135,10 +135,10 @@ euc.temp.liveParse= function (inc){
 		else euc.is.alert =  euc.is.alert + 1 + Math.round(-(euc.dash.live.amp - euc.dash.alrt.amp.hapt.low) / euc.dash.alrt.amp.hapt.step) ;
 	}
 	//trip 
-	euc.dash.info.trip.last=lala.getInt32(67, true)/1000;
-	//print(euc.dash.info.trip.last);
-	euc.dash.info.trip.totl=lala.getUint32(63, true)/1000;
-	euc.log.trip.forEach(function(val,pos){ if (!val) euc.log.trip[pos]=euc.dash.info.trip.totl;});
+	euc.dash.trip.last=lala.getInt32(67, true)/1000;
+	//print(euc.dash.trip.last);
+	euc.dash.trip.totl=lala.getUint32(63, true)/1000;
+	euc.log.trip.forEach(function(val,pos){ if (!val) euc.log.trip[pos]=euc.dash.trip.totl;});
 	//mode
 	euc.dash.opt.ride.mode=lala.getInt32(81, true);
 	//haptic

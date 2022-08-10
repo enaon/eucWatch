@@ -16,8 +16,6 @@ function ccon(l){
 		if (set.def.cli) {
 			if (l.startsWith(cli)) {
 				set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
-				return; 
-
 			}
 		}
 		if (set.def.gb) {

@@ -100,8 +100,8 @@ euc.temp.hapt=function(){
 };
 euc.temp.line="";
 euc.temp.extd= function(event) {	
-	if (set.bt==5) 	euc.proxy.w(event.target.value.buffer);
-	if (euc.dbg)  console.log("input",event.target.value.buffer);
+	//if (set.bt==5) 	euc.proxy.w(event.target.value.buffer);
+	if (euc.dbg)  console.log("input on ext",event.target.value.buffer);
 	let fragment = E.toString(event.target.value.buffer);
 	let lineEnd = fragment.indexOf('\n');
 	if (lineEnd == -1){
@@ -188,13 +188,13 @@ euc.temp.pck0=function(data) {
 	euc.dash.alrt.spd.max= euc.dash.alrt.spd.top * rdct;
 	//speed
 	euc.dash.live.spd = Math.abs((data.getInt16(4) * 3.6)/100); 
-	if (euc.dash.info.trip.topS < euc.dash.live.spd) euc.dash.info.trip.topS = euc.dash.live.spd;
+	if (euc.dash.trip.topS < euc.dash.live.spd) euc.dash.trip.topS = euc.dash.live.spd;
 	euc.dash.alrt.spd.cc = ( euc.dash.alrt.spd.hapt.hi <= euc.dash.live.spd )? 2 : ( euc.dash.alrt.spd.hapt.low <= euc.dash.live.spd )? 1 : 0 ;	
 	if ( euc.dash.alrt.spd.hapt.en && euc.dash.alrt.spd.cc == 2 ) 
 		euc.is.alert = 1 + Math.round((euc.dash.live.spd-euc.dash.alrt.spd.hapt.hi) / euc.dash.alrt.spd.hapt.step) ; 	
 	//trip last
-	//euc.dash.info.trip.last=data.getUint32(6)/1000;
-	euc.dash.info.trip.last=data.getUint16(8)/1000;
+	//euc.dash.trip.last=data.getUint32(6)/1000;
+	euc.dash.trip.last=data.getUint16(8)/1000;
 	//amp
 	euc.dash.live.amp=data.getInt16(10)/1000;
 	if (euc.dash.opt.unit.ampR) euc.dash.live.amp=-euc.dash.live.amp;
@@ -218,8 +218,8 @@ euc.temp.pck1=function(data) {
   euc.dash.alrt.pwm.val = data.getUint16(2);
 };
 euc.temp.pck4=function(data) {
-	euc.dash.info.trip.totl=data.getUint32(2)/1000;
-	euc.log.trip.forEach(function(val,pos){ if (!val) euc.log.trip[pos]=euc.dash.info.trip.totl;});
+	euc.dash.trip.totl=data.getUint32(2)/1000;
+	euc.log.trip.forEach(function(val,pos){ if (!val) euc.log.trip[pos]=euc.dash.trip.totl;});
 	let mode=data.getUint16(6);
 	euc.dash.opt.ride.mode	= mode >> 13 & 0x3; //riding mode
 	euc.dash.alrt.mode	= mode >> 10 & 0x3; //warnings mode
