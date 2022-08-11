@@ -101,12 +101,14 @@ const Comms = {
               min:currentBytes / maxBytes,
               max:(currentBytes+cmd.length) / maxBytes});
             currentBytes += cmd.length;
-            Puck.write(`${cmd};${Comms.getProgressCmd(currentBytes / maxBytes)}Bluetooth.println("OK")\n`,(result) => {
+            Puck.write(`${cmd};Bluetooth.println("OK")\n`,(result) => {
+            //Puck.write(`${cmd};${Comms.getProgressCmd(currentBytes / maxBytes)}Bluetooth.println("OK")\n`,(result) => {
               if (!result || result.trim()!="OK") {
                 Progress.hide({sticky:true});
                 return reject("Unexpected response "+(result||""));
               }
               uploadCmd();
+              //setTimeout(()=>{uploadCmd();},100);
             }, true); // wait for a newline
           }
           uploadCmd();

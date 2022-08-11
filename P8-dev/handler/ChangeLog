@@ -1,7 +1,0 @@
-0.01: New App!
-0.02: new settings function
-0.03: bugfix
-0.04: bugfix
-0.05: info events now turn on the screen if woe is enabled. 
-0.06: Buzzer and screen-on is disabled for new events if on DND.
-0.07: Better margins for SC7A20 accelerometer.

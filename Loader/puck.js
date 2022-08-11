@@ -173,7 +173,7 @@ ChangeLog:
 
       function writeChunk() {
         if (flowControlXOFF) { // flow control - try again later
-          setTimeout(writeChunk, 50);
+          setTimeout(writeChunk, 200);
           return;
         }
         var chunk;
@@ -345,7 +345,7 @@ ChangeLog:
       }
       // wait for any received data if we have a callback...
       var maxTime = 300; // 30 sec - Max time we wait in total, even if getting data
-      var dataWaitTime = callbackNewline ? 100/*10 sec if waiting for newline*/ : 3/*300ms*/;
+      var dataWaitTime = callbackNewline ? 100/*10 sec if waiting for newline*/ : 7/*300ms*/;
       var maxDataTime = dataWaitTime; // max time we wait after having received data
       cbTimeout = setTimeout(function timeout() {
         cbTimeout = undefined;
@@ -353,7 +353,7 @@ ChangeLog:
         if (maxDataTime) maxDataTime--;
         if (connection.hadData) maxDataTime=dataWaitTime;
         if (maxDataTime && maxTime) {
-          cbTimeout = setTimeout(timeout, 100);
+          cbTimeout = setTimeout(timeout, 150);
         } else {
           connection.cb = undefined;
           if (callback)
@@ -363,7 +363,7 @@ ChangeLog:
           connection.received = "";
         }
         connection.hadData = false;
-      }, 100);
+      }, 400);
     }
 
     if (connection && (connection.isOpen || connection.isOpening)) {
@@ -403,7 +403,7 @@ ChangeLog:
     /** When we receive more than 20 bytes, should we increase the chunk size we use
     for writing to match it? Normally this is fine but it seems some phones have
     a broken bluetooth implementation that doesn't allow it. */
-    increaseMTU : true,
+    increaseMTU : false,
     /// Should we use flow control? Default is true
     flowControl : true,
     /// Used internally to write log information - you can replace this with your own function

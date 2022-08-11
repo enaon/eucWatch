@@ -1,0 +1,12 @@
+{
+  "name": "EspruinoAppLoaderCore",
+  "description": "Source files for Bangle.js and Espruino App Loader",
+  "author": "Gordon Williams <gw@pur3.co.uk> (http://espruino.com)",
+  "version": "0.0.1",
+  "devDependencies": {
+    "eslint": "7.1.0"
+  },
+  "scripts": {
+    "test": "eslint ./lib ./js"
+  }
+}

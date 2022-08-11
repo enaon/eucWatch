@@ -5671,8 +5671,10 @@ To add a new serial device, you must add an object to
       } else if (state==2 && (tok.type=="STRING")) {
         state=0;
         var module = tok.value;
-        if (!isBuiltIn(module) && modules.indexOf(module)<0)
+        if (!isBuiltIn(module) && modules.indexOf(module)<0&&module!="eucWatch"){
+          console.log("found",module);
           modules.push(module);
+        }
       } else
         state = 0;
       tok = lex.next();
@@ -5684,7 +5686,6 @@ To add a new serial device, you must add an object to
   /** Download modules from MODULE_URL/.. */
   function fetchGetModule(data, callback) {
     var fullModuleName = data.moduleName;
-
     // try and load the module the old way...
     console.log("loadModule("+fullModuleName+")");
 
