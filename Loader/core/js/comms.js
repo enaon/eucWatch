@@ -101,8 +101,8 @@ const Comms = {
               min:currentBytes / maxBytes,
               max:(currentBytes+cmd.length) / maxBytes});
             currentBytes += cmd.length;
-            Puck.write(`${cmd};Bluetooth.println("OK")\n`,(result) => {
-            //Puck.write(`${cmd};${Comms.getProgressCmd(currentBytes / maxBytes)}Bluetooth.println("OK")\n`,(result) => {
+            //Puck.write(`${cmd};Bluetooth.println("OK")\n`,(result) => {
+            Puck.write(`${cmd};${Comms.getProgressCmd(currentBytes / maxBytes)}Bluetooth.println("OK")\n`,(result) => {
               if (!result || result.trim()!="OK") {
                 Progress.hide({sticky:true});
                 return reject("Unexpected response "+(result||""));
@@ -190,6 +190,8 @@ const Comms = {
   },
   // Remove an app given an appinfo.id structure as JSON
   removeApp : app => { // expects an appid.info structure (i.e. with `files`)
+    console.log("ll-1",app.files,app.data);
+    console.log(app);
     if (!app.files && !app.data) return Promise.resolve(); // nothing to erase
     Progress.show({title:`Removing ${app.name}`,sticky:true});
     let cmds = '\x10const s=require("Storage");\n';

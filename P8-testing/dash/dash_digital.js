@@ -14,7 +14,7 @@ face[0] = {
 		this.ampC=[1,2992,7,7];
 		this.tmpC=[1,2992,7,7];
 		this.batC=[4,1,7,7];
-		this.spd=-1;
+		this.spd=euc.dash.live.spd-1;
 		this.aTlt=-1;
 		this.topS=-1;
 		this.amp=-10;
@@ -89,7 +89,9 @@ face[0] = {
 				this.g.setFont("Vector",50);
 				this.g.drawString(euc.state,(125-this.g.stringWidth(euc.state)/2),95);
 				this.g.flip();
-				this.spd=-1;this.pwm=-1;this.amp=-1;this.tmp=-1;this.bat=-1;this.trpL=-1;this.conn=0;this.lock=2;
+				//this.spd=-1;
+				this.spd=euc.dash.live.spd-1;
+				this.pwm=-1;this.amp=-1;this.tmp=-1;this.bat=-1;this.trpL=-1;this.conn=0;this.lock=2;
 				this.buzz=-1;this.volt=-1;this.alrm=-1;this.aTlt=-1;this.topS=-1;this.bar=0;
 				//this.ampL.fill(1,0,1);this.batL.fill(1,0,1);
 				this.run=true;
@@ -100,7 +102,7 @@ face[0] = {
 		this.tid=setTimeout(function(t){
 			t.tid=-1;
 			t.show();
-		},150,this);
+		},20,this);
 	},
 	spdF: function(){
 		if ( Math.abs(euc.dash.live.spd-this.spd) <5 ) this.spd =Math.round(euc.dash.live.spd);

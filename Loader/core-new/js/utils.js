@@ -11,14 +11,14 @@ const Const = {
   LOAD_APP_AFTER_UPLOAD : false,
 
   /* Does our device have E.showMessage? */
-  HAS_E_SHOWMESSAGE : false,
+  HAS_E_SHOWMESSAGE : true,
 
   /* base URL, eg https://github.com/${username}/BangleApps/tree/master/apps for
   links when people click on the GitHub link next to an app. undefined = no link*/
   APP_SOURCECODE_URL : undefined,
 
   /* Message to display when an app has been loaded */
-  MESSAGE_RELOAD : 'Hold BTN\nto reload',
+  MESSAGE_RELOAD : 'Hold BTN3\nto reload',
 
   /* The code to upload to the device show a progress bar on the screen (should define a fn. called 'p') */
   CODE_PROGRESSBAR : "g.drawRect(10,g.getHeight()-16,g.getWidth()-10,g.getHeight()-8).flip();p=x=>g.fillRect(10,g.getHeight()-16,10+(g.getWidth()-20)*x/100,g.getHeight()-8).flip();",

@@ -369,6 +369,7 @@ function removeApp(app) {
   return showPrompt("Delete","Really remove '"+app.name+"'?").then(() => {
     return getInstalledApps().then(()=>{
       // a = from appid.info, app = from apps.json
+      console.log(appsInstalled.find(a => a.id === app.id));
       return Comms.removeApp(appsInstalled.find(a => a.id === app.id));
     });
   }).then(()=>{
@@ -376,7 +377,6 @@ function removeApp(app) {
     showToast(app.name+" removed successfully","success");
     refreshMyApps();
     refreshLibrary();
-//   	Puck.write(`require("Storage").erase("devmode");\n`);
   }, err=>{
     showToast(app.name+" removal failed, "+err,"error");
   });

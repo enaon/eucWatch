@@ -403,7 +403,7 @@ ChangeLog:
     /** When we receive more than 20 bytes, should we increase the chunk size we use
     for writing to match it? Normally this is fine but it seems some phones have
     a broken bluetooth implementation that doesn't allow it. */
-    increaseMTU : false,
+    increaseMTU : true,
     /// Should we use flow control? Default is true
     flowControl : true,
     /// Used internally to write log information - you can replace this with your own function

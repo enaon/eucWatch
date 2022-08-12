@@ -38,6 +38,7 @@ onInit({
 
 If no device is connected, some fields may not be populated.
 */
+/*
 function sendCustomizedApp(app) {
   console.log("<CUSTOM> sending app");
   window.postMessage({
@@ -45,7 +46,14 @@ function sendCustomizedApp(app) {
     data : app
   });
 }
+*/
+//eucWatch
+function sendCustomizedApp(app) {
+  console.log("<CUSTOM> sending app");
+  window.postMessage(app);
+}
 
+/*
 window.addEventListener("message", function(event) {
   let msg = event.data;
   if (msg.type=="init") {
@@ -54,3 +62,6 @@ window.addEventListener("message", function(event) {
       onInit(msg.data);
   }
 }, false);
+
+
+*/

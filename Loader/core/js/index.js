@@ -6,6 +6,7 @@ let DEFAULTSETTINGS = {
   favourites : ["boot","launch","setting"]
 };
 let SETTINGS = JSON.parse(JSON.stringify(DEFAULTSETTINGS)); // clone
+saveSettings(); //eucwatch- default pretokenise 
 let FAVOURITE_INACTIVE_ICON = 0x2606; // 0x2661 = empty heart; 0x2606 = empty star
 let FAVOURITE_ACTIVE_ICON = 0x2605; // 0x2665 = solid heart; 0x2605 = solid star
 
@@ -16,8 +17,6 @@ let device = {
   connected : false,   // are we connected via BLE right now?
   appsInstalled : []  // list of app {id,version} of installed apps
 };
-
-
 
 //httpGet("apps.json").then(apps=>{
 httpGet(`${APP_SOURCECODE_DEV}/apps.json`).then(apps=>{
@@ -414,6 +413,7 @@ function removeApp(app) {
   return showPrompt("Delete","Really remove '"+app.name+"'?").then(() => {
     return getInstalledApps().then(()=>{
       // a = from appid.info, app = from apps.json
+      console.log("ll",device.appsInstalled.find(a => a.id === app.id));
       return Comms.removeApp(device.appsInstalled.find(a => a.id === app.id));
     });
   }).then(()=>{
@@ -592,6 +592,7 @@ function getInstalledApps(refresh) {
       device.info = DEVICEINFO.find(d=>d.id==device.id);
       refreshMyApps();
       refreshLibrary();
+      Puck.write(`require('Storage').write('devmode','loader');\n`);
     })
     .then(() => handleConnectionChange(true))
     .then(() => device.appsInstalled);
@@ -615,8 +616,7 @@ function installMultipleApps(appIds, promptName, defaults) {
   }).then(()=>{
     Progress.hide({sticky:true});
     device.appsInstalled = [];
-    showToast(`Existing apps removed. Installing  ${appCount} apps...`);
-	Puck.write(`require('Storage').write('devmode','loader');`);
+    showToast(`Ready to install ${appCount} apps.`);
     return new Promise((resolve,reject) => {
       function upload() {
         let app = apps.shift();
@@ -686,9 +686,10 @@ connectMyDeviceBtn.addEventListener("click", () => {
     }, 1000);
 	//Comms.disconnectDevice();
   } else {
-    getInstalledApps(true).catch(err => {
-      showToast("Device connection failed, "+err,"error");
-    });
+      getInstalledApps(true).catch(err => {
+        showToast("Device connection failed, "+err,"error");
+      });
+   //});
   }
 });
 Comms.watchConnectionChange(handleConnectionChange);
@@ -905,41 +906,27 @@ if (btn) btn.addEventListener("click",event=>{
 btn = document.getElementById("installdefault");
 if (btn) btn.addEventListener("click",event=>{
   httpGet(`${APP_SOURCECODE_DEV}/defaultapps.json`).then(json=>{
-//  httpGet("defaultapps.json").then(json=>{
     return installMultipleApps(JSON.parse(json), "default");
   }).catch(err=>{
     Progress.hide({sticky:true});
     showToast("App Install failed, "+err,"error");
   });
 });
-
-// Install all apps in one go
-/*btn = document.getElementById("installall");
+// Install all favourite apps in one go
+btn = document.getElementById("installfavourite");
 if (btn) btn.addEventListener("click",event=>{
-  httpGet(`${APP_SOURCECODE_DEV}/All.json`).then(json=>{
-//  httpGet("defaultapps.json").then(json=>{
-    return installMultipleApps(JSON.parse(json), "default");
-  }).catch(err=>{
+  let favApps = SETTINGS.favourites;
+  installMultipleApps(favApps, "favourite").catch(err=>{
     Progress.hide({sticky:true});
     showToast("App Install failed, "+err,"error");
   });
 });
-*/
-
+//eucWatch
 btn = document.getElementById("installall");
 if (btn) btn.addEventListener("click",event=>{ 
     installerOptions("All").then(() => {
     }).catch(err=>{
     Progress.hide({sticky:true});
     showToast("FULL Install failed, "+err,"error");
-  });
-});
-
-// Install all favourite apps in one go
-btn = document.getElementById("installfavourite");
-if (btn) btn.addEventListener("click",event=>{
-  installMultipleApps(SETTINGS.favourites, "favourite").catch(err=>{
-    Progress.hide({sticky:true});
-    showToast("App Install failed, "+err,"error");
   });
 });
