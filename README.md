@@ -48,6 +48,7 @@ https://www.youtube.com/watch?v=mjdcSiPKgE4
 
 photo from [TheDuke](https://www.espritroue.fr/topic/16585-euc-watch-hackable/?tab=comments#comment-294216&ct=1618804287)
 
+
 <details>
   <summary>Photos</summary>
   
