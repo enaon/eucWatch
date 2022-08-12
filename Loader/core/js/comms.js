@@ -1,4 +1,4 @@
-//Puck.debug=3;
+Puck.debug=0;
 console.log("=============================================")
 console.log("Type 'Puck.debug=3' for full BLE debug info")
 console.log("=============================================")
