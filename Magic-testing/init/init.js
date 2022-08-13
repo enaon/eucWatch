@@ -20,7 +20,7 @@ else if ( process.env.BOARD=="BANGLEJS2")
 else 
 	ew={pin:{BAT:D31,CHRG:D19,BUZZ:D16,BUZ0:1,BL:D12,i2c:{SCL:D7,SDA:D6},touch:{RST:D13,INT:D28},disp:{CS:D25,DC:D18,RST:D26,BL:D14},acc:{INT:D8}}};
 //devmode
-if (BTN1.read() || Boolean(require("Storage").read("devmode"))) { 
+if (BTN1.read() || require("Storage").read("devmode")) { 
   let mode=(require("Storage").read("devmode"));
   if ( mode=="loader"){ 
     digitalPulse(ew.pin.BUZZ,ew.pin.BUZ0,80);

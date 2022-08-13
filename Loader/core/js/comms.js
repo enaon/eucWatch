@@ -28,7 +28,8 @@ const Comms = {
   getProgressCmd : (progress) => {
     console.log(`<COMMS> getProgressCmd ${JSON.stringify(progress)}`);
     if (!Const.HAS_E_SHOWMESSAGE) {
-      if (progress===undefined) return "p=x=>digitalPulse(LED1,1,10);";
+      if (progress===undefined&&device.id=="MAGIC3") return "p=function(){};";
+      else if (progress===undefined) return "p=x=>digitalPulse(LED1,1,10);";
       return "p();";
     } else {
       if (progress===undefined) return Const.CODE_PROGRESSBAR;

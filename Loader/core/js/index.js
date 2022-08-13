@@ -622,14 +622,15 @@ function installMultipleApps(appIds, promptName, defaults) {
     return Promise.reject("Not all apps found");
   let appCount = apps.length;
   return showPrompt("Install Defaults",`Remove everything and install ${promptName} apps?`).then(() => {
-    //return Comms.removeAllApps();
-	return Comms.enableFlash();   
+  	return Comms.enableFlash();    //ew
   }).then(()=>{
 	  Progress.hide({sticky:true});
     showToast(`Erasing.`); 
     return Comms.removeAllApps();
   }).then(()=>{
-    if (defaults) return Comms.writeSettings(defaults);
+    if (defaults) return Comms.writeSettings(defaults); //ew
+  }).then(()=>{
+    Puck.write(`require('Storage').write('devmode','loader');\n`); //ew
   }).then(()=>{
     Progress.hide({sticky:true});
     device.appsInstalled = [];
@@ -697,10 +698,11 @@ htmlToArray(document.querySelectorAll(".btn.updateapps")).map(button => button.a
 }));
 connectMyDeviceBtn.addEventListener("click", () => {
   if (connectMyDeviceBtn.classList.contains('is-connected')) {
-    Puck.write('require("Storage").erase("devmode");setTimeout(()=>{reset();},500);\n')  
-	setTimeout(() => {
-	  Comms.disconnectDevice();
-    }, 1000);
+    Puck.write('require("Storage").erase("devmode");setTimeout(()=>{reset();},2500);\n').then(()=>{  //ew
+	    setTimeout(() => {
+	      Comms.disconnectDevice();
+      }, 1000);
+    });
 	//Comms.disconnectDevice();
   } else {
       getInstalledApps(true).catch(err => {
