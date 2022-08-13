@@ -44,7 +44,7 @@ cron={
 
 cron.event.hour();
 cron.on('hour',cron.task.euc.hour);
-cron.on('day',cron.task.euc.is.day);
+cron.on('day',cron.task.euc.day);
 cron.on('month',cron.task.euc.month);
 
 
