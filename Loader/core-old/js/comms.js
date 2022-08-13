@@ -116,6 +116,18 @@ const Comms = {
           Progress.hide({sticky:true});
           return reject("");
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         let cmd;
         if (Const.SINGLE_APP_ONLY) // only one app on device, info file is in app.info
           cmd = `\x10Bluetooth.println("["+(require("Storage").read("app.info")||"null")+",0]")\n`;
@@ -154,6 +166,8 @@ const Comms = {
     });
   },
   removeApp : app => { // expects an appid.info structure (i.e. with `files`)
+   
+   
     if (!app.files && !app.data) return Promise.resolve(); // nothing to erase
     Progress.show({title:`Removing ${app.name}`,sticky:true});
     let cmds = '\x10const s=require("Storage");\n';

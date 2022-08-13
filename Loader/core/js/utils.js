@@ -31,7 +31,7 @@ const Const = {
 };
 
 let DEVICEINFO = [
-  {
+  {/*
     id : "BANGLEJS",
     name : "Bangle.js",
     features : ["BLE","BLEHID","GRAPHICS","ACCEL","MAG"],
@@ -59,12 +59,12 @@ let DEVICEINFO = [
     name : "MDBT42Q",
     features : ["BLE","BLEHID"],
     img : "https://www.espruino.com/img/MDBT42Q_thumb.jpg"
-  }/*, {
-    id : "MICROBIT",
-    name : "micro:bit",
+  }, {*/
+    id : "P8",
+    name : "P8",
     features : ["BLE","BLEHID"],
-    img : "https://www.espruino.com/img/MICROBIT_thumb.jpg"
-  }*/
+    img : "https://loader.eucwatch.com/tools/assets/images/p8.jpg"
+  }
 ];
 
 function escapeHtml(text) {

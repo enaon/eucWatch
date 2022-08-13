@@ -21,7 +21,6 @@ face[0] = {
 		this.tmp=-1;
 		this.pwm=-1;
 		this.bat=-1;
-		this.almT=-1
 		this.volt=-1;
 		this.buzz=-1;
 		this.alrm=-1;
@@ -105,6 +104,7 @@ face[0] = {
 		},20,this);
 	},
 	spdF: function(){
+		"ram";
 		if ( Math.abs(euc.dash.live.spd-this.spd) <5 ) this.spd =Math.round(euc.dash.live.spd);
 		else if (euc.dash.live.spd<this.spd) this.spd=Math.round(this.spd-(this.spd-euc.dash.live.spd)/2); 
 		else this.spd=Math.round(this.spd+(euc.dash.live.spd-this.spd)/2); 

@@ -7,6 +7,7 @@ let DEFAULTSETTINGS = {
 };
 let SETTINGS = JSON.parse(JSON.stringify(DEFAULTSETTINGS)); // clone
 saveSettings(); //eucwatch- default pretokenise 
+
 let FAVOURITE_INACTIVE_ICON = 0x2606; // 0x2661 = empty heart; 0x2606 = empty star
 let FAVOURITE_ACTIVE_ICON = 0x2605; // 0x2665 = solid heart; 0x2605 = solid star
 
@@ -413,7 +414,7 @@ function removeApp(app) {
   return showPrompt("Delete","Really remove '"+app.name+"'?").then(() => {
     return getInstalledApps().then(()=>{
       // a = from appid.info, app = from apps.json
-      console.log("ll",device.appsInstalled.find(a => a.id === app.id));
+      console.log("ew-remove app:",device.appsInstalled.find(a => a.id === app.id));
       return Comms.removeApp(device.appsInstalled.find(a => a.id === app.id));
     });
   }).then(()=>{
@@ -581,6 +582,20 @@ function getInstalledApps(refresh) {
   }
   showLoadingIndicator("myappscontainer");
   // Get apps and files
+ /*
+   return Comms.getInstalledApps()
+    .then(appJSON => {
+      appsInstalled = appJSON;
+      haveInstalledApps = true;
+      refreshMyApps();
+      refreshLibrary();
+    })
+    .then(() => handleConnectionChange(true))
+    .then(() => appsInstalled)
+    .catch(err=>{
+      return Promise.reject();
+    });
+  */
   return Comms.getDeviceInfo()
     .then(info => {
       device.id = info.id;
@@ -596,11 +611,13 @@ function getInstalledApps(refresh) {
     })
     .then(() => handleConnectionChange(true))
     .then(() => device.appsInstalled);
+
 }
 
 /// Removes everything and install the given apps, eg: installMultipleApps(["boot","mclock"], "minimal")
 function installMultipleApps(appIds, promptName, defaults) {
   let apps = appIds.map( appid => appJSON.find(app=>app.id==appid) );
+  console.log("ew-apps:",apps);
   if (apps.some(x=>x===undefined))
     return Promise.reject("Not all apps found");
   let appCount = apps.length;
@@ -608,11 +625,11 @@ function installMultipleApps(appIds, promptName, defaults) {
     //return Comms.removeAllApps();
 	return Comms.enableFlash();   
   }).then(()=>{
-	//Progress.hide({sticky:true});
-    //showToast(`Erasing.`); 
+	  Progress.hide({sticky:true});
+    showToast(`Erasing.`); 
     return Comms.removeAllApps();
   }).then(()=>{
-	return Comms.writeSettings(defaults);
+    if (defaults) return Comms.writeSettings(defaults);
   }).then(()=>{
     Progress.hide({sticky:true});
     device.appsInstalled = [];
@@ -922,6 +939,7 @@ if (btn) btn.addEventListener("click",event=>{
   });
 });
 //eucWatch
+
 btn = document.getElementById("installall");
 if (btn) btn.addEventListener("click",event=>{ 
     installerOptions("All").then(() => {
@@ -930,3 +948,14 @@ if (btn) btn.addEventListener("click",event=>{
     showToast("FULL Install failed, "+err,"error");
   });
 });
+/*
+btn = document.getElementById("installall");
+if (btn) btn.addEventListener("click",event=>{
+  httpGet(`${APP_SOURCECODE_DEV}/All.json`).then(json=>{
+    return installMultipleApps(JSON.parse(json), "All");
+  }).catch(err=>{
+    Progress.hide({sticky:true});
+    showToast("App Install failed, "+err,"error");
+  });
+});
+*/
