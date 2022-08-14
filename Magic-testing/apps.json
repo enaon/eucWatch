@@ -62,7 +62,6 @@
 			{"name":"C:handler_touch_816","url":"handler_touch_816.js"},
 			{"name":"handler_touch_816s","url":"handler_touch_816s.js"},
 			{"name":"handler_touch_b2","url":"handler_touch_b2.js"},
-			{"name":"C:handler_accel_BMA421","url":"handler_accel_BMA421.js"},
 			{"name":"C:handler_accel_SC7A20","url":"handler_accel_SC7A20.js"}
 		]
 	},  
