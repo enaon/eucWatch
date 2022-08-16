@@ -49,7 +49,6 @@ face[0] = {
 		this.g.drawString("WHEEL",60-(this.g.stringWidth("WHEEL")/2),115); 
 //		this.g.setFont("Vector",25);
 		this.g.drawString("ALERTS",60-(this.g.stringWidth("ALERTS")/2),150); 
-//		this.g.drawString(euc.dash.live.spdT,60-(this.g.stringWidth(euc.dash.live.spdT)/2),150); 
 		this.g.flip();
 		//pass
 		this.g.setColor(0,12);

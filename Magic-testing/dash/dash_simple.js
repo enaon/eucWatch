@@ -88,7 +88,7 @@ face[0] = {
 	tmpf: function(){
 		"ram";
 		this.tmp=euc.dash.live.tmp.toFixed(1);
-		this.g.setColor(0,this.tmpC[euc.dash.live.tmpC]);
+		this.g.setColor(0,this.tmpC[euc.dash.alrt.tmp.cc]);
 		this.g.fillRect(this.gui.tmp[0],this.gui.tmp[1],this.gui.tmp[2],this.gui.tmp[3]);
 		this.g.setColor(1,15);
 		this.g.setFontVector(this.gui.txt1);	  

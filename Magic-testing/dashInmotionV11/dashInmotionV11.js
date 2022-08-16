@@ -14,8 +14,8 @@ face[0] = {
 		this.g.drawString("SETTINGS",120-(this.g.stringWidth("SETTINGS")/2),217); 
 		this.g.flip();
 		//
-        this.btn(euc.dash.live.light,"LIGHT",18,60,15,4,1,0,0,119,97,(euc.dash.live.light)?"ON":"OFF",28,60,50);
-		this.btn((euc.dash.live.hapS||euc.dash.live.hapA||euc.dash.live.hapT||euc.dash.live.hapB),"WATCH",22,185,17,4,1,122,0,239,97,"ALERTS",22,185,55);		
+        this.btn(euc.dash.opt.lght.HL,"LIGHT",18,60,15,4,1,0,0,119,97,(euc.dash.opt.lght.HL)?"ON":"OFF",28,60,50);
+		this.btn((euc.dash.alrt.spd.hapt.en||euc.dash.alrt.amp.hapt.en||euc.dash.alrt.tmp.hapt.en||euc.dash.alrt.bat.hapt.en),"WATCH",22,185,17,4,1,122,0,239,97,"ALERTS",22,185,55);		
 		let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
 		this.btn(euc.dash.opt.tpms,(euc.dash.opt.tpms)?euc.dash.opt.tpms:"TPMS",18,60,115,(euc.dash.opt.tpms&&tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.opt.tpms].time<1800)?(tpms.euc[euc.dash.opt.tpms].alrm)?7:4:1,1,0,100,119,195,(euc.dash.opt.tpms)?(tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].psi)?Math.round(tpms.euc[euc.dash.opt.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.opt.tpms)?32:28,60,150); //3				
         this.btn(euc.dash.opt.horn.en,"HORN",25,185,136,4,1,122,100,239,195);	
@@ -101,10 +101,10 @@ touchHandler[0]=function(e,x,y){
 		}
 		else {
 			if ( x<=120 && y<100 ) { //Light
-				euc.dash.live.light=1-euc.dash.live.light;
-				euc.wri((euc.dash.live.light)?"lightsOn":"lightsOff");
-		        face[0].btn(euc.dash.live.light,"LIGHT",18,60,15,4,1,0,0,119,97,(euc.dash.live.light)?"ON":"OFF",28,60,50);
-				face[0].ntfy("LIGHT ON","LIGHT OFF",20,(euc.dash.live.light)?4:1,euc.dash.live.light);
+				euc.dash.opt.lght.HL=1-euc.dash.opt.lght.HL;
+				euc.wri((euc.dash.opt.lght.HL)?"lightsOn":"lightsOff");
+		        face[0].btn(euc.dash.opt.lght.HL,"LIGHT",18,60,15,4,1,0,0,119,97,(euc.dash.opt.lght.HL)?"ON":"OFF",28,60,50);
+				face[0].ntfy("LIGHT ON","LIGHT OFF",20,(euc.dash.opt.lght.HL)?4:1,euc.dash.opt.lght.HL);
 				buzzer(buz.ok);
 			}else if ( 120<=x && y<=100 ) { //watch alerts
 				buzzer(buz.ok);						

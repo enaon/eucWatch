@@ -14,7 +14,7 @@ tcBack.replaceWith((x,y)=>{
 });
 //
 face[0].page="wheel setup";
-UI.ele.ind(4,4,1);
+UI.ele.ind(4,4,0);
 face[0].bar();
 UIc.start(1,1);
 let md=["HARD","MED","SOFT"];

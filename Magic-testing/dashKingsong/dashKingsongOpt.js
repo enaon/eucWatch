@@ -13,10 +13,10 @@ tcB=(x,y)=>{
 tcBack.replaceWith(tcB);
 //
 face[0].page="options";
-UI.ele.ind(2,4,1);
+UI.ele.ind(2,4,0);
 UIc.start(1,1);
 UI.btn.c2l("main","_2x2",1,"LED","RIDE",15,euc.dash.opt.ride.mode?4:1);
-UI.btn.c2l("main","_2x2",2,"WATCH","ALERTS",15,(euc.dash.live.hapS||euc.dash.live.hapA||euc.dash.live.hapT||euc.dash.live.hapB)?4:1);
+UI.btn.c2l("main","_2x2",2,"WATCH","ALERTS",15,(euc.dash.alrt.spd.hapt.en||euc.dash.alrt.amp.hapt.en||euc.dash.alrt.tmp.hapt.en||euc.dash.alrt.bat.hapt.en)?4:1);
 UI.btn.c2l("main","_2x2",3,"SENSOR","LIFT",15,euc.dash.opt.snsr.lift?4:1);
 UI.btn.c2l("main","_2x2",4,"HORN","",15,euc.dash.opt.horn.en?4:1);	
 UIc.end();

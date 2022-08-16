@@ -1,8 +1,10 @@
-face[0].page="set";
-UI.ele.ind(1,2,1);
+face[0].page="set";//
+UI.ele.ind(1,2,0);
+//UI.ele.title("",3,0);
+
 UIc.start(1,0);
-UI.btn.img("main","_2x3",1,(set.def.cli||set.def.gb||set.def.emuZ)?"bt":"plane","BT",15,1);
-UI.btn.img("main","_2x3",2,"themes","FACE",15,1);
+UI.btn.img("main","_2x3",1,(set.def.cli||set.def.gb||set.def.emuZ)?"bt":"plane","BT",15,12);
+UI.btn.img("main","_2x3",2,"themes","FACE",15,12);
 UI.btn.img("main","_2x3",3,"bri",set.def.bri,15,1,1);
 UI.btn.img("main","_2x3",4,"findPhone","FIND",3,0);
 UI.btn.img("main","_2x3",5,"wakeScreen","WAKE",euc.state=="READY"?14:set.def.acc?15:3,euc.state=="READY"?8:set.def.acc?4:0);

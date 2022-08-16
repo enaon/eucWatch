@@ -1,0 +1,844 @@
+[
+	{ "id": "bootloader",
+		"name": "bootloader - MAGIC - ROCK",
+		"icon": "icon.png",
+		"version":"1.00",
+		"description": "DO NOT use this on a working watch. This is a bootloader from Fanoush.https://github.com/fanoush/ds-d6/blob/master/espruino/DFU/Magic3/Magic3-bootloader.txt ",
+		"tags": "core",
+		"type":"core",
+		"readme": "README.md",
+	    "needsFeatures":["ROCK"],
+		"storage": [
+			{"name":".bootrst","url":"bootloader.js"}
+		]
+	},
+	{ "id": "init",
+		"name": "core - MAGIC - ROCK",
+		"icon": "../init/icon.png",
+		"version":"1.01",
+		"description": "Screen driver and init functions. ",
+		"tags": "core",
+		"type":"core",
+		"readme": "README.md",
+	    "needsFeatures":["ROCK"],
+		"storage": [
+			{"name":"C:.bootrst","url":"../init/init_magic.js"},
+			{"name":"C:.lcd_magic","url":"../init/lcd_magic.js"}
+		]
+	},
+	{ "id": "init",
+		"name": "core - MAGIC - ROCK",
+		"icon": "../init/icon.png",
+		"version":"1.01",
+		"description": "Screen driver and init functions. ",
+		"tags": "core",
+		"type":"core",
+		"readme": "README.md",
+	    "needsFeatures":["BANGLE2"],
+		"storage": [
+			{"name":"C:.bootrst","url":"../init/init_magic.js"},
+			{"name":"C:.lcd_b2","url":"../init/lcd_b2.js"}
+		]
+	},
+	
+	{ "id": "init",
+		"name": "core - P8 / P22",
+		"icon": "../init/icon.png",
+		"version":"1.92.1",
+		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
+		"tags": "core",
+	    "needsFeatures":["P8"],
+		"readme": "README.md",
+		"storage": [
+			{"name":".bootrst","url":"../init/init_P8.js"}
+		]
+	},
+	{ "id": "init",
+		"name": "core - Pinetime",
+		"icon": "../init/icon.png",
+		"version":"1.92.1",
+		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
+		"tags": "core",
+	    "needsFeatures":["PINETIME"],
+		"readme": "README.md",
+		"storage": [
+			{"name":".bootrst","url":"../init/init_pinetime.js"}
+		]
+	},
+	{ "id": "init",
+		"name": "core - P22 B1/D",
+		"icon": "../init/icon.png",
+		"version":"1.92.1",
+		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
+		"tags": "core",
+	    "needsFeatures":["P22B"],
+		"readme": "README.md",
+		"storage": [
+			{"name":".bootrst","url":"../init/init_P22B.js"}
+		]
+	},
+	{ "id": "init_16",
+		"name": "core - P8 - P22 A/B/C/C1 - 16Bit",
+		"icon": "../init/icon.png",
+		"version":"1.92.1",
+		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
+		"tags": "core",
+	    "needsFeatures":["TEST"],
+		"readme": "README.md",
+		"storage": [
+			{"name":".bootrst","url":"../init/init_P8_16.js"}
+		]
+	},
+	{ "id": "handler",
+		"name": "Handler - P8 - P22",
+		"icon": "../../P8-testing/handler/icon.png",
+		"version":"1.92.1",
+		"description": "P8/P22 functions handler",
+		"tags": "core",
+	    "needsFeatures":["P8"],
+		"readme": "README.md",
+		"storage": [
+			{"name":"handler","url":"../../P8-testing/handler/handler.js"},
+			{"name":"handlerConn","url":"../../P8-testing/handler/handlerConn.js"},
+			{"name":"handlerBtn","url":"../../P8-testing/handler/handlerBtn.js"},
+			{"name":"handlerCron","url":"../../P8-testing/handler/handlerCron.js"},
+			{"name":"handlerNotify","url":"../../P8-testing/handler/handlerNotify.js"},
+			{"name":"handlerTouch","url":"../../P8-testing/handler/handlerTouch.js"},
+			{"name":"handlerTouch716","url":"../../P8-testing/handler/handlerTouch716.js"},
+			{"name":"handlerTouch816","url":"../../P8-testing/handler/handlerTouch816.js"},
+			{"name":"handlerTouch816s","url":"../../P8-testing/handler/handlerTouch816s.js"},
+			{"name":"handlerAccSC7A20","url":"../../P8-testing/handler/handlerAccSC7A20.js"},
+			{"name":"handlerAccBMA421","url":"../../P8-testing/handler/handlerAccBMA421.js"},
+			{"name":"handlerCharge","url":"../../P8-testing/handler/handlerCharge.js"},
+			{"name":"handlerFace","url":"../../P8-testing/handler/handlerFace.js"},
+			{"name":"handlerSet","url":"../../P8-testing/handler/handlerSet.js"}
+		]
+	},  
+	{ "id": "handler_pt",
+		"name": "Handler - Pinetime",
+		"icon": "../../P8-testing/handler_pt/icon.png",
+		"version":"1.92.1",
+		"description": "Pinetime functions handler",
+		"tags": "core",
+		"type":"core",
+	    "needsFeatures":["PINETIME"],
+		"readme": "README.md",
+		"storage": [
+			{"name":"handler","url":"../../P8-testing/handler_pt/handler.js"}
+		]
+	}, 
+	{ "id": "main",
+		"name": "Clock face",
+		"icon": "../../P8-testing/main/icon.png",
+		"version":"1.92.1",
+		"description": "clock face",
+		"tags": "apps",
+		"type":"main",
+	    "needsFeatures":["P8"],
+		"storage": [
+			{"name":"main","url":"../../P8-testing/main/main.js"},
+			{"name":"mainOptions","url":"../../P8-testing/main/mainOptions.js"}
+		]
+	},  
+	{ "id": "settings",
+		"name": "Settings",
+		"icon": "../../P8-testing/settings/icon.png",
+		"version":"1.92.1",
+		"description": "Settings face",
+		"tags": "apps",
+		"type":"main",
+		"readme": "README.md",
+	    "needsFeatures":["P8"],
+		"storage": [
+			{"name":"settings","url":"../../P8-testing/settings/settings.js"}
+		]
+	},
+	{ "id": "alarm",
+		"name": "Alarms",
+		"icon": "../../P8-testing/alarm/icon.png",
+		"version":"1.92.1",
+		"description": "Three user settable Alarms/Timers face",
+		"tags": "apps",
+		"readme": "README.md",
+	    "needsFeatures":["P8"],
+		"storage": [
+			{"name":"alarm","url":"../../P8-testing/alarm/alarm.js"}
+		]
+	},
+	{ "id": "calc",
+		"name": "Calculator",
+		"icon": "../../P8-testing/calc/icon.png",
+		"version":"1.92.1",
+		"description": "Simple Calculator face with history",
+		"tags": "apps",
+	    "needsFeatures":["P8"],
+		"storage": [
+			{"name":"calc","url":"../../P8-testing/calc/calc.js"}
+		]
+	},
+	{ "id": "notify",
+		"name": "Notifications",
+		"icon": "../../P8-testing/notify/icon.png",
+		"version":"1.92.1",
+		"description": "Notifications face for system, atc and gadgetbridge",
+		"tags": "apps",
+		"type": "notify",
+	    "needsFeatures":["P8"],
+		"storage": [
+			{"name":"notify","url":"../../P8-testing/notify/notify.js"}
+		]
+	},
+	{ "id": "m_gb",
+		"name": "Gadgetbridge",
+		"icon": "../../P8-testing/m_gb/icon.png",
+		"version":"1.92.1",
+		"description": "Gadgetbridge support for notifications, calls, weather and gps navigation",
+		"tags": "system",
+		"type": "notify",
+	    "needsFeatures":["P8"],
+		"readme": "README.md",
+		"storage": [
+			{"name":"m_gb","url":"../../P8-testing/m_gb/m_gb.js"}
+		]
+	},
+	{ "id": "dash",
+		"name": "EUC Dashboard",
+		"icon": "../../P8-testing/dash/icon.png",
+		"version":"1.92.1",
+		"description": "EUC dashboard. Garage, scan and dash faces. Depends on EUC modules.",
+		"tags": "euc",
+	    "needsFeatures":["P8"],
+		"readme": "README.md",
+		"storage": [
+			{"name":"dashGarage","url":"../../P8-testing/dash/dashGarage.js"},
+			{"name":"dashAlerts","url":"../../P8-testing/dash/dashAlerts.js"},
+			{"name":"dashScan","url":"../../P8-testing/dash/dashScan.js"},
+			{"name":"dashOff","url":"../../P8-testing/dash/dashOff.js"},
+			{"name":"dashOptions","url":"../../P8-testing/dash/dashOptions.js"}
+		]
+	},
+	{ "id": "Dashboard Digital",
+		"name": "EUC digital Dashboard",
+		"icon": "../../P8-testing/dash/icon.png",
+		"version":"1.92.1",
+		"description": "EUC simple digital",
+		"tags": "euc",
+	    "needsFeatures":["P8"],
+		"readme": "README.md",
+		"storage": [
+			{"name":"dash_digital","url":"../../P8-testing/dash/dash_digital.js"}
+		]
+	}, 	
+	{ "id": "Dashboard Simple",
+		"name": "EUC simple Dashboard",
+		"icon": "../../P8-testing/dash/icon.png",
+		"version":"1.92.1",
+		"description": "EUC simple Dashboard",
+		"tags": "euc",
+	    "needsFeatures":["P8"],
+		"readme": "README.md",
+		"storage": [
+			{"name":"dash_simple","url":"../../P8-testing/dash/dash_simple.js"}
+		]
+	}, 
+	{ "id": "Dashboard PWM",
+		"name": "EUC pwm Dashboard",
+		"icon": "../../P8-testing/dash/icon.png",
+		"version":"1.92.1",
+		"description": "EUC pwm Dashboard",
+		"tags": "euc",
+		"readme": "README.md",
+	    "needsFeatures":["P8"],
+		"storage": [
+			{"name":"dash_pwm","url":"../../P8-testing/dash/dash_pwm.js"}
+		]
+	}, 
+	{ "id": "dashKingsong",
+		"name": "Kingsong Settings",
+		"icon": "../../P8-testing/dashKingsong/icon.png",
+		"version":"1.92.1",
+		"description": "EUC dashboard, Kingsong settings gui files.",
+		"tags": "euc",
+	    "needsFeatures":["P8"],
+		"readme": "README.md",
+		"storage": [
+			{"name":"dashKingsong","url":"../../P8-testing/dashKingsong/dashKingsong.js"},
+			{"name":"dashKingsongOpt","url":"../../P8-testing/dashKingsong/dashKingsongOpt.js"},
+			{"name":"dashKingsongOpt2","url":"../../P8-testing/dashKingsong/dashKingsongOpt2.js"},
+			{"name":"dashKingsongCon","url":"../../P8-testing/dashKingsong/dashKingsongCon.js"},
+			{"name":"dashKingsongCon2","url":"../../P8-testing/dashKingsong/dashKingsongCon2.js"},
+			{"name":"dashKingsongDis","url":"../../P8-testing/dashKingsong/dashKingsongDis.js"},
+			{"name":"dashKingsongDis2","url":"../../P8-testing/dashKingsong/dashKingsongDis2.js"},
+			{"name":"dashKingsongLight","url":"../../P8-testing/dashKingsong/dashKingsongLight.js"},
+			{"name":"dashKingsongAdv","url":"../../P8-testing/dashKingsong/dashKingsongAdv.js"},
+			{"name":"dashKingsongAdvCalibrate","url":"../../P8-testing/dashKingsong/dashKingsongAdvCalibrate.js"},
+			{"name":"dashKingsongAdvLimits","url":"../../P8-testing/dashKingsong/dashKingsongAdvLimits.js"},
+			{"name":"dashKingsongAdvPass","url":"../../P8-testing/dashKingsong/dashKingsongAdvPass.js"},
+			{"name":"dashKingsongCharging","url":"../../P8-testing/dashKingsong/dashKingsongCharging.js"}
+		]
+	}, 
+	{ "id": "dashNinebotE",
+		"name": "Ninebot Settings",
+		"icon": "../../P8-testing/dashNinebotE/icon.png",
+		"version":"1.92.1",
+		"description": "EUC dashboard, Ninebot C/E/P settings gui files.",
+		"tags": "euc",
+	    "needsFeatures":["P8"],
+		"readme": "README.md",
+		"storage": [
+			{"name":"dashNinebotE","url":"../../P8-testing/dashNinebotE/dashNinebotE.js"}
+    ]
+	}, 
+	{ "id": "dashNinebotZ",
+		"name": "NinebotZ Settings",
+		"icon": "../../P8-testing/dashNinebotZ/icon.png",
+		"version":"1.92.1",
+		"description": "EUC dashboard, NinebotZ settings gui files.",
+		"tags": "euc",
+	    "needsFeatures":["P8"],
+		"readme": "README.md",
+		"storage": [
+			{"name":"dashNinebotZ","url":"../../P8-testing/dashNinebotZ/dashNinebotZ.js"}
+    ]
+	}, 
+	{ "id": "dashNinebotS",
+		"name": "Ninebot S2/A1 Settings",
+		"icon": "../../P8-testing/dashNinebotS/icon.png",
+		"version":"1.92.1",
+		"description": "EUC dashboard, NinebotS settings gui files.",
+		"tags": "euc",
+	    "needsFeatures":["P8"],
+		"readme": "README.md",
+		"storage": [
+			{"name":"dashNinebotS","url":"../../P8-testing/dashNinebotS/dashNinebotS.js"}
+    ]
+	}, 
+	{ "id": "dashInmotionV10",
+		"name": "Inmotion V5/8/10 Settings",
+		"icon": "../../P8-testing/dashInmotionV10/icon.png",
+		"version":"1.92.1",
+		"description": "EUC dashboard, Inmotion V5/8/10 settings gui files.",
+		"tags": "euc",
+	    "needsFeatures":["P8"],
+		"readme": "README.md",
+		"storage": [
+			{"name":"dashInmotionV10","url":"../../P8-testing/dashInmotionV10/dashInmotionV10.js"},
+			{"name":"dashInmotionV1Opt","url":"../../P8-testing/dashInmotionV10/dashInmotionV10Opt.js"},
+			{"name":"dashInmotionV1Opt2","url":"../../P8-testing/dashInmotionV10/dashInmotionV10Opt2.js"},
+			{"name":"dashInmotionV10Adv","url":"../../P8-testing/dashInmotionV10/dashInmotionV10Adv.js"},
+			{"name":"dashInmotionV10AdvCalibrate","url":"../../P8-testing/dashInmotionV10/dashInmotionV10AdvCalibrate.js"},
+			{"name":"dashInmotionV10AdvLimits","url":"../../P8-testing/dashInmotionV10/dashInmotionV10AdvLimits.js"},
+			{"name":"dashInmotionV10AdvPass","url":"../../P8-testing/dashInmotionV10/dashInmotionV10AdvPass.js"}   
+		]
+	}, 	
+	{ "id": "dashInmotionV11",
+		"name": "Inmotion V11 Settings",
+		"icon": "../../P8-testing/dashInmotionV11/icon.png",
+		"version":"1.92.1",
+		"description": "EUC dashboard, Inmotion V11 settings gui files.",
+		"tags": "euc",
+	    "needsFeatures":["P8"],
+		"readme": "README.md",
+		"storage": [
+			{"name":"dashInmotionV11","url":"../../P8-testing/dashInmotionV11/dashInmotionV11.js"}
+    ]
+	}, 
+	{ "id": "dashInmotionV12",
+		"name": "Inmotion V12 Settings",
+		"icon": "../../P8-testing/dashInmotionV12/icon.png",
+		"version":"1.92.1",
+		"description": "EUC dashboard, Inmotion V12 settings gui files.",
+		"tags": "euc",
+	    "needsFeatures":["P8"],
+		"readme": "README.md",
+		"storage": [
+		{"name":"dashInmotionV12","url":"../../P8-testing/dashInmotionV12/dashInmotionV12.js"}
+    ]
+	}, 
+	{ "id": "dashVeteran",
+		"name": "Veteran Settings",
+		"icon": "../../P8-testing/dashVeteran/icon.png",
+		"version":"1.92.1",
+		"description": "EUC dashboard, Veteran settings gui files.",
+		"tags": "euc",
+	    "needsFeatures":["P8"],
+		"storage": [
+			{"name":"dashVeteran","url":"../../P8-testing/dashVeteran/dashVeteran.js"},
+			{"name":"dashVeteranOptions","url":"../../P8-testing/dashVeteran/dashVeteranOptions.js"}
+
+		]
+	}, 
+	{ "id": "dashBegode",
+		"name": "Begode Settings",
+		"icon": "../../P8-testing/dashBegode/icon.png",
+		"version":"1.92.1",
+		"description": "EUC dashboard, Begode settings gui files.",
+		"tags": "euc",
+	    "needsFeatures":["P8"],
+		"readme": "README.md",
+		"storage": [
+			{"name":"dashBegode","url":"../../P8-testing/dashBegode/dashBegode.js"},
+			{"name":"dashBegodeAdv","url":"../../P8-testing/dashBegode/dashBegodeAdv.js"},
+			{"name":"dashBegodeOpt","url":"../../P8-testing/dashBegode/dashBegodeOpt.js"},
+			{"name":"dashBegodeOpt2","url":"../../P8-testing/dashBegode/dashBegodeOpt2.js"},
+			{"name":"dashBegodeCon","url":"../../P8-testing/dashBegode/dashBegodeCon.js"},
+			{"name":"dashBegodeDis","url":"../../P8-testing/dashBegode/dashBegodeDis.js"},
+			{"name":"dashBegodeAdvLimits","url":"../../P8-testing/dashBegode/dashBegodeAdvLimits.js"},
+			{"name":"dashBegodeAdvCalibrate","url":"../../P8-testing/dashBegode/dashBegodeAdvCalibrate.js"}
+		]
+	},
+	{ "id": "tpms",
+		"name": "TPMS Sensor",
+		"icon": "../../P8-testing/tpms/icon.png",
+		"version":"1.92.1",
+		"description": "BLE TPMS Sensors (Tire pressure measuring, TP630 etc)",
+		"tags": "euc",
+	    "needsFeatures":["P8"],
+		"storage": [
+			{"name":"tpms","url":"../../P8-testing/tpms/tpms.js"},
+			{"name":"tpmsFace","url":"../../P8-testing/tpms/tpmsFace.js"},
+			{"name":"tpmsOptions","url":"../../P8-testing/tpms/tpmsOptions.js"}
+		]
+	},
+	{ "id": "ledBT",
+		"name": "BT RGB led strip",
+		"icon": "../../P8-testing/ledBT/icon.png",
+		"version":"1.92.1",
+		"description": "for use wit <marvel light> bt rgb led controlers",
+		"tags": "euc",
+	    "needsFeatures":["P8"],
+		"storage": [
+			{"name":"ledBT","url":"../../P8-testing/ledBT/ledBT.js"}
+		]
+	},	
+	{ "id": "repellent",
+		"name": "Repellent",
+		"icon": "../../P8-testing/repellent/icon.png",
+		"version":"1.92.1",
+		"description": "Xiaomi insect repellent face",
+		"tags": "apps",
+	    "needsFeatures":["OLD"],
+		"storage": [
+			{"name":"repellent","url":"../../P8-testing/repellent/repellent.js"}
+		]
+	},
+	{ "id": "hid",
+		"name": "Music controls",
+		"icon": "../../P8-testing/hid/icon.png",
+		"version":"1.92.1",
+		"description": "Music controls over BLEHID face",
+		"tags": "apps",
+	    "needsFeatures":["OLD"],
+		"storage": [
+			{"name":"hid","url":"../../P8-testing/hid/hid.js"}
+		]
+	},
+	{ "id": "w_apps",
+		"name": "App Loader widget",
+		"icon": "../../P8-testing/w_apps/icon.png",
+		"version":"1.92.1",
+		"description": "Extends settings face with an app drawer.",
+		"tags": "system",
+		"type": "system",
+	    "needsFeatures":["P8"],
+		"storage": [
+			{"name":"w_apps","url":"../../P8-testing/w_apps/w_apps.js"}
+		]
+	},
+	{ "id": "w_scan",
+		"name": "BLE scanner widget",
+		"icon": "../../P8-testing/w_scan/icon.png",
+		"version":"1.92.1",
+		"description": "Shared scan face addon",
+		"tags": "system",
+		"type": "system",
+	    "needsFeatures":["P8"],
+		"storage": [
+			{"name":"w_scan","url":"../../P8-testing/w_scan/w_scan.js"}
+		]
+	},
+	{ "id": "w_testTP",
+		"name": "Touch panel tester",
+		"icon": "../../P8-testing/w_testTP/icon.png",
+		"version":"1.92.1",
+		"description": "Tool for recording TP output.",
+		"tags": "system",
+		"type": "system",
+	    "needsFeatures":["OLD"],
+		"storage": [
+			{"name":"w_testTP","url":"../../P8-testing/w_testTP/w_testTP.js"}
+		]
+	},
+
+	{ "id": "UI",
+		"name": "core - UI support",
+		"icon": "../../Magic-testing/UI/icon.png",
+		"version":"1.03",
+		"description": "UI",
+		"tags": "core",
+		"type":"core",
+		"readme": "README.md",
+	    "needsFeatures":["ROCK"],
+		"storage": [
+			{"name":"C:UI","url":"../../Magic-testing/UI/ui.js"},
+			{"name":"C:icons","url":"../../Magic-testing/UI/icons.js"}
+
+		]
+	},	
+	{ "id": "handler",
+		"name": "Handler - MAGIC - ROCK",
+		"icon": "../../Magic-testing/handler/icon.png",
+		"version":"1.08",
+		"description": "MAGIC - ROCK functions handler",
+		"tags": "core",
+		"type":"core",
+		"readme": "README.md",
+	    "needsFeatures":["ROCK"],
+		"storage": [
+			{"name":"handler","url":"../../Magic-testing/handler/handler.js"},
+			{"name":"C:handler_face","url":"../../Magic-testing/handler/handler_face.js"},
+			{"name":"handler_notify","url":"../../Magic-testing/handler/handler_notify.js"},
+			{"name":"C:handler_setter","url":"../../Magic-testing/handler/handler_setter.js"},
+			{"name":"handler_button","url":"../../Magic-testing/handler/handler_button.js"},
+			{"name":"C:handler_conn","url":"../../Magic-testing/handler/handler_conn.js"},
+			{"name":"handler_cron","url":"../../Magic-testing/handler/handler_cron.js"},
+			{"name":"handler_charge","url":"../../Magic-testing/handler/handler_charge.js"},
+			{"name":"handler_touch","url":"../../Magic-testing/handler/handler_touch.js"},
+			{"name":"C:handler_touch_716","url":"../../Magic-testing/handler/handler_touch_716.js"},
+			{"name":"C:handler_touch_816","url":"../../Magic-testing/handler/handler_touch_816.js"},
+			{"name":"handler_touch_816s","url":"../../Magic-testing/handler/handler_touch_816s.js"},
+			{"name":"handler_touch_b2","url":"../../Magic-testing/handler/handler_touch_b2.js"},
+			{"name":"C:handler_accel_SC7A20","url":"../../Magic-testing/handler/handler_accel_SC7A20.js"}
+		]
+	},  
+	{ "id": "main",
+		"name": "Clock",
+		"icon": "../../Magic-testing/main/icon.png",
+		"version":"0.99.2",
+		"description": "Main Clock/notifications face",
+		"tags": "apps",
+		"type":"main",
+	    "needsFeatures":["ROCK"],
+		"storage": [
+			{"name":"C:main","url":"../../Magic-testing/main/main.js"},
+			{"name":"mainOptions","url":"../../Magic-testing/main/mainOptions.js"}
+		]
+	},  
+	{ "id": "settings",
+		"name": "Settings",
+		"icon": "../../Magic-testing/settings/icon.png",
+		"version":"1.04",
+		"description": "Settings face",
+		"tags": "apps",
+		"type":"main",
+		"readme": "README.md",
+	    "needsFeatures":["ROCK"],
+		"storage": [
+			{"name":"C:settings","url":"../../Magic-testing/settings/settings.js"},
+			{"name":"C:set_set","url":"../../Magic-testing/settings/set_set.js"},
+			{"name":"set_apps","url":"../../Magic-testing/settings/set_apps.js"},
+			{"name":"set_bt","url":"../../Magic-testing/settings/set_bt.js"},
+			{"name":"set_theme","url":"../../Magic-testing/settings/set_theme.js"},
+			{"name":"set_main","url":"../../Magic-testing/settings/set_main.js"},
+			{"name":"set_dash","url":"../../Magic-testing/settings/set_dash.js"}
+		]
+	},
+	{ "id": "dash",
+		"name": "EUC Dashboard",
+		"icon": "../../Magic-testing/dash/icon.png",
+		"version":"1.01",
+		"description": "EUC dashboard. Garage, scan and dash faces. Depends on EUC modules.",
+		"tags": "euc",
+		"readme": "README.md",
+	    "needsFeatures":["ROCK"],
+		"storage": [
+			{"name":"C:dash_simple","url":"../../Magic-testing/dash/dash_simple.js"},
+			{"name":"C:dash_digital","url":"../../Magic-testing/dash/dash_digital.js"},
+			{"name":"dashGarage","url":"../../Magic-testing/dash/dashGarage.js"},
+			{"name":"dashAlerts","url":"../../Magic-testing/dash/dashAlerts.js"},
+			{"name":"dashScan","url":"../../Magic-testing/dash/dashScan.js"},
+			{"name":"C:dashOff","url":"../../Magic-testing/dash/dashOff.js"}
+		]
+	}, 
+	{ "id": "dashKingsong",
+		"name": "Kingsong Settings",
+		"icon": "../../Magic-testing/dashKingsong/icon.png",
+		"version":"1.02",
+		"description": "EUC dashboard, Kingsong settings gui files.",
+		"tags": "euc",
+		"readme": "README.md",
+	    "needsFeatures":["ROCK"],
+		"storage": [
+			{"name":"dashKingsong","url":"../../Magic-testing/dashKingsong/dashKingsong.js"},
+			{"name":"dashKingsongAct","url":"../../Magic-testing/dashKingsong/dashKingsongAct.js"},
+			{"name":"dashKingsongLight","url":"../../Magic-testing/dashKingsong/dashKingsongLight.js"},
+			{"name":"dashKingsongOpt","url":"../../Magic-testing/dashKingsong/dashKingsongOpt.js"},
+			{"name":"dashKingsongAuto","url":"../../Magic-testing/dashKingsong/dashKingsongAuto.js"},
+			{"name":"dashKingsongCon","url":"../../Magic-testing/dashKingsong/dashKingsongCon.js"},
+			{"name":"dashKingsongCon1","url":"../../Magic-testing/dashKingsong/dashKingsongCon1.js"},
+			{"name":"dashKingsongDis","url":"../../Magic-testing/dashKingsong/dashKingsongDis.js"},
+			{"name":"dashKingsongDis1","url":"../../Magic-testing/dashKingsong/dashKingsongDis1.js"},
+			{"name":"dashKingsongAdv","url":"../../Magic-testing/dashKingsong/dashKingsongAdv.js"},
+			{"name":"dashKingsongAdvCalibrate","url":"../../Magic-testing/dashKingsong/dashKingsongAdvCalibrate.js"},
+			{"name":"dashKingsongAdvAlert","url":"../../Magic-testing/dashKingsong/dashKingsongAdvAlert.js"},
+			{"name":"dashKingsongAdvPass","url":"../../Magic-testing/dashKingsong/dashKingsongAdvPass.js"}
+		]
+	}, 
+	{ "id": "dashNinebotE",
+		"name": "NinebotE Settings",
+		"icon": "../../Magic-testing/dashNinebotE/icon.png",
+		"version":"0.93",
+		"description": "EUC dashboard, Ninebot one C/E/P settings gui files.",
+		"tags": "euc",
+		"readme": "README.md",
+	    "needsFeatures":["ROCK"],
+		"storage": [
+			{"name":"dashNinebotE","url":"../../Magic-testing/dashNinebotE/dashNinebotE.js"}
+    ]
+	}, 
+	{ "id": "dashNinebotZ",
+		"name": "NinebotZ Settings",
+		"icon": "../../Magic-testing/dashNinebotZ/icon.png",
+		"version":"1.01",
+		"description": "EUC dashboard, NinebotZ settings gui files.",
+		"tags": "euc",
+		"readme": "README.md",
+	    "needsFeatures":["ROCK"],
+		"storage": [
+			{"name":"dashNinebotZ","url":"../../Magic-testing/dashNinebotZ/dashNinebotZ.js"}
+    ]
+	}, 
+	{ "id": "dashNinebotS",
+		"name": "Ninebot S2/A1 Settings",
+		"icon": "../../Magic-testing/dashNinebotS/icon.png",
+		"version":"0.93",
+		"description": "EUC dashboard, NinebotS settings gui files.",
+		"tags": "euc",
+		"readme": "README.md",
+	    "needsFeatures":["ROCK"],
+		"storage": [
+			{"name":"dashNinebotS","url":"../../Magic-testing/dashNinebotS/dashNinebotS.js"}
+    ]
+	},
+	{ "id": "dashInmotionV10",
+		"name": "Inmotion V5/8/10 Settings",
+		"icon": "../../Magic-testing/dashInmotionV10/icon.png",
+		"version":"1.02",
+		"description": "EUC dashboard, Inmotion V5/8/10 settings gui files.",
+		"tags": "euc",
+		"readme": "README.md",
+	    "needsFeatures":["ROCK"],
+		"storage": [
+			{"name":"dashInmotionV10","url":"../../Magic-testing/dashInmotionV10/dashInmotionV10.js"},
+			{"name":"dashInmotionV10Opt","url":"../../Magic-testing/dashInmotionV10/dashInmotionV10Opt.js"},
+			{"name":"dashInmotionV10Opt2","url":"../../Magic-testing/dashInmotionV10/dashInmotionV10Opt2.js"},
+			{"name":"dashInmotionV10Adv","url":"../../Magic-testing/dashInmotionV10/dashInmotionV10Adv.js"},
+			{"name":"dashInmotionV10AdvCalibrate","url":"../../Magic-testing/dashInmotionV10/dashInmotionV10AdvCalibrate.js"},
+			{"name":"dashInmotionV10AdvLimits","url":"../../Magic-testing/dashInmotionV10/dashInmotionV10AdvLimits.js"},
+			{"name":"dashInmotionV10AdvPass","url":"../../Magic-testing/dashInmotionV10/dashInmotionV10AdvPass.js"}   
+		]
+	}, 
+	{ "id": "dashInmotionV11",
+		"name": "Inmotion V11 Settings",
+		"icon": "../../Magic-testing/dashInmotionV11/icon.png",
+		"version":"1.01",
+		"description": "EUC dashboard, Inmotion V11 settings gui files.",
+		"tags": "euc",
+		"readme": "README.md",
+	    "needsFeatures":["ROCK"],
+		"storage": [
+			{"name":"dashInmotionV11","url":"../../Magic-testing/dashInmotionV11/dashInmotionV11.js"}
+    ]
+	}, 
+	{ "id": "dashInmotionV12",
+		"name": "Inmotion V12 Settings",
+		"icon": "../../Magic-testing/dashInmotionV12/icon.png",
+		"version":"1.01",
+		"description": "EUC dashboard, Inmotion V12 settings gui files.",
+		"tags": "euc",
+		"readme": "README.md",
+	    "needsFeatures":["ROCK"],
+		"storage": [
+			{"name":"dashInmotionV12","url":"../../Magic-testing/dashInmotionV12/dashInmotionV12.js"}
+    ]
+	},
+	{ "id": "dashVeteran",
+		"name": "Veteran Settings",
+		"icon": "../../Magic-testing/dashVeteran/icon.png",
+		"version":"1.01",
+		"description": "EUC dashboard, Veteran settings gui files.",
+		"tags": "euc",
+	    "needsFeatures":["ROCK"],
+		"storage": [
+			{"name":"dashVeteran","url":"../../Magic-testing/dashVeteran/dashVeteran.js"},
+			{"name":"dashVeteranOptions","url":"../../Magic-testing/dashVeteran/dashVeteranOptions.js"}
+
+		]
+	}, 
+	{ "id": "dashBegode",
+		"name": "Begode Settings",
+		"icon": "../../Magic-testing/dashBegode/icon.png",
+		"version":"1.02",
+		"description": "EUC dashboard, Begode settings gui files.",
+		"tags": "euc",
+		"readme": "README.md",
+	    "needsFeatures":["ROCK"],
+		"storage": [
+			{"name":"dashBegode","url":"../../Magic-testing/dashBegode/dashBegode.js"},
+			{"name":"dashBegodeOpt","url":"../../Magic-testing/dashBegode/dashBegodeOpt.js"},
+			{"name":"dashBegodeAdv","url":"../../Magic-testing/dashBegode/dashBegodeAdv.js"},
+			{"name":"dashBegodeLimits","url":"../../Magic-testing/dashBegode/dashBegodeLimits.js"},
+			{"name":"dashBegodeCalibrate","url":"../../Magic-testing/dashBegode/dashBegodeCalibrate.js"}
+		]
+	},
+	{ "id": "w_scan",
+		"name": "BLE scanner widget",
+		"icon": "../../Magic-testing/w_scan/icon.png",
+		"version":"1.00",
+		"description": "Shared scan face addon",
+		"tags": "system",
+		"type": "system",
+	    "needsFeatures":["ROCK"],
+		"storage": [
+			{"name":"w_scan","url":"../../Magic-testing/w_scan/w_scan.js"}
+		]
+	},
+	
+	{ "id": "euc",
+		"name": "EUC modules support",
+		"icon": "../../v2/euc/icon.png",
+		"version":"1.92.1",
+		"description": "EUC module switcher, depends on wheel module.",
+		"tags": "euc",
+	    "needsFeatures":["EW2"],
+		"type": "euc",
+		"storage": [
+			{"name":"euc","url":"../../v2/euc/euc.js"},
+			{"name":"eucSlot.json","url":"../../v2/euc/eucSlot.json"},
+			{"name":"emuZ","url":"../../v2/euc/emuZ.js"}
+		]
+	},
+	{ "id": "eucKingsong",
+		"name": "Kingsong module",
+		"icon": "../../v2/euc/eucKingsong/icon.png",
+		"version":"1.92.1",
+		"description": "EUC module for Kingsong.",
+		"tags": "euc",
+		"type": "euc",
+	    "needsFeatures":["EW2"],
+		"storage": [
+			{"name":"eucKingsong","url":"../../v2/euc/eucKingsong/eucKingsong.js"},
+			{"name":"proxyKingsong","url":"../../v2/euc/eucKingsong/proxyKingsong.js"}
+		]
+		},
+	{ "id": "eucNinebotE",
+		"name": "Ninebot module",
+		"icon": "../../v2/euc/eucNinebotE/icon.png",
+		"version":"1.92.1",
+		"description": "EUC module for Ninebot C/E/P.",
+		"tags": "euc",
+		"type": "euc",
+	    "needsFeatures":["EW2"],
+		"storage": [
+			{"name":"eucNinebotE","url":"../../v2/euc/eucNinebotE/eucNinebotE.js"}
+		]
+		},
+	{ "id": "eucNinebotZ",
+		"name": "NinebotZ module",
+		"icon": "../../v2/euc/eucNinebotZ/icon.png",
+		"version":"1.92.1",
+		"description": "EUC module for Ninebot Z6/Z10",
+		"tags": "euc",
+		"type": "euc",
+	    "needsFeatures":["EW2"],
+		"storage": [
+			{"name":"eucNinebotZ","url":"../../v2/euc/eucNinebotZ/eucNinebotZ.js"}
+		]
+		},
+	{ "id": "eucNinebotS",
+		"name": "Ninebot S2/A1 module",
+		"icon": "../../v2/euc/eucNinebotS/icon.png",
+		"version":"1.92.1",
+		"description": "EUC module for Ninebot S2/A1",
+		"tags": "euc",
+		"type": "euc",
+	    "needsFeatures":["EW2"],
+		"storage": [
+			{"name":"eucNinebotS","url":"../../v2/euc/eucNinebotS/eucNinebotS.js"}
+		]
+		},
+	{ "id": "eucInmotionV10",
+		"name": "Inmotion V5/8/10 module",
+		"icon": "../../v2/euc/eucInmotionV10/icon.png",
+		"version":"1.92.1",
+		"description": "EUC module for Inmotion V5/8/10.",
+		"tags": "euc",
+		"type": "euc",
+	    "needsFeatures":["EW2"],
+		"storage": [
+			{"name":"eucInmotionV10","url":"../../v2/euc/eucInmotionV10/eucInmotionV10.js"}
+		]
+	},
+	{ "id": "eucInmotionV11",
+		"name": "Inmotion V11 module, V1.4 and later",
+		"icon": "../../v2/euc/eucInmotionV11/icon.png",
+		"version":"1.92.1",
+		"description": "EUC module for Inmotion V11 (fimware version > 1.4).",
+		"tags": "euc",
+		"type": "euc",
+	    "needsFeatures":["EW2"],
+		"storage": [
+			{"name":"eucInmotionV11","url":"../../v2/euc/eucInmotionV11/eucInmotionV11.js"}
+		]
+	},
+	{ "id": "eucInmotionV11-old",
+		"name": "Inmotion V11 module, old",
+		"icon": "../../v2/euc/eucInmotionV11/icon.png",
+		"version":"1.92.1",
+		"description": "EUC module for *old* Inmotion V11 (fimware version < 1.4).",
+		"tags": "euc",
+		"type": "euc",
+	    "needsFeatures":["EW2"],
+		"storage": [
+			{"name":"eucInmotionV11","url":"../../v2/euc/eucInmotionV11/eucInmotionV11old.js"}
+		]
+	},
+	{ "id": "eucInmotionV12",
+		"name": "Inmotion V12 module",
+		"icon": "../../v2/euc/eucInmotionV12/icon.png",
+		"version":"1.92.1",
+		"description": "EUC module for Inmotion V12.",
+		"tags": "euc",
+		"type": "euc",
+	    "needsFeatures":["EW2"],
+		"storage": [
+			{"name":"eucInmotionV12","url":"../../v2/euc/eucInmotionV12/eucInmotionV12.js"}
+		]
+	},
+   { "id": "eucVeteran",
+		"name": "Veteran module",
+		"icon": "../../v2/euc/eucVeteran/icon.png",
+		"version":"1.92.1",
+		"description": "EUC module for Veteran Sherman",
+		"tags": "euc",
+		"type": "euc",
+	    "needsFeatures":["EW2"],
+		"storage": [
+			{"name":"eucVeteran","url":"../../v2/euc/eucVeteran/eucVeteran.js"},
+			{"name":"proxyVeteran","url":"../../v2/euc/eucVeteran/proxyVeteran.js"}
+		]
+	},
+   { "id": "eucBegode",
+		"name": "Begode module",
+		"icon": "../../v2/euc/eucBegode/icon.png",
+		"version":"1.92.1",
+		"description": "EUC module for Begode (Gotway)",
+		"tags": "euc",
+		"type": "euc",
+	    "needsFeatures":["EW2"],
+		"storage": [
+			{"name":"eucBegode","url":"../../v2/euc/eucBegode/eucBegode.js"},
+			{"name":"proxyBegode","url":"../../v2/euc/eucBegode/proxyBegode.js"}
+		]
+	}
+]

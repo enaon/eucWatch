@@ -329,7 +329,7 @@ face[0] = {
 		this.g.fillRect(0,176,239,200); //mileage
 		this.g.setColor(0,15);
 		this.g.setFontVector(14); //mileage
-		//if (euc.dash.info.get.makr=="Ninebot") {
+		//if (euc.dash.info.get.makr=="NinebotE") {
 		//	this.g.drawString("TRIP",2,180); 
 		//	this.g.drawString("TOT",101,180); 
 		//	this.g.drawString("LEFT",197,180); 

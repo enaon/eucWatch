@@ -1,5 +1,5 @@
 face[0].page="light";
-UI.ele.ind(1,1,1);
+UI.ele.ind(1,1,0);
 UIc.start(1,1);
 UI.btn.c2l("main","_2x2",1,"ON","",15,euc.dash.opt.lght.HL==1?4:1);
 UI.btn.c2l("main","_2x2",2,"AUTO","",15,euc.dash.opt.lght.HL==3?4:1);

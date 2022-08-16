@@ -15,7 +15,7 @@ UIc.main._2x2=(i)=>{
 		//face[0].ntfy("HOLD -> LIGHTS OFF",1);
 	}else if (i==2){
 		buzzer(buz.ok);
-		//euc.wri("setStrobeOnOff",1-euc.dash.live.strb);
+		//euc.wri("setStrobeOnOff",1-euc.dash.opt.lght.strb);
 	}else if (i==3){
 		buzzer(buz.ok);		
 	}else if (i==4){

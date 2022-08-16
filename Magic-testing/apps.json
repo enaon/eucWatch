@@ -166,18 +166,7 @@
 		"storage": [
 			{"name":"dashNinebotS","url":"dashNinebotS.js"}
     ]
-	}, 
-	{ "id": "dashInmotionV11",
-		"name": "Inmotion V11 Settings",
-		"icon": "icon.png",
-		"version":"1.01",
-		"description": "EUC dashboard, Inmotion V11 settings gui files.",
-		"tags": "euc",
-		"readme": "README.md",
-		"storage": [
-			{"name":"dashInmotionV11","url":"dashInmotionV11.js"}
-    ]
-	}, 
+	},
 	{ "id": "dashInmotionV10",
 		"name": "Inmotion V5/8/10 Settings",
 		"icon": "icon.png",
@@ -195,6 +184,28 @@
 			{"name":"dashInmotionV10AdvPass","url":"dashInmotionV10AdvPass.js"}   
 		]
 	}, 
+	{ "id": "dashInmotionV11",
+		"name": "Inmotion V11 Settings",
+		"icon": "icon.png",
+		"version":"1.01",
+		"description": "EUC dashboard, Inmotion V11 settings gui files.",
+		"tags": "euc",
+		"readme": "README.md",
+		"storage": [
+			{"name":"dashInmotionV11","url":"dashInmotionV11.js"}
+    ]
+	}, 
+	{ "id": "dashInmotionV12",
+		"name": "Inmotion V12 Settings",
+		"icon": "icon.png",
+		"version":"1.01",
+		"description": "EUC dashboard, Inmotion V12 settings gui files.",
+		"tags": "euc",
+		"readme": "README.md",
+		"storage": [
+			{"name":"dashInmotionV12","url":"dashInmotionV12.js"}
+    ]
+	},
 	{ "id": "dashVeteran",
 		"name": "Veteran Settings",
 		"icon": "icon.png",
@@ -224,103 +235,127 @@
 	},
 	{ "id": "euc",
 		"name": "EUC modules support",
-		"icon": "icon.png",
-		"version":"1.00",
+		"icon": "../../v2/euc/icon.png",
+		"version":"1.90",
 		"description": "EUC module switcher, depends on wheel module.",
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"C:euc","url":"euc.js"},
-			{"name":"eucSlot.json","url":"eucSlot.json"},
-			{"name":"proxyKingsong","url":"proxyKingsong.js"}
+			{"name":"euc","url":"../../v2/euc/euc.js"},
+			{"name":"eucSlot.json","url":"../../v2/euc/eucSlot.json"}
 		]
-		},
+	},
 	{ "id": "eucKingsong",
 		"name": "Kingsong module",
-		"icon": "icon.png",
-		"version":"0.98",
+		"icon": "../../v2/euc/eucKingsong/icon.png",
+		"version":"1.90",
 		"description": "EUC module for Kingsong.",
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"C:eucKingsong","url":"eucKingsong.js"}
+			{"name":"eucKingsong","url":"../../v2/euc/eucKingsong/eucKingsong.js"},
+			{"name":"proxyKingsong","url":"../../v2/euc/eucKingsong/proxyKingsong.js"}
 		]
 		},
 	{ "id": "eucNinebotE",
 		"name": "Ninebot module",
-		"icon": "icon.png",
-		"version":"0.97",
+		"icon": "../../v2/euc/eucNinebotE/icon.png",
+		"version":"1.90",
 		"description": "EUC module for Ninebot C/E/P.",
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"eucNinebotE","url":"eucNinebotE.js"}
+			{"name":"eucNinebotE","url":"../../v2/euc/eucNinebotE/eucNinebotE.js"}
 		]
 		},
 	{ "id": "eucNinebotZ",
 		"name": "NinebotZ module",
-		"icon": "icon.png",
-		"version":"0.98",
+		"icon": "../../v2/euc/eucNinebotZ/icon.png",
+		"version":"1.90",
 		"description": "EUC module for Ninebot Z6/Z10",
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"eucNinebotZ","url":"eucNinebotZ.js"}
+			{"name":"eucNinebotZ","url":"../../v2/euc/eucNinebotZ/eucNinebotZ.js"}
 		]
 		},
 	{ "id": "eucNinebotS",
 		"name": "Ninebot S2/A1 module",
-		"icon": "icon.png",
-		"version":"0.97",
+		"icon": "../../v2/euc/eucNinebotS/icon.png",
+		"version":"1.90",
 		"description": "EUC module for Ninebot S2/A1",
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"eucNinebotS","url":"eucNinebotS.js"}
+			{"name":"eucNinebotS","url":"../../v2/euc/eucNinebotS/eucNinebotS.js"}
 		]
 		},
-	{ "id": "eucInmotionV11",
-		"name": "Inmotion V11 module",
-		"icon": "icon.png",
-		"version":"0.99",
-		"description": "EUC module for Inmotion V11.",
-		"tags": "euc",
-		"type": "euc",
-		"storage": [
-			{"name":"C:eucInmotionV11","url":"eucInmotionV11.js"}
-		]
-	},
 	{ "id": "eucInmotionV10",
 		"name": "Inmotion V5/8/10 module",
-		"icon": "icon.png",
-		"version":"1.01",
+		"icon": "../../v2/euc/eucInmotionV10/icon.png",
+		"version":"1.90",
 		"description": "EUC module for Inmotion V5/8/10.",
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"C:eucInmotionV10","url":"eucInmotionV10.js"}
+			{"name":"eucInmotionV10","url":"../../v2/euc/eucInmotionV10/eucInmotionV10.js"}
+		]
+	},
+	{ "id": "eucInmotionV11",
+		"name": "Inmotion V11 module, V1.4 and later",
+		"icon": "../../v2/euc/eucInmotionV11/icon.png",
+		"version":"1.90",
+		"description": "EUC module for Inmotion V11 (fimware version > 1.4).",
+		"tags": "euc",
+		"type": "euc",
+		"storage": [
+			{"name":"eucInmotionV11","url":"../../v2/euc/eucInmotionV11/eucInmotionV11.js"}
+		]
+	},
+	{ "id": "eucInmotionV11-old",
+		"name": "Inmotion V11 module, old",
+		"icon": "../../v2/euc/eucInmotionV11/icon.png",
+		"version":"1.90",
+		"description": "EUC module for *old* Inmotion V11 (fimware version < 1.4).",
+		"tags": "euc",
+		"type": "euc",
+		"storage": [
+			{"name":"eucInmotionV11","url":"../../v2/euc/eucInmotionV11/eucInmotionV11old.js"}
+		]
+	},
+	{ "id": "eucInmotionV12",
+		"name": "Inmotion V12 module",
+		"icon": "../../v2/euc/eucInmotionV12/icon.png",
+		"version":"1.90",
+		"description": "EUC module for Inmotion V12.",
+		"tags": "euc",
+		"type": "euc",
+		"storage": [
+			{"name":"eucInmotionV12","url":"../../v2/euc/eucInmotionV12/eucInmotionV12.js"}
 		]
 	},
    { "id": "eucVeteran",
 		"name": "Veteran module",
-		"icon": "icon.png",
-		"version":"0.97.1",
+		"icon": "../../v2/euc/eucVeteran/icon.png",
+		"version":"1.90",
 		"description": "EUC module for Veteran Sherman",
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"C:eucVeteran","url":"eucVeteran.js"}
+			{"name":"eucVeteran","url":"../../v2/euc/eucVeteran/eucVeteran.js"},
+			{"name":"proxyVeteran","url":"../../v2/euc/eucVeteran/proxyVeteran.js"}
 		]
 	},
    { "id": "eucBegode",
 		"name": "Begode module",
-		"icon": "icon.png",
-		"version":"0.98.3",
+		"icon": "../../v2/euc/eucBegode/icon.png",
+		"version":"1.90",
 		"description": "EUC module for Begode (Gotway)",
 		"tags": "euc",
 		"type": "euc",
 		"storage": [
-			{"name":"C:eucBegode","url":"eucBegode.js"}
+			{"name":"eucBegode","url":"../../v2/euc/eucBegode/eucBegode.js"},
+			{"name":"proxyBegode","url":"../../v2/euc/eucBegode/proxyBegode.js"}
 		]
 	},
 	{ "id": "w_scan",

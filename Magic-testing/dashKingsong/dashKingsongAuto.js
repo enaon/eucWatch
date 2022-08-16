@@ -23,7 +23,7 @@ tcB=(x,y)=>{
 tcBack.replaceWith(tcB);
 //
 face[0].page="automation";
-UI.ele.ind(3,4,1);
+UI.ele.ind(3,4,0);
 face[0].bar();
 UIc.start(1,1);
 let offH=Math.floor(euc.dash.auto.offT/3600);

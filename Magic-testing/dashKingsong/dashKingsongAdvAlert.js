@@ -12,7 +12,7 @@ tcNext.replaceWith(tcB);
 //
 face[0].page="wheel alarms";
 face[0].start=()=>{
-	UI.ele.ind(1,1,1);
+	UI.ele.ind(1,1,0);
 	UIc.start(1,1);
 	UI.btn.c2l("main","_2x2",1,"ALARM 1",euc.dash.alrt.spd.one.en?euc.dash.alrt.spd.one.val:"OFF",15,euc.dash.alrt.spd.one.en?6:1);
 	UI.btn.c2l("main","_2x2",2,"ALARM 2",euc.dash.alrt.spd.two.en?euc.dash.alrt.spd.two.val:"OFF",15,euc.dash.alrt.spd.two.en?6:1);

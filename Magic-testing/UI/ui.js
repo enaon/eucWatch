@@ -4,12 +4,12 @@ UI={
 	_fold:[20,[80,160],[62],[160,160],[88]],
 	_2x1:[28,[120],[80,200],[240],[120,120]],
  	_2x2:[27,[60,180],[80,200],[120,120],[120,120]],
-	_2x3:[30,[40,120,200],[65,155],[80,80,80],[90,90] ],
+	_2x3:[30,[40,120,200],[62,145],[80,80,80],[85,85] ],
 	_3x1:[25,[120],[40,120,200]],
 	_4x1:[27,[120],[50,110,170,230],[240],[60,60,60,60]],
 	_kp4x4:[28,[30,90,150,210],[50,110,170,230]],
 	_kp4x3:[35,[40,120,200],[50,110,170,230],[80,80,80],[60,60,60,60]],
-	_ele:{"0":25,title:[0,260,239,279,19],ind:[80,7,160,12],indF:[0,0,239,19]},
+	_ele:{"0":25,title:[0,260,239,279,19],ind:[70,0,170,5],indF:[0,0,239,19]},
 	_bar:[25,[40,120,200,60,180,120],[240],[80,80,80,120,120,240],[80]],
 	_1x2:[25,[120],[80,200],[240],[120,120]],
 	_main:[25,[60,180,120],[45,135,110,140],[120,120,240],[50,130,180,240]],
@@ -76,10 +76,10 @@ UI={
 			w.gfx.setColor(0,0);
 			w.gfx.fillRect(x-szX,y-szY,x+szX,y+szY);
 			w.gfx.setColor(0,bclr);
-			w.gfx.fillRect(x-szX+1,y-szY+1,x+szX-1,y+szY-1);
+			w.gfx.fillRect({x:x-szX+2,y:y-szY+3,x2:x+szX-2,y2:y+szY-2,r:10});
 	    }else {		
   			w.gfx.setColor(0,bclr);
-			w.gfx.fillRect(x-szX,y-szY,x+szX,y+szY);
+			w.gfx.fillRect(x-szX,y-szY,x+szX,y+szY,50);
 	    }
 		w.gfx.setColor(1,fclr);
       if (txt2&&txt2!=""){
@@ -115,10 +115,11 @@ UI={
 			w.gfx.setColor(0,0);
 			w.gfx.fillRect(x-szX,y-szY,x+szX,y+szY);
 			w.gfx.setColor(0,bclr);
-			w.gfx.fillRect(x-szX+1,y-szY+1,x+szX-1,y+szY-1);
+			w.gfx.fillRect({x:x-szX+3,y:y-szY+3,x2:x+szX-3,y2:y+szY-3,r:10});
+			//w.gfx.fillRect({x:x-szX+1,y:y-szY+1,x2:x+szX-1,y2:y+szY-1,r:7});
 	    }else {		
   			w.gfx.setColor(0,bclr);
-			w.gfx.fillRect(x-szX,y-szY,x+szX,y+szY);
+			w.gfx.fillRect({x:x-szX,y:y-szY,x2:x+szX,y2:y+szY});
 	    }
 	  }
       w.gfx.setColor(1,fclr);	
@@ -136,7 +137,7 @@ UI={
 		  w.gfx.setColor(1,fclr);
 			w.gfx.setFont("Vector",p[0]*(no=="_2x3"?0.85:1)*UI.size.txt);	
 		  w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y+( (szY*2)*(2-UI.size.txt)/6 )); 
-	  }else w.gfx.drawImage(img,x-(imgW*UI.size.sca/2),y-(imgH*UI.size.sca/2),{scale:UI.size.sca});
+	  }else w.gfx.drawImage(img,x+2-(imgW*UI.size.sca/2),y-(imgH*UI.size.sca/2),{scale:UI.size.sca});
 	  img=0;
 	  if (!set.def.bpp) w.gfx.flip();
 	  //coordinates
@@ -198,11 +199,11 @@ UI={
 		"ram";
 		if (UI.pos._ele.indF){
 			let pf=(UI.pos._ele.indF);
-			w.gfx.setColor(0,clr?clr:1);
+			w.gfx.setColor(0,clr?clr:0);
 			w.gfx.fillRect(pf[0],pf[1],pf[2],pf[3]);
 		}
 		let p=(UI.pos._ele.ind);
-		w.gfx.setColor(0,0);
+		w.gfx.setColor(0,clr?0:1);
 		w.gfx.fillRect(p[0],p[1],p[2],p[3]);
 		let pa=(p[2]-p[0])/t;
 		w.gfx.setColor(1,3);	

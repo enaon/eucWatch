@@ -21,6 +21,7 @@ if(!global.scan){
 			if (euc.dash.info.get.makr=="NinebotS")  this.filter = [{manufacturer:16974}];  
 			else if (euc.dash.info.get.makr=="NinebotZ")  this.filter = [{ namePrefix: 'N3' }];
 			else if (euc.dash.info.get.makr=="NinebotE")  this.filter = [{ namePrefix: 'NOC' },{ namePrefix: 'NOE' },{ namePrefix: 'NOP' }];
+			else if (euc.dash.info.get.makr=="InmotionV10")  this.filter = [{ namePrefix: 'V' }];
 			else if (euc.dash.info.get.makr=="InmotionV11")  this.filter = [{ namePrefix: 'V11-' }];
 			else if (euc.dash.info.get.makr=="InmotionV12")  this.filter = [{ namePrefix: 'V12-' }];
 			else if (euc.dash.info.get.makr=="Begode")  this.filter = [{ namePrefix: 'GotWay' }];

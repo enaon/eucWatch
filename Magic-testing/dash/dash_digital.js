@@ -6,7 +6,7 @@ face[0] = {
 	g:w.gfx,
 	spd:[],
 	init: function(){
-		this.buff={spd:-1,spdL:-1,spdM:-1,amp:-10,tmp:-1,bat:-1,volt:-1,buzz:-1,alrm:-1,conn:"OFF",lock:2,trpL:-1,bar:0};
+		this.buff={spd:euc.dash.live.spd-1,spdL:-1,spdM:-1,amp:-10,tmp:-1,bat:-1,volt:-1,buzz:-1,alrm:-1,conn:"OFF",lock:2,trpL:-1,bar:0};
 		if ( euc.is.day[0] < Date().getHours() && Date().getHours() < euc.is.day[1] ) euc.is.night=0; else euc.is.night=1;
         if (this.old&&face.appPrev.startsWith("dash_")) {
 			this.g.setColor(0,0);this.g.flip();	
@@ -37,6 +37,7 @@ face[0] = {
 
 	},
 	show : function(o){
+		"ram";
 		if (!this.run) return;
 		if (euc.state=="READY") {
 			//this.g.setColor(0,0);
@@ -44,7 +45,7 @@ face[0] = {
 			//if (this.old)this.g.flip();
 			if (this.buff.spd != Math.round(euc.dash.live.spd)) this.spdF();
 			// alarm events time graph
-			if (5<=this.buff.spd && this.al!=almL) this.alF();
+			if (5<=this.buff.spd && this.al!=euc.log.almL) this.alF();
 			else if (5<=this.buff.spd && !euc.buzz && euc.dash.info.get.makr=="Kingsong") this.pwrF();
 			else if (!this.buff.bar) { this.buff.bar=1; this.barF();}
 			//tmp/amp block
@@ -62,7 +63,7 @@ face[0] = {
 			}else if (this.buff.alrm!=euc.dash.live.alrm) this.alrF();	
 			//tmp/amp field
 			if (set.def.dash.amp){
-				if (this.ampL!=ampL) this.amLF();				
+				if (this.ampL!=euc.log.ampL) this.amLF();				
 			}else if (this.buff.tmp!=euc.dash.live.tmp.toFixed(1)) this.tmFF();
 			//batery field
 			//batery field
@@ -70,7 +71,7 @@ face[0] = {
 				if (this.buff.volt!=euc.dash.live.volt.toFixed(2)) this.vltF();
 			}else if (set.def.dash.bat==1) {
 				if (euc.dash.live.bat!=this.bat) this.batF();
-			}else if (this.batL!=batL) this.baLF();			
+			}else if (this.batL!=euc.log.batL) this.baLF();			
 			//Mileage
 			if (this.buff.trpL!=euc.dash.trip.last.toFixed(2)) this.mileage();    
 		//rest
@@ -83,8 +84,7 @@ face[0] = {
 				this.g.setFont("Vector",50);
 				this.g.drawString(euc.state,(125-this.g.stringWidth(euc.state)/2),95);
 				if (this.old)this.g.flip();
-				this.buff.spd=-1;this.buff.amp=-1;this.buff.tmp=-1;this.bat=-1;this.buff.trpL=-1;this.buff.conn=0;this.buff.lock=2;
-				this.buff.buzz=-1;this.buff.volt=-1;this.buff.spdM=-1;this.buff.alrm=-1;this.buff.spdL=-1;this.buff.spdM=-1;this.buff.bar=0;
+				this.buff={spd:euc.dash.live.spd-1,spdL:-1,spdM:-1,amp:-10,tmp:-1,bat:-1,volt:-1,buzz:-1,alrm:-1,conn:"OFF",lock:2,trpL:-1,bar:0};
 				this.ampL.fill(1,0,1);this.batL.fill(1,0,1);
 				this.run=true;
 			}
@@ -94,11 +94,14 @@ face[0] = {
 		this.tid=setTimeout(function(t){
 			t.tid=-1;
 			t.show();
-		},200,this);
+		},50,this);
 	},
 	spdF: function(){
 		"ram";
-		this.buff.spd=Math.round(euc.dash.live.spd);
+		if ( Math.abs(euc.dash.live.spd-this.buff.spd) <2 ) this.buff.spd =Math.round(euc.dash.live.spd);
+		else if (euc.dash.live.spd<this.buff.spd) this.buff.spd=Math.round(this.buff.spd-(this.buff.spd-euc.dash.live.spd)/2); 
+		else this.buff.spd=Math.round(this.buff.spd+(euc.dash.live.spd-this.buff.spd)/2); 
+		//this.buff.spd=Math.round(euc.dash.live.spd);
 		this.g.setColor(0,(euc.dash.alrt.spd.cc==1)?0:this.spdC[euc.dash.alrt.spd.cc]);
 		
 		this.g.fillRect(this.pos.spd[0],this.pos.spd[1],this.pos.spd[2],this.pos.spd[3]);
@@ -118,8 +121,7 @@ face[0] = {
 	},
 	alF: function(){
 		"ram";
-		this.al.set(almL);
-		//print(this.al,almL);
+		this.al.set(euc.log.almL);
 		this.g.setColor(0,1);
 		this.g.clearRect(this.pos.alrm[0],this.pos.alrm[1],this.pos.alrm[2],this.pos.alrm[3]);
 		this.g.setColor(1,15);
@@ -132,6 +134,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},
 	ampF: function(){
+		"ram";
 		this.buff.amp=Math.round(euc.dash.live.amp);
 		this.g.setColor(0,this.ampC[euc.dash.alrt.amp.cc]);
 		this.g.fillRect(this.pos.btn1[0],this.pos.btn1[1],this.pos.btn1[2],this.pos.btn1[3]);
@@ -143,8 +146,9 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},
 	tmpF: function(){
+		"ram";
 		this.buff.tmp=Math.round(euc.dash.live.tmp);
-		this.g.setColor(0,this.tmpC[euc.dash.live.tmpC]);
+		this.g.setColor(0,this.tmpC[euc.dash.alrt.tmp.cc]);
 		this.g.fillRect(this.pos.btn1[0],this.pos.btn1[1],this.pos.btn1[2],this.pos.btn1[3]);
 		this.g.setColor(1,15);
 		this.g.setFontVector(11);
@@ -156,6 +160,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},
 	buzF: function(){
+		"ram";
 		this.buff.buzz=euc.buzz;
 		this.g.setFontVector(35);
 		this.g.setColor(0,(this.buff.buzz)?7:1);
@@ -165,6 +170,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},
 	spMF: function(){
+		"ram";
 		this.buff.spdM=euc.dash.trip.topS.toFixed(1);
 		this.g.setColor(0,1);
 		this.g.fillRect(this.pos.btn3[0],this.pos.btn3[1],this.pos.btn3[2],this.pos.btn3[3]);
@@ -176,6 +182,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},	
 	spLF: function(){
+		"ram";
 		this.buff.spdL=euc.dash.alrt.spd.max;
 		this.g.setColor(0,(euc.dash.alrt.spd.tilt.val<=this.buff.spdL)?1:7);	
 		this.g.fillRect(this.pos.btn4[0],this.pos.btn4[1],this.pos.btn4[2],this.pos.btn4[3]); 
@@ -187,6 +194,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},	
 	alrF: function(){
+		"ram";
 		this.buff.alrm=euc.dash.live.alrm;
 		this.g.setColor(0,1);
 		this.g.fillRect(this.pos.btn4[0],this.pos.btn4[1],this.pos.btn4[2],this.pos.btn4[3]); 
@@ -196,8 +204,9 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},	
 	tmFF: function(){
+		"ram";
 		this.buff.tmp=euc.dash.live.tmp.toFixed(1);
-		this.g.setColor(0,this.tmpC[euc.dash.live.tmpC]);
+		this.g.setColor(0,this.tmpC[euc.dash.alrt.tmp.cc]);
 		this.g.fillRect(this.pos.topl[0],this.pos.topl[1],this.pos.topl[2],this.pos.topl[3]);       
 		this.g.setColor(1,15);
 		this.g.setFontVector(50);
@@ -211,7 +220,8 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},	
 	amLF: function(){
-		this.ampL.set(ampL);
+		"ram";
+		this.ampL.set(euc.log.ampL);
 		this.g.setColor(1,(1<euc.dash.alrt.amp.cc)?7:1);
 		this.g.fillRect(this.pos.topl[0],this.pos.topl[1],this.pos.topl[2],this.pos.topl[3]);       
 		this.g.setColor(0,15);
@@ -221,17 +231,19 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},	
 	pwrF: function(){
+		"ram";
 		this.g.setColor(0,1);
 		//this.g.setColor(0,7);
 		this.g.fillRect(this.pos.pwm[0],this.pos.pwm[1],this.pos.pwm[2],this.pos.pwm[3]); 
-		//this.g.fillRect(euc.dash.live.pwr*2.4,176,239,197); 
-		this.g.setColor(1,(50<=euc.dash.live.pwr)?(80<=euc.dash.live.pwr)?7:13:15);
+		//this.g.fillRect(euc.dash.live.pwm*2.4,176,239,197); 
+		this.g.setColor(1,(50<=euc.dash.live.pwm)?(80<=euc.dash.live.pwm)?7:13:15);
 		this.g.setFontVector(25);
-		this.g.drawString(((euc.dash.live.pwr/euc.dash.live.spd)*10).toFixed(1),3,this.pos.pwm[1]);
-		this.g.fillRect(80,182,80+euc.dash.live.pwr*1.6,192); 
+		this.g.drawString(((euc.dash.live.pwm/euc.dash.live.spd)*10).toFixed(1),3,this.pos.pwm[1]);
+		this.g.fillRect(80,182,80+euc.dash.live.pwm*1.6,192); 
 		w.gfx.flip();
 	},
 	vltF: function(){
+		"ram";
 		this.buff.volt=euc.dash.live.volt.toFixed(2);
 		this.g.setColor(0,this.batC[euc.dash.alrt.bat.cc]);
 		this.g.fillRect(this.pos.topr[0],this.pos.topr[1],this.pos.topr[2],this.pos.topr[3]);       
@@ -243,6 +255,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},	
 	batF: function(){
+		"ram";
 		this.buff.bat=euc.dash.live.bat;
 		this.g.setColor(0,this.batC[euc.dash.alrt.bat.cc]);
 		this.g.fillRect(this.pos.topr[0],this.pos.topr[1],this.pos.topr[2],this.pos.topr[3]);       
@@ -254,7 +267,8 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},
 	baLF: function(){
-		this.batL.set(batL);
+		"ram";
+		this.batL.set(euc.log.batL);
 		this.g.setColor(0,this.batC[euc.dash.alrt.bat.cc]);
 		this.g.fillRect(this.pos.topr[0],this.pos.topr[1],this.pos.topr[2],this.pos.topr[3]);       
 		this.g.setColor(1,15);
@@ -268,6 +282,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},	
 	mileage: function(){
+		"ram";
 		this.buff.trpL=euc.dash.trip.last.toFixed(2);
 		this.g.setColor(0,0);
 		this.g.fillRect(this.pos.bar[0],this.pos.bar[1],this.pos.bar[2],this.pos.bar[3]);
@@ -285,6 +300,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},
 	barF: function(){
+		"ram";
 		this.g.setColor(1,1);
 		this.g.fillRect(this.pos.btm[0],this.pos.btm[1],this.pos.btm[2],this.pos.btm[3]); //mileage
 		this.g.setColor(0,15);

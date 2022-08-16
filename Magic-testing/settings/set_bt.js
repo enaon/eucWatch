@@ -1,8 +1,8 @@
 face[0].page="bt";
-UI.ele.ind(1,1);
+UI.ele.ind(0,0,0);
 let img;
 UIc.start(1,0);
-UI.btn.img("main","_fold",1,"bt","BT",14,1,1);
+UI.btn.img("main","_fold",1,"bt","BT",14,12,1);
 UI.btn.img("main","_2x3",3,"cli","CLI",set.def.cli?15:3,set.def.cli?4:0);
 UI.btn.img("main","_2x3",4,"gb","GB",set.def.gb?15:3,set.def.gb?4:0);
 UI.btn.img("main","_2x3",5,"proxy","EUC",set.def.emuZ?15:3,set.def.emuZ?4:0);

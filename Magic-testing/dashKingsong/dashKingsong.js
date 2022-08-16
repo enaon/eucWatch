@@ -22,9 +22,9 @@ face[0] = {
 				this.light=euc.dash.opt.lght.HL;
 				let val=["CITY","ON","OFF","AUTO"];
 				UI.btn.c2l("main","_2x2",1,"LIGHTS",val[euc.dash.opt.lght.HL],15,euc.dash.opt.lght.city?12:euc.dash.opt.lght.HL!=2?4:0);
-			}if ( this.strb!=euc.dash.live.strb) {
-				this.strb=euc.dash.live.strb;
-				UI.btn.c2l("main","_2x2",2,"STRB","",15,euc.dash.live.strb?13:1);
+			}if ( this.strb!=euc.dash.opt.lght.strb) {
+				this.strb=euc.dash.opt.lght.strb;
+				UI.btn.c2l("main","_2x2",2,"STRB","",15,euc.dash.opt.lght.strb?13:1);
 			}
 			if ( this.lock!=euc.dash.opt.lock.en) {
 				this.lock=euc.dash.opt.lock.en;

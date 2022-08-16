@@ -37,6 +37,7 @@ face[0] = {
 		begode:["Begode","BG","ffe0"],
 		inmotionV10:["InmotionV10","V10","ffb0"],
 		inmotionV11:["InmotionV11","V11","ffe0"],
+		inmotionV12:["InmotionV12","V11","ffe0"],
 		veteran:["Veteran","SM","ffe0"],
 		ninebotE:["NinebotE","E+","ffe0"],
 		ninebotS:["NinebotS","S2","e7fe"],
@@ -71,15 +72,14 @@ face[0] = {
 				UI.btn.img("main","_2x2",4,face[0].icon+"imV12","V12",15,6); 
 				UIc.end();
 				UIc.main._2x1=(i)=>{//V5
-					face[0].scan(face[0].maker.inmotionV10);		
+					face[0].scan(face[0].maker.inmotionV10);
 				};
 				UIc.main._2x2=(i)=>{
-					if (i==4){//V12
-						buzzer(buz.ok);
-						UI.btn.ntfy(1,2,0,"_bar",6,"COMING","SOON",15,13);w.gfx.flip();
-					}	else {//V11
-							face[0].scan(face[0].maker.inmotionV11);		
-					}
+					if (i==4)//V12
+							face[0].scan(face[0].maker.inmotionV12);
+						else //V11
+							face[0].scan(face[0].maker.inmotionV11);
+					
 				};
 			}else if (face[0].page==3){ //ninebot
 				buzzer(buz.ok);
@@ -121,9 +121,8 @@ face[0] = {
   scan: function(o) {
 	buzzer(buz.ok);
   	let target=o;
-	//let ==1?[0,["InmotionV1","Vx","ffb0"],["Begode","BG","ffe0"],["NinebotS","S2","e7fe"],["NinebotZ","Z10","e7fe"]]:					[0,["Inmotion","V11","ffe0"],["Veteran","SM","ffe0"],["Ninebot","E+","ffe0"],["Kingsong","KS","fff0"]];
-	if (!Boolean(require("Storage").read("euc"+target[0]))) {
-			UI.btn.ntfy(1,3,1,"_bar",6,"MODULE","MISSING",15,7);w.gfx.flip();
+	if (!require("Storage").read("euc"+target[0])) {
+			UI.btn.ntfy(1,3,0,"_bar",6,"MODULE","MISSING",15,13);w.gfx.flip();
 			return; 
 	}
 	set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker",target[0]);

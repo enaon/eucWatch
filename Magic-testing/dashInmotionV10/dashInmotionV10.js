@@ -53,7 +53,7 @@ face[0] = {
       	this.g.fillRect(75,200,98,204);
 		this.g.flip(); 
         this.btn(euc.dash.live.lght.head,"LIGHT",18,60,15,4,1,0,0,119,97,(euc.dash.live.lght.head)?"ON":"OFF",28,60,50);
-		this.btn(euc.dash.live.ctrl.vol,"VOLUME",22,185,15,12,7,122,0,239,97,(euc.dash.live.ctrl.vol)?euc.dash.live.ctrl.vol:"MUTE",30,185,50);//2
+		this.btn(euc.dash.opt.snd.vol,"VOLUME",22,185,15,12,7,122,0,239,97,(euc.dash.opt.snd.vol)?euc.dash.opt.snd.vol:"MUTE",30,185,50);//2
 		let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
 		this.btn(euc.dash.opt.tpms,(euc.dash.opt.tpms)?euc.dash.opt.tpms:"TPMS",18,60,115,(euc.dash.opt.tpms&&tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.opt.tpms].time<1800)?(tpms.euc[euc.dash.opt.tpms].alrm)?7:4:1,1,0,100,119,195,(euc.dash.opt.tpms)?(tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].psi)?Math.round(tpms.euc[euc.dash.opt.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.opt.tpms)?32:28,60,150); //3				
    		this.btn(1,"OFF",25,185,135,1,1,122,100,239,195); //4
@@ -138,14 +138,14 @@ touchHandler[0]=function(e,x,y){
 		if (face[0].sub) {
 			if (face[0].sub==="volume") {
 				if ( x<=120 && y <= 170 ){
-					euc.dash.live.ctrl.vol=euc.dash.live.ctrl.vol-10;if (euc.dash.live.ctrl.vol<=0)euc.dash.live.ctrl.vol=0;
-					face.menu.full("VOLUME",20,euc.dash.live.ctrl.vol,80,1453,1365);
-					euc.wri("setVolume",euc.dash.live.ctrl.vol);
+					euc.dash.opt.snd.vol=euc.dash.opt.snd.vol-10;if (euc.dash.opt.snd.vol<=0)euc.dash.opt.snd.vol=0;
+					face.menu.full("VOLUME",20,euc.dash.opt.snd.vol,80,1453,1365);
+					euc.wri("setVolume",euc.dash.opt.snd.vol);
 					buzzer(buz.ok);
 				}else if ( 120 <=x  && y <= 170 ) {
-					euc.dash.live.ctrl.vol=euc.dash.live.ctrl.vol+10;if (100<=euc.dash.live.ctrl.vol)euc.dash.live.ctrl.vol=100;
-					face.menu.full("SET VOLUME",20,euc.dash.live.ctrl.vol,80,1453,1365);
-					euc.wri("setVolume",euc.dash.live.ctrl.vol);
+					euc.dash.opt.snd.vol=euc.dash.opt.snd.vol+10;if (100<=euc.dash.opt.snd.vol)euc.dash.opt.snd.vol=100;
+					face.menu.full("SET VOLUME",20,euc.dash.opt.snd.vol,80,1453,1365);
+					euc.wri("setVolume",euc.dash.opt.snd.vol);
 					buzzer(buz.ok);
 				}else {
 					face[0].sub=0;
@@ -165,7 +165,7 @@ touchHandler[0]=function(e,x,y){
 				buzzer(buz.ok);
 			}else if ( 120<=x && y<=100 ) { //Volume
 				buzzer(buz.ok);
-				face.menu.full("VOLUME",20,euc.dash.live.ctrl.vol,80,1453,1365,1);
+				face.menu.full("VOLUME",20,euc.dash.opt.snd.vol,80,1453,1365,1);
 				face[0].ntfy("SET VOLUME","SET VOLUME",20,4,1);
 				face[0].sub="volume";
 			}else if ( x<=120 && 100<=y ) { //tpms

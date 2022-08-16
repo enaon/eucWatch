@@ -25,7 +25,7 @@ face[0] = {
       	this.g.fillRect(75,200,120,204);
 		this.g.flip(); 
 		this.btn("LIGHTS",18,60,15,(euc.dash.live.aLight==="lightsOff")?0:(euc.dash.live.aLight==="lightsOn")?4:7,0,0,119,97,(euc.dash.live.aLight==="lightsOff")?"OFF":(euc.dash.live.aLight==="lightsOn")?"ON":"STROBE",28,60,50); //1
-		this.btn("WATCH",22,185,17,(euc.dash.live.hapS||euc.dash.live.hapA||euc.dash.live.hapT||euc.dash.live.hapB)?4:1,122,0,239,97,"ALERTS",22,185,55);//2
+		this.btn("WATCH",22,185,17,(euc.dash.alrt.spd.hapt.en||euc.dash.alrt.amp.hapt.en||euc.dash.alrt.tmp.hapt.en||euc.dash.alrt.bat.hapt.en)?4:1,122,0,239,97,"ALERTS",22,185,55);//2
 		let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
 		this.btn((euc.dash.opt.tpms)?euc.dash.opt.tpms:"TPMS",18,60,115,(euc.dash.opt.tpms&&tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.opt.tpms].time<1800)?(tpms.euc[euc.dash.opt.tpms].alrm)?7:4:1,0,100,119,195,(euc.dash.opt.tpms)?(tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].psi)?Math.round(tpms.euc[euc.dash.opt.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.opt.tpms)?32:28,60,150); //3		
    		this.btn("HORN",25,185,137,(euc.dash.opt.horn.en)?4:1,122,100,239,195); //4

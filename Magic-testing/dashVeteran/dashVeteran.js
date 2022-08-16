@@ -26,8 +26,8 @@ face[0] = {
       	this.g.fillRect(75,200,120,204);
 		this.g.flip();
 		//
-        this.btn(euc.dash.live.light,"LIGHT",28,60,35,4,1,0,0,119,97);
-		this.btn((euc.dash.live.hapS||euc.dash.live.hapA||euc.dash.live.hapT||euc.dash.live.hapB),"WATCH",22,185,17,4,1,122,0,239,97,"ALERTS",22,185,55);		
+        this.btn(euc.dash.opt.lght.HL,"LIGHT",28,60,35,4,1,0,0,119,97);
+		this.btn((euc.dash.alrt.spd.hapt.en||euc.dash.alrt.amp.hapt.en||euc.dash.alrt.tmp.hapt.en||euc.dash.alrt.bat.hapt.en),"WATCH",22,185,17,4,1,122,0,239,97,"ALERTS",22,185,55);		
 		let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
 		this.btn(euc.dash.opt.tpms,(euc.dash.opt.tpms)?euc.dash.opt.tpms:"TPMS",18,60,115,(euc.dash.opt.tpms&&tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.opt.tpms].time<1800)?(tpms.euc[euc.dash.opt.tpms].alrm)?7:4:1,1,0,100,119,195,(euc.dash.opt.tpms)?(tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].psi)?Math.round(tpms.euc[euc.dash.opt.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.opt.tpms)?32:28,60,150); //3				
 		let md={"1":"SOFT","2":"MEDIUM","3":"STRONG"};
@@ -121,10 +121,10 @@ touchHandler[0]=function(e,x,y){
 		}
 		else {
 			if ( x<=120 && y<100 ) { 
-				euc.dash.live.light= 1- euc.dash.live.light;
-				face[0].btn(euc.dash.live.light,"LIGHT",28,60,35,4,1,0,0,119,97);
-				euc.wri((euc.dash.live.light)?"setLightOn":"setLightOff");
-			face[0].ntfy("LIGHT ON","LIGHT OFF",22,(euc.dash.live.light)?4:1,euc.dash.live.light);
+				euc.dash.opt.lght.HL= 1- euc.dash.opt.lght.HL;
+				face[0].btn(euc.dash.opt.lght.HL,"LIGHT",28,60,35,4,1,0,0,119,97);
+				euc.wri((euc.dash.opt.lght.HL)?"setLightOn":"setLightOff");
+			face[0].ntfy("LIGHT ON","LIGHT OFF",22,(euc.dash.opt.lght.HL)?4:1,euc.dash.opt.lght.HL);
 				buzzer(buz.ok);
 			}else if ( 120<=x && y<=100 ) { //watch alerts
 				buzzer(buz.ok);						
@@ -179,16 +179,16 @@ touchHandler[0]=function(e,x,y){
 			face[0].set=0;face[0].init();
 			buzzer(buz.ok);	
         }else if ( x<=120 && y<100 ) { // light
-			euc.dash.live.light= 1- euc.dash.live.light;
-			face[0].btn(euc.dash.live.light,"LIGHT",28,60,35,4,1,0,0,119,97);
-			euc.wri((euc.dash.live.light)?"setLightOn":"setLightOff");
-			face[0].ntfy("LIGHT ON","LIGHT OFF",22,1,euc.dash.live.light);
+			euc.dash.opt.lght.HL= 1- euc.dash.opt.lght.HL;
+			face[0].btn(euc.dash.opt.lght.HL,"LIGHT",28,60,35,4,1,0,0,119,97);
+			euc.wri((euc.dash.opt.lght.HL)?"setLightOn":"setLightOff");
+			face[0].ntfy("LIGHT ON","LIGHT OFF",22,1,euc.dash.opt.lght.HL);
 			buzzer(buz.ok);
 		}else if ( 120<=x && y<=100 ) { //watch alerts
-			if (euc.dash.live.hapS||euc.dash.live.hapA||euc.dash.live.hapT||euc.dash.live.hapB) {euc.dash.live.hapS=0;euc.dash.live.hapA=0;euc.dash.live.hapT=0;euc.dash.live.hapB=0;}
-			else {euc.dash.live.hapS=1;euc.dash.live.hapA=1;euc.dash.live.hapT=1;euc.dash.live.hapB=1;}
-			face[0].btn((euc.dash.live.hapS||euc.dash.live.hapA||euc.dash.live.hapT||euc.dash.live.hapB),"WATCH",22,185,17,4,1,122,0,239,97,"ALERTS",22,185,55);		
-            face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",19,1,(euc.dash.live.hapS||euc.dash.live.hapA||euc.dash.live.hapT||euc.dash.live.hapB));
+			if (euc.dash.alrt.spd.hapt.en||euc.dash.alrt.amp.hapt.en||euc.dash.alrt.tmp.hapt.en||euc.dash.alrt.bat.hapt.en) {euc.dash.alrt.spd.hapt.en=0;euc.dash.alrt.amp.hapt.en=0;euc.dash.alrt.tmp.hapt.en=0;euc.dash.alrt.bat.hapt.en=0;}
+			else {euc.dash.alrt.spd.hapt.en=1;euc.dash.alrt.amp.hapt.en=1;euc.dash.alrt.tmp.hapt.en=1;euc.dash.alrt.bat.hapt.en=1;}
+			face[0].btn((euc.dash.alrt.spd.hapt.en||euc.dash.alrt.amp.hapt.en||euc.dash.alrt.tmp.hapt.en||euc.dash.alrt.bat.hapt.en),"WATCH",22,185,17,4,1,122,0,239,97,"ALERTS",22,185,55);		
+            face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",19,1,(euc.dash.alrt.spd.hapt.en||euc.dash.alrt.amp.hapt.en||euc.dash.alrt.tmp.hapt.en||euc.dash.alrt.bat.hapt.en));
 			buzzer(buz.ok);
 		}else if  (x<=120 && 100<=y ) { //tpms
 			buzzer(buz.ok);

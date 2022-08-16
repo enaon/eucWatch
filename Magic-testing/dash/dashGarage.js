@@ -33,7 +33,7 @@ face[0] = {
 		this.slot=require("Storage").readJSON("dash.json",1);
 		target={"InmotionV1":"im","Begode":"bg","NinebotS":"nb","NinebotZ":"nb","Inmotion":"im","Veteran":"vt","Ninebot":"nb","Kingsong":"ks"};
 		UI.ele.title("GARAGE",3,0);
-		UI.ele.ind(2,2,6);
+		UI.ele.ind(2,2,0);
 		UIc.start(1,1);	
 		this.slot.slot1Mac?UI.btn.img("main","_2x2",1,this.icon+target[this.slot.slot1Maker],this.slot.slot1Model.toUpperCase(),this.slot.slot==1?15:3,this.slot.slot==1?1:0):UI.btn.img("main","_2x2",1,this.icon+"scan","",2,0);
   this.slot.slot2Mac?UI.btn.img("main","_2x2",2,this.icon+target[this.slot.slot2Maker],this.slot.slot2Model.toUpperCase(),this.slot.slot==2?15:3,this.slot.slot==2?1:0):UI.btn.img("main","_2x2",2,this.icon+"scan","",2,0);   
@@ -45,7 +45,7 @@ face[0] = {
 	tap:function(no){
 		buzzer(buz.ok);
 		if (this.prevSlot==no) {
-			UI.ele.ind(1,1,6);
+			UI.ele.ind(1,1,0);
 			UI.btn.ntfy(0,1.5,1);
 			if (set.def.info)
 				UI.txt.block("_main",9,"Press & hold\n\nthe side btn\n\nto start/end\nthe connection.",80,15,0);
@@ -86,13 +86,13 @@ face[0] = {
 	empty: function(no){
 		buzzer(buz.ok);
 		UI.btn.ntfy(0,1.5,1);
-		UI.ele.ind(1,1,6);
+		UI.ele.ind(1,1,0);
 		if (set.def.info)
 			UI.txt.block("_main",9,"SLOT "+no+" is empty. Scan for a Wheel.",14,15,0); 
 		else 
 			UI.btn.img("main","_2x2",this.icon+no,"scan","",3,1);
 		UIc.start(1,0);	
-		UI.btn.img("main","_bar",6,this.icon+"scan","SCAN",15,6);
+		UI.btn.img("main","_bar",6,this.icon+"scan","SCAN",15,4);
 		UIc.end();
 		UIc.main._bar=(i)=>{
 			if (i==6){

@@ -1,7 +1,7 @@
 {
-    "name": "p8Watch",
-    "short_name": "p8Watch",
-    "description": "p8Watch Loader",
+    "name": "eucWatch",
+    "short_name": "eucWatch",
+    "description": "eucWatch Loader",
     "icons": [
         {
             "src": "img/android-chrome-192x192.png",
@@ -17,6 +17,6 @@
     "theme_color": "#332F2E",
     "background_color": "#332F2E",
     "display": "standalone",
-    "start_url": "https://enaon.github.io/p8Watch",
-    "scope": "https://enaon.github.io/p8Watch"
+    "start_url": "https://enaon.github.io/eucWatch",
+    "scope": "https://enaon.github.io/eucWatch"
 }

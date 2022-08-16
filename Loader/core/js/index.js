@@ -944,7 +944,9 @@ if (btn) btn.addEventListener("click",event=>{
 
 btn = document.getElementById("installall");
 if (btn) btn.addEventListener("click",event=>{ 
-    installerOptions("All").then(() => {
+    let installSet="P8"
+    if (device.id=="MAGIC3"||device.id=="ROCK") installSet="Rock"
+    installerOptions(installSet).then(() => {
     }).catch(err=>{
     Progress.hide({sticky:true});
     showToast("FULL Install failed, "+err,"error");
