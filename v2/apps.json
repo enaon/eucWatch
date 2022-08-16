@@ -95,7 +95,7 @@
 		"version":"1.92.1",
 		"description": "P8/P22 functions handler",
 		"tags": "core",
-	    "needsFeatures":["P8"],
+	    "needsFeatures":["V1"],
 		"readme": "README.md",
 		"storage": [
 			{"name":"handler","url":"../../P8-testing/handler/handler.js"},
@@ -134,7 +134,7 @@
 		"description": "clock face",
 		"tags": "apps",
 		"type":"main",
-	    "needsFeatures":["P8"],
+	    "needsFeatures":["V1"],
 		"storage": [
 			{"name":"main","url":"../../P8-testing/main/main.js"},
 			{"name":"mainOptions","url":"../../P8-testing/main/mainOptions.js"}
@@ -148,7 +148,7 @@
 		"tags": "apps",
 		"type":"main",
 		"readme": "README.md",
-	    "needsFeatures":["P8"],
+	    "needsFeatures":["V1"],
 		"storage": [
 			{"name":"settings","url":"../../P8-testing/settings/settings.js"}
 		]
@@ -160,7 +160,7 @@
 		"description": "Three user settable Alarms/Timers face",
 		"tags": "apps",
 		"readme": "README.md",
-	    "needsFeatures":["P8"],
+	    "needsFeatures":["V1"],
 		"storage": [
 			{"name":"alarm","url":"../../P8-testing/alarm/alarm.js"}
 		]
@@ -171,7 +171,7 @@
 		"version":"1.92.1",
 		"description": "Simple Calculator face with history",
 		"tags": "apps",
-	    "needsFeatures":["P8"],
+	    "needsFeatures":["V1"],
 		"storage": [
 			{"name":"calc","url":"../../P8-testing/calc/calc.js"}
 		]
@@ -183,7 +183,7 @@
 		"description": "Notifications face for system, atc and gadgetbridge",
 		"tags": "apps",
 		"type": "notify",
-	    "needsFeatures":["P8"],
+	    "needsFeatures":["V1"],
 		"storage": [
 			{"name":"notify","url":"../../P8-testing/notify/notify.js"}
 		]
@@ -195,7 +195,7 @@
 		"description": "Gadgetbridge support for notifications, calls, weather and gps navigation",
 		"tags": "system",
 		"type": "notify",
-	    "needsFeatures":["P8"],
+	    "needsFeatures":["V1"],
 		"readme": "README.md",
 		"storage": [
 			{"name":"m_gb","url":"../../P8-testing/m_gb/m_gb.js"}
@@ -207,7 +207,7 @@
 		"version":"1.92.1",
 		"description": "EUC dashboard. Garage, scan and dash faces. Depends on EUC modules.",
 		"tags": "euc",
-	    "needsFeatures":["P8"],
+	    "needsFeatures":["V1"],
 		"readme": "README.md",
 		"storage": [
 			{"name":"dashGarage","url":"../../P8-testing/dash/dashGarage.js"},
@@ -223,7 +223,7 @@
 		"version":"1.92.1",
 		"description": "EUC simple digital",
 		"tags": "euc",
-	    "needsFeatures":["P8"],
+	    "needsFeatures":["V1"],
 		"readme": "README.md",
 		"storage": [
 			{"name":"dash_digital","url":"../../P8-testing/dash/dash_digital.js"}
@@ -235,7 +235,7 @@
 		"version":"1.92.1",
 		"description": "EUC simple Dashboard",
 		"tags": "euc",
-	    "needsFeatures":["P8"],
+	    "needsFeatures":["V1"],
 		"readme": "README.md",
 		"storage": [
 			{"name":"dash_simple","url":"../../P8-testing/dash/dash_simple.js"}
@@ -248,7 +248,7 @@
 		"description": "EUC pwm Dashboard",
 		"tags": "euc",
 		"readme": "README.md",
-	    "needsFeatures":["P8"],
+	    "needsFeatures":["V1"],
 		"storage": [
 			{"name":"dash_pwm","url":"../../P8-testing/dash/dash_pwm.js"}
 		]
@@ -259,7 +259,7 @@
 		"version":"1.92.1",
 		"description": "EUC dashboard, Kingsong settings gui files.",
 		"tags": "euc",
-	    "needsFeatures":["P8"],
+	    "needsFeatures":["V1"],
 		"readme": "README.md",
 		"storage": [
 			{"name":"dashKingsong","url":"../../P8-testing/dashKingsong/dashKingsong.js"},
@@ -283,7 +283,7 @@
 		"version":"1.92.1",
 		"description": "EUC dashboard, Ninebot C/E/P settings gui files.",
 		"tags": "euc",
-	    "needsFeatures":["P8"],
+	    "needsFeatures":["V1"],
 		"readme": "README.md",
 		"storage": [
 			{"name":"dashNinebotE","url":"../../P8-testing/dashNinebotE/dashNinebotE.js"}
@@ -295,7 +295,7 @@
 		"version":"1.92.1",
 		"description": "EUC dashboard, NinebotZ settings gui files.",
 		"tags": "euc",
-	    "needsFeatures":["P8"],
+	    "needsFeatures":["V1"],
 		"readme": "README.md",
 		"storage": [
 			{"name":"dashNinebotZ","url":"../../P8-testing/dashNinebotZ/dashNinebotZ.js"}
@@ -307,7 +307,7 @@
 		"version":"1.92.1",
 		"description": "EUC dashboard, NinebotS settings gui files.",
 		"tags": "euc",
-	    "needsFeatures":["P8"],
+	    "needsFeatures":["V1"],
 		"readme": "README.md",
 		"storage": [
 			{"name":"dashNinebotS","url":"../../P8-testing/dashNinebotS/dashNinebotS.js"}
@@ -319,7 +319,7 @@
 		"version":"1.92.1",
 		"description": "EUC dashboard, Inmotion V5/8/10 settings gui files.",
 		"tags": "euc",
-	    "needsFeatures":["P8"],
+	    "needsFeatures":["V1"],
 		"readme": "README.md",
 		"storage": [
 			{"name":"dashInmotionV10","url":"../../P8-testing/dashInmotionV10/dashInmotionV10.js"},
@@ -337,7 +337,7 @@
 		"version":"1.92.1",
 		"description": "EUC dashboard, Inmotion V11 settings gui files.",
 		"tags": "euc",
-	    "needsFeatures":["P8"],
+	    "needsFeatures":["V1"],
 		"readme": "README.md",
 		"storage": [
 			{"name":"dashInmotionV11","url":"../../P8-testing/dashInmotionV11/dashInmotionV11.js"}
@@ -349,7 +349,7 @@
 		"version":"1.92.1",
 		"description": "EUC dashboard, Inmotion V12 settings gui files.",
 		"tags": "euc",
-	    "needsFeatures":["P8"],
+	    "needsFeatures":["V1"],
 		"readme": "README.md",
 		"storage": [
 		{"name":"dashInmotionV12","url":"../../P8-testing/dashInmotionV12/dashInmotionV12.js"}
@@ -361,7 +361,7 @@
 		"version":"1.92.1",
 		"description": "EUC dashboard, Veteran settings gui files.",
 		"tags": "euc",
-	    "needsFeatures":["P8"],
+	    "needsFeatures":["V1"],
 		"storage": [
 			{"name":"dashVeteran","url":"../../P8-testing/dashVeteran/dashVeteran.js"},
 			{"name":"dashVeteranOptions","url":"../../P8-testing/dashVeteran/dashVeteranOptions.js"}
@@ -374,7 +374,7 @@
 		"version":"1.92.1",
 		"description": "EUC dashboard, Begode settings gui files.",
 		"tags": "euc",
-	    "needsFeatures":["P8"],
+	    "needsFeatures":["V1"],
 		"readme": "README.md",
 		"storage": [
 			{"name":"dashBegode","url":"../../P8-testing/dashBegode/dashBegode.js"},
@@ -393,7 +393,7 @@
 		"version":"1.92.1",
 		"description": "BLE TPMS Sensors (Tire pressure measuring, TP630 etc)",
 		"tags": "euc",
-	    "needsFeatures":["P8"],
+	    "needsFeatures":["V1"],
 		"storage": [
 			{"name":"tpms","url":"../../P8-testing/tpms/tpms.js"},
 			{"name":"tpmsFace","url":"../../P8-testing/tpms/tpmsFace.js"},
@@ -406,7 +406,7 @@
 		"version":"1.92.1",
 		"description": "for use wit <marvel light> bt rgb led controlers",
 		"tags": "euc",
-	    "needsFeatures":["P8"],
+	    "needsFeatures":["V1"],
 		"storage": [
 			{"name":"ledBT","url":"../../P8-testing/ledBT/ledBT.js"}
 		]
@@ -440,7 +440,7 @@
 		"description": "Extends settings face with an app drawer.",
 		"tags": "system",
 		"type": "system",
-	    "needsFeatures":["P8"],
+	    "needsFeatures":["V1"],
 		"storage": [
 			{"name":"w_apps","url":"../../P8-testing/w_apps/w_apps.js"}
 		]
@@ -452,7 +452,7 @@
 		"description": "Shared scan face addon",
 		"tags": "system",
 		"type": "system",
-	    "needsFeatures":["P8"],
+	    "needsFeatures":["V1"],
 		"storage": [
 			{"name":"w_scan","url":"../../P8-testing/w_scan/w_scan.js"}
 		]
@@ -710,7 +710,7 @@
 		"version":"1.92.1",
 		"description": "EUC module switcher, depends on wheel module.",
 		"tags": "euc",
-	    "needsFeatures":["EW2"],
+	    "needsFeatures":["V2"],
 		"type": "euc",
 		"storage": [
 			{"name":"euc","url":"../../v2/euc/euc.js"},
@@ -725,7 +725,7 @@
 		"description": "EUC module for Kingsong.",
 		"tags": "euc",
 		"type": "euc",
-	    "needsFeatures":["EW2"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"eucKingsong","url":"../../v2/euc/eucKingsong/eucKingsong.js"},
 			{"name":"proxyKingsong","url":"../../v2/euc/eucKingsong/proxyKingsong.js"}
@@ -738,7 +738,7 @@
 		"description": "EUC module for Ninebot C/E/P.",
 		"tags": "euc",
 		"type": "euc",
-	    "needsFeatures":["EW2"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"eucNinebotE","url":"../../v2/euc/eucNinebotE/eucNinebotE.js"}
 		]
@@ -750,7 +750,7 @@
 		"description": "EUC module for Ninebot Z6/Z10",
 		"tags": "euc",
 		"type": "euc",
-	    "needsFeatures":["EW2"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"eucNinebotZ","url":"../../v2/euc/eucNinebotZ/eucNinebotZ.js"}
 		]
@@ -762,7 +762,7 @@
 		"description": "EUC module for Ninebot S2/A1",
 		"tags": "euc",
 		"type": "euc",
-	    "needsFeatures":["EW2"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"eucNinebotS","url":"../../v2/euc/eucNinebotS/eucNinebotS.js"}
 		]
@@ -774,7 +774,7 @@
 		"description": "EUC module for Inmotion V5/8/10.",
 		"tags": "euc",
 		"type": "euc",
-	    "needsFeatures":["EW2"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"eucInmotionV10","url":"../../v2/euc/eucInmotionV10/eucInmotionV10.js"}
 		]
@@ -786,7 +786,7 @@
 		"description": "EUC module for Inmotion V11 (fimware version > 1.4).",
 		"tags": "euc",
 		"type": "euc",
-	    "needsFeatures":["EW2"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"eucInmotionV11","url":"../../v2/euc/eucInmotionV11/eucInmotionV11.js"}
 		]
@@ -798,7 +798,7 @@
 		"description": "EUC module for *old* Inmotion V11 (fimware version < 1.4).",
 		"tags": "euc",
 		"type": "euc",
-	    "needsFeatures":["EW2"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"eucInmotionV11","url":"../../v2/euc/eucInmotionV11/eucInmotionV11old.js"}
 		]
@@ -810,7 +810,7 @@
 		"description": "EUC module for Inmotion V12.",
 		"tags": "euc",
 		"type": "euc",
-	    "needsFeatures":["EW2"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"eucInmotionV12","url":"../../v2/euc/eucInmotionV12/eucInmotionV12.js"}
 		]
@@ -822,7 +822,7 @@
 		"description": "EUC module for Veteran Sherman",
 		"tags": "euc",
 		"type": "euc",
-	    "needsFeatures":["EW2"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"eucVeteran","url":"../../v2/euc/eucVeteran/eucVeteran.js"},
 			{"name":"proxyVeteran","url":"../../v2/euc/eucVeteran/proxyVeteran.js"}
@@ -835,7 +835,7 @@
 		"description": "EUC module for Begode (Gotway)",
 		"tags": "euc",
 		"type": "euc",
-	    "needsFeatures":["EW2"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"eucBegode","url":"../../v2/euc/eucBegode/eucBegode.js"},
 			{"name":"proxyBegode","url":"../../v2/euc/eucBegode/proxyBegode.js"}

@@ -62,17 +62,17 @@ let DEVICEINFO = [
   }, {*/
     id : "MAGIC3",
     name : "Magic 3 / Rock",
-    features : ["ROCK","EW2"],
+    features : ["ROCK","V2"],
     img : "https://loader.eucwatch.com/tools/assets/images/Magic3.jpg"
   }, {
     id : "P8",
     name : "P8 / P22",
-    features : ["P8","P22","EW2"],
+    features : ["P8","V1","V2"],
     img : "https://loader.eucwatch.com/tools/assets/images/p8.jpg"
   }, {
     id : "P22",
     name : "P22 B1/D",
-    features : ["P8","P22B","EW2"],
+    features : ["P22B","V1","V2"],
     img : "https://loader.eucwatch.com/tools/assets/images/p22.jpg"
   }
 ];

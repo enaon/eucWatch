@@ -2,11 +2,15 @@
 //require('Font7x11Numeric7Seg').add(Graphics);
 //
 if (require('Storage').read("UI")) eval(require('Storage').read('UI'));
-if (require('Storage').read("handlerNotify")) eval(require('Storage').read("handlerNotify"));
-if (require('Storage').read("handlerSet")) eval(require('Storage').read("handlerSet"));
-if (require('Storage').read("handlerConn")) eval(require('Storage').read("handlerConn"));
-if (require('Storage').read("handlerFace")) eval(require('Storage').read("handlerFace"));
-if (require('Storage').read("handlerCharge")) eval(require('Storage').read("handlerCharge"));
+if (require('Storage').read("handlerNotify")) eval(require('Storage').read('handler_notify'));
+if (require('Storage').read("handler_set")) eval(require('Storage').read('handler_set'));
+
+if (require('Storage').read("handler_conn")) eval(require('Storage').read('handler_conn'));
+
+if (require('Storage').read("handler_face")) eval(require('Storage').read('handler_face'));
+
+if (require('Storage').read("handler_charge")) eval(require('Storage').read('handler_charge'));
+
 var touchHandler = {
 	timeout:x=>{setTimeout(()=>{face.off();},0);}
 };
