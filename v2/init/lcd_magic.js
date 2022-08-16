@@ -246,7 +246,7 @@ g.bri={
       //analogWrite(BL,(this.lv*42.666)/256);
 	  analogWrite(BL,(this.lv*42.666)/256,{freq:4096});
       //digitalWrite([D23,D22,D14],7-o);
-    set.def.bri=o;
+    ew.def.bri=o;
     return o;
   }
 };

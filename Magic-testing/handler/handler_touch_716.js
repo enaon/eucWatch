@@ -1,5 +1,5 @@
-set.def.touchtype="716";
-//set.def.rstR=0xA5; 
+ew.def.touchtype="716";
+//ew.def.rstR=0xA5; 
 var TC={
 	tid:0,
 	x:0,
@@ -113,7 +113,7 @@ var TC={
 	start:function(){ 
 		"ram";
 		if (this.tid) clearInterval(this.tid);
-		digitalPulse(set.def.rstP,1,[10,100]); //touch wake
+		digitalPulse(ew.def.rstP,1,[10,100]); //touch wake
 		i2c.writeTo(0x15,0);
 		this.st=1;
 		this.tid=setInterval(function(){
@@ -125,7 +125,7 @@ var TC={
 	stop:function(){
 		"ram";
 		if (this.tid) clearInterval(this.tid);this.tid=0;
-		digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100);
+		digitalPulse(ew.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,ew.def.rstR,3);},100);
 		this.aLast=0;
 		this.st = 1;
 		this.time = 0;

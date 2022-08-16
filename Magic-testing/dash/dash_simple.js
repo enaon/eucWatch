@@ -2,8 +2,8 @@
 face[0] = {
 	run:false,
 	g:w.gfx,
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
-	old:set.def.bpp?0:1,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:10000,
+	old:ew.def.bpp?0:1,
 	init: function(o){ 
 		this.ampC=[1,2992,7,7];
 		this.tmpC=[1,2992,7,7];
@@ -39,8 +39,8 @@ face[0] = {
 				};
 			this.spdC=[0,13,7,7];
 		}
-		this.spdF=euc.dash.opt.unit.fact.spd*((set.def.dash.mph)?0.625:1);
-		this.trpF=euc.dash.opt.unit.fact.dist*((set.def.dash.mph)?0.625:1);
+		this.spdF=euc.dash.opt.unit.fact.spd*((ew.def.dash.mph)?0.625:1);
+		this.trpF=euc.dash.opt.unit.fact.dist*((ew.def.dash.mph)?0.625:1);
 		UI.ele.ind(0,0,1);
 		UI.ele.title("||||| ||||| |||||",15,4);
 		this.run=false;
@@ -51,11 +51,11 @@ face[0] = {
 		//if (!face[0].run) return;
 		if (euc.state=="READY") {
 			if (face[0].spd!=Math.round(euc.dash.live.spd)) face[0].spdf();
-			if (!set.def.dash.clkS){	
+			if (!ew.def.dash.clkS){	
 				if (face[0].tmp!=euc.dash.live.tmp.toFixed(1))	face[0].tmpf();
 			}else if (60 < getTime()-face[0].time )	
 				face[0].clkf();
-			if (set.def.dash.batS){	if (face[0].bat!=euc.dash.live.bat) face[0].batf();
+			if (ew.def.dash.batS){	if (face[0].bat!=euc.dash.live.bat) face[0].batf();
 			}else  if (face[0].volt!=euc.dash.live.volt.toFixed(1)) face[0].vltf();
 			else if (euc.dash.opt.tpms&&tpms.euc[euc.dash.opt.tpms]&&(face[0].tpms!=tpms.euc[euc.dash.opt.tpms].alrm)) face[0].tpmsf();
 		} else  {
@@ -92,7 +92,7 @@ face[0] = {
 		this.g.fillRect(this.gui.tmp[0],this.gui.tmp[1],this.gui.tmp[2],this.gui.tmp[3]);
 		this.g.setColor(1,15);
 		this.g.setFontVector(this.gui.txt1);	  
-		let temp=((set.def.dash.farn)?this.tmp*1.8+32:this.tmp).toString().split(".");
+		let temp=((ew.def.dash.farn)?this.tmp*1.8+32:this.tmp).toString().split(".");
 		let size=5+this.g.stringWidth(temp[0]);
 		this.g.drawString(temp[0], 10,this.gui.tmp[1]+3); 
 		if (temp[0]<100) {
@@ -101,7 +101,7 @@ face[0] = {
 			size=size+this.g.stringWidth(temp[1]);
 		}
 		this.g.setFontVector(this.gui.txt1/4);
-		this.g.drawString((set.def.dash.farn)?"°F":"°C",size,this.gui.tmp[1]+3); 
+		this.g.drawString((ew.def.dash.farn)?"°F":"°C",size,this.gui.tmp[1]+3); 
 		if (this.old)this.g.flip();
 	},
 	clkf: function(){

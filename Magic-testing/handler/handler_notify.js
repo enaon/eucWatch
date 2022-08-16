@@ -13,7 +13,7 @@ function handleInfoEvent(event,disc) {
 	notify.info.unshift("{\"src\":\""+event.src+"\",\"title\":\""+event.title+"\",\"body\":\""+event.body+"\",\"time\":\""+ti+"\"}");
 	if (notify.info.length>10) notify.info.pop();
 	//buzzer([80,50,80]);
-	if (set.def.buzz&&!notify.ring) {
+	if (ew.def.buzz&&!notify.ring) {
 		buzzer([80,50,80]);
 		if (!disc){
 			if (face.appCurr!="main"||face.pageCurr!=0) {

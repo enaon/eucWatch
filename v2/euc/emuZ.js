@@ -34,7 +34,7 @@ global.emuZ={
 		set.emuD=0;
 			return;
 		case "Z\xA5\1>\x14\1\xB0\x20\xDB\xFE"://live
-			if (set.bt!=4) {set.bt=4;handleInfoEvent({"src":"BT","title":"BRIDGE","body":"Connected"});}
+			if (ew.is.bt!=4) {ew.is.bt=4;handleInfoEvent({"src":"BT","title":"BRIDGE","body":"Connected"});}
 			this.send(new Uint8Array( [32, 20, 62, 4, 176, 0, 0, 0, 0, 0, 0, 0, 0, euc.dash.live.bat, 0,this.d2h(euc.dash.live.spd,100,16,2),this.d2h(euc.dash.live.spd,100,16,1),0,0,euc.dash.trip.totl, 0,0,0,0, 1, 0,0,this.d2h(euc.dash.live.tmp,10,16,2),this.d2h(euc.dash.live.tmp,10,16,1),this.d2h(euc.dash.live.volt,100,16,2), this.d2h(euc.dash.live.volt,100,16,1), this.d2h(euc.dash.live.amp,100,16,2), this.d2h(euc.dash.live.amp,100,16,1), this.d2h(euc.dash.live.spd,100,16,2),this.d2h(euc.dash.live.spd,100,16,1), 0, 0]));
 			break;
 		case "Z\xA5\1>\x14\1\x25\x0c\x7a\xFF":return this.send(new Uint8Array([0x0c,0x14,0x3e,0x04,0x25,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00]));  //live2  

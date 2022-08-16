@@ -340,7 +340,7 @@ g.bri={
 //      print(o);
 	if (o) this.lv=o; else { this.lv++; if (this.lv>7) this.lv=1; o=this.lv; }
 	digitalWrite([D23,D22,D14],7-o);
-    set.def.bri=o;
+    ew.def.bri=o;
 	return o;
 	}
 };
@@ -395,7 +395,7 @@ eval(require('Storage').read('euc'));
 digitalPulse(D16,1,[100,30,100]);
 setTimeout(function(){
 if (global.face) face.go('main',0);
-setTimeout(function(){ if (global.set) set.accR(); },1000); 
+setTimeout(function(){ if (global.set) ew.do.update.acc(); },1000); 
 digitalPulse(D16,1,[100]);  
 },200); 
 }

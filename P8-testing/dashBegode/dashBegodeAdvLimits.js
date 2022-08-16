@@ -1,7 +1,7 @@
 //Begode  set adv limits
 
 face[0] = {
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:5000,
 	g:w.gfx,
 	init: function(){
         this.g.setColor(0,0);
@@ -23,7 +23,7 @@ face[0] = {
         this.run=true;
 	},
 	show : function(){
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
+		if (euc.state!=="READY") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
 		if (!this.run) return; 
 		if (!this.setE) {
 			if (this.almS!=euc.dash.alrt.mode){
@@ -33,7 +33,7 @@ face[0] = {
 			}
 			if (this.spdT!=euc.dash.alrt.spd.tilt.val){
 				this.spdT=euc.dash.alrt.spd.tilt.val;
-				this.btn(100<=this.spdT?0:1,"TILTBACK",18,185,120,12,1,122,100,239,195,100<=this.spdT?"OFF":set.def.dash.mph?(0.625*this.spdT).toFixed(0):this.spdT,25,185,155);
+				this.btn(100<=this.spdT?0:1,"TILTBACK",18,185,120,12,1,122,100,239,195,100<=this.spdT?"OFF":ew.def.dash.mph?(0.625*this.spdT).toFixed(0):this.spdT,25,185,155);
 			}
 		}
         this.tid=setTimeout(function(t,o){
@@ -81,7 +81,7 @@ face[0] = {
 		this.g.drawString(txt,120-(this.g.stringWidth(txt)/2),10); 		
 		this.g.drawString("<",5,90); this.g.drawString(">",230,90); 
 		this.g.flip(); 
-        this.btn(0,b<100?set.def.dash.mph?(0.625*b.toFixed(0)):b:"-",100,126,60,12,1,60,40,180,160);
+        this.btn(0,b<100?ew.def.dash.mph?(0.625*b.toFixed(0)):b:"-",100,126,60,12,1,60,40,180,160);
     },
 	tid:-1,
 	run:false,
@@ -139,7 +139,7 @@ touchHandler[0]=function(e,x,y){
 						euc.dash.alrt.mode=2;
 					}
 			}else if (120<=x&&y<=200) { //tiltback
-				face[0].set(euc.dash.alrt.spd.tilt.val,"TITLBACK ("+(set.def.dash.mph?"MPH)":"KPH)") );
+				face[0].set(euc.dash.alrt.spd.tilt.val,"TITLBACK ("+(ew.def.dash.mph?"MPH)":"KPH)") );
 				face[0].btn(100<=euc.dash.alrt.spd.tilt.val?0:1,100<=euc.dash.alrt.spd.tilt.val?"TILTBACK DISABLED":"TILTBACK ENABLED",18,120,215,4,1,0,198,239,239);
 				buzzer([30,50,30]);						
 			}else buzzer(40);
@@ -167,7 +167,7 @@ touchHandler[0]=function(e,x,y){
 				}
 			}
             buzzer([30,50,30]);
-			face[0].btn(0,100<=face[0].setEb?"-":set.def.dash.mph?(0.625*face[0].setEb).toFixed(0):face[0].setEb,100,126,60,12,1,60,40,180,160);
+			face[0].btn(0,100<=face[0].setEb?"-":ew.def.dash.mph?(0.625*face[0].setEb).toFixed(0):face[0].setEb,100,126,60,12,1,60,40,180,160);
 		}
 		this.timeout();
 		break;
@@ -180,7 +180,7 @@ touchHandler[0]=function(e,x,y){
 			w.gfx.clear();
 			face[0].init();
         } else 
-			face.go(set.dash[set.def.dash.face],0);
+			face.go(ew.is.dash[ew.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 

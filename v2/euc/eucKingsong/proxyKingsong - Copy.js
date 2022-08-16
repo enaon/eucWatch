@@ -11,7 +11,7 @@ euc.proxy={
 	},
 	w:(o)=>{
     "ram";
-		if (set.bt!=4) {if (1<set.dbg) print("relay-out:",o);return;}
+		if (ew.is.bt!=4) {if (1<set.dbg) print("relay-out:",o);return;}
 		NRF.updateServices({0xffe0:{0xffe1:{value:o,notify:true}},});
 	},
 	s:(o)=>{
@@ -52,7 +52,7 @@ euc.proxy={
 		NRF.disconnect();
 	}, 
 	e:(o)=>{
-		NRF.setAdvertising({}, { name:set.def.name,connectable:true });
+		NRF.setAdvertising({}, { name:ew.def.name,connectable:true });
 		NRF.setAddress(this.addr+" random");
 		set.updateBT();
 		NRF.restart();
@@ -61,6 +61,6 @@ euc.proxy={
 	}
 };
 euc.proxy.s();
-//set.bt=4;
+//ew.is.bt=4;
 }
 

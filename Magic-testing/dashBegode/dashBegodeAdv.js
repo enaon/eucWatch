@@ -13,11 +13,11 @@ tcBack.replaceWith((x,y)=>{
 });
 //
 face[0] = {
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:5000,
 	g:w.gfx,
 	page:euc.dash.info.get.makr+" "+euc.dash.info.get.name,
 	init: function(){
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
+		if (euc.state!=="READY") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
 		UI.ele.ind(3,3,1);
 		UI.ele.title(this.page.toUpperCase(),3,0);
 		UIc.start(1,1);
@@ -34,7 +34,7 @@ face[0] = {
 				buzzer(buz.ok);
 				euc.dash.opt.lght.HL=1-euc.dash.opt.lght.HL;
 				UI.btn.c2l("main","_2x2",1,"HEAD","LIGHT",15,euc.dash.opt.lght.HL?4:0);
-				if (set.def.info) UI.btn.ntfy(1,2,0,"_bar",6,euc.dash.opt.lght.HL?"ON":"OFF","",15,0);w.gfx.flip();
+				if (ew.def.info) UI.btn.ntfy(1,2,0,"_bar",6,euc.dash.opt.lght.HL?"ON":"OFF","",15,0);w.gfx.flip();
 			}else if (i==2){
 				buzzer(buz.ok);
 				face.go("dashAlerts",0);
@@ -43,12 +43,12 @@ face[0] = {
 		  else if (i==3){
 				buzzer(buz.ok);		
 				//UI.btn.c2l("main","_2x2",3,euc.dash.opt.tpms?euc.dash.opt.tpms:"TPMS",(euc.dash.opt.tpms)?(tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].psi)?Math.round(tpms.euc[euc.dash.opt.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",15,(euc.dash.opt.tpms&&tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.opt.tpms].time<1800)?(tpms.euc[euc.dash.opt.tpms].alrm)?7:4:1);
-				//if (set.def.info) UI.btn.ntfy(1,2,0,"_bar",6,euc.dash.auto.onC.lift?euc.dash.auto.onC.lift==1?"ENABLE":"DISABLE":"NO ACTION","",15,0);w.gfx.flip();
+				//if (ew.def.info) UI.btn.ntfy(1,2,0,"_bar",6,euc.dash.auto.onC.lift?euc.dash.auto.onC.lift==1?"ENABLE":"DISABLE":"NO ACTION","",15,0);w.gfx.flip();
 			}else if (i==4){
 				buzzer(buz.ok);	
 				euc.dash.opt.horn.en=1-euc.dash.opt.horn.en;
 				UI.btn.c2l("main","_2x2",4,"BTN","HORN",15,euc.dash.opt.horn.en?4:0);	
-				if (set.def.info) UI.btn.ntfy(1,2,0,"_bar",6,euc.dash.opt.horn.en?"Horn When Moving":"HORN",euc.dash.opt.horn.en?"SIDE BTN":"DISABLED",15,euc.dash.opt.horn.en?4:0);w.gfx.flip();
+				if (ew.def.info) UI.btn.ntfy(1,2,0,"_bar",6,euc.dash.opt.horn.en?"Horn When Moving":"HORN",euc.dash.opt.horn.en?"SIDE BTN":"DISABLED",15,euc.dash.opt.horn.en?4:0);w.gfx.flip();
 		  }
 		};
 		UIc.bar._2x2=(i)=>{
@@ -64,7 +64,7 @@ face[0] = {
 	},
 	show : function(){
 		"ram";
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
+		if (euc.state!=="READY") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
 		if (!this.run)  return;
 		this.tid=setTimeout(function(t,o){
 		  face[0].tid=0;

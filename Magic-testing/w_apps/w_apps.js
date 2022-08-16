@@ -19,7 +19,7 @@ if (global.tpms) {
 	this.appDo3="face.go('tpmsFace',0)";
 	UI.btn.img("main","_2x3",3,_icon.tpms,"TPMS",15,1);
 }else UI.btn.img("_2x3",3,this.appImgNone,0,1,1);
-if (!set.def.bpp) g.flip();
+if (!ew.def.bpp) g.flip();
 //app4
 if (require("Storage").read("hello",1)) {
 	this.appDo4="face.go('hello',0)";

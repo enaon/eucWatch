@@ -9,8 +9,8 @@ if (!global.rep.read)
   global.rep.read=function(){
 //  if (rep.mac==undefined){face.go('w_scan',0,'fe95');return;}
 //  if (rep.go==undefined){face.go('w_scan',0,'fe95');return;}
-  if(set.gIsB) {return;}
-  set.gIsB=1;
+  if(ew.is.gIsB) {return;}
+  ew.is.gIsB=1;
   NRF.connect(rep.mac[rep.go],{minInterval:7.5, maxInterval:10}
   ).then(function(g) {
 	rep.gatt = g;
@@ -32,19 +32,19 @@ if (!global.rep.read)
   }).then(function () {
     rep.sta=rep.characteristic.value.buffer[0];
 	rep.gatt.disconnect().then(function (c){
-    set.gIsB=0;rep.gatt=0;rep.device=0;rep.characteristic=0;rep.service=0;
+    ew.is.gIsB=0;rep.gatt=0;rep.device=0;rep.characteristic=0;rep.service=0;
     });
     rep.con=1;
     face[0].btscan=1;
   }).catch(function(err)  {
-    if (set.def.cli) console.log("repellent:", err);
-    set.gIsB=0;rep.gatt=0;rep.device=0;rep.characteristic=0;rep.service=0;
+    if (ew.def.cli) console.log("repellent:", err);
+    ew.is.gIsB=0;rep.gatt=0;rep.device=0;rep.characteristic=0;rep.service=0;
     face[0].btscan=2;
   });
 };
 //rep face
 face[0]= {
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:20000,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:20000,
   init: function(){
 	rep.mac=(require("Storage").readJSON("setting.json",1)||{}).repellentMac;
 	rep.go=(require("Storage").readJSON("setting.json",1)||{}).repellentGo;

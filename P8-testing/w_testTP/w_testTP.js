@@ -3,7 +3,7 @@ face[0] = {
   offms: 300000, 
   g:w.gfx, 
   init: function(o){ 
-	if (set.TP) { 
+	if (ew.tid.TP) { 
 		this.msg="TAP TO START\n\nTP TEST";
 	} else this.msg="TP IS NOT\n\n816 TYPE";
    	this.g.clear();
@@ -82,11 +82,11 @@ face[1] = {
    this.clear();
   }
 };	
-set.def.acc=0;
-set.accR();
+ew.def.acc=0;
+ew.do.update.acc();
 //touch
-if (set.TP) clearWatch(set.TP); 
-set.TP=setWatch(function(s){
+if (ew.tid.TP) clearWatch(ew.tid.TP); 
+ew.tid.TP=setWatch(function(s){
 	i2c.writeTo(0x15,0);
 	touchHandler[0](i2c.readFrom(0x15,7));
 },D28,{repeat:true, edge:"rising"}); 

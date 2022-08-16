@@ -1,4 +1,4 @@
-//settings - run setter.updateBT() after changing BT settings to take effect.
+//settings 
 var set={
 	bt:0, //Incomming BT service status indicator- Not user settable.0=not_connected|1=unknown|2=webide|3=gadgetbridge|4=eucemu|5=esp32
 	tor:0, //Enables/disables torch- Not user settable.
@@ -39,10 +39,10 @@ var set={
 
 var setter={
 
-	accR:function(){if(!set.def.dash.accE) { if (set.def.acc)acc.on(); else acc.off();}},
-	updateSettings:function(){require('Storage').write('setting.json', set.def);},
+	accR:function(){if(!ew.def.dash.accE) { if (ew.def.acc)acc.on(); else acc.off();}},
+	updateSettings:function(){require('Storage').write('setting.json', ew.def);},
 	resetSettings:function() {
-		set.def = {
+		ew.def = {
 		dash:{
 			mph:0, 
 			amp:0, 
@@ -76,20 +76,20 @@ var setter={
 		buzz:1,
 		bpp:4
 		};
-		setter.updateSettings();
+		ew.do.update.settings();
 	},	
 	updateBT:function(){ //run this for settings changes to take effect.
-		if (set.def.hid===1) {set.def.hid=0; return;}
-		NRF.setServices(undefined,{uart:(set.def.cli||set.def.gb)?true:false,hid:(set.def.hid&&set.hidM)?set.hidM.report:undefined });
-		if (set.def.gb) 
+		if (ew.def.hid===1) {ew.def.hid=0; return;}
+		NRF.setServices(undefined,{uart:(ew.def.cli||ew.def.gb)?true:false,hid:(ew.def.hid&&ew.is.hidM)?ew.is.hidM.report:undefined });
+		if (ew.def.gb) 
 			eval(require('Storage').read('m_gb'));
 		else {
 			set.gbSend=function(){return;};
 			set.handleNotificationEvent=0;set.handleFindEvent=0;handleWeatherEvent=0;handleCallEvent=0;handleFindEvent=0;sendBattery=0;global.GB=0;
 		}		
-		if (!set.def.cli&&!set.def.gb&&!set.def.emuZ&&!set.def.hid) { if (set.bt) NRF.disconnect(); else{ NRF.sleep();set.btsl=1;}}
-		else if (set.bt) NRF.disconnect();
-		else if (set.btsl==1) {NRF.restart();set.btsl=0;}
+		if (!ew.def.cli&&!ew.def.gb&&!ew.def.emuZ&&!ew.def.hid) { if (ew.is.bt) NRF.disconnect(); else{ NRF.sleep();ew.is.btsl=1;}}
+		else if (ew.is.bt) NRF.disconnect();
+		else if (ew.is.btsl==1) {NRF.restart();ew.is.btsl=0;}
 	},
 	read:function(file,name){
 		"ram";
@@ -117,11 +117,11 @@ var setter={
 		return true;
 	},
 	gDis:function(){
-		if (set.gIsB) {
-			set.gIsb=2;
+		if (ew.is.gIsB) {
+			ew.is.gIsB=2;
 			if (global["\xFF"].BLE_GATTS) {
 				if (global["\xFF"].BLE_GATTS.connected)
-				global["\xFF"].BLE_GATTS.disconnect().then(function (c){set.gIsB=0;});
+				global["\xFF"].BLE_GATTS.disconnect().then(function (c){ew.is.gIsB=0;});
 			}else gIsB=0;
 		 }
 	}
@@ -129,28 +129,28 @@ var setter={
 
 
 //defaults
-set.def = require('Storage').readJSON('setting.json', 1);
-if (!set.def) setter.resetSettings();
-if (!set.def.rstP) set.def.rstP=E.toJS(ew.pin.touch.RST);
-if (!set.def.rstR) set.def.rstR=0xA5;
-if (!set.def.addr) set.def.addr=NRF.getAddress();
-if (!set.def.off) set.def.off={};
+ew.def = require('Storage').readJSON('setting.json', 1);
+if (!ew.def) ew.do.reset.settings();
+if (!ew.def.rstP) ew.def.rstP=E.toJS(ew.pin.touch.RST);
+if (!ew.def.rstR) ew.def.rstR=0xA5;
+if (!ew.def.addr) ew.def.addr=NRF.getAddress();
+if (!ew.def.off) ew.def.off={};
 //
 //buzzzer
-if (set.def.buzz) buzzer = digitalPulse.bind(null,ew.pin.BUZZ,ew.pin.BUZ0);
+if (ew.def.buzz) buzzer = digitalPulse.bind(null,ew.pin.BUZZ,ew.pin.BUZ0);
 else buzzer=function(){return true;};
 buz={ok:[20,40,20],na:25,ln:80,on:40,off:[20,25,20]};
 buzz = digitalPulse.bind(null,ew.pin.BUZZ,ew.pin.BUZ0);
 //dash
 require('Storage').list("dash_").forEach(dashfile=>{
-	set.dash.push(dashfile);
+	ew.is.dash.push(dashfile);
 });
 if (!Boolean(require("Storage").read("dash.json"))) { 
 	let dash={slot:1};
 	require('Storage').write('dash.json', dash);
 }
 //rest
-E.setTimeZone(set.def.timezone);
+E.setTimeZone(ew.def.timezone);
 
 
 

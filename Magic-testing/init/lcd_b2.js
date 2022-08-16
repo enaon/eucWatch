@@ -8,7 +8,7 @@ g.col=Uint16Array([  0,31,2016,2016,31,2047,0,63488,63519,63519,   31,63519,6351
 //
 g.sc=g.setColor;
 g.setColor=(c,v)=>{g.sc(g.col[v]);}; 
-g.on= function(){g.bri.set(set.def.bri);};
+g.on= function(){g.bri.set(ew.def.bri);};
 g.off= function(){Bangle.setLCDBrightness(0);};
 
 g.bri={
@@ -19,7 +19,7 @@ g.bri={
 		Bangle.setLCDBrightness(this.lv==0?0:1);
     else 
 		Bangle.setLCDBrightness(this.lv*0.14285714285);
-    set.def.bri=o;
+    ew.def.bri=o;
     return o;
   }
 };

@@ -1,6 +1,6 @@
 //inmotionV1 set adv calibrate
 face[0] = {
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:30000,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:30000,
 	g:w.gfx,
 	init: function(){
 		this.g.setColor(0,1);
@@ -27,7 +27,7 @@ face[0] = {
 		this.run=true;
 	},
 	show : function(){
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
+		if (euc.state!=="READY") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
 		if (!this.run) return; 
         if (this.calibrate) {
             this.g.setColor(0,1);
@@ -152,7 +152,7 @@ touchHandler[0]=function(e,x,y){
 		break;
 	case 1: //slide down event
 		setTimeout(function(){euc.busy=0;euc.temp.live();},800);
-		face.go(set.dash[set.def.dash.face],0);
+		face.go(ew.is.dash[ew.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 

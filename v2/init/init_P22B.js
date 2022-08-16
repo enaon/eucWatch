@@ -202,7 +202,7 @@ g.bri={
 //      print(o);
 	if (o) this.lv=o; else { this.lv++; if (this.lv>7) this.lv=1; o=this.lv; }
 	digitalWrite([D23,D22,D14],7-o);
-    set.def.bri=o;
+    ew.def.bri=o;
 	return o;
 	}
 };

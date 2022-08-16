@@ -45,9 +45,9 @@ if(!global.scan){
 					if (app=="dash"){
 						euc.dash.info.get.mac=0;
 					}else{
-						set.write("setting",app+"Mac",scan.found[0].split("|")[0]);
-						set.write("setting",app+"Name",scan.found[0].split("|")[1].replace(/\0/g, ''));
-						set.write("setting",app+"Go","0");
+						ew.do.fileWrite("setting",app+"Mac",scan.found[0].split("|")[0]);
+						ew.do.fileWrite("setting",app+"Name",scan.found[0].split("|")[1].replace(/\0/g, ''));
+						ew.do.fileWrite("setting",app+"Go","0");
 					}
 					scan.mac=scan.found;
 				} else scan.mac=[];
@@ -59,7 +59,7 @@ if(!global.scan){
 	};
 }
 face[0] = {
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:30000,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:30000,
 	g:w.gfx,
 	go:0,
 	init: function(service){
@@ -97,8 +97,8 @@ face[0] = {
 			buzzer(buz.ok);
 			this.mac=scan.mac[i-1].split("|")[0];
 			this.name=(scan.mac[i-1].split("|")[1]!="undefined")?scan.mac[i-1].split("|")[1]:0;
-			//set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",this.name?this.name:"UNKN");
-			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",this.name?E.toString(this.name).replace(/\0/g, ''):"NA");
+			//ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",this.name?this.name:"UNKN");
+			ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",this.name?E.toString(this.name).replace(/\0/g, ''):"NA");
 			euc.mac=this.mac;
 			euc.tgl();
 			return;

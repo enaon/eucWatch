@@ -1,7 +1,7 @@
 //main
 face[0] = {
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
-	old:set.def.bpp?0:1,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:10000,
+	old:ew.def.bpp?0:1,
 	g:w.gfx,
 	init: function(){
 		this.g.clear(1);
@@ -44,8 +44,8 @@ face[0] = {
 				this.g.drawImage( require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8FwAbvh+HnjHh8HjAYPABYNhAYVxAY0wIYU4H4U4EYUcnkP/0Oj0f/8Ph///8Hw/4g8D4IDBgIfBg8AD4IDBvgDCj+AAYIbCgEB//+FoM//gA==")),15,9);
 				if (this.old)this.g.flip();
 			}
-		}else if (set.bt != this.bt){
-			this.bt=set.bt;
+		}else if (ew.is.bt != this.bt){
+			this.bt=ew.is.bt;
 			this.ring=0;
 			var colbt=1;
 			if (this.bt==3)  colbt=5;
@@ -55,7 +55,7 @@ face[0] = {
 			this.g.fillRect(0,0,158,50); //date
 			this.g.setColor(1,14);
 			this.g.setFont("Vector",35);
-			if (this.bt==0&&!set.def.cli&&!set.def.emuZ&&!set.def.hid&&!set.def.gb) {
+			if (this.bt==0&&!ew.def.cli&&!ew.def.emuZ&&!ew.def.hid&&!ew.def.gb) {
 				this.g.drawString(this.d[2]+" "+this.d[0].toUpperCase(), (81-(this.g.stringWidth(this.d[2]+" "+this.d[0].toUpperCase()))/2) ,9); //date
 				if (this.old)this.g.flip();
 			}else {
@@ -65,7 +65,7 @@ face[0] = {
 				this.g.setColor(0,colbt);
 				this.g.fillRect(0,0,15,50); //date
 				var colbtf=15;
-				if (set.bt==0) colbtf=3;
+				if (ew.is.bt==0) colbtf=3;
 				this.g.setColor(1,colbtf);
 				//var img = require("heatshrink").decompress(atob("iEQwIFCgIBB4EB8EJ2EF2ED8AJC4AFBBIINBCIILCDoQ"))
 				this.g.drawImage(E.toArrayBuffer(atob("EBCBAAAAAQABwAHgCbAFsAPgAcABwAPgBbAJsAHgAcABAAAA")),3,20);
@@ -83,7 +83,7 @@ face[0] = {
 				if (this.old)this.g.flip();
 			}
 		}else if (notify.New&&(this.nCall!=notify.nCall||this.nInfo!=notify.nInfo||this.nIm!=notify.nIm)){
-			this.batt=set.ondc;
+			this.batt=ew.is.ondc;
 			if (notify.nCall)  {
 				this.colf=15;this.colb=7;this.str=notify.nCall;this.bs="nCall";
 				this.img =  require("heatshrink").decompress(atob("kEgwMAn/gA4N/+ADB/4DC8FwAbvh+HnjHh8HjAYPABYNhAYVxAY0wIYU4H4U4EYUcnkP/0Oj0f/8Ph///8Hw/4g8D4IDBgIfBg8AD4IDBvgDCj+AAYIbCgEB//+FoM//gA=="));
@@ -111,8 +111,8 @@ face[0] = {
 				this.g.drawString(this.str,210,10);
 			}
 				if (this.old)this.g.flip();
-		}else if (this.batt!=set.ondc ){
-			this.batt=set.ondc;
+		}else if (this.batt!=ew.is.ondc ){
+			this.batt=ew.is.ondc;
 			this.v=w.batt(1);
 			if (this.batt==1) this.g.setColor(0,9);
 			else if (this.v<=20) this.g.setColor(0,7);
@@ -183,7 +183,7 @@ face[0] = {
 				this.g.setColor(0,0);
 				this.g.fillRect(0,151,239,239);
 				this.g.setColor(1,15);//
-				this.mac=(this.mac)?this.mac:set.read("dash","slot"+set.read("dash","slot")+"Mac");
+				this.mac=(this.mac)?this.mac:ew.do.fileRead("dash","slot"+ew.do.fileRead("dash","slot")+"Mac");
 				if(!this.mac) {
 						this.g.setFont("Vector",25);
 						this.g.drawString("eucWatch",119-(this.g.stringWidth("eucWatch")/2),170); 
@@ -193,7 +193,7 @@ face[0] = {
 				}else {
 					this.g.setFont("Vector",35);
 					//this.g.drawString(euc.dash.info.get.makr,119-(this.g.stringWidth(euc.dash.info.get.makr)/2),170)); 
-					this.g.drawString(set.def.name,119-(this.g.stringWidth(set.def.name)/2),155);
+					this.g.drawString(ew.def.name,119-(this.g.stringWidth(ew.def.name)/2),155);
 					this.g.setFont("Vector",30);
 					if (euc.state !== "OFF") {
 						this.g.drawString(euc.state,119-(this.g.stringWidth(euc.state)/2),215); //
@@ -205,12 +205,12 @@ face[0] = {
 								this.tot += this.log[key];
 							}
 						});
-						if (set.def.dash.tot) this.tot += Number(set.def.dash.tot);
+						if (ew.def.dash.tot) this.tot += Number(ew.def.dash.tot);
 						this.tot=Math.round(this.tot);
 						if (3<this.tot.toString().length) 
                 this.tot=this.tot.toString().substring(0,this.tot.toString().length-3)+","+this.tot.toString().substring(this.tot.toString().length-3, this.tot.toString().length);
 						this.g.setFont("Vector",40);
-						this.g.drawString(this.tot+" "+((set.def.dash.mph)?"mi":"Km"),119-(this.g.stringWidth(this.tot+" "+((set.def.dash.mph)?"mi":"Km"))/2),200); 
+						this.g.drawString(this.tot+" "+((ew.def.dash.mph)?"mi":"Km"),119-(this.g.stringWidth(this.tot+" "+((ew.def.dash.mph)?"mi":"Km"))/2),200); 
 					}
 					if (this.old)this.g.flip();
 				}
@@ -244,7 +244,7 @@ face[0] = {
 		this.g.fillRect(203,55,240,150);
 		this.g.setColor(1,this.fsec);//
 		this.g.setFont("Vector",18);
-		let sec=(set.def.hr24)?"24H":(this.t[0]<12)?"AM":"PM";
+		let sec=(ew.def.hr24)?"24H":(this.t[0]<12)?"AM":"PM";
 		this.g.drawString(sec,241-(this.g.stringWidth(sec)),74); //hours mode
 		this.g.setFont("Vector",30);
 		this.g.drawString(this.s[0]+this.s[1],206,101); //seconds
@@ -257,7 +257,7 @@ face[0] = {
 			this.g.fillRect(0,55,95,150);
 			this.g.setColor(1,15);
 			this.g.setFont("Vector",73);
-			if (set.def.hr24) {
+			if (ew.def.hr24) {
 				this.g.drawString(this.hour,0,69); //hours
 			} else {	
 				this.hour=(this.hour<10)?(this.hour=="00")?12:this.hour[1]:(this.hour<13)?this.hour:this.hour-12;
@@ -288,8 +288,8 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		if (Boolean(require("Storage").read(set.dash[set.def.dash.face]))) {
-			(euc.state=="OFF")?face.go("dashOff",0):face.go(set.dash[set.def.dash.face],0);
+		if (Boolean(require("Storage").read(ew.is.dash[ew.def.dash.face]))) {
+			(euc.state=="OFF")?face.go("dashOff",0):face.go(ew.is.dash[ew.def.dash.face],0);
 			return;
 		}
 		else if (Boolean(require("Storage").read("alarm"))) {face.go("alarm",0);}  
@@ -322,7 +322,7 @@ touchHandler[0]=function(e,x,y){
 				buzzer(buz.ok);	
 				face.go("notify",5,face[0].bs.substr(1).toLowerCase());return;
 			}else buzzer(buz.na);
-		}else if (set.hidM){
+		}else if (ew.is.hidM){
 			buzzer(buz.ok);
 			if (Boolean(require("Storage").read("hid"))) {face.go("hid",0);return;}
 		}else buzzer(buz.na);
@@ -339,8 +339,8 @@ touchHandler[0]=function(e,x,y){
       buzzer(buz.na);
 	//24 hour
 	}else if (x<100 && 55<y && y<150){ 
-		if (set.def.hr24==undefined) set.def.hr24=0;
-		set.def.hr24=1-set.def.hr24;
+		if (ew.def.hr24==undefined) ew.def.hr24=0;
+		ew.def.hr24=1-ew.def.hr24;
 		face[0].hour=-1;
 		buzzer(100);
 	//alarms
@@ -358,7 +358,7 @@ touchHandler[0]=function(e,x,y){
 tcN=(x,y)=>{
 	buzzer(buz.ok);
 	if ( euc.state!="OFF")
-		face.go(set.dash[set.def.dash.face],0);	
+		face.go(ew.is.dash[ew.def.dash.face],0);	
 	else 
 		face.go("dashGarage",0);
 };	

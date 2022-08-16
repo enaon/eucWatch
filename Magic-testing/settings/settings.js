@@ -3,8 +3,8 @@ face[0] = {
 	run:false,
 	btn:{},
 	g:w.gfx,
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
-	bpp:set.def.bpp?0:1,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:10000,
+	bpp:ew.def.bpp?0:1,
 	init: function(o){ 
 		this.g.clear();
 		//if (face.faceSave==-1) 

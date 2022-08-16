@@ -19,7 +19,7 @@ tcBack.replaceWith((x,y)=>{
 });
 //
 face[0].page="dash1";
-if (!set.def.dash.rtr) set.def.dash.rtr=5;
+if (!ew.def.dash.rtr) ew.def.dash.rtr=5;
 face[0].d1=function(){
 	face[0].page="dash1";
 	UI.ele.ind(1,2,0);
@@ -56,7 +56,7 @@ face[0].d1=function(){
 		}else if (i==3){
 			buzzer(buz.ok);
 			euc.dash.opt.unit.ampR=1-euc.dash.opt.unit.ampR;
-			if (set.def.info) UI.btn.ntfy(1,0,0,"_bar",6,"AMPERAGE",euc.dash.opt.unit.ampR?"REVERSED":"NORMAL",15,0);
+			if (ew.def.info) UI.btn.ntfy(1,0,0,"_bar",6,"AMPERAGE",euc.dash.opt.unit.ampR?"REVERSED":"NORMAL",15,0);
 			UI.btn.c2l("main","_2x3",3,"AMP",euc.dash.opt.unit.ampR?"R":"N",15,0); //3
 		}else if (i==4){
 			buzzer(buz.ok);
@@ -84,7 +84,7 @@ face[0].d1=function(){
 			else if (euc.dash.opt.bat.pack==1.875) euc.dash.opt.bat.pack=2;
 			else if (euc.dash.opt.bat.pack==2) euc.dash.opt.bat.pack=1;
 			else euc.dash.opt.bat.pack=euc.dash.opt.bat.pack+0.25;
-			if (set.def.info) UI.btn.ntfy(1,1.5,0,"_bar",6,"WHEEL","VOLTAGE",15,0);
+			if (ew.def.info) UI.btn.ntfy(1,1.5,0,"_bar",6,"WHEEL","VOLTAGE",15,0);
 			UI.btn.c2l("main","_2x3",6,"PACK",euc.dash.opt.bat.pack*67.2|0,15,6); //6
 		}
 	};
@@ -93,34 +93,34 @@ face[0].d2=function(){
 	face[0].page="dash2";
 	UIc.start(1,0);
 	UI.ele.ind(2,2,0);
-	UI.btn.c2l("main","_2x3",1,(set.def.dash.mph)?"MPH":"KPH",0,15,0);
-	UI.btn.c2l("main","_2x3",2,(set.def.dash.farn)?"°F":"°C",0,15,0);
+	UI.btn.c2l("main","_2x3",1,(ew.def.dash.mph)?"MPH":"KPH",0,15,0);
+	UI.btn.c2l("main","_2x3",2,(ew.def.dash.farn)?"°F":"°C",0,15,0);
 	UI.ele.fill("_2x3",3,0);
 	UI.ele.fill("_2x3",4,6);
 	UI.ele.fill("_2x3",5,6);
-	UI.btn.c2l("main","_2x3",6,"RETRY",set.def.dash.rtr,15,6); //6
+	UI.btn.c2l("main","_2x3",6,"RETRY",ew.def.dash.rtr,15,6); //6
 	UIc.end();
 //
 	UIc.main._2x3=(i)=>{
 		if (i==1){
 			buzzer(buz.ok);
-			set.def.dash.mph=1-set.def.dash.mph;
-			if (set.def.info) UI.btn.ntfy(1,1.5,0,"_bar",6,"LENGTH UNIT",(set.def.dash.mph)?"MILE":"KILOMETER",15,0);
-			UI.btn.c2l("main","_2x3",1,(set.def.dash.mph)?"MPH":"KPH",0,15,0);
+			ew.def.dash.mph=1-ew.def.dash.mph;
+			if (ew.def.info) UI.btn.ntfy(1,1.5,0,"_bar",6,"LENGTH UNIT",(ew.def.dash.mph)?"MILE":"KILOMETER",15,0);
+			UI.btn.c2l("main","_2x3",1,(ew.def.dash.mph)?"MPH":"KPH",0,15,0);
 		}else if (i==2){
 			buzzer(buz.ok);
-			set.def.dash.farn=1-set.def.dash.farn;
-			if (set.def.info)  UI.btn.ntfy(1,1.5,0,"_bar",6,"TEMPERATURE",(set.def.dash.farn)?"FAHRENHEIT":"CELSIUS",15,0);
-			UI.btn.c2l("main","_2x3",2,(set.def.dash.farn)?"°F":"°C",0,15,0);
+			ew.def.dash.farn=1-ew.def.dash.farn;
+			if (ew.def.info)  UI.btn.ntfy(1,1.5,0,"_bar",6,"TEMPERATURE",(ew.def.dash.farn)?"FAHRENHEIT":"CELSIUS",15,0);
+			UI.btn.c2l("main","_2x3",2,(ew.def.dash.farn)?"°F":"°C",0,15,0);
 		}else if (i==6){
 			buzzer(buz.ok); 
 			UI.btn.ntfy(1,3,0,"_bar",6,"RETRIES","ON 'LOST'",15,1,1);
 			set.bar=1;
-			TC.val={cur:set.def.dash.rtr,dn:1,up:20,tmp:0};
+			TC.val={cur:ew.def.dash.rtr,dn:1,up:20,tmp:0};
 			UIc.tcBar=(a,b)=>{ 
 				UI.btn.ntfy(0,2,1);
 				UI.btn.c2l("main","_2x3",6,"RETRY",b,15,6); //6
-				set.def.dash.rtr=b;
+				ew.def.dash.rtr=b;
 			};	
 		}
 	};

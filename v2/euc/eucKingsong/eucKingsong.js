@@ -104,7 +104,7 @@ euc.temp.city=function(){
 euc.temp.inpk=function(event){
 	 "ram";
 	let inpk=JSON.parse(E.toJS(event.target.value.buffer));
-	if (set.bt==5) NRF.updateServices({0xffe0:{0xffe1:{value:inpk,notify:true}}});
+	if (ew.is.bt==5) NRF.updateServices({0xffe0:{0xffe1:{value:inpk,notify:true}}});
 	if (inpk[0]==188) return;
 	euc.is.alert=0;
 	if (8<euc.dbg) console.log("INPUT :",inpk);
@@ -133,7 +133,7 @@ euc.temp.inpk=function(event){
 		digitalPulse(ew.pin.BUZZ,1,60);
 		euc.is.alert=0;
 	}else if (!euc.is.buzz && euc.is.alert) { 
-		if (!w.gfx.isOn&&(euc.dash.alrt.spd.cc||euc.dash.alrt.amp.cc||euc.dash.alrt.pwr)) face.go(set.dash[set.def.dash.face],0);
+		if (!w.gfx.isOn&&(euc.dash.alrt.spd.cc||euc.dash.alrt.amp.cc||euc.dash.alrt.pwr)) face.go(ew.is.dash[ew.def.dash.face],0);
 		euc.is.buzz=1;
 		if (20 <= euc.is.alert) euc.is.alert = 20;
 		var a=[];
@@ -305,7 +305,7 @@ euc.temp.resp=function(inpk){
 			if (euc.dash.info.get.id.split("-")) {
 				euc.dash.info.get.firm=euc.dash.info.get.id.split("-")[2];
 				euc.dash.info.get.name=euc.dash.info.get.id.split("-")[1];
-				set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Model",euc.dash.info.get.name);
+				ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Model",euc.dash.info.get.name);
 			}
 		}	
 	}else if ( inpk[16] == 201 ) 
@@ -457,10 +457,10 @@ euc.conn=function(mac){
 			}
 			return true;
 		};
-		if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {
+		if (!ew.do.fileRead("dash","slot"+ew.do.fileRead("dash","slot")+"Mac")) {
 			euc.dash.info.get.mac=euc.mac; 
 			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
-			set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
+			ew.do.fileWrite("dash","slot"+ew.do.fileRead("dash","slot")+"Mac",euc.mac);
 		}
 		if (global["\xFF"].bleHdl && global["\xFF"].bleHdl[54] && global["\xFF"].bleHdl[54].value.buffer[0]==170 && global["\xFF"].bleHdl[54].value.buffer[1]==85) {
 			setTimeout(()=>{ 
@@ -485,7 +485,7 @@ euc.off=function(err){
 		if (euc.dbg) console.log("EUC: Restarting");
 		if ( err==="Connection Timeout"  )  {
 			euc.state="LOST";
-			if ( set.def.dash.rtr < euc.is.run) {
+			if ( ew.def.dash.rtr < euc.is.run) {
 				euc.tgl();
 				return;
 			}
@@ -522,7 +522,7 @@ euc.off=function(err){
 		euc.temp=0;
 		global["\xFF"].bleHdl=[];
 		if (this.proxy) this.proxy.e();
-		NRF.setTxPower(set.def.rfTX);
+		NRF.setTxPower(ew.def.rfTX);
     }
 };
 

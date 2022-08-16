@@ -1,8 +1,8 @@
 //dash digital
 
 face[0] = {
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
-	old:set.def.bpp?0:1,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:10000,
+	old:ew.def.bpp?0:1,
 	g:w.gfx,
 	spd:[],
 	init: function(){
@@ -19,8 +19,8 @@ face[0] = {
 		this.ampL = new Uint8Array(20);
 		this.al=new Uint8Array(20);
 		//this.ampL.fill(1,0,1);
-		this.fact=euc.dash.opt.unit.fact.spd*((set.def.dash.mph)?0.625:1);		
-		this.trpF=euc.dash.opt.unit.fact.dist*((set.def.dash.mph)?0.625:1);
+		this.fact=euc.dash.opt.unit.fact.spd*((ew.def.dash.mph)?0.625:1);		
+		this.trpF=euc.dash.opt.unit.fact.dist*((ew.def.dash.mph)?0.625:1);
 		this.run=true;
 		this.pos={};
 		this.pos.topl=[0,20,119,70];
@@ -49,7 +49,7 @@ face[0] = {
 			else if (5<=this.buff.spd && !euc.buzz && euc.dash.info.get.makr=="Kingsong") this.pwrF();
 			else if (!this.buff.bar) { this.buff.bar=1; this.barF();}
 			//tmp/amp block
-			if (!set.def.dash.amp||set.def.dash.amp==2) {
+			if (!ew.def.dash.amp||ew.def.dash.amp==2) {
 				if (this.buff.amp!=Math.round(euc.dash.live.amp)) this.ampF();
 			}else 
 				if (this.buff.tmp!=Math.round(euc.dash.live.tmp))	this.tmpF();
@@ -62,14 +62,14 @@ face[0] = {
 				if (this.buff.spdL!=euc.dash.alrt.spd.max) this.spLF();
 			}else if (this.buff.alrm!=euc.dash.live.alrm) this.alrF();	
 			//tmp/amp field
-			if (set.def.dash.amp){
+			if (ew.def.dash.amp){
 				if (this.ampL!=euc.log.ampL) this.amLF();				
 			}else if (this.buff.tmp!=euc.dash.live.tmp.toFixed(1)) this.tmFF();
 			//batery field
 			//batery field
-			if (!set.def.dash.bat){
+			if (!ew.def.dash.bat){
 				if (this.buff.volt!=euc.dash.live.volt.toFixed(2)) this.vltF();
-			}else if (set.def.dash.bat==1) {
+			}else if (ew.def.dash.bat==1) {
 				if (euc.dash.live.bat!=this.bat) this.batF();
 			}else if (this.batL!=euc.log.batL) this.baLF();			
 			//Mileage
@@ -111,7 +111,7 @@ face[0] = {
 			this.g.setFontVector(80);
 		}else 
 			this.g.setFontVector(130);
-		//this.g.drawString((set.def.dashSpd)?euc.dash.live.spd:Math.round(euc.dash.live.spd/1.6),129-(this.g.stringWidth((set.def.dashSpd)?euc.dash.live.spd:Math.round(euc.dash.live.spd/1.6))/2),57); 
+		//this.g.drawString((ew.def.dashSpd)?euc.dash.live.spd:Math.round(euc.dash.live.spd/1.6),129-(this.g.stringWidth((ew.def.dashSpd)?euc.dash.live.spd:Math.round(euc.dash.live.spd/1.6))/2),57); 
 		this.g.drawString(Math.round(this.buff.spd*this.fact),129-(this.g.stringWidth(Math.round(this.buff.spd*this.fact))/2),this.pos.spd[1]); 
 		if (this.old)this.g.flip();
 		if (this.buff.spd==0) { 
@@ -153,7 +153,7 @@ face[0] = {
 		this.g.setColor(1,15);
 		this.g.setFontVector(11);
 		this.g.drawString("TEMP", 6,this.pos.btn1[1]+5);
-		let temp=(set.def.dash.farn)?Math.round(this.buff.tmp*1.8+32):Math.round(this.buff.tmp);
+		let temp=(ew.def.dash.farn)?Math.round(this.buff.tmp*1.8+32):Math.round(this.buff.tmp);
 		this.g.setFontVector((100<temp)?20:32);
 		this.g.drawString(temp,22-(this.g.stringWidth(temp)/2),this.pos.btn1[1]+20); 
 		//this.g.drawString(Math.round(this.buff.tmp), 22-(this.g.stringWidth(Math.round(this.buff.tmp))/2),80); 
@@ -210,13 +210,13 @@ face[0] = {
 		this.g.fillRect(this.pos.topl[0],this.pos.topl[1],this.pos.topl[2],this.pos.topl[3]);       
 		this.g.setColor(1,15);
 		this.g.setFontVector(50);
-		let temp=(set.def.dash.farn)?this.buff.tmp*1.8+32:this.buff.tmp;
+		let temp=(ew.def.dash.farn)?this.buff.tmp*1.8+32:this.buff.tmp;
 		temp=(temp<100)?Number(temp).toFixed(1):Math.round(temp);
 		let size=this.g.stringWidth(temp);
 		this.g.drawString(temp, 0,this.pos.topl[1]+3); 
 
 		this.g.setFontVector(16);
-		this.g.drawString((set.def.dash.farn)?"°F":"°C",size-1,this.pos.topl[1]+5); 
+		this.g.drawString((ew.def.dash.farn)?"°F":"°C",size-1,this.pos.topl[1]+5); 
 		if (this.old)this.g.flip();
 	},	
 	amLF: function(){
@@ -290,7 +290,7 @@ face[0] = {
 		this.g.setColor(1,14);
 		this.g.setFontVector(35);
 		this.g.drawString((this.buff.trpL*this.trpF).toFixed(2),0,this.pos.bar[1]); 
-		if (!set.def.dash.clck) {//clock
+		if (!ew.def.dash.clck) {//clock
 			let d=(Date()).toString().split(' ');
 			let t=(d[4]).toString().split(':');
 			this.time=(t[0]+":"+t[1]);
@@ -306,8 +306,8 @@ face[0] = {
 		this.g.setColor(0,15);
 		this.g.setFontVector(16); //mileage
 			this.g.drawString("TRIP",2,this.pos.btm[1]); 
-			this.g.drawString((set.def.dash.mph)?"MPH":"KPH",105,this.pos.btm[1]);
-			this.g.drawString((!set.def.dash.clck)?"CLOCK":"TOTAL",181,this.pos.btm[1]); 
+			this.g.drawString((ew.def.dash.mph)?"MPH":"KPH",105,this.pos.btm[1]);
+			this.g.drawString((!ew.def.dash.clck)?"CLOCK":"TOTAL",181,this.pos.btm[1]); 
 		if (this.old)this.g.flip();
 	},
 	tid:-1,
@@ -334,7 +334,7 @@ face[1] = {
 		if (euc.state=="OFF") 
 			face.go("main",0); 
 		else {
-			face.go(set.dash[set.def.dash.face],-1);
+			face.go(ew.is.dash[ew.def.dash.face],-1);
 		}
 		return true;
 	},
@@ -353,19 +353,19 @@ UIc.end();
 
 UIc.main._main=(i)=>{
 	if (i==2){
-		if (set.def.dash.bat==undefined || 1 < set.def.dash.bat) set.def.dash.bat=0; else set.def.dash.bat++;
+		if (ew.def.dash.bat==undefined || 1 < ew.def.dash.bat) ew.def.dash.bat=0; else ew.def.dash.bat++;
 		face[0].buff.bat=-1;face[0].buff.volt=-1;face[0].batL.fill(1,0,1);
 		buzzer(buz.ok);
 	}else if (i==1){
-		if (set.def.dash.amp==undefined) set.def.dash.amp=0;
-		if (set.def.dash.amp<2) set.def.dash.amp++; else set.def.dash.amp=0;
+		if (ew.def.dash.amp==undefined) ew.def.dash.amp=0;
+		if (ew.def.dash.amp<2) ew.def.dash.amp++; else ew.def.dash.amp=0;
 		face[0].buff.tmp=-1;face[0].buff.amp=-1;face[0].ampL.fill(1,0,1);
 		buzzer(buz.ok);
 	}
 };
 UIc.main._bar=(i)=>{
-	if (set.def.dash.clck==undefined) set.def.dash.clck=0;
-	set.def.dash.clck=1-set.def.dash.clck;
+	if (ew.def.dash.clck==undefined) ew.def.dash.clck=0;
+	ew.def.dash.clck=1-ew.def.dash.clck;
 	face[0].buff.trpL=-1;face[0].barF();
 	buzzer(buz.ok);
 };

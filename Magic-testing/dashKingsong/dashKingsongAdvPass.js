@@ -141,7 +141,7 @@ face[0].act=()=>{
 					euc.dash.opt.lock.passSend=1;
 					euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 					euc.wri("start");
-					face.go(set.dash[set.def.dash.face],0);
+					face.go(ew.is.dash[ew.def.dash.face],0);
 					return;
 				},800);
 			}

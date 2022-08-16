@@ -12,13 +12,13 @@ face[0] = {
 		this.g.setFont("Vector",25);
 		this.g.drawString("SET TIME",120-(this.g.stringWidth("SET TIME")/2),217); 
 		this.g.flip(); 
-		//this.btn(1,(set.def.dash.mph)?"MPH":"KPH",30,40,25,2220,0,0,0,75,75);//1
+		//this.btn(1,(ew.def.dash.mph)?"MPH":"KPH",30,40,25,2220,0,0,0,75,75);//1
 			
         //this.run=true;
 	},
 	show : function(){
 		if (!this.run) return; 
-		//if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(set.dash[set.def.dash.face],0);return;}
+		//if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();

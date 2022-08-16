@@ -1,11 +1,11 @@
 //dash off 
 face[0] = {
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:10000,
 	g:w.gfx,
 	spd:[],
 	init: function(){
-		this.log=require("Storage").readJSON("logDaySlot"+set.def.dash.slot+".json",1);
-		if (!euc.dash.info.get.makr||!set.def.dash.slot||!this.log) {face.go((face.appPrev=="dashGarage")?"main":"dashGarage",0);return;}
+		this.log=require("Storage").readJSON("logDaySlot"+ew.def.dash.slot+".json",1);
+		if (!euc.dash.info.get.makr||!ew.def.dash.slot||!this.log) {face.go((face.appPrev=="dashGarage")?"main":"dashGarage",0);return;}
 		this.rowL=0;
 		this.posL=0;
 		this.ref=Date().getHours();
@@ -17,9 +17,9 @@ face[0] = {
 		this.btn(1,"24HRS",30,60,13,4,4,0,0,119,50);
 		this.btn(1,"INFO",30,185,10,0,4,120,0,239,50);
 		this.sc();
-		this.sel(this.comf((this.totD*((set.def.dash.mph)?0.625:1)).toFixed((this.page)?(this.page==1)?1:0:2)),"<   TOTAL   >");
+		this.sel(this.comf((this.totD*((ew.def.dash.mph)?0.625:1)).toFixed((this.page)?(this.page==1)?1:0:2)),"<   TOTAL   >");
 		this.lg();
-		this.id=(set.def.hr24)?["00:00 - 01:00","01:00 - 02:00","02:00 - 03:00","03:00 - 04:00","04:00 - 05:00","05:00 - 06:00","06:00 - 07:00","07:00 - 08:00","08:00 - 09:00","09:00 - 10:00","10:00 - 11:00","11:00 - 12:00","12:00 - 13:00","13:00 - 14:00","14:00 - 15:00","15:00 - 16:00","16:00 - 17:00","17:00 - 18:00","18:00 - 19:00","19:00 - 20:00","20:00 - 21:00","21:00 - 22:00","22:00 - 23:00","23:00 - 00:00"]
+		this.id=(ew.def.hr24)?["00:00 - 01:00","01:00 - 02:00","02:00 - 03:00","03:00 - 04:00","04:00 - 05:00","05:00 - 06:00","06:00 - 07:00","07:00 - 08:00","08:00 - 09:00","09:00 - 10:00","10:00 - 11:00","11:00 - 12:00","12:00 - 13:00","13:00 - 14:00","14:00 - 15:00","15:00 - 16:00","16:00 - 17:00","17:00 - 18:00","18:00 - 19:00","19:00 - 20:00","20:00 - 21:00","21:00 - 22:00","22:00 - 23:00","23:00 - 00:00"]
 		:["12:00 - 1:00 AM","1:00 - 2:00 AM","2:00 - 3:00 AM","3:00 - 4:00 AM","4:00 - 5:00 AM","5:00 - 6:00 AM","6:00 - 7:00 AM","7:00 - 8:00 AM","8:00 - 9:00 AM","9:00 - 10:00 AM","10:00 - 11:00 AM","11:00 - 11:59 AM","12:00 - 1:00 PM","1:00 - 2:00 PM","2:00 - 3:00 PM","3:00 - 4:00 PM","4:00 - 5:00 PM","5:00 - 6:00 PM","6:00 - 7:00 PM","7:00 - 8:00 PM","8:00 - 9:00 PM","9:00 - 10:00 PM","10:00 - 11:00 PM","11:00 - 11:59 PM"];
 		this.id[this.ref]="Now";
 	},
@@ -74,7 +74,7 @@ face[0] = {
 		let size=this.g.stringWidth(txt1);
 		this.g.drawString(txt1,105-(this.g.stringWidth(txt1)/2),68); 
 		this.g.setFont("Vector",27);	
-		this.g.drawString((set.def.dash.mph)?" mi":" km",125+(size/2)-(this.g.stringWidth((set.def.dash.mph)?" mi":" km")/2),86);
+		this.g.drawString((ew.def.dash.mph)?" mi":" km",125+(size/2)-(this.g.stringWidth((ew.def.dash.mph)?" mi":" km")/2),86);
 		this.g.drawString(txt2,120-(this.g.stringWidth(txt2)/2),137);
 		this.g.flip();
     },
@@ -182,7 +182,7 @@ touchHandler[0]=function(e,x,y){
 					if (face[0].len<i) return;
 				}
 			}
-			face[0].sel(face[0].comf((face[0].log[face[0].pos]*((set.def.dash.mph)?0.625:1)).toFixed((face[0].page)?(face[0].page==1)?1:0:2)), face[0].id[face[0].pos].toUpperCase());
+			face[0].sel(face[0].comf((face[0].log[face[0].pos]*((ew.def.dash.mph)?0.625:1)).toFixed((face[0].page)?(face[0].page==1)?1:0:2)), face[0].id[face[0].pos].toUpperCase());
 			face[0].ind((face[0].pos<=face[0].ref)?face[0].len-(face[0].ref-face[0].pos):face[0].pos-face[0].ref);
 		}else {
 			buzzer([30,50,30]);
@@ -199,10 +199,10 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.setFontVector(30);
 				w.gfx.drawString(((euc.dash.info.get.name)?euc.dash.info.get.name:euc.dash.info.get.makr),120-w.gfx.stringWidth(((euc.dash.info.get.name)?euc.dash.info.get.name:euc.dash.info.get.makr))/2,62);
 				w.gfx.setFontVector(28);
-				w.gfx.drawString(euc.dash.trip.topS*((set.def.dash.mph)?0.625:1)*euc.dash.opt.unit.fact.spd,185-w.gfx.stringWidth(euc.dash.trip.topS*((set.def.dash.mph)?0.625:1)*euc.dash.opt.unit.fact.spd),99);
+				w.gfx.drawString(euc.dash.trip.topS*((ew.def.dash.mph)?0.625:1)*euc.dash.opt.unit.fact.spd,185-w.gfx.stringWidth(euc.dash.trip.topS*((ew.def.dash.mph)?0.625:1)*euc.dash.opt.unit.fact.spd),99);
 				w.gfx.drawString(euc.dash.trip.time,185-w.gfx.stringWidth(euc.dash.trip.time),139); 
-				w.gfx.drawString(face[0].comf((euc.dash.trip.last*((set.def.dash.mph)?0.625:1)).toFixed(0)),185-w.gfx.stringWidth(face[0].comf((euc.dash.trip.last*((set.def.dash.mph)?0.625:1)).toFixed(0))),178); 
-				w.gfx.drawString(face[0].comf((euc.dash.trip.totl*((set.def.dash.mph)?0.625:1)).toFixed(1)),185-w.gfx.stringWidth(face[0].comf((euc.dash.trip.totl*((set.def.dash.mph)?0.625:1)).toFixed(1))),217); 
+				w.gfx.drawString(face[0].comf((euc.dash.trip.last*((ew.def.dash.mph)?0.625:1)).toFixed(0)),185-w.gfx.stringWidth(face[0].comf((euc.dash.trip.last*((ew.def.dash.mph)?0.625:1)).toFixed(0))),178); 
+				w.gfx.drawString(face[0].comf((euc.dash.trip.totl*((ew.def.dash.mph)?0.625:1)).toFixed(1)),185-w.gfx.stringWidth(face[0].comf((euc.dash.trip.totl*((ew.def.dash.mph)?0.625:1)).toFixed(1))),217); 
 				w.gfx.flip();	
 				w.gfx.setColor(1,3);
 				w.gfx.setFontVector(24);
@@ -212,10 +212,10 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.drawString("TOT",5,220);
 				w.gfx.flip();
 				w.gfx.setColor(1,3);
-				w.gfx.drawString((set.def.dash.mph)?"mph":"kph",195,102);
+				w.gfx.drawString((ew.def.dash.mph)?"mph":"kph",195,102);
 				w.gfx.drawString("Min",195,143);
-				w.gfx.drawString((set.def.dash.mph)?"mi":"Km",195,181);
-				w.gfx.drawString((set.def.dash.mph)?"mi":"Km",195,220);
+				w.gfx.drawString((ew.def.dash.mph)?"mi":"Km",195,181);
+				w.gfx.drawString((ew.def.dash.mph)?"mi":"Km",195,220);
 				w.gfx.flip();
 			}else{ //24HRS/7DAYS/month/year
 				face[0].info=0;
@@ -228,7 +228,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].ref=Date().getDay();
 					face[0].pos=face[0].ref;
 					face[0].btn(1,"7DAYS",30,60,13,4,4,0,0,119,50);
-					face[0].log=require("Storage").readJSON("logWeekSlot"+set.def.dash.slot+".json",1);
+					face[0].log=require("Storage").readJSON("logWeekSlot"+ew.def.dash.slot+".json",1);
 					face[0].id=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
 					face[0].id[face[0].ref]="Today";
 				}else if (face[0].page==1){
@@ -237,7 +237,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].ref=Date().getMonth();
 					face[0].pos=face[0].ref;
 					face[0].btn(1,"YEAR",30,60,13,4,4,0,0,119,50);
-					face[0].log=require("Storage").readJSON("logYearSlot"+set.def.dash.slot+".json",1);
+					face[0].log=require("Storage").readJSON("logYearSlot"+ew.def.dash.slot+".json",1);
 					face[0].id=["January","February","March","April","May","June","July","August","September","October","November","December"];
 					//face[0].id[face[0].ref]="running Month";
 				}else{
@@ -246,13 +246,13 @@ touchHandler[0]=function(e,x,y){
 					face[0].ref=Date().getHours();
 					face[0].pos=face[0].ref;
 					face[0].btn(1,"24HRS",30,60,13,4,4,0,0,119,50);
-					face[0].log=require("Storage").readJSON("logDaySlot"+set.def.dash.slot+".json",1);
-					face[0].id=(set.def.hr24)?["00:00 - 01:00","01:00 - 02:00","02:00 - 03:00","03:00 - 04:00","04:00 - 05:00","05:00 - 06:00","06:00 - 07:00","07:00 - 08:00","08:00 - 09:00","09:00 - 10:00","10:00 - 11:00","11:00 - 12:00","12:00 - 13:00","13:00 - 14:00","14:00 - 15:00","15:00 - 16:00","16:00 - 17:00","17:00 - 18:00","18:00 - 19:00","19:00 - 20:00","20:00 - 21:00","21:00 - 22:00","22:00 - 23:00","23:00 - 00:00"]
+					face[0].log=require("Storage").readJSON("logDaySlot"+ew.def.dash.slot+".json",1);
+					face[0].id=(ew.def.hr24)?["00:00 - 01:00","01:00 - 02:00","02:00 - 03:00","03:00 - 04:00","04:00 - 05:00","05:00 - 06:00","06:00 - 07:00","07:00 - 08:00","08:00 - 09:00","09:00 - 10:00","10:00 - 11:00","11:00 - 12:00","12:00 - 13:00","13:00 - 14:00","14:00 - 15:00","15:00 - 16:00","16:00 - 17:00","17:00 - 18:00","18:00 - 19:00","19:00 - 20:00","20:00 - 21:00","21:00 - 22:00","22:00 - 23:00","23:00 - 00:00"]
 		:["12:00 - 1:00 AM","1:00 - 2:00 AM","2:00 - 3:00 AM","3:00 - 4:00 AM","4:00 - 5:00 AM","5:00 - 6:00 AM","6:00 - 7:00 AM","7:00 - 8:00 AM","8:00 - 9:00 AM","9:00 - 10:00 AM","10:00 - 11:00 AM","11:00 - 11:59 AM","12:00 - 1:00 PM","1:00 - 2:00 PM","2:00 - 3:00 PM","3:00 - 4:00 PM","4:00 - 5:00 PM","5:00 - 6:00 PM","6:00 - 7:00 PM","7:00 - 8:00 PM","8:00 - 9:00 PM","9:00 - 10:00 PM","10:00 - 11:00 PM","11:00 - 11:59 PM"];
 					face[0].id[face[0].ref]="Now";
 				}
 				face[0].sc();
-				face[0].sel(face[0].comf((face[0].totD*((set.def.dash.mph)?0.625:1)).toFixed((face[0].page)?(face[0].page==1)?1:0:2)),"<   TOTAL   >");
+				face[0].sel(face[0].comf((face[0].totD*((ew.def.dash.mph)?0.625:1)).toFixed((face[0].page)?(face[0].page==1)?1:0:2)),"<   TOTAL   >");
 				face[0].lg();
 			}			
 		}

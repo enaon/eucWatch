@@ -80,7 +80,7 @@ global.ledBT={
 
 //kingsong 
 face[0] = {
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:25000,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:25000,
 	g:w.gfx,
 	color:["white","blue","red","yellow","green","purple"],
 	patern:["RWB","RWB-S","RWG","WG","PO1","PO2","PO3","PO4"],
@@ -193,7 +193,7 @@ touchHandler[0]=function(e,x,y){
 		}else buzzer(40);
 		break;
 	case 1: //slide down event
-		if (euc.state!="OFF") face.go(set.dash[set.def.dash.face],0);
+		if (euc.state!="OFF") face.go(ew.is.dash[ew.def.dash.face],0);
 		else face.go("main",0);
 
 		return;	 
@@ -210,7 +210,7 @@ touchHandler[0]=function(e,x,y){
 		face.go(face.appPrev,0);
 		return;	
 	case 4: //slide right event (back action)
-		face.go(set.dash[set.def.dash.face],0);
+		face.go(ew.is.dash[ew.def.dash.face],0);
 		return;
 
   }

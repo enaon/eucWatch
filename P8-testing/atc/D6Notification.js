@@ -92,7 +92,7 @@ var atcR= function(evt){
       set.atcW("AT+VER:"+process.version);
       digitalPulse(D16,1,[80]);
 	  handleInfoEvent({"src":"BT","title":"ATC","body":"Connected"});
-	  set.bt=4;
+	  ew.is.bt=4;
     } else if (srt == "AT+SN") {
       set.atcW("AT+SN:Espruino");
     } else if (srt.substring(0, 12) == "AT+CONTRAST=") {
@@ -144,7 +144,7 @@ NRF.setServices({
      },
    },
 //}, { advertise: ['0x190A']});
-}, { advertise: ['0x190A'], uart:(set.def.cli||set.def.gb)?true:false,hid:(set.def.hid&&set.def.hidM)?set.def.hidM.report:undefined });
+}, { advertise: ['0x190A'], uart:(ew.def.cli||ew.def.gb)?true:false,hid:(ew.def.hid&&ew.def.hidM)?ew.def.hidM.report:undefined });
 
 var atcW= function(i) {
   i = i + "\r\n";

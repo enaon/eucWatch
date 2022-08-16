@@ -1,4 +1,4 @@
-set.def.acctype="SC7A20";
+ew.def.acctype="SC7A20";
 //accelerometer(wake on wrist turn)
 //based on work from jeffmer
 	acc={
@@ -42,10 +42,10 @@ set.def.acctype="SC7A20";
 					let cor=acc.read();
 					if (-200<=cor.ax && cor.ay<=500  && 500<cor.az ) {
 						if (!w.gfx.isOn&&this.up) {
-							face.go(set.dash[set.def.dash.face],0);
+							face.go(ew.is.dash[ew.def.dash.face],0);
 							//face.off(1000);
 						}else {
-							let tout=set.def.off[face.appCurr];
+							let tout=ew.def.off[face.appCurr];
 							//changeInterval(acc.tid,1000);
 							if ( !tout || ( tout &&  tout <= 60000)) face.off(1600);
 						}
@@ -58,9 +58,9 @@ set.def.acctype="SC7A20";
 					let cor=acc.read();
 					if (-1000<=cor.ax && cor.ax<=500 && cor.ay<=500 && cor.az<=-300 ) {
 						if (!w.gfx.isOn&&this.up){  
-								face.go(set.dash[set.def.dash.face],0);
+								face.go(ew.is.dash[ew.def.dash.face],0);
 						}else {
-							let tout=set.def.off[face.appCurr];
+							let tout=ew.def.off[face.appCurr];
 							if ( !tout || ( tout &&  tout <= 60000)) 
 								face.off(1500);
 						}
@@ -73,16 +73,16 @@ set.def.acctype="SC7A20";
 			}else if (!this.tid) {
 				i2c.writeTo(0x18,0x32,20); //int1_ths-threshold = 250 milli g's
 				i2c.writeTo(0x18,0x33,1); //duration = 1 * 20ms
-				this.tid=setWatch(()=>{
+				ew.tid.acc=setWatch(()=>{
 					i2c.writeTo(0x18,0x1);
 					if ( 10 < i2c.readFrom(0x18,1)[0] && i2c.readFrom(0x18,1)[0] < 192) {
 						if (!w.gfx.isOn){  
 							if (face.appCurr=="main") face.go("main",0);
 							else face.go(face.appCurr,0);
-						}else  if (set.tor==1)w.gfx.bri.set(face[0].cbri);
+						}else  if (ew.is.tor==1)w.gfx.bri.set(face[0].cbri);
 						else face.off(); 
 					} else {
-						let tout=set.def.off[face.appCurr];
+						let tout=ew.def.off[face.appCurr];
 						if ( !tout || ( tout &&  tout <= 60000)) {
 							//face.off(500);
 							if (face[0].clear) face.go(face.appCurr,-1); else face.off(500);

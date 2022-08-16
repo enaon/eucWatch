@@ -24,14 +24,14 @@ tcB=(x,y)=>{
 tcBack.replaceWith(tcB);
 //dash  Alerts
 face[0] = {
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:9000,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:9000,
 	g:w.gfx,
 	init: function(){
 		this.tab=1;
-		//if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(set.dash[set.def.dash.face],0);return;}
+		//if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
 		if (face.appPrev!="settings"&&face.appPrev!="dashOptions")  face.last=face.appPrev;
        //if (!face.appPrev.startsWith("dash")) this.g.clear();
-		if (set.def.info==2){
+		if (ew.def.info==2){
 			UI.btn.ntfy(0,3,1);
 			face[0].page=1;
 			UI.txt.block("_main",6,"Dash color coding & haptic alert",15,15,0);
@@ -55,14 +55,14 @@ face[0] = {
 			UIc.end();
 			UIc.main._2x2=(i)=>{
 				if(i==1){
-					buzzer(buz.ok);this.sel(1,"spd","HI SPEED",set.def.dash.mph?"MPH":"KPH","hi",10,99);
+					buzzer(buz.ok);this.sel(1,"spd","HI SPEED",ew.def.dash.mph?"MPH":"KPH","hi",10,99);
 				}else if(i==2){
 					buzzer(buz.ok);this.sel(2,"amp","HI AMP","AMP","hi",10,99);
 				}
 			};
 			UIc.bar._2x2=(i)=>{
 				if(i==3){
-					buzzer(buz.ok);this.sel(3,"tmp","HI TEMP",(set.def.dash.farn)?"°F":"°C","hi",20,99);
+					buzzer(buz.ok);this.sel(3,"tmp","HI TEMP",(ew.def.dash.farn)?"°F":"°C","hi",20,99);
 				}else if(i==4){
 					buzzer(buz.ok);this.sel(4,"bat","LOW BATT","%","low",5,75);
 				}
@@ -100,7 +100,7 @@ face[0] = {
 					}else if (i==2||i==3){
 						buzzer(buz.ok);
 						euc.dash.alrt[this.slot].hapt.en=1-euc.dash.alrt[this.slot].hapt.en;
-						if (set.def.info) {
+						if (ew.def.info) {
 							set.l=1;
 							//if (UI.ntid) {/*buzzer(buz.ok);*/clearTimeout(UI.ntid);UI.ntid=0;/*face[0].bar();*/}
 							UI.btn.ntfy(0,1,0,"_bar",6,"HAPTIC",euc.dash.live[i]?"ENABLED":"DISABLED",15,0);
@@ -114,7 +114,7 @@ face[0] = {
 				euc.dash.alrt[this.slot].hapt.en=1-euc.dash.alrt[this.slot].hapt.en;
 				if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}
 				face[0].bar();
-				if (set.def.info) {
+				if (ew.def.info) {
 					UI.btn.ntfy(0,0,0,"_bar",7,"HAPTIC "+(euc.dash.alrt[this.slot].hapt.en?"ENABLED":"DISABLED"),"",15,euc.dash.alrt[this.slot].hapt.en?4:0); w.gfx.flip();
 				}
 			}
@@ -136,7 +136,7 @@ face[0] = {
 				UI.btn.img("main","_2x1",1,"speed",euc.dash.alrt.spd.hapt.hi,15,euc.dash.alrt.spd.hapt.en?4:1,1);
 			}
 			UIc.end();
-			UIc.main._2x2_1=()=>{buzzer(buz.ok);this.sel(1,"spd","HI SPEED",set.def.dash.mph?"MPH":"KPH","hi",10,99);};
+			UIc.main._2x2_1=()=>{buzzer(buz.ok);this.sel(1,"spd","HI SPEED",ew.def.dash.mph?"MPH":"KPH","hi",10,99);};
 			UIc.main._2x2_2=()=>{buzzer(buz.ok);this.sel(1,"amp","HI AMP","AMP","hi",10,99);};
 		//}
 		UIc.start(0,1);
@@ -148,12 +148,12 @@ face[0] = {
 		}		
 		UI.ele.title("ALERTS",15,0);
 		UIc.end();
-		UIc.bar._2x2_3=()=>{buzzer(buz.ok);this.sel(3,"tmp","HI TEMP",(set.def.dash.farn)?"°F":"°C","hi",20,99);};
+		UIc.bar._2x2_3=()=>{buzzer(buz.ok);this.sel(3,"tmp","HI TEMP",(ew.def.dash.farn)?"°F":"°C","hi",20,99);};
 		UIc.bar._2x2_4=()=>{buzzer(buz.ok);this.sel(4,"bat","LOW BATT","%","low",5,75);};
 	},
 	show : function(){
 		if (!this.run) return; 
-		if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(set.dash[set.def.dash.face],0);return;}
+		if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();

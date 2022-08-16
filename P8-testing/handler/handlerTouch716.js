@@ -53,7 +53,7 @@ var tfk={
 	},
 	start:function(){ 
 		if (this.tid) clearInterval(this.tid);
-		digitalPulse(set.def.rstP,1,[10,50]); //touch wake
+		digitalPulse(ew.def.rstP,1,[10,50]); //touch wake
         this.st=1;
 		this.tid=setInterval(function(){
 			tfk.init();
@@ -61,7 +61,7 @@ var tfk={
 	},
 	exit:function(){
 		if (this.tid) clearInterval(this.tid);this.tid=0;
-	    digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100);
+	    digitalPulse(ew.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,0xa5,3);},100);
 		this.aLast=0;
 		this.st = 1;
 		this.time = 0;

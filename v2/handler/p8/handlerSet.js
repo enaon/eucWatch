@@ -1,4 +1,4 @@
-//settings - run set.upd() after changing BT settings to take effect.
+//settings - run ew.do.update.bluetooth() after changing BT settings to take effect.
 var set={
 	bt:0, //Incomming BT service status indicator- Not user settable.0=not_connected|1=unknown|2=webide|3=gadgetbridge|4=eucemu|5=esp32
 	tor:0, //Enables/disables torch- Not user settable.
@@ -41,9 +41,9 @@ var set={
 			}else gIsB=0;
 		 }
 	},
-	updateSettings:function(){require('Storage').write('setting.json', set.def);},
+	updateSettings:function(){require('Storage').write('setting.json', ew.def);},
 	resetSettings:function() {
-		set.def = {
+		ew.def = {
 		dash:{
 			mph:0, 
 			amp:0, 
@@ -82,7 +82,7 @@ var set={
 	hidM:undefined, //not user settable.
 	clin:0,//not settable
 	upd:function(){ //run this for settings changes to take effect.
-		NRF.setAdvertising({}, { name:set.def.name,connectable:true });
+		NRF.setAdvertising({}, { name:ew.def.name,connectable:true });
 		NRF.setAddress(NRF.getAddress(),+" random");
 		if (this.def.hid===1) {this.def.hid=0; return;}
 		if (this.def.emuZ){
@@ -118,18 +118,18 @@ var set={
 	}
 };
 
-set.def = require('Storage').readJSON('setting.json', 1);
-if (!set.def) {set.resetSettings();set.updateSettings();}
-if (set.def.buzz) buzzer = digitalPulse.bind(null,D16,1);
+ew.def = require('Storage').readJSON('setting.json', 1);
+if (!ew.def) {set.resetSettings();set.updateSettings();}
+if (ew.def.buzz) buzzer = digitalPulse.bind(null,D16,1);
 else buzzer=function(){return true;};
-if (!set.def.off) set.def.off={};
+if (!ew.def.off) ew.def.off={};
 //dash
 require('Storage').list("dash_").forEach(dashfile=>{
-	set.dash.push(dashfile);
+	ew.is.dash.push(dashfile);
 });
 if (!Boolean(require("Storage").read("dash.json"))) { 
 	let dash={slot:1};
 	require('Storage').write('dash.json', dash);
 }
 //
-E.setTimeZone(set.def.timezone);
+E.setTimeZone(ew.def.timezone);

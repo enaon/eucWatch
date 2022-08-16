@@ -35,16 +35,16 @@ acc={
 		if (220<data[3]&&data[3]<255) {
 			if (data[1]<this.xedge||data[1]>=240) {
 				if (!this.up&&!w.gfx.isOn){  
-					face.go(set.dash[set.def.dash.face],0);
+					face.go(ew.is.dash[ew.def.dash.face],0);
 				}else if (w.gfx.isOn&&face.pageCurr!=-1) {
-					if ( !set.def.off[face.appCurr] || ( set.def.off[face.appCurr] &&  set.def.off[face.appCurr] <= 60000))
+					if ( !ew.def.off[face.appCurr] || ( ew.def.off[face.appCurr] &&  ew.def.off[face.appCurr] <= 60000))
 						face.off(2000);		
 				} 
 				this.up=1;
 				changeInterval(acc.tid,1500);
 			}
 		}else if (this.up && data[3] < 210 ) {
-			if ( !set.def.off[face.appCurr] || ( set.def.off[face.appCurr] &&  set.def.off[face.appCurr] <= 60000)) {
+			if ( !ew.def.off[face.appCurr] || ( ew.def.off[face.appCurr] &&  ew.def.off[face.appCurr] <= 60000)) {
 				face.off(1500);	
 			}	
 			this.up=0;
@@ -60,7 +60,7 @@ acc={
 			if (data[1]<this.xedge||data[1]>=220) {
 				if (!this.up&&!w.gfx.isOn&&face.appCurr!=""){  
 						if  (global.euc) {
-							if (global.euc&&euc.state!="OFF") face.go(set.dash[set.def.dash.face],0);
+							if (global.euc&&euc.state!="OFF") face.go(ew.is.dash[ew.def.dash.face],0);
 							else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
 						}else{ 
 							if (face.appCurr=="main") face.go("main",0);
@@ -68,17 +68,17 @@ acc={
 						}
 						changeInterval(acc.tid,1000);
 				}else if (w.gfx.isOn&&face.pageCurr!=-1) {
-					if (set.tor==1)w.gfx.bri.set(face[0].cbri); 
-					else if ( !set.def.off[face.appCurr] || ( set.def.off[face.appCurr] &&  set.def.off[face.appCurr] <= 60000))
+					if (ew.is.tor==1)w.gfx.bri.set(face[0].cbri); 
+					else if ( !ew.def.off[face.appCurr] || ( ew.def.off[face.appCurr] &&  ew.def.off[face.appCurr] <= 60000))
 						face.off(1500);		
 					changeInterval(acc.tid,200);
 				} 
 				this.up=1;
 			}
 		}else if (this.up && data[3] < 220 ) {
-			if (set.tor==1)
+			if (ew.is.tor==1)
 				w.gfx.bri.set(7);	
-			else if ( !set.def.off[face.appCurr] || ( set.def.off[face.appCurr] &&  set.def.off[face.appCurr] <= 60000)) {
+			else if ( !ew.def.off[face.appCurr] || ( ew.def.off[face.appCurr] &&  ew.def.off[face.appCurr] <= 60000)) {
 				face.off(1500);	
 				this.loop=300;
 			}	

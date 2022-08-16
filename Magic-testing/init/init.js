@@ -34,7 +34,7 @@ if (BTN1.read() || require("Storage").read("devmode")) {
 	print("Welcome!\n*** DevMode ***\nShort press the side button\nto restart in WorkingMode");
   }
 	
-  lala=setWatch(function(){
+  setWatch(function(){
     "ram";
     require("Storage").erase("devmode");
 	require("Storage").erase("devmode.info");
@@ -64,7 +64,7 @@ eval(require('Storage').read('euc'));
 digitalPulse(ew.pin.BUZZ,ew.pin.BUZ0,[100,30,100]);
 setTimeout(function(){
   if (global.face) face.go('main',0);
-  setTimeout(function(){ if (global.set) setter.accR(); },1000); 
+  setTimeout(function(){ if (global.set) ew.do.update.acc(); },1000); 
   digitalPulse(ew.pin.BUZZ,ew.pin.BUZ0,100);  
 },200); 
 }

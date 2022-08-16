@@ -1,6 +1,6 @@
 //Dash Scan
 face[0] = { 
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:5000,
   g:w.gfx, 
   init: function(o){ 
     this.g.setColor(0,0);
@@ -133,31 +133,31 @@ touchHandler[0]=function(e,x,y){
 		buzzer([30,50,30]);
 		if ( face[0].set === 1 ) { //Inmotiion V5/8/10
 			if (!require("Storage").read('eucInmotionV10')) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
-			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","InmotionV10");
-			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","V?");
+			ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","InmotionV10");
+			ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","V?");
 			euc.dash.info.get.name=0;
 			euc.dash.info.get.makr="InmotionV10";
 			face.go('w_scan',0,'ffb0');
 			return;
 		}else if ( face[0].set === 2 ) { //begode
 			if (!require("Storage").read('eucBegode')) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
-			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Begode");
-			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","BG-NO NAME");
+			ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Begode");
+			ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","BG-NO NAME");
 			euc.dash.info.get.name=0;
 			euc.dash.info.get.makr="Begode";
 			face.go('w_scan',0,'ffe0'); 
 			//face[0].ntfy("NOT YET","",20,7,1);
 		}else if ( face[0].set === 3 ) { //Ninebot Z
 			if (!require("Storage").read('eucNinebotZ')) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
-			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","NinebotZ");
-			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","Z10");
+			ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","NinebotZ");
+			ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","Z10");
 			euc.dash.info.get.name=0;
 			euc.dash.info.get.makr="NinebotZ";
 			face.go('w_scan',0,'e7fe');
 		}else if ( face[0].set === 4 ) { //Ninebot S
 			if (!require("Storage").read('eucNinebotS')) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
-			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","NinebotS");
-			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","S2");
+			ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","NinebotS");
+			ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","S2");
 			euc.dash.info.get.name=0;
 			euc.dash.info.get.makr="NinebotS";
 			face.go('w_scan',0,'e7fe');
@@ -167,15 +167,15 @@ touchHandler[0]=function(e,x,y){
 		if ( face[0].set === 1 ) {
 			if(x<120){
 				if (!require("Storage").read('eucInmotionV11')) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
-				set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","InmotionV11");
-				set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","V11");
+				ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","InmotionV11");
+				ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","V11");
 				euc.dash.info.get.name=0;
 				euc.dash.info.get.makr="InmotionV11";
 				face.go('w_scan',0,'ffe0');
 			}else {
 				if (!require("Storage").read('eucInmotionV12')) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
-				set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","InmotionV12");
-				set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","V12");
+				ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","InmotionV12");
+				ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","V12");
 				euc.dash.info.get.name=0;
 				euc.dash.info.get.makr="InmotionV12";
 				face.go('w_scan',0,'ffe0');
@@ -183,22 +183,22 @@ touchHandler[0]=function(e,x,y){
 			return;
 		}else if ( face[0].set === 2 ) {
 			if (!require("Storage").read('eucVeteran')) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
-			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Veteran");
-			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","SM-NO NAME");
+			ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Veteran");
+			ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","SM-NO NAME");
 			euc.dash.info.get.name=0;
 			euc.dash.info.get.makr="Veteran";
 			face.go('w_scan',0,'ffe0'); return;
 		}else if ( face[0].set === 3 ) {
 			if (!require("Storage").read("eucNinebotE")) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
-			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","NinebotE");
-			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","E+-NO NAME");
+			ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","NinebotE");
+			ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","E+-NO NAME");
 			euc.dash.info.get.name=0;
 			euc.dash.info.get.makr="NinebotE";
 			face.go('w_scan',0,'ffe0'); return;
 		}else if ( face[0].set === 4 ) { //Kingsong
 			if (!require("Storage").read('eucKingsong')) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
-			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Kingsong");
-			set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","KS-NO NAME");
+			ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","Kingsong");
+			ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","KS-NO NAME");
 			euc.dash.info.get.name=0;
 			euc.dash.info.get.makr="Kingsong"; 
 			face.go('w_scan',0,'fff0'); 
@@ -206,7 +206,7 @@ touchHandler[0]=function(e,x,y){
     }else buzzer(40); 
     break;
   case 1: //slide down event
-    face.go(set.dash[set.def.dash.face],0);
+    face.go(ew.is.dash[ew.def.dash.face],0);
 	return;	 
   case 2: //slide up event
     if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 

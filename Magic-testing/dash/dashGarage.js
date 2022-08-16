@@ -6,7 +6,7 @@ tcB=(x,y)=>{
 		clearTimeout(UI.ntid);
 		UI.ntid=0;
 		face[0].bar();
-	}else if (!euc.dash.info.get.makr||!set.def.dash.slot||!require("Storage").readJSON("logDaySlot"+set.def.dash.slot+".json",1))
+	}else if (!euc.dash.info.get.makr||!ew.def.dash.slot||!require("Storage").readJSON("logDaySlot"+ew.def.dash.slot+".json",1))
 		face.go("main",0); 
 	else   
 		face.go("dashOff",0);
@@ -18,13 +18,13 @@ tcN=(x,y)=>{
 tcNext.replaceWith(tcN);
 //Dash Garage
 face[0] = { 
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:15000,
-	bpp:set.def.bpp?0:1,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:15000,
+	bpp:ew.def.bpp?0:1,
 	g:w.gfx, 
 	slot:0,
 	icon:"",
 	init: function(o){ 
-		this.prevSlot=set.def.dash.slot;
+		this.prevSlot=ew.def.dash.slot;
 		this.bar();
 		this.run=false;	
 	},
@@ -47,7 +47,7 @@ face[0] = {
 		if (this.prevSlot==no) {
 			UI.ele.ind(1,1,0);
 			UI.btn.ntfy(0,1.5,1);
-			if (set.def.info)
+			if (ew.def.info)
 				UI.txt.block("_main",9,"Press & hold\n\nthe side btn\n\nto start/end\nthe connection.",80,15,0);
 			else {
 				let target={"InmotionV1":"im","Begode":"bg","NinebotS":"nb","NinebotZ":"nb","Inmotion":"im","Veteran":"vt","Ninebot":"nb","Kingsong":"ks"};
@@ -74,8 +74,8 @@ face[0] = {
 				UI.btn.img("main","_2x2",this.prevSlot,this.icon+target[this.slot["slot"+this.prevSlot+"Maker"]],this.slot["slot"+this.prevSlot+"Model"].toUpperCase(),3,0);
 				require("Storage").writeJSON('eucSlot'+this.prevSlot+'.json',euc.dash.live);
 			}
-			set.write("dash","slot",no);
-			set.def.dash.slot=no;
+			ew.do.fileWrite("dash","slot",no);
+			ew.def.dash.slot=no;
 			this.prevSlot=no;
 		}	
 		if (Boolean(require("Storage").read('eucSlot'+no+'.json')))
@@ -87,7 +87,7 @@ face[0] = {
 		buzzer(buz.ok);
 		UI.btn.ntfy(0,1.5,1);
 		UI.ele.ind(1,1,0);
-		if (set.def.info)
+		if (ew.def.info)
 			UI.txt.block("_main",9,"SLOT "+no+" is empty. Scan for a Wheel.",14,15,0); 
 		else 
 			UI.btn.img("main","_2x2",this.icon+no,"scan","",3,1);
@@ -98,25 +98,25 @@ face[0] = {
 			if (i==6){
 				buzzer(buz.ok);
 				euc.dash=require("Storage").readJSON("eucSlot.json",1);	
-				set.write("dash","slot",no);
-				set.def.dash.slot=no;			
+				ew.do.fileWrite("dash","slot",no);
+				ew.def.dash.slot=no;			
 				face.go("dashScan",0);
 			}
 		};
 	},
 	del:function(no){
 		UI.btn.ntfy(0,2,1);
-		if (set.def.info)UI.btn.c2l("main","_main",6,`SLOT ${no}`,"DELETE?",15,0,1);
+		if (ew.def.info)UI.btn.c2l("main","_main",6,`SLOT ${no}`,"DELETE?",15,0,1);
 		UIc.start(1,0);	
 		UI.btn.img("main","_bar",6,this.icon+"trash","CONFIRM",15,13);
 		UIc.end();
 		UIc.main._bar=(i)=>{
 			if(i==6){
 				buzzer(300);
-				set.write("dash",`slot${no}Mac`);
-				set.write("dash",`slot${no}Name`);
-				set.write("dash",`slot${no}Maker`);
-				set.write("dash",`slot${no}Model`);
+				ew.do.fileWrite("dash",`slot${no}Mac`);
+				ew.do.fileWrite("dash",`slot${no}Name`);
+				ew.do.fileWrite("dash",`slot${no}Maker`);
+				ew.do.fileWrite("dash",`slot${no}Model`);
 				require("Storage").erase(`logDaySlot${no}.json`);
 				require("Storage").erase(`logWeekSlot${no}.json`);
 				require("Storage").erase(`logYearlot${no}.json`);
@@ -124,7 +124,7 @@ face[0] = {
 				euc.dash=require("Storage").readJSON("eucSlot.json",1);	
 				UI.btn.ntfy(1,1.5,1);
 				UI.btn.c2l("main","_bar",6,`SLOT ${no}`,"DELETED",15,4);
-				set.def.dash.slot=0;
+				ew.def.dash.slot=0;
 				face[0].prevSlot=0;
 			}
 		};

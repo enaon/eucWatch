@@ -38,4 +38,4 @@ else acc={on:function(){},off:function(){} };
 //cron
 eval(require('Storage').read('handler_cron'));
 //more
-if (set.def.size) UI.size.txt=set.def.size;
+if (ew.def.size) UI.size.txt=ew.def.size;

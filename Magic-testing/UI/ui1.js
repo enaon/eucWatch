@@ -58,7 +58,7 @@ UI={
 	      w.gfx.drawImage(img,xa,y-(w.gfx.imageMetrics(img).width/2));
 		 // w.gfx.setColor(1,bclr==3?0:3);
 		  w.gfx.drawString(txt,xa+5+w.gfx.imageMetrics(img).width,y-(w.gfx.stringMetrics(txt).height/2)); 
-	  }else if (set.def.info&&txt) {
+	  }else if (ew.def.info&&txt) {
 		  w.gfx.drawImage(img,x-24*0.8,y-35,{scale:0.8});
 		  w.gfx.setColor(1,bclr==3?0:14);
 		  let size=(p[3]-p[1])/4.5;
@@ -87,7 +87,7 @@ UI={
         w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y-((p[3]-p[1])/4)); 
         w.gfx.setFont("Vector",UI.pos[no][0]*( (100 < p[2]-p[0])?1:((p[2]-p[0])/100)));	
         w.gfx.drawString(txt2,x-(w.gfx.stringWidth(txt2)/2),p[3]-w.gfx.stringMetrics(txt2).height-10);
-        w.gfx.flip(); //if (!set.def.bpp) w.gfx.flip();
+        w.gfx.flip(); //if (!ew.def.bpp) w.gfx.flip();
 		if (UI.ntid) clearTimeout(UI.ntid);
 		/*if (UIc.get&&(type[0]||type[1]) ){
 		  if (type[0]) UIc.xy.tap=UIc.xy.tap+`${UIc.xy.tap!=""?'else ':''}if (${p[0]}<x&&x<${p[2]}&&${p[1]}<y&&y<${p[3]}) face[0].btn.tap${no}_${po}();`;	
@@ -109,7 +109,7 @@ UI={
 		w.gfx.setColor(1,fclr);	
 		w.gfx.setFont("Vector",(p[3]-p[1])/2);	
 		w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y-2); 
-        if (!set.def.bpp) w.gfx.flip();
+        if (!ew.def.bpp) w.gfx.flip();
 	},
 	ind:function(no,c,t){
 		"ram";
@@ -119,13 +119,13 @@ UI={
 		let pa=(p[2]-p[0])/t;
 		w.gfx.setColor(1,3);	
 		w.gfx.fillRect(p[0]+(pa*(c-1)),p[1],p[0]+(pa*c),p[3]);
-        if (!set.def.bpp) w.gfx.flip();
+        if (!ew.def.bpp) w.gfx.flip();
 	},
 	fill:function(no,po,clr){
 		let p=(UI.pos[no][po]);
 		w.gfx.setColor(0,clr);
 		w.gfx.fillRect(p[0],p[1],p[2],p[3]);
-        if (!set.def.bpp) w.gfx.flip();
+        if (!ew.def.bpp) w.gfx.flip();
 	}
   }
 };
@@ -142,7 +142,7 @@ UI.ntfy={
 			w.gfx.setColor(1,fclr);
 			w.gfx.setFont("Vector",(p[3]-p[1])/2);	
 			w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y); 
-			if (!set.def.bpp) w.gfx.flip();
+			if (!ew.def.bpp) w.gfx.flip();
 			if (UI.ntid) clearTimeout(UI.ntid);
 			UI.ntid=setTimeout(function(t){UI.ntid=0;UI.emit('ntfy',"ok");},tmot?tmot:1000);
 	},	

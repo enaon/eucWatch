@@ -1,6 +1,6 @@
 //bangle.js 2 
-set.def.touchtype="816";
-set.def.rstR=0xA5; //the rock has auto sleep if 254 is 0.
+ew.def.touchtype="816";
+ew.def.rstR=0xA5; //the rock has auto sleep if 254 is 0.
 var TC={
 	x:0,
 	y:0,
@@ -11,7 +11,7 @@ var TC={
 	start:function(){ 
 		"ram";
 		if (this.ntid) return;
-		digitalPulse(set.def.rstP,1,[5,50]);
+		digitalPulse(ew.def.rstP,1,[5,50]);
 		this.ntid=1;
 		Bangle.on('drag', TC.init);
 		setTimeout(()=>{i2c.writeTo(0x15,0xFA,17);i2c.writeTo(0x15,0);},1000); //gesture mode

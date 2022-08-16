@@ -1,6 +1,6 @@
 //tpms face
 face[0] = {
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:30000,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:30000,
 	g:w.gfx,
 	spd:[],
 	init: function(){
@@ -254,7 +254,7 @@ touchHandler[0]=function(e,x,y){
 		if (euc.state!="OFF"&&face.faceSave[0].startsWith("dash")){
 			euc.dash.opt.tpms=face[0].tpms[tpms.def.pos];
 			tpms.def.id=face[0].tpms[tpms.def.pos];
-			face.go(set.dash[set.def.dash.face],0);
+			face.go(ew.is.dash[ew.def.dash.face],0);
 		}else if (face.faceSave!=-1) {
 			face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
 		}else

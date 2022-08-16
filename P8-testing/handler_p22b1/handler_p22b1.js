@@ -1,4 +1,4 @@
 
 
-set.def.rstP="D10";
-set.def.rstR=0xE5;
+ew.def.rstP="D10";
+ew.def.rstR=0xE5;

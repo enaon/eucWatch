@@ -1,10 +1,10 @@
 //kingsong settings
 face[0] = {
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:5000,
 	g:w.gfx,
 	page:"dashKS",
 	init: function(){
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
+		if (euc.state!=="READY") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
 		if (euc.temp.pass)  eval(require('Storage').read("dashKingsongAdvPass")); 
 		else {
 			if (!euc.temp.ls) {euc.temp.ls=1;setTimeout(()=>{euc.wri("getLock");setTimeout(()=>{euc.wri("getStrobe");},100);},300);}
@@ -15,7 +15,7 @@ face[0] = {
 	},
 	show : function(){
 		"ram";
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
+		if (euc.state!=="READY") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
 		if (!this.run)  return;
 		if (this.page=="actions"){
 			if ( this.light!=euc.dash.opt.lght.HL) {

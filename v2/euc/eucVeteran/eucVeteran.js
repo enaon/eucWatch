@@ -21,11 +21,11 @@ euc.cmd=function(no){
 };
 euc.isProxy=0;
 //start
-euc.wri=function(i) {if (set.def.cli) console.log("not connected yet"); if (i=="end") euc.off(); return;};
+euc.wri=function(i) {if (ew.def.cli) console.log("not connected yet"); if (i=="end") euc.off(); return;};
 euc.conn=function(mac){
 	//check
 	if ( global["\xFF"].BLE_GATTS!="undefined") {
-		if (set.def.cli) print("ble allready connected"); 
+		if (ew.def.cli) print("ble allready connected"); 
 		if (global["\xFF"].BLE_GATTS.connected) {global["\xFF"].BLE_GATTS.disconnect();return;}
 	}
 	//check if proxy
@@ -49,7 +49,7 @@ euc.conn=function(mac){
 		let ev=new Uint8Array(20);
 		c.on('characteristicvaluechanged', function(event) {
 			if (!euc.is.run) return;
-			if (set.bt==5) 	euc.proxy.w(event.target.value.buffer);
+			if (ew.is.bt==5) 	euc.proxy.w(event.target.value.buffer);
 			ev.set(event.target.value.buffer);
 			euc.is.alert=0;
 			/*if (euc.temp) {
@@ -102,7 +102,7 @@ euc.conn=function(mac){
 			}
 			//alerts
 			if (euc.is.alert && !euc.is.buzz) {  
-				if (!w.gfx.isOn&&(euc.dash.alrt.spd.cc||euc.dash.alrt.amp.cc||euc.dash.alrt.pwr)) face.go(set.dash[set.def.dash.face],0);
+				if (!w.gfx.isOn&&(euc.dash.alrt.spd.cc||euc.dash.alrt.amp.cc||euc.dash.alrt.pwr)) face.go(ew.is.dash[ew.def.dash.face],0);
 				//else face.off(6000);
 				euc.is.buzz=1;
 				if (20<=euc.is.alert) euc.is.alert=20;
@@ -171,7 +171,7 @@ euc.conn=function(mac){
 						let md={"1":"SETs","2":"SETm","3":"SETh"};
 						return ((euc.dash.opt.lock.en)?c.writeValue(md[euc.dash.opt.ride.mode]):"ok");
 					}).then(function()  {
-						global["\xFF"].BLE_GATTS.disconnect();if (set.def.cli) console.log("EUC Veteran out");
+						global["\xFF"].BLE_GATTS.disconnect();if (ew.def.cli) console.log("EUC Veteran out");
 					}).catch(euc.off);
 				}else {
 					if (euc.is.busy) {clearTimeout(euc.is.busy);euc.is.busy=0;}
@@ -190,10 +190,10 @@ euc.conn=function(mac){
 				}).catch(euc.off);
 			}
 		};
-		if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {
+		if (!ew.do.fileRead("dash","slot"+ew.do.fileRead("dash","slot")+"Mac")) {
 			euc.dash.info.get.mac=euc.mac; euc.dash.opt.bat.hi=420;
 			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
-			set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
+			ew.do.fileWrite("dash","slot"+ew.do.fileRead("dash","slot")+"Mac",euc.mac);
 		}
 		euc.state="READY";euc.wri("start");
 	//reconect
@@ -206,12 +206,12 @@ euc.off=function(err){
 		euc.is.reconnect=0;
 	}
 	if (euc.state!="OFF") {
-		if (set.def.cli) 
+		if (ew.def.cli) 
 			console.log("EUC: Restarting");
 		if ( err==="Connection Timeout"  )  {
-			if (set.def.cli) console.log("reason :timeout");
+			if (ew.def.cli) console.log("reason :timeout");
 			euc.state="LOST";
-			if ( set.def.dash.rtr < euc.is.run) {
+			if ( ew.def.dash.rtr < euc.is.run) {
 				euc.tgl();
 				return;
 			}
@@ -224,7 +224,7 @@ euc.off=function(err){
 			}, 5000);
 		}
 		else if ( err==="Disconnected"|| err==="Not connected")  {
-			if (set.def.cli) console.log("reason :",err);
+			if (ew.def.cli) console.log("reason :",err);
 			euc.state="FAR";
 			euc.is.reconnect=setTimeout(() => {
 				euc.is.reconnect=0;
@@ -232,7 +232,7 @@ euc.off=function(err){
 			}, 1500);
 		}
 		else {
-			if (set.def.cli) console.log("reason :",err);
+			if (ew.def.cli) console.log("reason :",err);
 			euc.state="RETRY";
 			euc.is.reconnect=setTimeout(() => {
 				euc.is.reconnect=0;
@@ -240,20 +240,20 @@ euc.off=function(err){
 			}, 1500);
 		}
 	} else {
-		if (set.def.cli) console.log("EUC OUT:",err);
+		if (ew.def.cli) console.log("EUC OUT:",err);
 		if (euc.horn) {clearInterval(euc.horn);euc.horn=0;}
 		if (euc.is.busy) {clearTimeout(euc.is.busy);euc.is.busy=0;}
-		euc.off=function(err){if (set.bt===2) console.log("EUC off, not connected",err);};
-		euc.wri=function(err){if (set.bt===2) console.log("EUC write, not connected",err);};
-		euc.conn=function(err){if (set.bt===2) console.log("EUC conn, not connected",err);};
-		euc.cmd=function(err){if (set.bt===2) console.log("EUC cmd, not connected",err);};
+		euc.off=function(err){if (ew.is.bt===2) console.log("EUC off, not connected",err);};
+		euc.wri=function(err){if (ew.is.bt===2) console.log("EUC write, not connected",err);};
+		euc.conn=function(err){if (ew.is.bt===2) console.log("EUC conn, not connected",err);};
+		euc.cmd=function(err){if (ew.is.bt===2) console.log("EUC cmd, not connected",err);};
 		euc.is.run=0;
 		euc.temp=0;
 		global["\xFF"].bleHdl=[];
-		NRF.setTxPower(set.def.rfTX);
+		NRF.setTxPower(ew.def.rfTX);
 		if (this.proxy) this.proxy.e();
 		if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
-			if (set.bt===2) console.log("ble still connected"); 
+			if (ew.is.bt===2) console.log("ble still connected"); 
 			global["\xFF"].BLE_GATTS.disconnect();return;
 		}
     }

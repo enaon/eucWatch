@@ -1,9 +1,9 @@
 //begode more
 face[0] = {
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:5000,
 	g:w.gfx,
 	init: function(){
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
+		if (euc.state!=="READY") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
 		if (!euc.dash.vol) euc.dash.vol=1;
 		this.g.setColor(0,0);
 		this.g.fillRect(0,98,239,99);
@@ -34,7 +34,7 @@ face[0] = {
 		this.run=true;
 	},
 	show : function(){
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
+		if (euc.state!=="READY") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
 		if (!this.run) return; 
 		if (!face[0].setE){
 			if (euc.dash.auto.offT!=this.offT) {
@@ -176,7 +176,7 @@ touchHandler[0]=function(e,x,y){
 			face[0].setE=0; 
 			face[0].init();
         } else 
-			face.go(set.dash[set.def.dash.face],0);
+			face.go(ew.is.dash[ew.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
 		if ( 200<=y && x<=50) { //toggles full/current brightness on a left down corner swipe up. 

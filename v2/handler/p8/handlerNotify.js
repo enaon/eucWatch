@@ -6,6 +6,7 @@ notify.im=(Boolean(require('Storage').read('im.log')))?require('Storage').readJS
 notify.info=(Boolean(require('Storage').read('info.log')))?require('Storage').readJSON('info.log'):[];
 notify.call=(Boolean(require('Storage').read('call.log')))?require('Storage').readJSON('call.log'):[];
 function handleInfoEvent(event,disc) {
+	
 	notify.nInfo++;
 	notify.New++;
 	let d=(Date()).toString().split(' ');
@@ -13,7 +14,7 @@ function handleInfoEvent(event,disc) {
 	notify.info.unshift("{\"src\":\""+event.src+"\",\"title\":\""+event.title+"\",\"body\":\""+event.body+"\",\"time\":\""+ti+"\"}");
 	if (notify.info.length>10) notify.info.pop();
 	buzzer([80,50,80]);
-	if (set.def.buzz&&!notify.ring&&!disc) {
+	if (ew.def.buzz&&!notify.ring&&!disc) {
 		if (face.appCurr!="main"||face.pageCurr!=0) {
 			face.go("main",0);
 			face.appPrev="main";face.pagePrev=-1;

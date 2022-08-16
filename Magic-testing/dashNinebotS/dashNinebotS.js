@@ -1,10 +1,10 @@
 //Ninebot S settings
 face[0] = {
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:5000,
 	g:w.gfx,
 	init: function(){
 		euc.busy=1;//stop bt loop-accept commands.
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
+		if (euc.state!=="READY") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
  		//if (!this.set&&(face.appPrev.startsWith("dash_")||face.appPrev==="settings")) this.g.clear();
 		this.g.setColor(0,0);
 		this.g.fillRect(0,98,239,99);
@@ -28,7 +28,7 @@ face[0] = {
 		this.run=true;
 	},
 	show : function(){
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
+		if (euc.state!=="READY") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
 		if (!this.run) return; 
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
@@ -86,7 +86,7 @@ face[1] = {
 	},
 	show : function(){
 		euc.busy=0;euc.wri(1);
-		face.go(set.dash[set.def.dash.face],0);
+		face.go(ew.is.dash[ew.def.dash.face],0);
 		return;
 	},
 	clear: function(){
@@ -143,7 +143,7 @@ touchHandler[0]=function(e,x,y){
         }
 		//face.go("main",0);
 		
-		face.go(set.dash[set.def.dash.face],0);
+		face.go(ew.is.dash[ew.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
 		if ( 200<=y && x<=50 ) { //toggles full/current brightness on a left down corner swipe up. 
@@ -167,7 +167,7 @@ touchHandler[0]=function(e,x,y){
               face[0].init();return;
         } else {
 		  euc.busy=0;euc.wri(1);
-          face.go(set.dash[set.def.dash.face],0);
+          face.go(ew.is.dash[ew.def.dash.face],0);
           return;
         }
         break;

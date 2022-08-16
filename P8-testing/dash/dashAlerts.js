@@ -1,9 +1,9 @@
 //dash  Alerts
 face[0] = {
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:10000,
 	g:w.gfx,
 	init: function(){
-		if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(set.dash[set.def.dash.face],0);return;}
+		if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
 		if (face.appPrev!="settings"&&face.appPrev!="dashOptions")  face.last=face.appPrev;
        //if (!face.appPrev.startsWith("dash")) this.g.clear();
 		this.g.setColor(0,0);
@@ -47,7 +47,7 @@ face[0] = {
 		this.run=true;
 	},
 	show : function(){
-		if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(set.dash[set.def.dash.face],0);return;}
+		if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
 		if (!this.run) return; 
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
@@ -104,7 +104,7 @@ face[1] = {
 		if (face.appPrev=="dashGarage") {
 			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 			face.go("dashGarage",0);
-		}else face.go(set.dash[set.def.dash.face],0);
+		}else face.go(ew.is.dash[ew.def.dash.face],0);
 		return;	 
 	},
 	clear: function(){
@@ -130,8 +130,8 @@ touchHandler[0]=function(e,x,y){
 						face[0].btn(1,"RESOLUTION:",18,120,110,2,0,0,100,239,195,euc.dash.alrt.spd.hapt.step,50,125,140);
 					}
 					return setTimeout(function() {
-						face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,12,0,0,0,239,97,(set.def.dash.mph)?(euc.dash.alrt.spd.hapt.hi*0.625).toFixed(1):euc.dash.alrt.spd.hapt.hi,50,125,40,1);
-						face[0].ntfy("ALERT IF OVER "+((set.def.dash.mph)?(euc.dash.alrt.spd.hapt.hi*0.625).toFixed(1):euc.dash.alrt.spd.hapt.hi) +((set.def.dash.mph)?" MPH":" Km/h"),"",18,12,1);
+						face[0].btn(1,"SPEED (in "+((ew.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,12,0,0,0,239,97,(ew.def.dash.mph)?(euc.dash.alrt.spd.hapt.hi*0.625).toFixed(1):euc.dash.alrt.spd.hapt.hi,50,125,40,1);
+						face[0].ntfy("ALERT IF OVER "+((ew.def.dash.mph)?(euc.dash.alrt.spd.hapt.hi*0.625).toFixed(1):euc.dash.alrt.spd.hapt.hi) +((ew.def.dash.mph)?" MPH":" Km/h"),"",18,12,1);
 					},0);
 				}else if  (y<=195) { //RESOLUTION
 					if (x<=120){ 
@@ -139,11 +139,11 @@ touchHandler[0]=function(e,x,y){
 					}else if (euc.dash.alrt.spd.hapt.step<5)
 						euc.dash.alrt.spd.hapt.step++;
 					if (!face[0].spdr) { face[0].spdr=1;face[0].spds=0;
-						face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,1,0,0,0,239,97,(set.def.dash.mph)?(euc.dash.alrt.spd.hapt.hi*0.625).toFixed(1):euc.dash.alrt.spd.hapt.hi,50,125,40);
+						face[0].btn(1,"SPEED (in "+((ew.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,1,0,0,0,239,97,(ew.def.dash.mph)?(euc.dash.alrt.spd.hapt.hi*0.625).toFixed(1):euc.dash.alrt.spd.hapt.hi,50,125,40);
 					}
 					return setTimeout(function() {
 						face[0].btn(1,"RESOLUTION:",18,120,110,12,0,0,100,239,195,euc.dash.alrt.spd.hapt.step,50,125,140,1);
-						face[0].ntfy("1 PULSE PER "+euc.dash.alrt.spd.hapt.step+((set.def.dash.mph)?" MPH":"KPH")+" > "+((set.def.dash.mph)?Math.round(euc.dash.alrt.spd.hapt.hi*0.625):euc.dash.alrt.spd.hapt.hi),"",18,12,1);
+						face[0].ntfy("1 PULSE PER "+euc.dash.alrt.spd.hapt.step+((ew.def.dash.mph)?" MPH":"KPH")+" > "+((ew.def.dash.mph)?Math.round(euc.dash.alrt.spd.hapt.hi*0.625):euc.dash.alrt.spd.hapt.hi),"",18,12,1);
 						},0);
 				}  else {
 					euc.dash.alrt.spd.hapt.en=1-euc.dash.alrt.spd.hapt.en;
@@ -212,8 +212,8 @@ touchHandler[0]=function(e,x,y){
 					if (120<=x&&euc.dash.alrt.tmp.hapt.hi<90) euc.dash.alrt.tmp.hapt.hi++;
 					else if (x<=120&&25<euc.dash.alrt.tmp.hapt.hi) euc.dash.alrt.tmp.hapt.hi--;
 					return setTimeout(function() {
-						face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,120,8,12,0,0,0,239,97,(set.def.dash.farn)?(euc.dash.alrt.tmp.hapt.hi*1.8+32).toFixed(1):euc.dash.alrt.tmp.hapt.hi,50,125,40,1);
-						face[0].ntfy("ALERT IF OVER "+((set.def.dash.farn)?Math.round(euc.dash.alrt.tmp.hapt.hi*1.8+32):euc.dash.alrt.tmp.hapt.hi)+((set.def.dash.farn)?" F":" C"),"",18,12,1);
+						face[0].btn(1,"SET HI-TEMP (in "+((ew.def.dash.farn)?"F)":"C)"),18,120,8,12,0,0,0,239,97,(ew.def.dash.farn)?(euc.dash.alrt.tmp.hapt.hi*1.8+32).toFixed(1):euc.dash.alrt.tmp.hapt.hi,50,125,40,1);
+						face[0].ntfy("ALERT IF OVER "+((ew.def.dash.farn)?Math.round(euc.dash.alrt.tmp.hapt.hi*1.8+32):euc.dash.alrt.tmp.hapt.hi)+((ew.def.dash.farn)?" F":" C"),"",18,12,1);
 					},0);
 				}else  if  (195<=y) {
 					buzzer([30,50,30]);
@@ -248,7 +248,7 @@ touchHandler[0]=function(e,x,y){
 				}else if (x<=120) {
 					buzzer([30,50,30]);
 					face[0].set="temp";
-					face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,120,8,12,0,0,0,239,97,(set.def.dash.farn)?(euc.dash.alrt.tmp.hapt.hi*1.8+32).toFixed(1):euc.dash.alrt.tmp.hapt.hi,50,125,40,1);
+					face[0].btn(1,"SET HI-TEMP (in "+((ew.def.dash.farn)?"F)":"C)"),18,120,8,12,0,0,0,239,97,(ew.def.dash.farn)?(euc.dash.alrt.tmp.hapt.hi*1.8+32).toFixed(1):euc.dash.alrt.tmp.hapt.hi,50,125,40,1);
 					face[0].btn(euc.dash.alrt.tmp.hapt.en,euc.dash.alrt.tmp.hapt.en?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
 					face[0].hapSw=function(){ 
 						face[0].btn(euc.dash.alrt.tmp.hapt.en,euc.dash.alrt.tmp.hapt.en?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
@@ -275,7 +275,7 @@ touchHandler[0]=function(e,x,y){
 			if (x<=120&&y<100) { //spd
 				face[0].set="spd";
 				buzzer([30,50,30]);
-				face[0].btn(1,"SPEED (in "+((set.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,1,0,0,0,239,97,(set.def.dash.mph)?(euc.dash.alrt.spd.hapt.hi*0.625).toFixed(1):euc.dash.alrt.spd.hapt.hi,50,125,40);
+				face[0].btn(1,"SPEED (in "+((ew.def.dash.mph)?"MPH)":"Km/h)"),18,120,8,1,0,0,0,239,97,(ew.def.dash.mph)?(euc.dash.alrt.spd.hapt.hi*0.625).toFixed(1):euc.dash.alrt.spd.hapt.hi,50,125,40);
 				face[0].btn(1,"RESOLUTION:",18,120,110,2,0,0,100,239,195,euc.dash.alrt.spd.hapt.step,50,125,140);
 				face[0].btn(euc.dash.alrt.spd.hapt.en,euc.dash.alrt.spd.hapt.en?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
 				face[0].hapSw=function(){ 
@@ -298,7 +298,7 @@ touchHandler[0]=function(e,x,y){
 				face[0].set="temp";
 				buzzer([30,50,30]);
 				//face[0].btn(1,"TEMP",25,60,136,12,0,0,100,119,195);
-				face[0].btn(1,"SET HI-TEMP (in "+((set.def.dash.farn)?"F)":"C)"),18,120,8,12,0,0,0,239,97,(set.def.dash.farn)?(euc.dash.alrt.tmp.hapt.hi*1.8+32).toFixed(1):euc.dash.alrt.tmp.hapt.hi,50,125,40,1);
+				face[0].btn(1,"SET HI-TEMP (in "+((ew.def.dash.farn)?"F)":"C)"),18,120,8,12,0,0,0,239,97,(ew.def.dash.farn)?(euc.dash.alrt.tmp.hapt.hi*1.8+32).toFixed(1):euc.dash.alrt.tmp.hapt.hi,50,125,40,1);
 				face[0].btn(euc.dash.alrt.tmp.hapt.en,euc.dash.alrt.tmp.hapt.en?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
 				face[0].hapSw=function(){ 
 					face[0].btn(euc.dash.alrt.tmp.hapt.en,euc.dash.alrt.tmp.hapt.en?"HAPTIC ENABLED":"HAPTIC DISABLED",18,120,215,4,1,0,198,239,239);
@@ -331,7 +331,7 @@ touchHandler[0]=function(e,x,y){
 			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 			face.go("dashGarage",0);
 			return;
-		}else face.go(set.dash[set.def.dash.face],0);
+		}else face.go(ew.is.dash[ew.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 

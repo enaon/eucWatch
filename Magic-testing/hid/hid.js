@@ -18,7 +18,7 @@ face[0] = {
     },
     init: function() {
         var g = w.gfx;
-        if (set.def.hid != 1) {
+        if (ew.def.hid != 1) {
             g.setColor(0, 0);
             //g.clearRect(1,0,239,239);
             g.setColor(1, 15);
@@ -109,22 +109,22 @@ face[1] = {
 };
 touchHandler[0] = function(e, x, y) {
     var g = w.gfx;
-    if (set.def.hid == 1) {
+    if (ew.def.hid == 1) {
         if (e == 5) {
             if (59 < x && x < 180 && 142 < y && y < 239) {
-                set.hidM.playpause();
+                ew.is.hidM.playpause();
                 buzzer([30, 50, 30]);
             } else if (0 < x && x < 58 && 192 < y && y < 239) {//prev
-                set.hidM.prev();
+                ew.is.hidM.prev();
                 buzzer([30, 50, 30]);
             } else if (181 < x && x < 239 && 192 < y && y < 239) { //next
-                set.hidM.next();
+                ew.is.hidM.next();
                 buzzer([30, 50, 30]);
             } else if (181 < x && x < 239 && 142 < y && y < 191) {//vol_up
-                set.hidM.volumeUp();
+                ew.is.hidM.volumeUp();
                 buzzer([30, 50, 30]);
             } else if (0 < x && x < 58 && 142 < y && y < 191) {//vol_down
-                set.hidM.volumeDown();
+                ew.is.hidM.volumeDown();
                 buzzer([30, 50, 30]);
             } else buzzer(buz.na);
         }

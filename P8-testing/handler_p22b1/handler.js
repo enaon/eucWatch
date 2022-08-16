@@ -16,14 +16,14 @@ function handleInfoEvent(event,disc) {
 	notify.info.unshift("{\"src\":\""+event.src+"\",\"title\":\""+event.title+"\",\"body\":\""+event.body+"\",\"time\":\""+ti+"\"}");
 	if (notify.info.length>10) notify.info.pop();
 	buzzer([80,50,80]);
-	if (set.def.buzz&&!notify.ring&&!disc) {
+	if (ew.def.buzz&&!notify.ring&&!disc) {
 		if (face.appCurr!="main"||face.pageCurr!=0) {
 			face.go("main",0);
 			face.appPrev="main";face.pagePrev=-1;
         }
 	}
 }
-//settings - run set.upd() after changing BT settings to take effect.
+//settings - run ew.do.update.bluetooth() after changing BT settings to take effect.
 var set={
 	bt:0, //Incomming BT service status indicator- Not user settable.0=not_connected|1=unknown|2=webide|3=gadgetbridge|4=eucemu|5=esp32
 	tor:0, //Enables/disables torch- Not user settable.
@@ -65,9 +65,9 @@ var set={
 			}else gIsB=0;
 		 }
 	},
-	updateSettings:function(){require('Storage').write('setting.json', set.def);},
+	updateSettings:function(){require('Storage').write('setting.json', ew.def);},
 	resetSettings:function() {
-		set.def = {
+		ew.def = {
 		dash:{
 			mph:0, 
 			amp:0, 
@@ -170,28 +170,28 @@ var set={
 	}
 };
 
-set.def = require('Storage').readJSON('setting.json', 1);
-if (!set.def) {set.resetSettings();set.updateSettings();}
-set.def.rstP="D10";
-set.def.rstR=0xE5;
-if (set.def.buzz) buzzer=digitalPulse.bind(null,D16,1);
+ew.def = require('Storage').readJSON('setting.json', 1);
+if (!ew.def) {set.resetSettings();set.updateSettings();}
+ew.def.rstP="D10";
+ew.def.rstR=0xE5;
+if (ew.def.buzz) buzzer=digitalPulse.bind(null,D16,1);
 else buzzer=function(){return true;};
-if (!set.def.off) set.def.off={};
+if (!ew.def.off) ew.def.off={};
 //dash
 require('Storage').list("dash_").forEach(dashfile=>{
-	set.dash.push(dashfile);
+	ew.is.dash.push(dashfile);
 });
 if (!Boolean(require("Storage").read("dash.json"))) { 
 	let dash={slot:1};
 	require('Storage').write('dash.json', dash);
 }
 //
-E.setTimeZone(set.def.timezone);
+E.setTimeZone(ew.def.timezone);
 //nrf
 //set.emuD=0;
 function ccon(l){ 
 	//"ram"
-	if (set.def.emuZ) {
+	if (ew.def.emuZ) {
 		//if (set.emuD) return;
 		emuZ.cmd(l);
 		return;
@@ -205,16 +205,16 @@ function ccon(l){
 			//require("Storage").write("devmode","loader");
 			return; 
 		}else {
-		if (set.def.cli) {
+		if (ew.def.cli) {
 			if (l.startsWith(cli)) {
-				set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
+				ew.is.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
 				//print("Welcome.\n** Working mode **\nUse devmode (Settings-Info-long press on Restart) for uploading files."); 
 				//handleInfoEvent({"src":"BT","title":"IDE","body":"Connected"});
 			}
 		}
-		if (set.def.gb) {
+		if (ew.def.gb) {
 			if (l.startsWith(gb)){
-				set.bt=3;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
+				ew.is.bt=3;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
 				handleInfoEvent({"src":"BT","title":"GB","body":"Connected"});
 			}
 		}
@@ -224,15 +224,15 @@ function ccon(l){
 }
 function bcon() {
 	E.setConsole(null,{force:true});
-	set.bt=1; 
-	if (set.def.cli||set.def.gb||set.def.emuZ) { Bluetooth.on('data',ccon);}
+	ew.is.bt=1; 
+	if (ew.def.cli||ew.def.gb||ew.def.emuZ) { Bluetooth.on('data',ccon);}
 	setTimeout(()=>{
-    if (set.bt==1){ 
-		if (!set.def.cli) 
+    if (ew.is.bt==1){ 
+		if (!ew.def.cli) 
 			NRF.disconnect(); 
 		else{ 
 			handleInfoEvent({"src":"DEBUG","title":"RELAY","body":"Relay Connected"});
-			set.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
+			ew.is.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
 		}
 	}
 	},5000);
@@ -240,24 +240,24 @@ function bcon() {
 function bdis() {
     Bluetooth.removeListener('data',ccon);
 	E.setConsole(null,{force:true});
-    if (!set.def.cli&&!set.def.gb&&!set.def.emuZ&&!set.def.hid){
+    if (!ew.def.cli&&!ew.def.gb&&!ew.def.emuZ&&!ew.def.hid){
 		NRF.sleep();
-		set.btsl=1;
+		ew.is.btsl=1;
     }	
-	if (set.bt==1) handleInfoEvent({"src":"BT","title":"BT","body":"Disconnected"});
-	else if (set.bt==2) handleInfoEvent({"src":"BT","title":"IDE","body":"Disconnected"});
-	else if (set.bt==3) handleInfoEvent({"src":"BT","title":"GB","body":"Disconnected"});
-	//else if (set.bt==4) handleInfoEvent({"src":"BT","title":"ATC","body":"Disconnected"});
-	else if (set.bt==4) handleInfoEvent({"src":"BT","title":"BRIDGE","body":"Disconnected"});
-	else if (set.bt==5) handleInfoEvent({"src":"BT","title":"ESP","body":"Disconnected"});
-  	set.bt=0; 
+	if (ew.is.bt==1) handleInfoEvent({"src":"BT","title":"BT","body":"Disconnected"});
+	else if (ew.is.bt==2) handleInfoEvent({"src":"BT","title":"IDE","body":"Disconnected"});
+	else if (ew.is.bt==3) handleInfoEvent({"src":"BT","title":"GB","body":"Disconnected"});
+	//else if (ew.is.bt==4) handleInfoEvent({"src":"BT","title":"ATC","body":"Disconnected"});
+	else if (ew.is.bt==4) handleInfoEvent({"src":"BT","title":"BRIDGE","body":"Disconnected"});
+	else if (ew.is.bt==5) handleInfoEvent({"src":"BT","title":"ESP","body":"Disconnected"});
+  	ew.is.bt=0; 
 	set.emuD=0;
 }
-NRF.setTxPower(set.def.rfTX);
+NRF.setTxPower(ew.def.rfTX);
 NRF.on('disconnect',bdis);  
 NRF.on('connect',bcon);
-NRF.setAdvertising({}, { name:set.def.name,connectable:true });
-set.upd();
+NRF.setAdvertising({}, { name:ew.def.name,connectable:true });
+ew.do.update.bluetooth();
 //face
 var face={
 	appCurr:"main",
@@ -280,17 +280,17 @@ var face={
 		}
 		this.offid=setTimeout((c)=>{
 			this.offid=0;
-			//if (set.def.acc&&acc.tid==-1) acc.on();
+			//if (ew.def.acc&&acc.tid==-1) acc.on();
 			if (c===0||c===2) {
 				if (this.appCurr==="main") {
 					if (face[c].off) {
-						digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100); 
+						digitalPulse(ew.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,ew.def.rstR,3);},100); 
 						face[c].off();this.pageCurr=-1;face.pagePrev=c;
 					}
 				}else face.go(this.appCurr,1);
 			}else if (face.appPrev=="off") {
 				if (face[c].off) {
-					digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100); 
+					digitalPulse(ew.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,ew.def.rstR,3);},100); 
 					face.go("main",-1);face.pagePrev=c;
 				}
 			}else if (c>1) face.go(this.appCurr,0);
@@ -307,8 +307,8 @@ var face={
 			face[this.pagePrev].clear();
 		}
 		if (this.pageCurr==-1 && this.pagePrev!=-1) {
-			//if (set.def.touchtype=="716")tfk.loop=100;
-			digitalPulse(set.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100); 
+			//if (ew.def.touchtype=="716")tfk.loop=100;
+			digitalPulse(ew.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,ew.def.rstR,3);},100); 
 			acc.go=0;
 			face[this.pagePrev].off();
 			if (this.offid) {clearTimeout(this.offid); this.offid=0;}
@@ -323,7 +323,7 @@ var face={
 		this.off();
 		face[page].init(arg);	
 		if(!w.gfx.isOn) {
-			digitalPulse(set.def.rstP,1,[5,50]);
+			digitalPulse(ew.def.rstP,1,[5,50]);
 			w.gfx.on();
 		}
 		face[page].show(arg);
@@ -342,13 +342,13 @@ setWatch(function(s){
 	var g=w.gfx;
 	if (s.state==1) {
 		digitalPulse(D16,1,200); 
-		set.ondc=1;
+		ew.is.ondc=1;
 	}else {
 		digitalPulse(D16,1,[100,80,100]);
-		set.ondc=0;
+		ew.is.ondc=0;
 	}
 	if (face.pageCurr<0|| face.batt){
-		g.setColor(0,(set.ondc)?4:1);
+		g.setColor(0,(ew.is.ondc)?4:1);
 		g.fillRect(0,0,240,240);
 		g.setColor(1,14);
 		let img = require("heatshrink").decompress(atob("wGAwJC/AA0D///4APLh4PB+AP/B/N/BoIAD/gPHBwv//wPO/4PH+F8gEHXwN8h4PIKgwP/B/4P/B/4PbgQPOg4POh+AB7sfB50/H5wPPv4PO/4PdgIPP94PNgfPB5sHB5+PB5sPB50fBgQPLjwPOn0OB5t8jwPNvAPO/APNgPwB53gB5sDB5/AB5sHwAPNh+Aj//4APLYAIPMj4POnwhBB5k8AgJSBB5V8LoQPL/BtDB5TRCKQIPJZwIEBSAIPJXwIEBMQQPJ4AEBKQIPJg4PCvAPKRgP+MQQPNYgYPKMQR/KLoMBMQIPLjxiCB5ccMQQPLnjeBB5reBB5zhDB5TeBB5reBB5s8B5s4bwIPMvDeBB5reBB5oDCB5d5B517bwIPNZwIPMu4PO/7OBB7oGCB5f+B738B7sBZwQPcGQQPMZwQPbgDOCB5gADB/4P/B/4PY/4AGB69/Bwv+B538B44Ar"));
@@ -382,7 +382,7 @@ function buttonHandler(s){
 		if (global.euc&&euc.state=="READY"&&euc.horn&&euc.dash.opt.horn.en) {euc.wri("hornOff");return;}
 		if (face.pageCurr==-1) {
 			buzzer([60,40,60]);
-			face.go((global.euc&&euc.state!="OFF")?set.dash[set.def.dash.face]:face.appCurr,0);
+			face.go((global.euc&&euc.state!="OFF")?ew.is.dash[ew.def.dash.face]:face.appCurr,0);
 		}else { 
 			if (face.appCurr=="main"&&face.pagePrev!=-1&&face.pagePrev!=2) {
 				face.go("main",-1);
@@ -396,14 +396,14 @@ function buttonHandler(s){
 	}else if (this.press&&global.euc&&euc.state==="READY"&&euc.horn&&euc.dash.opt.horn.en) {euc.wri("hornOff");return;
 	}else face.off();
 }
-btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
+ew.tid.btn1=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
 //touch controller
 //var i2c=I2C1;
 var i2c=new I2C();
 i2c.setup({scl:D7, sda:D6, bitrate:100000});
 
-set.def.touchtype="816";
-set.TP=setWatch(function(s){
+ew.def.touchtype="816";
+ew.tid.TP=setWatch(function(s){
 	i2c.writeTo(0x15,0);
 	var tp=i2c.readFrom(0x15,7);
 	//print("touch816 :",tp);
@@ -416,7 +416,7 @@ set.TP=setWatch(function(s){
 	}
 },D28,{repeat:true, edge:"rising"}); 
 //accelerometer(wake on wrist turn)
-set.def.acctype="SC7A20";
+ew.def.acctype="SC7A20";
 acc={
 	up:0,
 	//ori:[65,66],
@@ -458,13 +458,13 @@ acc={
 				let cor=acc.read();
 				if (-1100<=cor.ax && cor.ax<=0 &&  -700<=cor.ay &&cor.ay<=1000 && cor.az<=-500 ) {
 					if (!w.gfx.isOn&&this.up)
-						face.go(set.dash[set.def.dash.face],0);
+						face.go(ew.is.dash[ew.def.dash.face],0);
 					else if (w.gfx.isOn)  face.off(0);
 					this.up=0;
 					changeInterval(acc.tid,2000);
 				} else if (!this.up) {
 					this.up=1;
-					let tout=set.def.off[face.appCurr];
+					let tout=ew.def.off[face.appCurr];
 					if (w.gfx.isOn ) if ( !tout || ( tout &&  tout <= 60000)) 
 						face.off(1000);
 					changeInterval(acc.tid,100);
@@ -474,17 +474,17 @@ acc={
 		}else if (!this.tid) {
 			i2c.writeTo(0x18,0x32,20); //int1_ths-threshold = 250 milli g's
 			i2c.writeTo(0x18,0x33,1); //duration = 1 * 20ms
-			this.tid=setWatch(()=>{
+			ew.tid.acc=setWatch(()=>{
 				//"ram";
 				i2c.writeTo(0x18,0x1);
 				if ( 192 < i2c.readFrom(0x18,1)[0] ) {
 					if (!w.gfx.isOn){  
 						if (face.appCurr=="main") face.go("main",0);
 						else face.go(face.appCurr,0);
-					}else  if (set.tor==1)w.gfx.bri.set(face[0].cbri);
+					}else  if (ew.is.tor==1)w.gfx.bri.set(face[0].cbri);
 					else face.off(); 
 				} else {
-					let tout=set.def.off[face.appCurr];
+					let tout=ew.def.off[face.appCurr];
 					if ( !tout || ( tout &&  tout <= 60000)) 
 						face.off(500);
 				}
@@ -521,28 +521,28 @@ cron={
 				}
 				let pr=(!x)?23:x-1;
 				if (euc.log.trip[0]) {
-					let v=set.read("logDaySlot"+set.def.dash.slot,pr);
-					set.write("logDaySlot"+set.def.dash.slot,pr,((euc.log.trip[0])?euc.dash.trip.totl-euc.log.trip[0]:0)+((v)?v:0));
+					let v=ew.do.fileRead("logDaySlot"+ew.def.dash.slot,pr);
+					ew.do.fileWrite("logDaySlot"+ew.def.dash.slot,pr,((euc.log.trip[0])?euc.dash.trip.totl-euc.log.trip[0]:0)+((v)?v:0));
 				}
-				require('Storage').list("logDaySlot").forEach(logfile=>{set.write(logfile.split(".")[0],x);});
+				require('Storage').list("logDaySlot").forEach(logfile=>{ew.do.fileWrite(logfile.split(".")[0],x);});
 				euc.log.trip[0]=0;
 			},
 			day:x=>{
 				let pr=(!x)?6:x-1;
 				if (euc.log.trip[1]) {
-					let v=set.read("logWeekSlot"+set.def.dash.slot,pr);
-					set.write("logWeekSlot"+set.def.dash.slot,pr,((euc.log.trip[1])?euc.dash.trip.totl-euc.log.trip[1]:0)+((v)?v:0));
+					let v=ew.do.fileRead("logWeekSlot"+ew.def.dash.slot,pr);
+					ew.do.fileWrite("logWeekSlot"+ew.def.dash.slot,pr,((euc.log.trip[1])?euc.dash.trip.totl-euc.log.trip[1]:0)+((v)?v:0));
 				}
-				require('Storage').list("logWeekSlot").forEach(logfile=>{set.write(logfile.split(".")[0],x);});
+				require('Storage').list("logWeekSlot").forEach(logfile=>{ew.do.fileWrite(logfile.split(".")[0],x);});
 				euc.log.trip[1]=0;
 			},
 			month:x=>{
 				let pr=(!x)?11:x-1;
 				if (euc.log.trip[2]) {
-					let v=set.read("logYearSlot"+set.def.dash.slot,pr);
-					set.write("logYearSlot"+set.def.dash.slot,pr,((euc.log.trip[2])?euc.dash.trip.totl-euc.log.trip[2]:0)+((v)?v:0));
+					let v=ew.do.fileRead("logYearSlot"+ew.def.dash.slot,pr);
+					ew.do.fileWrite("logYearSlot"+ew.def.dash.slot,pr,((euc.log.trip[2])?euc.dash.trip.totl-euc.log.trip[2]:0)+((v)?v:0));
 				}
-				require('Storage').list("logYearSlot").forEach(logfile=>{set.write(logfile.split(".")[0],x);});
+				require('Storage').list("logYearSlot").forEach(logfile=>{ew.do.fileWrite(logfile.split(".")[0],x);});
 				euc.log.trip[2]=0;
 			}
 		}

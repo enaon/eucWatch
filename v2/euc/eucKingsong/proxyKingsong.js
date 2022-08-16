@@ -8,7 +8,7 @@ if (global.euc&&!euc.proxy){
 		},
 		/*w:(o)=>{
 		"ram";
-			if (set.bt!=5) {if (1<set.dbg) print("relay-out:",o);return;}
+			if (ew.is.bt!=5) {if (1<set.dbg) print("relay-out:",o);return;}
 			NRF.updateServices({0xffe0:{0xffe1:{value:o,notify:true}},});
 		},
 		*/
@@ -51,7 +51,7 @@ if (global.euc&&!euc.proxy){
 					}
 				}
 			}, {advertise: ['0xfff0','0xffa0'],uart:false });
-			NRF.setAdvertising({}, { name:"KS-"+euc.dash.info.get.name+"-"+set.def.name,connectable:true });
+			NRF.setAdvertising({}, { name:"KS-"+euc.dash.info.get.name+"-"+ew.def.name,connectable:true });
 			//NRF.setAddress(euc.mac);
 			NRF.setAddress(NRF.getAddress().substr(0,15)+"aa public");
 			NRF.disconnect();
@@ -59,7 +59,7 @@ if (global.euc&&!euc.proxy){
 		}, 
 		e:(o)=>{
 			euc.proxy=0;
-			set.upd();
+			ew.do.update.bluetooth();
 			NRF.disconnect();
 			NRF.restart();
 			return;

@@ -27,8 +27,8 @@ tcNext.replaceWith((x,y)=>{
 //Dash Scan
 face[0] = { 
   btn:{},
-  offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
-  bpp:set.def.bpp?0:1,
+  offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:5000,
+  bpp:ew.def.bpp?0:1,
   icon:"",
   g:w.gfx, 
   init: function(o){ 
@@ -125,8 +125,8 @@ face[0] = {
 			UI.btn.ntfy(1,3,0,"_bar",6,"MODULE","MISSING",15,13);w.gfx.flip();
 			return; 
 	}
-	set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker",target[0]);
-	set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Model",target[1]);
+	ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker",target[0]);
+	ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Model",target[1]);
 	euc.dash.info.get.name=0;
 	euc.dash.info.get.makr=target[0];
 	face.go('w_scan',0,target[2]);

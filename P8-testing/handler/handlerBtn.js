@@ -16,7 +16,7 @@ function buttonHandler(s){
 		if (global.euc&&euc.state=="READY"&&euc.horn&&euc.dash.opt.horn.en) {euc.wri("hornOff");return;}
 		if (face.pageCurr==-1) {
 			buzzer([60,40,60]);
-			face.go((global.euc&&euc.state!="OFF")?set.dash[set.def.dash.face]:face.appCurr,0);
+			face.go((global.euc&&euc.state!="OFF")?ew.is.dash[ew.def.dash.face]:face.appCurr,0);
 		}else { 
 			if (face.appCurr=="main"&&face.pagePrev!=-1&&face.pagePrev!=2) {
 				face.go("main",-1);
@@ -30,4 +30,4 @@ function buttonHandler(s){
 	}else if (this.press&&global.euc&&euc.state==="READY"&&euc.horn&&euc.dash.opt.horn.en) {euc.wri("hornOff");return;
 	}else face.off();
 }
-btn=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});
+ew.tid.btn1=setWatch(buttonHandler,BTN1, {repeat:true, debounce:10,edge:0});

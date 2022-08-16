@@ -3,7 +3,7 @@ if(!global.scan){
 	scan={
 		mac:[],
 		go:function(app,service){
-			set.gIsB=1;
+			ew.is.gIsB=1;
 			if (app=="repellent") this.filter = [{serviceData:{"fe95":{}}}];
 			else {
 				app="dash";
@@ -34,13 +34,13 @@ if(!global.scan){
 					if (app=="dash"){
 						euc.dash.info.get.mac=0;
 					}else{
-						set.write("setting",app+"Mac",scan.found[0].split("|")[0]);
-						set.write("setting",app+"Name",scan.found[0].split("|")[1].replace(/\0/g, ''));
-						set.write("setting",app+"Go","0");
+						ew.do.fileWrite("setting",app+"Mac",scan.found[0].split("|")[0]);
+						ew.do.fileWrite("setting",app+"Name",scan.found[0].split("|")[1].replace(/\0/g, ''));
+						ew.do.fileWrite("setting",app+"Go","0");
 					}
 					scan.mac=scan.found;
 				} else scan.mac=[];
-				set.gIsB=0;
+				ew.is.gIsB=0;
 				face[0].start=1;
 				if (face.appCurr!="w_scan") {delete scan.go;delete scan;}
 			},2500);
@@ -48,19 +48,19 @@ if(!global.scan){
 	};
 }
 face[0] = {
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:10000,
   g:w.gfx,
   go:0,
   find:function(service){
   	if(!this.start) return;
     this.start=0;
-    if(set.gIsB) {
-		//set.gDis();
+    if(ew.is.gIsB) {
+		//ew.do.setGattState();
 		this.cnt=1;
         if (this.loop>=0) clearInterval(this.loop);
 		this.loop = setInterval(function() {
 			this.cnt++;
-			if (!set.gIsB) scan.go(face.appPrev,service);
+			if (!ew.is.gIsB) scan.go(face.appPrev,service);
 			else if (this.cnt>4) {print("scan timeout"); clearInterval(this.loop);this.loop=-1;return;}
 		},1000);
 	}else scan.go(face.appPrev,service);
@@ -141,7 +141,7 @@ face[0] = {
     this.run=false;
     if (this.tid>=0) clearTimeout(this.tid);
     if (this.loop>=0) clearInterval(this.loop);
-	if (!set.gIsB&&face.appCurr!="w_scan") delete global.scan;
+	if (!ew.is.gIsB&&face.appCurr!="w_scan") delete global.scan;
     this.tid=-1;
     return true;
   },
@@ -178,14 +178,14 @@ touchHandler[0]=function(e,x,y){
 		if (this.mac!=undefined) {
 			buzzer([30,50,30]);
 			if (face.appRoot[0]!="repellent"){
-				if (this.name) set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",this.name?E.toString(this.name).replace(/\0/g, ''):"NA");
-                //set.write("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Mac",this.mac);
+				if (this.name) ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",this.name?E.toString(this.name).replace(/\0/g, ''):"NA");
+                //ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Mac",this.mac);
 				euc.mac=this.mac;
 				euc.tgl();
 				return;
 			}else	{
 
-                set.write("setting",face.appRoot[0]+"Go",face[0].line+"");
+                ew.do.fileWrite("setting",face.appRoot[0]+"Go",face[0].line+"");
 			}
 			face.go(face.appRoot[0],face.appRoot[1]);return;
 		}else buzzer(40);

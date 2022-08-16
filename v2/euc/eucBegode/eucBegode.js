@@ -80,7 +80,7 @@ euc.temp.hapt=function(){
 	if (euc.dash.alrt.pwm.hapt.en && (euc.dash.alrt.warn.code || euc.dash.alrt.pwm.hapt.hi<=euc.dash.live.pwm)){
 		digitalPulse(ew.pin.BUZZ,1,80);
 	}else 	if (!euc.is.buzz && euc.is.alert) {  
-		if (!w.gfx.isOn&&(euc.dash.alrt.spd.cc||euc.dash.alrt.amp.cc||euc.dash.alrt.warn.code)) face.go(set.dash[set.def.dash.face],0);
+		if (!w.gfx.isOn&&(euc.dash.alrt.spd.cc||euc.dash.alrt.amp.cc||euc.dash.alrt.warn.code)) face.go(ew.is.dash[ew.def.dash.face],0);
 		//else face.off(6000);
 		euc.is.buzz=1;
 		if (20 <= euc.is.alert) euc.is.alert = 20;
@@ -100,7 +100,7 @@ euc.temp.hapt=function(){
 };
 euc.temp.line="";
 euc.temp.extd= function(event) {	
-	//if (set.bt==5) 	euc.proxy.w(event.target.value.buffer);
+	//if (ew.is.bt==5) 	euc.proxy.w(event.target.value.buffer);
 	if (euc.dbg)  console.log("input on ext",event.target.value.buffer);
 	let fragment = E.toString(event.target.value.buffer);
 	let lineEnd = fragment.indexOf('\n');
@@ -137,7 +137,7 @@ euc.temp.extd= function(event) {
 	}
 };
 euc.temp.main=function(event){
-	if (set.bt==5) 	euc.proxy.w(event.target.value.buffer);
+	if (ew.is.bt==5) 	euc.proxy.w(event.target.value.buffer);
 	if (euc.dbg)  console.log("input",event.target.value.buffer);
 	//gather packet
 	let part=JSON.parse(JSON.stringify(event.target.value.buffer));
@@ -155,8 +155,8 @@ euc.temp.main=function(event){
 		if (event.target.value.getUint32(0) == 0x4E414D45) { //fetchModel
 			console.log("model fetch responce:",event.target.value.buffer);
 			euc.dash.info.get.modl =  E.toString(event.target.value.buffer).slice(5).trim();
-			if (!set.read("dash","slot"+set.read("dash","slot")+"Model")) 
-				set.write("dash","slot"+set.read("dash","slot")+"Model",euc.dash.info.get.modl);
+			if (!ew.do.fileRead("dash","slot"+ew.do.fileRead("dash","slot")+"Model")) 
+				ew.do.fileWrite("dash","slot"+ew.do.fileRead("dash","slot")+"Model",euc.dash.info.get.modl);
 			euc.dash.opt.bat.pack=euc.temp.modelParams(euc.dash.info.get.modl).voltMultiplier;
 			euc.dash.opt.bat.low=euc.temp.modelParams(euc.dash.info.get.modl).minCellVolt*100;
 		} else if (event.target.value.getInt16(0) == 0x4757) { //fetchFirmware
@@ -355,9 +355,9 @@ euc.conn=function(mac){
 			}
 		};
 		//init garage slot
-		if (!set.read("dash","slot"+set.read("dash","slot")+"Mac")) {
+		if (!ew.do.fileRead("dash","slot"+ew.do.fileRead("dash","slot")+"Mac")) {
 			euc.dash.info.get.mac=euc.mac;
-			set.write("dash","slot"+set.read("dash","slot")+"Mac",euc.mac);
+			ew.do.fileWrite("dash","slot"+ew.do.fileRead("dash","slot")+"Mac",euc.mac);
 		}	
 		//start wheel init
 		buzzer([90,40,150]);
@@ -373,7 +373,7 @@ euc.off=function(err){
 		if ( err==="Connection Timeout"  )  {
 			if (euc.dbg) console.log("reason :timeout");
 			euc.state="LOST";
-			if ( set.def.dash.rtr < euc.is.run) {
+			if ( ew.def.dash.rtr < euc.is.run) {
 				euc.tgl();
 				return;
 			}
@@ -411,7 +411,7 @@ euc.off=function(err){
 		euc.is.run=0;
 		euc.temp=0;
 		global["\xFF"].bleHdl=[];
-		NRF.setTxPower(set.def.rfTX);
+		NRF.setTxPower(ew.def.rfTX);
 		if (this.proxy) this.proxy.e();
 		if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
 			if (euc.dbg) console.log("ble still connected"); 

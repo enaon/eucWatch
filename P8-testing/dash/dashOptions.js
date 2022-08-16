@@ -1,11 +1,11 @@
 //dash  Options
 //dash options  
 face[0] = {
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:15000,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:15000,
 	g:w.gfx,
 	init: function(){
 		if (this.ntid) {clearTimeout(this.ntid); this.ntid=0;}
-		if (!set.def.dash.rtr) set.def.dash.rtr=5;
+		if (!ew.def.dash.rtr) ew.def.dash.rtr=5;
 		this.page=0;
 		this.g.setColor(0,0);
 		this.g.fillRect(0,160,239,239);
@@ -21,21 +21,21 @@ face[0] = {
         this.g.setColor(1,2);
       	this.g.fillRect(120,180,165,184);
 		this.g.flip(); 
-		this.btn(1,(set.def.dash.mph)?"MPH":"KPH",30,40,25,4,0,0,0,75,75);//1
-		this.btn(1,"o",20,100,20,4,0,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);//2
-		//let makr=set.read("dash","slot"+set.read("dash","slot")+"Maker"); 
+		this.btn(1,(ew.def.dash.mph)?"MPH":"KPH",30,40,25,4,0,0,0,75,75);//1
+		this.btn(1,"o",20,100,20,4,0,80,0,155,75,(ew.def.dash.farn)?"F":"C",30,120,25);//2
+		//let makr=ew.do.fileRead("dash","slot"+ew.do.fileRead("dash","slot")+"Maker"); 
 		//if (makr) {
 			//if (makr=="Begode"){
 		//this.btn(1,"EMPTY",15,200,10,1,0,160,0,239,75,euc.dash.opt.bat.low/100,30,200,35); //3
 		this.btn(1,"",15,200,10,1,0,160,0,239,75); //3
 		this.btn(1,"SPEED X",15,40,90,1,0,0,80,75,155,euc.dash.opt.unit.fact.spd,30,40,120); //4
 		this.btn(1,"DIST X",15,120,90,1,0,80,80,155,155,euc.dash.opt.unit.fact.dist,30,120,120); //5
-		this.btn(1,"RETRY",15,200,90,1,0,160,80,239,155,set.def.dash.rtr,30,200,120); //6
+		this.btn(1,"RETRY",15,200,90,1,0,160,80,239,155,ew.def.dash.rtr,30,200,120); //6
         //this.run=true;
 	},
 	show : function(){
 		if (!this.run) return; 
-		if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(set.dash[set.def.dash.face],0);return;}
+		if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();
@@ -68,7 +68,7 @@ face[0] = {
 				if (!t.page){
 					t.btn(1,"SPEED X",15,40,90,1,0,0,80,75,155,euc.dash.opt.unit.fact.spd,30,40,120); //4
 					t.btn(1,"DIST X",15,120,90,1,0,80,80,155,155,euc.dash.opt.unit.fact.dist,30,120,120); //5
-					t.btn(1,"RETRY",15,200,90,1,0,160,80,239,155,set.def.dash.rtr,30,200,120); //6
+					t.btn(1,"RETRY",15,200,90,1,0,160,80,239,155,ew.def.dash.rtr,30,200,120); //6
 				}else {
 					face[0].btn(1,"FULL",15,40,10,1,0,0,0,75,75,euc.dash.opt.bat.hi/100,30,40,35); //1
 					face[0].btn(1,"EMPTY",15,40,90,1,0,0,80,75,155,euc.dash.opt.bat.low/100,30,40,120); //4
@@ -130,7 +130,7 @@ touchHandler[0]=function(e,x,y){
 					//face[0].btn(1,"EMPTY",15,200,10,1,0,160,0,239,75,euc.dash.opt.bat.low/100,30,200,35); //3
 					face[0].btn(1,"SPEED X",15,40,90,1,0,0,80,75,155,euc.dash.opt.unit.fact.spd,30,40,120); //4
 					face[0].btn(1,"DIST X",15,120,90,1,0,80,80,155,155,euc.dash.opt.unit.fact.dist,30,120,120); //5
-					face[0].btn(1,"RETRY",15,200,90,1,0,160,80,239,155,set.def.dash.rtr,30,200,120); //6
+					face[0].btn(1,"RETRY",15,200,90,1,0,160,80,239,155,ew.def.dash.rtr,30,200,120); //6
 				}else {
 					face[0].btn(1,"FULL",15,40,10,1,0,0,0,75,75,euc.dash.opt.bat.hi/100,30,40,35); //1
 					face[0].btn(1,"EMPTY",15,40,90,1,0,0,80,75,155,euc.dash.opt.bat.low/100,30,40,120); //4
@@ -161,12 +161,12 @@ touchHandler[0]=function(e,x,y){
 					face[0].ntfy("DISTANCE FACTOR",euc.dash.opt.unit.fact.dist,40,1,12,5000,1);
 				}else if (face[0].set=="rtr") { //temp
 				  if (x<120){ //
-						set.def.dash.rtr--; if ( set.def.dash.rtr <= 1 ) set.def.dash.rtr = 1;
+						ew.def.dash.rtr--; if ( ew.def.dash.rtr <= 1 ) ew.def.dash.rtr = 1;
 					}else{ //back
-						set.def.dash.rtr++; if (20 <= set.def.dash.rtr) set.def.dash.rtr = 20;
+						ew.def.dash.rtr++; if (20 <= ew.def.dash.rtr) ew.def.dash.rtr = 20;
 					}
-					face[0].btn(1,"RETRY",15,200,90,12,0,160,80,239,155,set.def.dash.rtr,30,200,120); //6
-					face[0].ntfy("NUMBER OF RETRIES",set.def.dash.rtr,40,1,12,5000,1);
+					face[0].btn(1,"RETRY",15,200,90,12,0,160,80,239,155,ew.def.dash.rtr,30,200,120); //6
+					face[0].ntfy("NUMBER OF RETRIES",ew.def.dash.rtr,40,1,12,5000,1);
 				}else if (face[0].set=="batF") { //bat
 					if (x<120){ //
 						euc.dash.opt.bat.hi--; if ( euc.dash.opt.bat.hi <= 400 ) euc.dash.opt.bat.hi = 400;
@@ -194,15 +194,15 @@ touchHandler[0]=function(e,x,y){
 			if (x<75 && y<75) { //1
 				//face[0].set="mph";
 				buzzer([30,50,30]);
-				set.def.dash.mph=1-set.def.dash.mph;
-				face[0].btn(1,(set.def.dash.mph)?"MPH":"KPH",30,40,25,4,0,0,0,75,75);
-				face[0].ntfy("SPEED & DISTANCE IN",(set.def.dash.mph)?"MILES":"KILOMETERS",30,1,4,1500);
+				ew.def.dash.mph=1-ew.def.dash.mph;
+				face[0].btn(1,(ew.def.dash.mph)?"MPH":"KPH",30,40,25,4,0,0,0,75,75);
+				face[0].ntfy("SPEED & DISTANCE IN",(ew.def.dash.mph)?"MILES":"KILOMETERS",30,1,4,1500);
 			}else if (75<= x && x < 155 && y < 75) { //2
 				//face[0].set="far";
 				buzzer([30,50,30]);
-				set.def.dash.farn=1-set.def.dash.farn;
-				face[0].btn(1,"o",20,100,20,4,0,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);
-				face[0].ntfy("TEMPERATURE IN",(set.def.dash.farn)?"FAHRENHEIT":"CELSIUS",30,1,4,1500);
+				ew.def.dash.farn=1-ew.def.dash.farn;
+				face[0].btn(1,"o",20,100,20,4,0,80,0,155,75,(ew.def.dash.farn)?"F":"C",30,120,25);
+				face[0].ntfy("TEMPERATURE IN",(ew.def.dash.farn)?"FAHRENHEIT":"CELSIUS",30,1,4,1500);
 			}else if (155 <= x && y < 75) { //3
 				buzzer(40);
 			}else if (x<75 && 75 <y && y < 155) { //4
@@ -218,8 +218,8 @@ touchHandler[0]=function(e,x,y){
 			}else if (155 <= x && 75 <y && y < 155) { //6
 				buzzer([30,50,30]);
 				face[0].set="rtr";
-				face[0].btn(1,"RETRY",15,200,90,12,0,160,80,239,155,set.def.dash.rtr,30,200,120); //6
-				face[0].ntfy("NUMBER OF RETRIES",set.def.dash.rtr,40,1,12,3000,1);
+				face[0].btn(1,"RETRY",15,200,90,12,0,160,80,239,155,ew.def.dash.rtr,30,200,120); //6
+				face[0].ntfy("NUMBER OF RETRIES",ew.def.dash.rtr,40,1,12,3000,1);
 			}else buzzer(40);		
 		}else {
 			if (x<75 && y<75) { //1
@@ -309,13 +309,13 @@ touchHandler[0]=function(e,x,y){
 		if (face[0].page) {
 			//yhis.timeout();
 			face[0].page=0;
-			face[0].btn(1,(set.def.dash.mph)?"MPH":"KPH",30,40,25,4,0,0,0,75,75);//1
-			face[0].btn(1,"o",20,100,20,4,0,80,0,155,75,(set.def.dash.farn)?"F":"C",30,120,25);//2
+			face[0].btn(1,(ew.def.dash.mph)?"MPH":"KPH",30,40,25,4,0,0,0,75,75);//1
+			face[0].btn(1,"o",20,100,20,4,0,80,0,155,75,(ew.def.dash.farn)?"F":"C",30,120,25);//2
 			face[0].btn(1,"",15,200,10,1,0,160,0,239,75); //3
 			//face[0].btn(1,"EMPTY",15,200,10,1,0,160,0,239,75,euc.dash.opt.bat.low/100,30,200,35); //3
 			face[0].btn(1,"SPEED X",15,40,90,1,0,0,80,75,155,euc.dash.opt.unit.fact.spd,30,40,120); //4
 			face[0].btn(1,"DIST X",15,120,90,1,0,80,80,155,155,euc.dash.opt.unit.fact.dist,30,120,120); //5
-			face[0].btn(1,"RETRY",15,200,90,1,0,160,80,239,155,set.def.dash.rtr,30,200,120); //6
+			face[0].btn(1,"RETRY",15,200,90,1,0,160,80,239,155,ew.def.dash.rtr,30,200,120); //6
 			if (face[0].ntid) {
 				clearTimeout(face[0].ntid);face[0].ntid=0;
 				w.gfx.setColor(0,0);

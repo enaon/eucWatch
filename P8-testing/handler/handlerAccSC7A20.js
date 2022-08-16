@@ -41,13 +41,13 @@ acc={
 				let cor=acc.read();
 				if (-1100<=cor.ax && cor.ax<=0 &&  -700<=cor.ay &&cor.ay<=1000 && cor.az<=-500 ) {
 					if (!w.gfx.isOn&&this.up)
-						face.go(set.dash[set.def.dash.face],0);
+						face.go(ew.is.dash[ew.def.dash.face],0);
 					else if (w.gfx.isOn)  face.off(0);
 					this.up=0;
 					changeInterval(acc.tid,2000);
 				} else if (!this.up) {
 					this.up=1;
-					let tout=set.def.off[face.appCurr];
+					let tout=ew.def.off[face.appCurr];
 					if (w.gfx.isOn ) if ( !tout || ( tout &&  tout <= 60000)) 
 						face.off(1000);
 					changeInterval(acc.tid,100);
@@ -57,16 +57,16 @@ acc={
 		}else if (!this.tid) {
 			i2c.writeTo(0x18,0x32,20); //int1_ths-threshold = 250 milli g's
 			i2c.writeTo(0x18,0x33,1); //duration = 1 * 20ms
-			this.tid=setWatch(()=>{
+			ew.tid.acc=setWatch(()=>{
 				i2c.writeTo(0x18,0x1);
 				if ( 192 < i2c.readFrom(0x18,1)[0] ) {
 					if (!w.gfx.isOn){  
 						if (face.appCurr=="main") face.go("main",0);
 						else face.go(face.appCurr,0);
-					}else  if (set.tor==1)w.gfx.bri.set(face[0].cbri);
+					}else  if (ew.is.tor==1)w.gfx.bri.set(face[0].cbri);
 					else face.off(); 
 				} else {
-					let tout=set.def.off[face.appCurr];
+					let tout=ew.def.off[face.appCurr];
 					if ( !tout || ( tout &&  tout <= 60000)) 
 						face.off(500);
 				}

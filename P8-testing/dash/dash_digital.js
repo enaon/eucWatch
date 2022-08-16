@@ -1,6 +1,6 @@
 //dash digital
 face[0] = {
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:10000,
 	g:w.gfx,
 	spd:[],
 	init: function(){
@@ -28,8 +28,8 @@ face[0] = {
 		this.lock=2;
 		this.trpL=-1;
 		this.bar=0;
-		this.fact=euc.dash.opt.unit.fact.spd*((set.def.dash.mph)?0.625:1);		
-		this.trpF=euc.dash.opt.unit.fact.dist*((set.def.dash.mph)?0.625:1);
+		this.fact=euc.dash.opt.unit.fact.spd*((ew.def.dash.mph)?0.625:1);		
+		this.trpF=euc.dash.opt.unit.fact.dist*((ew.def.dash.mph)?0.625:1);
 		this.run=true;
 	},
 	show : function(o){
@@ -46,7 +46,7 @@ face[0] = {
 				if (this.pwm!=euc.dash.live.pwm) {this.pwm=euc.dash.live.pwm; this.pwmF();}
 			} else if (!this.bar) { this.bar=1; this.barF();}
 			//tmp/amp block
-			if (!set.def.dash.amp) {
+			if (!ew.def.dash.amp) {
 				if (this.amp!=Math.round(euc.dash.live.amp)) this.ampF();
 			}else 
 				if (this.tmp!=Math.round(euc.dash.live.tmp))	this.tmpF();
@@ -59,14 +59,14 @@ face[0] = {
 				if (this.aTlt!=euc.dash.alrt.spd.max) this.limF();
 			}else if (this.alrm!=euc.dash.alrt.pwr) this.alrF();	
 			//tmp/amp field
-			if (set.def.dash.amp){
+			if (ew.def.dash.amp){
 				//if (this.ampL!=euc.log.ampL) 
 				this.amLF();				
 			}else if (this.tmp!=euc.dash.live.tmp.toFixed(1)) this.tmFF();
 			//batery field
-			if (!set.def.dash.bat){
+			if (!ew.def.dash.bat){
 				if (this.volt!=euc.dash.live.volt.toFixed(2)) this.vltF();
-			}else if (set.def.dash.bat==1) {
+			}else if (ew.def.dash.bat==1) {
 				if (euc.dash.live.bat!=this.bat) this.batF();
 			}else this.baLF();//if (this.batL!=euc.log.batL) this.baLF();			
 			//Mileage
@@ -160,7 +160,7 @@ face[0] = {
 		this.g.setColor(1,15);
 		this.g.setFontVector(10);
 		this.g.drawString("TEMP", 7,59);
-		let temp=(set.def.dash.farn)?Math.round(this.tmp*1.8+32):Math.round(this.tmp);
+		let temp=(ew.def.dash.farn)?Math.round(this.tmp*1.8+32):Math.round(this.tmp);
 		this.g.setFontVector((100<temp)?20:29);
 		this.g.drawString(Math.round(this.tmp), 22-(this.g.stringWidth(Math.round(this.tmp))/2),80); 
 		this.g.flip();
@@ -224,19 +224,19 @@ face[0] = {
 		this.g.setColor(1,15);
 		if (euc.dash.info.get.makr=="Kingsong"){
 			this.g.setFontVector(35);
-			let temp= Math.round(((set.def.dash.farn)?euc.dash.live.tmp* 1.8+32:this.tmp));
-			let tempM=Math.round(((set.def.dash.farn)?euc.dash.live.tmpM*1.8+32:euc.dash.live.tmpM));
+			let temp= Math.round(((ew.def.dash.farn)?euc.dash.live.tmp* 1.8+32:this.tmp));
+			let tempM=Math.round(((ew.def.dash.farn)?euc.dash.live.tmpM*1.8+32:euc.dash.live.tmpM));
 			let size=3+this.g.stringWidth(temp);
 			this.g.drawString(temp, 5,3); 
 			this.g.setFontVector(16);
-			this.g.drawString((set.def.dash.farn)?"°F":"°C",3+size,5); 
+			this.g.drawString((ew.def.dash.farn)?"°F":"°C",3+size,5); 
 			this.g.setFontVector(27);
 			this.g.drawString(tempM,120-this.g.stringWidth(tempM),7); 
 			this.g.setFontVector(8);
 			this.g.drawString("MOSFET            MOTOR", 7,40); 
 		}else{
 			this.g.setFontVector(50);
-			let temp=((set.def.dash.farn)?this.tmp*1.8+32:this.tmp).toString().split(".");
+			let temp=((ew.def.dash.farn)?this.tmp*1.8+32:this.tmp).toString().split(".");
 			let size=5+this.g.stringWidth(temp[0]);
 			this.g.drawString(temp[0], 5,3); 
 			if (temp[0]<100) {
@@ -245,7 +245,7 @@ face[0] = {
 				size=size+this.g.stringWidth(temp[1]);
 			}
 			this.g.setFontVector(16);
-			this.g.drawString((set.def.dash.farn)?"°F":"°C",3+size,5); 
+			this.g.drawString((ew.def.dash.farn)?"°F":"°C",3+size,5); 
 		}
 		this.g.flip();
 	},
@@ -314,7 +314,7 @@ face[0] = {
 		this.g.setColor(1,14);
 		this.g.setFontVector(35);
 		this.g.drawString((this.trpL*this.trpF).toFixed(2),0,208); 
-		if (!set.def.dash.clck) {//clock
+		if (!ew.def.dash.clck) {//clock
 			let d=(Date()).toString().split(' ');
 			let t=(d[4]).toString().split(':');
 			this.time=(t[0]+":"+t[1]);
@@ -335,8 +335,8 @@ face[0] = {
 		//	this.g.drawString("LEFT",197,180); 
 		//} else {
 			this.g.drawString("TRIP",2,183); 
-			this.g.drawString((set.def.dash.mph)?"MPH":"KPH",107,183);
-			this.g.drawString((!set.def.dash.clck)?"CLOCK":"TOTAL",190,183); 
+			this.g.drawString((ew.def.dash.mph)?"MPH":"KPH",107,183);
+			this.g.drawString((!ew.def.dash.clck)?"CLOCK":"TOTAL",190,183); 
 		//}
 		this.g.flip();
 	},
@@ -364,7 +364,7 @@ face[1] = {
 		if (euc.state=="OFF") 
 			face.go("main",0); 
 		else {
-			face.go(set.dash[set.def.dash.face],-1);
+			face.go(ew.is.dash[ew.def.dash.face],-1);
 		}
 		return true;
 	},
@@ -378,19 +378,19 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event	
 		if (120<x&&y<55){//batery percentage/voltage
-			if (set.def.dash.bat==undefined || 1 < set.def.dash.bat) set.def.dash.bat=0; else set.def.dash.bat++;
+			if (ew.def.dash.bat==undefined || 1 < ew.def.dash.bat) ew.def.dash.bat=0; else ew.def.dash.bat++;
 			face[0].bat=-1;face[0].volt=-1;//face[0].batL.fill(1,0,1);
 			buzzer([30,50,30]);
 		}else if (x<120&&y<55){//tmp/amp
-			if (set.def.dash.amp==undefined) set.def.dash.amp=0;
-			set.def.dash.amp=1-set.def.dash.amp;
+			if (ew.def.dash.amp==undefined) ew.def.dash.amp=0;
+			ew.def.dash.amp=1-ew.def.dash.amp;
  			face[0].tmp=-1;face[0].amp=-1;//face[0].ampL.fill(1,0,1);
 			buzzer([30,50,30]);
 		}else if (190<y){//mileage/time
 			buzzer([30,50,30]);
 			if (euc.dash.alrt.warn.txt) {euc.dash.alrt.warn.txt=0;face[0].almT=-1;face[0].trpL=-1;return}
-			if (set.def.dash.clck==undefined) set.def.dash.clck=0;
-			set.def.dash.clck=1-set.def.dash.clck;
+			if (ew.def.dash.clck==undefined) ew.def.dash.clck=0;
+			ew.def.dash.clck=1-ew.def.dash.clck;
  			face[0].trpL=-1;face[0].barF();
 		}else if (110<y&&y<195&&x<55&&euc.dash.info.get.makr=="Begode"){
 			buzzer([30,50,30]);
@@ -401,11 +401,11 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
     case 1: //slide down event
-		if (set.def.dash.face+1>=set.dash.length) 
-			set.def.dash.face=0; 
+		if (ew.def.dash.face+1>=ew.is.dash.length) 
+			ew.def.dash.face=0; 
 		else 
-			set.def.dash.face++;
-		face.go(set.dash[set.def.dash.face],0);
+			ew.def.dash.face++;
+		face.go(ew.is.dash[ew.def.dash.face],0);
 		return;
     case 2: //slide up event
 		if (y>160&&x<50) {

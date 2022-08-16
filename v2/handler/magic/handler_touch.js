@@ -1,14 +1,14 @@
-if (set.def.touchtype!="816"&&set.def.touchtype!="716"){
+if (ew.def.touchtype!="816"&&ew.def.touchtype!="716"){
 	//i2c.writeTo(0x15,0xa5,3);
 	//i2c.writeTo(0x15,0xE5,3);
-	//i2c.writeTo(0x15,0xa5,3); digitalPulse(set.def.rstP,1,[5,500]); i2c.writeTo(0x15,0); print(i2c.readFrom(0x15,255));
-	digitalPulse(set.def.rstP,1,[5,500]); 
+	//i2c.writeTo(0x15,0xa5,3); digitalPulse(ew.def.rstP,1,[5,500]); i2c.writeTo(0x15,0); print(i2c.readFrom(0x15,255));
+	digitalPulse(ew.def.rstP,1,[5,500]); 
 	i2c.writeTo(0x15,0x80);
-	set.def.touchtype=( i2c.readFrom(0x15,1)[0] == 96 )?"816":"716";
+	ew.def.touchtype=( i2c.readFrom(0x15,1)[0] == 96 )?"816":"716";
 }
 if ( process.env.BOARD=="BANGLEJS2")
 	eval(require('Storage').read('handler_touch_b2'));
-else if (set.def.touchtype=="816") //816
+else if (ew.def.touchtype=="816") //816
 	eval(require('Storage').read('handler_touch_816'));
 else 
 	eval(require('Storage').read('handler_touch_716'));
@@ -18,11 +18,11 @@ tcDn=(x,y)=>{
 	"ram";
 	buzzer(buz.ok);
 	if (global.euc&& euc.state=="READY"){
-		if (set.def.dash.face+1>=set.dash.length) 
-			set.def.dash.face=0; 
+		if (ew.def.dash.face+1>=ew.is.dash.length) 
+			ew.def.dash.face=0; 
 		else 
-			set.def.dash.face++;
-		face.go(set.dash[set.def.dash.face],0);	
+			ew.def.dash.face++;
+		face.go(ew.is.dash[ew.def.dash.face],0);	
 //	}else if (face.faceSave!=-1) {
 //	    face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
 
@@ -43,14 +43,14 @@ tcUp=(x,y)=>{
       buzzer(buz.ok);
 		*/
  		buzzer(buz.ok);
-		if (set.def.bri!==7) {
-		  set.bri=set.def.bri;
+		if (ew.def.bri!==7) {
+		  set.bri=ew.def.bri;
 		  w.gfx.bri.set(7);
 		}else 
 			w.gfx.bri.set(set.bri);
 		if (face.appCurr=="settings"&&face[0].page=="set") {
 			UI.btn.ntfy(0,1,0,"_bar",6,"BRIGHTNESS","GESTURE",15,4,0);
-			UI.btn.img("main","_2x3",3,_icon.bri,set.def.bri==7?7:set.bri,15,1,1);
+			UI.btn.img("main","_2x3",3,_icon.bri,ew.def.bri==7?7:set.bri,15,1,1);
 		}
     }else if (face.appCurr=="settings")
 		face.go(face.appRoot[0],face.appRoot[1]);

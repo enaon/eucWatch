@@ -1,9 +1,9 @@
 //inmotionV1 set adv password
 face[0] = {
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:5000,
 	g:w.gfx,
 	init: function(){
-   		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
+   		if (euc.state!=="READY") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
 		//if (!face[5].pass) {
 		//	face[5].ntfy("EMPTY PASSWORD",20,4);
         //    setTimeout(()=>{face.go("dashInmotionV1Opt",0);return;},1000);
@@ -53,7 +53,7 @@ face[0] = {
 		this.run=false;
 	},
 	show : function(){
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
+		if (euc.state!=="READY") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
 		if (!this.run) return; 
          this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
@@ -112,7 +112,7 @@ face[5] = {
 	offms: 30000,
 	g:w.gfx,
 	init: function(){
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
+		if (euc.state!=="READY") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
 		this.g.setColor(0,12);
 		this.g.fillRect(0,0,239,195);
 		this.g.setColor(1,15);
@@ -139,7 +139,7 @@ face[5] = {
 	},
 	show : function(){
 		if (!this.run) return; 
-		if (euc.state!=="READY") {face.go(set.dash[set.def.dash.face],0);return;}
+		if (euc.state!=="READY") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();
@@ -224,7 +224,7 @@ touchHandler[0]=function(e,x,y){
 		break;
 	case 1: //slide down event
 		setTimeout(function(){euc.busy=0;euc.temp.live();},800);
-		face.go(set.dash[set.def.dash.face],0);
+		face.go(ew.is.dash[ew.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
@@ -346,7 +346,7 @@ touchHandler[5]=function(e,x,y){
 		break;
 	case 1: //slide down event
 		//face.go("main",0);
-		face.go(set.dash[set.def.dash.face],0);
+		face.go(ew.is.dash[ew.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
      	if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 

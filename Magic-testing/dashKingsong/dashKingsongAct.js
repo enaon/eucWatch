@@ -8,7 +8,7 @@ tcB=(x,y)=>{
 	buzzer(buz.ok);	
 	if (UI.ntid) {/*buzzer(buz.ok);*/clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();
 	}else 
-		face.go(set.dash[set.def.dash.face],0);
+		face.go(ew.is.dash[ew.def.dash.face],0);
 
 };	
 tcBack.replaceWith(tcB);

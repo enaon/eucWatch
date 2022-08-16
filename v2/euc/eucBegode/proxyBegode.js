@@ -8,7 +8,7 @@ if (global.euc&&!euc.proxy){
 		},
 		w:(o)=>{
 		"ram";
-			if (set.bt!=5) return;
+			if (ew.is.bt!=5) return;
 			NRF.updateServices({0xffe0:{0xffe1:{value:o,notify:true}},});
 		},
 		s:(o)=>{
@@ -40,7 +40,7 @@ if (global.euc&&!euc.proxy){
 					}
 				}
 			}, {advertise: ['0xffe0'],uart:false });
-			NRF.setAdvertising({}, { name:"Gotway_"+set.def.name,connectable:true });
+			NRF.setAdvertising({}, { name:"Gotway_"+ew.def.name,connectable:true });
 			//NRF.setAddress(euc.mac);
 			NRF.setAddress(NRF.getAddress().substr(0,15)+"aa public");
 			NRF.disconnect();
@@ -48,7 +48,7 @@ if (global.euc&&!euc.proxy){
 		}, 
 		e:(o)=>{
 			euc.proxy=0;
-			set.upd();
+			ew.do.update.bluetooth();
 			return;
 		}
 	};

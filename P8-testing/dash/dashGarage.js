@@ -1,6 +1,6 @@
 //Dash Garage
 face[0] = { 
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:5000,
 	g:w.gfx, 
 	init: function(o){ 
 		this.dash=require("Storage").readJSON("dash.json",1);
@@ -168,8 +168,8 @@ face[0] = {
 				this.g.flip();
 				this.set=1;
 			}else {
-				set.write("dash","slot",no);
-				set.def.dash.slot=no;
+				ew.do.fileWrite("dash","slot",no);
+				ew.def.dash.slot=no;
 				euc.dash=require("Storage").readJSON("eucSlot.json",1);
 				face.go("dashScan",0);
                 return;
@@ -198,7 +198,7 @@ face[1] = {
 		return;
 	},
 	show : function(){
-		(euc.state=="OFF")?face.go("dashOff",0):face.go(set.dash[set.def.dash.face],0);
+		(euc.state=="OFF")?face.go("dashOff",0):face.go(ew.is.dash[ew.def.dash.face],0);
 		return;
 	},
 	clear: function(){
@@ -225,8 +225,8 @@ touchHandler[0]=function(e,x,y){
 				face[0].opt(this.s);
 			}else{
 				if (face[0].dash["slot"+this.s+"Mac"]){
-					set.def.dash.slot=this.s;
-					set.write("dash","slot",this.s);
+					ew.def.dash.slot=this.s;
+					ew.do.fileWrite("dash","slot",this.s);
 					if (Boolean(require("Storage").read('eucSlot'+this.s+'.json')))
 						euc.dash=require("Storage").readJSON('eucSlot'+this.s+'.json',1);
 					else euc.dash=require("Storage").readJSON("eucSlot.json",1);
@@ -240,14 +240,14 @@ touchHandler[0]=function(e,x,y){
 		else   {
 			if ( 200<=y &&face[0].ntid){
 				face[0].ntfy("DELETED","",22,7,1);
-				set.write("dash", "slot"+set.read("dash","slot")+"Mac"  );
-                set.write("dash","slot"+set.read("dash","slot")+"Maker");
-                set.write("dash","slot"+set.read("dash","slot")+"Name");
-				require("Storage").erase('logDaySlot'+set.read("dash","slot")+'.json');
-				require("Storage").erase('logWeekSlot'+set.read("dash","slot")+'.json');
-				require("Storage").erase('logYearSlot'+set.read("dash","slot")+'.json');
-				set.def.dash.slot=0;
-				require("Storage").erase('eucSlot'+set.read("dash","slot")+'.json');
+				ew.do.fileWrite("dash", "slot"+ew.do.fileRead("dash","slot")+"Mac"  );
+                ew.do.fileWrite("dash","slot"+ew.do.fileRead("dash","slot")+"Maker");
+                ew.do.fileWrite("dash","slot"+ew.do.fileRead("dash","slot")+"Name");
+				require("Storage").erase('logDaySlot'+ew.do.fileRead("dash","slot")+'.json');
+				require("Storage").erase('logWeekSlot'+ew.do.fileRead("dash","slot")+'.json');
+				require("Storage").erase('logYearSlot'+ew.do.fileRead("dash","slot")+'.json');
+				ew.def.dash.slot=0;
+				require("Storage").erase('eucSlot'+ew.do.fileRead("dash","slot")+'.json');
 				euc.dash=require("Storage").readJSON("eucSlot.json",1);				
 			    face[0].sv1=-1;face[0].sv2=-1;face[0].sv3=-1;face[0].sv4=-1;
                 w.gfx.setColor(0,0);w.gfx.fillRect(0,0,239,195);w.gfx.flip();
@@ -291,7 +291,7 @@ touchHandler[0]=function(e,x,y){
 			//face[0].dash=require("Storage").readJSON("dash.json",1);
 			face[0].run=true;face[0].set=0;face[0].init();	face[0].show();	
 		}else
-			(euc.state=="OFF")?face.go("dashOff",0):face.go(set.dash[set.def.dash.face],0);
+			(euc.state=="OFF")?face.go("dashOff",0):face.go(ew.is.dash[ew.def.dash.face],0);
 	return;
   }
 };

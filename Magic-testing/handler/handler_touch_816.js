@@ -1,5 +1,5 @@
-set.def.touchtype="816";
-set.def.rstR=0xA5; //the rock has auto sleep if 254 is 0.
+ew.def.touchtype="816";
+ew.def.rstR=0xA5; //the rock has auto sleep if 254 is 0.
 var TC={
 	x:0,
 	y:0,
@@ -9,7 +9,7 @@ var TC={
 	val:{cur:0,up:0,dn:0},
 	start:function(){ 
     "ram";
-		digitalPulse(set.def.rstP,1,[5,50]);
+		digitalPulse(ew.def.rstP,1,[5,50]);
 		if (this.ntid) {clearWatch(this.ntid);this.ntid=0;}
 		setTimeout(()=>{
 			i2c.writeTo(0x15,236,0); //MotionMask 7/4/1
@@ -28,7 +28,7 @@ var TC={
 
 	},
 	init:function(){
-		this.ntid=setWatch(function(s){
+		ew.tid.TC=setWatch(function(s){
 			"ram";
 			//i2c.writeTo(0x15,0);
 			var tp=i2c.readFrom(0x15,7);
@@ -111,8 +111,8 @@ var TC={
 		print("sleep");
 		return true;
 		//"ram";
-		////setTimeout(()=>{i2c.writeTo(0x15,set.def.rstR,3);},100);
-		//if (this.ntid&&set.def.rstR==229) {clearWatch(this.ntid);this.ntid=0;}
+		////setTimeout(()=>{i2c.writeTo(0x15,ew.def.rstR,3);},100);
+		//if (this.ntid&&ew.def.rstR==229) {clearWatch(this.ntid);this.ntid=0;}
 	}
 };
 

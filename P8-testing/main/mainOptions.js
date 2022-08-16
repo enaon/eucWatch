@@ -1,6 +1,6 @@
 //clock  Options
 face[0] = {
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:5000,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:5000,
 	g:w.gfx,
 	init: function(){
 		if (this.ntid) {clearTimeout(this.ntid); this.ntid=0;}
@@ -12,7 +12,7 @@ face[0] = {
 		this.g.drawString("MAIN OPTIONS",120-(this.g.stringWidth("MAIN OPTIONS")/2),217); 
 		this.g.flip(); 
 		this.btn(1,"SET",20,60,15,1,0,0,0,119,79,"TIME",26,60,45);//1
-		this.btn(1,(set.def.hr24)?"24 H":"12 H",26,180,25,4,0,120,0,239,79);//2
+		this.btn(1,(ew.def.hr24)?"24 H":"12 H",26,180,25,4,0,120,0,239,79);//2
 		this.btn(1,"SET",20,60,90,1,0,0,80,119,155,"DATE",26,60,120);//3
 		this.btn(1,"ABOUT",24,180,107,1,0,120,80,239,155);//4
 		this.min=-1;
@@ -23,7 +23,7 @@ face[0] = {
 		if (!this.run) return; 
 		if (!i) {
 			//let h=Date().getHours();
-			this.btn(1,(set.def.hr24)?"24 HOUR MODE":"12 HOUR MODE",24,120,25,4,0,0,0,239,75);//1
+			this.btn(1,(ew.def.hr24)?"24 HOUR MODE":"12 HOUR MODE",24,120,25,4,0,0,0,239,75);//1
 			this.btn(1,"SET TIME",24,80,107,1,0,0,80,155,155);//1
 			this.btn(1,"INFO",24,205,107,1,0,160,80,239,155);//1
 
@@ -33,7 +33,7 @@ face[0] = {
 			this.info();
 		}
 		
-		//if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(set.dash[set.def.dash.face],0);return;}
+		//if (euc.state!=="READY"&&face.appPrev!=="dashGarage") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
        // this.tid=setTimeout(function(t,o){
 		//  t.tid=-1;
 		//  t.show();
@@ -72,11 +72,11 @@ face[0] = {
 			},tm,this);
     },
 	info: function(){
-		let s=(getTime()-set.boot)|0;
+		let s=(getTime()-ew.is.boot)|0;
 		let d=0;
 		let h=0;
 		let m=0;
-		if (s>864000) {set.boot=getTime();s=(getTime()-set.boot)|0;}
+		if (s>864000) {ew.is.boot=getTime();s=(getTime()-ew.is.boot)|0;}
 		while (s>86400) {s=s-86400;d++;}
 		while (s>3600) {s=s-3600;h++;}
 		while (s>60) {s=s-60;m++;}
@@ -86,13 +86,13 @@ face[0] = {
 		this.g.setFont("Vector",18);
 		this.g.drawString("MEMORY: "+process.memory().free+"/"+process.memory().total,120-(this.g.stringWidth("MEMORY: "+process.memory().free+"/"+process.memory().total)/2),0);  
 		this.g.drawString("IMAGE: "+process.version,120-(this.g.stringWidth("IMAGE: "+process.version)/2),25);  
-		this.g.drawString("ACC TYPE: "+set.def.acctype,120-(this.g.stringWidth("ACC TYPE: "+set.def.acctype)/2),50);  
-		this.g.drawString("TOUCH TYPE: "+set.def.touchtype,120-(this.g.stringWidth("TOUCH TYPE: "+set.def.touchtype)/2),75);  
+		this.g.drawString("ACC TYPE: "+ew.def.acctype,120-(this.g.stringWidth("ACC TYPE: "+ew.def.acctype)/2),50);  
+		this.g.drawString("TOUCH TYPE: "+ew.def.touchtype,120-(this.g.stringWidth("TOUCH TYPE: "+ew.def.touchtype)/2),75);  
 		
 		this.g.drawString("UPTIME: "+d+"D-"+h+"H-"+m+"M",120-(this.g.stringWidth("UPTIME: "+d+"D-"+h+"H-"+m+"M")/2),100);  
 		this.g.drawString("FLASH: "+require("Storage").getFree(),120-(this.g.stringWidth("FLASH: "+require("Storage").getFree())/2),125); 
 		this.g.drawString("TEMPERATURE: "+E.getTemperature(),120-(this.g.stringWidth("TEMPERATURE: "+E.getTemperature())/2),150);  
-		this.g.drawString("NAME: "+set.def.name,120-(this.g.stringWidth("NAME: "+set.def.name)/2),175);  
+		this.g.drawString("NAME: "+ew.def.name,120-(this.g.stringWidth("NAME: "+ew.def.name)/2),175);  
 		this.g.flip();
 		this.g.setFont("Vector",18);
 		this.g.setColor(0,4);
@@ -113,9 +113,9 @@ face[0] = {
 		this.g.setFont("Vector",22);
 		this.g.drawString("TP RST:",65-(this.g.stringWidth("TP RST:")/2),0);  
 		this.g.setFont("Vector",26);
-		this.g.drawString(set.def.rstP,180-(this.g.stringWidth(set.def.rstP)/2),0);  
+		this.g.drawString(ew.def.rstP,180-(this.g.stringWidth(ew.def.rstP)/2),0);  
 		this.g.flip();
-		this.btn((set.def.rstR==165)?1:0,"TP SLEEP:",22,65,45,1,2,0,30,239,80,(set.def.rstR==165)?"P8":"P22",26,180,45);
+		this.btn((ew.def.rstR==165)?1:0,"TP SLEEP:",22,65,45,1,2,0,30,239,80,(ew.def.rstR==165)?"P8":"P22",26,180,45);
 		this.g.setFont("Vector",18);
 		this.g.setColor(0,4);
 		this.g.fillRect(0,195,119,239);
@@ -147,7 +147,7 @@ face[0] = {
 		this.g.fillRect(203,55,240,150);
 		this.g.setColor(1,15);//
 		this.g.setFont("Vector",18);
-		let sec=(set.def.hr24)?"24H":(this.t[0]<12)?"AM":"PM";
+		let sec=(ew.def.hr24)?"24H":(this.t[0]<12)?"AM":"PM";
 		this.g.drawString(sec,241-(this.g.stringWidth(sec)),79); //hours mode
 		this.g.setFont("Vector",30);
 		this.g.drawString(this.s[0]+this.s[1],206,106); //seconds
@@ -169,7 +169,7 @@ face[0] = {
 			this.g.fillRect(0,55,99,150);
 			this.g.setColor(1,15);
 			this.g.setFont("Vector",73);
-			if (set.def.hr24) {
+			if (ew.def.hr24) {
 				this.g.drawString(this.hour,0,74); //hours
 			} else {	
 				this.hour=(this.hour<10)?(this.hour=="00")?12:this.hour[1]:(this.hour<13)?this.hour:this.hour-12;
@@ -261,8 +261,8 @@ touchHandler[0]=function(e,x,y){
 				}
 			}else if (face[0].set=="more") {
 				if (30 <= y && y <= 80 ) {
-					set.def.rstR=(set.def.rstR==165)?229:165;
-					face[0].btn((set.def.rstR==165)?1:0,"TP SLEEP:",22,65,45,1,2,0,30,239,80,(set.def.rstR==165)?"P8":"P22",26,180,45);//1
+					ew.def.rstR=(ew.def.rstR==165)?229:165;
+					face[0].btn((ew.def.rstR==165)?1:0,"TP SLEEP:",22,65,45,1,2,0,30,239,80,(ew.def.rstR==165)?"P8":"P22",26,180,45);//1
 				}else if ( x <=120 && 190 <= y) {
 					set.updateSettings();
 					NRF.removeListener('disconnect',bdis);  
@@ -273,8 +273,8 @@ touchHandler[0]=function(e,x,y){
 					set.updateSettings();
 					NRF.disconnect();
 					require("Storage").write("devmode","shutdown");
-					set.def.acc=0;
-					set.accR();
+					ew.def.acc=0;
+					ew.do.update.acc();
 					face.go("main",-1);
 					setTimeout(()=>{E.reboot();},500);
 				}else {
@@ -349,8 +349,8 @@ touchHandler[0]=function(e,x,y){
 			face[0].setTime();			
 		}else if ( 120 <= x && y <= 80 ) {//12/24 hour mode
 			buzzer([30,50,30]);
-			set.def.hr24=1-set.def.hr24;
-			face[0].btn(1,(set.def.hr24)?"24 H":"12 H",26,180,25,4,0,120,0,239,79);//2
+			ew.def.hr24=1-ew.def.hr24;
+			face[0].btn(1,(ew.def.hr24)?"24 H":"12 H",26,180,25,4,0,120,0,239,79);//2
 		}else if ( x <=120 && 80 <= y && y <= 160 ) { //setDate
 			buzzer([30,50,30]);	
 			face[0].set="setDate";

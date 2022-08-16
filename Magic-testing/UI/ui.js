@@ -36,7 +36,7 @@ UI={
         w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y+5-(w.gfx.stringMetrics(txt1).height/2));  
         w.gfx.setFont("Vector",p[0]*UI.size.txt*0.2);	
 		w.gfx.drawString(txt2,x+szX-w.gfx.stringWidth(txt2),y+(w.gfx.stringMetrics(txt2).height/2));
-		if (!set.def.bpp) w.gfx.flip();
+		if (!ew.def.bpp) w.gfx.flip();
 		//coordinates
 		if (UIc.get[loc])
 			//UIc.raw[loc]=UIc.raw[loc]+`${UIc.raw[loc]==" "?'':'else '}if (${x}-${szX}<x&&x<${x}+${szX}&&${y}-${szY}<y&&y<${y}+${szY}) UIc.${loc}.${no}_${po}();`;	
@@ -91,7 +91,7 @@ UI={
         w.gfx.setFont("Vector",p[0]*UI.size.txt);	
         w.gfx.drawString(txt1,x-(w.gfx.stringWidth(txt1)/2),y+4-(w.gfx.stringMetrics(txt1).height/2)); 
       }
-	  if (!set.def.bpp) w.gfx.flip();
+	  if (!ew.def.bpp) w.gfx.flip();
 	  //coordinates
 	  if (UIc.get[loc])
 		//UIc.raw[loc]=UIc.raw[loc]+`${UIc.raw[loc]==" "?'':'else '}if (${x}-${szX}<x&&x<${x}+${szX}&&${y}-${szY}<y&&y<${y}+${szY}) UIc.${loc}.${no}_${po}();`;	
@@ -132,14 +132,14 @@ UI={
 	      w.gfx.drawImage(img,xa,y-(imgH/2),{scale:UI.size.sca});
 		 w.gfx.setColor(1,fclr);
 		  w.gfx.drawString(txt,xa+5+imgW,y-(imgH/2)+2); 
-	  }else if (set.def.txt&&txt) {
+	  }else if (ew.def.txt&&txt) {
 		  w.gfx.drawImage(img,x-(imgW*UI.size.sca*0.75/2), (y-szY)+ ((szY*2) *(2-UI.size.txt)/15)  ,{scale:0.75*UI.size.sca});
 		  w.gfx.setColor(1,fclr);
 			w.gfx.setFont("Vector",p[0]*(no=="_2x3"?0.85:1)*UI.size.txt);	
 		  w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y+( (szY*2)*(2-UI.size.txt)/6 )); 
 	  }else w.gfx.drawImage(img,x+2-(imgW*UI.size.sca/2),y-(imgH*UI.size.sca/2),{scale:UI.size.sca});
 	  img=0;
-	  if (!set.def.bpp) w.gfx.flip();
+	  if (!ew.def.bpp) w.gfx.flip();
 	  //coordinates
 	  if (UIc.get[loc])
 	  	UIc.raw[loc]=UIc.raw[loc]+`${UIc.raw[loc]==" "?'':'else '}if (${x}-${szX}<x&&x<${x}+${szX}&&${y}-${szY}<y&&y<${y}+${szY}) UIc.${loc}.${no}(${po});`;	
@@ -179,7 +179,7 @@ UI={
 				}
 			}
 		}
-		UI.ntid=setTimeout(function(t){UI.ntid=0;/*UI.emit('ntfy',"ok");*/if (TC.tid&&set.def.touchtype!="716") {clearTimeout(TC.tid);TC.tid=0;} set.bar=0; if (face[0].exe) face[0].exe();face[0].exe=0;if (face[0].bar) face[0].bar();  },tmot?tmot*1000:1000);
+		UI.ntid=setTimeout(function(t){UI.ntid=0;/*UI.emit('ntfy',"ok");*/if (TC.tid&&ew.def.touchtype!="716") {clearTimeout(TC.tid);TC.tid=0;} set.bar=0; if (face[0].exe) face[0].exe();face[0].exe=0;if (face[0].bar) face[0].bar();  },tmot?tmot*1000:1000);
 	}
   },
   ele:{
@@ -193,7 +193,7 @@ UI={
 		w.gfx.setColor(1,fclr);	
 		w.gfx.setFont("Vector",p[4]*UI.size.txt);
 		w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y-2); 
-        if (!set.def.bpp) w.gfx.flip();
+        if (!ew.def.bpp) w.gfx.flip();
 	},
 	ind:function(c,t,clr){
 		"ram";
@@ -208,7 +208,7 @@ UI={
 		let pa=(p[2]-p[0])/t;
 		w.gfx.setColor(1,3);	
 		w.gfx.fillRect(p[0]+(pa*(c-1)),p[1],p[0]+(pa*c),p[3]);
-        if (!set.def.bpp) w.gfx.flip();
+        if (!ew.def.bpp) w.gfx.flip();
 	},
 	fill:function(no,po,clr){
 		"ram";
@@ -220,7 +220,7 @@ UI={
 		let szY= p[4][((po-1)/len)|0]/2;	
 		w.gfx.setColor(0,clr);
 		w.gfx.fillRect(x-szX,y-szY,x+szX,y+szY);
-        if (!set.def.bpp) w.gfx.flip();
+        if (!ew.def.bpp) w.gfx.flip();
 	},
 	keypad:function(no,po,clr){
 		let p=(UI.pos[no]);
@@ -231,7 +231,7 @@ UI={
 		let szY= p[4][((po-1)/len)|0]/2;	
 		w.gfx.setColor(0,clr);
 		w.gfx.fillRect(x-szX,y-szY,x+szX,y+szY);
-        if (!set.def.bpp) w.gfx.flip();
+        if (!ew.def.bpp) w.gfx.flip();
 	},
 	coord:function(loc,no,po){
       "ram";
@@ -286,7 +286,7 @@ UI={
 		w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y-szY+(szY/10)); 
 		//w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y-szY); 
 
-		if (!set.def.bpp) w.gfx.flip();
+		if (!ew.def.bpp) w.gfx.flip();
 	}
   }
   

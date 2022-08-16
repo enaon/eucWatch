@@ -23,7 +23,7 @@ function handleNotificationEvent(event) {
 				notify.New++;	
 				notify.call.unshift(JSON.stringify({src:event.src.substr(0,15),title:event.title.substr(0,20),body:event.body.substr(0,90),time:ti,id:event.id,idUnread:true}));
 				if (notify.call.length>10) notify.call.pop();
-				if (set.def.buzz&&!notify.ring) {
+				if (ew.def.buzz&&!notify.ring) {
 					buzzer([80,50,80]);
 					if (face.appCurr!="main"||face.pageCurr!=0) {
 						face.go("main",0);
@@ -38,7 +38,7 @@ function handleNotificationEvent(event) {
 			notify.New++;
 			notify.im.unshift(JSON.stringify({src:event.src.substr(0,15),title:(event.title)?event.title.substr(0,20):"-",body:(event.body)?event.body.substr(0,90):"-",time:ti,id:event.id,idUnread:true}));
 			if (notify.im.length>10) notify.im.pop();
-			if (set.def.buzz&&!notify.ring&&Boolean(require("Storage").read("notify"))) {
+			if (ew.def.buzz&&!notify.ring&&Boolean(require("Storage").read("notify"))) {
 				buzzer([80,50,80]);
 				if (face.appCurr!="notify"||face.pageCurr!=5) {
 					face.go("notify",5,"im");
@@ -51,7 +51,7 @@ function handleNotificationEvent(event) {
 		notify.New++;
 		notify.im.unshift(JSON.stringify({src:"SMS",title:event.sender.substr(0,20),body:(event.body)?event.body.substr(0,90):"-",time:ti,id:event.id,idUnread:true}));
 		if (notify.im.length>10) notify.im.pop();
-		if (set.def.buzz&&!notify.ring&&Boolean(require("Storage").read("notify"))) {
+		if (ew.def.buzz&&!notify.ring&&Boolean(require("Storage").read("notify"))) {
 			buzzer([80,50,80]);
 			if (face.appCurr!="notify"||face.pageCurr!=5) {
 				face.go("notify",5,"im");
@@ -74,7 +74,7 @@ function handleWeatherEvent(event) {
 	  notify.info.unshift("{\"src\":\"Weather\",\"title\":\"Weather updated\",\"body\":\""+event.loc+"\",\"time\":\""+ti+"\"}");
       if (notify.info.length>10) notify.info.pop();
 	  notify.weather=event;
-	  if (set.def.buzz&&!notify.ring) {
+	  if (ew.def.buzz&&!notify.ring) {
 		buzzer([80,50,80]);
 		if (face.appCurr!="main"||face.pageCurr!=0) {
 			face.go("main",0);

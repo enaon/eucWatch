@@ -1,6 +1,6 @@
 //dash simple 
 face[0] = {
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:10000,
 	g:w.gfx,
 	spd:[],
 	init: function(){
@@ -23,8 +23,8 @@ face[0] = {
 		this.bat=-1;
 		this.volt=-1;
 		this.conn=0;
-		this.spdF=euc.dash.opt.unit.fact.spd*((set.def.dash.mph)?0.625:1);
-		this.trpF=euc.dash.opt.unit.fact.dist*((set.def.dash.mph)?0.625:1);
+		this.spdF=euc.dash.opt.unit.fact.spd*((ew.def.dash.mph)?0.625:1);
+		this.trpF=euc.dash.opt.unit.fact.dist*((ew.def.dash.mph)?0.625:1);
 		this.run=true;
 	},
 	show : function(o){
@@ -33,7 +33,7 @@ face[0] = {
 			if (this.pwm!=Math.round(euc.dash.live.pwm)) this.pwmf();
 			if (this.spd!=Math.round(euc.dash.live.spd)) this.spdf();
 			if (this.tmp!=euc.dash.live.tmp.toFixed(1))	this.tmpf();
-			if (set.def.dash.batS){	if (this.bat!=euc.dash.live.bat)	this.batf();}
+			if (ew.def.dash.batS){	if (this.bat!=euc.dash.live.bat)	this.batf();}
 			else  if (this.volt!=euc.dash.live.volt.toFixed(1)) this.vltf();
 			//if (this.pwm1!=euc.dash.live.pwm) this.pwmE();
 			if (euc.dash.info.get.makr=="Begode"&&!euc.temp.ext) euc.wri("extendedPacket");
@@ -114,7 +114,7 @@ face[0] = {
 		this.g.fillRect(0,200,119,239);       
 		this.g.setColor(1,15);
 		this.g.setFontVector(35);
-		let temp=((set.def.dash.farn)?this.tmp*1.8+32:this.tmp).toString().split(".");
+		let temp=((ew.def.dash.farn)?this.tmp*1.8+32:this.tmp).toString().split(".");
 		let size=5+this.g.stringWidth(temp[0]);
 		this.g.drawString(temp[0], 5,203); 
 		if (temp[0]<100) {
@@ -123,7 +123,7 @@ face[0] = {
 			size=size+this.g.stringWidth(temp[1]);
 		}
 		this.g.setFontVector(12);
-		this.g.drawString((set.def.dash.farn)?"°F":"°C",3+size,205); 
+		this.g.drawString((ew.def.dash.farn)?"°F":"°C",3+size,205); 
 		this.g.flip();
 	},
 	batf: function(){
@@ -196,7 +196,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		if (euc.state=="OFF") face.go("main",0); else {face.pageCurr=0;face.go(set.dash[set.def.dash.face],-1);}
+		if (euc.state=="OFF") face.go("main",0); else {face.pageCurr=0;face.go(ew.is.dash[ew.def.dash.face],-1);}
 	return true;
 	},
 	clear: function(){
@@ -212,13 +212,13 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
 		/*if (x < 120 && 200 <y ){//temp/clock
-			if (set.def.dash.clkS==undefined) set.def.dash.clkS=0;
-			set.def.dash.clkS=1-set.def.dash.clkS;
+			if (ew.def.dash.clkS==undefined) ew.def.dash.clkS=0;
+			ew.def.dash.clkS=1-ew.def.dash.clkS;
 			face[0].time=-1;face[0].tmp=-1;
 			buzzer([30,50,30]);
 		}else */if (120 < x && 200<y ){//batery percentage/voltage
-			if (set.def.dash.batS==undefined) set.def.dash.batS=0;
-			set.def.dash.batS=1-set.def.dash.batS;
+			if (ew.def.dash.batS==undefined) ew.def.dash.batS=0;
+			ew.def.dash.batS=1-ew.def.dash.batS;
 			face[0].bat=-1;face[0].volt=-1;
 			buzzer([30,50,30]);
 		}
@@ -229,8 +229,8 @@ touchHandler[0]=function(e,x,y){
 		break;
     case 1: //slide down event
 		if (euc.dash.info.get.makr=="Begode") euc.wri("mainPacket");
-		if (set.def.dash.face+1>=set.dash.length) set.def.dash.face=0; else set.def.dash.face++;
-		face.go(set.dash[set.def.dash.face],0);
+		if (ew.def.dash.face+1>=ew.is.dash.length) ew.def.dash.face=0; else ew.def.dash.face++;
+		face.go(ew.is.dash[ew.def.dash.face],0);
 		return;
     case 2: //slide up event
 		if (y>160&&x<50) {

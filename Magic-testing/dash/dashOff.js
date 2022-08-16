@@ -1,12 +1,12 @@
 //dash off 
 face[0] = {
-	offms: (set.def.off[face.appCurr])?set.def.off[face.appCurr]:10000,
+	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:10000,
 	g:w.gfx,
-	old:set.def.bpp?0:1,
+	old:ew.def.bpp?0:1,
 	spd:[],
 	init: function(){
-		this.log=require("Storage").readJSON("logDaySlot"+set.def.dash.slot+".json",1);
-		if (!euc.dash.info.get.makr||!set.def.dash.slot||!this.log) {face.go((face.appPrev=="dashGarage")?"main":"dashGarage",0);return;}
+		this.log=require("Storage").readJSON("logDaySlot"+ew.def.dash.slot+".json",1);
+		if (!euc.dash.info.get.makr||!ew.def.dash.slot||!this.log) {face.go((face.appPrev=="dashGarage")?"main":"dashGarage",0);return;}
 		this.rowL=0;
 		this.posL=0;
 		this.ref=Date().getHours();
@@ -22,9 +22,9 @@ face[0] = {
 		//this.btn(1,"24HRS",30,65,13,4,4,0,0,119,50);
 		//this.btn(1,"INFO",30,185,10,0,4,120,0,239,50);
 		this.sc();
-		this.sel(this.comf((this.totD*((set.def.dash.mph)?0.625:1)).toFixed((this.page)?(this.page==1)?1:0:2)),"<   TOTAL   >");
+		this.sel(this.comf((this.totD*((ew.def.dash.mph)?0.625:1)).toFixed((this.page)?(this.page==1)?1:0:2)),"<   TOTAL   >");
 		this.lg();
-		this.id=(set.def.hr24)?["00:00 - 01:00","01:00 - 02:00","02:00 - 03:00","03:00 - 04:00","04:00 - 05:00","05:00 - 06:00","06:00 - 07:00","07:00 - 08:00","08:00 - 09:00","09:00 - 10:00","10:00 - 11:00","11:00 - 12:00","12:00 - 13:00","13:00 - 14:00","14:00 - 15:00","15:00 - 16:00","16:00 - 17:00","17:00 - 18:00","18:00 - 19:00","19:00 - 20:00","20:00 - 21:00","21:00 - 22:00","22:00 - 23:00","23:00 - 00:00"]
+		this.id=(ew.def.hr24)?["00:00 - 01:00","01:00 - 02:00","02:00 - 03:00","03:00 - 04:00","04:00 - 05:00","05:00 - 06:00","06:00 - 07:00","07:00 - 08:00","08:00 - 09:00","09:00 - 10:00","10:00 - 11:00","11:00 - 12:00","12:00 - 13:00","13:00 - 14:00","14:00 - 15:00","15:00 - 16:00","16:00 - 17:00","17:00 - 18:00","18:00 - 19:00","19:00 - 20:00","20:00 - 21:00","21:00 - 22:00","22:00 - 23:00","23:00 - 00:00"]
 		:["12:00 - 1:00 AM","1:00 - 2:00 AM","2:00 - 3:00 AM","3:00 - 4:00 AM","4:00 - 5:00 AM","5:00 - 6:00 AM","6:00 - 7:00 AM","7:00 - 8:00 AM","8:00 - 9:00 AM","9:00 - 10:00 AM","10:00 - 11:00 AM","11:00 - 11:59 AM","12:00 - 1:00 PM","1:00 - 2:00 PM","2:00 - 3:00 PM","3:00 - 4:00 PM","4:00 - 5:00 PM","5:00 - 6:00 PM","6:00 - 7:00 PM","7:00 - 8:00 PM","8:00 - 9:00 PM","9:00 - 10:00 PM","10:00 - 11:00 PM","11:00 - 11:59 PM"];
 		this.id[this.ref]="Now";
 	},
@@ -70,7 +70,7 @@ face[0] = {
 		let size=this.g.stringWidth(txt1);
 		this.g.drawString(txt1,105-(this.g.stringWidth(txt1)/2),90); 
 		this.g.setFont("Vector",27);	
-		this.g.drawString((set.def.dash.mph)?" mi":" km",125+(size/2)-(this.g.stringWidth((set.def.dash.mph)?" mi":" km")/2),105);
+		this.g.drawString((ew.def.dash.mph)?" mi":" km",125+(size/2)-(this.g.stringWidth((ew.def.dash.mph)?" mi":" km")/2),105);
 		this.g.drawString(txt2,120-(this.g.stringWidth(txt2)/2),165);
 		this.g.flip();
     },
