@@ -19,6 +19,13 @@ touchHandler= {
 };
 //button
 eval(require('Storage').read('handler_button'));
+
+
+
+
+
+
+
 //var i2c=I2C1;
 //if ( process.env.BOARD!="BANGLEJS2") {
 	var i2c=new I2C();
@@ -31,9 +38,16 @@ eval(require('Storage').read('handler_button'));
 //}else i2c=I2C1
 //touch
 eval(require('Storage').read('handler_touch'));
+
+
+
 //acc
 if ( process.env.BOARD!="BANGLEJS2") eval(require('Storage').read('handler_accel_SC7A20'));
 else acc={on:function(){},off:function(){} };
+
+
+
+
 //}
 //cron
 eval(require('Storage').read('handler_cron'));

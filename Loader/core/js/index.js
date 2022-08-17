@@ -414,7 +414,7 @@ function removeApp(app) {
   return showPrompt("Delete","Really remove '"+app.name+"'?").then(() => {
     return getInstalledApps().then(()=>{
       // a = from appid.info, app = from apps.json
-      console.log("ew-remove app:",device.appsInstalled.find(a => a.id === app.id));
+      //console.log("ew-remove app:",device.appsInstalled.find(a => a.id === app.id));
       return Comms.removeApp(device.appsInstalled.find(a => a.id === app.id));
     });
   }).then(()=>{
@@ -617,7 +617,7 @@ function getInstalledApps(refresh) {
 /// Removes everything and install the given apps, eg: installMultipleApps(["boot","mclock"], "minimal")
 function installMultipleApps(appIds, promptName, defaults) {
   let apps = appIds.map( appid => appJSON.find(app=>app.id==appid) );
-  console.log("ew-apps:",apps);
+  //console.log("ew-apps:",apps);
   if (apps.some(x=>x===undefined))
     return Promise.reject("Not all apps found");
   let appCount = apps.length;
@@ -947,6 +947,11 @@ if (btn) btn.addEventListener("click",event=>{
     let installSet="ALL"
     if (device.id=="P8"||device.id=="P22") installSet="P8"
     else if (device.id=="MAGIC3"||device.id=="ROCK") installSet="Rock"
+    else { 
+          Progress.hide({sticky:true});
+          showToast("PLEASE CONNECT TO THE WATCH","error");
+        return;
+    }
     installerOptions(installSet).then(() => {
     }).catch(err=>{
     Progress.hide({sticky:true});

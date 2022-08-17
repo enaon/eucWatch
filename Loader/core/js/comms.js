@@ -78,7 +78,7 @@ const Comms = {
         // No files left - print 'reboot' message
           if (fileContents.length==0) {
             Comms.showUploadFinished().then(() => {
-              console.log("ew-filed end");
+              //console.log("ew-filed end");
               Progress.hide({sticky:true});
               resolve(appInfo);
             }).catch(function() {

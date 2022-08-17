@@ -1,6 +1,6 @@
 //watchdog
 //setBusyIndicator(D27)
-//E.setFlags({pretokenise:0});
+E.setFlags({pretokenise:1});
 E.kickWatchdog();
 function KickWd(){
 	"ram";

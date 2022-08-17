@@ -1,6 +1,7 @@
 //eucWatch v2
 //watchdog
 //0x20000000+0x10000-process.memory().stackEndAddress
+E.setFlags({pretokenise:1});
 global.save = function() { throw new Error("You don't need to use save() on eucWatch!"); };
 if ( process.env.BOARD!="BANGLEJS2"){
 	E.kickWatchdog();

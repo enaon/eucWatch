@@ -1,3 +1,4 @@
+E.setFlags({pretokenise:1});
 //kingsong euc module 
 //euc.conn(euc.mac);
 //euc.wri("lightsOn")

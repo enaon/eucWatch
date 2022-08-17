@@ -89,6 +89,47 @@
 			{"name":".bootrst","url":"../init/init_P8_16.js"}
 		]
 	},
+	{ "id": "UI",
+		"name": "core - UI support",
+		"icon": "../../Magic-testing/UI/icon.png",
+		"version":"1.03",
+		"description": "UI",
+		"tags": "core",
+		"type":"core",
+		"readme": "README.md",
+	    "needsFeatures":["ROCK"],
+		"storage": [
+			{"name":"C:UI","url":"../../Magic-testing/UI/ui.js"},
+			{"name":"C:icons","url":"../../Magic-testing/UI/icons.js"}
+	
+		]
+	},	
+	{ "id": "handler",
+		"name": "Handler - MAGIC - ROCK",
+		"icon": "../../Magic-testing/handler/icon.png",
+		"version":"1.08",
+		"description": "MAGIC - ROCK functions handler",
+		"tags": "core",
+		"type":"core",
+		"readme": "README.md",
+	    "needsFeatures":["ROCK"],
+		"storage": [
+			{"name":"handler","url":"../handler/handler.js"},
+			{"name":"C:handler_face","url":"../../Magic-testing/handler/handler_face.js"},
+			{"name":"handler_notify","url":"../handler/handler_notify.js"},
+			{"name":"handler_set","url":"../handler/handler_set.js"},
+			{"name":"handler_btn","url":"../../Magic-testing/handler/handler_btn.js"},
+			{"name":"handler_conn","url":"../handler/handler_conn.js"},
+			{"name":"handler_cron","url":"../handler/handler_cron.js"},
+			{"name":"handler_charge","url":"../handler/handler_charge.js"},
+			{"name":"handler_touch","url":"../../Magic-testing/handler/handler_touch.js"},
+			{"name":"C:handler_touch_716","url":"../../Magic-testing/handler/handler_touch_716.js"},
+			{"name":"C:handler_touch_816","url":"../../Magic-testing/handler/handler_touch_816.js"},
+			{"name":"handler_touch_816s","url":"../../Magic-testing/handler/handler_touch_816s.js"},
+			{"name":"handler_touch_b2","url":"../../Magic-testing/handler/handler_touch_b2.js"},
+			{"name":"C:handler_acc_SC7A20","url":"../../Magic-testing/handler/handler_acc_SC7A20.js"}
+		]
+	},  
 	{ "id": "handler",
 		"name": "Handler - P8 - P22",
 		"icon": "../handler/icon.png",
@@ -99,19 +140,19 @@
 		"readme": "README.md",
 		"storage": [
 			{"name":"handler","url":"../handler/handler.js"},
-			{"name":"handlerConn","url":"../handler/handler_conn.js"},
-			{"name":"handlerBtn","url":"../../P8-testing/handler/handlerBtn.js"},
-			{"name":"handlerCron","url":"../handler/handler_cron.js"},
-			{"name":"handlerNotify","url":"../handler/handler_notify.js"},
-			{"name":"handlerTouch","url":"../../P8-testing/handler/handlerTouch.js"},
-			{"name":"handlerTouch716","url":"../../P8-testing/handler/handlerTouch716.js"},
-			{"name":"handlerTouch816","url":"../../P8-testing/handler/handlerTouch816.js"},
-			{"name":"handlerTouch816s","url":"../../P8-testing/handler/handlerTouch816s.js"},
-			{"name":"handlerAccSC7A20","url":"../../P8-testing/handler/handlerAccSC7A20.js"},
-			{"name":"handlerAccBMA421","url":"../../P8-testing/handler/handlerAccBMA421.js"},
-			{"name":"handlerCharge","url":"../handler/handler_charge.js"},
-			{"name":"handlerFace","url":"../../P8-testing/handler/handlerFace.js"},
-			{"name":"handlerSet","url":"../handler/handler_set.js"}
+			{"name":"handler_conn","url":"../handler/handler_conn.js"},
+			{"name":"handler_btn","url":"../../P8-testing/handler/handler_btn.js"},
+			{"name":"handler_cron","url":"../handler/handler_cron.js"},
+			{"name":"handler_notify","url":"../handler/handler_notify.js"},
+			{"name":"handler_touch","url":"../../P8-testing/handler/handler_touch.js"},
+			{"name":"handler_touch_716","url":"../../P8-testing/handler/handler_touch_716.js"},
+			{"name":"handler_touch_816","url":"../../P8-testing/handler/handler_touch_816.js"},
+			{"name":"handler_touch_816s","url":"../../P8-testing/handler/handler_touch_816s.js"},
+			{"name":"handler_acc_SC7A20","url":"../../P8-testing/handler/handler_acc_SC7A20.js"},
+			{"name":"handler_acc_BMA421","url":"../../P8-testing/handler/handler_acc_BMA421.js"},
+			{"name":"handler_charge","url":"../handler/handler_charge.js"},
+			{"name":"handler_face","url":"../../P8-testing/handler/handler_face.js"},
+			{"name":"handler_set","url":"../handler/handler_set.js"}
 		]
 	},  
 	{ "id": "handler_pt",
@@ -470,47 +511,7 @@
 		]
 	},
 
-	{ "id": "UI",
-		"name": "core - UI support",
-		"icon": "../../Magic-testing/UI/icon.png",
-		"version":"1.03",
-		"description": "UI",
-		"tags": "core",
-		"type":"core",
-		"readme": "README.md",
-	    "needsFeatures":["ROCK"],
-		"storage": [
-			{"name":"C:UI","url":"../../Magic-testing/UI/ui.js"},
-			{"name":"C:icons","url":"../../Magic-testing/UI/icons.js"}
 
-		]
-	},	
-	{ "id": "handler",
-		"name": "Handler - MAGIC - ROCK",
-		"icon": "../../Magic-testing/handler/icon.png",
-		"version":"1.08",
-		"description": "MAGIC - ROCK functions handler",
-		"tags": "core",
-		"type":"core",
-		"readme": "README.md",
-	    "needsFeatures":["ROCK"],
-		"storage": [
-			{"name":"handler","url":"../../Magic-testing/handler/handler.js"},
-			{"name":"C:handler_face","url":"../../Magic-testing/handler/handler_face.js"},
-			{"name":"handler_notify","url":"../../Magic-testing/handler/handler_notify.js"},
-			{"name":"C:handler_setter","url":"../../Magic-testing/handler/handler_setter.js"},
-			{"name":"handler_button","url":"../../Magic-testing/handler/handler_button.js"},
-			{"name":"C:handler_conn","url":"../../Magic-testing/handler/handler_conn.js"},
-			{"name":"handler_cron","url":"../../Magic-testing/handler/handler_cron.js"},
-			{"name":"handler_charge","url":"../../Magic-testing/handler/handler_charge.js"},
-			{"name":"handler_touch","url":"../../Magic-testing/handler/handler_touch.js"},
-			{"name":"C:handler_touch_716","url":"../../Magic-testing/handler/handler_touch_716.js"},
-			{"name":"C:handler_touch_816","url":"../../Magic-testing/handler/handler_touch_816.js"},
-			{"name":"handler_touch_816s","url":"../../Magic-testing/handler/handler_touch_816s.js"},
-			{"name":"handler_touch_b2","url":"../../Magic-testing/handler/handler_touch_b2.js"},
-			{"name":"C:handler_accel_SC7A20","url":"../../Magic-testing/handler/handler_accel_SC7A20.js"}
-		]
-	},  
 	{ "id": "main",
 		"name": "Clock",
 		"icon": "../../Magic-testing/main/icon.png",
