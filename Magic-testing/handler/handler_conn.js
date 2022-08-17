@@ -1,4 +1,4 @@
-//set.emuD=0;
+//ew.is.emuD=0;
 function ccon(l){ 
 	"ram";
 	var cli="\x03";
@@ -57,7 +57,7 @@ function bdis() {
 	else if (ew.is.bt==4) handleInfoEvent({"src":"BT","title":"EUC-PROXY","body":"Disconnected"},1);
 	else if (ew.is.bt==5) handleInfoEvent({"src":"BT","title":"ESP","body":"Disconnected"},1);
   	ew.is.bt=0; 
-	set.emuD=0;
+	ew.is.emuD=0;
 }
 NRF.setTxPower(ew.def.rfTX);
 NRF.on('disconnect',bdis);  

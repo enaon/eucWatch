@@ -36,7 +36,7 @@ face[0].d1=function(){
 		if (i==1){
 			buzzer(buz.ok);
 			UI.btn.ntfy(1,3,0,"_bar",6,"100% CELL","VOLT",15,1,1);
-			set.bar=1;
+			ew.temp.bar=1;
 			TC.val={cur:euc.dash.opt.bat.hi,dn:400,up:425,tmp:0};
 			UIc.tcBar=(a,b)=>{ 
 				UI.btn.ntfy(0,2,1);
@@ -46,7 +46,7 @@ face[0].d1=function(){
 		}else if (i==2){
 			buzzer(buz.ok);
 			UI.btn.ntfy(1,3,0,"_bar",6,"SPEED","FACTOR",15,1,1);
-			set.bar=1;
+			ew.temp.bar=1;
 			TC.val={cur:euc.dash.opt.unit.fact.spd*100,dn:50,up:150,tmp:0};
 			UIc.tcBar=(a,b)=>{ 
 				UI.btn.ntfy(0,2,1);
@@ -61,7 +61,7 @@ face[0].d1=function(){
 		}else if (i==4){
 			buzzer(buz.ok);
 			UI.btn.ntfy(1,3,0,"_bar",6,"0% CELL","VOLT",15,1,1);
-			set.bar=1;
+			ew.temp.bar=1;
 			TC.val={cur:euc.dash.opt.bat.low,dn:300,up:340,tmp:0};
 			UIc.tcBar=(a,b)=>{ 
 				UI.btn.ntfy(0,2,1);
@@ -71,7 +71,7 @@ face[0].d1=function(){
 		}else if (i==5){
 			buzzer(buz.ok);
 			UI.btn.ntfy(1,3,0,"_bar",6,"DISTANCE","FACTOR",15,1,1);
-			set.bar=1;
+			ew.temp.bar=1;
 			TC.val={cur:euc.dash.opt.unit.fact.dist*100,dn:50,up:150,tmp:0};
 			UIc.tcBar=(a,b)=>{ 
 				UI.btn.ntfy(0,2,1);
@@ -115,7 +115,7 @@ face[0].d2=function(){
 		}else if (i==6){
 			buzzer(buz.ok); 
 			UI.btn.ntfy(1,3,0,"_bar",6,"RETRIES","ON 'LOST'",15,1,1);
-			set.bar=1;
+			ew.temp.bar=1;
 			TC.val={cur:ew.def.dash.rtr,dn:1,up:20,tmp:0};
 			UIc.tcBar=(a,b)=>{ 
 				UI.btn.ntfy(0,2,1);

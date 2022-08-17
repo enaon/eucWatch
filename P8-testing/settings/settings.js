@@ -212,7 +212,7 @@ face[1] = {
   return true;
   },
   show : function(){
-  	//set.updateSettings();
+  	//ew.do.update.settings();
 	face[0].btSetOn=1;
 	if (face.faceSave!=-1) {
 		  face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
@@ -298,7 +298,7 @@ touchHandler[0]=function(e,x,y){
 			}else if (ew.is.bt==3){
 				buzzer([30,50,30]);
 				ew.is.fmp=1-ew.is.fmp;
-				if (ew.is.fmp) set.gbSend({ "t": "findPhone", "n": true });else set.gbSend({ "t": "findPhone", "n": false });
+				if (ew.is.fmp) ew.gbSend({ "t": "findPhone", "n": true });else ew.gbSend({ "t": "findPhone", "n": false });
 				//face.go("settings",5);return;
 			} else buzzer(40);
 		}else if(77<x&&x<157&&77<y&&y<159){//btn5
@@ -376,7 +376,7 @@ touchHandler[0]=function(e,x,y){
 			w.gfx.bri.set(face[0].cbri);
 			buzzer([30,50,30]);
 		}else { 
-			//set.updateSettings();
+			//ew.do.update.settings();
 			if (face.faceSave!=-1) {
 			  face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
 			}else{
@@ -406,11 +406,11 @@ touchHandler[0]=function(e,x,y){
 			buzzer([30,50,30]);
 		}else if (face.faceSave!=-1) {
 			face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
-			//set.updateSettings();
+			//ew.do.update.settings();
 		}else{
 			if (face.appPrev=="settings") {face.appPrev="main";face.pagePrev=0;}
 			face.go(face.appPrev,face.pagePrev,face.pageArg);return;
-			//set.updateSettings();
+			//ew.do.update.settings();
 		}    
 	}else if  (e==3){
 		if (face[0].btSet) {
@@ -431,7 +431,7 @@ touchHandler[0]=function(e,x,y){
 	}else if  (e==4){
 		if (face[0].btSet) {
 			face[0].btSet=0;
-			//set.updateSettings();
+			//ew.do.update.settings();
 		}else if (face[0].themeSet) {
 			w.gfx.setColor(0,0);
 			w.gfx.fillRect(76,0,79,160);
@@ -457,11 +457,11 @@ touchHandler[0]=function(e,x,y){
 			face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
 		  }else if (face.faceSave!=-1) {
 			  face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
-			  //set.updateSettings();
+			  //ew.do.update.settings();
 		  }else{
 			  if (face.appPrev=="settings") {face.appPrev="main";face.pagePrev=0;}
 			  face.go(face.appPrev,face.pagePrev,face.pageArg);return;
-			  //set.updateSettings();
+			  //ew.do.update.settings();
 		  }
 		  */
 	}else if  (e==12){

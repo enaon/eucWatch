@@ -212,7 +212,7 @@ euc.conn=function(mac){
 			euc.temp.last= [];
 			euc.temp.chk= [];
 			euc.rCha.on('characteristicvaluechanged', function(event) {
-				if (ew.is.bt===2&&set.dbg==3) console.log("Inmotion: packet in ",event.target.value.buffer); 
+				if (ew.is.bt===2&&euc.dbg==3) console.log("Inmotion: packet in ",event.target.value.buffer); 
 				if (euc.temp.alive) {clearTimeout(euc.temp.alive); euc.temp.alive=0;}
 				if (euc.is.busy) return;
 				//gather package

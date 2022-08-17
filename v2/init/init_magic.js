@@ -14,11 +14,11 @@ if ( process.env.BOARD!="BANGLEJS2"){
 	D7.write(1); // turns off sp02 red led
 }
 if (process.env.BOARD=="MAGIC3"||process.env.BOARD=="Magic3"||process.env.BOARD=="ROCK")
-	ew={pin:{BAT:D30,CHRG:D8,BUZZ:D6,BUZ0:0,BL:D12,i2c:{SCL:14,SDA:15},touch:{RST:D39,INT:D32},disp:{CS:D3,DC:D47,RST:D2,BL:D12},acc:{INT:D16}}};
+    global.ew={"do":{"reset":{},"update":{}},"tid":{},"temp":{},"pin":{BAT:D30,CHRG:D8,BUZZ:D6,BUZ0:0,BL:D12,i2c:{SCL:14,SDA:15},touch:{RST:D39,INT:D32},disp:{CS:D3,DC:D47,RST:D2,BL:D12},acc:{INT:D16}}};
 else if ( process.env.BOARD=="BANGLEJS2")
-	ew={pin:{BAT:D3,CHRG:D23,BUZZ:D19,BUZ0:1,BL:D8,i2c:{SCL:D34,SDA:D33},touch:{RST:D35,INT:D36},disp:{CS:D5,DC:D6,RST:D7,BL:D8},acc:{INT:D39}}};
+	ew={do:{reset:{},update:{}},tid:{},temp:{},pin:{BAT:D3,CHRG:D23,BUZZ:D19,BUZ0:1,BL:D8,i2c:{SCL:D34,SDA:D33},touch:{RST:D35,INT:D36},disp:{CS:D5,DC:D6,RST:D7,BL:D8},acc:{INT:D39}}};
 else 
-	ew={pin:{BAT:D31,CHRG:D19,BUZZ:D16,BUZ0:1,BL:D12,i2c:{SCL:D7,SDA:D6},touch:{RST:D13,INT:D28},disp:{CS:D25,DC:D18,RST:D26,BL:D14},acc:{INT:D8}}};
+	ew={do:{reset:{},update:{}},tid:{},temp:{},pin:{BAT:D31,CHRG:D19,BUZZ:D16,BUZ0:1,BL:D12,i2c:{SCL:D7,SDA:D6},touch:{RST:D13,INT:D28},disp:{CS:D25,DC:D18,RST:D26,BL:D14},acc:{INT:D8}}};
 //devmode
 if (BTN1.read() || require("Storage").read("devmode")) { 
   let mode=(require("Storage").read("devmode"));
@@ -64,7 +64,7 @@ eval(require('Storage').read('euc'));
 digitalPulse(ew.pin.BUZZ,ew.pin.BUZ0,[100,30,100]);
 setTimeout(function(){
   if (global.face) face.go('main',0);
-  setTimeout(function(){ if (global.set) ew.do.update.acc(); },1000); 
+  setTimeout(function(){ if (global.ew&&ew.do) ew.do.update.acc(); },1000); 
   digitalPulse(ew.pin.BUZZ,ew.pin.BUZ0,100);  
 },200); 
 }

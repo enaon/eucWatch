@@ -46,7 +46,7 @@ UIc.bar._sel_right=()=>{
 	euc.wri("setCalibrateTilt",euc.dash.live.tiltSet+1);
 };
 */
-set.bar=1;
+ew.temp.bar=1;
 TC.val={cur:euc.dash.live.tiltSet,dn:-99,up:99,tmp:0};
 UIc.tcBar=(a,b)=>{ 
 	euc.dash.live.tiltSet=b;

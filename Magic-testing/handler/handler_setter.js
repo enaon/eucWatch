@@ -84,8 +84,8 @@ var setter={
 		if (ew.def.gb) 
 			eval(require('Storage').read('m_gb'));
 		else {
-			set.gbSend=function(){return;};
-			set.handleNotificationEvent=0;set.handleFindEvent=0;handleWeatherEvent=0;handleCallEvent=0;handleFindEvent=0;sendBattery=0;global.GB=0;
+			ew.gbSend=function(){return;};
+			//set.handleNotificationEvent=0;set.handleFindEvent=0;handleWeatherEvent=0;handleCallEvent=0;handleFindEvent=0;sendBattery=0;global.GB=0;
 		}		
 		if (!ew.def.cli&&!ew.def.gb&&!ew.def.emuZ&&!ew.def.hid) { if (ew.is.bt) NRF.disconnect(); else{ NRF.sleep();ew.is.btsl=1;}}
 		else if (ew.is.bt) NRF.disconnect();

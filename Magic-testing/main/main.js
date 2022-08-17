@@ -310,13 +310,13 @@ touchHandler[0]=function(e,x,y){
 	  if (x<158 && y<50){//date
 		if (notify.ring){
 			buzzer(p,1,buz.ok);
-			set.gbSend({t:"call",n:"ignore"});notify.ring=0;
+			ew.gbSend({t:"call",n:"ignore"});notify.ring=0;
 		}else  buzzer(p,1,40);
 	  //batt notifications dismiss
 	  }else if (x>158 && y<50){//batt
 		if (notify.ring){
 			buzzer(buz.ok);
-			set.gbSend({t:"call",n:"accept"});notify.ring=0;
+			ew.gbSend({t:"call",n:"accept"});notify.ring=0;
 		}else if (face[0].bs){
 			if (Boolean(require("Storage").read("notify"))) {
 				buzzer(buz.ok);	

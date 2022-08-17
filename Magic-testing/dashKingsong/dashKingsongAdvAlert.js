@@ -38,7 +38,7 @@ face[0].set=(i)=>{
 	}else {UIc.end(); UI.btn.c2l("main","_main",3,"FIXED ALARM","",3,1);}
 	UI.btn.c3l("main","_lcd",1,euc.dash.alrt.spd[id[i-1]].val,"KPH",14,0);
 	UI.btn.ntfy(1,40,0,"_bar",6,"SET","ALARM",15,1,1);
-	set.bar=1;
+	ew.temp.bar=1;
 	
 	TC.val={cur:euc.dash.alrt.spd[id[i-1]].val,dn:i!=1?euc.dash.alrt.spd[id[i-2]].val:1,up:i!=4?euc.dash.alrt.spd[id[i]].val:50,tmp:0};
 	UIc.tcBar=(a,b)=>{ 

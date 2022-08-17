@@ -242,7 +242,7 @@ touchHandler[0]=function(e,x,y){
 		if (face[0].set) { 
 			if (face[0].set=="info") {
 				if ( x <=120 && 190 <= y) {
-					set.updateSettings();
+					ew.do.update.settings();
 					NRF.removeListener('disconnect',bdis);  
 					NRF.disconnect();
 					w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
@@ -264,13 +264,13 @@ touchHandler[0]=function(e,x,y){
 					ew.def.rstR=(ew.def.rstR==165)?229:165;
 					face[0].btn((ew.def.rstR==165)?1:0,"TP SLEEP:",22,65,45,1,2,0,30,239,80,(ew.def.rstR==165)?"P8":"P22",26,180,45);//1
 				}else if ( x <=120 && 190 <= y) {
-					set.updateSettings();
+					ew.do.update.settings();
 					NRF.removeListener('disconnect',bdis);  
 					NRF.disconnect();
 					w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
 					reset();
 				}else if ( 120 <= x && 190 <= y) {
-					set.updateSettings();
+					ew.do.update.settings();
 					NRF.disconnect();
 					require("Storage").write("devmode","shutdown");
 					ew.def.acc=0;

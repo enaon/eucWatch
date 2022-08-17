@@ -19,7 +19,7 @@ face[0] = {
 	},
 	bar:function(){
 		"ram";
-		set.bar=0;
+		ew.temp.bar=0;
 		UIc.start(0,1);
 		this.ref();
 		UIc.end();
@@ -49,7 +49,7 @@ face[0] = {
 		UI.btn.img("bar","_bar",3,"dash",0,face[0].page=="dash1"||face[0].page=="dash1"?14:3,face[0].page=="dash1"||face[0].page=="dash2"?1:0);
 	},
 	clear : function(o){
-		set.bar=0;/*TC.removeAllListeners();*/if (this.tid) clearTimeout(this.tid);this.tid=0;return true;
+		ew.temp.bar=0;/*TC.removeAllListeners();*/if (this.tid) clearTimeout(this.tid);this.tid=0;return true;
 	},
 	off: function(o){
 		this.g.off();this.clear(o);

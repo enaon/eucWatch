@@ -64,7 +64,7 @@ eval(require('Storage').read('euc'));
 digitalPulse(ew.pin.BUZZ,ew.pin.BUZ0,[100,30,100]);
 setTimeout(function(){
   if (global.face) face.go('main',0);
-  setTimeout(function(){ if (global.set) ew.do.update.acc(); },1000); 
+  setTimeout(function(){ if (global.ew&&ew.do) ew.do.update.acc(); },1000); 
   digitalPulse(ew.pin.BUZZ,ew.pin.BUZ0,100);  
 },200); 
 }

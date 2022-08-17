@@ -86,7 +86,7 @@ face[0] = {
 				UI.btn.c3l("main","_lcd",1,euc.dash.alrt[this.slot].hapt[trgt],txt2,14,0);
 				//UI.btn.ntfy(1,3,0,"_bar",6,txt,". . . . . . . . .",15,0,1);
 				UI.btn.ntfy(1,3,0,"_bar",6,"SET",txt,15,1,1);
-				set.bar=1;
+				ew.temp.bar=1;
 				TC.val={cur:euc.dash.alrt[this.slot].hapt[trgt],dn:limD,up:limU,tmp:0};
 				UIc.tcBar=(a,b)=>{ 
 					UI.btn.ntfy(0,3,1);
@@ -101,7 +101,7 @@ face[0] = {
 						buzzer(buz.ok);
 						euc.dash.alrt[this.slot].hapt.en=1-euc.dash.alrt[this.slot].hapt.en;
 						if (ew.def.info) {
-							set.l=1;
+							ew.temp.l=1;
 							//if (UI.ntid) {/*buzzer(buz.ok);*/clearTimeout(UI.ntid);UI.ntid=0;/*face[0].bar();*/}
 							UI.btn.ntfy(0,1,0,"_bar",6,"HAPTIC",euc.dash.live[i]?"ENABLED":"DISABLED",15,0);
 							UI.btn.c2l("main","_main",3,euc.dash.alrt[this.slot].hapt.en?"ON":"OFF","",15,euc.dash.alrt[this.slot].hapt.en?4:1);
@@ -124,8 +124,8 @@ face[0] = {
 	bar:function(){
 		"ram";
 		UI.ele.ind(face[0].tab,2,1);
-		if(set.l) {set.l=0; UIc.bar._bar(6);return;}
-		set.bar=0;
+		if(ew.temp.l) {ew.temp.l=0; UIc.bar._bar(6);return;}
+		ew.temp.bar=0;
 		//if (this.page) {
 			this.page=0;
 			UIc.start(1,0);
@@ -161,6 +161,6 @@ face[0] = {
 	},
 	tid:-1,
 	run:false,
-	clear : function(){set.bar=0;/*TC.removeAllListeners();*/if (this.tid) clearTimeout(this.tid);this.tid=0;return true;},
+	clear : function(){ew.temp.bar=0;/*TC.removeAllListeners();*/if (this.tid) clearTimeout(this.tid);this.tid=0;return true;},
 	off: function(){this.g.off();this.clear();}
 };

@@ -10,7 +10,7 @@ E.enableWatchdog(30, false);
 E.showMessage=print; //apploader suport
 global.save = function() { throw new Error("You don't need to use save() on eucWatch!"); };
 //d25.write(0)
-ew={pin:{BAT:D31,CHRG:D19,BUZZ:D16,BL:D12,i2c:{SCL:D7,SDA:D6},touch:{RST:D13,INT:D28},disp:{CS:D25,DC:D18,RST:D26,BL:D14},acc:{INT:D8}}};
+ew={do:{reset:{},update:{}},tid:{},temp:{},pin:{BAT:D31,CHRG:D19,BUZZ:D16,BUZ0:1,BL:D12,i2c:{SCL:D7,SDA:D6},touch:{RST:D13,INT:D28},disp:{CS:D25,DC:D18,RST:D26,BL:D14},acc:{INT:D8}}};
 //devmode
 if (BTN1.read() || Boolean(require("Storage").read("devmode"))) { 
   let mode=(require("Storage").read("devmode"));
@@ -131,7 +131,8 @@ function init(){
 	//cmd([0x2b,0,0,0,239]);
 	//cmd([0x2c]);
 }
-var bpp=(require("Storage").read("setting.json") && require("Storage").readJSON("setting.json").bpp)?require("Storage").readJSON("setting.json").bpp:1;
+//var bpp=(require("Storage").read("setting.json") && require("Storage").readJSON("setting.json").bpp)?require("Storage").readJSON("setting.json").bpp:1;
+var bpp=1;
 var g=Graphics.createArrayBuffer(240,240,bpp);
 var pal;
 g.sc=g.setColor;
@@ -259,7 +260,7 @@ eval(require('Storage').read('euc'));
 digitalPulse(ew.pin.BUZZ,1,[100,30,100]);
 setTimeout(function(){
 if (global.face) face.go('main',0);
-setTimeout(function(){ if (global.set) set.accR(); },1000); 
+setTimeout(function(){ if (global.ew&&ew.do) ew.do.update.acc(); },1000); 
 digitalPulse(ew.pin.BUZZ,1,[100]);  
 },200); 
 }

@@ -179,7 +179,7 @@ UI={
 				}
 			}
 		}
-		UI.ntid=setTimeout(function(t){UI.ntid=0;/*UI.emit('ntfy',"ok");*/if (TC.tid&&ew.def.touchtype!="716") {clearTimeout(TC.tid);TC.tid=0;} set.bar=0; if (face[0].exe) face[0].exe();face[0].exe=0;if (face[0].bar) face[0].bar();  },tmot?tmot*1000:1000);
+		UI.ntid=setTimeout(function(t){UI.ntid=0;/*UI.emit('ntfy',"ok");*/if (TC.tid&&ew.def.touchtype!="716") {clearTimeout(TC.tid);TC.tid=0;} ew.temp.bar=0; if (face[0].exe) face[0].exe();face[0].exe=0;if (face[0].bar) face[0].bar();  },tmot?tmot*1000:1000);
 	}
   },
   ele:{

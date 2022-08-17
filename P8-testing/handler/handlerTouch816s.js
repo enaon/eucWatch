@@ -1,7 +1,7 @@
 //816s
 var lt,xt,yt,tt,tf,c;
 //var ct=0;
-set.tid.TP=setWatch(function(s){
+ew.tid.TP=setWatch(function(s){
 	var tp=i2c.readFrom(0x15,7);
 	//console.log(tp);
 	if (face.pageCurr>=0) {

@@ -2,7 +2,7 @@
 function ccon(l){ 
 //	if (ew.def.prxy&&global.euc&&global.euc.state=="READY") {
 	if (ew.def.emuZ) {
-		//if (set.emuD) return;
+		//if (ew.is.emuD) return;
 		emuZ.cmd(l);
 		return;
 	}else {
@@ -63,7 +63,7 @@ function bdis() {
 	else if (ew.is.bt==4) handleInfoEvent({"src":"BT","title":"Z10 EMU","body":"Client Disconnected"},1);
 	else if (ew.is.bt==5) handleInfoEvent({"src":"BT","title":"PROXY","body":"Client Disconnected"},1);
   	ew.is.bt=0; 
-	set.emuD=0;
+	ew.is.emuD=0;
 }
 NRF.setTxPower(ew.def.rfTX);
 NRF.on('disconnect',bdis);  

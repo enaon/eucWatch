@@ -32,7 +32,7 @@ var TC={
 			"ram";
 			//i2c.writeTo(0x15,0);
 			var tp=i2c.readFrom(0x15,7);
-			if  (set.bar) { 
+			if  (ew.temp.bar) { 
 				if (180<(((tp[5]&0x0F)<<8)|tp[6])) {
 					print("in bar");
 					if (!TC.tid) {
@@ -44,7 +44,7 @@ var TC={
 					return;
 				}else if (TC.tid){
 					print("clear bar1");
-					clearInterval(TC.tid);TC.st=1;TC.tid=0;set.bar=0;
+					clearInterval(TC.tid);TC.st=1;TC.tid=0;ew.temp.bar=0;
 				}
 			}
 			//print("in",tp);
@@ -57,7 +57,7 @@ var TC={
 			if (this.loop) {clearTimeout(this.loop); this.loop=0;}
 			this.loop=setTimeout(()=>{
 				TC.loop=0;
-				if (set.bar) {
+				if (ew.temp.bar) {
 					if (!TC.tid) {
 						TC.tid=setInterval(function(){
 							TC.bar();
@@ -73,7 +73,7 @@ var TC={
 	},
 	bar:function(){
 			var tp=i2c.readFrom(0x15,7);
-			if (set.bar&&180<(((tp[5]&0x0F)<<8)|tp[6])) {
+			if (ew.temp.bar&&180<(((tp[5]&0x0F)<<8)|tp[6])) {
 				if (tp[2]) {
 					if (this.st) {this.st=0; this.y=tp[4]; return;}
 					if (this.y!=tp[4]) {

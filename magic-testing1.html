@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8,maximum-scale=0.8, minimum-scale=0.8, shrink-to-fit=no">
+    <link rel="stylesheet" href="Loader/css/spectre.min.css">
+    <link rel="stylesheet" href="Loader/css/spectre-exp.min.css">
+    <link rel="stylesheet" href="Loader/css/spectre-icons.min.css">
+    <link rel="stylesheet" href="Loader/css/pwa.css">
+    <link rel="stylesheet" href="Loader/css/main.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="Loader/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="Loader/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="Loader/img/favicon-16x16.png">
+    <link rel="manifest" href="Loader/site.webmanifest">
+    <link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#332F2E">
+    <meta name="apple-mobile-web-app-title" content="eucWatch">
+    <meta name="application-name" content="eucWatch">
+    <meta name="msapplication-TileColor" content="#332F2E">
+    <meta name="theme-color" content="#332F2E">
+    <title>eucWatch Loader</title>
+  </head>
+  <body>
+    <header class="navbar-primary navbar">
+      <section class="navbar-section">
+        <a href="https://enaon.github.io/eucWatch" target="_blank" class="navbar-brand mr-2"><img src="Loader/img/favicon-32x32.png" alt="eucWatch">&nbsp;&nbsp; Magic - eucWatch loader</a>
+        <!-- <a href="#" class="btn btn-link">...</a> -->
+      </section>
+      <section class="navbar-section">
+        <button class="btn" id="connectmydevice">Connect</button>
+      </section>
+      <!--<section class="navbar-section">
+        <div class="input-group input-inline">
+          <input class="form-input" type="text" placeholder="search">
+          <button class="btn btn-primary input-group-btn">Search</button>
+        </div>
+      </section>-->
+    </header>
+
+    <div class="container" style="padding-top:4px">
+      <p id="requireHTTPS" class="hidden">
+        <b>STOP!</b> This page <b>must</b> be served over HTTPS. Please <a>reload this page via HTTPS</a>.
+      </p>
+    </div>
+
+
+    <ul class="tab tab-block" id="tab-navigate">
+      <li class="tab-item active" id="tab-librarycontainer">
+        <a href="javascript:showTab('librarycontainer')">Library</a>
+      </li>
+      <li class="tab-item" id="tab-myappscontainer">
+        <a href="javascript:showTab('myappscontainer')">My Apps</a>
+      </li>
+      <li class="tab-item" id="tab-watchcontainer">
+        <a href="javascript:showTab('watchcontainer')">Installer</a>
+      </li>      <li class="tab-item" id="tab-aboutcontainer">
+        <a href="javascript:showTab('aboutcontainer')">About</a>
+      </li>
+    </ul>
+
+    <div class="container"  id="toastcontainer">
+    </div>
+
+    <div class="container apploader-tab" id="librarycontainer">
+      <div>
+        <div class="filter-nav">
+          <label class="chip active" filterid="">ALL</label>
+          <label class="chip" filterid="apps">Apps</label>
+          <label class="chip" filterid="euc">EUC</label>
+          <label class="chip" filterid="system">System</label>
+          <label class="chip" filterid="core">Core</label>
+          <label class="chip" filterid="favourites">Favourites</label>
+        </div>
+        <div class="sort-nav hidden">
+          <span>Sort by:</span>
+          <label class="chip active" sortid="">None</label>
+          <label class="chip" sortid="created">New</label>
+          <label class="chip" sortid="modified">Updated</label>
+        </div>
+      </div>
+
+      <div class="panel" style="clear:both">
+        <div class="panel-header">
+        <div class="input-group" id="searchform">
+            <input class="form-input" type="text" placeholder="Keywords...">
+            <button class="btn btn-primary input-group-btn">Search</button>
+        </div>
+        </div>
+        <div class="panel-body columns"><!-- apps go here --></div>
+      </div>
+    </div>
+
+    <div class="container apploader-tab" id="myappscontainer" style="display:none">
+      <div class="panel">
+        <div class="panel-header" style="text-align:right">
+          <button class="btn refresh">Refresh...</button>
+          <button class="btn btn-primary updateapps hidden">Update X apps</button>
+        </div>
+        <div class="panel-body columns"><!-- apps go here --></div>
+      </div>
+    </div>
+
+
+    <div class="container apploader-tab" id="watchcontainer" style="display:none">
+      <div class="hero bg-gray">
+        <div class="hero-body">
+          <h4>Installer</h4>
+			<h5>Magic smartwatch </h5>
+			<h6>Select the "Install All Apps" button to start uploading eucWatch scripts to an espruino ready Magic smartwatch. </h6>
+			<h6>"Remove all Apps" and "Reset to default Settings" buttons exist for debug. Install will also remove all and reset to defaults.</h6>
+
+        </div>
+      </div>
+      <div class="container" style="padding-top: 8px;">
+        <h5>Install Actions</h5>
+        <p>
+			<button class="btn" id="installall">Install all apps</button>
+			<button class="btn" id="removeall">Remove all Apps</button>
+			<button class="btn" id="defSettings">Reset to default Settings</button>
+        </p>
+        <h5>Utilities</h5>
+        <p><button class="btn" id="settime">Set Time</button>
+			<button class="btn" id="restart">Restart Watch</button>
+		    <button class="btn" id="settings">Change Settings</button>
+        </p>
+      </div>
+    </div>
+
+    <div class="container apploader-tab" id="aboutcontainer" style="display:none">
+      <div class="hero bg-gray">
+        <div class="hero-body">
+          <h4>App Loader</h4>
+		<p>A tool for uploading apps to <a href="https://espruino.com" target="_blank">Espruino Devices</a></p>
+        <p id="apploaderlinks"></p> <p>Check out <a href="https://github.com/espruino/EspruinoApps" target="_blank">the Source on GitHub.</a>
+		 Using <a href="https://espruino.com/" target="_blank">Espruino.</a></p>
+        </div>
+      </div>
+      <div class="container" style="padding-top: 8px;">
+        <h5>Settings</h5>
+        <div class="form-group">
+          <label class="form-switch">
+            <input type="checkbox" id="settings-pretokenise">
+            <i class="form-icon"></i> Pretokenise apps before upload (smaller, faster apps)
+          </label>
+          <button class="btn" id="defaultsettings">Default settings</button>
+        </div>
+		
+      </div>
+    </div>
+
+    <footer class="floating hidden">
+      <!-- Install button, hidden by default -->
+      <div id="installContainer" class="hidden">
+        <button id="butInstall" type="button">
+          Install
+        </button>
+      </div>
+    </footer>
+	
+    <!-- <script src="https://www.puck-js.com/puck.js"></script> -->
+    <script src="Loader/puck.js"></script>
+    <script src="Loader/core/lib/marked.min.js"></script>
+    <script src="Loader/core/lib/espruinotools.js"></script>
+    <script src="Loader/core/lib/heatshrink.js"></script>
+    <script src="Loader/core/js/utils.js"></script>
+    <script src="Magic-testing/magicloader.js"></script>
+    <script src="Loader/core/js/ui.js"></script>
+    <script src="Loader/core/js/comms.js"></script>
+    <script src="Loader/core/js/appinfo.js"></script>
+    <script src="Loader/core/js/index.js"></script>
+    <script src="Loader/core/js/pwa.js" defer></script>
+  </body>
+</html>

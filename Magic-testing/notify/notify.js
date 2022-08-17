@@ -168,8 +168,8 @@ face[5] = {
 	  else if (this.type==="im") this.g.setColor(1,4);
 	  else if (this.type==="info") this.g.setColor(1,12);
       this.g.fillRect(0,0,239,30);
-      //if (this.msg.idUnread) {this.g.setColor(0,15);set.gbSend({t:"notify", id:this.msg.id, n:"dismiss"});} else this.g.setColor(0,3);
-//	  if (this.msg.id) set.gbSend({t:"notify", id:this.msg.id, n:"dismiss"});     
+      //if (this.msg.idUnread) {this.g.setColor(0,15);ew.gbSend({t:"notify", id:this.msg.id, n:"dismiss"});} else this.g.setColor(0,3);
+//	  if (this.msg.id) ew.gbSend({t:"notify", id:this.msg.id, n:"dismiss"});     
 	  this.g.setColor(0,15);
 	  this.g.drawString(this.msg.src,3,5);
       this.g.drawString(this.go+1+"/"+this.list.length,239-(this.g.stringWidth(this.go+1+"/"+this.list.length)),5);
@@ -231,13 +231,13 @@ touchHandler[0]=function(e,x,y){
     }else if  (e==12){
       if (y<80&&x<170){
 		buzzer([30,50,80]);notify.call=[];notify.nCall=0;face[0].nCall=-1;
-		if (!notify.nCall&&!notify.nIm&&!notify.nInfo) {set.gbSend({t:"notify", n:"dismiss_all"});notify.New=0;}
+		if (!notify.nCall&&!notify.nIm&&!notify.nInfo) {ew.gbSend({t:"notify", n:"dismiss_all"});notify.New=0;}
       } else if (80<=y&&y<160&x<170){
 		buzzer([30,50,80]);notify.im=[];notify.nIm=0;face[0].nIm=-1;
-		if (!notify.nCall&&!notify.nIm&&!notify.nInfo) {set.gbSend({t:"notify", n:"dismiss_all"});notify.New=0;}
+		if (!notify.nCall&&!notify.nIm&&!notify.nInfo) {ew.gbSend({t:"notify", n:"dismiss_all"});notify.New=0;}
 	  } else if (160<=y&&y<239&x<170){
 		buzzer([30,50,80]);notify.info=[];notify.nInfo=0;face[0].nInfo=-1;
-		if (!notify.nCall&&!notify.nIm&&!notify.nInfo) {set.gbSend({t:"notify", n:"dismiss_all"});notify.New=0;}
+		if (!notify.nCall&&!notify.nIm&&!notify.nInfo) {ew.gbSend({t:"notify", n:"dismiss_all"});notify.New=0;}
       }else buzzer(buz.na);
     }
 };
@@ -257,18 +257,18 @@ touchHandler[5]=function(e,x,y){
     }else if (e==5){
 	  buzzer(buz.na);
     }else if  (e==1){//slide down
-	  if (face[5].msg&&face[5].msg.id) set.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
+	  if (face[5].msg&&face[5].msg.id) ew.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
       face[5].go--;
       buzzer(buz.ok);
     }else if  (e==2){
-	  if (face[5].msg&&face[5].msg.id) set.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
+	  if (face[5].msg&&face[5].msg.id) ew.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
 	  face[5].go++;
       buzzer(buz.ok);
     }else if  (e==3){
       if  (face[5].list.length>0) face[5].del=1;
       else {face.go("notify",0); return;}
     }else if  (e==4){//slide right event (back action)
-	  if (face[5].msg&&face[5].msg.id) set.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
+	  if (face[5].msg&&face[5].msg.id) ew.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
 	  notify["n"+face[5].type.substr(0,1).toUpperCase()+face[5].type.substr(1)]=0;
       if (!notify.nInfo&&!notify.nCall&&!notify.nIm) {notify.New=0;}
       if (face.appPrev=="off") {face.go("main",-1);return;}

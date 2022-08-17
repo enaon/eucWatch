@@ -6,7 +6,7 @@
 euc.dash.trip.pwm=0;
 euc.wri=function(i) {if (euc.dbg) console.log("not connected yet"); if (i=="end") euc.off(); return;};
 euc.cmd=function(no,val){
-	 "ram";
+	 //"ram";
 	switch (no) {
 		//euc.wri("getParamA");
 		case "manual":return val; 
@@ -73,7 +73,7 @@ euc.cmd=function(no,val){
     }
 };
 euc.temp.city=function(){
-	 "ram";
+	// "ram";
 	if ( euc.dash.live.amp < -1 && euc.dash.opt.lght.HL ===1 ) {
 		euc.wri("setLights",3); 
 		euc.dash.opt.lght.HL =3;
@@ -102,7 +102,7 @@ euc.temp.city=function(){
 	}
 };
 euc.temp.inpk=function(event){
-	 "ram";
+	// "ram";
 	let inpk=JSON.parse(E.toJS(event.target.value.buffer));
 	if (ew.is.bt==5) NRF.updateServices({0xffe0:{0xffe1:{value:inpk,notify:true}}});
 	if (inpk[0]==188) return;
@@ -149,7 +149,7 @@ euc.temp.inpk=function(event){
 //
 euc.temp.one=function(inpk){
 	//speed
-	 "ram";
+	 //"ram";
 	euc.dash.live.spd=(inpk[5] << 8 | inpk[4])/100; 
 	euc.dash.alrt.spd.cc = ( euc.dash.alrt.spd.hapt.hi <= euc.dash.live.spd )? 2 : ( euc.dash.alrt.spd.thre.val <= euc.dash.live.spd )? 1 : 0 ;	
 	if ( euc.dash.alrt.spd.hapt.en && euc.dash.alrt.spd.cc == 2 ) 
@@ -188,7 +188,7 @@ euc.temp.one=function(inpk){
 					
 };
 euc.temp.two=function(inpk){
-	 "ram";
+	// "ram";
 	euc.dash.trip.last=((inpk[2] << 16) + (inpk[3] << 24) + inpk[4] + (inpk[5] << 8)) / 1000;
 	euc.dash.trip.time=Math.round((inpk[7] << 8 | inpk[6])/60);
 	euc.dash.trip.topS=Math.round((inpk[9] << 8 | inpk[8])/100) ;///////
@@ -201,7 +201,7 @@ euc.temp.two=function(inpk){
 	euc.dash.live.tmpM=Math.round((inpk[15] << 8 | inpk[14])/100) ;
 };
 euc.temp.thre=function(inpk){
-	 "ram";
+	// "ram";
 	euc.dash.alrt.spd.max=(inpk[3] << 8 | inpk[2])/100;
 	euc.dash.info.tRdT=(inpk[13] << 8 | inpk[12]);
 	euc.dash.alrt.warn.code=(inpk[15] << 8 | inpk[14]);
@@ -221,7 +221,7 @@ euc.temp.rspF.one=function(inpk){
 };
 	
 euc.temp.resp=function(inpk){
-	 "ram";
+	// "ram";
 	if ( inpk[16] == 63 ) 
 		euc.dash.auto.offT=inpk[5] << 8 | inpk[4];
 	else if ( inpk[16] == 67 ) {
@@ -333,7 +333,7 @@ euc.temp.resp=function(inpk){
 
 
 euc.temp.faultAlarms =function(code) {
-	 "ram";
+	// "ram";
 	//if (code==218) 
 	//	euc.log.evnt={"spd":euc.dash.live.spd,"pwm":euc.dash.live.pwm};
 	switch(code) {
@@ -348,7 +348,7 @@ euc.temp.faultAlarms =function(code) {
 };
 //start
 euc.conn=function(mac){
-	 "ram";
+	 //"ram";
 	if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
 		if (euc.dbg) console.log("ble allready connected"); 
 		global["\xFF"].BLE_GATTS.disconnect();return;

@@ -135,7 +135,8 @@ function init(){
   //cmd([0x2b,0,0,0,239]);
   //cmd([0x2c]);
 }
-var bpp=(require("Storage").read("setting.json") && require("Storage").readJSON("setting.json").bpp)?require("Storage").readJSON("setting.json").bpp:1;
+//var bpp=(require("Storage").read("setting.json") && require("Storage").readJSON("setting.json").bpp)?require("Storage").readJSON("setting.json").bpp:1;
+var bpp=1;
 var g=Graphics.createArrayBuffer(240,240,bpp);
 var pal;
 // 12bit RGB444  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=blue,9=purple,10=?,11=green,12=olive,13=yellow,14=lblue,15=white
@@ -261,7 +262,7 @@ eval(require('Storage').read('euc'));
 digitalPulse(ew.pin.BUZZ,1,[100,30,100]);
 setTimeout(function(){
 	if (global.face) face.go('main',0);
-	setTimeout(function(){ if (global.set) ew.do.update.acc(); },1000); 
+	setTimeout(function(){ if (global.ew&&ew.do) ew.do.update.acc(); },1000); 
 	digitalPulse(ew.pin.BUZZ,1,[100]);  
 },200); 
 }

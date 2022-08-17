@@ -18,6 +18,7 @@ var touchHandler = {
 };
 //var i2c=I2C1;
 var i2c=new I2C();
+//i2c.setup({scl:ew.pin.i2c.SCL, sda:ew.pin.i2c.SDA, bitrate:100000});
 i2c.setup({scl:D7, sda:D6, bitrate:100000});
 //find touch
 if ( ew.def.touchtype != "716" && ew.def.touchtype != "816" && ew.def.touchtype != "816s" )  eval(require('Storage').read("handlerTouch"));

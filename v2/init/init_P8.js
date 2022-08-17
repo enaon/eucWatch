@@ -1,5 +1,6 @@
 //watchdog
 //setBusyIndicator(D27)
+//E.setFlags({pretokenise:0});
 E.kickWatchdog();
 function KickWd(){
 	"ram";
@@ -16,7 +17,7 @@ global.save = function() { throw new Error("You don't need to use save() on eucW
 //spi.send([0xb9],D5); //powerdown
 //spi.send([0x9f,0,0,0],D5); //check status
 //var spi=new SPI();spi.setup({sck:D2,mosi:D3,miso:D4,mode:0});spi.send([0x9f,0,0,0],D5); //check status ;
-ew={pin:{BAT:D31,CHRG:D19,BUZZ:D16,BL:D12,i2c:{SCL:D7,SDA:D6},touch:{RST:D13,INT:D28},disp:{CS:D25,DC:D18,RST:D26,BL:D14},acc:{INT:D8}}};
+global.ew={"do":{"reset":{},"update":{}},"tid":{},"temp":{},"pin":{BAT:D31,CHRG:D19,BUZZ:D16,BUZ0:1,BL:D12,i2c:{SCL:D7,SDA:D6},touch:{RST:D13,INT:D28},disp:{CS:D25,DC:D18,RST:D26,BL:D14},acc:{INT:D8}}};
 //devmode
 if (BTN1.read() || Boolean(require("Storage").read("devmode"))) { 
   let mode=(require("Storage").read("devmode"));
@@ -135,7 +136,8 @@ function init(){
   //cmd([0x2b,0,0,0,239]);
   //cmd([0x2c]);
 }
-var bpp=(require("Storage").read("setting.json") && require("Storage").readJSON("setting.json").bpp)?require("Storage").readJSON("setting.json").bpp:1;
+//var bpp=(require("Storage").read("setting.json") && require("Storage").readJSON("setting.json").bpp)?require("Storage").readJSON("setting.json").bpp:1;
+var bpp=1;
 var g=Graphics.createArrayBuffer(240,240,bpp);
 var pal;
 // 12bit RGB444  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=blue,9=purple,10=?,11=green,12=olive,13=yellow,14=lblue,15=white
@@ -253,6 +255,7 @@ module.exports = {
 };
 });
 w=require("eucWatch");
+Modules.removeAllCached();
 eval(require('Storage').read('handler'));
 eval(require('Storage').read('main'));
 eval(require('Storage').read('euc'));
@@ -261,7 +264,7 @@ eval(require('Storage').read('euc'));
 digitalPulse(ew.pin.BUZZ,1,[100,30,100]);
 setTimeout(function(){
 	if (global.face) face.go('main',0);
-	setTimeout(function(){ if (global.set) set.accR(); },1000); 
+	setTimeout(function(){ if (global.ew&&ew.do) ew.do.update.acc(); },1000); 
 	digitalPulse(ew.pin.BUZZ,1,[100]);  
 },200); 
 }

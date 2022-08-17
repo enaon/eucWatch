@@ -55,7 +55,7 @@ face[0] = {
 	},
 	bar:function(){
 		"ram";
-		set.bar=0;
+		ew.temp.bar=0;
 		if (this.page.includes("password")){
 			UIc.start(0,1);
 			for (let i=10;i<13;i++){
@@ -79,7 +79,7 @@ face[0] = {
 		for (let i = 0; i < 10; i++) {
 			if (this["tid"+i]) clearTimeout(this["tid"+i]);this["tid"+i]=0;
 		}
-		set.bar=0;if (this.tid) clearTimeout(this.tid);this.tid=0;return true;
+		ew.temp.bar=0;if (this.tid) clearTimeout(this.tid);this.tid=0;return true;
 	},
 	off: function(){
 		this.g.off();this.clear();

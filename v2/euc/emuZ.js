@@ -20,7 +20,7 @@ global.emuZ={
 		packet[packetLen - 1] = (check >> 8) & 0xFF;
 		Bluetooth.write(packet);
 		//	setTimeout(()=>{
-		//		set.emuD=0;
+		//		ew.is.emuD=0;
 		//	},10);
 		//}
 	},
@@ -28,10 +28,10 @@ global.emuZ={
 		return "0x"+((c*f)+0x10000).toString((l==16)?16:32).substr((p==1)?1:(p==2)?3:(p==3)?5:7,(p==1)?2:(p==2)?4:(p==3)?6:8);
 	},
 	cmd:function(l){ 
-		set.emuD=1;
+		ew.is.emuD=1;
 		switch (l) {
 		case "U\xAA\3\x11\1\x1A\2\xCE\xFF":
-		set.emuD=0;
+		ew.is.emuD=0;
 			return;
 		case "Z\xA5\1>\x14\1\xB0\x20\xDB\xFE"://live
 			if (ew.is.bt!=4) {ew.is.bt=4;handleInfoEvent({"src":"BT","title":"BRIDGE","body":"Connected"});}

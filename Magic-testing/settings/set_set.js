@@ -24,7 +24,7 @@ UIc.main._2x3=(i)=>{
 		buzzer(buz.ok);
 		UI.btn.img("main","_2x3",3,"bri",ew.def.bri,15,1,1);
 		UI.btn.ntfy(1,3,0,"_bar",6,"BRIGHTNESS",". . . . . . . . .",15,6,1);
-		set.bar=1;
+		ew.temp.bar=1;
 		TC.val={cur:ew.def.bri,dn:1,up:7,tmp:0};
 		UIc.tcBar=(a,b)=>{ 
 			UI.btn.ntfy(0,3,1);

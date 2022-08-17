@@ -16,7 +16,7 @@ var TC={
 		"ram";
 		var tp=i2c.readFrom(0x15,7);
 		if ( tp == Uint8Array(7) || (tp[3] == 64 && this.st)  ) return;
-		if (set.bar){
+		if (ew.temp.bar){
 			if (180<(((tp[5]&0x0F)<<8)|tp[6])) {  
 				if (tp[2]) {
 					if (this.st) {this.st=0; this.y=tp[4]; return;}
@@ -44,7 +44,7 @@ var TC={
 				}else
 					{this.st=1;face.off();}
 				return;
-			}else set.bar=0;
+			}else ew.temp.bar=0;
 			
 		}
 		if (  tp[3] === 0 || tp[3] === 128) {
@@ -97,7 +97,7 @@ var TC={
 		"ram";
 		var tp=i2c.readFrom(0x15,7);
 		//print(TC.last);
-		if (set.bar&&180<tp[6]&&tp[2]) {
+		if (ew.temp.bar&&180<tp[6]&&tp[2]) {
 			if (this.st) {this.st=0; this.y=tp[4]; return;}
 			if (this.y!=tp[4]) {
 				this.last=this.y<tp[4]?this.last+(tp[4]-this.y):this.last-(this.y-tp[4]); 
@@ -117,7 +117,7 @@ var TC={
 		i2c.writeTo(0x15,0);
 		this.st=1;
 		this.tid=setInterval(function(){
-		//if (set.bar) { TC.bar();}
+		//if (ew.temp.bar) { TC.bar();}
 		//else 
 			TC.init();
 		},this.loop);

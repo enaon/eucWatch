@@ -18,7 +18,7 @@ UIc.main._2x3=(i)=>{
 		buzzer(buz.ok);
 		let f=16<face.appRoot[0].length?face.appRoot[0].substr(0,16).toUpperCase()+"..":face.appRoot[0].toUpperCase();
 		UI.btn.ntfy(1,3,0,"_bar",6,"TIMEOUT",f,15,6,1);
-		set.bar=1;
+		ew.temp.bar=1;
 		TC.val={cur:3,dn:3,up:100,tmp:0};
 		UIc.tcBar=(a,b)=>{ 
 			UI.btn.ntfy(0,2,1);
@@ -48,7 +48,7 @@ UIc.main._2x3=(i)=>{
 	}else if (i==4){
 		buzzer(buz.ok);
 		UI.btn.ntfy(1,3,0,"_bar",6,"TEXT SIZE","SET",15,1,1);
-		set.bar=1;
+		ew.temp.bar=1;
 		TC.val={cur:UI.size.txt*100,dn:60,up:100,tmp:0};
 		UIc.tcBar=(a,b)=>{ 
 			UI.btn.ntfy(0,2,1);

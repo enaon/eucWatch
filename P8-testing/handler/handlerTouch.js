@@ -16,7 +16,7 @@ setTimeout(()=>{
 				let tp=i2c.readFrom(0x15,1);
 				if ( tp != 255 ) {
 					ew.def.touchtype="816";
-					set.updateSettings();
+					ew.do.update.settings();
 					setTimeout(()=> {reset();},800);
 				}
 			},100);
@@ -26,7 +26,7 @@ setTimeout(()=>{
 			tp=i2c.readFrom(0x15,1);
 			ew.def.touchtype=( tp[0] !== 0 )?"816":"716";
 			if (process.env.BOARD!="P8") ew.def.rstR=0xE5;
-			set.updateSettings();
+			ew.do.update.settings();
 			setTimeout(()=> {reset();},800);
 		}	
 	},100);

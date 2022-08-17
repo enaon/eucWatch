@@ -76,7 +76,7 @@ var set={
 		touchtype:"0",
 		buzz:1
 		};
-		set.updateSettings();
+		ew.do.update.settings();
 	},
 	accR:function(){if(!this.def.dash.accE) { if (this.def.acc)acc.on(); else acc.off();}},
 	hidM:undefined, //not user settable.
@@ -119,7 +119,7 @@ var set={
 };
 
 ew.def = require('Storage').readJSON('setting.json', 1);
-if (!ew.def) {set.resetSettings();set.updateSettings();}
+if (!ew.def) {ew.do.reset.settings();ew.do.update.settings();}
 if (ew.def.buzz) buzzer = digitalPulse.bind(null,D16,1);
 else buzzer=function(){return true;};
 if (!ew.def.off) ew.def.off={};

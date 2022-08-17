@@ -20,7 +20,7 @@ var TC={
 		"ram";
 		//i2c.writeTo(0x15,0);
 		var tp=i2c.readFrom(0x15,7);
-		if  (set.bar) { 
+		if  (ew.temp.bar) { 
 			if (116<tp[5]) {
 				if (!TC.tid) {
 					TC.tid=setInterval(function(){
@@ -29,7 +29,7 @@ var TC={
 				}
 				return;
 			}else if (TC.tid){
-				clearInterval(TC.tid);TC.st=1;TC.tid=0;set.bar=0;
+				clearInterval(TC.tid);TC.st=1;TC.tid=0;ew.temp.bar=0;
 			}
 		}
 		if (face.pageCurr>=0) {
@@ -41,7 +41,7 @@ var TC={
 		if (this.loop) {clearTimeout(this.loop); this.loop=0;}
 			this.loop=setTimeout(()=>{
 				TC.loop=0;
-				if (set.bar) {
+				if (ew.temp.bar) {
 					if (!TC.tid) {
 						TC.tid=setInterval(function(){
 							TC.bar();
@@ -56,7 +56,7 @@ var TC={
 	},
 	bar:function(){
 			var tp=i2c.readFrom(0x15,7);
-			if (set.bar&&116<tp[5]) {  
+			if (ew.temp.bar&&116<tp[5]) {  
 				if (tp[1]) {
 					if (this.st) {this.st=0; this.y=tp[3]; return;}
 					if (this.y!=tp[3]) {

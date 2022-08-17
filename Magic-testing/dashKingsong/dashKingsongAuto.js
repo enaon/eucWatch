@@ -59,7 +59,7 @@ UIc.main._2x2=(i)=>{
 		let offM=euc.dash.auto.offT/60 %60;	
 		UI.btn.c2l("main","_2x2",2,"IDLE",!euc.dash.auto.offT?"-":offH+"h:"+offM+"'",15,4);
 		UI.btn.ntfy(1,3,0,"_bar",6,"SET IDLE","TIMEOUT",15,6,1);
-		set.bar=1;
+		ew.temp.bar=1;
 		TC.val={cur:euc.dash.auto.offT,dn:0,up:24,tmp:0};
 		face[0].exe=()=>{
 			eval(require('Storage').read("dashKingsongAuto")); 
@@ -86,7 +86,7 @@ UIc.main._2x2_2=()=>{
 	UIc.end();
 	UI.btn.c2l("main","_main",9,offH+"h:"+offM+"'","",15,0);
 	UI.btn.ntfy(1,3,0,"_bar",6,"SET IDLE","TIMEOUT",15,6,1);
-	set.bar=1;
+	ew.temp.bar=1;
 	TC.val={cur:euc.dash.auto.offT,dn:0,up:24,tmp:0};
 	face[0].exe=()=>{
 		eval(require('Storage').read("dashKingsongAuto")); 

@@ -38,19 +38,19 @@ tcUp=(x,y)=>{
 	"ram";
 	buzzer(buz.ok);
 	if (y>170&&x<50) { 
-     /* if (w.gfx.bri.lv!==7) {set.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
-      else w.gfx.bri.set(set.bri);
+     /* if (w.gfx.bri.lv!==7) {ew.is.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
+      else w.gfx.bri.set(ew.is.bri);
       buzzer(buz.ok);
 		*/
  		buzzer(buz.ok);
 		if (ew.def.bri!==7) {
-		  set.bri=ew.def.bri;
+		  ew.is.bri=ew.def.bri;
 		  w.gfx.bri.set(7);
 		}else 
-			w.gfx.bri.set(set.bri);
+			w.gfx.bri.set(ew.is.bri);
 		if (face.appCurr=="settings"&&face[0].page=="set") {
 			UI.btn.ntfy(0,1,0,"_bar",6,"BRIGHTNESS","GESTURE",15,4,0);
-			UI.btn.img("main","_2x3",3,_icon.bri,ew.def.bri==7?7:set.bri,15,1,1);
+			UI.btn.img("main","_2x3",3,_icon.bri,ew.def.bri==7?7:ew.is.bri,15,1,1);
 		}
     }else if (face.appCurr=="settings")
 		face.go(face.appRoot[0],face.appRoot[1]);

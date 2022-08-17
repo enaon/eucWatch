@@ -225,7 +225,7 @@ scanAdv=function(){
 		if (devices[0]) {
 			print(devices[0].manufacturerData);
 		}
-		if (set.scan==1) scanAdv();
+		if (ew.is.scan==1) scanAdv();
 	},  {timeout : 50, filters: [{id:'f8:e0:79:89:0b:7e public'}]  });
 };
 */

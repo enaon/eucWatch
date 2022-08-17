@@ -8,7 +8,7 @@ if (global.euc&&!euc.proxy){
 		},
 		/*w:(o)=>{
 		"ram";
-			if (ew.is.bt!=5) {if (1<set.dbg) print("relay-out:",o);return;}
+			if (ew.is.bt!=5) {if (1<euc.dbg) print("relay-out:",o);return;}
 			NRF.updateServices({0xffe0:{0xffe1:{value:o,notify:true}},});
 		},
 		*/
@@ -29,7 +29,7 @@ if (global.euc&&!euc.proxy){
 						maxLen : 20,
 						writable:true,
 						onWrite : function(evt) {
-							set.emit("btIn",evt);
+							ew.emit("btIn",evt);
 						},
 						readable:true,
 						notify:true,

@@ -173,7 +173,7 @@ face[0] = {
 
 	},
 	clear : function(o){
-		set.bar=0;
+		ew.temp.bar=0;
 		this.run=false;
 		if (this.tid) clearTimeout(this.tid);this.tid=0;
    		if (this.ntid) clearTimeout(this.ntid);this.ntid=0;

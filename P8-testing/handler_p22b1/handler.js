@@ -100,7 +100,7 @@ var set={
 		touchtype:"0",
 		buzz:1
 		};
-		set.updateSettings();
+		ew.do.update.settings();
 	},
 	accR:function(){if(!this.def.dash.accE) { if (this.def.acc)acc.on(); else acc.off();}},
 	hidM:undefined, //not user settable.
@@ -171,7 +171,7 @@ var set={
 };
 
 ew.def = require('Storage').readJSON('setting.json', 1);
-if (!ew.def) {set.resetSettings();set.updateSettings();}
+if (!ew.def) {ew.do.reset.settings();ew.do.update.settings();}
 ew.def.rstP="D10";
 ew.def.rstR=0xE5;
 if (ew.def.buzz) buzzer=digitalPulse.bind(null,D16,1);
@@ -188,11 +188,11 @@ if (!Boolean(require("Storage").read("dash.json"))) {
 //
 E.setTimeZone(ew.def.timezone);
 //nrf
-//set.emuD=0;
+//ew.is.emuD=0;
 function ccon(l){ 
 	//"ram"
 	if (ew.def.emuZ) {
-		//if (set.emuD) return;
+		//if (ew.is.emuD) return;
 		emuZ.cmd(l);
 		return;
 	}else {
@@ -251,7 +251,7 @@ function bdis() {
 	else if (ew.is.bt==4) handleInfoEvent({"src":"BT","title":"BRIDGE","body":"Disconnected"});
 	else if (ew.is.bt==5) handleInfoEvent({"src":"BT","title":"ESP","body":"Disconnected"});
   	ew.is.bt=0; 
-	set.emuD=0;
+	ew.is.emuD=0;
 }
 NRF.setTxPower(ew.def.rfTX);
 NRF.on('disconnect',bdis);  

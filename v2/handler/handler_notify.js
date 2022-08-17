@@ -6,7 +6,7 @@ notify.im=(Boolean(require('Storage').read('im.log')))?require('Storage').readJS
 notify.info=(Boolean(require('Storage').read('info.log')))?require('Storage').readJSON('info.log'):[];
 notify.call=(Boolean(require('Storage').read('call.log')))?require('Storage').readJSON('call.log'):[];
 function handleInfoEvent(event,disc) {
-	"ram";
+	//"ram";
 	notify.nInfo++;
 	notify.New++;
 	let d=(Date()).toString().split(' ');

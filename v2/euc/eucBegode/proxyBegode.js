@@ -19,7 +19,7 @@ if (global.euc&&!euc.proxy){
 						maxLen : 20,
 						writable:true,
 						onWrite : function(evt) {
-							set.emit("btIn",evt);
+							//ew.emit("btIn",evt);
 						},
 						readable:true,
 						notify:true,

@@ -6,12 +6,12 @@ euc.proxy={
 	f:0,
 	r:(o)=>{
     "ram";
-		if (1<set.dbg)print("relay-in:",o.data);
+		if (1<euc.dbg)print("relay-in:",o.data);
 		if (euc.state=="READY") euc.wri("proxy",o.data);
 	},
 	w:(o)=>{
     "ram";
-		if (ew.is.bt!=4) {if (1<set.dbg) print("relay-out:",o);return;}
+		if (ew.is.bt!=4) {if (1<euc.dbg) print("relay-out:",o);return;}
 		NRF.updateServices({0xffe0:{0xffe1:{value:o,notify:true}},});
 	},
 	s:(o)=>{

@@ -395,7 +395,7 @@ eval(require('Storage').read('euc'));
 digitalPulse(D16,1,[100,30,100]);
 setTimeout(function(){
 if (global.face) face.go('main',0);
-setTimeout(function(){ if (global.set) ew.do.update.acc(); },1000); 
+setTimeout(function(){ if (global.ew&&ew.do) ew.do.update.acc(); },1000); 
 digitalPulse(D16,1,[100]);  
 },200); 
 }
