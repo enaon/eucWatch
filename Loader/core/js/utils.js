@@ -61,12 +61,12 @@ let DEVICEINFO = [
     img : "https://www.espruino.com/img/MDBT42Q_thumb.jpg"
   }, {*/
     id : "MAGIC3",
-    name : "Magic 3 / Rock",
+    name : "Magic3/Rock",
     features : ["ROCK","V2"],
     img : "https://loader.eucwatch.com/tools/assets/images/Magic3.jpg"
   }, {
     id : "P8",
-    name : "P8 / P22",
+    name : "P8/P22",
     features : ["P8","V1","V2"],
     img : "https://loader.eucwatch.com/tools/assets/images/p8.jpg"
   }, {
