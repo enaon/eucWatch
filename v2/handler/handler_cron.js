@@ -1,3 +1,4 @@
+E.setFlags({pretokenise:1});
 //tasks
 cron={
 	event:{

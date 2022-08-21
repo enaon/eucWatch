@@ -1,29 +1,22 @@
 //touch
-tcNext.replaceWith((x,y)=>{
-		buzzer(buz.na);		
-		//eval(require('Storage').read("dashKingsongAdv")); 
-});
-tcBack.replaceWith((x,y)=>{
-	buzzer(buz.ok);	
-	if (UI.ntid) {
-		clearTimeout(UI.ntid);UI.ntid=0;
-		eval(require('Storage').read("dashKingsongAdv")); 
-	}else 
-		eval(require('Storage').read("dashKingsongAuto")); 
-
-});
+tcNext.replaceWith(()=>{buzzer(buz.na);});
+tcBack.replaceWith(()=>{buzzer(buz.ok);if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}eval(require('Storage').read("dashKingsongAuto")); });
 //
 face[0].page="wheel setup";
 UI.ele.ind(4,4,0);
-face[0].bar();
-UIc.start(1,1);
+UIc.start(1,0);
 let md=["HARD","MED","SOFT"];
 UI.btn.c2l("main","_2x2",1,"MODE",md[euc.dash.opt.ride.mode],15,4);
 UI.btn.c2l("main","_2x2",2,"CALIBRATE","WHEEL",15,6);
-UI.btn.c2l("main","_2x2",3,"WHEEL","ALARMS",15,1);
-UI.btn.c2l("main","_2x2",4,"BLUETOOTH","PASS",15,6);	
 UIc.end();
-
+face[0].bar=()=>{;
+	UI.ele.title(face[0].page.toUpperCase(),3,0);//w.gfx.flip();
+	UIc.start(0,1);
+	UI.btn.c2l("bar","_2x2",3,"WHEEL","ALARMS",15,1);
+	UI.btn.c2l("bar","_2x2",4,"BLUETOOTH","PASS",15,6);	
+	UIc.end();
+};
+face[0].bar();
 //
 UIc.main._2x2=(i)=>{
 	if (i==1){
@@ -38,7 +31,10 @@ UIc.main._2x2=(i)=>{
 		euc.wri("getCalibrateTilt");
 		eval(require('Storage').read("dashKingsongAdvCalibrate")); 
 		return;
-	}else if (i==3){
+	}
+};
+UIc.bar._2x2=(i)=>{
+	if (i==3){
 		buzzer(buz.ok);		
 		eval(require('Storage').read("dashKingsongAdvAlert")); 
 		return;
@@ -49,3 +45,4 @@ UIc.main._2x2=(i)=>{
 		return;
 	}
 };
+

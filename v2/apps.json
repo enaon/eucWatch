@@ -118,7 +118,7 @@
 			{"name":"C:handler_face","url":"../../Magic-testing/handler/handler_face.js"},
 			{"name":"handler_notify","url":"../handler/handler_notify.js"},
 			{"name":"handler_set","url":"../handler/handler_set.js"},
-			{"name":"handler_btn","url":"../../Magic-testing/handler/handler_btn.js"},
+			{"name":"handler_btn","url":"../handler/handler_btn.js"},
 			{"name":"handler_conn","url":"../handler/handler_conn.js"},
 			{"name":"handler_cron","url":"../handler/handler_cron.js"},
 			{"name":"handler_charge","url":"../handler/handler_charge.js"},
@@ -127,7 +127,8 @@
 			{"name":"C:handler_touch_816","url":"../../Magic-testing/handler/handler_touch_816.js"},
 			{"name":"handler_touch_816s","url":"../../Magic-testing/handler/handler_touch_816s.js"},
 			{"name":"handler_touch_b2","url":"../../Magic-testing/handler/handler_touch_b2.js"},
-			{"name":"C:handler_acc_SC7A20","url":"../../Magic-testing/handler/handler_acc_SC7A20.js"}
+			{"name":"C:handler_acc_SC7A20","url":"../handler/handler_acc_SC7A20.js"},
+			{"name":"handler_buzz","url":"../handler/handler_buzz.js"}
 		]
 	},  
 	{ "id": "handler",
@@ -141,18 +142,20 @@
 		"storage": [
 			{"name":"handler","url":"../handler/handler.js"},
 			{"name":"handler_conn","url":"../handler/handler_conn.js"},
-			{"name":"handler_btn","url":"../../P8-testing/handler/handler_btn.js"},
+			{"name":"handler_btn","url":"../handler/handler_btn.js"},
 			{"name":"handler_cron","url":"../handler/handler_cron.js"},
 			{"name":"handler_notify","url":"../handler/handler_notify.js"},
 			{"name":"handler_touch","url":"../../P8-testing/handler/handler_touch.js"},
 			{"name":"handler_touch_716","url":"../../P8-testing/handler/handler_touch_716.js"},
 			{"name":"handler_touch_816","url":"../../P8-testing/handler/handler_touch_816.js"},
 			{"name":"handler_touch_816s","url":"../../P8-testing/handler/handler_touch_816s.js"},
-			{"name":"handler_acc_SC7A20","url":"../../P8-testing/handler/handler_acc_SC7A20.js"},
+			{"name":"handler_acc_SC7A20","url":"../handler/handler_acc_SC7A20.js"},
 			{"name":"handler_acc_BMA421","url":"../../P8-testing/handler/handler_acc_BMA421.js"},
 			{"name":"handler_charge","url":"../handler/handler_charge.js"},
 			{"name":"handler_face","url":"../../P8-testing/handler/handler_face.js"},
-			{"name":"handler_set","url":"../handler/handler_set.js"}
+			{"name":"handler_set","url":"../handler/handler_set.js"},
+			{"name":"handler_buzz","url":"../handler/handler_buzz.js"}
+
 		]
 	},  
 	{ "id": "handler_pt",
@@ -168,17 +171,17 @@
 			{"name":"handler","url":"../../P8-testing/handler_pt/handler.js"}
 		]
 	}, 
-	{ "id": "main",
+	{ "id": "clock",
 		"name": "Clock face",
-		"icon": "../../P8-testing/main/icon.png",
+		"icon": "../../P8-testing/clock/icon.png",
 		"version":"1.92.1",
 		"description": "clock face",
 		"tags": "apps",
-		"type":"main",
+		"type":"clock",
 	    "needsFeatures":["V1"],
 		"storage": [
-			{"name":"main","url":"../../P8-testing/main/main.js"},
-			{"name":"mainOptions","url":"../../P8-testing/main/mainOptions.js"}
+			{"name":"clock","url":"../../P8-testing/clock/clock.js"},
+			{"name":"clockOptions","url":"../../P8-testing/clock/clockOptions.js"}
 		]
 	},  
 	{ "id": "settings",
@@ -187,7 +190,7 @@
 		"version":"1.92.1",
 		"description": "Settings face",
 		"tags": "apps",
-		"type":"main",
+		"type":"clock",
 		"readme": "README.md",
 	    "needsFeatures":["V1"],
 		"storage": [
@@ -489,7 +492,7 @@
 	{ "id": "w_scan",
 		"name": "BLE scanner widget",
 		"icon": "../../P8-testing/w_scan/icon.png",
-		"version":"1.92.1",
+		"version":"1.92.3",
 		"description": "Shared scan face addon",
 		"tags": "system",
 		"type": "system",
@@ -512,17 +515,16 @@
 	},
 
 
-	{ "id": "main",
+	{ "id": "clock",
 		"name": "Clock",
-		"icon": "../../Magic-testing/main/icon.png",
+		"icon": "../../Magic-testing/clock/icon.png",
 		"version":"0.99.2",
-		"description": "Main Clock/notifications face",
+		"description": "Clock face",
 		"tags": "apps",
-		"type":"main",
+		"type":"clock",
 	    "needsFeatures":["ROCK"],
 		"storage": [
-			{"name":"C:main","url":"../../Magic-testing/main/main.js"},
-			{"name":"mainOptions","url":"../../Magic-testing/main/mainOptions.js"}
+			{"name":"C:clock","url":"../../Magic-testing/clock/clock.js"}
 		]
 	},  
 	{ "id": "settings",
@@ -531,7 +533,7 @@
 		"version":"1.04",
 		"description": "Settings face",
 		"tags": "apps",
-		"type":"main",
+		"type":"clock",
 		"readme": "README.md",
 	    "needsFeatures":["ROCK"],
 		"storage": [
@@ -695,7 +697,7 @@
 	{ "id": "w_scan",
 		"name": "BLE scanner widget",
 		"icon": "../../Magic-testing/w_scan/icon.png",
-		"version":"1.00",
+		"version":"1.92.1",
 		"description": "Shared scan face addon",
 		"tags": "system",
 		"type": "system",

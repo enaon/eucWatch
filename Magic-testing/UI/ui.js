@@ -7,6 +7,7 @@ UI={
 	_2x3:[30,[40,120,200],[62,145],[80,80,80],[85,85] ],
 	_3x1:[25,[120],[40,120,200]],
 	_4x1:[27,[120],[50,110,170,230],[240],[60,60,60,60]],
+	_ind:[20,[120],[270],[240],[20] ],
 	_kp4x4:[28,[30,90,150,210],[50,110,170,230]],
 	_kp4x3:[35,[40,120,200],[50,110,170,230],[80,80,80],[60,60,60,60]],
 	_ele:{"0":25,title:[0,260,239,279,19],ind:[70,0,170,5],indF:[0,0,239,19]},
@@ -76,7 +77,8 @@ UI={
 			w.gfx.setColor(0,0);
 			w.gfx.fillRect(x-szX,y-szY,x+szX,y+szY);
 			w.gfx.setColor(0,bclr);
-			w.gfx.fillRect({x:x-szX+2,y:y-szY+3,x2:x+szX-2,y2:y+szY-2,r:10});
+			w.gfx.fillRect({x:x-szX+1,y:y-szY+1,x2:x+szX-1,y2:y+szY-1,r:10});
+			//w.gfx.fillRect({x:x-szX+1,y:y-szY+1,x2:x+szX-1,y2:y+szY-1,r:10});
 	    }else {		
   			w.gfx.setColor(0,bclr);
 			w.gfx.fillRect(x-szX,y-szY,x+szX,y+szY,50);
@@ -115,7 +117,7 @@ UI={
 			w.gfx.setColor(0,0);
 			w.gfx.fillRect(x-szX,y-szY,x+szX,y+szY);
 			w.gfx.setColor(0,bclr);
-			w.gfx.fillRect({x:x-szX+3,y:y-szY+3,x2:x+szX-3,y2:y+szY-3,r:10});
+			w.gfx.fillRect({x:x-szX+1,y:y-szY+1,x2:x+szX-1,y2:y+szY-1,r:10});
 			//w.gfx.fillRect({x:x-szX+1,y:y-szY+1,x2:x+szX-1,y2:y+szY-1,r:7});
 	    }else {		
   			w.gfx.setColor(0,bclr);
@@ -155,8 +157,8 @@ UI={
 			let len=p[1].length;
 			let x=p[1][(po-1)%len];
 			let y=p[2][((po-1)/len)|0];
-		let szX= p[3][(po-1)%len]/2;
-		let szY= p[4][((po-1)/len)|0]/2;		
+			let szX= p[3][(po-1)%len]/2;
+			let szY= p[4][((po-1)/len)|0]/2;		
 			w.gfx.setColor(0,bclr);
 			w.gfx.fillRect(x-szX,y-szY,x+szX,y+szY);
 			w.gfx.setColor(1,fclr);
@@ -192,7 +194,7 @@ UI={
 		w.gfx.fillRect(p[0],p[1],p[2],p[3]);
 		w.gfx.setColor(1,fclr);	
 		w.gfx.setFont("Vector",p[4]*UI.size.txt);
-		w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y-2); 
+		w.gfx.drawString(txt,x-(w.gfx.stringWidth(txt)/2),y); 
         if (!ew.def.bpp) w.gfx.flip();
 	},
 	ind:function(c,t,clr){

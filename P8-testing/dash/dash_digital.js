@@ -1,3 +1,4 @@
+E.setFlags({pretokenise:1});
 //dash digital
 face[0] = {
 	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:10000,
@@ -362,7 +363,7 @@ face[1] = {
 	show : function(){
 		face.pageCurr=0;
 		if (euc.state=="OFF") 
-			face.go("main",0); 
+			face.go("clock",0); 
 		else {
 			face.go(ew.is.dash[ew.def.dash.face],-1);
 		}
@@ -422,7 +423,7 @@ touchHandler[0]=function(e,x,y){
 		(euc.state=="READY")?face.go('dash'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0):(euc.state=="OFF")?face.go("dashGarage",0):buzzer(40);
 		return;
     case 4: //slide right event (back action)
-		face.go("main",0);
+		face.go("clock",0);
 		return;
     case 12: //touch and hold(long press) event
 		this.timeout();

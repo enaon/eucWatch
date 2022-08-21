@@ -1,4 +1,4 @@
-
+E.setFlags({pretokenise:1});
 //dash  Options
 //tcNext.replaceWith(new Function("x", "y",'setTimeout(()=>{'+UIc.raw.main+UIc.raw.bar+'},0);'));
 tcNext.replaceWith((x,y)=>{
@@ -13,7 +13,7 @@ tcBack.replaceWith((x,y)=>{
 	face[0].bar();
 	return;
   }
-	buzzer(buz.ok);face[0].d1();
+ buzzer(buz.ok);face[0].d1();
   if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}
   face[0].bar();
 });

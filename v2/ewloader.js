@@ -35,6 +35,8 @@ Bangle.js, please see the <a href="https://www.banglejs.com/apps">Bangle.js App 
 please continue `, "warning", 20000);
   }
 */
+  if (deviceId=="ROCK") deviceId="MAGIC3"
+
   var device = DEVICEINFO.find(d=>d.id==deviceId);
     console.log("ew deviceId, device:",deviceId,device)
 
@@ -85,9 +87,13 @@ window.addEventListener('load', (event) => {
     button.addEventListener("click",event => {
       let button = event.currentTarget;
       let deviceId = button.getAttribute("deviceid");
+      Const.DEVICEID=deviceId;
       hidePrompt();
       console.log(deviceId);
       filterAppsForDevice(deviceId);
+      getInstalledApps(true).catch(err => {
+        showToast("Device connection failed, "+err,"error");
+      });
     });
   });
 });

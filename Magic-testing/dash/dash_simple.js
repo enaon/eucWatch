@@ -1,3 +1,14 @@
+tcNext.replaceWith(()=>{
+	if ( euc.state!="OFF")
+		face.go('dash'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0);
+	else 
+		buzzer(buz.na);
+});
+
+tcBack.replaceWith(()=>{
+	face.go("clock",0);
+});
+//
 //simple dash
 face[0] = {
 	run:false,
@@ -186,18 +197,6 @@ face[0] = {
 };
 //
 
-touchHandler[0]=function(){};
 UIc.main._2x2_1=()=>{buzzer(buz.ok);this.sel(1,"hapS","SPEED","haSv",10,100);};
 UIc.main._2x2_2=()=>{buzzer(buz.ok);this.sel(2,"hapA","AMP","haSv",10,100);};
-tcN=(x,y)=>{
-	if ( euc.state!="OFF")
-		face.go('dash'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0);
-	else 
-		buzzer(buz.na);
-};	
-tcNext.replaceWith(tcN);
-tcB=(x,y)=>{
-	face.go("main",0);
-};	
-tcBack.replaceWith(tcB);
 

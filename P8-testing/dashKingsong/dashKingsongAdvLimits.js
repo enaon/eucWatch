@@ -186,7 +186,7 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
 	case 1: //slide down event
-		//face.go("main",0);
+		//face.go("clock",0);
         euc.wri("setSpeedLimits");
 		face.go(ew.is.dash[ew.def.dash.face],0);
 		return;	 

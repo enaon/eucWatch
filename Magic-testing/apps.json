@@ -65,13 +65,13 @@
 			{"name":"C:handler_accel_SC7A20","url":"handler_accel_SC7A20.js"}
 		]
 	},  
-	{ "id": "main",
+	{ "id": "clock",
 		"name": "Clock",
 		"icon": "icon.png",
 		"version":"0.99.2",
 		"description": "Main Clock/notifications face",
 		"tags": "apps",
-		"type":"main",
+		"type":"clock",
 		"storage": [
 			{"name":"C:main","url":"main.js"},
 			{"name":"mainOptions","url":"mainOptions.js"}
@@ -83,7 +83,7 @@
 		"version":"1.04",
 		"description": "Settings face",
 		"tags": "apps",
-		"type":"main",
+		"type":"clock",
 		"readme": "README.md",
 		"storage": [
 			{"name":"C:settings","url":"settings.js"},

@@ -1,7 +1,10 @@
-tcNext.replaceWith(new Function('buzzer(buz.ok);eval(require("Storage").read("set_set"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;eval(require("Storage").read("set_main"));}face[0].bar();'));
-tcBack.replaceWith(new Function('buzzer(buz.na);if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;eval(require("Storage").read("set_main"));}face[0].bar();'));
+E.setFlags({pretokenise:1});
+//
+tcNext.replaceWith(()=>{buzzer(buz.ok);eval(require("Storage").read("set_set"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}face[0].bar();});
+tcBack.replaceWith(()=>{buzzer(buz.ok);eval(require("Storage").read("set_main"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}face[0].bar();});
+//
 //clock settings
-face[0].page="main";
+face[0].page="clock";
 UI.ele.ind(0,0,0);
 UIc.start(1,0);
 UI.ele.fill("_2x3",1,0);

@@ -1,3 +1,4 @@
+E.setFlags({pretokenise:1});
 //dash simple 
 face[0] = {
 	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:10000,
@@ -196,7 +197,7 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		if (euc.state=="OFF") face.go("main",0); else {face.pageCurr=0;face.go(ew.is.dash[ew.def.dash.face],-1);}
+		if (euc.state=="OFF") face.go("clock",0); else {face.pageCurr=0;face.go(ew.is.dash[ew.def.dash.face],-1);}
 	return true;
 	},
 	clear: function(){
@@ -247,7 +248,7 @@ touchHandler[0]=function(e,x,y){
 		return;
     case 4: //slide right event (back action)
 		if (euc.dash.info.get.makr=="Begode") euc.wri("mainPacket");
-		face.go("main",0);
+		face.go("clock",0);
 		return;
     case 12: //touch and hold(long press) event
 		buzzer(40);

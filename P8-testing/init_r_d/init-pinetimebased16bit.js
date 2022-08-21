@@ -388,13 +388,13 @@ w=require("P8");
 //w.gfx.init();
 require("Storage").write("colmode16","done");
 eval(require('Storage').read('handler'));
-eval(require('Storage').read('main'));
+eval(require('Storage').read('clock'));
 eval(require('Storage').read('euc'));
 
 //require('Storage').list(/m_/).forEach(modfile=>{eval(require('Storage').read(modfile));});
 digitalPulse(D16,1,[100,30,100]);
 setTimeout(function(){
-if (global.face) face.go('main',0);
+if (global.face) face.go('clock',0);
 setTimeout(function(){ if (global.ew&&ew.do) ew.do.update.acc(); },1000); 
 digitalPulse(D16,1,[100]);  
 },200); 

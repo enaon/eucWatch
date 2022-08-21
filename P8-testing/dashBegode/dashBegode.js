@@ -134,7 +134,8 @@ touchHandler[0]=function(e,x,y){
    		if (!face[0].setE){//select page
 			if ( x<=120 && y<100 ) { //lights
 				buzzer([30,50,30]);	
-				if (euc.dash.opt.lght.HL) {euc.dash.opt.lght.HL=0;euc.wri("lightsOff");} else {euc.dash.opt.lght.HL=1;euc.wri("lightsOn");} 
+				if (euc.dash.opt.lght.HL) {euc.dash.opt.lght.HL=0;euc.wri("lightsOff");} 
+				else {euc.dash.opt.lght.HL=1;euc.wri("lightsOn");} 
 				return;
 			}else if ( 120<=x && y<=100 ) { //STROBE
 				buzzer([30,50,30]);	

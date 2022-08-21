@@ -58,8 +58,6 @@ var TC={
 			}	
 			if ( this.do && getTime() - this.time > 1 && tp[2]==1 ) { 
 				this.do = 0 ;
-				//setTimeout(function() {touchHandler[face.pageCurr](12,TC.x+(TC.x/10),TC.y);},0);
-				//touchHandler[face.pageCurr](12,TC.x+(TC.x/10),TC.y);
 				//setTimeout(function() {TC.emit("tc12",TC.x+(TC.x/10),TC.y);},0);
 				TC.emit("tc12",TC.x+(TC.x/10),TC.y);
 				face.off();

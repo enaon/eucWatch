@@ -1,9 +1,14 @@
+E.setFlags({pretokenise:1});
+//
+tcNext.replaceWith(()=>{buzzer(buz.ok);eval(require("Storage").read("set_apps"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}face[0].bar();});
+tcBack.replaceWith(()=>{buzzer(buz.ok);eval(require("Storage").read("set_main"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}face[0].bar();});
+//
 face[0].page="set";//
 UI.ele.ind(1,2,0);
 //UI.ele.title("",3,0);
 
 UIc.start(1,0);
-UI.btn.img("main","_2x3",1,(ew.def.cli||ew.def.gb||ew.def.emuZ)?"bt":"plane","BT",15,12);
+UI.btn.img("main","_2x3",1,(ew.def.cli||ew.def.gb||ew.def.prxy)?"bt":"plane","BT",15,12);
 UI.btn.img("main","_2x3",2,"themes","FACE",15,12);
 UI.btn.img("main","_2x3",3,"bri",ew.def.bri,15,1,1);
 UI.btn.img("main","_2x3",4,"findPhone","FIND",3,0);
@@ -59,6 +64,3 @@ UIc.main._2x3=(i)=>{
 	}
 };
 //UIc.main._fold_1=UIc.main._2x3_3;
-//
-tcNext.replaceWith(new Function('buzzer(buz.ok);eval(require("Storage").read("set_apps"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}face[0].bar();'));
-tcBack.replaceWith(new Function("x", "y",'buzzer(buz.ok);eval(require("Storage").read("set_main"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}face[0].bar();'));

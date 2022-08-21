@@ -598,7 +598,9 @@ function getInstalledApps(refresh) {
   */
   return Comms.getDeviceInfo()
     .then(info => {
-      device.id = info.id;
+      console.log("ew",device.id,device)
+      if (Const.DEVICEID!=info.id) { device.id=Const.DEVICEID; Const.DEVICEID=info.id;}
+      else device.id = info.id;
       device.version = info.version;
       device.appsInstalled = info.apps;
       haveInstalledApps = true;
@@ -946,7 +948,7 @@ btn = document.getElementById("installall");
 if (btn) btn.addEventListener("click",event=>{ 
     let installSet="ALL"
     if (device.id=="P8"||device.id=="P22") installSet="P8"
-    else if (device.id=="MAGIC3"||device.id=="ROCK") installSet="Rock"
+    else if (device.id=="MAGIC3"||device.id=="ROCK"||device.id=="BANGLEJS2") installSet="Rock"
     else { 
           Progress.hide({sticky:true});
           showToast("PLEASE CONNECT TO THE WATCH","error");

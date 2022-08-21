@@ -17,9 +17,9 @@ function handleInfoEvent(event,disc) {
 	if (notify.info.length>10) notify.info.pop();
 	buzzer([80,50,80]);
 	if (ew.def.buzz&&!notify.ring&&!disc) {
-		if (face.appCurr!="main"||face.pageCurr!=0) {
-			face.go("main",0);
-			face.appPrev="main";face.pagePrev=-1;
+		if (face.appCurr!="clock"||face.pageCurr!=0) {
+			face.go("clock",0);
+			face.appPrev="clock";face.pagePrev=-1;
         }
 	}
 }
@@ -130,7 +130,7 @@ var set={
 	//if (!Boolean(require('Storage').read('atc'))) this.def.atc=0;
 	//if (!Boolean(require('Storage').read('eucEmu'))||!global.euc) this.def.atc=0;
 	//if (this.def.atc) eval(require('Storage').read('atc'));
-	if (this.def.emuZ){
+	if (this.def.prxy==1){
 		this.def.cli=0;
 		this.def.gb=0;
 		this.def.hid=0;
@@ -164,7 +164,7 @@ var set={
 		//global.GB=undefined;
 		this.handleNotificationEvent=0;this.handleFindEvent=0;handleWeatherEvent=0;handleCallEvent=0;handleFindEvent=0;sendBattery=0;global.GB=0;
 	}		
-	if (!this.def.cli&&!this.def.gb&&!this.def.emuZ&&!this.def.hid) { if (this.bt) NRF.disconnect(); else{ NRF.sleep();this.btsl=1;}}
+	if (!this.def.cli&&!this.def.gb&&!this.def.prxy==1&&!this.def.hid) { if (this.bt) NRF.disconnect(); else{ NRF.sleep();this.btsl=1;}}
 	else if (this.bt) NRF.disconnect();
 	else if (this.btsl==1) {NRF.restart();this.btsl=0;}
 	}
@@ -190,7 +190,7 @@ E.setTimeZone(ew.def.timezone);
 //nrf
 //ew.is.emuD=0;
 function ccon(l){ 
-	if (ew.def.emuZ) {
+	if (ew.def.prxy) {
 		//if (ew.is.emuD) return;
 		emuZ.cmd(l);
 		return;
@@ -224,7 +224,7 @@ function ccon(l){
 function bcon() {
 	E.setConsole(null,{force:true});
 	ew.is.bt=1; 
-	if (ew.def.cli||ew.def.gb||ew.def.emuZ) { Bluetooth.on('data',ccon);}
+	if (ew.def.cli||ew.def.gb||ew.def.prxy==1) { Bluetooth.on('data',ccon);}
 	setTimeout(()=>{
     if (ew.is.bt==1){ 
 		if (!ew.def.cli) 
@@ -239,7 +239,7 @@ function bcon() {
 function bdis() {
     Bluetooth.removeListener('data',ccon);
 	E.setConsole(null,{force:true});
-    if (!ew.def.cli&&!ew.def.gb&&!ew.def.emuZ&&!ew.def.hid){
+    if (!ew.def.cli&&!ew.def.gb&&!ew.def.prxy==1&&!ew.def.hid){
 		NRF.sleep();
 		ew.is.btsl=1;
     }	
@@ -259,8 +259,8 @@ NRF.setAdvertising({}, { name:ew.def.name,connectable:true });
 ew.do.update.bluetooth();
 //face
 var face={
-	appCurr:"main",
-	appPrev:"main",
+	appCurr:"clock",
+	appPrev:"clock",
 	pageCurr:-1,
 	pagePrev:-1,	
 	pageArg:"",
@@ -280,7 +280,7 @@ var face={
 			this.offid=0;
 			//if (ew.def.acc&&acc.tid==-1) acc.on();
 			if (c===0||c===2) {
-				if (this.appCurr==="main") {
+				if (this.appCurr==="clock") {
 					if (face[c].off) {
 						if (ew.def.touchtype=="716") tfk.exit();	
 						else digitalPulse(ew.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,ew.def.rstR,3);},100); 
@@ -291,7 +291,7 @@ var face={
 				if (face[c].off) {
 					if (ew.def.touchtype=="716") tfk.exit();	
 					else digitalPulse(ew.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,ew.def.rstR,3);},100); 
-					face.go("main",-1);face.pagePrev=c;
+					face.go("clock",-1);face.pagePrev=c;
 				}
 			}else if (c>1) face.go(this.appCurr,0);
 		},this.offms,this.pageCurr);
@@ -388,8 +388,8 @@ function buttonHandler(s){
 			buzzer([60,40,60]);
 			face.go((global.euc&&euc.state!="OFF")?ew.is.dash[ew.def.dash.face]:face.appCurr,0);
 		}else { 
-			if (face.appCurr=="main"&&face.pagePrev!=-1&&face.pagePrev!=2) {
-				face.go("main",-1);
+			if (face.appCurr=="clock"&&face.pagePrev!=-1&&face.pagePrev!=2) {
+				face.go("clock",-1);
 				buzzer(100);
 			}else{
 				let to=face.pageCurr+1;
@@ -648,9 +648,9 @@ if (ew.def.acctype==="BMA421"){
 					if (!this.up&&!w.gfx.isOn&&face.appCurr!=""){  
 							if  (global.euc) {
 								if (global.euc&&euc.state!="OFF") face.go(ew.is.dash[ew.def.dash.face],0);
-								else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
+								else{if (face.appCurr=="clock") face.go("clock",0);else face.go(face.appCurr,0);}
 							}else{ 
-								if (face.appCurr=="main") face.go("main",0);
+								if (face.appCurr=="clock") face.go("clock",0);
 								else face.go(face.appCurr,0);
 							}
 							changeInterval(acc.tid,1000);
@@ -735,7 +735,7 @@ if (ew.def.acctype==="BMA421"){
 					i2c.writeTo(0x18,0x1);
 					if ( 192 < i2c.readFrom(0x18,1)[0] ) {
 						if (!w.gfx.isOn){  
-							if (face.appCurr=="main") face.go("main",0);
+							if (face.appCurr=="clock") face.go("clock",0);
 							else face.go(face.appCurr,0);
 						}else  if (ew.is.tor==1)w.gfx.bri.set(face[0].cbri);
 						else face.off(); 

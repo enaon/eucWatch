@@ -25,9 +25,9 @@ function handleNotificationEvent(event) {
 				if (notify.call.length>10) notify.call.pop();
 				if (ew.def.buzz&&!notify.ring) {
 					buzzer([80,50,80]);
-					if (face.appCurr!="main"||face.pageCurr!=0) {
-						face.go("main",0);
-						face.appPrev="main";face.pagePrev=-1;
+					if (face.appCurr!="clock"||face.pageCurr!=0) {
+						face.go("clock",0);
+						face.appPrev="clock";face.pagePrev=-1;
 					}
 				}
 			}
@@ -76,9 +76,9 @@ function handleWeatherEvent(event) {
 	  notify.weather=event;
 	  if (ew.def.buzz&&!notify.ring) {
 		buzzer([80,50,80]);
-		if (face.appCurr!="main"||face.pageCurr!=0) {
-			face.go("main",0);
-			face.appPrev="main";face.pagePrev=-1;
+		if (face.appCurr!="clock"||face.pageCurr!=0) {
+			face.go("clock",0);
+			face.appPrev="clock";face.pagePrev=-1;
 		}
 	  }
 } 
@@ -86,9 +86,9 @@ function handleCallEvent(event) {
 	if (event.cmd==="incoming"&&event.name){
 		notify.in=event;notify.ring=1;
 		buzzer([80,50,80,50,200,50,80,50,80]);
-		if (face.appCurr!="main"||face.pageCurr!=0) {
-			face.go("main",0);
-			face.appPrev="main";face.pagePrev=-1;
+		if (face.appCurr!="clock"||face.pageCurr!=0) {
+			face.go("clock",0);
+			face.appPrev="clock";face.pagePrev=-1;
         }
 	}else if (event.cmd=="end") {
 		  notify.ring=0;notify.in=0;

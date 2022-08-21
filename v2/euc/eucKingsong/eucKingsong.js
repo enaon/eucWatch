@@ -14,8 +14,8 @@ euc.cmd=function(no,val){
 		case "getModel":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,155,20,90,90]; 
 		case "getSerial":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,99,20,90,90]; 
 		case "getAlarms":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,152,20,90,90]; 
-		case "doHorn":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,136,20,90,90]; 
-		case "doBeep":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,124,20,90,90]; 
+		case "doBeep":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,136,20,90,90]; 
+		case "doHorn":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,124,20,90,90]; 
 		case "setLiftOnOff":return [170,85,val?1:0,0,0,0,0,0,0,0,0,0,0,0,0,0,126,20,90,90]; 
 		//power
 		case "getPowerOff":return [170,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,63,20,90,90];
@@ -254,8 +254,8 @@ euc.temp.resp=function(inpk){
 		euc.dash.opt.lght.led=1-inpk[2];
 	else if ( inpk[16] == 138 && inpk[2] == 0 ){ 	
 		//if ( inpk[2] == 0 )  {
-			euc.dash.opt.ride.pTlt=((inpk[5]& 0xff)  << 8) | (inpk[4] & 0xff); //pedal tilt
-			if ( 32767 < euc.dash.opt.ride.pTlt ) euc.dash.opt.ride.pTlt = euc.dash.opt.ride.pTlt - 65536;
+		euc.dash.opt.ride.pTlt=((inpk[5]& 0xff)  << 8) | (inpk[4] & 0xff); //pedal tilt
+		if ( 32767 < euc.dash.opt.ride.pTlt ) euc.dash.opt.ride.pTlt = euc.dash.opt.ride.pTlt - 65536;
 		//}
 	}else if ( inpk[16] == 162 ) 
 		euc.dash.opt.ride.mode=inpk[4];	
@@ -395,36 +395,35 @@ euc.conn=function(mac){
 				c.startNotifications().then(function() {
 					return c.writeValue(euc.cmd("getModel"));
 				}).then(function() {	
-					return euc.dash.auto.onC.pass?c.writeValue(euc.cmd("setPassSend")):"ok";
+					if (euc.dash.auto.onC.pass) return c.writeValue(euc.cmd("setPassSend"));
 				}).then(function() {
-					return euc.dash.auto.onC.unlk?c.writeValue(euc.cmd("getLock")):"ok";
+					if (euc.dash.auto.onC.unlk) return c.writeValue(euc.cmd("getLock"));
 				}).then(function() {
-					return euc.dash.auto.onC.led?c.writeValue(euc.cmd("setLedRideOnOff",euc.dash.auto.onC.led-1)):"ok";
+					if (euc.dash.auto.onC.led) return c.writeValue(euc.cmd("setLedRideOnOff",euc.dash.auto.onC.led-1));
 				}).then(function() {
-					return euc.dash.auto.onC.HL?c.writeValue(euc.cmd("setLights",euc.dash.auto.onC.HL)):"ok";
+					if (euc.dash.auto.onC.HL) return c.writeValue(euc.cmd("setLights",euc.dash.auto.onC.HL));
 				}).then(function() {
 					return c.writeValue(euc.cmd("getAlarms"));	
 				}).then(function() {
-					return euc.dash.auto.onC.lift?c.writeValue(euc.cmd("setLiftOnOff",2-euc.dash.auto.onC.lift)):"ok";
+					if (euc.dash.auto.onC.lift) return c.writeValue(euc.cmd("setLiftOnOff",2-euc.dash.auto.onC.lift));
 				}).then(function() {
-					return euc.dash.auto.onC.talk?c.writeValue(euc.cmd("setVoiceOnOff",2-euc.dash.auto.onC.talk)):"ok";
+					if (euc.dash.auto.onC.talk) return c.writeValue(euc.cmd("setVoiceOnOff",2-euc.dash.auto.onC.talk));
 				}).then(function() {
 					if (euc.dash.opt.lock.en&&euc.dash.auto.onC.unlk&&euc.temp.lockKey) {
 						let onceUL=euc.temp.lockKey;onceUL[16]=71;
 						return c.writeValue(euc.cmd("doUnlock",onceUL));
 					}
-				}).then(function() {euc.is.run=1;
+				}).then(function() {
+					euc.is.run=1;
 					if (2<euc.dbg) print("passstate:",euc.temp.pass);
 					if (euc.temp.pass) {
 						euc.dash.opt.lock.pass2=euc.dash.opt.lock.pass;
 						euc.dash.opt.lock.pass="";
-						face.go("dashKingsongAdvPass",0,1);
+						face.go("dashKingsong",0);
 						return;
 					}
 				}).then(function() {
-					if (!euc.dash.info.get.serl) {
-						return c.writeValue(euc.cmd("getSerial"));
-					}
+					if (!euc.dash.info.get.serl) return c.writeValue(euc.cmd("getSerial"));
 				}).catch(euc.off);
 			}else if (euc.state=="OFF"||n=="end") {
 				if (global['\xFF'].BLE_GATTS && global['\xFF'].BLE_GATTS.connected) {
@@ -522,7 +521,7 @@ euc.off=function(err){
 		euc.is.run=0;
 		euc.temp=0;
 		global["\xFF"].bleHdl=[];
-		if (this.proxy) this.proxy.e();
+		if (euc.proxy) euc.proxy.e();
 		NRF.setTxPower(ew.def.rfTX);
     }
 };

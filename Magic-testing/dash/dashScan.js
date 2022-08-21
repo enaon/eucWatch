@@ -1,5 +1,5 @@
 //touch
-tcBack.replaceWith((x,y)=>{
+tcBack.replaceWith(()=>{
 	"ram";
 	buzzer(buz.ok);
 	if (UI.ntid) {
@@ -13,7 +13,7 @@ tcBack.replaceWith((x,y)=>{
       return;
     }
 });
-tcNext.replaceWith((x,y)=>{
+tcNext.replaceWith(()=>{
 	"ram";
 	if (UI.ntid) {
 		clearTimeout(UI.ntid);UI.ntid=0;
@@ -52,7 +52,7 @@ face[0] = {
   bar: function(o) {
   	UI.ele.title("SCAN FOR",15,0);
 	this.page=(o?o:1);
-	UI.ele.ind(this.page,3,6);
+	UI.ele.ind(this.page,3,0);
 	let txt1=["ks","im","nb"];
 	let txt2=["","",""];
 	UIc.start(1,1);
@@ -69,7 +69,7 @@ face[0] = {
 				UIc.start(1,1);
 				UI.btn.img("main","_2x1",1,face[0].icon+"imV10","V5 V8 V10",15,4); 
 				UI.btn.img("main","_2x2",3,face[0].icon+"imV11","V11",15,4); 
-				UI.btn.img("main","_2x2",4,face[0].icon+"imV12","V12",15,6); 
+				UI.btn.img("main","_2x2",4,face[0].icon+"imV12","V12",15,4); 
 				UIc.end();
 				UIc.main._2x1=(i)=>{//V5
 					face[0].scan(face[0].maker.inmotionV10);

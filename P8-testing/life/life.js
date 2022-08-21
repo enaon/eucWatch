@@ -138,7 +138,7 @@ touchHandler[0]=function(e,x,y){
     break;
     case 1: //slide down event 
     //face.go(face.appPrev, face.pagePrev);
-	face.go("main",0);
+	face.go("clock",0);
     return; //return when changing faces. 
     case 2: //slide up event
     buzzer(40);

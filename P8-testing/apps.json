@@ -80,15 +80,15 @@
 			{"name":"handler","url":"handler.js"}
 		]
 	}, 
-	{ "id": "main",
+	{ "id": "clock",
 		"name": "Clock face",
 		"icon": "icon.png",
 		"version":"1.92.1",
 		"description": "clock face",
 		"tags": "apps",
-		"type":"main",
+		"type":"clock",
 		"storage": [
-			{"name":"main","url":"main.js"},
+			{"name":"clock","url":"main.js"},
 			{"name":"mainOptions","url":"mainOptions.js"}
 		]
 	},  
@@ -98,7 +98,7 @@
 		"version":"1.92.1",
 		"description": "Settings face",
 		"tags": "apps",
-		"type":"main",
+		"type":"clock",
 		"readme": "README.md",
 		"storage": [
 			{"name":"settings","url":"settings.js"}

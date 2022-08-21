@@ -4,6 +4,7 @@ face[0] = {
 	g:w.gfx,
 	init: function(val){
 		this.last=10;
+		if (euc.temp.pass)  {face.go("dashKingsongAdvPass",0,1);return;} 
 		if (euc.state!=="READY") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
 		this.g.setColor(0,0);
 		this.g.fillRect(0,98,239,99);
@@ -140,7 +141,7 @@ touchHandler[0]=function(e,x,y){
 		}else buzzer(40);
 		break;
 	case 1: //slide down event
-		//face.go("main",0);
+		//face.go("clock",0);
 		face.go(ew.is.dash[ew.def.dash.face],0);
 		return;	 
 	case 2: //slide up event

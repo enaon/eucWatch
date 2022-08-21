@@ -142,7 +142,7 @@ touchHandler[0]=function(e,x,y){
 			euc.wri(30+euc.dash.opt.ride.mode);
 			setTimeout(()=>{euc.is.busy=0;euc.wri(1);},500);
         }
-		//face.go("main",0);
+		//face.go("clock",0);
 		
 		face.go(ew.is.dash[ew.def.dash.face],0);
 		return;	 

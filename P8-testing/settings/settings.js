@@ -5,7 +5,7 @@ face[0] = {
 		init: function(){ 
 		face.mode=0;
 		if (face.faceSave==-1) face.faceSave=[face.appPrev,face.pagePrev,face.pageArg];
-		this.cli=-1;this.bt=-1;this.gb=-1;this.hid=-1;this.emuZ=-1;this.bri=-1;this.acc=-1;this.buzz=-1;this.sys=1;this.btn2=1;this.fmp=-1;
+		this.cli=-1;this.bt=-1;this.gb=-1;this.hid=-1;this.prxy=-1;this.bri=-1;this.acc=-1;this.buzz=-1;this.sys=1;this.btn2=1;this.fmp=-1;
 		face[0].btSetOn=1;
 		var d=(Date()).toString().split(' ');
 		var t=(d[4]).toString().split(':');	
@@ -69,7 +69,6 @@ face[0] = {
 		}else if(this.btSet){
 			if(this.btSetOn){
 				this.btSetOn=0;
-				//this.g.setColor(1,(ew.def.cli||ew.def.gb||ew.def.emuZ||ew.def.hid)?4:1);
 				this.g.setColor(1,1);
 				this.g.fillRect(0,0,155,75);
 				this.g.setColor(0,15);
@@ -86,15 +85,11 @@ face[0] = {
 				this.gb=ew.def.gb;
 				this.btn(this.gb,0,80,75,155,require("heatshrink").decompress(atob("mEwwIFCg4LEh/AAocfAok/Aol/zAFEnwREvwoD43+FAfw/ngFAX8/vwAoX+vP4DgX/uYFEs4RCv4FB84FDh/vAoP/h0f5+AAoMBn+fAoWOn8/CIXAv9/DoXg/xOCv5HB/g1C+H5HYfwuf6JoX5gf2AoeD8hlC/P75AFC/v5QgUH/v8mAFC///L4UDAoJ9CAosBAoKoCAopaB/5kBAqQdFgfwg41D8ABBAqgdEJpA1FII4A==")),13,94,14,4,0,2);//btn4
 			}
-			if (ew.def.emuZ!=this.emuZ) {
-				this.emuZ=ew.def.emuZ;
-				if (this.emuZ) this.btn(this.emuZ,80,80,155,155,require("heatshrink").decompress(atob("mEwwMB/4AL/ATBh4FB4AFBCwQgD//+Aod//kDCgU//kfEAUf/E/AoIJB+F/AoP+h4FD/4FBHIcH+H8vgFBw/gAoITBAowRCAoYdDAoovG/A7EI4v8NwXwLIJlDn5rF/+APongAoJ0CN4Q4D/grCAqYdF8EHAofAFwYFGwPBEIUAg5DBLIQFVD4ODEYQvH8AFE+BHEKYoAJA=")),95,94,14,4,0,2);//btn5
-				else if (!ew.def.prxy&&!this.emuZ) this.btn(0,80,80,155,155,require("heatshrink").decompress(atob("mEwwMB/4AL/ATBh4FB4AFBCwQgD//+Aod//kDCgU//kfEAUf/E/AoIJB+F/AoP+h4FD/4FBHIcH+H8vgFBw/gAoITBAowRCAoYdDAoovG/A7EI4v8NwXwLIJlDn5rF/+APongAoJ0CN4Q4D/grCAqYdF8EHAofAFwYFGwPBEIUAg5DBLIQFVD4ODEYQvH8AFE+BHEKYoAJA=")),95,94,14,4,0,2);//btn5
-			}
 			if (ew.def.prxy!=this.prxy) {
 				this.prxy=ew.def.prxy;
-				if (this.prxy) this.btn(this.prxy,80,80,155,155,require("heatshrink").decompress(atob("mUywIQNg//AAP4Aon/4EDAof4gIFD/8AAongv4SEj4DB44CBEgP+FAXDAoQcB+AFDv/+n4FCDgOP/8B/w1B8f/wIWBn/4IwP+/0PDAPw/ED4IYB/E4gF4n/j/0cG4MPDAMOgEB8IYB4eAgE4v+P8PAgEGj/j/FwCQPD/AeCgFwDAOGAoMcn4YBDwIrBDANgDAkYDAmHDAoxBg4xB/hQBgeHJQ/BCQNwMYV4KAJjB/8PwE+j4YB4P8v0HDAKwCZYKVCAIQYB8CuCDAK0D/k/TgLXCY4YFBToIADWALgEh4FD/j5GCQhmBAoaMBDIX8HQIAFA=")),92,93,14,4,0,2);//btn5
-				else if (!this.prxy&&!this.emuZ) this.btn(0,80,80,155,155,require("heatshrink").decompress(atob("mEwwMB/4AL/ATBh4FB4AFBCwQgD//+Aod//kDCgU//kfEAUf/E/AoIJB+F/AoP+h4FD/4FBHIcH+H8vgFBw/gAoITBAowRCAoYdDAoovG/A7EI4v8NwXwLIJlDn5rF/+APongAoJ0CN4Q4D/grCAqYdF8EHAofAFwYFGwPBEIUAg5DBLIQFVD4ODEYQvH8AFE+BHEKYoAJA=")),95,94,14,4,0,2);//btn5
+				if (this.prxy==1) this.btn(1,80,80,155,155,require("heatshrink").decompress(atob("mEwwMB/4AL/ATBh4FB4AFBCwQgD//+Aod//kDCgU//kfEAUf/E/AoIJB+F/AoP+h4FD/4FBHIcH+H8vgFBw/gAoITBAowRCAoYdDAoovG/A7EI4v8NwXwLIJlDn5rF/+APongAoJ0CN4Q4D/grCAqYdF8EHAofAFwYFGwPBEIUAg5DBLIQFVD4ODEYQvH8AFE+BHEKYoAJA=")),92,93,14,4,0,2);//btn5
+				else if (this.prxy==2) this.btn(1,80,80,155,155,require("heatshrink").decompress(atob("mUywIQNg//AAP4Aon/4EDAof4gIFD/8AAongv4SEj4DB44CBEgP+FAXDAoQcB+AFDv/+n4FCDgOP/8B/w1B8f/wIWBn/4IwP+/0PDAPw/ED4IYB/E4gF4n/j/0cG4MPDAMOgEB8IYB4eAgE4v+P8PAgEGj/j/FwCQPD/AeCgFwDAOGAoMcn4YBDwIrBDANgDAkYDAmHDAoxBg4xB/hQBgeHJQ/BCQNwMYV4KAJjB/8PwE+j4YB4P8v0HDAKwCZYKVCAIQYB8CuCDAK0D/k/TgLXCY4YFBToIADWALgEh4FD/j5GCQhmBAoaMBDIX8HQIAFA=")),92,93,14,4,0,2);//btn5
+				else  this.btn(0,80,80,155,155,require("heatshrink").decompress(atob("mEwwMB/4AL/ATBh4FB4AFBCwQgD//+Aod//kDCgU//kfEAUf/E/AoIJB+F/AoP+h4FD/4FBHIcH+H8vgFBw/gAoITBAowRCAoYdDAoovG/A7EI4v8NwXwLIJlDn5rF/+APongAoJ0CN4Q4D/grCAqYdF8EHAofAFwYFGwPBEIUAg5DBLIQFVD4ODEYQvH8AFE+BHEKYoAJA=")),95,94,14,4,0,2);//btn5
 			}
 			if (ew.def.hid!=this.hid) {
 				this.hid=ew.def.hid;
@@ -105,7 +100,7 @@ face[0] = {
 			//bluetooth settings
 			if (ew.is.bt!=this.bt) {
 				this.bt=ew.is.bt;
-				var state=(ew.def.cli||ew.def.gb||ew.def.emuZ||ew.def.hid||ew.def.prxy)?1:0;
+				var state=(ew.def.cli||ew.def.gb||ew.def.prxy||ew.def.hid||ew.def.prxy)?1:0;
 				//bt btn
 				this.img=require("heatshrink").decompress(atob("lkwwIPMg4FE/AKE4AFDtwEDg1gAocjAgcDnAFDmOAAgUBxgKDjAbChkBwwJC8EMmAEBh8A4IbC+EEjAKDsBCC7/+g//4EN//gv//wFAEgUMgw0DsBQDgQKEkAKDg0EBQfgFYf4FYf8IIMGhhBDoJMDhhMCh0A4YhC4BtDPAOOPAifDgYaCAAMzRwcCPoQABsyvEXQl8AgcPDQcAuD/XABYA="));
 				this.btn(state,0,0,75,75,(state)?require("heatshrink").decompress(atob("mEwwIXUgYFFwAFE4AFE8AFE/AFE/gFE/wFE/4FE74qCgUD54qCg8D44qCh+D4fwAoXDAocD8YRDgPzDocA/YpDgF/Gok/IIkfJokPLIkHFwQFHCIodFFIo1FIIhNFLIplFOIp9FRIqVFUI6tFXIrFFaIrdFdIr/IABY=")):this.img,13,15,14,1,15,1);
@@ -216,7 +211,7 @@ face[1] = {
 	face[0].btSetOn=1;
 	if (face.faceSave!=-1) {
 		  face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
-    }else face.go("main",0);
+    }else face.go("clock",0);
     return true;
   },
   clear: function(){
@@ -236,7 +231,7 @@ touchHandler[0]=function(e,x,y){
 		if(x<77&&y<75){//btn1
 			if (face[0].btSet) {
 				buzzer([30,50,30]);face[0].btSet=0;
-				face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].prxy=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
+				face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].prxy=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
 			}else if (face[0].themeSet) {
 				buzzer(40);
 			}else if (face.mode) {
@@ -245,12 +240,12 @@ touchHandler[0]=function(e,x,y){
 				}else buzzer(40);
 			}else {
 				face[0].btSetOn=1;face[0].btSet=1;buzzer([30,50,30]);
-				face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].prxy=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
+				face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].prxy=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
 			}
 		}else if(77<x&&x<158&&y<75){//btn2
 			if (face[0].btSet) {
 				buzzer([30,50,30]);face[0].btSet=0;
-				face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].prxy=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
+				face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].prxy=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
 			}else if (face[0].themeSet) {
 				buzzer(40);
 			}else if (face.mode) {
@@ -258,7 +253,7 @@ touchHandler[0]=function(e,x,y){
 				else buzzer(40);
 			}else {
 				face[0].themeSetOn=1;face[0].themeSet=1;buzzer([30,50,30]);
-				face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].prxy=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
+				face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].prxy=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
 				//face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
 			}
 		}else if(158<x&&x<239&&y<75){//btn3
@@ -305,10 +300,8 @@ touchHandler[0]=function(e,x,y){
 			if (face.mode) {if (face[0].appDo5) {buzzer([30,50,30]);eval(face[0].appDo5);return;} else buzzer(40);
 			}else if (face[0].btSet) {
 				if (global.euc.state!="OFF"){ buzzer(300);return;}
-				if (!ew.def.emuZ&&!ew.def.prxy) ew.def.emuZ=1;
-				else if (!ew.def.emuZ&&ew.def.prxy) ew.def.prxy=0;
-				else {ew.def.emuZ=0; ew.def.prxy=1;}
-				//ew.def.emuZ=1-ew.def.emuZ;
+				ew.def.prxy--;
+				if (ew.def.prxy<0) ew.def.prxy=2;
 				ew.do.update.bluetooth();buzzer([30,50,30]);
 			}else if (face[0].themeSet) {
 				buzzer(40);
@@ -350,7 +343,7 @@ touchHandler[0]=function(e,x,y){
 				ew.is.tor=-1;
 				w.gfx.bri.set(face[0].cbri);
 				if (f>=0 && face[f].off) face[f].off();
-				face.offid=-1;face.pageCurr=-1;face.appPrev="main";
+				face.offid=-1;face.pageCurr=-1;face.appPrev="clock";
 			},25000,face.pageCurr);
 			buzzer([30,50,30]);
 			return;  
@@ -359,7 +352,7 @@ touchHandler[0]=function(e,x,y){
 			//if (Boolean(require("Storage").read(face.faceSave[0].substring(0,4)+"Options"))){
 				//face.go(face.faceSave[0].substring(0,4)+"Options",0);
 			//}else 
-			face.go("mainOptions",0);
+			face.go("clockOptions",0);
 			return;
 		}else if(158<x&&x<239&&160<y&&y<239){ //btn9
 			buzzer([30,50,30]);
@@ -380,7 +373,7 @@ touchHandler[0]=function(e,x,y){
 			if (face.faceSave!=-1) {
 			  face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
 			}else{
-			  if (face.appPrev=="settings"||face.appPrev==face.faceSave[0].substring(0,4)+"Options") {face.appPrev="main";face.pagePrev=0;}
+			  if (face.appPrev=="settings"||face.appPrev==face.faceSave[0].substring(0,4)+"Options") {face.appPrev="clock";face.pagePrev=0;}
 			  face.go(face.appPrev,face.pagePrev,face.pageArg);return;
 			}
 		}  
@@ -391,7 +384,7 @@ touchHandler[0]=function(e,x,y){
 			buzzer([30,50,30]);
 		}else if (face[0].btSet) {
 			face[0].btSet=0;
-			face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].prxy=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
+			face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].prxy=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
 		}else if (face[0].themeSet) {
 			w.gfx.setColor(0,0);
 			w.gfx.fillRect(76,0,79,160);
@@ -408,7 +401,7 @@ touchHandler[0]=function(e,x,y){
 			face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
 			//ew.do.update.settings();
 		}else{
-			if (face.appPrev=="settings") {face.appPrev="main";face.pagePrev=0;}
+			if (face.appPrev=="settings") {face.appPrev="clock";face.pagePrev=0;}
 			face.go(face.appPrev,face.pagePrev,face.pageArg);return;
 			//ew.do.update.settings();
 		}    
@@ -425,7 +418,7 @@ touchHandler[0]=function(e,x,y){
 		}else if (Boolean(require('Storage').read('w_apps'))){
 			face.mode=1-face.mode;
 			face[0].btSet=0;
-			face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].prxy=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
+			face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].prxy=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
 			buzzer([30,50,30]);
 		} else buzzer(40);
 	}else if  (e==4){
@@ -444,22 +437,22 @@ touchHandler[0]=function(e,x,y){
 		}else if (Boolean(require('Storage').read('w_apps'))){
 			face.mode=1-face.mode;
 			face[0].btSet=0;
-			face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].prxy=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
+			face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].prxy=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
 			buzzer([30,50,30]);
 		}else{
 			buzzer(40);
-			//if (face.appPrev=="settings") {face.appPrev="main";face.pagePrev=0;}
+			//if (face.appPrev=="settings") {face.appPrev="clock";face.pagePrev=0;}
 			//face.go(face.appPrev,face.pagePrev,face.pageArg);return;
 		}
 		/*	
 		  if (face[0].btSet) {
 			face[0].btSet=0;
-			face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].emuZ=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
+			face[0].gb=-1;face[0].cli=-1;face[0].bt=-1;face[0].hid=-1;face[0].prxy=-1;face[0].bri=-1;face[0].acc=-1;face[0].buzz=-1;face[0].sys=1;face[0].btn2=1;face[0].fmp=-1;
 		  }else if (face.faceSave!=-1) {
 			  face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
 			  //ew.do.update.settings();
 		  }else{
-			  if (face.appPrev=="settings") {face.appPrev="main";face.pagePrev=0;}
+			  if (face.appPrev=="settings") {face.appPrev="clock";face.pagePrev=0;}
 			  face.go(face.appPrev,face.pagePrev,face.pageArg);return;
 			  //ew.do.update.settings();
 		  }

@@ -1,14 +1,6 @@
 //touch
-tcN=(x,y)=>{
-		buzzer(buz.na);	
-};	
-tcNext.replaceWith(tcN);
-tcB=(x,y)=>{
-	buzzer(buz.ok);	
-	face.go("dashScan",0);
-
-};	
-tcBack.replaceWith(tcB);
+tcNext.replaceWith(()=>{buzzer(buz.na);});
+tcBack.replaceWith(()=>{buzzer(buz.ok);face.go("dashScan",0);});
 //scan face-used by dash/repellent
 if(!global.scan){
 	scan={
@@ -22,21 +14,22 @@ if(!global.scan){
 			else if (euc.dash.info.get.makr=="NinebotZ")  this.filter = [{ namePrefix: 'N3' }];
 			else if (euc.dash.info.get.makr=="NinebotE")  this.filter = [{ namePrefix: 'NOC' },{ namePrefix: 'NOE' },{ namePrefix: 'NOP' }];
 			else if (euc.dash.info.get.makr=="InmotionV10")  this.filter = [{ namePrefix: 'V' }];
-			else if (euc.dash.info.get.makr=="InmotionV11")  this.filter = [{ namePrefix: 'V11-' }];
-			else if (euc.dash.info.get.makr=="InmotionV12")  this.filter = [{ namePrefix: 'V12-' }];
+			else if (euc.dash.info.get.makr=="InmotionV11")  this.filter = [{ namePrefix: 'V11' }];
+			else if (euc.dash.info.get.makr=="InmotionV12")  this.filter = [{ namePrefix: 'V12' }];
 			else if (euc.dash.info.get.makr=="Begode")  this.filter = [{ namePrefix: 'GotWay' }];
 			else if (euc.dash.info.get.makr=="Veteran")  this.filter = [{ namePrefix: 'LK' }];
-			//else if (euc.dash.info.get.makr=="Kingsong")  this.filter = [{ namePrefix: 'KS-' }];
-			else if (euc.dash.info.get.makr=="Kingsong")  this.filter =  [{}]; 
+			else if (euc.dash.info.get.makr=="Kingsong")  this.filter = [{ namePrefix: 'KS' }];
+			//else if (euc.dash.info.get.makr=="Kingsong")  this.filter =  [{}]; 
 			else this.filter = [{services:[service]}];
 			this.slot="";
 			scan.found=[];
 			if (scan.tid) {clearTimeout(scan.tid);scan.tid=0;}
 			NRF.setScan(function(devices) {		
-				if (euc.dash.info.get.makr=="Kingsong") {
+				/*if (euc.dash.info.get.makr=="Kingsong") {
 						if (devices.shortName&&devices.shortName.startsWith("KSN-")&&!scan.found.includes(devices.id+"|"+devices.shortName) ) scan.found.push(devices.id+"|"+devices.shortName);
 						if (devices.name&&devices.name.startsWith("KS-")&&!scan.found.includes(devices.id+"|"+devices.name) )  scan.found.push(devices.id+"|"+devices.name);
-				}else if (!scan.found.includes(devices.id+"|"+devices.name)) scan.found.push(devices.id+"|"+devices.name);
+				}else */
+				if (!scan.found.includes(devices.id+"|"+devices.name)) scan.found.push(devices.id+"|"+devices.name);
 			},{filters:this.filter ,active:true });
        		scan.tid=setTimeout(()=>{
 				scan.tid=0;
@@ -67,7 +60,7 @@ face[0] = {
 		this.start=1;
 		this.serv=service;
 		scan.go(face.appPrev,this.serv);
-		UI.ele.ind(1,1,1);
+		UI.ele.ind(1,1,0);
 		this.line=0;
 		this.top=50;
 		this.run=true;
@@ -146,7 +139,7 @@ face[1] = {
   return true;
   },
   show : function(){
-      face.go("main",0);
+      face.go("clock",0);
 	  return true;
   },
    clear: function(){

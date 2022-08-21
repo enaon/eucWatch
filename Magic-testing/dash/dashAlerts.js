@@ -1,16 +1,13 @@
-
 //touch
-touchHandler[0]=function(){};
-tcN=(x,y)=>{
+tcNext.replaceWith(()=>{
 	if (face[0].tab==1&&!face[0].page) {
 		buzzer(buz.ok);
 		face[0].tab=2;
 		face[0].bar();
 	}else
 		buzzer(buz.na);
-};	
-tcNext.replaceWith(tcN);
-tcB=(x,y)=>{
+});
+tcBack.replaceWith(()=>{
 	buzzer(buz.ok);
 	if (UI.ntid) {/*buzzer(buz.ok);*/clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();
 	}else if (face[0].tab==2) {
@@ -19,9 +16,8 @@ tcB=(x,y)=>{
 	}else if (face.appPrev!="settings")
 		face.go(face.appPrev,0);
 	else
-		face.go("main",0);
-};	
-tcBack.replaceWith(tcB);
+		face.go("clock",0);
+});
 //dash  Alerts
 face[0] = {
 	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:9000,
@@ -45,7 +41,7 @@ face[0] = {
 				}
 			};
 		}else{
-			UI.ele.ind(1,2,1);
+			UI.ele.ind(1,2,0);
 			UI.ele.title("ALERTS",15,0);
 			UIc.start(1,1);
 			UI.btn.img("main","_2x2",1,"speedS",euc.dash.alrt.spd.hapt.hi,euc.dash.alrt.spd.hapt.en?15:3,euc.dash.alrt.spd.hapt.en?4:1,1);
@@ -75,7 +71,7 @@ face[0] = {
 			if (i==6){
 				//buzzer(buz.ok);
 				face[0].page=1;
-				UI.ele.ind(1,1,1);
+				UI.ele.ind(0,0,0);
 				UIc.start(1,0);
 				//if (m) 
 				if (this.slot == "amp" ) {
@@ -123,7 +119,7 @@ face[0] = {
 	},
 	bar:function(){
 		"ram";
-		UI.ele.ind(face[0].tab,2,1);
+		UI.ele.ind(face[0].tab,2,0);
 		if(ew.temp.l) {ew.temp.l=0; UIc.bar._bar(6);return;}
 		ew.temp.bar=0;
 		//if (this.page) {

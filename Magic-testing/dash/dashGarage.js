@@ -1,21 +1,17 @@
 //
-touchHandler[0]=function(){};
-tcB=(x,y)=>{
+tcBack.replaceWith(()=>{
 	buzzer(buz.ok);
 	if (UI.ntid&&face[0].bar) {
 		clearTimeout(UI.ntid);
 		UI.ntid=0;
 		face[0].bar();
 	}else if (!euc.dash.info.get.makr||!ew.def.dash.slot||!require("Storage").readJSON("logDaySlot"+ew.def.dash.slot+".json",1))
-		face.go("main",0); 
+		face.go("clock",0); 
 	else   
-		face.go("dashOff",0);
-};	
-tcBack.replaceWith(tcB);
-tcN=(x,y)=>{
-	buzzer(buz.na);
-};
-tcNext.replaceWith(tcN);
+		face.go("clock",0); 
+		//face.go("dashOff",0);
+});
+tcNext.replaceWith(()=>{buzzer(buz.na);});
 //Dash Garage
 face[0] = { 
 	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:15000,
@@ -31,7 +27,7 @@ face[0] = {
 	show : function(o){return;},
 	bar : function(){
 		this.slot=require("Storage").readJSON("dash.json",1);
-		target={"InmotionV1":"im","Begode":"bg","NinebotS":"nb","NinebotZ":"nb","Inmotion":"im","Veteran":"vt","Ninebot":"nb","Kingsong":"ks"};
+		target={"InmotionV10":"im","InmotionV11":"im","InmotionV12":"im","Begode":"bg","NinebotS":"nb","NinebotZ":"nb","Veteran":"vt","NinebotE":"nb","Kingsong":"ks"};
 		UI.ele.title("GARAGE",3,0);
 		UI.ele.ind(2,2,0);
 		UIc.start(1,1);	
@@ -45,7 +41,7 @@ face[0] = {
 	tap:function(no){
 		buzzer(buz.ok);
 		if (this.prevSlot==no) {
-			UI.ele.ind(1,1,0);
+			UI.ele.ind(0,0,0);
 			UI.btn.ntfy(0,1.5,1);
 			if (ew.def.info)
 				UI.txt.block("_main",9,"Press & hold\n\nthe side btn\n\nto start/end\nthe connection.",80,15,0);
@@ -72,7 +68,7 @@ face[0] = {
 			UI.btn.img("main","_2x2",no,this.icon+target[this.slot["slot"+no+"Maker"]],this.slot["slot"+no+"Model"].toUpperCase(),15,1);
 			if (this.slot["slot"+this.prevSlot+"Mac"] ){ 
 				UI.btn.img("main","_2x2",this.prevSlot,this.icon+target[this.slot["slot"+this.prevSlot+"Maker"]],this.slot["slot"+this.prevSlot+"Model"].toUpperCase(),3,0);
-				require("Storage").writeJSON('eucSlot'+this.prevSlot+'.json',euc.dash.live);
+				require("Storage").writeJSON('eucSlot'+this.prevSlot+'.json',euc.dash);
 			}
 			ew.do.fileWrite("dash","slot",no);
 			ew.def.dash.slot=no;
@@ -86,7 +82,7 @@ face[0] = {
 	empty: function(no){
 		buzzer(buz.ok);
 		UI.btn.ntfy(0,1.5,1);
-		UI.ele.ind(1,1,0);
+		UI.ele.ind(0,0,0);
 		if (ew.def.info)
 			UI.txt.block("_main",9,"SLOT "+no+" is empty. Scan for a Wheel.",14,15,0); 
 		else 

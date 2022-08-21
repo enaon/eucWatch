@@ -1,5 +1,16 @@
 //dash digital
-
+tcNext.replaceWith(()=>{
+	buzzer(buz.ok);
+	if ( euc.state!="OFF")
+		face.go('dash'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0);
+	else 
+		buzzer(buz.na);
+});
+tcBack.replaceWith(()=>{
+	buzzer(buz.ok);
+	face.go("clock",0);
+});
+//
 face[0] = {
 	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:10000,
 	old:ew.def.bpp?0:1,
@@ -37,7 +48,7 @@ face[0] = {
 
 	},
 	show : function(o){
-		"ram";
+		//"ram";
 		if (!this.run) return;
 		if (euc.state=="READY") {
 			//this.g.setColor(0,0);
@@ -97,7 +108,7 @@ face[0] = {
 		},50,this);
 	},
 	spdF: function(){
-		"ram";
+		//"ram";
 		if ( Math.abs(euc.dash.live.spd-this.buff.spd) <2 ) this.buff.spd =Math.round(euc.dash.live.spd);
 		else if (euc.dash.live.spd<this.buff.spd) this.buff.spd=Math.round(this.buff.spd-(this.buff.spd-euc.dash.live.spd)/2); 
 		else this.buff.spd=Math.round(this.buff.spd+(euc.dash.live.spd-this.buff.spd)/2); 
@@ -120,7 +131,7 @@ face[0] = {
 		}
 	},
 	alF: function(){
-		"ram";
+		//"ram";
 		this.al.set(euc.log.almL);
 		this.g.setColor(0,1);
 		this.g.clearRect(this.pos.alrm[0],this.pos.alrm[1],this.pos.alrm[2],this.pos.alrm[3]);
@@ -134,7 +145,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},
 	ampF: function(){
-		"ram";
+		//"ram";
 		this.buff.amp=Math.round(euc.dash.live.amp);
 		this.g.setColor(0,this.ampC[euc.dash.alrt.amp.cc]);
 		this.g.fillRect(this.pos.btn1[0],this.pos.btn1[1],this.pos.btn1[2],this.pos.btn1[3]);
@@ -146,7 +157,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},
 	tmpF: function(){
-		"ram";
+		//"ram";
 		this.buff.tmp=Math.round(euc.dash.live.tmp);
 		this.g.setColor(0,this.tmpC[euc.dash.alrt.tmp.cc]);
 		this.g.fillRect(this.pos.btn1[0],this.pos.btn1[1],this.pos.btn1[2],this.pos.btn1[3]);
@@ -160,7 +171,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},
 	buzF: function(){
-		"ram";
+		//"ram";
 		this.buff.buzz=euc.buzz;
 		this.g.setFontVector(35);
 		this.g.setColor(0,(this.buff.buzz)?7:1);
@@ -170,7 +181,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},
 	spMF: function(){
-		"ram";
+		//"ram";
 		this.buff.spdM=euc.dash.trip.topS.toFixed(1);
 		this.g.setColor(0,1);
 		this.g.fillRect(this.pos.btn3[0],this.pos.btn3[1],this.pos.btn3[2],this.pos.btn3[3]);
@@ -182,7 +193,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},	
 	spLF: function(){
-		"ram";
+		//"ram";
 		this.buff.spdL=euc.dash.alrt.spd.max;
 		this.g.setColor(0,(euc.dash.alrt.spd.tilt.val<=this.buff.spdL)?1:7);	
 		this.g.fillRect(this.pos.btn4[0],this.pos.btn4[1],this.pos.btn4[2],this.pos.btn4[3]); 
@@ -194,7 +205,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},	
 	alrF: function(){
-		"ram";
+		//"ram";
 		this.buff.alrm=euc.dash.live.alrm;
 		this.g.setColor(0,1);
 		this.g.fillRect(this.pos.btn4[0],this.pos.btn4[1],this.pos.btn4[2],this.pos.btn4[3]); 
@@ -204,7 +215,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},	
 	tmFF: function(){
-		"ram";
+		//"ram";
 		this.buff.tmp=euc.dash.live.tmp.toFixed(1);
 		this.g.setColor(0,this.tmpC[euc.dash.alrt.tmp.cc]);
 		this.g.fillRect(this.pos.topl[0],this.pos.topl[1],this.pos.topl[2],this.pos.topl[3]);       
@@ -220,7 +231,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},	
 	amLF: function(){
-		"ram";
+		//"ram";
 		this.ampL.set(euc.log.ampL);
 		this.g.setColor(1,(1<euc.dash.alrt.amp.cc)?7:1);
 		this.g.fillRect(this.pos.topl[0],this.pos.topl[1],this.pos.topl[2],this.pos.topl[3]);       
@@ -231,7 +242,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},	
 	pwrF: function(){
-		"ram";
+		//"ram";
 		this.g.setColor(0,1);
 		//this.g.setColor(0,7);
 		this.g.fillRect(this.pos.pwm[0],this.pos.pwm[1],this.pos.pwm[2],this.pos.pwm[3]); 
@@ -243,7 +254,7 @@ face[0] = {
 		w.gfx.flip();
 	},
 	vltF: function(){
-		"ram";
+		//"ram";
 		this.buff.volt=euc.dash.live.volt.toFixed(2);
 		this.g.setColor(0,this.batC[euc.dash.alrt.bat.cc]);
 		this.g.fillRect(this.pos.topr[0],this.pos.topr[1],this.pos.topr[2],this.pos.topr[3]);       
@@ -255,7 +266,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},	
 	batF: function(){
-		"ram";
+		//"ram";
 		this.buff.bat=euc.dash.live.bat;
 		this.g.setColor(0,this.batC[euc.dash.alrt.bat.cc]);
 		this.g.fillRect(this.pos.topr[0],this.pos.topr[1],this.pos.topr[2],this.pos.topr[3]);       
@@ -267,7 +278,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},
 	baLF: function(){
-		"ram";
+		//"ram";
 		this.batL.set(euc.log.batL);
 		this.g.setColor(0,this.batC[euc.dash.alrt.bat.cc]);
 		this.g.fillRect(this.pos.topr[0],this.pos.topr[1],this.pos.topr[2],this.pos.topr[3]);       
@@ -282,7 +293,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},	
 	mileage: function(){
-		"ram";
+		//"ram";
 		this.buff.trpL=euc.dash.trip.last.toFixed(2);
 		this.g.setColor(0,0);
 		this.g.fillRect(this.pos.bar[0],this.pos.bar[1],this.pos.bar[2],this.pos.bar[3]);
@@ -300,7 +311,7 @@ face[0] = {
 		if (this.old)this.g.flip();
 	},
 	barF: function(){
-		"ram";
+		//"ram";
 		this.g.setColor(1,1);
 		this.g.fillRect(this.pos.btm[0],this.pos.btm[1],this.pos.btm[2],this.pos.btm[3]); //mileage
 		this.g.setColor(0,15);
@@ -332,7 +343,7 @@ face[1] = {
 	show : function(){
 		face.pageCurr=0;
 		if (euc.state=="OFF") 
-			face.go("main",0); 
+			face.go("clock",0); 
 		else {
 			face.go(ew.is.dash[ew.def.dash.face],-1);
 		}
@@ -370,14 +381,3 @@ UIc.main._bar=(i)=>{
 	buzzer(buz.ok);
 };
 //
-tcNext.replaceWith((x,y)=>{
-	buzzer(buz.ok);
-	if ( euc.state!="OFF")
-		face.go('dash'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0);
-	else 
-		buzzer(buz.na);
-});
-tcBack.replaceWith((x,y)=>{
-	buzzer(buz.ok);
-	face.go("main",0);
-});

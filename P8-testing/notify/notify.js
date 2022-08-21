@@ -87,7 +87,7 @@ face[1] = {
   return true;
   },
   show : function(){
-    face.go("main",0);
+    face.go("clock",0);
     return true;
   },
   clear: function(){
@@ -230,7 +230,7 @@ touchHandler[0]=function(e,x,y){
       }else buzzer(40);
     }else if  (e==1){
 		//face.go("notify",-1);return;
-		face.go("main",0);return;
+		face.go("clock",0);return;
     }else if  (e==2){
 	  if (y>160&&x<50) {
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
@@ -241,10 +241,10 @@ touchHandler[0]=function(e,x,y){
 	  } 
     }else if  (e==3){
 		//buzzer(40);
-		face.go("main",0);return;
+		face.go("clock",0);return;
     }else if  (e==4){
-		if (face.appPrev=="main")buzzer(40);
-		else face.go("main",0);return;
+		if (face.appPrev=="clock")buzzer(40);
+		else face.go("clock",0);return;
     }else if  (e==12){
       if (y<80&&x<170){
 		buzzer([30,50,80]);notify.call=[];notify.nCall=0;face[0].nCall=-1;
@@ -289,7 +289,7 @@ touchHandler[5]=function(e,x,y){
 	  if (face[5].msg&&face[5].msg.id) ew.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
 	  notify["n"+face[5].type.substr(0,1).toUpperCase()+face[5].type.substr(1)]=0;
       if (!notify.nInfo&&!notify.nCall&&!notify.nIm) {notify.New=0;}
-      if (face.appPrev=="off") {face.go("main",-1);return;}
+      if (face.appPrev=="off") {face.go("clock",-1);return;}
 		else  {face.go(face.appPrev,face.pagePrev,face.pageArg);return;}
     }else if  (e==12){
       buzzer(40);

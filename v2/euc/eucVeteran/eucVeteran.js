@@ -251,7 +251,7 @@ euc.off=function(err){
 		euc.temp=0;
 		global["\xFF"].bleHdl=[];
 		NRF.setTxPower(ew.def.rfTX);
-		if (this.proxy) this.proxy.e();
+		if (euc.proxy) euc.proxy.e();
 		if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
 			if (ew.is.bt===2) console.log("ble still connected"); 
 			global["\xFF"].BLE_GATTS.disconnect();return;

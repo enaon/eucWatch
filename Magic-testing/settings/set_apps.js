@@ -1,3 +1,8 @@
+E.setFlags({pretokenise:1});
+//touch
+tcNext.replaceWith(()=>{buzzer(buz.ok);eval(require("Storage").read("set_dash"));face[0].bar();});
+tcBack.replaceWith(()=>{buzzer(buz.ok);eval(require("Storage").read("set_set"));});
+//
 face[0].page="app";
 
 UI.ele.ind(2,2,1);
@@ -45,8 +50,4 @@ UIc.main._2x3=(i)=>{
 	}
 };
 
-tcNext.replaceWith((x,y)=>{
-	buzzer(buz.ok);eval(require("Storage").read("set_dash"));face[0].bar();
-});
-tcBack.replaceWith(new Function('buzzer(buz.ok);eval(require("Storage").read("set_set"));'));
 

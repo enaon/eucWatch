@@ -1,3 +1,4 @@
+E.setFlags({pretokenise:1});
 //dash off 
 face[0] = {
 	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:10000,
@@ -5,7 +6,7 @@ face[0] = {
 	spd:[],
 	init: function(){
 		this.log=require("Storage").readJSON("logDaySlot"+ew.def.dash.slot+".json",1);
-		if (!euc.dash.info.get.makr||!ew.def.dash.slot||!this.log) {face.go((face.appPrev=="dashGarage")?"main":"dashGarage",0);return;}
+		if (!euc.dash.info.get.makr||!ew.def.dash.slot||!this.log) {face.go((face.appPrev=="dashGarage")?"clock":"dashGarage",0);return;}
 		this.rowL=0;
 		this.posL=0;
 		this.ref=Date().getHours();
@@ -143,7 +144,7 @@ face[1] = {
 	return;
 	},
 	show : function(){
-		face.go("main",0);
+		face.go("clock",0);
 		return;
 	},
 	clear: function(){
@@ -259,7 +260,7 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
     case 1: //slide down event
-		face.go("main",0);
+		face.go("clock",0);
 		return;
     case 2: //slide up event
 		if (y>160&&x<50) {
@@ -274,7 +275,7 @@ touchHandler[0]=function(e,x,y){
 		face.go("dashGarage",0);
 		return;
     case 4: //slide right event (back action)
-		face.go("main",0);
+		face.go("clock",0);
 		return;
     case 12: //touch and hold(long press) event
 		buzzer(40);

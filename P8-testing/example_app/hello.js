@@ -66,8 +66,8 @@ face[1] = {
    	face.go(face.appRoot[0],face.appRoot[1]); //go to the previous face on screen of the previous app.  
 	//face.go(face.appPrev,face.pagePrev); //go to the previous face on screen, even if it was on the same app. 
   	//face.go("hello",-1); //sleep and set this face as the on_wake face. 
-	//face.go("main",-1);//sleep and set this face as the on_wake face. 
-	//face.go("main",0);//go to main Clock face. 
+	//face.go("clock",-1);//sleep and set this face as the on_wake face. 
+	//face.go("clock",0);//go to main Clock face. 
     return true;
   },
    clear: function(){
@@ -93,7 +93,7 @@ touchHandler[0]=function(e,x,y){
 	if (face.faceSave!=-1) {
 		  face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
 	}else
-		face.go("main",0);
+		face.go("clock",0);
 	return; 
 	//break;
   case 2: //slide up event

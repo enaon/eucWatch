@@ -61,9 +61,9 @@ acc={
 				if (!this.up&&!w.gfx.isOn&&face.appCurr!=""){  
 						if  (global.euc) {
 							if (global.euc&&euc.state!="OFF") face.go(ew.is.dash[ew.def.dash.face],0);
-							else{if (face.appCurr=="main") face.go("main",0);else face.go(face.appCurr,0);}
+							else{if (face.appCurr=="clock") face.go("clock",0);else face.go(face.appCurr,0);}
 						}else{ 
-							if (face.appCurr=="main") face.go("main",0);
+							if (face.appCurr=="clock") face.go("clock",0);
 							else face.go(face.appCurr,0);
 						}
 						changeInterval(acc.tid,1000);

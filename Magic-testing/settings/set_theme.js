@@ -1,3 +1,8 @@
+E.setFlags({pretokenise:1});
+//touch
+tcNext.replaceWith(()=>{buzzer(buz.ok);eval(require("Storage").read("set_set"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}face[0].bar();});
+tcBack.replaceWith(()=>{buzzer(buz.ok);eval(require("Storage").read("set_set"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}face[0].bar();});
+//
 face[0].page="theme";
 //
 let tout=(ew.def.off[face.appRoot[0]])?ew.def.off[face.appRoot[0]]:3000;
@@ -72,5 +77,3 @@ UIc.main._2x3=(i)=>{
 	}
 };
 //
-tcNext.replaceWith(new Function('buzzer(buz.ok);eval(require("Storage").read("set_set"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}'));
-tcBack.replaceWith(new Function('buzzer(buz.ok);eval(require("Storage").read("set_set"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}'));

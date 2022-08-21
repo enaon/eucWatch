@@ -1,8 +1,8 @@
 
 //face
 var face={
-	appCurr:"main",
-	appPrev:"main",
+	appCurr:"clock",
+	appPrev:"clock",
 	pageCurr:-1,
 	pagePrev:-1,	
 	pageArg:"",
@@ -20,7 +20,7 @@ var face={
 		this.offid=setTimeout((c)=>{
 			this.offid=0;
 			if (c===0||c===2) {
-				if (this.appCurr==="main") {
+				if (this.appCurr==="clock") {
 					if (face[c].off) {
 						if (ew.def.touchtype=="716") tfk.exit();	
 						else {digitalPulse(ew.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,ew.def.rstR,3);},100);}
@@ -31,7 +31,7 @@ var face={
 				if (face[c].off) {
 					if (ew.def.touchtype=="716") tfk.exit();	
 					else {digitalPulse(ew.def.rstP,1,[5,50]);setTimeout(()=>{i2c.writeTo(0x15,ew.def.rstR,3);},100);}
-					face.go("main",-1);face.pagePrev=c;
+					face.go("clock",-1);face.pagePrev=c;
 				}
 			}else if (c>1) face.go(this.appCurr,0);
 		},this.offms,this.pageCurr);

@@ -87,7 +87,7 @@ face[1] = {
   return true;
   },
   show : function(){
-    face.go("main",0);
+    face.go("clock",0);
     return true;
   },
   clear: function(){
@@ -271,17 +271,11 @@ touchHandler[5]=function(e,x,y){
 	  if (face[5].msg&&face[5].msg.id) ew.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
 	  notify["n"+face[5].type.substr(0,1).toUpperCase()+face[5].type.substr(1)]=0;
       if (!notify.nInfo&&!notify.nCall&&!notify.nIm) {notify.New=0;}
-      if (face.appPrev=="off") {face.go("main",-1);return;}
+      if (face.appPrev=="off") {face.go("clock",-1);return;}
 		else  {face.go(face.appPrev,face.pagePrev,face.pageArg);return;}
     }else if  (e==12){
       buzzer(buz.na);
     }
 };
-tcN=(x,y)=>{
-		face.go("main",0);
-};	
-tcNext.replaceWith(tcN);
-tcB=(x,y)=>{
-      buzzer(buz.na);
-};	
-tcBack.replaceWith(tcB);
+tcNext.replaceWith(()=>{face.go("clock",0);});
+tcBack.replaceWith(()=>{buzzer(buz.na);});

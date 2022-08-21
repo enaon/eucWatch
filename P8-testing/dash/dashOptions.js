@@ -1,3 +1,4 @@
+E.setFlags({pretokenise:1});
 //dash  Options
 //dash options  
 face[0] = {
@@ -258,7 +259,7 @@ touchHandler[0]=function(e,x,y){
 		if (face.faceSave!=-1) {
 			face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
 		}else{
-			if (face.appPrev=="settings") {face.appPrev="main";face.pagePrev=0;}
+			if (face.appPrev=="settings") {face.appPrev="clock";face.pagePrev=0;}
 			face.go(face.appPrev,face.pagePrev,face.pageArg);return;
 		}
 		return; 

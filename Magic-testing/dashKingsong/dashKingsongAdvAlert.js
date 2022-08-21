@@ -1,24 +1,27 @@
 //touch
-tcB=(x,y)=>{
+tcBack.replaceWith(()=>{
 	buzzer(buz.ok);	
-	if (UI.ntid) {/*buzzer(buz.ok);*/clearTimeout(UI.ntid);UI.ntid=0;face[0].start();}
-	else {
-		euc.wri("setAlarms");
-		eval(require('Storage').read("dashKingsongAdv")); 
-	}
-};	
-tcBack.replaceWith(tcB);
-tcNext.replaceWith(tcB);
+	if (UI.ntid) {/*buzzer(buz.ok);*/clearTimeout(UI.ntid);UI.ntid=0;}
+	euc.wri("setAlarms");
+	eval(require('Storage').read("dashKingsongAdv")); 
+	
+});
+tcNext.replaceWith(tcBack);
 //
 face[0].page="wheel alarms";
 face[0].start=()=>{
 	UI.ele.ind(1,1,0);
-	UIc.start(1,1);
+	UIc.start(1,0);
 	UI.btn.c2l("main","_2x2",1,"ALARM 1",euc.dash.alrt.spd.one.en?euc.dash.alrt.spd.one.val:"OFF",15,euc.dash.alrt.spd.one.en?6:1);
 	UI.btn.c2l("main","_2x2",2,"ALARM 2",euc.dash.alrt.spd.two.en?euc.dash.alrt.spd.two.val:"OFF",15,euc.dash.alrt.spd.two.en?6:1);
-	UI.btn.c2l("bar","_2x2",3,"ALARM 3",euc.dash.alrt.spd.thre.val,15,6);
-	UI.btn.c2l("bar","_2x2",4,"TILTBACK",euc.dash.alrt.spd.tilt.val,15,6);	
 	UIc.end();
+	face[0].bar=()=>{;
+		UI.ele.title(face[0].page.toUpperCase(),3,0);//w.gfx.flip();
+		UIc.start(0,1);
+		UI.btn.c2l("bar","_2x2",3,"ALARM 3",euc.dash.alrt.spd.thre.val,15,6);
+		UI.btn.c2l("bar","_2x2",4,"TILTBACK",euc.dash.alrt.spd.tilt.val,15,6);	
+		UIc.end();
+	}
 	face[0].bar();
 	//
 	UIc.main._2x2=(i)=>{

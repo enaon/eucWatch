@@ -46,6 +46,7 @@ euc.temp.modelParams=function(model) {
   switch(model) {
     case 'Mten3':       return { 'voltMultiplier': 1.25, 'minCellVolt': 3.3 };
     case 'MCM5':        return { 'voltMultiplier': 1.25, 'minCellVolt': 3.3 };
+    case 'RecioWheel':  return { 'voltMultiplier': 1.25, 'minCellVolt': 3.3 };
     case 'T3':          return { 'voltMultiplier': 1.25, 'minCellVolt': 3.25 };
     case 'Nikola':      return { 'voltMultiplier': 1.50, 'minCellVolt': 3.25 };
     case 'Msuper Pro':  return { 'voltMultiplier': 1.50, 'minCellVolt': 3.25 };
@@ -155,6 +156,7 @@ euc.temp.main=function(event){
 		if (event.target.value.getUint32(0) == 0x4E414D45) { //fetchModel
 			console.log("model fetch responce:",event.target.value.buffer);
 			euc.dash.info.get.modl =  E.toString(event.target.value.buffer).slice(5).trim();
+			if (euc.dash.info.get.modl=="Barton") euc.dash.info.get.modl=="RecioWheel";
 			if (!ew.do.fileRead("dash","slot"+ew.do.fileRead("dash","slot")+"Model")) 
 				ew.do.fileWrite("dash","slot"+ew.do.fileRead("dash","slot")+"Model",euc.dash.info.get.modl);
 			euc.dash.opt.bat.pack=euc.temp.modelParams(euc.dash.info.get.modl).voltMultiplier;
@@ -412,7 +414,7 @@ euc.off=function(err){
 		euc.temp=0;
 		global["\xFF"].bleHdl=[];
 		NRF.setTxPower(ew.def.rfTX);
-		if (this.proxy) this.proxy.e();
+		if (euc.proxy) euc.proxy.e();
 		if ( global["\xFF"].BLE_GATTS&&global["\xFF"].BLE_GATTS.connected ) {
 			if (euc.dbg) console.log("ble still connected"); 
 			global["\xFF"].BLE_GATTS.disconnect();return;

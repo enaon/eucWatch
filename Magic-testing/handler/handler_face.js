@@ -1,7 +1,7 @@
 //face
 var face={
-	appCurr:"main",
-	appPrev:"main",
+	appCurr:"clock",
+	appPrev:"clock",
 	pageCurr:-1,
 	pagePrev:-1,	
 	pageArg:"",
@@ -22,7 +22,7 @@ var face={
 	off1:function(c){ 
     "ram";
 		face.batt=0;
-		//if (this.appCurr==="main") {
+		//if (this.appCurr==="clock") {
 		if (face[c].off) {
 			TC.stop();	
 			face[c].off();this.pageCurr=-1;face.pagePrev=c;
@@ -47,7 +47,6 @@ var face={
 			if (this.appCurr!=this.appPrev) {
 				if (face[app]) {
 					face[0]=face[face.appCurr][0];face[1]=face[face.appCurr][1];
-					touchHandler[0]=touchHandler[face.appCurr][0];
 				}else eval(require('Storage').read(app));	
 			}
 			return;
@@ -57,7 +56,6 @@ var face={
 			this.appRoot=[this.appPrev,this.pagePrev,this.pageArg];
 			if (face[app]) {
 				face[0]=face[face.appCurr][0];face[1]=face[face.appCurr][1];
-				touchHandler[0]=touchHandler[face.appCurr][0];
 			}else eval(require('Storage').read(app));
 		} 
 		this.off();

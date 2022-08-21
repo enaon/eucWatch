@@ -1,4 +1,6 @@
 //settings
+E.setFlags({pretokenise:1});
+
 face[0] = {
 	run:false,
 	btn:{},
@@ -25,27 +27,34 @@ face[0] = {
 		UIc.end();
 		UIc.bar._bar=(i)=>{
 			if (i==1){
-			if (this.page=="main") {buzzer(buz.na);return;}
+				if (this.page=="clock") {buzzer(buz.na);return;}
 				buzzer(buz.ok);
+				face[0].ref1(i);
 				eval(require('Storage').read("set_main"));
-				setTimeout(function(){ face[0].ref();},0);
 			}else if (i==2){
 				if (this.page=="set") {buzzer(buz.na);return;}
 				buzzer(buz.ok);
+				face[0].ref1(i);
 				eval(require('Storage').read("set_set"));
-				setTimeout(function(){ face[0].ref();},0);
 			}else if (i==3){
 				if (this.page=="dash1") {buzzer(buz.na);return;}
 				buzzer(buz.ok);
+				face[0].ref1(i);
 				eval(require('Storage').read("set_dash"));
-				setTimeout(function(){ face[0].ref();},0);
+				//setTimeout(function(){ face[0].ref();},0);
 			}
     };
 	},
+	ref1 : function(i){
+	  "ram";
+		UI.btn.img("bar","_bar",1,"settings",0,i==1?14:3,i==1?1:0);
+		UI.btn.img("bar","_bar",2,"watch",0,i==2?14:3,i==2?1:0);
+		UI.btn.img("bar","_bar",3,"dash",0,i==3?14:3,i==3?1:0);
+	},
 	ref : function(s){
 	  "ram";
-		UI.btn.img("bar","_bar",1,"settings",0,face[0].page=="main"?14:3,face[0].page=="main"?1:0);
-		UI.btn.img("bar","_bar",2,"watch",0,face[0].page=="bt"||face[0].page=="theme"||face[0].page=="set"||face[0].page=="apps"?14:3,face[0].page=="bt"||face[0].page=="theme"||face[0].page=="set"||face[0].page=="app"?1:0);
+		UI.btn.img("bar","_bar",1,"settings",0,face[0].page=="clock"?14:3,face[0].page=="clock"?1:0);
+		UI.btn.img("bar","_bar",2,"watch",0,face[0].page=="bt"||face[0].page=="theme"||face[0].page=="set"||face[0].page=="app"?14:3,face[0].page=="bt"||face[0].page=="theme"||face[0].page=="set"||face[0].page=="app"?1:0);
 		UI.btn.img("bar","_bar",3,"dash",0,face[0].page=="dash1"||face[0].page=="dash1"?14:3,face[0].page=="dash1"||face[0].page=="dash2"?1:0);
 	},
 	clear : function(o){

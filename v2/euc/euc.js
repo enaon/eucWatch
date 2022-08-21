@@ -51,7 +51,7 @@ global.euc= {
 			}else {
 				euc.temp={count:0,loop:0,last:0,rota:0};
 				eval(require('Storage').read('euc'+require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]));
-				if (ew.def.prxy&&require('Storage').read('proxy'+euc.dash.info.get.makr)){
+				if (ew.def.prxy==2&&require('Storage').read('proxy'+euc.dash.info.get.makr)){
 					eval(require('Storage').read('proxy'+euc.dash.info.get.makr));
 				}	
 				this.state="ON";

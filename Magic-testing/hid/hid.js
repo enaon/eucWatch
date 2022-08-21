@@ -100,7 +100,7 @@ face[1] = {
         return true;
     },
     show: function() {
-        face.go("main", 0);
+        face.go("clock", 0);
         return true;
     },
     clear: function() {
@@ -146,7 +146,7 @@ touchHandler[0] = function(e, x, y) {
     } else if (e == 3) {
         buzzer( 40);
     } else if (e == 4) {
-        face.go("main", -0);
+        face.go("clock", -0);
         return;
     } else if (e == 12) {
         buzzer(buz.na);

@@ -1,3 +1,4 @@
+E.setFlags({pretokenise:1});
 //Dash Scan
 face[0] = { 
 	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:5000,

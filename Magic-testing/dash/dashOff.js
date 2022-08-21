@@ -1,3 +1,6 @@
+//touch
+tcBack.replaceWith(()=>{face.go("clock",0);});
+tcNext.replaceWith(()=>{face.go("dashGarage",0);});
 //dash off 
 face[0] = {
 	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:10000,
@@ -5,8 +8,9 @@ face[0] = {
 	old:ew.def.bpp?0:1,
 	spd:[],
 	init: function(){
+		face.go("dashGarage",0); return;
 		this.log=require("Storage").readJSON("logDaySlot"+ew.def.dash.slot+".json",1);
-		if (!euc.dash.info.get.makr||!ew.def.dash.slot||!this.log) {face.go((face.appPrev=="dashGarage")?"main":"dashGarage",0);return;}
+		if (!euc.dash.info.get.makr||!ew.def.dash.slot||!this.log) {face.go((face.appPrev=="dashGarage")?"clock":"dashGarage",0);return;}
 		this.rowL=0;
 		this.posL=0;
 		this.ref=Date().getHours();
@@ -114,13 +118,3 @@ face[0] = {
 		this.clear();
 	} 
 };
-
-touchHandler[0]=function(){};
-tcB=(x,y)=>{
-		face.go("main",0); 
-};	
-tcBack.replaceWith(tcB);
-tcN=(x,y)=>{
-		face.go("dashGarage",0);
-};
-tcNext.replaceWith(tcN);

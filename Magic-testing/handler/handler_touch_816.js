@@ -1,16 +1,16 @@
 ew.def.touchtype="816";
+ew.is.tpT=0;
 ew.def.rstR=0xA5; //the rock has auto sleep if 254 is 0.
 var TC={
 	x:0,
 	y:0,
-	ntid:0,
 	loop:0,
 	act:{main:{},bar:{},titl:{}},
 	val:{cur:0,up:0,dn:0},
 	start:function(){ 
     "ram";
 		digitalPulse(ew.def.rstP,1,[5,50]);
-		if (this.ntid) {clearWatch(this.ntid);this.ntid=0;}
+		if (ew.tid.TC) {clearWatch(ew.tid.TC);ew.tid.TC=0;}
 		setTimeout(()=>{
 			i2c.writeTo(0x15,236,0); //MotionMask 7/4/1
 			i2c.writeTo(0x15,0xF5,35); //lp scan threshold
@@ -22,12 +22,12 @@ var TC={
 			i2c.writeTo(0x15,254,1); //auto sleep off
 			i2c.writeTo(0x15,0);
 			print("wake");
-			//if (!this.ntid)
 			this.init();
 		},200);
 
 	},
 	init:function(){
+		if (ew.tid.TC) return;
 		ew.tid.TC=setWatch(function(s){
 			"ram";
 			//i2c.writeTo(0x15,0);
@@ -50,10 +50,12 @@ var TC={
 			//print("in",tp);
 			if (face.pageCurr>=0) {
 				TC.emit("tc"+tp[1],tp[4],tp[6]);
-				touchHandler[face.pageCurr](tp[1],tp[4],tp[6]);
 				face.off();
-			}else if (tp[1]==1) 
-				face.go(face.appCurr,0);
+			}else if (tp[1]==5) {
+				if ( (getTime()|0) - ew.is.tpT < 1 )     
+					face.go(face.appCurr,0);
+				else   ew.is.tpT=getTime()|0;
+			}		
 			if (this.loop) {clearTimeout(this.loop); this.loop=0;}
 			this.loop=setTimeout(()=>{
 				TC.loop=0;

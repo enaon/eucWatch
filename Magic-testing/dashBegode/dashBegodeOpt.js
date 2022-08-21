@@ -1,13 +1,7 @@
 //Begode settings
 //touch
-tcNext.replaceWith((x,y)=>{
-	"ram";
-	buzzer(buz.ok);	
-	face.go("dashBegodeAdv",0);return; 
-});
-tcBack.replaceWith((x,y)=>{
-	"ram";
-	buzzer(buz.ok);	
+tcNext.replaceWith(()=>{buzzer(buz.ok);face.go("dashBegodeAdv",0);return;});
+tcBack.replaceWith(()=>{buzzer(buz.ok);	
 	if (UI.ntid) {/*buzzer(buz.ok);*/clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}
 	face.go("dashBegode",0);return; 
 });
