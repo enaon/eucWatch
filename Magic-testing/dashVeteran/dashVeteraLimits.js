@@ -115,38 +115,38 @@ touchHandler[0]=function(e,x,y){
 					euc.dash.alrt.spd.one.en=0;
 					face[0].btn(euc.dash.alrt.spd.one.en,"ALARM 1",18,60,15,7,1,0,0,119,97,(euc.dash.alrt.spd.one.en)?"ON":"OFF",28,60,50);
 					face[0].ntfy("ALARM 1-> DISABLED","",20,1,1);
-					buzzer(buz.ok);
+					buzzer.nav(buzzer.buzz.ok);
 				}else {
 					if (euc.dash.alrt.spd.two.en){
 						euc.dash.alrt.spd.one.en=1;
 						face[0].btn(euc.dash.alrt.spd.one.en,"ALARM 1",18,60,15,7,1,0,0,119,97,(euc.dash.alrt.spd.one.en)?"ON":"OFF",28,60,50);
 						face[0].ntfy("ALARM 1-> ENABLED","",20,1,1);
-						buzzer(buz.ok);
-                    }else {face[0].ntfy("ENABLE ALARM 2","",20,7,1);buzzer(buz.na);}
+						buzzer.nav(buzzer.buzz.ok);
+                    }else {face[0].ntfy("ENABLE ALARM 2","",20,7,1);buzzer.nav(buzzer.buzz.na);}
                 }
 			}else if (120<=x<=239&&y<=100) { //alarm 2
 				if ( euc.dash.alrt.spd.two.en){
-					if (euc.dash.alrt.spd.one.en) {face[0].ntfy("DISABLE ALARM 1","",20,7,1);buzzer(buz.na);}
+					if (euc.dash.alrt.spd.one.en) {face[0].ntfy("DISABLE ALARM 1","",20,7,1);buzzer.nav(buzzer.buzz.na);}
 					else {
 						euc.dash.alrt.spd.two.en=0;
-						buzzer(buz.ok);
+						buzzer.nav(buzzer.buzz.ok);
 						face[0].btn(euc.dash.alrt.spd.two.en,"ALARM 2",18,185,15,7,2,122,0,239,97,(euc.dash.alrt.spd.two.en)?"ON":"OFF",28,185,50);
 						face[0].ntfy("ALARM 2 -> DISABLED","",20,1,1);
 					}
 				}else {
 					euc.dash.alrt.spd.two.en=1;
-					buzzer(buz.ok);
+					buzzer.nav(buzzer.buzz.ok);
 					face[0].btn(euc.dash.alrt.spd.two.en,"ALARM 2",18,185,15,7,2,122,0,239,97,(euc.dash.alrt.spd.two.en)?"ON":"OFF",28,185,50);
 					face[0].ntfy("ALARM 2 -> ENABLED","",20,1,1);
 				}
 			}else if (x<=120&&100<=y<=200) { //alarm 3
 				face[0].ntfy("FIXED ALARM","FIXED ALARM",20,7,1);
-				buzzer(buz.ok);		
+				buzzer.nav(buzzer.buzz.ok);		
 			}else if (120<=x<=239&&100<=y<=200) { //tiltback
 				face[0].set("3","TITLBACK");
 				//face[0].ntfy("HOLD -> SET","",20,1,1);
-				buzzer(buz.ok);						
-			}else buzzer(buz.ok);
+				buzzer.nav(buzzer.buzz.ok);						
+			}else buzzer.nav(buzzer.buzz.ok);
 		}else {//set page
 			if (120<=x) { //up
                 if (euc.dash.alrt.spd.tilt.val<99) euc.dash.alrt.spd.tilt.val++;
@@ -155,7 +155,7 @@ touchHandler[0]=function(e,x,y){
 				if (10<euc.dash.alrt.spd.tilt.val) euc.dash.alrt.spd.tilt.val--;
 				else face[0].ntfy("NO LESS THAN 10KpH","",20,7,1);
             } 
-            buzzer(buz.ok);
+            buzzer.nav(buzzer.buzz.ok);
 			face[0].btn(1,euc.dash.live["spd"+face[0].setEb],100,126,60,7,2,60,40,180,160);
 		}
 		break;
@@ -168,11 +168,11 @@ touchHandler[0]=function(e,x,y){
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer(buz.ok);
+			buzzer.nav(buzzer.buzz.ok);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		break;
 	case 3: //slide left event
-		buzzer(buz.na);
+		buzzer.nav(buzzer.buzz.na);
 		break;
 	case 4: //slide right event (back action)
         if (face[0].setE) {
@@ -188,8 +188,8 @@ touchHandler[0]=function(e,x,y){
    case 12: //hold event
 		if (120<=x<=239&&100<=y<=200) { //tiltback
 			face[0].set("3","TITLBACK");
-			buzzer(buz.ok);						
-		}else buzzer(buz.ok);
+			buzzer.nav(buzzer.buzz.ok);						
+		}else buzzer.nav(buzzer.buzz.ok);
 		break;
 	}
 };

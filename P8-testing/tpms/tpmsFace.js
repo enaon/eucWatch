@@ -73,7 +73,7 @@ face[0] = {
 		if (tpms.status=="SCANNING"||tpms.status.startsWith("RETRY") ) {if (this.log ) this.ind(); return;}
 		this.g.setColor(0,0);
 		this.g.fillRect(0,190,(this.log)?58:239,239);
-		this.g.setColor(1,14);
+		this.g.setColor(1,11);
 		let img = require("heatshrink").decompress(atob("mEwwIcZg/+Aocfx+AAoV4gPgAoQDBuAEBgPAgE4AoQVBjgFBgYCBhgoCAQMGAQUgAolACggFL6AFGGQQFJEZsGsAFEIIhNFLIplFgBxBnwFCPYP/AoU8gf/BwKVB/+/SAUD/kf+CjDh/4V4n8AoYeBAoq1DgIqDAAP/XYcAv4qEn4qEGwsfC4kPEYkHF4Z1DACA="));
 		this.g.drawImage(img,5,195);
 		this.g.flip();
@@ -172,7 +172,7 @@ face[0] = {
 		this.g.setColor(0,1);
 		if (txt3){
 			this.g.fillRect(0,121,239,185);
-			this.g.setColor(1,14);
+			this.g.setColor(1,11);
 			this.g.setFont("Vector",42);
 			let size=this.g.stringWidth(txt2);
 			this.g.drawString(txt2,((this.info)?120:110)-(size/2),135);	
@@ -248,24 +248,24 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
 		if (face[0].page=="scan"){
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 			tpms.scan();
 			face[0].scan();
 			return;
 		}else if (190 < y && x < 80 ) {
 			if  (tpms.status!="SCANNING"&&!tpms.status.startsWith("RETRY")  ) { 
-				buzzer([30,50,30]);
+				buzzer.nav([30,50,30]);
 				tpms.scan();
 				if (face[0].act && face[0].ntid) { clearTimeout(face[0].ntid);face[0].ntid=0;}
 				face[0].scan();
-			}else buzzer(40);
+			}else buzzer.nav(40);
 			return;
 		}
 		if (50 < y) { 
 			//entry select
-			if (!face[0].tpms.length ) {buzzer(40);return;}
+			if (!face[0].tpms.length ) {buzzer.nav(40);return;}
 			let last=tpms.def.ref;
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 			tpms.def.ref=(120<x)?(0<tpms.def.ref)?tpms.def.ref-1:face[0].log.length-1:(tpms.def.ref<face[0].log.length-1)?tpms.def.ref+1:0;
 			/*if (face[0].info){
 				face[0].sel(face[0].log[tpms.def.ref].temp,face[0].log[tpms.def.ref].batt,"%");
@@ -281,13 +281,13 @@ touchHandler[0]=function(e,x,y){
 		}else {
 			if  ( 150 < x ) { //settings
 				if  (tpms.status!="SCANNING"&&!tpms.status.startsWith("RETRY")  ) { 
-					buzzer([30,50,30]);
+					buzzer.nav([30,50,30]);
 					face.go("tpmsOptions",0);
 					return;
-				}else buzzer(40);
+				}else buzzer.nav(40);
 			}else{ //sensor
-				if (face[0].tpms.length<=1) {buzzer(40);return;}
-				buzzer([30,50,30]);
+				if (face[0].tpms.length<=1) {buzzer.nav(40);return;}
+				buzzer.nav([30,50,30]);
 				if (face[0].act && face[0].ntid) { clearTimeout(face[0].ntid);face[0].ntid=0;}
 				if (tpms.def.pos+1 < face[0].tpms.length) tpms.def.pos++;
 				else tpms.def.pos=0;
@@ -320,7 +320,7 @@ touchHandler[0]=function(e,x,y){
 		return;
     case 2: //slide up =event
 		if (y>160&&x<50) {
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 		}else {
@@ -329,8 +329,8 @@ touchHandler[0]=function(e,x,y){
 		}
 		break;
     case 3: //slide left event
-		if (!face[0].log) {buzzer(40);return;}
-		buzzer([30,50,30]);
+		if (!face[0].log) {buzzer.nav(40);return;}
+		buzzer.nav([30,50,30]);
 		if (face[0].info) {
 			face[0].info=0;
 			let tm=(getTime()|0) - face[0].log[tpms.def.ref].time;
@@ -352,7 +352,7 @@ touchHandler[0]=function(e,x,y){
 			face.go("settings",0,1);
 		return;
     case 12: //touch and hold(long press) event
-		buzzer(40);
+		buzzer.nav(40);
 		return;
     }
 };

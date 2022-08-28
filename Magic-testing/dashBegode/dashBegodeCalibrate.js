@@ -34,12 +34,12 @@ face[0] = {
             this.g.drawString("CANCEL",140,200); 	
 		    this.g.flip();
        		this.run=false;
-        }else if (this.tilt!=euc.dash.live.tiltSet){ //tilt Set
+        }else if (this.tilt!=euc.dash.opt.ride.pTlt){ //tilt Set
 		    this.g.setColor(0,1);
 		    this.g.fillRect(50,50,190,150);                    
             this.g.setColor(1,15);
 		    this.g.setFont("Vector",80);
-		    this.g.drawString(euc.dash.live.tiltSet,130-(this.g.stringWidth(euc.dash.live.tiltSet)/2),65); 		
+		    this.g.drawString(euc.dash.opt.ride.pTlt,130-(this.g.stringWidth(euc.dash.opt.ride.pTlt)/2),65); 		
 		    this.g.flip();
 		}
 
@@ -96,15 +96,15 @@ touchHandler[0]=function(e,x,y){
 	case 5: //tap event
         if (!face[0].calibrate){
 		if (x<=120&&y<175) { //tilt forward
-			//euc.dash.live.tiltSet--;euc.wri("tiltSet");
-			buzzer(buz.ok);
+			//euc.dash.opt.ride.pTlt--;euc.wri("tiltSet");
+			buzzer.nav(buzzer.buzz.ok);
 		}else if (120<=x&&y<=175) { //tilt back
-			//euc.dash.live.tiltSet++;euc.wri("tiltSet");
-			buzzer(buz.ok);
+			//euc.dash.opt.ride.pTlt++;euc.wri("tiltSet");
+			buzzer.nav(buzzer.buzz.ok);
 		}else if (175<=y) { //calibrate
             face[0].calibrate=1;
-			buzzer(buz.ok);
-		}else buzzer(buz.ok);
+			buzzer.nav(buzzer.buzz.ok);
+		}else buzzer.nav(buzzer.buzz.ok);
         }else { //calibrate
 			if (175<=y&&120<=x) {
 				w.gfx.setColor(0,0);
@@ -117,7 +117,7 @@ touchHandler[0]=function(e,x,y){
 				face.go("dashBegode",0);return;
 			}else if (175<=y&&x<=120) 
 				euc.wri("calibrate");
-			else buzzer(buz.na);
+			else buzzer.nav(buzzer.buzz.na);
         }
 		break;
 	case 1: //slide down event
@@ -128,11 +128,11 @@ touchHandler[0]=function(e,x,y){
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer(buz.ok);
+			buzzer.nav(buzzer.buzz.ok);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		break;
 	case 3: //slide left event
-		buzzer(buz.na);
+		buzzer.nav(buzzer.buzz.na);
 		break;
 	case 4: //slide right event (back action)
 		w.gfx.setColor(0,0);
@@ -145,7 +145,7 @@ touchHandler[0]=function(e,x,y){
 		face.go("dashBegodeAdv",0);
 		return;
 	case 12: //long press event
-		buzzer(100);
+		buzzer.nav(100);
 		break;
   }
 };

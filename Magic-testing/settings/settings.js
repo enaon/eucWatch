@@ -8,13 +8,11 @@ face[0] = {
 	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:10000,
 	bpp:ew.def.bpp?0:1,
 	init: function(o){ 
-		this.g.clear();
-		//if (face.faceSave==-1) 
 		face.faceSave=[face.appPrev,face.pagePrev,face.pageArg];
-		eval(require('Storage').read(o?'set_apps':face.faceSave[0].substring(0,4)=="dash"?'set_dash':'set_set')); 
+		UI.ele.fill("_main",6,0);
+		eval(require('Storage').read(o==1?'set_main':o==2?'set_set':'set_dash')); 
+		//eval(require('Storage').read(o==1?'set_main':o==2?'set_set':face.faceSave[0].substring(0,4)=="dash"?'set_dash':'set_set')); 
 		this.bar();
-		//TC.on('tc5',UIc.xy);
-		//this.run=false;
 	},
 	show : function(s){
 		if (!this.run) return;
@@ -27,18 +25,18 @@ face[0] = {
 		UIc.end();
 		UIc.bar._bar=(i)=>{
 			if (i==1){
-				if (this.page=="clock") {buzzer(buz.na);return;}
-				buzzer(buz.ok);
+				if (this.page=="clock") {buzzer.nav(buzzer.buzz.na);return;}
+				buzzer.nav(buzzer.buzz.ok);
 				face[0].ref1(i);
 				eval(require('Storage').read("set_main"));
 			}else if (i==2){
-				if (this.page=="set") {buzzer(buz.na);return;}
-				buzzer(buz.ok);
+				if (this.page=="set") {buzzer.nav(buzzer.buzz.na);return;}
+				buzzer.nav(buzzer.buzz.ok);
 				face[0].ref1(i);
 				eval(require('Storage').read("set_set"));
 			}else if (i==3){
-				if (this.page=="dash1") {buzzer(buz.na);return;}
-				buzzer(buz.ok);
+				if (this.page=="dash1") {buzzer.nav(buzzer.buzz.na);return;}
+				buzzer.nav(buzzer.buzz.ok);
 				face[0].ref1(i);
 				eval(require('Storage').read("set_dash"));
 				//setTimeout(function(){ face[0].ref();},0);

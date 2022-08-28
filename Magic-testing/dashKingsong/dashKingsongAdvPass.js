@@ -1,7 +1,7 @@
 //touch
-tcNext.replaceWith(()=>{buzzer(buz.na);});
+tcNext.replaceWith(()=>{buzzer.nav(buzzer.buzz.na);});
 tcBack.replaceWith(()=>{
-	buzzer(buz.ok);	
+	buzzer.nav(buzzer.buzz.ok);	
 	for (let i = 0; i < 10; i++) {
           if (face[0]["tid"+i]) clearTimeout(face[0]["tid"+i]);face[0]["tid"+i]=0;
     }
@@ -37,7 +37,7 @@ face[0].keypad=()=>{
 	//
 	UIc.main._kp4x3=(i)=>{
 		if (i==10||i==12) return;
-		buzzer(buz.ok);	
+		buzzer.nav(buzzer.buzz.ok);	
 		face[0].pass=face[0].pass+(i==11?"0":i);
 		UI.btn.c2l("main","_kp4x3",i,i==11?0:i,"",15,4);
 		//highlight button
@@ -66,7 +66,7 @@ face[0].opt=()=>{
 	face[0].bar();
 	UIc.main._2x1=(i)=>{
 		if (i==1){
-			buzzer(buz.ok);		
+			buzzer.nav(buzzer.buzz.ok);		
 			face[0].page="change password";
 			UI.ele.title(face[0].page.toUpperCase(),3,0);
 			face[0].keypad();
@@ -74,14 +74,14 @@ face[0].opt=()=>{
 	};
 	UIc.bar._2x1=(i)=>{
 		if (i==2){
-			buzzer(buz.ok);		
+			buzzer.nav(buzzer.buzz.ok);		
 			UI.btn.ntfy(0,1,1);
 			UIc.start(0,1);
 			UI.btn.c2l("bar","_bar",6,"TAP TO","CONFIRM",15,13);
 			UIc.end();
 			UIc.bar._bar=(i)=>{
 				if (i==6) 	{
-					buzzer(buz.ok);	
+					buzzer.nav(buzzer.buzz.ok);	
 					euc.dash.auto.onC.pass=0;
 					euc.wri("setPassClear");					
 					UI.btn.ntfy(1,1,0,"_bar",6,"PASSWORD","REMOVED",15,4);w.gfx.flip();
@@ -94,12 +94,12 @@ face[0].opt=()=>{
 face[0].act=()=>{
 	if (face[0].page=="password?"){
 		if (euc.dash.opt.lock.pass==face[0].pass){
-			buzzer([20,100,90,40,80]);
+			buzzer.nav([20,100,90,40,80]);
 			face[0].page="pass options";
 			UI.btn.ntfy(1,1,0,"_bar",6,"CODE","ACCEPTED",15,4);w.gfx.flip();
 			setTimeout(()=>{face[0].opt(); },1000);
 		}else {
-			buzzer([20,100,200]);
+			buzzer.nav([20,100,200]);
 			face[0].pass="";
 			UI.btn.ntfy(1,1.5,0,"_bar",6,"CODE","IS WRONG",15,13);w.gfx.flip();
 		}
@@ -124,7 +124,7 @@ face[0].act=()=>{
 				euc.dash.auto.onC.pass=1;
 				setTimeout(()=>{eval(require('Storage').read("dashKingsongAdv")); },1000);
 			}else{
-				buzzer([20,100,200]);
+				buzzer.nav([20,100,200]);
 				UI.btn.ntfy(1,1,0,"_bar",6,"MISMATCH","TRY AGAIN",15,13);w.gfx.flip();
 				face[0].pass="";
 				face[0].passone="";
@@ -137,7 +137,7 @@ face[0].act=()=>{
 		UI.btn.ntfy(1,3,0,"_bar",6,"PLEASE","WAIT",15,1);w.gfx.flip();
 		setTimeout(()=>{
 			if (euc.temp.pass){
-				buzzer([20,100,200]);
+				buzzer.nav([20,100,200]);
 				euc.dash.opt.lock.pass="";
 				face[0].pass="";
 				UI.btn.ntfy(1,1.5,0,"_bar",6,"CODE","IS WRONG",15,13);w.gfx.flip();
@@ -156,7 +156,7 @@ face[0].act=()=>{
 };
 //
 if (euc.temp.pass){
-	//buzzer(buz.ok);		
+	//buzzer.nav(buzzer.buzz.ok);		
 	face[0].page="enter password";
 	UI.ele.title(face[0].page.toUpperCase(),3,0);
 	face[0].keypad();
@@ -173,7 +173,7 @@ if (euc.temp.pass){
 	};
 	face[0].bar();
 	UIc.main._2x1=(i)=>{
-		buzzer(buz.ok);		
+		buzzer.nav(buzzer.buzz.ok);		
 		face[0].page="set password";
 		UI.ele.title(face[0].page.toUpperCase(),3,0);
 		face[0].keypad();

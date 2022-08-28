@@ -124,14 +124,14 @@ touchHandler[0]=function(e,x,y){
         if (!face[0].calibrate){
 		if (x<=120&&y<175) { //tilt forward
 			euc.dash.opt.ride.pTlt--;euc.wri("setCalibrateTilt",euc.dash.opt.ride.pTlt);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else if (120<=x&&y<=175) { //tilt back
 			euc.dash.opt.ride.pTlt++;euc.wri("setCalibrateTilt",euc.dash.opt.ride.pTlt);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else if (175<=y) { //calibrate
             face[0].calibrate=1;
-			buzzer([30,50,30]);
-		}else buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
+		}else buzzer.nav([30,50,30]);
         }else { //calibrate
 			if (175<=y&&120<=x) {
 				w.gfx.setColor(0,0);
@@ -144,7 +144,7 @@ touchHandler[0]=function(e,x,y){
 				face.go("dashKingsongAdv",0);return;
 			}else if (175<=y&&x<=120) 
 				euc.wri("doCalibrate");
-			else buzzer(40);
+			else buzzer.nav(40);
         }
 		this.timeout();
 		break;
@@ -156,12 +156,12 @@ touchHandler[0]=function(e,x,y){
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		this.timeout();
 		break;
 	case 3: //slide left event
-		buzzer(40);
+		buzzer.nav(40);
 		this.timeout();
 		break;
 	case 4: //slide right event (back action)
@@ -175,7 +175,7 @@ touchHandler[0]=function(e,x,y){
 		face.go("dashKingsongAdv",0);
 		return;
 	case 12: //long press event
-		buzzer(100);
+		buzzer.nav(100);
 		this.timeout();
 		break;
   }

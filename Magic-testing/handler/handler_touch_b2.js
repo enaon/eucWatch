@@ -33,8 +33,8 @@ var TC={
 			}
 		}
 		if (face.pageCurr>=0) {
+			face.off();
 			TC.emit("tc"+tp[0],tp[3],tp[5]);
-			touchHandler[face.pageCurr](tp[0],tp[3],tp[5]);face.off();
 		}else if (tp[0]==1) 
 			face.go(face.appCurr,0);
 		if (this.loop) {clearTimeout(this.loop); this.loop=0;}
@@ -74,7 +74,7 @@ var TC={
 								this.val.cur=this.val.cur+step; this.val.tmp=0;
 							}
 							if (this.val.up<this.val.cur) this.val.cur=this.val.up;else if (this.val.cur<this.val.dn) this.val.cur=this.val.dn;
-							if (!this.val.tmp) {buzzer(20);TC.emit("bar",this.y<tp[3]?1:-1,this.val.cur);}
+							if (!this.val.tmp) {buzzer.nav(20);TC.emit("bar",this.y<tp[3]?1:-1,this.val.cur);}
 						}
 					this.y=tp[3];
 					}

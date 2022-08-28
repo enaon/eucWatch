@@ -8,14 +8,14 @@ face[0] = {
 		this.g.clear();
 		this.g.setColor(0,1);
 		this.g.fillRect(0,0,239,75); //
-		this.g.setColor(1,14);
+		this.g.setColor(1,11);
 		this.g.setFont("Vector",16);
 		this.g.drawString("WHEEL PWM %",20,10);
 		this.g.flip();
-		this.spdC=[0,13,7,7];
-		this.ampC=[1,2992,7,7];
-		this.tmpC=[1,2992,7,7];
-		this.batC=[4,1,7,7];
+		this.spdC=[0,14,13,13];
+		this.ampC=[1,0,13,13];
+		this.tmpC=[1,0,13,13];
+		this.batC=[4,1,13,13];
 		this.spd=euc.dash.live.spd-1;
 		this.amp=-1;
 		this.tmp=-1;
@@ -69,7 +69,7 @@ face[0] = {
 		}else {
 			this.pwm=Math.round(this.pwm+(euc.dash.live.pwm-this.pwm)/2); 
 		}
-		this.g.setColor(0,75<this.pwm?7:1);
+		this.g.setColor(0,75<this.pwm?13:1);
 		this.g.fillRect(155,0,239,35); //amp 
 		this.g.setColor(1,15);
 		this.g.setFontVector(43);
@@ -216,15 +216,15 @@ touchHandler[0]=function(e,x,y){
 			if (ew.def.dash.clkS==undefined) ew.def.dash.clkS=0;
 			ew.def.dash.clkS=1-ew.def.dash.clkS;
 			face[0].time=-1;face[0].tmp=-1;
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else */if (120 < x && 200<y ){//batery percentage/voltage
 			if (ew.def.dash.batS==undefined) ew.def.dash.batS=0;
 			ew.def.dash.batS=1-ew.def.dash.batS;
 			face[0].bat=-1;face[0].volt=-1;
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}
 		else{	
-			buzzer(40);
+			buzzer.nav(40);
 		}
 		this.timeout();
 		break;
@@ -237,21 +237,21 @@ touchHandler[0]=function(e,x,y){
 		if (y>160&&x<50) {
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 			this.timeout();
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
         this.timeout();
 		break;
     case 3: //slide left event
 		if (euc.dash.info.get.makr=="Begode") euc.wri("mainPacket");
-		(euc.state=="READY")?face.go('dash'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0):(euc.state=="OFF")?face.go("dashGarage",0):buzzer(40);
+		(euc.state=="READY")?face.go('dash'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0):(euc.state=="OFF")?face.go("dashGarage",0):buzzer.nav(40);
 		return;
     case 4: //slide right event (back action)
 		if (euc.dash.info.get.makr=="Begode") euc.wri("mainPacket");
 		face.go("clock",0);
 		return;
     case 12: //touch and hold(long press) event
-		buzzer(40);
+		buzzer.nav(40);
 		this.timeout();
 		break;
     }

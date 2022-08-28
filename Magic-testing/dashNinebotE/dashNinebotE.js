@@ -109,7 +109,7 @@ touchHandler[0]=function(e,x,y){
 			else if ( x<=120 && y<100 ) { //decrease
 				if (0<euc.dash.opt.ride.mode) euc.dash.opt.ride.mode--;
 			}else if (euc.dash.opt.ride.mode<9) euc.dash.opt.ride.mode++;
-			buzzer(buz.ok);
+			buzzer.nav(buzzer.buzz.ok);
 			face[0].btn(1,"SET RIDE MODE",20,125,5,12,0,0,0,239,97,euc.dash.opt.ride.mode.toString(),60,125,37,1);
 		}
 		else {
@@ -117,9 +117,9 @@ touchHandler[0]=function(e,x,y){
 				euc.dash.live.aLck=1-euc.dash.live.aLck;
 				face[0].btn(euc.dash.live.aLck,"AUTO",18,60,15,7,1,0,0,119,97,"LOCK",28,60,50);
 				face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,(euc.dash.live.aLck)?7:1,euc.dash.live.aLck);
-				buzzer(buz.ok);
+				buzzer.nav(buzzer.buzz.ok);
 			}else if ( 120<=x && y<=100 ) { //watch alerts
-				buzzer(buz.ok);						
+				buzzer.nav(buzzer.buzz.ok);						
 				face.go("dashAlerts",0);
 				return;	
 			}else if ( x<=120 && 100<=y ) { //ring lights
@@ -127,12 +127,12 @@ touchHandler[0]=function(e,x,y){
 				face[0].btn(euc.dash.opt.lght.HL,"RING",25,60,136,4,1,0,100,119,195);
 				face[0].ntfy("RING ON","RING OFF",20,(euc.dash.opt.lght.HL)?4:1,euc.dash.opt.lght.HL);
                 euc.wri(25+euc.dash.opt.lght.HL);
-				buzzer(buz.ok);	
+				buzzer.nav(buzzer.buzz.ok);	
 			}else if ( 120<=x && 100<=y ) { //mode
 				face[0].set=1;
 				face[0].btn(1,"SET RIDE MODE",20,125,5,12,0,0,0,239,97,euc.dash.opt.ride.mode.toString(),60,125,37,1);
-				buzzer(buz.ok);						
-			}else buzzer(buz.ok);
+				buzzer.nav(buzzer.buzz.ok);						
+			}else buzzer.nav(buzzer.buzz.ok);
 		}
 		
 		break;
@@ -149,12 +149,12 @@ touchHandler[0]=function(e,x,y){
 		if ( 200<=y && x<=50 ) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer(buz.ok);
+			buzzer.nav(buzzer.buzz.ok);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		
 		break;
 	case 3: //slide left event
-		buzzer(buz.na);
+		buzzer.nav(buzzer.buzz.na);
 		
 		break;
 	case 4: //slide right event (back action)
@@ -174,29 +174,29 @@ touchHandler[0]=function(e,x,y){
 	case 12: //long press event
 		if (face[0].set) { 
 			face[0].set=0;face[0].init();
-			buzzer(buz.ok);	
+			buzzer.nav(buzzer.buzz.ok);	
         }else if ( x<=120 && y<100 ) { //auto lock
 			euc.dash.live.aLck=1-euc.dash.live.aLck;
             face[0].btn(euc.dash.live.aLck,"AUTO",18,60,15,7,1,0,0,119,97,"LOCK",28,60,50);
             face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,1,euc.dash.live.aLck);
-			buzzer(buz.ok);
+			buzzer.nav(buzzer.buzz.ok);
 		}else if ( 120<=x && y<=100 ) { //watch alerts
 			if (euc.dash.alrt.spd.hapt.en||euc.dash.alrt.amp.hapt.en||euc.dash.alrt.tmp.hapt.en||euc.dash.alrt.bat.hapt.en) {euc.dash.alrt.spd.hapt.en=0;euc.dash.alrt.amp.hapt.en=0;euc.dash.alrt.tmp.hapt.en=0;euc.dash.alrt.bat.hapt.en=0;}
 			else {euc.dash.alrt.spd.hapt.en=1;euc.dash.alrt.amp.hapt.en=1;euc.dash.alrt.tmp.hapt.en=1;euc.dash.alrt.bat.hapt.en=1;}
 			face[0].btn((euc.dash.alrt.spd.hapt.en||euc.dash.alrt.amp.hapt.en||euc.dash.alrt.tmp.hapt.en||euc.dash.alrt.bat.hapt.en),"WATCH",22,185,17,4,1,122,0,239,97,"ALERTS",22,185,55);		
             face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",19,1,(euc.dash.alrt.spd.hapt.en||euc.dash.alrt.amp.hapt.en||euc.dash.alrt.tmp.hapt.en||euc.dash.alrt.bat.hapt.en));
-			buzzer(buz.ok);
+			buzzer.nav(buzzer.buzz.ok);
 		}else if ( x<=120 && 100<=y ) { //ring lights
 			euc.dash.opt.lght.HL=1-euc.dash.opt.lght.HL;
             face[0].btn(euc.dash.opt.lght.HL,"RING",25,60,136,4,1,0,100,119,195);
             face[0].ntfy("RING ON","RING OFF",20,1,euc.dash.opt.lght.HL);
             euc.wri(25+euc.dash.opt.lght.HL);
-			buzzer(buz.ok);		
+			buzzer.nav(buzzer.buzz.ok);		
 		}else if ( 120<=x && 100<=y ) { //mode
 			face[0].set=1;
 			face[0].btn(1,"SET RIDE MODE",20,120,5,12,0,0,0,239,97,euc.dash.opt.ride.mode.toString(),60,125,37);
-			buzzer(buz.ok);	
-		}else buzzer(buz.ok);
+			buzzer.nav(buzzer.buzz.ok);	
+		}else buzzer.nav(buzzer.buzz.ok);
 		
 		break;
   }

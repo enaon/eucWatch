@@ -1,7 +1,7 @@
 //touch
 tcBack.replaceWith(()=>{
-	buzzer(buz.ok);	
-	if (UI.ntid) {/*buzzer(buz.ok);*/clearTimeout(UI.ntid);UI.ntid=0;}
+	buzzer.nav(buzzer.buzz.ok);	
+	if (UI.ntid) {/*buzzer.nav(buzzer.buzz.ok);*/clearTimeout(UI.ntid);UI.ntid=0;}
 	euc.wri("setAlarms");
 	eval(require('Storage').read("dashKingsongAdv")); 
 	
@@ -25,7 +25,7 @@ face[0].start=()=>{
 	face[0].bar();
 	//
 	UIc.main._2x2=(i)=>{
-		buzzer(buz.ok);
+		buzzer.nav(buzzer.buzz.ok);
 		face[0].set(i);
 	};
 	UIc.bar._2x2=UIc.main._2x2;
@@ -39,7 +39,7 @@ face[0].set=(i)=>{
 		UI.btn.c2l("main","_main",3,euc.dash.alrt.spd[id[i-1]].en?"ENABLED":"DISABLED","",15,euc.dash.alrt.spd[id[i-1]].en?4:1);
 		UIc.end();
 	}else {UIc.end(); UI.btn.c2l("main","_main",3,"FIXED ALARM","",3,1);}
-	UI.btn.c3l("main","_lcd",1,euc.dash.alrt.spd[id[i-1]].val,"KPH",14,0);
+	UI.btn.c3l("main","_lcd",1,euc.dash.alrt.spd[id[i-1]].val,"KPH",11,0);
 	UI.btn.ntfy(1,40,0,"_bar",6,"SET","ALARM",15,1,1);
 	ew.temp.bar=1;
 	
@@ -54,7 +54,7 @@ face[0].set=(i)=>{
 	UIc.main._main=(i)=>{
 		if (i==3){
 			let id=["one","two","thre","tilt"];
-			buzzer(buz.ok);		
+			buzzer.nav(buzzer.buzz.ok);		
 				//this.btn(1,euc.dash.alrt.spd[b].val,100,126,60,12,1,60,40,180,160);
 				//euc.dash.alrt.spd[b].en=1;
 			euc.dash.alrt.spd[id[face[0].al]].en=1-euc.dash.alrt.spd[id[face[0].al]].en;

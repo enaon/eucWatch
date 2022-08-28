@@ -1,11 +1,11 @@
 E.setFlags({pretokenise:1});
 //touch
-tcNext.replaceWith(()=>{buzzer(buz.ok);eval(require("Storage").read("set_dash"));face[0].bar();});
-tcBack.replaceWith(()=>{buzzer(buz.ok);eval(require("Storage").read("set_set"));});
+tcNext.replaceWith(()=>{buzzer.nav(buzzer.buzz.ok);eval(require("Storage").read("set_dash"));face[0].bar();});
+tcBack.replaceWith(()=>{buzzer.nav(buzzer.buzz.ok);eval(require("Storage").read("set_set"));});
 //
 face[0].page="app";
 
-UI.ele.ind(2,2,1);
+UI.ele.ind(3,5,1);
 let img;
 UIc.start(1,0);
 if (require("Storage").read("calc",1)) {
@@ -36,17 +36,17 @@ UIc.end();
 //
 UIc.main._2x3=(i)=>{
 	if (i==1){
-		buzzer(buz.ok);face.go('calc',0);
+		buzzer.nav(buzzer.buzz.ok);face.go('calc',0);
 	}else if (i==2){
-		buzzer(buz.ok);face.go('repellent',0);
+		buzzer.nav(buzzer.buzz.ok);face.go('repellent',0);
 	}else if (i==3){
-		buzzer(buz.ok);face.go('tpmsFace',0);
+		buzzer.nav(buzzer.buzz.ok);face.go('tpmsFace',0);
 	}else if (i==4){
-		buzzer(buz.ok);face.go('hello',0);
+		buzzer.nav(buzzer.buzz.ok);face.go('hello',0);
 	}else if (i==5){
-		buzzer(buz.na);	
+		buzzer.nav(buzzer.buzz.na);	
 	}else if (i==6){
-		buzzer(buz.na);
+		buzzer.nav(buzzer.buzz.na);
 	}
 };
 

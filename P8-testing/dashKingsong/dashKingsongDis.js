@@ -112,23 +112,23 @@ touchHandler[0]=function(e,x,y){
 			let val=["NA","ON","OFF","AUTO"];
 			face[0].btn(euc.dash.auto.onD.HL,"LIGHT",18,60,20,euc.dash.auto.onD.HL!=2?12:1,0,0,0,119,97,val[euc.dash.auto.onD.HL],25,60,55);
             face[0].ntfy("SET LIGHT "+val[euc.dash.auto.onD.HL],"NO ACTION",20,1,euc.dash.auto.onD.HL);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //ride
 			euc.dash.auto.onD.led++; if (2<euc.dash.auto.onD.led) euc.dash.auto.onD.led=0;
 			face[0].btn(euc.dash.auto.onD.led,"LED",18,185,20,euc.dash.auto.onD.led==1?12:1,0,122,0,239,97,"RIDE",25,185,55);
 			face[0].ntfy(euc.dash.auto.onD.led==1?"ENABLE RIDE LED":"DISABLE RIDE LED","NO ACTION",20,1,euc.dash.auto.onD.led);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else if ( x<=120 && 100<=y ) { //auto lift
 			euc.dash.auto.onD.lift++; if (2<euc.dash.auto.onD.lift) euc.dash.auto.onD.lift=0;
             face[0].btn(euc.dash.auto.onD.lift,"SENSOR",18,60,115,euc.dash.auto.onD.lift==1?12:1,0,0,100,119,195,"LIFT",25,60,150);
             face[0].ntfy(euc.dash.auto.onD.lift==1?"ENABLE LIFT HANDLE":"DISABLE LIFT HANDLE","NO ACTION",20,1,euc.dash.auto.onD.lift);
-			buzzer([30,50,30]);		
+			buzzer.nav([30,50,30]);		
 		}else if  (120<=x && 100<=y ) { //voice
 			euc.dash.auto.onD.talk++;  if (2<euc.dash.auto.onD.talk) euc.dash.auto.onD.talk=0;
 			face[0].btn(euc.dash.auto.onD.talk,"VOICE",18,185,115,euc.dash.auto.onD.talk==1?12:1,0,122,100,239,195,"MODE",25,185,155);	
             face[0].ntfy(euc.dash.auto.onD.talk==1?"ENABLE VOICE MODE":"DISABLE VOICE MODE","NO ACTION",20,1,euc.dash.auto.onD.talk);
-			buzzer([30,50,30]);		
-		}else buzzer(40);
+			buzzer.nav([30,50,30]);		
+		}else buzzer.nav(40);
 		break;
 	case 1: //slide down event
 		//face.go("clock",0);
@@ -138,10 +138,10 @@ touchHandler[0]=function(e,x,y){
 		if ( 200<=y && x<=50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else //if (y>100) {
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		//} else {buzzer(40);}
+		//} else {buzzer.nav(40);}
 		break;
 	case 3: //slide left event
 		face.go("dashKingsongDis2",0);

@@ -15,7 +15,7 @@
 	{ "id": "init",
 		"name": "core - MAGIC - ROCK",
 		"icon": "../init/icon.png",
-		"version":"1.01",
+		"version":"1.93.1",
 		"description": "Screen driver and init functions. ",
 		"tags": "core",
 		"type":"core",
@@ -23,7 +23,7 @@
 	    "needsFeatures":["ROCK"],
 		"storage": [
 			{"name":"C:.bootrst","url":"../init/init_magic.js"},
-			{"name":"C:.lcd_magic","url":"../init/lcd_magic.js"}
+			{"name":"C:.lcd_magic","url":"../init/lcd_magic_16.js"}
 		]
 	},
 	{ "id": "init",
@@ -34,7 +34,7 @@
 		"tags": "core",
 		"type":"core",
 		"readme": "README.md",
-	    "needsFeatures":["BANGLE2"],
+	    "needsFeatures":["BANGLEJS2"],
 		"storage": [
 			{"name":"C:.bootrst","url":"../init/init_magic.js"},
 			{"name":"C:.lcd_b2","url":"../init/lcd_b2.js"}
@@ -97,7 +97,7 @@
 		"tags": "core",
 		"type":"core",
 		"readme": "README.md",
-	    "needsFeatures":["ROCK"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"C:UI","url":"../../Magic-testing/UI/ui.js"},
 			{"name":"C:icons","url":"../../Magic-testing/UI/icons.js"}
@@ -112,7 +112,7 @@
 		"tags": "core",
 		"type":"core",
 		"readme": "README.md",
-	    "needsFeatures":["ROCK"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"handler","url":"../handler/handler.js"},
 			{"name":"C:handler_face","url":"../../Magic-testing/handler/handler_face.js"},
@@ -300,7 +300,7 @@
 	{ "id": "dashKingsong",
 		"name": "Kingsong Settings",
 		"icon": "../../P8-testing/dashKingsong/icon.png",
-		"version":"1.93.1",
+		"version":"1.93.2",
 		"description": "EUC dashboard, Kingsong settings gui files.",
 		"tags": "euc",
 	    "needsFeatures":["V1"],
@@ -522,7 +522,7 @@
 		"description": "Clock face",
 		"tags": "apps",
 		"type":"clock",
-	    "needsFeatures":["ROCK"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"C:clock","url":"../../Magic-testing/clock/clock.js"}
 		]
@@ -535,7 +535,7 @@
 		"tags": "apps",
 		"type":"clock",
 		"readme": "README.md",
-	    "needsFeatures":["ROCK"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"C:settings","url":"../../Magic-testing/settings/settings.js"},
 			{"name":"C:set_set","url":"../../Magic-testing/settings/set_set.js"},
@@ -553,7 +553,7 @@
 		"description": "EUC dashboard. Garage, scan and dash faces. Depends on EUC modules.",
 		"tags": "euc",
 		"readme": "README.md",
-	    "needsFeatures":["ROCK"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"C:dash_simple","url":"../../Magic-testing/dash/dash_simple.js"},
 			{"name":"C:dash_digital","url":"../../Magic-testing/dash/dash_digital.js"},
@@ -570,7 +570,7 @@
 		"description": "EUC dashboard, Kingsong settings gui files.",
 		"tags": "euc",
 		"readme": "README.md",
-	    "needsFeatures":["ROCK"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"dashKingsong","url":"../../Magic-testing/dashKingsong/dashKingsong.js"},
 			{"name":"dashKingsongAct","url":"../../Magic-testing/dashKingsong/dashKingsongAct.js"},
@@ -594,7 +594,7 @@
 		"description": "EUC dashboard, Ninebot one C/E/P settings gui files.",
 		"tags": "euc",
 		"readme": "README.md",
-	    "needsFeatures":["ROCK"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"dashNinebotE","url":"../../Magic-testing/dashNinebotE/dashNinebotE.js"}
     ]
@@ -606,7 +606,7 @@
 		"description": "EUC dashboard, NinebotZ settings gui files.",
 		"tags": "euc",
 		"readme": "README.md",
-	    "needsFeatures":["ROCK"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"dashNinebotZ","url":"../../Magic-testing/dashNinebotZ/dashNinebotZ.js"}
     ]
@@ -618,7 +618,7 @@
 		"description": "EUC dashboard, NinebotS settings gui files.",
 		"tags": "euc",
 		"readme": "README.md",
-	    "needsFeatures":["ROCK"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"dashNinebotS","url":"../../Magic-testing/dashNinebotS/dashNinebotS.js"}
     ]
@@ -630,7 +630,7 @@
 		"description": "EUC dashboard, Inmotion V5/8/10 settings gui files.",
 		"tags": "euc",
 		"readme": "README.md",
-	    "needsFeatures":["ROCK"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"dashInmotionV10","url":"../../Magic-testing/dashInmotionV10/dashInmotionV10.js"},
 			{"name":"dashInmotionV10Opt","url":"../../Magic-testing/dashInmotionV10/dashInmotionV10Opt.js"},
@@ -648,7 +648,7 @@
 		"description": "EUC dashboard, Inmotion V11 settings gui files.",
 		"tags": "euc",
 		"readme": "README.md",
-	    "needsFeatures":["ROCK"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"dashInmotionV11","url":"../../Magic-testing/dashInmotionV11/dashInmotionV11.js"}
     ]
@@ -660,7 +660,7 @@
 		"description": "EUC dashboard, Inmotion V12 settings gui files.",
 		"tags": "euc",
 		"readme": "README.md",
-	    "needsFeatures":["ROCK"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"dashInmotionV12","url":"../../Magic-testing/dashInmotionV12/dashInmotionV12.js"}
     ]
@@ -671,7 +671,7 @@
 		"version":"1.93.1",
 		"description": "EUC dashboard, Veteran settings gui files.",
 		"tags": "euc",
-	    "needsFeatures":["ROCK"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"dashVeteran","url":"../../Magic-testing/dashVeteran/dashVeteran.js"},
 			{"name":"dashVeteranOptions","url":"../../Magic-testing/dashVeteran/dashVeteranOptions.js"}
@@ -685,7 +685,7 @@
 		"description": "EUC dashboard, Begode settings gui files.",
 		"tags": "euc",
 		"readme": "README.md",
-	    "needsFeatures":["ROCK"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"dashBegode","url":"../../Magic-testing/dashBegode/dashBegode.js"},
 			{"name":"dashBegodeOpt","url":"../../Magic-testing/dashBegode/dashBegodeOpt.js"},
@@ -701,7 +701,7 @@
 		"description": "Shared scan face addon",
 		"tags": "system",
 		"type": "system",
-	    "needsFeatures":["ROCK"],
+	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"w_scan","url":"../../Magic-testing/w_scan/w_scan.js"}
 		]
@@ -713,7 +713,7 @@
 		"version":"1.93.1",
 		"description": "EUC module switcher, depends on wheel module.",
 		"tags": "euc",
-	    "needsFeatures":["V2"],
+	    "needsFeatures":["EW"],
 		"type": "euc",
 		"storage": [
 			{"name":"euc","url":"../../v2/euc/euc.js"},
@@ -724,11 +724,11 @@
 	{ "id": "eucKingsong",
 		"name": "Kingsong module",
 		"icon": "../../v2/euc/eucKingsong/icon.png",
-		"version":"1.93.1",
+		"version":"1.93.2",
 		"description": "EUC module for Kingsong.",
 		"tags": "euc",
 		"type": "euc",
-	    "needsFeatures":["V2"],
+	    "needsFeatures":["EW"],
 		"storage": [
 			{"name":"eucKingsong","url":"../../v2/euc/eucKingsong/eucKingsong.js"},
 			{"name":"proxyKingsong","url":"../../v2/euc/eucKingsong/proxyKingsong.js"}
@@ -741,7 +741,7 @@
 		"description": "EUC module for Ninebot C/E/P.",
 		"tags": "euc",
 		"type": "euc",
-	    "needsFeatures":["V2"],
+	    "needsFeatures":["EW"],
 		"storage": [
 			{"name":"eucNinebotE","url":"../../v2/euc/eucNinebotE/eucNinebotE.js"}
 		]
@@ -753,7 +753,7 @@
 		"description": "EUC module for Ninebot Z6/Z10",
 		"tags": "euc",
 		"type": "euc",
-	    "needsFeatures":["V2"],
+	    "needsFeatures":["EW"],
 		"storage": [
 			{"name":"eucNinebotZ","url":"../../v2/euc/eucNinebotZ/eucNinebotZ.js"}
 		]
@@ -765,7 +765,7 @@
 		"description": "EUC module for Ninebot S2/A1",
 		"tags": "euc",
 		"type": "euc",
-	    "needsFeatures":["V2"],
+	    "needsFeatures":["EW"],
 		"storage": [
 			{"name":"eucNinebotS","url":"../../v2/euc/eucNinebotS/eucNinebotS.js"}
 		]
@@ -777,7 +777,7 @@
 		"description": "EUC module for Inmotion V5/8/10.",
 		"tags": "euc",
 		"type": "euc",
-	    "needsFeatures":["V2"],
+	    "needsFeatures":["EW"],
 		"storage": [
 			{"name":"eucInmotionV10","url":"../../v2/euc/eucInmotionV10/eucInmotionV10.js"}
 		]
@@ -789,7 +789,7 @@
 		"description": "EUC module for Inmotion V11 (fimware version > 1.4).",
 		"tags": "euc",
 		"type": "euc",
-	    "needsFeatures":["V2"],
+	    "needsFeatures":["EW"],
 		"storage": [
 			{"name":"eucInmotionV11","url":"../../v2/euc/eucInmotionV11/eucInmotionV11.js"}
 		]
@@ -801,7 +801,7 @@
 		"description": "EUC module for *old* Inmotion V11 (fimware version < 1.4).",
 		"tags": "euc",
 		"type": "euc",
-	    "needsFeatures":["V2"],
+	    "needsFeatures":["EW"],
 		"storage": [
 			{"name":"eucInmotionV11","url":"../../v2/euc/eucInmotionV11/eucInmotionV11old.js"}
 		]
@@ -813,7 +813,7 @@
 		"description": "EUC module for Inmotion V12.",
 		"tags": "euc",
 		"type": "euc",
-	    "needsFeatures":["V2"],
+	    "needsFeatures":["EW"],
 		"storage": [
 			{"name":"eucInmotionV12","url":"../../v2/euc/eucInmotionV12/eucInmotionV12.js"}
 		]
@@ -825,7 +825,7 @@
 		"description": "EUC module for Veteran Sherman",
 		"tags": "euc",
 		"type": "euc",
-	    "needsFeatures":["V2"],
+	    "needsFeatures":["EW"],
 		"storage": [
 			{"name":"eucVeteran","url":"../../v2/euc/eucVeteran/eucVeteran.js"},
 			{"name":"proxyVeteran","url":"../../v2/euc/eucVeteran/proxyVeteran.js"}
@@ -838,7 +838,7 @@
 		"description": "EUC module for Begode (Gotway)",
 		"tags": "euc",
 		"type": "euc",
-	    "needsFeatures":["V2"],
+	    "needsFeatures":["EW"],
 		"storage": [
 			{"name":"eucBegode","url":"../../v2/euc/eucBegode/eucBegode.js"},
 			{"name":"proxyBegode","url":"../../v2/euc/eucBegode/proxyBegode.js"}

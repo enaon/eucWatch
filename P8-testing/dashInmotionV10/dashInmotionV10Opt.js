@@ -111,12 +111,12 @@ touchHandler[0]=function(e,x,y){
 					euc.dash.opt.horn.mode=euc.dash.opt.horn.mode-1;if (euc.dash.opt.horn.mode<=1)euc.dash.opt.horn.mode=1;
 					face.menu.full("SELECT SOUND",20,euc.dash.opt.horn.mode,80,1453,1365);
 					euc.wri("playSound",euc.dash.opt.horn.mode);
-					buzzer([30,50,30]);
+					buzzer.nav([30,50,30]);
 				}else if ( 120 <=x  && y <= 170 ) {
 					euc.dash.opt.horn.mode=euc.dash.opt.horn.mode+1;if (22<=euc.dash.opt.horn.mode)euc.dash.opt.horn.mode=22;
 					face.menu.full("SELECT SOUND",20,euc.dash.opt.horn.mode,80,1453,1365);
 					euc.wri("playSound",euc.dash.opt.horn.mode);
-					buzzer([30,50,30]);
+					buzzer.nav([30,50,30]);
 				}else {
 					face[0].sub=0;
 					face[0].init();
@@ -130,17 +130,17 @@ touchHandler[0]=function(e,x,y){
 		}else {
 			if ( x<=120 && y<100 ) { //RING led
 				euc.dash.opt.lght.led=1-euc.dash.opt.lght.led;
-				buzzer([30,50,30]);
+				buzzer.nav([30,50,30]);
 				face[0].btn(euc.dash.opt.lght.led,"LED",18,60,20,4,1,0,0,119,97,"RING",25,60,55);//1
 				face[0].ntfy("RING LED ON","RING LED OFF",18,(euc.dash.opt.lght.led)?4:1,euc.dash.opt.lght.led);
 				euc.wri("control",(euc.dash.opt.lght.led)?15:16);
 			}else if ( 120<=x && y<=100 ) { //watch alerts
-				buzzer([30,50,30]);						
+				buzzer.nav([30,50,30]);						
 				face.go("dashAlerts",0);
 				return;		
 			}else if ( x<=120 && 100<=y ) { //lift sensor
 				euc.dash.opt.snsr.lift=1-euc.dash.opt.snsr.lift;
-				buzzer([30,50,30]);		
+				buzzer.nav([30,50,30]);		
 				face[0].btn(euc.dash.opt.snsr.lift,"SENSOR",18,60,115,4,1,0,100,119,195,"LIFT",25,60,150);
 				face[0].ntfy("LIFT SENSOR ENABLED","LIFT SENSOR DISABLED",16,(euc.dash.opt.snsr.lift)?4:1,euc.dash.opt.snsr.lift);
 				euc.wri("sethandleButton",(euc.dash.opt.snsr.lift)?1:0);
@@ -148,8 +148,8 @@ touchHandler[0]=function(e,x,y){
 				euc.dash.opt.horn.en=1-euc.dash.opt.horn.en;
 				face[0].btn(euc.dash.opt.horn.en,"HORN",25,185,136,4,1,122,100,239,195);
 				face[0].ntfy("BUTTON IS HORN >2KPH","HOLD -> OPTIONS",18,(euc.dash.opt.horn.en)?4:1,euc.dash.opt.horn.en);
-				buzzer([30,50,30]);						
-			}else buzzer(40);
+				buzzer.nav([30,50,30]);						
+			}else buzzer.nav(40);
 		}
 		this.timeout();
 		break;
@@ -161,10 +161,10 @@ touchHandler[0]=function(e,x,y){
 		if ( 200<=y && x<=50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else //if (y>100) {
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		//} else {buzzer(40);}
+		//} else {buzzer.nav(40);}
 		this.timeout();
 		break;
 	case 3: //slide left event
@@ -185,13 +185,13 @@ touchHandler[0]=function(e,x,y){
 			else {euc.dash.alrt.spd.hapt.en=1;euc.dash.alrt.amp.hapt.en=1;euc.dash.alrt.tmp.hapt.en=1;euc.dash.alrt.bat.hapt.en=1;}
 			face[0].btn((euc.dash.alrt.spd.hapt.en||euc.dash.alrt.amp.hapt.en||euc.dash.alrt.tmp.hapt.en||euc.dash.alrt.bat.hapt.en),"WATCH",18,185,20,4,12,122,0,239,97,"ALERTS",22,185,55);		
 			face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",19,1,(euc.dash.alrt.spd.hapt.en||euc.dash.alrt.amp.hapt.en||euc.dash.alrt.tmp.hapt.en||euc.dash.alrt.bat.hapt.en));
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else if  (120<=x && 100<=y ) { //horn
 			face.menu.full("SELECT SOUND",20,euc.dash.opt.horn.mode,80,1453,1365,1);
 			face[0].ntfy("SELECT SOUND","",20,4,1);
 			face[0].sub="horn";
-			buzzer([30,50,30]);						
-		}else buzzer(40);
+			buzzer.nav([30,50,30]);						
+		}else buzzer.nav(40);
 		this.timeout();
 		break;
   }

@@ -11,7 +11,9 @@ E.enableWatchdog(30, false);
 E.showMessage=print; //apploader suport
 global.save = function() { throw new Error("You don't need to use save() on eucWatch!"); };
 //d25.write(0)
-ew={do:{reset:{},update:{}},tid:{},temp:{},pin:{BAT:D31,CHRG:D19,BUZZ:D16,BUZ0:1,BL:D12,i2c:{SCL:D7,SDA:D6},touch:{RST:D13,INT:D28},disp:{CS:D25,DC:D18,RST:D26,BL:D14},acc:{INT:D8}}};
+global.ew={"do":{"reset":{},"update":{}},"tid":{},"temp":{},"pin":{BAT:D31,CHRG:D19,BUZZ:D16,BUZ0:1,BL:D12,i2c:{SCL:D7,SDA:D6},touch:{RST:D13,INT:D28},disp:{CS:D25,DC:D18,RST:D26,BL:D14},acc:{INT:D8}}};
+//global.ew={"do":{"reset":{},"update":{}},"tid":{},"temp":{},"pin":{BAT:D31,CHRG:D19,BUZZ:D16,BUZ0:1,BL:D12,i2c:{SCL:D7,SDA:D6},touch:{RST:D13,INT:D28},disp:{CS:D25,DC:D18,RST:D26,BL:D14},acc:{INT:D8}}};
+
 //devmode
 if (BTN1.read() || Boolean(require("Storage").read("devmode"))) { 
   let mode=(require("Storage").read("devmode"));
@@ -260,8 +262,8 @@ eval(require('Storage').read('euc'));
 
 digitalPulse(ew.pin.BUZZ,1,[100,30,100]);
 setTimeout(function(){
-if (global.face) face.go('clock',0);
-setTimeout(function(){ if (global.ew&&ew.do) ew.do.update.acc(); },1000); 
+  if (global.face) face.go('clock',0);
+  setTimeout(function(){ if (global.ew&&ew.do) ew.do.update.acc(); },1000); 
 digitalPulse(ew.pin.BUZZ,1,[100]);  
 },200); 
 }

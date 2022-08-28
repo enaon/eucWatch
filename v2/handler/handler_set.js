@@ -82,9 +82,9 @@ ew.do.fileWrite=function(file,name,value,value2,value3){
 ew.do.setGattState=function(){
 	if (ew.is.gIsB) {
 		ew.is.gIsB=2;
-		if (global["\xFF"].BLE_GATTS) {
-			if (global["\xFF"].BLE_GATTS.connected)
-			global["\xFF"].BLE_GATTS.disconnect().then(function (c){ew.is.gIsB=0;});
+		if (euc.gatt) {
+			if (euc.gatt.connected)
+			euc.gatt.disconnect().then(function (c){ew.is.gIsB=0;});
 		}else gIsB=0;
 	 }
 };
@@ -97,10 +97,13 @@ if (!ew.def.addr) ew.def.addr=NRF.getAddress();
 if (!ew.def.off) ew.def.off={};
 //
 //buzzzer
-if (ew.def.buzz) buzzer = digitalPulse.bind(null,ew.pin.BUZZ,ew.pin.BUZ0);
-else buzzer=function(){return true;};
-buz={ok:[20,40,20],na:25,ln:80,on:40,off:[20,25,20]};
-buzz = digitalPulse.bind(null,ew.pin.BUZZ,ew.pin.BUZ0);
+buzzer={buzz:{ok:[20,40,20],na:25,ln:80,on:40,off:[20,25,20]}};
+//buz={ok:[20,40,20],na:25,ln:80,on:40,off:[20,25,20]};
+buzzer.sys = digitalPulse.bind(null,ew.pin.BUZZ,ew.pin.BUZ0);
+buzzer.alrm = digitalPulse.bind(null,ew.pin.BUZZ,ew.pin.BUZ0);
+buzzer.euc = digitalPulse.bind(null,ew.pin.BUZZ,ew.pin.BUZ0);
+if (ew.def.buzz) buzzer.nav = digitalPulse.bind(null,ew.pin.BUZZ,ew.pin.BUZ0);
+else buzzer.nav=function(){return true;};
 //dash
 require('Storage').list("dash_").forEach(dashfile=>{
 	ew.is.dash.push(dashfile);

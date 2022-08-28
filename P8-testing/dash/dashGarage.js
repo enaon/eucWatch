@@ -214,7 +214,7 @@ touchHandler[0]=function(e,x,y){
 	this.timeout();
 	switch (e) {
 	case 5: //tap event
-		buzzer([30,50,30]);
+		buzzer.nav([30,50,30]);
 		if	( !face[0].set )	{
 			if	( x<=120 &&  y<=100 ) this.s=1;	//slot1
 			else if( 120<=x && y<=100 ) this.s=2;	//slot2 
@@ -277,11 +277,11 @@ touchHandler[0]=function(e,x,y){
 		if ( 200<=y && x<=50 ) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		break;
 	case 3: //slide left event
-		buzzer(40);    
+		buzzer.nav(40);    
 		break;
 	case 4: //slide right event (back action)
 		if (face[0].set) {

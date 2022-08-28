@@ -1,3 +1,5 @@
+E.setFlags({pretokenise:1});
+ew.is.dddm=12;
 //magic/rock 
 Modules.addCached("eucWatch",function(){
 //screen driver
@@ -137,8 +139,11 @@ g.sc=g.setColor;
 // 16bit RGB565  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=blue,9=purple,10=?,11=green,12=olive,13=yellow,14=lblue,15=white
 //g.col=Uint16Array([ 0x000,54,2730,3549,1629,83,72,3840,143,3935,2220,0x5ff,115,4080,1535,4095 ]);
 
-// 16bit RGB565  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=dgreen,6=dark2,7=green,8=blue,9=purple,10=?,11=lgreen,12=olive,13=red,14=blue,15=white
-g.col=Uint16Array([ 0x000,54,2220,3549,1629,83,72,0x0d0,143,3935,2220,0x5ff,115,3840,1535,4095 ]);
+// 16bit RGB565  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=dgreen,6=dark2,7=green,8=blue,9=purple,10=?,11=lblue,12=olive,13=red,14=yellow,15=white
+//g.col=Uint16Array([ 0x000,54,2220,3549,1629,83,72,0x0d0,143,3935,2220,0x5ff,115,3840,1535,4095 ]);
+//g.col=Uint16Array([ 0x000,54,2220,3549,1629,83,72,0x0d0,143,3935,2220,0x5ff,115,3840,4080,4095 ]);
+g.col=Uint16Array([ 0x000,54,2220,3549,1629,83,72,0x0d0,143,3935,2220,0x5ff,143,3840,4080,4095 ]);
+
 
 //2730 old gray
 //1622 dgray 1610 dbue 1655-good grey 1672  dblack 50,68.85  115, 152 green

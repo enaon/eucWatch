@@ -90,7 +90,7 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
       case 5:case 12: //tap event
 		if ( x<=120 && y<=100 ) { //ride mode
-			buzzer([30,50,30]);	
+			buzzer.nav([30,50,30]);	
 			if (euc.dash.opt.ride.mode==0){
 				euc.wri("pedalMedium");
 				euc.dash.opt.ride.mode=1;
@@ -102,15 +102,15 @@ touchHandler[0]=function(e,x,y){
 				euc.dash.opt.ride.mode=0;
 			}
 		}else if ( 120<=x  && y<=100 ) { //calibrate
-            buzzer([30,50,30]);
+            buzzer.nav([30,50,30]);
 			face.go("dashBegodeAdvCalibrate",0);
 			return;
 		}else if ( 120<=x && 100<=y ) { //limit
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 			face.go("dashBegodeAdvLimits",0);
 			return;
 		}else if ( x<=120 && 100<=y ) {   //angle
-			buzzer([30,50,30]);		
+			buzzer.nav([30,50,30]);		
 			if (euc.dash.opt.ride.rolA==0){
 				euc.wri("rollAngleMedium");
 				euc.dash.opt.ride.rolA=1;
@@ -121,7 +121,7 @@ touchHandler[0]=function(e,x,y){
 				euc.wri("rollAngleLow");
 				euc.dash.opt.ride.rolA=0;
 			}
-		}else buzzer([30,50,30]);
+		}else buzzer.nav([30,50,30]);
 		this.timeout();
 		break;
 	case 1: //slide down event
@@ -131,12 +131,12 @@ touchHandler[0]=function(e,x,y){
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		this.timeout();
 		break;
 	case 3: //slide left event
-		buzzer(40);    
+		buzzer.nav(40);    
 		this.timeout();
 		break;
 	case 4: //slide right event (back action)

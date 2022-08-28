@@ -15,7 +15,7 @@ global.euc= {
 		if (this.is.reconnect) {clearTimeout(this.is.reconnect); this.is.reconnect=0;}
 		if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
 		if (this.state!="OFF" ) {
-			buzzer([90,60,90]); 
+			buzzer.nav([90,60,90]); 
 			//log
 			if (this.log.trip[0]&& 0<euc.dash.trip.totl-this.log.trip[0] ) 
 				ew.do.fileWrite("logDaySlot"+ew.def.dash.slot,Date().getHours(),(euc.dash.trip.totl-this.log.trip[0])+((ew.do.fileRead("logDaySlot"+ew.def.dash.slot,Date().getHours()))?ew.do.fileRead("logDaySlot"+ew.def.dash.slot,Date().getHours()):0));
@@ -36,28 +36,28 @@ global.euc= {
 				}
 				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 				this.log.trip=[0,0,0];
-				if (face.appCurr=="dashOff") face.go('dashOff',0);
+				//if (face.appCurr=="dashOff") face.go('dashOff',0);
 				if (ew.def.acc) acc.on(1);
+
 			},1000);
 			
 			return;
 		}else {
-			buzzer(100); 
+			buzzer.nav(100); 
 			this.log.trip=[0,0,0];
 			NRF.setTxPower(4);
 			this.mac=(this.mac)?this.mac:ew.do.fileRead("dash","slot"+ew.do.fileRead("dash","slot")+"Mac");
 			if(!this.mac) {
 				face.go('dashScan',0);return;
 			}else {
+				this.state="ON";
 				euc.temp={count:0,loop:0,last:0,rota:0};
 				eval(require('Storage').read('euc'+require("Storage").readJSON("dash.json",1)["slot"+require("Storage").readJSON("dash.json",1).slot+"Maker"]));
 				if (ew.def.prxy==2&&require('Storage').read('proxy'+euc.dash.info.get.makr)){
 					eval(require('Storage').read('proxy'+euc.dash.info.get.makr));
 				}	
-				this.state="ON";
 				if (euc.dash.info.get.makr!=="Kingsong"||euc.dash.info.get.makr!=="inmotionV11") euc.dash.trip.topS=0;
 				this.conn(this.mac);
-				this.state="ON";
 				if (ew.def.acc) acc.off();
 				setTimeout(()=>{ew.def.dash.accE=1;acc.on(2); },1000);
 				if (euc.dash.opt.tpms&&global.tpms&&!tpms.def.int) {tpms.euc={}; setTimeout(()=>{tpms.scan(); },10000);}//tpms
@@ -66,6 +66,73 @@ global.euc= {
 			}
 		}
 	} 
+};
+
+euc.off = function(err) {
+	if (euc.dbg) console.log("EUC.off :", err);
+	if (euc.is.reconnect) {
+		clearTimeout(euc.is.reconnect);
+		euc.is.reconnect = 0;
+	}
+	if (euc.state != "OFF") {
+		if (euc.dbg) console.log("EUC: Restarting");
+		if (err === "Connection Timeout") {
+			euc.state = "LOST";
+			if (ew.def.dash.rtr < euc.is.run) {
+				euc.tgl();
+				return;
+			}
+			euc.is.run = euc.is.run + 1;
+			if (euc.dash.opt.lock.en == 1) buzzer.nav(250);
+			else buzzer.nav([250, 200, 250, 200, 250]);
+			euc.is.reconnect = setTimeout(() => {
+				euc.is.reconnect = 0;
+				if (euc.state != "OFF") euc.conn(euc.mac);
+			}, 5000);
+		}
+		else if (err === "Disconnected" || err === "Not connected") {
+			euc.state = "FAR";
+			euc.is.reconnect = setTimeout(() => {
+				euc.is.reconnect = 0;
+				if (euc.state != "OFF") euc.conn(euc.mac);
+			}, 1000);
+		}
+		else {
+			euc.state = "RETRY";
+			euc.is.reconnect = setTimeout(() => {
+				euc.is.reconnect = 0;
+				if (euc.state != "OFF") euc.conn(euc.mac);
+			}, 2000);
+		}
+	}
+	else {
+		if (euc.dbg) console.log("EUC OUT:", err);
+		if (euc.horn) {clearInterval(euc.horn);euc.horn=0;}
+		if (euc.temp.loop) {clearTimeout(euc.temp.loop); euc.temp.loop=0;}
+		if (euc.is.busy) {clearTimeout(euc.is.busy);euc.is.busy=0;}
+		if (euc.aOff == 0 || euc.aOff == 1) {
+			euc.dash.auto.onD.off = euc.aOff;
+			delete euc.aOff;
+		}
+		if (euc.aLck == 0 || euc.aLck == 1) {
+			euc.dash.auto.onD.lock = euc.aLock;
+			delete euc.aLck;
+		}
+		//euc.off = function(err) { if (euc.dbg) console.log("EUC off, not connected", err); };
+		//euc.wri = function(err) { if (euc.dbg) console.log("EUC write, not connected", err); };
+		//euc.conn = function(err) { if (euc.dbg) console.log("EUC conn, not connected", err); };
+		//euc.cmd = function(err) { if (euc.dbg) console.log("EUC cmd, not connected", err); };
+		euc.is.run = 0;
+		euc.temp = 0;
+		global["\xFF"].bleHdl = [];
+		if (euc.proxy) euc.proxy.e();
+		NRF.setTxPower(ew.def.rfTX);
+		if ( euc.gatt&&euc.gatt.connected ) {
+			if (euc.dbg) console.log("ble still connected"); 
+			euc.gatt.disconnect();
+		}
+		if (euc.dbg) console.log("EUC: out");
+	}
 };
 
 //init

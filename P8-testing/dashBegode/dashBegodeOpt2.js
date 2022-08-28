@@ -144,30 +144,30 @@ touchHandler[0]=function(e,x,y){
   		if (!face[0].setE){//select page
 
 			if (face[0].page=="idle"){
-				buzzer(40);
+				buzzer.nav(40);
 			}else if ( x<=120 && y<100 ) { //auto off
-				buzzer(40);
+				buzzer.nav(40);
 			}else if ( 120<=x && y<=100 ) { //CONN
-				buzzer([30,50,30]);
+				buzzer.nav([30,50,30]);
 				face.go("dashBegodeCon",0);
 				return;		
 			}else if ( x<=120 && y<=200 ) { //volume
-				buzzer([30,50,30]);
+				buzzer.nav([30,50,30]);
 				face[0].set(euc.dash.vol,"VOLUME");
 			}else if  (120<=x && y<=200 ) { //disconn
-				buzzer([30,50,30]);
+				buzzer.nav([30,50,30]);
 				face.go("dashBegodeDis",0);
 				return;					
-			}else buzzer(40);
+			}else buzzer.nav(40);
 		}else {
 			if ( x <= 120  && 1<face[0].setEb ) {
-				buzzer([30,50,30]);
+				buzzer.nav([30,50,30]);
 				face[0].setEb--;
 			}else if ( 120 <= x && face[0].setEb<9 ) {
-				buzzer([30,50,30]);
+				buzzer.nav([30,50,30]);
 				face[0].setEb++;
 			}else 
-				buzzer(40);
+				buzzer.nav(40);
 			face[0].btn(0,face[0].setEb,100,126,60,12,1,60,40,180,160);
 		}
 		break;
@@ -182,13 +182,13 @@ touchHandler[0]=function(e,x,y){
 		if ( 200<=y && x<=50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else 
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		break;
 	case 3: //slide left event
 		if (face[0].setE) {
-			buzzer(40);
+			buzzer.nav(40);
 			return;
         } 
 		face.go("dashBegodeAdv",0);
@@ -201,7 +201,7 @@ touchHandler[0]=function(e,x,y){
 		face.go("dashBegodeOpt",0);
 		return;
 	case 12: //hold event
-		buzzer(40);
+		buzzer.nav(40);
 		this.timeout();
 		break;
   }

@@ -96,33 +96,33 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
       case 5: case 12: //tap event
 		if ( x<=120 && y<100 ) { //lights on
-			if (euc.dash.opt.lght[face[0].led]==1) {buzzer(40);return;}
+			if (euc.dash.opt.lght[face[0].led]==1) {buzzer.nav(40);return;}
 			//euc.dash.opt.lght[face[0].led]=1;
 			euc.dash.opt.lght.city=0;
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 			euc.wri("setLights",1);
 			face[0].ntfy("HEAD LIGHT ON","NO ACTION",19,1,1);
 		}else if ( 120<=x && y<=100 ) { //lights Auto
-			if (euc.dash.opt.lght[face[0].led]==3) {buzzer(40);return;}
+			if (euc.dash.opt.lght[face[0].led]==3) {buzzer.nav(40);return;}
 			//euc.dash.opt.lght[face[0].led]=3;
 			euc.dash.opt.lght.city=0;
-			buzzer([30,50,30]);	
+			buzzer.nav([30,50,30]);	
 			euc.wri("setLights",3);
 			face[0].ntfy("HEAD LIGHT AUTO","NO ACTION",19,1,1);
 		}else if ( x<=120 && 100<=y ) { //lights City
 			euc.dash.opt.lght.city=1-euc.dash.opt.lght.city;
 			face[0].btn((euc.dash.opt.lght.city)?1:0,"eucWatch",18,60,115,12,1,0,100,119,195,"CITY",25,60,150);
-			buzzer([30,50,30]);	
+			buzzer.nav([30,50,30]);	
 			//euc.wri("setLights",0);
 			face[0].ntfy("HEAD LIGHT CITY","NO ACTION",19,1,euc.dash.opt.lght.city);
 		}else if  (120<=x && 100<=y ) { //lights Off
-			if (euc.dash.opt.lght[face[0].led]==2) {buzzer(40);return;}
+			if (euc.dash.opt.lght[face[0].led]==2) {buzzer.nav(40);return;}
 			//euc.dash.opt.lght[face[0].led]=2;
 			euc.dash.opt.lght.city=0;
-			buzzer([30,50,30]);	
+			buzzer.nav([30,50,30]);	
 			euc.wri("setLights",2);
 			face[0].ntfy("HEAD LIGHT OFF","NO ACTION",19,1,1);
-		}else buzzer(40);
+		}else buzzer.nav(40);
 		break;
 	case 1: //slide down event
 		//face.go("clock",0);
@@ -132,10 +132,10 @@ touchHandler[0]=function(e,x,y){
 		if ( 200<=y && x<=50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else //if (y>100) {
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		//} else {buzzer(40);}
+		//} else {buzzer.nav(40);}
 		break;
 	case 3: //slide left event
 		face.go("dashKingsong",0);

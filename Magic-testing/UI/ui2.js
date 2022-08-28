@@ -150,7 +150,7 @@ UI={
  		  w.gfx.setFont("Vector",p[0]*1.7*UI.size.txt);	
  		  //w.gfx.setFont("Vector",p[4]*1.7*UI.size.txt);	
 		  let xa=x-((w.gfx.imageMetrics(img).width+w.gfx.stringWidth(txt))/2);
-		  w.gfx.setColor(1,14);
+		  w.gfx.setColor(1,11);
 	      w.gfx.drawImage(img,xa,y-(w.gfx.imageMetrics(img).height/2),{scale:UI.size.sca});
 		 // w.gfx.setColor(1,bclr==3?0:3);
 		 w.gfx.setColor(1,fclr);

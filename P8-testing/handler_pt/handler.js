@@ -15,7 +15,7 @@ function handleInfoEvent(event,disc) {
     let ti=(""+d[4]+" "+d[0]+" "+d[2]);
 	notify.info.unshift("{\"src\":\""+event.src+"\",\"title\":\""+event.title+"\",\"body\":\""+event.body+"\",\"time\":\""+ti+"\"}");
 	if (notify.info.length>10) notify.info.pop();
-	buzzer([80,50,80]);
+	buzzer.nav([80,50,80]);
 	if (ew.def.buzz&&!notify.ring&&!disc) {
 		if (face.appCurr!="clock"||face.pageCurr!=0) {
 			face.go("clock",0);
@@ -385,12 +385,12 @@ function buttonHandler(s){
 		this.press=false;
 		if (global.euc&&euc.state=="READY"&&euc.horn&&euc.dash.opt.horn.en) {euc.wri("hornOff");return;}
 		if (face.pageCurr==-1) {
-			buzzer([60,40,60]);
+			buzzer.nav([60,40,60]);
 			face.go((global.euc&&euc.state!="OFF")?ew.is.dash[ew.def.dash.face]:face.appCurr,0);
 		}else { 
 			if (face.appCurr=="clock"&&face.pagePrev!=-1&&face.pagePrev!=2) {
 				face.go("clock",-1);
-				buzzer(100);
+				buzzer.nav(100);
 			}else{
 				let to=face.pageCurr+1;
 				if (to>=2) to=0;

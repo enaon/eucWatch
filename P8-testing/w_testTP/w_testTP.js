@@ -9,7 +9,7 @@ face[0] = {
    	this.g.clear();
     this.g.setColor(0,1);	
 	this.g.fillRect(0,0,239,239);
-    this.g.setColor(1,14);
+    this.g.setColor(1,11);
     this.g.setFont("Vector",22);
     this.g.drawString(this.msg,120-(this.g.stringWidth(this.msg)/2),100);
     this.g.flip();
@@ -24,7 +24,7 @@ face[0] = {
       hello=this.msg;
       this.g.setColor(0,1);
       this.g.fillRect(30,10,210,100);
-      this.g.setColor(1,14);
+      this.g.setColor(1,11);
       this.g.setFont("Vector",50);
       this.g.drawString(this.msg,120-(this.g.stringWidth(this.msg)/2),35);    
       this.g.flip();
@@ -43,7 +43,7 @@ face[0] = {
 	this.g.flip();
     this.g.setColor(0,4);
 	this.g.fillRect(x[0],y[0],x[2],y[2]);
-    this.g.setColor(1,14);
+    this.g.setColor(1,11);
     this.g.setFont("Vector",22);
 	if (!txt) txt="TAP";
     this.g.drawString(txt,x[1]-(this.g.stringWidth(txt)/2),y[1]-5);
@@ -98,13 +98,13 @@ touchHandler[0]=function(tp){
 	let x=x3[(face[0].step)%3];
 	let y=y3[((face[0].step)/3)|0];
 	if (face[0].step<9){
-		buzzer([30,50,30]);
+		buzzer.nav([30,50,30]);
 		face[0].btn(x,y);
 	}else{	
 		w.gfx.setColor(0,0);	
 		w.gfx.fillRect(0,0,239,239);
 		if (12<face[0].step){
-			buzzer(40);
+			buzzer.nav(40);
 			w.gfx.setColor(1,14);
 			w.gfx.setFont("Vector",20);
 			let txt="        DONE\n\n  PRESS SIDE BTN\n\n      TO EXIT";
@@ -120,7 +120,7 @@ touchHandler[0]=function(tp){
 			txt="RESULTS";
 			w.gfx.drawString(txt,120-(w.gfx.stringWidth(txt)/2),210);
 		}else {
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 			w.gfx.flip();
 			w.gfx.setColor(0,4);
 			w.gfx.fillRect(40,40,200,200);

@@ -6,7 +6,7 @@ face[0] = {
     this.g.setColor(1,0);
 	this.g.fillRect(0,0,239,239);this.g.setColor(0,1);this.g.fillRect(0,0,170,77);this.g.fillRect(175,0,239,77);this.g.fillRect(0,83,170,157);this.g.fillRect(175,83,239,157);this.g.fillRect(0,163,170,249);this.g.fillRect(175,163,239,249);
 	this.g.flip();
-	this.g.setColor(1,14);	
+	this.g.setColor(1,11);	
 	this.img = require("heatshrink").decompress(atob("lMwwMAv/GBAQEEn/Oh////YhwEC/kOgYEB+12CYUDj9gAgMBw8wj/wgHBnF//0AsEcn//gE4hwZCj4HBAAIrBwBfbn4wBFAxQBw5RB/0B4YEBBoPgKIWAuAUC4E4AgRREmEOEoOAjEHKI8H//AEYQEDACkfKwYoG4JQB/cA8JWCKIN/MAJRGAgRRBEARRBAgPAhkDwf/8EHgJMCagJ6D/7KBAAI="));
 	this.g.drawImage(this.img,185,17);
     this.g.flip();	
@@ -134,7 +134,7 @@ face[5] = {
     if (this.list.length==0){
       this.g.setColor(0,0);
       this.g.fillRect(0,0,239,239);
-      this.g.setColor(1,14);
+      this.g.setColor(1,11);
       this.g.setFont("Vector",24);		
       this.g.drawString("NO ENTRIES",120-(this.g.stringWidth("NO ENTRIES")/2),100); 
       this.at=this.go;
@@ -177,7 +177,7 @@ face[5] = {
       this.g.setFont("Vector",22);
       this.g.setColor(0,1);
       this.g.fillRect(0,30,239,210);
-      this.g.setColor(1,14);
+      this.g.setColor(1,11);
    	  if (this.msg.title.length>15) this.msg.title=this.msg.title.substr(0,12)+"...";
       this.g.drawString(this.msg.title+" :",3,35);
 	  this.g.setFont("Vector",24);
@@ -222,23 +222,23 @@ touchHandler[0]=function(e,x,y){
       } else if (160<=y&&y<239&x<170){
         face.go("notify",5,"info");return;
 	  }else if (y<80){
-		buzzer(buz.na);
+		buzzer.nav(buzzer.buzz.na);
       } else if (80<=y&&y<160){
-		buzzer(buz.na);
+		buzzer.nav(buzzer.buzz.na);
 	  } else if (160<=y&&y<239){
-		buzzer(buz.na);
-      }else buzzer(buz.na);
+		buzzer.nav(buzzer.buzz.na);
+      }else buzzer.nav(buzzer.buzz.na);
     }else if  (e==12){
       if (y<80&&x<170){
-		buzzer([30,50,80]);notify.call=[];notify.nCall=0;face[0].nCall=-1;
+		buzzer.nav([30,50,80]);notify.call=[];notify.nCall=0;face[0].nCall=-1;
 		if (!notify.nCall&&!notify.nIm&&!notify.nInfo) {ew.gbSend({t:"notify", n:"dismiss_all"});notify.New=0;}
       } else if (80<=y&&y<160&x<170){
-		buzzer([30,50,80]);notify.im=[];notify.nIm=0;face[0].nIm=-1;
+		buzzer.nav([30,50,80]);notify.im=[];notify.nIm=0;face[0].nIm=-1;
 		if (!notify.nCall&&!notify.nIm&&!notify.nInfo) {ew.gbSend({t:"notify", n:"dismiss_all"});notify.New=0;}
 	  } else if (160<=y&&y<239&x<170){
-		buzzer([30,50,80]);notify.info=[];notify.nInfo=0;face[0].nInfo=-1;
+		buzzer.nav([30,50,80]);notify.info=[];notify.nInfo=0;face[0].nInfo=-1;
 		if (!notify.nCall&&!notify.nIm&&!notify.nInfo) {ew.gbSend({t:"notify", n:"dismiss_all"});notify.New=0;}
-      }else buzzer(buz.na);
+      }else buzzer.nav(buzzer.buzz.na);
     }
 };
 touchHandler[5]=function(e,x,y){
@@ -247,7 +247,7 @@ touchHandler[5]=function(e,x,y){
         if (notify[face[5].type].length==1) notify[face[5].type]=[];
         else notify[face[5].type].splice(face[5].at,1);
         if (notify[face[5].type].length==0){
-			buzzer(80); notify["n"+face[5].type.substr(0,1).toUpperCase()+face[5].type.substr(1)]=0; 
+			buzzer.nav(80); notify["n"+face[5].type.substr(0,1).toUpperCase()+face[5].type.substr(1)]=0; 
 			if (!notify.nCall&&!notify.nIm&&!notify.nInfo) {notify.New=0;}
 			face.go("notify",0);return;} 
         face[5].go--;
@@ -255,15 +255,15 @@ touchHandler[5]=function(e,x,y){
       face[5].del=0;
       return;
     }else if (e==5){
-	  buzzer(buz.na);
+	  buzzer.nav(buzzer.buzz.na);
     }else if  (e==1){//slide down
 	  if (face[5].msg&&face[5].msg.id) ew.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
       face[5].go--;
-      buzzer(buz.ok);
+      buzzer.nav(buzzer.buzz.ok);
     }else if  (e==2){
 	  if (face[5].msg&&face[5].msg.id) ew.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
 	  face[5].go++;
-      buzzer(buz.ok);
+      buzzer.nav(buzzer.buzz.ok);
     }else if  (e==3){
       if  (face[5].list.length>0) face[5].del=1;
       else {face.go("notify",0); return;}
@@ -274,8 +274,8 @@ touchHandler[5]=function(e,x,y){
       if (face.appPrev=="off") {face.go("clock",-1);return;}
 		else  {face.go(face.appPrev,face.pagePrev,face.pageArg);return;}
     }else if  (e==12){
-      buzzer(buz.na);
+      buzzer.nav(buzzer.buzz.na);
     }
 };
 tcNext.replaceWith(()=>{face.go("clock",0);});
-tcBack.replaceWith(()=>{buzzer(buz.na);});
+tcBack.replaceWith(()=>{buzzer.nav(buzzer.buzz.na);});

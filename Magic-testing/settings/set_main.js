@@ -1,34 +1,34 @@
 E.setFlags({pretokenise:1});
 //
-tcNext.replaceWith(()=>{buzzer(buz.ok);eval(require("Storage").read("set_set"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}face[0].bar();});
-tcBack.replaceWith(()=>{buzzer(buz.ok);eval(require("Storage").read("set_main"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}face[0].bar();});
+tcNext.replaceWith(()=>{buzzer.nav(buzzer.buzz.ok);eval(require("Storage").read("set_set"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}face[0].bar();});
+tcBack.replaceWith(()=>{buzzer.nav(buzzer.buzz.ok);eval(require("Storage").read("set_main"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}face[0].bar();});
 //
 //clock settings
 face[0].page="clock";
-UI.ele.ind(0,0,0);
+UI.ele.ind(1,5,0);
 UIc.start(1,0);
 UI.ele.fill("_2x3",1,0);
 UI.ele.fill("_2x3",2,0);
 UI.btn.c2l("main","_2x3",3,ew.def.txt?"MODE":ew.def.hr24?"24 H":"12 H",ew.def.txt?ew.def.hr24?"24 H":"12 H":"",15,0);
 UI.ele.fill("_2x3",4,6);
-UI.btn.img("main","_2x3",5,"power","PWR",15,6);
-UI.btn.img("main","_2x3",6,"info","INFO",15,6);
+UI.btn.img("main","_2x3",6,"power","PWR",15,6);
+UI.btn.img("main","_2x3",5,"info","INFO",15,6);
 UIc.end();
 //
 UIc.main._2x3=(i)=>{
 	if (i==1){
-		buzzer(buz.ok);
+		buzzer.nav(buzzer.buzz.ok);
 	}else if (i==2){
-		buzzer(buz.ok);
+		buzzer.nav(buzzer.buzz.ok);
 	}else if (i==3){
-		buzzer(buz.ok);
+		buzzer.nav(buzzer.buzz.ok);
 		ew.def.hr24=1-ew.def.hr24;
 		if (ew.def.info) UI.btn.ntfy(1,1.5,0,"_bar",6,"CLOCK MODE",ew.def.hr24?"24 HOURS":"A.M. / P.M.",15,0);
 		UI.btn.c2l("main","_2x3",3,ew.def.txt?"MODE":ew.def.hr24?"24 H":"12 H",ew.def.txt?ew.def.hr24?"24 H":"12 H":"",15,0);
 	}else if (i==4){
-		buzzer(buz.na);
-	}else if (i==5){
-		buzzer(buz.ok);
+		buzzer.nav(buzzer.buzz.na);
+	}else if (i==6){
+		buzzer.nav(buzzer.buzz.ok);
 		UI.btn.ntfy(0,3,1,"_bar",6,"","",15,0);
 		UIc.start(0,1);
 		UI.btn.img("bar","_bar",4,"restart","RST",15,6);
@@ -52,8 +52,8 @@ UIc.main._2x3=(i)=>{
 				E.reboot();
 			}
 		};
-	}else if (i==6){
-		buzzer(buz.ok);
+	}else if (i==5){
+		buzzer.nav(buzzer.buzz.ok);
 		UI.btn.ntfy(0,10,1,"_bar",6,"","",15,0);
 		UIc.start(1,1);UIc.end();
 		let s=(getTime()-ew.is.boot)|0;
@@ -69,7 +69,7 @@ UIc.main._2x3=(i)=>{
 
 		/*w.gfx.setColor(0,0);
 		w.gfx.fillRect(0,20,239,279);
-		w.gfx.setColor(1,14);
+		w.gfx.setColor(1,11);
 		w.gfx.setFont("Vector",18);
 		w.gfx.drawString("MEMORY: "+process.memory().free+"/"+process.memory().total,120-(w.gfx.stringWidth("MEMORY: "+process.memory().free+"/"+process.memory().total)/2),35);  
 		w.gfx.drawString("IMAGE: "+process.version,120-(w.gfx.stringWidth("IMAGE: "+process.version)/2),65);  

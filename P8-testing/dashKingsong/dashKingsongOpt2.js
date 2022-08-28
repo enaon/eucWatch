@@ -144,7 +144,7 @@ touchHandler[0]=function(e,x,y){
 			}else if ( x<=120)
 				euc.dash.auto.offT=euc.dash.auto.offT-600;
 			else euc.dash.auto.offT=euc.dash.auto.offT+600;
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 			if (euc.dash.auto.offT <60 )euc.dash.auto.offT=60;
 			if (euc.dash.auto.offT ==660 )euc.dash.auto.offT=600;
 			if (14400<euc.dash.auto.offT  )euc.dash.auto.offT=14400;
@@ -166,7 +166,7 @@ touchHandler[0]=function(e,x,y){
 		}else if  (120<=x && 100<=y ) { //disconn
 			face.go("dashKingsongDis",0);
 			return;					
-		}else buzzer([30,50,30]);
+		}else buzzer.nav([30,50,30]);
 		break;
 	case 1: //slide down event
 		if (face[0].page=="idle")
@@ -177,7 +177,7 @@ touchHandler[0]=function(e,x,y){
 		if ( 200<=y && x<=50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else 
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		break;

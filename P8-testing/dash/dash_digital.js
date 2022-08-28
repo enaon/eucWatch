@@ -11,10 +11,10 @@ face[0] = {
 			this.g.fillRect(0,51,239,239);
 			this.g.flip();	
 		}else 	this.g.clear();
-		this.spdC=[0,0,7,7];
-		this.ampC=[1,2992,7,7];
-		this.tmpC=[1,2992,7,7];
-		this.batC=[4,1,7,7];
+		this.spdC=[0,14,13,13];
+		this.ampC=[1,2992,13,13];
+		this.tmpC=[1,2992,13,13];
+		this.batC=[4,1,13,13];
 		this.spd=euc.dash.live.spd-1;
 		this.aTlt=-1;
 		this.topS=-1;
@@ -123,7 +123,7 @@ face[0] = {
 		}
 	},
 	alF: function(){
-		this.g.setColor(0,7);
+		this.g.setColor(0,13);
 		this.g.clearRect(0,176,239,200);
 		this.g.setColor(1,13);
 		for (let i in euc.log.almL ){
@@ -133,7 +133,7 @@ face[0] = {
 	},
 	pwmF: function(){
 		"ram";
-		this.g.setColor(0,euc.dash.alrt.pwm.hapt.hi<=euc.dash.live.pwm?7:1);
+		this.g.setColor(0,euc.dash.alrt.pwm.hapt.hi<=euc.dash.live.pwm?13:1);
 		this.g.fillRect(0,176,239,200); 
 		this.g.setColor(1,50<=euc.dash.live.pwm?13:15);
 		this.g.setFontVector(23);
@@ -171,13 +171,13 @@ face[0] = {
 		if (!this.buzz&&euc.dash.info.get.makr=="Begode"&&euc.dash.alrt.mode==3){
 			this.g.setColor(0,4);
 			this.g.fillRect(0,115,40,173); 
-			this.g.setColor(1,14);
+			this.g.setColor(1,11);
 			this.g.setFontVector(14);
 			this.g.drawString("PWM", 5,130);
 			this.g.drawString("TILT", 4,145); 			
 			this.g.flip();
 		}else {
-			this.g.setColor(0,(this.buzz)?7:1);
+			this.g.setColor(0,(this.buzz)?13:1);
 			this.g.fillRect(0,115,40,173); 
 			this.g.setColor(1,(this.buzz)?15:0);
 			this.g.setFontVector(35);
@@ -198,9 +198,9 @@ face[0] = {
 	},	
 	limF: function(){
 		this.aTlt=euc.dash.alrt.spd.max;
-		//if (euc.dash.info.get.makr=="Begode") this.g.setColor(0,(euc.dash.alrt.spd.tilt.val<=this.aTlt)?1:7);
+		//if (euc.dash.info.get.makr=="Begode") this.g.setColor(0,(euc.dash.alrt.spd.tilt.val<=this.aTlt)?1:13);
 		//else 
-		this.g.setColor(0,(euc.dash.live.spd+5<=this.aTlt)?1:7);	
+		this.g.setColor(0,(euc.dash.live.spd+5<=this.aTlt)?1:13);	
 		this.g.fillRect(200,115,239,173); 
 		this.g.setColor(1,15);
 		this.g.setFontVector(10);
@@ -232,7 +232,7 @@ face[0] = {
 			this.g.setFontVector(16);
 			this.g.drawString((ew.def.dash.farn)?"°F":"°C",3+size,5); 
 			this.g.setFontVector(27);
-			this.g.drawString(tempM,120-this.g.stringWidth(tempM),7); 
+			this.g.drawString(tempM,120-this.g.stringWidth(tempM),13); 
 			this.g.setFontVector(8);
 			this.g.drawString("MOSFET            MOTOR", 7,40); 
 		}else{
@@ -252,7 +252,7 @@ face[0] = {
 	},
 	amLF: function(){
 		//this.ampL.set(euc.log.ampL);
-		this.g.setColor(1,(1<euc.dash.alrt.amp.cc)?7:1);
+		this.g.setColor(1,(1<euc.dash.alrt.amp.cc)?13:1);
 		this.g.fillRect(0,0,119,50);       
 		this.g.setColor(0,15);
 		//this.ampL.forEach(function(val,i){
@@ -301,9 +301,9 @@ face[0] = {
 	almTF: function(){
 		if (this.almT==euc.dash.alrt.warn.txt) return;
 		this.almT=euc.dash.alrt.warn.txt;
-		this.g.setColor(0,7);
+		this.g.setColor(0,13);
 		this.g.fillRect(0,203,239,239);
-		this.g.setColor(1,14);
+		this.g.setColor(1,11);
 		this.g.setFontVector(24);
 		this.g.drawString(euc.dash.alrt.warn.txt, 120-(this.g.stringWidth(euc.dash.alrt.warn.txt)/2),212); 
 		this.g.flip();
@@ -312,7 +312,7 @@ face[0] = {
 		this.trpL=euc.dash.trip.last.toFixed(2);
 		this.g.setColor(0,0);
 		this.g.fillRect(0,203,239,239);
-		this.g.setColor(1,14);
+		this.g.setColor(1,11);
 		this.g.setFontVector(35);
 		this.g.drawString((this.trpL*this.trpF).toFixed(2),0,208); 
 		if (!ew.def.dash.clck) {//clock
@@ -381,24 +381,24 @@ touchHandler[0]=function(e,x,y){
 		if (120<x&&y<55){//batery percentage/voltage
 			if (ew.def.dash.bat==undefined || 1 < ew.def.dash.bat) ew.def.dash.bat=0; else ew.def.dash.bat++;
 			face[0].bat=-1;face[0].volt=-1;//face[0].batL.fill(1,0,1);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else if (x<120&&y<55){//tmp/amp
 			if (ew.def.dash.amp==undefined) ew.def.dash.amp=0;
 			ew.def.dash.amp=1-ew.def.dash.amp;
  			face[0].tmp=-1;face[0].amp=-1;//face[0].ampL.fill(1,0,1);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else if (190<y){//mileage/time
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 			if (euc.dash.alrt.warn.txt) {euc.dash.alrt.warn.txt=0;face[0].almT=-1;face[0].trpL=-1;return}
 			if (ew.def.dash.clck==undefined) ew.def.dash.clck=0;
 			ew.def.dash.clck=1-ew.def.dash.clck;
  			face[0].trpL=-1;face[0].barF();
 		}else if (110<y&&y<195&&x<55&&euc.dash.info.get.makr=="Begode"){
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 			face.go("dashBegodeAdvLimits",0);
 			return;
 		}else
-			buzzer(40);
+			buzzer.nav(40);
 		this.timeout();
 		break;
     case 1: //slide down event
@@ -412,7 +412,7 @@ touchHandler[0]=function(e,x,y){
 		if (y>160&&x<50) {
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {
 			face.go("settings",0);
 			return;
@@ -420,14 +420,14 @@ touchHandler[0]=function(e,x,y){
 		this.timeout();
 		break;
     case 3: //slide left event
-		(euc.state=="READY")?face.go('dash'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0):(euc.state=="OFF")?face.go("dashGarage",0):buzzer(40);
+		(euc.state=="READY")?face.go('dash'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0):(euc.state=="OFF")?face.go("dashGarage",0):buzzer.nav(40);
 		return;
     case 4: //slide right event (back action)
 		face.go("clock",0);
 		return;
     case 12: //touch and hold(long press) event
 		this.timeout();
-		buzzer(40);
+		buzzer.nav(40);
 		break;
     }
 };

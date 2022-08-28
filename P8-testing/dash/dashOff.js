@@ -47,7 +47,7 @@ face[0] = {
 	lg: function(){
 		this.g.setColor(0,0);
 		this.g.fillRect(0,176,239,239);
-		this.g.setColor(1,14);
+		this.g.setColor(1,11);
 		for (let i = 0; i < this.len; i++) {
    		let h=(this.ref-i<0)?this.len+(this.ref-i):this.ref-i;
 			if (this.log[h]) {
@@ -87,7 +87,7 @@ face[0] = {
 		this.g.fillRect(pos,(this.log[this.pos])?239-(this.log[this.pos]*this.scale):239,pos+((240/this.len)-2),239);
 		this.g.flip(); 
 		if (this.rowL&&this.rowL!==pos){
-			this.g.setColor(1,14);
+			this.g.setColor(1,11);
 			this.g.fillRect(this.rowL,(this.log[this.posL])?239-(this.log[this.posL]*this.scale):239,this.rowL+((240/this.len)-2),239);
 			this.g.flip(); 
 		}
@@ -160,9 +160,9 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
 		if (50 < y) {
-		if (face[0].info) {buzzer(40);return;}
+		if (face[0].info) {buzzer.nav(40);return;}
 			let i=0;
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 			if (face[0].log[face[0].ref]&&!face[0].once){
 				face[0].once=1;
 				face[0].pos=face[0].ref;
@@ -186,7 +186,7 @@ touchHandler[0]=function(e,x,y){
 			face[0].sel(face[0].comf((face[0].log[face[0].pos]*((ew.def.dash.mph)?0.625:1)).toFixed((face[0].page)?(face[0].page==1)?1:0:2)), face[0].id[face[0].pos].toUpperCase());
 			face[0].ind((face[0].pos<=face[0].ref)?face[0].len-(face[0].ref-face[0].pos):face[0].pos-face[0].ref);
 		}else {
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 			if  ( 120 < x ) { //info
 				let btC=[4,1,7,7];
 				if (face[0].info) {face[0].btn(1,euc.dash.live.volt,35,180,3,btC[euc.dash.alrt.bat.cc],0,120,0,239,50,"VOLT",10,220,40);return;}
@@ -266,7 +266,7 @@ touchHandler[0]=function(e,x,y){
 		if (y>160&&x<50) {
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 			this.timeout();
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
         this.timeout();
@@ -278,7 +278,7 @@ touchHandler[0]=function(e,x,y){
 		face.go("clock",0);
 		return;
     case 12: //touch and hold(long press) event
-		buzzer(40);
+		buzzer.nav(40);
 		this.timeout();
 		return;
     }

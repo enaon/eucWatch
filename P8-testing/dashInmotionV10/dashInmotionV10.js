@@ -141,12 +141,12 @@ touchHandler[0]=function(e,x,y){
 					euc.dash.opt.snd.vol=euc.dash.opt.snd.vol-10;if (euc.dash.opt.snd.vol<=0)euc.dash.opt.snd.vol=0;
 					face.menu.full("VOLUME",20,euc.dash.opt.snd.vol,80,1453,1365);
 					euc.wri("setVolume",euc.dash.opt.snd.vol);
-					buzzer([30,50,30]);
+					buzzer.nav([30,50,30]);
 				}else if ( 120 <=x  && y <= 170 ) {
 					euc.dash.opt.snd.vol=euc.dash.opt.snd.vol+10;if (100<=euc.dash.opt.snd.vol)euc.dash.opt.snd.vol=100;
 					face.menu.full("SET VOLUME",20,euc.dash.opt.snd.vol,80,1453,1365);
 					euc.wri("setVolume",euc.dash.opt.snd.vol);
-					buzzer([30,50,30]);
+					buzzer.nav([30,50,30]);
 				}else {
 					face[0].sub=0;
 					face[0].init();
@@ -163,14 +163,14 @@ touchHandler[0]=function(e,x,y){
 				euc.wri("setLights",(euc.dash.opt.lght.HL)?1:0);
 				face[0].btn(euc.dash.opt.lght.HL,"LIGHT",18,60,20,4,1,0,0,119,97,(euc.dash.opt.lght.HL)?"ON":"OFF",25,60,55);
 				face[0].ntfy("LIGHT ON","LIGHT OFF",20,(euc.dash.opt.lght.HL)?4:1,euc.dash.opt.lght.HL);
-				buzzer([30,50,30]);
+				buzzer.nav([30,50,30]);
 			}else if ( 120<=x && y<=100 ) { //Volume
-				buzzer([30,50,30]);
+				buzzer.nav([30,50,30]);
 				face.menu.full("VOLUME",20,euc.dash.opt.snd.vol,80,1453,1365,1);
 				face[0].ntfy("SET VOLUME","SET VOLUME",20,4,1);
 				face[0].sub="volume";
 			}else if ( x<=120 && 100<=y ) { //tpms
-				buzzer([30,50,30]);		
+				buzzer.nav([30,50,30]);		
 				if (!euc.dash.opt.tpms) face[0].ntfy("HOLD-> ON/OFF","",20,4,1); 
 				else {
 					tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.opt.tpms);
@@ -179,8 +179,8 @@ touchHandler[0]=function(e,x,y){
 				}	
 			}else if (120<=x && 100<=y ) { //off
 				face[0].ntfy("HOLD -> POWER OFF","",18,7,1);
-				buzzer([30,50,30]);						
-			}else buzzer(40);
+				buzzer.nav([30,50,30]);						
+			}else buzzer.nav(40);
 		}
 		this.timeout();
 		break;
@@ -193,7 +193,7 @@ touchHandler[0]=function(e,x,y){
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		this.timeout();
 		break;
@@ -216,7 +216,7 @@ touchHandler[0]=function(e,x,y){
 			euc.temp.aOff=1;
 			euc.tgl();
 		}else if  (x<=120 && 100<=y ) { //tpms
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 			if (euc.dash.opt.tpms) {
 				euc.dash.opt.tpms=0;
 				face[0].btn("TPMS",18,60,115,1,0,100,119,195,"OFF",28,60,155); //3
@@ -230,7 +230,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].ntfy("NOT INSTALLED","",20,7,1); 
 			}
 			return;	
-	    }else buzzer(40);
+	    }else buzzer.nav(40);
 		this.timeout();
 		break;
   }

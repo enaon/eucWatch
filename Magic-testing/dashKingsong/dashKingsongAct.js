@@ -1,6 +1,6 @@
 //touch
-tcNext.replaceWith(()=>{buzzer(buz.ok); if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;} eval(require('Storage').read("dashKingsongOpt"));});
-tcBack.replaceWith(()=>{buzzer(buz.ok);	if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}	face.go(ew.is.dash[ew.def.dash.face],0);});
+tcNext.replaceWith(()=>{buzzer.nav(buzzer.buzz.ok); if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;} eval(require('Storage').read("dashKingsongOpt"));});
+tcBack.replaceWith(()=>{buzzer.nav(buzzer.buzz.ok);	if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}	face.go(ew.is.dash[ew.def.dash.face],0);});
 //
 face[0].page="Quick Actions";
 UI.ele.ind(1,4,0);
@@ -13,8 +13,9 @@ UIc.end();
 face[0].bar=()=>{
 	UI.ele.title(face[0].page.toUpperCase(),3,0);
 	UIc.start(0,1);
-	let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
-	UI.btn.c2l("bar","_2x2",3,euc.dash.opt.tpms?euc.dash.opt.tpms:"TPMS","",15,(euc.dash.opt.tpms&&tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.opt.tpms].time<1800)?(tpms.euc[euc.dash.opt.tpms].alrm)?13:4:6);
+	//let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
+	//UI.btn.c2l("bar","_2x2",3,euc.dash.opt.tpms?euc.dash.opt.tpms:"TPMS","",15,(euc.dash.opt.tpms&&tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.opt.tpms].time<1800)?(tpms.euc[euc.dash.opt.tpms].alrm)?13:4:6);
+	UI.btn.c2l("bar","_2x2",3,"EXIT","",15,6);
 	UI.btn.c2l("bar","_2x2",4,"LOCK","",15,euc.dash.opt.lock.en?13:1);	
 	UIc.end();
 };
@@ -23,18 +24,20 @@ face[0].bar();
 //
 UIc.main._2x2=(i)=>{
 	if (i==1){
-		buzzer(buz.ok);
+		buzzer.nav(buzzer.buzz.ok);
 		eval(require('Storage').read("dashKingsongLight")); 
 		//face[0].ntfy("HOLD -> LIGHTS OFF",1);
 	}else if (i==2){
-		buzzer(buz.ok);
+		buzzer.nav(buzzer.buzz.ok);
 		euc.wri("setStrobeOnOff",1-euc.dash.opt.lght.strb);
 	}
 };
 
 UIc.bar._2x2=(i)=>{
 	 if (i==3){
-		buzzer(buz.ok);		
+		euc.tgl();
+		/*
+		buzzer.nav(buzzer.buzz.ok);		
 		if (!euc.dash.opt.tpms) 
 			print(1);
 		else {
@@ -42,8 +45,13 @@ UIc.bar._2x2=(i)=>{
 			face.go("tpmsFace",0);
 			return;
 		}
+		*/
 	}else if (i==4){
-		buzzer(buz.ok);	
-		euc.wri((1-euc.dash.opt.lock.en)?"doLock":"doUnlock",euc.temp.lockKey);
+		buzzer.nav(buzzer.buzz.ok);	
+		if (euc.dash.opt.lock.en) {
+			if (euc.dbg) console.log("EUC dash: starting unlock, lock key:",euc.temp.lockKey)
+			euc.wri("doUnlock",euc.temp.lockKey);
+		}else  euc.wri("doLock");
+		//euc.wri((1-euc.dash.opt.lock.en)?"doLock":"doUnlock",euc.temp.lockKey);
 	}
 };

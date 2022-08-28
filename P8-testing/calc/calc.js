@@ -60,7 +60,7 @@ face[0] = {
     this.g.fillRect(182,93,239,140);//*
     this.g.fillRect(182,143,239,190);//-
     this.g.fillRect(182,193,239,239);//+
-    this.g.setColor(1,14);
+    this.g.setColor(1,11);
   	this.g.drawString("/",201,50);
   	this.g.drawString("*",202,107);		
     this.g.drawString("-",205,152);
@@ -84,7 +84,7 @@ face[0] = {
           this.out=this.comf(eval(calc.val.substring(0,calc.val.length-1)))+calc.val.substring(calc.val.length-1);
           }else {this.out="-"; this.g.setColor(1,15);}
         }else if (calc.sum!=""){
-          this.g.setColor(1,14);
+          this.g.setColor(1,11);
           this.out=this.comf(Number(calc.sum));
         }else {this.g.setColor(1,3);this.out=0;}
       }else {this.g.setColor(1,15);
@@ -151,8 +151,8 @@ face[0] = {
   math:function(s){
     let va=calc.val.substring(calc.val.length-1,calc.val.length);
     if (calc.disp!="") {
-      if(calc.disp.substring(calc.disp.length-1)==".") {buzzer(40);return;}
-      if(calc.disp.substring(calc.disp.length-1)=="-") {buzzer(40);return;}
+      if(calc.disp.substring(calc.disp.length-1)==".") {buzzer.nav(40);return;}
+      if(calc.disp.substring(calc.disp.length-1)=="-") {buzzer.nav(40);return;}
       if(calc.par==1) {calc.par=-1;calc.val="("+calc.val+calc.disp+")"+s;
       }else calc.val=calc.val+calc.disp+s;
       calc.disp=""; 
@@ -162,13 +162,13 @@ face[0] = {
     }else if (calc.val==""){
       if (calc.sum==""&&s=='-') calc.disp=s;
       else if (calc.sum!="") calc.val=calc.sum+s;
-      else {buzzer(40);return;}
-    }buzzer([30,50,30]);
+      else {buzzer.nav(40);return;}
+    }buzzer.nav([30,50,30]);
   },
   num:function(n){
         face[0].key=n;
         calc.disp=calc.disp+n;
-		buzzer([30,50,30]);
+		buzzer.nav([30,50,30]);
   },
   tid:-1,
   run:false,
@@ -207,7 +207,7 @@ face[5] = {
   init: function(){
     this.g.setColor(0,0); //header
     this.g.fillRect(0,0,239,35); 
-    this.g.setColor(1,14);
+    this.g.setColor(1,11);
     this.g.setFont("Vector",24);
 	this.g.drawString("HISTORY",4,6); 
     this.hist=0;
@@ -235,7 +235,7 @@ face[5] = {
     this.g.setFont("Vector",26);
     this.g.setColor(0,0); //header
     this.g.fillRect(160,0,239,35); 
-    this.g.setColor(1,14);
+    this.g.setColor(1,11);
     this.g.drawString((this.hist+1)+"/"+calc.hist.length,242-(this.g.stringWidth((this.hist+1)+"/"+calc.hist.length)),3);
     this.g.flip();
     this.g.setColor(0,1); //header
@@ -254,7 +254,7 @@ face[5] = {
     this.g.flip();
     this.g.setColor(0,1); //header
     this.g.fillRect(0,196,239,239);
-    this.g.setColor(1,14);
+    this.g.setColor(1,11);
     this.g.drawLine(10,200,229,200);
     this.g.setFont("Vector",30);
 //    this.g.drawString('=',2,210);
@@ -293,8 +293,8 @@ touchHandler[0]=function(e,x,y){
       if (y<35) { //back-delete last digit
 	    if(calc.disp!="") {
 			calc.disp=calc.disp.substring(0,calc.disp.length-1);
-	  		buzzer(80);
-        }  else buzzer(40);		
+	  		buzzer.nav(80);
+        }  else buzzer.nav(40);		
       }else if(0<x&&x<58&&42<y&&y<91){ //1-2-3
         face[0].num(1);
       }else if(59<x&&x<118&&42<y&&y<91){
@@ -322,17 +322,17 @@ touchHandler[0]=function(e,x,y){
       }else if(0<x&&x<58&&192<y&&y<239){ //.
         face[0].key=".";
         if (calc.disp.indexOf(".")>=0)
-          buzzer(40);
+          buzzer.nav(40);
         else {
           calc.disp=calc.disp+".";
-		  buzzer([30,50,30]);
+		  buzzer.nav([30,50,30]);
         }
       }else if(59<x&&x<118&&192<y&&y<239){ //0
         face[0].key=0;
 		if (calc.disp!="") {
           calc.disp=calc.disp+"0";
-          buzzer([30,50,30]);
-        }else buzzer(40);
+          buzzer.nav([30,50,30]);
+        }else buzzer.nav(40);
       }else if(119<x&&x<180&&192<y&&y<239){ //=
         if (calc.val!=""&&calc.disp!="") {
           calc.tot=calc.val+calc.disp;
@@ -340,11 +340,11 @@ touchHandler[0]=function(e,x,y){
           calc.hist.unshift(calc.tot.replace(/(\*)/g, '|$1').replace(/(\/)/g, '|$1').replace(/(\+)/g, '|$1').replace(/(\-)/g, '|$1').replace(/[{()}]/g, '')+"|="+calc.sum);
           if (calc.hist.length>10) calc.hist.pop();
           calc.val="";calc.tot="";calc.disp="";
-		  buzzer([30,50,30]);
-        }  else buzzer(40);
+		  buzzer.nav([30,50,30]);
+        }  else buzzer.nav(40);
       }else if(181<x&&x<239&&192<y&&y<239){ //+
         face[0].math('+');
-      } else buzzer(40);
+      } else buzzer.nav(40);
     }else if  (e==1){ //slide dn
 		if (face.faceSave!=-1) {
 			  face.go(face.faceSave[0],face.faceSave[1],face.faceSave[2]);face.faceSave=-1;
@@ -355,10 +355,10 @@ touchHandler[0]=function(e,x,y){
 	  if (y>160&&x<50) {
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
         else w.gfx.bri.set(this.bri);
-		buzzer([30,50,30]);
+		buzzer.nav([30,50,30]);
       }else //if (y>200) {  
 		face.go("settings",0);return;
-      //}else buzzer(40);
+      //}else buzzer.nav(40);
     }else if  (e==3){ //slide left
 		face.go("calc",5);return;
     }else if  (e==4){ //slide right
@@ -366,7 +366,7 @@ touchHandler[0]=function(e,x,y){
     }else if  (e==12){ //long press
       //if(y<40){
         calc.val="";calc.sum="";calc.disp="";calc.tot="";
-        buzzer([100,50,80]);
+        buzzer.nav([100,50,80]);
       //}
     }
    this.timeout();
@@ -376,34 +376,34 @@ touchHandler[5]=function(e,x,y){
     if (e==5){
       if (face[5].tot!=-1){
       calc.disp=face[5].tot;
-      buzzer([30,50,30]);
+      buzzer.nav([30,50,30]);
       face.go("calc",0);return;
-      }else buzzer(40);
+      }else buzzer.nav(40);
     }else if  (e==1){
       if (face[5].line>0){
         face[5].line--;
         face[5].at=-1;
-   		buzzer([30,50,30]);
-      }else  buzzer(40);
+   		buzzer.nav([30,50,30]);
+      }else  buzzer.nav(40);
     }else if  (e==2){
       if (y<210) {
         if (face[5].math.length){
 		  if (face[5].math.length-face[5].line>4){
           face[5].line++;
           face[5].at=-1;
-   		  buzzer([30,50,30]);
-		  } else buzzer(40);
-        }else buzzer(40);
+   		  buzzer.nav([30,50,30]);
+		  } else buzzer.nav(40);
+        }else buzzer.nav(40);
       }else if (y>160&&x<50) {
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
         else w.gfx.bri.set(this.bri);
-		buzzer([30,50,30]);
-      }else buzzer(40);    
+		buzzer.nav([30,50,30]);
+      }else buzzer.nav(40);    
     }else if  (e==3){
       if (face[5].hist<calc.hist.length-1){
         face[5].line=0;
         face[5].hist++;
-        buzzer([30,50,30]);
+        buzzer.nav([30,50,30]);
       }else  {
 		face.go("calc",0);return;
 	  }
@@ -411,10 +411,10 @@ touchHandler[5]=function(e,x,y){
       if (face[5].hist>0){
         face[5].line=0;
         face[5].hist--;
-        buzzer([30,50,30]);
+        buzzer.nav([30,50,30]);
       }else  face.go("calc",0);return;
     }else if  (e==12){
-        buzzer([80,50,60]);
+        buzzer.nav([80,50,60]);
         face[5].hist=0;
 		calc.hist=[];
 		face.go("calc",0);return;

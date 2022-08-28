@@ -27,7 +27,17 @@ face[0] = {
 		this.g.flip(); 
 		let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
 		face[0].btn(1,euc.dash.opt.tpms?euc.dash.opt.tpms:"TPMS",18,60,115,(euc.dash.opt.tpms&&tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.opt.tpms].time<1800)?(tpms.euc[euc.dash.opt.tpms].alrm)?7:4:1,1,0,100,119,195,(euc.dash.opt.tpms)?(tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].psi)?Math.round(tpms.euc[euc.dash.opt.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.opt.tpms)?32:28,60,150);
-		if (!euc.temp.ls) {euc.temp.ls=1;setTimeout(()=>{euc.wri("getLock");setTimeout(()=>{euc.wri("getStrobe");},100);},300);}
+		if (!euc.temp.lockKey&&euc.dash.opt.lock.en){
+			setTimeout(()=>{
+					euc.wri("getLock");
+			},100);
+		}
+		if (!euc.temp.strbstatus) {
+			euc.temp.strbstatus=1;
+			setTimeout(()=>{
+				euc.wri("getStrobe");
+			},300);
+		}
 		this.run=true;
 	},
 	show : function(){
@@ -124,10 +134,10 @@ touchHandler[0]=function(e,x,y){
 			face.go("dashKingsongLight",0,"HL");
 			return;
 		}else if ( 120<=x && y<=100 ) { //STROBE
-			buzzer([30,50,30]);	
+			buzzer.nav([30,50,30]);	
 			euc.wri("setStrobeOnOff",1-euc.dash.opt.lght.strb);
 		}else if ( x<=120 && 100<=y ) { //tpms
-			buzzer([30,50,30]);		
+			buzzer.nav([30,50,30]);		
 			if (!euc.dash.opt.tpms) face[0].ntfy("HOLD-> ON/OFF","NO ACTION",19,4,1);
 			else {
 				tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.opt.tpms);
@@ -136,9 +146,13 @@ touchHandler[0]=function(e,x,y){
 			}
 		}else if  (120<=x && 100<=y ) { //Lock
 			//euc.dash.opt.lock.en=1-euc.dash.opt.lock.en;
-			buzzer([30,50,30]);	
-			euc.wri((1-euc.dash.opt.lock.en)?"doLock":"doUnlock",euc.temp.lockKey);
-		}else buzzer(40);
+			buzzer.nav([30,50,30]);	
+			//euc.wri((1-euc.dash.opt.lock.en)?"doLock":"doUnlock",euc.temp.lockKey);
+			if (euc.dash.opt.lock.en) {
+				if (euc.dbg) console.log("EUC dash: starting unlock, lock key:",euc.temp.lockKey)
+				euc.wri("doUnlock",euc.temp.lockKey);
+			}else  euc.wri("doLock");
+		}else buzzer.nav(40);
 		break;
 	case 1: //slide down event
 		//face.go("clock",0);
@@ -148,10 +162,10 @@ touchHandler[0]=function(e,x,y){
 		if ( 200<=y && x<=50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else //if (y>100) {
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		//} else {buzzer(40);}
+		//} else {buzzer.nav(40);}
 		break;
 	case 3: //slide left event
 		face.go("dashKingsongOpt",0);
@@ -161,7 +175,7 @@ touchHandler[0]=function(e,x,y){
 		return;
 	case 12:
 		if  (x<=120 && 100<=y ) { //tpms
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 			if (euc.dash.opt.tpms) {
 				euc.dash.opt.tpms=0;
 				face[0].btn(0,"TPMS",18,60,115,4,1,0,100,119,195,"OFF",28,60,150);
@@ -176,7 +190,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].ntfy("NO MODULE","NO ACTION",19,1,1);
 			}
 			return;
-		}else buzzer(40);
+		}else buzzer.nav(40);
 		break;
   }
 };

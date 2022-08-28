@@ -173,24 +173,24 @@ touchHandler[0]=function(e,x,y){
 	switch (e) {
       case 5: //tap event
 		if ( x<=120 && y<100 ) { //on off
-			buzzer([30,50,30]);	
+			buzzer.nav([30,50,30]);	
 			ledBT.do(ledBT.run?"off":"on");
 			face[0].btn(ledBT.run,ledBT.run?"ON":"OFF",25,60,35,4,1,0,0,119,97);
 			return;
 		}else if ( 120<=x && y<=100 ) { //solid
-			buzzer([30,50,30]);	
+			buzzer.nav([30,50,30]);	
 			if (ledBT.color < face[0].color.length-1) ledBT.color++; else ledBT.color=0;
 			face[0].btn(1,"SOLID",18,185,20,12,1,122,0,239,97,face[0].color[ledBT.color],25,185,50);		
 			ledBT.do(face[0].color[ledBT.color]);
   	}else if ( x<=120 && 100<=y ) { //once white
-			buzzer([30,50,30]);		
+			buzzer.nav([30,50,30]);		
 			ledBT.do("whiteOnce");
 		}else if  (120<=x && 100<=y ) { //patter
-			buzzer([30,50,30]);		
+			buzzer.nav([30,50,30]);		
 			if (ledBT.patern< face[0].patern.length-1) ledBT.patern++; else ledBT.patern=0;
 			face[0].btn(1,"PATERN",18,185,115,12,1,122,100,239,195,face[0].patern[ledBT.patern],25,185,150);	
 			ledBT.do(face[0].patern[ledBT.patern]);
-		}else buzzer(40);
+		}else buzzer.nav(40);
 		break;
 	case 1: //slide down event
 		if (euc.state!="OFF") face.go(ew.is.dash[ew.def.dash.face],0);
@@ -201,10 +201,10 @@ touchHandler[0]=function(e,x,y){
 		if ( 200<=y && x<=50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else //if (y>100) {
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		//} else {buzzer(40);}
+		//} else {buzzer.nav(40);}
 		break;
 	case 3: //slide left event
 		face.go(face.appPrev,0);

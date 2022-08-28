@@ -72,7 +72,7 @@ face[0] = {
 	if(!scan.mac) {scan.mac=[];this.find(o);}
     this.g.setColor(0,0); //header
     this.g.fillRect(0,0,239,35); 
-    this.g.setColor(1,14);
+    this.g.setColor(1,11);
     this.g.setFont("Vector",24);
 	this.g.drawString((face.appPrev=="repellent")?"REPELLENT":"EUC",4,6); 
     this.g.flip();
@@ -88,7 +88,7 @@ face[0] = {
       this.g.flip();
       this.g.setColor(1,1);
       this.g.fillRect(0,36,239,239); 
-      this.g.setColor(0,14);
+      this.g.setColor(0,11);
       this.g.setFont("Vector",28);
       this.g.drawString("SCANNING",120-(this.g.stringWidth("SCANNING")/2),110);
       this.g.flip();
@@ -96,7 +96,7 @@ face[0] = {
       this.start=2;
       this.g.setColor(0,0); //header
       this.g.fillRect(160,0,239,35);
-      this.g.setColor(1,14);
+      this.g.setColor(1,11);
       this.g.setFont("Vector",26);
       this.g.drawString(scan.mac.length+"/"+scan.mac.length,242-(this.g.stringWidth(scan.mac.length+"/"+scan.mac.length)),3);
       this.g.flip();
@@ -119,7 +119,7 @@ face[0] = {
       this.start=3;
       this.g.setColor(0,1); //header
       this.g.fillRect(0,36,239,239);
-      this.g.setColor(1,14);
+      this.g.setColor(1,11);
       this.g.setFont("Vector",25);
       this.g.drawString("NOT FOUND",120-(this.g.stringWidth("NOT FOUND")/2),80);
       this.g.setFont("Vector",20);
@@ -166,14 +166,14 @@ face[1] = {
 touchHandler[0]=function(e,x,y){
 	this.timeout();
     if (e==5||e==12){
-		if (!face[0].start||face[0].start==1) { buzzer(40);return;}
-		if (face[0].start==3) { buzzer([30,50,30]);face[0].find(face.pageArg); return;}
+		if (!face[0].start||face[0].start==1) { buzzer.nav(40);return;}
+		if (face[0].start==3) { buzzer.nav([30,50,30]);face[0].find(face.pageArg); return;}
 		if(36<y&&y<=85) 	{this.mac=scan.mac[0].split("|")[0];this.name=(scan.mac[0].split("|")[1]!="undefined")?scan.mac[0].split("|")[1]:0;}
 		else if(85<y&&y<=135) {this.mac=scan.mac[1].split("|")[0];this.name=(scan.mac[1].split("|")[1]!="undefined")?scan.mac[1].split("|")[1]:0;}
 		else if(135<y&&y<=185) 	{this.mac=scan.mac[2].split("|")[0];this.name=(scan.mac[2].split("|")[1]!="undefined")?scan.mac[2].split("|")[1]:0;}
 		else if(185<y) 	{this.mac=scan.mac[3].split("|")[0];this.name=(scan.mac[3].split("|")[1]!="undefined")?scan.mac[3].split("|")[1]:0;}
 		if (this.mac!=undefined) {
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 			if (face.appRoot[0]!="repellent"){
 				if (this.name) ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name",this.name?E.toString(this.name).replace(/\0/g, ''):"NA");
                 //ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Mac",this.mac);
@@ -185,17 +185,17 @@ touchHandler[0]=function(e,x,y){
                 ew.do.fileWrite("setting",face.appRoot[0]+"Go",face[0].line+"");
 			}
 			face.go(face.appRoot[0],face.appRoot[1]);return;
-		}else buzzer(40);
+		}else buzzer.nav(40);
     }else if  (e==1){
 	  face.go(face.appPrev,face.pagePrev);return;
     }else if  (e==2){
 	  if (y>200&&x<50) {
         if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
         else w.gfx.bri.set(this.bri);
-		buzzer([30,50,30]);
-	  } else buzzer(40);
+		buzzer.nav([30,50,30]);
+	  } else buzzer.nav(40);
     }else if  (e==3){
-	  buzzer(40);    
+	  buzzer.nav(40);    
     }else if  (e==4){
 		face.go(face.appRoot[0],face.appRoot[1]);
 	  return;

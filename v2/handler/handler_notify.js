@@ -15,9 +15,9 @@ function handleInfoEvent(event,discrete) {
     let ti=(""+d[4]+" "+d[0]+" "+d[2]);
 	notify.info.unshift("{\"src\":\""+event.src+"\",\"title\":\""+event.title+"\",\"body\":\""+event.body+"\",\"time\":\""+ti+"\"}");
 	if (notify.info.length>10) notify.info.pop();
-	//buzzer([80,50,80]);
+	//buzzer.nav([80,50,80]);
 	if (ew.def.buzz&&!notify.ring) {
-		buzzer([80,50,80]);
+		buzzer.nav([80,50,80]);
 		if (face[0].bar){
 			UI.btn.ntfy(1,4,0,"_bar",6,event.title,event.body,15,4);w.gfx.flip();
 		}else if (!discrete){

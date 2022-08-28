@@ -1,11 +1,15 @@
+E.setFlags({pretokenise:1});
 tcNext.replaceWith(()=>{
-	if ( euc.state!="OFF")
+	if ( euc.state!="OFF"){
+    if ( euc.state!="READY") {buzzer.nav(buzzer.buzz.na);return;}
+		buzzer.nav(buzzer.buzz.ok);
 		face.go('dash'+require("Storage").readJSON("dash.json",1)['slot'+require("Storage").readJSON("dash.json",1).slot+'Maker'],0);
-	else 
-		buzzer(buz.na);
+	}else 
+		buzzer.nav(buzzer.buzz.na);
 });
 
 tcBack.replaceWith(()=>{
+	buzzer.nav(buzzer.buzz.ok);
 	face.go("clock",0);
 });
 //
@@ -16,179 +20,186 @@ face[0] = {
 	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:10000,
 	old:ew.def.bpp?0:1,
 	init: function(o){ 
-		this.ampC=[1,2992,7,7];
-		this.tmpC=[1,2992,7,7];
-		this.batC=[4,1,7,7];
-		if ( process.env.BOARD=="BANGLEJS2") {
-			this.gui={
-				spd:[0,40,180,150],
-				spdm:100,
-				tmp:[0,0,90,40],
-				bat:[91,0,180,40],
-				txt:110*UI.size.txt,
-				txt1:40*UI.size.txt
-				//spd:UI.pos._main[5],
-				//spdm:7+UI.pos._main[5][3]-((UI.pos._main[5][3]-UI.pos._main[5][1])/2),
-				//tmp:UI.pos._main[1],
-				//bat:UI.pos._main[2],
-				//txt:117*UI.size.txt,
-				//txt1:45*UI.size.txt
-			};
-			this.spdC=[15,13,7,7];
-		}else{
-			this.gui={
-				//spd:UI.pos._main[5],
-				//spdm:10+UI.pos._main[5][3]-((UI.pos._main[5][3]-UI.pos._main[5][1])/2),
-				//tmp:UI.pos._main[1],
-				//bat:UI.pos._main[2],txt:170*UI.size.txt,
-				spd:[0,60,240,240],
-				spdm:140,
-				tmp:[0,0,120,60],
-				bat:[121,0,240,60],
-				txt:170*UI.size.txt,
-				txt1:60*UI.size.txt
-				};
-			this.spdC=[0,13,7,7];
+		this.spdC=process.env.BOARD=="BANGLEJS2"?[0,0,15,13]:[15,14,15,14];
+		this.spdCB=process.env.BOARD=="BANGLEJS2"?[15,14,13,13]:[0,0,13,14];
+		this.ampC=[1,0,13,13];
+		this.tmpC=[11,14,13,13];
+		this.batC=[4,9,13,13];
+		this.indP=1;
+		this.indD=1;
+		this.gui=process.env.BOARD=="BANGLEJS2"?
+			{
+			spd:[0,5,180,120],
+			spdm:70,
+			center:90,
+			batTop:[0,120,179,130],
+			bat:[15,135,165,145],
+			batOut:[10,130,170,150],
+			//tmp:[30,260,210,275],
+			clock:[10,155,160,170],
+
+			txt:140*UI.size.txt,
+			txt1:20*UI.size.txt,
+			txtBat:14,
+			
+			topr:[122,20,239,70],
+		 }:
+		 {
+			spd:[0,20,240,190],
+			spdm:120,
+			center:120,
+			batTop:[0,190,240,200],
+			bat:[15,205,225,225],
+			batOut:[10,200,230,230],
+			tmp:[30,260,210,275],
+			clock:[10,240,230,280],
+			txt:200*UI.size.txt,
+			txt1:40*UI.size.txt,
+			txtBat:20,
+			topr:[122,20,239,70],
 		}
+		this.spd=euc.dash.live.spd-1;
 		this.spdF=euc.dash.opt.unit.fact.spd*((ew.def.dash.mph)?0.625:1);
 		this.trpF=euc.dash.opt.unit.fact.dist*((ew.def.dash.mph)?0.625:1);
-		UI.ele.ind(0,0,1);
-		UI.ele.title("||||| ||||| |||||",15,4);
-		this.run=false;
-		euc.on('one',face[0].show);
+		
+		
+		//UI.ele.fill("_main",3,1);
+		//UI.ele.ind(2,10,1);
+
+		//this.bar();
+		this.run=true;
+		//euc.on('refresh',face[0].show);
 	},
 	show : function(s){
 		"ram";
 		//if (!face[0].run) return;
 		if (euc.state=="READY") {
+			if (face[0].conn!=euc.state) {face[0].conn=euc.state;this.bar();}
 			if (face[0].spd!=Math.round(euc.dash.live.spd)) face[0].spdf();
-			if (!ew.def.dash.clkS){	
-				if (face[0].tmp!=euc.dash.live.tmp.toFixed(1))	face[0].tmpf();
-			}else if (60 < getTime()-face[0].time )	
-				face[0].clkf();
-			if (ew.def.dash.batS){	if (face[0].bat!=euc.dash.live.bat) face[0].batf();
-			}else  if (face[0].volt!=euc.dash.live.volt.toFixed(1)) face[0].vltf();
-			else if (euc.dash.opt.tpms&&tpms.euc[euc.dash.opt.tpms]&&(face[0].tpms!=tpms.euc[euc.dash.opt.tpms].alrm)) face[0].tpmsf();
-		} else  {
-			if (euc.state!=face[0].conn) {
+			else if (face[0].bat!=euc.dash.live.bat&&!UI.ntid){
+				face[0].barBat();
+			}
+		//	else if (face[0].tmp!=euc.dash.live.tmp.toFixed(1)&&!UI.ntid )
+		//		face[0].barTemp();
+			else if (60 < getTime()-face[0].time )
+				this.barClock();
+		} else  if (euc.state!=face[0].conn) {
+				if (euc.state=="OFF"){ face.go("dashGarage",0); return;}
+				this.bar();
+	  			UI.btn.c2l("main","_lcd",2,euc.state,0,15,0,0.7); //4
 				face[0].conn=euc.state;
-				UI.btn.c2l("main","_main",7,euc.state,0,15,0); //4
-				face[0].spd=-1;face[0].time=0;face[0].amp=-1;face[0].tmp=-1;face[0].volt=-1;face[0].bat=-1;face[0].trpL=-1;face[0].conn=0;face[0].lock=2;face[0].run=true;}
+				face[0].spd=-1;face[0].time=0;face[0].amp=-1;face[0].tmp=-1;face[0].volt=-1;face[0].bat=-1;face[0].trpL=-1;face[0].lock=2;face[0].run=true;
 		}
-		if (!face[0].old)face[0].g.flip();
-		//face[0].tid=setTimeout(function(t){
-		//	t.tid=0;
-		//	t.show();
-		//},50,this);
+		//if (!face[0].old)
+		this.tid=setTimeout(function(t){
+			let tm=getTime();
+			t.indP=t.indP+t.indD;
+			UI.ele.ind(t.indP,6,0,euc.state=="READY"?11:14);
+			if (5<t.indP) t.indD=-1;
+			else if (t.indP<2) t.indD=1;
+			t.g.flip();
+			t.tid=0;
+			t.show();
+			if (ew.dbg) print("simple dash, time in loop",getTime()-tm);
+		},20,this);
 	},
 	spdf: function(){
 		"ram";
-		this.spd=Math.round(euc.dash.live.spd);
-		this.g.setColor(0,(euc.dash.alrt.spd.cc==1)?0:this.spdC[euc.dash.alrt.spd.cc]);
+		if ( Math.abs(euc.dash.live.spd-this.spd) <3 ) this.spd =Math.round(euc.dash.live.spd);
+		else if (euc.dash.live.spd<this.spd) this.spd=Math.round(this.spd-(this.spd-euc.dash.live.spd)/2); 
+		else this.spd=Math.round(this.spd+(euc.dash.live.spd-this.spd)/2); 
+		this.g.setColor(1,this.spdCB[euc.dash.alrt.spd.cc]);
 		this.g.fillRect(this.gui.spd[0],this.gui.spd[1],this.gui.spd[2],this.gui.spd[3]);
-		if ( process.env.BOARD=="BANGLEJS2") this.g.setColor(1,0);
-		else this.g.setColor(1,(euc.dash.alrt.spd.cc==1)?13:15);
+		this.g.setColor(0,this.spdC[euc.dash.alrt.spd.cc]);
 		if (100 <= this.spd) {
 			if (120 < this.spd)  this.spd=120;
 			this.g.setFontVector(this.gui.txt-30);
 		}else 
 			this.g.setFontVector(this.gui.txt);	  
-		this.g.drawString(Math.round(this.spd*this.spdF),(10+this.gui.spd[2]/2)-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2),this.gui.spdm-(this.gui.txt/2)); 
-		if (this.old)this.g.flip();
+		this.g.drawString(Math.round(this.spd*this.spdF),this.gui.center+5-(this.g.stringWidth(Math.round(this.spd*this.spdF))/2),this.gui.spdm-(this.gui.txt/2)); 
+		//if (this.old)this.g.flip();
+		this.g.flip();
 	},
-	tmpf: function(){
-		"ram";
+	barBat: function(){
+		this.bat=euc.dash.live.bat;
+		this.g.setColor(0,0);
+		this.g.fillRect({x:this.gui.batTop[0],y:this.gui.batTop[1],x2:this.gui.batTop[2],y2:this.gui.batTop[3],r:0});	
+		this.g.setColor(0,this.batC[euc.dash.alrt.bat.cc]);
+		this.g.fillRect({x:this.gui.batOut[0],y:this.gui.batOut[1],x2:this.gui.batOut[2],y2:this.gui.batOut[3],r:17});	
+
+		let rel=(this.gui.bat[2]-this.gui.bat[0])/100;
+		this.g.setColor(1,1);
+		this.g.fillRect({x:this.gui.bat[0]+(this.bat*rel)-5,y:this.gui.bat[1],x2:this.gui.bat[2],y2:this.gui.bat[3],r:10});
+
+		this.g.setColor(0,15);
+		this.g.fillRect({x:this.gui.bat[0],y:this.gui.bat[1],x2:this.gui.bat[0]+(this.bat*rel),y2:this.gui.bat[3],r:10});	
+
+		this.g.setFontVector(this.gui.txtBat);
+		this.g.setColor(0,2);
+		this.g.drawString("|    |    |    |",this.gui.center-(this.g.stringWidth("|    |    |    |")/2),this.gui.bat[1]);
+		
+		this.g.flip();
+	},
+	barTemp: function(){
 		this.tmp=euc.dash.live.tmp.toFixed(1);
-		this.g.setColor(0,this.tmpC[euc.dash.alrt.tmp.cc]);
-		this.g.fillRect(this.gui.tmp[0],this.gui.tmp[1],this.gui.tmp[2],this.gui.tmp[3]);
-		this.g.setColor(1,15);
-		this.g.setFontVector(this.gui.txt1);	  
-		let temp=((ew.def.dash.farn)?this.tmp*1.8+32:this.tmp).toString().split(".");
-		let size=5+this.g.stringWidth(temp[0]);
-		this.g.drawString(temp[0], 10,this.gui.tmp[1]+3); 
-		if (temp[0]<100) {
-			this.g.setFontVector(this.gui.txt1/1.8);
-			this.g.drawString("."+temp[1],5+size,this.gui.tmp[1]+this.gui.txt1/2.6); 
-			size=size+this.g.stringWidth(temp[1]);
-		}
-		this.g.setFontVector(this.gui.txt1/4);
-		this.g.drawString((ew.def.dash.farn)?"°F":"°C",size,this.gui.tmp[1]+3); 
-		if (this.old)this.g.flip();
+		//this.g.setColor(0,this.tmpC[euc.dash.alrt.tmp.cc]);
+		this.g.setColor(0,10);
+		let rel=(this.gui.tmp[2]-this.gui.tmp[0])/100;
+		this.g.fillRect({x:this.gui.tmp[0],y:this.gui.tmp[1],x2:this.gui.tmp[0]+(this.tmp*rel),y2:this.gui.tmp[3],r:10});	
+		this.g.setColor(1,6);
+		this.g.fillRect({x:this.gui.tmp[0]+(this.tmp*rel),y:this.gui.tmp[1],x2:this.gui.tmp[2],y2:this.gui.tmp[3],r:10});	
+		this.g.flip();
+
 	},
-	clkf: function(){
-		"ram";
+	barClock: function(){
 		this.time=getTime();
-		this.g.setColor(0,1);
-		this.g.fillRect(this.gui.tmp[0],this.gui.tmp[1],this.gui.tmp[2],this.gui.tmp[3]);
-		this.g.setColor(1,14);
-		this.g.setFontVector(45);
+		this.g.setColor(0,0);
+		this.g.fillRect(this.gui.clock[0],this.gui.clock[1],this.gui.clock[2],this.gui.clock[3]);
+		this.g.setColor(1,11);
+		this.g.setFontVector(this.gui.txt1);
 		let d=(Date()).toString().split(' ');
 		let t=(d[4]).toString().split(':');
-		this.time=(t[0]+":"+t[1]);
-		this.g.drawString(this.time,0,5); 
-		if (this.old)this.g.flip();
-	},
-	batf: function(){
-		"ram";
-		this.bat=euc.dash.live.bat;
-		this.g.setColor(0,this.batC[euc.dash.alrt.bat.cc]);
-		this.g.fillRect(this.gui.bat[0],this.gui.bat[1],this.gui.bat[2],this.gui.bat[3]);
-		this.g.setColor(1,15);
-		this.g.setFontVector(this.gui.txt1);
-		this.g.drawString(this.bat,225-(this.g.stringWidth(this.bat)),this.gui.bat[1]+3);
-		this.g.setFontVector(this.gui.txt1/2);
-		this.g.drawString("%",227,this.gui.bat[1]+8);
-		if (this.old)this.g.flip();
-	},
-	vltf: function(){
-		"ram";
-		this.volt=euc.dash.live.volt.toFixed(1);
-		this.g.setColor(0,this.batC[euc.dash.alrt.bat.cc]);
-		this.g.fillRect(this.gui.bat[0],this.gui.bat[1],this.gui.bat[2],this.gui.bat[3]);
-		this.g.setColor(1,15);
-		let volt=this.volt.toString().split(".");
-		this.g.setFontVector(this.gui.txt1/6);
-		this.g.drawString("VOLT",this.gui.bat[2]-13-this.g.stringWidth("VOLT"),this.gui.bat[1]+5); 
-		let size=this.gui.bat[2]-10;
-		if (volt[0]<100) {
-			this.g.setFontVector(this.gui.txt1/1.8);
-			size=size-this.g.stringWidth("."+volt[1]);
-			this.g.drawString("."+volt[1],size,this.gui.bat[1]+this.gui.txt1/2.6); 
+		if (!ew.def.hr24) {
+			t[0]=(t[0]<10)?(t[0]=="00")?12:t[0][1]:(t[0]<13)?t[0]:t[0]-12;
 		}
-		this.g.setFontVector(this.gui.txt1);
-		this.g.drawString(volt[0], size-this.g.stringWidth(volt[0]),this.gui.bat[1]+3); 
-		if (this.old)this.g.flip();
+		this.g.drawString((t[0]+":"+t[1]),this.gui.center-(this.g.stringWidth((t[0]+":"+t[1]))/2),this.gui.clock[1]+5); 
+		this.g.flip();
 	},
-	ampf: function(){
-		"ram";
-		this.amp=euc.dash.live.amp;
-		this.g.setColor(0,this.ampC[euc.dash.alrt.amp.cc]);
-		this.g.fillRect(this.gui.tmp[0],this.gui.tmp[1],this.gui.tmp[2],this.gui.tmp[3]);
-		this.g.setColor(1,15);
-		this.g.setFontVector(33);
-		this.g.drawString(this.amp|0,(122-(this.g.stringWidth(this.amp|0)/2)),5); 
-		if (this.old)this.g.flip();
-	},
-	tpmsf: function(){		
-		"ram";
-		this.tpms=tpms.euc[euc.dash.opt.tpms].alrm;
-		this.g.setColor(0,(this.tpms)?7:4);
-		this.g.clearRect(0,210,239,239); //amp 
-		this.g.setColor(1,14);
-		this.g.setFontVector(25);
-		this.g.drawString("TPMS",85,215); 
-		if (this.old)this.g.flip();
-	},
-	bar:function(){
-		"ram";
 
+	bar:function(){
+		"ram"
+		UI.ele.fill("_bar",6,0);
+		  if ( euc.state!="READY") {
+					UIc.start(0,1);
+					UI.btn.c2l("bar","_bar",6,"CANCEL",0,15,13,1.2); //4
+					UIc.end();
+					UIc.bar._bar=(i)=>{ 
+						buzzer.nav(buzzer.buzz.ok);
+						euc.tgl();
+					};
+		  		return;
+			}
+		face[0].barBat();
+		//face[0].barTemp();
+		face[0].barClock();
+
+	/*	img = require("heatshrink").decompress(atob(_icon.battS));
+ 		this.g.setColor(1,0);
+		w.gfx.drawImage(img, 42,203, { scale: 1 * UI.size.sca });
+ 		img = require("heatshrink").decompress(atob(_icon.tempS));
+ 		this.g.setColor(1,0);
+		w.gfx.drawImage(img, 40,245, { scale: 1 * UI.size.sca });   
+*/
+ 		//this.g.setFontVector(45);
+    	//this.g.setColor(1,0);
+		//this.g.drawString("  |  |  |", 10,200); 
+		//w.gfx.flip();
 	},
 	clear : function(o){
 		ew.temp.bar=0;
 		this.run=false;
 		if (this.tid) clearTimeout(this.tid);this.tid=0;
-   		if (this.ntid) clearTimeout(this.ntid);this.ntid=0;
-		euc.removeAllListeners();
+ 		if (this.ntid) clearTimeout(this.ntid);this.ntid=0;
 		return true;
 	},
 	off: function(o){
@@ -196,7 +207,16 @@ face[0] = {
 	}
 };
 //
+UIc.start(1,1);
+UI.ele.coord("main","_2x2",1);
+UI.ele.coord("main","_2x2",2);
+//UI.ele.coord("main","_bar",6);
+UIc.end();
 
-UIc.main._2x2_1=()=>{buzzer(buz.ok);this.sel(1,"hapS","SPEED","haSv",10,100);};
-UIc.main._2x2_2=()=>{buzzer(buz.ok);this.sel(2,"hapA","AMP","haSv",10,100);};
+
+UIc.main._2x2=(i)=>{ 
+	buzzer.nav(buzzer.buzz.ok);
+	if (i==1) ew.def.dash.clkS=1-ew.def.dash.clkS;
+	else if (i==2) ew.def.dash.batS=1-ew.def.dash.batS;
+};
 

@@ -139,7 +139,7 @@ touchHandler[0]=function(e,x,y){
 				touchHandler[0](e,x,y);
 				return;
 			} else{
-				buzzer([30,50,30]);
+				buzzer.nav([30,50,30]);
 				if (face[0].set=="spdF") { 
 					if (x<120){ //spd
 						euc.dash.opt.unit.fact.spd=(euc.dash.opt.unit.fact.spd - 0.01);
@@ -185,7 +185,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].btn(1,"EMPTY",15,40,90,12,0,0,80,75,155,euc.dash.opt.bat.low/100,30,40,120); //4
 					face[0].ntfy("0% WHEN CELL IS AT",euc.dash.opt.bat.low/100 + " Volt",30,1,12,3000,1);	
 				}else  {
-					buzzer(40);
+					buzzer.nav(40);
 					face[0].set=0;
 					face[0].btn(1,"SPEED X",15,40,90,1,4,0,80,75,155,euc.dash.opt.unit.fact.spd,30,40,120); //4
 					face[0].btn(1,"DIST X",15,120,90,1,4,80,80,155,155,euc.dash.opt.unit.fact.dist,30,120,120); //5
@@ -194,54 +194,54 @@ touchHandler[0]=function(e,x,y){
 		}else if (!face[0].page){	
 			if (x<75 && y<75) { //1
 				//face[0].set="mph";
-				buzzer([30,50,30]);
+				buzzer.nav([30,50,30]);
 				ew.def.dash.mph=1-ew.def.dash.mph;
 				face[0].btn(1,(ew.def.dash.mph)?"MPH":"KPH",30,40,25,4,0,0,0,75,75);
 				face[0].ntfy("SPEED & DISTANCE IN",(ew.def.dash.mph)?"MILES":"KILOMETERS",30,1,4,1500);
 			}else if (75<= x && x < 155 && y < 75) { //2
 				//face[0].set="far";
-				buzzer([30,50,30]);
+				buzzer.nav([30,50,30]);
 				ew.def.dash.farn=1-ew.def.dash.farn;
 				face[0].btn(1,"o",20,100,20,4,0,80,0,155,75,(ew.def.dash.farn)?"F":"C",30,120,25);
 				face[0].ntfy("TEMPERATURE IN",(ew.def.dash.farn)?"FAHRENHEIT":"CELSIUS",30,1,4,1500);
 			}else if (155 <= x && y < 75) { //3
-				buzzer(40);
+				buzzer.nav(40);
 			}else if (x<75 && 75 <y && y < 155) { //4
-				buzzer([30,50,30]);
+				buzzer.nav([30,50,30]);
 				face[0].set="spdF";
 				face[0].btn(1,"SPEED X",15,40,90,12,0,0,80,75,155,euc.dash.opt.unit.fact.spd,30,40,120); //4
 				face[0].ntfy("SPEED FACTOR",euc.dash.opt.unit.fact.spd,40,1,12,3000,1);
 			}else if (75<= x && x < 155 && 75 <y && y < 155) { //5
-				buzzer([30,50,30]);
+				buzzer.nav([30,50,30]);
 				face[0].set="trpF";
 				face[0].btn(1,"DIST X",15,120,90,12,0,80,80,155,155,euc.dash.opt.unit.fact.dist,30,120,120); //5
 				face[0].ntfy("DISTANCE FACTOR",euc.dash.opt.unit.fact.dist,40,1,12,3000,1);
 			}else if (155 <= x && 75 <y && y < 155) { //6
-				buzzer([30,50,30]);
+				buzzer.nav([30,50,30]);
 				face[0].set="rtr";
 				face[0].btn(1,"RETRY",15,200,90,12,0,160,80,239,155,ew.def.dash.rtr,30,200,120); //6
 				face[0].ntfy("NUMBER OF RETRIES",ew.def.dash.rtr,40,1,12,3000,1);
-			}else buzzer(40);		
+			}else buzzer.nav(40);		
 		}else {
 			if (x<75 && y<75) { //1
-				buzzer([30,50,30]);     
+				buzzer.nav([30,50,30]);     
 				face[0].set="batF";
 				face[0].btn(1,"FULL",15,40,10,12,0,0,0,75,75,euc.dash.opt.bat.hi/100,30,40,35); //1
 				face[0].ntfy("100% WHEN CELL IS AT",euc.dash.opt.bat.hi/100 + " Volt",30,1,12,3000,1);
 			}else if (75<= x && x < 155 && y < 75) { //2
-				buzzer(50);  
+				buzzer.nav(50);  
 			}else if (155 <= x && y < 75) { //3
 				euc.dash.opt.unit.ampR=1-euc.dash.opt.unit.ampR;
 				face[0].btn(1,"AMP",15,200,10,4,1,160,0,239,75,(euc.dash.opt.unit.ampR)?"R":"N",30,200,35); //3
 				face[0].ntfy("AMPERAGE REPORT",(euc.dash.opt.unit.ampR)?"REVERSED":"NORMAL",30,1,4,1500);
-				buzzer([30,50,30]);
+				buzzer.nav([30,50,30]);
 			}else if (x<75 && 75 <y && y < 155) { //4   15,40,90,12,0,0,80,75,155,euc.dash.opt.unit.fact.spd,30,40,120); 
-				buzzer([30,50,30]);   
+				buzzer.nav([30,50,30]);   
 				face[0].set="batE";
 				face[0].btn(1,"EMPTY",15,40,90,12,0,0,80,75,155,euc.dash.opt.bat.low/100,30,40,120); //4
 				face[0].ntfy("0% WHEN CELL IS AT",euc.dash.opt.bat.low/100 + " Volt",30,1,12,3000,1);
 			}else if (75<= x && x < 155 && 75 <y && y < 155) { //5
-				buzzer(40);
+				buzzer.nav(40);
 			}else if (155 <= x && 75 <y && y < 155) { //6
 				if (1.5<=euc.dash.opt.bat.pack&& euc.dash.opt.bat.pack<=1.8) euc.dash.opt.bat.pack=1.875;
 				else if (euc.dash.opt.bat.pack==1.875) euc.dash.opt.bat.pack=2;
@@ -249,8 +249,8 @@ touchHandler[0]=function(e,x,y){
 				else euc.dash.opt.bat.pack=euc.dash.opt.bat.pack+0.25;
 				face[0].btn(1,"PACK",15,200,90,4,0,160,80,239,155,euc.dash.opt.bat.pack*67.2|0,30,200,120); //6
 				face[0].ntfy("BATTERY VOLTAGE",euc.dash.opt.bat.pack*67.2,40,1,4,1500);
-				buzzer([30,50,30]);   
-			}else buzzer(40);		
+				buzzer.nav([30,50,30]);   
+			}else buzzer.nav(40);		
 		}
 		//yhis.timeout();
 		return;
@@ -267,7 +267,7 @@ touchHandler[0]=function(e,x,y){
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 			//yhis.timeout();
 			return;
 		}else {
@@ -304,7 +304,7 @@ touchHandler[0]=function(e,x,y){
 			w.gfx.fillRect(120,180,165,184);
 			w.gfx.flip(); 
 		}else
-			buzzer(40);
+			buzzer.nav(40);
 		break;
 	case 4: //slide right event (back action)
 		if (face[0].page) {
@@ -340,7 +340,7 @@ touchHandler[0]=function(e,x,y){
 		}
 		return;
 	case 12: //hold event
-		buzzer(40);
+		buzzer.nav(40);
 		//yhis.timeout();
 		break;
   }

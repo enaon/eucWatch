@@ -116,21 +116,21 @@ touchHandler[0]=function(e,x,y){
 			euc.dash.opt.ride.mode=1-euc.dash.opt.ride.mode;
 			face[0].btn("MODE",18,60,20,(euc.dash.opt.ride.mode)?4:1,0,0,119,97,(euc.dash.opt.ride.mode)?"CLASIC":"COMFORT",23,60,55);
 			euc.wri("setRideMode",euc.dash.opt.ride.mode);
-			buzzer([30,50,30]);		
+			buzzer.nav([30,50,30]);		
 		}else if ( 120<=x  && y<=100 ) { //calibrate
-            buzzer([30,50,30]);
+            buzzer.nav([30,50,30]);
 			face.go("dashInmotionV1AdvCalibrate",0);
 			return;
 		//}else if ( x<=120 && 100<=y ) {   //limits
-		//	buzzer([30,50,30]);
+		//	buzzer.nav([30,50,30]);
 		//	face.go("dashInmotionV1AdvLimits",0);
 		//	return;
 		//}else if ( 120<=x && 100<=y ) { //pass
-		//	buzzer([30,50,30]);		
+		//	buzzer.nav([30,50,30]);		
 		//	if (euc.dash.opt.lock.pass.length>=4) face.go("dashInmotionV1AdvPass",5);
 		//	else face.go("dashInmotionV1AdvPass",0);
 		//	return;
-		}else buzzer(40);
+		}else buzzer.nav(40);
 		this.timeout();
 		break;
 	case 1: //slide down event
@@ -141,12 +141,12 @@ touchHandler[0]=function(e,x,y){
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		this.timeout();
 		break;
 	case 3: //slide left event
-		buzzer(40);    
+		buzzer.nav(40);    
 		this.timeout();
 		break;
 	case 4: //slide right event (back action)

@@ -1,3 +1,4 @@
+E.setFlags({pretokenise:1});
 ew.def.touchtype="816";
 ew.is.tpT=0;
 ew.def.rstR=0xA5; //the rock has auto sleep if 254 is 0.
@@ -21,7 +22,7 @@ var TC={
 			i2c.writeTo(0x15,0xFA,17); //gesture mode
 			i2c.writeTo(0x15,254,1); //auto sleep off
 			i2c.writeTo(0x15,0);
-			print("wake");
+			//print("wake");
 			this.init();
 		},200);
 
@@ -33,28 +34,27 @@ var TC={
 			//i2c.writeTo(0x15,0);
 			var tp=i2c.readFrom(0x15,7);
 			if  (ew.temp.bar) { 
-				if (180<(((tp[5]&0x0F)<<8)|tp[6])) {
-					print("in bar");
+				if ( 180<(((tp[5]&0x0F)<<8 )|tp[6]) ) {
 					if (!TC.tid) {
 						TC.tid=setInterval(function(){
 							TC.bar();
 						},30);
-						print("start bar");
 					}
 					return;
 				}else if (TC.tid){
-					print("clear bar1");
+					//print("clear bar1");
 					clearInterval(TC.tid);TC.st=1;TC.tid=0;ew.temp.bar=0;
 				}
 			}
 			//print("in",tp);
 			if (face.pageCurr>=0) {
-				TC.emit("tc"+tp[1],tp[4],tp[6]);
 				face.off();
+				TC.emit("tc"+tp[1],tp[4],(((tp[5]&0x0F)<<8 )|tp[6]));
 			}else if (tp[1]==5) {
-				if ( (getTime()|0) - ew.is.tpT < 1 )     
+				if ( (getTime()|0) - ew.is.tpT < 1 )  {
+					buzzer.nav(buzzer.buzz.ok)
 					face.go(face.appCurr,0);
-				else   ew.is.tpT=getTime()|0;
+				}else   ew.is.tpT=getTime()|0;
 			}		
 			if (this.loop) {clearTimeout(this.loop); this.loop=0;}
 			this.loop=setTimeout(()=>{
@@ -64,9 +64,9 @@ var TC={
 						TC.tid=setInterval(function(){
 							TC.bar();
 						},30);
-						print("start bar");
+						//print("start bar");
 					}else if ( (((tp[5]&0x0F)<<8)|tp[6])<180 ) {
-						print("clear bar");
+						//print("clear bar");
 						clearInterval(TC.tid);TC.st=1;TC.tid=0;
 					}
 				} 
@@ -95,9 +95,9 @@ var TC={
 								this.val.tmp=0;
 								if (this.val.up<this.val.cur) this.val.cur=this.val.up;
 								else if (this.val.cur<this.val.dn) this.val.cur=this.val.dn;
-								buzzer(20);TC.emit("bar",this.y<tp[4]?1:-1,this.val.cur);
+								buzzer.nav(20);TC.emit("bar",this.y<tp[4]?1:-1,this.val.cur);
 							}
-							//if (!this.val.tmp) {buzzer(20);TC.emit("bar",this.y<tp[4]?1:-1,this.val.cur);}
+							//if (!this.val.tmp) {buzzer.nav(20);TC.emit("bar",this.y<tp[4]?1:-1,this.val.cur);}
 						}
 					this.y=tp[4];
 					}
@@ -110,18 +110,7 @@ var TC={
 		"ram";
 		i2c.writeTo(0x15,254,0); //auto sleep on
 		i2c.writeTo(0x15,0);
-		print("sleep");
+		//print("sleep");
 		return true;
-		//"ram";
-		////setTimeout(()=>{i2c.writeTo(0x15,ew.def.rstR,3);},100);
-		//if (this.ntid&&ew.def.rstR==229) {clearWatch(this.ntid);this.ntid=0;}
 	}
 };
-
-/*TC.on('tc1',x=>{print(x);});
-TC.on('tc2',x=>{print(x);});
-TC.on('tc3',x=>{print(x);});
-TC.on('tc4',x=>{print(x);});
-TC.on('tc5',x=>{print(x);});
-TC.on('tc12',x=>{print(x);});
-*/

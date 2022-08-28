@@ -131,7 +131,7 @@ touchHandler[0]=function(e,x,y){
   case 5: case 12: //tap event//long press event
 	
     if(0<y&&y<100) {
-		buzzer([30,50,30]);
+		buzzer.nav([30,50,30]);
 		if ( face[0].set === 1 ) { //Inmotiion V5/8/10
 			if (!require("Storage").read('eucInmotionV10')) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
 			ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Maker","InmotionV10");
@@ -164,7 +164,7 @@ touchHandler[0]=function(e,x,y){
 			face.go('w_scan',0,'e7fe');
 		}
 	}else if(100<y&&y<200) {
-		buzzer([30,50,30]);
+		buzzer.nav([30,50,30]);
 		if ( face[0].set === 1 ) {
 			if(x<120){
 				if (!require("Storage").read('eucInmotionV11')) {face[0].ntfy("INSTALL MODULE","",20,7,1); return; }
@@ -204,7 +204,7 @@ touchHandler[0]=function(e,x,y){
 			euc.dash.info.get.makr="Kingsong"; 
 			face.go('w_scan',0,'fff0'); 
 		}
-    }else buzzer(40); 
+    }else buzzer.nav(40); 
     break;
   case 1: //slide down event
     face.go(ew.is.dash[ew.def.dash.face],0);
@@ -213,7 +213,7 @@ touchHandler[0]=function(e,x,y){
     if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
       if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
       else w.gfx.bri.set(this.bri);
-      buzzer([30,50,30]);
+      buzzer.nav([30,50,30]);
       
     }else {face.go("settings",0);return;}  
 	
@@ -223,7 +223,7 @@ touchHandler[0]=function(e,x,y){
 		if (face[0].ntid) clearTimeout(face[0].ntid); face[0].ntid=0;
 		face[0].set ++ ;
 		face[0].page(face[0].set);
-    }else buzzer(40);    
+    }else buzzer.nav(40);    
 	
     break;
   case 4: //slide right event (back action)

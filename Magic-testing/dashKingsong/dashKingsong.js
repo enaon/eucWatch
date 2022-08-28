@@ -7,15 +7,24 @@ face[0] = {
 		if (euc.temp.pass) { eval(require('Storage').read("dashKingsongAdvPass"));return} 
 		if (euc.state!=="READY") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
 		else {
-			if (!euc.temp.ls) {euc.temp.ls=1;setTimeout(()=>{euc.wri("getLock");setTimeout(()=>{euc.wri("getStrobe");},100);},300);}
+			if (!euc.temp.lockKey&&euc.dash.opt.lock.en){
+				setTimeout(()=>{
+						euc.wri("getLock");
+				},100);
+			}
+			if (!euc.temp.strbstatus) {
+				euc.temp.strbstatus=1;
+				setTimeout(()=>{
+					euc.wri("getStrobe");
+				},300);
+			}
 			eval(require('Storage').read("dashKingsongAct")); 
 		}
 	},
 	show : function(){
-		/*
 		if (euc.state!=="READY") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
 		if (!this.run)  return;
-		if (face[0].page=="actions"){
+		if (face[0].page=="Quick Actions"){
 			if ( this.light!=euc.dash.opt.lght.HL) {
 				this.light=euc.dash.opt.lght.HL;
 				let val=["CITY","ON","OFF","AUTO"];
@@ -47,8 +56,8 @@ face[0] = {
 		this.tid=setTimeout(function(t,o){
 		  face[0].tid=0;
 		  face[0].show();
-		},100);
-		*/
+		},200);
+		
 	},
 	tid:-1,
 	run:false,

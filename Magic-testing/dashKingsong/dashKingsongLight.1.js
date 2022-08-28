@@ -1,5 +1,5 @@
 //touch
-tcBack.replaceWith(()=>{buzzer(buz.ok);if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}eval(require('Storage').read("dashKingsongAct"));});
+tcBack.replaceWith(()=>{buzzer.nav(buzzer.buzz.ok);if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}eval(require('Storage').read("dashKingsongAct"));});
 tcNext.replaceWith(tcBack);
 //
 face[0].page="light";
@@ -20,12 +20,12 @@ face[0].bar();
 UIc.main._2x2=(i)=>{
 	if (i==1){
 		euc.dash.opt.lght.city=0;
-		buzzer(buz.ok);
+		buzzer.nav(buzzer.buzz.ok);
 		euc.wri("setLights",1);
 		eval(require('Storage').read("dashKingsongAct")); 
 	}else if (i==2){
 		euc.dash.opt.lght.city=0;
-		buzzer(buz.ok);
+		buzzer.nav(buzzer.buzz.ok);
 		euc.wri("setLights",3);
 		eval(require('Storage').read("dashKingsongAct")); 
 	}
@@ -33,12 +33,12 @@ UIc.main._2x2=(i)=>{
 UIc.bar._2x2=(i)=>{
 	if (i==3){
 		euc.dash.opt.lght.city=1-euc.dash.opt.lght.city;
-		buzzer(buz.ok);		
+		buzzer.nav(buzzer.buzz.ok);		
 		UI.btn.c2l("bar","_2x2",3,"eucWatch","CITY",15,euc.dash.opt.lght.city?12:1);
 		eval(require('Storage').read("dashKingsongAct")); 
 	}else if (i==4){
 		euc.dash.opt.lght.city=0;
-		buzzer(buz.ok);	
+		buzzer.nav(buzzer.buzz.ok);	
 		euc.wri("setLights",2);
 		eval(require('Storage').read("dashKingsongAct")); 
 	}

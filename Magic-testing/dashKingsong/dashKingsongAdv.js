@@ -1,6 +1,6 @@
 //touch
-tcNext.replaceWith(()=>{buzzer(buz.na);});
-tcBack.replaceWith(()=>{buzzer(buz.ok);if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}eval(require('Storage').read("dashKingsongAuto")); });
+tcNext.replaceWith(()=>{buzzer.nav(buzzer.buzz.na);});
+tcBack.replaceWith(()=>{buzzer.nav(buzzer.buzz.ok);if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}eval(require('Storage').read("dashKingsongAuto")); });
 //
 face[0].page="wheel setup";
 UI.ele.ind(4,4,0);
@@ -20,14 +20,14 @@ face[0].bar();
 //
 UIc.main._2x2=(i)=>{
 	if (i==1){
-		buzzer(buz.ok);
+		buzzer.nav(buzzer.buzz.ok);
 		euc.dash.opt.ride.mode++;
 		if (2<euc.dash.opt.ride.mode) euc.dash.opt.ride.mode=0;
 		let m=["HARD","MED","SOFT"];
 		UI.btn.c2l("main","_2x2",1,"MODE",md[euc.dash.opt.ride.mode],15,4);
 		euc.wri("setRideMode",euc.dash.opt.ride.mode);
 	}else if (i==2){
-		buzzer(buz.ok);
+		buzzer.nav(buzzer.buzz.ok);
 		euc.wri("getCalibrateTilt");
 		eval(require('Storage').read("dashKingsongAdvCalibrate")); 
 		return;
@@ -35,11 +35,11 @@ UIc.main._2x2=(i)=>{
 };
 UIc.bar._2x2=(i)=>{
 	if (i==3){
-		buzzer(buz.ok);		
+		buzzer.nav(buzzer.buzz.ok);		
 		eval(require('Storage').read("dashKingsongAdvAlert")); 
 		return;
 	}else if (i==4){
-		buzzer(buz.ok);	
+		buzzer.nav(buzzer.buzz.ok);	
 		euc.wri("getPass");
 		eval(require('Storage').read("dashKingsongAdvPass")); 
 		return;

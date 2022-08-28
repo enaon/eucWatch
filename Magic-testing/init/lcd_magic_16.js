@@ -1,7 +1,9 @@
+E.setFlags({pretokenise:1});
+ew.is.dddm=16;
 //magic/rock 
 Modules.addCached("eucWatch",function(){
 //screen driver
-//
+//16bit
 /// MIT License (c) 2020 fanoush https://github.com/fanoush
 // see full license text at https://choosealicense.com/licenses/mit/
 // compiled with options LCD_BPP=16,SHARED_SPIFLASH
@@ -125,29 +127,14 @@ var bpp=(require("Storage").read("setting.json") && require("Storage").readJSON(
 var g=Graphics.createArrayBuffer(240,280,bpp);
 var pal;
 g.sc=g.setColor;
+//g.col=Uint16Array([ 0x000,0x0842,0x5B2F,0xEF5D,0x196E,0x3299, 0x1084,0x0F6A,0x3ADC,3935,2220,0x5ff,115,0xF165,0xEFBF,0xFFFF ]);
+//g.col=Uint16Array([ 0x000,0x0842,0x5B2F,0xce9b,0x001F,0x3299, 0x1084,0x0F6A,0x3ADC,3935,2220,0x07FF,115,0xd800,0xFFE0,0xFFFF ]);
+g.col=Uint16Array([ 0x000,0x0842,0x5B2F,0xce9b,0x001D,0x3299, 0x1084,0x0F6A,0x3ADC,3935,2220,0x07FF,115,0xd800,0xFFE0,0xFFFF ]);
 
-// 16bit RGB565  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=blue,9=purple,10=?,11=green,12=olive,13=yellow,14=lblue,15=white
-
-// 16bit RGB565  //0=black,1=dgray,2=red,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=green,9=purple,10=?,11=green,12=olive,13=yellow,14=blue,15=white
-
-//g.col=Uint16Array([ 0x000,0x31C8,0x5B2F,0xD6BA,0x3276,0x4B16,0x3ADC,0xF165,0xEFBF,0xA815,2220,0x5ff,0x3C0C,0xFFE0,0xD7BF,0xFFFF ]);
-
-//g.col=Uint16Array([ 0x000,0x5ff,0xF165,0xD6BA,0x3276,0x4B16,0x3ADC,0xF165,0xEFBF,0xA815,2220,0x5ff,0x3C0C,0xFFE0,0xD7BF,0xFFFF ]);
-//g.col=Uint16Array([ 0x000,0x31C8,0x5B2F,0xD6BA,0x3276,0x4B16,0x3ADC,0xF165,0xEFBF,0xA815,2220,0x5ff,0x3C0C,0xFFE0,0xD7BF,0xFFFF ]);
-//g.col=Uint16Array([  0,31,2016,2016,31,2047,0,63488,63519,63519,   31,63519,63519,65504,  65535,65535]);
-//g.col=Uint16Array([ 0x000,54,0xF165,0xF165,1629,83,72,3840,143,3935,2220,0x5ff,115,4080,1535,4095 ]);
-//1622 dgray 1610 dbue 1655-good grey 1672  dblack 50,68.85  115, 152 green
-//54,
-// 16bit RGB565  //0=black,1=dgray,2=red,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=green,9=purple,10=?,11=green,12=olive,13=yellow,14=blue,15=white
-//g.col=Uint16Array([ 0x000,0x5ff,0xF165,0x5ff,0x5ff,0xF165,0xF165,0xF165,0x0F6A,3935,2220,0x5ff,115,4080,0xD7BF,0x5ff ]);
-
-// 16bit RGB565  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=raf1,6=raf2,7=green,8=blue,9=purple,10=?,11=green,12=olive,13=red,14=blue,15=white
-g.col=Uint16Array([ 0x000,0x0842,0x5B2F,0xEF5D,0x196E,0x3299, 0x1084,0x0F6A,0x3ADC,3935,2220,0x5ff,115,0xF165,0xEFBF,0xFFFF ]);
-
-//pal=Uint16Array([ 0x000,0x31C8,0x5B2F,0xD6BA,0x3276,0x4B16,0x3ADC,0xF165,0xEFBF,0xA815,2220,0x5ff,0x3C0C,0xFFE0,0xD7BF,0xFFFF ]);
 //0x0F6A
 //0x25A9
-switch(bpp){
+//F81F magenta
+/*switch(bpp){
   case 1:
     pal= g.col;
     g.buffer=new ArrayBuffer(8400);
@@ -163,11 +150,13 @@ switch(bpp){
     g.buffer=new ArrayBuffer(16800);
     break; 
   case 4: 
+*/
 	g.buffer=new ArrayBuffer(33600);
-	pal= g.col;
+	pal= Uint16Array([ 0x000,0x1084,0x5B2F,0xce9b,0x001D,0x3299,0x0842,0x0F6A,0x3ADC,3935,2220,0x07FF,115,0xd800,0xFFE0,0xFFFF ]);
+	//g.setColor=(c,v)=>{print("incolor",v,g.col[v]);g.sc(g.col[v]);}; 
 	g.setColor=(c,v)=>{g.sc(v);}; 
-    break;
-}
+//    break;
+//}
 // preallocate setwindow command buffer for flip
 g.winCmd=toFlatBuffer([
   5, 0x2a, 0,0, 0,0,

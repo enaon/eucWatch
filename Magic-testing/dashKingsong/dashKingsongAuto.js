@@ -1,6 +1,6 @@
 //touch
 tcNext.replaceWith(()=>{
-	buzzer(buz.ok);	
+	buzzer.nav(buzzer.buzz.ok);	
 	if (UI.ntid) {
 		clearTimeout(UI.ntid);UI.ntid=0;
 		if (euc.dash.auto.offT) euc.wri("setPowerOff",euc.dash.auto.offT);
@@ -9,7 +9,7 @@ tcNext.replaceWith(()=>{
 		eval(require('Storage').read("dashKingsongAdv")); 
 });
 tcBack.replaceWith(()=>{
-	buzzer(buz.ok);	
+	buzzer.nav(buzzer.buzz.ok);	
 	if (UI.ntid) {
 		clearTimeout(UI.ntid);UI.ntid=0;
 		if (euc.dash.auto.offT) euc.wri("setPowerOff",euc.dash.auto.offT);
@@ -37,7 +37,7 @@ face[0].bar();
 
 UIc.main._2x2=(i)=>{
 	if (i==1){
-		buzzer(buz.ok);
+		buzzer.nav(buzzer.buzz.ok);
 		//UI.btn.ntfy(0,3,1,"_bar",6,"TAP TO","CONFiRM",15,13,0);w.gfx.flip();
 		UI.btn.ntfy(0,3,1);
 		UIc.start(0,1);
@@ -55,7 +55,7 @@ UIc.main._2x2=(i)=>{
 		//	eval(require('Storage').read("dashKingsongAuto")); 
 		//};	
 	}else if (i==2){
-		buzzer(buz.ok);
+		buzzer.nav(buzzer.buzz.ok);
 		let offH=Math.floor(euc.dash.auto.offT/3600);
 		let offM=euc.dash.auto.offT/60 %60;	
 		//UI.btn.c2l("main","_2x2",2,"IDLE",!euc.dash.auto.offT?"-":offH+"h:"+offM+"'",15,4);
@@ -77,10 +77,10 @@ UIc.main._2x2=(i)=>{
 };
 UIc.bar._4x1=(i)=>{
 	if (i==3){
-		buzzer(buz.ok);
+		buzzer.nav(buzzer.buzz.ok);
 		eval(require('Storage').read("dashKingsongCon")); 
 	}else if (i==4){
-		buzzer(buz.ok);	
+		buzzer.nav(buzzer.buzz.ok);	
 		eval(require('Storage').read("dashKingsongDis")); 
 	}
 };

@@ -18,17 +18,17 @@ function btn1(s){
 		this.press=false;
 		if (global.euc&&euc.state=="READY"&&euc.horn&&euc.dash.opt.horn.en) {euc.wri("hornOff");return;}
 		if (face.pageCurr==-1) {
-			buzzer(buz.on);
+			buzzer.nav(buzzer.buzz.on);
 			face.go((global.euc&&euc.state!="OFF")?ew.is.dash[ew.def.dash.face]:face.appCurr,0);
 		}else if (euc.state!="OFF") { 
 			if (face.appCurr.startsWith("dash_")) {
 				acc.isUp=1;
-				changeInterval(ew.tid.acc,500);
+				if (ew.tid.acc) changeInterval(ew.tid.acc,500);
 				face.go(face.appCurr,-1);
-				buzzer(buz.off);
+				buzzer.nav(buzzer.buzz.off);
 			}else face.go(ew.is.dash[ew.def.dash.face],0);
 		}else {
-			if (face.appCurr=="clock") {face.go("clock",-1); buzzer(buz.off);}
+			if (face.appCurr=="clock") {face.go("clock",-1); buzzer.nav(buzzer.buzz.off);}
 			else face.go("clock",0); 
 		}
 		
@@ -39,5 +39,5 @@ ew.tid.btn1=setWatch(btn1,BTN1, {repeat:true, debounce:50,edge:0});
 if (process.env.BOARD=="ROCK"){
 	D46.mode("input_pulldown");
 	btn2=btn1.bind();
-	ew.tid.btn2=setWatch(btn2,D46, {repeat:true, debounce:50,edge:0});
+	ew.tid.btn2=setWatch(btn2,D46, {repeat:true, debounce:false,edge:0});
 }

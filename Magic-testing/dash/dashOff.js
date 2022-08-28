@@ -56,7 +56,7 @@ face[0] = {
 	lg: function(){
 		this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,235);
-		this.g.setColor(1,14);
+		this.g.setColor(1,11);
 		for (let i = 0; i < this.len; i++) {
    		let h=(this.ref-i<0)?this.len+(this.ref-i):this.ref-i;
 			if (this.log[h]) {
@@ -86,7 +86,7 @@ face[0] = {
 		this.g.fillRect(pos,(this.log[this.pos])?239-(this.log[this.pos]*this.scale):239,pos+((240/this.len)-2),235);
 				if (this.old)this.g.flip(); 
 		if (this.rowL&&this.rowL!==pos){
-			this.g.setColor(1,14);
+			this.g.setColor(1,11);
 			this.g.fillRect(this.rowL,(this.log[this.posL])?239-(this.log[this.posL]*this.scale):239,this.rowL+((240/this.len)-2),235);
 				if (this.old)this.g.flip(); 
 		}

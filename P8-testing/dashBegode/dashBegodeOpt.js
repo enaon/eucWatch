@@ -120,20 +120,20 @@ touchHandler[0]=function(e,x,y){
       case 5: //tap event
 		if (!face[0].setE){//select page
 			if ( x<=120 && y<100 ) { //empty
-				buzzer(40);		
+				buzzer.nav(40);		
 			}else if ( 120<=x && y<=100 ) { //watch alerts
-				buzzer([30,50,30]);						
+				buzzer.nav([30,50,30]);						
 				face.go("dashAlerts",0);
 				return;		
 			}else if ( x<=120 && 100<=y ) { //info
-				buzzer(40);
+				buzzer.nav(40);
 				face[0].ntfy("NOT YET","",20,7,1);				
 			}else if  (120<=x && 100<=y ) { //horn
 				euc.dash.opt.horn.en=1-euc.dash.opt.horn.en;
 				face[0].btn(euc.dash.opt.horn.en,"HORN",25,185,136,4,1,122,100,239,195);
 				face[0].ntfy("SIDE BTN HORN >2KPH","HORN DISABLED",(euc.dash.opt.horn.en)?19:20,1,euc.dash.opt.horn.en);
-				buzzer([30,50,30]);						
-			}else buzzer([30,50,30]);
+				buzzer.nav([30,50,30]);						
+			}else buzzer.nav([30,50,30]);
 		}else{
 			
 		}
@@ -147,10 +147,10 @@ touchHandler[0]=function(e,x,y){
 		if ( 200<=y && x<=50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else //if (y>100) {
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		//} else {buzzer(40);}
+		//} else {buzzer.nav(40);}
 		this.timeout();
 		break;
 	case 3: //slide left event
@@ -160,7 +160,7 @@ touchHandler[0]=function(e,x,y){
 		face.go("dashBegode",0);
 		return;
 	case 12: //hold event
-		buzzer(40);
+		buzzer.nav(40);
 		this.timeout();
 		break;
   }

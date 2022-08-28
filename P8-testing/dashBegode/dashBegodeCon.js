@@ -109,20 +109,20 @@ touchHandler[0]=function(e,x,y){
 			let val=["NA","ON","OFF","STOBE"];
 			face[0].btn(euc.dash.auto.onC.HL,"LIGHT",18,60,20,euc.dash.auto.onC.HL==3?7:euc.dash.auto.onC.HL==1?4:1,0,0,0,119,97,val[euc.dash.auto.onC.HL],25,60,55);
             face[0].ntfy("SET LIGHT "+val[euc.dash.auto.onC.HL],"NO ACTION",20,1,euc.dash.auto.onC.HL);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //led
 			euc.dash.auto.onC.led++; if (10<euc.dash.auto.onC.led) euc.dash.auto.onC.led=0;
 			face[0].btn(euc.dash.auto.onC.led,"LED",18,185,20,12,0,122,0,239,97,euc.dash.auto.onC.led?euc.dash.auto.onC.led-1+"":"NA",25,185,55);
 			face[0].ntfy("LED MODE","NO ACTION",20,1,euc.dash.auto.onC.led);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else if ( x<=120 && 100<=y ) { //beep
 			euc.dash.auto.onC.beep=1-euc.dash.auto.onC.beep;
             face[0].btn(euc.dash.auto.onC.beep,"BEEP",18,60,120,euc.dash.auto.onC.beep==1?12:1,0,0,100,119,195,euc.dash.auto.onC.beep?"ON":"NA",25,60,155);
             face[0].ntfy("BEEP ON CONNECT","NO ACTION",20,1,euc.dash.auto.onC.beep);
-			buzzer([30,50,30]);		
+			buzzer.nav([30,50,30]);		
 		}else if  (120<=x && 100<=y ) {
-			buzzer(40);					
-		}else buzzer(40);
+			buzzer.nav(40);					
+		}else buzzer.nav(40);
 		break;
 	case 1: //slide down event
 		//face.go("clock",0);
@@ -132,13 +132,13 @@ touchHandler[0]=function(e,x,y){
 		if ( 200<=y && x<=50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else //if (y>100) {
 			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
-		//} else {buzzer(40);}
+		//} else {buzzer.nav(40);}
 		break;
 	case 3: //slide left event
-		buzzer(40);
+		buzzer.nav(40);
 		return;
 	case 4: //slide right event (back action)
 		face.go("dashBegodeOpt2",0);

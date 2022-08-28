@@ -140,8 +140,12 @@ function init(){
 var bpp=1;
 var g=Graphics.createArrayBuffer(240,240,bpp);
 var pal;
-// 12bit RGB444  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=blue,9=purple,10=?,11=green,12=olive,13=yellow,14=lblue,15=white
-g.col=Uint16Array([ 0x000,1365,2730,3549,1629,2474,1963,3840,143,3935,2220,0x5ff,170,4080,1535,4095 ]);
+// 12bit RGB444  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=blue,9=purple,10=?,11=lblue,12=olive,13=red,14=yellow,15=white
+//g.col=Uint16Array([ 0x000,1365,2730,3549,1629,2474,1963,3840,143,3935,2220,0x5ff,170,4080,1535,4095 ]);
+g.col=Uint16Array([ 0x000,1365,2730,3549,1629,2474,1963,0x0d0,143,3935,2220,1535,170,3840,4080,4095 ]);
+
+//g.col=Uint16Array([ 0x000,54,2220,3549,1629,83,72,0x0d0,143,3935,2220,0x5ff,115,3840,4080,4095 ]);  //magic
+
 g.sc=g.setColor;  
 switch(bpp){
   case 1:

@@ -118,7 +118,7 @@ touchHandler[0]=function(e,x,y){
 	case 5://tap event
         if (!face[0].setE){//select page
 			if (y<100) { //speed alarms
-				buzzer([30,50,30]);		
+				buzzer.nav([30,50,30]);		
 				if (!euc.dash.alrt.mode){
 					euc.wri("alertsTwo");
 					euc.dash.alrt.mode=1;
@@ -130,7 +130,7 @@ touchHandler[0]=function(e,x,y){
 					euc.dash.alrt.mode=0;
 				}
 			}else if (x<=120&&y<=200) { //pwm tiltback
-				buzzer([30,50,30]);	
+				buzzer.nav([30,50,30]);	
 					if (euc.dash.alrt.mode!=3){
 						euc.wri("alertsTiltback");
 						euc.dash.alrt.mode=3;
@@ -141,12 +141,12 @@ touchHandler[0]=function(e,x,y){
 			}else if (120<=x&&y<=200) { //tiltback
 				face[0].set(euc.dash.alrt.spd.tilt.val,"TITLBACK ("+(ew.def.dash.mph?"MPH)":"KPH)") );
 				face[0].btn(100<=euc.dash.alrt.spd.tilt.val?0:1,100<=euc.dash.alrt.spd.tilt.val?"TILTBACK DISABLED":"TILTBACK ENABLED",18,120,215,4,1,0,198,239,239);
-				buzzer([30,50,30]);						
-			}else buzzer(40);
+				buzzer.nav([30,50,30]);						
+			}else buzzer.nav(40);
 		}else {//set page
 			if (120<=x&&y<=195) { //up
 				if (100<=face[0].setEb) {
-					buzzer(40);
+					buzzer.nav(40);
 					return;
 				}	else if (99<=face[0].setEb) {
 					face[0].btn(0,"TILTBACK DISABLED",18,120,215,4,1,0,198,239,239);
@@ -166,7 +166,7 @@ touchHandler[0]=function(e,x,y){
 					face[0].ntfy("TILTBACK DISABLED","",18,1,1);
 				}
 			}
-            buzzer([30,50,30]);
+            buzzer.nav([30,50,30]);
 			face[0].btn(0,100<=face[0].setEb?"-":ew.def.dash.mph?(0.625*face[0].setEb).toFixed(0):face[0].setEb,100,126,60,12,1,60,40,180,160);
 		}
 		this.timeout();
@@ -186,12 +186,12 @@ touchHandler[0]=function(e,x,y){
 		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		this.timeout();
 		break;
 	case 3: //slide left event
-		buzzer(40);
+		buzzer.nav(40);
 		break;
 	case 4: //slide right event (back action)
         if (face[0].setE) {
@@ -207,7 +207,7 @@ touchHandler[0]=function(e,x,y){
         }
         break;
 	case 12: //hold event
-		buzzer(40);
+		buzzer.nav(40);
    		return;
 	}
 };

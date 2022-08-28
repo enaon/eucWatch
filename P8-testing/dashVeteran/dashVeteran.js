@@ -118,7 +118,7 @@ touchHandler[0]=function(e,x,y){
               w.gfx.flip();
               face[0].init();return;
             }
-			buzzer(40);
+			buzzer.nav(40);
 		}
 		else {
 			if ( x<=120 && y<100 ) { 
@@ -126,13 +126,13 @@ touchHandler[0]=function(e,x,y){
 				face[0].btn(euc.dash.opt.lght.HL,"LIGHT",28,60,35,4,1,0,0,119,97);
 				euc.wri((euc.dash.opt.lght.HL)?"setLightOn":"setLightOff");
 			face[0].ntfy("LIGHT ON","LIGHT OFF",22,(euc.dash.opt.lght.HL)?4:1,euc.dash.opt.lght.HL);
-				buzzer([30,50,30]);
+				buzzer.nav([30,50,30]);
 			}else if ( 120<=x && y<=100 ) { //watch alerts
-				buzzer([30,50,30]);						
+				buzzer.nav([30,50,30]);						
 				face.go("dashAlerts",0);
 				return;	
 			}else if ( x<=120 && 100<=y ) { //tpms
-				buzzer([30,50,30]);		
+				buzzer.nav([30,50,30]);		
 				if (!euc.dash.opt.tpms) face[0].ntfy("HOLD-> ON/OFF","",20,4,1); 
 				else {
 					tpms.def.pos=Object.keys(tpms.def.list).indexOf(euc.dash.opt.tpms);
@@ -145,8 +145,8 @@ touchHandler[0]=function(e,x,y){
 				else if (euc.dash.opt.ride.mode==3) {euc.dash.opt.ride.mode=1;euc.wri("rideSoft");}
 				let md={"1":"SOFT","2":"MEDIUM","3":"STRONG"};
 				face[0].btn(1,"RIDE",25,185,115,12,0,122,100,239,195,md[euc.dash.opt.ride.mode],25,185,155);
-				buzzer([30,50,30]);						
-			}else buzzer([30,50,30]);
+				buzzer.nav([30,50,30]);						
+			}else buzzer.nav([30,50,30]);
 		}
 		break;
 	case 1: //slide down event
@@ -157,7 +157,7 @@ touchHandler[0]=function(e,x,y){
 		if ( 200<=y && x<=50 ) { //toggles full/current brightness on a left down corner swipe up. 
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
 		break;
 	case 3: //slide left event
@@ -178,21 +178,21 @@ touchHandler[0]=function(e,x,y){
 	case 12: //long press event
 		if (face[0].set) { 
 			face[0].set=0;face[0].init();
-			buzzer([30,50,30]);	
+			buzzer.nav([30,50,30]);	
         }else if ( x<=120 && y<100 ) { // light
 			euc.dash.opt.lght.HL= 1- euc.dash.opt.lght.HL;
 			face[0].btn(euc.dash.opt.lght.HL,"LIGHT",28,60,35,4,1,0,0,119,97);
 			euc.wri((euc.dash.opt.lght.HL)?"setLightOn":"setLightOff");
 			face[0].ntfy("LIGHT ON","LIGHT OFF",22,1,euc.dash.opt.lght.HL);
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //watch alerts
 			if (euc.dash.alrt.spd.hapt.en||euc.dash.alrt.amp.hapt.en||euc.dash.alrt.tmp.hapt.en||euc.dash.alrt.bat.hapt.en) {euc.dash.alrt.spd.hapt.en=0;euc.dash.alrt.amp.hapt.en=0;euc.dash.alrt.tmp.hapt.en=0;euc.dash.alrt.bat.hapt.en=0;}
 			else {euc.dash.alrt.spd.hapt.en=1;euc.dash.alrt.amp.hapt.en=1;euc.dash.alrt.tmp.hapt.en=1;euc.dash.alrt.bat.hapt.en=1;}
 			face[0].btn((euc.dash.alrt.spd.hapt.en||euc.dash.alrt.amp.hapt.en||euc.dash.alrt.tmp.hapt.en||euc.dash.alrt.bat.hapt.en),"WATCH",18,185,20,4,1,122,0,239,97,"ALERTS",22,185,55);		
             face[0].ntfy("HAPTIC ENABLED","HAPTIC DISABLED",19,1,(euc.dash.alrt.spd.hapt.en||euc.dash.alrt.amp.hapt.en||euc.dash.alrt.tmp.hapt.en||euc.dash.alrt.bat.hapt.en));
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 		}else if  (x<=120 && 100<=y ) { //tpms
-			buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);
 			if (euc.dash.opt.tpms) {
 				euc.dash.opt.tpms=0;
 				face[0].btn(1,"TPMS",18,60,115,1,0,0,100,119,195,"OFF",28,60,155); //3
@@ -212,8 +212,8 @@ touchHandler[0]=function(e,x,y){
 			else if (euc.dash.opt.ride.mode==3) {euc.dash.opt.ride.mode=1;euc.wri("rideSoft");}
 			let md={"1":"SOFT","2":"MEDIUM","3":"STRONG"};
 			face[0].btn(1,"RIDE",25,185,115,12,0,122,100,239,195,md[euc.dash.opt.ride.mode],25,185,155);
-			buzzer([30,50,30]);	
-		}else buzzer([30,50,30]);
+			buzzer.nav([30,50,30]);	
+		}else buzzer.nav([30,50,30]);
 		break;
   }
 };

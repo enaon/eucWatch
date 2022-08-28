@@ -1,8 +1,8 @@
 //touch
 tcNext.replaceWith(()=>{
-	buzzer(buz.ok);if (!euc.dash.auto.offT) euc.wri("getPowerOff");
+	buzzer.nav(buzzer.buzz.ok);if (!euc.dash.auto.offT) euc.wri("getPowerOff");
 	if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;} eval(require('Storage').read("dashKingsongAuto"));});
-tcBack.replaceWith(()=>{buzzer(buz.ok);if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;} eval(require('Storage').read("dashKingsongAct"));});
+tcBack.replaceWith(()=>{buzzer.nav(buzzer.buzz.ok);if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;} eval(require('Storage').read("dashKingsongAct"));});
 //
 face[0].page="options";
 UI.ele.ind(2,4,0);
@@ -21,20 +21,20 @@ face[0].bar();
 //
 UIc.main._2x2=(i)=>{
 	if (i==1){
-		buzzer(buz.ok);
+		buzzer.nav(buzzer.buzz.ok);
 		euc.wri("setLedRideOnOff",euc.dash.opt.lght.led);
 	}else if (i==2){
-		buzzer(buz.ok);
+		buzzer.nav(buzzer.buzz.ok);
 		face.go("dashAlerts",0);
 		return;		
 	}
 };
 UIc.bar._2x2=(i)=>{
 	if (i==3){
-		buzzer(buz.ok);		
+		buzzer.nav(buzzer.buzz.ok);		
 		euc.wri("setLiftOnOff",1-euc.dash.opt.snsr.lift);
 	}else if (i==4){
-		buzzer(buz.ok);	
+		buzzer.nav(buzzer.buzz.ok);	
 		euc.dash.opt.horn.en=1-euc.dash.opt.horn.en;
 		UI.btn.c2l("main","_2x2",4,"HORN","",15,euc.dash.opt.horn.en?4:1);
 	}

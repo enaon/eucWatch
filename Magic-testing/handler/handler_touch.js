@@ -13,7 +13,8 @@ else
 
 tcDn=(x,y)=>{
 	"ram";
-	buzzer(buz.ok);
+	buzzer.nav(buzzer.buzz.ok);
+	if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}
 	if (global.euc&& euc.state!="OFF"){
 		if (face.appCurr.startsWith("dash_")){
 			if (ew.def.dash.face+1>=ew.is.dash.length) 
@@ -31,7 +32,7 @@ tcDn=(x,y)=>{
 tcUp=(x,y)=>{
 	"ram";
 	if (y>170&&x<50) { 
-		buzzer(buz.ok);
+		buzzer.nav(buzzer.buzz.ok);
 		if (ew.def.bri!==7) {
 		  ew.is.bri=ew.def.bri;
 		  w.gfx.bri.set(7);
@@ -41,18 +42,24 @@ tcUp=(x,y)=>{
 			UI.btn.ntfy(1,1,0,"_bar",6,"BRIGHTNESS","GESTURE",15,4,0);w.gfx.flip();
 			if (face.appCurr=="settings"&&face[0].page=="set") UI.btn.img("main","_2x3",3,"bri",ew.def.bri==7?7:ew.is.bri,15,1,1);
 		}
-	} else if (face.appCurr=="clock"||face.appCurr.startsWith("dash_")||face.appCurr=="dashGarage" ){
-		buzzer(buz.ok);
-		face.go("settings",0);
-	}else buzzer(buz.na);
-
+	}else if (UI.ntid&&ew.is.bar) {
+		buzzer.nav(buzzer.buzz.na);
+		clearTimeout(UI.ntid);
+		UI.ntid=0;
+		face[0].bar();
+		ew.is.bar=0;
+	} else if (face.appCurr!="settings") {
+		buzzer.nav(buzzer.buzz.na);
+		UI.bar(2);
+	} else 
+		face.go(face.appRoot[0],face.appRoot[1]);
 };	
 tcBack=()=>{
-	buzzer(buz.ok);
+	buzzer.nav(buzzer.buzz.ok);
 	face.go(face.appRoot[0],face.appRoot[1]);
 };	
 tcNext=()=>{
-	buzzer(buz.na);
+	buzzer.nav(buzzer.buzz.na);
 };	
 tcBar=(x,y)=>{UIc.tcBar(x,y);};	
 TC.on('bar',tcBar);
