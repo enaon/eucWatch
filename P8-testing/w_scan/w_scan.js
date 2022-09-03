@@ -15,7 +15,6 @@ if (!global.scan) {
         else if (euc.dash.info.get.makr == "Begode") this.filter = [{ namePrefix: 'GotWay' }];
         else if (euc.dash.info.get.makr == "Veteran") this.filter = [{ namePrefix: 'LK' }];
         else if (euc.dash.info.get.makr == "Kingsong") this.filter = [{ namePrefix: 'KS' }];
-        else if (euc.dash.info.get.makr == "Kingsong") this.filter = [{}];
         else this.filter = [{ services: [service] }];
       }
       this.slot = "";
