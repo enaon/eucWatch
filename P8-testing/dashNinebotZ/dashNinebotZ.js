@@ -17,7 +17,7 @@ face[0] = {
         this.btn(euc.dash.opt.lght.HL,"LIGHT",18,60,20,4,1,0,0,119,97,(euc.dash.opt.lght.HL)?"ON":"OFF",25,60,55);
 		this.btn((euc.dash.alrt.spd.hapt.en||euc.dash.alrt.amp.hapt.en||euc.dash.alrt.tmp.hapt.en||euc.dash.alrt.bat.hapt.en),"WATCH",18,185,20,4,1,122,0,239,97,"ALERTS",22,185,55);		
 		let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
-		this.btn(euc.dash.opt.tpms,(euc.dash.opt.tpms)?euc.dash.opt.tpms:"TPMS",18,60,115,(euc.dash.opt.tpms&&tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.opt.tpms].time<1800)?(tpms.euc[euc.dash.opt.tpms].alrm)?7:4:1,1,0,100,119,195,(euc.dash.opt.tpms)?(tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].psi)?Math.round(tpms.euc[euc.dash.opt.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.opt.tpms)?32:28,60,150); //3				
+		this.btn(euc.dash.opt.tpms,(euc.dash.opt.tpms)?euc.dash.opt.tpms:"TPMS",18,60,115,(euc.dash.opt.tpms&&tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.opt.tpms].time<1800)?(tpms.euc[euc.dash.opt.tpms].alrm)?13:4:1,1,0,100,119,195,(euc.dash.opt.tpms)?(tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].psi)?Math.round(tpms.euc[euc.dash.opt.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.opt.tpms)?32:28,60,150); //3				
         this.btn(euc.dash.opt.horn.en,"HORN",25,185,136,4,1,122,100,239,195);	
 		this.run=true;
 	},
@@ -107,7 +107,7 @@ touchHandler[0]=function(e,x,y){
 				//euc.wri((euc.dash.opt.lght.HL)?"lightsOn":"lightsOff");
 		        //face[0].btn(euc.dash.opt.lght.HL,"LIGHT",18,60,20,4,1,0,0,119,97,(euc.dash.opt.lght.HL)?"ON":"OFF",25,60,55);
 				//face[0].ntfy("LIGHT ON","LIGHT OFF",20,(euc.dash.opt.lght.HL)?4:1,euc.dash.opt.lght.HL);
-				face[0].ntfy("NOT YET","NOT YET",18,7,1);
+				face[0].ntfy("NOT YET","NOT YET",18,13,1);
 			}else if ( 120<=x && y<=100 ) { //watch alerts
 				buzzer.nav([30,50,30]);						
 				face.go("dashAlerts",0);
@@ -125,7 +125,7 @@ touchHandler[0]=function(e,x,y){
 				//euc.dash.opt.horn.en=1-euc.dash.opt.horn.en;
 				//face[0].btn(euc.dash.opt.horn.en,"HORN",25,185,136,4,1,122,100,239,195);	
 				//face[0].ntfy("BUTTON IS HORN >2KPH","HORN DISABLED",(euc.dash.opt.horn.en)?18:20,(euc.dash.opt.horn.en)?4:1,euc.dash.opt.horn.en);
-				face[0].ntfy("NOT YET","NOT YET",18,7,1);
+				face[0].ntfy("NOT YET","NOT YET",18,13,1);
 			}else buzzer.nav([30,50,30]);
 		}
 		
@@ -172,7 +172,7 @@ touchHandler[0]=function(e,x,y){
 					tpms.scan();
 					face.go("tpmsFace",0);
 				}else 
-					face[0].ntfy("NOT INSTALLED","",20,7,1);
+					face[0].ntfy("NOT INSTALLED","",20,13,1);
 			}
 			return;
 	    }else buzzer.nav(40);

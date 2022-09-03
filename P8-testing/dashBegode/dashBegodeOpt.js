@@ -127,7 +127,7 @@ touchHandler[0]=function(e,x,y){
 				return;		
 			}else if ( x<=120 && 100<=y ) { //info
 				buzzer.nav(40);
-				face[0].ntfy("NOT YET","",20,7,1);				
+				face[0].ntfy("NOT YET","",20,13,1);				
 			}else if  (120<=x && 100<=y ) { //horn
 				euc.dash.opt.horn.en=1-euc.dash.opt.horn.en;
 				face[0].btn(euc.dash.opt.horn.en,"HORN",25,185,136,4,1,122,100,239,195);

@@ -124,11 +124,11 @@ touchHandler[0]=function(e,x,y){
 						face[0].btn(1,"ALARM 1",18,60,20,12,0,0,0,119,97,euc.dash.alrt.spd.one.val,25,60,55);
 						face[0].ntfy("ALARM 1-> ENABLED","",20,1,1);
 						buzzer.nav([30,50,30]);
-                    }else {face[0].ntfy("ENABLE ALARM 2","",20,7,1);buzzer.nav(40);}
+                    }else {face[0].ntfy("ENABLE ALARM 2","",20,13,1);buzzer.nav(40);}
                 }
 			}else if (120<=x<=239&&y<=100) { //alarm 2
 				if ( euc.dash.alrt.spd.two.en){
-					if (euc.dash.alrt.spd.one.en) {face[0].ntfy("DISABLE ALARM 1","",20,7,1);buzzer.nav(40);}
+					if (euc.dash.alrt.spd.one.en) {face[0].ntfy("DISABLE ALARM 1","",20,13,1);buzzer.nav(40);}
 					else {
 						euc.dash.alrt.spd.two.en=0;
 						buzzer.nav([30,50,30]);
@@ -154,41 +154,41 @@ touchHandler[0]=function(e,x,y){
                 if (face[0].setEb=="spd") 
 					if (euc.dash.alrt.spd.two.en)
 					if (euc.dash.alrt.spd.one.val+1<euc.dash.alrt.spd.two.val)  euc.dash.alrt.spd.one.val++;
-                    else face[0].ntfy("MOVE ALARM 2","",20,7,1);
-					else face[0].ntfy("ENABLE ALARM 2","",20,7,1);
+                    else face[0].ntfy("MOVE ALARM 2","",20,13,1);
+					else face[0].ntfy("ENABLE ALARM 2","",20,13,1);
                 else if (face[0].setEb=="spd1") 
                     if (euc.dash.alrt.spd.two.val+1<euc.dash.alrt.spd.thre.val) euc.dash.alrt.spd.two.val++;
-                    else face[0].ntfy("MOVE ALARM 3","",20,7,1);
+                    else face[0].ntfy("MOVE ALARM 3","",20,13,1);
                 else if (face[0].setEb=="spd2") 
                     if (euc.dash.alrt.spd.thre.val<euc.dash.alrt.spd.tilt.val) euc.dash.alrt.spd.thre.val++;
-                    else face[0].ntfy("MOVE TILTBACK","",20,7,1);
+                    else face[0].ntfy("MOVE TILTBACK","",20,13,1);
                 else if (face[0].setEb=="tilt") 
                     if (euc.dash.alrt.spd.tilt.val<50) euc.dash.alrt.spd.tilt.val++;
-                    else face[0].ntfy("THE LIMIT IS 50KpH","",20,7,1);
+                    else face[0].ntfy("THE LIMIT IS 50KpH","",20,13,1);
                     } 
             }else {  //dn
                 if (face[0].setEb=="spd") {
 					if (0<euc.dash.alrt.spd.one.val) euc.dash.alrt.spd.one.val--;
-                    if (euc.dash.alrt.spd.one.val==0)  {euc.dash.alrt.spd.one.val=1;face[0].ntfy("DISABLED","",20,7,1);euc.dash.alrt.spd.one.en=0;buzzer.nav(40);return;}
+                    if (euc.dash.alrt.spd.one.val==0)  {euc.dash.alrt.spd.one.val=1;face[0].ntfy("DISABLED","",20,13,1);euc.dash.alrt.spd.one.en=0;buzzer.nav(40);return;}
                 }else if (face[0].setEb=="spd1"){
 					if (euc.dash.alrt.spd.one.en){
-						if (euc.dash.alrt.spd.two.val<=5) { face[0].ntfy("AL1 DN LIMIT IS 5KpH","",20,7,1);buzzer.nav(40);return;}
+						if (euc.dash.alrt.spd.two.val<=5) { face[0].ntfy("AL1 DN LIMIT IS 5KpH","",20,13,1);buzzer.nav(40);return;}
 						if (euc.dash.alrt.spd.one.val+1<euc.dash.alrt.spd.two.val) euc.dash.alrt.spd.two.val--;
-						else face[0].ntfy("MOVE ALARM 1","",20,7,1);
+						else face[0].ntfy("MOVE ALARM 1","",20,13,1);
 					}else if (5<euc.dash.alrt.spd.two.val) euc.dash.alrt.spd.two.val--;
-					else face[0].ntfy("AL1 DN LIMIT IS 5KpH","",20,7,1);
+					else face[0].ntfy("AL1 DN LIMIT IS 5KpH","",20,13,1);
                 }else if (face[0].setEb=="spd2") {
 					if (euc.dash.alrt.spd.two.en){
 						if (euc.dash.alrt.spd.two.val+1<euc.dash.alrt.spd.thre.val) euc.dash.alrt.spd.thre.val--;
-						else face[0].ntfy("MOVE ALARM 2","",20,7,1);
+						else face[0].ntfy("MOVE ALARM 2","",20,13,1);
 					}else if (10<euc.dash.alrt.spd.thre.val) euc.dash.alrt.spd.thre.val--;
-					else face[0].ntfy("AL2 DN LIMIT IS 10KpH","",20,7,1);
+					else face[0].ntfy("AL2 DN LIMIT IS 10KpH","",20,13,1);
                 }else if (face[0].setEb=="tilt"){
 					if (euc.dash.limE[2]){
 						if (euc.dash.alrt.spd.thre.val<euc.dash.alrt.spd.tilt.val) euc.dash.alrt.spd.tilt.val--;
-						else face[0].ntfy("MOVE ALARM 3","",20,7,1);
+						else face[0].ntfy("MOVE ALARM 3","",20,13,1);
 					}else if (5<euc.dash.alrt.spd.tilt.val) euc.dash.alrt.spd.tilt.val--;
-					else face[0].ntfy("THE DN LIMIT IS 5KpH","",20,7,1);
+					else face[0].ntfy("THE DN LIMIT IS 5KpH","",20,13,1);
                 } 
             } 
             buzzer.nav([30,50,30]);
@@ -229,7 +229,7 @@ touchHandler[0]=function(e,x,y){
                 if (euc.dash.alrt.spd.one.val>=euc.dash.alrt.spd.two.val) euc.dash.alrt.spd.one.val=euc.dash.alrt.spd.two.val-1;
 				face[0].set("spd","ALARM 1");
 				buzzer.nav([30,50,30]);
-                }else  {face[0].ntfy("ENABLE ALARM 2","",20,7,1);buzzer.nav(40);}
+                }else  {face[0].ntfy("ENABLE ALARM 2","",20,13,1);buzzer.nav(40);}
 			}else if (120<=x<=239&&y<=100) { //alarm 2
                 if (euc.dash.alrt.spd.two.val>=euc.dash.alrt.spd.thre.val) euc.dash.alrt.spd.two.val=euc.dash.alrt.spd.thre.val-1;
 				face[0].set("spd1","ALARM 2");

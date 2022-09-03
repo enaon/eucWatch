@@ -1,7 +1,5 @@
 //Vteran euc module 
-//euc.conn(euc.mac);
-//euc.wri("lightsOn")
-//commands
+E.setFlags({ pretokenise: 1 });
 euc.cmd=function(no){
 	switch (no) {
 		case "beep":return [98]; 
@@ -13,9 +11,9 @@ euc.cmd=function(no){
 		case "setVolUp":return "SetFctVol+";
 		case "setVolDn":return "SetFctVol-";
 		case "clearMeter":return "CLEARMETER";
-		case "switchPackets": euc.temp=1; return "CHANGESTRORPACK";
-		case "changePage": euc.temp++; return "CHANGESHOWPAGE";
-		case "returnMain": euc.temp=0;return "CHANGESTRORPACK";
+		case "switchPackets": euc.temp.CHANGESTRORPACK=1; return "CHANGESTRORPACK";
+		case "changePage": euc.temp.CHANGESTRORPACK++; return "CHANGESHOWPAGE";
+		case "returnMain": euc.temp.CHANGESTRORPACK=0;return "CHANGESTRORPACK";
 		default: return [];
     }
 };
@@ -49,11 +47,11 @@ euc.conn=function(mac){
 		//this.event=new Uint8Array(event.target.value.buffer);
 		let ev=new Uint8Array(20);
 		c.on('characteristicvaluechanged', function(event) {
-			if (!euc.is.run) return;
+			if (euc.is.busy) return;
 			if (ew.is.bt==5) 	euc.proxy.w(event.target.value.buffer);
 			ev.set(event.target.value.buffer);
 			euc.is.alert=0;
-			/*if (euc.temp) {
+			/*if (euc.temp.CHANGESTRORPACK) {
 				euc.tot=E.toUint8Array(euc.pac,event.target.value.buffer);
 				if ( (event.target.value.buffer[event.target.value.buffer.length - 2]== 85 && event.target.value.buffer[event.target.value.buffer.length - 1]==53) ||(event.target.value.buffer[event.target.value.buffer.length - 2]== 80 && event.target.value.buffer[event.target.value.buffer.length - 1]==55)||(event.target.value.buffer[event.target.value.buffer.length - 2]== 70 && event.target.value.buffer[event.target.value.buffer.length - 1]==99) ) {
 					euc.pac=[];
@@ -125,25 +123,29 @@ euc.conn=function(mac){
 		console.log("EUC Veteran connected!!"); 
 		euc.wri= function(n,v) {
             //console.log("got :", n);
-			if (euc.is.busy) { clearTimeout(euc.is.busy);euc.is.busy=setTimeout(()=>{euc.is.busy=0;},100);return;} 
-			euc.is.busy=setTimeout(()=>{euc.is.busy=0;},200);
+			if (euc.tout.busy) { clearTimeout(euc.tout.busy);euc.tout.busy=setTimeout(()=>{euc.tout.busy=0;},100);return;} 
+			euc.tout.busy=setTimeout(()=>{euc.tout.busy=0;},200);
             //end
-			if (n=="hornOn") {
-				euc.horn=1;
+			if (n==="proxy") {
+				c.writeValue(v).then(function() {
+                    if (euc.tout.busy) {clearTimeout(euc.tout.busy);euc.tout.busy=0;}
+				}).catch(euc.off);
+			}else if (n=="hornOn") {
+				euc.is.horn=1;
 				let md={"1":"SETs","2":"SETm","3":"SETh"};
 				c.writeValue(md[euc.dash.opt.ride.mode]).then(function() { 
-					if (euc.is.run) {euc.is.run=0;euc.horn=1;c.stopNotifications();}
+					if (!euc.is.busy) {euc.is.busy=1;euc.is.horn=1;c.stopNotifications();}
 					setTimeout(() => {
 						c.writeValue((euc.dash.opt.lght.HL)?"SetLightOFF":"SetLightON").then(function() {
 							setTimeout(() => { 
 								c.writeValue((euc.dash.opt.lght.HL)?"SetLightON":"SetLightOFF").then(function() {	
 									setTimeout(() => {
 										if (BTN1.read()) {
-											if (euc.is.busy) { clearTimeout(euc.is.busy);euc.is.busy=0;} 
+											if (euc.tout.busy) { clearTimeout(euc.tout.busy);euc.tout.busy=0;} 
 											euc.wri("hornOn");
 										}else {
-											euc.horn=0;
-											euc.is.run=1;
+											euc.is.horn=0;
+											euc.is.busy=0;
 											c.startNotifications();
 										}
 									},30); 	
@@ -153,46 +155,37 @@ euc.conn=function(mac){
 					},60);
 				});
 			}else if (n=="hornOff") {
-				euc.horn=0;
+				euc.is.horn=0;
 			}else if (n=="start") {
-				c.writeValue(euc.cmd((euc.dash.opt.lght.HL)?"setLightOn":"setLightOff")).then(function() {
+				c.startNotifications().then(function() {
 					buzzer.nav([100,100,150,]);
-					return c.startNotifications(); 
+					if (euc.dash.auto.onC.HL) return c.writeValue(euc.cmd((euc.dash.auto.onC.HL==1)?"setLightOn":"setLightOff"));
+				}).then(function() {
+					if (euc.dash.auto.onC.clrM) return c.writeValue(euc.cmd("clearMeter"));
 				}).then(function()  {
-					let md={"1":"SETs","2":"SETm","3":"SETh"};
-					if (euc.dash.opt.lock.en) c.writeValue(md[euc.dash.opt.ride.mode]);
-					//if (euc.dash.opt.lock.en) c.writeValue(euc.cmd("beep"));
+					if (euc.dash.auto.onC.beep) return c.writeValue(euc.cmd("beep"));
+					//if (euc.dash.auto.onC.rstT) {}
 					euc.is.run=1;
 					return true;
 				});
 			}else if (euc.state=="OFF"||n=="end") {
-				//if (euc.is.kill) {clearTimout(euc.is.kill);euc.is.kill=0;}
-				if (euc.gatt && euc.gatt.connected) {
-					c.writeValue(euc.cmd("setLightOff")).then(function() {
-						let md={"1":"SETs","2":"SETm","3":"SETh"};
-						return ((euc.dash.opt.lock.en)?c.writeValue(md[euc.dash.opt.ride.mode]):"ok");
-					}).then(function()  {
-						euc.gatt.disconnect();if (ew.def.cli) console.log("EUC Veteran out");
-					}).catch(euc.off);
-				}else {
-					if (euc.is.busy) {clearTimeout(euc.is.busy);euc.is.busy=0;}
-					euc.state="OFF";
-					euc.off("not connected");
-					return;
-				}
-			}else if (n==="proxy") {
-				c.writeValue(v).then(function() {
-                    if (euc.is.busy) {clearTimeout(euc.is.busy);euc.is.busy=0;}
-					return;
+				let hld=["none","setLightOn","setLightOff"];
+				c.writeValue(euc.cmd(hld[euc.dash.auto.onD.HL])).then(function() {
+					if (euc.dash.auto.onD.beep) return c.writeValue(euc.cmd("beep"));
+				}).then(function() {
+					euc.is.run=0;
+					return c.stopNotifications();
+				}).then(function() {
+					euc.gatt.disconnect(); 
 				}).catch(euc.off);
             }else if (euc.cmd(n)) {
 				c.writeValue(euc.cmd(n)).then(function() {
-					if (euc.is.busy) {clearTimeout(euc.is.busy);euc.is.busy=0;}
+					if (euc.tout.busy) {clearTimeout(euc.tout.busy);euc.tout.busy=0;}
 				}).catch(euc.off);
 			}
 		};
 		if (!ew.do.fileRead("dash","slot"+ew.do.fileRead("dash","slot")+"Mac")) {
-			euc.dash.info.get.mac=euc.mac; euc.dash.opt.bat.hi=420;
+			euc.dash.info.get.mac=euc.mac; euc.dash.opt.bat.hi=420;euc.dash.opt.bat.low=315;
 			euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 			ew.do.fileWrite("dash","slot"+ew.do.fileRead("dash","slot")+"Mac",euc.mac);
 		}
@@ -200,67 +193,7 @@ euc.conn=function(mac){
 	//reconect
 	}).catch(euc.off);
 };
-/*
-//catch
-euc.off=function(err){
-	if (euc.is.reconnect) {
-		clearTimeout(euc.is.reconnect);
-		euc.is.reconnect=0;
-	}
-	if (euc.state!="OFF") {
-		if (ew.def.cli) 
-			console.log("EUC: Restarting");
-		if ( err==="Connection Timeout"  )  {
-			if (ew.def.cli) console.log("reason :timeout");
-			euc.state="LOST";
-			if ( ew.def.dash.rtr < euc.is.run) {
-				euc.tgl();
-				return;
-			}
-			euc.is.run=euc.is.run+1;
-			if (euc.dash.opt.lock.en==1) buzzer.nav(250);
-			else  buzzer.nav([250,200,250,200,250]);
-			euc.is.reconnect=setTimeout(() => {
-				euc.is.reconnect=0;
-				euc.conn(euc.mac); 
-			}, 5000);
-		}
-		else if ( err==="Disconnected"|| err==="Not connected")  {
-			if (ew.def.cli) console.log("reason :",err);
-			euc.state="FAR";
-			euc.is.reconnect=setTimeout(() => {
-				euc.is.reconnect=0;
-				euc.conn(euc.mac); 
-			}, 1500);
-		}
-		else {
-			if (ew.def.cli) console.log("reason :",err);
-			euc.state="RETRY";
-			euc.is.reconnect=setTimeout(() => {
-				euc.is.reconnect=0;
-				euc.conn(euc.mac); 
-			}, 1500);
-		}
-	} else {
-		if (ew.def.cli) console.log("EUC OUT:",err);
-		if (euc.horn) {clearInterval(euc.horn);euc.horn=0;}
-		if (euc.is.busy) {clearTimeout(euc.is.busy);euc.is.busy=0;}
-		euc.off=function(err){if (ew.is.bt===2) console.log("EUC off, not connected",err);};
-		euc.wri=function(err){if (ew.is.bt===2) console.log("EUC write, not connected",err);};
-		euc.conn=function(err){if (ew.is.bt===2) console.log("EUC conn, not connected",err);};
-		euc.cmd=function(err){if (ew.is.bt===2) console.log("EUC cmd, not connected",err);};
-		euc.is.run=0;
-		euc.temp=0;
-		global["\xFF"].bleHdl=[];
-		NRF.setTxPower(ew.def.rfTX);
-		if (euc.proxy) euc.proxy.e();
-		if ( euc.gatt&&euc.gatt.connected ) {
-			if (ew.is.bt===2) console.log("ble still connected"); 
-			euc.gatt.disconnect();return;
-		}
-    }
-};
-*/
+
 //euc.wri("changePage")
 //euc.wri("switchPackets")
 //euc.wri("returnMain")

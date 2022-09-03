@@ -11,7 +11,7 @@ E.enableWatchdog(30, false);
 E.showMessage=print; //apploader suport
 global.save = function() { throw new Error("You don't need to use save() on eucWatch!"); };
 //d25.write(0)
-global.ew={"do":{"reset":{},"update":{}},"tid":{},"temp":{},"pin":{BAT:D31,CHRG:D19,BUZZ:D16,BUZ0:1,BL:D12,i2c:{SCL:D7,SDA:D6},touch:{RST:D13,INT:D28},disp:{CS:D25,DC:D18,RST:D26,BL:D14},acc:{INT:D8}}};
+global.ew={"dbg":0, "log":[], "def": {}, "is": {},"do":{"reset":{},"update":{}},"tid":{},"temp":{},"pin":{BAT:D31,CHRG:D19,BUZZ:D16,BUZ0:1,BL:D12,i2c:{SCL:D7,SDA:D6},touch:{RST:D13,INT:D28},disp:{CS:D25,DC:D18,RST:D26,BL:D14},acc:{INT:D8}}};
 //global.ew={"do":{"reset":{},"update":{}},"tid":{},"temp":{},"pin":{BAT:D31,CHRG:D19,BUZZ:D16,BUZ0:1,BL:D12,i2c:{SCL:D7,SDA:D6},touch:{RST:D13,INT:D28},disp:{CS:D25,DC:D18,RST:D26,BL:D14},acc:{INT:D8}}};
 
 //devmode
@@ -134,7 +134,7 @@ function init(){
 	//cmd([0x2b,0,0,0,239]);
 	//cmd([0x2c]);
 }
-//var bpp=(require("Storage").read("setting.json") && require("Storage").readJSON("setting.json").bpp)?require("Storage").readJSON("setting.json").bpp:1;
+//var bpp=(require("Storage").read("ew.json") && require("Storage").readJSON("ew.json").bpp)?require("Storage").readJSON("ew.json").bpp:1;
 var bpp=1;
 var g=Graphics.createArrayBuffer(240,240,bpp);
 var pal;
@@ -201,7 +201,7 @@ g.flip=function(force){
 };
 
 g.bri={
-  	lv:((require("Storage").readJSON("setting.json",1)||{}).bri)?(require("Storage").readJSON("setting.json",1)||{}).bri:3,
+  	lv:((require("Storage").readJSON("ew.json",1)||{}).bri)?(require("Storage").readJSON("ew.json",1)||{}).bri:3,
 	set:function(o){	
 //      print(o);
 	if (o) this.lv=o; else { this.lv++; if (this.lv>7) this.lv=1; o=this.lv; }

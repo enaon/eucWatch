@@ -24,9 +24,9 @@ face[0] = {
       	this.g.fillRect(125,200,165,204);
 		this.g.flip(); 
 	    this.btn(1,"",18,60,20,1,0,0,0,119,97,"",25,60,55);
-        this.btn(euc.dash.auto.onD.off,"AUTO",22,185,15,7,1,122,0,239,97,"OFF",25,185,55);		
+        this.btn(euc.dash.auto.onD.off,"AUTO",22,185,15,13,1,122,0,239,97,"OFF",25,185,55);		
         this.btn(1,"",18,60,115,1,0,0,100,119,195,"",25,60,150);
-        this.btn(euc.dash.auto.onD.lock,"AUTO",18,185,115,7,1,122,100,239,195,"LOCK",25,185,155);	
+        this.btn(euc.dash.auto.onD.lock,"AUTO",18,185,115,13,1,122,100,239,195,"LOCK",25,185,155);	
 
 		this.run=true;
 	},
@@ -111,14 +111,14 @@ touchHandler[0]=function(e,x,y){
 			buzzer.nav(40);		
 		}else if ( 120<=x && y<=100 ) { //auto Off
 			euc.dash.auto.onD.off=1-euc.dash.auto.onD.off;
-			face[0].btn(euc.dash.auto.onD.off,"AUTO",22,185,15,7,1,122,0,239,97,"OFF",25,185,55);		
+			face[0].btn(euc.dash.auto.onD.off,"AUTO",22,185,15,13,1,122,0,239,97,"OFF",25,185,55);		
             face[0].ntfy("ENABLE AUTO OFF","NO ACTION",19,1,euc.dash.auto.onD.off);
 			buzzer.nav([30,50,30]);	
 		}else if ( x<=120 && 100<=y ) { //auto lift
 			buzzer.nav(40);		
 		}else if  (120<=x && 100<=y ) { //Unlock Once
 			euc.dash.auto.onD.lock=1-euc.dash.auto.onD.lock;
-            face[0].btn(euc.dash.auto.onD.lock,"AUTO",18,185,115,7,1,122,100,239,195,"LOCK",25,185,155);	
+            face[0].btn(euc.dash.auto.onD.lock,"AUTO",18,185,115,13,1,122,100,239,195,"LOCK",25,185,155);	
             face[0].ntfy("ENABLE AUTO LOCK","NO ACTION",19,1,euc.dash.auto.onD.lock);
 			buzzer.nav([30,50,30]);								
 		}else buzzer.nav(40);

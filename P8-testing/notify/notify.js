@@ -26,7 +26,7 @@ face[0] = {
 	if (!this.run) return;
 	if (this.nCall!=notify.nCall){
 		this.nCall=notify.nCall;
-		this.g.setColor(1,(this.nCall)?7:1);
+		this.g.setColor(1,(this.nCall)?13:1);
 		this.g.fillRect(0,0,170,77);
 		this.g.setColor(0,15);
 		this.g.setFont("Vector",25);
@@ -146,7 +146,7 @@ face[5] = {
     if (!this.run||this.list.length==0) return;
     if (this.del===1) {
       this.del=2;
-      this.g.setColor(1,7);
+      this.g.setColor(1,13);
       this.g.fillRect(0,31,239,120);
       this.g.setColor(0,15);
 	  //thrashbin

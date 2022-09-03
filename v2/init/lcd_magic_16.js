@@ -140,7 +140,7 @@ Modules.addCached("eucWatch", function() {
 
   }
 
-  var bpp = (require("Storage").read("setting.json") && require("Storage").readJSON("setting.json").bpp) ? require("Storage").readJSON("setting.json").bpp : 1;
+  var bpp = (require("Storage").read("ew.json") && require("Storage").readJSON("ew.json").bpp) ? require("Storage").readJSON("ew.json").bpp : 1;
   var g = Graphics.createArrayBuffer(240, 280, bpp);
   var pal;
   g.sc = g.setColor;
@@ -174,7 +174,7 @@ Modules.addCached("eucWatch", function() {
       global.color=Uint16Array([0x000, 0x1084, 0x5B2F, 0xce9b, 0x001D, 0x3299, 0x0842, 0x0F6A, 0x3ADC, 0xF81F, 2220, 0x07FF, 115, 0xd800, 0xFFE0, 0xFFFF]);
       g.buffer = new ArrayBuffer(33600);
       //pal = Uint16Array([0x000, 0x1084, 0x5B2F, 0xce9b, 0x196E, 0x3299, 0x0842, 0x0F6A, 0x07f0, 3935, 2220, 0x07FF, 0x3299, 0xd800, 0xFFE0, 0xFFFF]);
-      pal=global.color
+      pal=global.color;
       //pal = Uint16Array([0x000, 0x1084, 0x5B2F, 0xce9b, 0x001D, 0x3299, 0x0842, 0x0F6A, 0x3ADC, 3935, 2220, 0x07FF, 115, 0xd800, 0xFFE0, 0xFFFF]);
       //pal= g.col;
       g.setColor = (c, v) => { g.sc(v); };
@@ -255,7 +255,7 @@ Modules.addCached("eucWatch", function() {
   };
 
   g.bri = {
-    lv: ((require("Storage").readJSON("setting.json", 1) || {}).bri) ? (require("Storage").readJSON("setting.json", 1) || {}).bri : 3,
+    lv: ((require("Storage").readJSON("ew.json", 1) || {}).bri) ? (require("Storage").readJSON("ew.json", 1) || {}).bri : 3,
     set: function(o) {
       if (o) this.lv = o;
       else { this.lv++; if (this.lv > 7) this.lv = 1;

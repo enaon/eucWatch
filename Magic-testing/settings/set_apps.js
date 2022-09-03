@@ -22,9 +22,10 @@ if (global.tpms) {
 	UI.btn.img("main","_2x3",3,"tpms","TPMS",15,1);
 }else UI.ele.fill("_2x3",3,1);
 //app4
-if (require("Storage").read("hello",1)) {
+if (require("Storage").read("hid",1)) {
 	img=`require("heatshrink").decompress(atob("mEwwIIFn4FKmYFHv/ggYFBgf//kD2cAh/An8B+cAngNB4AFBuAZB8F/gPgAoN4j0DwAFBjkMgYuCh0GgwFCAgMMAoUDg0cAoeGjEHwEegOGmEfFoOA4cwjFgsIFBsBwB4HAsYFL8AFDufADocz4ApDAoI1CPoPAQYgFEn4FKFgIFEPgQABuFgAodgApcx/wFC4AFFjCnCgOAjk4RIWAhhRBAoKdBg/AnilBg8B//4hwTCKAKlBYohJCaIQCBboYFBdIS8DeoJQDv4WCA"))`;
-	UI.btn.img("main","_2x3",4,img,"Hello",15,1);
+	UI.btn.img("main","_2x3",4,"hid","HID",ew.def.hid?15:3,1);
+	//UI.btn.img("main","_2x3",4,"hid","Hello",15,1);
 }else  UI.ele.fill("_2x3",4,1);
 //app5
 UI.ele.fill("_2x3",5,1);//img=E.toArrayBuffer(atob("MDCBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAGAAAAAAAPAAAAAAAfAAAAAAAfgAAAAAA9wAAAAAA84AAAAAB+cAAAAAB/OAAAAAB7nAAAAAB5zgAAAAB85wAAAAB+c4AAAAB/OcAAAAB7nOAAAAB5znAAAAB85z4AAP/+c78AB///Of4AH/////wAP/////gA/85//+AAfOc//wAAPnOeAAAABzneAAAAA5z+AAAAAc5+AAAAAOc+AAAAAHOeAAAAADneAAAAABz+AAAAAA5+AAAAAAc8AAAAAAO8AAAAAAH8AAAAAAD4AAAAAAD4AAAAAADwAAAAAABgAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="))`;
@@ -42,7 +43,7 @@ UIc.main._2x3=(i)=>{
 	}else if (i==3){
 		buzzer.nav(buzzer.buzz.ok);face.go('tpmsFace',0);
 	}else if (i==4){
-		buzzer.nav(buzzer.buzz.ok);face.go('hello',0);
+		buzzer.nav(buzzer.buzz.ok);face.go('hid',0);
 	}else if (i==5){
 		buzzer.nav(buzzer.buzz.na);	
 	}else if (i==6){

@@ -129,10 +129,12 @@ face[0] = {
 
 		let rel=(this.gui.bat[2]-this.gui.bat[0])/100;
 		this.g.setColor(1,1);
-		this.g.fillRect({x:this.gui.bat[0]+(this.bat*rel)-5,y:this.gui.bat[1],x2:this.gui.bat[2],y2:this.gui.bat[3],r:10});
+		//this.g.fillRect({x:this.gui.bat[0]+(this.bat*rel)-5,y:this.gui.bat[1],x2:this.gui.bat[2],y2:this.gui.bat[3],r:10});
+		this.g.fillRect({x:this.gui.bat[0],y:this.gui.bat[1],x2:this.gui.bat[2],y2:this.gui.bat[3],r:10});
 
 		this.g.setColor(0,15);
-		this.g.fillRect({x:this.gui.bat[0],y:this.gui.bat[1],x2:this.gui.bat[0]+(this.bat*rel),y2:this.gui.bat[3],r:10});	
+		//this.g.fillRect({x:this.gui.bat[0],y:this.gui.bat[1],x2:this.gui.bat[0]+(this.bat*rel),y2:this.gui.bat[3],r:10});	
+		this.g.fillRect({x:this.gui.bat[0]+3,y:this.gui.bat[1]+2,x2:this.gui.bat[0]+(this.bat*rel)-3,y2:this.gui.bat[3]-2,r:10});	
 
 		this.g.setFontVector(this.gui.txtBat);
 		this.g.setColor(0,2);
@@ -169,16 +171,20 @@ face[0] = {
 	bar:function(){
 		"ram"
 		UI.ele.fill("_bar",6,0);
-		  if ( euc.state!="READY") {
-					UIc.start(0,1);
-					UI.btn.c2l("bar","_bar",6,"CANCEL",0,15,13,1.2); //4
-					UIc.end();
-					UIc.bar._bar=(i)=>{ 
-						buzzer.nav(buzzer.buzz.ok);
-						euc.tgl();
-					};
-		  		return;
+		if ( euc.state!="READY") {
+			if ( euc.state=="ON"){
+	  			UI.ele.fill("_bar",6,0); //4
+			}else{
+				UIc.start(0,1);
+				UI.btn.c2l("bar","_bar",6,"CANCEL",0,15,13,1.2); //4
+				UIc.end();
+				UIc.bar._bar=(i)=>{ 
+					buzzer.nav(buzzer.buzz.ok);
+					euc.tgl();
+				};
 			}
+			return;
+		}
 		face[0].barBat();
 		//face[0].barTemp();
 		face[0].barClock();
@@ -206,7 +212,7 @@ face[0] = {
 		this.g.off();this.clear(o);
 	}
 };
-//
+/*
 UIc.start(1,1);
 UI.ele.coord("main","_2x2",1);
 UI.ele.coord("main","_2x2",2);
@@ -220,3 +226,4 @@ UIc.main._2x2=(i)=>{
 	else if (i==2) ew.def.dash.batS=1-ew.def.dash.batS;
 };
 
+*/

@@ -96,7 +96,7 @@ function ST7789() {
         g.on = function(){cmd(0x29);cmd(0x11);g.isOn=true;g.bri.set(4);};
         dispinit(rst, ()=>{g.clear(1).setFont("6x8").drawString("Loading...",20,20);});
 		g.bri={
-		  lv:((require("Storage").readJSON("setting.json",1)||{}).bri)?(require("Storage").readJSON("setting.json",1)||{}).bri:3,
+		  lv:((require("Storage").readJSON("ew.json",1)||{}).bri)?(require("Storage").readJSON("ew.json",1)||{}).bri:3,
 		  set:function(o){	
 			if (o) this.lv=o; else { this.lv++; if (this.lv>7) this.lv=1; o=this.lv; }
 			if (this.lv==0||this.lv==7)

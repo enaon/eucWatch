@@ -240,7 +240,7 @@ touchHandler[0]=function(e,x,y){
 			}
 		else   {
 			if ( 200<=y &&face[0].ntid){
-				face[0].ntfy("DELETED","",22,7,1);
+				face[0].ntfy("DELETED","",22,13,1);
 				ew.do.fileWrite("dash", "slot"+ew.do.fileRead("dash","slot")+"Mac"  );
                 ew.do.fileWrite("dash","slot"+ew.do.fileRead("dash","slot")+"Maker");
                 ew.do.fileWrite("dash","slot"+ew.do.fileRead("dash","slot")+"Name");
@@ -265,7 +265,7 @@ touchHandler[0]=function(e,x,y){
 				w.gfx.flip();
 				face.go("dashAlerts",0);return;	
 			}else if (120<x && 200<=y ){
-				face[0].ntfy("tap to DELETE","",22,7,1);
+				face[0].ntfy("tap to DELETE","",22,13,1);
 			}
 		}
 		break;

@@ -23,11 +23,11 @@ face[0] = {
         this.g.setColor(1,15);
       	this.g.fillRect(120,200,143,204);
 		this.g.flip(); 
-        this.btn(euc.dash.auto.onC.HL,"AUTO",18,60,20,7,1,0,0,119,97,"LIGHT",25,60,55);
+        this.btn(euc.dash.auto.onC.HL,"AUTO",18,60,20,13,1,0,0,119,97,"LIGHT",25,60,55);
 		this.btn(0,"",18,185,20,4,1,122,0,239,97,"",22,185,55);		
-        this.btn(euc.dash.auto.onD.off,"AUTO",18,60,115,7,1,0,100,119,195,"OFF",25,60,150);
-        this.btn(euc.dash.auto.onC.lift,"",18,185,115,7,1,122,100,239,195);
-		//this.btn(euc.dash.auto.onC.lift,"AUTO",18,185,115,7,1,122,100,239,195,"LIFT",25,185,155);	
+        this.btn(euc.dash.auto.onD.off,"AUTO",18,60,115,13,1,0,100,119,195,"OFF",25,60,150);
+        this.btn(euc.dash.auto.onC.lift,"",18,185,115,13,1,122,100,239,195);
+		//this.btn(euc.dash.auto.onC.lift,"AUTO",18,185,115,13,1,122,100,239,195,"LIFT",25,185,155);	
 		this.run=true;
 	},
 	show : function(){
@@ -108,7 +108,7 @@ touchHandler[0]=function(e,x,y){
       case 5: //tap event
 		if ( x<=120 && y<100 ) { //auto light
 			euc.dash.auto.onC.HL=1-euc.dash.auto.onC.HL;
-            face[0].btn(euc.dash.auto.onC.HL,"AUTO",18,60,20,7,1,0,0,119,97,"LIGHT",25,60,55);
+            face[0].btn(euc.dash.auto.onC.HL,"AUTO",18,60,20,13,1,0,0,119,97,"LIGHT",25,60,55);
             face[0].ntfy("AUTO LIGHT ON","AUTO LIGHT OFF",18,1,euc.dash.auto.onC.HL);
 			buzzer.nav([30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //watch alerts
@@ -116,12 +116,12 @@ touchHandler[0]=function(e,x,y){
 			//face.go("dashAlerts",0);
 		}else if ( x<=120 && 100<=y ) { //auto off
 			euc.dash.auto.onD.off=1-euc.dash.auto.onD.off;
-            face[0].btn(euc.dash.auto.onD.off,"AUTO",18,60,115,7,1,0,100,119,195,"OFF",25,60,150);
+            face[0].btn(euc.dash.auto.onD.off,"AUTO",18,60,115,13,1,0,100,119,195,"OFF",25,60,150);
             face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",16,1,euc.dash.auto.onD.off);
 			buzzer.nav([30,50,30]);		
 		//}else if  (120<=x && 100<=y ) { //auto lift
 			//euc.dash.auto.onC.lift=1-euc.dash.auto.onC.lift;
-         //   face[0].btn(euc.dash.auto.onC.lift,"AUTO",18,185,115,7,1,122,100,239,195,"LIFT",25,185,155);	
+         //   face[0].btn(euc.dash.auto.onC.lift,"AUTO",18,185,115,13,1,122,100,239,195,"LIFT",25,185,155);	
 			//face[0].ntfy("CONNECT -> LIFT OFF","AUTO LIFT DISABLED",18,1,euc.dash.auto.onC.lift);
 			//buzzer.nav([30,50,30]);						
 		}else buzzer.nav(40);
@@ -150,12 +150,12 @@ touchHandler[0]=function(e,x,y){
 	case 12: //hold event
 		if ( x<=120 && y<100 ) { //auto light
 			euc.dash.auto.onC.HL=1-euc.dash.auto.onC.HL;
-            face[0].btn(euc.dash.auto.onC.HL,"AUTO",18,60,20,7,1,0,0,119,97,"LIGHT",25,60,55);
+            face[0].btn(euc.dash.auto.onC.HL,"AUTO",18,60,20,13,1,0,0,119,97,"LIGHT",25,60,55);
             face[0].ntfy("AUTO LIGHT ON","AUTO LIGHT OFF",18,1,euc.dash.auto.onC.HL);
 			buzzer.nav([30,50,30]);
 		}else if ( x<=120 && 100<=y ) { //auto off
 			euc.dash.auto.onD.off=1-euc.dash.auto.onD.off;
-            face[0].btn(euc.dash.auto.onD.off,"AUTO",18,60,115,7,1,0,100,119,195,"OFF",25,60,150);
+            face[0].btn(euc.dash.auto.onD.off,"AUTO",18,60,115,13,1,0,100,119,195,"OFF",25,60,150);
             face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",16,1,euc.dash.auto.onD.off);
 			buzzer.nav([30,50,30]);		
 		}else buzzer.nav(40);

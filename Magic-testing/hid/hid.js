@@ -5,7 +5,7 @@ face[0] = {
         txt: 15,
         txt1: 14,
         txt2: 0,
-        hdr: 1),
+        hdr: 1,
         hdrTxt: 3,
         bck: 5,
         bck1: 3,
@@ -94,19 +94,6 @@ face[0] = {
     }
 };
 
-face[1] = {
-    offms: 1000,
-    init: function() {
-        return true;
-    },
-    show: function() {
-        face.go("clock", 0);
-        return true;
-    },
-    clear: function() {
-        return true;
-    }
-};
 touchHandler[0] = function(e, x, y) {
     var g = w.gfx;
     if (ew.def.hid == 1) {
@@ -152,3 +139,46 @@ touchHandler[0] = function(e, x, y) {
         buzzer.nav(buzzer.buzz.na);
     }
 };
+
+UIc.start(1,1);
+UI.ele.coord("bar","_bar",1);
+//UI.ele.coord("bar","_bar",2);
+UI.ele.coord("bar","_bar",3);
+
+/*
+  sendHid = function (code, cb) {
+    try {
+      NRF.sendHIDReport([1,code], () => {
+        NRF.sendHIDReport([1,0], () => {
+          if (cb) cb();
+        });
+      });
+    } catch(e) {
+      print(e);
+    }
+  };
+  next = function (cb) { sendHid(0x01, cb); };
+  prev = function (cb) { sendHid(0x02, cb); };
+  toggle = function (cb) { sendHid(0x10, cb); };
+  up = function (cb) {sendHid(0x40, cb); };
+  down = function (cb) { sendHid(0x80, cb); };
+
+*/
+UIc.end();
+
+
+UIc.bar._bar=(i)=>{ 
+	buzzer.nav(buzzer.buzz.ok);
+    if (i==1) {
+        //down();
+	    ew.is.hidM.volumeDown();
+    }    else if (i==2) {
+	    ew.is.hidM.playpause();
+    }    else if (i==3) {
+        //up();
+	    ew.is.hidM.volumeUp();
+    }
+
+
+};
+

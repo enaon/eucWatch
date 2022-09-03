@@ -6,7 +6,7 @@
 	"trip": {"totl":0,"last":0,"left":0,"topS":0,"avrS":0,"time":0,"pwm":0},
 	"auto": {
 		"offT":0,
-		"onC":{"HL":0,"led":0,"beep":0,"unlk":0,"lift":0,"talk":1,"pass":0},
+		"onC":{"HL":0,"led":0,"beep":0,"unlk":0,"lift":0,"talk":1,"pass":0,"clrM":0},
 		"onD":{"HL":0,"led":0,"beep":0,"lock":0,"lift":0,"talk":0,"off":0}
 	},
 	"live": {"spd":0,"volt":0,"amp":0,"bat":0,"tmp":0,"tmpM":0,"pwm":0 },

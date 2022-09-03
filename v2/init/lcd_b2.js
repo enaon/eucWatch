@@ -19,7 +19,7 @@ g.on= function(){g.bri.set(ew.def.bri);};
 g.off= function(){Bangle.setLCDBrightness(0);};
 
 g.bri={
-  lv:((require("Storage").readJSON("setting.json",1)||{}).bri)?(require("Storage").readJSON("setting.json",1)||{}).bri:3,
+  lv:((require("Storage").readJSON("ew.json",1)||{}).bri)?(require("Storage").readJSON("ew.json",1)||{}).bri:3,
   set:function(o){	
     if (o) this.lv=o; else { this.lv++; if (this.lv>7) this.lv=1; o=this.lv; }
     if (this.lv==0||this.lv==7)
@@ -32,10 +32,10 @@ g.bri={
 };
 //battery
 const batt=function(i,c){
-	let v= 7.1*analogRead(D31);
+	let v= 13.245*analogRead(ew.pin.BAT);
 	let l=3.5,h=4.19;
-    let hexString = ("0x"+(0x50000700+(D31*4)).toString(16));
-	poke32(hexString,2); // disconnect pin for power saving, otherwise it draws 70uA more 	
+    let hexString = ("0x"+(0x50000700+(ew.pin.BAT*4)).toString(16));
+		poke32(hexString,2); // disconnect pin for power saving, otherwise it draws 70uA more 	
 	if (i==="info"){
 		if (c) return ((100*(v-l)/(h-l)|0)+'%-'+v.toFixed(2)+'V'); 
 		return (((v<=l)?0:(h<=v)?100:((v-l)/(h-l)*100|0))+'%-'+v.toFixed(2)+'V'); 

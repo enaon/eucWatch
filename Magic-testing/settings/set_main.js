@@ -7,10 +7,12 @@ tcBack.replaceWith(()=>{buzzer.nav(buzzer.buzz.ok);eval(require("Storage").read(
 face[0].page="clock";
 UI.ele.ind(1,5,0);
 UIc.start(1,0);
-UI.ele.fill("_2x3",1,0);
+if (process.env.BOARD=="BANGLEJS2") 
+	UI.btn.c2l("main","_2x3",1,"Bangle","",15,0);
+else UI.ele.fill("_2x3",1,0);
 UI.ele.fill("_2x3",2,0);
 UI.btn.c2l("main","_2x3",3,ew.def.txt?"MODE":ew.def.hr24?"24 H":"12 H",ew.def.txt?ew.def.hr24?"24 H":"12 H":"",15,0);
-UI.ele.fill("_2x3",4,6);
+UI.btn.c2l("main","_2x3",4,"dbg","",15,ew.dbg?4:6);
 UI.btn.img("main","_2x3",6,"power","PWR",15,6);
 UI.btn.img("main","_2x3",5,"info","INFO",15,6);
 UIc.end();
@@ -18,15 +20,19 @@ UIc.end();
 UIc.main._2x3=(i)=>{
 	if (i==1){
 		buzzer.nav(buzzer.buzz.ok);
+		Bangle.showLauncher()
 	}else if (i==2){
-		buzzer.nav(buzzer.buzz.ok);
+		buzzer.nav(buzzer.buzz.na);
 	}else if (i==3){
 		buzzer.nav(buzzer.buzz.ok);
 		ew.def.hr24=1-ew.def.hr24;
 		if (ew.def.info) UI.btn.ntfy(1,1.5,0,"_bar",6,"CLOCK MODE",ew.def.hr24?"24 HOURS":"A.M. / P.M.",15,0);
 		UI.btn.c2l("main","_2x3",3,ew.def.txt?"MODE":ew.def.hr24?"24 H":"12 H",ew.def.txt?ew.def.hr24?"24 H":"12 H":"",15,0);
 	}else if (i==4){
-		buzzer.nav(buzzer.buzz.na);
+		buzzer.nav(buzzer.buzz.ok);
+		ew.dbg=1-ew.dbg;
+		if (ew.def.info) UI.btn.ntfy(1,1.5,0,"_bar",6,"DEBUG",ew.dbg?"ON":"OFF",15,0);
+		UI.btn.c2l("main","_2x3",4,"dbg","",15,ew.dbg?4:6);
 	}else if (i==6){
 		buzzer.nav(buzzer.buzz.ok);
 		UI.btn.ntfy(0,3,1,"_bar",6,"","",15,0);

@@ -5,7 +5,7 @@ face[0] = {
         txt: 15,
         txt1: 14,
         txt2: 0,
-        hdr: 1),
+        hdr: 1,
         hdrTxt: 3,
         bck: 5,
         bck1: 3,

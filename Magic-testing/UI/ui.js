@@ -1,5 +1,5 @@
 UI = {
-	size: { _2x2: 20, _2x1: 25, _txt: 26, _sideSmall: 20, sideBig: 45, underSmall: 20, txt: 0.8, len: 1, sca: 1.1 },
+	size: { _2x2: 20, _2x1: 25, _txt: 26, _sideSmall: 20, sideBig: 45, underSmall: 20, txt: 0.8, len: 1, sca: 1 },
 	pos: { //raw X colomn
 		_fold: [20, [80, 160],//middle pos x
 			[62],//middle pos y
@@ -244,9 +244,8 @@ UI = {
 					clearTimeout(TC.tid);
 					TC.tid = 0; 
 				} 
-				ew.temp.bar = 0; 
-				if (face[0].exe) face[0].exe();
-				face[0].exe = 0; 
+				ew.is.bar = 0; 	ew.temp.bar = 0;
+				if (face[0].exe) {face[0].exe();face[0].exe = 0;} 
 				if (face[0].bar) face[0].bar(); 
 			}, tmot ? tmot * 1000 : 1000);
 		}

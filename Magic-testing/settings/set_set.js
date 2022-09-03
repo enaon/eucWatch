@@ -7,7 +7,7 @@ face[0].page="set";//
 //UI.ele.title("",3,0);
 UI.ele.ind(2,5,0);
 UIc.start(1,0);
-UI.btn.img("main","_2x3",1,(ew.def.cli||ew.def.gb||ew.def.prxy)?"bt":"plane","BT",15,12);
+UI.btn.img("main","_2x3",1,(ew.def.hid||ew.def.cli||ew.def.gb||ew.def.prxy)?"bt":"plane","BT",15,12);
 UI.btn.img("main","_2x3",2,"themes","FACE",15,12);
 UI.btn.img("main","_2x3",3,"bri",ew.def.bri,15,1,1);
 UI.btn.img("main","_2x3",4,"findPhone","FIND",3,0);

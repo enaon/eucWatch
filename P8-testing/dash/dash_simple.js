@@ -88,7 +88,7 @@ face[0] = {
 			let tm = getTime();
 			t.tid = -1;
 			t.show();
-			print("time n loop", getTime() - tm);
+			if (ew.dbg) print("simple dash, time in loop",getTime()-tm);
 		}, 100, this);
 	},
 	tmpf: function() {
@@ -160,7 +160,7 @@ face[0] = {
 		else this.spd = Math.round(this.spd + (euc.dash.live.spd - this.spd) / 2);
 		this.g.setColor(0, (euc.dash.alrt.spd.cc == 1) ? 0 : this.spdC[euc.dash.alrt.spd.cc]);
 		this.g.fillRect(0, 55, 239, 210);
-		this.g.setColor(1, (euc.dash.alrt.spd.cc == 1) ? 13 : 15);
+		this.g.setColor(1, (euc.dash.alrt.spd.cc == 1) ? 14 : 15);
 		if (100 <= this.spd) this.g.setFontVector(130);
 		else this.g.setFontVector(185);
 		this.g.drawString(Math.round(this.spd * this.spdF), 132 - (this.g.stringWidth(Math.round(this.spd * this.spdF)) / 2), (100 <= this.spd) ? 75 : 55);

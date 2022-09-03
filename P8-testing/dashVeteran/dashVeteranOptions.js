@@ -126,7 +126,7 @@ touchHandler[0]=function(e,x,y){
 				buzzer.nav([30,50,30]);
 			}else if ( 120<=x && y<=100 ) { //
 				buzzer.nav(40);	
-				face[0].ntfy("NOT YET","",19,7,1);
+				face[0].ntfy("NOT YET","",19,13,1);
 				//face.go("dashVeteranLimits",0);
 				//return;	
 			}else if ( x<=120 && 100<=y ) { 

@@ -12,7 +12,7 @@ if (global.euc && !euc.proxy) {
 		},
 		w:(o)=>{
 			if (ew.is.bt!=5) return;
-			NRF.updateServices(  {0xffe0:  {0xffe1:  {value:o,notify:true} }} );
+			NRF.updateServices({0xffe0:{0xffe2:{value:o,notify:true}},});
 		},
 		s: (o) => {
 			NRF.setServices({
@@ -27,14 +27,6 @@ if (global.euc && !euc.proxy) {
 						readable: true,
 						notify: true,
 						description: "ew"
-					},
-					0xffa9: {
-						value: [0x01],
-						maxLen: 20,
-						writable: false,
-						readable: true,
-						notify: false,
-						description: "Kingsong"
 					}
 				},
 				0xffe0: {
@@ -45,15 +37,23 @@ if (global.euc && !euc.proxy) {
 						onWrite: function(evt) {
 							euc.proxy.r(evt);
 						},
+						readable: false,
+						notify: false,
+						description: "write"
+					},
+					0xffe2: {
+						value: [0x00],
+						maxLen: 20,
+						writable: false,
 						readable: true,
 						notify: true,
-						description: "Kingsong"
+						description: "read"
 					}
 				}
 			}, { advertise: ['0xfff0', '0xffa0'], uart: false });
-			NRF.setAdvertising({}, { name: "KS-" + euc.dash.info.get.name + "-" + ew.def.name, connectable: true });
+			NRF.setAdvertising({}, { name: "NOE" + euc.dash.info.get.name + "-" + ew.def.name, connectable: true });
 			//NRF.setAddress(euc.mac);
-			NRF.setAddress(NRF.getAddress().substr(0, 15) + "a9 public");
+			NRF.setAddress(NRF.getAddress().substr(0, 15) + "a2 public");
 			NRF.disconnect();
 			NRF.restart();
 		},

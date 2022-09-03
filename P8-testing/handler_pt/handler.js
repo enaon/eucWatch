@@ -65,7 +65,7 @@ var set={
 			}else gIsB=0;
 		 }
 	},
-	updateSettings:function(){require('Storage').write('setting.json', ew.def);},
+	updateSettings:function(){require('Storage').write('ew.json', ew.def);},
 	resetSettings:function() {
 		ew.def = {
 		dash:{
@@ -170,7 +170,7 @@ var set={
 	}
 };
 
-ew.def = require('Storage').readJSON('setting.json', 1);
+ew.def = require('Storage').readJSON('ew.json', 1);
 if (!ew.def) {ew.do.reset.settings();ew.do.update.settings();}
 if (!ew.def.rstP) ew.def.rstP="D10";
 if (!ew.def.rstR) ew.def.rstR=0xA5;

@@ -83,19 +83,23 @@ face[0] = {
 		}
 		else {
 			UI.ele.title("SELECTED", 15, 0);
+			ew.def.dash.slot = no;
+			
 			UI.btn.img("main", "_2x2", no, this.icon + target[this.slot["slot" + no + "Maker"]], this.slot["slot" + no + "Model"].toUpperCase(), 15, 1);
 			if (this.slot["slot" + this.prevSlot + "Mac"]) {
 				UI.btn.img("main", "_2x2", this.prevSlot, this.icon + target[this.slot["slot" + this.prevSlot + "Maker"]], this.slot["slot" + this.prevSlot + "Model"].toUpperCase(), 3, 0);
 				require("Storage").writeJSON('eucSlot' + this.prevSlot + '.json', euc.dash);
+				//ew.do.fileWrite('eucSlot' +  this.prevSlot + '.json', euc.dash);
 			}
-			ew.do.fileWrite("dash", "slot", no);
-			ew.def.dash.slot = no;
 			this.prevSlot = no;
+			ew.do.fileWrite("dash", "slot", no);
+			if (Boolean(require("Storage").read('eucSlot' + no + '.json')))
+				euc.dash = require("Storage").readJSON('eucSlot' + no + '.json', 1);
+			else
+				euc.dash = require("Storage").readJSON("eucSlot.json", 1);
 		}
-		if (Boolean(require("Storage").read('eucSlot' + no + '.json')))
-			euc.dash = require("Storage").readJSON('eucSlot' + no + '.json', 1);
-		else
-			euc.dash = require("Storage").readJSON("eucSlot.json", 1);
+	
+
 	},
 	empty: function(no) {
 		buzzer.nav(buzzer.buzz.ok);
@@ -139,6 +143,7 @@ face[0] = {
 				UI.btn.ntfy(1, 1.5, 1);
 				UI.btn.c2l("main", "_bar", 6, `SLOT ${no}`, "DELETED", 15, 4);
 				ew.def.dash.slot = 0;
+				ew.do.fileWrite("dash", "slot", no);
 				face[0].prevSlot = 0;
 			}
 		};

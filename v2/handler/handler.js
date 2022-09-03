@@ -1,4 +1,6 @@
 //handler
+//if (process.env.BOARD == "BANGLEJS2") 
+//    E.setConsole(null, { force: false });
 E.setFlags({pretokenise:1});
 if (require('Storage').read("UI")) eval(require('Storage').read('UI'));
 if (require('Storage').read("handler_notify")) eval(require('Storage').read("handler_notify"));

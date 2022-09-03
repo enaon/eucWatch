@@ -123,7 +123,7 @@ function init(bppi){
   
 }
 
-var bpp=(require("Storage").read("setting.json") && require("Storage").readJSON("setting.json").bpp)?require("Storage").readJSON("setting.json").bpp:1;
+var bpp=(require("Storage").read("ew.json") && require("Storage").readJSON("ew.json").bpp)?require("Storage").readJSON("ew.json").bpp:1;
 var g=Graphics.createArrayBuffer(240,280,bpp);
 var pal;
 g.sc=g.setColor;
@@ -224,7 +224,7 @@ g.off=function(){
 };
 
 g.bri={
-  lv:((require("Storage").readJSON("setting.json",1)||{}).bri)?(require("Storage").readJSON("setting.json",1)||{}).bri:3,
+  lv:((require("Storage").readJSON("ew.json",1)||{}).bri)?(require("Storage").readJSON("ew.json",1)||{}).bri:3,
   set:function(o){	
     if (o) this.lv=o; else { this.lv++; if (this.lv>7) this.lv=1; o=this.lv; }
     if (this.lv==0||this.lv==7)

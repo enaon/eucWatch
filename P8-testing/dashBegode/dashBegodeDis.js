@@ -22,7 +22,7 @@ face[0] = {
 		this.g.fillRect(0,196,239,204);
 		this.g.flip();
 		let val=["NA","ON","OFF","STOBE"];
-		this.btn(euc.dash.auto.onD.HL,"LIGHT",18,60,20,euc.dash.auto.onD.HL==3?7:euc.dash.auto.onD.HL==1?4:1,0,0,0,119,97,val[euc.dash.auto.onD.HL],25,60,55);
+		this.btn(euc.dash.auto.onD.HL,"LIGHT",18,60,20,euc.dash.auto.onD.HL==3?13:euc.dash.auto.onD.HL==1?4:1,0,0,0,119,97,val[euc.dash.auto.onD.HL],25,60,55);
 		this.btn(euc.dash.auto.onD.led,"LED",18,185,20,12,0,122,0,239,97,euc.dash.auto.onD.led?euc.dash.auto.onD.led-1+"":"NA",25,185,55);
 		//this.btn(euc.dash.auto.onD.led,"LED",18,185,20,euc.dash.auto.LED==1?12:1,0,122,0,239,97,"LED",25,185,55);
         this.btn(euc.dash.auto.onD.beep,"BEEP",18,60,120,euc.dash.auto.onD.beep==1?12:1,0,0,100,119,195,euc.dash.auto.onD.beep?"ON":"NA",25,60,155);
@@ -107,7 +107,7 @@ touchHandler[0]=function(e,x,y){
 			euc.dash.auto.onD.HL++;  if (3<euc.dash.auto.onD.HL) euc.dash.auto.onD.HL=0;
 			//let val=["NA","CITY","AUTO","ON","OFF"];
 			let val=["NA","ON","OFF","STOBE"];
-			face[0].btn(euc.dash.auto.onD.HL,"LIGHT",18,60,20,euc.dash.auto.onD.HL==3?7:euc.dash.auto.onD.HL==1?4:1,0,0,0,119,97,val[euc.dash.auto.onD.HL],25,60,55);
+			face[0].btn(euc.dash.auto.onD.HL,"LIGHT",18,60,20,euc.dash.auto.onD.HL==3?13:euc.dash.auto.onD.HL==1?4:1,0,0,0,119,97,val[euc.dash.auto.onD.HL],25,60,55);
             face[0].ntfy("SET LIGHT "+val[euc.dash.auto.onD.HL],"NO ACTION",20,1,euc.dash.auto.onD.HL);
 			buzzer.nav([30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //led

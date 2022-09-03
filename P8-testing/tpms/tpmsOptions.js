@@ -29,7 +29,7 @@ face[0] = {
 	sett:function(){
 		let tpmsS=["OFF","5 MIN","30 MIN","1 HOUR","6 HOURS"];
 		this.barS();
-		this.btn(tpms.def.allowNew,(tpms.def.allowNew)?"ALLOW":"BLOCK",25,80,20,4,7,0,0,155,60);//1-2
+		this.btn(tpms.def.allowNew,(tpms.def.allowNew)?"ALLOW":"BLOCK",25,80,20,4,13,0,0,155,60);//1-2
 		this.g.setColor(0,0);
 		this.g.clearRect(156,0,159,60);
 		this.g.flip(); 
@@ -148,7 +148,7 @@ touchHandler[0]=function(e,x,y){
 				buzzer.nav([100,50,100]);
 				delete tpms.def.list[face[0].tpms[tpms.def.pos]];
 				require("Storage").erase("tpmsLog"+face[0].tpms[tpms.def.pos]+".json",1);
-				face[0].ntfy(face[0].tpms[tpms.def.pos]+" CLEARED","",25,7,1,2,0,1,0);
+				face[0].ntfy(face[0].tpms[tpms.def.pos]+" CLEARED","",25,13,1,2,0,1,0);
 				tpms.def.pos=0;
 				let got=require("Storage").readJSON("tpms.json",1);
 				got.def=tpms.def;
@@ -158,7 +158,7 @@ touchHandler[0]=function(e,x,y){
 				return;
 			}else if (face[0].act=="del"){
 				buzzer.nav([30,50,30]);
-				face[0].ntfy("TAP TO","DELETE",26,7,1,2,0,1,1);
+				face[0].ntfy("TAP TO","DELETE",26,13,1,2,0,1,1);
 				face[0].act="conf";
 			}else if (face[0].act=="hi"){	
 				buzzer.nav([30,50,30]);
@@ -199,8 +199,8 @@ touchHandler[0]=function(e,x,y){
 			if ( 0 < x && x < 155 && y < 62 ) { //1-2
 				buzzer.nav([30,50,30]);
 				tpms.def.allowNew=1-tpms.def.allowNew;
-				face[0].btn(tpms.def.allowNew,(tpms.def.allowNew)?"ALLOW":"BLOCK",25,80,20,4,7,0,0,155,60);//1-2
-				face[0].ntfy("NEW SENSOR","DISCOVERY",26,(tpms.def.allowNew)?4:7,1,1,0,1,1);
+				face[0].btn(tpms.def.allowNew,(tpms.def.allowNew)?"ALLOW":"BLOCK",25,80,20,4,13,0,0,155,60);//1-2
+				face[0].ntfy("NEW SENSOR","DISCOVERY",26,(tpms.def.allowNew)?4:13,1,1,0,1,1);
 				face[0].act="allow";
 			}else if (155 <= x && y < 62) { //3
 				buzzer.nav([30,50,30]);	

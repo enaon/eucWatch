@@ -53,9 +53,9 @@ face[0] = {
       	this.g.fillRect(75,200,98,204);
 		this.g.flip(); 
         this.btn(euc.dash.opt.lght.HL,"LIGHT",18,60,20,4,1,0,0,119,97,(euc.dash.opt.lght.HL)?"ON":"OFF",25,60,55);
-		this.btn(euc.dash.opt.snd.vol,"VOLUME",22,185,15,12,7,122,0,239,97,(euc.dash.opt.snd.vol)?euc.dash.opt.snd.vol:"MUTE",30,185,50);//2
+		this.btn(euc.dash.opt.snd.vol,"VOLUME",22,185,15,12,13,122,0,239,97,(euc.dash.opt.snd.vol)?euc.dash.opt.snd.vol:"MUTE",30,185,50);//2
 		let metric={"psi":1,"bar":0.0689475,"kpa":6.89475};
-		this.btn(euc.dash.opt.tpms,(euc.dash.opt.tpms)?euc.dash.opt.tpms:"TPMS",18,60,115,(euc.dash.opt.tpms&&tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.opt.tpms].time<1800)?(tpms.euc[euc.dash.opt.tpms].alrm)?7:4:1,1,0,100,119,195,(euc.dash.opt.tpms)?(tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].psi)?Math.round(tpms.euc[euc.dash.opt.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.opt.tpms)?32:28,60,150); //3				
+		this.btn(euc.dash.opt.tpms,(euc.dash.opt.tpms)?euc.dash.opt.tpms:"TPMS",18,60,115,(euc.dash.opt.tpms&&tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].time&&(getTime()|0)-tpms.euc[euc.dash.opt.tpms].time<1800)?(tpms.euc[euc.dash.opt.tpms].alrm)?13:4:1,1,0,100,119,195,(euc.dash.opt.tpms)?(tpms.euc[euc.dash.opt.tpms]&&tpms.euc[euc.dash.opt.tpms].psi)?Math.round(tpms.euc[euc.dash.opt.tpms].psi*metric[tpms.def.metric]).toString(1):"WAIT":"OFF",(euc.dash.opt.tpms)?32:28,60,150); //3				
    		this.btn(1,"OFF",25,185,136,1,1,122,100,239,195); //4
 		this.run=true;
 	},
@@ -178,7 +178,7 @@ touchHandler[0]=function(e,x,y){
 					return;
 				}	
 			}else if (120<=x && 100<=y ) { //off
-				face[0].ntfy("HOLD -> POWER OFF","",18,7,1);
+				face[0].ntfy("HOLD -> POWER OFF","",18,13,1);
 				buzzer.nav([30,50,30]);						
 			}else buzzer.nav(40);
 		}
@@ -212,7 +212,7 @@ touchHandler[0]=function(e,x,y){
 		return;
 	case 12: //long press event
 		if ( 120<=x && 100<=y ) { //off
-	   		face[0].btn(1,"OFF",25,185,136,7,0,122,100,239,195); //4
+	   		face[0].btn(1,"OFF",25,185,136,13,0,122,100,239,195); //4
 			euc.temp.aOff=1;
 			euc.tgl();
 		}else if  (x<=120 && 100<=y ) { //tpms
@@ -227,7 +227,7 @@ touchHandler[0]=function(e,x,y){
 					tpms.scan();
 					face.go("tpmsFace",0);
 				}else 
-					face[0].ntfy("NOT INSTALLED","",20,7,1); 
+					face[0].ntfy("NOT INSTALLED","",20,13,1); 
 			}
 			return;	
 	    }else buzzer.nav(40);

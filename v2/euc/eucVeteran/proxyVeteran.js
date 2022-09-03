@@ -4,8 +4,11 @@ if (global.euc&&!euc.proxy){
 		state:0,
 		r:(o)=>{
 		"ram";
-			if (1<euc.dbg)print("relay-in:",o.data);
 			if (euc.state=="READY") euc.wri("proxy",o.data);
+			if (ew.dbg && ew.log) {
+				ew.log.unshift("Proxy from phone: " + " " + Date() + " " + E.toJS(o.data));
+				if (100 < ew.log.length) ew.log.pop();
+			}
 		},
 		w:(o)=>{
 		"ram";
@@ -25,6 +28,14 @@ if (global.euc&&!euc.proxy){
 						readable:true,
 						notify:true,
 					   description:"ew"
+					},
+					0xffa7: {
+						value: [0x01],
+						maxLen: 20,
+						writable: false,
+						readable: true,
+						notify: false,
+						description: "ew"
 					}
 				},
 				0xffe0: {
@@ -43,7 +54,7 @@ if (global.euc&&!euc.proxy){
 			}, {advertise: ['0xffe0'],uart:false });
 			NRF.setAdvertising({}, { name:"LK_"+ew.def.name,connectable:true });
 			//NRF.setAddress(euc.mac);
-			NRF.setAddress(NRF.getAddress().substr(0,15)+"aa public");
+			NRF.setAddress(NRF.getAddress().substr(0,15)+"a7 public");
 			NRF.disconnect();
 			NRF.restart();
 		}, 

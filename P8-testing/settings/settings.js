@@ -102,8 +102,8 @@ face[0] = {
 			}
 			if (ew.def.prxy != this.prxy) {
 				this.prxy = ew.def.prxy;
-				if (this.prxy == 1) this.btn(1, 80, 80, 155, 155, require("heatshrink").decompress(atob("mEwwMB/4AL/ATBh4FB4AFBCwQgD//+Aod//kDCgU//kfEAUf/E/AoIJB+F/AoP+h4FD/4FBHIcH+H8vgFBw/gAoITBAowRCAoYdDAoovG/A7EI4v8NwXwLIJlDn5rF/+APongAoJ0CN4Q4D/grCAqYdF8EHAofAFwYFGwPBEIUAg5DBLIQFVD4ODEYQvH8AFE+BHEKYoAJA=")), 92, 93, 11, 4, 0, 2); //btn5
-				else if (this.prxy == 2) this.btn(1, 80, 80, 155, 155, require("heatshrink").decompress(atob("mUywIQNg//AAP4Aon/4EDAof4gIFD/8AAongv4SEj4DB44CBEgP+FAXDAoQcB+AFDv/+n4FCDgOP/8B/w1B8f/wIWBn/4IwP+/0PDAPw/ED4IYB/E4gF4n/j/0cG4MPDAMOgEB8IYB4eAgE4v+P8PAgEGj/j/FwCQPD/AeCgFwDAOGAoMcn4YBDwIrBDANgDAkYDAmHDAoxBg4xB/hQBgeHJQ/BCQNwMYV4KAJjB/8PwE+j4YB4P8v0HDAKwCZYKVCAIQYB8CuCDAK0D/k/TgLXCY4YFBToIADWALgEh4FD/j5GCQhmBAoaMBDIX8HQIAFA=")), 92, 93, 11, 4, 0, 2); //btn5
+				if (this.prxy) this.btn(1, 80, 80, 155, 155, require("heatshrink").decompress(atob("mEwwMB/4AL/ATBh4FB4AFBCwQgD//+Aod//kDCgU//kfEAUf/E/AoIJB+F/AoP+h4FD/4FBHIcH+H8vgFBw/gAoITBAowRCAoYdDAoovG/A7EI4v8NwXwLIJlDn5rF/+APongAoJ0CN4Q4D/grCAqYdF8EHAofAFwYFGwPBEIUAg5DBLIQFVD4ODEYQvH8AFE+BHEKYoAJA=")), 92, 93, 11, 4, 0, 2); //btn5
+				//else if (this.prxy == 2) this.btn(1, 80, 80, 155, 155, require("heatshrink").decompress(atob("mUywIQNg//AAP4Aon/4EDAof4gIFD/8AAongv4SEj4DB44CBEgP+FAXDAoQcB+AFDv/+n4FCDgOP/8B/w1B8f/wIWBn/4IwP+/0PDAPw/ED4IYB/E4gF4n/j/0cG4MPDAMOgEB8IYB4eAgE4v+P8PAgEGj/j/FwCQPD/AeCgFwDAOGAoMcn4YBDwIrBDANgDAkYDAmHDAoxBg4xB/hQBgeHJQ/BCQNwMYV4KAJjB/8PwE+j4YB4P8v0HDAKwCZYKVCAIQYB8CuCDAK0D/k/TgLXCY4YFBToIADWALgEh4FD/j5GCQhmBAoaMBDIX8HQIAFA=")), 92, 93, 11, 4, 0, 2); //btn5
 				else this.btn(0, 80, 80, 155, 155, require("heatshrink").decompress(atob("mEwwMB/4AL/ATBh4FB4AFBCwQgD//+Aod//kDCgU//kfEAUf/E/AoIJB+F/AoP+h4FD/4FBHIcH+H8vgFBw/gAoITBAowRCAoYdDAoovG/A7EI4v8NwXwLIJlDn5rF/+APongAoJ0CN4Q4D/grCAqYdF8EHAofAFwYFGwPBEIUAg5DBLIQFVD4ODEYQvH8AFE+BHEKYoAJA=")), 95, 94, 11, 4, 0, 2); //btn5
 			}
 			if (ew.def.hid != this.hid) {
@@ -409,8 +409,9 @@ touchHandler[0] = function(e, x, y) {
 			}
 			else if (face[0].btSet) {
 				if (global.euc.state != "OFF") { buzzer.nav(300); return; }
-				ew.def.prxy--;
-				if (ew.def.prxy < 0) ew.def.prxy = 2;
+				//ew.def.prxy--;
+				//if (ew.def.prxy < 0) ew.def.prxy = 2;
+				ew.def.prxy=1-ew.def.prxy;
 				ew.do.update.bluetooth();
 				buzzer.nav([30, 50, 30]);
 			}

@@ -1,4 +1,5 @@
-//m_euc ninebot one Z10
+//Ninebot one A1/S2 euc module
+E.setFlags({ pretokenise: 1 });
 euc.cmd=function(no){
 	switch (no) {
     case 0:case 3:case 6:case 9:case 12:case 15:case 18:case "end":
@@ -41,7 +42,7 @@ euc.conn=function(mac){
 		this.tgl();
 		return;
     }
-	if (euc.is.reconnect) {clearTimeout(euc.is.reconnect); euc.is.reconnect=0;}
+	if (euc.tout.reconnect) {clearTimeout(euc.tout.reconnect); euc.tout.reconnect=0;}
 	NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 		.then(function(g) {
 			euc.gatt=g;
@@ -150,13 +151,13 @@ euc.conn=function(mac){
 			//write function
 			euc.wri=function(i){
 				if ( euc.state==="OFF"||i==="end") {
-					euc.is.busy=1;
-					if (euc.loop) {clearTimeout(euc.loop); euc.loop=0;}
+					euc.tout.busy=1;
+					if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
 					if (euc.gatt && euc.gatt.connected) {
-						euc.loop=setTimeout( function(){ 
-							euc.loop=0;
+						euc.tout.loop=setTimeout( function(){ 
+							euc.tout.loop=0;
 							if (!euc.gatt) {euc.off("not connected");return;}
-							euc.temp.wCha.writeValue(euc.cmd((euc.dash.aLck)?21:25)).then(function() {
+							euc.temp.wCha.writeValue(euc.cmd((euc.dash.opt.lock.en)?21:25)).then(function() {
 								euc.gatt.disconnect().catch(function(err){if (ew.def.cli)console.log("EUC OUT disconnect failed:", err);});
 							}).catch(euc.off);
 						},500);
@@ -166,9 +167,9 @@ euc.conn=function(mac){
 						return;					}
 				}else{
 					euc.temp.wCha.writeValue(euc.cmd(i)).then(function() {
-						if (euc.is.busy==1) return;
-						euc.loop=setTimeout( function(){ 
-							euc.loop=0;
+						if (euc.tout.busy==1) return;
+						euc.tout.loop=setTimeout( function(){ 
+							euc.tout.loop=0;
 							euc.temp.count++;
 							if (euc.temp.count>=21)euc.temp.count=0;
 							euc.wri(euc.temp.count);
@@ -181,63 +182,8 @@ euc.conn=function(mac){
 				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 				ew.do.fileWrite("dash","slot"+ew.do.fileRead("dash","slot")+"Mac",euc.mac);
 			}
-			euc.is.busy=0;
-			setTimeout(() => {euc.wri((euc.dash.aLck)?22:26);euc.is.run=1;}, 500);
+			euc.tout.busy=0;
+			setTimeout(() => {euc.wri((euc.dash.opt.lock.en)?22:26);euc.is.run=1;}, 500);
 		//reconnect
 		}).catch(euc.off);
 };
-/*
-euc.off=function(err){
-	if (euc.temp.loop) {clearInterval(euc.temp.loop);euc.temp.loop=0;}
-	if (euc.is.reconnect) {clearTimeout(euc.is.reconnect); euc.is.reconnect=0;}
-	if (euc.state!="OFF") {
-		if (ew.is.bt===2) console.log("EUC: Restarting");
-		if ( err==="Connection Timeout"  )  {
-			if (ew.is.bt===2) console.log("reason :timeout");
-			euc.state="LOST";
-			if ( ew.def.dash.rtr < euc.is.run) {
-				euc.tgl();
-				return;
-			}
-			euc.is.run=euc.is.run+1;
-			if (euc.dash.opt.lock.en==1) buzzer.nav(250);
-			else  buzzer.nav([250,200,250,200,250]);
-			euc.is.reconnect=setTimeout(() => {
-				euc.is.reconnect=0;
-				if (euc.state!="OFF") euc.conn(euc.mac); 
-			}, 5000);
-		}else if ( err==="Disconnected"|| err==="Not connected")  {
-			if (ew.is.bt===2) console.log("reason :",err);
-			euc.state="FAR";
-			euc.is.reconnect=setTimeout(() => {
-				euc.is.reconnect=0;
-				if (euc.state!="OFF") euc.conn(euc.mac); 
-			}, 500);
-		} else {
-			if (ew.is.bt===2) console.log("reason :",err);
-			euc.state="RETRY";
-			euc.is.reconnect=setTimeout(() => {
-				euc.is.reconnect=0;
-				if (euc.state!="OFF") euc.conn(euc.mac); 
-			}, 1500);
-		}
-	} else {
-		if (ew.is.bt===2) console.log("EUC OUT:",err);
-		euc.off=function(err){if (ew.is.bt===2) console.log("EUC off, not connected",err);};
-		euc.wri=function(err){if (ew.is.bt===2) console.log("EUC write, not connected",err);};
-		euc.conn=function(err){if (ew.is.bt===2) console.log("EUC conn, not connected",err);};
-		euc.cmd=function(err){if (ew.is.bt===2) console.log("EUC cmd, not connected",err);};
-		euc.is.run=0;
-		euc.temp=0;
-		euc.is.busy=0;
-		euc.temp.serv=0;euc.temp.wCha=0;euc.temp.rCha=0;
-		global["\xFF"].bleHdl=[];
-		NRF.setTxPower(ew.def.rfTX);	
-		if ( euc.gatt&&euc.gatt.connected ) {
-			if (ew.is.bt===2) console.log("ble still connected"); 
-			euc.gatt.disconnect();return;
-		}
-    }
-};
-
-*/

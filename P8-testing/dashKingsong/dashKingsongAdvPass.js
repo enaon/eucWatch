@@ -56,7 +56,7 @@ face[0] = {
 			this.g.flip();
         }
         //info
-        this.g.setColor(0,euc.temp.pass?7:0);
+        this.g.setColor(0,euc.temp.pass?13:0);
 		this.g.fillRect(0,195,239,239);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",20);

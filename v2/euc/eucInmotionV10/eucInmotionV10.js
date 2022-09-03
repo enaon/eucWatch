@@ -1,11 +1,5 @@
-//code by freestyl3r
-euc.temp={count:0,loop:0};
-if (!euc.dash.alrt) euc.dash.alrt={};
-if (!euc.dash.lght) euc.dash.lght={"head":0,"tail":0,"ring":0,"aHead":0};
-if (!euc.dash.ctrl) euc.dash.ctrl={"aLck":0,"aLift":0,"aOff":0,"aLight":0,"lift":1,"lamp":0,"vol":50,"horn":20};
-
-
-
+//Inmotion V10 module- code based on freestyl3r'work
+E.setFlags({ pretokenise: 1 });
 euc.cmd=function(no,val){
 	if (ew.is.bt===2) console.log("inmotion: send cmd :",no);
 	let cmd;
@@ -159,8 +153,8 @@ euc.temp.liveParse= function (inc){
 		buzzer.euc(a);  
 		setTimeout(() => { euc.is.buzz = 0; }, 3000);
 	}
-	//if (euc.temp.loop) {clearTimeout(euc.temp.loop); euc.temp.loop=0;}
-	//euc.temp.loop=setTimeout(function(v){ euc.temp.loop=0;euc.temp.live();},50);
+	//if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
+	//euc.tout.loop=setTimeout(function(v){ euc.tout.loop=0;euc.temp.live();},50);
 	//euc.temp.live();
 };			
 
@@ -188,11 +182,11 @@ euc.temp.alertParse= function (inc){
 euc.wri=function(i) {if (ew.is.bt===2) console.log("not connected yet"); if (i=="end") euc.off(); return;};
 euc.conn=function(mac){
 	if (ew.is.bt===2) console.log("EUCInmotionV1 init");
-	if (euc.temp.alive) {clearTimeout(euc.temp.alive); euc.temp.alive=0};
+	if (euc.tout.alive) {clearTimeout(euc.tout.alive); euc.tout.alive=0};
 	if (euc.gatt && euc.gatt.connected) {
 		return euc.gatt.disconnect();
 	}
-	if (euc.is.reconnect) {clearTimeout(euc.is.reconnect); euc.is.reconnect=0;}
+	if (euc.tout.reconnect) {clearTimeout(euc.tout.reconnect); euc.tout.reconnect=0;}
 	NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 		.then(function(g) {
 			euc.gatt=g;
@@ -213,7 +207,7 @@ euc.conn=function(mac){
 			euc.temp.chk= [];
 			euc.temp.rCha.on('characteristicvaluechanged', function(event) {
 				if (ew.is.bt===2&&euc.dbg==3) console.log("Inmotion: packet in ",event.target.value.buffer); 
-				if (euc.temp.alive) {clearTimeout(euc.temp.alive); euc.temp.alive=0;}
+				if (euc.tout.alive) {clearTimeout(euc.tout.alive); euc.tout.alive=0;}
 				if (euc.is.busy) return;
 				//gather package
 				let inc=event.target.value.buffer;
@@ -277,8 +271,8 @@ euc.conn=function(mac){
 			euc.dash.opt.lock.en=0;
 			//write function
 			euc.temp.live= function(){
-				if (euc.temp.alive) clearTimeout(euc.temp.alive); 
-				euc.temp.alive=setTimeout(function(){euc.temp.alive=0;euc.is.busy=0;euc.temp.live();},500);
+				if (euc.tout.alive) clearTimeout(euc.tout.alive); 
+				euc.tout.alive=setTimeout(function(){euc.tout.alive=0;euc.is.busy=0;euc.temp.live();},500);
 				if (euc.is.busy) return;
 				euc.temp.wCha.writeValue([170, 170, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125]).then(function() {
 					return euc.temp.wCha.writeValue([85, 85, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125]);
@@ -289,38 +283,38 @@ euc.conn=function(mac){
 				
 			};
 			euc.wri=function(cmd,value){
-				if (euc.temp.alive) {clearTimeout(euc.temp.alive); euc.temp.alive=0;}
+				if (euc.tout.alive) {clearTimeout(euc.tout.alive); euc.tout.alive=0;}
 				euc.is.busy=1;
-				if (euc.temp.loop) {clearTimeout(euc.temp.loop); euc.temp.loop=0;}
+				if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
 				if (ew.is.bt===2) console.log("Inmotion cmd: ", cmd);
 				//off
 				if (cmd==="hornOn") {
-					//if (euc.horn) return;
-					euc.horn=1;
+					//if (euc.is.horn) return;
+					euc.is.horn=1;
 					//euc.temp.rCha.stopNotifications();
-					if (euc.temp.loop) {clearTimeout(euc.temp.loop); euc.temp.loop=0;}
-					euc.temp.loop=setTimeout(() => {euc.temp.loop=0;
+					if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
+					euc.tout.loop=setTimeout(() => {euc.tout.loop=0;
 						euc.temp.wCha.writeValue(euc.cmd("playSound",euc.dash.opt.horn.mode)).then(function()  {	
 								return euc.temp.wCha.writeValue(euc.cmd("end"));
 							}).then(function()  {
-								euc.temp.loop=0;
-								if (euc.temp.alive) {clearTimeout(euc.temp.alive); euc.temp.alive=0;}
-								euc.temp.alive=setTimeout(function(){euc.temp.alive=0;euc.horn=0;euc.is.busy=0;euc.temp.live();},500);
+								euc.tout.loop=0;
+								if (euc.tout.alive) {clearTimeout(euc.tout.alive); euc.tout.alive=0;}
+								euc.tout.alive=setTimeout(function(){euc.tout.alive=0;euc.is.horn=0;euc.is.busy=0;euc.temp.live();},500);
 							});
 				  	},150);
 				}else if (cmd==="hornOff") {
-					euc.horn=0;	
+					euc.is.horn=0;	
 					return;
 				}else if (euc.state==="OFF"||cmd==="end") {
 					if (euc.gatt && euc.gatt.connected) {
-						if (euc.temp.loopEnd) {clearTimeout(euc.temp.loopEnd); euc.temp.loopEnd=0;}
-						euc.temp.loopEnd=setTimeout(function(){
-							euc.temp.loopEnd=0;
+						if (euc.tout.loopEnd) {clearTimeout(euc.tout.loopEnd); euc.tout.loopEnd=0;}
+						euc.tout.loopEnd=setTimeout(function(){
+							euc.tout.loopEnd=0;
 							euc.gatt.disconnect();
 						},1000);	
-						if (euc.temp.loop) {clearTimeout(euc.temp.loop); euc.temp.loop=0;}
-						euc.temp.loop=setTimeout(function(){ 
-							euc.temp.loop=0;
+						if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
+						euc.tout.loop=setTimeout(function(){ 
+							euc.tout.loop=0;
 							if (euc.dash.auto.onD.off||euc.temp.aOff) {
 								euc.temp.wCha.writeValue(euc.cmd("control",5)).then(function() {
 									return euc.temp.wCha.writeValue(euc.cmd("end"));
@@ -332,7 +326,7 @@ euc.conn=function(mac){
 							euc.temp.wCha.writeValue(euc.cmd("setLights",(euc.dash.auto.onC.HL)?0:2)).then(function() {
 								return euc.temp.wCha.writeValue(euc.cmd("end"));
 							}).then(function()  {
-								if (euc.temp.loopEnd) {clearTimeout(euc.temp.loopEnd); euc.temp.loopEnd=0;}
+								if (euc.tout.loopEnd) {clearTimeout(euc.tout.loopEnd); euc.tout.loopEnd=0;}
 								euc.gatt.disconnect();
 								//euc.state="OFF";
 								//euc.off("end");
@@ -353,18 +347,18 @@ euc.conn=function(mac){
 					}).then(function()  {
 						return euc.temp.rCha.startNotifications();
 					}).then(function()  {
-						if (euc.temp.loop) {clearTimeout(euc.temp.loop); euc.temp.loop=0;}
-						euc.temp.loop=setTimeout(function(){
-							euc.temp.loop=0;euc.is.run=1;euc.is.busy=0;
+						if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
+						euc.tout.loop=setTimeout(function(){
+							euc.tout.loop=0;euc.is.run=1;euc.is.busy=0;
 							return euc.temp.live();
 						},350);	
 					}).catch(euc.off);
 				
 				} else {
 					//if (euc.is.busy) return; 
-					if (euc.temp.loop) {clearTimeout(euc.temp.loop); euc.temp.loop=0;}
-					euc.temp.loop=setTimeout(function(){
-						euc.temp.loop=0;
+					if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
+					euc.tout.loop=setTimeout(function(){
+						euc.tout.loop=0;
 						euc.temp.wCha.writeValue(euc.cmd(cmd,value)).then(function() {
 							return euc.temp.wCha.writeValue(euc.cmd("end"));
 						//}).then(function(err)  {
@@ -384,60 +378,3 @@ euc.conn=function(mac){
 		//reconnect
 		}).catch(euc.off);
 };
-/*
-euc.off=function(err){
-	if (ew.is.bt===2) console.log("EUC:", err);
-	if (euc.temp.alive) {clearTimeout(euc.temp.alive); euc.temp.alive=0;}
-	//  global.error.push("EUC :"+err);
-	if (euc.temp.loop) {clearTimeout(euc.temp.loop);euc.temp.loop=0;}
-	if (euc.is.reconnect) {clearTimeout(euc.is.reconnect); euc.is.reconnect=0;}
-	if (euc.state!="OFF") {
-		if (ew.is.bt===2) console.log("EUC imV1: Restarting");
-		if ( err==="Connection Timeout"  )  {
-			if (ew.is.bt===2) console.log("reason :timeout");
-			euc.state="LOST";
-			if ( ew.def.dash.rtr < euc.is.run) {
-				euc.tgl();
-				return;
-			}
-			euc.is.run=euc.is.run+1;
-			if (euc.dash.opt.lock.en==1) buzzer.nav(250);
-			else  buzzer.nav([250,200,250,200,250]);
-			euc.is.reconnect=setTimeout(() => {
-				euc.is.reconnect=0;
-				if (euc.state=="OFF") return;
-				euc.conn(euc.mac); 
-			}, 5000);
-		}else if ( err==="Disconnected"|| err==="Not connected")  {
-			if (ew.is.bt===2) console.log("reason :",err);
-			euc.state="FAR";
-			euc.is.reconnect=setTimeout(() => {
-				euc.is.reconnect=0;
-				if (euc.state=="OFF") return;
-				euc.conn(euc.mac); 
-			}, 1000);
-		} else {
-			if (ew.is.bt===2) console.log("reason :",err);
-			euc.state="RETRY";
-			euc.is.reconnect=setTimeout(() => {
-				euc.is.reconnect=0;
-				if (euc.state=="OFF") return;
-				euc.conn(euc.mac); 
-			}, 1500);
-		}
-	} else {
-		if (ew.is.bt===2) console.log("EUC OUT:",err);
-		if (euc.temp.loop) {clearTimeout(euc.temp.loop); euc.temp.loop=0;}
-		euc.off=function(err){if (ew.is.bt===2) console.log("EUC off, not connected",err);};
-		euc.wri=function(err){if (ew.is.bt===2) console.log("EUC write, not connected",err);};
-		euc.conn=function(err){if (ew.is.bt===2) console.log("EUC conn, not connected",err);};
-		euc.cmd=function(err){if (ew.is.bt===2) console.log("EUC cmd, not connected",err);};
-		euc.is.run=0;
-		euc.temp=0;
-		euc.is.busy=0;
-		euc.temp.serv=0;euc.temp.wCha=0;euc.temp.rCha=0;euc.gatt=0;
-		global["\xFF"].bleHdl=[];
-		NRF.setTxPower(ew.def.rfTX);	
-    }
-};
-*/

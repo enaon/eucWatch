@@ -170,7 +170,7 @@ face[5] = {
 			},1200,this);
     },
     btn: function(x1,y1,x2,y2,bt,xb,yb){
-            this.g.setColor(0,7);
+            this.g.setColor(0,13);
 			this.g.fillRect(x1,y1,x2,y2);
 			this.g.setColor(1,15);
 			this.g.setFont("Vector",30);

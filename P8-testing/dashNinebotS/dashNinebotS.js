@@ -21,7 +21,7 @@ face[0] = {
 		this.g.drawString("SETTINGS",120-(this.g.stringWidth("SETTINGS")/2),217); 
 		this.g.flip();
 		//
-        this.btn(euc.dash.aLck,"AUTO",18,60,20,7,1,0,0,119,97,"LOCK",25,60,55);
+        this.btn(euc.dash.opt.lock.en,"AUTO",18,60,20,13,1,0,0,119,97,"LOCK",25,60,55);
 		this.btn((euc.dash.alrt.spd.hapt.en||euc.dash.alrt.amp.hapt.en||euc.dash.alrt.tmp.hapt.en||euc.dash.alrt.bat.hapt.en),"WATCH",18,185,20,4,1,122,0,239,97,"ALERTS",22,185,55);		
         this.btn(euc.dash.opt.lght.HL,"RING",25,60,136,4,1,0,100,119,195);
         this.btn(1,"MODE:"+euc.dash.opt.ride.mode,25,185,136,12,0,122,100,239,195);	
@@ -115,9 +115,9 @@ touchHandler[0]=function(e,x,y){
 		}
 		else {
 			if ( x<=120 && y<100 ) { //auto lock
-				euc.dash.aLck=1-euc.dash.aLck;
-				face[0].btn(euc.dash.aLck,"AUTO",18,60,20,7,1,0,0,119,97,"LOCK",25,60,55);
-				face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,(euc.dash.aLck)?7:1,euc.dash.aLck);
+				euc.dash.opt.lock.en=1-euc.dash.opt.lock.en;
+				face[0].btn(euc.dash.opt.lock.en,"AUTO",18,60,20,13,1,0,0,119,97,"LOCK",25,60,55);
+				face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,(euc.dash.opt.lock.en)?13:1,euc.dash.opt.lock.en);
 				buzzer.nav([30,50,30]);
 			}else if ( 120<=x && y<=100 ) { //watch alerts
 				buzzer.nav([30,50,30]);						
@@ -177,9 +177,9 @@ touchHandler[0]=function(e,x,y){
 			face[0].set=0;face[0].init();
 			buzzer.nav([30,50,30]);	
         }else if ( x<=120 && y<100 ) { //auto lock
-			euc.dash.aLck=1-euc.dash.aLck;
-            face[0].btn(euc.dash.aLck,"AUTO",18,60,20,7,1,0,0,119,97,"LOCK",25,60,55);
-            face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,1,euc.dash.aLck);
+			euc.dash.opt.lock.en=1-euc.dash.opt.lock.en;
+            face[0].btn(euc.dash.opt.lock.en,"AUTO",18,60,20,13,1,0,0,119,97,"LOCK",25,60,55);
+            face[0].ntfy("DISCONNECT -> LOCK","AUTO LOCK DISABLED",18,1,euc.dash.opt.lock.en);
 			buzzer.nav([30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //watch alerts
 			if (euc.dash.alrt.spd.hapt.en||euc.dash.alrt.amp.hapt.en||euc.dash.alrt.tmp.hapt.en||euc.dash.alrt.bat.hapt.en) {euc.dash.alrt.spd.hapt.en=0;euc.dash.alrt.amp.hapt.en=0;euc.dash.alrt.tmp.hapt.en=0;euc.dash.alrt.bat.hapt.en=0;}

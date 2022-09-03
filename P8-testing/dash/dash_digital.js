@@ -12,8 +12,8 @@ face[0] = {
 			this.g.flip();	
 		}else 	this.g.clear();
 		this.spdC=[0,14,13,13];
-		this.ampC=[1,2992,13,13];
-		this.tmpC=[1,2992,13,13];
+		this.ampC=[1,9,13,13];
+		this.tmpC=[1,0,13,13];
 		this.batC=[4,1,13,13];
 		this.spd=euc.dash.live.spd-1;
 		this.aTlt=-1;
@@ -112,7 +112,7 @@ face[0] = {
 		//this.spd=Math.round(euc.dash.live.spd);
 		this.g.setColor(0,(euc.dash.alrt.spd.cc==1)?0:this.spdC[euc.dash.alrt.spd.cc]);
 		this.g.fillRect(43,54,197,170);
-		this.g.setColor(1,(euc.dash.alrt.spd.cc==1)?13:15);
+		this.g.setColor(1,(euc.dash.alrt.spd.cc==1)?14:15);
 		if (100 <= this.spd) this.g.setFontVector(80);
 		else this.g.setFontVector(130);
 		this.g.drawString(Math.round(this.spd*this.fact),129-(this.g.stringWidth(Math.round(this.spd*this.fact))/2),(100 <= this.spd)?75:57); 
@@ -135,7 +135,7 @@ face[0] = {
 		"ram";
 		this.g.setColor(0,euc.dash.alrt.pwm.hapt.hi<=euc.dash.live.pwm?13:1);
 		this.g.fillRect(0,176,239,200); 
-		this.g.setColor(1,50<=euc.dash.live.pwm?13:15);
+		this.g.setColor(1,50<=euc.dash.live.pwm?14:15);
 		this.g.setFontVector(23);
 		this.g.drawString(euc.dash.live.pwm,3,175);
 		this.g.setFontVector(14);

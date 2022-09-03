@@ -46,8 +46,8 @@ if (!global.rep.read)
 face[0]= {
 	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:20000,
   init: function(){
-	rep.mac=(require("Storage").readJSON("setting.json",1)||{}).repellentMac;
-	rep.go=(require("Storage").readJSON("setting.json",1)||{}).repellentGo;
+	rep.mac=(require("Storage").readJSON("ew.json",1)||{}).repellentMac;
+	rep.go=(require("Storage").readJSON("ew.json",1)||{}).repellentGo;
     rep.con=0;
     var g=w.gfx;
   	g.clear();

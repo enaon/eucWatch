@@ -122,7 +122,7 @@ face[0] = {
 		this.g.setColor(1,15);
 		this.g.drawString("RESTART",18,210);
 		this.g.flip();	
-		this.g.setColor(0,7);
+		this.g.setColor(0,13);
 		this.g.fillRect(120,195,239,239);
 		this.g.setColor(1,15);
 		this.g.drawString("SHUTDOWN",130,210);
