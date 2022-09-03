@@ -328,7 +328,10 @@ euc.temp.resp = function(inpk) {
 			"18L": [1.25, 0, 1036, 0, 1554],
 			"S18": [1.25, 1110],
 			"S20": [1.875, 2220],
-			"S22": [1.875, 2220]
+			"S22": [1.875, 2220],
+			"SA0": [1.875, 2220],
+			"SA1": [1.875, 2220],
+			"SA2": [1.875, 2220]
 		};
 		//global.lala = inpk;
 		euc.dash.info.get.serl = E.toString(inpk.slice(2, 16), inpk.slice(17, 20));
@@ -460,7 +463,7 @@ euc.conn = function(mac) {
 						clearTimeout(euc.tout.horn);
 						euc.tout.horn = 0;
 					}
-					c.writeValue(euc.cmd(euc.dash.onC.talk?"doHorn":"doBeep")).then(function() {
+					c.writeValue(euc.cmd(euc.dash.auto.onC.talk?"doHorn":"doBeep")).then(function() {
 						return c.writeValue(euc.cmd("setStrobeOnOff", 1));
 					}).then(function() {
 						if (euc.ntid.horn) 	clearInterval(euc.ntid.horn);
