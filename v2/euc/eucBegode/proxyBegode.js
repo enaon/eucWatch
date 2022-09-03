@@ -18,15 +18,15 @@ if (global.euc&&!euc.proxy){
 			NRF.setServices({
 				0xffa0: {
 					0xffa1: {
-						value : [0x01],
-						maxLen : 20,
-						writable:true,
-						onWrite : function(evt) {
+						value: [0x01],
+						maxLen: 20,
+						writable: true,
+						onWrite: function(evt) {
 							ew.emit("ewBtIn",evt);
 						},
-						readable:true,
-						notify:true,
-					   description:"ew"
+						readable: true,
+						notify: true,
+						description: "ew"
 					},
 					0xffa8: {
 						value: [0x01],
@@ -34,7 +34,7 @@ if (global.euc&&!euc.proxy){
 						writable: false,
 						readable: true,
 						notify: false,
-						description: "ew"
+						description: "Begode"
 					}
 				},
 				0xffe0: {
