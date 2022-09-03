@@ -140,7 +140,7 @@ face[0] = {
 				require("Storage").erase(`logYearlot${no}.json`);
 				require("Storage").erase(`eucSlot${no}.json`);
 				euc.dash = require("Storage").readJSON("eucSlot.json", 1);
-				UI.btn.ntfy(1, 1.5, 1);
+				UI.btn.ntfy(0, 2.5, 1);
 				UI.btn.c2l("main", "_bar", 6, `SLOT ${no}`, "DELETED", 15, 4);
 				ew.def.dash.slot = 0;
 				ew.do.fileWrite("dash", "slot", no);

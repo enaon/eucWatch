@@ -4,14 +4,14 @@ if (global.euc&&!euc.proxy){
 		state:0,
 		r:(o)=>{
 			"ram";
-			if (euc.state=="READY") euc.wri("proxy",o.data);
+			if (euc.state=="READY"&&!euc.temp.ext) euc.wri("proxy",o.data);
 			if (ew.dbg && ew.log) {
 				ew.log.unshift("Proxy from phone: " + " " + Date() + " " + E.toJS(o.data));
 				if (100 < ew.log.length) ew.log.pop();
 			}
 		},
 		w:(o)=>{
-			if (ew.is.bt!=5) return;
+			if (ew.is.bt!=5||euc.temp.ext) return;
 			NRF.updateServices({0xffe0:{0xffe1:{value:o,notify:true}},});
 		},
 		s:(o)=>{
