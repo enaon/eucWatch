@@ -15,7 +15,7 @@ face[0] = {
 		this.disp=0;
 		//this.g.setColor(0,0);
 		//this.g.flip();
-		this.btn(1,"24HRS",30,60,13,4,4,0,0,119,50);
+		this.btn(1,"24HRS",30,60,14,4,4,0,0,119,50);
 		this.btn(1,"INFO",30,185,10,0,4,120,0,239,50);
 		this.sc();
 		this.sel(this.comf((this.totD*((ew.def.dash.mph)?0.625:1)).toFixed((this.page)?(this.page==1)?1:0:2)),"<   TOTAL   >");
@@ -83,7 +83,7 @@ face[0] = {
 		pos=(((pos-1)*(240/this.len))+1);
 		//print(pos,this.pos,this.len,this.ref);
 		this.g.setColor(0,0);
-		this.g.setColor(1,13);
+		this.g.setColor(1,14);
 		this.g.fillRect(pos,(this.log[this.pos])?239-(this.log[this.pos]*this.scale):239,pos+((240/this.len)-2),239);
 		this.g.flip(); 
 		if (this.rowL&&this.rowL!==pos){
@@ -96,7 +96,7 @@ face[0] = {
 		pos=pos-1;
 		this.g.setColor(0,0);
 		this.g.fillRect(0,176,239,178);
-		this.g.setColor(1,13);
+		this.g.setColor(1,14);
 		this.g.fillRect(pos,176,pos+(240/this.len),178);
 		this.g.flip();
     },
@@ -188,7 +188,7 @@ touchHandler[0]=function(e,x,y){
 		}else {
 			buzzer.nav([30,50,30]);
 			if  ( 120 < x ) { //info
-				let btC=[4,1,13,13];
+				let btC=[4,1,13,14];
 				if (face[0].info) {face[0].btn(1,euc.dash.live.volt,35,180,3,btC[euc.dash.alrt.bat.cc],0,120,0,239,50,"VOLT",10,220,40);return;}
 				face[0].info=1;
 				face[0].btn(1,euc.dash.live.bat,50,180,3,btC[euc.dash.alrt.bat.cc],0,120,0,239,50,"%",20,235,8);

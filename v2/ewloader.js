@@ -8,6 +8,11 @@ Const.SINGLE_APP_ONLY = false;
 to show messages. */
 Const.HAS_E_SHOWMESSAGE = false;
 APP_SOURCECODE_DEV ="v2";
+  // BLE Compatibility
+
+
+
+
 
 (function() {
   let username = "enaon";
@@ -97,3 +102,5 @@ window.addEventListener('load', (event) => {
     });
   });
 });
+
+

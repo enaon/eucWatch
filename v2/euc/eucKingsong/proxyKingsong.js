@@ -2,9 +2,13 @@
 if (global.euc && !euc.proxy) {
 	euc.proxy = {
 		state: 0,
+		buffer:[],
 		r: (o) => {
 			"ram";
-			if (euc.state == "READY") euc.wri("proxy", o.data);
+			if (euc.state == "READY") {
+				//euc.proxy.buffer.push(o.data)
+				euc.wri("proxy",o.data);
+			}
 			if (ew.dbg && ew.log) {
 				ew.log.unshift("Proxy from phone: " + " " + Date() + " " + E.toJS(o.data));
 				if (100 < ew.log.length) ew.log.pop();
@@ -16,6 +20,15 @@ if (global.euc && !euc.proxy) {
 		},
 		s: (o) => {
 			NRF.setServices({
+				0xfff0: {
+					0xfff1: {
+						value : [0x01],
+						maxLen : 20,
+						writable : false,
+						readable:true,
+						description:"Characteristic 1"
+					},
+				},
 				0xffa0: {
 					0xffa1: {
 						value: [0x01],

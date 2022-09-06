@@ -4,6 +4,7 @@
 E.setFlags({pretokenise:1});
 if (require('Storage').read("UI")) eval(require('Storage').read('UI'));
 if (require('Storage').read("handler_notify")) eval(require('Storage').read("handler_notify"));
+if (require('Storage').read("handler_buzz")) eval(require('Storage').read("handler_buzz"));
 if (require('Storage').read("handler_set")) eval(require('Storage').read("handler_set"));
 if (require('Storage').read("handler_conn")) eval(require('Storage').read("handler_conn"));
 if (require('Storage').read("handler_face")) eval(require('Storage').read("handler_face"));

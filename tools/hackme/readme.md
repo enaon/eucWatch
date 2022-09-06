@@ -37,7 +37,6 @@ Using the app, you will upload four files to the P8 watch:
 > 
 > [**Step4 P8 file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme/step4-espruino_2v14_eucWatch_P8.zip)   or   [**Step4 P22/Pinetime file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme/step4-espruino_2v14_eucWatch_P22.zip)
 
-**latest 2v12.98 79mtu espruino firmware build is by dignome, thanks!
 
 
 ## Installation:

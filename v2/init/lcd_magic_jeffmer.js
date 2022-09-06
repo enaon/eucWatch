@@ -1,6 +1,8 @@
 //magic/rock 
 //screen driver
 //
+ew.is.dddm = 16;
+
 function ST7789() {
     var LCD_WIDTH = 240;
     var LCD_HEIGHT = 280;

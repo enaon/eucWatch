@@ -1,11 +1,10 @@
+// MIT License (c) 2020 fanoush https://github.com/fanoush
+// see full license text at https://choosealicense.com/licenses/mit/
+// Magic3-Rock 
 E.setFlags({ pretokenise: 1 });
 ew.is.dddm = 12;
-//magic/rock 
 Modules.addCached("eucWatch", function() {
   //screen driver
-  //
-  // MIT License (c) 2020 fanoush https://github.com/fanoush
-  // see full license text at https://choosealicense.com/licenses/mit/
   // compiled with options LCD_BPP=12,SHARED_SPIFLASH,SPIFLASH_CS=(1<<5)
   var SPI2 = (function() {
     "ram";

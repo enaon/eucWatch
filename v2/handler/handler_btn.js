@@ -1,5 +1,26 @@
 //button 
 E.setFlags({pretokenise:1});
+
+ew.btn=(x)=>{
+	let press;
+	if (long) {clearTimeout(long); long=0;}
+	if (x) { 
+		press=true;
+		if (long) {clearTimeout(long);}
+		long=setTimeout(() => {
+			ew.emit("button","long");
+			press=false;
+		}, process.env.BOARD=="BANGLEJS2"?300:process.env.BOARD=="dsd6"?100:800);
+		return;
+	}else if (press)  { 
+		if (long) {clearTimeout(long);long=0;}
+		ew.emit("button","short");
+	}
+};
+
+
+
+
 function btn1(s){
 	//"ram";
 	if (this.t1) {clearTimeout(this.t1); this.t1=0;}

@@ -332,11 +332,20 @@ euc.conn=function(mac){
 	}).then(function(c) {
 		console.log("EUC Begode connected!"); 
 		euc.wri= function(n,v) {
-			if (euc.tout.busy) { clearTimeout(euc.tout.busy);euc.tout.busy=setTimeout(()=>{euc.tout.busy=0;},100);return;} 
-			euc.tout.busy=setTimeout(()=>{euc.tout.busy=0;},150);	
+			if (euc.tout.busy) { clearTimeout(euc.tout.busy);euc.tout.busy=setTimeout(()=>{euc.tout.busy=0;},150);return;} 
+			euc.tout.busy=setTimeout(()=>{euc.tout.busy=0;},100);	
 			//end
 			if (n==="proxy") {
-				c.writeValue(v); 
+				c.writeValue(euc.proxy.buffer[0]).then(function() {
+					euc.proxy.buffer.shift();
+					if (euc.proxy.buffer[0]) return c.writeValue(euc.proxy.buffer[0])
+				}).then(function() {
+					euc.proxy.buffer.shift();
+					if (euc.proxy.buffer[0]) return c.writeValue(euc.proxy.buffer[0])
+				}).then(function() {
+					euc.proxy.buffer.shift();
+					if (euc.proxy.buffer[0]) return c.writeValue(euc.proxy.buffer[0])
+				}).catch(euc.off); 
 			}else if (euc.state=="OFF"||n=="end") {
 				euc.temp.exit(c);
 			} else if (n==="start") {

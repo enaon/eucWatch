@@ -1,5 +1,6 @@
 //Kingsong euc module
 E.setFlags({ pretokenise: 1 });
+euc.buff=[];
 euc.wri = function(i) { if (euc.dbg) console.log("not connected yet"); if (i == "end") euc.off(); return; };
 euc.cmd = function(no, val) {
 	//"ram";
@@ -444,18 +445,37 @@ euc.conn = function(mac) {
 			return c;
 		}).then(function(c) {
 			if (euc.dbg) console.log("EUC module Kingsong connected");
+			
+			euc.lala= function(n,v){
+				euc.buff.push([n,v])
+			};
+			euc.test=()=>{
+				
+				if 	(euc.buff[0]){
+					euc.do(euc.buff[0][0],euc.buff[0][1])
+					euc.buff.shift();
+				} 
+				if (euc.status!="OFF"){
+					euc.tout.buffer=setTimeout(()=>{
+					euc.test();
+					},500);
+				}
+				
+			};
+			//euc.test();
+	
+			
 			euc.wri = function(n, v) {
 				if (euc.tout.busy) {
 					clearTimeout(euc.tout.busy);
-					euc.tout.busy = setTimeout(() => { euc.tout.busy = 0; }, 50);
+					euc.tout.busy = setTimeout(() => { euc.tout.busy = 0; }, 70);
 					return;
 				}
 				euc.tout.busy = setTimeout(() => { euc.tout.busy = 0; }, 100);
 				if (n === "proxy") {
-					c.writeValue(v).then(function() {
-						return;
+					c.writeValue(v).then(function() {  
+
 					}).catch(euc.off);
-					//rest					
 				}
 				else if (n == "hornOn") {
 					euc.is.horn = 1;

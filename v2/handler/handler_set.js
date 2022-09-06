@@ -15,7 +15,7 @@ ew.is={
 ew.do.update.acc=function(){if(!ew.def.dash.accE) { if (ew.def.acc)acc.on(); else acc.off();}};
 ew.do.update.settings=function(){require('Storage').write('ew.json', ew.def);};
 ew.do.reset.settings=function() {
-ew.def = {"off":{"clock":5000},"dash":{"tot":"0","mph":0,"amp":0,"bat":0,"batS":0,"face":0,"accE":0,"clck":0,"clkS":0,"farn":0,"rtr":5},
+	ew.def = {"off":{"clock":5000},"dash":{"tot":"0","mph":0,"amp":0,"bat":0,"batS":0,"face":0,"accE":0,"clck":0,"clkS":0,"farn":0,"rtr":5},
 	"name":"eucWatch_v2","touchtype":"0","acctype":"0","hr24":1,"prxy":0,"timezone":"0","woe":1,"wob":1,"rfTX":-4,"cli":1,"hid":0,"gb":0,"atc":0,"acc":0,"hidT":"media","bri":2,"buzz":1,"bpp":4,"info":1,"txt":1};
 	ew.do.update.settings();
 };	

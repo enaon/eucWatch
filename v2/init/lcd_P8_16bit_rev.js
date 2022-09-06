@@ -1,52 +1,9 @@
-//watchdog
-//setBusyIndicator(D27)
-E.setFlags({pretokenise:1});
-E.kickWatchdog();
-function KickWd(){
-	"ram";
-  if( (typeof(BTN1)=='undefined')||(!BTN1.read()) ) E.kickWatchdog();
-}
-var wdint=setInterval(KickWd,3000);
-E.enableWatchdog(30, false);
-E.showMessage=print; //apploader suport
-global.save = function() { throw new Error("You don't need to use save() on eucWatch!"); };
-//d25.write(0)
-global.ew={"dbg":0, "log":[], "def": {}, "is": {},"do":{"reset":{},"update":{}},"tid":{},"temp":{},"pin":{BAT:D31,CHRG:D19,BUZZ:D16,BUZ0:1,BL:D12,i2c:{SCL:D7,SDA:D6},touch:{RST:D13,INT:D28},disp:{CS:D25,DC:D18,RST:D26,BL:D14},acc:{INT:D8}}};
-//global.ew={"do":{"reset":{},"update":{}},"tid":{},"temp":{},"pin":{BAT:D31,CHRG:D19,BUZZ:D16,BUZ0:1,BL:D12,i2c:{SCL:D7,SDA:D6},touch:{RST:D13,INT:D28},disp:{CS:D25,DC:D18,RST:D26,BL:D14},acc:{INT:D8}}};
-
-//devmode
-if (BTN1.read() || Boolean(require("Storage").read("devmode"))) { 
-  let mode=(require("Storage").read("devmode"));
-  if ( mode=="loader"){ 
-    digitalPulse(ew.pin.BUZZ,1,80);
-  } else if ( mode=="shutdown"){ 
-    digitalPulse(ew.pin.BUZZ,1,300);
-	NRF.sleep();
-  } else {
-    require("Storage").write("devmode","done");
-    NRF.setAdvertising({}, { name:"Espruino-devmode",connectable:true });
-    digitalPulse(ew.pin.BUZZ,1,100);
-	print("Welcome!\n*** DevMode ***\nShort press the side button\nto restart in WorkingMode");
-  }
-  setWatch(function(){
-    "ram";
-    require("Storage").erase("devmode");
-	require("Storage").erase("devmode.info");
-    NRF.setServices({},{uart:false});
-    NRF.setServices({},{uart:true}); 
-    NRF.disconnect();
-    setTimeout(() => {
-	 reset();
-    }, 500);
-  },BTN1,{repeat:false, edge:"rising"}); 
-}else{ //working mode
-var w;
-var pal=[];
-Modules.addCached("eucWatch",function(){
-//screen driver
-//
 // MIT License (c) 2020 fanoush https://github.com/fanoush
 // see full license text at https://choosealicense.com/licenses/mit/
+// p22 B1-D
+E.setFlags({ pretokenise: 1 });
+Modules.addCached("eucWatch",function(){
+//screen driver
 // compiled with options LCD_BPP=12,SHARED_SPIFLASH,SPIFLASH_CS=(1<<5)
 var SPI2 = (function(){
   var bin=atob("AAAAAAAAAAAAAAAAAAAAAAAAAAD///////////////8QtQNMfEQigGCAoYDjgBC92P///wdLe0QbiUOxBEoTaAAr/NAAIxNgA0p6RBOBcEcYMQJAxv///7L///8t6fBHkEYZTBlO//fl/xlK3/hkwAAjASUTYE/w/w5TYKlGI2AQMh9G/ykA6wMKwvgAoIu//zMxYMb4AOAAIYi//znM+ACQuPEADwbQKbkLS3tEHYEAIL3o8IfU+ACguvEAD/rQJ2AAKd7R8+cYMQJASDUCQDQ1AkAQMAJAUP///y3p8E+bsBNGAJFOSXlEBkaR+ACwACgA8IyAAJoAKgDwiIAL8f8yByoA8oOAASIC+gvyATrSsgR4AZJCeD5NsfgEgETqAiSHHCAiPEgqYAciAmDKaBxBpLLN6QNQCrE4SQpgOUp6RBGoApIIqs3pBSBP8AAJSUYCmrL4AqAdRgGaXUTtsgctAuoEDACaiL8IPTL4HMCBvxf4ASvtssXxCA4C+g7yRPoL9E/qLC6IvxRDAPgB4EocAjEK8f86IymksgD4AsAf+or6C90BIgeT//dX/9nxAQkHmwu/BpgFmElGACG68QAPytEYSnpECPH/ONKIFkQf+oj4cng0eETqAiQcQbccpLK48QAPtNFxsUJG//c2/w5Le0TbaAuxA5oTYASbACAYYBuwvejwj//3FP/w50/w/zD25wgFAFAANQJADAUAUBT///+8/v//Nv7//wr+//8ZSnpE+LUGRhBpD0YQsxNME00gIyNgByMrYBJLGGDSaAKxGmAAIgEhMEb/9//+D0t7RAEvG2kjYATdACJ5HnAc//f0/gpLe0TbaAOxI2AAIChg+L1P8P8w++cAvwgFAFAANQJADAUAUMr9//+c/f//hv3//xO1ACge2wAppr+N+AUQAiQBJAAqpL8CqQkZjfgEAKS/ATQB+AQsACuivwKqEhkBNCFGAaiovwL4BDz/96f/IEYCsBC9ACT653C1BUaIsUYYACQoRhD4ARsZsUUYtUIC2WRCIEZwvf/3kf8AKPnRATTv5wRG9ecAAA1LG2gQtaO5DEsbaAuxDEoTYA5LC0p7RAAGXGkUYJxpVGDaaQhLSQAaYFhhWWQBIBC9T/D/MPvnADUCQAQzAkAIMwJACDUCQBA1AkDK/P//BUoAIxNgovV+chNgA0sbaAuxwvgAMnBHADUCQAQzAkAQtQZMfETE6QUBASEB+gLyAfoD8+JgI2EQvQC/bPz//w==");
@@ -140,7 +97,9 @@ var g=Graphics.createArrayBuffer(240,240,bpp);
 var pal;
 g.sc=g.setColor;
 // 16bit RGB565  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=blue,9=purple,10=?,11=green,12=olive,13=yellow,14=lblue,15=white
-g.col=Uint16Array([ 0x000,0x31C8,0x5B2F,0xD6BA,0x3276,0x4B16,0x3ADC,0xF165,0xEFBF,0xA815,2220,0x5ff,0x3C0C,0xFFE0,0xD7BF,0xFFFF ]);
+//g.col=Uint16Array([ 0x000,0x31C8,0x5B2F,0xD6BA,0x3276,0x4B16,0x3ADC,0xF165,0xEFBF,0xA815,2220,0x5ff,0x3C0C,0xFFE0,0xD7BF,0xFFFF ]);
+g.col=Uint16Array([0x000, 0x31C8, 0x5B2F, 0xce9b, 0x001D, 0x3299, 0x0842, 0x0F6A, 0x3ADC, 0xF81F, 2220, 0x07FF, 115, 0xF165, 0xFFE0, 0xFFFF]);
+
 switch(bpp){
   case 1:
     pal= Uint16Array([ 0x000,4095 ]);
@@ -254,16 +213,3 @@ module.exports = {
 	gfx: g
 };
 });
-w=require("eucWatch");
-
-eval(require('Storage').read('handler'));
-eval(require('Storage').read('clock'));
-eval(require('Storage').read('euc'));
-
-digitalPulse(ew.pin.BUZZ,1,[100,30,100]);
-setTimeout(function(){
-  if (global.face) face.go('clock',0);
-  setTimeout(function(){ if (global.ew&&ew.do) ew.do.update.acc(); },1000); 
-digitalPulse(ew.pin.BUZZ,1,[100]);  
-},200); 
-}

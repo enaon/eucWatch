@@ -2,9 +2,14 @@
 if (global.euc&&!euc.proxy){
 	euc.proxy={
 		state:0,
+		buffer:[],
 		r:(o)=>{
 			"ram";
-			if (euc.state=="READY"&&!euc.temp.ext) euc.wri("proxy",o.data);
+			if (euc.state=="READY"&&!euc.temp.ext) {
+				euc.proxy.buffer.push(o.data)
+				euc.wri("proxy",1);
+				
+			}
 			if (ew.dbg && ew.log) {
 				ew.log.unshift("Proxy from phone: " + " " + Date() + " " + E.toJS(o.data));
 				if (100 < ew.log.length) ew.log.pop();

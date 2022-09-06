@@ -1,0 +1,129 @@
+[
+	{ "id": "core",
+		"name": "DSD6 core",
+		"icon": "icon.png",
+		"version":"0.01",
+		"description": "init file",
+		"tags": "core",
+		"type":"core",
+		"readme": "README.md",
+		"storage": [
+			{"name":".bootrst","url":"sysInit.js"}
+		]
+	},
+	{ "id": "oled",
+		"name": "DSD6 oled",
+		"icon": "../core/icon.png",
+		"version":"0.01",
+		"description": "oled support",
+		"tags": "core",
+		"type":"core",
+		"readme": "README.md",
+		"storage": [
+			{"name":"sysOled","url":"../core/sysOled.js"}
+		]
+	},
+	{ "id": "dash",
+		"name": "Dash",
+		"icon": "../euc/icon.png",
+		"version":"0.01",
+		"description":"Dash KS",
+		"tags": "euc",
+		"type":"euc",
+		"readme": "README.md",
+		"storage": [
+			{"name":".bootrst","url":"../core/sysInit.js"},
+			{"name":"sysOled","url":"../core/sysOled.js"},
+			{"name":"Font7x11Numeric7Seg","url":"../core/sysFont7x11Numeric7Seg.js"},
+			{"name":"FontDylex7x13","url":"../core/sysFontDylex7x13.js"},			
+			{"name":"clock","url":"../clock/clock.js"},
+			{"name":"euc","url":"../euc/euc.js"},
+			{"name":"eucDash","url":"../euc/eucDash.js"},
+			{"name":"eucScan","url":"../euc/eucScan.js"},
+			{"name":"eucSlot.json","url":"../euc/eucSlot.json"}
+		]
+	},	
+	{ "id": "euc",
+		"name": "EUC core",
+		"icon": "../euc/icon.png",
+		"version":"0.01",
+		"description":"euc core files",
+		"tags": "euc",
+		"type":"euc",
+		"readme": "README.md",
+		"storage": [
+			{"name":"euc","url":"../euc/euc.js"},
+			{"name":"dash.json","url":"../euc/dash.json"},
+			{"name":"eucSlot.json","url":"../euc/eucSlot.json"}
+		]
+	},	
+	{ "id": "Kingsong",
+		"name": "Kingsong",
+		"icon": "../euc/icon.png",
+		"version":"0.01",
+		"description":"Kingsong support",
+		"tags": "euc",
+		"type":"euc",
+		"readme": "README.md",
+		"storage": [
+			{"name":"proxyKingsong","url":"../euc/proxyKingsong.js"},
+			{"name":"eucKingsong","url":"../euc/eucKingsong.js"}
+		]
+	},		
+	{ "id": "eucLight",
+		"name": "eucLight",
+		"icon": "../euc/icon.png",
+		"version":"0.01",
+		"description":"Light KS",
+		"tags": "euc",
+		"type":"euc",
+		"readme": "README.md",
+		"storage": [
+			{"name":"sysW","url":"../core/sysW.js"},
+			{"name":"sysAcc","url":"../core/sysAcc.js"},
+			{"name":"handler","url":"../handler/handler.js"},
+			{"name":"handlerSet","url":"../handler/handlerSet.js"},
+			{"name":"handlerCharge","url":"../handler/handlerCharge.js"},
+			{"name":"handlerBtn","url":"../handler/handlerBtn.js"},
+			{"name":"handlerAcc","url":"../handler/handlerAcc.js"},
+			{"name":"eucLight","url":"../euc/eucLight.js"}
+
+		]
+	},
+	{ "id": "serial",
+		"name": "Serial",
+		"icon": "../core/icon.png",
+		"version":"0.01",
+		"description":"Serial Support",
+		"tags": "core",
+		"type":"core",
+		"readme": "README.md",
+		"storage": [
+			{"name":"sysSerial","url":"../core/sysSerial.js"}
+		]
+	},
+	{ "id": "gadgetbridge",
+		"name": "Gadgetbridge",
+		"icon": "icon.png",
+		"version":"0.01",
+		"description":"Gadgetbridge support",
+		"tags": "apps",
+		"type":"apps",
+		"readme": "README.md",
+		"storage": [
+			{"name":"gadgetbridge","url":"gadgetbridge.js"}
+		]
+	},
+  	{ "id": "fonts",
+		"name": "Fonts",
+		"icon": "../core/icon.png",
+		"version":"0.20",
+		"description": "font files",
+		"tags": "core",
+		"type": "core",
+		"storage": [
+			{"name":"Font7x11Numeric7Seg","url":"../core/sysFont7x11Numeric7Seg.js"},
+			{"name":"FontDylex7x13","url":"../core/sysFontDylex7x13.js"}
+		]
+	}
+]

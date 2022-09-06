@@ -1,0 +1,144 @@
+
+Wayback Machine
+https://mrn76.ru/ru/programmirovanie-proczessora/
+4 captures
+1 Mar 2021 - 15 Apr 2021
+FEB	MAR	APR
+Previous capture	01	Next capture
+2020	2021	2022
+  
+ About this capture
+Skip to content
+HOME
+NINETOOL
+MONOWHEELS
+SEGWAYS
+CPU PROGRAMMING
+HOW TO PAY?
+CONTACTS
+en_US
+ru_RU
+
+Home
+04.02.2021
+UNCATEGORIZED
+POST A COMMENT
+CPU Programming
+Instructions for connecting the SWD programmer  and changing the model, firmware.
+The author of the manual is not responsible for the actions that you do with your device. All at your own peril and risk! If your device is out of order, don't say it's my fault,otherwise I will point my finger at you and laugh out loud I warned you
+
+Before soldering and while working with the programmer, ALWAYS disconnect the battery! and press the power button to discharge the capacitors.
+
+You will need a  j-link v8 programmer  (Or any other that understands the STM32F103RC processor). Well, a soldering iron with wires.
+
+Install the program with the driver. If anyone needs it, you can download   version 4.20a here, it is more convenient to work with it .
+Also download the program for working with dumps  here , I write it myself, and you can write to the forums (my nickname  is MRN76 ) about work problems and possible improvements.
+A bit of theory.
+Processor datasheet:
+
+
+j-link connector pinout:
+
+
+To work, we need 5 connection points to the controller:
+
+VCC (power). In the programmer, this is the 1st pin. On the controller, it is easier to solder to the capacitor near the processor or the 3.3 test point (or to the legs of the processor, 13,19,32,48,64).
+SWDIO (data input/output). In the programmer, this is the 7th pin. On the controller, the output farthest from the arrow for SWD (or to the 46th leg, PA13).
+SWCLK (SWD Clock). In the programmer, this is the 9th pin. On the controller, the middle output for SWD (or to the 49th foot, PA14).
+GND (ground) In the programmer, you can use any with the ground, 4,6,8,10 ...). On the controller, the output for SWD is marked with an arrow.
+NRST (reset). In the programmer, this is the 15th pin. On the controller, it is easier to solder to the capacitor going to the 7th leg of the processor.
+Connection schemes:
+
+
+
+
+
+
+Everything is ready and you can connect the USB cable to the programmer.
+Some diodes will light up, on different firmware the controller may squeak.
+We launch the J-Flash ARM program. We
+configure it for our processor. Go to Options->Project settings…
+
+
+
+And set up as in the photo below:
+
+
+
+
+
+We connect to the device. Target->Connect. If successful, then we see from the bottom in the status bar that the device is connected and the connection speed.
+Reading ROM memory. Target->Read back->Selected sectors
+
+
+
+And we see the process of reading. Fast enough. After that, we save the read data in the Binary file * .bin format
+
+
+
+
+
+In the request for the start and end address, just click OK
+
+
+
+We close the data window in the program (Which appeared after reading) so as not to get confused.
+Next, open our file in my  dump program  (select the desired dump file and click read).
+
+
+
+The program reads some data, determines what firmware and device model is installed. (While the program understands ONE C/E/P unicycles and Mini/ Pro minisigways, ONE A1/S2 unicycles are partially
+supported  ) firmware and press the  Change Firmware button .
+
+
+
+Next, open the modified file in the programmer program. File->Open data file
+
+
+
+We check that the starting address is 8000000
+
+
+
+And load it into the processor. Target->Program & verify.
+
+
+
+Here the program will ask if we really want to do this, and that it will first erase all the data. Well, we know what we want
+
+
+
+And there is a process of firmware.
+
+
+
+At the end, it reports that everything was successfully uploaded)
+
+
+
+We disconnect from the device. Target ->Disconnect
+
+
+
+We take out the USB from the programmer, we take out the contacts from the programmer (To check what has been done).
+if everything is fine, you can solder / remove the wires from the device.
+
+Liked this:
+Loading...
+SHARE THIS
+Share link:
+TwitterFacebook
+
+admin
+YOU MAY ALSO LIKE
+Contacts
+04.02.2021
+
+NINEBOT MINI PLUS
+04.02.2021
+
+One C/E/P
+04.02.2021
+
+2021 © Ninebot Team Mod  Developed by Stix Vapor
+Scroll to top

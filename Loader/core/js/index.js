@@ -623,12 +623,14 @@ function installMultipleApps(appIds, promptName, defaults) {
   if (apps.some(x=>x===undefined))
     return Promise.reject("Not all apps found");
   let appCount = apps.length;
-  return showPrompt("Install Defaults",`Remove everything and install ${promptName} apps?`).then(() => {
+  return showPrompt("Install Defaults",`Install ${promptName} apps?`).then(() => {
   	return Comms.enableFlash();    //ew
   }).then(()=>{
-	  Progress.hide({sticky:true});
-    showToast(`Erasing.`); 
-    return Comms.removeAllApps();
+    if (device.id!="BANGLEJS2" ){
+	   Progress.hide({sticky:true});
+     showToast(`Erasing.`); 
+     return Comms.removeAllApps();
+    }
   }).then(()=>{
     if (defaults) return Comms.writeSettings(defaults); //ew
   }).then(()=>{
@@ -947,8 +949,10 @@ if (btn) btn.addEventListener("click",event=>{
 btn = document.getElementById("installall");
 if (btn) btn.addEventListener("click",event=>{ 
     let installSet="ALL"
-    if (device.id=="P8"||device.id=="P22") installSet="P8"
+    if (device.id=="P8"||device.id=="P22"||device.id=="PINETIME") installSet="P8"
     else if (device.id=="MAGIC3"||device.id=="ROCK"||device.id=="BANGLEJS2") installSet="Rock"
+    else if (device.id=="DSD6"||device.id=="EUCLIGHT") installSet="DSD6"
+  
     else { 
           Progress.hide({sticky:true});
           showToast("PLEASE CONNECT TO THE WATCH","error");

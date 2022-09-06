@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="../Loader/css/spectre.min.css">
+  </head>
+  <body>
+    <p>Device Name: <input type="text" id="devname" class="form-input" value="eucBand"></p>
+    <p>EUC Password: <input type="text" id="eucpass" class="form-input" value="0000"></p>
+    <p>EUC Mode: <input type="text" id="eucmode" class="form-input" value="Normal"></p>
+
+    <p><button id="upload" class="btn btn-primary">Upload</button></p>
+    <script src="../Loader/core/lib/customize.js"></script>
+    <script>
+      // When the 'upload' button is clicked...
+      document.getElementById("upload").addEventListener("click", function() {
+        // get the text to add
+		var name = document.getElementById("devname").value;
+		var pass = document.getElementById("eucpass").value;
+		var mode = document.getElementById("eucmode").value;
+		// build the app's text using a templated String
+		//require("handler").advertise(${JSON.stringify(acc)});
+        var app = ` 
+		{"name":${JSON.stringify(name)},"pass":${JSON.stringify(pass)},"rfTX":-4,"bri":2,"dashSlot":0}
+`;
+		window.postMessage(app);
+        // send finished app
+//        sendCustomizedApp({
+//          storage:[
+//            {name:"dash.json", url:"main", content:app},
+//          ]
+//        });
+      });
+    </script>
+  </body>
+</html>

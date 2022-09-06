@@ -13,82 +13,75 @@
 		]
 	},
 	{ "id": "init",
-		"name": "core - MAGIC - ROCK",
+		"name": "core - Magic3/Rock",
 		"icon": "../init/icon.png",
-		"version":"1.94.1",
+		"version":"1.94.3",
 		"description": "Screen driver and init functions. ",
 		"tags": "core",
 		"type":"core",
 		"readme": "README.md",
 	    "needsFeatures":["ROCK"],
 		"storage": [
-			{"name":"C:.bootrst","url":"../init/init_magic.js"},
-			{"name":"C:.lcd_magic","url":"../init/lcd_magic_16.js"}
+			{"name":"C:.bootrst","url":"../init/init.js"},
+			{"name":"C:.display","url":"../init/lcd_magic_16.js"}
 		]
 	},
 	{ "id": "init",
-		"name": "core - Baangle.js 2",
+		"name": "core - Bangle.js 2",
 		"icon": "../init/icon.png",
-		"version":"1.01",
+		"version":"1.94.3",
 		"description": "Screen driver and init functions. ",
 		"tags": "core",
 		"type":"core",
 		"readme": "README.md",
 	    "needsFeatures":["BANGLEJS2"],
 		"storage": [
-			{"name":"C:.bootrst","url":"../init/init_magic.js"},
-			{"name":"C:.lcd_b2","url":"../init/lcd_b2.js"}
+			{"name":"eucWatch","url":"../init/init.js"},
+			{"name":".display","url":"../init/lcd_b2.js"}
 		]
 	},
 	
 	{ "id": "init",
-		"name": "core - P8 / P22",
+		"name": "core - P8/P22",
 		"icon": "../init/icon.png",
-		"version":"1.94.1",
+		"version":"1.94.3",
 		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
 		"tags": "core",
 	    "needsFeatures":["P8"],
 		"readme": "README.md",
 		"storage": [
-			{"name":".bootrst","url":"../init/init_P8.js"}
+			{"name":".bootrst","url":"../init/init.js"},
+			{"name":"C:.display","url":"../init/lcd_P8.js"}
 		]
 	},
 	{ "id": "init",
-		"name": "core - Pinetime",
+		"name": "core - P22 B1-D",
 		"icon": "../init/icon.png",
-		"version":"1.94.1",
-		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
-		"tags": "core",
-	    "needsFeatures":["PINETIME"],
-		"readme": "README.md",
-		"storage": [
-			{"name":".bootrst","url":"../init/init_pinetime.js"}
-		]
-	},
-	{ "id": "init",
-		"name": "core - P22 B1/D",
-		"icon": "../init/icon.png",
-		"version":"1.94.1",
+		"version":"1.94.3",
 		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
 		"tags": "core",
 	    "needsFeatures":["P22B"],
 		"readme": "README.md",
 		"storage": [
-			{"name":".bootrst","url":"../init/init_P22B.js"}
+			{"name":".bootrst","url":"../init/init.js"},
+			{"name":"C:.display","url":"../init/lcd_P8_16bit_rev.js"}
+
 		]
 	},
-	{ "id": "init_16",
-		"name": "core - P8 - P22 A/B/C/C1 - 16Bit",
+	{ "id": "init",
+		"name": "core - DSD6",
 		"icon": "../init/icon.png",
-		"version":"1.94.1",
-		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
+		"version":"1.94.3",
+		"description": "Screen driver and init functions. ",
 		"tags": "core",
-	    "needsFeatures":["TEST"],
+		"type":"core",
 		"readme": "README.md",
+	    "needsFeatures":["DSD6"],
 		"storage": [
-			{"name":".bootrst","url":"../init/init_P8_16.js"}
+			{"name":".bootrst","url":"../init/init.js"}
 		]
-	},
+	},	
+
 	{ "id": "UI",
 		"name": "core - UI support",
 		"icon": "../../Magic-testing/UI/icon.png",
@@ -105,17 +98,17 @@
 		]
 	},	
 	{ "id": "handler",
-		"name": "Handler - MAGIC - ROCK",
+		"name": "Handler - V2",
 		"icon": "../../Magic-testing/handler/icon.png",
 		"version":"1.08",
-		"description": "MAGIC - ROCK functions handler",
+		"description": "Magic3-Rock-Bangle functions handler",
 		"tags": "core",
 		"type":"core",
 		"readme": "README.md",
 	    "needsFeatures":["V2"],
 		"storage": [
 			{"name":"handler","url":"../handler/handler.js"},
-			{"name":"C:handler_face","url":"../../Magic-testing/handler/handler_face.js"},
+			{"name":"handler_face","url":"../../Magic-testing/handler/handler_face.js"},
 			{"name":"handler_notify","url":"../handler/handler_notify.js"},
 			{"name":"handler_set","url":"../handler/handler_set.js"},
 			{"name":"handler_btn","url":"../handler/handler_btn.js"},
@@ -123,19 +116,19 @@
 			{"name":"handler_cron","url":"../handler/handler_cron.js"},
 			{"name":"handler_charge","url":"../handler/handler_charge.js"},
 			{"name":"handler_touch","url":"../../Magic-testing/handler/handler_touch.js"},
-			{"name":"C:handler_touch_716","url":"../../Magic-testing/handler/handler_touch_716.js"},
-			{"name":"C:handler_touch_816","url":"../../Magic-testing/handler/handler_touch_816.js"},
+			{"name":"handler_touch_716","url":"../../Magic-testing/handler/handler_touch_716.js"},
+			{"name":"handler_touch_816","url":"../../Magic-testing/handler/handler_touch_816.js"},
 			{"name":"handler_touch_816s","url":"../../Magic-testing/handler/handler_touch_816s.js"},
 			{"name":"handler_touch_b2","url":"../../Magic-testing/handler/handler_touch_b2.js"},
-			{"name":"C:handler_acc_SC7A20","url":"../handler/handler_acc_SC7A20.js"},
+			{"name":"handler_acc_SC7A20","url":"../handler/handler_acc_SC7A20.js"},
 			{"name":"handler_buzz","url":"../handler/handler_buzz.js"}
 		]
 	},  
 	{ "id": "handler",
-		"name": "Handler - P8 - P22",
+		"name": "Handler - V1",
 		"icon": "../handler/icon.png",
 		"version":"1.94.1",
-		"description": "P8/P22 functions handler",
+		"description": "P8-P22-Pinetime functions handler",
 		"tags": "core",
 	    "needsFeatures":["V1"],
 		"readme": "README.md",
@@ -735,7 +728,7 @@
 	{ "id": "eucKingsong",
 		"name": "Kingsong module",
 		"icon": "../../v2/euc/eucKingsong/icon.png",
-		"version":"1.94.4",
+		"version":"1.94.7",
 		"description": "EUC module for Kingsong.",
 		"tags": "euc",
 		"type": "euc",
@@ -846,7 +839,7 @@
    { "id": "eucBegode",
 		"name": "Begode module",
 		"icon": "../../v2/euc/eucBegode/icon.png",
-		"version":"1.94.3",
+		"version":"1.94.6",
 		"description": "EUC module for Begode (Gotway)",
 		"tags": "euc",
 		"type": "euc",

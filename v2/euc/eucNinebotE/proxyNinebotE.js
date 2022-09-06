@@ -2,6 +2,7 @@
 if (global.euc && !euc.proxy) {
 	euc.proxy = {
 		state: 0,
+		buffer:[],
 		r: (o) => {
 			"ram";
 			if (euc.state == "READY") euc.wri("proxy", o.data);
