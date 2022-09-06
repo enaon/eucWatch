@@ -33,6 +33,7 @@ var TC={
 			"ram";
 			//i2c.writeTo(0x15,0);
 			var tp=i2c.readFrom(0x15,7);
+			print(tp);
 			if  (ew.temp.bar) { 
 				if ( 180<(((tp[5]&0x0F)<<8 )|tp[6]) ) {
 					if (!TC.tid) {
