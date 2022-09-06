@@ -11,8 +11,8 @@ if (process.env.BOARD == "MAGIC3" || process.env.BOARD == "Magic3" || process.en
   D7.write(1); // turns off sp02 red led
 }
 else if (process.env.BOARD == "BANGLEJS2") {
-  ew.pin =  { BAT: D3, CHRG: D23, BUZZ: D19, BUZ0: 1, BL: D8, i2c: { SCL: D13, SDA: D14 }, touch: { RST: D35, INT: D36 }, disp: { CS: D5, DC: D6, RST: D7, BL: D8 }, acc: { INT: D39 } } ;
-  Bangle.setOptions({ wakeOnTouch: 1, lockTimeout: 0, backlightTimeout: 0, wakeOnBTN1: 1, wakeOnTwist: 0, });
+       ew.pin = { BAT: D3, CHRG: D23, BUZZ: D19, BUZ0: 1, BL: D8, i2c: { SCL: D34, SDA: D33 }, touch: { RST: D35, INT: D36 }, disp: { CS: D5, DC: D6, RST: D7, BL: D8 }, acc: { INT: D39 } };
+        Bangle.setOptions({ wakeOnTouch: 1, lockTimeout: 0, backlightTimeout: 0, wakeOnBTN1: 1, wakeOnTwist: 0, });
 }
 
 else if (process.env.BOARD == "DSD6") {
@@ -40,6 +40,7 @@ E.enableWatchdog(process.env.BOARD == "DSD6"?2:30, false);
 
 //devmode
 if ((BTN1.read() || require("Storage").read("devmode")) && process.env.BOARD != "BANGLEJS2") {
+//if ((BTN1.read() || require("Storage").read("devmode")) && process.env.BOARD != "BANGLEJS2") {
   let mode = (require("Storage").read("devmode"));
   if (mode == "loader") {
     digitalPulse(ew.pin.BUZZ, ew.pin.BUZ0, 80);

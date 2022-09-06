@@ -3,8 +3,8 @@
 //    E.setConsole(null, { force: false });
 E.setFlags({pretokenise:1});
 if (require('Storage').read("UI")) eval(require('Storage').read('UI'));
-if (require('Storage').read("handler_notify")) eval(require('Storage').read("handler_notify"));
 if (require('Storage').read("handler_buzz")) eval(require('Storage').read("handler_buzz"));
+if (require('Storage').read("handler_notify")) eval(require('Storage').read("handler_notify"));
 if (require('Storage').read("handler_set")) eval(require('Storage').read("handler_set"));
 if (require('Storage').read("handler_conn")) eval(require('Storage').read("handler_conn"));
 if (require('Storage').read("handler_face")) eval(require('Storage').read("handler_face"));
@@ -17,7 +17,6 @@ var touchHandler = {
 	timeout:x=>{setTimeout(()=>{face.off();},0);}
 };
 if (require('Storage').read("handler_btn")) eval(require('Storage').read("handler_btn"));
-
 //var i2c=I2C1;f
 var i2c=new I2C();
 i2c.setup({scl:ew.pin.i2c.SCL, sda:ew.pin.i2c.SDA, bitrate:100000});
@@ -32,6 +31,7 @@ if (process.env.BOARD=="P8"||process.env.BOARD=="P22"){
 }else{
     eval(require('Storage').read('handler_touch'));
 }
+
 
 if (process.env.BOARD=="P8"||process.env.BOARD=="P22"){
     if (ew.def.acctype!="SC7A20"&&ew.def.acctype!="BMA421") {
