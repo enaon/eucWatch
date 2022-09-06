@@ -1,5 +1,3 @@
-## WARNING  ** do not flash for the time being, there may be an error leading to a brick
-
 
 ## Install espruino on the KOSPET MAGIC3 - ROCK smart watch:
 
