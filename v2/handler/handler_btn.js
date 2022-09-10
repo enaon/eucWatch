@@ -37,7 +37,7 @@ function btn1(s){
 		}, process.env.BOARD=="BANGLEJS2"?300:800);
    }else if (this.press && !s.state)  { 
 		this.press=false;
-		if (global.euc&&euc.state=="READY"&&euc.dash.opt.horn.en) {euc.wri("hornOff");return;}
+		if (global.euc&&euc.state=="READY"&&euc.is.horn&&euc.dash.opt.horn.en) {euc.wri("hornOff");return;}
 		if (face.pageCurr==-1) {
 			buzzer.nav(buzzer.buzz.on);
 			face.go((global.euc&&euc.state!="OFF")?ew.is.dash[ew.def.dash.face]:face.appCurr,0);
@@ -53,7 +53,7 @@ function btn1(s){
 			else face.go("clock",0); 
 		}
 		
-	}else if (this.press&&global.euc&&euc.state==="READY"&&euc.dash.opt.horn.en) {euc.wri("hornOff");return;
+	}else if (this.press&&global.euc&&euc.state==="READY"&&euc.is.horn&&euc.dash.opt.horn.en) {euc.wri("hornOff");return;
 	}else face.off();
 }
 ew.tid.btn1=setWatch(btn1,BTN1, {repeat:true, debounce:50,edge:0});
