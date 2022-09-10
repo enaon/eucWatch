@@ -151,7 +151,7 @@ euc.conn=function(mac){
 			//write function
 			euc.wri=function(i){
 				if ( euc.state==="OFF"||i==="end") {
-					euc.tout.busy=1;
+					euc.is.busy=1;
 					if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
 					if (euc.gatt && euc.gatt.connected) {
 						euc.tout.loop=setTimeout( function(){ 
@@ -167,7 +167,7 @@ euc.conn=function(mac){
 						return;					}
 				}else{
 					euc.temp.wCha.writeValue(euc.cmd(i)).then(function() {
-						if (euc.tout.busy==1) return;
+						if (euc.is.busy==1) return;
 						euc.tout.loop=setTimeout( function(){ 
 							euc.tout.loop=0;
 							euc.temp.count++;
@@ -182,7 +182,7 @@ euc.conn=function(mac){
 				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 				ew.do.fileWrite("dash","slot"+ew.do.fileRead("dash","slot")+"Mac",euc.mac);
 			}
-			euc.tout.busy=0;
+			euc.is.busy=0;
 			setTimeout(() => {euc.wri((euc.dash.opt.lock.en)?22:26);euc.is.run=1;}, 500);
 		//reconnect
 		}).catch(euc.off);

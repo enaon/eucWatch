@@ -1,5 +1,6 @@
 //bangle.js 2 
 ew.def.touchtype="816";
+ew.is.tpT=0;
 ew.def.rstR=0xA5; //the rock has auto sleep if 254 is 0.
 var TC={
 	x:0,
@@ -20,6 +21,7 @@ var TC={
 		"ram";
 		//i2c.writeTo(0x15,0);
 		var tp=i2c.readFrom(0x15,7);
+		if (ew.dbg) print("touch input:",tp);
 		if  (ew.temp.bar) { 
 			if (116<tp[5]) {
 				if (!TC.tid) {
@@ -35,8 +37,12 @@ var TC={
 		if (face.pageCurr>=0) {
 			face.off();
 			TC.emit("tc"+tp[0],tp[3],tp[5]);
-		}else if (tp[0]==1) 
-			face.go(face.appCurr,0);
+		}else if (tp[0]==5) {
+			if ( (getTime()|0) - ew.is.tpT < 0.5 )  {
+				buzzer.nav(buzzer.buzz.ok)
+				face.go(face.appCurr,0);
+			}else   ew.is.tpT=getTime()|0;
+		}			
 		if (this.loop) {clearTimeout(this.loop); this.loop=0;}
 		if (this.loop) {clearTimeout(this.loop); this.loop=0;}
 			this.loop=setTimeout(()=>{
@@ -85,21 +91,7 @@ var TC={
 	},
 	stop:function(){
 		"ram";
+		//digitalPulse(ew.def.rstP,1,[5,50]);
 		return true;
 	}
 };
-
-/*
-
-TC.tid=setInterval(function(){
-TC.bar()
-},30);
-*/
-
-/*TC.on('tc1',x=>{print(x);});
-TC.on('tc2',x=>{print(x);});
-TC.on('tc3',x=>{print(x);});
-TC.on('tc4',x=>{print(x);});
-TC.on('tc5',x=>{print(x);});
-TC.on('tc12',x=>{print(x);});
-*/

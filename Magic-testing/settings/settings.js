@@ -9,7 +9,7 @@ face[0] = {
 	bpp:ew.def.bpp?0:1,
 	init: function(o){ 
 		face.faceSave=[face.appPrev,face.pagePrev,face.pageArg];
-		UI.ele.fill("_main",6,0);
+		//UI.ele.fill("_main",6,0);
 		eval(require('Storage').read(o==1?'set_main':o==2?'set_set':'set_dash')); 
 		//eval(require('Storage').read(o==1?'set_main':o==2?'set_set':face.faceSave[0].substring(0,4)=="dash"?'set_dash':'set_set')); 
 		this.bar();
@@ -44,13 +44,13 @@ face[0] = {
     };
 	},
 	ref1 : function(i){
-	  "ram";
+	  //"ram";
 		UI.btn.img("bar","_bar",1,"settings",0,i==1?14:3,i==1?1:0);
 		UI.btn.img("bar","_bar",2,"watch",0,i==2?14:3,i==2?1:0);
 		UI.btn.img("bar","_bar",3,"dash",0,i==3?14:3,i==3?1:0);
 	},
 	ref : function(s){
-	  "ram";
+	  //"ram";
 		UI.btn.img("bar","_bar",1,"settings",0,face[0].page=="clock"?14:3,face[0].page=="clock"?1:0);
 		UI.btn.img("bar","_bar",2,"watch",0,face[0].page=="bt"||face[0].page=="theme"||face[0].page=="set"||face[0].page=="app"?14:3,face[0].page=="bt"||face[0].page=="theme"||face[0].page=="set"||face[0].page=="app"?1:0);
 		UI.btn.img("bar","_bar",3,"dash",0,face[0].page=="dash1"||face[0].page=="dash1"?14:3,face[0].page=="dash1"||face[0].page=="dash2"?1:0);

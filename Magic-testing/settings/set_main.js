@@ -8,7 +8,7 @@ face[0].page="clock";
 UI.ele.ind(1,5,0);
 UIc.start(1,0);
 if (process.env.BOARD=="BANGLEJS2") 
-	UI.btn.c2l("main","_2x3",1,"Bangle","",15,0);
+	UI.btn.c2l("main","_2x3",1,"BANGLE","GO",15,0);
 else UI.ele.fill("_2x3",1,0);
 UI.ele.fill("_2x3",2,0);
 UI.btn.c2l("main","_2x3",3,ew.def.txt?"MODE":ew.def.hr24?"24 H":"12 H",ew.def.txt?ew.def.hr24?"24 H":"12 H":"",15,0);
@@ -46,7 +46,7 @@ UIc.main._2x3=(i)=>{
 				NRF.removeListener('disconnect',bdis);  
 				NRF.disconnect();
 				w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();
-				reset();
+				if (process.env.BOARD == "BANGLEJS2") E.reboot(); else reset();
 			}else if (i==5){
 				ew.do.update.settings();
 				NRF.disconnect();
@@ -55,7 +55,7 @@ UIc.main._2x3=(i)=>{
 				ew.do.update.acc();
 				TC.stop();
 				w.gfx.setColor(0,0);w.gfx.clear();w.gfx.flip();w.gfx.off();
-				E.reboot();
+				if (process.env.BOARD == "BANGLEJS2") Bangle.off(); else E.reboot();
 			}
 		};
 	}else if (i==5){

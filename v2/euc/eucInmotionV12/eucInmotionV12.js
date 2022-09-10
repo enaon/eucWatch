@@ -122,7 +122,7 @@ euc.conn=function(mac){
 			//read
 			euc.temp.rCha.on('characteristicvaluechanged', function(event) {
 				if (ew.is.bt===2) print("responce packet: ", event.target.value.buffer);
-				if (euc.tout.busy) return;
+				if (euc.is.busy) return;
 				if ( euc.temp.last === "stats" ) {
 					if (ew.is.bt===2) print("this is a stats packet");
 					//trip total
@@ -222,7 +222,7 @@ euc.conn=function(mac){
 			//write function
 			euc.wri=function(cmd,value){
 				if (euc.state==="OFF"||cmd==="end") {
-					euc.tout.busy=1;
+					euc.is.busy=1;
 					if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
 					if (euc.gatt && euc.gatt.connected) {
 						euc.tout.loop=setTimeout(function(){ 
@@ -235,32 +235,32 @@ euc.conn=function(mac){
 					}else {
 						euc.state="OFF";
 						euc.off("not connected");
-						euc.tout.busy=0;euc.is.horn=0;
+						euc.is.busy=0;euc.is.horn=0;
 						return;
 					}
 					
 				}else if (cmd==="start") {
-					euc.tout.busy=0;
+					euc.is.busy=0;
 					euc.temp.wCha.writeValue(euc.cmd((euc.dash.opt.lght.HL)?"lightsOn":"lightsOff")).then(function() {
 						euc.temp.rCha.startNotifications();	
 						if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
 						euc.tout.loop=setTimeout(function(){ 
 							euc.tout.loop=0;
-							euc.tout.busy=0;
+							euc.is.busy=0;
 							euc.is.run=1;
 							euc.wri("live");
 						},300);	
 					}).catch(euc.off);
 				}else if (cmd==="hornOn") {
 					//if (euc.is.horn) return;
-					euc.tout.busy=1;euc.is.horn=1;
+					euc.is.busy=1;euc.is.horn=1;
 					if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
 					euc.tout.loop=setTimeout(function(){
 						euc.temp.wCha.writeValue(euc.cmd("playSound",24)).then(function() { 
 						euc.is.horn=0;euc.tout.loop=0;
 						euc.tout.loop=setTimeout(function(){
 							euc.tout.loop=0;
-							euc.tout.busy=0;
+							euc.is.busy=0;
 							euc.wri("live");	
 						},150);
 					});
@@ -268,9 +268,9 @@ euc.conn=function(mac){
 				}else if (cmd==="hornOff") {
 					euc.is.horn=0;					
 				} else {
-					//if (euc.tout.busy) return; 
+					//if (euc.is.busy) return; 
 					euc.temp.wCha.writeValue(euc.cmd(cmd,value)).then(function() {
-						if (euc.tout.busy) return; 
+						if (euc.is.busy) return; 
 						if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
 						euc.tout.loop=setTimeout(function(){
 								euc.tout.loop=0;

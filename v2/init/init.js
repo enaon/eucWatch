@@ -12,7 +12,7 @@ if (process.env.BOARD == "MAGIC3" || process.env.BOARD == "Magic3" || process.en
 }
 else if (process.env.BOARD == "BANGLEJS2") {
        ew.pin = { BAT: D3, CHRG: D23, BUZZ: D19, BUZ0: 1, BL: D8, i2c: { SCL: D34, SDA: D33 }, touch: { RST: D35, INT: D36 }, disp: { CS: D5, DC: D6, RST: D7, BL: D8 }, acc: { INT: D39 } };
-        Bangle.setOptions({ wakeOnTouch: 1, lockTimeout: 0, backlightTimeout: 0, wakeOnBTN1: 1, wakeOnTwist: 0, });
+        Bangle.setOptions({ wakeOnTouch: 0, lockTimeout: 0, backlightTimeout: 0, wakeOnBTN1: 1, wakeOnTwist: 0, });
 }
 
 else if (process.env.BOARD == "DSD6") {

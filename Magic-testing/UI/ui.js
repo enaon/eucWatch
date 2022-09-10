@@ -148,12 +148,18 @@ UI = {
 			w.gfx.setColor(1, fclr);
 			if (txt2 && txt2 != "") {
 				w.gfx.setFont("Vector", p[0] * 0.7 * UI.size.txt*(size?size:1));
+				//w.gfx.setFont("8x12",3  * UI.size.txt*(size?size:1) );
+				//w.gfx.setFont("Teletext10x18Ascii", p[0]/20* UI.size.txt*(size?size:1) );
 				w.gfx.drawString(txt1, x - (w.gfx.stringWidth(txt1) / 2), y - 8 - w.gfx.stringMetrics(txt1).height);
 				w.gfx.setFont("Vector", p[0] * 1.1 * UI.size.txt);
+				//w.gfx.setFont("8x12",  3 * UI.size.txt);
+				//w.gfx.setFont("Dylex7x13",  4 * UI.size.txt);
+
 				w.gfx.drawString(txt2, x - (w.gfx.stringWidth(txt2) / 2), y + 7 * (2.00 - UI.size.txt));
 			}
 			else {
 				w.gfx.setFont("Vector", p[0] * UI.size.txt*(size?size:1));
+				//w.gfx.setFont("8x12", p[0]/10*UI.size.txt*(size?size:1));
 				w.gfx.drawString(txt1, x - (w.gfx.stringWidth(txt1) / 2), y + 4 - (w.gfx.stringMetrics(txt1).height / 2));
 			}
 			if (!ew.def.bpp) w.gfx.flip();
@@ -203,6 +209,7 @@ UI = {
 				w.gfx.drawImage(img, x - (imgW * UI.size.sca * 0.75 / 2), (y - szY) + ((szY * 2) * (2 - UI.size.txt) / 15), { scale: 0.75 * UI.size.sca });
 				w.gfx.setColor(1, fclr);
 				w.gfx.setFont("Vector", p[0] * (no == "_2x3" ? 0.85 : 1) * UI.size.txt);
+			//	w.gfx.setFont("Teletext10x18Ascii",p[0]/20 * (no == "_2x3" ? 0.85 : 1) * UI.size.txt );
 				w.gfx.drawString(txt, x - (w.gfx.stringWidth(txt) / 2), y + ((szY * 2) * (2 - UI.size.txt) / 6));
 			}
 			else w.gfx.drawImage(img, x + 2 - (imgW * UI.size.sca / 2), y - (imgH * UI.size.sca / 2), { scale: UI.size.sca });
@@ -392,9 +399,9 @@ if (process.env.BOARD == "BANGLEJS2") {
 
 	UI.pos = {
 		_fold: [12, [60, 120],
-			[45],
+			[35],
 			[120, 120],
-			[80]
+			[58]
 		],
 		_2x1: [25, [88],
 			[45, 125],

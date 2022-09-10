@@ -101,14 +101,16 @@ face[0] = {
 		UI.ele.ind(1,2,10,8);
 		UI.ele.fill("_bar",6,0);
 		UIc.start(1,1);
-		UI.ele.coord("main","_main",3);
+		if (ew.def.hid){
+			UI.ele.coord("main","_main",3);
+			UIc.main._main=(i)=>{ 
+				buzzer.nav(buzzer.buzz.ok);
+			    if (i==3) {
+				    this.hid();
+				}   
+			};
+		}
 		UIc.end();
-		UIc.main._main=(i)=>{ 
-			buzzer.nav(buzzer.buzz.ok);
-		    if (i==3) {
-			    this.hid();
-			}   
-		};
 	},
 	date:function(){
 	 if (ew.is.bt != this.bt){
@@ -163,6 +165,7 @@ face[0] = {
 		UI.ele.coord("bar","_bar",3);
 		UIc.end();
 		UIc.bar._bar=(i)=>{ 
+			if (!ew.def.hid) {buzzer.nav(buzzer.buzz.na);return;}
 			buzzer.nav(buzzer.buzz.ok);
 		    if (i==1) {
 		        ew.is.hidM.do("volumeDown");

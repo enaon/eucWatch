@@ -2,6 +2,17 @@
 //if (process.env.BOARD == "BANGLEJS2") 
 //    E.setConsole(null, { force: false });
 E.setFlags({pretokenise:1});
+
+/*
+if (process.env.BOARD == "P8"&&process.env.BOARD == "P22"){
+    if (require('Storage').read("Font8x12"))  require("Font8x12").add(Graphics);
+    if (require('Storage').read("Font7x11Numeric7Seg"))  require("Font7x11Numeric7Seg").add(Graphics);
+    if (require('Storage').read("FontDylex7x13"))  require("FontDylex7x13").add(Graphics);
+    if (require('Storage').read("FontCopasetic40x58Numeric"))  require("FontCopasetic40x58Numeric").add(Graphics);
+    if (require('Storage').read("FontTeletext10x18Ascii"))  require("FontTeletext10x18Ascii").add(Graphics);
+}
+*/
+
 if (require('Storage').read("UI")) eval(require('Storage').read('UI'));
 if (require('Storage').read("handler_buzz")) eval(require('Storage').read("handler_buzz"));
 if (require('Storage').read("handler_notify")) eval(require('Storage').read("handler_notify"));

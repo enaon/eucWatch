@@ -33,9 +33,10 @@ function bcon() {
 		handleInfoEvent({"src":"BT","title":"EUC PROXY","body":"Client In"},1);
 		return;
 	} else if (ew.def.hid) {
-				Bluetooth.removeListener('data',ccon);
-				handleInfoEvent({"src":"BT","title":"HID MuSIC","body":"Client In"},1);
-				ew.is.bt=6;
+		Bluetooth.removeListener('data',ccon);
+		handleInfoEvent({"src":"BT","title":"HID MuSIC","body":"Client In"},1);
+		ew.is.bt=6;
+		return;
 	}
 	E.setConsole(null,{force:true});
 	ew.is.bt=1; 

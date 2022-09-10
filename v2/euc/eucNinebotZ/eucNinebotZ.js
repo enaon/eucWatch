@@ -110,7 +110,7 @@ euc.conn=function(mac){
 			euc.wri=function(cmd){
 			//print ("lala",cmd,euc.cmd(cmd));
 				if (euc.state==="OFF"||cmd==="end") {
-					euc.tout.busy=1;
+					euc.is.busy=1;
 					if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
 					if (euc.gatt && euc.gatt.connected) {
 						euc.tout.loop=setTimeout(()=>{
@@ -125,7 +125,7 @@ euc.conn=function(mac){
 						return;						}
 				} else {
 					euc.temp.wCha.writeValue(euc.cmd(cmd)).then(function() {
-						if (!euc.tout.busy) { 
+						if (!euc.is.busy) { 
 							euc.tout.loop=setTimeout(function(t,o){
 								euc.tout.loop=0;
 								euc.wri("live");	
@@ -139,7 +139,7 @@ euc.conn=function(mac){
 				euc.updateDash(require("Storage").readJSON("dash.json",1).slot);
 				ew.do.fileWrite("dash","slot"+ew.do.fileRead("dash","slot")+"Mac",euc.mac);
 			}
-			euc.tout.busy=0;
+			euc.is.busy=0;
 			setTimeout(() => {euc.wri("live");euc.is.run=1;}, 500);
 		//reconnect
 		}).catch(euc.off);
