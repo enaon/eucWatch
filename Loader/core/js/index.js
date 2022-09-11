@@ -956,7 +956,7 @@ if (btn) btn.addEventListener("click",event=>{
     else { 
           Progress.hide({sticky:true});
           showToast("PLEASE CONNECT TO THE WATCH","error");
-        return;
+        //return;
     }
     installerOptions(installSet).then(() => {
     }).catch(err=>{

@@ -12,7 +12,7 @@ if (process.env.BOARD == "MAGIC3" || process.env.BOARD == "Magic3" || process.en
 }
 else if (process.env.BOARD == "BANGLEJS2") {
        ew.pin = { BAT: D3, CHRG: D23, BUZZ: D19, BUZ0: 1, BL: D8, i2c: { SCL: D34, SDA: D33 }, touch: { RST: D35, INT: D36 }, disp: { CS: D5, DC: D6, RST: D7, BL: D8 }, acc: { INT: D39 } };
-        Bangle.setOptions({ wakeOnTouch: 0, lockTimeout: 0, backlightTimeout: 0, wakeOnBTN1: 1, wakeOnTwist: 0, });
+        Bangle.setOptions({ wakeOnTouch: 0, lockTimeout: 0, backlightTimeout: 0, wakeOnBTN1: 1, wakeOnTwist: 1, });
 }
 
 else if (process.env.BOARD == "DSD6") {
@@ -72,7 +72,9 @@ if ((BTN1.read() || require("Storage").read("devmode")) && process.env.BOARD != 
 else { //working mode
   var w;
   if (require('Storage').read('.display')) {
-    eval(require('Storage').read('.display'));
+    if (require('Storage').read('.displayM')&&(process.env.BOARD == "MAGIC3"||process.env.BOARD == "ROCK"))
+      eval(require('Storage').read('.displayM'));
+    else eval(require('Storage').read('.display'));
     if (!w) w = require("eucWatch");
   }
   if (require('Storage').read('handler')) eval(require('Storage').read('handler'));

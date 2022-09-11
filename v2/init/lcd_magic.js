@@ -141,6 +141,7 @@ Modules.addCached("eucWatch", function() {
   }
 
   var bpp = (require("Storage").read("ew.json") && require("Storage").readJSON("ew.json").bpp) ? require("Storage").readJSON("ew.json").bpp : 1;
+  if (require('Storage').read('.displayM')) bpp=1;//V1 support
   var g = Graphics.createArrayBuffer(240, 280, bpp);
   var pal;
   g.sc = g.setColor;
@@ -158,7 +159,8 @@ Modules.addCached("eucWatch", function() {
   // 16bit RGB565  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=dgreen,6=dark2,7=green,8=blue,9=purple,10=?,11=lblue,12=olive,13=red,14=yellow,15=white
   //g.col=Uint16Array([ 0x000,54,2220,3549,1629,83,72,0x0d0,143,3935,2220,0x5ff,115,3840,1535,4095 ]);
   //g.col=Uint16Array([ 0x000,54,2220,3549,1629,83,72,0x0d0,143,3935,2220,0x5ff,115,3840,4080,4095 ]);
-  g.col = Uint16Array([0x000, 54, 2220, 3549, 1629, 83, 72, 0x0d0, 143, 3935, 2220, 0x5ff, 143, 3840, 4080, 4095]);
+  //g.col = Uint16Array([0x000, 54, 2220, 3549, 1629, 83, 72, 0x0d0, 143, 3935, 2220, 0x5ff, 143, 3840, 4080, 4095]);
+  g.col = Uint16Array([0x000, 1365, 2730, 3549, 1629, 2474, 1963, 0x0d0, 143, 3935, 2220, 1535, 170, 3840, 4080, 4095]);
 
 
   //2730 old gray
@@ -173,11 +175,9 @@ Modules.addCached("eucWatch", function() {
   */
   switch (bpp) {
     case 1:
-      pal = g.col;
-      g.buffer = new ArrayBuffer(8400);
-      c1 = pal[1]; //save color 1
+      pal = Uint16Array([0x000, 4095]);
+      //let sc = g.setColor;
       g.setColor = function(c, v) {
-        "ram";
         if (c == 1) pal[1] = g.col[v];
         else pal[0] = g.col[v];
         g.sc(c);
@@ -210,7 +210,29 @@ Modules.addCached("eucWatch", function() {
   g.palA = E.getAddressOf(pal.buffer, true); // pallete address
   g.buffA = E.getAddressOf(g.buffer, true); // framebuffer address
   g.stride = g.getWidth() * bpp / 8;
-
+  
+  if (require('Storage').read('.displayM')){  //V1 support
+    g.lala=g.fillRect;
+    g.fillRect=function(x,y,x1,y1){
+      g.lala(x,y+20,x1,y1+20);
+    };
+    g.lal3=g.clearRect;
+    g.clearRect=function(x,y,x1,y1){
+      g.lal3(x,y+20,x1,y1+20);
+    };
+    g.lal4=g.drawLine;
+    g.drawLine=function(x,y,x1,y1){
+      g.lal4(x,y+20,x1,y1+20);
+    };    
+    g.lal1=g.drawString;
+    g.drawString=function(t,x,y){
+      g.lal1(t,x,y+20);
+    };
+    g.lal2=g.drawImage;
+    g.drawImage=function(t,x,y){
+      g.lal2(t,x,y+20);
+    };  
+  }
   g.flip = function(force) {
     "ram";
     var r = g.getModified(true);

@@ -40,7 +40,7 @@ tcUp=(x,y)=>{
 		}else 
 			w.gfx.bri.set(ew.is.bri);
 		if (face[0].bar) {
-			UI.btn.ntfy(1,1,0,"_bar",6,"BRIGHTNESS","GESTURE",15,4,0);w.gfx.flip();
+			UI.btn.ntfy(1,1,0,"_bar",6,"BRIGHTNESS","GESTURE",0,15,0);w.gfx.flip();
 			if (face.appCurr=="settings"&&face[0].page=="set") UI.btn.img("main","_2x3",3,"bri",ew.def.bri==7?7:ew.is.bri,15,1,1);
 		}
 	}else if (UI.ntid) {

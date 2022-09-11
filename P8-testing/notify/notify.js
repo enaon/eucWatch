@@ -4,7 +4,7 @@ face[0] = {
   g:w.gfx,
   init: function(){
     this.g.setColor(1,0);
-	this.g.fillRect(0,0,239,239);this.g.setColor(0,1);this.g.fillRect(0,0,170,77);this.g.fillRect(175,0,239,77);this.g.fillRect(0,83,170,157);this.g.fillRect(175,83,239,157);this.g.fillRect(0,163,170,249);this.g.fillRect(175,163,239,249);
+	this.g.fillRect(0,0,239,239);this.g.setColor(0,1);this.g.fillRect(0,0,170,77);this.g.fillRect(175,0,239,77);this.g.fillRect(0,83,170,157);this.g.fillRect(175,83,239,157);this.g.fillRect(0,163,170,238);this.g.fillRect(175,163,239,238);
 	this.g.flip();
 	this.g.setColor(1,11);	
 	this.img = require("heatshrink").decompress(atob("lMwwMAv/GBAQEEn/Oh////YhwEC/kOgYEB+12CYUDj9gAgMBw8wj/wgHBnF//0AsEcn//gE4hwZCj4HBAAIrBwBfbn4wBFAxQBw5RB/0B4YEBBoPgKIWAuAUC4E4AgRREmEOEoOAjEHKI8H//AEYQEDACkfKwYoG4JQB/cA8JWCKIN/MAJRGAgRRBEARRBAgPAhkDwf/8EHgJMCagJ6D/7KBAAI="));
@@ -51,7 +51,7 @@ face[0] = {
 	if (this.nInfo!=notify.nInfo){
 		this.nInfo=notify.nInfo;
 		this.g.setColor(1,(this.nInfo)?12:1);
-		this.g.fillRect(0,163,170,249);
+		this.g.fillRect(0,163,170,238);
 		this.g.setColor(0,15);
 		this.g.setFont("Vector",25);		
 		this.g.drawString((notify.nInfo)?notify.nInfo+" / "+notify.info.length:(notify.info.length)?notify.info.length+" OLD":"-",100-(this.g.stringWidth((notify.nInfo)?notify.nInfo+" / "+notify.info.length:(notify.info.length)?notify.info.length+" OLD":"-")/2),190);

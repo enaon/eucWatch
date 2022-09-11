@@ -43,15 +43,15 @@ UIc.main._2x3=(i)=>{
 		}else	
 			buzzer.nav(buzzer.buzz.na);
 	}else if (i==5){
-		if (euc.state=="READY") {buzzer.nav(buzzer.buzz.na); UI.btn.ntfy(1,0,0,"_bar",6,"AUTO ENABLED","FOR EUC",15,0); w.gfx.flip(); return;} 
+		if (euc.state=="READY") {buzzer.nav(buzzer.buzz.na); UI.btn.ntfy(1,0,0,"_bar",6,"AUTO ENABLED","FOR EUC",0,15); w.gfx.flip(); return;} 
 		buzzer.nav(buzzer.buzz.ok);
 		ew.def.acc=1-ew.def.acc;
-		if (ew.def.info) UI.btn.ntfy(1,0,0,"_bar",6,"TURN TO WAKE",ew.def.acc?"ENABLED":"DISABED",15,0);
+		if (ew.def.info) UI.btn.ntfy(1,0,0,"_bar",6,"TURN TO WAKE",ew.def.acc?"ENABLED":"DISABED",0,15);
 		UI.btn.img("main","_2x3",5,"wakeScreen","WAKE",ew.def.acc?15:3,ew.def.acc?4:0);
 		ew.do.update.acc();
 	}else if (i==6){
 		ew.def.buzz=1-ew.def.buzz;
-		if (ew.def.info) UI.btn.ntfy(1,0,0,"_bar",6,"BUZZER",ew.def.buzz?"ENABLED":"DISABED",15,0);
+		if (ew.def.info) UI.btn.ntfy(1,0,0,"_bar",6,"BUZZER",ew.def.buzz?"ENABLED":"DISABED",0,15);
 		UI.btn.img("main","_2x3",6,ew.def.buzz?"buzzOn":"buzzOff","BUZZ",ew.def.buzz?15:3,ew.def.buzz?4:0);
 		if (ew.def.buzz){
 			buzzer.nav=digitalPulse.bind(null,ew.pin.BUZZ,ew.pin.BUZ0);

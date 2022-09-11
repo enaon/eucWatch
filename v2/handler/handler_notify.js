@@ -19,7 +19,7 @@ function handleInfoEvent(event,discrete) {
 		buzzer.nav([80,50,80]);
 		if (face[0].bar){
 			face.off();
-			UI.btn.ntfy(1,4,0,"_bar",6,event.title,event.body,15,4);w.gfx.flip();
+			UI.btn.ntfy(1,4,0,"_bar",6,event.title,event.body,0,15);w.gfx.flip();
 		}else if (!discrete){
 			if (face.appCurr!="clock"||face.pageCurr!=0) {
 				face.go("clock",0);

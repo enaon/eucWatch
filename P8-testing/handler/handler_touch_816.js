@@ -15,4 +15,4 @@ ew.tid.TP=setWatch(function(s){
 			face.go(face.appCurr,0);
 		else   ew.is.tpT=getTime()|0;
 	}	
-},D28,{repeat:true, edge:"rising"}); 
+},ew.pin.touch.INT,{repeat:true, edge:"rising"}); 

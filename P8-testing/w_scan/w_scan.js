@@ -7,7 +7,8 @@ if (!global.scan) {
       if (app == "repellent") this.filter = [{ serviceData: { "fe95": {} } }];
       else {
         app = "dash";
-        if (euc.dash.info.get.makr == "NinebotS") this.filter = [{ manufacturer: 16974 }];
+        //if (euc.dash.info.get.makr == "NinebotS") this.filter = [{ manufacturer: 16974 }];
+  			if (euc.dash.info.get.makr == "NinebotS") this.filter = [{ namePrefix: 'N1' }];
         else if (euc.dash.info.get.makr == "NinebotZ") this.filter = [{ namePrefix: 'N3' }];
         else if (euc.dash.info.get.makr == "NinebotE") this.filter = [{ namePrefix: 'NOC' }, { namePrefix: 'NOE' }, { namePrefix: 'NOP' }];
         else if (euc.dash.info.get.makr == "InmotionV11") this.filter = [{ namePrefix: 'V11-' }];

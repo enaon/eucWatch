@@ -39,7 +39,7 @@ face[0] = {
 		//this.g.fillRect(0,0,239,239);
 		this.g.fillRect(0, 156, 239, 239);
 		this.g.setColor(1, 11);
-		this.g.drawImage(require("heatshrink").decompress(atob("mEwwILIgOAAp0EAoMQAoMMAoMwAoMGAoNgAoMDAQPADgcBAooqEADcP///+AFNABcHCIPgKYQFHKYYFHLIYFHFQd/Aol8nwFDngFdvwFDn/+AvX8ApIADA==")), 10, 195);
+		this.g.drawImage(require("heatshrink").decompress(atob("mEwwILIgOAAp0EAoMQAoMMAoMwAoMGAoNgAoMDAQPADgcBAooqEADcP///+AFNABcHCIPgKYQFHKYYFHLIYFHFQd/Aol8nwFDngFdvwFDn/+AvX8ApIADA==")), 10, 193);
 		this.g.drawImage(require("heatshrink").decompress(atob("mEwwI2zgP/Ao0f////P/nE/AoP9/88ApU4EZYADAooAICg2AApE8/+/G4P4Aon8AoscCIgjLACkf8AFE+CJDz/3/B9CAoP8ApRBBDogFJF4gAsA=")), 95, 195); //this.g.drawImage(require("heatshrink").decompress(atob("mE3wIcZn////+AoIEBAAOAgIFD4ED4AOBgfgg+ADYXwh4hDvEOAoc4AoscgEBD4McAoIhBgEYAoMHAoIMBAoPwAoYRCAoQdChAFBAAQjCApcBJ4I1FAoQ1CAoY1BAvBHFAoU8SoRZBTYytFXIqNDM4LRB/EPaILdB/kf/4OBj/+n/4DQUPvAmDh6zCEIQFEFYYABXIQAkA==")),94,195);
 		this.g.drawImage(require("heatshrink").decompress(atob("mEwwIjgn/8AgUB///wAFBg4FB8AFBh/BwfwCwUBwAYCv4FB/wFB/eAgPfEQPhAoOHwED4InBwfAgYsCgfAg4FCgPgg/AH4Xgh44CgHwh1gAgMMuEePId4jgWDnAFCEAIFDj8AAoUDJgM4ngQBLAM8n+Ag/wgP8AoXgAoIRCHoM8DoRJBFIYABAphNDgl4h1wAoMGuEPTAQ3BOIcDO4J9ERIcBR4S5BHoUAAoQPCAoI4DAqIAVA==")), 180, 195);
 		//dash:"mEwwIjgn/8AgUB///wAFBg4FB8AFBh/BwfwCwUBwAYCv4FB/wFB/eAgPfEQPhAoOHwED4InBwfAgYsCgfAg4FCgPgg/AH4Xgh44CgHwh1gAgMMuEePId4jgWDnAFCEAIFDj8AAoUDJgM4ngQBLAM8n+Ag/wgP8AoXgAoIRCHoM8DoRJBFIYABAphNDgl4h1wAoMGuEPTAQ3BOIcDO4J9ERIcBR4S5BHoUAAoQPCAoI4DAqIAVA==",
@@ -354,7 +354,7 @@ touchHandler[0] = function(e, x, y) {
 			else {
 				ew.def.buzz = 1 - ew.def.buzz;
 				if (ew.def.buzz) {
-					buzzer.nav = digitalPulse.bind(null, D16, 1);
+					buzzer.nav = digitalPulse.bind(null,ew.pin.BUZZ,ew.pin.BUZ0);
 					buzzer.nav([30, 50, 30]);
 				}
 				else {

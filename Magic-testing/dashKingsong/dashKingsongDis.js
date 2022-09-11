@@ -1,7 +1,15 @@
 //touch
 tcNext.replaceWith(()=>{buzzer.nav(buzzer.buzz.ok);if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}eval(require('Storage').read("dashKingsongDis1"));});
-tcBack.replaceWith(()=>{buzzer.nav(buzzer.buzz.ok);if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}eval(require('Storage').read("dashKingsongAuto"));});
+//tcBack.replaceWith(()=>{buzzer.nav(buzzer.buzz.ok);if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}eval(require('Storage').read("dashKingsongAuto"));});
+tcBack.replaceWith(()=>{buzzer.nav(buzzer.buzz.ok);if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}face.go("settings",0);});
+
 //
+face[0].init= function(){
+	return;
+};
+face[0].show= function(){
+	return;
+};
 face[0].page="on disconnect";
 UI.ele.ind(1,2,12);
 UIc.start(1,0);

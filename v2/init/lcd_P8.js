@@ -131,7 +131,6 @@ Modules.addCached("eucWatch", function() {
     case 2:
       pal = Uint16Array([0x000, 1365, 1629, 1535]);
       break; // white won't fit
-      break;
     case 4:
       pal = Uint16Array([0x000, 1365, 2730, 3549, 1629, 2474, 1963, 3840, 143, 3935, 2220, 0x5ff, 170, 4080, 1535, 4095]);
       g.setColor = function(c, v) {

@@ -41,24 +41,24 @@ UIc.main._2x3=(i)=>{
 		ew.def.cli=1-ew.def.cli;
 		ew.do.update.bluetooth();
 		face[0].bt();
-		if (ew.def.info) UI.btn.ntfy(1,0,0,"_bar",6,"LOADER ACCESS",ew.def.cli?"ENABLED":"DISABLED",15,0);
+		if (ew.def.info) UI.btn.ntfy(1,0,0,"_bar",6,"LOADER ACCESS",ew.def.cli?"ENABLED":"DISABLED",0,15);
 	}else if (i==4){
 		buzzer.nav(buzzer.buzz.ok);
 		ew.def.gb=1-ew.def.gb;
 		ew.do.update.bluetooth();
 		face[0].bt();
-		if (ew.def.info) UI.btn.ntfy(1,0,0,"_bar",6,"GADGET BRIDGE",ew.def.gb?"ENABLED":"DISABLED",15,0);
+		if (ew.def.info) UI.btn.ntfy(1,0,0,"_bar",6,"GADGET BRIDGE",ew.def.gb?"ENABLED":"DISABLED",0,15);
 	}else if (i==5){
 		buzzer.nav(buzzer.buzz.ok);
 		ew.def.prxy=1-ew.def.prxy;
 		ew.do.update.bluetooth();
 		face[0].bt();
-		if (ew.def.info) UI.btn.ntfy(1,0,0,"_bar",6,"EUC PROXY",ew.def.prxy?"ENABLED":"DISABLED",15,0);
+		if (ew.def.info) UI.btn.ntfy(1,0,0,"_bar",6,"EUC PROXY",ew.def.prxy?"ENABLED":"DISABLED",0,15);
 	}else if (i==6){
 		buzzer.nav(buzzer.buzz.na);
 		ew.def.hid=1-ew.def.hid;
 		ew.do.update.bluetooth();
 		face[0].bt();
-		if (ew.def.info) UI.btn.ntfy(1,0,0,"_bar",6,"HID MUSIC",ew.def.hid?"ENABLED":"DISABLED",15,0);w.gfx.flip();
+		if (ew.def.info) UI.btn.ntfy(1,0,0,"_bar",6,"HID MUSIC",ew.def.hid?"ENABLED":"DISABLED",0,15);w.gfx.flip();
 	}
 };

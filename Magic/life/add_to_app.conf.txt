@@ -1,0 +1,10 @@
+  { "id": "life",
+    "name": "Life",
+    "icon": "icon.png",
+    "version":"0.01",
+    "description": "Conway's Game of Life cellular automata",
+    "tags": "apps",
+    "storage": [
+      {"name":"life","url":"life.js"}
+    ]
+  },

@@ -59,7 +59,7 @@ UIc.main._2x3=(i)=>{
 			UI.btn.ntfy(0,2,1);
 			UI.btn.c2l("main","_2x3",4,"SIZE",b,15,0); //4
 			UI.size.txt=b/100;
-			UI.size.sca=b/100*(process.env.BOARD=="BANGLEJS2"?0.8:1.1);
+			UI.size.sca=b/100*(process.env.BOARD=="BANGLEJS2"?0.9:1.1);
 			ew.def.size=b/100;
 		};		
 	}else if (i==5){

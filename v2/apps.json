@@ -54,7 +54,8 @@
 		"readme": "README.md",
 		"storage": [
 			{"name":".bootrst","url":"../init/init.js"},
-			{"name":"C:.display","url":"../init/lcd_P8.js"}
+			{"name":".display","url":"../init/lcd_P8.js"},
+			{"name":".displayM","url":"../init/lcd_magic.js"}
 		]
 	},
 	{ "id": "init",
@@ -67,7 +68,7 @@
 		"readme": "README.md",
 		"storage": [
 			{"name":".bootrst","url":"../init/init.js"},
-			{"name":"C:.display","url":"../init/lcd_P8_16bit_rev.js"}
+			{"name":".display","url":"../init/lcd_P8_16bit_rev.js"}
 
 		]
 	},
@@ -109,11 +110,11 @@
 		"type": "system",
 	    "needsFeatures":["V2"],
 			"storage": [
-		{"name":"Font7x11Numeric7Seg","url":"../init/fonts/Font7x11Numeric7Seg.js"},
-		{"name":"Font8x12","url":"../init/fonts/Font8x12.js"},
-		{"name":"FontCopasetic40x58Numeric","url":"../init/fonts/FontCopasetic40x58Numeric.js"},
-		{"name":"FontTeletext10x18Ascii","url":"../init/fonts/FontTeletext10x18Ascii.js"},
-		{"name":"FontDylex7x13","url":"../init/fonts/FontDylex7x13.js"}
+		{"name":"f_Font7x11Numeric7Seg","url":"../init/fonts/Font7x11Numeric7Seg.js"},
+		{"name":"f_Font8x12","url":"../init/fonts/Font8x12.js"},
+		{"name":"f_FontCopasetic40x58Numeric","url":"../init/fonts/FontCopasetic40x58Numeric.js"},
+		{"name":"f_FontTeletext10x18Ascii","url":"../init/fonts/FontTeletext10x18Ascii.js"},
+		{"name":"f_FontDylex7x13","url":"../init/fonts/FontDylex7x13.js"}
 
 		]
 	},

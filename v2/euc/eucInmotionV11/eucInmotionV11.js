@@ -125,10 +125,10 @@ euc.conn=function(mac){
 			euc.temp.rCha=rc;
 			//read
 			euc.temp.rCha.on('characteristicvaluechanged', function(event) {
-				if (1<euc.dbg) print("responce packet: ", event.target.value.buffer);
+				if (3<euc.dbg) print("responce packet: ", event.target.value.buffer);
 				if (euc.is.busy) return;
 				if ( euc.temp.last === "stats" ) {
-					if (ew.is.bt===2) print("this is a stats packet");
+					if (1<euc.dbg===2) print("EUC module, this is a stats packet:",event.target.value.buffer);
 					//trip total
 					euc.dash.trip.totl=event.target.value.getUint32(5, true)/100;
 						euc.log.trip.forEach(function(val,pos){ if (!val) euc.log.trip[pos]=euc.dash.trip.totl;});
@@ -136,9 +136,9 @@ euc.conn=function(mac){
 					euc.dash.trip.time=(event.target.value.getUint32(17, true)/60)|0;
 					euc.dash.timR=(event.target.value.getUint32(21, true)/60)|0;
 					//deb
-					if (ew.is.bt===2) print("trip total :", euc.dash.trip.totl);
-					if (ew.is.bt===2) print("on time :", euc.dash.trip.time);
-					if (ew.is.bt===2) print("ride time :", euc.dash.timR);
+					if (2<euc.dbg) print("trip total :", euc.dash.trip.totl);
+					if (2<euc.dbg) print("on time :", euc.dash.trip.time);
+					if (2<euc.dbg) print("ride time :", euc.dash.timR);
 
 					return;
 				}
@@ -274,7 +274,7 @@ euc.conn=function(mac){
 								euc.is.busy=0;
 								euc.is.horn=0;
 								euc.wri("live");	
-							},150);
+							},250);
 						});
 					},350);
 				}else if (cmd==="hornOff") {
