@@ -46,7 +46,7 @@
 	{ "id": "handler",
 		"name": "Handler - P8 - P22",
 		"icon": "icon.png",
-		"version":"1.92.1",
+		"version":"1.92.2",
 		"description": "P8/P22 functions handler",
 		"tags": "core",
 	    "needsFeatures":["BLE"],

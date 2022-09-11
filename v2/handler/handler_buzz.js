@@ -9,3 +9,4 @@ buzzer.euc = digitalPulse.bind(null,ew.pin.BUZZ,ew.pin.BUZ0);
 if (ew.def.buzz) buzzer.nav = digitalPulse.bind(null,ew.pin.BUZZ,ew.pin.BUZ0);
 else buzzer.nav=function(){return true;};
 
+

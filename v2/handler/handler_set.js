@@ -59,11 +59,11 @@ ew.do.update.bluetooth=function(){
 	NRF.setServices(undefined,{uart:(ew.def.cli||ew.def.gb)?true:false,hid:(ew.def.hid&&ew.is.hidM)?ew.is.hidM.report:undefined });
 	//if (ew.is.atcW) {ew.is.atcW=undefined;ew.is.atcR=undefined;} 
 
-	//if (ew.def.gb) eval(require('Storage').read('m_gb'));
-    //else {
-	//	gbSend=function(){return;};
-	//	handleNotificationEvent=0;handleWeatherEvent=0;handleCallEvent=0;handleFindEvent=0;sendBattery=0;global.GB=0;
-	//}		
+	if (ew.def.gb&&require('Storage').read('m_gb')) eval(require('Storage').read('m_gb'));
+    else {
+		gbSend=function(){return;};
+		handleNotificationEvent=0;handleWeatherEvent=0;handleCallEvent=0;handleFindEvent=0;sendBattery=0;global.GB=0;
+	}		
 	if (!ew.def.cli&&!ew.def.gb&&!ew.def.prxy&&!ew.def.hid) { if (ew.is.bt) NRF.disconnect();  NRF.sleep();ew.is.btsl=1;}
 	else if (ew.is.bt) NRF.disconnect();
 	else if (ew.is.btsl==1) {NRF.restart();ew.is.btsl=0;}
@@ -109,14 +109,7 @@ if (!ew.def.rstR) ew.def.rstR=0xA5;
 if (!ew.def.addr) ew.def.addr=NRF.getAddress();
 if (!ew.def.off) ew.def.off={};
 //
-//buzzzer
-buzzer={buzz:{ok:[20,40,20],na:25,ln:80,on:40,off:[20,25,20]}};
-//buz={ok:[20,40,20],na:25,ln:80,on:40,off:[20,25,20]};
-buzzer.sys = digitalPulse.bind(null,ew.pin.BUZZ,ew.pin.BUZ0);
-buzzer.alrm = digitalPulse.bind(null,ew.pin.BUZZ,ew.pin.BUZ0);
-buzzer.euc = digitalPulse.bind(null,ew.pin.BUZZ,ew.pin.BUZ0);
-if (ew.def.buzz) buzzer.nav = digitalPulse.bind(null,ew.pin.BUZZ,ew.pin.BUZ0);
-else buzzer.nav=function(){return true;};
+
 //dash
 require('Storage').list("dash_").forEach(dashfile=>{
 	ew.is.dash.push(dashfile);

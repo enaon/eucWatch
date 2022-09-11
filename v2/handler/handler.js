@@ -8,9 +8,9 @@ if (process.env.BOARD != "P8" && process.env.BOARD != "P22" && process.env.BOARD
     if (require('Storage').read("f_FontTeletext10x18Ascii")) require("f_FontTeletext10x18Ascii").add(Graphics);
 }
 if (require('Storage').read("UI")) eval(require('Storage').read('UI'));
-if (require('Storage').read("handler_buzz")) eval(require('Storage').read("handler_buzz"));
 if (require('Storage').read("handler_notify")) eval(require('Storage').read("handler_notify"));
 if (require('Storage').read("handler_set")) eval(require('Storage').read("handler_set"));
+if (require('Storage').read("handler_buzz")) eval(require('Storage').read("handler_buzz"));
 if (require('Storage').read("handler_conn")) eval(require('Storage').read("handler_conn"));
 if (require('Storage').read("handler_face")) eval(require('Storage').read("handler_face"));
 if (require('Storage').read("handler_charge")) eval(require('Storage').read("handler_charge"));
