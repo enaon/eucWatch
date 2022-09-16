@@ -20,54 +20,56 @@ ew.do.reset.settings=function() {
 	ew.do.update.settings();
 };	
 ew.do.update.bluetooth=function(){ 
-	NRF.setAdvertising({}, { name:ew.def.name,connectable:true });
-	NRF.setAddress(NRF.getAddress(),+" random");
-	
-	if (ew.def.hid==1&&!require("Storage").read("hid")) {ew.def.hid=0; return;}
-	if (ew.def.hid==1) {
-		ew.def.cli=0;ew.def.gb=0;
-		NRF.setAdvertising({}, { name:ew.def.name+"-HiD",connectable:true });
-		NRF.setAddress(NRF.getAddress().substr(0,15)+"bb random");
-		if (ew.is.hidM==undefined) {
-			Modules.addCached("ble_hid_controls",function(){
-			function b(a,b){NRF.sendHIDReport(a,function(){NRF.sendHIDReport(0,b);});}
-			exports.report=new Uint8Array([5,12,9,1,161,1,21,0,37,1,117,1,149,5,9,181,9,182,9,183,9,205,9,226,129,6,149,2,9,233,9,234,129,2,149,1,129,1,192]);
-			exports.next=function(a){b(1,a);};
-			exports.prev=function(a){b(2,a);};
-			exports.stop=function(a){b(4,a);};
-			exports.playpause=function(a){b(8,a);};
-			exports.mute=function(a){b(16,a);};
-			exports.volumeUp=function(a){b(32,a);};
-			exports.volumeDown=function(a){b(64,a);};});
-			ew.is.hidM=require("ble_hid_controls");
-			ew.is.hidM.do= function (i) {
-				try {
-				   ew.is.hidM[i]();
-				} catch(e) {
-				   if (ew.dbg)	handleInfoEvent({"src":"DBG","title":"HID:","body":e},1);	
+	try {
+		NRF.setAdvertising({}, { name:ew.def.name,connectable:true });
+		NRF.setAddress(NRF.getAddress(),+" random");
+		if (ew.def.hid==1&&!require("Storage").read("hid")) {ew.def.hid=0; return;}
+		if (ew.def.hid==1) {
+			ew.def.cli=0;ew.def.gb=0;
+			NRF.setAdvertising({}, { name:ew.def.name+"-HiD",connectable:true });
+			NRF.setAddress(NRF.getAddress().substr(0,15)+"bb random");
+			if (ew.is.hidM==undefined) {
+				Modules.addCached("ble_hid_controls",function(){
+				function b(a,b){NRF.sendHIDReport(a,function(){NRF.sendHIDReport(0,b);});}
+				exports.report=new Uint8Array([5,12,9,1,161,1,21,0,37,1,117,1,149,5,9,181,9,182,9,183,9,205,9,226,129,6,149,2,9,233,9,234,129,2,149,1,129,1,192]);
+				exports.next=function(a){b(1,a);};
+				exports.prev=function(a){b(2,a);};
+				exports.stop=function(a){b(4,a);};
+				exports.playpause=function(a){b(8,a);};
+				exports.mute=function(a){b(16,a);};
+				exports.volumeUp=function(a){b(32,a);};
+				exports.volumeDown=function(a){b(64,a);};});
+				ew.is.hidM=require("ble_hid_controls");
+				ew.is.hidM.do= function (i) {
+					try {
+					   ew.is.hidM[i]();
+					} catch(e) {
+					   if (ew.dbg)	handleInfoEvent({"src":"DBG","title":"HID:","body":e},1);	
+					}
 				}
 			}
-		}
-/*		if (ew.def.hidT=="joy") ew.is.hidM = E.toUint8Array(atob("BQEJBKEBCQGhAAUJGQEpBRUAJQGVBXUBgQKVA3UBgQMFAQkwCTEVgSV/dQiVAoECwMA="));
-		else if (ew.def.hidT=="kb") ew.is.hidM = E.toUint8Array(atob("BQEJBqEBBQcZ4CnnFQAlAXUBlQiBApUBdQiBAZUFdQEFCBkBKQWRApUBdQORAZUGdQgVACVzBQcZAClzgQAJBRUAJv8AdQiVArECwA=="));
-		else ew.def.hidM = E.toUint8Array(atob("BQEJBqEBhQIFBxngKecVACUBdQGVCIEClQF1CIEBlQV1AQUIGQEpBZEClQF1A5EBlQZ1CBUAJXMFBxkAKXOBAAkFFQAm/wB1CJUCsQLABQwJAaEBhQEVACUBdQGVAQm1gQIJtoECCbeBAgm4gQIJzYECCeKBAgnpgQIJ6oECwA=="));
-*/
-  	}else if (ew.def.hid==0 &&ew.is.hidM!=undefined) {
-		ew.is.hidM=undefined;
-		if (global["\xFF"].modules.ble_hid_controls) Modules.removeCached("ble_hid_controls");
-    }
-	NRF.setServices(undefined,{uart:(ew.def.cli||ew.def.gb)?true:false,hid:(ew.def.hid&&ew.is.hidM)?ew.is.hidM.report:undefined });
-	//if (ew.is.atcW) {ew.is.atcW=undefined;ew.is.atcR=undefined;} 
-
-	if (ew.def.gb&&require('Storage').read('m_gb')) eval(require('Storage').read('m_gb'));
-    else {
-		gbSend=function(){return;};
-		handleNotificationEvent=0;handleWeatherEvent=0;handleCallEvent=0;handleFindEvent=0;sendBattery=0;global.GB=0;
-	}		
-	if (!ew.def.cli&&!ew.def.gb&&!ew.def.prxy&&!ew.def.hid) { if (ew.is.bt) NRF.disconnect();  NRF.sleep();ew.is.btsl=1;}
-	else if (ew.is.bt) NRF.disconnect();
-	else if (ew.is.btsl==1) {NRF.restart();ew.is.btsl=0;}
+	/*		if (ew.def.hidT=="joy") ew.is.hidM = E.toUint8Array(atob("BQEJBKEBCQGhAAUJGQEpBRUAJQGVBXUBgQKVA3UBgQMFAQkwCTEVgSV/dQiVAoECwMA="));
+			else if (ew.def.hidT=="kb") ew.is.hidM = E.toUint8Array(atob("BQEJBqEBBQcZ4CnnFQAlAXUBlQiBApUBdQiBAZUFdQEFCBkBKQWRApUBdQORAZUGdQgVACVzBQcZAClzgQAJBRUAJv8AdQiVArECwA=="));
+			else ew.def.hidM = E.toUint8Array(atob("BQEJBqEBhQIFBxngKecVACUBdQGVCIEClQF1CIEBlQV1AQUIGQEpBZEClQF1A5EBlQZ1CBUAJXMFBxkAKXOBAAkFFQAm/wB1CJUCsQLABQwJAaEBhQEVACUBdQGVAQm1gQIJtoECCbeBAgm4gQIJzYECCeKBAgnpgQIJ6oECwA=="));
+	*/
+	  	}else if (ew.def.hid==0 &&ew.is.hidM!=undefined) {
+			ew.is.hidM=undefined;
+			if (global["\xFF"].modules.ble_hid_controls) Modules.removeCached("ble_hid_controls");
+	    }
+		NRF.setServices(undefined,{uart:(ew.def.cli||ew.def.gb)?true:false,hid:(ew.def.hid&&ew.is.hidM)?ew.is.hidM.report:undefined });
+		//if (ew.is.atcW) {ew.is.atcW=undefined;ew.is.atcR=undefined;} 
 	
+		if (ew.def.gb&&require('Storage').read('m_gb')) eval(require('Storage').read('m_gb'));
+	    else {
+			gbSend=function(){return;};
+			handleNotificationEvent=0;handleWeatherEvent=0;handleCallEvent=0;handleFindEvent=0;sendBattery=0;global.GB=0;
+		}		
+		if (!ew.def.cli&&!ew.def.gb&&!ew.def.prxy&&!ew.def.hid) { if (ew.is.bt) NRF.disconnect();  NRF.sleep();ew.is.btsl=1;}
+		else if (ew.is.bt) NRF.disconnect();
+		else if (ew.is.btsl==1) {NRF.restart();ew.is.btsl=0;}
+	}catch(e) {
+      //print(e);
+    }
 };
 ew.do.fileRead=function(file,name){
 	let got=require("Storage").readJSON([file+".json"],1);

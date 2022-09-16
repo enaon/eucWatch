@@ -42,7 +42,7 @@ face[0] = {
 			this.g.setColor(0,0);
 			this.g.clearRect(0,0,239,239);
 			this.page="scan";
-			this.btn(1,"TPMS SENSOR",25,100,7,0,0,0,0,239,50);
+			this.btn(1,"TPMS SENSOR",25,120,7,0,0,0,0,239,50);
 			this.btn(1,"TOUCH",30,120,80,1,1,0,50,239,185,"TO SCAN",30,120,130);
 			if (tpms.status=="SCANNING"||tpms.status.startsWith("RETRY") ) this.scan();
 		}	
@@ -134,7 +134,7 @@ face[0] = {
 			this.ntfy("FOUND : "+tpms.new,"",27,4,1,2);
 			return;
 		}else if (tpms.status=="NOT FOUND") {
-			this.ntfy(tpms.status,"",27,133,1,2);
+			this.ntfy(tpms.status,"",27,13,1,2);
 			return;
 		}
 		this.btn(1,tpms.status+" "+(tpms.def.wait-( (getTime()|0)-tpms.cnt) ),27,120,205,12,0,0,190,239,239,"",22,120,225);

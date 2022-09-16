@@ -50,7 +50,7 @@ var TC={
 			//print("in",tp);
 			if (face.pageCurr>=0) {
 				face.off();
-				TC.emit("tc"+tp[1],tp[4],(((tp[5]&0x0F)<<8 )|tp[6]));
+				TC.emit("tc"+tp[1],tp[4],(((tp[5]&0x0F)<<8 )|tp[6]),tp[1]==12?1:0);
 			}else if (tp[1]==5) {
 				if ( (getTime()|0) - ew.is.tpT < 1 )  {
 					buzzer.nav(buzzer.buzz.ok)
@@ -96,7 +96,7 @@ var TC={
 								this.val.tmp=0;
 								if (this.val.up<this.val.cur) this.val.cur=this.val.up;
 								else if (this.val.cur<this.val.dn) this.val.cur=this.val.dn;
-								buzzer.nav(20);TC.emit("bar",this.y<tp[4]?1:-1,this.val.cur);
+								buzzer.nav(15);TC.emit("bar",this.y<tp[4]?1:-1,this.val.cur);
 							}
 							//if (!this.val.tmp) {buzzer.nav(20);TC.emit("bar",this.y<tp[4]?1:-1,this.val.cur);}
 						}

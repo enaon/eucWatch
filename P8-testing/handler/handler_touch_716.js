@@ -15,20 +15,27 @@ var tfk={
 			if ( this.st ) {
 				this.st = 0;
 				this.do = 1;
-				this.x = tp[4];
-                this.y = tp[6];
+                if (process.env.BOARD == "MAGIC3"){
+				    this.x = (((tp[3] & 0x0F) << 8) | tp[4]);
+					this.y = (((tp[5] & 0x0F) << 8) | tp[6]);
+                }else{
+         			this.x = tp[4];
+                	this.y = tp[6];       	
+                }
+                print(this.x,this.y)
                 return;
 			}
 			if ( this.do && getTime() - this.time > 1 ) { 
 				this.do = 0 ;
 				return setTimeout(function() {touchHandler[face.pageCurr](12,tfk.x,tfk.y);},0);
 			}else if ( this.do && !tp[1] ) {
-				var a=0;
-				if (tp[6]>=this.y+30) a = 1;
-				else if (tp[6]<=this.y-30) a = 2;
-				else if (tp[4]<=this.x-30) a = 3;
-				else if (tp[4]>=this.x+30) a = 4;
-				if ( a != 0 && this.aLast != a ) {
+				var a = 0;
+				if ((((tp[5] & 0x0F) << 8) | tp[6]) >= this.y + 30) a = 1;
+				else if ((((tp[5] & 0x0F) << 8) | tp[6]) <= this.y - 30) a = 2;
+				else if ((((tp[3] & 0x0F) << 8) | tp[4]) <= this.x - 20) a = 3;
+				else if ((((tp[3] & 0x0F) << 8) | tp[4]) >= this.x + 20) a = 4;
+				if (a != 0 && this.aLast != a) {	
+					
                     this.aLast=a;
 					this.do=0;
 					return setTimeout(function() {touchHandler[face.pageCurr](a,tfk.x,tfk.y);},0);
@@ -36,7 +43,7 @@ var tfk={
 			}else if ( this.do ){
 				if ( tp[1] == 5 || tp[1] ==12 ){
 					this.do=0;
-					return setTimeout(function() { touchHandler[face.pageCurr](tp[1],tfk.x,tfk.y);},0);
+					return setTimeout(function() { touchHandler[face.pageCurr](tp[1],tfk.x+(process.env.BOARD == "MAGIC3"?(TC.x / 10):0),tfk.y+20);},0);
 				}
 			}
 		}else  {

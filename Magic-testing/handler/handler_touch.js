@@ -32,7 +32,7 @@ tcDn=(x,y)=>{
 };	
 tcUp=(x,y)=>{
 	"ram";
-	if (x<50) { 
+	if (x<50&&w.gfx.getHeight()-80<y) { 
 		buzzer.nav(buzzer.buzz.ok);
 		if (ew.def.bri!==7) {
 		  ew.is.bri=ew.def.bri;
@@ -43,19 +43,20 @@ tcUp=(x,y)=>{
 			UI.btn.ntfy(1,1,0,"_bar",6,"BRIGHTNESS","GESTURE",0,15,0);w.gfx.flip();
 			if (face.appCurr=="settings"&&face[0].page=="set") UI.btn.img("main","_2x3",3,"bri",ew.def.bri==7?7:ew.is.bri,15,1,1);
 		}
-	}else if (UI.ntid) {
-		buzzer.nav(buzzer.buzz.ok);
-		if (ew.is.bar)	{
-			clearTimeout(UI.ntid);
-			UI.ntid=0;
-			face[0].bar();
-			ew.is.bar=0;
-		}else UI.bar(2);
+	//}else if (UI.ntid) {
+	//	buzzer.nav(buzzer.buzz.ok);
+	//	if (ew.is.bar)	{
+	//		clearTimeout(UI.ntid);
+	//		UI.ntid=0;
+	//		face[0].bar();
+	//		ew.is.bar=0;
+	//	}else UI.bar(2);
 	} else if (face.appCurr!="settings") {
 		buzzer.nav(buzzer.buzz.ok);
 		UI.bar(2);
 	} else 
-		face.go(face.appRoot[0],face.appRoot[1]);
+		buzzer.nav(buzzer.buzz.na);
+		//face.go(face.appRoot[0],face.appRoot[1]);
 };	
 tcBack=()=>{
 	buzzer.nav(buzzer.buzz.ok);
@@ -73,3 +74,4 @@ TC.on('tc4',tcBack);
 //TC.on('tc3',`setTimeout(()=>{tcNext()},50)`);
 //TC.on('tc4',`setTimeout(()=>{tcBack()},50)`);
 TC.on('tc5',UIc.xy);
+TC.on('tc12',UIc.xy);

@@ -80,7 +80,7 @@ face[0] = {
       if (calc.disp==""){
         if (calc.val!=""){
           if (calc.val!="-"){
-          this.g.setColor(1,13);
+          this.g.setColor(1,14);
           this.out=this.comf(eval(calc.val.substring(0,calc.val.length-1)))+calc.val.substring(calc.val.length-1);
           }else {this.out="-"; this.g.setColor(1,15);}
         }else if (calc.sum!=""){

@@ -58,7 +58,8 @@ var TC = {
 			if (tp[2] == 1 && this.st) {
 				this.st = 0;
 				this.do = 1;
-				this.x = ((tp[3] & 0x0F) << 8) | tp[4];
+				//this.x = ((tp[3] & 0x0F) << 8) | tp[4];
+				this.x = tp[4];
 				this.y = ((tp[5] & 0x0F) << 8) | tp[6];
 				this.time = getTime();
 				return;
@@ -66,7 +67,8 @@ var TC = {
 			if (this.do && getTime() - this.time > 1 && tp[2] == 1) {
 				this.do = 0;
 				//setTimeout(function() {TC.emit("tc12",TC.x+(TC.x/10),TC.y);},0);
-				TC.emit("tc12", TC.x + (TC.x / 10), TC.y);
+				//TC.emit("tc12", TC.x + (TC.x / 10), TC.y);
+				UIc.xy(TC.x + (TC.x / 10), TC.y , 1);
 				face.off();
 				//setTimeout(function() {face.off();},200);
 			}

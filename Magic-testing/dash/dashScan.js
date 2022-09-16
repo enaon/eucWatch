@@ -3,10 +3,13 @@ E.setFlags({pretokenise:1});
 tcBack.replaceWith(()=>{
 	"ram";
 	buzzer.nav(buzzer.buzz.ok);
-	if (UI.ntid) {
-		clearTimeout(UI.ntid);UI.ntid=0;
-		face[0].show( face[0].page);
-	}else if ( 1 < face[0].page ) {
+	if (UI.ntid) {	clearTimeout(UI.ntid);UI.ntid=0;}
+
+	//if (UI.ntid) {
+	//	clearTimeout(UI.ntid);UI.ntid=0;
+	//	face[0].show( face[0].page);
+	//}else 
+	if ( 1 < face[0].page ) {
  		face[0].page -- ;
 		face[0].show( face[0].page);
     } else {
@@ -16,10 +19,8 @@ tcBack.replaceWith(()=>{
 });
 tcNext.replaceWith(()=>{
 	"ram";
-	if (UI.ntid) {
-		clearTimeout(UI.ntid);UI.ntid=0;
-		face[0].show( face[0].page);
-	}else if ( face[0].page < 3 ) {
+	if (UI.ntid) {	clearTimeout(UI.ntid);UI.ntid=0;}
+	if ( face[0].page < 3 ) {
 		buzzer.nav(buzzer.buzz.ok);
 		face[0].page ++ ;
 		face[0].show( face[0].page);

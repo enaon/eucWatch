@@ -160,8 +160,8 @@ Modules.addCached("eucWatch", function() {
   //g.col=Uint16Array([ 0x000,54,2220,3549,1629,83,72,0x0d0,143,3935,2220,0x5ff,115,3840,1535,4095 ]);
   //g.col=Uint16Array([ 0x000,54,2220,3549,1629,83,72,0x0d0,143,3935,2220,0x5ff,115,3840,4080,4095 ]);
   //g.col = Uint16Array([0x000, 54, 2220, 3549, 1629, 83, 72, 0x0d0, 143, 3935, 2220, 0x5ff, 143, 3840, 4080, 4095]);
-  g.col = Uint16Array([0x000, 1365, 2730, 3549, 1629, 2474, 1963, 0x0d0, 143, 3935, 2220, 1535, 170, 3840, 4080, 4095]);
-
+  //g.col = Uint16Array([0x000, 1365, 2730, 3549, 1629, 2474, 1963, 0x0d0, 143, 3935, 2220, 1535, 170, 3840, 4080, 4095]);
+    g.col = Uint16Array([0x000, 1365, 2730, 3549, 1629, 1628, 1963, 0x0d0, 143, 3935, 1659, 1535, 170, 3840, 4080, 4095]);
 
   //2730 old gray
   //1622 dgray 1610 dbue 1655-good grey 1672  dblack 50,68.85  115, 152 green
@@ -214,24 +214,29 @@ Modules.addCached("eucWatch", function() {
   if (require('Storage').read('.displayM')){  //V1 support
     g.lala=g.fillRect;
     g.fillRect=function(x,y,x1,y1){
-      g.lala(x,y+20,x1,y1+20);
+      g.lala(x,y+30,x1,y1+30);
     };
     g.lal3=g.clearRect;
     g.clearRect=function(x,y,x1,y1){
-      g.lal3(x,y+20,x1,y1+20);
+      g.lal3(x,y+30,x1,y1+30);
     };
     g.lal4=g.drawLine;
     g.drawLine=function(x,y,x1,y1){
-      g.lal4(x,y+20,x1,y1+20);
+      g.lal4(x,y+30,x1,y1+30);
     };    
     g.lal1=g.drawString;
     g.drawString=function(t,x,y){
-      g.lal1(t,x,y+20);
+      g.lal1(t,x,y+30);
     };
     g.lal2=g.drawImage;
-    g.drawImage=function(t,x,y){
-      g.lal2(t,x,y+20);
+    g.drawImage=function(t,x,y,o){
+      g.lal2(t,x,y+30,o);
     };  
+    g.lal5=g.setFont;
+    g.setFont=function(f,s){
+      g.lal5(f,s);
+    };
+    
   }
   g.flip = function(force) {
     "ram";

@@ -86,7 +86,7 @@ face[0] = {
     this.g.fillRect(0, 0, 239, 35);
     this.g.setColor(1, 11);
     this.g.setFont("Vector", 24);
-    this.g.drawString((face.appPrev == "repellent") ? "REPELLENT" : "EUC", 4, 6);
+    this.g.drawString((face.appPrev == "repellent") ? "REPELLENT" : "EUC", 30, 6);
     this.g.flip();
     this.line = 0;
     this.top = 50;

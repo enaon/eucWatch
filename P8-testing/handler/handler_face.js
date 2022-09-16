@@ -75,7 +75,9 @@ var face={
 		face[page].init(arg);	
 		if(!w.gfx.isOn) {
 			if (ew.def.touchtype=="716") tfk.start();
-			else if  (process.env.BOARD == "ROCK"){		
+			else if  (process.env.BOARD == "ROCK"){	
+				digitalPulse(ew.def.rstP,1,[5,50])
+				setTimeout(()=>{
 				i2c.writeTo(0x15,236,0); //MotionMask 7/4/1
 				i2c.writeTo(0x15,0xF5,35); //lp scan threshold
 				i2c.writeTo(0x15,0xF6,3); //lp scan range
@@ -85,6 +87,7 @@ var face={
 				i2c.writeTo(0x15,0xFA,17); //gesture mode
 				i2c.writeTo(0x15,254,1); //auto sleep off
 				i2c.writeTo(0x15,0);
+				},100);
 			}
 			else digitalPulse(ew.def.rstP,1,[5,50]);
 			w.gfx.on();

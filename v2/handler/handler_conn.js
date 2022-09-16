@@ -6,20 +6,20 @@ function ccon(l){
 	var gb="\x20\x03";
 	 if (l.startsWith(loa)) {
 	 	ew.is.bt=2;
-		handleInfoEvent({"src":"BT","title":"LOADER","body":"Connected"});
+		handleInfoEvent({"src":"BT","title":"LOADER","body":"CLIENT IN"});
 		Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
 		return; 
 	}else {
 	if (ew.def.cli) {
 		if (l.startsWith(cli)) {
-			handleInfoEvent({"src":"BT","title":"IDE","body":"Connected"});
+			handleInfoEvent({"src":"BT","title":"IDE","body":"CLIENT IN"});
 			ew.is.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
 		}
 	}
 	if (ew.def.gb) {
 		if (l.startsWith(gb)){
 			ew.is.bt=3;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
-			handleInfoEvent({"src":"BT","title":"GB","body":"Connected"});
+			handleInfoEvent({"src":"BT","title":"GB","body":"CLIENT IN"});
 		}
 	}
 	if (l.length>5)  NRF.disconnect();
@@ -30,11 +30,11 @@ function bcon() {
 	if (ew.def.prxy&&global.euc&&global.euc.state!="OFF") {
 		ew.is.bt=5;
 		Bluetooth.removeListener('data',ccon);
-		handleInfoEvent({"src":"BT","title":"EUC PROXY","body":"Client In"},1);
+		handleInfoEvent({"src":"BT","title":"EUC PROXY","body":"CLIENT IN"},1);
 		return;
 	} else if (ew.def.hid) {
 		Bluetooth.removeListener('data',ccon);
-		handleInfoEvent({"src":"BT","title":"HID MuSIC","body":"Client In"},1);
+		handleInfoEvent({"src":"BT","title":"HID MUSIC","body":"CLIENT IN"},1);
 		ew.is.bt=6;
 		return;
 	}
@@ -46,7 +46,7 @@ function bcon() {
 			if (!ew.def.cli) 
 				NRF.disconnect(); 
 			else{ 
-				handleInfoEvent({"src":"DEBUG","title":"RELAY","body":"Relay In"});
+				handleInfoEvent({"src":"DEBUG","title":"RELAY","body":"CLIENT IN"});
 				ew.is.bt=2;Bluetooth.removeListener('data',ccon);E.setConsole(Bluetooth,{force:false});
 			}
 		}
@@ -61,13 +61,13 @@ function bdis() {
 		NRF.sleep();
 		ew.is.btsl=1;
     }	
-	if (ew.is.bt==1) handleInfoEvent({"src":"BT","title":"BT","body":"Disconnect"});
-	else if (ew.is.bt==2) handleInfoEvent({"src":"BT","title":"IDE","body":"Disconnect"});
-	else if (ew.is.bt==3) handleInfoEvent({"src":"BT","title":"GB","body":"Disconnect"});
+	if (ew.is.bt==1) handleInfoEvent({"src":"BT","title":"BT","body":"CLIENT OUT"});
+	else if (ew.is.bt==2) handleInfoEvent({"src":"BT","title":"IDE","body":"CLIENT OUT"});
+	else if (ew.is.bt==3) handleInfoEvent({"src":"BT","title":"GB","body":"CLIENT OUT"});
 	//else if (ew.is.bt==4) handleInfoEvent({"src":"BT","title":"ATC","body":"Disconnected"});
 	//else if (ew.is.bt==4) handleInfoEvent({"src":"BT","title":"Z10 EMU","body":"Client Out"},1);
-	else if (ew.is.bt==5) handleInfoEvent({"src":"BT","title":"EUC PROXY","body":"Client Out"},1);
-	else if (ew.is.bt==6) handleInfoEvent({"src":"BT","title":"HID MUSIC","body":"Client Out"},1);
+	else if (ew.is.bt==5) handleInfoEvent({"src":"BT","title":"EUC PROXY","body":"CLIENT OUT"},1);
+	else if (ew.is.bt==6) handleInfoEvent({"src":"BT","title":"HID MUSIC","body":"CLIENT OUT"},1);
 
   	ew.is.bt=0; 
 	ew.is.emuD=0;

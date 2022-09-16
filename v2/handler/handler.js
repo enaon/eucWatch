@@ -1,13 +1,7 @@
 //handler
 E.setFlags({ pretokenise: 1 });
-if (process.env.BOARD != "P8" && process.env.BOARD != "P22" && process.env.BOARD != "PINETME") {
-    if (require('Storage').read("f_Font8x12")) require("f_Font8x12").add(Graphics);
-    if (require('Storage').read("f_Font7x11Numeric7Seg")) require("f_Font7x11Numeric7Seg").add(Graphics);
-    if (require('Storage').read("f_FontDylex7x13")) require("f_FontDylex7x13").add(Graphics);
-    if (require('Storage').read("f_FontCopasetic40x58Numeric")) require("f_FontCopasetic40x58Numeric").add(Graphics);
-    if (require('Storage').read("f_FontTeletext10x18Ascii")) require("f_FontTeletext10x18Ascii").add(Graphics);
-}
 if (require('Storage').read("UI")) eval(require('Storage').read('UI'));
+if (require('Storage').read("handler_fonts")) eval(require('Storage').read('handler_fonts'));
 if (require('Storage').read("handler_notify")) eval(require('Storage').read("handler_notify"));
 if (require('Storage').read("handler_set")) eval(require('Storage').read("handler_set"));
 if (require('Storage').read("handler_buzz")) eval(require('Storage').read("handler_buzz"));

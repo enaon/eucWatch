@@ -2,13 +2,13 @@
 // see full license text at https://choosealicense.com/licenses/mit/
 // Magic3-Rock 
 E.setFlags({ pretokenise: 1 });
-ew.is.dddm = 16;
-//magic/rock 
+ew.is.dddm = 12;
 Modules.addCached("eucWatch", function() {
   //screen driver
-  // compiled with options LCD_BPP=16,SHARED_SPIFLASH
+  // compiled with options LCD_BPP=12,SHARED_SPIFLASH,SPIFLASH_CS=(1<<5)
   var SPI2 = (function() {
-    var bin = atob("//////////8AAAAAAAAAAP////8AAAAAAAAAAAAAAL8QtQZMfETE6QABIDsBIQH6AvKZQKJg4WAQvQC/2P///wZLACLD+AAlw/gIIQEiWmDT+AQjCrHD+AgjcEcA8AJAEkvT+AAlELXqudP4BCMKscP4CCMOSnpEAAYUaMP4CEVUaMP4DEUSacP4ECVJAE/w/zLD+BQlw/hsJcP4JAXD+FQVASAQvU/w/zD75wDwAkCG////CEt7RJuKU7EFStL4GDEAK/vQACPC+BgxA0p6RJOCcEcA8AJARv///y7///8QtQNMfETigiCDYYOjgxC9GP////i1FUb/99z/FEsAJMP4NEX/J8P4OEUBIsP4GEEmRv8pAOsEDMP4RMWLv/80w/hIFcP4SHUAIYi//zkaYSWxGbkHS3tEmoL4vdP4GMG88QAP+tDD+BhhACnh0fTnAPACQMb+//8bSnpEOLUMRtFoWbMXTQcjxfgANU/woEPD+AwYkmgKscP4DCUAIgEh//e4/xFLe0QBLNpoT/CgQ8P4CCgE3QAiYR4BMP/3qv8LS3tEm2gbsU/woELC+Ag1ACABI8X4AAVrYDi9T/D/MPvnAL8A8AJAov7//3b+//9a/v//cLUERoixRhgAJSBGEPgBGxmxRBi0QgLZbUIoRnC9//ex/wAo+dEBNe/nBUb15xO1ACgd2wAppr+N+AUQAiQBJAAqob8CqQkZATQB+AQsACuivwKqEhkBNI34BACovwL4BDwhRgGo//eN/yBGArAQvQAk+uct6fBPn7CRRgCRS0l5RAdGi30AKADwi4AAmgAqAPCHgFoeByoA8oOAASKaQAE60rIFRkBIAZIHIjX4Akux+BqAwPgAJYpoRPoJ9KSyGrFP8KBBwfgMJTlKekQSqAKSBqrN6QMgT/AAClFGApqy+BiwTkYBmh5E9rIHLgLqBAwAmoi/CD4y+BzAgb8V+AEr9rLG8QgOAvoO8kT6A/RP6hwuiL8UQwD4AeBKHAIxC/H/Oy8pAPgCwKSyH/qL+wvdASIFk//38/7a8QEKBZsLvwSYA5hRRgAhu/EAD8rRGEp6RAjx/ziSixdEPUYf+oj4NfgCS0T6CfSksrjxAA+10ZmxQkb/99P+D0t7RJtoG7FP8KBCwvgINQdKACABI8L4AAVTYB+wvejwj//3oP7r50/w/zD25wDwAkCo/f//XP3//9b8//+s/P//");
+    "ram";
+    var bin = atob("//////////8AAAAAAAAAAP////8AAAAAAAAAAAAAAL8QtQZMfETE6QABIDsBIQH6AvKZQKJg4WAQvQC/2P///wZLACLD+AAlw/gIIQEiWmDT+AQjCrHD+AgjcEcA8AJAEkvT+AAlELXqudP4BCMKscP4CCMOSnpEAAYUaMP4CEVUaMP4DEUSacP4ECVJAE/w/zLD+BQlw/hsJcP4JAXD+FQVASAQvU/w/zD75wDwAkCG////CEt7RJuKU7EFStL4GDEAK/vQACPC+BgxA0p6RJOCcEcA8AJARv///y7///8QtQNMfETigiCDYYOjgxC9GP////i1FUb/99z/FEsAJMP4NEX/J8P4OEUBIsP4GEEmRv8pAOsEDMP4RMWLv/80w/hIFcP4SHUAIYi//zkaYSWxGbkHS3tEmoL4vdP4GMG88QAP+tDD+BhhACnh0fTnAPACQMb+//8bSnpEOLUMRtFoWbMXTQcjxfgANU/woEPD+AwYkmgKscP4DCUAIgEh//e4/xFLe0QBLNpoT/CgQ8P4CCgE3QAiYR4BMP/3qv8LS3tEm2gbsU/woELC+Ag1ACABI8X4AAVrYDi9T/D/MPvnAL8A8AJAov7//3b+//9a/v//cLUERoixRhgAJSBGEPgBGxmxRBi0QgLZbUIoRnC9//ex/wAo+dEBNe/nBUb15xO1ACgd2wAppr+N+AUQAiQBJAAqob8CqQkZATQB+AQsACuivwKqEhkBNI34BACovwL4BDwhRgGo//eN/yBGArAQvQAk+uct6fBPobDN6QESU0p6RAdGkvgWkAAoAPCZgAApAPCWgAnx/zMHKwDykYABIwP6CfMBOwVG27I1+AJLA5MCm0VJsvgagBxBByPB+AA1k2ikshuxT/CgQsL4DDVP6kkD27IEkz5Le0QUqAWTCKvN6QYwT/AAC1lGBZsCnrP4GKADmwGaI0BE+gn0MvgTwAObI0BE+gn0MvgTIASbHkT2sgcugb8IPhX4ATv2ssbxCA6EvwP6DvMcQ0/qHBNDVBMKAfECDkPqDBxDGAMxqvECCi8pg/gBwKSyAPgOIB/6ivoJ3QEi//fj/tvxAQsLvweYBphZRgAhuvEAD8HRGUt7RAjx/zibix9EPUYCmzX4Aksf+oj4HEGksrjxAA+s0ZmxQkb/98T+D0t7RJtoG7FP8KBCwvgINQdKACABI8L4AAVTYCGwvejwj//3kf7r50/w/zD25wC/APACQKj9//9Q/f//uPz//478//8=");
     return {
       cmd: E.nativeCall(345, "int(int,int)", bin),
       cmds: E.nativeCall(469, "int(int,int)", bin),
@@ -99,7 +99,7 @@ Modules.addCached("eucWatch", function() {
     //MADCTL: Set Memory access control (directions), 1 arg: row addr/col addr, bottom to top refresh
     cmd(0x36, 0x00);
     //COLMOD: Set color mode, 1 arg, no delay: 16-bit color /5=16,3=12bit
-    cmd([0x3a, 0x05]);
+    cmd([0x3a, 0x03]);
     //PORCTRL: Porch control
     cmd(0xb2, [0x0b, 0x0b, 0x33, 0x00, 0x33]);
     //GCTRL: Gate control
@@ -119,9 +119,10 @@ Modules.addCached("eucWatch", function() {
     //PWCTRL1: Power Control 1
     cmd(0xD0, [0xA4, 0xA1]);
     // PVGAMCTRL: Positive Voltage Gamma Control
-    cmd(0xe0, [0xF0, 0x04, 0x0a, 0x0a, 0x08, 0x25, 0x33, 0x27, 0x3d, 0x38, 0x14, 0x14, 0x25, 0x2a]);
-    //cmd(0xe0, [0x70, 0x15, 0x20, 0x15, 0x10, 0x09, 0x48, 0x33, 0x53, 0x0B, 0x19, 0x15, 0x2a, 0x2f]);   // PVGAMCTRL (E0h): Positive Voltage Gamma Control
-    //cmd([0xe1, 0x70, 0x15, 0x20, 0x15, 0x10, 0x09, 0x48, 0x33, 0x53, 0x0B, 0x19, 0x15, 0x2a, 0x2f]);   // NVGAMCTRL (E1h): Negative Voltage Gamma Control
+    //cmd(0xe0, [0xF0, 0x04, 0x0a, 0x0a, 0x08, 0x25, 0x33, 0x27, 0x3d, 0x38, 0x14, 0x14, 0x25, 0x2a]);
+    cmd([0xe0, 0x70, 0x15, 0x20, 0x15, 0x10, 0x09, 0x48, 0x33, 0x53, 0x0B, 0x19, 0x15, 0x2a, 0x2f]); // PVGAMCTRL (E0h): Positive Voltage Gamma Control
+    cmd([0xe1, 0x70, 0x15, 0x20, 0x15, 0x10, 0x09, 0x48, 0x33, 0x53, 0x0B, 0x19, 0x15, 0x2a, 0x2f]); // NVGAMCTRL (E1h): Negative Voltage Gamma Contro
+    // NVGAMCTRL: Negative Voltage Gamma Contro
     // NVGAMCTRL: Negative Voltage Gamma Contro
     // cmd(0xe1, [0xf0, 0x05, 0x08, 0x07, 0x06, 0x02, 0x26, 0x32, 0x3d, 0x3a, 0x16, 0x16, 0x26, 0x2c]);
     //TFT_INVONN: Invert display, no args, no delay
@@ -140,23 +141,45 @@ Modules.addCached("eucWatch", function() {
   }
 
   var bpp = (require("Storage").read("ew.json") && require("Storage").readJSON("ew.json").bpp) ? require("Storage").readJSON("ew.json").bpp : 1;
-  //var bpp=1;
+  if (require('Storage').read('.displayM')) bpp=4;//V1 support
   var g = Graphics.createArrayBuffer(240, 280, bpp);
   var pal;
   g.sc = g.setColor;
-  // 16bit RGB565  //    0=black,1=dgray,2=gray,3=lgray,4=raf, 5=raf1,6=back2,7=lgreen,8=blue,9=purple,10=lblue,11=cyan,12=green,  13=red,  14=yellow,15=white
-  //g.col = Uint16Array([0x000,  0x0842, 0x5B2F,0xEF5D, 0x196E,0x3299,0x1084,0x0F6A,  0x3ADC, 3935,    2220,     0x5ff,     115,       0xF165,  0xEFBF,   0xFFFF]); old
-  //g.col=Uint16Array([  0x000,  0x0842, 0x5B2F,0xce9b, 0x001D,0x3299,0x1084,0x0F6A,  0x3ADC, 3935,    2220,     0x07FF,    115,       0xd800,  0xFFE0,   0xFFFF ]);
-  //g.col=Uint16Array([  0x000,  0x0842, 0x5B2F,0xce9b, 0x001D,0x3299,0x1084,0x07f0,  0x3ADC, F81F,    0x0F6A,    0x07FF,   0x0320,       0xd800,  0xFFE0,   0xFFFF ]);
-  global.color=Uint16Array([0x000, 0x1084, 0x5B2F, 0xce9b, 0x001D, 0x3299, 0x0842, 0x0F6A, 0x3ADC, 0xF81F, 2220, 0x07FF, 115, 0xd800, 0xFFE0, 0xFFFF]);
-  global.theme=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+
+  // 16bit RGB565  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=blue,9=purple,10=?,11=green,12=olive,13=yellow,14=lblue,15=white
+  // 16bit RGB565  //0=black,1=dgray,2=red,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=green,9=purple,10=?,11=green,12=olive,13=yellow,14=blue,15=white
+
+  //g.col=Uint16Array([ 0x000,0x31C8,0x5B2F,0xD6BA,0x3276,0x4B16,0x3ADC,0xF165,0xEFBF,0xA815,2220,0x5ff,0x3C0C,0xFFE0,0xD7BF,0xFFFF ]);
+  //g.col=Uint16Array([  0,31,2016,2016,31,2047,0,63488,63519,63519,   31,63519,63519,65504,  65535,65535]);
+
+
+  // 16bit RGB565  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=blue,9=purple,10=?,11=green,12=olive,13=yellow,14=lblue,15=white
+  //g.col=Uint16Array([ 0x000,54,2730,3549,1629,83,72,3840,143,3935,2220,0x5ff,115,4080,1535,4095 ]);
+
+  // 16bit RGB565  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=dgreen,6=dark2,7=green,8=blue,9=purple,10=?,11=lblue,12=olive,13=red,14=yellow,15=white
+  //g.col=Uint16Array([ 0x000,54,2220,3549,1629,83,72,0x0d0,143,3935,2220,0x5ff,115,3840,1535,4095 ]);
+  //g.col=Uint16Array([ 0x000,54,2220,3549,1629,83,72,0x0d0,143,3935,2220,0x5ff,115,3840,4080,4095 ]);
+  //g.col = Uint16Array([0x000, 54, 2220, 3549, 1629, 83, 72, 0x0d0, 143, 3935, 2220, 0x5ff, 143, 3840, 4080, 4095]);
+  g.col = Uint16Array([0x000, 1365, 2730, 3549, 1629, 2474, 1963, 0x0d0, 143, 3935, 2220, 1535, 170, 3840, 4080, 4095]);
+
+
+  //2730 old gray
+  //1622 dgray 1610 dbue 1655-good grey 1672  dblack 50,68.85  115, 152 green
+  //54,
+  /*
+  red e84417
+  gred 0ed145
+  blue 00a8f3 , 0962c8
+
+  purple e85521
+  */
   switch (bpp) {
     case 1:
-       pal = Uint16Array([0x000, 4095]);
+      pal = Uint16Array([0x000, 4095]);
       //let sc = g.setColor;
       g.setColor = function(c, v) {
-        if (c == 1) pal[1] = color[v];
-        else pal[0] = color[v];
+        if (c == 1) pal[1] = g.col[v];
+        else pal[0] = g.col[v];
         g.sc(c);
       };
       break;
@@ -165,17 +188,9 @@ Modules.addCached("eucWatch", function() {
       g.buffer = new ArrayBuffer(16800);
       break;
     case 4:
-      //        color
-      //global.color= Uint16Array([0x000, 0x1084, 0x5B2F, 0xce9b, 0x196E,0x114d, 0x0842, 0x0640, 0x045f, 0xF81F, 115, 0x07FF, 0x0320, 0xd800, 0xFFE0, 0xFFFF]);
-      //global.color= Uint16Array([0x000, 0x1084, 0x5B2F, 0xce9b, 2220, 115, 0x0842, 0x0320, 0x07f0, 0xF81F, 0x0F6A, 0x07FF, 115, 0xd800, 0xFFE0, 0xFFFF]);
-  
       g.buffer = new ArrayBuffer(33600);
-      //pal = Uint16Array([0x000, 0x1084, 0x5B2F, 0xce9b, 0x196E, 0x3299, 0x0842, 0x0F6A, 0x07f0, 3935, 2220, 0x07FF, 0x3299, 0xd800, 0xFFE0, 0xFFFF]);
-      pal=global.color;
-      //pal = Uint16Array([0x000, 0x1084, 0x5B2F, 0xce9b, 0x001D, 0x3299, 0x0842, 0x0F6A, 0x3ADC, 3935, 2220, 0x07FF, 115, 0xd800, 0xFFE0, 0xFFFF]);
-      //pal= g.col;
+      pal = g.col;
       g.setColor = (c, v) => { g.sc(v); };
-      //g.setColor = (c, v) => { g.sc(global.theme[v]); };
       break;
   }
   // preallocate setwindow command buffer for flip
@@ -199,27 +214,38 @@ Modules.addCached("eucWatch", function() {
   if (require('Storage').read('.displayM')){  //V1 support
     g.lala=g.fillRect;
     g.fillRect=function(x,y,x1,y1){
-      g.lala(x,y+20,x1,y1+20)
+      g.lala(5+x*0.95,y+30,5+x1*0.95,y1+30);
     };
+    g.lal3=g.clearRect;
+    g.clearRect=function(x,y,x1,y1){
+      g.lal3(5+x*0.95,y+30,5+x1*0.95,y1+30);
+    };
+    g.lal4=g.drawLine;
+    g.drawLine=function(x,y,x1,y1){
+      g.lal4(5+x*0.95,y+30,5+x1*0.95,y1+30);
+    };    
     g.lal1=g.drawString;
     g.drawString=function(t,x,y){
-      g.lal1(t,x,y+20)
+      g.lal1(t,5+x*0.95,y+30);
     };
     g.lal2=g.drawImage;
-    g.drawImage=function(t,x,y){
-      g.lal2(t,x,y+20)
+    g.drawImage=function(t,x,y,o){
+      g.lal2(t,5+x*0.95,y+30,o);
     };  
+    g.lal5=g.setFont;
+    g.setFont=function(f,s){
+      g.lal5(f,s*0.95);
+    };
+    
   }
-
   g.flip = function(force) {
     "ram";
     var r = g.getModified(true);
     if (force)
       r = { x1: 0, y1: 0, x2: this.getWidth() - 1, y2: this.getHeight() - 1 };
     if (r === undefined) return;
-    //var x1=r.x1&0xfe;var x2=(r.x2+2)&0xfe; // for 12bit mode align to 2 pixels
-    var x1 = r.x1;
-    var x2 = r.x2 + 1; //16bit mode
+    var x1 = r.x1 & 0xfe;
+    var x2 = (r.x2 + 2) & 0xfe; // for 12bit mode align to 2 pixels
     var xw = (x2 - x1);
     var yw = (r.y2 - r.y1 + 1);
     if (xw < 1 || yw < 1) { print("empty rect ", xw, yw); return; }
