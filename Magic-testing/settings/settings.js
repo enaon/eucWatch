@@ -48,15 +48,15 @@ face[0] = {
 	},
 	ref1 : function(i){
 	  //"ram";
-		UI.btn.img("bar","_bar",1,"settings",0,i==1?14:3,0);
-		UI.btn.img("bar","_bar",2,"watch",0,i==2?14:3,0);
-		UI.btn.img("bar","_bar",3,"dash",0,i==3?14:3,0);
+		UI.btn.img("bar","_bar",1,"settings",0,i==1?11:3,0);
+		UI.btn.img("bar","_bar",2,"watch",0,i==2?11:3,0);
+		UI.btn.img("bar","_bar",3,"dash",0,i==3?11:3,0);
 	},
 	ref : function(s){
 	  //"ram";
-		UI.btn.img("bar","_bar",1,"settings",0,face[0].page=="clock"?14:3,0);
-		UI.btn.img("bar","_bar",2,"watch",0,face[0].page=="bt"||face[0].page=="theme"||face[0].page=="set"||face[0].page=="app"?14:3,0);
-		UI.btn.img("bar","_bar",3,"dash",0,face[0].page=="dash1"||face[0].page=="dash1"?14:3,0);
+		UI.btn.img("bar","_bar",1,"settings",0,face[0].page=="clock"?11:3,0);
+		UI.btn.img("bar","_bar",2,"watch",0,face[0].page=="bt"||face[0].page=="theme"||face[0].page=="set"||face[0].page=="app"?11:3,0);
+		UI.btn.img("bar","_bar",3,"dash",0,face[0].page=="dash1"||face[0].page=="dash1"?11:3,0);
 	},
 	clear : function(o){
 		ew.temp.bar=0;/*TC.removeAllListeners();*/if (this.tid) clearTimeout(this.tid);this.tid=0;return true;

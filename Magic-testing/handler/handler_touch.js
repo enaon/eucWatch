@@ -13,7 +13,7 @@ else {
 }
 
 tcDn=(x,y)=>{
-	"ram";
+	//"ram";
 	buzzer.nav(buzzer.buzz.ok);
 	if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}
 	if (global.euc&& euc.state!="OFF"){
@@ -31,7 +31,7 @@ tcDn=(x,y)=>{
 	}
 };	
 tcUp=(x,y)=>{
-	"ram";
+	//"ram";
 	if (x<50&&w.gfx.getHeight()-80<y) { 
 		buzzer.nav(buzzer.buzz.ok);
 		if (ew.def.bri!==7) {

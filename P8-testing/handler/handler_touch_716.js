@@ -16,7 +16,7 @@ var tfk={
 				this.st = 0;
 				this.do = 1;
                 if (process.env.BOARD == "MAGIC3"){
-				    this.x = (((tp[3] & 0x0F) << 8) | tp[4]);
+				    this.x = tp[4];
 					this.y = (((tp[5] & 0x0F) << 8) | tp[6]);
                 }else{
          			this.x = tp[4];
@@ -43,7 +43,7 @@ var tfk={
 			}else if ( this.do ){
 				if ( tp[1] == 5 || tp[1] ==12 ){
 					this.do=0;
-					return setTimeout(function() { touchHandler[face.pageCurr](tp[1],tfk.x+(process.env.BOARD == "MAGIC3"?(TC.x / 10):0),tfk.y+20);},0);
+					return setTimeout(function() { touchHandler[face.pageCurr](tp[1],tfk.x+(process.env.BOARD == "MAGIC3"?(TC.x / 10):0),tfk.y+(process.env.BOARD == "MAGIC3"?20:0));},0);
 				}
 			}
 		}else  {

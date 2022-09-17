@@ -123,7 +123,3 @@ if (!Boolean(require("Storage").read("dash.json"))) {
 //rest
 E.setTimeZone(ew.def.timezone);
 
-
-
-
-

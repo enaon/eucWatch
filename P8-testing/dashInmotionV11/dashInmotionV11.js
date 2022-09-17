@@ -1,4 +1,10 @@
 //Inmotion V11settings
+
+
+
+
+
+
 face[0] = {
 	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:5000,
 	g:w.gfx,
@@ -70,6 +76,32 @@ face[0] = {
 		this.clear();
 	}
 };
+face[0].menu={};
+face[0].menu.full= function(title,titleSize,value,valueSize,frontColor,backColor,init){
+	if (!init){
+		w.gfx.setColor(0,backColor);
+	    w.gfx.fillRect(50,50,195,150);                    
+        w.gfx.setColor(1,15);
+		w.gfx.setFont("Vector",valueSize);
+		w.gfx.drawString(value,130-(w.gfx.stringWidth(value)/2),65); 		
+	    w.gfx.flip();
+	}else{
+		w.gfx.setColor(0,backColor);
+		w.gfx.fillRect(0,0,239,195);
+		w.gfx.setColor(1,15);
+		w.gfx.setFont("Vector",titleSize);
+		w.gfx.drawString(title,120-(w.gfx.stringWidth(title)/2),10); 		
+		w.gfx.drawImage(require("heatshrink").decompress(atob("oFAwJC/AAs8A41+A43/AwsDA40HA40PA40f/wHFn/8Fw34AwkB//wGw3AGw2AGxk/Gw1/Gw4uFGwPgGxguBGwsfGw4uGv5lFGw4HBGwoHJC4wnHG45HHK45nHO444JGAynHW47HHHBKBHNJ44QA4o4BA4owBA41+A408A4wA6A==")),0,70);
+		w.gfx.drawImage(require("heatshrink").decompress(atob("oFAwJC/AAU8A41+A43/A4/AA43gA43wA4t//AHFn/8A4sfGA0P/+AA4kDHA0BHCAwGn/+GA4HFg44QGA3/NJ44QA5oXHE443HI4xXHM453HGw6XHU44uGY442Hc473HMo9/Voy9Ifw42FA4IGFgF+A408A4wA9A=")),180,70);
+		w.gfx.flip(); 
+		w.gfx.setColor(1,15);
+		w.gfx.setFont("Vector",valueSize);
+		w.gfx.drawString(value,130-(w.gfx.stringWidth(value)/2),65); 		
+		w.gfx.flip(); 
+	}
+};
+
+
 //loop face
 face[1] = {
 	offms:1000,
@@ -90,7 +122,29 @@ touchHandler[0]=function(e,x,y){
 	this.timeout();
 	switch (e) {
 	case 5:  //tap/hold event
-		if (face[0].set) { 
+		  if (face[0].sub) {
+			if (face[0].sub==="horn") {
+				if ( x<=120 && y <= 170 ){
+					euc.dash.opt.horn.mode=euc.dash.opt.horn.mode-1;if (euc.dash.opt.horn.mode<=1)euc.dash.opt.horn.mode=1;
+					face[0].menu.full("SELECT SOUND",20,euc.dash.opt.horn.mode,80,1453,1365);
+					euc.wri("playSound",euc.dash.opt.horn.mode);
+					buzzer.nav([30,50,30]);
+				}else if ( 120 <=x  && y <= 170 ) {
+					euc.dash.opt.horn.mode=euc.dash.opt.horn.mode+1;if (30<=euc.dash.opt.horn.mode)euc.dash.opt.horn.mode=30;
+					face[0].menu.full("SELECT SOUND",20,euc.dash.opt.horn.mode,80,1453,1365);
+					euc.wri("playSound",euc.dash.opt.horn.mode);
+					buzzer.nav([30,50,30]);
+				}else {
+					face[0].sub=0;
+					face[0].init();
+				}
+			}else {
+				face[0].sub=0;
+				face[0].init();
+			}
+			this.timeout();
+			return;
+		}else if (face[0].set) { 
 			if ( 100 < y ) {
               w.gfx.setColor(0,0);
               w.gfx.drawLine(120,0,120,97);
@@ -128,6 +182,7 @@ touchHandler[0]=function(e,x,y){
 		}
 		break;
 	case 1: //slide down event
+		euc.is.busy=0;euc.wri("live");
 		face.go(ew.is.dash[ew.def.dash.face],0);
 		return;	 
 	case 2: //slide up event
@@ -135,12 +190,21 @@ touchHandler[0]=function(e,x,y){
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 			buzzer.nav([30,50,30]);
-		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
+		}else {
+			euc.is.busy=0;euc.wri("live");
+			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
+		}
 		break;
 	case 3: //slide left event
 		buzzer.nav(40);
 		break;
 	case 4: //slide right event (back action)
+		if (face[0].sub){
+			face[0].sub=0;
+			this.timeout();
+			face[0].init();
+			return;
+		}
         if (face[0].set) {
 			w.gfx.setColor(0,0);
 			w.gfx.drawLine(120,0,120,97);
@@ -169,7 +233,12 @@ touchHandler[0]=function(e,x,y){
 					face[0].ntfy("NOT INSTALLED","",20,13,1);
 			}
 			return;
-	    }else buzzer.nav(40);
+	    }else if  (120<=x && 100<=y ) { //horn
+			face[0].menu.full("SELECT SOUND",20,euc.dash.opt.horn.mode,80,1453,1365,1);
+			face[0].ntfy("SELECT SOUND","",20,4,1);
+			face[0].sub="horn";
+			buzzer.nav([30,50,30]);						
+		}else buzzer.nav(40);
 		break;	
   }
 };

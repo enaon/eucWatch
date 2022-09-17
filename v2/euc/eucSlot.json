@@ -13,7 +13,7 @@
 	"opt": {"lght":{"HL":0,"strb":0,"led":0,"city":0},
 			"bat":{"hi":420,"low":330,"pack":1.5},
 			"ride":{"mode":2,"rolA":0,"pTlt":0},
-			"horn":{"en":0,"mode":0},
+			"horn":{"en":0,"mode":4},
 			"lock":{"en":0,"pass":"","pLck":0,"far":83,"near":65},
 			"unit":{
 				"fact":{"spd":1,"dist":1},

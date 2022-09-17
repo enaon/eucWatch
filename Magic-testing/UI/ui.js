@@ -180,7 +180,15 @@ UI = {
 			//"ram";
 			//print (img);
 			//img=eval(img);
-			img = require("heatshrink").decompress(atob(_icon[img]));
+			if (process.env.BOARD == "P8" ||process.env.BOARD == "P22"||process.env.BOARD == "PINETIME") img=0;
+			else img = require("heatshrink").decompress(atob(_icon[img]));
+			//img = require("heatshrink").decompress(atob(eval(img)));
+
+			//img= require("Storage").readJSON("_icon.js")[img]
+			//img = require("heatshrink").decompress(atob(       img     ));
+
+			//require("Storage").readJSON("_icon.js",_icon).bt
+			
 			let p = (UI.pos[no]);
 			let len = p[1].length;
 			let x = p[1][(po - 1) % len];
@@ -341,7 +349,7 @@ UI = {
 			let y = p[2][((po - 1) / len) | 0];
 			let szX = p[3][(po - 1) % len] / 2;
 			let szY = p[4][((po - 1) / len) | 0] / 2;
-			UIc.raw[loc] = UIc.raw[loc] + `${UIc.raw[loc]==" "?'':'else '}if (${x}-${szX}<x&&x<${x}+${szX}&&${y}-${szY}<y&&y<${y}+${szY}) UIc.${loc}.${no}(${po});`;
+			UIc.raw[loc] = UIc.raw[loc] + `${UIc.raw[loc]==" "?'':'else '}if (${x}-${szX}<x&&x<${x}+${szX}&&${y}-${szY}<y&&y<${y}+${szY}) UIc.${loc}.${no}(${po},l);`;
 		}
 	},
 	txt: {
@@ -483,7 +491,7 @@ if (process.env.BOARD == "BANGLEJS2") {
 }
 //g.col=Uint16Array([  0,31,2016,2016,31,2047,2047,63488,63519,63519,   31,63519,63519,65504,65535,65535]);
 //icon
-eval(require('Storage').read('icons'));
+if (process.env.BOARD != "P8" &&process.env.BOARD != "P22"&&process.env.BOARD != "PINETIME") eval(require('Storage').read('icons'));
 
 var UIc = {
 	get: { bar: 0, main: 0 },

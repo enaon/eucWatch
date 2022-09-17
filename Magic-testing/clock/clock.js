@@ -13,6 +13,8 @@ tcBack.replaceWith(()=>{
 	buzzer.nav(buzzer.buzz.na);
 	//face.go("notify",0);
 });
+if (ew.def.bri<3) theme=themeN;
+else theme=themeD;
 face[0] = {
 	offms: (ew.def.off[face.appCurr])?ew.def.off[face.appCurr]:10000,
 	old:ew.def.bpp?0:1,
@@ -21,6 +23,7 @@ face[0] = {
 		//this.g.clear(1);
 		this.startTime=getTime();
 		this.v=w.batt(1);
+		UIc.start(1,1);UIc.end();
 		this.gui=process.env.BOARD=="BANGLEJS2"?
 		{
 			top:[0,5,179,30],
@@ -44,19 +47,19 @@ face[0] = {
 			txtL:60*UI.size.txt
 		}
 		:{
-			top:[0,20,239,53],
-			note:[0,65,239,84],
-			sec:[202,80,239,176],
-			hour:[1,80,100,176],
-			min:[99,80,201,176],
+			top:[0,20,239,54],
+			note:[0,55,239,90],
+			sec:[202,80,239,190],
+			hour:[1,80,100,190],
+			min:[99,80,202,190],
 			btm:[0,176,239,200],
 			bat:[155,30,225,55],
 			batN:[140,55,239,65],
 			date:[0,30,155,55],
 			dateN:[0,55,140,65],
-			dots:[100,128],
-			time:[89,111,105],
-			secY:[106,137],
+			dots:[100,130],
+			time:[89,111,108],
+			secY:[110,140],
 			txt:25*UI.size.txt,
 			txtS:18*UI.size.txt,
 			txtM:32*UI.size.txt,
@@ -64,9 +67,9 @@ face[0] = {
 		};
 		//top
 		
-		this.g.setColor(1,0);
+		this.g.setColor(1,theme.clock.top);
 		this.g.fillRect(this.gui.top[0],this.gui.top[1],this.gui.top[2],this.gui.top[3]); 
-		this.g.setColor(1,6);
+		this.g.setColor(1,theme.clock.back);
 		this.g.fillRect({x:this.gui.note[0],y:this.gui.note[1],x2:this.gui.note[2],y2:this.gui.note[3],r:0}); 
 		this.g.fillRect({x:this.gui.btm[0],y:this.gui.btm[1],x2:this.gui.btm[2],y2:this.gui.btm[3],r:0}); 
 		//this.g.fillRect(this.gui.btm[0],this.gui.btm[1],this.gui.btm[2],this.gui.btm[3]); 
@@ -95,6 +98,8 @@ face[0] = {
 		this.run=true;
 	},
 	show : function(){
+		if (ew.def.bri<3) theme=themeN;
+		else theme=themeD;
 		if (!this.run) return;
 		if (this.batt!=ew.is.ondc ){
 			this.bat();
@@ -107,11 +112,11 @@ face[0] = {
 	this.tid=setTimeout(function(t){
 			t.tid=-1;
 			t.show();
-		},150,this);
+		},250,this);
 	},
 	bar:function(){
 		if (ew.is.bt==6){this.hid();return;}
-		UI.ele.ind(1,2,0,8);
+		UI.ele.ind(0,0,0,0);
 		UI.ele.fill("_bar",6,0);
 		UIc.start(1,1);
 		if (ew.def.hid){
@@ -134,7 +139,7 @@ face[0] = {
 	 //if (ew.is.bt != this.bt){
 			this.bt=ew.is.bt;
 			this.ring=0;
-			var colbt=10;
+			var colbt=theme.clock.dateB;
 			if (this.bt==1)  colbt=14;
 			else if (this.bt==2)  colbt=9;
 			else if (this.bt==3)  colbt=11;
@@ -142,9 +147,9 @@ face[0] = {
 			else if (this.bt==6)  colbt=4;
 			this.g.setColor(0,colbt);
 			this.g.fillRect(this.gui.dateN[0],this.gui.dateN[1],this.gui.dateN[2],this.gui.dateN[3]); 
-			this.g.setColor(0,0);
+			this.g.setColor(0,theme.clock.top);
 			this.g.fillRect(this.gui.date[0],this.gui.date[1],this.gui.date[2],this.gui.date[3]); 
-			this.g.setColor(1,11);
+			this.g.setColor(1,theme.clock.dateF);
 			//w.gfx.setFont("Teletext10x18Ascii",2);
 			w.gfx.setFont("LECO1976Regular22",1.5)
 			//this.g.setFont("Vector",this.gui.txtM);
@@ -157,15 +162,15 @@ face[0] = {
 			this.v=w.batt(1);
 			if (this.batt==1) this.g.setColor(0,9);
 			else if (this.v<=20) this.g.setColor(0,13);
-			else this.g.setColor(0,4);
+			else this.g.setColor(0,theme.clock.batB);
 			//this.g.fillRect(162,20,235,60);//batt
 			this.g.fillRect(this.gui.batN[0],this.gui.batN[1],this.gui.batN[2],this.gui.batN[3]); 
 			
-			this.g.setColor(0,0);
+			this.g.setColor(0,theme.clock.top);
 			this.g.fillRect(this.gui.bat[0],this.gui.bat[1],this.gui.bat[2],this.gui.bat[3]); 
 			
 			
-			this.g.setColor(1,11);
+			this.g.setColor(1,theme.clock.batF);
 			if (this.v<=0) {this.g.setFont("Vector",this.gui.txt);this.g.drawString("EMPTY",this.gui.bat[2]-5-(this.g.stringWidth("EMPTY")),this.gui.bat[1]); 
 			}else if (this.v<100) {
 				this.g.setFont("Vector",this.gui.txtM);
@@ -227,18 +232,21 @@ face[0] = {
 		this.d=(Date()).toString().split(' ');
 		this.t=(this.d[4]).toString().split(':');
 		this.s=(this.t[2]).toString().split('');
+		this.fmin=theme.clock.minF;
+		this.fhr=theme.clock.hrF;
+		this.bmin=theme.clock.minB;this.fsec=theme.clock.secF;this.bsec=theme.clock.secB;
 		if (this.t[1]!=this.min ){
 			this.min=this.t[1];
 			//this.g.setFontLECO1976Regular42();
 			this.g.setFont("LECO1976Regular22",3)
 			//this.g.setFont("Vector",this.gui.txtL);
-			this.fmin=10;
-			this.fhr=0;
+			//this.fmin=theme.clock.minF;
+			//this.fhr=theme.clock.hrF;
 			if (global.alrm) {
 				if (alrm.buzz!=-1) {this.bmin=1;this.fmin=13;this.fsec=13;this.bsec=1;}
 				else if (alrm[1].tmr!==-1||alrm[2].tmr!==-1||alrm[3].tmr!==-1) {this.bmin=5;this.fsec=15;this.bsec=10;}
 				else  {this.bmin=1;this.fsec=15;this.bsec=1;}
-			}else {this.bmin=15;this.fsec=6;this.bsec=11;}
+			}//else {this.bmin=theme.clock.minB;this.fsec=theme.clock.secF;this.bsec=theme.clock.secB;}
 			this.g.setColor(0,this.bmin);
 			this.g.fillRect({x:this.gui.min[0],y:this.gui.min[1],x2:this.gui.min[2],y2:this.gui.min[3],r:10}); 
 			this.g.setColor(1,this.fmin);
@@ -258,7 +266,7 @@ face[0] = {
 			//this.g.setFont("Vector",this.gui.txt);
 			this.g.drawString(this.s[0]+this.s[1],this.gui.sec[2]-5-(this.g.stringWidth(this.s[0]+this.s[1])),this.gui.secY[1]); //seconds
 		}
-		this.g.setColor(1,this.s[1] % 2 == 0?this.fsec:15);
+		this.g.setColor(1,this.s[1] % 2 == 0?this.fsec:this.bsec);
 		this.g.fillRect(this.gui.dots[0]-3,this.gui.dots[1]-10,this.gui.dots[0]+3,this.gui.dots[1]-5);
 		this.g.fillRect(this.gui.dots[0]-3,this.gui.dots[1]+5,this.gui.dots[0]+3,this.gui.dots[1]+10);
 		if (this.run) this.g.flip();

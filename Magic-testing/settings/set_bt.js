@@ -1,20 +1,21 @@
 E.setFlags({pretokenise:1});
 //touch
+face[0].page="bt";
 tcNext.replaceWith(()=>{buzzer.nav(buzzer.buzz.ok);eval(require("Storage").read("set_main"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}});
 tcBack.replaceWith(()=>{buzzer.nav(buzzer.buzz.ok);eval(require("Storage").read("set_main"));if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;face[0].bar();}});
 
-face[0].page="bt";
+this.btn=[theme.btn.onT,theme.btn.onB,theme.btn.offT,theme.btn.offB];
+	UI.btn.img("main","_fold",1,"bt","",11,1);
+	w.gfx.drawImage((ew.def.rfTX == -4) ? E.toArrayBuffer(atob("EyCBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfAAPgAEQACIABEAAiAARAAIgAHz74=")) : (ew.def.rfTX == 0) ? E.toArrayBuffer(atob("EyCBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4ADEABiAAxAfYgPsQEWICLEBFiAixARYgIsQHz74=")) : E.toArrayBuffer(atob("EyCBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+AARAAIgAEQD6IDFEBiiAxRfYovsUUWKKLFFFiiixRRYoosUXz74=")), 125, 55);
 face[0].bt=()=>{
-	let img;
-	UI.btn.img("main","_fold",1,"bt","BT",11,12,1);
-	UI.btn.img("main","_2x3",3,"cli","CLI",ew.def.cli?15:3,ew.def.cli?4:1);
-	UI.btn.img("main","_2x3",4,"gb","GB",ew.def.gb?15:3,ew.def.gb?4:1);
-	UI.btn.img("main","_2x3",5,"proxy","EUC",ew.def.prxy?15:3,ew.def.prxy?4:1);
+	UI.ele.coord("main","_fold",1);
+	UI.btn.img("main","_2x3",3,"cli","CLI",ew.def.cli?btn[0]:btn[2],ew.def.cli?btn[1]:btn[3]);
+	UI.btn.img("main","_2x3",4,"gb","GB",ew.def.gb?btn[0]:btn[2],ew.def.gb?btn[1]:btn[3]);
+	UI.btn.img("main","_2x3",5,"proxy","EUC",ew.def.prxy?btn[0]:btn[2],ew.def.prxy?btn[1]:btn[3]);
 	//UI.btn.img("main","_2x3",5,ew.def.prxy==2?"proxy_db":"proxy","EUC",ew.def.prxy?15:3,ew.def.prxy?4:0);
-	UI.btn.img("main","_2x3",6,"hid","HID",ew.def.hid?15:3,ew.def.hid?4:1);	
+	UI.btn.img("main","_2x3",6,"hid","HID",ew.def.hid?btn[0]:btn[2],ew.def.hid?btn[1]:btn[3]);	
 	img=0;
 };
-
 
 UI.ele.ind(0,0,0);
 let img;
@@ -22,17 +23,22 @@ UIc.start(1,0);
 face[0].bt();
 UIc.end();
 //
-UIc.main._fold=()=>{
-	buzzer.nav(buzzer.buzz.na);
-};
+UIc.main._fold=(i,l)=>{
+	if (l){
+		buzzer.nav(buzzer.buzz.ok);
+		if (ew.def.rfTX === -4) ew.def.rfTX = 0;
+		else if (ew.def.rfTX === 0) ew.def.rfTX = 4;
+		else if (ew.def.rfTX === 4) ew.def.rfTX = -4;
+		NRF.setTxPower(ew.def.rfTX);
+		UI.btn.img("main","_fold",1,"bt","",11,1);
+		w.gfx.drawImage((ew.def.rfTX == -4) ? E.toArrayBuffer(atob("EyCBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfAAPgAEQACIABEAAiAARAAIgAHz74=")) : (ew.def.rfTX == 0) ? E.toArrayBuffer(atob("EyCBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4ADEABiAAxAfYgPsQEWICLEBFiAixARYgIsQHz74=")) : E.toArrayBuffer(atob("EyCBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+AARAAIgAEQD6IDFEBiiAxRfYovsUUWKKLFFFiiixRRYoosUXz74=")), 125, 55);
+		UI.btn.ntfy(1,0,0,"_bar",6,"",ew.def.rfTX == -4 ? "TX MIN" : ew.def.rfTX == 0 ?"TX MED" : "TX MAX",0,15);w.gfx.flip();
 
-face[0].bt=()=>{
-//UI.btn.img("main","_fold",1,"bt","BT",11,12,1);
-UI.btn.img("main","_2x3",3,"cli","CLI",ew.def.cli?15:3,ew.def.cli?4:1);
-UI.btn.img("main","_2x3",4,"gb","GB",ew.def.gb?15:3,ew.def.gb?4:1);
-UI.btn.img("main","_2x3",5,"proxy","EUC",ew.def.prxy?15:3,ew.def.prxy?4:1);
-//UI.btn.img("main","_2x3",5,ew.def.prxy==2?"proxy_db":"proxy","EUC",ew.def.prxy?15:3,ew.def.prxy?4:0);
-UI.btn.img("main","_2x3",6,"hid","HID",ew.def.hid?15:3,ew.def.hid?4:1);	
+	}
+	else {
+		buzzer.nav(buzzer.buzz.na);
+		UI.btn.ntfy(1,0,0,"_bar",6,"HOLD TO SET","BT TX POWER",0,15);w.gfx.flip();
+	}
 };
 
 UIc.main._2x3=(i)=>{

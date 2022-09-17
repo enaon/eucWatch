@@ -10,10 +10,10 @@ global.theme=[0,1,2,3,4,5,4,7,8,9,10,11,12,13,14,15];
 //g.col= new Uint8Array(toFlatBuffer([0,0x2,0x8,0xa,0x20,0x22,0x24,0x2a,0x15,0x17,0x1d,0x1f,0x3d,0x37,0x3d,0x3f]));
 //
 g.sc=g.setColor;
-//g.setColor=(c,v)=>{g.sc(g.col[v]);}; 
+g.setColor=(c,v)=>{g.sc(g.col[v]);}; 
 //g.setColor = (c, v) => { g.sc(v); };
 //g.setColor = (c, v) => { g.sc(global.theme[v]); };
-g.setColor=(c,v)=>{g.sc(global.color[global.theme[v]]);}; 
+//g.setColor=(c,v)=>{g.sc(global.color[global.theme[v]]);}; 
 
 
 g.on= function(){g.bri.set(ew.def.bri);};

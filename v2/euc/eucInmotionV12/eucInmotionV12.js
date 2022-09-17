@@ -74,8 +74,8 @@ euc.cmd=function(no,val){
 			cmd.push(cmd.reduce(checksum));
 			return cmd;
 		case "playSound":   
-			//cmd = [170, 170, 20, 4, 96, 65, val, 1];
-			cmd = [170, 170, 20, 3, 224, 81, 0]; // horn on v11 new firmware 1.4.0
+			cmd = [170, 170, 20, 4, 96, 81, val, 1];
+			//cmd = [170, 170, 20, 3, 224, 81, 0]; // horn on v11 new firmware 1.4.0
 			cmd.push(cmd.reduce(checksum));
 			return cmd;
 	}
@@ -256,7 +256,7 @@ euc.conn=function(mac){
 					euc.is.busy=1;euc.is.horn=1;
 					if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
 					euc.tout.loop=setTimeout(function(){
-						euc.temp.wCha.writeValue(euc.cmd("playSound",24)).then(function() { 
+						euc.temp.wCha.writeValue(euc.cmd("playSound",euc.dash.opt.horn.mode)).then(function() { 
 						euc.is.horn=0;euc.tout.loop=0;
 						euc.tout.loop=setTimeout(function(){
 							euc.tout.loop=0;
