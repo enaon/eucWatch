@@ -85,7 +85,7 @@ UIc.main._2x3=(i)=>{
 			UI.ntid=0;
 			UI.txt.block("_main",15,"\n"+"eucWatch v2.0"+"\n\n"+ "MEM: "+process.memory().free+"/"+process.memory().total+"\n"+"IMG: "+process.version+"-"+process.env.BOARD+"\n"+"ACC: "+ew.def.acctype+"\n"+"TP: "+ew.def.touchtype+"\n\n"+"UP: "+d+"D-"+h+"H-"+m+"M"+"\n"+"TEMP: "+E.getTemperature()+"\n\n"+"NAME: "+ew.def.name,30,15,1,1);
 			w.gfx.flip();
-		},800);
+		},500);
 	
 	}
 };

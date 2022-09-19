@@ -162,7 +162,8 @@ face[5] = {
       this.at=this.go;
       this.msg=JSON.parse(this.list[this.go]);
       //let this.msg=require("Storage").read(this.type+this.list[this.go].substr(4)).split("|");
-      if (this.dowrap>0) this.msg.body=this.wrap(this.msg.body,this.dowrap);
+      //if (this.dowrap>0) this.msg.body=this.wrap(this.msg.body,this.dowrap);
+      if (this.dowrap>0) this.msg.body=w.gfx.wrapString(this.msg.body||"",220);
       this.g.setFont("Vector",24);
 	  if (this.type==="call") this.g.setColor(1,7);
 	  else if (this.type==="im") this.g.setColor(1,4);
@@ -178,10 +179,11 @@ face[5] = {
       this.g.setColor(0,1);
       this.g.fillRect(0,30,239,210);
       this.g.setColor(1,11);
-   	  if (this.msg.title.length>15) this.msg.title=this.msg.title.substr(0,12)+"...";
+   	  //if (this.msg.title.length>15) this.msg.title=this.msg.title.substr(0,12)+"...";
       this.g.drawString(this.msg.title+" :",3,35);
 	  this.g.setFont("Vector",24);
-      this.g.drawString(this.msg.body,122-(this.g.stringWidth(this.msg.body)/2),65);
+      //this.g.drawString(this.msg.body,122-(this.g.stringWidth(this.msg.body)/2),65);
+      this.g.drawString(this.msg.body.join("\n"),10,65);  
       this.g.flip();
       this.g.setFont("Vector",24);
       this.g.setColor(0,1);
@@ -248,13 +250,13 @@ touchHandler[0]=function(e,x,y){
     }else if  (e==12){
       if (y<80&&x<170){
 		buzzer.nav([30,50,80]);notify.call=[];notify.nCall=0;face[0].nCall=-1;
-		if (!notify.nCall&&!notify.nIm&&!notify.nInfo) {ew.gbSend({t:"notify", n:"dismiss_all"});notify.New=0;}
+		if (!notify.nCall&&!notify.nIm&&!notify.nInfo) {gbSend({t:"notify", n:"dismiss_all"});notify.New=0;}
       } else if (80<=y&&y<160&x<170){
 		buzzer.nav([30,50,80]);notify.im=[];notify.nIm=0;face[0].nIm=-1;
-		if (!notify.nCall&&!notify.nIm&&!notify.nInfo) {ew.gbSend({t:"notify", n:"dismiss_all"});notify.New=0;}
+		if (!notify.nCall&&!notify.nIm&&!notify.nInfo) {gbSend({t:"notify", n:"dismiss_all"});notify.New=0;}
 	  } else if (160<=y&&y<239&x<170){
 		buzzer.nav([30,50,80]);notify.info=[];notify.nInfo=0;face[0].nInfo=-1;
-		if (!notify.nCall&&!notify.nIm&&!notify.nInfo) {ew.gbSend({t:"notify", n:"dismiss_all"});notify.New=0;}
+		if (!notify.nCall&&!notify.nIm&&!notify.nInfo) {gbSend({t:"notify", n:"dismiss_all"});notify.New=0;}
       }else buzzer.nav(40);
     }
    this.timeout();
@@ -275,18 +277,18 @@ touchHandler[5]=function(e,x,y){
     }else if (e==5){
 	  buzzer.nav(40);
     }else if  (e==1){//slide down
-	  if (face[5].msg&&face[5].msg.id) ew.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
+	  if (face[5].msg&&face[5].msg.id) gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
       face[5].go--;
       buzzer.nav([30,50,30]);
     }else if  (e==2){
-	  if (face[5].msg&&face[5].msg.id) ew.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
+	  if (face[5].msg&&face[5].msg.id) gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
 	  face[5].go++;
       buzzer.nav([30,50,30]);
     }else if  (e==3){
       if  (face[5].list.length>0) face[5].del=1;
       else {face.go("notify",0); return;}
     }else if  (e==4){//slide right event (back action)
-	  if (face[5].msg&&face[5].msg.id) ew.gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
+	  if (face[5].msg&&face[5].msg.id) gbSend({t:"notify", id:face[5].msg.id, n:"dismiss"});   
 	  notify["n"+face[5].type.substr(0,1).toUpperCase()+face[5].type.substr(1)]=0;
       if (!notify.nInfo&&!notify.nCall&&!notify.nIm) {notify.New=0;}
       if (face.appPrev=="off") {face.go("clock",-1);return;}

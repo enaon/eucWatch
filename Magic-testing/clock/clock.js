@@ -49,17 +49,19 @@ face[0] = {
 		:{
 			top:[0,20,239,54],
 			note:[0,55,239,90],
-			sec:[202,80,239,190],
-			hour:[1,80,100,190],
-			min:[99,80,202,190],
+			sec:[202,75,239,185],
+			hour:[1,75,100,185],
+			min:[99,75,202,185],
 			btm:[0,176,239,200],
-			bat:[155,30,225,55],
-			batN:[140,55,239,65],
-			date:[0,30,155,55],
-			dateN:[0,55,140,65],
-			dots:[100,130],
-			time:[89,111,108],
-			secY:[110,140],
+			bat:[145,30,225,55],
+//			batN:[140,55,239,65],
+			batN:[140,55,230,65],
+			date:[0,30,145,55],
+//			dateN:[0,55,140,65],
+			dateN:[10,55,125,65],			
+			dots:[100,133],
+			time:[89,111,105],
+			secY:[108,138],
 			txt:25*UI.size.txt,
 			txtS:18*UI.size.txt,
 			txtM:32*UI.size.txt,
@@ -86,7 +88,7 @@ face[0] = {
 		this.date();
 		this.bar();
 		this.g.setFont("Vector",this.gui.txtL);
-		if (ew.is.bt==6) this.hid();
+		if (ew.is.bt==6||ew.is.bt==3) this.hid();
 		//else UI.btn.ntfy(1,3,0,"_bar",6,ew.def.name,". . . . . . . . .",11,0,0);this.g.flip();
 		else {
 			UI.btn.ntfy(0,3,1);
@@ -115,7 +117,7 @@ face[0] = {
 		},250,this);
 	},
 	bar:function(){
-		if (ew.is.bt==6){this.hid();return;}
+		if (ew.is.bt==6||ew.is.bt==3){this.hid();return;}
 		UI.ele.ind(0,0,0,0);
 		UI.ele.fill("_bar",6,0);
 		UIc.start(1,1);
@@ -185,48 +187,68 @@ face[0] = {
 	hid:function(){
 		UI.btn.ntfy(0,3,1);
 		UIc.start(0,1);
-		UI.btn.img("bar","_bar",1,"volDn","",14,4);
-		UI.btn.img("bar","_bar",2,"playPause","",15,15);
-		UI.btn.img("bar","_bar",3,"volUp","",14,4);
+		UI.btn.img("bar","_bar",1,"volDn","",0,4);
+		UI.btn.img("bar","_bar",2,"playPause","",0,15);
+		UI.btn.img("bar","_bar",3,"volUp","",0,4);
 		//UI.ele.coord("bar","_bar",2);
 		UI.ele.coord("bar","_bar",3);
 		UIc.end();
 		UIc.bar._bar=(i,l)=>{ 
-			if (!ew.def.hid) {buzzer.nav(buzzer.buzz.na);return;}
 			buzzer.nav(buzzer.buzz.ok);
 		    if (i==1) {
 		    	if (l) { 
 		    		UI.btn.ntfy(1,1,0,"_bar",6,"LONG HOLD:","PREV",0,15);this.g.flip();
-		    		ew.is.hidM.do("prev");
-		    	}else ew.is.hidM.do("volumeDown");
+		    		if (ew.is.bt==6)
+		    			ew.is.hidM.do("prev");
+		    		else  gb.send({ "t": "music", "n": "previous" });
+		    		
+		    	}else {
+    				UI.btn.img("bar","_bar",1,"volDn","",11,4);
+	    			UI.btn.ntfy(0,0.5,1);
+		    		if (ew.is.bt==6)
+		    			ew.is.hidM.do("volumeDown");
+		    		else  gb.send({ "t": "music", "n": "volumedown" });
+		    	}
 		    }    else if (i==2) {
 		    	if (l) { 
 		    		UI.btn.ntfy(1,1,0,"_bar",6,"LONG HOLD:","MUTE",0,15);this.g.flip();
-		    		ew.is.hidM.do("mute");
-		    	}else 
-		    	ew.is.hidM.do("playpause");
+		    		if (ew.is.bt==6)
+		    			ew.is.hidM.do("mute");
+		    		else  gb.send({ "t": "music", "n": "pause" });
+		    	}else {
+		    		if (ew.is.bt==6)
+		    			ew.is.hidM.do("playpause");
+		    		else {
+		    			UI.btn.img("bar","_bar",2,gb.is.state=="play"?"pause":"play","",11,0);
+		    			UI.btn.ntfy(0,1,1);
+		    			if (gb.is.state!="play"){
+		    				gb.is.state="play";
+		    				gb.send({ "t": "music", "n": "play" });
+		    			}else{
+		    				gb.is.state="pause";
+		    				gb.send({ "t": "music", "n": "pause" });
+		    			}
+		    		}
+		    	}
 		    }    else if (i==3) {
 		    	if (l){
 		    		UI.btn.ntfy(1,1,0,"_bar",6,"LONG HOLD:","NEXT",0,15,0);this.g.flip();
-		    		ew.is.hidM.do("next");
-		        }else ew.is.hidM.do("volumeUp");
+		    		if (ew.is.bt==6)
+		    			ew.is.hidM.do("next");
+		    		else  gb.send({ "t": "music", "n": "next" });
+
+		        }else {
+		        	UI.btn.img("bar","_bar",3,"volUp","",11,4);
+	    			UI.btn.ntfy(0,0.5,1);
+		    		if (ew.is.bt==6)
+		        		ew.is.hidM.do("volumeUp");
+   		    		else  gb.send({ "t": "music", "n": "volumeup" });
+		        }
 		    }
 			
 		};
 	},
-	hid1:function(){
-		UI.btn.ntfy(1,3,0,"_bar",6,"VOLUME",". . . . . . . . .",15,6,1);
-		ew.temp.bar=1;
-		this.vol
-		TC.val={cur:this.vol,dn:1,up:100,tmp:0};
-		UIc.tcBar=(a,b)=>{ 
-			print(face[0].vol,b)
-			UI.btn.ntfy(0,3,1);
-			if (b<face[0].vol)ew.is.hidM.do("volumeDown");
-			else ew.is.hidM.do("volumeUp");
-			face[0].vol=b;
-		};
-	},	
+
 	time:function(){
 		//minutes
 		this.d=(Date()).toString().split(' ');
@@ -244,11 +266,11 @@ face[0] = {
 			//this.fhr=theme.clock.hrF;
 			if (global.alrm) {
 				if (alrm.buzz!=-1) {this.bmin=1;this.fmin=13;this.fsec=13;this.bsec=1;}
-				else if (alrm[1].tmr!==-1||alrm[2].tmr!==-1||alrm[3].tmr!==-1) {this.bmin=5;this.fsec=15;this.bsec=10;}
+				else if (alrm[1].tmr!==-1||alrm[2].tmr!==-1||alrm[3].tmr!==-1) {this.bmin=5;this.fsec=15;this.bsec=0;}
 				else  {this.bmin=1;this.fsec=15;this.bsec=1;}
 			}//else {this.bmin=theme.clock.minB;this.fsec=theme.clock.secF;this.bsec=theme.clock.secB;}
 			this.g.setColor(0,this.bmin);
-			this.g.fillRect({x:this.gui.min[0],y:this.gui.min[1],x2:this.gui.min[2],y2:this.gui.min[3],r:10}); 
+			this.g.fillRect({x:this.gui.min[0],y:this.gui.min[1],x2:this.gui.min[2],y2:this.gui.min[3],r:0}); 
 			this.g.setColor(1,this.fmin);
 			this.g.drawString(this.t[1],this.gui.time[1],this.gui.time[2]);
 			if (this.old)this.g.flip();
@@ -277,7 +299,7 @@ face[0] = {
 			this.g.setColor(0,this.bmin);
 			this.g.fillRect({x:this.gui.hour[0],y:this.gui.hour[1],x2:this.gui.hour[2],y2:this.gui.hour[3],r:10}); 
 			this.g.setColor(1,this.fhr);
-			this.g.setFont("LECO1976Regular22",3)
+			this.g.setFont("LECO1976Regular22",3);
 			//this.g.setFontLECO1976Regular42();
 			//this.g.setFont("Vector",this.gui.txtL);
 			if (ew.def.hr24) {

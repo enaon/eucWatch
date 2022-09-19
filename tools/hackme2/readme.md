@@ -8,13 +8,13 @@ You will need an android smartphone, a chrome based web browser and the [DaFlash
 >
 > Use latest DaFlasher version.
 
-Using the DaFlasher app, you will upload three files to the watch. The second step will be done using the browser, not DaFlasher.:
+Using the DaFlasher app, you will upload four files to the watch. The second step will be done using the browser, not DaFlasher.:
 
 1. custom espruino image that will replace the dafit app and allow for installing a bootloader using step2.
 2. bootloader, using the chrome browser and the eucWatch loader.
-3. espruino image. (select the one for your watch, Magic or Rock)
+3. espruino image v2.10.
 4. softDevice image, (downgrade to 6.0.0).
-
+5. latest espruino image (select the one for your watch, Magic or Rock)
 > 
 >  **original links:**
 > [espruino app image, bootloader & SoftDevice](https://github.com/fanoush/ds-d6/tree/master/espruino/DFU/Magic3) (step 1,2&4)
@@ -27,9 +27,11 @@ Using the DaFlasher app, you will upload three files to the watch. The second st
 >
 > [**Step1 file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme2/step1_espruino_2v10.102_magic3-dafit.bin)
 > 
-> [**Step3 Magic3 Espruino image file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme2/step3-espruino_2v14_eucWatch_Magic3.zip)   or   [**Step3 Rock Espruino image file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme2/step3-espruino_2v14_eucWatch_Rock.zip)
+> [**Step3 Magic3 Espruino image file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme2/step3_espruino_2v10.364_magic3.zip.zip)
 >
 > [**Step4 SoftDevice file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme2/step4_S140-6.0.0-magic3.zip)
+>
+> [**Step5 Magic3 Espruino image file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme2/step5-espruino_2v14_eucWatch_Magic3.zip)   or   [**Step5 Rock Espruino image file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme2/step5-espruino_2v14_eucWatch_Rock.zip)
 
 
 ## Installation:
@@ -78,13 +80,11 @@ Open daFlasher, search for the Magic3/Rock and select it, it will be named as "D
 
 Unselect **Toggle Bluetooth** and select the **Use Nordic Bootloader**.
 
-Then press the **Select DFU file** button, and choose the step3 file for your watch.
+Then press the **Select DFU file** button, and choose the step3 file.
 
 ![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/3.png?raw=true)
 
->**Note** please make sure you have the correct step3 file for your watch, look for Magic or Rock in the filename.
-
-When step three ends, the watch will be ready for the final step of the hacking part of the installation procedure. 
+When step three ends, the watch will be ready for the next step of the hacking part of the installation procedure. 
 
 
 #### Step 4.
@@ -112,6 +112,27 @@ Unselect **Toggle Bluetooth** and select **Use Nordic Bootloader** option, then 
 ![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/4.2.png?raw=true)
 
 This step will take up to 5 minutes, and when done the watch screen will remain black/off. 
+
+#### Step 5.
+
+Open DaFlasher, search for the Magic3/Rock. It will be named "MAGIC3_XXX". 
+
+Select the watch, and on the next page press the "Start Bootloader" button.
+
+![alt](https://github.com/enaon/eucWatch/blob/main/tools/hackme2/images/4.png?raw=true)
+
+Go back or kill Daflasher. 
+
+Open daFlasher, search for the Magic3/Rock. It should be named "DfuTarg". 
+
+Select the watch, and on the next page preess the "Do DFU Update" button. (the "start bootloader" button should be grayed out)
+
+
+
+>**Note** please make sure you have the correct step5 file for your watch, look for Magic or Rock in the filename.
+
+When step three ends, the watch will be ready for the final step of the hacking part of the installation procedure. 
+
 
 ## Post install
 ### EucWatch Installation:

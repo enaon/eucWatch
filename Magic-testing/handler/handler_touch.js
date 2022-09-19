@@ -15,7 +15,7 @@ else {
 tcDn=(x,y)=>{
 	//"ram";
 	buzzer.nav(buzzer.buzz.ok);
-	if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}
+	//if (UI.ntid) {clearTimeout(UI.ntid);UI.ntid=0;}
 	if (global.euc&& euc.state!="OFF"){
 		if (face.appCurr.startsWith("dash_")){
 			if (ew.def.dash.face+1>=ew.is.dash.length) 
@@ -24,8 +24,12 @@ tcDn=(x,y)=>{
 				ew.def.dash.face++;
 		} 
 		face.go(ew.is.dash[ew.def.dash.face],0);
-	}else if (face.appCurr=="clock"){
-		face.go("clock",-1);
+//	}else if (face.appCurr=="clock"){
+//		face.go("clock",-1);
+	}else if ((UI.ntid)){
+		clearTimeout(UI.ntid);
+		UI.ntid=0;
+		face[0].bar();
 	}else{
 		face.go("clock",0);
 	}

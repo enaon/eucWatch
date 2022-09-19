@@ -13,7 +13,7 @@ UIc.start(1,0);
 //UI.ele.fill("_2x3",2,0);
 //UI.btn.img("main","_2x3",2,"themes","FACE",15,12);
 UI.btn.img("main","_2x3",3,"bri",ew.def.bri,15,1,1);
-UI.btn.img("main","_2x3",4,"findPhone","FIND",3,1);
+UI.btn.img("main","_2x3",4,"findPhone","FIND",ew.is.fmp?15:3,ew.is.fmp?13:1);
 UI.btn.img("main","_2x3",5,"wakeScreen","WAKE",euc.state=="READY"?11:ew.def.acc?15:3,euc.state=="READY"?8:ew.def.acc?4:1);
 UI.btn.img("main","_2x3",6,ew.def.buzz?"buzzOn":"buzzOff","BUZZ",ew.def.buzz?15:3,ew.def.buzz?4:1);
 UIc.end();
@@ -44,8 +44,13 @@ UIc.main._2x3=(i)=>{
 		if (ew.is.bt!=3) {
 			buzzer.nav(buzzer.buzz.na);
 			UI.btn.ntfy(1,1,0,"_bar",6,"ENABLE GB","ON BT MENU",15,13);w.gfx.flip();
-		}else	
+		}else{	
+			ew.is.fmp=1-ew.is.fmp;
+			UI.btn.img("main","_2x3",4,"findPhone","FIND",ew.is.fmp?15:3,ew.is.fmp?13:1);
+			if (ew.is.fmp) gb.send({ "t": "findPhone", "n": true });
+			else gb.send({ "t": "findPhone", "n": false });
 			buzzer.nav(buzzer.buzz.na);
+		}
 	}else if (i==5){
 		if (euc.state=="READY") {buzzer.nav(buzzer.buzz.na); UI.btn.ntfy(1,0,0,"_bar",6,"AUTO ENABLED","FOR EUC",0,15); w.gfx.flip(); return;} 
 		buzzer.nav(buzzer.buzz.ok);

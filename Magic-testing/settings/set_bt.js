@@ -15,8 +15,7 @@ face[0].bt=()=>{
 	//UI.btn.img("main","_2x3",5,ew.def.prxy==2?"proxy_db":"proxy","EUC",ew.def.prxy?15:3,ew.def.prxy?4:0);
 	UI.btn.img("main","_2x3",6,"hid","HID",ew.def.hid?btn[0]:btn[2],ew.def.hid?btn[1]:btn[3]);	
 	img=0;
-};
-
+}
 UI.ele.ind(0,0,0);
 let img;
 UIc.start(1,0);

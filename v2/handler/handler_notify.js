@@ -16,9 +16,9 @@ function handleInfoEvent(event,discrete) {
 	notify.info.unshift("{\"src\":\""+event.src+"\",\"title\":\""+event.title+"\",\"body\":\""+event.body+"\",\"time\":\""+ti+"\"}");
 	if (notify.info.length>10) notify.info.pop();
 	if (ew.def.buzz&&!notify.ring) {
+		face.off(8000);
 		buzzer.nav([80,50,80]);
 		if (face[0].bar){
-			face.off();
 			UI.btn.ntfy(1,4,0,"_bar",6,event.title,event.body,0,15);w.gfx.flip();
 		}else if (!discrete){
 			if (face.appCurr!="clock"||face.pageCurr!=0) {

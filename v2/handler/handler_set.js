@@ -44,7 +44,7 @@ ew.do.update.bluetooth=function(){
 					try {
 					   ew.is.hidM[i]();
 					} catch(e) {
-					   if (ew.dbg)	handleInfoEvent({"src":"DBG","title":"HID:","body":e},1);	
+					   if (ew.dbg)	handleInfoEvent({"src":"DBG","title":"HID:","body":"YOUAREFAST"},1);	
 					}
 				}
 			}
@@ -61,8 +61,9 @@ ew.do.update.bluetooth=function(){
 	
 		if (ew.def.gb&&require('Storage').read('m_gb')) eval(require('Storage').read('m_gb'));
 	    else {
-			gbSend=function(){return;};
-			handleNotificationEvent=0;handleWeatherEvent=0;handleCallEvent=0;handleFindEvent=0;sendBattery=0;global.GB=0;
+			//gbSend=function(){return;};
+			//handleNotificationEvent=0;handleWeatherEvent=0;handleCallEvent=0;handleFindEvent=0;sendBattery=0;
+			global.GB=0;
 		}		
 		if (!ew.def.cli&&!ew.def.gb&&!ew.def.prxy&&!ew.def.hid) { if (ew.is.bt) NRF.disconnect();  NRF.sleep();ew.is.btsl=1;}
 		else if (ew.is.bt) NRF.disconnect();
