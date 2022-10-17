@@ -8,7 +8,7 @@
 
 ## Install espruino on the P8/P22 smart watch:  
 
-### DO NOT use this guie on a Rock/Magic, use [this](https://github.com/enaon/eucWatch/edit/main/tools/hackme2/readme.md) instead.
+### DO NOT use this guide on a Rock/Magic, use [this](https://github.com/enaon/eucWatch/edit/main/tools/hackme2/readme.md) instead.
 
 ### Before installation:
 You will need an android smartphone, and the [DaFlasher](https://play.google.com/store/apps/details?id=com.atcnetz.paatc.patc&hl=el&gl=US) app from the playstore, made by atc1441.
