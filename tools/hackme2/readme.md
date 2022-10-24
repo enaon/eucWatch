@@ -27,7 +27,7 @@ Using the DaFlasher app, you will upload four files to the watch. The second ste
 >
 > [**Step1 file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme2/step1_espruino_2v10.102_magic3-dafit.bin)
 > 
-> [**Step3 Magic3 Espruino image file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme2/step3_espruino_2v10.364_magic3.zip.zip)
+> [**Step3 Magic3 Espruino image file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme2/step3_espruino_2v10.364_magic3.zip)
 >
 > [**Step4 SoftDevice file**](https://github.com/enaon/eucWatch/raw/main/tools/hackme2/step4_S140-6.0.0-magic3.zip)
 >
