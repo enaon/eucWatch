@@ -361,7 +361,10 @@ euc.conn=function(mac){
 							return euc.temp.wCha.writeValue(euc.cmd("end"));
 						//}).then(function(err)  {
 						//return euc.temp.wCha.writeValue(euc.cmd(cmd,value));
-						}).catch(euc.off);
+						}).then(function()  {
+							euc.tout.loop=0;
+							euc.tout.loop=setTimeout(function(){euc.tout.alive=0;euc.is.busy=0;euc.temp.live();},500);
+						});
 					},250);
 				}
 			};
