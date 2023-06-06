@@ -801,7 +801,7 @@
 	{ "id": "eucInmotionV10",
 		"name": "Inmotion V5/8/10 module",
 		"icon": "../../v2/euc/eucInmotionV10/icon.png",
-		"version":"1.94.3",
+		"version":"1.94.4",
 		"description": "EUC module for Inmotion V5/8/10.",
 		"tags": "euc",
 		"type": "euc",

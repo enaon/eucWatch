@@ -3,81 +3,71 @@ E.setFlags({ pretokenise: 1 });
 euc.cmd=function(no,val){
 	if (ew.is.bt===2) console.log("inmotion: send cmd :",no);
 	let cmd;
-		switch (no) {
-		case "info" :		return		[170, 170, 20, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 1, 127];
-		case "batLevelData":	return 		[170, 170, 20, 1, 165, 85, 15,   0,   0,   0,  21,   0,   0,   0,   0, 8, 5, 0, 1, 156];
-		case "live":		return 		[170, 170, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125];
-		case "init":		return 		[170, 170,  7, 3, 165, 85, 15,  48,  48,  48,  48,  48,  48,   0,   0, 8, 5, 0, 0, 155];
-		case "calibration": 	return 		[170, 170, 25, 1, 165, 85, 15,  50,  84, 118, 152,   0,   0,   0,   0, 8, 5, 0, 0,  31];
-		case "horn": 		return		[170, 170,  9, 6, 165, 85, 15,   4,   0,   0,   0,   0,   0,   0,   0, 8, 5, 0, 0, 132];
-		case "beep":		return 		[170, 170,  9, 6, 165, 85, 15,  21,   0,   0,   0,   0,   0,   0,   0, 8, 5, 0, 0, 149];
-		case "led":		return 		[170, 170,  9, 6, 165, 85, 15,  21,   0,   0,   0,   0,   0,   0,   0, 8, 5, 0, 0, 149];
-		case "end":		return		[ 85,  85];
+	switch (no) {
+		case "info" :		return [0xAA, 0xAA, 0x14, 0x01, 0xA5, 0x55, 0x0F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x08, 0x05, 0x00, 0x01, 0x7F];
+		case "batLevelData":	return [0xAA, 0xAA, 0x14, 0x01, 0xA5, 0x55, 0x0F, 0x00, 0x00, 0x00, 0x15, 0x00, 0x00, 0x00, 0x00, 0x08, 0x05, 0x00, 0x01, 0x9C];
+		case "live":		return [0xAA, 0xAA, 0x13, 0x01, 0xA5, 0x55, 0x0F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x08, 0x05, 0x00, 0x00, 0x7D];
+		case "init":		return [0xAA, 0xAA, 0x07, 0x03, 0xA5, 0x55, 0x0F, 0x30, 0x30, 0x30, 0x30, 0x30, 0x30, 0x00, 0x00, 0x08, 0x05, 0x00, 0x00, 0x9B];
+		case "calibration": 	return [0xAA, 0xAA, 0x19, 0x01, 0xA5, 0x55, 0x0F, 0x32, 0x54, 0x76, 0x98, 0x00, 0x00, 0x00, 0x00, 0x08, 0x05, 0x00, 0x00, 0x1F];
+		case "horn": 		return [0xAA, 0xAA, 0x09, 0x06, 0xA5, 0x55, 0x0F, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x05, 0x00, 0x00, 0x84];
+		case "beep":		return [0xAA, 0xAA, 0x09, 0x06, 0xA5, 0x55, 0x0F, 0x15, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x05, 0x00, 0x00, 0x95];
+		case "led":		return [0xAA, 0xAA, 0x09, 0x06, 0xA5, 0x55, 0x0F, 0x15, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x05, 0x00, 0x00, 0x95];
+		case "end":		return [0x55, 0x55];
 
 		case "playSound"://cmd=0-23
-			cmd = [170, 170, 9, 6, 165, 85, 15, val, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0];
-			cmd.push(7+cmd.reduce(checksum));
-			return cmd;
+			cmd = [0xAA, 0xAA, 0x09, 0x06, 0xA5, 0x55, 0x0F, val, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x05, 0x00, 0x00];
+			break;
 		case "setVolume"://cmd=0-100
-			cmd = [170, 170, 10, 6, 165, 85, 15, (val * 100) & 0xFF, ((val * 100) / 0x100) & 0xFF, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0];
-			cmd.push(7+cmd.reduce(checksum));
-			return cmd;
+			cmd = [0xAA, 0xAA, 0x0A, 0x06, 0xA5, 0x55, 0x0F, (val * 100) & 0xFF, ((val * 100) / 0x100) & 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x05, 0x00, 0x00];
+			break;
 		case "setLights"://val=0|1
 			if (val!=0 && val!=1) return [0];
-			cmd = [170, 170, 13, 1, 165, 85, 15, val, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0];
-			cmd.push(7+cmd.reduce(checksum));
-			return cmd;
+			cmd = [0xAA, 0xAA, 0x0D, 0x01, 0xA5, 0x55, 0x0F, val, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x05, 0x00, 0x00];
+			break;
 		case "setBrightness":
-			cmd = [170, 170, 20, 3, 96, 43, val];
-			cmd.push(7+cmd.reduce(checksum));
-			return cmd;
+			cmd = [0xAA, 0xAA, 0x14, 0x03, 0x60, 0x2B, val];
+			break;
 		case "setRideMode"://val=0=clasic|1=comfort
 			if (val!=0 && val!=1) return [0];
-			cmd = [170, 170, 21, 1, 165, 85, 15, 0, 0, 0, 0, val, 0, 0, 0, 8, 5, 0, 0];
-			cmd.push(7+cmd.reduce(checksum));
-			return cmd;
+			cmd = [0xAA, 0xAA, 0x15, 0x01, 0xA5, 0x55, 0x0F, 0x00, 0x00, 0x00, 0x00, val, 0x00, 0x00, 0x00, 0x08, 0x05, 0x00, 0x00];
+			break;
 		case "setPpedalTilt": //val=-80-+80
 			viw = new DataView(new Int8Array(4).buffer); //to int32 BI.
 			viw.setInt32( 0, val * 65536 / 10  );
-			cmd = [170, 170, 21, 1, 165, 85, 15, 0, 0, 0, 0, viw.buffer[3], viw.buffer[2], viw.buffer[1], viw.buffer[0], 8, 5, 0, 0];
-			cmd.push(7+cmd.reduce(checksum));
-			return cmd;
+			cmd = [0xAA, 0xAA, 0x15, 0x01, 0xA5, 0x55, 0x0F, 0x00, 0x00, 0x00, 0x00, viw.buffer[3], viw.buffer[2], viw.buffer[1], viw.buffer[0], 0x08, 0x05, 0x00, 0x00];
+			break;
 		case "setPedalSensitivity": //val=-80-+80
 			viw = new DataView(new Int8Array(4).buffer); //to int32 BI.
 			viw.setInt32( 0, val * 65536 / 10  );
-			cmd = [170, 170, 21, 1, 165, 85, 15, 0, 0, 0, 0, viw.buffer[3], viw.buffer[2], viw.buffer[1], viw.buffer[0], 8, 5, 0, 0];
-			cmd.push(7+cmd.reduce(checksum));
-			return cmd;
+			cmd = [0xAA, 0xAA, 0x15, 0x01, 0xA5, 0x55, 0x0F, 0x00, 0x00, 0x00, 0x00, viw.buffer[3], viw.buffer[2], viw.buffer[1], viw.buffer[0], 0x08, 0x05, 0x00, 0x00];
+			break;
 		case "speedLimit":
 			viw = new DataView(new Int8Array(2).buffer); //to int16 BI.
 			viw.setInt16( 0, val*1000 );
-			cmd = [170, 170, 21, 1, 165, 85, 15, 1, 0, 0, 0, viw.buffer[1], viw.buffer[0], 0, 0, 8, 5, 0, 0];
-			cmd.push(7+cmd.reduce(checksum));
-			return cmd;
+			cmd = [0xAA, 0xAA, 0x15, 0x01, 0xA5, 0x55, 0x0F, 0x01, 0x00, 0x00, 0x00, viw.buffer[1], viw.buffer[0], 0x00, 0x00, 0x08, 0x05, 0x00, 0x00];
+			break;
 		case "control"://15=ledOn|16=ledOff|5=powerOff|17=beep|
-			cmd = [170, 170, 22, 1, 165, 85, 15, 178, 0, 0, 0, val, 0, 0, 0, 8, 5, 0, 0];
-			cmd.push(7+cmd.reduce(checksum));
-			return cmd;
+			cmd = [0xAA, 0xAA, 0x16, 0x01, 0xA5, 0x55, 0x0F, 0xB2, 0x00, 0x00, 0x00, val, 0x00, 0x00, 0x00, 0x08, 0x05, 0x00, 0x00];
+			break;
 		case "pincode"://
-			cmd = [170, 170, 7, 3, 165, 85, 15, val, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0];
-			cmd.push(7+cmd.reduce(checksum));
-			return cmd;
+			cmd = [0xAA, 0xAA, 0x07, 0x03, 0xA5, 0x55, 0x0F, val, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x05, 0x00, 0x00];
+			break;
 		case "alert"://
-			cmd = [170, 170, 1, 1, 165, 85, 15, val, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0];
-			cmd.push(7+cmd.reduce(checksum));
-			return cmd;
+			cmd = [0xAA, 0xAA, 0x01, 0x01, 0xA5, 0x55, 0x0F, val, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x05, 0x00, 0x00];
+			break;
 		case "sethandleButton"://val=0|1
 			if (val!=0 && val!=1) return [0];
-			cmd = [170, 170, 46, 1, 165, 85, 15, val, 0, 0, 0, 0, 0, 0, 0, 8, 5, 0, 0];
-			cmd.push(7+cmd.reduce(checksum));
-			return cmd;
+			cmd = [0xAA, 0xAA, 46, 0x01, 0xA5, 0x55, 0x0F, val, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x05, 0x00, 0x00];
+			break;
 	}
+	cmd.push(7+cmd.reduce(checksum));
+	return cmd;
 };
 //
 function checksum(check, val) {
 	return (check + val) & 255;
 }
-//cmd=[[170, 170, 19, 1, 165, 85, 15, -1, -1, -1, -1, -1, -1, -1, -1, 8, 5, 0, 1]
+//cmd=[[0xAA, 0xAA, 0x13, 0x01, 0xA5, 0x55, 0x0F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x08, 0x05, 0x00, 0x01]
 //cmd.push(cmd.reduce(checksum));
 function validateChecksum(buffer) {
 	receivedChecksum = buffer[buffer.length - 1];
@@ -86,10 +76,68 @@ function validateChecksum(buffer) {
 	return receivedChecksum == calculatedChecksum;
 }
 function appendBuffer(buffer1, buffer2) {
-  var tmp = new Uint8Array(buffer1.byteLength + buffer2.byteLength);
-  tmp.set(new Uint8Array(buffer1), 0);
-  tmp.set(new Uint8Array(buffer2), buffer1.byteLength);
-  return tmp.buffer;
+	var tmp = new Uint8Array(buffer1.byteLength + buffer2.byteLength);
+	tmp.set(new Uint8Array(buffer1), 0);
+	tmp.set(new Uint8Array(buffer2), buffer1.byteLength);
+	return tmp.buffer;
+}
+
+function getModelName(id) {
+	switch (id) {
+		case "50": return "V5";
+		case "51": return "V5PLUS";
+		case "52": return "V5F";
+		case "53": return "V5D";
+		case "80": return "V8";
+		case "86": return "V8F";
+		case "87": return "V8S";
+		case "100": return "V10S";
+		case "101": return "V10SF";
+		case "140": return "V10";
+		case "141": return "V10F";
+		case "142": return "V10T";
+		case "143": return "V10FT";
+	}
+	return "UNKNOWN";
+}
+
+euc.temp.infoParse= function (inc){
+	let lala = new DataView(inc);
+	//light
+	euc.dash.opt.lght.HL=lala.getUint8(99);
+	//led
+	if(lala.byteLength>149) euc.dash.opt.lght.led=lala.getUint8(149);
+	//firmware
+	let v0=lala.getUint8(46);
+	let v1=lala.getUint8(45);
+	let v2=((lala.getUint8(44) << 8) | lala.getUint8(43));
+	euc.dash.info.get.firm=[v0, v1, v2].join('.');
+	//serial
+	let serial = new String('');
+	let tByte;
+	for (i=26; i > 18; i--) {
+		tByte=lala.getUint8(i);
+		if (tByte<0x10)
+			serial=serial + '0' + tByte.toString(16);
+		else
+			serial=serial + tByte.toString(16);
+	}
+	euc.dash.info.get.serl=serial.toUpperCase();
+	//manufacture date
+	let year = 2000 + lala.getUint8(26);
+	let month = ((lala.getUint8(25) & 0xF0) >> 4);
+	let date = ((lala.getUint8(25) & 0x0F) << 4) + lala.getUint8(24);
+	euc.dash.info.get.manD=[year.toString(10), month.toString(10), date.toString(10)].join('-');
+	//volume
+	if (lala.byteLength>145)
+		euc.dash.opt.snd.vol=((lala.getUint8(145) << 8) | lala.getUint8(144)) / 100;
+	//model
+	let modelId=lala.getUint8(126).toString(10)+lala.getUint8(123).toString(10)
+	euc.dash.info.get.modl=getModelName(modelId);
+	if (!ew.do.fileRead("dash","slot"+ew.do.fileRead("dash","slot")+"Name") || ew.do.fileRead("dash","slot"+"1"+"Name") != euc.dash.info.get.modl) {
+		ew.do.fileWrite("dash","slot"+ew.do.fileRead("dash","slot")+"Name",euc.dash.info.get.modl);
+	}
+	return;
 }
 
 euc.temp.liveParse= function (inc){
@@ -214,19 +262,17 @@ euc.conn=function(mac){
 				euc.temp.tot=E.toUint8Array(euc.temp.last,inc);
 				euc.temp.last=E.toUint8Array(euc.temp.tot.buffer);
 				//got package
-				if ( (inc.length==1 && inc[0]==85) || (inc[inc.length - 2]==85 && inc[inc.length - 1]==85) ) {
-					if (ew.is.bt===2) console.log("Inmotion: in: length:",euc.temp.tot.buffer.length," data :",euc.temp.tot);
+				if ( (inc.length==1 && inc[0]==0x55) || (inc[inc.length - 2]==0x55 && inc[inc.length - 1]==0x55) ) {
+					if (ew.is.bt===2) console.log("Inmotion: in: length:",euc.temp.tot.buffer.length," data :",[].map.call(euc.temp.tot, x => x.toString(16)).toString());
 					//live pckg
-					if (euc.temp.tot.buffer[2]===19) {
+					if (euc.temp.tot.buffer[2]===0x13) {
 						if (euc.temp.tot.length==euc.temp.pckL) {
 							euc.temp.last=[];
 							if (ew.is.bt===2) console.log("Inmotion: live in");
 							euc.temp.liveParse(euc.temp.tot.buffer);
 							euc.temp.last=[];
-							euc.temp.live();
-							//setTimeout(function(){ euc.temp.live();},100);
+							euc.tout.alive=setTimeout(function(){euc.tout.alive=0;euc.is.busy=0;euc.temp.live();},500);
 							return;
-						//}else if (119 <= euc.temp.tot.length) {
 						}else{
 							let temp=JSON.parse(JSON.stringify(euc.temp.tot.buffer));
 							for (let i = 0; i < temp.length; i++){ if (temp[i]===165 && 15<=i) temp.splice(i,1);}
@@ -235,8 +281,7 @@ euc.conn=function(mac){
 							euc.temp.chk=( euc.temp.chk.reduce(checksum) + 7 == temp[temp.length - 3] )?1:0;
 							if (!euc.temp.chk) {
 								if (ew.is.bt===2) console.log("Inmotion: problem: length:",  temp.length, temp);
-								euc.temp.live();
-								//setTimeout(function(){euc.temp.live();},100);
+								euc.tout.alive=setTimeout(function(){euc.tout.alive=0;euc.is.busy=0;euc.temp.live();},500);
 								euc.temp.last=[];
 								return;
 							}
@@ -244,18 +289,27 @@ euc.conn=function(mac){
 							euc.temp.pckL=temp.length;
 							euc.temp.last=[];
 							euc.temp.liveParse(E.toUint8Array(temp).buffer);
-							euc.temp.live();
-							//setTimeout(function(){ euc.temp.live();},100);
+							euc.tout.alive=setTimeout(function(){euc.tout.alive=0;euc.is.busy=0;euc.temp.live();},500);
 							return;
 						}
-					//rest
-					}else {
-						if (euc.temp.tot.buffer[2]===1) {
-							if (ew.is.bt===2) console.log("Inmotion: ALERT in, length :",euc.temp.tot.buffer.length,", check:",euc.temp.chk);
-							euc.temp.alertParse(euc.temp.tot.buffer);
-						}else
-							if (ew.is.bt===2) console.log("Inmotion: unknown in, length :",euc.temp.tot.buffer.length,", check:",euc.temp.chk);
 					}
+					//info pckg
+					if (euc.temp.tot.buffer[2]===0x14) {
+						if (ew.is.bt===2) console.log("Inmotion: info in");
+						euc.temp.infoParse(euc.temp.tot.buffer);
+						euc.temp.last=[];
+						euc.tout.alive=setTimeout(function(){euc.tout.alive=0;euc.is.busy=0;euc.temp.live();},500);
+						euc.temp.last=[];
+						return;
+					}
+					//rest
+					if (euc.temp.tot.buffer[2]===1) {
+						if (ew.is.bt===2) console.log("Inmotion: ALERT in, length :",euc.temp.tot.buffer.length,", check:",euc.temp.chk);
+						euc.temp.alertParse(euc.temp.tot.buffer);
+						euc.temp.last=[];
+						return;
+					}
+					if (ew.is.bt===2) console.log("Inmotion: unknown in, length :",euc.temp.tot.buffer.length,", check:",euc.temp.chk);
 					euc.temp.last=[];
 					return;
 				}
@@ -272,15 +326,31 @@ euc.conn=function(mac){
 			//write function
 			euc.temp.live= function(){
 				if (euc.tout.alive) clearTimeout(euc.tout.alive);
+				if (euc.tout.info) clearTimeout(euc.tout.info);
 				euc.tout.alive=setTimeout(function(){euc.tout.alive=0;euc.is.busy=0;euc.temp.live();},500);
 				if (euc.is.busy) return;
-				euc.temp.wCha.writeValue([170, 170, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125]).then(function() {
-					return euc.temp.wCha.writeValue([85, 85, 19, 1, 165, 85, 15, 255, 255, 255, 255, 255, 255, 255, 255, 8, 5, 0, 0, 125]);
+//				euc.temp.wCha.writeValue([0xAA, 0xAA, 0x13, 0x01, 0xA5, 0x55, 0x0F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x08, 0x05, 0x00, 0x00, 0x7D]).then(function() {
+//					return euc.temp.wCha.writeValue([0x55, 0x55, 0x13, 0x01, 0xA5, 0x55, 0x0F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x08, 0x05, 0x00, 0x00, 0x7D]);
+				euc.temp.wCha.writeValue(euc.cmd("live")).then(function() {
+					return euc.temp.wCha.writeValue(euc.cmd("end"));
 				}).catch(function(err)  {
 					if (ew.is.bt===2) console.log("EUC InmotionV1: live write fail");
 					//euc.off("writefail");
 				});
+				euc.tout.info=setTimeout(function(){euc.tout.info=0;euc.temp.info();},100);
 			};
+			euc.temp.info= function(){
+				if (euc.tout.alive) clearTimeout(euc.tout.alive);
+				if (euc.tout.info) clearTimeout(euc.tout.info);
+				euc.tout.alive=setTimeout(function(){euc.tout.alive=0;euc.is.busy=0;euc.temp.live();},500);
+				if (euc.is.busy) return;
+				euc.temp.wCha.writeValue(euc.cmd("info")).then(function() {
+					return euc.temp.wCha.writeValue(euc.cmd("end"));
+				}).catch(function(err)  {
+					if (ew.is.bt===2) console.log("EUC InmotionV1: info write fail");
+				});
+			};
+
 			euc.wri=function(cmd,value){
 				if (euc.tout.alive) {clearTimeout(euc.tout.alive); euc.tout.alive=0;}
 				euc.is.busy=1;
