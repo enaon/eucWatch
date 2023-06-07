@@ -126,7 +126,7 @@ euc.temp.infoParse= function (inc){
 	//manufacture date
 	let year = 2000 + lala.getUint8(26);
 	let month = ((lala.getUint8(25) & 0xF0) >> 4);
-	let date = ((lala.getUint8(25) & 0x0F) << 4) + lala.getUint8(24);
+	let date = ((lala.getUint8(25) & 0x0F) << 4) | (lala.getUint8(24) & 0x0F);
 	euc.dash.info.get.manD=[year.toString(10), month.toString(10), date.toString(10)].join('-');
 	//volume
 	if (lala.byteLength>145)
