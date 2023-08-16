@@ -70,9 +70,11 @@ global.euc = {
 				}
 				if (euc.dash.info.get.makr !== "Kingsong" || euc.dash.info.get.makr !== "inmotionV11") euc.dash.trip.topS = 0;
 				this.conn(this.mac);
-				if (ew.def.acc) acc.off();
-				setTimeout(() => { ew.def.dash.accE = 1;
-					acc.on(2); }, 1000);
+				acc.off();
+				if (ew.def.acc) {
+					setTimeout(() => { ew.def.dash.accE = 1;
+						acc.on(2); }, 1000);
+				}
 				if (euc.dash.opt.tpms && global.tpms && !tpms.def.int) { tpms.euc = {};
 					setTimeout(() => { tpms.scan(); }, 10000); } //tpms
 				face.go(ew.is.dash[ew.def.dash.face], 0);

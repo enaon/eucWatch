@@ -118,7 +118,7 @@
 
 		]
 	},
-	
+
 	{ "id": "handler",
 		"name": "Handler - V2",
 		"icon": "../../Magic-testing/handler/icon.png",
@@ -146,11 +146,11 @@
 			{"name":"handler_acc_SC7A20","url":"../handler/handler_acc_SC7A20.js"},
 			{"name":"handler_buzz","url":"../handler/handler_buzz.js"}
 		]
-	},  
+	},
 	{ "id": "handler",
 		"name": "Handler - V1",
 		"icon": "../handler/icon.png",
-		"version":"1.94.6",
+		"version":"1.94.7",
 		"description": "P8-P22-Pinetime functions handler",
 		"tags": "core",
 	    "needsFeatures":["V1"],
@@ -173,7 +173,7 @@
 			{"name":"handler_buzz","url":"../handler/handler_buzz.js"}
 
 		]
-	},  
+	},
 	{ "id": "handler_pt",
 		"name": "Handler - Pinetime",
 		"icon": "../../P8-testing/handler_pt/icon.png",
@@ -186,7 +186,7 @@
 		"storage": [
 			{"name":"handler","url":"../../P8-testing/handler_pt/handler.js"}
 		]
-	}, 
+	},
 	{ "id": "clock",
 		"name": "Clock face",
 		"icon": "../../P8-testing/clock/icon.png",
@@ -199,11 +199,11 @@
 			{"name":"clock","url":"../../P8-testing/clock/clock.js"},
 			{"name":"clockOptions","url":"../../P8-testing/clock/clockOptions.js"}
 		]
-	},  
+	},
 	{ "id": "settings",
 		"name": "Settings",
 		"icon": "../../P8-testing/settings/icon.png",
-		"version":"1.94.1",
+		"version":"1.94.3",
 		"description": "Settings face",
 		"tags": "apps",
 		"type":"clock",
@@ -733,11 +733,11 @@
 			{"name":"hid","url":"../../Magic-testing/hid/hid.js"}
 		]
 	},
-	
+
 	{ "id": "euc",
 		"name": "EUC modules support",
 		"icon": "../../v2/euc/icon.png",
-		"version":"1.94.4",
+		"version":"1.94.5",
 		"description": "EUC module switcher, depends on wheel module.",
 		"tags": "euc",
 	    "needsFeatures":["EW"],
