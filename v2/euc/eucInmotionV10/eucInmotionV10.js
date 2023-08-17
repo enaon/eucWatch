@@ -63,7 +63,7 @@ euc.cmd=function(no,val){
 	cmd.push(7+cmd.reduce(checksum));
 	return cmd;
 };
-//
+
 function checksum(check, val) {
 	return (check + val) & 255;
 }
@@ -101,12 +101,17 @@ function getModelName(id) {
 	return "UNKNOWN";
 }
 
-euc.temp.infoParse= function (inc){
+euc.temp.infoParse = function (inc){
 	let lala = new DataView(inc);
+	euc.is.lastGetInfo = getTime();
 	//light
 	euc.dash.opt.lght.HL=lala.getUint8(99);
 	//led
 	if(lala.byteLength>149) euc.dash.opt.lght.led=lala.getUint8(149);
+	//volume
+	if (lala.byteLength>145)
+		euc.dash.opt.snd.vol=((lala.getUint8(145) << 8) | lala.getUint8(144)) / 100;
+	if (euc.temp.infoGet) return;
 	//firmware
 	let v0=lala.getUint8(46);
 	let v1=lala.getUint8(45);
@@ -128,21 +133,20 @@ euc.temp.infoParse= function (inc){
 	let month = ((lala.getUint8(25) & 0xF0) >> 4);
 	let date = ((lala.getUint8(25) & 0x0F) << 4) | (lala.getUint8(24) & 0x0F);
 	euc.dash.info.get.manD=[year.toString(10), month.toString(10), date.toString(10)].join('-');
-	//volume
-	if (lala.byteLength>145)
-		euc.dash.opt.snd.vol=((lala.getUint8(145) << 8) | lala.getUint8(144)) / 100;
 	//model
 	let modelId=lala.getUint8(126).toString(10)+lala.getUint8(123).toString(10)
 	euc.dash.info.get.modl=getModelName(modelId);
 	if (!ew.do.fileRead("dash","slot"+ew.do.fileRead("dash","slot")+"Name") || ew.do.fileRead("dash","slot"+"1"+"Name") != euc.dash.info.get.modl) {
 		ew.do.fileWrite("dash","slot"+ew.do.fileRead("dash","slot")+"Name",euc.dash.info.get.modl);
 	}
+	euc.temp.infoGet=1;
 	return;
 }
 
-euc.temp.liveParse= function (inc){
+euc.temp.liveParse = function (inc){
 	let lala = new DataView(inc);
 	euc.is.alert=0;
+	euc.is.lastGetLive = getTime();
 	//values
 	//spd
 	euc.dash.live.spd=(lala.getInt32(31, true)+lala.getInt32(35, true))/2000;
@@ -201,9 +205,6 @@ euc.temp.liveParse= function (inc){
 		buzzer.euc(a);
 		setTimeout(() => { euc.is.buzz = 0; }, 3000);
 	}
-	//if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
-	//euc.tout.loop=setTimeout(function(v){ euc.tout.loop=0;euc.temp.live();},50);
-	//euc.temp.live();
 };
 
 euc.temp.alertParse= function (inc){
@@ -223,8 +224,76 @@ euc.temp.alertParse= function (inc){
 		case 33:euc.dash.alrt.text = ("CUT-OFF at speed :"+euc.dash.alrt.speed);break;
 		case 38:euc.dash.alrt.text = ("HIGH LOAD at speed :"+euc.dash.alrt.speed+" and current :"+(euc.dash.alrt.val / 1000.0));break;
 		default:euc.dash.alrt.text = ("Unknown Alert: "+ euc.dash.alrt.val+","+euc.dash.alrt.val2);
-    }
+	}
 	//euc.emit('alert',euc.dash.alrt.text);
+};
+//
+euc.temp.inpk = function(event) {
+	if (ew.is.bt===2&&euc.dbg==3) console.log("Inmotion: packet in ",event.target.value.buffer);
+	//gather package
+	let inc=event.target.value.buffer;
+	euc.temp.tot=E.toUint8Array(euc.temp.last,inc);
+	euc.temp.last=E.toUint8Array(euc.temp.tot.buffer);
+	if (ew.is.bt===5) euc.proxy.w(inc);
+	//got package
+	if ( !((inc.length==1 && inc[0]==0x55) || (inc[inc.length - 2]==0x55 && inc[inc.length - 1]==0x55)) ) return;
+	delete inc;
+	euc.temp.last = [];
+	if (ew.is.bt===2) console.log("Inmotion: in: length:",euc.temp.tot.buffer.length," data :",[].map.call(euc.temp.tot, x => x.toString(16)).toString());
+	//live pckg
+	if (euc.temp.tot.buffer[2]===0x13) {
+		if (euc.temp.tot.length==euc.temp.pckL) {
+			if (ew.is.bt===2) console.log("Inmotion: live in");
+			euc.temp.liveParse(euc.temp.tot.buffer);
+			return;
+		}else{
+			let temp=JSON.parse(JSON.stringify(euc.temp.tot.buffer));
+			for (let i = 0; i < temp.length; i++){ if (temp[i]===165 && 15<=i) temp.splice(i,1);}
+			euc.temp.chk=new Uint8Array(temp.length -3);
+			euc.temp.chk.set(temp);
+			euc.temp.chk=( euc.temp.chk.reduce(checksum) + 7 == temp[temp.length - 3] )?1:0;
+			if (!euc.temp.chk) {
+				if (ew.is.bt===2) console.log("Inmotion: problem: length:",  temp.length, temp);
+				return;
+			}
+			if (ew.is.bt===2) console.log("Inmotion: live in fixed : length: :", temp.length);
+			euc.temp.pckL=temp.length;
+			euc.temp.liveParse(E.toUint8Array(temp).buffer);
+			return;
+		}
+	}
+	//info pckg
+	if (euc.temp.tot.buffer[2]===0x14) {
+		if (ew.is.bt===2) console.log("Inmotion: info in");
+		euc.temp.infoParse(euc.temp.tot.buffer);
+		return;
+	}
+	//rest
+	if (euc.temp.tot.buffer[2]===1) {
+		if (ew.is.bt===2) console.log("Inmotion: ALERT in, length :",euc.temp.tot.buffer.length,", check:",euc.temp.chk);
+		euc.temp.alertParse(euc.temp.tot.buffer);
+		return;
+	}
+	if (ew.is.bt===2) console.log("Inmotion: unknown in, length :",euc.temp.tot.buffer.length,", check:",euc.temp.chk);
+	return;
+};
+
+euc.temp.live= function(){
+	if (getTime() - euc.is.lastGetLive < 0.5) return;
+	if (euc.tout.busy) return;
+	euc.tout.busy = 1;
+	euc.temp.wCha.writeValue([0xAA, 0xAA, 0x13, 0x01, 0xA5, 0x55, 0x0F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x08, 0x05, 0x00, 0x00, 0x7D])
+	.then(function() { return euc.temp.wCha.writeValue([0x55, 0x55])
+	}).then(function() {
+		if (getTime() - euc.is.lastGetInfo < 1) return;
+		return euc.temp.wCha.writeValue([0xAA, 0xAA, 0x14, 0x01, 0xA5, 0x55, 0x0F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x08, 0x05, 0x00, 0x01, 0x7F])
+	}).then(function() {
+		if (getTime() - euc.is.lastGetInfo < 1) return;
+		return euc.temp.wCha.writeValue([0x55, 0x55])
+	}).then(function() { return euc.tout.busy = 0
+	}).catch(function(err)  {
+		if (ew.is.bt===2) console.log("EUC InmotionV1: live write fail");
+	});
 };
 //
 euc.wri=function(i) {if (ew.is.bt===2) console.log("not connected yet"); if (i=="end") euc.off(); return;};
@@ -250,70 +319,10 @@ euc.conn=function(mac){
 			return euc.temp.serv.getCharacteristic(0xffe4);//read
 		}).then(function(rc) {
 			euc.temp.rCha=rc;
+			euc.temp.last = [];
+			euc.temp.chk = [];
 			//read
-			euc.temp.last= [];
-			euc.temp.chk= [];
-			euc.temp.rCha.on('characteristicvaluechanged', function(event) {
-				if (ew.is.bt===2&&euc.dbg==3) console.log("Inmotion: packet in ",event.target.value.buffer);
-				if (euc.tout.alive) {clearTimeout(euc.tout.alive); euc.tout.alive=0;}
-				if (euc.is.busy) return;
-				//gather package
-				let inc=event.target.value.buffer;
-				euc.temp.tot=E.toUint8Array(euc.temp.last,inc);
-				euc.temp.last=E.toUint8Array(euc.temp.tot.buffer);
-				//got package
-				if ( (inc.length==1 && inc[0]==0x55) || (inc[inc.length - 2]==0x55 && inc[inc.length - 1]==0x55) ) {
-					if (ew.is.bt===2) console.log("Inmotion: in: length:",euc.temp.tot.buffer.length," data :",[].map.call(euc.temp.tot, x => x.toString(16)).toString());
-					//live pckg
-					if (euc.temp.tot.buffer[2]===0x13) {
-						if (euc.temp.tot.length==euc.temp.pckL) {
-							euc.temp.last=[];
-							if (ew.is.bt===2) console.log("Inmotion: live in");
-							euc.temp.liveParse(euc.temp.tot.buffer);
-							euc.temp.last=[];
-							euc.tout.alive=setTimeout(function(){euc.tout.alive=0;euc.is.busy=0;euc.temp.live();},500);
-							return;
-						}else{
-							let temp=JSON.parse(JSON.stringify(euc.temp.tot.buffer));
-							for (let i = 0; i < temp.length; i++){ if (temp[i]===165 && 15<=i) temp.splice(i,1);}
-							euc.temp.chk=new Uint8Array(temp.length -3);
-							euc.temp.chk.set(temp);
-							euc.temp.chk=( euc.temp.chk.reduce(checksum) + 7 == temp[temp.length - 3] )?1:0;
-							if (!euc.temp.chk) {
-								if (ew.is.bt===2) console.log("Inmotion: problem: length:",  temp.length, temp);
-								euc.tout.alive=setTimeout(function(){euc.tout.alive=0;euc.is.busy=0;euc.temp.live();},500);
-								euc.temp.last=[];
-								return;
-							}
-							if (ew.is.bt===2) console.log("Inmotion: live in fixed : length: :", temp.length);
-							euc.temp.pckL=temp.length;
-							euc.temp.last=[];
-							euc.temp.liveParse(E.toUint8Array(temp).buffer);
-							euc.tout.alive=setTimeout(function(){euc.tout.alive=0;euc.is.busy=0;euc.temp.live();},500);
-							return;
-						}
-					}
-					//info pckg
-					if (euc.temp.tot.buffer[2]===0x14) {
-						if (ew.is.bt===2) console.log("Inmotion: info in");
-						euc.temp.infoParse(euc.temp.tot.buffer);
-						euc.temp.last=[];
-						euc.tout.alive=setTimeout(function(){euc.tout.alive=0;euc.is.busy=0;euc.temp.live();},500);
-						euc.temp.last=[];
-						return;
-					}
-					//rest
-					if (euc.temp.tot.buffer[2]===1) {
-						if (ew.is.bt===2) console.log("Inmotion: ALERT in, length :",euc.temp.tot.buffer.length,", check:",euc.temp.chk);
-						euc.temp.alertParse(euc.temp.tot.buffer);
-						euc.temp.last=[];
-						return;
-					}
-					if (ew.is.bt===2) console.log("Inmotion: unknown in, length :",euc.temp.tot.buffer.length,", check:",euc.temp.chk);
-					euc.temp.last=[];
-					return;
-				}
-			});
+			euc.temp.rCha.on('characteristicvaluechanged', euc.temp.inpk);
 			//on disconnect
 			euc.gatt.device.on('gattserverdisconnected', euc.off);
 			return  rc;
@@ -324,36 +333,18 @@ euc.conn=function(mac){
 			buzzer.nav([90,40,150,40,90]);
 			euc.dash.opt.lock.en=0;
 			//write function
-			euc.temp.live= function(){
-				if (euc.tout.alive) clearTimeout(euc.tout.alive);
-				if (euc.tout.info) clearTimeout(euc.tout.info);
-				euc.tout.alive=setTimeout(function(){euc.tout.alive=0;euc.is.busy=0;euc.temp.live();},500);
-				if (euc.is.busy) return;
-//				euc.temp.wCha.writeValue([0xAA, 0xAA, 0x13, 0x01, 0xA5, 0x55, 0x0F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x08, 0x05, 0x00, 0x00, 0x7D]).then(function() {
-//					return euc.temp.wCha.writeValue([0x55, 0x55, 0x13, 0x01, 0xA5, 0x55, 0x0F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x08, 0x05, 0x00, 0x00, 0x7D]);
-				euc.temp.wCha.writeValue(euc.cmd("live")).then(function() {
-					return euc.temp.wCha.writeValue(euc.cmd("end"));
-				}).catch(function(err)  {
-					if (ew.is.bt===2) console.log("EUC InmotionV1: live write fail");
-					//euc.off("writefail");
-				});
-				euc.tout.info=setTimeout(function(){euc.tout.info=0;euc.temp.info();},100);
-			};
-			euc.temp.info= function(){
-				if (euc.tout.alive) clearTimeout(euc.tout.alive);
-				if (euc.tout.info) clearTimeout(euc.tout.info);
-				euc.tout.alive=setTimeout(function(){euc.tout.alive=0;euc.is.busy=0;euc.temp.live();},500);
-				if (euc.is.busy) return;
-				euc.temp.wCha.writeValue(euc.cmd("info")).then(function() {
-					return euc.temp.wCha.writeValue(euc.cmd("end"));
-				}).catch(function(err)  {
-					if (ew.is.bt===2) console.log("EUC InmotionV1: info write fail");
-				});
-			};
-
 			euc.wri=function(cmd,value){
-				if (euc.tout.alive) {clearTimeout(euc.tout.alive); euc.tout.alive=0;}
-				euc.is.busy=1;
+				if (euc.tout.eucWrite) {
+					clearTimeout(euc.tout.eucWrite);
+					euc.tout.eucWrite=0;
+				}
+				if (euc.tout.busy) {
+					if (cmd!=="proxy") {
+						euc.tout.eucWrite=setTimeout(function() {euc.wri(cmd,value)},50);
+					}
+					return;
+				}
+				euc.tout.busy = 1;
 				if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
 				if (ew.is.bt===2) console.log("Inmotion cmd: ", cmd);
 				//off
@@ -367,12 +358,12 @@ euc.conn=function(mac){
 								return euc.temp.wCha.writeValue(euc.cmd("end"));
 							}).then(function()  {
 								euc.tout.loop=0;
-								if (euc.tout.alive) {clearTimeout(euc.tout.alive); euc.tout.alive=0;}
-								euc.tout.alive=setTimeout(function(){euc.tout.alive=0;euc.is.horn=0;euc.is.busy=0;euc.temp.live();},500);
+								euc.tout.busy=0;
 							});
 				  	},150);
 				}else if (cmd==="hornOff") {
 					euc.is.horn=0;
+					euc.tout.busy=0;
 					return;
 				}else if (euc.state==="OFF"||cmd==="end") {
 					if (euc.gatt && euc.gatt.connected) {
@@ -406,6 +397,7 @@ euc.conn=function(mac){
 						euc.off("not connected");
 						return;
 					}
+					euc.tout.busy=0;
 				}else if (cmd==="start") {
 					euc.temp.wCha.writeValue(euc.cmd("init")).then(function() {
 						return euc.temp.wCha.writeValue(euc.cmd("end"));
@@ -418,24 +410,22 @@ euc.conn=function(mac){
 					}).then(function()  {
 						if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
 						euc.tout.loop=setTimeout(function(){
-							euc.tout.loop=0;euc.is.run=1;euc.is.busy=0;
-							return euc.temp.live();
-						},350);
+							euc.tout.loop=0;euc.is.run=1;euc.tout.busy=0;
+							euc.tout.intervalLive=setInterval(function(){
+								try {
+									euc.temp.live();
+								} catch(e) { return }
+							},200);
+						},1000);
 					}).catch(euc.off);
+				} else if (cmd==="proxy") {
+					euc.temp.wCha.writeValue(value)
+					.then(function() { return euc.tout.busy=0})
+					.catch(euc.off);
 				} else {
-					//if (euc.is.busy) return;
-					if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
-					euc.tout.loop=setTimeout(function(){
-						euc.tout.loop=0;
-						euc.temp.wCha.writeValue(euc.cmd(cmd,value)).then(function() {
-							return euc.temp.wCha.writeValue(euc.cmd("end"));
-						//}).then(function(err)  {
-						//return euc.temp.wCha.writeValue(euc.cmd(cmd,value));
-						}).then(function()  {
-							euc.tout.loop=0;
-							euc.tout.loop=setTimeout(function(){euc.tout.alive=0;euc.is.busy=0;euc.temp.live();},500);
-						});
-					},250);
+					euc.temp.wCha.writeValue(euc.cmd(cmd,value))
+					.then(function() {return euc.temp.wCha.writeValue(euc.cmd("end"))})
+					.then(function() {return euc.tout.busy=0})
 				}
 			};
 			if (!ew.do.fileRead("dash","slot"+ew.do.fileRead("dash","slot")+"Mac")) {

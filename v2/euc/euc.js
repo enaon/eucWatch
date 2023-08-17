@@ -23,6 +23,8 @@ global.euc = {
 			euc.tout.alive = 0; }
 		if (euc.tout.busy) { clearTimeout(euc.tout.busy);
 			euc.tout.busy = 0; }
+		if (euc.tout.intervalLive) { clearInterval(euc.tout.intervalLive);
+			euc.tout.intervalLive = 0; }
 		if (this.state != "OFF") {
 			buzzer.nav([90, 60, 90]);
 			//log
@@ -92,6 +94,8 @@ global.euc = {
 			euc.tout.alive = 0; }
 		if (euc.tout.busy) { clearTimeout(euc.tout.busy);
 			euc.tout.busy = 0; }
+		if (euc.tout.intervalLive) { clearInterval(euc.tout.intervalLive);
+			euc.tout.intervalLive = 0; }
 		//
 		if (euc.state != "OFF") {
 			if (euc.dbg) console.log("EUC: Restarting");

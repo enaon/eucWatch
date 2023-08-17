@@ -121,7 +121,6 @@ face[1] = {
 		return true;
 	},
 	show : function(){
-		setTimeout(function(){euc.is.busy=0;euc.temp.live();},800);
 		face.go(ew.is.dash[ew.def.dash.face],0);
 		return true;
 	},
@@ -184,7 +183,6 @@ touchHandler[0]=function(e,x,y){
 		break;
 	case 1: //slide down event
 		//face.go("clock",0);
-		setTimeout(function(){euc.is.busy=0;euc.temp.live();},800);
 		face.go(ew.is.dash[ew.def.dash.face],0);
 		return;
 	case 2: //slide up event
@@ -205,7 +203,6 @@ touchHandler[0]=function(e,x,y){
 			face[0].init();
 			return;
 		}
-		setTimeout(function(){euc.is.busy=0;euc.temp.live();},800);
 		face.go(ew.is.dash[ew.def.dash.face],0);
 		return;
 	case 12: //long press event
