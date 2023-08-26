@@ -96,6 +96,9 @@ global.euc = {
 			euc.tout.busy = 0; }
 		if (euc.tout.intervalLive) { clearInterval(euc.tout.intervalLive);
 			euc.tout.intervalLive = 0; }
+		// Restart watchdog updater
+		if (wdint) {clearTimeout(wdint); wdint=0};
+                wdint = setInterval(KickWd, process.env.BOARD == "DSD6"?1000:3000);
 		//
 		if (euc.state != "OFF") {
 			if (euc.dbg) console.log("EUC: Restarting");

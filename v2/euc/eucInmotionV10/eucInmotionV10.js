@@ -187,9 +187,11 @@ euc.temp.liveParse = function (inc){
     else euc.is.alert =  euc.is.alert + 1 + Math.round(-(euc.dash.live.amp - euc.dash.alrt.amp.hapt.low) / euc.dash.alrt.amp.hapt.step) ;
   }
   //trip
-  euc.dash.trip.last=lala.getInt32(67, true)/1000;
   //print(euc.dash.trip.last);
   euc.dash.trip.totl=lala.getUint32(63, true)/1000;
+  if(!euc.dash.trip.startStrip) euc.dash.trip.startStrip=euc.dash.trip.totl;
+//  euc.dash.trip.last=lala.getInt32(67, true)/1000;
+  euc.dash.trip.last=euc.dash.trip.totl-euc.dash.trip.startStrip;
   euc.log.trip.forEach(function(val,pos){ if (!val) euc.log.trip[pos]=euc.dash.trip.totl;});
   //mode
   euc.dash.opt.ride.mode=lala.getInt32(81, true);
@@ -321,6 +323,8 @@ euc.temp.live= function(){
 euc.wri=function(i) {if (ew.is.bt===2) console.log("not connected yet"); if (i=="end") euc.off(); return;};
 euc.conn=function(mac){
 	if (ew.is.bt===2) console.log("EUCInmotionV1 init");
+	euc.temp.infoGet=0;
+	euc.dash.trip.startStrip=0;
 	if (euc.tout.alive) {clearTimeout(euc.tout.alive); euc.tout.alive=0};
 	if (euc.gatt && euc.gatt.connected) {
 		return euc.gatt.disconnect();
