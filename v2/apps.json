@@ -41,9 +41,7 @@
 			{"name":"eucWatch.img","url":"../init/eucWatch.icon.js"},
 			{"name":".display","url":"../init/lcd_b2.js"}
 		]
-	
 	},
-	
 	{ "id": "init",
 		"name": "Init - P8/P22",
 		"icon": "../init/icon.png",
@@ -84,8 +82,7 @@
 		"storage": [
 			{"name":".bootrst","url":"../init/init.js"}
 		]
-	},	
-
+	},
 	{ "id": "UI",
 		"name": "UI support",
 		"icon": "../../Magic-testing/UI/icon.png",
@@ -98,9 +95,8 @@
 		"storage": [
 			{"name":"C:UI","url":"../../Magic-testing/UI/ui.js"},
 			{"name":"C:icons","url":"../../Magic-testing/UI/icons.js"}
-	
 		]
-	},	
+	},
 	{ "id": "fonts",
 		"name": "fonts",
 		"icon": "../init/fonts/icon.png",
@@ -118,7 +114,6 @@
 
 		]
 	},
-
 	{ "id": "handler",
 		"name": "Handler - V2",
 		"icon": "../../Magic-testing/handler/icon.png",
@@ -264,7 +259,7 @@
 	{ "id": "dash",
 		"name": "EUC Dashboard",
 		"icon": "../../P8-testing/dash/icon.png",
-		"version":"1.94.1",
+		"version":"1.94.2",
 		"description": "EUC dashboard. Garage, scan and dash faces. Depends on EUC modules.",
 		"tags": "euc",
 	    "needsFeatures":["V1"],
@@ -280,7 +275,7 @@
 	{ "id": "Dashboard Digital",
 		"name": "EUC digital Dashboard",
 		"icon": "../../P8-testing/dash/icon.png",
-		"version":"1.94.2",
+		"version":"1.94.3",
 		"description": "EUC simple digital",
 		"tags": "euc",
 	    "needsFeatures":["V1"],
@@ -288,7 +283,7 @@
 		"storage": [
 			{"name":"dash_digital","url":"../../P8-testing/dash/dash_digital.js"}
 		]
-	}, 	
+	},
 	{ "id": "Dashboard Simple",
 		"name": "EUC simple Dashboard",
 		"icon": "../../P8-testing/dash/icon.png",
@@ -300,7 +295,7 @@
 		"storage": [
 			{"name":"dash_simple","url":"../../P8-testing/dash/dash_simple.js"}
 		]
-	}, 
+	},
 	{ "id": "Dashboard PWM",
 		"name": "EUC pwm Dashboard",
 		"icon": "../../P8-testing/dash/icon.png",
@@ -312,7 +307,7 @@
 		"storage": [
 			{"name":"dash_pwm","url":"../../P8-testing/dash/dash_pwm.js"}
 		]
-	}, 
+	},
 	{ "id": "dashKingsong",
 		"name": "Kingsong Settings",
 		"icon": "../../P8-testing/dashKingsong/icon.png",
@@ -336,7 +331,7 @@
 			{"name":"dashKingsongAdvPass","url":"../../P8-testing/dashKingsong/dashKingsongAdvPass.js"},
 			{"name":"dashKingsongCharging","url":"../../P8-testing/dashKingsong/dashKingsongCharging.js"}
 		]
-	}, 
+	},
 	{ "id": "dashNinebotE",
 		"name": "Ninebot Settings",
 		"icon": "../../P8-testing/dashNinebotE/icon.png",
@@ -348,7 +343,7 @@
 		"storage": [
 			{"name":"dashNinebotE","url":"../../P8-testing/dashNinebotE/dashNinebotE.js"}
     ]
-	}, 
+	},
 	{ "id": "dashNinebotZ",
 		"name": "NinebotZ Settings",
 		"icon": "../../P8-testing/dashNinebotZ/icon.png",
@@ -360,7 +355,7 @@
 		"storage": [
 			{"name":"dashNinebotZ","url":"../../P8-testing/dashNinebotZ/dashNinebotZ.js"}
     ]
-	}, 
+	},
 	{ "id": "dashNinebotS",
 		"name": "Ninebot S2/A1 Settings",
 		"icon": "../../P8-testing/dashNinebotS/icon.png",
@@ -402,7 +397,7 @@
 		"storage": [
 			{"name":"dashInmotionV11","url":"../../P8-testing/dashInmotionV11/dashInmotionV11.js"}
     ]
-	}, 
+	},
 	{ "id": "dashInmotionV12",
 		"name": "Inmotion V12 Settings",
 		"icon": "../../P8-testing/dashInmotionV12/icon.png",
@@ -414,7 +409,7 @@
 		"storage": [
 		{"name":"dashInmotionV12","url":"../../P8-testing/dashInmotionV12/dashInmotionV12.js"}
     ]
-	}, 
+	},
 	{ "id": "dashVeteran",
 		"name": "Veteran Settings",
 		"icon": "../../P8-testing/dashVeteran/icon.png",
@@ -427,7 +422,7 @@
 			{"name":"dashVeteranOptions","url":"../../P8-testing/dashVeteran/dashVeteranOptions.js"}
 
 		]
-	}, 
+	},
 	{ "id": "dashBegode",
 		"name": "Begode Settings",
 		"icon": "../../P8-testing/dashBegode/icon.png",
@@ -470,7 +465,7 @@
 		"storage": [
 			{"name":"ledBT","url":"../../P8-testing/ledBT/ledBT.js"}
 		]
-	},	
+	},
 	{ "id": "repellent",
 		"name": "Repellent",
 		"icon": "../../P8-testing/repellent/icon.png",
@@ -529,8 +524,6 @@
 			{"name":"w_testTP","url":"../../P8-testing/w_testTP/w_testTP.js"}
 		]
 	},
-
-
 	{ "id": "clock",
 		"name": "Clock",
 		"icon": "../../Magic-testing/clock/icon.png",
@@ -542,7 +535,7 @@
 		"storage": [
 			{"name":"C:clock","url":"../../Magic-testing/clock/clock.js"}
 		]
-	},  
+	},
 	{ "id": "settings",
 		"name": "Settings",
 		"icon": "../../Magic-testing/settings/icon.png",
@@ -578,7 +571,7 @@
 			{"name":"dashScan","url":"../../Magic-testing/dash/dashScan.js"},
 			{"name":"C:dashOff","url":"../../Magic-testing/dash/dashOff.js"}
 		]
-	}, 
+	},
 	{ "id": "dashKingsong",
 		"name": "Kingsong Settings",
 		"icon": "../../Magic-testing/dashKingsong/icon.png",
@@ -602,7 +595,7 @@
 			{"name":"dashKingsongAdvAlert","url":"../../Magic-testing/dashKingsong/dashKingsongAdvAlert.js"},
 			{"name":"dashKingsongAdvPass","url":"../../Magic-testing/dashKingsong/dashKingsongAdvPass.js"}
 		]
-	}, 
+	},
 	{ "id": "dashNinebotE",
 		"name": "NinebotE Settings",
 		"icon": "../../Magic-testing/dashNinebotE/icon.png",
@@ -614,7 +607,7 @@
 		"storage": [
 			{"name":"dashNinebotE","url":"../../Magic-testing/dashNinebotE/dashNinebotE.js"}
     ]
-	}, 
+	},
 	{ "id": "dashNinebotZ",
 		"name": "NinebotZ Settings",
 		"icon": "../../Magic-testing/dashNinebotZ/icon.png",
@@ -626,7 +619,7 @@
 		"storage": [
 			{"name":"dashNinebotZ","url":"../../Magic-testing/dashNinebotZ/dashNinebotZ.js"}
     ]
-	}, 
+	},
 	{ "id": "dashNinebotS",
 		"name": "Ninebot S2/A1 Settings",
 		"icon": "../../Magic-testing/dashNinebotS/icon.png",
@@ -654,9 +647,9 @@
 			{"name":"dashInmotionV10Adv","url":"../../Magic-testing/dashInmotionV10/dashInmotionV10Adv.js"},
 			{"name":"dashInmotionV10AdvCalibrate","url":"../../Magic-testing/dashInmotionV10/dashInmotionV10AdvCalibrate.js"},
 			{"name":"dashInmotionV10AdvLimits","url":"../../Magic-testing/dashInmotionV10/dashInmotionV10AdvLimits.js"},
-			{"name":"dashInmotionV10AdvPass","url":"../../Magic-testing/dashInmotionV10/dashInmotionV10AdvPass.js"}   
+			{"name":"dashInmotionV10AdvPass","url":"../../Magic-testing/dashInmotionV10/dashInmotionV10AdvPass.js"}
 		]
-	}, 
+	},
 	{ "id": "dashInmotionV11",
 		"name": "Inmotion V11 Settings",
 		"icon": "../../Magic-testing/dashInmotionV11/icon.png",
@@ -668,7 +661,7 @@
 		"storage": [
 			{"name":"dashInmotionV11","url":"../../Magic-testing/dashInmotionV11/dashInmotionV11.js"}
     ]
-	}, 
+	},
 	{ "id": "dashInmotionV12",
 		"name": "Inmotion V12 Settings",
 		"icon": "../../Magic-testing/dashInmotionV12/icon.png",
@@ -693,7 +686,7 @@
 			{"name":"dashVeteranOptions","url":"../../Magic-testing/dashVeteran/dashVeteranOptions.js"}
 
 		]
-	}, 
+	},
 	{ "id": "dashBegode",
 		"name": "Begode Settings",
 		"icon": "../../Magic-testing/dashBegode/icon.png",
@@ -801,7 +794,7 @@
 	{ "id": "eucInmotionV10",
 		"name": "Inmotion V5/8/10 module",
 		"icon": "../../v2/euc/eucInmotionV10/icon.png",
-		"version":"1.94.6",
+		"version":"1.94.7",
 		"description": "EUC module for Inmotion V5/8/10.",
 		"tags": "euc",
 		"type": "euc",

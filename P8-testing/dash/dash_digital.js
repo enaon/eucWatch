@@ -38,6 +38,10 @@ face[0] = {
 		if (!this.run) return;
 		if (euc.state=="READY") {
 			this.g.setColor(0,0);
+			if(euc.state!=this.conn) {
+                                this.conn=euc.state;
+				this.g.fillRect(0,0,239,239);
+			}
 			this.g.flip();
 			if (this.spd != Math.round(euc.dash.live.spd)) this.spdF();
 			// alarm events time graph
@@ -227,7 +231,7 @@ face[0] = {
 		this.g.setColor(0,this.tmpC[euc.dash.alrt.tmp.cc]);
 		this.g.fillRect(0,0,119,50);
 		this.g.setColor(1,15);
-		if (euc.dash.info.get.makr=="Kingsong"){
+		if (euc.dash.info.get.makr=="Kingsong" || euc.dash.info.get.makr=="InmotionV10"){
 			this.g.setFontVector(35);
 			let temp= Math.round(((ew.def.dash.farn)?euc.dash.live.tmp* 1.8+32:this.tmp));
 			let tempM=Math.round(((ew.def.dash.farn)?euc.dash.live.tmpM*1.8+32:euc.dash.live.tmpM));
@@ -238,7 +242,8 @@ face[0] = {
 			this.g.setFontVector(27);
 			this.g.drawString(tempM,120-this.g.stringWidth(tempM),13);
 			this.g.setFontVector(8);
-			this.g.drawString("MOSFET            MOTOR", 7,40);
+			if (euc.dash.info.get.makr=="Kingsong")	   this.g.drawString("MOSFET            MOTOR", 7,40);
+			if (euc.dash.info.get.makr=="InmotionV10") this.g.drawString("MOSFET          BATTERY", 7,40);
 		}else{
 			this.g.setFontVector(50);
 			let temp=((ew.def.dash.farn)?this.tmp*1.8+32:this.tmp).toString().split(".");
