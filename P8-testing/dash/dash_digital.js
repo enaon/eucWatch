@@ -48,7 +48,7 @@ face[0] = {
 			if (euc.log.almL.includes(1)) {
 				this.alF();
 				this.bar=0;
-			} else if (5<=this.spd&& euc.dash.info.get.makr=="Kingsong"){
+			} else if (5<=this.spd&& euc.dash.info.get.makr=="Kingsong" || euc.dash.info.get.makr=="Veteran"){
 				if (this.pwm!=euc.dash.live.pwm) {this.pwm=euc.dash.live.pwm; this.pwmF();}
 			} else if (!this.bar) { this.bar=1; this.barF();}
 			//tmp/amp block
