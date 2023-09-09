@@ -843,7 +843,7 @@
    { "id": "eucVeteran",
 		"name": "Veteran module",
 		"icon": "../../v2/euc/eucVeteran/icon.png",
-		"version":"1.94.5",
+		"version":"2.0.0",
 		"description": "EUC module for Veteran Sherman",
 		"tags": "euc",
 		"type": "euc",
