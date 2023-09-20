@@ -234,7 +234,7 @@
 	{ "id": "notify",
 		"name": "Notifications",
 		"icon": "../../P8-testing/notify/icon.png",
-		"version":"1.94.1",
+		"version":"1.94.2",
 		"description": "Notifications face for system, atc and gadgetbridge",
 		"tags": "apps",
 		"type": "notify",
