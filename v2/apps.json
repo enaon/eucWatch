@@ -480,7 +480,7 @@
 	{ "id": "hid",
 		"name": "HID BT Music control",
 		"icon": "../../P8-testing/hid/icon.png",
-		"version":"1.94.1",
+		"version":"1.94.2",
 		"description": "Music controls over BLEHID face",
 		"tags": "apps",
 	    "needsFeatures":["V1"],

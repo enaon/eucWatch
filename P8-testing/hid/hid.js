@@ -33,7 +33,7 @@ face[0] = {
             //header
 	    //todo:add music info from gb
             g.setColor(0, 1); //header_back
-            g.fillRect(0, 0, 239, 35);
+            g.fillRect(0, 0, 239, 239);
             g.setColor(1, 14); //header_txt
             g.setFont("Vector", 25);
             g.drawString("MUSIC", 4, 6);
@@ -142,7 +142,7 @@ touchHandler[0] = function(e, x, y) {
         } else {
             face.go("settings", 0);
             return;
-        } 
+        }
     } else if (e == 3) {
         buzzer.nav( 40);
     } else if (e == 4) {
