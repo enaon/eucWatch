@@ -17,6 +17,23 @@ euc.cmd=function(no){
 		default: return [];
     }
 };
+//
+function checksum(packet) {
+  // Skip check if old firmware
+  let FWVer = packet[28]<<8|packet[29];
+  if (FWVer < 3012) {
+    if (ew.is.bt===2) console.log("Firmware does not support checksum. FWVer: ", FWVer);
+    return 1;
+  }
+
+  if (ew.is.bt===2) console.log("Checksum verification");
+
+  let tCRC32View=new DataView(packet, packet.length-4, 4);
+  let tPckt=new Uint8Array(packet, 0, packet.length-4);
+  if (E.CRC32(tPckt) == tCRC32View.getUint32(0)) return 1;
+  else return 0;
+}
+//
 euc.isProxy=0;
 //
 euc.temp.liveParse = function (inc){
@@ -94,8 +111,12 @@ euc.temp.inpk = function(event) {
   if (euc.temp.tot.buffer.length < needBufLen) return;
 
   if (euc.temp.tot.buffer.length == needBufLen) {
-    euc.temp.liveParse(euc.temp.tot.buffer);
     if (ew.is.bt===2) console.log("Veteran: in: length:",euc.temp.tot.buffer.length," data :",[].map.call(euc.temp.tot, x => x.toString(16)).toString());
+    if (checksum(euc.temp.tot.buffer)) {
+      euc.temp.liveParse(euc.temp.tot.buffer);
+    } else {
+      if (ew.is.bt===2) console.log("Packet checksum error. Dropped.");
+    }
   } else if (ew.is.bt===2) console.log("Packet size error. Dropped.");
 
   euc.temp.tot=E.toUint8Array([0]);
