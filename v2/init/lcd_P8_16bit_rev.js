@@ -22,7 +22,7 @@ var SPI2 = (function(){
 // this method would produce code string that can replace bin declaration above with heatshrink compressed variant
 // however it seems the gain is very small so is not worth it
 //    shrink:function(){return `var bin=E.toString(require("heatshrink").decompress(atob("${btoa(require("heatshrink").compress(bin))}")))`;}
-//*/
+//
 CS=D25;DC=D18;RST=D26;BL=D14;
 SCK=D2;MOSI=D3;
 RST.reset();
@@ -94,6 +94,7 @@ function init(){
 //var bpp=(require("Storage").read("ew.json") && require("Storage").readJSON("ew.json").bpp)?require("Storage").readJSON("ew.json").bpp:1;
 var bpp=1;
 var g=Graphics.createArrayBuffer(240,240,bpp);
+g.setRotation(scr.rotate, scr.mirror);
 var pal;
 g.sc=g.setColor;
 // 16bit RGB565  //0=black,1=dgray,2=gray,3=lgray,4=raf,5=raf1,6=raf2,7=red,8=blue,9=purple,10=?,11=green,12=olive,13=yellow,14=lblue,15=white

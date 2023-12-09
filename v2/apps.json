@@ -59,7 +59,7 @@
 	{ "id": "init",
 		"name": "Init - P22 B1-D",
 		"icon": "../init/icon.png",
-		"version":"1.94.4",
+		"version":"1.94.5",
 		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
 		"tags": "core",
 	    "needsFeatures":["P22B"],
@@ -145,7 +145,7 @@
 	{ "id": "handler",
 		"name": "Handler - V1",
 		"icon": "../handler/icon.png",
-		"version":"1.94.8",
+		"version":"1.94.9",
 		"description": "P8-P22-Pinetime functions handler",
 		"tags": "core",
 	    "needsFeatures":["V1"],
@@ -229,6 +229,17 @@
 	    "needsFeatures":["V1"],
 		"storage": [
 			{"name":"calc","url":"../../P8-testing/calc/calc.js"}
+		]
+	},
+	{ "id": "rotate",
+		"name": "Screen rotate",
+		"icon": "../../P8-testing/rotate/icon.png",
+		"version":"1.0.0",
+		"description": "Rotate and mirror screen",
+		"tags": "apps",
+            "needsFeatures":["P22B"],
+		"storage": [
+			{"name":"rotate","url":"../../P8-testing/rotate/rotate.js"}
 		]
 	},
 	{ "id": "notify",
@@ -491,7 +502,7 @@
 	{ "id": "w_apps",
 		"name": "App Loader",
 		"icon": "../../P8-testing/w_apps/icon.png",
-		"version":"1.94.1",
+		"version":"1.94.2",
 		"description": "Extends settings face with an app drawer.",
 		"tags": "system",
 		"type": "system",
