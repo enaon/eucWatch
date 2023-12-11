@@ -18,6 +18,7 @@ face[0] = {
 		this.spd=euc.dash.live.spd-1;
 		this.aTlt=-1;
 		this.topS=-1;
+		this.topP=-1;
 		this.amp=-10;
 		this.tmp=-1;
 		this.pwm=-1;
@@ -48,9 +49,10 @@ face[0] = {
 			if (euc.log.almL.includes(1)) {
 				this.alF();
 				this.bar=0;
-			} else if (5<=this.spd && (euc.dash.info.get.makr=="Kingsong" || euc.dash.info.get.makr=="Veteran")){
+			} else if (5<=this.spd&& euc.dash.info.get.makr=="Kingsong" || euc.dash.info.get.makr=="Veteran"){
 				if (this.pwm!=euc.dash.live.pwm) {this.pwm=euc.dash.live.pwm; this.pwmF();}
-			} else if (!this.bar) { this.bar=1; this.barF();}
+				if (this.topP!=euc.dash.trip.pwm) {this.topP=euc.dash.trip.pwm; this.pwmMF();}
+			} else if (!this.bar) { this.topP=-1; this.bar=1; this.barF();}
 			//tmp/amp block
 			if (!ew.def.dash.amp) {
 				if (this.amp!=Math.round(euc.dash.live.amp)) this.ampF();
@@ -126,6 +128,7 @@ face[0] = {
 		this.g.drawString(Math.round(this.spd*this.fact),129-(this.g.stringWidth(Math.round(this.spd*this.fact))/2),(100 <= this.spd)?75:57);
 		this.g.flip();
 		if (this.spd==0) {
+			this.topP=-1;
 			this.bar=1;
 			this.barF();
 		}
@@ -142,14 +145,23 @@ face[0] = {
 	pwmF: function(){
 		"ram";
 		this.g.setColor(0,euc.dash.alrt.pwm.hapt.hi<=euc.dash.live.pwm?13:1);
-		this.g.fillRect(0,176,239,200);
+		this.g.fillRect(0,176,191,200);
 		this.g.setColor(1,50<=euc.dash.live.pwm?14:15);
 		this.g.setFontVector(23);
-		this.g.drawString(euc.dash.live.pwm,3,175);
+		this.g.drawString(euc.dash.live.pwm,44-this.g.stringWidth(euc.dash.live.pwm),178);
 		this.g.setFontVector(14);
 		this.g.drawString("%",45,178);
-		this.g.fillRect(80,180,80+euc.dash.live.pwm*1.6,187);
-		w.gfx.flip();
+		this.g.fillRect(59,180,59+euc.dash.live.pwm*1.32,187);
+		this.g.flip();
+	},
+	pwmMF: function(){
+		this.g.setColor(0,euc.dash.alrt.pwm.hapt.hi<=euc.dash.trip.pwm?13:1);
+		this.g.fillRect(192,176,239,200);
+		this.g.setFontVector(23);
+		this.g.setColor(1,50<=euc.dash.trip.pwm?14:15);
+		this.g.setFontVector(23);
+		this.g.drawString(euc.dash.trip.pwm,239-this.g.stringWidth(euc.dash.trip.pwm),178);
+		this.g.flip();
 	},
 	ampF: function(){
 		this.amp=Math.round(euc.dash.live.amp);

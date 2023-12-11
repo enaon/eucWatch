@@ -125,6 +125,7 @@ euc.temp.inpk = function(event) {
 //start
 euc.wri=function(i) {if (ew.def.cli) console.log("not connected yet"); if (i=="end") euc.off(); return;};
 euc.conn=function(mac){
+	euc.dash.trip.pwm=0;
 	//check
 	if ( euc.gatt!="undefined") {
 		if (ew.def.cli) print("ble allready connected");
