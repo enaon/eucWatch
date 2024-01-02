@@ -49,7 +49,7 @@ face[0] = {
 			if (euc.log.almL.includes(1)) {
 				this.alF();
 				this.bar=0;
-			} else if (5<=this.spd&& euc.dash.info.get.makr=="Kingsong" || euc.dash.info.get.makr=="Veteran"){
+			} else if ((5<=this.spd || 50<=this.topP) && euc.dash.info.get.makr=="Kingsong" || euc.dash.info.get.makr=="Veteran"){
 				if (this.pwm!=euc.dash.live.pwm) {this.pwm=euc.dash.live.pwm; this.pwmF();}
 				if (this.topP!=euc.dash.trip.pwm) {this.topP=euc.dash.trip.pwm; this.pwmMF();}
 			} else if (!this.bar) { this.topP=-1; this.bar=1; this.barF();}
@@ -127,7 +127,7 @@ face[0] = {
 		else this.g.setFontVector(130);
 		this.g.drawString(Math.round(this.spd*this.fact),129-(this.g.stringWidth(Math.round(this.spd*this.fact))/2),(100 <= this.spd)?75:57);
 		this.g.flip();
-		if (this.spd==0) {
+		if (this.spd==0 && this.topP<50) {
 			this.topP=-1;
 			this.bar=1;
 			this.barF();

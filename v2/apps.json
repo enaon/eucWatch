@@ -286,7 +286,7 @@
 	{ "id": "Dashboard Digital",
 		"name": "EUC digital Dashboard",
 		"icon": "../../P8-testing/dash/icon.png",
-		"version":"1.94.6",
+		"version":"1.94.7",
 		"description": "EUC simple digital",
 		"tags": "euc",
 	    "needsFeatures":["V1"],
