@@ -53,6 +53,13 @@ face[0] = {
 			this.g.flip();
     },
     ntfy: function(txt0,txt1,size,bt,clr,tm,s){
+    // txt0 - title
+    // txt1 - value
+    // size - font size for value
+    // bt - ???
+    // clr - background color
+    // tm - timeout
+    // s - show arrows
 			if (this.ntid) {clearTimeout(this.ntid); this.ntid=0;}
             this.g.setColor(0,clr);
 			this.g.fillRect(0,160,239,239);
@@ -87,7 +94,7 @@ face[0] = {
 				t.g.flip();
 				t.g.setColor(1,(t.page)?15:2);
 				t.g.fillRect(120,180,165,184);
-				t.g.flip(); 
+				t.g.flip();
 			},tm,this);
     },
 	tid:-1,
@@ -184,6 +191,14 @@ touchHandler[0]=function(e,x,y){
 					}
 					face[0].btn(1,"EMPTY",15,40,90,12,0,0,80,75,155,euc.dash.opt.bat.low/100,30,40,120); //4
 					face[0].ntfy("0% WHEN CELL IS AT",euc.dash.opt.bat.low/100 + " Volt",30,1,12,3000,1);
+				}else if (face[0].set=="batP") { //bat
+					if (x<120){ //
+						euc.dash.opt.bat.pack--; if (euc.dash.opt.bat.pack < 1) euc.dash.opt.bat.pack = 1;
+					}else{ //back
+						euc.dash.opt.bat.pack++; if (99 < euc.dash.opt.bat.pack) euc.dash.opt.bat.pack = 99;
+					}
+					face[0].btn(1,"PACK",15,200,90,4,0,160,80,239,155,"S" + euc.dash.opt.bat.pack.toString(10),30,200,120); //6
+					face[0].ntfy("BATTERY VOLTAGE",euc.dash.opt.bat.pack*4.2,40,1,4,3000,1);
 				}else  {
 					buzzer.nav(40);
 					face[0].set=0;
@@ -243,13 +258,9 @@ touchHandler[0]=function(e,x,y){
 			}else if (75<= x && x < 155 && 75 <y && y < 155) { //5
 				buzzer.nav(40);
 			}else if (155 <= x && 75 <y && y < 155) { //6
-				if (1.5<=euc.dash.opt.bat.pack&& euc.dash.opt.bat.pack<=1.8) euc.dash.opt.bat.pack=1.875;
-				else if (euc.dash.opt.bat.pack==1.875) euc.dash.opt.bat.pack=2;
-				else if (euc.dash.opt.bat.pack==2) euc.dash.opt.bat.pack=0.875;
-				else if (euc.dash.opt.bat.pack==0.875) euc.dash.opt.bat.pack=1;
-				else euc.dash.opt.bat.pack=euc.dash.opt.bat.pack+0.25;
-				face[0].btn(1,"PACK",15,200,90,4,0,160,80,239,155,euc.dash.opt.bat.pack*67.2|0,30,200,120); //6
-				face[0].ntfy("BATTERY VOLTAGE",euc.dash.opt.bat.pack*67.2,40,1,4,1500);
+				face[0].set="batP";
+				face[0].btn(1,"PACK",15,200,90,4,0,160,80,239,155,"S" + euc.dash.opt.bat.pack.toString(10),30,200,120); //6
+				face[0].ntfy("BATTERY VOLTAGE",euc.dash.opt.bat.pack*4.2,40,1,4,3000,1);
 				buzzer.nav([30,50,30]);
 			}else buzzer.nav(40);
 		}
@@ -281,12 +292,14 @@ touchHandler[0]=function(e,x,y){
 		//yhis.timeout();
 		if (!face[0].page) {
 			face[0].page=1;
+			euc.dash.opt.bat.pack = Math.ceil(euc.dash.opt.bat.pack);
+			if (!euc.dash.opt.bat.pack) euc.dash.opt.bat.pack = 1;
 			face[0].btn(1,"FULL",15,40,10,1,0,0,0,75,75,euc.dash.opt.bat.hi/100,30,40,35); //1
 			face[0].btn(1,"",20,100,20,1,0,80,0,155,75,"",30,120,25);//2
 			face[0].btn(1,"AMP",15,200,10,4,0,160,0,239,75,(euc.dash.opt.unit.ampR)?"R":"N",30,200,35); //3
 			face[0].btn(1,"EMPTY",15,40,90,1,0,0,80,75,155,euc.dash.opt.bat.low/100,30,40,120); //4
 			face[0].btn(1,"",15,120,90,1,0,80,80,155,155,"",30,120,120); //5
-			face[0].btn(1,"PACK",15,200,90,4,0,160,80,239,155,euc.dash.opt.bat.pack*67.2|0,30,200,120); //6
+			face[0].btn(1,"PACK",15,200,90,4,0,160,80,239,155,"S" + euc.dash.opt.bat.pack.toString(10),30,200,120); //6
 			if (face[0].ntid) {
 				clearTimeout(face[0].ntid);face[0].ntid=0;
 				w.gfx.setColor(0,0);

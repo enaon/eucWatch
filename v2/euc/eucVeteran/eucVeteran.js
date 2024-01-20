@@ -1,4 +1,4 @@
-//Vteran euc module 
+//Vteran euc module
 E.setFlags({ pretokenise: 1 });
 euc.cmd=function(no){
 	switch (no) {
@@ -42,7 +42,7 @@ euc.temp.liveParse = function (inc){
   //print(this.ev);
   //volt-bat
   euc.dash.live.volt=lala.getUint16(4)/100;
-  euc.dash.live.bat=Math.round(100*(euc.dash.live.volt*(100/(16*euc.dash.opt.bat.pack)) - euc.dash.opt.bat.low ) / (euc.dash.opt.bat.hi-euc.dash.opt.bat.low));
+  euc.dash.live.bat=Math.round(100*(euc.dash.live.volt*(100/euc.dash.opt.bat.pack) - euc.dash.opt.bat.low ) / (euc.dash.opt.bat.hi-euc.dash.opt.bat.low));
   euc.log.batL.unshift(euc.dash.live.bat);
   if (20<euc.log.batL.length) euc.log.batL.pop();
   euc.dash.alrt.bat.cc = (50 <= euc.dash.live.bat)? 0 : (euc.dash.live.bat <= euc.dash.alrt.bat.hapt.low)? 2 : 1;

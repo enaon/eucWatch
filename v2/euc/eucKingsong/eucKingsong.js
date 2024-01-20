@@ -148,7 +148,7 @@ euc.temp.inpk = function(event) {
 	let inpk = JSON.parse(E.toJS(event.target.value.buffer));
 	if (ew.is.bt == 5) {
 		NRF.updateServices({ 0xffe0: { 0xffe1: { value: inpk, notify: true } } });
-		//if (ew.dbg&&ew.log) { 
+		//if (ew.dbg&&ew.log) {
 		//	ew.log.unshift("Proxy from wheel: "+" "+Date()+" "+E.toJS(inpk));
 		//	if (100<ew.log.length) ew.log.pop();
 		//}
@@ -220,7 +220,7 @@ euc.temp.one = function(inpk) {
 	}
 	//volt
 	euc.dash.live.volt = (inpk[3] << 8 | inpk[2]) / 100;
-	euc.dash.live.bat = Math.round(100 * (euc.dash.live.volt * (100 / (16 * euc.dash.opt.bat.pack)) - euc.dash.opt.bat.low) / (euc.dash.opt.bat.hi - euc.dash.opt.bat.low));
+	euc.dash.live.bat = Math.round(100 * (euc.dash.live.volt * (100 / euc.dash.opt.bat.pack) - euc.dash.opt.bat.low) / (euc.dash.opt.bat.hi - euc.dash.opt.bat.low));
 	euc.log.batL.unshift(euc.dash.live.bat);
 	if (20 < euc.log.batL.length) euc.log.batL.pop();
 	euc.dash.alrt.bat.cc = (50 <= euc.dash.live.bat) ? 0 : (euc.dash.live.bat <= euc.dash.alrt.bat.hapt.low) ? 2 : 1;

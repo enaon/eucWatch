@@ -119,10 +119,10 @@ euc.temp.infoParse = function (inc){
     euc.dash.opt.snd.vol=((lala.getUint8(145) << 8) | lala.getUint8(144)) / 100;
   if (euc.temp.infoGet) return;
   //firmware
-  let v0=lala.getUint8(46);
+  euc.dash.info.get.firmMJ=lala.getUint8(46);
   let v1=lala.getUint8(45);
   let v2=((lala.getUint8(44) << 8) | lala.getUint8(43));
-  euc.dash.info.get.firm=[v0, v1, v2].join('.');
+  euc.dash.info.get.firm=[euc.dash.info.get.firmMJ, v1, v2].join('.');
   //serial
   let serial = new String('');
   let tByte;
@@ -142,6 +142,7 @@ euc.temp.infoParse = function (inc){
   //model
   let modelId=lala.getUint8(126).toString(10)+lala.getUint8(123).toString(10)
   euc.dash.info.get.modl=getModelName(modelId);
+  euc.dash.info.get.makr="InmotionV10";
   if (!ew.do.fileRead("dash","slot"+ew.do.fileRead("dash","slot")+"Name") || ew.do.fileRead("dash","slot"+"1"+"Name") != euc.dash.info.get.modl) {
     ew.do.fileWrite("dash","slot"+ew.do.fileRead("dash","slot")+"Name",euc.dash.info.get.modl);
   }
@@ -156,7 +157,6 @@ euc.temp.liveParse = function (inc){
   //values
   //spd
   euc.dash.live.spd=(lala.getInt32(31, true)+lala.getInt32(35, true))/2000;
-
   if (euc.dash.trip.topS < euc.dash.live.spd) euc.dash.trip.topS = euc.dash.live.spd;
   if (euc.dash.live.spd<0) euc.dash.live.spd=-euc.dash.live.spd;
   euc.dash.alrt.spd.cc = ( euc.dash.alrt.spd.hapt.hi <= euc.dash.live.spd )? 2 : ( euc.dash.alrt.spd.hapt.low <= euc.dash.live.spd )? 1 : 0 ;
@@ -165,15 +165,15 @@ euc.temp.liveParse = function (inc){
   //volt
   euc.dash.live.volt=lala.getUint32(43, true)/100;
   //batt
-  euc.dash.live.bat=Math.round(100* (euc.dash.live.volt*( 100/(16*euc.dash.opt.bat.pack)) - euc.dash.opt.bat.low )  / (euc.dash.opt.bat.hi-euc.dash.opt.bat.low) );
-  //euc.dash.live.bat = Math.round(((euc.dash.live.volt - 60) * 100) / (84 - 60));
+  euc.dash.live.bat=Math.round(100* (euc.dash.live.volt*(100/euc.dash.opt.bat.pack) - euc.dash.opt.bat.low )  / (euc.dash.opt.bat.hi-euc.dash.opt.bat.low) );
   euc.log.batL.unshift(euc.dash.live.bat);
   if (20<euc.log.batL.length) euc.log.batL.pop();
   euc.dash.alrt.bat.cc = (50 <= euc.dash.live.bat)? 0 : (euc.dash.live.bat <= euc.dash.alrt.bat.hapt.low)? 2 : 1;
   if ( euc.dash.alrt.bat.hapt.en && euc.dash.alrt.bat.cc ==2 )  euc.is.alert ++;
   //temp
-  euc.dash.live.tmpM=(lala.buffer[51] & 0xff);
-  euc.dash.live.tmp=(lala.buffer[53] & 0xff);
+  euc.dash.live.tmpM=lala.getInt8(51);
+  if((euc.dash.info.get.modl == "V8F" || euc.dash.info.get.modl == "V8S") && euc.dash.info.get.firmMJ >= 102) euc.dash.live.tmp=lala.getInt8(51);
+  else euc.dash.live.tmp=lala.getInt8(53);
   euc.dash.alrt.tmp.cc=(euc.dash.alrt.tmp.hapt.hi - 5 <= euc.dash.live.tmp )? (euc.dash.alrt.tmp.hapt.hi <= euc.dash.live.tmp )?2:1:0;
   if (euc.dash.alrt.tmp.hapt.en && euc.dash.alrt.tmp.cc==2) euc.is.alert++;
   //amp
