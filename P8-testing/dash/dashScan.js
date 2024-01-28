@@ -170,7 +170,7 @@ touchHandler[0]=function(e,x,y){
 			ew.do.fileWrite("dash","slot"+require("Storage").readJSON("dash.json",1).slot+"Name","V2");
 			euc.dash.info.get.name=0;
 			euc.dash.info.get.makr="InmotionV2";
-			face.go('w_scan',0,'ffe0');
+			face.go('w_scan',0,'6e400001-b5a3-f393-e0a9-e50e24dcca9e');
 			return;
 		}
 	}else if(100<y&&y<200) {

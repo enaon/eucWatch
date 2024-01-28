@@ -400,7 +400,7 @@ euc.conn=function(mac){
     }).then(function(wc) {
       euc.temp.wCha=wc; //write
       print("write packet: ", wc);
-      return euc.temp.serv.getCharacteristic("6e400003-b5a3-f393-e0a9-e50e24dcca9e");//read
+      return euc.temp.serv.getCharacteristic("6e400003-b5a3-f393-e0a9-e50e24dcca9e"); //read
     }).then(function(rc) {
       euc.temp.rCha=rc;
       //read
@@ -432,8 +432,7 @@ euc.conn=function(mac){
             euc.tout.loop = setTimeout(function(){
               euc.tout.loop = 0;
               if (euc.gatt && !euc.gatt.connected)  {euc.off("not connected"); return;}
-              euc.gatt.disconnect();
-              }).catch(euc.off);
+              euc.gatt.disconnect().catch(euc.off);
             },500);
           } else {
             euc.state = "OFF";
