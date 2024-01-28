@@ -83,7 +83,7 @@ function checksum(check, val) {
 }
 //
 function validateChecksum(buffer) {
-  receivedChecksum = buffer[buffer.length - 1];
+  let receivedChecksum = buffer[buffer.length - 1];
   array = new Uint8Array(buffer, 0, buffer.length - 1);
   let calculatedChecksum = array.reduce(checksum)&0xFF;
   return receivedChecksum == calculatedChecksum;
@@ -99,7 +99,7 @@ function getModelName(id) {
 //
 euc.temp.parseMainInfo = function (inc){
   let lala = new DataView(inc);
-  len dataLen = lala.getUint8(3)
+  let dataLen = lala.getUint8(3);
   if(inc[5] == 0x01 && dataLen >= 6) {
     if (ew.is.bt===2) console.log("Parse main data");
     // 020601010100 -v11
@@ -128,14 +128,14 @@ euc.temp.parseMainInfo = function (inc){
       if(motherboard1 < 1 && motherboard2 < 4) {
         euc.temp.protocol = 1;
         euc.temp.parseLive = euc.temp.parseLiveV11v1;
-      else euc.temp.protocol = 2;
+      } else euc.temp.protocol = 2;
   }
 }
 //
 euc.temp.parseSettings = function (inc){
   if (ew.is.bt===2) console.log("Parse main data");
   let lala = new DataView(inc);
-  len dataLen = lala.getUint8(3)
+  let dataLen = lala.getUint8(3)
   if (dataLen<8) {
     if (ew.is.bt===2) console.log("Short package. dataLen=", dataLen.toString(10));
     return;
@@ -147,7 +147,7 @@ euc.temp.parseSettings = function (inc){
 euc.temp.parseLiveV11v1 = function (inc){
   if (ew.is.bt===2) console.log("Parse realtime data (V11 old)");
   let lala = new DataView(inc);
-  len dataLen = lala.getUint8(3)
+  let dataLen = lala.getUint8(3);
   if (dataLen<21) {
     if (ew.is.bt===2) console.log("Short package. dataLen=", dataLen.toString(10));
     return;
@@ -169,7 +169,7 @@ euc.temp.parseLiveV11v1 = function (inc){
 euc.temp.parseLiveV11v2 = function (inc){
   if (ew.is.bt===2) console.log("Parse realtime data (V11)");
   let lala = new DataView(inc);
-  len dataLen = lala.getUint8(3)
+  let dataLen = lala.getUint8(3);
   if (dataLen<46) {
     if (ew.is.bt===2) console.log("Short package. dataLen=", dataLen.toString(10));
     return;
@@ -191,7 +191,7 @@ euc.temp.parseLiveV11v2 = function (inc){
 euc.temp.parseLiveV12 = function (inc){
   if (ew.is.bt==2) console.log("Parse realtime data (V12)");
   let lala = new DataView(inc);
-  len dataLen = lala.getUint8(3)
+  let dataLen = lala.getUint8(3);
   if (dataLen<44) {
     if (ew.is.bt===2) console.log("Short package. dataLen=", dataLen.toString(10));
     return;
@@ -213,7 +213,7 @@ euc.temp.parseLiveV12 = function (inc){
 euc.temp.parseLiveV13 = function (inc){
   if (ew.is.bt==2) console.log("Parse realtime data (V13)");
   let lala = new DataView(inc);
-  len dataLen = lala.getUint8(3)
+  let dataLen = lala.getUint8(3);
   if (dataLen<62) {
     if (ew.is.bt===2) console.log("Short package. dataLen=", dataLen.toString(10));
     return;
@@ -287,7 +287,7 @@ euc.temp.parseStats = function (inc){
   if (ew.is.bt===2) console.log("Parse total stats data");
   euc.is.lastGetStats = getTime();
   let lala = new DataView(inc);
-  len dataLen = lala.getUint8(3)
+  let dataLen = lala.getUint8(3);
   if (dataLen<22) {
     if (ew.is.bt===2) console.log("Short package. dataLen=", dataLen.toString(10));
     return;
@@ -489,4 +489,4 @@ euc.conn=function(mac){
       setTimeout(() => {euc.wri("start");}, 200);
     //reconnect
     }).catch(euc.off);
-};
+}
