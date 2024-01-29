@@ -283,7 +283,7 @@ euc.temp.inpk = function(event) {
       if (ew.is.bt===2) console.log("Inmotion: info in");
     } else {
       if (!validateChecksum(euc.temp.tot.buffer)) {
-        if (ew.is.bt===2) console.log("Inmotion: info packet error checksum. Skipping";
+        if (ew.is.bt===2) console.log("Inmotion: info packet error checksum. Skipping");
         return;
       }
       if (ew.is.bt===2) console.log("Inmotion: info packet checksum PASS");
