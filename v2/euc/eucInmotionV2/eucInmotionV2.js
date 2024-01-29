@@ -449,8 +449,8 @@ euc.conn=function(mac){
           euc.tout.loop=setTimeout(function(){
             euc.tout.loop=0;euc.tout.busy=0;euc.is.run=1;
             euc.tout.intervalKeep=setInterval(function(){
-              try euc.temp.keepAlive();
-              catch(e) return;
+              try { euc.temp.keepAlive();
+              } catch(e) { return; }
             },200);
           },200);
         } else if (cmd === "hornOn") {
