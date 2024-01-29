@@ -134,7 +134,7 @@ euc.temp.parseMainInfo = function (inc){
 };
 //
 euc.temp.parseSettings = function (inc){
-  if (ew.is.bt===2) console.log("Parse main data");
+  if (ew.is.bt===2) console.log("Parse settings data");
   let lala = new DataView(inc);
   let dataLen = lala.getUint8(3);
   if (dataLen<8) {
@@ -337,23 +337,19 @@ euc.temp.inpk = function(event) {
     return;
   }
   //
-  if (euc.temp.tot.buffer[2] == 0x11 && (euc.temp.tot.buffer[4]&0x7F) == 0x02) {
+  let m = euc.temp.tot.buffer[2];
+  let t = euc.temp.tot.buffer[4] & 0x7F;
+  if (m == 0x11 && t == 0x02) {
     euc.temp.parseMainInfo(euc.temp.tot.buffer);
     return;
   }
-  if (euc.temp.tot.buffer[2] == 0x14) {
-    if ((euc.temp.tot.buffer[4]&0x7F) == 0x20) {
-      if (euc.dash.info.get.modl == "V11") euc.temp.parseSettings(euc.temp.tot.buffer);
-      return;
-    }
-    if ((euc.temp.tot.buffer[4]&0x7F) == 0x11) {
-      euc.temp.parseStats(euc.temp.tot.buffer);
-      return;
-    }
-    if ((euc.temp.tot.buffer[4]&0x7F) == 0x04) {
-      euc.temp.parseLive(euc.temp.tot.buffer);
-    }
-  } else return;
+  if (m == 0x14) {
+    if (t == 0x20) if (euc.dash.info.get.modl == "V11") euc.temp.parseSettings(euc.temp.tot.buffer);
+    else if (t == 0x11) euc.temp.parseStats(euc.temp.tot.buffer);
+    else if (t == 0x04) euc.temp.parseLive(euc.temp.tot.buffer);
+    else console.log("Unknown Info packet. Dropped");
+    return;
+  } else console.log("Unknown packet. Dropped");
 };
 
 euc.temp.keepAlive = function() {
