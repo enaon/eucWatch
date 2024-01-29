@@ -305,8 +305,29 @@ euc.temp.parseStats = function (inc){
   if (2<euc.dbg) print("ride time :", euc.dash.timR);
 };
 //
+crutchDoubleA5 = function(buf) {
+  let len = buf.length;
+  let needLen = buf[3] + 5;
+  if (len === needLen) return buf;
+  let oldByte = 0x00;
+  let p = 0;
+  let newArr = new Uint8Array(needLen);
+  for (i = 0; i < needLen; i++) {
+    if (p >= len) break;
+    if (oldByte === 0xA5 && buf[p] === 0xA5) {
+      p++;
+      continue;
+    }
+    newArr[i] = buf[p];
+    oldByte = buf[p];
+    p++;
+  }
+  if (ew.is.bt===2&&euc.dbg==3) console.log("InmotionV2: in after crutch: length: ", needLen, " data: ",[].map.call(newBuf, x => x.toString(16)).toString());
+  return newArr;
+};
+//
 euc.temp.inpk = function(event) {
-  if (ew.is.bt===2&&euc.dbg==3) console.log("InmotionV2: packet in: ",event.target.value.buffer);
+  if (ew.is.bt===2&&euc.dbg==3) console.log("InmotionV2: packet in: ",[].map.call(event.target.value, x => x.toString(16)).toString());
   //gather package
   let inc=event.target.value.buffer;
   if (ew.is.bt==5) euc.proxy.w(inc);
@@ -317,6 +338,7 @@ euc.temp.inpk = function(event) {
   euc.temp.last=E.toUint8Array(euc.temp.tot.buffer);
   let needBufLen=euc.temp.tot.buffer[3] + 5;
   if (euc.temp.tot.buffer.length < needBufLen) return;
+  euc.temp.tot = crutchDoubleA5(euc.temp.tot);
   if (euc.temp.tot.buffer.length > needBufLen) {
     console.log("InmotionV2: Packet size error. Dropped.");
     euc.temp.tot=E.toUint8Array([0]);
@@ -325,7 +347,7 @@ euc.temp.inpk = function(event) {
   }
   delete inc;
   euc.temp.last = E.toUint8Array();
-  if (ew.is.bt===2) console.log("InmotionV2: in: length:",euc.temp.tot.buffer.length," data :",[].map.call(euc.temp.tot, x => x.toString(16)).toString());
+  if (ew.is.bt===2) console.log("InmotionV2: in: length: ",euc.temp.tot.buffer.length," data: ",[].map.call(euc.temp.tot, x => x.toString(16)).toString());
 
   // Check packet
   if ( !validateChecksum(euc.temp.tot.buffer) ) {
