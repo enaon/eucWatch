@@ -338,7 +338,7 @@ euc.temp.inpk = function(event) {
   delete inc;
   delete euc.temp.last;
   if (euc.temp.tot.buffer.length > needBufLen) {
-    console.log("InmotionV2: Packet size error. Trying a crutch.");
+    if (ew.is.bt===2) console.log("InmotionV2: Packet size error. Trying a crutch.");
     euc.temp.tot = crutchDoubleA5(euc.temp.tot);
   }
   if (ew.is.bt===2) console.log("InmotionV2: in: length: ",euc.temp.tot.buffer.length," data: ",[].map.call(euc.temp.tot, x => x.toString(16)).toString());
