@@ -327,7 +327,7 @@ crutchDoubleA5 = function(buf) {
 };
 //
 euc.temp.inpk = function(event) {
-  if (ew.is.bt===2&&euc.dbg==3) console.log("InmotionV2: packet in: ",[].map.call(event.target.value, x => x.toString(16)).toString());
+  if (ew.is.bt===2&&euc.dbg==3) console.log("InmotionV2: packet in: ",[].map.call(event.target.value.buffer, x => x.toString(16)).toString());
   //gather package
   let inc=event.target.value.buffer;
   if (ew.is.bt==5) euc.proxy.w(inc);
