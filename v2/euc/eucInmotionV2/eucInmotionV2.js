@@ -322,7 +322,7 @@ crutchDoubleA5 = function(buf) {
     oldByte = buf[p];
     p++;
   }
-  if (ew.is.bt===2&&euc.dbg==3) console.log("InmotionV2: in after crutch: length: ", needLen, " data: ",[].map.call(newBuf, x => x.toString(16)).toString());
+  if (ew.is.bt===2&&euc.dbg==3) console.log("InmotionV2: in after crutch: length: ", needLen, " data: ",[].map.call(newArr, x => x.toString(16)).toString());
   return newArr;
 };
 //
