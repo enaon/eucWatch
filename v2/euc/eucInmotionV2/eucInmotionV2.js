@@ -80,14 +80,14 @@ euc.cmd=function(no,val){
 //
 function checksum(check, val) {
   return (check ^ val);
-}
+};
 //
 function validateChecksum(buffer) {
   let receivedChecksum = buffer[buffer.length - 1];
   array = new Uint8Array(buffer, 0, buffer.length - 1);
   let calculatedChecksum = array.reduce(checksum)&0xFF;
   return receivedChecksum == calculatedChecksum;
-}
+};
 function getModelName(id) {
   switch (id) {
     case 6: euc.temp.parseLive = euc.temp.parseLiveV11v2; return "V11";
@@ -95,7 +95,7 @@ function getModelName(id) {
     case 8: euc.temp.parseLive = euc.temp.parseLiveV13; return "V13";
   }
   return "UNKNOWN";
-}
+};
 //
 euc.temp.parseMainInfo = function (inc){
   let lala = new DataView(inc);
@@ -129,20 +129,21 @@ euc.temp.parseMainInfo = function (inc){
         euc.temp.protocol = 1;
         euc.temp.parseLive = euc.temp.parseLiveV11v1;
       } else euc.temp.protocol = 2;
+    }
   }
-}
+};
 //
 euc.temp.parseSettings = function (inc){
   if (ew.is.bt===2) console.log("Parse main data");
   let lala = new DataView(inc);
-  let dataLen = lala.getUint8(3)
+  let dataLen = lala.getUint8(3);
   if (dataLen<8) {
     if (ew.is.bt===2) console.log("Short package. dataLen=", dataLen.toString(10));
     return;
   }
   euc.dash.alrt.spd.max = lala.getUint16(6, true)/100;
   euc.dash.opt.snd.vol = lala.getUint8(13);
-}
+};
 //
 euc.temp.parseLiveV11v1 = function (inc){
   if (ew.is.bt===2) console.log("Parse realtime data (V11 old)");
@@ -164,7 +165,7 @@ euc.temp.parseLiveV11v1 = function (inc){
   // battery temp
   euc.dash.live.tmp2 = lala.getUint8(24) - 176;
   euc.temp.liveAll();
-}
+};
 //
 euc.temp.parseLiveV11v2 = function (inc){
   if (ew.is.bt===2) console.log("Parse realtime data (V11)");
@@ -186,7 +187,7 @@ euc.temp.parseLiveV11v2 = function (inc){
   // battery temp
   euc.dash.live.tmp2 = lala.getUint8(49) - 176;
   euc.temp.liveAll();
-}
+};
 //
 euc.temp.parseLiveV12 = function (inc){
   if (ew.is.bt==2) console.log("Parse realtime data (V12)");
@@ -208,7 +209,7 @@ euc.temp.parseLiveV12 = function (inc){
   // battery temp
   euc.dash.live.tmp2 = lala.getUint8(47) - 176;
   euc.temp.liveAll();
-}
+};
 //
 euc.temp.parseLiveV13 = function (inc){
   if (ew.is.bt==2) console.log("Parse realtime data (V13)");
@@ -230,7 +231,7 @@ euc.temp.parseLiveV13 = function (inc){
   // battery temp
   euc.dash.live.tmp2 = lala.getUint8(65) - 176;
   euc.temp.liveAll();
-}
+};
 //
 euc.temp.liveAll = function (){
   euc.is.lastGetLive = getTime();
@@ -275,13 +276,13 @@ euc.temp.liveAll = function (){
       euc.is.alert = euc.is.alert - 5;
     }
     let i;
-    for (i = 0; i < euc.is.alert ; i++) {
+    for (i = 0; i < euc.is.alert; i++) {
       a.push(200,150);
     }
     buzzer.euc(a);
     setTimeout(() => { euc.is.buzz = 0; }, 3000);
   }
-}
+};
 //
 euc.temp.parseStats = function (inc){
   if (ew.is.bt===2) console.log("Parse total stats data");
@@ -302,7 +303,7 @@ euc.temp.parseStats = function (inc){
   if (2<euc.dbg) print("trip total :", euc.dash.trip.totl);
   if (2<euc.dbg) print("on time :", euc.dash.trip.time);
   if (2<euc.dbg) print("ride time :", euc.dash.timR);
-}
+};
 //
 euc.temp.inpk = function(event) {
   if (ew.is.bt===2&&euc.dbg==3) console.log("InmotionV2: packet in: ",event.target.value.buffer);
@@ -336,27 +337,27 @@ euc.temp.inpk = function(event) {
     return;
   }
   //
-  if (euc.temp.tot.buffer[2] == 0x11 && euc.temp.tot.buffer[4]&0x7F == 0x02) {
+  if (euc.temp.tot.buffer[2] == 0x11 && (euc.temp.tot.buffer[4]&0x7F) == 0x02) {
     euc.temp.parseMainInfo(euc.temp.tot.buffer);
     return;
   }
   if (euc.temp.tot.buffer[2] == 0x14) {
-    if (euc.temp.tot.buffer[4]&0x7F == 0x20) {
+    if ((euc.temp.tot.buffer[4]&0x7F) == 0x20) {
       if (euc.dash.info.get.modl == "V11") euc.temp.parseSettings(euc.temp.tot.buffer);
       return;
     }
-    if (euc.temp.tot.buffer[4]&0x7F == 0x11) {
+    if ((euc.temp.tot.buffer[4]&0x7F) == 0x11) {
       euc.temp.parseStats(euc.temp.tot.buffer);
       return;
     }
-    if (euc.temp.tot.buffer[4]&0x7F == 0x04) {
+    if ((euc.temp.tot.buffer[4]&0x7F) == 0x04) {
       euc.temp.parseLive(euc.temp.tot.buffer);
     }
   } else return;
-}
+};
 
 euc.temp.keepAlive = function() {
-  if (getTime() - euc.is.lastGetLive < 0.5) return;
+  if ((getTime() - euc.is.lastGetLive) < 0.5) return;
   if (euc.tout.busy) return;
   euc.tout.busy = 1;
   let sendCommand;
@@ -376,7 +377,7 @@ euc.temp.keepAlive = function() {
   if(euc.temp.keepAlive.state < 5) return;
   if(getTime() - euc.is.lastGetStats < 1) euc.temp.keepAlive.state = 6;
   else euc.temp.keepAlive.state = 5;
-}
+};
 
 euc.isProxy=0;
 euc.wri=function(i) {if (ew.is.bt===2) console.log("not connected yet"); if (i=="end") euc.off(); return;};
@@ -431,7 +432,7 @@ euc.conn=function(mac){
             if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
             euc.tout.loop = setTimeout(function(){
               euc.tout.loop = 0;
-              if (euc.gatt && !euc.gatt.connected)  {euc.off("not connected"); return;}
+              if (euc.gatt && !euc.gatt.connected) {euc.off("not connected"); return;}
               euc.gatt.disconnect().catch(euc.off);
             },500);
           } else {
@@ -461,7 +462,7 @@ euc.conn=function(mac){
             euc.temp.wCha.writeValue(euc.cmd("playSound",euc.dash.opt.horn.mode)).then(function() {
               euc.is.horn = 0;
               euc.tout.loop = 0;
-              euc.tout.loop=setTimeout(function(){
+              euc.tout.loop = setTimeout(function(){
                 euc.tout.loop = 0;
                 euc.tout.busy = 0;
                 euc.is.horn = 0;
@@ -469,7 +470,7 @@ euc.conn=function(mac){
             });
           },350);
         } else if (cmd==="hornOff") {
-          euc.is.horn=0;
+          euc.is.horn = 0;
           euc.tout.busy = 0;
         } else if (cmd==="proxy") {
           euc.temp.wCha.writeValue(value)
@@ -489,4 +490,4 @@ euc.conn=function(mac){
       setTimeout(() => {euc.wri("start");}, 200);
     //reconnect
     }).catch(euc.off);
-}
+};
