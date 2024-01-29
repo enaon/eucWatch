@@ -854,7 +854,7 @@
         { "id": "eucInmotionV2",
                 "name": "Inmotion V2 (V11/12/13)",
                 "icon": "../../v2/euc/eucInmotionV2/icon.png",
-                "version":"0.4.4",
+                "version":"0.4.5",
                 "description": "EUC module for Inmotion V2. TEST",
                 "tags": "euc",
                 "type": "euc",
