@@ -118,11 +118,8 @@ euc.temp.parseMainInfo = function (inc) {
       euc.dash.info.get.serl += String.fromCharCode(lala.getUint8(i));
     }
     //manufacture date
-    //26
     let year = 2000 + parseInt(euc.dash.info.get.serl.substr(0,2), 16);
-    //((lala.getUint8(25) & 0xF0) >> 4);
     let month = parseInt(euc.dash.info.get.serl.substr(2,1), 16);
-    //((lala.getUint8(25) & 0x0F) << 4) | (lala.getUint8(24) & 0x0F);
     let date = parseInt(euc.dash.info.get.serl.substr(3,1) + euc.dash.info.get.serl.substr(5,1), 16);
     euc.dash.info.get.manD=[year.toString(10), month.toString(10), date.toString(10)].join('-');
   } else if(inc[5] == 0x06 && dataLen >= 24) {
