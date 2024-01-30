@@ -97,7 +97,7 @@ function getModelName(id) {
   return "UNKNOWN";
 };
 //
-euc.temp.parseMainInfo = function (inc){
+euc.temp.parseMainInfo = function (inc) {
   let lala = new DataView(inc);
   let dataLen = lala.getUint8(3);
   if(inc[5] == 0x01 && dataLen >= 6) {
@@ -133,7 +133,7 @@ euc.temp.parseMainInfo = function (inc){
   }
 };
 //
-euc.temp.parseSettings = function (inc){
+euc.temp.parseSettings = function (inc) {
   if (ew.is.bt===2) console.log("Parse settings data");
   let lala = new DataView(inc);
   let dataLen = lala.getUint8(3);
@@ -145,7 +145,7 @@ euc.temp.parseSettings = function (inc){
   euc.dash.opt.snd.vol = lala.getUint8(13);
 };
 //
-euc.temp.parseLiveV11v1 = function (inc){
+euc.temp.parseLiveV11v1 = function (inc) {
   if (ew.is.bt===2) console.log("Parse realtime data (V11 old)");
   let lala = new DataView(inc);
   let dataLen = lala.getUint8(3);
@@ -189,7 +189,7 @@ euc.temp.parseLiveV11v2 = function (inc){
   euc.temp.liveAll();
 };
 //
-euc.temp.parseLiveV12 = function (inc){
+euc.temp.parseLiveV12 = function (inc) {
   if (ew.is.bt==2) console.log("Parse realtime data (V12)");
   let lala = new DataView(inc);
   let dataLen = lala.getUint8(3);
@@ -211,7 +211,7 @@ euc.temp.parseLiveV12 = function (inc){
   euc.temp.liveAll();
 };
 //
-euc.temp.parseLiveV13 = function (inc){
+euc.temp.parseLiveV13 = function (inc) {
   if (ew.is.bt==2) console.log("Parse realtime data (V13)");
   let lala = new DataView(inc);
   let dataLen = lala.getUint8(3);
@@ -233,7 +233,7 @@ euc.temp.parseLiveV13 = function (inc){
   euc.temp.liveAll();
 };
 //
-euc.temp.liveAll = function (){
+euc.temp.liveAll = function () {
   euc.is.lastGetLive = getTime();
   //batt
   euc.dash.live.bat = Math.round(100*(euc.dash.live.volt*(100/euc.dash.opt.bat.pack) - euc.dash.opt.bat.low ) / (euc.dash.opt.bat.hi-euc.dash.opt.bat.low));
@@ -284,7 +284,7 @@ euc.temp.liveAll = function (){
   }
 };
 //
-euc.temp.parseStats = function (inc){
+euc.temp.parseStats = function (inc) {
   if (ew.is.bt===2) console.log("Parse total stats data");
   euc.is.lastGetStats = getTime();
   let lala = new DataView(inc);
@@ -361,12 +361,23 @@ euc.temp.inpk = function(event) {
     return;
   }
   if (m == 0x14) {
-    if (t == 0x20) if (euc.dash.info.get.modl == "V11") euc.temp.parseSettings(euc.temp.tot.buffer);
-    else if (t == 0x11) euc.temp.parseStats(euc.temp.tot.buffer);
-    else if (t == 0x04) euc.temp.parseLive(euc.temp.tot.buffer);
-    else console.log("Unknown Info packet. Dropped");
-    return;
-  } else console.log("Unknown packet. Dropped");
+    switch (t) {
+    case 0x20:
+      if (euc.dash.info.get.modl == "V11") euc.temp.parseSettings(euc.temp.tot.buffer);
+      break;
+    case 0x11:
+      euc.temp.parseStats(euc.temp.tot.buffer);
+      break;
+    case 0x04:
+      euc.temp.parseLive(euc.temp.tot.buffer);
+      break;
+    default:
+      if (ew.is.bt===2) console.log("Unknown Info packet. Dropped");
+      break;
+    }
+  } else {
+    if (ew.is.bt===2) console.log("Unknown packet. Dropped");
+  }
 };
 
 euc.temp.keepAlive = function() {
