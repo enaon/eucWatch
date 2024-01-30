@@ -298,9 +298,11 @@ euc.temp.parseStats = function (inc) {
     if (ew.is.bt===2) console.log("Short package. dataLen=", dataLen.toString(10));
     return;
   }
-  //trip total
-  euc.dash.trip.totl=lala.getUint32(5, true)/100;
-    euc.log.trip.forEach(function(val,pos){ if (!val) euc.log.trip[pos]=euc.dash.trip.totl;});
+  //trip
+  euc.dash.trip.totl = lala.getUint32(5, true) / 100;
+  if(!euc.dash.trip.startStrip) euc.dash.trip.startStrip=euc.dash.trip.totl;
+  euc.dash.trip.last = euc.dash.trip.totl-euc.dash.trip.startStrip;
+  euc.log.trip.forEach(function(val,pos){ if (!val) euc.log.trip[pos]=euc.dash.trip.totl;});
   //time
   euc.dash.timR=(lala.getUint32(17, true)/60)|0;
   euc.dash.trip.time=(lala.getUint32(21, true)/60)|0;
@@ -367,18 +369,18 @@ euc.temp.inpk = function(event) {
   }
   if (m == 0x14) {
     switch (t) {
-    case 0x20:
-      if (euc.dash.info.get.modl == "V11") euc.temp.parseSettings(euc.temp.tot.buffer);
-      break;
-    case 0x11:
-      euc.temp.parseStats(euc.temp.tot.buffer);
-      break;
-    case 0x04:
-      euc.temp.parseLive(euc.temp.tot.buffer);
-      break;
-    default:
-      if (ew.is.bt===2) console.log("Unknown Info packet. Dropped");
-      break;
+      case 0x20:
+        if (euc.dash.info.get.modl == "V11") euc.temp.parseSettings(euc.temp.tot.buffer);
+        break;
+      case 0x11:
+        euc.temp.parseStats(euc.temp.tot.buffer);
+        break;
+      case 0x04:
+        euc.temp.parseLive(euc.temp.tot.buffer);
+        break;
+      default:
+        if (ew.is.bt===2) console.log("Unknown Info packet. Dropped");
+        break;
     }
   } else {
     if (ew.is.bt===2) console.log("Unknown packet. Dropped");
@@ -390,13 +392,15 @@ euc.temp.keepAlive = function() {
   if (euc.tout.busy) return;
   euc.tout.busy = 1;
   let sendCommand;
-  if (euc.temp.keepAlive.state == 0) sendCommand = euc.cmd("getType");
-  else if(euc.temp.keepAlive.state == 1) sendCommand = euc.cmd("getSN");
-  else if(euc.temp.keepAlive.state == 2) sendCommand = euc.cmd("getVer");
-  else if(euc.temp.keepAlive.state == 3) sendCommand = euc.cmd("getSettings");
-  else if(euc.temp.keepAlive.state == 4) sendCommand = euc.cmd("getUseless");
-  else if(euc.temp.keepAlive.state == 5) sendCommand = euc.cmd("stats");
-  else if(euc.temp.keepAlive.state == 6) sendCommand = euc.cmd("live");
+  switch (euc.temp.keepAlive.state) {
+    case 0: sendCommand = euc.cmd("getType"); break;
+    case 1: sendCommand = euc.cmd("getSN"); break;
+    case 2: sendCommand = euc.cmd("getVer"); break;
+    case 3: sendCommand = euc.cmd("getSettings"); break;
+    case 4: sendCommand = euc.cmd("getUseless"); break;
+    case 5: sendCommand = euc.cmd("stats"); break;
+    case 6: sendCommand = euc.cmd("live"); break;
+  }
   euc.temp.wCha.writeValue(sendCommand)
   .then(function() { return euc.tout.busy = 0 })
   .catch(function(err) {
@@ -419,6 +423,8 @@ euc.conn=function(mac){
     return;
   }
   euc.isProxy=0;
+  euc.dash.trip.startStrip = 0;
+  euc.temp.keepAlive.state = 0;
   if (euc.tout.reconnect) {clearTimeout(euc.tout.reconnect); euc.tout.reconnect=0;}
   NRF.connect(mac,{minInterval:7.5, maxInterval:15})
     .then(function(g) {
@@ -473,7 +479,6 @@ euc.conn=function(mac){
           }
           euc.tout.busy = 0;
         } else if (cmd === "start") {
-          euc.temp.keepAlive.state = 0;
           euc.temp.rCha.startNotifications();
           if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
           euc.tout.loop=setTimeout(function(){
