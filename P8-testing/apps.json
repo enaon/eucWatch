@@ -166,7 +166,7 @@
 	{ "id": "Dashboard Digital",
 		"name": "EUC digital Dashboard",
 		"icon": "../dash/icon.png",
-		"version":"1.92.1",
+		"version":"1.92.2",
 		"description": "EUC simple digital",
 		"tags": "euc",
 		"readme": "README.md",

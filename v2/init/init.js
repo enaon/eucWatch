@@ -72,6 +72,11 @@ if ((BTN1.read() || require("Storage").read("devmode")) && process.env.BOARD != 
 }
 else { //working mode
   var w;
+  global.scr = require('Storage').readJSON('scrorient.json', 1);
+  if (typeof scr === 'undefined') {
+    scr = { "rotate": 0, "mirror": false };
+    require('Storage').writeJSON('scrorient.json', scr);
+  }
   if (require('Storage').read('.display')) {
     if (require('Storage').read('.displayM')&&(process.env.BOARD == "MAGIC3"||process.env.BOARD == "ROCK"))
       eval(require('Storage').read('.displayM'));

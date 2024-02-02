@@ -20,9 +20,13 @@ g.fillRect(80,0,155,75);
 g.setColor(0,15);
 if (require("Storage").read("repellent",1)) {
 	this.appDo2="face.go('repellent',0)";
-	this.img=E.toArrayBuffer(atob("MDCBAAAAAAAAAAAB//gAAAAH//8AAABH///AAAPP///wAAPP///4AAeOAAf8AAeAAAH+AAeADgB/AAcB/+A/gAwP//wfwAA///4PwAB///8H4AD/4f/D8AH+AD/D8AP8AA/h8APwAAfx+Afgf4Pw+AfB/+H4+A/D//D4/A+H//j4fA+H8/j4fB8PwPj4fB8PgPj4fB8PgPj4fB8fg/j4fB8fA/j4fB8fAfD4fB8fgeH4fB8PgIHw+B8PgAPw+B8PwAfx+B+H4A/h+A+H+D/D8A/D//+D4AfB//8H4Afg//4PwAPwP/gfwAP4B8B/gAH+AAD/AAD/gAf+AAB//P/8AAA////wAAAP///AAAAD//8AAAAA//gAAAAAAAAAAAAAAAAAAA=="));
+	this.img = E.toArrayBuffer(atob("MDCBAAAAAAAAAAAB//gAAAAH//8AAABH///AAAPP///wAAPP///4AAeOAAf8AAeAAAH+AAeADgB/AAcB/+A/gAwP//wfwAA///4PwAB///8H4AD/4f/D8AH+AD/D8AP8AA/h8APwAAfx+Afgf4Pw+AfB/+H4+A/D//D4/A+H//j4fA+H8/j4fB8PwPj4fB8PgPj4fB8PgPj4fB8fg/j4fB8fA/j4fB8fAfD4fB8fgeH4fB8PgIHw+B8PgAPw+B8PwAfx+B+H4A/h+A+H+D/D8A/D//+D4AfB//8H4Afg//4PwAPwP/gfwAP4B8B/gAH+AAD/AAD/gAf+AAB//P/8AAA////wAAAP///AAAAD//8AAAAA//gAAAAAAAAAAAAAAAAAAA=="));
 	g.drawImage(this.img,94,15);
-}else g.drawImage(this.appImgNone,94,15);
+} else if (require("Storage").read("rotate",1)) {
+	this.appDo2="face.go('rotate',0)";
+	this.img = E.toArrayBuffer(atob("MDCBAAAAAAAAAAAAAAAAAAAAAAAAAAAAH/gAAAAA//8CAAAD///DAAAP8A/zgAAfgAH7gAA+AAB/gAB4AAAfgAAwAAAPgAAAcAH/gAAA/wD/gAAB/+B/gAAB//4AAAAB///gAAAB4f/wAAAD4B/4AAADwAP4AAADwAD4AAADwADwAAAHgADwAAAHgADwAAAHgAHwAAAPgAHgAAAPAAHwAAAPAAH4AAAPAAP4AAAfAAPwAAAfwAPAAAAf+AfAAAAP/4eAAAAH//+AAAAAf/+AAAH8B/+AAAH+AP8AAAH/AA4AAAHwAAAMAAH4AAAeAAH+AAB8AAHfgAH4AADP8A/wAABD///AAAAA//8AAAAAH/gAAAAAAAAAAAAAAAAAAAAAAAAAAA=="));
+	g.drawImage(this.img,94,15);
+} else g.drawImage(this.appImgNone,94,15);
 g.flip();
 //app3
 g.setColor(1,1);
@@ -54,7 +58,7 @@ g.fillRect(80,80,155,155);
 g.setColor(0,15);
 if (require("Storage").read("ledBT",1)) {
 	this.appDo5="face.go('ledBT',0)";
-	img = require("heatshrink").decompress(atob("mU1wIrov/gAodwhwFDmEABgcYgEMAoUIgEBwAFBg0H8AUBgEDgMcggSCwFDCQdgjeAkAFBiEH4AhBgEEgMwgYFBgMAo0AoAGBoEQ4EQDAQpBFYQCCCoI3B/kA//AgEH4Pg+E4BYMQhlgh+AgOCgPggRRBwGAnEBwxJBiB1BoHAmEGgnAkEQJgPDiEYgUGPgOGPgK8BgfgxiMBoEYnE+JAMwj+H/kfwMMhkxgYKBoRsBoHBxBmBwEQmF+BoMj4kMjPBggYBgQKBoMDxlgwOMiFAv0IsF+hhKBNYMAgSXCpjCCS4MaBAPAaQMDXINgCQTfBPgIBB5zjCg4LB8EcfwcPUgIAfA="));
+	this.img = require("heatshrink").decompress(atob("mU1wIrov/gAodwhwFDmEABgcYgEMAoUIgEBwAFBg0H8AUBgEDgMcggSCwFDCQdgjeAkAFBiEH4AhBgEEgMwgYFBgMAo0AoAGBoEQ4EQDAQpBFYQCCCoI3B/kA//AgEH4Pg+E4BYMQhlgh+AgOCgPggRRBwGAnEBwxJBiB1BoHAmEGgnAkEQJgPDiEYgUGPgOGPgK8BgfgxiMBoEYnE+JAMwj+H/kfwMMhkxgYKBoRsBoHBxBmBwEQmF+BoMj4kMjPBggYBgQKBoMDxlgwOMiFAv0IsF+hhKBNYMAgSXCpjCCS4MaBAPAaQMDXINgCQTfBPgIBB5zjCg4LB8EcfwcPUgIAfA="));
 	g.drawImage(this.img,94,94);
 }else g.drawImage(this.appImgNone,94,94);
 g.flip();

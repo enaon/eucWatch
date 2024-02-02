@@ -141,16 +141,16 @@ euc.conn=function(mac){
 					return;
 				}
 				//print ("packet: ",event.target.value.buffer);
-				euc.is.alert=0;			
+				euc.is.alert=0;
 				//volt
 				euc.dash.live.volt=event.target.value.getUint16(5, true)/100;
 				//batt
-				euc.dash.live.bat=Math.round(100*(euc.dash.live.volt*5 - euc.dash.opt.bat.low ) / (euc.dash.opt.bat.hi-euc.dash.opt.bat.low) );
+				euc.dash.live.bat=Math.round(100*(euc.dash.live.volt*(100/euc.dash.opt.bat.pack) - euc.dash.opt.bat.low ) / (euc.dash.opt.bat.hi-euc.dash.opt.bat.low) );
 				euc.log.batL.unshift(euc.dash.live.bat);
 				if (20<euc.log.batL.length) euc.log.batL.pop();
-				euc.dash.alrt.bat.cc = (50 <= euc.dash.live.bat)? 0 : (euc.dash.live.bat <= euc.dash.alrt.bat.hapt.low)? 2 : 1;	
+				euc.dash.alrt.bat.cc = (50 <= euc.dash.live.bat)? 0 : (euc.dash.live.bat <= euc.dash.alrt.bat.hapt.low)? 2 : 1;
 				if ( euc.dash.alrt.bat.hapt.en && euc.dash.alrt.bat.cc ==2 )  euc.is.alert ++;
-				//trip 
+				//trip
 				euc.dash.trip.last=event.target.value.getUint16(17, true)/100;
 				euc.dash.trip.left=(event.target.value.getUint16(19, true))*10; //remain
 				//temp

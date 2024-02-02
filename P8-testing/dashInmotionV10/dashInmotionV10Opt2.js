@@ -6,15 +6,15 @@ face[0] = {
 		if (euc.state!=="READY") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
 		this.g.setColor(0,0);
 		this.g.fillRect(0,98,239,99);
-        this.g.flip();	
+        this.g.flip();
 		this.g.fillRect(120,0,121,195);
         this.g.flip();
 		this.g.setColor(0,0);
 		this.g.fillRect(0,205,239,239);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",20);
-		this.g.drawString("MORE",120-(this.g.stringWidth("MORE")/2),217); 
-		this.g.flip(); 
+		this.g.drawString("MORE",120-(this.g.stringWidth("MORE")/2),217);
+		this.g.flip();
 		this.g.setColor(0,0);
 		this.g.fillRect(0,196,239,204);
 		this.g.setColor(1,3);
@@ -22,17 +22,17 @@ face[0] = {
 		this.g.flip();
         this.g.setColor(1,15);
       	this.g.fillRect(120,200,143,204);
-		this.g.flip(); 
+		this.g.flip();
         this.btn(euc.dash.auto.onC.HL,"AUTO",18,60,20,13,1,0,0,119,97,"LIGHT",25,60,55);
-		this.btn(0,"",18,185,20,4,1,122,0,239,97,"",22,185,55);		
+		this.btn(0,"",18,185,20,4,1,122,0,239,97,"",22,185,55);
         this.btn(euc.dash.auto.onD.off,"AUTO",18,60,115,13,1,0,100,119,195,"OFF",25,60,150);
         this.btn(euc.dash.auto.onC.lift,"",18,185,115,13,1,122,100,239,195);
-		//this.btn(euc.dash.auto.onC.lift,"AUTO",18,185,115,13,1,122,100,239,195,"LIFT",25,185,155);	
+		//this.btn(euc.dash.auto.onC.lift,"AUTO",18,185,115,13,1,122,100,239,195,"LIFT",25,185,155);
 		this.run=true;
 	},
 	show : function(){
 		if (euc.state!=="READY") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
-		if (!this.run) return; 
+		if (!this.run) return;
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();
@@ -42,9 +42,9 @@ face[0] = {
 			this.g.setColor(0,(bt)?clr1:clr0);
 			this.g.fillRect(rx1,ry1,rx2,ry2);
 			this.g.setColor(1,15);
-			this.g.setFont("Vector",size1);	
-			this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1); 
-   			if (txt2){this.g.setFont("Vector",size2);	
+			this.g.setFont("Vector",size1);
+			this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1);
+   			if (txt2){this.g.setFont("Vector",size2);
             this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);}
 			this.g.flip();
     },
@@ -53,7 +53,7 @@ face[0] = {
 			this.g.fillRect(0,198,239,239);
 			this.g.setColor(1,15);
 			this.g.setFont("Vector",size);
-     		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
+     		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214);
 			this.g.flip();
 			if (this.ntid) clearTimeout(this.ntid);
 			this.ntid=setTimeout(function(t){
@@ -62,7 +62,7 @@ face[0] = {
 				t.g.fillRect(0,205,239,239);
 				t.g.setColor(1,15);
 				t.g.setFont("Vector",20);
-		        t.g.drawString("MORE",120-(t.g.stringWidth("MORE")/2),217); 
+		        t.g.drawString("MORE",120-(t.g.stringWidth("MORE")/2),217);
 				t.g.flip();
 				t.g.setColor(0,0);
 				t.g.fillRect(0,196,239,204);
@@ -71,7 +71,7 @@ face[0] = {
 				t.g.flip();
 				t.g.setColor(1,15);
 				t.g.fillRect(120,200,143,204);
-				t.g.flip(); 
+				t.g.flip();
 			},1000,this);
     },
 	tid:-1,
@@ -101,9 +101,9 @@ face[1] = {
 	clear: function(){
 		return true;
 	},
-};	
+};
 //touch
-touchHandler[0]=function(e,x,y){ 
+touchHandler[0]=function(e,x,y){
 	switch (e) {
       case 5: //tap event
 		if ( x<=120 && y<100 ) { //auto light
@@ -112,32 +112,31 @@ touchHandler[0]=function(e,x,y){
             face[0].ntfy("AUTO LIGHT ON","AUTO LIGHT OFF",18,1,euc.dash.auto.onC.HL);
 			buzzer.nav([30,50,30]);
 		}else if ( 120<=x && y<=100 ) { //watch alerts
-			buzzer.nav(40);						
+			buzzer.nav(40);
 			//face.go("dashAlerts",0);
 		}else if ( x<=120 && 100<=y ) { //auto off
 			euc.dash.auto.onD.off=1-euc.dash.auto.onD.off;
             face[0].btn(euc.dash.auto.onD.off,"AUTO",18,60,115,13,1,0,100,119,195,"OFF",25,60,150);
             face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",16,1,euc.dash.auto.onD.off);
-			buzzer.nav([30,50,30]);		
+			buzzer.nav([30,50,30]);
 		//}else if  (120<=x && 100<=y ) { //auto lift
 			//euc.dash.auto.onC.lift=1-euc.dash.auto.onC.lift;
-         //   face[0].btn(euc.dash.auto.onC.lift,"AUTO",18,185,115,13,1,122,100,239,195,"LIFT",25,185,155);	
+         //   face[0].btn(euc.dash.auto.onC.lift,"AUTO",18,185,115,13,1,122,100,239,195,"LIFT",25,185,155);
 			//face[0].ntfy("CONNECT -> LIFT OFF","AUTO LIFT DISABLED",18,1,euc.dash.auto.onC.lift);
-			//buzzer.nav([30,50,30]);						
+			//buzzer.nav([30,50,30]);
 		}else buzzer.nav(40);
 		this.timeout();
 		break;
 	case 1: //slide down event
-		setTimeout(function(){euc.is.busy=0;euc.temp.live();},800);
 		face.go(ew.is.dash[ew.def.dash.face],0);
-		return;	 
+		return;
 	case 2: //slide up event
-		if ( 200<=y && x<=50) { //toggles full/current brightness on a left down corner swipe up. 
+		if ( 200<=y && x<=50) { //toggles full/current brightness on a left down corner swipe up.
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 			buzzer.nav([30,50,30]);
 		}else //if (y>100) {
-			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
+			if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
 		//} else {buzzer.nav(40);}
 		this.timeout();
 		break;
@@ -157,7 +156,7 @@ touchHandler[0]=function(e,x,y){
 			euc.dash.auto.onD.off=1-euc.dash.auto.onD.off;
             face[0].btn(euc.dash.auto.onD.off,"AUTO",18,60,115,13,1,0,100,119,195,"OFF",25,60,150);
             face[0].ntfy("DISCONNECT->POWER OFF","AUTO OFF DISABLED",16,1,euc.dash.auto.onD.off);
-			buzzer.nav([30,50,30]);		
+			buzzer.nav([30,50,30]);
 		}else buzzer.nav(40);
 		this.timeout();
 		break;
