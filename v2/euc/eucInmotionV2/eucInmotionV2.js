@@ -407,7 +407,7 @@ euc.temp.keepAlive = function() {
     if (ew.is.bt===2) console.log("EUC InmotionV2: keepAlive write fail");
   });
   euc.temp.keepAlive.state++;
-  if(euc.temp.keepAlive.state < 5) return;
+  if(euc.temp.keepAlive.state < 7) return;
   if(getTime() - euc.is.lastGetStats < 1) euc.temp.keepAlive.state = 6;
   else euc.temp.keepAlive.state = 5;
 };
@@ -462,14 +462,19 @@ euc.conn=function(mac){
         }
         euc.tout.busy = 1;
         if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
+        if (ew.is.bt===2) console.log("InmotionV2 cmd: ", cmd);
         if (euc.state === "OFF" || cmd === "end") {
           if (euc.gatt && euc.gatt.connected) {
-            if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
-            euc.tout.loop = setTimeout(function(){
-              euc.tout.loop = 0;
+            if (euc.tout.loopEnd) {clearTimeout(euc.tout.loopEnd); euc.tout.loopEnd=0;}
+            euc.tout.loopEnd = setTimeout(function(){
+              euc.tout.loopEnd = 0;
               if (euc.gatt && !euc.gatt.connected) {euc.off("not connected"); return;}
               euc.gatt.disconnect().catch(euc.off);
             },500);
+            if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
+            if (euc.tout.intervalKeep) {clearInterval(euc.tout.intervalKeep); euc.tout.intervalKeep=0;}
+            euc.state = "OFF";
+            euc.off("end");
           } else {
             euc.state = "OFF";
             euc.off("not connected");
