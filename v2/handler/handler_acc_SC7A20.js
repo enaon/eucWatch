@@ -91,7 +91,26 @@ acc={
 		"ram";
 		i2c.writeTo(0x18,0xA8);
 		var a =i2c.readFrom(0x18,6);
-		return {ax:this.conv(a[0],a[1]), ay:this.conv(a[2],a[3]), az:this.conv(a[4],a[5])};
+		let x = this.conv(a[0],a[1]);
+		let y = this.conv(a[2],a[3]);
+		let z = this.conv(a[4],a[5]);
+		switch (scr.rotate) {
+			case 1:
+				let t = y;
+				y = x * -1;
+				x = t;
+				break;
+			case 2:
+				x = x * -1;
+				y = y * -1;
+				break;
+			case 3:
+				let t = y;
+				y = x;
+				x = t * -1;
+				break;
+		}
+		return {ax:x, ay:y, az:z};
 	},
 	conv:function(lo,hi){
 		"ram";
