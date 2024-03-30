@@ -145,7 +145,7 @@
 	{ "id": "handler",
 		"name": "Handler - V1",
 		"icon": "../handler/icon.png",
-		"version":"1.94.10",
+		"version":"1.94.11",
 		"description": "P8-P22-Pinetime functions handler",
 		"tags": "core",
 	    "needsFeatures":["V1"],

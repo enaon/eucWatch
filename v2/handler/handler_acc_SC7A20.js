@@ -94,9 +94,10 @@ acc={
 		let x = this.conv(a[0],a[1]);
 		let y = this.conv(a[2],a[3]);
 		let z = this.conv(a[4],a[5]);
+		let t;
 		switch (scr.rotate) {
 			case 1:
-				let t = y;
+				t = y;
 				y = x * -1;
 				x = t;
 				break;
@@ -105,7 +106,7 @@ acc={
 				y = y * -1;
 				break;
 			case 3:
-				let t = y;
+				t = y;
 				y = x;
 				x = t * -1;
 				break;
