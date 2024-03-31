@@ -24,7 +24,20 @@ acc={
 		i2c.writeTo(0x18,0x25,0x00); //no Interrupt2 , no int polatiry
 		i2c.writeTo(0x18,0x32,5); //int1_ths-threshold = 250 milli g's
 		i2c.writeTo(0x18,0x33,15); //duration = 1 * 20ms
-		i2c.writeTo(0x18,0x30,0x02); //int1 to xh
+		switch (scr.rotate) {
+			case 0:
+				i2c.writeTo(0x18,0x30,0xc1); //int1 to xh
+				break;
+			case 1:
+				i2c.writeTo(0x18,0x30,0xc4); //int1 to yh
+				break;
+			case 2:
+				i2c.writeTo(0x18,0x30,0xc2); //int1 to xl
+				break;
+			case 3:
+				i2c.writeTo(0x18,0x30,0xc8); //int1 to yl
+				break;
+		}
 		this.mode=(v)?v:0;
 		this.init(v);
 	},
@@ -69,8 +82,8 @@ acc={
 			i2c.writeTo(0x18,0x32,20); //int1_ths-threshold = 250 milli g's
 			i2c.writeTo(0x18,0x33,1); //duration = 1 * 20ms
 			ew.tid.acc=setWatch(()=>{
-				i2c.writeTo(0x18,0x1);
-				if ( this.chk1()) {
+				//i2c.writeTo(0x18,0x1);
+				if ( this.chk2()) {
 					if (!w.gfx.isOn){  
 						if (face.appCurr=="clock") face.go("clock",0);
 						else face.go(face.appCurr,0);
@@ -91,7 +104,27 @@ acc={
 		"ram";
 		i2c.writeTo(0x18,0xA8);
 		var a =i2c.readFrom(0x18,6);
-		return {ax:this.conv(a[0],a[1]), ay:this.conv(a[2],a[3]), az:this.conv(a[4],a[5])};
+		let x = this.conv(a[0],a[1]);
+		let y = this.conv(a[2],a[3]);
+		let z = this.conv(a[4],a[5]);
+		let t;
+		switch (scr.rotate) {
+			case 1:
+				t = y;
+				y = x * -1;
+				x = t;
+				break;
+			case 2:
+				x = x * -1;
+				y = y * -1;
+				break;
+			case 3:
+				t = y;
+				y = x;
+				x = t * -1;
+				break;
+		}
+		return {ax:x, ay:y, az:z};
 	},
 	conv:function(lo,hi){
 		"ram";
