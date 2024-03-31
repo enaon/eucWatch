@@ -26,16 +26,16 @@ acc={
 		i2c.writeTo(0x18,0x33,15); //duration = 1 * 20ms
 		switch (scr.rotate) {
 			case 0:
-				i2c.writeTo(0x18,0x30,0x02); //int1 to xh
+				i2c.writeTo(0x18,0x30,0xc1); //int1 to xh
 				break;
 			case 1:
-				i2c.writeTo(0x18,0x30,0x08); //int1 to yh
+				i2c.writeTo(0x18,0x30,0xc4); //int1 to yh
 				break;
 			case 2:
-				i2c.writeTo(0x18,0x30,0x01); //int1 to xl
+				i2c.writeTo(0x18,0x30,0xc2); //int1 to xl
 				break;
 			case 3:
-				i2c.writeTo(0x18,0x30,0x04); //int1 to yl
+				i2c.writeTo(0x18,0x30,0xc8); //int1 to yl
 				break;
 		}
 		this.mode=(v)?v:0;
