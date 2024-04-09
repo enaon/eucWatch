@@ -390,6 +390,7 @@ euc.temp.inpk = function(event) {
 euc.temp.keepAlive = function() {
   if ((getTime() - euc.is.lastGetLive) < 0.5) return;
   if (euc.tout.busy) return;
+  if (euc.gatt && !euc.gatt.connected) {euc.off("not connected"); return;}
   euc.tout.busy = 1;
   let sendCommand;
   switch (euc.temp.keepAlive.state) {
@@ -405,6 +406,7 @@ euc.temp.keepAlive = function() {
   .then(function() { return euc.tout.busy = 0 })
   .catch(function(err) {
     if (ew.is.bt===2) console.log("EUC InmotionV2: keepAlive write fail");
+    return;
   });
   euc.temp.keepAlive.state++;
   if(euc.temp.keepAlive.state < 7) return;
