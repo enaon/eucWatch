@@ -25,7 +25,7 @@ face[0] = {
     let s=(n==1)?"INMOTION":(n==2)?"BEGODE":(n==3)?"NINEBOT":(n==4)?"NINEBOT":"INMOTION V2";
     this.g.drawString(s,120-(this.g.stringWidth(s)/2),38);
     this.g.setFont("Vector",14);
-    let s=(n==1)?"V5/V8/V10":(n==2)?"":(n==3)?"ONE Z10":(n==4)?"ONE S2":"V11/V12/V13 TEST";
+    s=(n==1)?"V5/V8/V10":(n==2)?"":(n==3)?"ONE Z10":(n==4)?"ONE S2":"V11/V12/V13 TEST";
     this.g.drawString(s,120-(this.g.stringWidth(s)/2),73);
     this.g.flip();
 	this.g.setColor(0,0);
