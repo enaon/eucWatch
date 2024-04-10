@@ -8,12 +8,12 @@ face[0] = {
 		this.g.fillRect(0,196,239,239);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",20);
-		this.g.drawString("WHEEL ALERTS",120-(this.g.stringWidth("WHEEL ALERTS")/2),214); 
-		this.g.flip(); 
+		this.g.drawString("WHEEL ALERTS",120-(this.g.stringWidth("WHEEL ALERTS")/2),214);
+		this.g.flip();
 		this.btn(euc.dash.alrt.spd.one.en,"ALARM 1",18,60,20,12,1,0,0,119,97,(euc.dash.alrt.spd.one.en)?euc.dash.alrt.spd.one.val:"OFF",25,60,55);
 		this.btn(euc.dash.alrt.spd.two.en,"ALARM 2",18,185,20,12,1,122,0,239,97,(euc.dash.alrt.spd.two.en)?euc.dash.alrt.spd.two.val:"OFF",25,185,55);
 		this.btn(1,"ALARM 3",18,60,115,12,0,0,100,119,195,euc.dash.alrt.spd.thre.val,28,60,150);
-        this.btn(1,"TILTBACK",18,185,115,4,0,122,100,239,195,euc.dash.alrt.spd.tilt.val,28,185,150);		
+        this.btn(1,"TILTBACK",18,185,115,4,0,122,100,239,195,euc.dash.alrt.spd.tilt.val,28,185,150);
         if (!face.appPrev.startsWith("dashSet")){
 		this.g.setColor(0,0);
 		this.g.drawLine (0,98,239,98);
@@ -22,13 +22,12 @@ face[0] = {
 		this.g.drawLine (120,0,120,195);
       	this.g.drawLine (121,0,121,195);
         this.g.flip();
-        }      
+        }
         this.run=false;
 	},
 	show : function(){
 		if (euc.state!=="READY") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
-		if (!this.run) return; 
-      
+		if (!this.run) return;
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();
@@ -38,9 +37,9 @@ face[0] = {
 		this.g.setColor(0,(bt)?clr1:clr0);
 		this.g.fillRect(rx1,ry1,rx2,ry2);
 		this.g.setColor(1,15);
-		this.g.setFont("Vector",size1);	
-		this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1); 
-		if (txt2){this.g.setFont("Vector",size2);	
+		this.g.setFont("Vector",size1);
+		this.g.drawString(txt1,x1-(this.g.stringWidth(txt1)/2),y1);
+		if (txt2){this.g.setFont("Vector",size2);
 		this.g.drawString(txt2,x2-(this.g.stringWidth(txt2)/2),y2);}
 		this.g.flip();
     },
@@ -49,7 +48,7 @@ face[0] = {
 		this.g.fillRect(0,198,239,239);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",size);
-		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214); 
+		this.g.drawString((bt)?txt1:txt0,120-(this.g.stringWidth((bt)?txt1:txt0)/2),214);
 		this.g.flip();
 		if (this.ntid) clearTimeout(this.ntid);
 		this.ntid=setTimeout(function(t){
@@ -58,7 +57,7 @@ face[0] = {
 			t.g.fillRect(0,198,239,239);
 			t.g.setColor(1,15);
 			t.g.setFont("Vector",20);
-			t.g.drawString("WHEEL ALERTS",120-(t.g.stringWidth("WHEEL ALERTS")/2),214); 
+			t.g.drawString("WHEEL ALERTS",120-(t.g.stringWidth("WHEEL ALERTS")/2),214);
 			t.g.flip();
 		    },1000,this);
     },
@@ -69,10 +68,10 @@ face[0] = {
 		this.g.fillRect(0,0,239,195);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",20);
-		this.g.drawString(txt,120-(this.g.stringWidth(txt)/2),10); 		
+		this.g.drawString(txt,120-(this.g.stringWidth(txt)/2),10);
 		this.g.drawImage(require("heatshrink").decompress(atob("oFAwJC/AAs8A41+A43/AwsDA40HA40PA40f/wHFn/8Fw34AwkB//wGw3AGw2AGxk/Gw1/Gw4uFGwPgGxguBGwsfGw4uGv5lFGw4HBGwoHJC4wnHG45HHK45nHO444JGAynHW47HHHBKBHNJ44QA4o4BA4owBA41+A408A4wA6A==")),0,75);
 		this.g.drawImage(require("heatshrink").decompress(atob("oFAwJC/AAU8A41+A43/A4/AA43gA43wA4t//AHFn/8A4sfGA0P/+AA4kDHA0BHCAwGn/+GA4HFg44QGA3/NJ44QA5oXHE443HI4xXHM453HGw6XHU44uGY442Hc473HMo9/Voy9Ifw42FA4IGFgF+A408A4wA9A=")),180,75);
-		this.g.flip(); 
+		this.g.flip();
         this.btn(1,euc.dash.limt[b],100,126,60,12,1,60,40,180,160);
         euc.dash.limt.en[b]=1;
     },
@@ -104,7 +103,7 @@ face[1] = {
 	clear: function(){
 		return true;
 	},
-};	
+};
 
 //touch
 touchHandler[0]=function(e,x,y){
@@ -144,28 +143,28 @@ touchHandler[0]=function(e,x,y){
 				}
 			}else if (x<=120&&100<=y<=200) { //alarm 3
 				face[0].ntfy("HOLD -> SET","HOLD -> SET",20,1,1);
-				buzzer.nav([30,50,30]);		
+				buzzer.nav([30,50,30]);
 			}else if (120<=x<=239&&100<=y<=200) { //tiltback
 				face[0].ntfy("HOLD -> SET","",20,1,1);
-				buzzer.nav([30,50,30]);						
+				buzzer.nav([30,50,30]);
 			}else buzzer.nav([30,50,30]);
 		}else {//set page
 			if (120<=x) { //up
-                if (face[0].setEb=="spd") 
+                if (face[0].setEb=="spd")
 					if (euc.dash.alrt.spd.two.en)
 					if (euc.dash.alrt.spd.one.val+1<euc.dash.alrt.spd.two.val)  euc.dash.alrt.spd.one.val++;
                     else face[0].ntfy("MOVE ALARM 2","",20,13,1);
 					else face[0].ntfy("ENABLE ALARM 2","",20,13,1);
-                else if (face[0].setEb=="spd1") 
+                else if (face[0].setEb=="spd1")
                     if (euc.dash.alrt.spd.two.val+1<euc.dash.alrt.spd.thre.val) euc.dash.alrt.spd.two.val++;
                     else face[0].ntfy("MOVE ALARM 3","",20,13,1);
-                else if (face[0].setEb=="spd2") 
+                else if (face[0].setEb=="spd2")
                     if (euc.dash.alrt.spd.thre.val<euc.dash.alrt.spd.tilt.val) euc.dash.alrt.spd.thre.val++;
                     else face[0].ntfy("MOVE TILTBACK","",20,13,1);
-                else if (face[0].setEb=="tilt") 
+                else if (face[0].setEb=="tilt")
                     if (euc.dash.alrt.spd.tilt.val<50) euc.dash.alrt.spd.tilt.val++;
                     else face[0].ntfy("THE LIMIT IS 50KpH","",20,13,1);
-                    } 
+                    }
             }else {  //dn
                 if (face[0].setEb=="spd") {
 					if (0<euc.dash.alrt.spd.one.val) euc.dash.alrt.spd.one.val--;
@@ -189,24 +188,23 @@ touchHandler[0]=function(e,x,y){
 						else face[0].ntfy("MOVE ALARM 3","",20,13,1);
 					}else if (5<euc.dash.alrt.spd.tilt.val) euc.dash.alrt.spd.tilt.val--;
 					else face[0].ntfy("THE DN LIMIT IS 5KpH","",20,13,1);
-                } 
-            } 
+                }
+            }
             buzzer.nav([30,50,30]);
 			face[0].btn(1,euc.dash.lim[face[0].setEb],100,126,60,12,1,60,40,180,160);
 		}
 		this.timeout();
 		break;
 	case 1: //slide down event
-		setTimeout(function(){euc.is.busy=0;euc.temp.live();},800);
         euc.wri("setSpeedLimits");
 		face.go(ew.is.dash[ew.def.dash.face],0);
-		return;	 
+		return;
 	case 2: //slide up event
-		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
+		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up.
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 			buzzer.nav([30,50,30]);
-		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
+		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
 		this.timeout();
 		break;
 	case 3: //slide left event
@@ -214,7 +212,7 @@ touchHandler[0]=function(e,x,y){
 		break;
 	case 4: //slide right event (back action)
         if (face[0].setE) {
-          face[0].setE=0; 
+          face[0].setE=0;
           w.gfx.clear();
           face[0].init();
         } else {
@@ -237,12 +235,11 @@ touchHandler[0]=function(e,x,y){
 			}else if (x<=120&&100<=y<=200) { //alarm 3
                 if (euc.dash.alrt.spd.thre.val>=euc.dash.alrt.spd.tilt.val) euc.dash.alrt.spd.thre.val=euc.dash.alrt.spd.tilt.val;
                 face[0].set("spd2","ALARM 3");
-				buzzer.nav([30,50,30]);		
+				buzzer.nav([30,50,30]);
 			}else if (120<=x<=239&&100<=y<=200) { //tiltback
                 face[0].set("tilt","TITLBACK");
-				buzzer.nav([30,50,30]);						
+				buzzer.nav([30,50,30]);
 			}else buzzer.nav([30,50,30]);
-			
 		this.timeout();
 		break;
 	}

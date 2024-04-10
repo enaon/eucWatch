@@ -23,6 +23,8 @@ global.euc = {
 			euc.tout.alive = 0; }
 		if (euc.tout.busy) { clearTimeout(euc.tout.busy);
 			euc.tout.busy = 0; }
+		if (euc.tout.intervalLive) { clearInterval(euc.tout.intervalLive);
+			euc.tout.intervalLive = 0; }
 		if (this.state != "OFF") {
 			buzzer.nav([90, 60, 90]);
 			//log
@@ -70,9 +72,11 @@ global.euc = {
 				}
 				if (euc.dash.info.get.makr !== "Kingsong" || euc.dash.info.get.makr !== "inmotionV11") euc.dash.trip.topS = 0;
 				this.conn(this.mac);
-				if (ew.def.acc) acc.off();
-				setTimeout(() => { ew.def.dash.accE = 1;
-					acc.on(2); }, 1000);
+				acc.off();
+				if (ew.def.acc) {
+					setTimeout(() => { ew.def.dash.accE = 1;
+						acc.on(2); }, 1000);
+				}
 				if (euc.dash.opt.tpms && global.tpms && !tpms.def.int) { tpms.euc = {};
 					setTimeout(() => { tpms.scan(); }, 10000); } //tpms
 				face.go(ew.is.dash[ew.def.dash.face], 0);
@@ -90,6 +94,11 @@ global.euc = {
 			euc.tout.alive = 0; }
 		if (euc.tout.busy) { clearTimeout(euc.tout.busy);
 			euc.tout.busy = 0; }
+		if (euc.tout.intervalLive) { clearInterval(euc.tout.intervalLive);
+			euc.tout.intervalLive = 0; }
+		// Restart watchdog updater
+		if (wdint) {clearTimeout(wdint); wdint=0};
+                wdint = setInterval(KickWd, process.env.BOARD == "DSD6"?1000:3000);
 		//
 		if (euc.state != "OFF") {
 			if (euc.dbg) console.log("EUC: Restarting");

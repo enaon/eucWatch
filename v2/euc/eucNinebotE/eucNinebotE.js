@@ -16,17 +16,17 @@ euc.cmd=function(no){
 	case 21:return [85,170,3,9,3,112,1,127,255]; //21- lock
 	case 22:return [85,170,3,9,3,112,0,128,255]; //22- unlock
 	case 23:return [85,170,4,9,3,198,0,0,30,255]; //metric khp
-	case 24:return [85,170,4,9,3,198,1,0,30,255]; //metric mph	
+	case 24:return [85,170,4,9,3,198,1,0,30,255]; //metric mph
 	case 25:return [85,170,4,9,3,198,0,0,41,255]; //ring  off
 	case 26:return [85,170,4,9,3,198,1,0,40,255]; //ring  cyrcle
-    case 30:return [85,170,4,9,2,210,0,0,30,255]; //24 set Riding Mode 0
+	case 30:return [85,170,4,9,2,210,0,0,30,255]; //24 set Riding Mode 0
 	case 31:return [85,170,4,9,2,210,1,0,29,255]; //25 set Riding Mode 1
 	case 32:return [85,170,3,9,2,210,2,29,255]; //26 set Riding Mode 2
 	case 33:return [85,170,3,9,2,210,3,28,255]; //27 set Riding Mode 3
 	case 34:return [85,170,3,9,2,210,4,27,255]; //28 set Riding Mode 4
 	case 35:return [85,170,3,9,2,210,5,26,255]; //29 set Riding Mode 5
 	case 36:return [85,170,3,9,2,210,6,25,255]; //30 set Riding Mode 6
-	case 37:return [85,170,3,9,2,210,7,24,255]; //31 set Riding Mode 7  
+	case 37:return [85,170,3,9,2,210,7,24,255]; //31 set Riding Mode 7
 	case 38:return [85,170,3,9,2,210,8,23,255]; //32 set Riding Mode 8
 	case 39:return [85,170,3,9,2,210,9,22,255];  //33 set Riding Mode 9
 	case 40:return [85,170,4,9,2,210,0,0,30,255]; //24 set Riding Mode 0
@@ -37,7 +37,7 @@ euc.cmd=function(no){
 euc.wri=function(i) {if (ew.is.bt===2) console.log("not connected yet"); if (i=="end") euc.off(); return;};
 euc.conn=function(mac){
 if ( euc.gatt&&euc.gatt.connected ) {
-	if (ew.is.bt===2) console.log("ble allready connected"); 
+	if (ew.is.bt===2) console.log("ble allready connected");
 	euc.gatt.disconnect();return;
 }
 //connect
@@ -50,9 +50,9 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 }).then(function(c) {
 	//euc.temp.characteristic=c;
 	c.on('characteristicvaluechanged', function(event) {
-		if (ew.is.bt==5) {	
+		if (ew.is.bt==5) {
 			euc.proxy.w(event.target.value.buffer);
-		}	
+		}
 		this.var= event.target.value.buffer[5];
 		this.in16=event.target.value.getUint16(6, true);
 		//print(this.var);
@@ -62,13 +62,13 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			//euc.dash.live.spd=Math.round((this.in16/1000)*euc.dash.opt.unit.fact.spd*((ew.def.dash.mph)?0.625:1));
 			euc.dash.live.spd=this.in16/1000;
 			if (euc.dash.trip.topS < euc.dash.live.spd) euc.dash.trip.topS = euc.dash.live.spd;
-				euc.dash.alrt.spd.cc = ( euc.dash.alrt.spd.hapt.hi <= euc.dash.live.spd )? 2 : ( euc.dash.alrt.spd.hapt.low <= euc.dash.live.spd )? 1 : 0 ;	
-				if ( euc.dash.alrt.spd.hapt.en && euc.dash.alrt.spd.cc == 2 ) 
-					euc.is.alert = 1 + Math.round((euc.dash.live.spd-euc.dash.alrt.spd.hapt.hi) / euc.dash.alrt.spd.hapt.step) ; 	
+				euc.dash.alrt.spd.cc = ( euc.dash.alrt.spd.hapt.hi <= euc.dash.live.spd )? 2 : ( euc.dash.alrt.spd.hapt.low <= euc.dash.live.spd )? 1 : 0 ;
+				if ( euc.dash.alrt.spd.hapt.en && euc.dash.alrt.spd.cc == 2 )
+					euc.is.alert = 1 + Math.round((euc.dash.live.spd-euc.dash.alrt.spd.hapt.hi) / euc.dash.alrt.spd.hapt.step) ;
 			break;
 		case 80://amp
-			if ( 32768 < this.in16 ) 
-				euc.dash.live.amp = (this.in16 - 65536) / 100 ; 
+			if ( 32768 < this.in16 )
+				euc.dash.live.amp = (this.in16 - 65536) / 100 ;
 			else 
 				euc.dash.live.amp = this.in16 / 100;
 			euc.log.ampL.unshift(Math.round(euc.dash.live.amp));
@@ -88,12 +88,12 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			break;
 		case 71://battery fixed/voltage
 			euc.dash.live.volt=this.in16/100;
-			euc.dash.live.bat=Math.round(100*(euc.dash.live.volt*6.66 - euc.dash.opt.bat.low )  / (euc.dash.opt.bat.hi-euc.dash.opt.bat.low));
-			//euc.dash.live.bat=(((this.in16/100)-51.5)*10|0); 
+			euc.dash.live.bat=Math.round(100*(euc.dash.live.volt*(100/euc.dash.opt.bat.pack) - euc.dash.opt.bat.low )  / (euc.dash.opt.bat.hi-euc.dash.opt.bat.low));
+			//euc.dash.live.bat=(((this.in16/100)-51.5)*10|0);
 			euc.log.batL.unshift(euc.dash.live.bat);
 			if (20<euc.log.batL.length) euc.log.batL.pop();
-			euc.dash.alrt.bat.cc = (50 <= euc.dash.live.bat)? 0 : (euc.dash.live.bat <= euc.dash.alrt.bat.hapt.low)? 2 : 1;	
-			if ( euc.dash.alrt.bat.hapt.en && euc.dash.alrt.bat.cc ==2 )  euc.is.alert ++; 
+			euc.dash.alrt.bat.cc = (50 <= euc.dash.live.bat)? 0 : (euc.dash.live.bat <= euc.dash.alrt.bat.hapt.low)? 2 : 1;
+			if ( euc.dash.alrt.bat.hapt.en && euc.dash.alrt.bat.cc ==2 )  euc.is.alert ++;
 			break;
 		case 37: //remaining
 			euc.dash.trip.left=this.in16/100;
@@ -101,7 +101,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 		case 62: //temp
 			euc.dash.live.tmp=this.in16/10;
 			euc.dash.alrt.tmp.cc=(euc.dash.alrt.tmp.hapt.hi - 5 <= euc.dash.live.tmp )? (euc.dash.alrt.tmp.hapt.hi <= euc.dash.live.tmp )?2:1:0;
-			if (euc.dash.alrt.tmp.hapt.en && euc.dash.alrt.tmp.cc==2) euc.is.alert++; 	  
+			if (euc.dash.alrt.tmp.hapt.en && euc.dash.alrt.tmp.cc==2) euc.is.alert++;
 			break;
 		case 182: //average
 			euc.dash.trip.avrS=(this.in16/1000).toFixed(1);
@@ -112,7 +112,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 		case 210: //riding Mode
 			if (this.in16 >=10)  {
               if (face.appCurr=="dashNinebot") face[0].ntfy("MODE CHANGED","",22,4,1);
-              buzzer.nav([80,40,80]);  
+              buzzer.nav([80,40,80]);
             }else euc.dash.opt.ride.mode=this.in16;
 			break;
 		case 112: //lock status
@@ -120,7 +120,7 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 			break;
 		}
     	//buzz
-		if (euc.is.alert && !euc.is.buzz) {  
+		if (euc.is.alert && !euc.is.buzz) {
 			if (!w.gfx.isOn&&(euc.dash.alrt.spd.cc||euc.dash.alrt.amp.cc||euc.dash.alrt.pwr)) face.go(ew.is.dash[ew.def.dash.face],0);
 			euc.is.buzz=1;
             if (20<=euc.is.alert) euc.is.alert=20;
@@ -130,17 +130,17 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 				euc.is.alert=euc.is.alert-5;
 			}
 			for (let i = 0; i < euc.is.alert ; i++) a.push(150,150);
-			buzzer.euc(a);  
+			buzzer.euc(a);
 			setTimeout(() => {euc.is.buzz=0; }, 3000);
 		}
 	});
 	//on disconnect
 	euc.gatt.device.on('gattserverdisconnected', euc.off);
-	c.startNotifications();	
+	c.startNotifications();
 	return  c;
 }).then(function(c) {
-	//connected 
-	if (ew.is.bt===2) console.log("EUC: Connected"); 
+	//connected
+	if (ew.is.bt===2) console.log("EUC: Connected");
 	euc.state="READY"; //connected
 	buzzer.nav([90,40,150,40,90]);
 	euc.dash.opt.lock.en=0;
@@ -157,11 +157,11 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
 		//		c.writeValue(v).then(function() {
         ////            if (euc.tout.busy) {clearTimeout(euc.tout.busy);euc.tout.busy=0;}
 		//		}).catch(euc.off);
-		//}else 
+		//}else
 		if ( euc.state==="OFF" || n==="end" ) {
 			euc.is.busy=1;
 			if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
-			euc.tout.loop=setTimeout( function(){ 
+			euc.tout.loop=setTimeout( function(){
 				euc.tout.loop=0;
 				if (!euc.gatt) {euc.off("not connected");return;}
 				c.writeValue(euc.cmd((euc.dash.auto.onD.lock)?21:25)).then(function() {
@@ -173,14 +173,14 @@ NRF.connect(mac,{minInterval:7.5, maxInterval:15})
                 if (euc.tout.busy) {clearTimeout(euc.tout.busy);euc.tout.busy=0;}
 				if (euc.is.busy==1||n=="proxy") return;
 				if (euc.tout.loop) {clearTimeout(euc.tout.loop); euc.tout.loop=0;}
-				euc.tout.loop=setTimeout( function(){ 
+				euc.tout.loop=setTimeout( function(){
 					euc.tout.loop=0;
 					euc.temp.count++;
 					if (euc.temp.count>=21)euc.temp.count=0;
 				    euc.wri(1,euc.temp.count);
-				},50);	
+				},50);
 			}).catch(euc.off);
-		} 
+		}
 	};
 	if (!ew.do.fileRead("dash","slot"+ew.do.fileRead("dash","slot")+"Mac")) {
 		euc.dash.info.get.mac=euc.mac; euc.dash.opt.bat.hi=412;

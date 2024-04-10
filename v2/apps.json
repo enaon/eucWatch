@@ -41,9 +41,7 @@
 			{"name":"eucWatch.img","url":"../init/eucWatch.icon.js"},
 			{"name":".display","url":"../init/lcd_b2.js"}
 		]
-	
 	},
-	
 	{ "id": "init",
 		"name": "Init - P8/P22",
 		"icon": "../init/icon.png",
@@ -61,7 +59,7 @@
 	{ "id": "init",
 		"name": "Init - P22 B1-D",
 		"icon": "../init/icon.png",
-		"version":"1.94.4",
+		"version":"1.94.5",
 		"description": "Screen driver and init functions. For use with the Espruino image  build by fanoush. ",
 		"tags": "core",
 	    "needsFeatures":["P22B"],
@@ -84,8 +82,7 @@
 		"storage": [
 			{"name":".bootrst","url":"../init/init.js"}
 		]
-	},	
-
+	},
 	{ "id": "UI",
 		"name": "UI support",
 		"icon": "../../Magic-testing/UI/icon.png",
@@ -98,9 +95,8 @@
 		"storage": [
 			{"name":"C:UI","url":"../../Magic-testing/UI/ui.js"},
 			{"name":"C:icons","url":"../../Magic-testing/UI/icons.js"}
-	
 		]
-	},	
+	},
 	{ "id": "fonts",
 		"name": "fonts",
 		"icon": "../init/fonts/icon.png",
@@ -118,11 +114,10 @@
 
 		]
 	},
-	
 	{ "id": "handler",
 		"name": "Handler - V2",
 		"icon": "../../Magic-testing/handler/icon.png",
-		"version":"1.94.3",
+		"version":"1.94.4",
 		"description": "Magic3-Rock-Bangle functions handler",
 		"tags": "core",
 		"type":"core",
@@ -146,11 +141,11 @@
 			{"name":"handler_acc_SC7A20","url":"../handler/handler_acc_SC7A20.js"},
 			{"name":"handler_buzz","url":"../handler/handler_buzz.js"}
 		]
-	},  
+	},
 	{ "id": "handler",
 		"name": "Handler - V1",
 		"icon": "../handler/icon.png",
-		"version":"1.94.6",
+		"version":"1.94.13",
 		"description": "P8-P22-Pinetime functions handler",
 		"tags": "core",
 	    "needsFeatures":["V1"],
@@ -173,7 +168,7 @@
 			{"name":"handler_buzz","url":"../handler/handler_buzz.js"}
 
 		]
-	},  
+	},
 	{ "id": "handler_pt",
 		"name": "Handler - Pinetime",
 		"icon": "../../P8-testing/handler_pt/icon.png",
@@ -186,7 +181,7 @@
 		"storage": [
 			{"name":"handler","url":"../../P8-testing/handler_pt/handler.js"}
 		]
-	}, 
+	},
 	{ "id": "clock",
 		"name": "Clock face",
 		"icon": "../../P8-testing/clock/icon.png",
@@ -199,11 +194,11 @@
 			{"name":"clock","url":"../../P8-testing/clock/clock.js"},
 			{"name":"clockOptions","url":"../../P8-testing/clock/clockOptions.js"}
 		]
-	},  
+	},
 	{ "id": "settings",
 		"name": "Settings",
 		"icon": "../../P8-testing/settings/icon.png",
-		"version":"1.94.1",
+		"version":"1.94.3",
 		"description": "Settings face",
 		"tags": "apps",
 		"type":"clock",
@@ -236,10 +231,21 @@
 			{"name":"calc","url":"../../P8-testing/calc/calc.js"}
 		]
 	},
+	{ "id": "rotate",
+		"name": "Screen rotate",
+		"icon": "../../P8-testing/rotate/icon.png",
+		"version":"1.0.1",
+		"description": "Rotate and mirror screen",
+		"tags": "apps",
+            "needsFeatures":["P22B"],
+		"storage": [
+			{"name":"rotate","url":"../../P8-testing/rotate/rotate.js"}
+		]
+	},
 	{ "id": "notify",
 		"name": "Notifications",
 		"icon": "../../P8-testing/notify/icon.png",
-		"version":"1.94.1",
+		"version":"1.94.2",
 		"description": "Notifications face for system, atc and gadgetbridge",
 		"tags": "apps",
 		"type": "notify",
@@ -264,7 +270,7 @@
 	{ "id": "dash",
 		"name": "EUC Dashboard",
 		"icon": "../../P8-testing/dash/icon.png",
-		"version":"1.94.1",
+		"version":"1.94.7",
 		"description": "EUC dashboard. Garage, scan and dash faces. Depends on EUC modules.",
 		"tags": "euc",
 	    "needsFeatures":["V1"],
@@ -280,7 +286,7 @@
 	{ "id": "Dashboard Digital",
 		"name": "EUC digital Dashboard",
 		"icon": "../../P8-testing/dash/icon.png",
-		"version":"1.94.1",
+		"version":"1.94.7",
 		"description": "EUC simple digital",
 		"tags": "euc",
 	    "needsFeatures":["V1"],
@@ -288,7 +294,7 @@
 		"storage": [
 			{"name":"dash_digital","url":"../../P8-testing/dash/dash_digital.js"}
 		]
-	}, 	
+	},
 	{ "id": "Dashboard Simple",
 		"name": "EUC simple Dashboard",
 		"icon": "../../P8-testing/dash/icon.png",
@@ -300,7 +306,7 @@
 		"storage": [
 			{"name":"dash_simple","url":"../../P8-testing/dash/dash_simple.js"}
 		]
-	}, 
+	},
 	{ "id": "Dashboard PWM",
 		"name": "EUC pwm Dashboard",
 		"icon": "../../P8-testing/dash/icon.png",
@@ -312,7 +318,7 @@
 		"storage": [
 			{"name":"dash_pwm","url":"../../P8-testing/dash/dash_pwm.js"}
 		]
-	}, 
+	},
 	{ "id": "dashKingsong",
 		"name": "Kingsong Settings",
 		"icon": "../../P8-testing/dashKingsong/icon.png",
@@ -336,7 +342,7 @@
 			{"name":"dashKingsongAdvPass","url":"../../P8-testing/dashKingsong/dashKingsongAdvPass.js"},
 			{"name":"dashKingsongCharging","url":"../../P8-testing/dashKingsong/dashKingsongCharging.js"}
 		]
-	}, 
+	},
 	{ "id": "dashNinebotE",
 		"name": "Ninebot Settings",
 		"icon": "../../P8-testing/dashNinebotE/icon.png",
@@ -348,7 +354,7 @@
 		"storage": [
 			{"name":"dashNinebotE","url":"../../P8-testing/dashNinebotE/dashNinebotE.js"}
     ]
-	}, 
+	},
 	{ "id": "dashNinebotZ",
 		"name": "NinebotZ Settings",
 		"icon": "../../P8-testing/dashNinebotZ/icon.png",
@@ -360,7 +366,7 @@
 		"storage": [
 			{"name":"dashNinebotZ","url":"../../P8-testing/dashNinebotZ/dashNinebotZ.js"}
     ]
-	}, 
+	},
 	{ "id": "dashNinebotS",
 		"name": "Ninebot S2/A1 Settings",
 		"icon": "../../P8-testing/dashNinebotS/icon.png",
@@ -372,11 +378,11 @@
 		"storage": [
 			{"name":"dashNinebotS","url":"../../P8-testing/dashNinebotS/dashNinebotS.js"}
     ]
-	}, 
+	},
 	{ "id": "dashInmotionV10",
 		"name": "Inmotion V5/8/10 Settings",
 		"icon": "../../P8-testing/dashInmotionV10/icon.png",
-		"version":"1.94.1",
+		"version":"1.94.2",
 		"description": "EUC dashboard, Inmotion V5/8/10 settings gui files.",
 		"tags": "euc",
 	    "needsFeatures":["V1"],
@@ -388,9 +394,9 @@
 			{"name":"dashInmotionV10Adv","url":"../../P8-testing/dashInmotionV10/dashInmotionV10Adv.js"},
 			{"name":"dashInmotionV10AdvCalibrate","url":"../../P8-testing/dashInmotionV10/dashInmotionV10AdvCalibrate.js"},
 			{"name":"dashInmotionV10AdvLimits","url":"../../P8-testing/dashInmotionV10/dashInmotionV10AdvLimits.js"},
-			{"name":"dashInmotionV10AdvPass","url":"../../P8-testing/dashInmotionV10/dashInmotionV10AdvPass.js"}   
+			{"name":"dashInmotionV10AdvPass","url":"../../P8-testing/dashInmotionV10/dashInmotionV10AdvPass.js"}
 		]
-	}, 	
+	},
 	{ "id": "dashInmotionV11",
 		"name": "Inmotion V11 Settings",
 		"icon": "../../P8-testing/dashInmotionV11/icon.png",
@@ -402,7 +408,7 @@
 		"storage": [
 			{"name":"dashInmotionV11","url":"../../P8-testing/dashInmotionV11/dashInmotionV11.js"}
     ]
-	}, 
+	},
 	{ "id": "dashInmotionV12",
 		"name": "Inmotion V12 Settings",
 		"icon": "../../P8-testing/dashInmotionV12/icon.png",
@@ -414,7 +420,7 @@
 		"storage": [
 		{"name":"dashInmotionV12","url":"../../P8-testing/dashInmotionV12/dashInmotionV12.js"}
     ]
-	}, 
+	},
 	{ "id": "dashVeteran",
 		"name": "Veteran Settings",
 		"icon": "../../P8-testing/dashVeteran/icon.png",
@@ -427,7 +433,7 @@
 			{"name":"dashVeteranOptions","url":"../../P8-testing/dashVeteran/dashVeteranOptions.js"}
 
 		]
-	}, 
+	},
 	{ "id": "dashBegode",
 		"name": "Begode Settings",
 		"icon": "../../P8-testing/dashBegode/icon.png",
@@ -450,7 +456,7 @@
 	{ "id": "tpms",
 		"name": "TPMS Sensor",
 		"icon": "../../P8-testing/tpms/icon.png",
-		"version":"1.94.2",
+		"version":"1.94.3",
 		"description": "BLE TPMS Sensors (Tire pressure measuring, TP630 etc)",
 		"tags": "euc",
 	    "needsFeatures":["V1"],
@@ -470,7 +476,7 @@
 		"storage": [
 			{"name":"ledBT","url":"../../P8-testing/ledBT/ledBT.js"}
 		]
-	},	
+	},
 	{ "id": "repellent",
 		"name": "Repellent",
 		"icon": "../../P8-testing/repellent/icon.png",
@@ -485,7 +491,7 @@
 	{ "id": "hid",
 		"name": "HID BT Music control",
 		"icon": "../../P8-testing/hid/icon.png",
-		"version":"1.94.1",
+		"version":"1.94.2",
 		"description": "Music controls over BLEHID face",
 		"tags": "apps",
 	    "needsFeatures":["V1"],
@@ -496,7 +502,7 @@
 	{ "id": "w_apps",
 		"name": "App Loader",
 		"icon": "../../P8-testing/w_apps/icon.png",
-		"version":"1.94.1",
+		"version":"1.94.2",
 		"description": "Extends settings face with an app drawer.",
 		"tags": "system",
 		"type": "system",
@@ -529,8 +535,6 @@
 			{"name":"w_testTP","url":"../../P8-testing/w_testTP/w_testTP.js"}
 		]
 	},
-
-
 	{ "id": "clock",
 		"name": "Clock",
 		"icon": "../../Magic-testing/clock/icon.png",
@@ -542,7 +546,7 @@
 		"storage": [
 			{"name":"C:clock","url":"../../Magic-testing/clock/clock.js"}
 		]
-	},  
+	},
 	{ "id": "settings",
 		"name": "Settings",
 		"icon": "../../Magic-testing/settings/icon.png",
@@ -578,7 +582,7 @@
 			{"name":"dashScan","url":"../../Magic-testing/dash/dashScan.js"},
 			{"name":"C:dashOff","url":"../../Magic-testing/dash/dashOff.js"}
 		]
-	}, 
+	},
 	{ "id": "dashKingsong",
 		"name": "Kingsong Settings",
 		"icon": "../../Magic-testing/dashKingsong/icon.png",
@@ -602,7 +606,7 @@
 			{"name":"dashKingsongAdvAlert","url":"../../Magic-testing/dashKingsong/dashKingsongAdvAlert.js"},
 			{"name":"dashKingsongAdvPass","url":"../../Magic-testing/dashKingsong/dashKingsongAdvPass.js"}
 		]
-	}, 
+	},
 	{ "id": "dashNinebotE",
 		"name": "NinebotE Settings",
 		"icon": "../../Magic-testing/dashNinebotE/icon.png",
@@ -614,7 +618,7 @@
 		"storage": [
 			{"name":"dashNinebotE","url":"../../Magic-testing/dashNinebotE/dashNinebotE.js"}
     ]
-	}, 
+	},
 	{ "id": "dashNinebotZ",
 		"name": "NinebotZ Settings",
 		"icon": "../../Magic-testing/dashNinebotZ/icon.png",
@@ -626,7 +630,7 @@
 		"storage": [
 			{"name":"dashNinebotZ","url":"../../Magic-testing/dashNinebotZ/dashNinebotZ.js"}
     ]
-	}, 
+	},
 	{ "id": "dashNinebotS",
 		"name": "Ninebot S2/A1 Settings",
 		"icon": "../../Magic-testing/dashNinebotS/icon.png",
@@ -654,9 +658,9 @@
 			{"name":"dashInmotionV10Adv","url":"../../Magic-testing/dashInmotionV10/dashInmotionV10Adv.js"},
 			{"name":"dashInmotionV10AdvCalibrate","url":"../../Magic-testing/dashInmotionV10/dashInmotionV10AdvCalibrate.js"},
 			{"name":"dashInmotionV10AdvLimits","url":"../../Magic-testing/dashInmotionV10/dashInmotionV10AdvLimits.js"},
-			{"name":"dashInmotionV10AdvPass","url":"../../Magic-testing/dashInmotionV10/dashInmotionV10AdvPass.js"}   
+			{"name":"dashInmotionV10AdvPass","url":"../../Magic-testing/dashInmotionV10/dashInmotionV10AdvPass.js"}
 		]
-	}, 
+	},
 	{ "id": "dashInmotionV11",
 		"name": "Inmotion V11 Settings",
 		"icon": "../../Magic-testing/dashInmotionV11/icon.png",
@@ -668,7 +672,7 @@
 		"storage": [
 			{"name":"dashInmotionV11","url":"../../Magic-testing/dashInmotionV11/dashInmotionV11.js"}
     ]
-	}, 
+	},
 	{ "id": "dashInmotionV12",
 		"name": "Inmotion V12 Settings",
 		"icon": "../../Magic-testing/dashInmotionV12/icon.png",
@@ -693,7 +697,7 @@
 			{"name":"dashVeteranOptions","url":"../../Magic-testing/dashVeteran/dashVeteranOptions.js"}
 
 		]
-	}, 
+	},
 	{ "id": "dashBegode",
 		"name": "Begode Settings",
 		"icon": "../../Magic-testing/dashBegode/icon.png",
@@ -733,11 +737,11 @@
 			{"name":"hid","url":"../../Magic-testing/hid/hid.js"}
 		]
 	},
-	
+
 	{ "id": "euc",
 		"name": "EUC modules support",
 		"icon": "../../v2/euc/icon.png",
-		"version":"1.94.4",
+		"version":"1.94.7",
 		"description": "EUC module switcher, depends on wheel module.",
 		"tags": "euc",
 	    "needsFeatures":["EW"],
@@ -751,7 +755,7 @@
 	{ "id": "eucKingsong",
 		"name": "Kingsong module",
 		"icon": "../../v2/euc/eucKingsong/icon.png",
-		"version":"1.94.8",
+		"version":"1.94.10",
 		"description": "EUC module for Kingsong.",
 		"tags": "euc",
 		"type": "euc",
@@ -764,7 +768,7 @@
 	{ "id": "eucNinebotE",
 		"name": "Ninebot module",
 		"icon": "../../v2/euc/eucNinebotE/icon.png",
-		"version":"1.94.1",
+		"version":"1.94.2",
 		"description": "EUC module for Ninebot C/E/P.",
 		"tags": "euc",
 		"type": "euc",
@@ -777,7 +781,7 @@
 	{ "id": "eucNinebotZ",
 		"name": "NinebotZ module",
 		"icon": "../../v2/euc/eucNinebotZ/icon.png",
-		"version":"1.94.1",
+		"version":"1.94.2",
 		"description": "EUC module for Ninebot Z6/Z10",
 		"tags": "euc",
 		"type": "euc",
@@ -789,7 +793,7 @@
 	{ "id": "eucNinebotS",
 		"name": "Ninebot S2/A1 module",
 		"icon": "../../v2/euc/eucNinebotS/icon.png",
-		"version":"1.94.1",
+		"version":"1.94.2",
 		"description": "EUC module for Ninebot S2/A1",
 		"tags": "euc",
 		"type": "euc",
@@ -801,19 +805,20 @@
 	{ "id": "eucInmotionV10",
 		"name": "Inmotion V5/8/10 module",
 		"icon": "../../v2/euc/eucInmotionV10/icon.png",
-		"version":"1.94.3",
+		"version":"1.94.10",
 		"description": "EUC module for Inmotion V5/8/10.",
 		"tags": "euc",
 		"type": "euc",
 	    "needsFeatures":["EW"],
 		"storage": [
-			{"name":"eucInmotionV10","url":"../../v2/euc/eucInmotionV10/eucInmotionV10.js"}
+			{"name":"eucInmotionV10","url":"../../v2/euc/eucInmotionV10/eucInmotionV10.js"},
+			{"name":"proxyInmotionV10","url":"../../v2/euc/eucInmotionV10/proxyInmotionV10.js"}
 		]
 	},
 	{ "id": "eucInmotionV11",
 		"name": "Inmotion V11 module, V1.4 and later",
 		"icon": "../../v2/euc/eucInmotionV11/icon.png",
-		"version":"1.94.5",
+		"version":"1.94.8",
 		"description": "EUC module for Inmotion V11 (fimware version > 1.4).",
 		"tags": "euc",
 		"type": "euc",
@@ -825,7 +830,7 @@
 	{ "id": "eucInmotionV11-old",
 		"name": "Inmotion V11 module, old",
 		"icon": "../../v2/euc/eucInmotionV11/icon.png",
-		"version":"1.94.1",
+		"version":"1.94.2",
 		"description": "EUC module for *old* Inmotion V11 (fimware version < 1.4).",
 		"tags": "euc",
 		"type": "euc",
@@ -837,7 +842,7 @@
 	{ "id": "eucInmotionV12",
 		"name": "Inmotion V12 module",
 		"icon": "../../v2/euc/eucInmotionV12/icon.png",
-		"version":"1.94.2",
+		"version":"1.94.3",
 		"description": "EUC module for Inmotion V12.",
 		"tags": "euc",
 		"type": "euc",
@@ -846,10 +851,22 @@
 			{"name":"eucInmotionV12","url":"../../v2/euc/eucInmotionV12/eucInmotionV12.js"}
 		]
 	},
+        { "id": "eucInmotionV2",
+                "name": "Inmotion V2 (V11/12/13)",
+                "icon": "../../v2/euc/eucInmotionV2/icon.png",
+                "version":"0.4.10",
+                "description": "EUC module for Inmotion V2. TEST",
+                "tags": "euc",
+                "type": "euc",
+            "needsFeatures":["EW"],
+                "storage": [
+                        {"name":"eucInmotionV2","url":"../../v2/euc/eucInmotionV2/eucInmotionV2.js"}
+                ]
+        },
    { "id": "eucVeteran",
 		"name": "Veteran module",
 		"icon": "../../v2/euc/eucVeteran/icon.png",
-		"version":"1.94.3",
+		"version":"2.1.2",
 		"description": "EUC module for Veteran Sherman",
 		"tags": "euc",
 		"type": "euc",
@@ -862,7 +879,7 @@
    { "id": "eucBegode",
 		"name": "Begode module",
 		"icon": "../../v2/euc/eucBegode/icon.png",
-		"version":"1.94.6",
+		"version":"1.94.7",
 		"description": "EUC module for Begode (Gotway)",
 		"tags": "euc",
 		"type": "euc",

@@ -1,70 +1,380 @@
-2v09.119 (c) 2021 G.Williams
-Espruino is Open Source. Our work is supported
-only by sales of official boards and donations:
-http://espruino.com/Donate
+ble allready connected
 EUC Veteran connected!!
-new Uint8Array([220, 90, 92, 32, 38, 175, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 3, 20, 1])
-new Uint8Array([13, 18, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 150, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 175, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 5, 19, 247])
-new Uint8Array([13, 17, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 149, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 176, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 8, 20, 1])
-new Uint8Array([13, 17, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 149, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 175, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 2, 20, 1])
-new Uint8Array([13, 17, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 150, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 176, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 5, 19, 247])
-new Uint8Array([13, 17, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 150, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 175, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 3, 20, 1])
-new Uint8Array([13, 17, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 150, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 176, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 4, 20, 1])
-new Uint8Array([13, 16, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 149, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 176, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 6, 20, 1])
-new Uint8Array([13, 16, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 149, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 175, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 3, 20, 1])
-new Uint8Array([13, 16, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 150, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 176, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 6, 20, 1])
-new Uint8Array([13, 16, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 149, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 176, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 7, 20, 1])
-new Uint8Array([13, 16, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 150, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 176, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 5, 20, 1])
-new Uint8Array([13, 15, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 149, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 175, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 4, 20, 1])
-new Uint8Array([13, 15, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 150, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 176, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 5, 20, 1])
-new Uint8Array([13, 15, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 150, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 176, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 5, 19, 247])
-new Uint8Array([13, 15, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 150, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 175, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 7, 20, 1])
-new Uint8Array([13, 14, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 149, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 175, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 6, 19, 247])
-new Uint8Array([13, 14, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 149, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 176, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 6, 20, 1])
-new Uint8Array([13, 14, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 149, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 176, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 12, 19, 247])
-new Uint8Array([13, 14, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 148, 0, 0])
-EUC OUT: 22
-EUC Veteran connected!!
-new Uint8Array([220, 90, 92, 32, 38, 175, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 15, 19, 247])
-new Uint8Array([13, 4, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 147, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 176, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 10, 20, 1])
-new Uint8Array([13, 4, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 148, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 175, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 12, 20, 1])
-new Uint8Array([13, 4, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 148, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 175, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 10, 20, 1])
-new Uint8Array([13, 4, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 148, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 175, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 9, 20, 1])
-new Uint8Array([13, 4, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 148, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 176, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 8, 19, 247])
-new Uint8Array([13, 3, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 149, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 176, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 7, 19, 247])
-new Uint8Array([13, 3, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 149, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 175, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 9, 20, 1])
-new Uint8Array([13, 3, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 148, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 175, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 8, 19, 247])
-new Uint8Array([13, 3, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 149, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 176, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 7, 19, 247])
-new Uint8Array([13, 3, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 149, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 176, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 6, 20, 1])
-new Uint8Array([13, 2, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 149, 0, 0])
-new Uint8Array([220, 90, 92, 32, 38, 176, 0, 0, 0, 1, 0, 0, 244, 33, 0, 38, 0, 8, 20, 1])
-new Uint8Array([13, 2, 0, 0, 10, 240, 10, 240, 4, 34, 0, 3, 255, 149, 0, 0])
-EUC OUT: 22
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d3,0,0,aa,7e,0,1,42,18,0,12,0,0,11,49
+Veteran: in: length: 20  data : a,d7,0,0,2,46,a,f0,b,c4,0,1,0,6,0,30,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,5,cd,89,f1,fa
+Veteran: in: length: 20  data : dc,5a,5c,35,22,d4,0,0,aa,7e,0,1,42,18,0,12,0,1,11,4b
+Veteran: in: length: 20  data : a,d7,0,0,2,46,a,f0,b,c4,0,1,0,6,0,30,0,6f,0,0
+Veteran: in: length: 17  data : 0,0,0,0,0,0,6,80,80,80,80,80,80,56,a0,bb,89
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d3,0,0,aa,7e,0,1,42,18,0,12,0,1,11,4b
+Veteran: in: length: 20  data : a,d7,0,0,2,46,a,f0,b,c4,0,1,0,6,0,36,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,7,f3,b1,2c,4
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d3,0,0,aa,7e,0,1,42,18,0,12,0,2,11,4a
+Veteran: in: length: 20  data : a,d7,0,0,2,46,a,f0,b,c4,0,1,0,6,0,3a,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,0,0,3,4e,ff,ff,ff,ff,ff,32,ee,2,19,b
+Veteran: in: length: 13  data : 25,11,39,3,53,0,1b,0,0,2e,ea,5b,dd
+Veteran: in: length: 20  data : dc,5a,5c,31,22,d3,0,0,aa,7e,0,1,42,18,0,12,0,1,11,4b
+Veteran: in: length: 20  data : a,d6,0,0,2,46,a,f0,b,c4,0,1,0,6,0,38,0,6f,0,0
+Veteran: in: length: 13  data : 0,0,0,0,0,0,1,0,9,a2,25,b,27
+Veteran: in: length: 20  data : dc,5a,5c,32,22,d3,0,0,aa,7e,0,1,42,18,0,12,0,1,11,4a
+Veteran: in: length: 20  data : a,d6,0,0,2,46,a,f0,b,c4,0,1,0,6,0,34,0,6f,0,0
+Veteran: in: length: 14  data : 0,0,0,0,0,0,2,37,0,0,65,60,c4,c5
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d4,0,0,aa,7e,0,1,42,18,0,12,0,0,11,4b
+Veteran: in: length: 20  data : a,d6,0,0,2,46,a,f0,b,c4,0,1,0,6,0,3a,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,3,fb,e5,72,b
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d3,0,0,aa,7e,0,1,42,18,0,12,0,1,11,4b
+Veteran: in: length: 20  data : a,d6,0,0,2,46,a,f0,b,c4,0,1,0,6,0,32,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,4,0,3,4f,ff,ff,ff,ff,ff,32,ee,2,19,b
+Veteran: in: length: 13  data : 26,11,3b,3,53,0,20,0,0,31,4b,98,5e
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d3,0,0,aa,7e,0,1,42,18,0,12,0,0,11,4a
+Veteran: in: length: 20  data : a,d6,0,0,2,46,a,f0,b,c4,0,1,0,6,0,2c,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,5,21,58,f0,37
+Veteran: in: length: 20  data : dc,5a,5c,35,22,d3,0,0,aa,7e,0,1,42,18,0,12,0,2,11,4b
+Veteran: in: length: 20  data : a,d6,0,0,2,46,a,f0,b,c4,0,1,0,6,0,38,0,6f,0,0
+Veteran: in: length: 17  data : 0,0,0,0,0,0,6,80,80,80,80,80,80,64,de,ed,c5
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d4,0,0,aa,7e,0,1,42,18,0,12,0,1,11,4c
+Veteran: in: length: 20  data : a,d5,0,0,2,46,a,f0,b,c4,0,1,0,6,0,3a,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,7,36,b6,4b,b1
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d3,0,0,aa,7e,0,1,42,18,0,12,0,2,11,4b
+Veteran: in: length: 20  data : a,d5,0,0,2,46,a,f0,b,c4,0,1,0,6,0,39,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,0,0,3,4f,ff,ff,ff,ff,ff,32,ee,2,19,b
+Veteran: in: length: 13  data : 26,11,3c,3,53,0,1a,0,0,b3,2e,2a,dd
+Veteran: in: length: 20  data : dc,5a,5c,31,22,d3,0,0,aa,7e,0,1,42,18,0,12,0,1,11,4a
+Veteran: in: length: 20  data : a,d5,0,0,2,46,a,f0,b,c4,0,1,0,6,0,34,0,6f,0,0
+Veteran: in: length: 13  data : 0,0,0,0,0,0,1,0,9,b6,6e,7e,25
+Veteran: in: length: 20  data : dc,5a,5c,32,22,d4,0,0,aa,7e,0,1,42,18,0,12,0,1,11,4b
+Veteran: in: length: 20  data : a,d5,0,0,2,46,a,f0,b,c4,0,1,0,6,0,36,0,6f,0,0
+Veteran: in: length: 14  data : 0,0,0,0,0,0,2,37,0,0,ba,9,23,8f
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d4,0,0,aa,7e,0,1,42,18,0,12,0,1,11,4d
+Veteran: in: length: 20  data : a,d5,0,0,2,46,a,f0,b,c4,0,1,0,6,0,31,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,3,41,fc,d6,bb
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d4,0,0,aa,7e,0,1,42,18,0,12,0,1,11,4a
+Veteran: in: length: 20  data : a,d4,0,0,2,46,a,f0,b,c4,0,1,0,6,0,34,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,4,0,3,50,ff,ff,ff,ff,ff,32,ee,2,1a,b
+Veteran: in: length: 13  data : 26,11,3d,3,53,0,19,0,0,43,ac,24,ea
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d3,0,0,aa,7e,0,1,42,18,0,12,0,2,11,4b
+Veteran: in: length: 20  data : a,d4,0,0,2,46,a,f0,b,c4,0,1,0,6,0,2e,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,5,a1,5d,1e,ca
+Veteran: in: length: 20  data : dc,5a,5c,35,22,d3,0,0,aa,7e,0,1,42,18,0,12,0,1,11,49
+Veteran: in: length: 20  data : a,d4,0,0,2,46,a,f0,b,c4,0,1,0,6,0,28,0,6f,0,0
+Veteran: in: length: 17  data : 0,0,0,0,0,0,6,80,80,80,80,80,80,5f,5c,65,5a
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d3,0,0,aa,7e,0,1,42,18,0,12,0,1,11,4b
+Veteran: in: length: 20  data : a,d4,0,0,2,46,a,f0,b,c4,0,1,0,6,0,2d,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,7,7c,6c,88,e
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d4,0,0,aa,7e,0,1,42,18,0,12,0,2,11,4b
+Veteran: in: length: 20  data : a,d4,0,0,2,46,a,f0,b,c4,0,1,0,6,0,35,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,0,0,3,51,ff,ff,ff,ff,ff,32,ee,2,1a,b
+Veteran: in: length: 13  data : 26,11,3f,3,53,0,1b,0,0,a8,6a,37,a8
+Veteran: in: length: 20  data : dc,5a,5c,31,22,d3,0,0,aa,7e,0,1,42,18,0,12,0,1,11,4b
+Veteran: in: length: 20  data : a,d3,0,0,2,46,a,f0,b,c4,0,1,0,6,0,35,0,6f,0,0
+Veteran: in: length: 13  data : 0,0,0,0,0,0,1,0,9,12,bd,72,15
+Veteran: in: length: 20  data : dc,5a,5c,32,22,d3,0,0,aa,7e,0,1,42,18,0,12,0,2,11,4b
+Veteran: in: length: 20  data : a,d3,0,0,2,46,a,f0,b,c4,0,1,0,6,0,39,0,6f,0,0
+Veteran: in: length: 14  data : 0,0,0,0,0,0,2,37,0,0,f8,f7,54,f8
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d3,0,0,aa,7e,0,1,42,18,0,12,0,1,11,4a
+Veteran: in: length: 20  data : a,d3,0,0,2,46,a,f0,b,c4,0,1,0,6,0,31,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,3,ab,65,6a,51
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d3,0,0,aa,7e,0,1,42,18,0,12,0,1,11,4b
+Veteran: in: length: 20  data : a,d3,0,0,2,46,a,f0,b,c4,0,1,0,6,0,32,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,4,0,3,52,ff,ff,ff,ff,ff,32,ee,2,1a,b
+Veteran: in: length: 13  data : 27,11,40,3,53,0,1c,0,0,e1,2d,80,1d
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d3,0,0,aa,7e,0,1,42,18,0,12,0,1,11,4c
+Veteran: in: length: 20  data : a,d3,0,0,2,46,a,f0,b,c4,0,1,0,6,0,34,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,5,df,19,b6,3a
+Veteran: in: length: 20  data : dc,5a,5c,35,22,d4,0,0,aa,7e,0,1,42,18,0,12,0,0,11,4b
+Veteran: in: length: 20  data : a,d2,0,0,2,46,a,f0,b,c4,0,1,0,6,0,39,0,6f,0,0
+Veteran: in: length: 17  data : 0,0,0,0,0,0,6,80,80,80,80,80,80,bb,83,68,71
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d4,0,0,aa,7e,0,1,42,18,0,12,0,1,11,4a
+Veteran: in: length: 20  data : a,d2,0,0,2,46,a,f0,b,c4,0,1,0,6,0,30,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,7,1,fe,d6,b8
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d4,0,0,aa,7e,0,1,42,18,0,12,0,2,11,4c
+Veteran: in: length: 20  data : a,d2,0,0,2,46,a,f0,b,c4,0,1,0,6,0,30,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,0,0,3,53,ff,ff,ff,ff,ff,32,ee,2,1b,b
+Veteran: in: length: 13  data : 27,11,3e,3,53,0,17,0,0,a,66,46,4
+Veteran: in: length: 20  data : dc,5a,5c,31,22,d4,0,0,aa,7e,0,1,42,18,0,12,0,1,11,4b
+Veteran: in: length: 20  data : a,d2,0,0,2,46,a,f0,b,c4,0,1,0,6,0,34,0,6f,0,0
+Veteran: in: length: 13  data : 0,0,0,0,0,0,1,0,9,58,df,c7,50
+Veteran: in: length: 20  data : dc,5a,5c,32,22,d4,0,0,aa,7e,0,1,42,18,0,12,0,2,11,4b
+Veteran: in: length: 20  data : a,d2,0,0,2,46,a,f0,b,c4,0,1,0,6,0,2e,0,6f,0,0
+Veteran: in: length: 14  data : 0,0,0,0,0,0,2,37,0,0,98,93,c8,ef
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d4,0,0,aa,7e,0,1,42,18,0,12,0,2,11,4c
+Veteran: in: length: 20  data : a,d1,0,0,2,46,a,f0,b,c4,0,1,0,6,0,50,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,3,9d,8b,b8,7
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d3,0,0,aa,7e,0,1,42,18,0,12,0,8,11,4b
+Veteran: in: length: 20  data : a,d1,0,0,2,46,a,f0,b,c4,0,1,0,8,0,84,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,4,0,3,53,ff,ff,ff,ff,ff,32,ee,1,ed,b
+Veteran: in: length: 13  data : 27,11,3e,3,53,0,1b,0,0,fa,68,2e,32
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d3,0,0,aa,7e,0,1,42,18,0,12,0,6,11,4d
+Veteran: in: length: 20  data : a,d1,0,0,2,46,a,f0,b,c4,0,1,0,8,0,8d,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,5,5c,18,9f,85
+Veteran: in: length: 20  data : dc,5a,5c,35,22,d3,0,0,aa,7e,0,1,42,18,0,12,ff,d1,11,4a
+Veteran: in: length: 20  data : a,d1,0,0,2,46,a,f0,b,c4,0,1,ff,fe,0,e4,0,6f,0,0
+Veteran: in: length: 17  data : 0,0,0,0,0,0,6,80,80,80,80,80,80,da,2f,93,76
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d2,0,0,aa,7e,0,1,42,18,0,12,ff,bf,11,4c
+Veteran: in: length: 20  data : a,d1,0,0,2,46,a,f0,b,c4,0,1,ff,f7,1,54,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,7,2e,31,1,6c
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d2,0,2,aa,7e,0,1,42,18,0,12,ff,c7,11,4d
+Veteran: in: length: 20  data : e,f,0,0,2,46,a,f0,b,c4,0,1,ff,f8,1,79,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,0,0,3,54,ff,ff,ff,ff,ff,32,ee,fe,ca,b
+Veteran: in: length: 13  data : 27,11,3,3,52,0,4f,0,0,34,e6,5b,be
+Veteran: in: length: 20  data : dc,5a,5c,31,22,d2,0,5,aa,7e,0,1,42,18,0,12,ff,f8,11,4d
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,0,1,42,0,6f,0,0
+Veteran: in: length: 13  data : 0,0,0,0,0,0,1,0,9,20,de,a5,4c
+Veteran: in: length: 20  data : dc,5a,5c,32,22,d3,0,8,aa,7e,0,1,42,18,0,12,0,11,11,4d
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,5,0,2d,0,6f,0,0
+Veteran: in: length: 14  data : 0,0,0,0,0,0,2,37,0,0,5b,ab,2c,3f
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d3,0,a,aa,7e,0,1,42,18,0,12,0,20,11,4f
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,6,0,56,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,3,d7,f7,f7,1a
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d3,0,b,aa,7e,0,1,42,18,0,12,0,36,11,4e
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,b,0,e1,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,4,0,3,55,ff,ff,ff,ff,ff,32,ee,fd,fe,b
+Veteran: in: length: 13  data : 28,10,f5,3,53,0,47,0,0,6,e,c5,5a
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d3,0,6,aa,7e,0,1,42,18,0,12,0,43,11,4f
+Veteran: in: length: 20  data : e,f,0,0,2,46,a,f0,b,c4,0,1,0,12,1,55,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,5,db,70,8e,ba
+Veteran: in: length: 20  data : dc,5a,5c,35,22,d2,ff,fb,aa,7e,0,1,42,18,0,12,0,41,11,4e
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,13,1,9c,0,6f,0,0
+Veteran: in: length: 17  data : 0,0,0,0,0,0,6,80,80,80,80,80,80,85,3e,74,e4
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d2,ff,f9,aa,7e,0,1,42,18,0,12,0,31,11,4d
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,11,1,c2,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,7,f1,23,d2,70
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d2,ff,f5,aa,7f,0,1,42,19,0,12,0,23,11,4e
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,d,2,1,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,0,0,3,56,ff,ff,ff,ff,ff,32,ee,ff,37,b
+Veteran: in: length: 13  data : 29,10,db,3,53,0,4a,0,0,c5,9b,45,c8
+Veteran: in: length: 20  data : dc,5a,5c,31,22,d2,ff,ef,aa,7f,0,1,42,19,0,12,0,16,11,4e
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,d,1,f9,0,6f,0,0
+Veteran: in: length: 13  data : 0,0,0,0,0,0,1,0,a,da,4c,d2,71
+Veteran: in: length: 20  data : dc,5a,5c,32,22,d2,ff,ec,aa,7f,0,1,42,19,0,12,0,13,11,4d
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,c,2,c,0,6f,0,0
+Veteran: in: length: 14  data : 0,0,0,0,0,0,2,37,0,0,65,39,51,47
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d2,ff,e8,aa,7f,0,1,42,19,0,12,0,19,11,4e
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,e,2,30,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,3,fa,cd,de,f9
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d2,ff,e5,aa,7f,0,1,42,19,0,12,0,0,11,50
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,8,1,e2,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,4,0,3,57,ff,ff,ff,ff,ff,32,ee,ff,9a,b
+Veteran: in: length: 13  data : 2b,10,f0,3,53,0,43,0,0,38,d3,24,ea
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d2,ff,e7,aa,7f,0,1,42,19,0,12,ff,c7,11,4f
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,1,0,72,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,5,37,d,aa,cb
+Veteran: in: length: 20  data : dc,5a,5c,35,22,d3,ff,e5,aa,7f,0,1,42,19,0,12,ff,c4,11,4e
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,ff,fe,0,3a,0,6f,0,0
+Veteran: in: length: 17  data : 0,0,0,0,0,0,6,80,80,80,80,80,80,c1,17,9a,ff
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d3,ff,eb,aa,80,0,1,42,1a,0,12,ff,dd,11,50
+Veteran: in: length: 20  data : e,f,0,0,2,46,a,f0,b,c4,0,1,ff,ff,0,84,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,7,1d,37,ad,24
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d3,ff,f2,aa,80,0,1,42,1a,0,12,ff,c5,11,4e
+Veteran: in: length: 20  data : e,f,0,0,2,46,a,f0,b,c4,0,1,ff,fb,1,6,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,0,0,3,57,ff,ff,ff,ff,ff,32,ee,ff,87,b
+Veteran: in: length: 13  data : 2e,10,d5,3,53,0,4e,0,0,27,51,b6,f7
+Veteran: in: length: 20  data : dc,5a,5c,31,22,d2,0,7,aa,80,0,1,42,1a,0,12,ff,bd,11,4f
+Veteran: in: length: 20  data : e,f,0,0,2,46,a,f0,b,c4,0,1,ff,f7,1,60,0,6f,0,0
+Veteran: in: length: 13  data : 0,0,0,0,0,0,1,0,b,35,4d,7,48
+Veteran: in: length: 20  data : dc,5a,5c,32,22,d2,0,6,aa,80,0,1,42,1a,0,12,ff,c5,11,4f
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,ff,f7,1,ba,0,6f,0,0
+Veteran: in: length: 14  data : 0,0,0,0,0,0,2,37,0,0,f7,a9,ac,cd
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d1,0,b,aa,80,0,1,42,1a,0,12,ff,ce,11,50
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,ff,f7,2,1,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,3,9b,c0,c4,44
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d1,0,e,aa,80,0,1,42,1a,0,12,ff,d8,11,50
+Veteran: in: length: 20  data : e,f,0,0,2,46,a,f0,b,c4,0,1,ff,fa,2,c,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,4,0,3,58,ff,ff,ff,ff,ff,32,ee,ff,55,b
+Veteran: in: length: 13  data : 30,10,d7,3,52,0,4f,0,0,bf,51,a8,b7
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d1,0,14,aa,80,0,1,42,1a,0,12,ff,e4,11,4d
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,ff,fb,2,11,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,5,90,1a,fc,b2
+Veteran: in: length: 20  data : dc,5a,5c,35,22,d1,0,16,aa,80,0,1,42,1a,0,12,ff,db,11,4e
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,ff,f9,2,39,0,6f,0,0
+Veteran: in: length: 17  data : 0,0,0,0,0,0,6,80,80,80,80,80,80,2c,a5,62,53
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d1,0,19,aa,80,0,1,42,1a,0,12,ff,e3,11,4d
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,ff,fb,2,39,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,7,d0,bd,c9,c7
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d2,0,1b,aa,81,0,1,42,1b,0,12,ff,fa,11,4d
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,ff,fd,1,fa,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,0,0,3,59,ff,ff,ff,ff,ff,32,ee,ff,6b,b
+Veteran: in: length: 13  data : 33,10,e9,3,52,0,47,0,0,8,68,41,86
+Veteran: in: length: 20  data : dc,5a,5c,31,22,d2,0,1c,aa,81,0,1,42,1b,0,12,0,27,11,4e
+Veteran: in: length: 20  data : e,f,0,0,2,46,a,f0,b,c4,0,1,0,3,0,61,0,6f,0,0
+Veteran: in: length: 13  data : 0,0,0,0,0,0,1,0,c,3c,7b,ae,c9
+Veteran: in: length: 20  data : dc,5a,5c,32,22,d3,0,1a,aa,81,0,1,42,1b,0,12,0,23,11,4c
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,5,0,32,0,6f,0,0
+Veteran: in: length: 14  data : 0,0,0,0,0,0,2,37,0,0,da,1,12,4f
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d3,0,14,aa,81,0,1,42,1b,0,12,0,3,11,4c
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,7,0,4d,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,3,94,b9,4e,7a
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d2,0,d,aa,81,0,1,42,1b,0,12,0,2a,11,4d
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,a,0,fa,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,4,0,3,5a,ff,ff,ff,ff,ff,32,ee,fe,b9,b
+Veteran: in: length: 13  data : 35,10,df,3,52,0,4e,0,0,e7,76,cf,8d
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d2,ff,f9,aa,81,0,1,42,1b,0,12,0,38,11,4b
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,f,1,6a,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,5,12,d5,43,df
+Veteran: in: length: 20  data : dc,5a,5c,35,22,d2,ff,f8,aa,81,0,1,42,1b,0,12,0,35,11,4b
+Veteran: in: length: 20  data : e,f,0,0,2,46,a,f0,b,c4,0,1,0,10,1,c4,0,6f,0,0
+Veteran: in: length: 17  data : 0,0,0,0,0,0,6,80,80,80,80,80,80,92,61,3f,29
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d1,ff,f4,aa,81,0,1,42,1b,0,12,0,31,11,4d
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,11,2,15,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,7,86,c1,11,7
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d1,ff,ef,aa,81,0,1,42,1b,0,12,0,20,11,4e
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,10,2,41,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,0,0,3,5a,ff,ff,ff,ff,ff,32,ee,ff,8a,b
+Veteran: in: length: 13  data : 37,10,e3,3,52,0,46,0,0,3e,7,84,92
+Veteran: in: length: 20  data : dc,5a,5c,31,22,d1,ff,ec,aa,81,0,1,42,1b,0,12,0,c,11,4d
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,b,2,22,0,6f,0,0
+Veteran: in: length: 13  data : 0,0,0,0,0,0,1,0,c,e9,a9,92,67
+Veteran: in: length: 20  data : dc,5a,5c,32,22,d1,ff,e8,aa,82,0,1,42,1c,0,12,0,12,11,4e
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,c,2,3a,0,6f,0,0
+Veteran: in: length: 14  data : 0,0,0,0,0,0,2,37,0,0,8e,87,49,dd
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d2,ff,e3,aa,82,0,1,42,1c,0,12,ff,ff,11,4f
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,9,1,f9,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,3,9c,db,a9,84
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d2,ff,e3,aa,82,0,1,42,1c,0,12,ff,db,11,50
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,2,0,a2,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,4,0,3,5b,ff,ff,ff,ff,ff,32,ee,ff,a3,b
+Veteran: in: length: 13  data : 38,11,3,3,53,0,3e,0,0,32,de,5d,b9
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d3,ff,e5,aa,82,0,1,42,1c,0,12,ff,b1,11,4e
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,ff,fa,0,11,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,5,b3,99,8a,4f
+Veteran: in: length: 20  data : dc,5a,5c,35,22,d3,ff,e7,aa,82,0,1,42,1c,0,12,ff,e1,11,4f
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,ff,ff,0,55,0,6f,0,0
+Veteran: in: length: 17  data : 0,0,0,0,0,0,6,80,80,80,80,80,80,63,aa,fc,7e
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d2,ff,f0,aa,82,0,1,42,1c,0,12,ff,d3,11,4f
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,ff,ff,0,c8,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,7,b2,57,69,bb
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d2,ff,f5,aa,82,0,1,42,1c,0,12,ff,bf,11,4f
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,ff,f7,1,2e,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,0,0,3,5c,ff,ff,ff,ff,ff,32,ee,ff,c1,b
+Veteran: in: length: 13  data : 39,10,e6,3,53,0,55,0,0,3d,1a,b0,3c
+Veteran: in: length: 20  data : dc,5a,5c,31,22,d2,0,8,aa,82,0,1,42,1c,0,12,ff,b5,11,4e
+Veteran: in: length: 20  data : e,f,0,0,2,46,a,f0,b,c4,0,1,ff,f4,1,a4,0,6f,0,0
+Veteran: in: length: 13  data : 0,0,0,0,0,0,1,0,d,65,19,25,57
+Veteran: in: length: 20  data : dc,5a,5c,32,22,d1,0,a,aa,82,0,1,42,1c,0,12,ff,c3,11,4e
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,ff,f6,1,e9,0,6f,0,0
+Veteran: in: length: 14  data : 0,0,0,0,0,0,2,37,0,0,45,46,24,de
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d1,0,d,aa,82,0,1,42,1c,0,12,ff,d3,11,4f
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,ff,f7,2,9,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,3,44,58,4f,db
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d1,0,f,aa,83,0,1,42,1d,0,12,ff,d4,11,4e
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,ff,f8,2,18,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,4,0,3,5d,ff,ff,ff,ff,ff,32,ee,ff,ce,b
+Veteran: in: length: 13  data : 3a,10,cf,3,53,0,55,0,0,b2,ef,a8,93
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d1,0,13,aa,83,0,1,42,1d,0,12,ff,d1,11,4e
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,ff,f7,2,2e,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,5,ca,1,ac,51
+Veteran: in: length: 20  data : dc,5a,5c,35,22,d1,0,18,aa,83,0,1,42,1d,0,12,ff,da,11,4c
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,ff,f9,2,32,0,6f,0,0
+Veteran: in: length: 17  data : 0,0,0,0,0,0,6,80,80,80,80,80,80,1a,29,53,4
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d1,0,18,aa,83,0,1,42,1d,0,12,ff,f0,11,4c
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,ff,fc,2,2a,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,7,e6,2d,9d,ae
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d2,0,1a,aa,83,0,1,42,1d,0,12,0,14,11,4d
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,2,0,bc,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,0,0,3,5e,ff,ff,ff,ff,ff,32,ee,fe,9a,b
+Veteran: in: length: 13  data : 3c,10,ef,3,53,0,4e,0,0,96,d5,1d,b4
+Veteran: in: length: 20  data : dc,5a,5c,31,22,d2,0,1c,aa,83,0,1,42,1d,0,12,0,1e,11,4c
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,3,0,38,0,6f,0,0
+Veteran: in: length: 13  data : 0,0,0,0,0,0,1,0,e,48,d,a0,b5
+Veteran: in: length: 20  data : dc,5a,5c,32,22,d3,0,17,aa,83,0,1,42,1d,0,12,0,1d,11,4b
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,5,0,51,0,6f,0,0
+Veteran: in: length: 14  data : 0,0,0,0,0,0,2,37,0,0,a0,ae,89,8
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d3,0,12,aa,83,0,1,42,1d,0,12,0,2b,11,4b
+Veteran: in: length: 20  data : e,f,0,0,2,46,a,f0,b,c4,0,1,0,8,0,d6,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,3,6b,6b,3e,b
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d2,ff,f4,aa,83,0,1,42,1d,0,12,0,37,11,4a
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,e,1,6a,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,4,0,3,5e,ff,ff,ff,ff,ff,32,ee,fe,c4,b
+Veteran: in: length: 13  data : 3f,10,d6,3,53,0,48,0,0,c0,23,9a,9
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d2,ff,f7,aa,83,0,1,42,1d,0,12,0,22,11,4d
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,d,1,a1,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,5,d3,d,ea,ef
+Veteran: in: length: 20  data : dc,5a,5c,35,22,d2,ff,f4,aa,84,0,1,42,1e,0,12,0,4,11,4c
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,9,1,68,0,6f,0,0
+Veteran: in: length: 17  data : 0,0,0,0,0,0,6,80,80,80,80,80,80,20,ee,65,bc
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d3,ff,f1,aa,84,0,1,42,1e,0,12,ff,e0,11,4d
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,4,0,30,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,7,c0,f6,50,be
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d3,ff,f0,aa,84,0,1,42,1e,0,12,ff,eb,11,4e
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,6,0,49,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,0,0,3,5f,ff,ff,ff,ff,ff,32,ee,ff,c2,b
+Veteran: in: length: 13  data : 40,10,fe,3,53,0,40,0,0,68,f2,ec,b8
+Veteran: in: length: 20  data : dc,5a,5c,31,22,d3,ff,f5,aa,84,0,1,42,1e,0,12,ff,fe,11,4e
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,8,0,10,0,6f,0,0
+Veteran: in: length: 13  data : 0,0,0,0,0,0,1,0,f,b6,61,94,1c
+Veteran: in: length: 20  data : dc,5a,5c,32,22,d3,ff,f7,aa,84,0,1,42,1e,0,12,ff,fc,11,4c
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,7,0,54,0,6f,0,0
+Veteran: in: length: 14  data : 0,0,0,0,0,0,2,37,0,0,b1,3f,bf,b4
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d3,ff,f9,aa,84,0,1,42,1e,0,12,ff,fe,11,4e
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,5,0,62,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,3,33,a1,5f,a9
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d3,ff,fc,aa,84,0,1,42,1e,0,12,0,0,11,4d
+Veteran: in: length: 20  data : e,10,0,0,2,46,a,f0,b,c4,0,1,0,4,0,3d,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,4,0,3,60,ff,ff,ff,ff,ff,32,ee,1,9c,b
+Veteran: in: length: 13  data : 41,11,17,3,53,0,38,0,0,8d,dc,3b,9f
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d3,ff,fe,aa,84,0,1,42,1e,0,12,0,7,11,4e
+Veteran: in: length: 20  data : e,f,0,0,2,46,a,f0,b,c4,0,1,0,7,0,7d,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,5,83,97,15,55
+Veteran: in: length: 20  data : dc,5a,5c,35,22,d3,0,0,aa,84,0,1,42,1e,0,12,0,6,11,4f
+Veteran: in: length: 20  data : e,f,0,0,2,46,a,f0,b,c4,0,1,0,8,0,80,0,6f,0,0
+Veteran: in: length: 17  data : 0,0,0,0,0,0,6,80,80,80,80,80,80,13,9b,c6,cd
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d3,0,0,aa,84,0,1,42,1e,0,12,0,5,11,4e
+Veteran: in: length: 20  data : e,f,0,0,2,46,a,f0,b,c4,0,1,0,7,0,66,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,7,13,33,1d,1b
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d3,0,0,aa,84,0,1,42,1e,0,12,0,2,11,4e
+Veteran: in: length: 20  data : e,f,0,0,2,46,a,f0,b,c4,0,1,0,6,0,44,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,0,0,3,61,ff,ff,ff,ff,ff,32,ee,2,a,b
+Veteran: in: length: 13  data : 41,11,2b,3,53,0,31,0,0,df,b1,b4,31
+Veteran: in: length: 20  data : dc,5a,5c,31,22,d3,0,0,aa,84,0,1,42,1e,0,12,0,6,11,4d
+Veteran: in: length: 20  data : e,f,0,0,2,46,a,f0,b,c4,0,1,0,8,0,79,0,6f,0,0
+Veteran: in: length: 13  data : 0,0,0,0,0,0,1,0,f,2e,9e,2a,ae
+Veteran: in: length: 20  data : dc,5a,5c,32,22,d3,0,0,aa,84,0,1,42,1e,0,12,0,5,11,4d
+Veteran: in: length: 20  data : e,e,0,0,2,46,a,f0,b,c4,0,1,0,6,0,5e,0,6f,0,0
+Veteran: in: length: 14  data : 0,0,0,0,0,0,2,37,0,0,86,30,3,f0
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d3,0,0,aa,84,0,1,42,1e,0,12,0,5,11,50
+Veteran: in: length: 20  data : e,e,0,0,2,46,a,f0,b,c4,0,1,0,7,0,6d,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,3,91,9d,ec,ed
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d3,0,0,aa,84,0,1,42,1e,0,12,0,5,11,4f
+Veteran: in: length: 20  data : e,e,0,0,2,46,a,f0,b,c4,0,1,0,7,0,79,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,4,0,3,62,ff,ff,ff,ff,ff,32,ee,1,f6,b
+Veteran: in: length: 13  data : 40,11,3a,3,53,0,29,0,0,8d,31,6d,e2
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d3,0,0,aa,84,0,1,42,1e,0,12,0,5,11,50
+Veteran: in: length: 20  data : e,e,0,0,2,46,a,f0,b,c4,0,1,0,7,0,74,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,5,e9,4f,9e,b5
+Veteran: in: length: 20  data : dc,5a,5c,35,22,d3,0,0,aa,84,0,1,42,1e,0,12,0,5,11,4e
+Veteran: in: length: 20  data : e,e,0,0,2,46,a,f0,b,c4,0,1,0,7,0,72,0,6f,0,0
+Veteran: in: length: 17  data : 0,0,0,0,0,0,6,80,80,80,80,80,80,bc,6b,80,c4
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d3,0,0,aa,84,0,1,42,1e,0,12,0,5,11,50
+Veteran: in: length: 20  data : e,d,0,0,2,46,a,f0,b,c4,0,1,0,7,0,76,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,7,19,2d,8c,fe
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d3,0,0,aa,84,0,1,42,1e,0,12,0,4,11,4f
+Veteran: in: length: 20  data : e,d,0,0,2,46,a,f0,b,c4,0,1,0,7,0,6d,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,0,0,3,62,ff,ff,ff,ff,ff,32,ee,1,e6,b
+Veteran: in: length: 13  data : 3f,11,3e,3,53,0,21,0,0,6e,7c,e5,7
+Veteran: in: length: 20  data : dc,5a,5c,31,22,d3,0,0,aa,84,0,1,42,1e,0,12,0,5,11,4f
+Veteran: in: length: 20  data : e,d,0,0,2,46,a,f0,b,c4,0,1,0,7,0,6e,0,6f,0,0
+Veteran: in: length: 13  data : 0,0,0,0,0,0,1,0,f,11,be,ef,ad
+Veteran: in: length: 20  data : dc,5a,5c,32,22,d3,0,0,aa,84,0,1,42,1e,0,12,0,5,11,51
+Veteran: in: length: 20  data : e,d,0,0,2,46,a,f0,b,c4,0,1,0,7,0,6a,0,6f,0,0
+Veteran: in: length: 14  data : 0,0,0,0,0,0,2,37,0,0,40,9b,f,b1
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d3,0,0,aa,84,0,1,42,1e,0,12,0,5,11,4f
+Veteran: in: length: 20  data : e,d,0,0,2,46,a,f0,b,c4,0,1,0,6,0,74,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,3,7d,8d,fd,65
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d3,0,0,aa,84,0,1,42,1e,0,12,0,5,11,50
+Veteran: in: length: 20  data : e,c,0,0,2,46,a,f0,b,c4,0,1,0,7,0,6c,0,6f,0,0
+Veteran: in: length: 20  data : 0,0,0,0,0,0,4,0,3,63,ff,ff,ff,ff,ff,32,ee,1,d9,b
+Veteran: in: length: 13  data : 3e,11,3f,3,53,0,19,0,0,a5,a9,3,36
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d3,0,0,aa,84,0,1,42,1e,0,12,0,6,11,50
+Veteran: in: length: 20  data : e,c,0,0,2,46,a,f0,b,c4,0,1,0,7,0,70,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,5,bb,a2,cb,bd
+Veteran: in: length: 20  data : dc,5a,5c,35,22,d3,0,0,aa,84,0,1,42,1e,0,12,0,5,11,50
+Veteran: in: length: 20  data : e,c,0,0,2,46,a,f0,b,c4,0,1,0,7,0,75,0,6f,0,0
+Veteran: in: length: 17  data : 0,0,0,0,0,0,6,80,80,80,80,80,80,64,58,f7,53
+Veteran: in: length: 20  data : dc,5a,5c,2f,22,d3,0,0,aa,84,0,1,42,1e,0,12,0,4,11,51
+Veteran: in: length: 20  data : e,c,0,0,2,46,a,f0,b,c4,0,1,0,7,0,75,0,6f,0,0
+Veteran: in: length: 11  data : 0,0,0,0,0,0,7,b4,7b,e6,8c
+Veteran: in: length: 20  data : dc,5a,5c,45,22,d3,0,0,aa,84,0,1,42,1e,0,12,0,6,11,50
+Veteran: in: length: 20  data : e,c,0,0,2,46,a,f0,b,c4,0,1,0,7,0,70,0,6f,0,0
+Disconnected from Sherman S
+Veteran: in: length: 20  data : 0,0,0,0,0,0,0,0,3,64,ff,ff,ff,ff,ff,32,ee,1,cd,b
+Veteran: in: length: 13  data : 3d,11,40,3,53,0,1c,0,0,8d,71,3b,e

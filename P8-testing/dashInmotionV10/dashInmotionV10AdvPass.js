@@ -8,16 +8,16 @@ face[0] = {
 		//	face[5].ntfy("EMPTY PASSWORD",20,4);
         //    setTimeout(()=>{face.go("dashInmotionV1Opt",0);return;},1000);
 		//	return;
-		//}	
+		//}
         //status
         if (euc.dash.opt.lock.pass.length>=4){
 			this.g.setColor(0,4);
 			this.g.fillRect(0,0,239,97);
 			this.g.setColor(1,15);
 			this.g.setFont("Vector",16);
-			this.g.drawString("WHEEL IS",120-(this.g.stringWidth("WHEEL IS")/2),18); 
+			this.g.drawString("WHEEL IS",120-(this.g.stringWidth("WHEEL IS")/2),18);
 			this.g.setFont("Vector",26);
-			this.g.drawString("PASS LOCKED",120-(this.g.stringWidth("PASS LOCKED")/2),50); 
+			this.g.drawString("PASS LOCKED",120-(this.g.stringWidth("PASS LOCKED")/2),50);
 			this.g.flip();
 			//line
 			this.g.setColor(0,0);
@@ -29,18 +29,18 @@ face[0] = {
 			this.g.fillRect(0,100,239,195);
 			this.g.setColor(1,15);
 			this.g.setFont("Vector",16);
-			this.g.drawString("CHANGE",122-(this.g.stringWidth("CHANGE")/2),118); 
+			this.g.drawString("CHANGE",122-(this.g.stringWidth("CHANGE")/2),118);
 			this.g.setFont("Vector",26);
-			this.g.drawString("PASS",122-(this.g.stringWidth("PASS")/2),150); 
+			this.g.drawString("PASS",122-(this.g.stringWidth("PASS")/2),150);
 			this.g.flip();
         }else {
 			this.g.setColor(0,12);
 			this.g.fillRect(0,0,239,195);
 			this.g.setColor(1,15);
 			this.g.setFont("Vector",18);
-			this.g.drawString("WHEEL IS",120-(this.g.stringWidth("WHEEL IS")/2),55); 
+			this.g.drawString("WHEEL IS",120-(this.g.stringWidth("WHEEL IS")/2),55);
 			this.g.setFont("Vector",30);
-			this.g.drawString("PASS FREE",120-(this.g.stringWidth("PASS FREE")/2),90); 
+			this.g.drawString("PASS FREE",120-(this.g.stringWidth("PASS FREE")/2),90);
 			this.g.flip();
         }
         //info
@@ -48,13 +48,13 @@ face[0] = {
 		this.g.fillRect(0,195,239,239);
 		this.g.setColor(1,15);
 		this.g.setFont("Vector",20);
-		this.g.drawString("PASS SETTINGS",120-(this.g.stringWidth("PASS SETTINGS")/2),214); 
-		this.g.flip(); 
+		this.g.drawString("PASS SETTINGS",120-(this.g.stringWidth("PASS SETTINGS")/2),214);
+		this.g.flip();
 		this.run=false;
 	},
 	show : function(){
 		if (euc.state!=="READY") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
-		if (!this.run) return; 
+		if (!this.run) return;
          this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
 		  t.show();
@@ -66,7 +66,7 @@ face[0] = {
 			this.g.fillRect(0,196,239,239);
 			this.g.setColor(1,15);
 			this.g.setFont("Vector",size);
-			this.g.drawString(txt,122-(this.g.stringWidth(txt)/2),212); 
+			this.g.drawString(txt,122-(this.g.stringWidth(txt)/2),212);
 			this.info=1;
 			this.g.flip();
 			if (this.ntid) clearTimeout(this.ntid);
@@ -76,7 +76,7 @@ face[0] = {
 				t.g.fillRect(0,196,239,239);
 				t.g.setColor(1,15);
 				t.g.setFont("Vector",20);
-		        t.g.drawString("PASS SETTINGS",120-(t.g.stringWidth("PASS SETTINGS")/2),214); 
+		        t.g.drawString("PASS SETTINGS",120-(t.g.stringWidth("PASS SETTINGS")/2),214);
 				t.g.flip();
 			},1000,this);
     },
@@ -107,7 +107,7 @@ face[1] = {
 	clear: function(){
 		return true;
 	},
-};	
+};
 face[5] = {
 	offms: 30000,
 	g:w.gfx,
@@ -120,14 +120,14 @@ face[5] = {
 		this.g.drawString(1,34,18);this.g.drawString(2,115,18);this.g.drawString(3,195,18);
 		this.g.drawString(4,34,85);this.g.drawString(5,115,85);this.g.drawString(6,195,85);
 		this.g.drawString(7,34,153);this.g.drawString(8,115,153);this.g.drawString(9,195,153);
-		this.g.flip(); 
+		this.g.flip();
         this.g.setColor(0,0);
         this.g.drawLine(0,64,239,64);
         this.g.drawLine(0,65,239,65);
-   		this.g.flip(); 
+   		this.g.flip();
         this.g.drawLine(0,129,239,129);
         this.g.drawLine(0,130,239,130);
-   		this.g.flip(); 
+   		this.g.flip();
         this.g.drawLine(80,0,80,195);
    		this.g.flip();
         this.g.drawLine(160,0,160,195);
@@ -138,7 +138,7 @@ face[5] = {
 
 	},
 	show : function(){
-		if (!this.run) return; 
+		if (!this.run) return;
 		if (euc.state!=="READY") {face.go(ew.is.dash[ew.def.dash.face],0);return;}
         this.tid=setTimeout(function(t,o){
 		  t.tid=-1;
@@ -151,7 +151,7 @@ face[5] = {
 			this.g.fillRect(0,196,239,239);
 			this.g.setColor(1,15);
 			this.g.setFont("Vector",size);
-			this.g.drawString(txt,122-(this.g.stringWidth(txt)/2),212); 
+			this.g.drawString(txt,122-(this.g.stringWidth(txt)/2),212);
 			this.info=1;
 			this.g.flip();
 			if (this.ntid) clearTimeout(this.ntid);
@@ -164,7 +164,7 @@ face[5] = {
 				t.g.fillRect(82,198,158,239);
 				t.g.setColor(1,15);
 				t.g.setFont("Vector",30);
-				t.g.drawString(0,115,207); 
+				t.g.drawString(0,115,207);
 				if (t.pass.length >=4) t.pass="";
 				t.g.flip();
 			},1200,this);
@@ -174,7 +174,7 @@ face[5] = {
 			this.g.fillRect(x1,y1,x2,y2);
 			this.g.setColor(1,15);
 			this.g.setFont("Vector",30);
-			this.g.drawString(bt,xb,yb); 
+			this.g.drawString(bt,xb,yb);
 			this.g.flip();
 			if (this["tid"+bt]) clearTimeout(this["tid"+bt]);
 			this["tid"+bt]=setTimeout(function(t,x1,y1,x2,y2,bt,xb,yb){
@@ -183,7 +183,7 @@ face[5] = {
 			    t.g.fillRect(x1,y1,x2,y2);
 				t.g.setColor(1,15);
 				t.g.setFont("Vector",30);
-				t.g.drawString(bt,xb,yb); 
+				t.g.drawString(bt,xb,yb);
 				t.g.flip();
 			},500,this,x1,y1,x2,y2,bt,xb,yb);
     },
@@ -206,7 +206,7 @@ face[5] = {
 	}
 };
 //touch
-touchHandler[0]=function(e,x,y){ 
+touchHandler[0]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
         if (euc.dash.opt.lock.pass.length>=4){
@@ -224,15 +224,14 @@ touchHandler[0]=function(e,x,y){
         this.timeout();
 		break;
 	case 1: //slide down event
-		setTimeout(function(){euc.is.busy=0;euc.temp.live();},800);
 		face.go(ew.is.dash[ew.def.dash.face],0);
-		return;	 
+		return;
 	case 2: //slide up event
-		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
+		if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up.
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 			buzzer.nav([30,50,30]);
-		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
+		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
 		this.timeout();
 		break;
 	case 3: //slide left event
@@ -246,12 +245,12 @@ touchHandler[0]=function(e,x,y){
         w.gfx.flip();
 		w.gfx.drawLine (120,0,120,195);
       	w.gfx.drawLine (121,0,121,195);
-        w.gfx.flip();	
+        w.gfx.flip();
 		face.go("dashInmotionV1Adv",0);
 		return;
 	case 12: //long press event
 		buzzer.nav([30,50,30]);
-        if (euc.dash.opt.lock.pass.length>=4){ 
+        if (euc.dash.opt.lock.pass.length>=4){
 		if (y<=100) { //clear
           euc.wri("passClear");
           euc.dash.opt.lock.passOld="";
@@ -262,52 +261,52 @@ touchHandler[0]=function(e,x,y){
 		}else  { //change
             face.go("dashInmotionV1AdvPass",5);
             face[0].passSet=1;
-            return;		
+            return;
         }
         }else { //enable
           euc.dash.opt.lock.pass="";
           face.go("dashInmotionV1AdvPass",5);
           face[0].passSet=1;
-        }  
+        }
 		this.timeout();
 		break;
   }
 };
-touchHandler[5]=function(e,x,y){ 
+touchHandler[5]=function(e,x,y){
 	switch (e) {
 	case 5: //tap event
         if (face[5].pass.length>=4) {buzzer.nav(40);return;}
 		buzzer.nav([30,50,30]);
         let i;
         if (x<=80&&y<=65) {i=1;
-          face[5].btn(0,0,79,63,i,34,18); 
+          face[5].btn(0,0,79,63,i,34,18);
           face[5].pass=face[5].pass+i;
         }else if (80<=x&&x<=160&&y<=65) {i=2;
           face[5].pass=face[5].pass+i;
-          face[5].btn(82,0,158,63,i,115,18); 
+          face[5].btn(82,0,158,63,i,115,18);
         }else if (160<=x&&y<=65) {i=3;
-          face[5].btn(162,0,239,63,i,195,18);  
+          face[5].btn(162,0,239,63,i,195,18);
           face[5].pass=face[5].pass+i;
         }else if (x<=80&&65<=y&&y<=130) {i=4;
-          face[5].btn(0,66,79,129,i,34,85);  
-          face[5].pass=face[5].pass+i; 
-         }else if (80<=x&&x<=160&&65<=y&&y<=130) {i=5; 
+          face[5].btn(0,66,79,129,i,34,85);
           face[5].pass=face[5].pass+i;
-          face[5].btn(82,66,158,129,i,115,85);  
+         }else if (80<=x&&x<=160&&65<=y&&y<=130) {i=5;
+          face[5].pass=face[5].pass+i;
+          face[5].btn(82,66,158,129,i,115,85);
         }else if (160<=x&&65<=y&&y<=130) {i=6;
           face[5].pass=face[5].pass+i;
-          i=6;face[5].btn(162,66,239,129,i,195,85);  
+          i=6;face[5].btn(162,66,239,129,i,195,85);
         }else if (x<=80&&130<=y&&y<=195) {i=7;
-          face[5].btn(0,131,79,194,i,34,153);  
+          face[5].btn(0,131,79,194,i,34,153);
           face[5].pass=face[5].pass+i;
         }else if (80<=x&&x<=160&&130<=y&&y<=195) {i=8;
           face[5].btn(82,131,158,194,i,115,153);
           face[5].pass=face[5].pass+i;
-        }else if (160<=x&&130<=y&&y<=195) {i=9; 
+        }else if (160<=x&&130<=y&&y<=195) {i=9;
           face[5].pass=face[5].pass+i;
-          face[5].btn(162,131,239,194,i,195,153);  
+          face[5].btn(162,131,239,194,i,195,153);
         }else if (195<=y) {i=0;
-          face[5].btn(82,197,158,239,0,115,207);  
+          face[5].btn(82,197,158,239,0,115,207);
           i=0;face[5].pass=face[5].pass+0;
         }
         if (face[5].pass.length>=4){
@@ -341,24 +340,23 @@ touchHandler[5]=function(e,x,y){
                 face[5].ntfy("PASSWORD ACCEPTED",20,4);
                 setTimeout(()=>{face.go("dashInmotionV1AdvPass",0);return;},1000);
               } else {
-                
                 buzzer.nav(120);
        	  	    face[5].ntfy("WRONG PASSWORD",20,7);
               }
           }
-        }       
+        }
         this.timeout();
 		break;
 	case 1: //slide down event
 		//face.go("clock",0);
 		face.go(ew.is.dash[ew.def.dash.face],0);
-		return;	 
+		return;
 	case 2: //slide up event
-     	if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up. 
+     	if (y>200&&x<50) { //toggles full/current brightness on a left down corner swipe up.
 			if (w.gfx.bri.lv!==7) {this.bri=w.gfx.bri.lv;w.gfx.bri.set(7);}
 			else w.gfx.bri.set(this.bri);
 			buzzer.nav([30,50,30]);
-		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}  
+		}else if (Boolean(require("Storage").read("settings"))) {face.go("settings",0);return;}
 		this.timeout();
 		break;
 	case 3: //slide left event
@@ -372,7 +370,7 @@ touchHandler[5]=function(e,x,y){
         w.gfx.flip();
 		w.gfx.drawLine (120,0,120,195);
       	w.gfx.drawLine (121,0,121,195);
-        w.gfx.flip();	
+        w.gfx.flip();
 		face.go("dashInmotionV1Adv",0);
 		return;
 	case 12: //long press event

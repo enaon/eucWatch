@@ -148,7 +148,7 @@ euc.temp.inpk = function(event) {
 	let inpk = JSON.parse(E.toJS(event.target.value.buffer));
 	if (ew.is.bt == 5) {
 		NRF.updateServices({ 0xffe0: { 0xffe1: { value: inpk, notify: true } } });
-		//if (ew.dbg&&ew.log) { 
+		//if (ew.dbg&&ew.log) {
 		//	ew.log.unshift("Proxy from wheel: "+" "+Date()+" "+E.toJS(inpk));
 		//	if (100<ew.log.length) ew.log.pop();
 		//}
@@ -220,7 +220,7 @@ euc.temp.one = function(inpk) {
 	}
 	//volt
 	euc.dash.live.volt = (inpk[3] << 8 | inpk[2]) / 100;
-	euc.dash.live.bat = Math.round(100 * (euc.dash.live.volt * (100 / (16 * euc.dash.opt.bat.pack)) - euc.dash.opt.bat.low) / (euc.dash.opt.bat.hi - euc.dash.opt.bat.low));
+	euc.dash.live.bat = Math.round(100 * (euc.dash.live.volt * (100 / euc.dash.opt.bat.pack) - euc.dash.opt.bat.low) / (euc.dash.opt.bat.hi - euc.dash.opt.bat.low));
 	euc.log.batL.unshift(euc.dash.live.bat);
 	if (20 < euc.log.batL.length) euc.log.batL.pop();
 	euc.dash.alrt.bat.cc = (50 <= euc.dash.live.bat) ? 0 : (euc.dash.live.bat <= euc.dash.alrt.bat.hapt.low) ? 2 : 1;
@@ -234,7 +234,7 @@ euc.temp.one = function(inpk) {
 	euc.log.trip.forEach(function(val, pos) { if (!val) euc.log.trip[pos] = euc.dash.trip.totl; });
 	//mode
 	euc.dash.opt.ride.mode = inpk[14];
-	//City lights 
+	//City lights
 	if (euc.dash.opt.lght.city && euc.dash.live.spd) {
 		euc.temp.city();
 	}
@@ -432,7 +432,8 @@ euc.conn = function(mac) {
 		euc.gatt.disconnect();
 		return;
 	}
-	//connect 
+	//connect
+	euc.dash.trip.pwm = 0;
 	NRF.connect(mac, { minInterval: 7.5, maxInterval: 15 })
 		.then(function(g) {
 			euc.gatt=g;
@@ -445,26 +446,21 @@ euc.conn = function(mac) {
 			return c;
 		}).then(function(c) {
 			if (euc.dbg) console.log("EUC module Kingsong connected");
-			
 			euc.lala= function(n,v){
 				euc.buff.push([n,v])
 			};
 			euc.test=()=>{
-				
 				if 	(euc.buff[0]){
 					euc.do(euc.buff[0][0],euc.buff[0][1])
 					euc.buff.shift();
-				} 
+				}
 				if (euc.status!="OFF"){
 					euc.tout.buffer=setTimeout(()=>{
 					euc.test();
 					},500);
 				}
-				
 			};
 			//euc.test();
-	
-			
 			euc.wri = function(n, v) {
 				if (euc.tout.busy) {
 					clearTimeout(euc.tout.busy);
@@ -473,7 +469,7 @@ euc.conn = function(mac) {
 				}
 				euc.tout.busy = setTimeout(() => { euc.tout.busy = 0; }, 100);
 				if (n === "proxy") {
-					c.writeValue(v).then(function() {  
+					c.writeValue(v).then(function() {
 
 					}).catch(euc.off);
 				}
@@ -527,7 +523,6 @@ euc.conn = function(mac) {
 						}
 					}).then(function() {
 						euc.is.run = 1;
-						
 						if (2 < euc.dbg) print("EUC module start: passstate:", euc.temp.pass);
 						if (euc.temp.pass) {
 							euc.dash.opt.lock.pass2 = euc.dash.opt.lock.pass;
