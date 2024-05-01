@@ -200,7 +200,9 @@ ChangeLog:
               txItem.callback();
           }
           connection.txInProgress = false;
-          writeChunk();
+          // This is a crutch so that application installations don't freeze when installing from a smartphone.
+          setTimeout(writeChunk, 10);
+          //writeChunk();
         }).catch(function(error) {
          log(1, 'SEND ERROR: ' + error);
          txDataQueue = [];
@@ -339,7 +341,9 @@ ChangeLog:
             if (callback)
               callback(l);
             isBusy = false;
-            handleQueue();
+            // This is a crutch so that the connection with the smart watch does not break.
+            setTimeout(handleQueue, 10);
+            //handleQueue();
           }
         };
       }
