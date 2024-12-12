@@ -8,7 +8,7 @@
 
 ## Install espruino on the P8/P22 smart watch:  
 
-### DO NOT use this guide on a Rock/Magic, use [this](https://github.com/enaon/eucWatch/edit/main/tools/hackme2) instead.
+### DO NOT use this guide on a Rock/Magic, use [this]( https://enaon.github.io/eucWatch/tools/hackme2/ ) instead.
 
 ### Before installation:
 You will need an android smartphone, and the [DaFlasher](https://play.google.com/store/apps/details?id=com.atcnetz.paatc.patc&hl=el&gl=US) app from the playstore, made by atc1441.
@@ -99,7 +99,7 @@ This step will take up to 5 minutes, and when done the watch screen will remain 
 ### EucWatch Installation:
 
 
-If all went ok disconnect the phone by turning off the BT radio, so that you will make sure the watch is disconnected, and go to the eucWatch [loader](https://enaon.github.io/eucWatch/p8-testing) using PC or android chromium based browser. 
+If all went ok disconnect the phone by turning off the BT radio, so that you will make sure the watch is disconnected, and go to the eucWatch [loader](https://enaon.github.io/eucWatch/) using PC or android chromium based browser. 
 
 The loader is a web based app store service, using web Bluetooth technology it will connect to the watch, help install the scripts and keep you up to date by offring updates when available.
 
