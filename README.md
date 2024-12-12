@@ -12,7 +12,7 @@
 
 ### Loader version:
 
-[**Web loader**]([https://enaon.github.io/eucWatch)  for the P8 - P22A/B/C/D/B1/C1 - pinetime 
+[**Web loader**](https://enaon.github.io/eucWatch/)   for the P8 - P22A/B/C/D/B1/C1 - pinetime 
 
 [**Web loader**](https://enaon.github.io/eucWatch/dk08) for the DK08 (old)
 
