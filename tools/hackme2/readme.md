@@ -138,7 +138,7 @@ When step three ends, the watch will be ready for the final step of the hacking 
 ### EucWatch Installation:
 
 
-If all went ok disconnect the phone by turning off the BT radio, so that you will make sure the watch is disconnected, and go to the eucWatch [loader](https://enaon.github.io/eucWatch/magic-testing) using PC or android chromium based browser. 
+If all went ok disconnect the phone by turning off the BT radio, so that you will make sure the watch is disconnected, and go to the eucWatch [loader](https://enaon.github.io/eucWatch/) using PC or android chromium based browser. 
 
 The loader is a web based app store service, using web Bluetooth technology it will connect to the watch, help install the scripts and keep you up to date by offring updates when available.
 
