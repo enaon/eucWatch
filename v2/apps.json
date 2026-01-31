@@ -237,7 +237,7 @@
 		"version":"1.0.1",
 		"description": "Rotate and mirror screen",
 		"tags": "apps",
-            "needsFeatures":["P22B"],
+            "needsFeatures":["V1"],
 		"storage": [
 			{"name":"rotate","url":"../../P8-testing/rotate/rotate.js"}
 		]
