@@ -102,36 +102,39 @@ global.euc = {
 		//
 		if (euc.state != "OFF") {
 			if (euc.dbg) console.log("EUC: Restarting");
-			if (err === "Connection Timeout") {
-				euc.state = "LOST";
-				if (ew.def.dash.rtr < euc.is.run) {
-					euc.tgl();
-					return;
-				}
-				euc.is.run = euc.is.run + 1;
-				if (euc.dash.opt.lock.en == 1) buzzer.nav(250);
-				else buzzer.nav([250, 200, 250, 200, 250]);
-				euc.tout.reconnect = setTimeout(() => {
-					euc.tout.reconnect = 0;
-					if (euc.state != "OFF") euc.conn(euc.mac);
-				}, 5000);
-			}
-			else if (err === "Disconnected" || err === "Not connected") {
-				euc.state = "FAR";
-				euc.tout.reconnect = setTimeout(() => {
-					euc.tout.reconnect = 0;
-					if (euc.state != "OFF") euc.conn(euc.mac);
-				}, 1000);
-			}
-			else {
-				euc.state = "RETRY";
-				euc.tout.reconnect = setTimeout(() => {
-					euc.tout.reconnect = 0;
-					if (euc.state != "OFF") euc.conn(euc.mac);
-				}, 2000);
-			}
-		}
-		else {
+			let p = 2000;
+			switch (err) {
+				case 8:
+					if (euc.gatt && euc.gatt.connected) {
+						if (euc.dbg) console.log("ble still connected");
+						euc.gatt.disconnect();
+					}
+				case "Connection Timeout":
+					euc.state = "LOST";
+					if (ew.def.dash.rtr < euc.is.run) {
+						euc.tgl();
+						return;
+					}
+					euc.is.run = euc.is.run + 1;
+					if (euc.dash.opt.lock.en == 1) buzzer.nav(250);
+					else buzzer.nav([250, 200, 250, 200, 250]);
+					p = 5000;
+					break;
+				case "Disconnected":
+				case "Not connected":
+					euc.state = "FAR";
+					p = 1000;
+					break;
+				default:
+					euc.state = "RETRY";
+					break;
+			};
+			euc.tout.reconnect = setTimeout(() => {
+				euc.tout.reconnect = 0;
+				if (euc.state != "OFF") euc.conn(euc.mac);
+			}, p);
+
+		} else {
 			if (euc.dbg) console.log("EUC OUT:", err);
 			/*if (euc.aOff == 0 || euc.aOff == 1) {
 				euc.dash.auto.onD.off = euc.aOff;
