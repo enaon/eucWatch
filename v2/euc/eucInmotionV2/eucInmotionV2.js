@@ -240,6 +240,7 @@ euc.temp.parseLiveV13 = function (inc) {
 //
 euc.temp.liveAll = function () {
   euc.is.lastGetLive = getTime();
+  euc.is.alert=0;
   //batt
   euc.dash.live.bat = Math.round(100*(euc.dash.live.volt*(100/euc.dash.opt.bat.pack) - euc.dash.opt.bat.low ) / (euc.dash.opt.bat.hi-euc.dash.opt.bat.low));
   euc.log.batL.unshift(euc.dash.live.bat);
@@ -262,7 +263,6 @@ euc.temp.liveAll = function () {
     if (euc.dash.alrt.amp.hapt.hi<=euc.dash.live.amp)	euc.is.alert =  euc.is.alert + 1 + Math.round( (euc.dash.live.amp - euc.dash.alrt.amp.hapt.hi) / euc.dash.alrt.amp.hapt.step) ;
     else euc.is.alert =  euc.is.alert + 1 + Math.round(-(euc.dash.live.amp - euc.dash.alrt.amp.hapt.low) / euc.dash.alrt.amp.hapt.step) ;
   }
-  euc.is.alert=0;
   //alarm
   euc.dash.alrt.pwr=0;
   //log
@@ -312,19 +312,42 @@ euc.temp.parseStats = function (inc) {
   if (2<euc.dbg) print("ride time :", euc.dash.timR);
 };
 //
-crutchDoubleA5 = function(buf) {
-  let len = buf.length;
-  let needLen = buf[3] + 5;
+euc.temp.crutchDoubleA5 = function(buf) {
+  let len = buf.length,
+      oldByte = 0x00,
+      flag = 0x00,
+      p = 0,
+      i = 0,
+      needLen = 0;
+  while (i < len && p < 3) {
+    if (buf[i] != 0xA5 || oldByte == 0xA5){
+      switch (p) {
+        case 2:
+          needLen = buf[i] + 5;
+          p++;
+          break;
+        case 1:
+          flag = buf[i];
+          p++;
+          break;
+        case 0:
+          if (buf[i] == 0xAA && oldByte == 0xAA) p++;
+      }
+    }
+    oldByte = (buf[i] == 0xA5 && oldByte == 0xA5) ? 0x00 : buf[i];
+    i++;
+  }
   if (len === needLen) return buf;
-  let oldByte = 0x00;
-  let p = 0;
   let newArr = new Uint8Array(needLen);
-  for (i = 0; i < Len; i++) {
-    if (p >= needlen) break;
-    if (oldByte === 0xA5 && buf[i] === 0xA5) continue;
-    newArr[p] = buf[i];
-    oldByte = buf[i];
-    p++;
+  newArr.set([0xAA, 0xAA, flag, needLen - 5]);
+  p = 4;
+  while (i < len && p < needLen) {
+    if (buf[i] != 0xA5 || oldByte == 0xA5){
+      newArr[p] = buf[i];
+      p++;
+    }
+    oldByte = (buf[i] == 0xA5 && oldByte == 0xA5) ? 0x00 : buf[i];
+    i++;
   }
   if (ew.is.bt===2&&euc.dbg==3) console.log("InmotionV2: in after crutch: length: ", needLen, " data: ",[].map.call(newArr, x => x.toString(16)).toString());
   return newArr;
@@ -346,7 +369,7 @@ euc.temp.inpk = function(event) {
   delete euc.temp.last;
   if (euc.temp.tot.buffer.length > needBufLen) {
     if (ew.is.bt===2) console.log("InmotionV2: Packet size error. Trying a crutch.");
-    euc.temp.tot = crutchDoubleA5(euc.temp.tot);
+    euc.temp.tot = euc.temp.crutchDoubleA5(euc.temp.tot);
   }
   if (ew.is.bt===2) console.log("InmotionV2: in: length: ",euc.temp.tot.buffer.length," data: ",[].map.call(euc.temp.tot, x => x.toString(16)).toString());
   // Check packet
