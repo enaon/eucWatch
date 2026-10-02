@@ -334,18 +334,19 @@ euc.temp.crutchDoubleA5 = function(buf) {
           if (buf[i] == 0xAA && oldByte == 0xAA) p++;
       }
     }
-    oldByte = buf[i];
+    oldByte = (buf[i] == 0xA5 && oldByte == 0xA5) ? 0x00 : buf[i];
     i++;
   }
   if (len === needLen) return buf;
   let newArr = new Uint8Array(needLen);
-  newArr.set([0xAA, 0xAA, flag, oldByte]);
+  newArr.set([0xAA, 0xAA, flag, needLen - 5]);
   p = 4;
   while (i < len && p < needLen) {
     if (buf[i] != 0xA5 || oldByte == 0xA5){
       newArr[p] = buf[i];
       p++;
-    } else oldByte = buf[i];
+    }
+    oldByte = (buf[i] == 0xA5 && oldByte == 0xA5) ? 0x00 : buf[i];
     i++;
   }
   if (ew.is.bt===2&&euc.dbg==3) console.log("InmotionV2: in after crutch: length: ", needLen, " data: ",[].map.call(newArr, x => x.toString(16)).toString());
